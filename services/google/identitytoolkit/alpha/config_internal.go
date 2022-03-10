@@ -162,10 +162,19 @@ func (r *ConfigNotificationSendEmail) validate() error {
 func (r *ConfigNotificationSendEmailSmtp) validate() error {
 	return nil
 }
-func (r *ConfigEmailTemplate) validate() error {
+func (r *ConfigNotificationSendEmailResetPasswordTemplate) validate() error {
+	return nil
+}
+func (r *ConfigNotificationSendEmailVerifyEmailTemplate) validate() error {
+	return nil
+}
+func (r *ConfigNotificationSendEmailChangeEmailTemplate) validate() error {
 	return nil
 }
 func (r *ConfigNotificationSendEmailDnsInfo) validate() error {
+	return nil
+}
+func (r *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate) validate() error {
 	return nil
 }
 func (r *ConfigNotificationSendSms) validate() error {
@@ -1401,16 +1410,16 @@ func canonicalizeConfigNotificationSendEmail(des, initial *ConfigNotificationSen
 		cDes.Method = des.Method
 	}
 	cDes.Smtp = canonicalizeConfigNotificationSendEmailSmtp(des.Smtp, initial.Smtp, opts...)
-	cDes.ResetPasswordTemplate = canonicalizeConfigEmailTemplate(des.ResetPasswordTemplate, initial.ResetPasswordTemplate, opts...)
-	cDes.VerifyEmailTemplate = canonicalizeConfigEmailTemplate(des.VerifyEmailTemplate, initial.VerifyEmailTemplate, opts...)
-	cDes.ChangeEmailTemplate = canonicalizeConfigEmailTemplate(des.ChangeEmailTemplate, initial.ChangeEmailTemplate, opts...)
+	cDes.ResetPasswordTemplate = canonicalizeConfigNotificationSendEmailResetPasswordTemplate(des.ResetPasswordTemplate, initial.ResetPasswordTemplate, opts...)
+	cDes.VerifyEmailTemplate = canonicalizeConfigNotificationSendEmailVerifyEmailTemplate(des.VerifyEmailTemplate, initial.VerifyEmailTemplate, opts...)
+	cDes.ChangeEmailTemplate = canonicalizeConfigNotificationSendEmailChangeEmailTemplate(des.ChangeEmailTemplate, initial.ChangeEmailTemplate, opts...)
 	if dcl.StringCanonicalize(des.CallbackUri, initial.CallbackUri) || dcl.IsZeroValue(des.CallbackUri) {
 		cDes.CallbackUri = initial.CallbackUri
 	} else {
 		cDes.CallbackUri = des.CallbackUri
 	}
 	cDes.DnsInfo = canonicalizeConfigNotificationSendEmailDnsInfo(des.DnsInfo, initial.DnsInfo, opts...)
-	cDes.RevertSecondFactorAdditionTemplate = canonicalizeConfigEmailTemplate(des.RevertSecondFactorAdditionTemplate, initial.RevertSecondFactorAdditionTemplate, opts...)
+	cDes.RevertSecondFactorAdditionTemplate = canonicalizeConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(des.RevertSecondFactorAdditionTemplate, initial.RevertSecondFactorAdditionTemplate, opts...)
 
 	return cDes
 }
@@ -1458,14 +1467,14 @@ func canonicalizeNewConfigNotificationSendEmail(c *Client, des, nw *ConfigNotifi
 	}
 
 	nw.Smtp = canonicalizeNewConfigNotificationSendEmailSmtp(c, des.Smtp, nw.Smtp)
-	nw.ResetPasswordTemplate = canonicalizeNewConfigEmailTemplate(c, des.ResetPasswordTemplate, nw.ResetPasswordTemplate)
-	nw.VerifyEmailTemplate = canonicalizeNewConfigEmailTemplate(c, des.VerifyEmailTemplate, nw.VerifyEmailTemplate)
-	nw.ChangeEmailTemplate = canonicalizeNewConfigEmailTemplate(c, des.ChangeEmailTemplate, nw.ChangeEmailTemplate)
+	nw.ResetPasswordTemplate = canonicalizeNewConfigNotificationSendEmailResetPasswordTemplate(c, des.ResetPasswordTemplate, nw.ResetPasswordTemplate)
+	nw.VerifyEmailTemplate = canonicalizeNewConfigNotificationSendEmailVerifyEmailTemplate(c, des.VerifyEmailTemplate, nw.VerifyEmailTemplate)
+	nw.ChangeEmailTemplate = canonicalizeNewConfigNotificationSendEmailChangeEmailTemplate(c, des.ChangeEmailTemplate, nw.ChangeEmailTemplate)
 	if dcl.StringCanonicalize(des.CallbackUri, nw.CallbackUri) {
 		nw.CallbackUri = des.CallbackUri
 	}
 	nw.DnsInfo = canonicalizeNewConfigNotificationSendEmailDnsInfo(c, des.DnsInfo, nw.DnsInfo)
-	nw.RevertSecondFactorAdditionTemplate = canonicalizeNewConfigEmailTemplate(c, des.RevertSecondFactorAdditionTemplate, nw.RevertSecondFactorAdditionTemplate)
+	nw.RevertSecondFactorAdditionTemplate = canonicalizeNewConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(c, des.RevertSecondFactorAdditionTemplate, nw.RevertSecondFactorAdditionTemplate)
 
 	return nw
 }
@@ -1662,7 +1671,7 @@ func canonicalizeNewConfigNotificationSendEmailSmtpSlice(c *Client, des, nw []Co
 	return items
 }
 
-func canonicalizeConfigEmailTemplate(des, initial *ConfigEmailTemplate, opts ...dcl.ApplyOption) *ConfigEmailTemplate {
+func canonicalizeConfigNotificationSendEmailResetPasswordTemplate(des, initial *ConfigNotificationSendEmailResetPasswordTemplate, opts ...dcl.ApplyOption) *ConfigNotificationSendEmailResetPasswordTemplate {
 	if des == nil {
 		return initial
 	}
@@ -1674,7 +1683,7 @@ func canonicalizeConfigEmailTemplate(des, initial *ConfigEmailTemplate, opts ...
 		return des
 	}
 
-	cDes := &ConfigEmailTemplate{}
+	cDes := &ConfigNotificationSendEmailResetPasswordTemplate{}
 
 	if dcl.StringCanonicalize(des.SenderLocalPart, initial.SenderLocalPart) || dcl.IsZeroValue(des.SenderLocalPart) {
 		cDes.SenderLocalPart = initial.SenderLocalPart
@@ -1711,16 +1720,16 @@ func canonicalizeConfigEmailTemplate(des, initial *ConfigEmailTemplate, opts ...
 	return cDes
 }
 
-func canonicalizeConfigEmailTemplateSlice(des, initial []ConfigEmailTemplate, opts ...dcl.ApplyOption) []ConfigEmailTemplate {
+func canonicalizeConfigNotificationSendEmailResetPasswordTemplateSlice(des, initial []ConfigNotificationSendEmailResetPasswordTemplate, opts ...dcl.ApplyOption) []ConfigNotificationSendEmailResetPasswordTemplate {
 	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
 	if len(des) != len(initial) {
 
-		items := make([]ConfigEmailTemplate, 0, len(des))
+		items := make([]ConfigNotificationSendEmailResetPasswordTemplate, 0, len(des))
 		for _, d := range des {
-			cd := canonicalizeConfigEmailTemplate(&d, nil, opts...)
+			cd := canonicalizeConfigNotificationSendEmailResetPasswordTemplate(&d, nil, opts...)
 			if cd != nil {
 				items = append(items, *cd)
 			}
@@ -1728,9 +1737,9 @@ func canonicalizeConfigEmailTemplateSlice(des, initial []ConfigEmailTemplate, op
 		return items
 	}
 
-	items := make([]ConfigEmailTemplate, 0, len(des))
+	items := make([]ConfigNotificationSendEmailResetPasswordTemplate, 0, len(des))
 	for i, d := range des {
-		cd := canonicalizeConfigEmailTemplate(&d, &initial[i], opts...)
+		cd := canonicalizeConfigNotificationSendEmailResetPasswordTemplate(&d, &initial[i], opts...)
 		if cd != nil {
 			items = append(items, *cd)
 		}
@@ -1739,7 +1748,7 @@ func canonicalizeConfigEmailTemplateSlice(des, initial []ConfigEmailTemplate, op
 
 }
 
-func canonicalizeNewConfigEmailTemplate(c *Client, des, nw *ConfigEmailTemplate) *ConfigEmailTemplate {
+func canonicalizeNewConfigNotificationSendEmailResetPasswordTemplate(c *Client, des, nw *ConfigNotificationSendEmailResetPasswordTemplate) *ConfigNotificationSendEmailResetPasswordTemplate {
 
 	if des == nil {
 		return nw
@@ -1747,7 +1756,7 @@ func canonicalizeNewConfigEmailTemplate(c *Client, des, nw *ConfigEmailTemplate)
 
 	if nw == nil {
 		if dcl.IsNotReturnedByServer(des) {
-			c.Config.Logger.Info("Found explicitly empty value for ConfigEmailTemplate while comparing non-nil desired to nil actual.  Returning desired object.")
+			c.Config.Logger.Info("Found explicitly empty value for ConfigNotificationSendEmailResetPasswordTemplate while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
 		return nil
@@ -1775,15 +1784,15 @@ func canonicalizeNewConfigEmailTemplate(c *Client, des, nw *ConfigEmailTemplate)
 	return nw
 }
 
-func canonicalizeNewConfigEmailTemplateSet(c *Client, des, nw []ConfigEmailTemplate) []ConfigEmailTemplate {
+func canonicalizeNewConfigNotificationSendEmailResetPasswordTemplateSet(c *Client, des, nw []ConfigNotificationSendEmailResetPasswordTemplate) []ConfigNotificationSendEmailResetPasswordTemplate {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []ConfigEmailTemplate
+	var reorderedNew []ConfigNotificationSendEmailResetPasswordTemplate
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareConfigEmailTemplateNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareConfigNotificationSendEmailResetPasswordTemplateNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1798,7 +1807,7 @@ func canonicalizeNewConfigEmailTemplateSet(c *Client, des, nw []ConfigEmailTempl
 	return reorderedNew
 }
 
-func canonicalizeNewConfigEmailTemplateSlice(c *Client, des, nw []ConfigEmailTemplate) []ConfigEmailTemplate {
+func canonicalizeNewConfigNotificationSendEmailResetPasswordTemplateSlice(c *Client, des, nw []ConfigNotificationSendEmailResetPasswordTemplate) []ConfigNotificationSendEmailResetPasswordTemplate {
 	if des == nil {
 		return nw
 	}
@@ -1809,10 +1818,322 @@ func canonicalizeNewConfigEmailTemplateSlice(c *Client, des, nw []ConfigEmailTem
 		return nw
 	}
 
-	var items []ConfigEmailTemplate
+	var items []ConfigNotificationSendEmailResetPasswordTemplate
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewConfigEmailTemplate(c, &d, &n))
+		items = append(items, *canonicalizeNewConfigNotificationSendEmailResetPasswordTemplate(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeConfigNotificationSendEmailVerifyEmailTemplate(des, initial *ConfigNotificationSendEmailVerifyEmailTemplate, opts ...dcl.ApplyOption) *ConfigNotificationSendEmailVerifyEmailTemplate {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ConfigNotificationSendEmailVerifyEmailTemplate{}
+
+	if dcl.StringCanonicalize(des.SenderLocalPart, initial.SenderLocalPart) || dcl.IsZeroValue(des.SenderLocalPart) {
+		cDes.SenderLocalPart = initial.SenderLocalPart
+	} else {
+		cDes.SenderLocalPart = des.SenderLocalPart
+	}
+	if dcl.StringCanonicalize(des.Subject, initial.Subject) || dcl.IsZeroValue(des.Subject) {
+		cDes.Subject = initial.Subject
+	} else {
+		cDes.Subject = des.Subject
+	}
+	if dcl.StringCanonicalize(des.SenderDisplayName, initial.SenderDisplayName) || dcl.IsZeroValue(des.SenderDisplayName) {
+		cDes.SenderDisplayName = initial.SenderDisplayName
+	} else {
+		cDes.SenderDisplayName = des.SenderDisplayName
+	}
+	if dcl.StringCanonicalize(des.Body, initial.Body) || dcl.IsZeroValue(des.Body) {
+		cDes.Body = initial.Body
+	} else {
+		cDes.Body = des.Body
+	}
+	if dcl.IsZeroValue(des.BodyFormat) || (dcl.IsEmptyValueIndirect(des.BodyFormat) && dcl.IsEmptyValueIndirect(initial.BodyFormat)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.BodyFormat = initial.BodyFormat
+	} else {
+		cDes.BodyFormat = des.BodyFormat
+	}
+	if dcl.StringCanonicalize(des.ReplyTo, initial.ReplyTo) || dcl.IsZeroValue(des.ReplyTo) {
+		cDes.ReplyTo = initial.ReplyTo
+	} else {
+		cDes.ReplyTo = des.ReplyTo
+	}
+
+	return cDes
+}
+
+func canonicalizeConfigNotificationSendEmailVerifyEmailTemplateSlice(des, initial []ConfigNotificationSendEmailVerifyEmailTemplate, opts ...dcl.ApplyOption) []ConfigNotificationSendEmailVerifyEmailTemplate {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ConfigNotificationSendEmailVerifyEmailTemplate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeConfigNotificationSendEmailVerifyEmailTemplate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ConfigNotificationSendEmailVerifyEmailTemplate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeConfigNotificationSendEmailVerifyEmailTemplate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewConfigNotificationSendEmailVerifyEmailTemplate(c *Client, des, nw *ConfigNotificationSendEmailVerifyEmailTemplate) *ConfigNotificationSendEmailVerifyEmailTemplate {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ConfigNotificationSendEmailVerifyEmailTemplate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.SenderLocalPart, nw.SenderLocalPart) {
+		nw.SenderLocalPart = des.SenderLocalPart
+	}
+	if dcl.StringCanonicalize(des.Subject, nw.Subject) {
+		nw.Subject = des.Subject
+	}
+	if dcl.StringCanonicalize(des.SenderDisplayName, nw.SenderDisplayName) {
+		nw.SenderDisplayName = des.SenderDisplayName
+	}
+	if dcl.StringCanonicalize(des.Body, nw.Body) {
+		nw.Body = des.Body
+	}
+	if dcl.StringCanonicalize(des.ReplyTo, nw.ReplyTo) {
+		nw.ReplyTo = des.ReplyTo
+	}
+	if dcl.BoolCanonicalize(des.Customized, nw.Customized) {
+		nw.Customized = des.Customized
+	}
+
+	return nw
+}
+
+func canonicalizeNewConfigNotificationSendEmailVerifyEmailTemplateSet(c *Client, des, nw []ConfigNotificationSendEmailVerifyEmailTemplate) []ConfigNotificationSendEmailVerifyEmailTemplate {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ConfigNotificationSendEmailVerifyEmailTemplate
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareConfigNotificationSendEmailVerifyEmailTemplateNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewConfigNotificationSendEmailVerifyEmailTemplateSlice(c *Client, des, nw []ConfigNotificationSendEmailVerifyEmailTemplate) []ConfigNotificationSendEmailVerifyEmailTemplate {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ConfigNotificationSendEmailVerifyEmailTemplate
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewConfigNotificationSendEmailVerifyEmailTemplate(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeConfigNotificationSendEmailChangeEmailTemplate(des, initial *ConfigNotificationSendEmailChangeEmailTemplate, opts ...dcl.ApplyOption) *ConfigNotificationSendEmailChangeEmailTemplate {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ConfigNotificationSendEmailChangeEmailTemplate{}
+
+	if dcl.StringCanonicalize(des.SenderLocalPart, initial.SenderLocalPart) || dcl.IsZeroValue(des.SenderLocalPart) {
+		cDes.SenderLocalPart = initial.SenderLocalPart
+	} else {
+		cDes.SenderLocalPart = des.SenderLocalPart
+	}
+	if dcl.StringCanonicalize(des.Subject, initial.Subject) || dcl.IsZeroValue(des.Subject) {
+		cDes.Subject = initial.Subject
+	} else {
+		cDes.Subject = des.Subject
+	}
+	if dcl.StringCanonicalize(des.SenderDisplayName, initial.SenderDisplayName) || dcl.IsZeroValue(des.SenderDisplayName) {
+		cDes.SenderDisplayName = initial.SenderDisplayName
+	} else {
+		cDes.SenderDisplayName = des.SenderDisplayName
+	}
+	if dcl.StringCanonicalize(des.Body, initial.Body) || dcl.IsZeroValue(des.Body) {
+		cDes.Body = initial.Body
+	} else {
+		cDes.Body = des.Body
+	}
+	if dcl.IsZeroValue(des.BodyFormat) || (dcl.IsEmptyValueIndirect(des.BodyFormat) && dcl.IsEmptyValueIndirect(initial.BodyFormat)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.BodyFormat = initial.BodyFormat
+	} else {
+		cDes.BodyFormat = des.BodyFormat
+	}
+	if dcl.StringCanonicalize(des.ReplyTo, initial.ReplyTo) || dcl.IsZeroValue(des.ReplyTo) {
+		cDes.ReplyTo = initial.ReplyTo
+	} else {
+		cDes.ReplyTo = des.ReplyTo
+	}
+
+	return cDes
+}
+
+func canonicalizeConfigNotificationSendEmailChangeEmailTemplateSlice(des, initial []ConfigNotificationSendEmailChangeEmailTemplate, opts ...dcl.ApplyOption) []ConfigNotificationSendEmailChangeEmailTemplate {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ConfigNotificationSendEmailChangeEmailTemplate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeConfigNotificationSendEmailChangeEmailTemplate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ConfigNotificationSendEmailChangeEmailTemplate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeConfigNotificationSendEmailChangeEmailTemplate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewConfigNotificationSendEmailChangeEmailTemplate(c *Client, des, nw *ConfigNotificationSendEmailChangeEmailTemplate) *ConfigNotificationSendEmailChangeEmailTemplate {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ConfigNotificationSendEmailChangeEmailTemplate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.SenderLocalPart, nw.SenderLocalPart) {
+		nw.SenderLocalPart = des.SenderLocalPart
+	}
+	if dcl.StringCanonicalize(des.Subject, nw.Subject) {
+		nw.Subject = des.Subject
+	}
+	if dcl.StringCanonicalize(des.SenderDisplayName, nw.SenderDisplayName) {
+		nw.SenderDisplayName = des.SenderDisplayName
+	}
+	if dcl.StringCanonicalize(des.Body, nw.Body) {
+		nw.Body = des.Body
+	}
+	if dcl.StringCanonicalize(des.ReplyTo, nw.ReplyTo) {
+		nw.ReplyTo = des.ReplyTo
+	}
+	if dcl.BoolCanonicalize(des.Customized, nw.Customized) {
+		nw.Customized = des.Customized
+	}
+
+	return nw
+}
+
+func canonicalizeNewConfigNotificationSendEmailChangeEmailTemplateSet(c *Client, des, nw []ConfigNotificationSendEmailChangeEmailTemplate) []ConfigNotificationSendEmailChangeEmailTemplate {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ConfigNotificationSendEmailChangeEmailTemplate
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareConfigNotificationSendEmailChangeEmailTemplateNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewConfigNotificationSendEmailChangeEmailTemplateSlice(c *Client, des, nw []ConfigNotificationSendEmailChangeEmailTemplate) []ConfigNotificationSendEmailChangeEmailTemplate {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ConfigNotificationSendEmailChangeEmailTemplate
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewConfigNotificationSendEmailChangeEmailTemplate(c, &d, &n))
 	}
 
 	return items
@@ -1934,6 +2255,162 @@ func canonicalizeNewConfigNotificationSendEmailDnsInfoSlice(c *Client, des, nw [
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewConfigNotificationSendEmailDnsInfo(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(des, initial *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate, opts ...dcl.ApplyOption) *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate{}
+
+	if dcl.StringCanonicalize(des.SenderLocalPart, initial.SenderLocalPart) || dcl.IsZeroValue(des.SenderLocalPart) {
+		cDes.SenderLocalPart = initial.SenderLocalPart
+	} else {
+		cDes.SenderLocalPart = des.SenderLocalPart
+	}
+	if dcl.StringCanonicalize(des.Subject, initial.Subject) || dcl.IsZeroValue(des.Subject) {
+		cDes.Subject = initial.Subject
+	} else {
+		cDes.Subject = des.Subject
+	}
+	if dcl.StringCanonicalize(des.SenderDisplayName, initial.SenderDisplayName) || dcl.IsZeroValue(des.SenderDisplayName) {
+		cDes.SenderDisplayName = initial.SenderDisplayName
+	} else {
+		cDes.SenderDisplayName = des.SenderDisplayName
+	}
+	if dcl.StringCanonicalize(des.Body, initial.Body) || dcl.IsZeroValue(des.Body) {
+		cDes.Body = initial.Body
+	} else {
+		cDes.Body = des.Body
+	}
+	if dcl.IsZeroValue(des.BodyFormat) || (dcl.IsEmptyValueIndirect(des.BodyFormat) && dcl.IsEmptyValueIndirect(initial.BodyFormat)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.BodyFormat = initial.BodyFormat
+	} else {
+		cDes.BodyFormat = des.BodyFormat
+	}
+	if dcl.StringCanonicalize(des.ReplyTo, initial.ReplyTo) || dcl.IsZeroValue(des.ReplyTo) {
+		cDes.ReplyTo = initial.ReplyTo
+	} else {
+		cDes.ReplyTo = des.ReplyTo
+	}
+
+	return cDes
+}
+
+func canonicalizeConfigNotificationSendEmailRevertSecondFactorAdditionTemplateSlice(des, initial []ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate, opts ...dcl.ApplyOption) []ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(c *Client, des, nw *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate) *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.SenderLocalPart, nw.SenderLocalPart) {
+		nw.SenderLocalPart = des.SenderLocalPart
+	}
+	if dcl.StringCanonicalize(des.Subject, nw.Subject) {
+		nw.Subject = des.Subject
+	}
+	if dcl.StringCanonicalize(des.SenderDisplayName, nw.SenderDisplayName) {
+		nw.SenderDisplayName = des.SenderDisplayName
+	}
+	if dcl.StringCanonicalize(des.Body, nw.Body) {
+		nw.Body = des.Body
+	}
+	if dcl.StringCanonicalize(des.ReplyTo, nw.ReplyTo) {
+		nw.ReplyTo = des.ReplyTo
+	}
+	if dcl.BoolCanonicalize(des.Customized, nw.Customized) {
+		nw.Customized = des.Customized
+	}
+
+	return nw
+}
+
+func canonicalizeNewConfigNotificationSendEmailRevertSecondFactorAdditionTemplateSet(c *Client, des, nw []ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate) []ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareConfigNotificationSendEmailRevertSecondFactorAdditionTemplateNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewConfigNotificationSendEmailRevertSecondFactorAdditionTemplateSlice(c *Client, des, nw []ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate) []ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(c, &d, &n))
 	}
 
 	return items
@@ -3777,21 +4254,21 @@ func compareConfigNotificationSendEmailNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResetPasswordTemplate, actual.ResetPasswordTemplate, dcl.Info{ObjectFunction: compareConfigEmailTemplateNewStyle, EmptyObject: EmptyConfigEmailTemplate, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResetPasswordTemplate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResetPasswordTemplate, actual.ResetPasswordTemplate, dcl.Info{ObjectFunction: compareConfigNotificationSendEmailResetPasswordTemplateNewStyle, EmptyObject: EmptyConfigNotificationSendEmailResetPasswordTemplate, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResetPasswordTemplate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VerifyEmailTemplate, actual.VerifyEmailTemplate, dcl.Info{ObjectFunction: compareConfigEmailTemplateNewStyle, EmptyObject: EmptyConfigEmailTemplate, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyEmailTemplate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VerifyEmailTemplate, actual.VerifyEmailTemplate, dcl.Info{ObjectFunction: compareConfigNotificationSendEmailVerifyEmailTemplateNewStyle, EmptyObject: EmptyConfigNotificationSendEmailVerifyEmailTemplate, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VerifyEmailTemplate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ChangeEmailTemplate, actual.ChangeEmailTemplate, dcl.Info{ObjectFunction: compareConfigEmailTemplateNewStyle, EmptyObject: EmptyConfigEmailTemplate, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ChangeEmailTemplate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ChangeEmailTemplate, actual.ChangeEmailTemplate, dcl.Info{ObjectFunction: compareConfigNotificationSendEmailChangeEmailTemplateNewStyle, EmptyObject: EmptyConfigNotificationSendEmailChangeEmailTemplate, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ChangeEmailTemplate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3812,7 +4289,7 @@ func compareConfigNotificationSendEmailNewStyle(d, a interface{}, fn dcl.FieldNa
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RevertSecondFactorAdditionTemplate, actual.RevertSecondFactorAdditionTemplate, dcl.Info{ObjectFunction: compareConfigEmailTemplateNewStyle, EmptyObject: EmptyConfigEmailTemplate, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RevertSecondFactorAdditionTemplate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RevertSecondFactorAdditionTemplate, actual.RevertSecondFactorAdditionTemplate, dcl.Info{ObjectFunction: compareConfigNotificationSendEmailRevertSecondFactorAdditionTemplateNewStyle, EmptyObject: EmptyConfigNotificationSendEmailRevertSecondFactorAdditionTemplate, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RevertSecondFactorAdditionTemplate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3885,22 +4362,22 @@ func compareConfigNotificationSendEmailSmtpNewStyle(d, a interface{}, fn dcl.Fie
 	return diffs, nil
 }
 
-func compareConfigEmailTemplateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareConfigNotificationSendEmailResetPasswordTemplateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*ConfigEmailTemplate)
+	desired, ok := d.(*ConfigNotificationSendEmailResetPasswordTemplate)
 	if !ok {
-		desiredNotPointer, ok := d.(ConfigEmailTemplate)
+		desiredNotPointer, ok := d.(ConfigNotificationSendEmailResetPasswordTemplate)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a ConfigEmailTemplate or *ConfigEmailTemplate", d)
+			return nil, fmt.Errorf("obj %v is not a ConfigNotificationSendEmailResetPasswordTemplate or *ConfigNotificationSendEmailResetPasswordTemplate", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*ConfigEmailTemplate)
+	actual, ok := a.(*ConfigNotificationSendEmailResetPasswordTemplate)
 	if !ok {
-		actualNotPointer, ok := a.(ConfigEmailTemplate)
+		actualNotPointer, ok := a.(ConfigNotificationSendEmailResetPasswordTemplate)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a ConfigEmailTemplate", a)
+			return nil, fmt.Errorf("obj %v is not a ConfigNotificationSendEmailResetPasswordTemplate", a)
 		}
 		actual = &actualNotPointer
 	}
@@ -3927,6 +4404,148 @@ func compareConfigEmailTemplateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 	}
 
 	if ds, err := dcl.Diff(desired.Body, actual.Body, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("Body")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.BodyFormat, actual.BodyFormat, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("BodyFormat")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReplyTo, actual.ReplyTo, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("ReplyTo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Customized, actual.Customized, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Customized")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareConfigNotificationSendEmailVerifyEmailTemplateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ConfigNotificationSendEmailVerifyEmailTemplate)
+	if !ok {
+		desiredNotPointer, ok := d.(ConfigNotificationSendEmailVerifyEmailTemplate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConfigNotificationSendEmailVerifyEmailTemplate or *ConfigNotificationSendEmailVerifyEmailTemplate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ConfigNotificationSendEmailVerifyEmailTemplate)
+	if !ok {
+		actualNotPointer, ok := a.(ConfigNotificationSendEmailVerifyEmailTemplate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConfigNotificationSendEmailVerifyEmailTemplate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.SenderLocalPart, actual.SenderLocalPart, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("SenderLocalPart")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Subject, actual.Subject, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("Subject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SenderDisplayName, actual.SenderDisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("SenderDisplayName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Body, actual.Body, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Body")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.BodyFormat, actual.BodyFormat, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("BodyFormat")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReplyTo, actual.ReplyTo, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("ReplyTo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Customized, actual.Customized, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Customized")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareConfigNotificationSendEmailChangeEmailTemplateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ConfigNotificationSendEmailChangeEmailTemplate)
+	if !ok {
+		desiredNotPointer, ok := d.(ConfigNotificationSendEmailChangeEmailTemplate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConfigNotificationSendEmailChangeEmailTemplate or *ConfigNotificationSendEmailChangeEmailTemplate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ConfigNotificationSendEmailChangeEmailTemplate)
+	if !ok {
+		actualNotPointer, ok := a.(ConfigNotificationSendEmailChangeEmailTemplate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConfigNotificationSendEmailChangeEmailTemplate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.SenderLocalPart, actual.SenderLocalPart, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("SenderLocalPart")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Subject, actual.Subject, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("Subject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SenderDisplayName, actual.SenderDisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("SenderDisplayName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Body, actual.Body, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Body")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4005,6 +4624,77 @@ func compareConfigNotificationSendEmailDnsInfoNewStyle(d, a interface{}, fn dcl.
 	}
 
 	if ds, err := dcl.Diff(desired.DomainVerificationRequestTime, actual.DomainVerificationRequestTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DomainVerificationRequestTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareConfigNotificationSendEmailRevertSecondFactorAdditionTemplateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate)
+	if !ok {
+		desiredNotPointer, ok := d.(ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate or *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate)
+	if !ok {
+		actualNotPointer, ok := a.(ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.SenderLocalPart, actual.SenderLocalPart, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("SenderLocalPart")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Subject, actual.Subject, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("Subject")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SenderDisplayName, actual.SenderDisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("SenderDisplayName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Body, actual.Body, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Body")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.BodyFormat, actual.BodyFormat, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("BodyFormat")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReplyTo, actual.ReplyTo, dcl.Info{OperationSelector: dcl.TriggersOperation("updateConfigUpdateProjectConfigOperation")}, fn.AddNest("ReplyTo")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Customized, actual.Customized, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Customized")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -5490,17 +6180,17 @@ func expandConfigNotificationSendEmail(c *Client, f *ConfigNotificationSendEmail
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["smtp"] = v
 	}
-	if v, err := expandConfigEmailTemplate(c, f.ResetPasswordTemplate, res); err != nil {
+	if v, err := expandConfigNotificationSendEmailResetPasswordTemplate(c, f.ResetPasswordTemplate, res); err != nil {
 		return nil, fmt.Errorf("error expanding ResetPasswordTemplate into resetPasswordTemplate: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["resetPasswordTemplate"] = v
 	}
-	if v, err := expandConfigEmailTemplate(c, f.VerifyEmailTemplate, res); err != nil {
+	if v, err := expandConfigNotificationSendEmailVerifyEmailTemplate(c, f.VerifyEmailTemplate, res); err != nil {
 		return nil, fmt.Errorf("error expanding VerifyEmailTemplate into verifyEmailTemplate: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["verifyEmailTemplate"] = v
 	}
-	if v, err := expandConfigEmailTemplate(c, f.ChangeEmailTemplate, res); err != nil {
+	if v, err := expandConfigNotificationSendEmailChangeEmailTemplate(c, f.ChangeEmailTemplate, res); err != nil {
 		return nil, fmt.Errorf("error expanding ChangeEmailTemplate into changeEmailTemplate: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["changeEmailTemplate"] = v
@@ -5513,7 +6203,7 @@ func expandConfigNotificationSendEmail(c *Client, f *ConfigNotificationSendEmail
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["dnsInfo"] = v
 	}
-	if v, err := expandConfigEmailTemplate(c, f.RevertSecondFactorAdditionTemplate, res); err != nil {
+	if v, err := expandConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(c, f.RevertSecondFactorAdditionTemplate, res); err != nil {
 		return nil, fmt.Errorf("error expanding RevertSecondFactorAdditionTemplate into revertSecondFactorAdditionTemplate: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["revertSecondFactorAdditionTemplate"] = v
@@ -5537,12 +6227,12 @@ func flattenConfigNotificationSendEmail(c *Client, i interface{}, res *Config) *
 	}
 	r.Method = flattenConfigNotificationSendEmailMethodEnum(m["method"])
 	r.Smtp = flattenConfigNotificationSendEmailSmtp(c, m["smtp"], res)
-	r.ResetPasswordTemplate = flattenConfigEmailTemplate(c, m["resetPasswordTemplate"], res)
-	r.VerifyEmailTemplate = flattenConfigEmailTemplate(c, m["verifyEmailTemplate"], res)
-	r.ChangeEmailTemplate = flattenConfigEmailTemplate(c, m["changeEmailTemplate"], res)
+	r.ResetPasswordTemplate = flattenConfigNotificationSendEmailResetPasswordTemplate(c, m["resetPasswordTemplate"], res)
+	r.VerifyEmailTemplate = flattenConfigNotificationSendEmailVerifyEmailTemplate(c, m["verifyEmailTemplate"], res)
+	r.ChangeEmailTemplate = flattenConfigNotificationSendEmailChangeEmailTemplate(c, m["changeEmailTemplate"], res)
 	r.CallbackUri = dcl.FlattenString(m["callbackUri"])
 	r.DnsInfo = flattenConfigNotificationSendEmailDnsInfo(c, m["dnsInfo"], res)
-	r.RevertSecondFactorAdditionTemplate = flattenConfigEmailTemplate(c, m["revertSecondFactorAdditionTemplate"], res)
+	r.RevertSecondFactorAdditionTemplate = flattenConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(c, m["revertSecondFactorAdditionTemplate"], res)
 
 	return r
 }
@@ -5681,16 +6371,16 @@ func flattenConfigNotificationSendEmailSmtp(c *Client, i interface{}, res *Confi
 	return r
 }
 
-// expandConfigEmailTemplateMap expands the contents of ConfigEmailTemplate into a JSON
+// expandConfigNotificationSendEmailResetPasswordTemplateMap expands the contents of ConfigNotificationSendEmailResetPasswordTemplate into a JSON
 // request object.
-func expandConfigEmailTemplateMap(c *Client, f map[string]ConfigEmailTemplate, res *Config) (map[string]interface{}, error) {
+func expandConfigNotificationSendEmailResetPasswordTemplateMap(c *Client, f map[string]ConfigNotificationSendEmailResetPasswordTemplate, res *Config) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandConfigEmailTemplate(c, &item, res)
+		i, err := expandConfigNotificationSendEmailResetPasswordTemplate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5702,16 +6392,16 @@ func expandConfigEmailTemplateMap(c *Client, f map[string]ConfigEmailTemplate, r
 	return items, nil
 }
 
-// expandConfigEmailTemplateSlice expands the contents of ConfigEmailTemplate into a JSON
+// expandConfigNotificationSendEmailResetPasswordTemplateSlice expands the contents of ConfigNotificationSendEmailResetPasswordTemplate into a JSON
 // request object.
-func expandConfigEmailTemplateSlice(c *Client, f []ConfigEmailTemplate, res *Config) ([]map[string]interface{}, error) {
+func expandConfigNotificationSendEmailResetPasswordTemplateSlice(c *Client, f []ConfigNotificationSendEmailResetPasswordTemplate, res *Config) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandConfigEmailTemplate(c, &item, res)
+		i, err := expandConfigNotificationSendEmailResetPasswordTemplate(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -5722,49 +6412,49 @@ func expandConfigEmailTemplateSlice(c *Client, f []ConfigEmailTemplate, res *Con
 	return items, nil
 }
 
-// flattenConfigEmailTemplateMap flattens the contents of ConfigEmailTemplate from a JSON
+// flattenConfigNotificationSendEmailResetPasswordTemplateMap flattens the contents of ConfigNotificationSendEmailResetPasswordTemplate from a JSON
 // response object.
-func flattenConfigEmailTemplateMap(c *Client, i interface{}, res *Config) map[string]ConfigEmailTemplate {
+func flattenConfigNotificationSendEmailResetPasswordTemplateMap(c *Client, i interface{}, res *Config) map[string]ConfigNotificationSendEmailResetPasswordTemplate {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]ConfigEmailTemplate{}
+		return map[string]ConfigNotificationSendEmailResetPasswordTemplate{}
 	}
 
 	if len(a) == 0 {
-		return map[string]ConfigEmailTemplate{}
+		return map[string]ConfigNotificationSendEmailResetPasswordTemplate{}
 	}
 
-	items := make(map[string]ConfigEmailTemplate)
+	items := make(map[string]ConfigNotificationSendEmailResetPasswordTemplate)
 	for k, item := range a {
-		items[k] = *flattenConfigEmailTemplate(c, item.(map[string]interface{}), res)
+		items[k] = *flattenConfigNotificationSendEmailResetPasswordTemplate(c, item.(map[string]interface{}), res)
 	}
 
 	return items
 }
 
-// flattenConfigEmailTemplateSlice flattens the contents of ConfigEmailTemplate from a JSON
+// flattenConfigNotificationSendEmailResetPasswordTemplateSlice flattens the contents of ConfigNotificationSendEmailResetPasswordTemplate from a JSON
 // response object.
-func flattenConfigEmailTemplateSlice(c *Client, i interface{}, res *Config) []ConfigEmailTemplate {
+func flattenConfigNotificationSendEmailResetPasswordTemplateSlice(c *Client, i interface{}, res *Config) []ConfigNotificationSendEmailResetPasswordTemplate {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []ConfigEmailTemplate{}
+		return []ConfigNotificationSendEmailResetPasswordTemplate{}
 	}
 
 	if len(a) == 0 {
-		return []ConfigEmailTemplate{}
+		return []ConfigNotificationSendEmailResetPasswordTemplate{}
 	}
 
-	items := make([]ConfigEmailTemplate, 0, len(a))
+	items := make([]ConfigNotificationSendEmailResetPasswordTemplate, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigEmailTemplate(c, item.(map[string]interface{}), res))
+		items = append(items, *flattenConfigNotificationSendEmailResetPasswordTemplate(c, item.(map[string]interface{}), res))
 	}
 
 	return items
 }
 
-// expandConfigEmailTemplate expands an instance of ConfigEmailTemplate into a JSON
+// expandConfigNotificationSendEmailResetPasswordTemplate expands an instance of ConfigNotificationSendEmailResetPasswordTemplate into a JSON
 // request object.
-func expandConfigEmailTemplate(c *Client, f *ConfigEmailTemplate, res *Config) (map[string]interface{}, error) {
+func expandConfigNotificationSendEmailResetPasswordTemplate(c *Client, f *ConfigNotificationSendEmailResetPasswordTemplate, res *Config) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -5792,24 +6482,294 @@ func expandConfigEmailTemplate(c *Client, f *ConfigEmailTemplate, res *Config) (
 	return m, nil
 }
 
-// flattenConfigEmailTemplate flattens an instance of ConfigEmailTemplate from a JSON
+// flattenConfigNotificationSendEmailResetPasswordTemplate flattens an instance of ConfigNotificationSendEmailResetPasswordTemplate from a JSON
 // response object.
-func flattenConfigEmailTemplate(c *Client, i interface{}, res *Config) *ConfigEmailTemplate {
+func flattenConfigNotificationSendEmailResetPasswordTemplate(c *Client, i interface{}, res *Config) *ConfigNotificationSendEmailResetPasswordTemplate {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &ConfigEmailTemplate{}
+	r := &ConfigNotificationSendEmailResetPasswordTemplate{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyConfigEmailTemplate
+		return EmptyConfigNotificationSendEmailResetPasswordTemplate
 	}
 	r.SenderLocalPart = dcl.FlattenString(m["senderLocalPart"])
 	r.Subject = dcl.FlattenString(m["subject"])
 	r.SenderDisplayName = dcl.FlattenString(m["senderDisplayName"])
 	r.Body = dcl.FlattenString(m["body"])
-	r.BodyFormat = flattenConfigEmailTemplateBodyFormatEnum(m["bodyFormat"])
+	r.BodyFormat = flattenConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum(m["bodyFormat"])
+	r.ReplyTo = dcl.FlattenString(m["replyTo"])
+	r.Customized = dcl.FlattenBool(m["customized"])
+
+	return r
+}
+
+// expandConfigNotificationSendEmailVerifyEmailTemplateMap expands the contents of ConfigNotificationSendEmailVerifyEmailTemplate into a JSON
+// request object.
+func expandConfigNotificationSendEmailVerifyEmailTemplateMap(c *Client, f map[string]ConfigNotificationSendEmailVerifyEmailTemplate, res *Config) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandConfigNotificationSendEmailVerifyEmailTemplate(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandConfigNotificationSendEmailVerifyEmailTemplateSlice expands the contents of ConfigNotificationSendEmailVerifyEmailTemplate into a JSON
+// request object.
+func expandConfigNotificationSendEmailVerifyEmailTemplateSlice(c *Client, f []ConfigNotificationSendEmailVerifyEmailTemplate, res *Config) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandConfigNotificationSendEmailVerifyEmailTemplate(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenConfigNotificationSendEmailVerifyEmailTemplateMap flattens the contents of ConfigNotificationSendEmailVerifyEmailTemplate from a JSON
+// response object.
+func flattenConfigNotificationSendEmailVerifyEmailTemplateMap(c *Client, i interface{}, res *Config) map[string]ConfigNotificationSendEmailVerifyEmailTemplate {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ConfigNotificationSendEmailVerifyEmailTemplate{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ConfigNotificationSendEmailVerifyEmailTemplate{}
+	}
+
+	items := make(map[string]ConfigNotificationSendEmailVerifyEmailTemplate)
+	for k, item := range a {
+		items[k] = *flattenConfigNotificationSendEmailVerifyEmailTemplate(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenConfigNotificationSendEmailVerifyEmailTemplateSlice flattens the contents of ConfigNotificationSendEmailVerifyEmailTemplate from a JSON
+// response object.
+func flattenConfigNotificationSendEmailVerifyEmailTemplateSlice(c *Client, i interface{}, res *Config) []ConfigNotificationSendEmailVerifyEmailTemplate {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ConfigNotificationSendEmailVerifyEmailTemplate{}
+	}
+
+	if len(a) == 0 {
+		return []ConfigNotificationSendEmailVerifyEmailTemplate{}
+	}
+
+	items := make([]ConfigNotificationSendEmailVerifyEmailTemplate, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenConfigNotificationSendEmailVerifyEmailTemplate(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandConfigNotificationSendEmailVerifyEmailTemplate expands an instance of ConfigNotificationSendEmailVerifyEmailTemplate into a JSON
+// request object.
+func expandConfigNotificationSendEmailVerifyEmailTemplate(c *Client, f *ConfigNotificationSendEmailVerifyEmailTemplate, res *Config) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.SenderLocalPart; !dcl.IsEmptyValueIndirect(v) {
+		m["senderLocalPart"] = v
+	}
+	if v := f.Subject; !dcl.IsEmptyValueIndirect(v) {
+		m["subject"] = v
+	}
+	if v := f.SenderDisplayName; !dcl.IsEmptyValueIndirect(v) {
+		m["senderDisplayName"] = v
+	}
+	if v := f.Body; !dcl.IsEmptyValueIndirect(v) {
+		m["body"] = v
+	}
+	if v := f.BodyFormat; !dcl.IsEmptyValueIndirect(v) {
+		m["bodyFormat"] = v
+	}
+	if v := f.ReplyTo; !dcl.IsEmptyValueIndirect(v) {
+		m["replyTo"] = v
+	}
+
+	return m, nil
+}
+
+// flattenConfigNotificationSendEmailVerifyEmailTemplate flattens an instance of ConfigNotificationSendEmailVerifyEmailTemplate from a JSON
+// response object.
+func flattenConfigNotificationSendEmailVerifyEmailTemplate(c *Client, i interface{}, res *Config) *ConfigNotificationSendEmailVerifyEmailTemplate {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ConfigNotificationSendEmailVerifyEmailTemplate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyConfigNotificationSendEmailVerifyEmailTemplate
+	}
+	r.SenderLocalPart = dcl.FlattenString(m["senderLocalPart"])
+	r.Subject = dcl.FlattenString(m["subject"])
+	r.SenderDisplayName = dcl.FlattenString(m["senderDisplayName"])
+	r.Body = dcl.FlattenString(m["body"])
+	r.BodyFormat = flattenConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum(m["bodyFormat"])
+	r.ReplyTo = dcl.FlattenString(m["replyTo"])
+	r.Customized = dcl.FlattenBool(m["customized"])
+
+	return r
+}
+
+// expandConfigNotificationSendEmailChangeEmailTemplateMap expands the contents of ConfigNotificationSendEmailChangeEmailTemplate into a JSON
+// request object.
+func expandConfigNotificationSendEmailChangeEmailTemplateMap(c *Client, f map[string]ConfigNotificationSendEmailChangeEmailTemplate, res *Config) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandConfigNotificationSendEmailChangeEmailTemplate(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandConfigNotificationSendEmailChangeEmailTemplateSlice expands the contents of ConfigNotificationSendEmailChangeEmailTemplate into a JSON
+// request object.
+func expandConfigNotificationSendEmailChangeEmailTemplateSlice(c *Client, f []ConfigNotificationSendEmailChangeEmailTemplate, res *Config) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandConfigNotificationSendEmailChangeEmailTemplate(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenConfigNotificationSendEmailChangeEmailTemplateMap flattens the contents of ConfigNotificationSendEmailChangeEmailTemplate from a JSON
+// response object.
+func flattenConfigNotificationSendEmailChangeEmailTemplateMap(c *Client, i interface{}, res *Config) map[string]ConfigNotificationSendEmailChangeEmailTemplate {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ConfigNotificationSendEmailChangeEmailTemplate{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ConfigNotificationSendEmailChangeEmailTemplate{}
+	}
+
+	items := make(map[string]ConfigNotificationSendEmailChangeEmailTemplate)
+	for k, item := range a {
+		items[k] = *flattenConfigNotificationSendEmailChangeEmailTemplate(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenConfigNotificationSendEmailChangeEmailTemplateSlice flattens the contents of ConfigNotificationSendEmailChangeEmailTemplate from a JSON
+// response object.
+func flattenConfigNotificationSendEmailChangeEmailTemplateSlice(c *Client, i interface{}, res *Config) []ConfigNotificationSendEmailChangeEmailTemplate {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ConfigNotificationSendEmailChangeEmailTemplate{}
+	}
+
+	if len(a) == 0 {
+		return []ConfigNotificationSendEmailChangeEmailTemplate{}
+	}
+
+	items := make([]ConfigNotificationSendEmailChangeEmailTemplate, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenConfigNotificationSendEmailChangeEmailTemplate(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandConfigNotificationSendEmailChangeEmailTemplate expands an instance of ConfigNotificationSendEmailChangeEmailTemplate into a JSON
+// request object.
+func expandConfigNotificationSendEmailChangeEmailTemplate(c *Client, f *ConfigNotificationSendEmailChangeEmailTemplate, res *Config) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.SenderLocalPart; !dcl.IsEmptyValueIndirect(v) {
+		m["senderLocalPart"] = v
+	}
+	if v := f.Subject; !dcl.IsEmptyValueIndirect(v) {
+		m["subject"] = v
+	}
+	if v := f.SenderDisplayName; !dcl.IsEmptyValueIndirect(v) {
+		m["senderDisplayName"] = v
+	}
+	if v := f.Body; !dcl.IsEmptyValueIndirect(v) {
+		m["body"] = v
+	}
+	if v := f.BodyFormat; !dcl.IsEmptyValueIndirect(v) {
+		m["bodyFormat"] = v
+	}
+	if v := f.ReplyTo; !dcl.IsEmptyValueIndirect(v) {
+		m["replyTo"] = v
+	}
+
+	return m, nil
+}
+
+// flattenConfigNotificationSendEmailChangeEmailTemplate flattens an instance of ConfigNotificationSendEmailChangeEmailTemplate from a JSON
+// response object.
+func flattenConfigNotificationSendEmailChangeEmailTemplate(c *Client, i interface{}, res *Config) *ConfigNotificationSendEmailChangeEmailTemplate {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ConfigNotificationSendEmailChangeEmailTemplate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyConfigNotificationSendEmailChangeEmailTemplate
+	}
+	r.SenderLocalPart = dcl.FlattenString(m["senderLocalPart"])
+	r.Subject = dcl.FlattenString(m["subject"])
+	r.SenderDisplayName = dcl.FlattenString(m["senderDisplayName"])
+	r.Body = dcl.FlattenString(m["body"])
+	r.BodyFormat = flattenConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum(m["bodyFormat"])
 	r.ReplyTo = dcl.FlattenString(m["replyTo"])
 	r.Customized = dcl.FlattenBool(m["customized"])
 
@@ -5930,6 +6890,141 @@ func flattenConfigNotificationSendEmailDnsInfo(c *Client, i interface{}, res *Co
 	r.PendingCustomDomain = dcl.FlattenString(m["pendingCustomDomain"])
 	r.CustomDomainState = flattenConfigNotificationSendEmailDnsInfoCustomDomainStateEnum(m["customDomainState"])
 	r.DomainVerificationRequestTime = dcl.FlattenString(m["domainVerificationRequestTime"])
+
+	return r
+}
+
+// expandConfigNotificationSendEmailRevertSecondFactorAdditionTemplateMap expands the contents of ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate into a JSON
+// request object.
+func expandConfigNotificationSendEmailRevertSecondFactorAdditionTemplateMap(c *Client, f map[string]ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate, res *Config) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandConfigNotificationSendEmailRevertSecondFactorAdditionTemplateSlice expands the contents of ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate into a JSON
+// request object.
+func expandConfigNotificationSendEmailRevertSecondFactorAdditionTemplateSlice(c *Client, f []ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate, res *Config) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenConfigNotificationSendEmailRevertSecondFactorAdditionTemplateMap flattens the contents of ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate from a JSON
+// response object.
+func flattenConfigNotificationSendEmailRevertSecondFactorAdditionTemplateMap(c *Client, i interface{}, res *Config) map[string]ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate{}
+	}
+
+	items := make(map[string]ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate)
+	for k, item := range a {
+		items[k] = *flattenConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenConfigNotificationSendEmailRevertSecondFactorAdditionTemplateSlice flattens the contents of ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate from a JSON
+// response object.
+func flattenConfigNotificationSendEmailRevertSecondFactorAdditionTemplateSlice(c *Client, i interface{}, res *Config) []ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate{}
+	}
+
+	if len(a) == 0 {
+		return []ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate{}
+	}
+
+	items := make([]ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandConfigNotificationSendEmailRevertSecondFactorAdditionTemplate expands an instance of ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate into a JSON
+// request object.
+func expandConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(c *Client, f *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate, res *Config) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.SenderLocalPart; !dcl.IsEmptyValueIndirect(v) {
+		m["senderLocalPart"] = v
+	}
+	if v := f.Subject; !dcl.IsEmptyValueIndirect(v) {
+		m["subject"] = v
+	}
+	if v := f.SenderDisplayName; !dcl.IsEmptyValueIndirect(v) {
+		m["senderDisplayName"] = v
+	}
+	if v := f.Body; !dcl.IsEmptyValueIndirect(v) {
+		m["body"] = v
+	}
+	if v := f.BodyFormat; !dcl.IsEmptyValueIndirect(v) {
+		m["bodyFormat"] = v
+	}
+	if v := f.ReplyTo; !dcl.IsEmptyValueIndirect(v) {
+		m["replyTo"] = v
+	}
+
+	return m, nil
+}
+
+// flattenConfigNotificationSendEmailRevertSecondFactorAdditionTemplate flattens an instance of ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate from a JSON
+// response object.
+func flattenConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(c *Client, i interface{}, res *Config) *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyConfigNotificationSendEmailRevertSecondFactorAdditionTemplate
+	}
+	r.SenderLocalPart = dcl.FlattenString(m["senderLocalPart"])
+	r.Subject = dcl.FlattenString(m["subject"])
+	r.SenderDisplayName = dcl.FlattenString(m["senderDisplayName"])
+	r.Body = dcl.FlattenString(m["body"])
+	r.BodyFormat = flattenConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum(m["bodyFormat"])
+	r.ReplyTo = dcl.FlattenString(m["replyTo"])
+	r.Customized = dcl.FlattenBool(m["customized"])
 
 	return r
 }
@@ -7531,55 +8626,157 @@ func flattenConfigNotificationSendEmailSmtpSecurityModeEnum(i interface{}) *Conf
 	return ConfigNotificationSendEmailSmtpSecurityModeEnumRef(s)
 }
 
-// flattenConfigEmailTemplateBodyFormatEnumMap flattens the contents of ConfigEmailTemplateBodyFormatEnum from a JSON
+// flattenConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnumMap flattens the contents of ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum from a JSON
 // response object.
-func flattenConfigEmailTemplateBodyFormatEnumMap(c *Client, i interface{}, res *Config) map[string]ConfigEmailTemplateBodyFormatEnum {
+func flattenConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnumMap(c *Client, i interface{}, res *Config) map[string]ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]ConfigEmailTemplateBodyFormatEnum{}
+		return map[string]ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum{}
 	}
 
 	if len(a) == 0 {
-		return map[string]ConfigEmailTemplateBodyFormatEnum{}
+		return map[string]ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum{}
 	}
 
-	items := make(map[string]ConfigEmailTemplateBodyFormatEnum)
+	items := make(map[string]ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum)
 	for k, item := range a {
-		items[k] = *flattenConfigEmailTemplateBodyFormatEnum(item.(interface{}))
+		items[k] = *flattenConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum(item.(interface{}))
 	}
 
 	return items
 }
 
-// flattenConfigEmailTemplateBodyFormatEnumSlice flattens the contents of ConfigEmailTemplateBodyFormatEnum from a JSON
+// flattenConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnumSlice flattens the contents of ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum from a JSON
 // response object.
-func flattenConfigEmailTemplateBodyFormatEnumSlice(c *Client, i interface{}, res *Config) []ConfigEmailTemplateBodyFormatEnum {
+func flattenConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnumSlice(c *Client, i interface{}, res *Config) []ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []ConfigEmailTemplateBodyFormatEnum{}
+		return []ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum{}
 	}
 
 	if len(a) == 0 {
-		return []ConfigEmailTemplateBodyFormatEnum{}
+		return []ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum{}
 	}
 
-	items := make([]ConfigEmailTemplateBodyFormatEnum, 0, len(a))
+	items := make([]ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenConfigEmailTemplateBodyFormatEnum(item.(interface{})))
+		items = append(items, *flattenConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenConfigEmailTemplateBodyFormatEnum asserts that an interface is a string, and returns a
-// pointer to a *ConfigEmailTemplateBodyFormatEnum with the same value as that string.
-func flattenConfigEmailTemplateBodyFormatEnum(i interface{}) *ConfigEmailTemplateBodyFormatEnum {
+// flattenConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum asserts that an interface is a string, and returns a
+// pointer to a *ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum with the same value as that string.
+func flattenConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum(i interface{}) *ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum {
 	s, ok := i.(string)
 	if !ok {
 		return nil
 	}
 
-	return ConfigEmailTemplateBodyFormatEnumRef(s)
+	return ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnumRef(s)
+}
+
+// flattenConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnumMap flattens the contents of ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum from a JSON
+// response object.
+func flattenConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnumMap(c *Client, i interface{}, res *Config) map[string]ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum{}
+	}
+
+	items := make(map[string]ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum)
+	for k, item := range a {
+		items[k] = *flattenConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnumSlice flattens the contents of ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum from a JSON
+// response object.
+func flattenConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnumSlice(c *Client, i interface{}, res *Config) []ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum{}
+	}
+
+	if len(a) == 0 {
+		return []ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum{}
+	}
+
+	items := make([]ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum asserts that an interface is a string, and returns a
+// pointer to a *ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum with the same value as that string.
+func flattenConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum(i interface{}) *ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnumRef(s)
+}
+
+// flattenConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnumMap flattens the contents of ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum from a JSON
+// response object.
+func flattenConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnumMap(c *Client, i interface{}, res *Config) map[string]ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum{}
+	}
+
+	items := make(map[string]ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum)
+	for k, item := range a {
+		items[k] = *flattenConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnumSlice flattens the contents of ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum from a JSON
+// response object.
+func flattenConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnumSlice(c *Client, i interface{}, res *Config) []ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum{}
+	}
+
+	if len(a) == 0 {
+		return []ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum{}
+	}
+
+	items := make([]ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum asserts that an interface is a string, and returns a
+// pointer to a *ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum with the same value as that string.
+func flattenConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum(i interface{}) *ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnumRef(s)
 }
 
 // flattenConfigNotificationSendEmailDnsInfoCustomDomainStateEnumMap flattens the contents of ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum from a JSON
@@ -7631,6 +8828,57 @@ func flattenConfigNotificationSendEmailDnsInfoCustomDomainStateEnum(i interface{
 	}
 
 	return ConfigNotificationSendEmailDnsInfoCustomDomainStateEnumRef(s)
+}
+
+// flattenConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnumMap flattens the contents of ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum from a JSON
+// response object.
+func flattenConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnumMap(c *Client, i interface{}, res *Config) map[string]ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum{}
+	}
+
+	items := make(map[string]ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum)
+	for k, item := range a {
+		items[k] = *flattenConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnumSlice flattens the contents of ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum from a JSON
+// response object.
+func flattenConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnumSlice(c *Client, i interface{}, res *Config) []ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum{}
+	}
+
+	if len(a) == 0 {
+		return []ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum{}
+	}
+
+	items := make([]ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum asserts that an interface is a string, and returns a
+// pointer to a *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum with the same value as that string.
+func flattenConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum(i interface{}) *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnumRef(s)
 }
 
 // flattenConfigSubtypeEnumMap flattens the contents of ConfigSubtypeEnum from a JSON
@@ -8011,12 +9259,39 @@ func extractConfigNotificationSendEmailFields(r *Config, o *ConfigNotificationSe
 	if !dcl.IsNotReturnedByServer(vSmtp) {
 		o.Smtp = vSmtp
 	}
-	// *ConfigEmailTemplate is a reused type - that's not compatible with function extractors.
-
-	// *ConfigEmailTemplate is a reused type - that's not compatible with function extractors.
-
-	// *ConfigEmailTemplate is a reused type - that's not compatible with function extractors.
-
+	vResetPasswordTemplate := o.ResetPasswordTemplate
+	if vResetPasswordTemplate == nil {
+		// note: explicitly not the empty object.
+		vResetPasswordTemplate = &ConfigNotificationSendEmailResetPasswordTemplate{}
+	}
+	if err := extractConfigNotificationSendEmailResetPasswordTemplateFields(r, vResetPasswordTemplate); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vResetPasswordTemplate) {
+		o.ResetPasswordTemplate = vResetPasswordTemplate
+	}
+	vVerifyEmailTemplate := o.VerifyEmailTemplate
+	if vVerifyEmailTemplate == nil {
+		// note: explicitly not the empty object.
+		vVerifyEmailTemplate = &ConfigNotificationSendEmailVerifyEmailTemplate{}
+	}
+	if err := extractConfigNotificationSendEmailVerifyEmailTemplateFields(r, vVerifyEmailTemplate); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vVerifyEmailTemplate) {
+		o.VerifyEmailTemplate = vVerifyEmailTemplate
+	}
+	vChangeEmailTemplate := o.ChangeEmailTemplate
+	if vChangeEmailTemplate == nil {
+		// note: explicitly not the empty object.
+		vChangeEmailTemplate = &ConfigNotificationSendEmailChangeEmailTemplate{}
+	}
+	if err := extractConfigNotificationSendEmailChangeEmailTemplateFields(r, vChangeEmailTemplate); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vChangeEmailTemplate) {
+		o.ChangeEmailTemplate = vChangeEmailTemplate
+	}
 	vDnsInfo := o.DnsInfo
 	if vDnsInfo == nil {
 		// note: explicitly not the empty object.
@@ -8028,17 +9303,35 @@ func extractConfigNotificationSendEmailFields(r *Config, o *ConfigNotificationSe
 	if !dcl.IsNotReturnedByServer(vDnsInfo) {
 		o.DnsInfo = vDnsInfo
 	}
-	// *ConfigEmailTemplate is a reused type - that's not compatible with function extractors.
-
+	vRevertSecondFactorAdditionTemplate := o.RevertSecondFactorAdditionTemplate
+	if vRevertSecondFactorAdditionTemplate == nil {
+		// note: explicitly not the empty object.
+		vRevertSecondFactorAdditionTemplate = &ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate{}
+	}
+	if err := extractConfigNotificationSendEmailRevertSecondFactorAdditionTemplateFields(r, vRevertSecondFactorAdditionTemplate); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRevertSecondFactorAdditionTemplate) {
+		o.RevertSecondFactorAdditionTemplate = vRevertSecondFactorAdditionTemplate
+	}
 	return nil
 }
 func extractConfigNotificationSendEmailSmtpFields(r *Config, o *ConfigNotificationSendEmailSmtp) error {
 	return nil
 }
-func extractConfigEmailTemplateFields(r *Config, o *ConfigEmailTemplate) error {
+func extractConfigNotificationSendEmailResetPasswordTemplateFields(r *Config, o *ConfigNotificationSendEmailResetPasswordTemplate) error {
+	return nil
+}
+func extractConfigNotificationSendEmailVerifyEmailTemplateFields(r *Config, o *ConfigNotificationSendEmailVerifyEmailTemplate) error {
+	return nil
+}
+func extractConfigNotificationSendEmailChangeEmailTemplateFields(r *Config, o *ConfigNotificationSendEmailChangeEmailTemplate) error {
 	return nil
 }
 func extractConfigNotificationSendEmailDnsInfoFields(r *Config, o *ConfigNotificationSendEmailDnsInfo) error {
+	return nil
+}
+func extractConfigNotificationSendEmailRevertSecondFactorAdditionTemplateFields(r *Config, o *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate) error {
 	return nil
 }
 func extractConfigNotificationSendSmsFields(r *Config, o *ConfigNotificationSendSms) error {
@@ -8323,12 +9616,39 @@ func postReadExtractConfigNotificationSendEmailFields(r *Config, o *ConfigNotifi
 	if !dcl.IsNotReturnedByServer(vSmtp) {
 		o.Smtp = vSmtp
 	}
-	// *ConfigEmailTemplate is a reused type - that's not compatible with function extractors.
-
-	// *ConfigEmailTemplate is a reused type - that's not compatible with function extractors.
-
-	// *ConfigEmailTemplate is a reused type - that's not compatible with function extractors.
-
+	vResetPasswordTemplate := o.ResetPasswordTemplate
+	if vResetPasswordTemplate == nil {
+		// note: explicitly not the empty object.
+		vResetPasswordTemplate = &ConfigNotificationSendEmailResetPasswordTemplate{}
+	}
+	if err := extractConfigNotificationSendEmailResetPasswordTemplateFields(r, vResetPasswordTemplate); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vResetPasswordTemplate) {
+		o.ResetPasswordTemplate = vResetPasswordTemplate
+	}
+	vVerifyEmailTemplate := o.VerifyEmailTemplate
+	if vVerifyEmailTemplate == nil {
+		// note: explicitly not the empty object.
+		vVerifyEmailTemplate = &ConfigNotificationSendEmailVerifyEmailTemplate{}
+	}
+	if err := extractConfigNotificationSendEmailVerifyEmailTemplateFields(r, vVerifyEmailTemplate); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vVerifyEmailTemplate) {
+		o.VerifyEmailTemplate = vVerifyEmailTemplate
+	}
+	vChangeEmailTemplate := o.ChangeEmailTemplate
+	if vChangeEmailTemplate == nil {
+		// note: explicitly not the empty object.
+		vChangeEmailTemplate = &ConfigNotificationSendEmailChangeEmailTemplate{}
+	}
+	if err := extractConfigNotificationSendEmailChangeEmailTemplateFields(r, vChangeEmailTemplate); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vChangeEmailTemplate) {
+		o.ChangeEmailTemplate = vChangeEmailTemplate
+	}
 	vDnsInfo := o.DnsInfo
 	if vDnsInfo == nil {
 		// note: explicitly not the empty object.
@@ -8340,17 +9660,35 @@ func postReadExtractConfigNotificationSendEmailFields(r *Config, o *ConfigNotifi
 	if !dcl.IsNotReturnedByServer(vDnsInfo) {
 		o.DnsInfo = vDnsInfo
 	}
-	// *ConfigEmailTemplate is a reused type - that's not compatible with function extractors.
-
+	vRevertSecondFactorAdditionTemplate := o.RevertSecondFactorAdditionTemplate
+	if vRevertSecondFactorAdditionTemplate == nil {
+		// note: explicitly not the empty object.
+		vRevertSecondFactorAdditionTemplate = &ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate{}
+	}
+	if err := extractConfigNotificationSendEmailRevertSecondFactorAdditionTemplateFields(r, vRevertSecondFactorAdditionTemplate); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vRevertSecondFactorAdditionTemplate) {
+		o.RevertSecondFactorAdditionTemplate = vRevertSecondFactorAdditionTemplate
+	}
 	return nil
 }
 func postReadExtractConfigNotificationSendEmailSmtpFields(r *Config, o *ConfigNotificationSendEmailSmtp) error {
 	return nil
 }
-func postReadExtractConfigEmailTemplateFields(r *Config, o *ConfigEmailTemplate) error {
+func postReadExtractConfigNotificationSendEmailResetPasswordTemplateFields(r *Config, o *ConfigNotificationSendEmailResetPasswordTemplate) error {
+	return nil
+}
+func postReadExtractConfigNotificationSendEmailVerifyEmailTemplateFields(r *Config, o *ConfigNotificationSendEmailVerifyEmailTemplate) error {
+	return nil
+}
+func postReadExtractConfigNotificationSendEmailChangeEmailTemplateFields(r *Config, o *ConfigNotificationSendEmailChangeEmailTemplate) error {
 	return nil
 }
 func postReadExtractConfigNotificationSendEmailDnsInfoFields(r *Config, o *ConfigNotificationSendEmailDnsInfo) error {
+	return nil
+}
+func postReadExtractConfigNotificationSendEmailRevertSecondFactorAdditionTemplateFields(r *Config, o *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate) error {
 	return nil
 }
 func postReadExtractConfigNotificationSendSmsFields(r *Config, o *ConfigNotificationSendSms) error {

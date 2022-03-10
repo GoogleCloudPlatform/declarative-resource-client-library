@@ -62,10 +62,8 @@ components:
     Cluster:
       title: Cluster
       x-dcl-id: projects/{{project}}/locations/{{location}}/clusters/{{name}}
-      x-dcl-locations:
-      - zone
       x-dcl-parent-container: project
-      x-dcl-labels: nodeconfig.labels
+      x-dcl-labels: labelFingerprint
       x-dcl-has-iam: false
       type: object
       required:
@@ -166,21 +164,6 @@ components:
                   description: Whether the HTTP Load Balancing controller is enabled
                     in the cluster. When enabled, it runs a small pod in the cluster
                     that manages the load balancers.
-                  x-dcl-send-empty: true
-            kubernetesDashboard:
-              type: object
-              x-dcl-go-name: KubernetesDashboard
-              x-dcl-go-type: ClusterAddonsConfigKubernetesDashboard
-              description: Configuration for the Kubernetes Dashboard. This addon
-                is deprecated, and will be disabled in 1.15. It is recommended to
-                use the Cloud Console to manage and monitor your Kubernetes clusters,
-                workloads and applications.
-              properties:
-                disabled:
-                  type: boolean
-                  x-dcl-go-name: Disabled
-                  description: Whether the Kubernetes Dashboard is enabled for this
-                    cluster.
                   x-dcl-send-empty: true
             networkPolicyConfig:
               type: object
@@ -427,9 +410,9 @@ components:
         conditions:
           type: array
           x-dcl-go-name: Conditions
+          readOnly: true
           description: Which conditions caused the current cluster state.
           x-kubernetes-immutable: true
-          x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
             type: object
@@ -498,14 +481,6 @@ components:
           x-dcl-go-name: CurrentMasterVersion
           readOnly: true
           description: The current software version of the master endpoint.
-          x-kubernetes-immutable: true
-        currentNodeCount:
-          type: integer
-          format: int64
-          x-dcl-go-name: CurrentNodeCount
-          readOnly: true
-          description: The number of nodes currently in the cluster. Deprecated. Call
-            Kubernetes API directly to retrieve node information.
           x-kubernetes-immutable: true
         currentNodeVersion:
           type: string
@@ -603,16 +578,6 @@ components:
             an explicit Kubernetes version - "","-": picks the default Kubernetes
             version'
           x-kubernetes-immutable: true
-        instanceGroupUrls:
-          type: array
-          x-dcl-go-name: InstanceGroupUrls
-          description: Deprecated. Use node_pools.instance_group_urls.
-          x-kubernetes-immutable: true
-          x-dcl-send-empty: true
-          x-dcl-list-type: list
-          items:
-            type: string
-            x-dcl-go-type: string
         ipAllocationPolicy:
           type: object
           x-dcl-go-name: IPAllocationPolicy
@@ -621,11 +586,6 @@ components:
             cluster
           x-kubernetes-immutable: true
           properties:
-            clusterIPv4Cidr:
-              type: string
-              x-dcl-go-name: ClusterIPv4Cidr
-              description: This field is deprecated, use cluster_ipv4_cidr_block.
-              x-kubernetes-immutable: true
             clusterIPv4CidrBlock:
               type: string
               x-dcl-go-name: ClusterIPv4CidrBlock
@@ -649,11 +609,6 @@ components:
               description: Whether a new subnetwork will be created automatically
                 for the cluster
               x-kubernetes-immutable: true
-            nodeIPv4Cidr:
-              type: string
-              x-dcl-go-name: NodeIPv4Cidr
-              description: This field is deprecated, use node_ipv4_cidr_block.
-              x-kubernetes-immutable: true
             nodeIPv4CidrBlock:
               type: string
               x-dcl-go-name: NodeIPv4CidrBlock
@@ -662,11 +617,6 @@ components:
                 is applicable only if createSubnetwork is true.  Set to blank to have
                 a range chosen with the default size.  Set to /netmask (e.g. /14)
                 to have a range chosen with a specific netmask.
-              x-kubernetes-immutable: true
-            servicesIPv4Cidr:
-              type: string
-              x-dcl-go-name: ServicesIPv4Cidr
-              description: This field is deprecated, use services_ipv4_cidr_block.
               x-kubernetes-immutable: true
             servicesIPv4CidrBlock:
               type: string
@@ -830,6 +780,7 @@ components:
           type: object
           x-dcl-go-name: MasterAuth
           x-dcl-go-type: ClusterMasterAuth
+          readOnly: true
           description: The authentication information for accessing the master endpoint.
           x-kubernetes-immutable: true
           properties:
@@ -1069,9 +1020,9 @@ components:
               conditions:
                 type: array
                 x-dcl-go-name: Conditions
+                readOnly: true
                 description: Which conditions caused the current node pool state.
                 x-kubernetes-immutable: true
-                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: object
@@ -1086,35 +1037,6 @@ components:
                         NOT_FOUND, ALREADY_EXISTS, PERMISSION_DENIED, UNAUTHENTICATED,
                         RESOURCE_EXHAUSTED, FAILED_PRECONDITION, ABORTED, OUT_OF_RANGE,
                         UNIMPLEMENTED, INTERNAL, UNAVAILABLE, DATA_LOSS'
-                      x-kubernetes-immutable: true
-                      enum:
-                      - OK
-                      - CANCELLED
-                      - UNKNOWN
-                      - INVALID_ARGUMENT
-                      - DEADLINE_EXCEEDED
-                      - NOT_FOUND
-                      - ALREADY_EXISTS
-                      - PERMISSION_DENIED
-                      - UNAUTHENTICATED
-                      - RESOURCE_EXHAUSTED
-                      - FAILED_PRECONDITION
-                      - ABORTED
-                      - OUT_OF_RANGE
-                      - UNIMPLEMENTED
-                      - INTERNAL
-                      - UNAVAILABLE
-                      - DATA_LOSS
-                    code:
-                      type: string
-                      x-dcl-go-name: Code
-                      x-dcl-go-type: ClusterNodePoolsConditionsCodeEnum
-                      description: 'Machine-friendly representation of the condition
-                        Deprecated. Use canonical_code instead. Possible values: OK,
-                        CANCELLED, UNKNOWN, INVALID_ARGUMENT, DEADLINE_EXCEEDED, NOT_FOUND,
-                        ALREADY_EXISTS, PERMISSION_DENIED, UNAUTHENTICATED, RESOURCE_EXHAUSTED,
-                        FAILED_PRECONDITION, ABORTED, OUT_OF_RANGE, UNIMPLEMENTED,
-                        INTERNAL, UNAVAILABLE, DATA_LOSS'
                       x-kubernetes-immutable: true
                       enum:
                       - OK
@@ -1521,10 +1443,10 @@ components:
               instanceGroupUrls:
                 type: array
                 x-dcl-go-name: InstanceGroupUrls
+                readOnly: true
                 description: (https://cloud.google.com/compute/docs/instance-groups/creating-groups-of-managed-instances)
                   associated with this node pool.
                 x-kubernetes-immutable: true
-                x-dcl-send-empty: true
                 x-dcl-list-type: list
                 items:
                   type: string
@@ -1605,6 +1527,7 @@ components:
                 type: integer
                 format: int64
                 x-dcl-go-name: PodIPv4CidrSize
+                readOnly: true
                 description: The pod CIDR block size per node in this node pool.
                 x-kubernetes-immutable: true
               selfLink:
@@ -1617,6 +1540,7 @@ components:
                 type: string
                 x-dcl-go-name: Status
                 x-dcl-go-type: ClusterNodePoolsStatusEnum
+                readOnly: true
                 description: 'The status of the nodes in this pool instance. Possible
                   values: STATUS_UNSPECIFIED, PROVISIONING, RUNNING, RECONCILING,
                   STOPPING, ERROR, DEGRADED'
@@ -1629,13 +1553,6 @@ components:
                 - STOPPING
                 - ERROR
                 - DEGRADED
-              statusMessage:
-                type: string
-                x-dcl-go-name: StatusMessage
-                readOnly: true
-                description: Deprecated. Use conditions instead. Additional information
-                  about the current status of this node pool instance, if available.
-                x-kubernetes-immutable: true
               upgradeSettings:
                 type: object
                 x-dcl-go-name: UpgradeSettings
@@ -1907,10 +1824,3 @@ components:
               x-dcl-go-name: WorkloadPool
               description: The workload pool to attach all Kubernetes service accounts
                 to.
-        zone:
-          type: string
-          x-dcl-go-name: Zone
-          readOnly: true
-          description: (https://cloud.google.com/compute/docs/zones#available) in
-            which the cluster resides. This field is deprecated, use location instead.
-          x-kubernetes-immutable: true

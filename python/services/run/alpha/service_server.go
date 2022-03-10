@@ -84,85 +84,85 @@ func ProtoToRunAlphaServiceTrafficTypeEnum(e alphapb.RunAlphaServiceTrafficTypeE
 	return nil
 }
 
-// ProtoToServiceGooglecloudrunopv2ConditionStateEnum converts a ServiceGooglecloudrunopv2ConditionStateEnum enum from its proto representation.
-func ProtoToRunAlphaServiceGooglecloudrunopv2ConditionStateEnum(e alphapb.RunAlphaServiceGooglecloudrunopv2ConditionStateEnum) *alpha.ServiceGooglecloudrunopv2ConditionStateEnum {
+// ProtoToServiceTerminalConditionStateEnum converts a ServiceTerminalConditionStateEnum enum from its proto representation.
+func ProtoToRunAlphaServiceTerminalConditionStateEnum(e alphapb.RunAlphaServiceTerminalConditionStateEnum) *alpha.ServiceTerminalConditionStateEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := alphapb.RunAlphaServiceGooglecloudrunopv2ConditionStateEnum_name[int32(e)]; ok {
-		e := alpha.ServiceGooglecloudrunopv2ConditionStateEnum(n[len("RunAlphaServiceGooglecloudrunopv2ConditionStateEnum"):])
+	if n, ok := alphapb.RunAlphaServiceTerminalConditionStateEnum_name[int32(e)]; ok {
+		e := alpha.ServiceTerminalConditionStateEnum(n[len("RunAlphaServiceTerminalConditionStateEnum"):])
 		return &e
 	}
 	return nil
 }
 
-// ProtoToServiceGooglecloudrunopv2ConditionSeverityEnum converts a ServiceGooglecloudrunopv2ConditionSeverityEnum enum from its proto representation.
-func ProtoToRunAlphaServiceGooglecloudrunopv2ConditionSeverityEnum(e alphapb.RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnum) *alpha.ServiceGooglecloudrunopv2ConditionSeverityEnum {
+// ProtoToServiceTerminalConditionSeverityEnum converts a ServiceTerminalConditionSeverityEnum enum from its proto representation.
+func ProtoToRunAlphaServiceTerminalConditionSeverityEnum(e alphapb.RunAlphaServiceTerminalConditionSeverityEnum) *alpha.ServiceTerminalConditionSeverityEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := alphapb.RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnum_name[int32(e)]; ok {
-		e := alpha.ServiceGooglecloudrunopv2ConditionSeverityEnum(n[len("RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnum"):])
+	if n, ok := alphapb.RunAlphaServiceTerminalConditionSeverityEnum_name[int32(e)]; ok {
+		e := alpha.ServiceTerminalConditionSeverityEnum(n[len("RunAlphaServiceTerminalConditionSeverityEnum"):])
 		return &e
 	}
 	return nil
 }
 
-// ProtoToServiceGooglecloudrunopv2ConditionReasonEnum converts a ServiceGooglecloudrunopv2ConditionReasonEnum enum from its proto representation.
-func ProtoToRunAlphaServiceGooglecloudrunopv2ConditionReasonEnum(e alphapb.RunAlphaServiceGooglecloudrunopv2ConditionReasonEnum) *alpha.ServiceGooglecloudrunopv2ConditionReasonEnum {
+// ProtoToServiceTerminalConditionReasonEnum converts a ServiceTerminalConditionReasonEnum enum from its proto representation.
+func ProtoToRunAlphaServiceTerminalConditionReasonEnum(e alphapb.RunAlphaServiceTerminalConditionReasonEnum) *alpha.ServiceTerminalConditionReasonEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := alphapb.RunAlphaServiceGooglecloudrunopv2ConditionReasonEnum_name[int32(e)]; ok {
-		e := alpha.ServiceGooglecloudrunopv2ConditionReasonEnum(n[len("RunAlphaServiceGooglecloudrunopv2ConditionReasonEnum"):])
+	if n, ok := alphapb.RunAlphaServiceTerminalConditionReasonEnum_name[int32(e)]; ok {
+		e := alpha.ServiceTerminalConditionReasonEnum(n[len("RunAlphaServiceTerminalConditionReasonEnum"):])
 		return &e
 	}
 	return nil
 }
 
-// ProtoToServiceGooglecloudrunopv2ConditionInternalReasonEnum converts a ServiceGooglecloudrunopv2ConditionInternalReasonEnum enum from its proto representation.
-func ProtoToRunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnum(e alphapb.RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnum) *alpha.ServiceGooglecloudrunopv2ConditionInternalReasonEnum {
+// ProtoToServiceTerminalConditionInternalReasonEnum converts a ServiceTerminalConditionInternalReasonEnum enum from its proto representation.
+func ProtoToRunAlphaServiceTerminalConditionInternalReasonEnum(e alphapb.RunAlphaServiceTerminalConditionInternalReasonEnum) *alpha.ServiceTerminalConditionInternalReasonEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := alphapb.RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnum_name[int32(e)]; ok {
-		e := alpha.ServiceGooglecloudrunopv2ConditionInternalReasonEnum(n[len("RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnum"):])
+	if n, ok := alphapb.RunAlphaServiceTerminalConditionInternalReasonEnum_name[int32(e)]; ok {
+		e := alpha.ServiceTerminalConditionInternalReasonEnum(n[len("RunAlphaServiceTerminalConditionInternalReasonEnum"):])
 		return &e
 	}
 	return nil
 }
 
-// ProtoToServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum converts a ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum enum from its proto representation.
-func ProtoToRunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum(e alphapb.RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum) *alpha.ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum {
+// ProtoToServiceTerminalConditionDomainMappingReasonEnum converts a ServiceTerminalConditionDomainMappingReasonEnum enum from its proto representation.
+func ProtoToRunAlphaServiceTerminalConditionDomainMappingReasonEnum(e alphapb.RunAlphaServiceTerminalConditionDomainMappingReasonEnum) *alpha.ServiceTerminalConditionDomainMappingReasonEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := alphapb.RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum_name[int32(e)]; ok {
-		e := alpha.ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum(n[len("RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum"):])
+	if n, ok := alphapb.RunAlphaServiceTerminalConditionDomainMappingReasonEnum_name[int32(e)]; ok {
+		e := alpha.ServiceTerminalConditionDomainMappingReasonEnum(n[len("RunAlphaServiceTerminalConditionDomainMappingReasonEnum"):])
 		return &e
 	}
 	return nil
 }
 
-// ProtoToServiceGooglecloudrunopv2ConditionRevisionReasonEnum converts a ServiceGooglecloudrunopv2ConditionRevisionReasonEnum enum from its proto representation.
-func ProtoToRunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnum(e alphapb.RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnum) *alpha.ServiceGooglecloudrunopv2ConditionRevisionReasonEnum {
+// ProtoToServiceTerminalConditionRevisionReasonEnum converts a ServiceTerminalConditionRevisionReasonEnum enum from its proto representation.
+func ProtoToRunAlphaServiceTerminalConditionRevisionReasonEnum(e alphapb.RunAlphaServiceTerminalConditionRevisionReasonEnum) *alpha.ServiceTerminalConditionRevisionReasonEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := alphapb.RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnum_name[int32(e)]; ok {
-		e := alpha.ServiceGooglecloudrunopv2ConditionRevisionReasonEnum(n[len("RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnum"):])
+	if n, ok := alphapb.RunAlphaServiceTerminalConditionRevisionReasonEnum_name[int32(e)]; ok {
+		e := alpha.ServiceTerminalConditionRevisionReasonEnum(n[len("RunAlphaServiceTerminalConditionRevisionReasonEnum"):])
 		return &e
 	}
 	return nil
 }
 
-// ProtoToServiceGooglecloudrunopv2ConditionJobReasonEnum converts a ServiceGooglecloudrunopv2ConditionJobReasonEnum enum from its proto representation.
-func ProtoToRunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnum(e alphapb.RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnum) *alpha.ServiceGooglecloudrunopv2ConditionJobReasonEnum {
+// ProtoToServiceTerminalConditionJobReasonEnum converts a ServiceTerminalConditionJobReasonEnum enum from its proto representation.
+func ProtoToRunAlphaServiceTerminalConditionJobReasonEnum(e alphapb.RunAlphaServiceTerminalConditionJobReasonEnum) *alpha.ServiceTerminalConditionJobReasonEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := alphapb.RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnum_name[int32(e)]; ok {
-		e := alpha.ServiceGooglecloudrunopv2ConditionJobReasonEnum(n[len("RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnum"):])
+	if n, ok := alphapb.RunAlphaServiceTerminalConditionJobReasonEnum_name[int32(e)]; ok {
+		e := alpha.ServiceTerminalConditionJobReasonEnum(n[len("RunAlphaServiceTerminalConditionJobReasonEnum"):])
 		return &e
 	}
 	return nil
@@ -406,22 +406,22 @@ func ProtoToRunAlphaServiceTraffic(p *alphapb.RunAlphaServiceTraffic) *alpha.Ser
 	return obj
 }
 
-// ProtoToServiceGooglecloudrunopv2Condition converts a ServiceGooglecloudrunopv2Condition object from its proto representation.
-func ProtoToRunAlphaServiceGooglecloudrunopv2Condition(p *alphapb.RunAlphaServiceGooglecloudrunopv2Condition) *alpha.ServiceGooglecloudrunopv2Condition {
+// ProtoToServiceTerminalCondition converts a ServiceTerminalCondition object from its proto representation.
+func ProtoToRunAlphaServiceTerminalCondition(p *alphapb.RunAlphaServiceTerminalCondition) *alpha.ServiceTerminalCondition {
 	if p == nil {
 		return nil
 	}
-	obj := &alpha.ServiceGooglecloudrunopv2Condition{
+	obj := &alpha.ServiceTerminalCondition{
 		Type:                dcl.StringOrNil(p.GetType()),
-		State:               ProtoToRunAlphaServiceGooglecloudrunopv2ConditionStateEnum(p.GetState()),
+		State:               ProtoToRunAlphaServiceTerminalConditionStateEnum(p.GetState()),
 		Message:             dcl.StringOrNil(p.GetMessage()),
 		LastTransitionTime:  dcl.StringOrNil(p.GetLastTransitionTime()),
-		Severity:            ProtoToRunAlphaServiceGooglecloudrunopv2ConditionSeverityEnum(p.GetSeverity()),
-		Reason:              ProtoToRunAlphaServiceGooglecloudrunopv2ConditionReasonEnum(p.GetReason()),
-		InternalReason:      ProtoToRunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnum(p.GetInternalReason()),
-		DomainMappingReason: ProtoToRunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum(p.GetDomainMappingReason()),
-		RevisionReason:      ProtoToRunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnum(p.GetRevisionReason()),
-		JobReason:           ProtoToRunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnum(p.GetJobReason()),
+		Severity:            ProtoToRunAlphaServiceTerminalConditionSeverityEnum(p.GetSeverity()),
+		Reason:              ProtoToRunAlphaServiceTerminalConditionReasonEnum(p.GetReason()),
+		InternalReason:      ProtoToRunAlphaServiceTerminalConditionInternalReasonEnum(p.GetInternalReason()),
+		DomainMappingReason: ProtoToRunAlphaServiceTerminalConditionDomainMappingReasonEnum(p.GetDomainMappingReason()),
+		RevisionReason:      ProtoToRunAlphaServiceTerminalConditionRevisionReasonEnum(p.GetRevisionReason()),
+		JobReason:           ProtoToRunAlphaServiceTerminalConditionJobReasonEnum(p.GetJobReason()),
 	}
 	return obj
 }
@@ -460,7 +460,7 @@ func ProtoToService(p *alphapb.RunAlphaService) *alpha.Service {
 		LaunchStage:           ProtoToRunAlphaServiceLaunchStageEnum(p.GetLaunchStage()),
 		BinaryAuthorization:   ProtoToRunAlphaServiceBinaryAuthorization(p.GetBinaryAuthorization()),
 		Template:              ProtoToRunAlphaServiceTemplate(p.GetTemplate()),
-		TerminalCondition:     ProtoToRunAlphaServiceGooglecloudrunopv2Condition(p.GetTerminalCondition()),
+		TerminalCondition:     ProtoToRunAlphaServiceTerminalCondition(p.GetTerminalCondition()),
 		LatestReadyRevision:   dcl.StringOrNil(p.GetLatestReadyRevision()),
 		LatestCreatedRevision: dcl.StringOrNil(p.GetLatestCreatedRevision()),
 		Uri:                   dcl.StringOrNil(p.GetUri()),
@@ -533,81 +533,81 @@ func RunAlphaServiceTrafficTypeEnumToProto(e *alpha.ServiceTrafficTypeEnum) alph
 	return alphapb.RunAlphaServiceTrafficTypeEnum(0)
 }
 
-// ServiceGooglecloudrunopv2ConditionStateEnumToProto converts a ServiceGooglecloudrunopv2ConditionStateEnum enum to its proto representation.
-func RunAlphaServiceGooglecloudrunopv2ConditionStateEnumToProto(e *alpha.ServiceGooglecloudrunopv2ConditionStateEnum) alphapb.RunAlphaServiceGooglecloudrunopv2ConditionStateEnum {
+// ServiceTerminalConditionStateEnumToProto converts a ServiceTerminalConditionStateEnum enum to its proto representation.
+func RunAlphaServiceTerminalConditionStateEnumToProto(e *alpha.ServiceTerminalConditionStateEnum) alphapb.RunAlphaServiceTerminalConditionStateEnum {
 	if e == nil {
-		return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionStateEnum(0)
+		return alphapb.RunAlphaServiceTerminalConditionStateEnum(0)
 	}
-	if v, ok := alphapb.RunAlphaServiceGooglecloudrunopv2ConditionStateEnum_value["ServiceGooglecloudrunopv2ConditionStateEnum"+string(*e)]; ok {
-		return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionStateEnum(v)
+	if v, ok := alphapb.RunAlphaServiceTerminalConditionStateEnum_value["ServiceTerminalConditionStateEnum"+string(*e)]; ok {
+		return alphapb.RunAlphaServiceTerminalConditionStateEnum(v)
 	}
-	return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionStateEnum(0)
+	return alphapb.RunAlphaServiceTerminalConditionStateEnum(0)
 }
 
-// ServiceGooglecloudrunopv2ConditionSeverityEnumToProto converts a ServiceGooglecloudrunopv2ConditionSeverityEnum enum to its proto representation.
-func RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnumToProto(e *alpha.ServiceGooglecloudrunopv2ConditionSeverityEnum) alphapb.RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnum {
+// ServiceTerminalConditionSeverityEnumToProto converts a ServiceTerminalConditionSeverityEnum enum to its proto representation.
+func RunAlphaServiceTerminalConditionSeverityEnumToProto(e *alpha.ServiceTerminalConditionSeverityEnum) alphapb.RunAlphaServiceTerminalConditionSeverityEnum {
 	if e == nil {
-		return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnum(0)
+		return alphapb.RunAlphaServiceTerminalConditionSeverityEnum(0)
 	}
-	if v, ok := alphapb.RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnum_value["ServiceGooglecloudrunopv2ConditionSeverityEnum"+string(*e)]; ok {
-		return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnum(v)
+	if v, ok := alphapb.RunAlphaServiceTerminalConditionSeverityEnum_value["ServiceTerminalConditionSeverityEnum"+string(*e)]; ok {
+		return alphapb.RunAlphaServiceTerminalConditionSeverityEnum(v)
 	}
-	return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnum(0)
+	return alphapb.RunAlphaServiceTerminalConditionSeverityEnum(0)
 }
 
-// ServiceGooglecloudrunopv2ConditionReasonEnumToProto converts a ServiceGooglecloudrunopv2ConditionReasonEnum enum to its proto representation.
-func RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumToProto(e *alpha.ServiceGooglecloudrunopv2ConditionReasonEnum) alphapb.RunAlphaServiceGooglecloudrunopv2ConditionReasonEnum {
+// ServiceTerminalConditionReasonEnumToProto converts a ServiceTerminalConditionReasonEnum enum to its proto representation.
+func RunAlphaServiceTerminalConditionReasonEnumToProto(e *alpha.ServiceTerminalConditionReasonEnum) alphapb.RunAlphaServiceTerminalConditionReasonEnum {
 	if e == nil {
-		return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionReasonEnum(0)
+		return alphapb.RunAlphaServiceTerminalConditionReasonEnum(0)
 	}
-	if v, ok := alphapb.RunAlphaServiceGooglecloudrunopv2ConditionReasonEnum_value["ServiceGooglecloudrunopv2ConditionReasonEnum"+string(*e)]; ok {
-		return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionReasonEnum(v)
+	if v, ok := alphapb.RunAlphaServiceTerminalConditionReasonEnum_value["ServiceTerminalConditionReasonEnum"+string(*e)]; ok {
+		return alphapb.RunAlphaServiceTerminalConditionReasonEnum(v)
 	}
-	return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionReasonEnum(0)
+	return alphapb.RunAlphaServiceTerminalConditionReasonEnum(0)
 }
 
-// ServiceGooglecloudrunopv2ConditionInternalReasonEnumToProto converts a ServiceGooglecloudrunopv2ConditionInternalReasonEnum enum to its proto representation.
-func RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnumToProto(e *alpha.ServiceGooglecloudrunopv2ConditionInternalReasonEnum) alphapb.RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnum {
+// ServiceTerminalConditionInternalReasonEnumToProto converts a ServiceTerminalConditionInternalReasonEnum enum to its proto representation.
+func RunAlphaServiceTerminalConditionInternalReasonEnumToProto(e *alpha.ServiceTerminalConditionInternalReasonEnum) alphapb.RunAlphaServiceTerminalConditionInternalReasonEnum {
 	if e == nil {
-		return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnum(0)
+		return alphapb.RunAlphaServiceTerminalConditionInternalReasonEnum(0)
 	}
-	if v, ok := alphapb.RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnum_value["ServiceGooglecloudrunopv2ConditionInternalReasonEnum"+string(*e)]; ok {
-		return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnum(v)
+	if v, ok := alphapb.RunAlphaServiceTerminalConditionInternalReasonEnum_value["ServiceTerminalConditionInternalReasonEnum"+string(*e)]; ok {
+		return alphapb.RunAlphaServiceTerminalConditionInternalReasonEnum(v)
 	}
-	return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnum(0)
+	return alphapb.RunAlphaServiceTerminalConditionInternalReasonEnum(0)
 }
 
-// ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumToProto converts a ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum enum to its proto representation.
-func RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumToProto(e *alpha.ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum) alphapb.RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum {
+// ServiceTerminalConditionDomainMappingReasonEnumToProto converts a ServiceTerminalConditionDomainMappingReasonEnum enum to its proto representation.
+func RunAlphaServiceTerminalConditionDomainMappingReasonEnumToProto(e *alpha.ServiceTerminalConditionDomainMappingReasonEnum) alphapb.RunAlphaServiceTerminalConditionDomainMappingReasonEnum {
 	if e == nil {
-		return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum(0)
+		return alphapb.RunAlphaServiceTerminalConditionDomainMappingReasonEnum(0)
 	}
-	if v, ok := alphapb.RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum_value["ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum"+string(*e)]; ok {
-		return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum(v)
+	if v, ok := alphapb.RunAlphaServiceTerminalConditionDomainMappingReasonEnum_value["ServiceTerminalConditionDomainMappingReasonEnum"+string(*e)]; ok {
+		return alphapb.RunAlphaServiceTerminalConditionDomainMappingReasonEnum(v)
 	}
-	return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum(0)
+	return alphapb.RunAlphaServiceTerminalConditionDomainMappingReasonEnum(0)
 }
 
-// ServiceGooglecloudrunopv2ConditionRevisionReasonEnumToProto converts a ServiceGooglecloudrunopv2ConditionRevisionReasonEnum enum to its proto representation.
-func RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnumToProto(e *alpha.ServiceGooglecloudrunopv2ConditionRevisionReasonEnum) alphapb.RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnum {
+// ServiceTerminalConditionRevisionReasonEnumToProto converts a ServiceTerminalConditionRevisionReasonEnum enum to its proto representation.
+func RunAlphaServiceTerminalConditionRevisionReasonEnumToProto(e *alpha.ServiceTerminalConditionRevisionReasonEnum) alphapb.RunAlphaServiceTerminalConditionRevisionReasonEnum {
 	if e == nil {
-		return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnum(0)
+		return alphapb.RunAlphaServiceTerminalConditionRevisionReasonEnum(0)
 	}
-	if v, ok := alphapb.RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnum_value["ServiceGooglecloudrunopv2ConditionRevisionReasonEnum"+string(*e)]; ok {
-		return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnum(v)
+	if v, ok := alphapb.RunAlphaServiceTerminalConditionRevisionReasonEnum_value["ServiceTerminalConditionRevisionReasonEnum"+string(*e)]; ok {
+		return alphapb.RunAlphaServiceTerminalConditionRevisionReasonEnum(v)
 	}
-	return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnum(0)
+	return alphapb.RunAlphaServiceTerminalConditionRevisionReasonEnum(0)
 }
 
-// ServiceGooglecloudrunopv2ConditionJobReasonEnumToProto converts a ServiceGooglecloudrunopv2ConditionJobReasonEnum enum to its proto representation.
-func RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnumToProto(e *alpha.ServiceGooglecloudrunopv2ConditionJobReasonEnum) alphapb.RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnum {
+// ServiceTerminalConditionJobReasonEnumToProto converts a ServiceTerminalConditionJobReasonEnum enum to its proto representation.
+func RunAlphaServiceTerminalConditionJobReasonEnumToProto(e *alpha.ServiceTerminalConditionJobReasonEnum) alphapb.RunAlphaServiceTerminalConditionJobReasonEnum {
 	if e == nil {
-		return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnum(0)
+		return alphapb.RunAlphaServiceTerminalConditionJobReasonEnum(0)
 	}
-	if v, ok := alphapb.RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnum_value["ServiceGooglecloudrunopv2ConditionJobReasonEnum"+string(*e)]; ok {
-		return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnum(v)
+	if v, ok := alphapb.RunAlphaServiceTerminalConditionJobReasonEnum_value["ServiceTerminalConditionJobReasonEnum"+string(*e)]; ok {
+		return alphapb.RunAlphaServiceTerminalConditionJobReasonEnum(v)
 	}
-	return alphapb.RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnum(0)
+	return alphapb.RunAlphaServiceTerminalConditionJobReasonEnum(0)
 }
 
 // ServiceTrafficStatusesTypeEnumToProto converts a ServiceTrafficStatusesTypeEnum enum to its proto representation.
@@ -865,22 +865,22 @@ func RunAlphaServiceTrafficToProto(o *alpha.ServiceTraffic) *alphapb.RunAlphaSer
 	return p
 }
 
-// ServiceGooglecloudrunopv2ConditionToProto converts a ServiceGooglecloudrunopv2Condition object to its proto representation.
-func RunAlphaServiceGooglecloudrunopv2ConditionToProto(o *alpha.ServiceGooglecloudrunopv2Condition) *alphapb.RunAlphaServiceGooglecloudrunopv2Condition {
+// ServiceTerminalConditionToProto converts a ServiceTerminalCondition object to its proto representation.
+func RunAlphaServiceTerminalConditionToProto(o *alpha.ServiceTerminalCondition) *alphapb.RunAlphaServiceTerminalCondition {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.RunAlphaServiceGooglecloudrunopv2Condition{}
+	p := &alphapb.RunAlphaServiceTerminalCondition{}
 	p.SetType(dcl.ValueOrEmptyString(o.Type))
-	p.SetState(RunAlphaServiceGooglecloudrunopv2ConditionStateEnumToProto(o.State))
+	p.SetState(RunAlphaServiceTerminalConditionStateEnumToProto(o.State))
 	p.SetMessage(dcl.ValueOrEmptyString(o.Message))
 	p.SetLastTransitionTime(dcl.ValueOrEmptyString(o.LastTransitionTime))
-	p.SetSeverity(RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnumToProto(o.Severity))
-	p.SetReason(RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumToProto(o.Reason))
-	p.SetInternalReason(RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnumToProto(o.InternalReason))
-	p.SetDomainMappingReason(RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumToProto(o.DomainMappingReason))
-	p.SetRevisionReason(RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnumToProto(o.RevisionReason))
-	p.SetJobReason(RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnumToProto(o.JobReason))
+	p.SetSeverity(RunAlphaServiceTerminalConditionSeverityEnumToProto(o.Severity))
+	p.SetReason(RunAlphaServiceTerminalConditionReasonEnumToProto(o.Reason))
+	p.SetInternalReason(RunAlphaServiceTerminalConditionInternalReasonEnumToProto(o.InternalReason))
+	p.SetDomainMappingReason(RunAlphaServiceTerminalConditionDomainMappingReasonEnumToProto(o.DomainMappingReason))
+	p.SetRevisionReason(RunAlphaServiceTerminalConditionRevisionReasonEnumToProto(o.RevisionReason))
+	p.SetJobReason(RunAlphaServiceTerminalConditionJobReasonEnumToProto(o.JobReason))
 	return p
 }
 
@@ -917,7 +917,7 @@ func ServiceToProto(resource *alpha.Service) *alphapb.RunAlphaService {
 	p.SetLaunchStage(RunAlphaServiceLaunchStageEnumToProto(resource.LaunchStage))
 	p.SetBinaryAuthorization(RunAlphaServiceBinaryAuthorizationToProto(resource.BinaryAuthorization))
 	p.SetTemplate(RunAlphaServiceTemplateToProto(resource.Template))
-	p.SetTerminalCondition(RunAlphaServiceGooglecloudrunopv2ConditionToProto(resource.TerminalCondition))
+	p.SetTerminalCondition(RunAlphaServiceTerminalConditionToProto(resource.TerminalCondition))
 	p.SetLatestReadyRevision(dcl.ValueOrEmptyString(resource.LatestReadyRevision))
 	p.SetLatestCreatedRevision(dcl.ValueOrEmptyString(resource.LatestCreatedRevision))
 	p.SetUri(dcl.ValueOrEmptyString(resource.Uri))

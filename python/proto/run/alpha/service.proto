@@ -62,85 +62,85 @@ enum RunAlphaServiceTrafficTypeEnum {
   RunAlphaServiceTrafficTypeEnumTRAFFIC_TARGET_ALLOCATION_TYPE_REVISION = 3;
 }
 
-enum RunAlphaServiceGooglecloudrunopv2ConditionStateEnum {
-  RunAlphaServiceGooglecloudrunopv2ConditionStateEnumNO_VALUE_DO_NOT_USE = 0;
-  RunAlphaServiceGooglecloudrunopv2ConditionStateEnumSTATE_UNSPECIFIED = 1;
-  RunAlphaServiceGooglecloudrunopv2ConditionStateEnumCONDITION_PENDING = 2;
-  RunAlphaServiceGooglecloudrunopv2ConditionStateEnumCONDITION_RECONCILING = 3;
-  RunAlphaServiceGooglecloudrunopv2ConditionStateEnumCONDITION_FAILED = 4;
-  RunAlphaServiceGooglecloudrunopv2ConditionStateEnumCONDITION_SUCCEEDED = 5;
+enum RunAlphaServiceTerminalConditionStateEnum {
+  RunAlphaServiceTerminalConditionStateEnumNO_VALUE_DO_NOT_USE = 0;
+  RunAlphaServiceTerminalConditionStateEnumSTATE_UNSPECIFIED = 1;
+  RunAlphaServiceTerminalConditionStateEnumCONDITION_PENDING = 2;
+  RunAlphaServiceTerminalConditionStateEnumCONDITION_RECONCILING = 3;
+  RunAlphaServiceTerminalConditionStateEnumCONDITION_FAILED = 4;
+  RunAlphaServiceTerminalConditionStateEnumCONDITION_SUCCEEDED = 5;
 }
 
-enum RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnum {
-  RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnumNO_VALUE_DO_NOT_USE = 0;
-  RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnumSEVERITY_UNSPECIFIED = 1;
-  RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnumERROR = 2;
-  RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnumWARNING = 3;
-  RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnumINFO = 4;
+enum RunAlphaServiceTerminalConditionSeverityEnum {
+  RunAlphaServiceTerminalConditionSeverityEnumNO_VALUE_DO_NOT_USE = 0;
+  RunAlphaServiceTerminalConditionSeverityEnumSEVERITY_UNSPECIFIED = 1;
+  RunAlphaServiceTerminalConditionSeverityEnumERROR = 2;
+  RunAlphaServiceTerminalConditionSeverityEnumWARNING = 3;
+  RunAlphaServiceTerminalConditionSeverityEnumINFO = 4;
 }
 
-enum RunAlphaServiceGooglecloudrunopv2ConditionReasonEnum {
-  RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumNO_VALUE_DO_NOT_USE = 0;
-  RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumCOMMON_REASON_UNDEFINED = 1;
-  RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumUNKNOWN = 2;
-  RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumROUTE_MISSING = 3;
-  RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumREVISION_FAILED = 4;
-  RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumPROGRESS_DEADLINE_EXCEEDED = 5;
-  RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumBUILD_STEP_FAILED = 6;
-  RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumCONTAINER_MISSING = 7;
-  RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumCONTAINER_PERMISSION_DENIED = 8;
-  RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumCONTAINER_IMAGE_UNAUTHORIZED = 9;
-  RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumCONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED = 10;
-  RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumENCRYPTION_KEY_PERMISSION_DENIED = 11;
-  RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumENCRYPTION_KEY_CHECK_FAILED = 12;
-  RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumSECRETS_ACCESS_CHECK_FAILED = 13;
-  RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumWAITING_FOR_OPERATION = 14;
-  RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumIMMEDIATE_RETRY = 15;
-  RunAlphaServiceGooglecloudrunopv2ConditionReasonEnumPOSTPONED_RETRY = 16;
+enum RunAlphaServiceTerminalConditionReasonEnum {
+  RunAlphaServiceTerminalConditionReasonEnumNO_VALUE_DO_NOT_USE = 0;
+  RunAlphaServiceTerminalConditionReasonEnumCOMMON_REASON_UNDEFINED = 1;
+  RunAlphaServiceTerminalConditionReasonEnumUNKNOWN = 2;
+  RunAlphaServiceTerminalConditionReasonEnumROUTE_MISSING = 3;
+  RunAlphaServiceTerminalConditionReasonEnumREVISION_FAILED = 4;
+  RunAlphaServiceTerminalConditionReasonEnumPROGRESS_DEADLINE_EXCEEDED = 5;
+  RunAlphaServiceTerminalConditionReasonEnumBUILD_STEP_FAILED = 6;
+  RunAlphaServiceTerminalConditionReasonEnumCONTAINER_MISSING = 7;
+  RunAlphaServiceTerminalConditionReasonEnumCONTAINER_PERMISSION_DENIED = 8;
+  RunAlphaServiceTerminalConditionReasonEnumCONTAINER_IMAGE_UNAUTHORIZED = 9;
+  RunAlphaServiceTerminalConditionReasonEnumCONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED = 10;
+  RunAlphaServiceTerminalConditionReasonEnumENCRYPTION_KEY_PERMISSION_DENIED = 11;
+  RunAlphaServiceTerminalConditionReasonEnumENCRYPTION_KEY_CHECK_FAILED = 12;
+  RunAlphaServiceTerminalConditionReasonEnumSECRETS_ACCESS_CHECK_FAILED = 13;
+  RunAlphaServiceTerminalConditionReasonEnumWAITING_FOR_OPERATION = 14;
+  RunAlphaServiceTerminalConditionReasonEnumIMMEDIATE_RETRY = 15;
+  RunAlphaServiceTerminalConditionReasonEnumPOSTPONED_RETRY = 16;
 }
 
-enum RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnum {
-  RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnumNO_VALUE_DO_NOT_USE = 0;
-  RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnumINTERNAL_REASON_UNDEFINED = 1;
-  RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnumCONFLICTING_REVISION_NAME = 2;
-  RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnumREVISION_MISSING = 3;
-  RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnumCONFIGURATION_MISSING = 4;
-  RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnumASSIGNING_TRAFFIC = 5;
-  RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnumUPDATING_INGRESS_TRAFFIC_ALLOWED = 6;
-  RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnumREVISION_ORG_POLICY_VIOLATION = 7;
-  RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnumENABLING_GCFV2_URI_SUPPORT = 8;
+enum RunAlphaServiceTerminalConditionInternalReasonEnum {
+  RunAlphaServiceTerminalConditionInternalReasonEnumNO_VALUE_DO_NOT_USE = 0;
+  RunAlphaServiceTerminalConditionInternalReasonEnumINTERNAL_REASON_UNDEFINED = 1;
+  RunAlphaServiceTerminalConditionInternalReasonEnumCONFLICTING_REVISION_NAME = 2;
+  RunAlphaServiceTerminalConditionInternalReasonEnumREVISION_MISSING = 3;
+  RunAlphaServiceTerminalConditionInternalReasonEnumCONFIGURATION_MISSING = 4;
+  RunAlphaServiceTerminalConditionInternalReasonEnumASSIGNING_TRAFFIC = 5;
+  RunAlphaServiceTerminalConditionInternalReasonEnumUPDATING_INGRESS_TRAFFIC_ALLOWED = 6;
+  RunAlphaServiceTerminalConditionInternalReasonEnumREVISION_ORG_POLICY_VIOLATION = 7;
+  RunAlphaServiceTerminalConditionInternalReasonEnumENABLING_GCFV2_URI_SUPPORT = 8;
 }
 
-enum RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum {
-  RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumNO_VALUE_DO_NOT_USE = 0;
-  RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumDOMAIN_MAPPING_REASON_UNDEFINED = 1;
-  RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumROUTE_NOT_READY = 2;
-  RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumPERMISSION_DENIED = 3;
-  RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumCERTIFICATE_ALREADY_EXISTS = 4;
-  RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumMAPPING_ALREADY_EXISTS = 5;
-  RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumCERTIFICATE_PENDING = 6;
-  RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumCERTIFICATE_FAILED = 7;
+enum RunAlphaServiceTerminalConditionDomainMappingReasonEnum {
+  RunAlphaServiceTerminalConditionDomainMappingReasonEnumNO_VALUE_DO_NOT_USE = 0;
+  RunAlphaServiceTerminalConditionDomainMappingReasonEnumDOMAIN_MAPPING_REASON_UNDEFINED = 1;
+  RunAlphaServiceTerminalConditionDomainMappingReasonEnumROUTE_NOT_READY = 2;
+  RunAlphaServiceTerminalConditionDomainMappingReasonEnumPERMISSION_DENIED = 3;
+  RunAlphaServiceTerminalConditionDomainMappingReasonEnumCERTIFICATE_ALREADY_EXISTS = 4;
+  RunAlphaServiceTerminalConditionDomainMappingReasonEnumMAPPING_ALREADY_EXISTS = 5;
+  RunAlphaServiceTerminalConditionDomainMappingReasonEnumCERTIFICATE_PENDING = 6;
+  RunAlphaServiceTerminalConditionDomainMappingReasonEnumCERTIFICATE_FAILED = 7;
 }
 
-enum RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnum {
-  RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnumNO_VALUE_DO_NOT_USE = 0;
-  RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnumREVISION_REASON_UNDEFINED = 1;
-  RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnumPENDING = 2;
-  RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnumRESERVE = 3;
-  RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnumRETIRED = 4;
-  RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnumRETIRING = 5;
-  RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnumRECREATING = 6;
-  RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnumHEALTH_CHECK_CONTAINER_ERROR = 7;
-  RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnumCUSTOMIZED_PATH_RESPONSE_PENDING = 8;
-  RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnumMIN_INSTANCES_NOT_PROVISIONED = 9;
-  RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnumACTIVE_REVISION_LIMIT_REACHED = 10;
-  RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnumNO_DEPLOYMENT = 11;
+enum RunAlphaServiceTerminalConditionRevisionReasonEnum {
+  RunAlphaServiceTerminalConditionRevisionReasonEnumNO_VALUE_DO_NOT_USE = 0;
+  RunAlphaServiceTerminalConditionRevisionReasonEnumREVISION_REASON_UNDEFINED = 1;
+  RunAlphaServiceTerminalConditionRevisionReasonEnumPENDING = 2;
+  RunAlphaServiceTerminalConditionRevisionReasonEnumRESERVE = 3;
+  RunAlphaServiceTerminalConditionRevisionReasonEnumRETIRED = 4;
+  RunAlphaServiceTerminalConditionRevisionReasonEnumRETIRING = 5;
+  RunAlphaServiceTerminalConditionRevisionReasonEnumRECREATING = 6;
+  RunAlphaServiceTerminalConditionRevisionReasonEnumHEALTH_CHECK_CONTAINER_ERROR = 7;
+  RunAlphaServiceTerminalConditionRevisionReasonEnumCUSTOMIZED_PATH_RESPONSE_PENDING = 8;
+  RunAlphaServiceTerminalConditionRevisionReasonEnumMIN_INSTANCES_NOT_PROVISIONED = 9;
+  RunAlphaServiceTerminalConditionRevisionReasonEnumACTIVE_REVISION_LIMIT_REACHED = 10;
+  RunAlphaServiceTerminalConditionRevisionReasonEnumNO_DEPLOYMENT = 11;
 }
 
-enum RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnum {
-  RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnumNO_VALUE_DO_NOT_USE = 0;
-  RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnumJOB_REASON_UNDEFINED = 1;
-  RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnumJOB_STATUS_SERVICE_POLLING_ERROR = 2;
+enum RunAlphaServiceTerminalConditionJobReasonEnum {
+  RunAlphaServiceTerminalConditionJobReasonEnumNO_VALUE_DO_NOT_USE = 0;
+  RunAlphaServiceTerminalConditionJobReasonEnumJOB_REASON_UNDEFINED = 1;
+  RunAlphaServiceTerminalConditionJobReasonEnumJOB_STATUS_SERVICE_POLLING_ERROR = 2;
 }
 
 enum RunAlphaServiceTrafficStatusesTypeEnum {
@@ -170,7 +170,7 @@ message RunAlphaService {
   RunAlphaServiceBinaryAuthorization binary_authorization = 17;
   RunAlphaServiceTemplate template = 18;
   repeated RunAlphaServiceTraffic traffic = 19;
-  RunAlphaServiceGooglecloudrunopv2Condition terminal_condition = 20;
+  RunAlphaServiceTerminalCondition terminal_condition = 20;
   string latest_ready_revision = 21;
   string latest_created_revision = 22;
   repeated RunAlphaServiceTrafficStatuses traffic_statuses = 23;
@@ -281,17 +281,17 @@ message RunAlphaServiceTraffic {
   string tag = 4;
 }
 
-message RunAlphaServiceGooglecloudrunopv2Condition {
+message RunAlphaServiceTerminalCondition {
   string type = 1;
-  RunAlphaServiceGooglecloudrunopv2ConditionStateEnum state = 2;
+  RunAlphaServiceTerminalConditionStateEnum state = 2;
   string message = 3;
   string last_transition_time = 4;
-  RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnum severity = 5;
-  RunAlphaServiceGooglecloudrunopv2ConditionReasonEnum reason = 6;
-  RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnum internal_reason = 7;
-  RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum domain_mapping_reason = 8;
-  RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnum revision_reason = 9;
-  RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnum job_reason = 10;
+  RunAlphaServiceTerminalConditionSeverityEnum severity = 5;
+  RunAlphaServiceTerminalConditionReasonEnum reason = 6;
+  RunAlphaServiceTerminalConditionInternalReasonEnum internal_reason = 7;
+  RunAlphaServiceTerminalConditionDomainMappingReasonEnum domain_mapping_reason = 8;
+  RunAlphaServiceTerminalConditionRevisionReasonEnum revision_reason = 9;
+  RunAlphaServiceTerminalConditionJobReasonEnum job_reason = 10;
 }
 
 message RunAlphaServiceTrafficStatuses {

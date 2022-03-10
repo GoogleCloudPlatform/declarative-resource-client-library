@@ -55,19 +55,13 @@ class Group(object):
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
-        if GroupGoogleappscloudidentitygroupsvxentitykey.to_proto(self.group_key):
-            request.resource.group_key.CopyFrom(
-                GroupGoogleappscloudidentitygroupsvxentitykey.to_proto(self.group_key)
-            )
+        if GroupGroupKey.to_proto(self.group_key):
+            request.resource.group_key.CopyFrom(GroupGroupKey.to_proto(self.group_key))
         else:
             request.resource.ClearField("group_key")
-        if GroupGoogleappscloudidentitygroupsvxentitykeyArray.to_proto(
-            self.additional_group_keys
-        ):
+        if GroupAdditionalGroupKeysArray.to_proto(self.additional_group_keys):
             request.resource.additional_group_keys.extend(
-                GroupGoogleappscloudidentitygroupsvxentitykeyArray.to_proto(
-                    self.additional_group_keys
-                )
+                GroupAdditionalGroupKeysArray.to_proto(self.additional_group_keys)
             )
         if Primitive.to_proto(self.parent):
             request.resource.parent = Primitive.to_proto(self.parent)
@@ -100,10 +94,8 @@ class Group(object):
 
         response = stub.ApplyCloudidentityBetaGroup(request)
         self.name = Primitive.from_proto(response.name)
-        self.group_key = GroupGoogleappscloudidentitygroupsvxentitykey.from_proto(
-            response.group_key
-        )
-        self.additional_group_keys = GroupGoogleappscloudidentitygroupsvxentitykeyArray.from_proto(
+        self.group_key = GroupGroupKey.from_proto(response.group_key)
+        self.additional_group_keys = GroupAdditionalGroupKeysArray.from_proto(
             response.additional_group_keys
         )
         self.parent = Primitive.from_proto(response.parent)
@@ -127,19 +119,13 @@ class Group(object):
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
-        if GroupGoogleappscloudidentitygroupsvxentitykey.to_proto(self.group_key):
-            request.resource.group_key.CopyFrom(
-                GroupGoogleappscloudidentitygroupsvxentitykey.to_proto(self.group_key)
-            )
+        if GroupGroupKey.to_proto(self.group_key):
+            request.resource.group_key.CopyFrom(GroupGroupKey.to_proto(self.group_key))
         else:
             request.resource.ClearField("group_key")
-        if GroupGoogleappscloudidentitygroupsvxentitykeyArray.to_proto(
-            self.additional_group_keys
-        ):
+        if GroupAdditionalGroupKeysArray.to_proto(self.additional_group_keys):
             request.resource.additional_group_keys.extend(
-                GroupGoogleappscloudidentitygroupsvxentitykeyArray.to_proto(
-                    self.additional_group_keys
-                )
+                GroupAdditionalGroupKeysArray.to_proto(self.additional_group_keys)
             )
         if Primitive.to_proto(self.parent):
             request.resource.parent = Primitive.to_proto(self.parent)
@@ -183,19 +169,13 @@ class Group(object):
         resource = group_pb2.CloudidentityBetaGroup()
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
-        if GroupGoogleappscloudidentitygroupsvxentitykey.to_proto(self.group_key):
-            resource.group_key.CopyFrom(
-                GroupGoogleappscloudidentitygroupsvxentitykey.to_proto(self.group_key)
-            )
+        if GroupGroupKey.to_proto(self.group_key):
+            resource.group_key.CopyFrom(GroupGroupKey.to_proto(self.group_key))
         else:
             resource.ClearField("group_key")
-        if GroupGoogleappscloudidentitygroupsvxentitykeyArray.to_proto(
-            self.additional_group_keys
-        ):
+        if GroupAdditionalGroupKeysArray.to_proto(self.additional_group_keys):
             resource.additional_group_keys.extend(
-                GroupGoogleappscloudidentitygroupsvxentitykeyArray.to_proto(
-                    self.additional_group_keys
-                )
+                GroupAdditionalGroupKeysArray.to_proto(self.additional_group_keys)
             )
         if Primitive.to_proto(self.parent):
             resource.parent = Primitive.to_proto(self.parent)
@@ -222,7 +202,7 @@ class Group(object):
         return resource
 
 
-class GroupGoogleappscloudidentitygroupsvxentitykey(object):
+class GroupGroupKey(object):
     def __init__(self, id: str = None, namespace: str = None):
         self.id = id
         self.namespace = namespace
@@ -232,7 +212,7 @@ class GroupGoogleappscloudidentitygroupsvxentitykey(object):
         if not resource:
             return None
 
-        res = group_pb2.CloudidentityBetaGroupGoogleappscloudidentitygroupsvxentitykey()
+        res = group_pb2.CloudidentityBetaGroupGroupKey()
         if Primitive.to_proto(resource.id):
             res.id = Primitive.to_proto(resource.id)
         if Primitive.to_proto(resource.namespace):
@@ -244,27 +224,62 @@ class GroupGoogleappscloudidentitygroupsvxentitykey(object):
         if not resource:
             return None
 
-        return GroupGoogleappscloudidentitygroupsvxentitykey(
+        return GroupGroupKey(
             id=Primitive.from_proto(resource.id),
             namespace=Primitive.from_proto(resource.namespace),
         )
 
 
-class GroupGoogleappscloudidentitygroupsvxentitykeyArray(object):
+class GroupGroupKeyArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [
-            GroupGoogleappscloudidentitygroupsvxentitykey.to_proto(i) for i in resources
-        ]
+        return [GroupGroupKey.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [
-            GroupGoogleappscloudidentitygroupsvxentitykey.from_proto(i)
-            for i in resources
-        ]
+        return [GroupGroupKey.from_proto(i) for i in resources]
+
+
+class GroupAdditionalGroupKeys(object):
+    def __init__(self, id: str = None, namespace: str = None):
+        self.id = id
+        self.namespace = namespace
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = group_pb2.CloudidentityBetaGroupAdditionalGroupKeys()
+        if Primitive.to_proto(resource.id):
+            res.id = Primitive.to_proto(resource.id)
+        if Primitive.to_proto(resource.namespace):
+            res.namespace = Primitive.to_proto(resource.namespace)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return GroupAdditionalGroupKeys(
+            id=Primitive.from_proto(resource.id),
+            namespace=Primitive.from_proto(resource.namespace),
+        )
+
+
+class GroupAdditionalGroupKeysArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [GroupAdditionalGroupKeys.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [GroupAdditionalGroupKeys.from_proto(i) for i in resources]
 
 
 class GroupDynamicGroupMetadata(object):

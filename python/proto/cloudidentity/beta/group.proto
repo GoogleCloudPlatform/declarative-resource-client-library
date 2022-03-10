@@ -44,8 +44,8 @@ enum CloudidentityBetaGroupInitialGroupConfigEnum {
 
 message CloudidentityBetaGroup {
   string name = 1;
-  CloudidentityBetaGroupGoogleappscloudidentitygroupsvxentitykey group_key = 2;
-  repeated CloudidentityBetaGroupGoogleappscloudidentitygroupsvxentitykey additional_group_keys = 3;
+  CloudidentityBetaGroupGroupKey group_key = 2;
+  repeated CloudidentityBetaGroupAdditionalGroupKeys additional_group_keys = 3;
   string parent = 4;
   string display_name = 5;
   string description = 6;
@@ -57,7 +57,12 @@ message CloudidentityBetaGroup {
   CloudidentityBetaGroupInitialGroupConfigEnum initial_group_config = 12;
 }
 
-message CloudidentityBetaGroupGoogleappscloudidentitygroupsvxentitykey {
+message CloudidentityBetaGroupGroupKey {
+  string id = 1;
+  string namespace = 2;
+}
+
+message CloudidentityBetaGroupAdditionalGroupKeys {
   string id = 1;
   string namespace = 2;
 }

@@ -59,47 +59,6 @@ paths:
         type: string
 components:
   schemas:
-    FixedOrPercent:
-      x-dcl-has-iam: false
-      type: object
-      x-dcl-go-name: TargetSize
-      x-dcl-go-type: InstanceGroupManagerFixedOrPercent
-      description: 'Specifies the intended number of instances to be created from
-        the `instanceTemplate`. The final number of instances created from the template
-        will be equal to: - If expressed as a fixed number, the minimum of either
-        `targetSize.fixed` or `instanceGroupManager.targetSize` is used. - if expressed
-        as a `percent`, the `targetSize` would be `(targetSize.percent/100 * InstanceGroupManager.targetSize)`
-        If there is a remainder, the number is rounded. If unset, this version will
-        update any remaining instances not updated by another `version`. Read [Starting
-        a canary update](/compute/docs/instance-groups/rolling-out-updates-to-managed-instance-groups#starting_a_canary_update)
-        for more information.'
-      properties:
-        calculated:
-          type: integer
-          format: int64
-          x-dcl-go-name: Calculated
-          readOnly: true
-          description: '[Output Only] Absolute value of VM instances calculated based
-            on the specific mode. - If the value is `fixed`, then the `calculated`
-            value is equal to the `fixed` value. - If the value is a `percent`, then
-            the `calculated` value is `percent`/100 * `targetSize`. For example, the
-            `calculated` value of a 80% of a managed instance group with 150 instances
-            would be (80/100 * 150) = 120 VM instances. If there is a remainder, the
-            number is rounded.'
-        fixed:
-          type: integer
-          format: int64
-          x-dcl-go-name: Fixed
-          description: Specifies a fixed number of VM instances. This must be a positive
-            integer.
-          x-dcl-send-empty: true
-        percent:
-          type: integer
-          format: int64
-          x-dcl-go-name: Percent
-          description: Specifies a percentage of instances between 0 to 100%, inclusive.
-            For example, specify `80` for 80%.
-          x-dcl-send-empty: true
     InstanceGroupManager:
       title: InstanceGroupManager
       x-dcl-locations:
@@ -542,11 +501,92 @@ components:
               - NONE
               - PROACTIVE
             maxSurge:
-              $ref: '#/components/schemas/FixedOrPercent'
+              type: object
               x-dcl-go-name: MaxSurge
+              x-dcl-go-type: InstanceGroupManagerUpdatePolicyMaxSurge
+              description: The maximum number of instances that can be created above
+                the specified `targetSize` during the update process. This value can
+                be either a fixed number or, if the group has 10 or more instances,
+                a percentage. If you set a percentage, the number of instances is
+                rounded if necessary. The default value for `maxSurge` is a fixed
+                value equal to the number of zones in which the managed instance group
+                operates. At least one of either `maxSurge` or `maxUnavailable` must
+                be greater than 0. Learn more about [`maxSurge`](/compute/docs/instance-groups/rolling-out-updates-to-managed-instance-groups#max_surge).
+              x-dcl-send-empty: true
+              properties:
+                calculated:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: Calculated
+                  readOnly: true
+                  description: '[Output Only] Absolute value of VM instances calculated
+                    based on the specific mode. - If the value is `fixed`, then the
+                    `calculated` value is equal to the `fixed` value. - If the value
+                    is a `percent`, then the `calculated` value is `percent`/100 *
+                    `targetSize`. For example, the `calculated` value of a 80% of
+                    a managed instance group with 150 instances would be (80/100 *
+                    150) = 120 VM instances. If there is a remainder, the number is
+                    rounded.'
+                fixed:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: Fixed
+                  description: Specifies a fixed number of VM instances. This must
+                    be a positive integer.
+                  x-dcl-send-empty: true
+                percent:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: Percent
+                  description: Specifies a percentage of instances between 0 to 100%,
+                    inclusive. For example, specify `80` for 80%.
+                  x-dcl-send-empty: true
             maxUnavailable:
-              $ref: '#/components/schemas/FixedOrPercent'
+              type: object
               x-dcl-go-name: MaxUnavailable
+              x-dcl-go-type: InstanceGroupManagerUpdatePolicyMaxUnavailable
+              description: 'The maximum number of instances that can be unavailable
+                during the update process. An instance is considered available if
+                all of the following conditions are satisfied: - The instance''s [status](/compute/docs/instances/checking-instance-status)
+                is `RUNNING`. - If there is a [health check](/compute/docs/instance-groups/autohealing-instances-in-migs)
+                on the instance group, the instance''s health check status must be
+                `HEALTHY` at least once. If there is no health check on the group,
+                then the instance only needs to have a status of `RUNNING` to be considered
+                available. This value can be either a fixed number or, if the group
+                has 10 or more instances, a percentage. If you set a percentage, the
+                number of instances is rounded if necessary. The default value for
+                `maxUnavailable` is a fixed value equal to the number of zones in
+                which the managed instance group operates. At least one of either
+                `maxSurge` or `maxUnavailable` must be greater than 0. Learn more
+                about [`maxUnavailable`](/compute/docs/instance-groups/rolling-out-updates-to-managed-instance-groups#max_unavailable).'
+              properties:
+                calculated:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: Calculated
+                  readOnly: true
+                  description: '[Output Only] Absolute value of VM instances calculated
+                    based on the specific mode. - If the value is `fixed`, then the
+                    `calculated` value is equal to the `fixed` value. - If the value
+                    is a `percent`, then the `calculated` value is `percent`/100 *
+                    `targetSize`. For example, the `calculated` value of a 80% of
+                    a managed instance group with 150 instances would be (80/100 *
+                    150) = 120 VM instances. If there is a remainder, the number is
+                    rounded.'
+                fixed:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: Fixed
+                  description: Specifies a fixed number of VM instances. This must
+                    be a positive integer.
+                  x-dcl-send-empty: true
+                percent:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: Percent
+                  description: Specifies a percentage of instances between 0 to 100%,
+                    inclusive. For example, specify `80` for 80%.
+                  x-dcl-send-empty: true
             minimalAction:
               type: string
               x-dcl-go-name: MinimalAction
@@ -622,8 +662,47 @@ components:
                 description: Name of the version. Unique among all versions in the
                   scope of this managed instance group.
               targetSize:
-                $ref: '#/components/schemas/FixedOrPercent'
+                type: object
                 x-dcl-go-name: TargetSize
+                x-dcl-go-type: InstanceGroupManagerVersionsTargetSize
+                description: 'Specifies the intended number of instances to be created
+                  from the `instanceTemplate`. The final number of instances created
+                  from the template will be equal to: - If expressed as a fixed number,
+                  the minimum of either `targetSize.fixed` or `instanceGroupManager.targetSize`
+                  is used. - if expressed as a `percent`, the `targetSize` would be
+                  `(targetSize.percent/100 * InstanceGroupManager.targetSize)` If
+                  there is a remainder, the number is rounded. If unset, this version
+                  will update any remaining instances not updated by another `version`.
+                  Read [Starting a canary update](/compute/docs/instance-groups/rolling-out-updates-to-managed-instance-groups#starting_a_canary_update)
+                  for more information.'
+                properties:
+                  calculated:
+                    type: integer
+                    format: int64
+                    x-dcl-go-name: Calculated
+                    readOnly: true
+                    description: '[Output Only] Absolute value of VM instances calculated
+                      based on the specific mode. - If the value is `fixed`, then
+                      the `calculated` value is equal to the `fixed` value. - If the
+                      value is a `percent`, then the `calculated` value is `percent`/100
+                      * `targetSize`. For example, the `calculated` value of a 80%
+                      of a managed instance group with 150 instances would be (80/100
+                      * 150) = 120 VM instances. If there is a remainder, the number
+                      is rounded.'
+                  fixed:
+                    type: integer
+                    format: int64
+                    x-dcl-go-name: Fixed
+                    description: Specifies a fixed number of VM instances. This must
+                      be a positive integer.
+                    x-dcl-send-empty: true
+                  percent:
+                    type: integer
+                    format: int64
+                    x-dcl-go-name: Percent
+                    description: Specifies a percentage of instances between 0 to
+                      100%, inclusive. For example, specify `80` for 80%.
+                    x-dcl-send-empty: true
         zone:
           type: string
           x-dcl-go-name: Zone

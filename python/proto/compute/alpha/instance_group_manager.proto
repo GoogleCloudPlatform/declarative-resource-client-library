@@ -115,10 +115,10 @@ message ComputeAlphaInstanceGroupManagerDistributionPolicyZones {
 message ComputeAlphaInstanceGroupManagerVersions {
   string name = 1;
   string instance_template = 2;
-  ComputeAlphaInstanceGroupManagerFixedOrPercent target_size = 3;
+  ComputeAlphaInstanceGroupManagerVersionsTargetSize target_size = 3;
 }
 
-message ComputeAlphaInstanceGroupManagerFixedOrPercent {
+message ComputeAlphaInstanceGroupManagerVersionsTargetSize {
   int64 fixed = 1;
   int64 percent = 2;
   int64 calculated = 3;
@@ -166,11 +166,23 @@ message ComputeAlphaInstanceGroupManagerUpdatePolicy {
   ComputeAlphaInstanceGroupManagerUpdatePolicyTypeEnum type = 1;
   ComputeAlphaInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum instance_redistribution_type = 2;
   ComputeAlphaInstanceGroupManagerUpdatePolicyMinimalActionEnum minimal_action = 3;
-  ComputeAlphaInstanceGroupManagerFixedOrPercent max_surge = 4;
-  ComputeAlphaInstanceGroupManagerFixedOrPercent max_unavailable = 5;
+  ComputeAlphaInstanceGroupManagerUpdatePolicyMaxSurge max_surge = 4;
+  ComputeAlphaInstanceGroupManagerUpdatePolicyMaxUnavailable max_unavailable = 5;
   ComputeAlphaInstanceGroupManagerUpdatePolicyReplacementMethodEnum replacement_method = 6;
   ComputeAlphaInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum most_disruptive_allowed_action = 7;
   int64 min_ready_sec = 8;
+}
+
+message ComputeAlphaInstanceGroupManagerUpdatePolicyMaxSurge {
+  int64 fixed = 1;
+  int64 percent = 2;
+  int64 calculated = 3;
+}
+
+message ComputeAlphaInstanceGroupManagerUpdatePolicyMaxUnavailable {
+  int64 fixed = 1;
+  int64 percent = 2;
+  int64 calculated = 3;
 }
 
 message ComputeAlphaInstanceGroupManagerNamedPorts {

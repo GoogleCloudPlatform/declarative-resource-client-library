@@ -39,17 +39,17 @@ func (r *Dashboard) String() string {
 	return dcl.SprintResource(r)
 }
 
-// The enum DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum.
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum string
+// The enum DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum.
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum string
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef returns a *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
-	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(s)
+func DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef(s string) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
+	v := DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -60,23 +60,23 @@ func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum.
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum string
+// The enum DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum.
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum string
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef returns a *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
-	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(s)
+func DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef(s string) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
+	v := DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -87,23 +87,23 @@ func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum.
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum string
+// The enum DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum.
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum string
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
-	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(s)
+func DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
+	v := DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -114,23 +114,23 @@ func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAg
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum.
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum string
+// The enum DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum.
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum string
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
-	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(s)
+func DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
+	v := DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -141,23 +141,23 @@ func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAg
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum.
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum string
+// The enum DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum.
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum string
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
-	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(s)
+func DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
+	v := DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -168,23 +168,23 @@ func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSer
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum.
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum string
+// The enum DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum.
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum string
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef returns a *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
-	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(s)
+func DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
+	v := DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -195,23 +195,23 @@ func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSer
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum.
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum string
+// The enum DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum.
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum string
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef returns a *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
-	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(s)
+func DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef(s string) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
+	v := DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -222,23 +222,23 @@ func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumera
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum.
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum string
+// The enum DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum.
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum string
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef returns a *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
-	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(s)
+func DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef(s string) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
+	v := DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -249,23 +249,23 @@ func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumera
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum.
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum string
+// The enum DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum.
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum string
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef returns a *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
-	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(s)
+func DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef(s string) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
+	v := DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -276,23 +276,23 @@ func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenomi
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum.
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum string
+// The enum DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum.
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum string
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef returns a *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
-	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(s)
+func DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef(s string) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
+	v := DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -303,23 +303,23 @@ func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenomi
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum.
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum string
+// The enum DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum.
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum string
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
-	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(s)
+func DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
+	v := DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -330,23 +330,23 @@ func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecond
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum.
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum string
+// The enum DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum.
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum string
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
-	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(s)
+func DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
+	v := DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -357,23 +357,23 @@ func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecond
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum.
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum string
+// The enum DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum.
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum string
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
-	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(s)
+func DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
+	v := DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -384,23 +384,23 @@ func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTi
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum.
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum string
+// The enum DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum.
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum string
 
-// DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef returns a *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef returns a *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
-	v := DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(s)
+func DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
+	v := DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -411,23 +411,23 @@ func (v DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTi
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartDataSetsPlotTypeEnum.
-type DashboardWidgetXyChartDataSetsPlotTypeEnum string
+// The enum DashboardGridLayoutWidgetsXyChartDataSetsPlotTypeEnum.
+type DashboardGridLayoutWidgetsXyChartDataSetsPlotTypeEnum string
 
-// DashboardWidgetXyChartDataSetsPlotTypeEnumRef returns a *DashboardWidgetXyChartDataSetsPlotTypeEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartDataSetsPlotTypeEnumRef returns a *DashboardGridLayoutWidgetsXyChartDataSetsPlotTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartDataSetsPlotTypeEnumRef(s string) *DashboardWidgetXyChartDataSetsPlotTypeEnum {
-	v := DashboardWidgetXyChartDataSetsPlotTypeEnum(s)
+func DashboardGridLayoutWidgetsXyChartDataSetsPlotTypeEnumRef(s string) *DashboardGridLayoutWidgetsXyChartDataSetsPlotTypeEnum {
+	v := DashboardGridLayoutWidgetsXyChartDataSetsPlotTypeEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartDataSetsPlotTypeEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartDataSetsPlotTypeEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -438,23 +438,23 @@ func (v DashboardWidgetXyChartDataSetsPlotTypeEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartDataSetsPlotTypeEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartDataSetsPlotTypeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartThresholdsColorEnum.
-type DashboardWidgetXyChartThresholdsColorEnum string
+// The enum DashboardGridLayoutWidgetsXyChartThresholdsColorEnum.
+type DashboardGridLayoutWidgetsXyChartThresholdsColorEnum string
 
-// DashboardWidgetXyChartThresholdsColorEnumRef returns a *DashboardWidgetXyChartThresholdsColorEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartThresholdsColorEnumRef returns a *DashboardGridLayoutWidgetsXyChartThresholdsColorEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartThresholdsColorEnumRef(s string) *DashboardWidgetXyChartThresholdsColorEnum {
-	v := DashboardWidgetXyChartThresholdsColorEnum(s)
+func DashboardGridLayoutWidgetsXyChartThresholdsColorEnumRef(s string) *DashboardGridLayoutWidgetsXyChartThresholdsColorEnum {
+	v := DashboardGridLayoutWidgetsXyChartThresholdsColorEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartThresholdsColorEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartThresholdsColorEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -465,23 +465,23 @@ func (v DashboardWidgetXyChartThresholdsColorEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartThresholdsColorEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartThresholdsColorEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartThresholdsDirectionEnum.
-type DashboardWidgetXyChartThresholdsDirectionEnum string
+// The enum DashboardGridLayoutWidgetsXyChartThresholdsDirectionEnum.
+type DashboardGridLayoutWidgetsXyChartThresholdsDirectionEnum string
 
-// DashboardWidgetXyChartThresholdsDirectionEnumRef returns a *DashboardWidgetXyChartThresholdsDirectionEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartThresholdsDirectionEnumRef returns a *DashboardGridLayoutWidgetsXyChartThresholdsDirectionEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartThresholdsDirectionEnumRef(s string) *DashboardWidgetXyChartThresholdsDirectionEnum {
-	v := DashboardWidgetXyChartThresholdsDirectionEnum(s)
+func DashboardGridLayoutWidgetsXyChartThresholdsDirectionEnumRef(s string) *DashboardGridLayoutWidgetsXyChartThresholdsDirectionEnum {
+	v := DashboardGridLayoutWidgetsXyChartThresholdsDirectionEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartThresholdsDirectionEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartThresholdsDirectionEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -492,23 +492,23 @@ func (v DashboardWidgetXyChartThresholdsDirectionEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartThresholdsDirectionEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartThresholdsDirectionEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartXAxisScaleEnum.
-type DashboardWidgetXyChartXAxisScaleEnum string
+// The enum DashboardGridLayoutWidgetsXyChartXAxisScaleEnum.
+type DashboardGridLayoutWidgetsXyChartXAxisScaleEnum string
 
-// DashboardWidgetXyChartXAxisScaleEnumRef returns a *DashboardWidgetXyChartXAxisScaleEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartXAxisScaleEnumRef returns a *DashboardGridLayoutWidgetsXyChartXAxisScaleEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartXAxisScaleEnumRef(s string) *DashboardWidgetXyChartXAxisScaleEnum {
-	v := DashboardWidgetXyChartXAxisScaleEnum(s)
+func DashboardGridLayoutWidgetsXyChartXAxisScaleEnumRef(s string) *DashboardGridLayoutWidgetsXyChartXAxisScaleEnum {
+	v := DashboardGridLayoutWidgetsXyChartXAxisScaleEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartXAxisScaleEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartXAxisScaleEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -519,23 +519,23 @@ func (v DashboardWidgetXyChartXAxisScaleEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartXAxisScaleEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartXAxisScaleEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartYAxisScaleEnum.
-type DashboardWidgetXyChartYAxisScaleEnum string
+// The enum DashboardGridLayoutWidgetsXyChartYAxisScaleEnum.
+type DashboardGridLayoutWidgetsXyChartYAxisScaleEnum string
 
-// DashboardWidgetXyChartYAxisScaleEnumRef returns a *DashboardWidgetXyChartYAxisScaleEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartYAxisScaleEnumRef returns a *DashboardGridLayoutWidgetsXyChartYAxisScaleEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartYAxisScaleEnumRef(s string) *DashboardWidgetXyChartYAxisScaleEnum {
-	v := DashboardWidgetXyChartYAxisScaleEnum(s)
+func DashboardGridLayoutWidgetsXyChartYAxisScaleEnumRef(s string) *DashboardGridLayoutWidgetsXyChartYAxisScaleEnum {
+	v := DashboardGridLayoutWidgetsXyChartYAxisScaleEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartYAxisScaleEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartYAxisScaleEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -546,23 +546,23 @@ func (v DashboardWidgetXyChartYAxisScaleEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartYAxisScaleEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartYAxisScaleEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetXyChartChartOptionsModeEnum.
-type DashboardWidgetXyChartChartOptionsModeEnum string
+// The enum DashboardGridLayoutWidgetsXyChartChartOptionsModeEnum.
+type DashboardGridLayoutWidgetsXyChartChartOptionsModeEnum string
 
-// DashboardWidgetXyChartChartOptionsModeEnumRef returns a *DashboardWidgetXyChartChartOptionsModeEnum with the value of string s
+// DashboardGridLayoutWidgetsXyChartChartOptionsModeEnumRef returns a *DashboardGridLayoutWidgetsXyChartChartOptionsModeEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetXyChartChartOptionsModeEnumRef(s string) *DashboardWidgetXyChartChartOptionsModeEnum {
-	v := DashboardWidgetXyChartChartOptionsModeEnum(s)
+func DashboardGridLayoutWidgetsXyChartChartOptionsModeEnumRef(s string) *DashboardGridLayoutWidgetsXyChartChartOptionsModeEnum {
+	v := DashboardGridLayoutWidgetsXyChartChartOptionsModeEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetXyChartChartOptionsModeEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsXyChartChartOptionsModeEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -573,23 +573,23 @@ func (v DashboardWidgetXyChartChartOptionsModeEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetXyChartChartOptionsModeEnum",
+		Enum:  "DashboardGridLayoutWidgetsXyChartChartOptionsModeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum.
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum string
+// The enum DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum.
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum string
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum with the value of string s
+// DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef returns a *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
-	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(s)
+func DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef(s string) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
+	v := DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -600,23 +600,23 @@ func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSer
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum",
+		Enum:  "DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum.
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum string
+// The enum DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum.
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum string
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum with the value of string s
+// DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef returns a *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
-	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(s)
+func DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef(s string) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
+	v := DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -627,23 +627,23 @@ func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossS
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum",
+		Enum:  "DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum.
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum string
+// The enum DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum.
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum string
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum with the value of string s
+// DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
-	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(s)
+func DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
+	v := DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -654,23 +654,23 @@ func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregat
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum",
+		Enum:  "DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum.
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum string
+// The enum DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum.
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum string
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum with the value of string s
+// DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
-	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(s)
+func DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
+	v := DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -681,23 +681,23 @@ func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregat
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum",
+		Enum:  "DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum.
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum string
+// The enum DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum.
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum string
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum with the value of string s
+// DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
-	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(s)
+func DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
+	v := DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -708,23 +708,23 @@ func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum",
+		Enum:  "DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum.
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum string
+// The enum DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum.
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum string
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum with the value of string s
+// DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef returns a *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
-	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(s)
+func DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
+	v := DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -735,23 +735,23 @@ func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFil
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum",
+		Enum:  "DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum.
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum string
+// The enum DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum.
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum string
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum with the value of string s
+// DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef returns a *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
-	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(s)
+func DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef(s string) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
+	v := DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -762,23 +762,23 @@ func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAgg
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum",
+		Enum:  "DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum.
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum string
+// The enum DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum.
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum string
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum with the value of string s
+// DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef returns a *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
-	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(s)
+func DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef(s string) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
+	v := DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -789,23 +789,23 @@ func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAgg
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum",
+		Enum:  "DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum.
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum string
+// The enum DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum.
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum string
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum with the value of string s
+// DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef returns a *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
-	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(s)
+func DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef(s string) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
+	v := DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -816,23 +816,23 @@ func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorA
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum",
+		Enum:  "DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum.
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum string
+// The enum DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum.
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum string
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum with the value of string s
+// DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef returns a *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
-	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(s)
+func DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef(s string) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
+	v := DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -843,23 +843,23 @@ func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorA
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum",
+		Enum:  "DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum.
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum string
+// The enum DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum.
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum string
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum with the value of string s
+// DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
-	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(s)
+func DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
+	v := DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -870,23 +870,23 @@ func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAgg
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum",
+		Enum:  "DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum.
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum string
+// The enum DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum.
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum string
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum with the value of string s
+// DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
-	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(s)
+func DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
+	v := DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -897,23 +897,23 @@ func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAgg
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum",
+		Enum:  "DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum.
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum string
+// The enum DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum.
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum string
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum with the value of string s
+// DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
-	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(s)
+func DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
+	v := DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -924,23 +924,23 @@ func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeri
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum",
+		Enum:  "DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum.
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum string
+// The enum DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum.
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum string
 
-// DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef returns a *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum with the value of string s
+// DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef returns a *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
-	v := DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(s)
+func DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
+	v := DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -951,23 +951,23 @@ func (v DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeri
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum",
+		Enum:  "DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum.
-type DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum string
+// The enum DashboardGridLayoutWidgetsScorecardSparkChartViewSparkChartTypeEnum.
+type DashboardGridLayoutWidgetsScorecardSparkChartViewSparkChartTypeEnum string
 
-// DashboardWidgetScorecardSparkChartViewSparkChartTypeEnumRef returns a *DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum with the value of string s
+// DashboardGridLayoutWidgetsScorecardSparkChartViewSparkChartTypeEnumRef returns a *DashboardGridLayoutWidgetsScorecardSparkChartViewSparkChartTypeEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetScorecardSparkChartViewSparkChartTypeEnumRef(s string) *DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum {
-	v := DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum(s)
+func DashboardGridLayoutWidgetsScorecardSparkChartViewSparkChartTypeEnumRef(s string) *DashboardGridLayoutWidgetsScorecardSparkChartViewSparkChartTypeEnum {
+	v := DashboardGridLayoutWidgetsScorecardSparkChartViewSparkChartTypeEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsScorecardSparkChartViewSparkChartTypeEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -978,23 +978,23 @@ func (v DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum) Validate() err
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum",
+		Enum:  "DashboardGridLayoutWidgetsScorecardSparkChartViewSparkChartTypeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetScorecardThresholdsColorEnum.
-type DashboardWidgetScorecardThresholdsColorEnum string
+// The enum DashboardGridLayoutWidgetsScorecardThresholdsColorEnum.
+type DashboardGridLayoutWidgetsScorecardThresholdsColorEnum string
 
-// DashboardWidgetScorecardThresholdsColorEnumRef returns a *DashboardWidgetScorecardThresholdsColorEnum with the value of string s
+// DashboardGridLayoutWidgetsScorecardThresholdsColorEnumRef returns a *DashboardGridLayoutWidgetsScorecardThresholdsColorEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetScorecardThresholdsColorEnumRef(s string) *DashboardWidgetScorecardThresholdsColorEnum {
-	v := DashboardWidgetScorecardThresholdsColorEnum(s)
+func DashboardGridLayoutWidgetsScorecardThresholdsColorEnumRef(s string) *DashboardGridLayoutWidgetsScorecardThresholdsColorEnum {
+	v := DashboardGridLayoutWidgetsScorecardThresholdsColorEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetScorecardThresholdsColorEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsScorecardThresholdsColorEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -1005,23 +1005,23 @@ func (v DashboardWidgetScorecardThresholdsColorEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetScorecardThresholdsColorEnum",
+		Enum:  "DashboardGridLayoutWidgetsScorecardThresholdsColorEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetScorecardThresholdsDirectionEnum.
-type DashboardWidgetScorecardThresholdsDirectionEnum string
+// The enum DashboardGridLayoutWidgetsScorecardThresholdsDirectionEnum.
+type DashboardGridLayoutWidgetsScorecardThresholdsDirectionEnum string
 
-// DashboardWidgetScorecardThresholdsDirectionEnumRef returns a *DashboardWidgetScorecardThresholdsDirectionEnum with the value of string s
+// DashboardGridLayoutWidgetsScorecardThresholdsDirectionEnumRef returns a *DashboardGridLayoutWidgetsScorecardThresholdsDirectionEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetScorecardThresholdsDirectionEnumRef(s string) *DashboardWidgetScorecardThresholdsDirectionEnum {
-	v := DashboardWidgetScorecardThresholdsDirectionEnum(s)
+func DashboardGridLayoutWidgetsScorecardThresholdsDirectionEnumRef(s string) *DashboardGridLayoutWidgetsScorecardThresholdsDirectionEnum {
+	v := DashboardGridLayoutWidgetsScorecardThresholdsDirectionEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetScorecardThresholdsDirectionEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsScorecardThresholdsDirectionEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -1032,23 +1032,23 @@ func (v DashboardWidgetScorecardThresholdsDirectionEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetScorecardThresholdsDirectionEnum",
+		Enum:  "DashboardGridLayoutWidgetsScorecardThresholdsDirectionEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum DashboardWidgetTextFormatEnum.
-type DashboardWidgetTextFormatEnum string
+// The enum DashboardGridLayoutWidgetsTextFormatEnum.
+type DashboardGridLayoutWidgetsTextFormatEnum string
 
-// DashboardWidgetTextFormatEnumRef returns a *DashboardWidgetTextFormatEnum with the value of string s
+// DashboardGridLayoutWidgetsTextFormatEnumRef returns a *DashboardGridLayoutWidgetsTextFormatEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func DashboardWidgetTextFormatEnumRef(s string) *DashboardWidgetTextFormatEnum {
-	v := DashboardWidgetTextFormatEnum(s)
+func DashboardGridLayoutWidgetsTextFormatEnumRef(s string) *DashboardGridLayoutWidgetsTextFormatEnum {
+	v := DashboardGridLayoutWidgetsTextFormatEnum(s)
 	return &v
 }
 
-func (v DashboardWidgetTextFormatEnum) Validate() error {
+func (v DashboardGridLayoutWidgetsTextFormatEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -1059,16 +1059,3094 @@ func (v DashboardWidgetTextFormatEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "DashboardWidgetTextFormatEnum",
+		Enum:  "DashboardGridLayoutWidgetsTextFormatEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"METHOD_UNSPECIFIED", "METHOD_MEAN", "METHOD_MAX", "METHOD_MIN", "METHOD_SUM", "METHOD_LATEST"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECTION_UNSPECIFIED", "TOP", "BOTTOM"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"METHOD_UNSPECIFIED", "METHOD_MEAN", "METHOD_MAX", "METHOD_MIN", "METHOD_SUM", "METHOD_LATEST"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECTION_UNSPECIFIED", "TOP", "BOTTOM"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartDataSetsPlotTypeEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsPlotTypeEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartDataSetsPlotTypeEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartDataSetsPlotTypeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartDataSetsPlotTypeEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartDataSetsPlotTypeEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartDataSetsPlotTypeEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartDataSetsPlotTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"PLOT_TYPE_UNSPECIFIED", "LINE", "STACKED_AREA", "STACKED_BAR", "HEATMAP"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartDataSetsPlotTypeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartThresholdsColorEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartThresholdsColorEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartThresholdsColorEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartThresholdsColorEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartThresholdsColorEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartThresholdsColorEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartThresholdsColorEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartThresholdsColorEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"COLOR_UNSPECIFIED", "GREY", "BLUE", "GREEN", "YELLOW", "ORANGE", "RED"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartThresholdsColorEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartThresholdsDirectionEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartThresholdsDirectionEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartThresholdsDirectionEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartThresholdsDirectionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartThresholdsDirectionEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartThresholdsDirectionEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartThresholdsDirectionEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartThresholdsDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECTION_UNSPECIFIED", "ABOVE", "BELOW"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartThresholdsDirectionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartXAxisScaleEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartXAxisScaleEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartXAxisScaleEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartXAxisScaleEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartXAxisScaleEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartXAxisScaleEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartXAxisScaleEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartXAxisScaleEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"SCALE_UNSPECIFIED", "LINEAR", "LOG10"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartXAxisScaleEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartYAxisScaleEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartYAxisScaleEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartYAxisScaleEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartYAxisScaleEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartYAxisScaleEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartYAxisScaleEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartYAxisScaleEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartYAxisScaleEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"SCALE_UNSPECIFIED", "LINEAR", "LOG10"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartYAxisScaleEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetXyChartChartOptionsModeEnum.
+type DashboardMosaicLayoutTilesWidgetXyChartChartOptionsModeEnum string
+
+// DashboardMosaicLayoutTilesWidgetXyChartChartOptionsModeEnumRef returns a *DashboardMosaicLayoutTilesWidgetXyChartChartOptionsModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetXyChartChartOptionsModeEnumRef(s string) *DashboardMosaicLayoutTilesWidgetXyChartChartOptionsModeEnum {
+	v := DashboardMosaicLayoutTilesWidgetXyChartChartOptionsModeEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetXyChartChartOptionsModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"MODE_UNSPECIFIED", "COLOR", "X_RAY", "STATS"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetXyChartChartOptionsModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum.
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum string
+
+// DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef returns a *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
+	v := DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum.
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum string
+
+// DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef returns a *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
+	v := DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum.
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum string
+
+// DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
+	v := DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum.
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum string
+
+// DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
+	v := DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum.
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum string
+
+// DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
+	v := DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"METHOD_UNSPECIFIED", "METHOD_MEAN", "METHOD_MAX", "METHOD_MIN", "METHOD_SUM", "METHOD_LATEST"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum.
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum string
+
+// DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef returns a *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
+	v := DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECTION_UNSPECIFIED", "TOP", "BOTTOM"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum.
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum string
+
+// DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef returns a *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
+	v := DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum.
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum string
+
+// DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef returns a *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
+	v := DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum.
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum string
+
+// DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef returns a *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
+	v := DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum.
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum string
+
+// DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef returns a *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
+	v := DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum.
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum string
+
+// DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
+	v := DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum.
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum string
+
+// DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
+	v := DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum.
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum string
+
+// DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
+	v := DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"METHOD_UNSPECIFIED", "METHOD_MEAN", "METHOD_MAX", "METHOD_MIN", "METHOD_SUM", "METHOD_LATEST"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum.
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum string
+
+// DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef returns a *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
+	v := DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECTION_UNSPECIFIED", "TOP", "BOTTOM"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetScorecardSparkChartViewSparkChartTypeEnum.
+type DashboardMosaicLayoutTilesWidgetScorecardSparkChartViewSparkChartTypeEnum string
+
+// DashboardMosaicLayoutTilesWidgetScorecardSparkChartViewSparkChartTypeEnumRef returns a *DashboardMosaicLayoutTilesWidgetScorecardSparkChartViewSparkChartTypeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetScorecardSparkChartViewSparkChartTypeEnumRef(s string) *DashboardMosaicLayoutTilesWidgetScorecardSparkChartViewSparkChartTypeEnum {
+	v := DashboardMosaicLayoutTilesWidgetScorecardSparkChartViewSparkChartTypeEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetScorecardSparkChartViewSparkChartTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"SPARK_CHART_TYPE_UNSPECIFIED", "SPARK_LINE", "SPARK_BAR"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetScorecardSparkChartViewSparkChartTypeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetScorecardThresholdsColorEnum.
+type DashboardMosaicLayoutTilesWidgetScorecardThresholdsColorEnum string
+
+// DashboardMosaicLayoutTilesWidgetScorecardThresholdsColorEnumRef returns a *DashboardMosaicLayoutTilesWidgetScorecardThresholdsColorEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetScorecardThresholdsColorEnumRef(s string) *DashboardMosaicLayoutTilesWidgetScorecardThresholdsColorEnum {
+	v := DashboardMosaicLayoutTilesWidgetScorecardThresholdsColorEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetScorecardThresholdsColorEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"COLOR_UNSPECIFIED", "GREY", "BLUE", "GREEN", "YELLOW", "ORANGE", "RED"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetScorecardThresholdsColorEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetScorecardThresholdsDirectionEnum.
+type DashboardMosaicLayoutTilesWidgetScorecardThresholdsDirectionEnum string
+
+// DashboardMosaicLayoutTilesWidgetScorecardThresholdsDirectionEnumRef returns a *DashboardMosaicLayoutTilesWidgetScorecardThresholdsDirectionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetScorecardThresholdsDirectionEnumRef(s string) *DashboardMosaicLayoutTilesWidgetScorecardThresholdsDirectionEnum {
+	v := DashboardMosaicLayoutTilesWidgetScorecardThresholdsDirectionEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetScorecardThresholdsDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECTION_UNSPECIFIED", "ABOVE", "BELOW"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetScorecardThresholdsDirectionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardMosaicLayoutTilesWidgetTextFormatEnum.
+type DashboardMosaicLayoutTilesWidgetTextFormatEnum string
+
+// DashboardMosaicLayoutTilesWidgetTextFormatEnumRef returns a *DashboardMosaicLayoutTilesWidgetTextFormatEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardMosaicLayoutTilesWidgetTextFormatEnumRef(s string) *DashboardMosaicLayoutTilesWidgetTextFormatEnum {
+	v := DashboardMosaicLayoutTilesWidgetTextFormatEnum(s)
+	return &v
+}
+
+func (v DashboardMosaicLayoutTilesWidgetTextFormatEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"FORMAT_UNSPECIFIED", "MARKDOWN", "RAW"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardMosaicLayoutTilesWidgetTextFormatEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum.
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum.
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum.
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum.
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum.
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"METHOD_UNSPECIFIED", "METHOD_MEAN", "METHOD_MAX", "METHOD_MIN", "METHOD_SUM", "METHOD_LATEST"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum.
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECTION_UNSPECIFIED", "TOP", "BOTTOM"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum.
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum.
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum.
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum.
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum.
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum.
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum.
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"METHOD_UNSPECIFIED", "METHOD_MEAN", "METHOD_MAX", "METHOD_MIN", "METHOD_SUM", "METHOD_LATEST"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum.
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECTION_UNSPECIFIED", "TOP", "BOTTOM"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartDataSetsPlotTypeEnum.
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsPlotTypeEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartDataSetsPlotTypeEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartDataSetsPlotTypeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartDataSetsPlotTypeEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartDataSetsPlotTypeEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartDataSetsPlotTypeEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartDataSetsPlotTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"PLOT_TYPE_UNSPECIFIED", "LINE", "STACKED_AREA", "STACKED_BAR", "HEATMAP"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartDataSetsPlotTypeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartThresholdsColorEnum.
+type DashboardRowLayoutRowsWidgetsXyChartThresholdsColorEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartThresholdsColorEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartThresholdsColorEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartThresholdsColorEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartThresholdsColorEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartThresholdsColorEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartThresholdsColorEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"COLOR_UNSPECIFIED", "GREY", "BLUE", "GREEN", "YELLOW", "ORANGE", "RED"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartThresholdsColorEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartThresholdsDirectionEnum.
+type DashboardRowLayoutRowsWidgetsXyChartThresholdsDirectionEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartThresholdsDirectionEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartThresholdsDirectionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartThresholdsDirectionEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartThresholdsDirectionEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartThresholdsDirectionEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartThresholdsDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECTION_UNSPECIFIED", "ABOVE", "BELOW"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartThresholdsDirectionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartXAxisScaleEnum.
+type DashboardRowLayoutRowsWidgetsXyChartXAxisScaleEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartXAxisScaleEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartXAxisScaleEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartXAxisScaleEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartXAxisScaleEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartXAxisScaleEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartXAxisScaleEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"SCALE_UNSPECIFIED", "LINEAR", "LOG10"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartXAxisScaleEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartYAxisScaleEnum.
+type DashboardRowLayoutRowsWidgetsXyChartYAxisScaleEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartYAxisScaleEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartYAxisScaleEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartYAxisScaleEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartYAxisScaleEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartYAxisScaleEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartYAxisScaleEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"SCALE_UNSPECIFIED", "LINEAR", "LOG10"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartYAxisScaleEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsXyChartChartOptionsModeEnum.
+type DashboardRowLayoutRowsWidgetsXyChartChartOptionsModeEnum string
+
+// DashboardRowLayoutRowsWidgetsXyChartChartOptionsModeEnumRef returns a *DashboardRowLayoutRowsWidgetsXyChartChartOptionsModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsXyChartChartOptionsModeEnumRef(s string) *DashboardRowLayoutRowsWidgetsXyChartChartOptionsModeEnum {
+	v := DashboardRowLayoutRowsWidgetsXyChartChartOptionsModeEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsXyChartChartOptionsModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"MODE_UNSPECIFIED", "COLOR", "X_RAY", "STATS"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsXyChartChartOptionsModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum.
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum string
+
+// DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef returns a *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef(s string) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
+	v := DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum.
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum string
+
+// DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef returns a *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef(s string) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
+	v := DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum.
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum string
+
+// DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
+	v := DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum.
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum string
+
+// DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
+	v := DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum.
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum string
+
+// DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
+	v := DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"METHOD_UNSPECIFIED", "METHOD_MEAN", "METHOD_MAX", "METHOD_MIN", "METHOD_SUM", "METHOD_LATEST"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum.
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum string
+
+// DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef returns a *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
+	v := DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECTION_UNSPECIFIED", "TOP", "BOTTOM"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum.
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum string
+
+// DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef returns a *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef(s string) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
+	v := DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum.
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum string
+
+// DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef returns a *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef(s string) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
+	v := DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum.
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum string
+
+// DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef returns a *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef(s string) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
+	v := DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum.
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum string
+
+// DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef returns a *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef(s string) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
+	v := DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum.
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum string
+
+// DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
+	v := DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum.
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum string
+
+// DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
+	v := DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum.
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum string
+
+// DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
+	v := DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"METHOD_UNSPECIFIED", "METHOD_MEAN", "METHOD_MAX", "METHOD_MIN", "METHOD_SUM", "METHOD_LATEST"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum.
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum string
+
+// DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef returns a *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
+	v := DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECTION_UNSPECIFIED", "TOP", "BOTTOM"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsScorecardSparkChartViewSparkChartTypeEnum.
+type DashboardRowLayoutRowsWidgetsScorecardSparkChartViewSparkChartTypeEnum string
+
+// DashboardRowLayoutRowsWidgetsScorecardSparkChartViewSparkChartTypeEnumRef returns a *DashboardRowLayoutRowsWidgetsScorecardSparkChartViewSparkChartTypeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsScorecardSparkChartViewSparkChartTypeEnumRef(s string) *DashboardRowLayoutRowsWidgetsScorecardSparkChartViewSparkChartTypeEnum {
+	v := DashboardRowLayoutRowsWidgetsScorecardSparkChartViewSparkChartTypeEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsScorecardSparkChartViewSparkChartTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"SPARK_CHART_TYPE_UNSPECIFIED", "SPARK_LINE", "SPARK_BAR"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsScorecardSparkChartViewSparkChartTypeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsScorecardThresholdsColorEnum.
+type DashboardRowLayoutRowsWidgetsScorecardThresholdsColorEnum string
+
+// DashboardRowLayoutRowsWidgetsScorecardThresholdsColorEnumRef returns a *DashboardRowLayoutRowsWidgetsScorecardThresholdsColorEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsScorecardThresholdsColorEnumRef(s string) *DashboardRowLayoutRowsWidgetsScorecardThresholdsColorEnum {
+	v := DashboardRowLayoutRowsWidgetsScorecardThresholdsColorEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsScorecardThresholdsColorEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"COLOR_UNSPECIFIED", "GREY", "BLUE", "GREEN", "YELLOW", "ORANGE", "RED"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsScorecardThresholdsColorEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsScorecardThresholdsDirectionEnum.
+type DashboardRowLayoutRowsWidgetsScorecardThresholdsDirectionEnum string
+
+// DashboardRowLayoutRowsWidgetsScorecardThresholdsDirectionEnumRef returns a *DashboardRowLayoutRowsWidgetsScorecardThresholdsDirectionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsScorecardThresholdsDirectionEnumRef(s string) *DashboardRowLayoutRowsWidgetsScorecardThresholdsDirectionEnum {
+	v := DashboardRowLayoutRowsWidgetsScorecardThresholdsDirectionEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsScorecardThresholdsDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECTION_UNSPECIFIED", "ABOVE", "BELOW"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsScorecardThresholdsDirectionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardRowLayoutRowsWidgetsTextFormatEnum.
+type DashboardRowLayoutRowsWidgetsTextFormatEnum string
+
+// DashboardRowLayoutRowsWidgetsTextFormatEnumRef returns a *DashboardRowLayoutRowsWidgetsTextFormatEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardRowLayoutRowsWidgetsTextFormatEnumRef(s string) *DashboardRowLayoutRowsWidgetsTextFormatEnum {
+	v := DashboardRowLayoutRowsWidgetsTextFormatEnum(s)
+	return &v
+}
+
+func (v DashboardRowLayoutRowsWidgetsTextFormatEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"FORMAT_UNSPECIFIED", "MARKDOWN", "RAW"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardRowLayoutRowsWidgetsTextFormatEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"METHOD_UNSPECIFIED", "METHOD_MEAN", "METHOD_MAX", "METHOD_MIN", "METHOD_SUM", "METHOD_LATEST"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECTION_UNSPECIFIED", "TOP", "BOTTOM"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"METHOD_UNSPECIFIED", "METHOD_MEAN", "METHOD_MAX", "METHOD_MIN", "METHOD_SUM", "METHOD_LATEST"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECTION_UNSPECIFIED", "TOP", "BOTTOM"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartDataSetsPlotTypeEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsPlotTypeEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartDataSetsPlotTypeEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsPlotTypeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartDataSetsPlotTypeEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsPlotTypeEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartDataSetsPlotTypeEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartDataSetsPlotTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"PLOT_TYPE_UNSPECIFIED", "LINE", "STACKED_AREA", "STACKED_BAR", "HEATMAP"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartDataSetsPlotTypeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartThresholdsColorEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartThresholdsColorEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartThresholdsColorEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartThresholdsColorEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartThresholdsColorEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartThresholdsColorEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartThresholdsColorEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartThresholdsColorEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"COLOR_UNSPECIFIED", "GREY", "BLUE", "GREEN", "YELLOW", "ORANGE", "RED"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartThresholdsColorEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartThresholdsDirectionEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartThresholdsDirectionEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartThresholdsDirectionEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartThresholdsDirectionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartThresholdsDirectionEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartThresholdsDirectionEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartThresholdsDirectionEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartThresholdsDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECTION_UNSPECIFIED", "ABOVE", "BELOW"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartThresholdsDirectionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartXAxisScaleEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartXAxisScaleEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartXAxisScaleEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartXAxisScaleEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartXAxisScaleEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartXAxisScaleEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartXAxisScaleEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartXAxisScaleEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"SCALE_UNSPECIFIED", "LINEAR", "LOG10"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartXAxisScaleEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartYAxisScaleEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartYAxisScaleEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartYAxisScaleEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartYAxisScaleEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartYAxisScaleEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartYAxisScaleEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartYAxisScaleEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartYAxisScaleEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"SCALE_UNSPECIFIED", "LINEAR", "LOG10"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartYAxisScaleEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsXyChartChartOptionsModeEnum.
+type DashboardColumnLayoutColumnsWidgetsXyChartChartOptionsModeEnum string
+
+// DashboardColumnLayoutColumnsWidgetsXyChartChartOptionsModeEnumRef returns a *DashboardColumnLayoutColumnsWidgetsXyChartChartOptionsModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsXyChartChartOptionsModeEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsXyChartChartOptionsModeEnum {
+	v := DashboardColumnLayoutColumnsWidgetsXyChartChartOptionsModeEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsXyChartChartOptionsModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"MODE_UNSPECIFIED", "COLOR", "X_RAY", "STATS"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsXyChartChartOptionsModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum.
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum.
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum.
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum.
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum.
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum string
+
+// DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum {
+	v := DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"METHOD_UNSPECIFIED", "METHOD_MEAN", "METHOD_MAX", "METHOD_MIN", "METHOD_SUM", "METHOD_LATEST"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum.
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum string
+
+// DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef returns a *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum {
+	v := DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECTION_UNSPECIFIED", "TOP", "BOTTOM"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum.
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum.
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum.
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum.
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum.
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALIGN_NONE", "ALIGN_DELTA", "ALIGN_RATE", "ALIGN_INTERPOLATE", "ALIGN_NEXT_OLDER", "ALIGN_MIN", "ALIGN_MAX", "ALIGN_MEAN", "ALIGN_COUNT", "ALIGN_SUM", "ALIGN_STDDEV", "ALIGN_COUNT_TRUE", "ALIGN_COUNT_FALSE", "ALIGN_FRACTION_TRUE", "ALIGN_PERCENTILE_99", "ALIGN_PERCENTILE_95", "ALIGN_PERCENTILE_50", "ALIGN_PERCENTILE_05", "ALIGN_MAKE_DISTRIBUTION", "ALIGN_PERCENT_CHANGE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum.
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum string
+
+// DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef returns a *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum {
+	v := DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"REDUCE_NONE", "REDUCE_MEAN", "REDUCE_MIN", "REDUCE_MAX", "REDUCE_SUM", "REDUCE_STDDEV", "REDUCE_COUNT", "REDUCE_COUNT_TRUE", "REDUCE_COUNT_FALSE", "REDUCE_FRACTION_TRUE", "REDUCE_PERCENTILE_99", "REDUCE_PERCENTILE_95", "REDUCE_PERCENTILE_50", "REDUCE_PERCENTILE_05", "REDUCE_FRACTION_LESS_THAN", "REDUCE_MAKE_DISTRIBUTION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum.
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum string
+
+// DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef returns a *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum {
+	v := DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"METHOD_UNSPECIFIED", "METHOD_MEAN", "METHOD_MAX", "METHOD_MIN", "METHOD_SUM", "METHOD_LATEST"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum.
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum string
+
+// DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef returns a *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum {
+	v := DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECTION_UNSPECIFIED", "TOP", "BOTTOM"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsScorecardSparkChartViewSparkChartTypeEnum.
+type DashboardColumnLayoutColumnsWidgetsScorecardSparkChartViewSparkChartTypeEnum string
+
+// DashboardColumnLayoutColumnsWidgetsScorecardSparkChartViewSparkChartTypeEnumRef returns a *DashboardColumnLayoutColumnsWidgetsScorecardSparkChartViewSparkChartTypeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsScorecardSparkChartViewSparkChartTypeEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsScorecardSparkChartViewSparkChartTypeEnum {
+	v := DashboardColumnLayoutColumnsWidgetsScorecardSparkChartViewSparkChartTypeEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsScorecardSparkChartViewSparkChartTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"SPARK_CHART_TYPE_UNSPECIFIED", "SPARK_LINE", "SPARK_BAR"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsScorecardSparkChartViewSparkChartTypeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsScorecardThresholdsColorEnum.
+type DashboardColumnLayoutColumnsWidgetsScorecardThresholdsColorEnum string
+
+// DashboardColumnLayoutColumnsWidgetsScorecardThresholdsColorEnumRef returns a *DashboardColumnLayoutColumnsWidgetsScorecardThresholdsColorEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsScorecardThresholdsColorEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsScorecardThresholdsColorEnum {
+	v := DashboardColumnLayoutColumnsWidgetsScorecardThresholdsColorEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsScorecardThresholdsColorEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"COLOR_UNSPECIFIED", "GREY", "BLUE", "GREEN", "YELLOW", "ORANGE", "RED"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsScorecardThresholdsColorEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsScorecardThresholdsDirectionEnum.
+type DashboardColumnLayoutColumnsWidgetsScorecardThresholdsDirectionEnum string
+
+// DashboardColumnLayoutColumnsWidgetsScorecardThresholdsDirectionEnumRef returns a *DashboardColumnLayoutColumnsWidgetsScorecardThresholdsDirectionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsScorecardThresholdsDirectionEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsScorecardThresholdsDirectionEnum {
+	v := DashboardColumnLayoutColumnsWidgetsScorecardThresholdsDirectionEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsScorecardThresholdsDirectionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECTION_UNSPECIFIED", "ABOVE", "BELOW"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsScorecardThresholdsDirectionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum DashboardColumnLayoutColumnsWidgetsTextFormatEnum.
+type DashboardColumnLayoutColumnsWidgetsTextFormatEnum string
+
+// DashboardColumnLayoutColumnsWidgetsTextFormatEnumRef returns a *DashboardColumnLayoutColumnsWidgetsTextFormatEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func DashboardColumnLayoutColumnsWidgetsTextFormatEnumRef(s string) *DashboardColumnLayoutColumnsWidgetsTextFormatEnum {
+	v := DashboardColumnLayoutColumnsWidgetsTextFormatEnum(s)
+	return &v
+}
+
+func (v DashboardColumnLayoutColumnsWidgetsTextFormatEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"FORMAT_UNSPECIFIED", "MARKDOWN", "RAW"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "DashboardColumnLayoutColumnsWidgetsTextFormatEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
 type DashboardGridLayout struct {
-	empty   bool              `json:"-"`
-	Columns *int64            `json:"columns"`
-	Widgets []DashboardWidget `json:"widgets"`
+	empty   bool                         `json:"-"`
+	Columns *int64                       `json:"columns"`
+	Widgets []DashboardGridLayoutWidgets `json:"widgets"`
 }
 
 type jsonDashboardGridLayout DashboardGridLayout
@@ -1108,6 +4186,1963 @@ func (r *DashboardGridLayout) String() string {
 }
 
 func (r *DashboardGridLayout) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgets struct {
+	empty     bool                                 `json:"-"`
+	Title     *string                              `json:"title"`
+	XyChart   *DashboardGridLayoutWidgetsXyChart   `json:"xyChart"`
+	Scorecard *DashboardGridLayoutWidgetsScorecard `json:"scorecard"`
+	Text      *DashboardGridLayoutWidgetsText      `json:"text"`
+	Blank     *DashboardGridLayoutWidgetsBlank     `json:"blank"`
+}
+
+type jsonDashboardGridLayoutWidgets DashboardGridLayoutWidgets
+
+func (r *DashboardGridLayoutWidgets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgets
+	} else {
+
+		r.Title = res.Title
+
+		r.XyChart = res.XyChart
+
+		r.Scorecard = res.Scorecard
+
+		r.Text = res.Text
+
+		r.Blank = res.Blank
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgets is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgets *DashboardGridLayoutWidgets = &DashboardGridLayoutWidgets{empty: true}
+
+func (r *DashboardGridLayoutWidgets) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgets) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgets) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsXyChart struct {
+	empty             bool                                           `json:"-"`
+	DataSets          []DashboardGridLayoutWidgetsXyChartDataSets    `json:"dataSets"`
+	TimeshiftDuration *string                                        `json:"timeshiftDuration"`
+	Thresholds        []DashboardGridLayoutWidgetsXyChartThresholds  `json:"thresholds"`
+	XAxis             *DashboardGridLayoutWidgetsXyChartXAxis        `json:"xAxis"`
+	YAxis             *DashboardGridLayoutWidgetsXyChartYAxis        `json:"yAxis"`
+	ChartOptions      *DashboardGridLayoutWidgetsXyChartChartOptions `json:"chartOptions"`
+}
+
+type jsonDashboardGridLayoutWidgetsXyChart DashboardGridLayoutWidgetsXyChart
+
+func (r *DashboardGridLayoutWidgetsXyChart) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsXyChart
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsXyChart
+	} else {
+
+		r.DataSets = res.DataSets
+
+		r.TimeshiftDuration = res.TimeshiftDuration
+
+		r.Thresholds = res.Thresholds
+
+		r.XAxis = res.XAxis
+
+		r.YAxis = res.YAxis
+
+		r.ChartOptions = res.ChartOptions
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsXyChart is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsXyChart *DashboardGridLayoutWidgetsXyChart = &DashboardGridLayoutWidgetsXyChart{empty: true}
+
+func (r *DashboardGridLayoutWidgetsXyChart) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsXyChart) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsXyChart) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsXyChartDataSets struct {
+	empty              bool                                                      `json:"-"`
+	TimeSeriesQuery    *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery `json:"timeSeriesQuery"`
+	PlotType           *DashboardGridLayoutWidgetsXyChartDataSetsPlotTypeEnum    `json:"plotType"`
+	LegendTemplate     *string                                                   `json:"legendTemplate"`
+	MinAlignmentPeriod *string                                                   `json:"minAlignmentPeriod"`
+}
+
+type jsonDashboardGridLayoutWidgetsXyChartDataSets DashboardGridLayoutWidgetsXyChartDataSets
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsXyChartDataSets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsXyChartDataSets
+	} else {
+
+		r.TimeSeriesQuery = res.TimeSeriesQuery
+
+		r.PlotType = res.PlotType
+
+		r.LegendTemplate = res.LegendTemplate
+
+		r.MinAlignmentPeriod = res.MinAlignmentPeriod
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsXyChartDataSets is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsXyChartDataSets *DashboardGridLayoutWidgetsXyChartDataSets = &DashboardGridLayoutWidgetsXyChartDataSets{empty: true}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSets) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSets) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSets) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery struct {
+	empty                   bool                                                                           `json:"-"`
+	TimeSeriesFilter        *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter      `json:"timeSeriesFilter"`
+	TimeSeriesFilterRatio   *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio `json:"timeSeriesFilterRatio"`
+	TimeSeriesQueryLanguage *string                                                                        `json:"timeSeriesQueryLanguage"`
+	UnitOverride            *string                                                                        `json:"unitOverride"`
+}
+
+type jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery
+	} else {
+
+		r.TimeSeriesFilter = res.TimeSeriesFilter
+
+		r.TimeSeriesFilterRatio = res.TimeSeriesFilterRatio
+
+		r.TimeSeriesQueryLanguage = res.TimeSeriesQueryLanguage
+
+		r.UnitOverride = res.UnitOverride
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery = &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery{empty: true}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter struct {
+	empty                bool                                                                                          `json:"-"`
+	Filter               *string                                                                                       `json:"filter"`
+	Aggregation          *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation          `json:"aggregation"`
+	SecondaryAggregation *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation `json:"secondaryAggregation"`
+	PickTimeSeriesFilter *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
+}
+
+type jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+		r.SecondaryAggregation = res.SecondaryAggregation
+
+		r.PickTimeSeriesFilter = res.PickTimeSeriesFilter
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter = &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{empty: true}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation struct {
+	empty              bool                                                                                                       `json:"-"`
+	AlignmentPeriod    *string                                                                                                    `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                   `json:"groupByFields"`
+}
+
+type jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation = &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{empty: true}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation struct {
+	empty              bool                                                                                                                `json:"-"`
+	AlignmentPeriod    *string                                                                                                             `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                            `json:"groupByFields"`
+}
+
+type jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation = &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{empty: true}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter struct {
+	empty         bool                                                                                                           `json:"-"`
+	RankingMethod *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
+	NumTimeSeries *int64                                                                                                         `json:"numTimeSeries"`
+	Direction     *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+}
+
+type jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	} else {
+
+		r.RankingMethod = res.RankingMethod
+
+		r.NumTimeSeries = res.NumTimeSeries
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter = &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{empty: true}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio struct {
+	empty                bool                                                                                               `json:"-"`
+	Numerator            *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator            `json:"numerator"`
+	Denominator          *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator          `json:"denominator"`
+	SecondaryAggregation *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation `json:"secondaryAggregation"`
+	PickTimeSeriesFilter *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
+}
+
+type jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
+	} else {
+
+		r.Numerator = res.Numerator
+
+		r.Denominator = res.Denominator
+
+		r.SecondaryAggregation = res.SecondaryAggregation
+
+		r.PickTimeSeriesFilter = res.PickTimeSeriesFilter
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio = &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio{empty: true}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator struct {
+	empty       bool                                                                                               `json:"-"`
+	Filter      *string                                                                                            `json:"filter"`
+	Aggregation *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation `json:"aggregation"`
+}
+
+type jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator = &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{empty: true}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation struct {
+	empty              bool                                                                                                                     `json:"-"`
+	AlignmentPeriod    *string                                                                                                                  `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                 `json:"groupByFields"`
+}
+
+type jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation = &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{empty: true}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator struct {
+	empty       bool                                                                                                 `json:"-"`
+	Filter      *string                                                                                              `json:"filter"`
+	Aggregation *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation `json:"aggregation"`
+}
+
+type jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator = &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{empty: true}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation struct {
+	empty              bool                                                                                                                       `json:"-"`
+	AlignmentPeriod    *string                                                                                                                    `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                   `json:"groupByFields"`
+}
+
+type jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation = &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{empty: true}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation struct {
+	empty              bool                                                                                                                     `json:"-"`
+	AlignmentPeriod    *string                                                                                                                  `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                 `json:"groupByFields"`
+}
+
+type jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation = &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{empty: true}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter struct {
+	empty         bool                                                                                                                `json:"-"`
+	RankingMethod *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
+	NumTimeSeries *int64                                                                                                              `json:"numTimeSeries"`
+	Direction     *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+}
+
+type jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	} else {
+
+		r.RankingMethod = res.RankingMethod
+
+		r.NumTimeSeries = res.NumTimeSeries
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter = &DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{empty: true}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsXyChartThresholds struct {
+	empty     bool                                                      `json:"-"`
+	Label     *string                                                   `json:"label"`
+	Value     *float64                                                  `json:"value"`
+	Color     *DashboardGridLayoutWidgetsXyChartThresholdsColorEnum     `json:"color"`
+	Direction *DashboardGridLayoutWidgetsXyChartThresholdsDirectionEnum `json:"direction"`
+}
+
+type jsonDashboardGridLayoutWidgetsXyChartThresholds DashboardGridLayoutWidgetsXyChartThresholds
+
+func (r *DashboardGridLayoutWidgetsXyChartThresholds) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsXyChartThresholds
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsXyChartThresholds
+	} else {
+
+		r.Label = res.Label
+
+		r.Value = res.Value
+
+		r.Color = res.Color
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsXyChartThresholds is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsXyChartThresholds *DashboardGridLayoutWidgetsXyChartThresholds = &DashboardGridLayoutWidgetsXyChartThresholds{empty: true}
+
+func (r *DashboardGridLayoutWidgetsXyChartThresholds) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartThresholds) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartThresholds) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsXyChartXAxis struct {
+	empty bool                                             `json:"-"`
+	Label *string                                          `json:"label"`
+	Scale *DashboardGridLayoutWidgetsXyChartXAxisScaleEnum `json:"scale"`
+}
+
+type jsonDashboardGridLayoutWidgetsXyChartXAxis DashboardGridLayoutWidgetsXyChartXAxis
+
+func (r *DashboardGridLayoutWidgetsXyChartXAxis) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsXyChartXAxis
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsXyChartXAxis
+	} else {
+
+		r.Label = res.Label
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsXyChartXAxis is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsXyChartXAxis *DashboardGridLayoutWidgetsXyChartXAxis = &DashboardGridLayoutWidgetsXyChartXAxis{empty: true}
+
+func (r *DashboardGridLayoutWidgetsXyChartXAxis) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartXAxis) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartXAxis) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsXyChartYAxis struct {
+	empty bool                                             `json:"-"`
+	Label *string                                          `json:"label"`
+	Scale *DashboardGridLayoutWidgetsXyChartYAxisScaleEnum `json:"scale"`
+}
+
+type jsonDashboardGridLayoutWidgetsXyChartYAxis DashboardGridLayoutWidgetsXyChartYAxis
+
+func (r *DashboardGridLayoutWidgetsXyChartYAxis) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsXyChartYAxis
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsXyChartYAxis
+	} else {
+
+		r.Label = res.Label
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsXyChartYAxis is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsXyChartYAxis *DashboardGridLayoutWidgetsXyChartYAxis = &DashboardGridLayoutWidgetsXyChartYAxis{empty: true}
+
+func (r *DashboardGridLayoutWidgetsXyChartYAxis) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartYAxis) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartYAxis) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsXyChartChartOptions struct {
+	empty bool                                                   `json:"-"`
+	Mode  *DashboardGridLayoutWidgetsXyChartChartOptionsModeEnum `json:"mode"`
+}
+
+type jsonDashboardGridLayoutWidgetsXyChartChartOptions DashboardGridLayoutWidgetsXyChartChartOptions
+
+func (r *DashboardGridLayoutWidgetsXyChartChartOptions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsXyChartChartOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsXyChartChartOptions
+	} else {
+
+		r.Mode = res.Mode
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsXyChartChartOptions is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsXyChartChartOptions *DashboardGridLayoutWidgetsXyChartChartOptions = &DashboardGridLayoutWidgetsXyChartChartOptions{empty: true}
+
+func (r *DashboardGridLayoutWidgetsXyChartChartOptions) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartChartOptions) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsXyChartChartOptions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsScorecard struct {
+	empty           bool                                                `json:"-"`
+	TimeSeriesQuery *DashboardGridLayoutWidgetsScorecardTimeSeriesQuery `json:"timeSeriesQuery"`
+	GaugeView       *DashboardGridLayoutWidgetsScorecardGaugeView       `json:"gaugeView"`
+	SparkChartView  *DashboardGridLayoutWidgetsScorecardSparkChartView  `json:"sparkChartView"`
+	Thresholds      []DashboardGridLayoutWidgetsScorecardThresholds     `json:"thresholds"`
+}
+
+type jsonDashboardGridLayoutWidgetsScorecard DashboardGridLayoutWidgetsScorecard
+
+func (r *DashboardGridLayoutWidgetsScorecard) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsScorecard
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsScorecard
+	} else {
+
+		r.TimeSeriesQuery = res.TimeSeriesQuery
+
+		r.GaugeView = res.GaugeView
+
+		r.SparkChartView = res.SparkChartView
+
+		r.Thresholds = res.Thresholds
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsScorecard is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsScorecard *DashboardGridLayoutWidgetsScorecard = &DashboardGridLayoutWidgetsScorecard{empty: true}
+
+func (r *DashboardGridLayoutWidgetsScorecard) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsScorecard) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsScorecard) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQuery struct {
+	empty                   bool                                                                     `json:"-"`
+	TimeSeriesFilter        *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter      `json:"timeSeriesFilter"`
+	TimeSeriesFilterRatio   *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio `json:"timeSeriesFilterRatio"`
+	TimeSeriesQueryLanguage *string                                                                  `json:"timeSeriesQueryLanguage"`
+	UnitOverride            *string                                                                  `json:"unitOverride"`
+}
+
+type jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQuery DashboardGridLayoutWidgetsScorecardTimeSeriesQuery
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQuery) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQuery
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQuery
+	} else {
+
+		r.TimeSeriesFilter = res.TimeSeriesFilter
+
+		r.TimeSeriesFilterRatio = res.TimeSeriesFilterRatio
+
+		r.TimeSeriesQueryLanguage = res.TimeSeriesQueryLanguage
+
+		r.UnitOverride = res.UnitOverride
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsScorecardTimeSeriesQuery is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQuery *DashboardGridLayoutWidgetsScorecardTimeSeriesQuery = &DashboardGridLayoutWidgetsScorecardTimeSeriesQuery{empty: true}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQuery) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQuery) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQuery) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter struct {
+	empty                bool                                                                                    `json:"-"`
+	Filter               *string                                                                                 `json:"filter"`
+	Aggregation          *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation          `json:"aggregation"`
+	SecondaryAggregation *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation `json:"secondaryAggregation"`
+	PickTimeSeriesFilter *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
+}
+
+type jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+		r.SecondaryAggregation = res.SecondaryAggregation
+
+		r.PickTimeSeriesFilter = res.PickTimeSeriesFilter
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter = &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter{empty: true}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation struct {
+	empty              bool                                                                                                 `json:"-"`
+	AlignmentPeriod    *string                                                                                              `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                             `json:"groupByFields"`
+}
+
+type jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation = &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation{empty: true}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation struct {
+	empty              bool                                                                                                          `json:"-"`
+	AlignmentPeriod    *string                                                                                                       `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                      `json:"groupByFields"`
+}
+
+type jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation = &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{empty: true}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter struct {
+	empty         bool                                                                                                     `json:"-"`
+	RankingMethod *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
+	NumTimeSeries *int64                                                                                                   `json:"numTimeSeries"`
+	Direction     *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+}
+
+type jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	} else {
+
+		r.RankingMethod = res.RankingMethod
+
+		r.NumTimeSeries = res.NumTimeSeries
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter = &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{empty: true}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio struct {
+	empty                bool                                                                                         `json:"-"`
+	Numerator            *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator            `json:"numerator"`
+	Denominator          *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator          `json:"denominator"`
+	SecondaryAggregation *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation `json:"secondaryAggregation"`
+	PickTimeSeriesFilter *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
+}
+
+type jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
+	} else {
+
+		r.Numerator = res.Numerator
+
+		r.Denominator = res.Denominator
+
+		r.SecondaryAggregation = res.SecondaryAggregation
+
+		r.PickTimeSeriesFilter = res.PickTimeSeriesFilter
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio = &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio{empty: true}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator struct {
+	empty       bool                                                                                         `json:"-"`
+	Filter      *string                                                                                      `json:"filter"`
+	Aggregation *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation `json:"aggregation"`
+}
+
+type jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator = &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{empty: true}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation struct {
+	empty              bool                                                                                                               `json:"-"`
+	AlignmentPeriod    *string                                                                                                            `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                           `json:"groupByFields"`
+}
+
+type jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation = &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{empty: true}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator struct {
+	empty       bool                                                                                           `json:"-"`
+	Filter      *string                                                                                        `json:"filter"`
+	Aggregation *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation `json:"aggregation"`
+}
+
+type jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator = &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{empty: true}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation struct {
+	empty              bool                                                                                                                 `json:"-"`
+	AlignmentPeriod    *string                                                                                                              `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                             `json:"groupByFields"`
+}
+
+type jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation = &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{empty: true}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation struct {
+	empty              bool                                                                                                               `json:"-"`
+	AlignmentPeriod    *string                                                                                                            `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                           `json:"groupByFields"`
+}
+
+type jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation = &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{empty: true}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter struct {
+	empty         bool                                                                                                          `json:"-"`
+	RankingMethod *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
+	NumTimeSeries *int64                                                                                                        `json:"numTimeSeries"`
+	Direction     *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+}
+
+type jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	} else {
+
+		r.RankingMethod = res.RankingMethod
+
+		r.NumTimeSeries = res.NumTimeSeries
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter = &DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{empty: true}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsScorecardGaugeView struct {
+	empty      bool     `json:"-"`
+	LowerBound *float64 `json:"lowerBound"`
+	UpperBound *float64 `json:"upperBound"`
+}
+
+type jsonDashboardGridLayoutWidgetsScorecardGaugeView DashboardGridLayoutWidgetsScorecardGaugeView
+
+func (r *DashboardGridLayoutWidgetsScorecardGaugeView) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsScorecardGaugeView
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsScorecardGaugeView
+	} else {
+
+		r.LowerBound = res.LowerBound
+
+		r.UpperBound = res.UpperBound
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsScorecardGaugeView is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsScorecardGaugeView *DashboardGridLayoutWidgetsScorecardGaugeView = &DashboardGridLayoutWidgetsScorecardGaugeView{empty: true}
+
+func (r *DashboardGridLayoutWidgetsScorecardGaugeView) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardGaugeView) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardGaugeView) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsScorecardSparkChartView struct {
+	empty              bool                                                                 `json:"-"`
+	SparkChartType     *DashboardGridLayoutWidgetsScorecardSparkChartViewSparkChartTypeEnum `json:"sparkChartType"`
+	MinAlignmentPeriod *string                                                              `json:"minAlignmentPeriod"`
+}
+
+type jsonDashboardGridLayoutWidgetsScorecardSparkChartView DashboardGridLayoutWidgetsScorecardSparkChartView
+
+func (r *DashboardGridLayoutWidgetsScorecardSparkChartView) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsScorecardSparkChartView
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsScorecardSparkChartView
+	} else {
+
+		r.SparkChartType = res.SparkChartType
+
+		r.MinAlignmentPeriod = res.MinAlignmentPeriod
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsScorecardSparkChartView is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsScorecardSparkChartView *DashboardGridLayoutWidgetsScorecardSparkChartView = &DashboardGridLayoutWidgetsScorecardSparkChartView{empty: true}
+
+func (r *DashboardGridLayoutWidgetsScorecardSparkChartView) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardSparkChartView) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardSparkChartView) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsScorecardThresholds struct {
+	empty     bool                                                        `json:"-"`
+	Label     *string                                                     `json:"label"`
+	Value     *float64                                                    `json:"value"`
+	Color     *DashboardGridLayoutWidgetsScorecardThresholdsColorEnum     `json:"color"`
+	Direction *DashboardGridLayoutWidgetsScorecardThresholdsDirectionEnum `json:"direction"`
+}
+
+type jsonDashboardGridLayoutWidgetsScorecardThresholds DashboardGridLayoutWidgetsScorecardThresholds
+
+func (r *DashboardGridLayoutWidgetsScorecardThresholds) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsScorecardThresholds
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsScorecardThresholds
+	} else {
+
+		r.Label = res.Label
+
+		r.Value = res.Value
+
+		r.Color = res.Color
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsScorecardThresholds is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsScorecardThresholds *DashboardGridLayoutWidgetsScorecardThresholds = &DashboardGridLayoutWidgetsScorecardThresholds{empty: true}
+
+func (r *DashboardGridLayoutWidgetsScorecardThresholds) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardThresholds) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsScorecardThresholds) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsText struct {
+	empty   bool                                      `json:"-"`
+	Content *string                                   `json:"content"`
+	Format  *DashboardGridLayoutWidgetsTextFormatEnum `json:"format"`
+}
+
+type jsonDashboardGridLayoutWidgetsText DashboardGridLayoutWidgetsText
+
+func (r *DashboardGridLayoutWidgetsText) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsText
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsText
+	} else {
+
+		r.Content = res.Content
+
+		r.Format = res.Format
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsText is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsText *DashboardGridLayoutWidgetsText = &DashboardGridLayoutWidgetsText{empty: true}
+
+func (r *DashboardGridLayoutWidgetsText) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsText) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsText) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardGridLayoutWidgetsBlank struct {
+	empty bool `json:"-"`
+}
+
+type jsonDashboardGridLayoutWidgetsBlank DashboardGridLayoutWidgetsBlank
+
+func (r *DashboardGridLayoutWidgetsBlank) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsBlank
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsBlank
+	} else {
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsBlank is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsBlank *DashboardGridLayoutWidgetsBlank = &DashboardGridLayoutWidgetsBlank{empty: true}
+
+func (r *DashboardGridLayoutWidgetsBlank) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsBlank) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsBlank) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -1164,12 +6199,12 @@ func (r *DashboardMosaicLayout) HashCode() string {
 }
 
 type DashboardMosaicLayoutTiles struct {
-	empty  bool             `json:"-"`
-	XPos   *int64           `json:"xPos"`
-	YPos   *int64           `json:"yPos"`
-	Width  *int64           `json:"width"`
-	Height *int64           `json:"height"`
-	Widget *DashboardWidget `json:"widget"`
+	empty  bool                              `json:"-"`
+	XPos   *int64                            `json:"xPos"`
+	YPos   *int64                            `json:"yPos"`
+	Width  *int64                            `json:"width"`
+	Height *int64                            `json:"height"`
+	Widget *DashboardMosaicLayoutTilesWidget `json:"widget"`
 }
 
 type jsonDashboardMosaicLayoutTiles DashboardMosaicLayoutTiles
@@ -1215,6 +6250,1963 @@ func (r *DashboardMosaicLayoutTiles) String() string {
 }
 
 func (r *DashboardMosaicLayoutTiles) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidget struct {
+	empty     bool                                       `json:"-"`
+	Title     *string                                    `json:"title"`
+	XyChart   *DashboardMosaicLayoutTilesWidgetXyChart   `json:"xyChart"`
+	Scorecard *DashboardMosaicLayoutTilesWidgetScorecard `json:"scorecard"`
+	Text      *DashboardMosaicLayoutTilesWidgetText      `json:"text"`
+	Blank     *DashboardMosaicLayoutTilesWidgetBlank     `json:"blank"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidget DashboardMosaicLayoutTilesWidget
+
+func (r *DashboardMosaicLayoutTilesWidget) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidget
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidget
+	} else {
+
+		r.Title = res.Title
+
+		r.XyChart = res.XyChart
+
+		r.Scorecard = res.Scorecard
+
+		r.Text = res.Text
+
+		r.Blank = res.Blank
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidget is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidget *DashboardMosaicLayoutTilesWidget = &DashboardMosaicLayoutTilesWidget{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidget) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidget) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidget) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetXyChart struct {
+	empty             bool                                                 `json:"-"`
+	DataSets          []DashboardMosaicLayoutTilesWidgetXyChartDataSets    `json:"dataSets"`
+	TimeshiftDuration *string                                              `json:"timeshiftDuration"`
+	Thresholds        []DashboardMosaicLayoutTilesWidgetXyChartThresholds  `json:"thresholds"`
+	XAxis             *DashboardMosaicLayoutTilesWidgetXyChartXAxis        `json:"xAxis"`
+	YAxis             *DashboardMosaicLayoutTilesWidgetXyChartYAxis        `json:"yAxis"`
+	ChartOptions      *DashboardMosaicLayoutTilesWidgetXyChartChartOptions `json:"chartOptions"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetXyChart DashboardMosaicLayoutTilesWidgetXyChart
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChart) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetXyChart
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetXyChart
+	} else {
+
+		r.DataSets = res.DataSets
+
+		r.TimeshiftDuration = res.TimeshiftDuration
+
+		r.Thresholds = res.Thresholds
+
+		r.XAxis = res.XAxis
+
+		r.YAxis = res.YAxis
+
+		r.ChartOptions = res.ChartOptions
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetXyChart is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetXyChart *DashboardMosaicLayoutTilesWidgetXyChart = &DashboardMosaicLayoutTilesWidgetXyChart{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChart) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChart) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChart) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetXyChartDataSets struct {
+	empty              bool                                                            `json:"-"`
+	TimeSeriesQuery    *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery `json:"timeSeriesQuery"`
+	PlotType           *DashboardMosaicLayoutTilesWidgetXyChartDataSetsPlotTypeEnum    `json:"plotType"`
+	LegendTemplate     *string                                                         `json:"legendTemplate"`
+	MinAlignmentPeriod *string                                                         `json:"minAlignmentPeriod"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetXyChartDataSets DashboardMosaicLayoutTilesWidgetXyChartDataSets
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetXyChartDataSets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSets
+	} else {
+
+		r.TimeSeriesQuery = res.TimeSeriesQuery
+
+		r.PlotType = res.PlotType
+
+		r.LegendTemplate = res.LegendTemplate
+
+		r.MinAlignmentPeriod = res.MinAlignmentPeriod
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetXyChartDataSets is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSets *DashboardMosaicLayoutTilesWidgetXyChartDataSets = &DashboardMosaicLayoutTilesWidgetXyChartDataSets{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSets) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSets) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSets) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery struct {
+	empty                   bool                                                                                 `json:"-"`
+	TimeSeriesFilter        *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter      `json:"timeSeriesFilter"`
+	TimeSeriesFilterRatio   *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio `json:"timeSeriesFilterRatio"`
+	TimeSeriesQueryLanguage *string                                                                              `json:"timeSeriesQueryLanguage"`
+	UnitOverride            *string                                                                              `json:"unitOverride"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery
+	} else {
+
+		r.TimeSeriesFilter = res.TimeSeriesFilter
+
+		r.TimeSeriesFilterRatio = res.TimeSeriesFilterRatio
+
+		r.TimeSeriesQueryLanguage = res.TimeSeriesQueryLanguage
+
+		r.UnitOverride = res.UnitOverride
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery = &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter struct {
+	empty                bool                                                                                                `json:"-"`
+	Filter               *string                                                                                             `json:"filter"`
+	Aggregation          *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation          `json:"aggregation"`
+	SecondaryAggregation *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation `json:"secondaryAggregation"`
+	PickTimeSeriesFilter *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+		r.SecondaryAggregation = res.SecondaryAggregation
+
+		r.PickTimeSeriesFilter = res.PickTimeSeriesFilter
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter = &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation struct {
+	empty              bool                                                                                                             `json:"-"`
+	AlignmentPeriod    *string                                                                                                          `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                         `json:"groupByFields"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation = &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation struct {
+	empty              bool                                                                                                                      `json:"-"`
+	AlignmentPeriod    *string                                                                                                                   `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                  `json:"groupByFields"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation = &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter struct {
+	empty         bool                                                                                                                 `json:"-"`
+	RankingMethod *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
+	NumTimeSeries *int64                                                                                                               `json:"numTimeSeries"`
+	Direction     *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	} else {
+
+		r.RankingMethod = res.RankingMethod
+
+		r.NumTimeSeries = res.NumTimeSeries
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter = &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio struct {
+	empty                bool                                                                                                     `json:"-"`
+	Numerator            *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator            `json:"numerator"`
+	Denominator          *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator          `json:"denominator"`
+	SecondaryAggregation *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation `json:"secondaryAggregation"`
+	PickTimeSeriesFilter *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
+	} else {
+
+		r.Numerator = res.Numerator
+
+		r.Denominator = res.Denominator
+
+		r.SecondaryAggregation = res.SecondaryAggregation
+
+		r.PickTimeSeriesFilter = res.PickTimeSeriesFilter
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio = &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator struct {
+	empty       bool                                                                                                     `json:"-"`
+	Filter      *string                                                                                                  `json:"filter"`
+	Aggregation *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation `json:"aggregation"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator = &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation struct {
+	empty              bool                                                                                                                           `json:"-"`
+	AlignmentPeriod    *string                                                                                                                        `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                       `json:"groupByFields"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation = &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator struct {
+	empty       bool                                                                                                       `json:"-"`
+	Filter      *string                                                                                                    `json:"filter"`
+	Aggregation *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation `json:"aggregation"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator = &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation struct {
+	empty              bool                                                                                                                             `json:"-"`
+	AlignmentPeriod    *string                                                                                                                          `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                         `json:"groupByFields"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation = &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation struct {
+	empty              bool                                                                                                                           `json:"-"`
+	AlignmentPeriod    *string                                                                                                                        `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                       `json:"groupByFields"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation = &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter struct {
+	empty         bool                                                                                                                      `json:"-"`
+	RankingMethod *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
+	NumTimeSeries *int64                                                                                                                    `json:"numTimeSeries"`
+	Direction     *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	} else {
+
+		r.RankingMethod = res.RankingMethod
+
+		r.NumTimeSeries = res.NumTimeSeries
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter = &DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetXyChartThresholds struct {
+	empty     bool                                                            `json:"-"`
+	Label     *string                                                         `json:"label"`
+	Value     *float64                                                        `json:"value"`
+	Color     *DashboardMosaicLayoutTilesWidgetXyChartThresholdsColorEnum     `json:"color"`
+	Direction *DashboardMosaicLayoutTilesWidgetXyChartThresholdsDirectionEnum `json:"direction"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetXyChartThresholds DashboardMosaicLayoutTilesWidgetXyChartThresholds
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartThresholds) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetXyChartThresholds
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetXyChartThresholds
+	} else {
+
+		r.Label = res.Label
+
+		r.Value = res.Value
+
+		r.Color = res.Color
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetXyChartThresholds is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetXyChartThresholds *DashboardMosaicLayoutTilesWidgetXyChartThresholds = &DashboardMosaicLayoutTilesWidgetXyChartThresholds{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartThresholds) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartThresholds) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartThresholds) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetXyChartXAxis struct {
+	empty bool                                                   `json:"-"`
+	Label *string                                                `json:"label"`
+	Scale *DashboardMosaicLayoutTilesWidgetXyChartXAxisScaleEnum `json:"scale"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetXyChartXAxis DashboardMosaicLayoutTilesWidgetXyChartXAxis
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartXAxis) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetXyChartXAxis
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetXyChartXAxis
+	} else {
+
+		r.Label = res.Label
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetXyChartXAxis is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetXyChartXAxis *DashboardMosaicLayoutTilesWidgetXyChartXAxis = &DashboardMosaicLayoutTilesWidgetXyChartXAxis{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartXAxis) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartXAxis) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartXAxis) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetXyChartYAxis struct {
+	empty bool                                                   `json:"-"`
+	Label *string                                                `json:"label"`
+	Scale *DashboardMosaicLayoutTilesWidgetXyChartYAxisScaleEnum `json:"scale"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetXyChartYAxis DashboardMosaicLayoutTilesWidgetXyChartYAxis
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartYAxis) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetXyChartYAxis
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetXyChartYAxis
+	} else {
+
+		r.Label = res.Label
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetXyChartYAxis is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetXyChartYAxis *DashboardMosaicLayoutTilesWidgetXyChartYAxis = &DashboardMosaicLayoutTilesWidgetXyChartYAxis{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartYAxis) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartYAxis) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartYAxis) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetXyChartChartOptions struct {
+	empty bool                                                         `json:"-"`
+	Mode  *DashboardMosaicLayoutTilesWidgetXyChartChartOptionsModeEnum `json:"mode"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetXyChartChartOptions DashboardMosaicLayoutTilesWidgetXyChartChartOptions
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartChartOptions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetXyChartChartOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetXyChartChartOptions
+	} else {
+
+		r.Mode = res.Mode
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetXyChartChartOptions is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetXyChartChartOptions *DashboardMosaicLayoutTilesWidgetXyChartChartOptions = &DashboardMosaicLayoutTilesWidgetXyChartChartOptions{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartChartOptions) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartChartOptions) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetXyChartChartOptions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetScorecard struct {
+	empty           bool                                                      `json:"-"`
+	TimeSeriesQuery *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery `json:"timeSeriesQuery"`
+	GaugeView       *DashboardMosaicLayoutTilesWidgetScorecardGaugeView       `json:"gaugeView"`
+	SparkChartView  *DashboardMosaicLayoutTilesWidgetScorecardSparkChartView  `json:"sparkChartView"`
+	Thresholds      []DashboardMosaicLayoutTilesWidgetScorecardThresholds     `json:"thresholds"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetScorecard DashboardMosaicLayoutTilesWidgetScorecard
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecard) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetScorecard
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetScorecard
+	} else {
+
+		r.TimeSeriesQuery = res.TimeSeriesQuery
+
+		r.GaugeView = res.GaugeView
+
+		r.SparkChartView = res.SparkChartView
+
+		r.Thresholds = res.Thresholds
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetScorecard is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetScorecard *DashboardMosaicLayoutTilesWidgetScorecard = &DashboardMosaicLayoutTilesWidgetScorecard{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecard) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecard) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecard) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery struct {
+	empty                   bool                                                                           `json:"-"`
+	TimeSeriesFilter        *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter      `json:"timeSeriesFilter"`
+	TimeSeriesFilterRatio   *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio `json:"timeSeriesFilterRatio"`
+	TimeSeriesQueryLanguage *string                                                                        `json:"timeSeriesQueryLanguage"`
+	UnitOverride            *string                                                                        `json:"unitOverride"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery
+	} else {
+
+		r.TimeSeriesFilter = res.TimeSeriesFilter
+
+		r.TimeSeriesFilterRatio = res.TimeSeriesFilterRatio
+
+		r.TimeSeriesQueryLanguage = res.TimeSeriesQueryLanguage
+
+		r.UnitOverride = res.UnitOverride
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery = &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter struct {
+	empty                bool                                                                                          `json:"-"`
+	Filter               *string                                                                                       `json:"filter"`
+	Aggregation          *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation          `json:"aggregation"`
+	SecondaryAggregation *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation `json:"secondaryAggregation"`
+	PickTimeSeriesFilter *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+		r.SecondaryAggregation = res.SecondaryAggregation
+
+		r.PickTimeSeriesFilter = res.PickTimeSeriesFilter
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter = &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation struct {
+	empty              bool                                                                                                       `json:"-"`
+	AlignmentPeriod    *string                                                                                                    `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                   `json:"groupByFields"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation = &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation struct {
+	empty              bool                                                                                                                `json:"-"`
+	AlignmentPeriod    *string                                                                                                             `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                            `json:"groupByFields"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation = &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter struct {
+	empty         bool                                                                                                           `json:"-"`
+	RankingMethod *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
+	NumTimeSeries *int64                                                                                                         `json:"numTimeSeries"`
+	Direction     *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	} else {
+
+		r.RankingMethod = res.RankingMethod
+
+		r.NumTimeSeries = res.NumTimeSeries
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter = &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio struct {
+	empty                bool                                                                                               `json:"-"`
+	Numerator            *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator            `json:"numerator"`
+	Denominator          *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator          `json:"denominator"`
+	SecondaryAggregation *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation `json:"secondaryAggregation"`
+	PickTimeSeriesFilter *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
+	} else {
+
+		r.Numerator = res.Numerator
+
+		r.Denominator = res.Denominator
+
+		r.SecondaryAggregation = res.SecondaryAggregation
+
+		r.PickTimeSeriesFilter = res.PickTimeSeriesFilter
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio = &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator struct {
+	empty       bool                                                                                               `json:"-"`
+	Filter      *string                                                                                            `json:"filter"`
+	Aggregation *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation `json:"aggregation"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator = &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation struct {
+	empty              bool                                                                                                                     `json:"-"`
+	AlignmentPeriod    *string                                                                                                                  `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                 `json:"groupByFields"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation = &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator struct {
+	empty       bool                                                                                                 `json:"-"`
+	Filter      *string                                                                                              `json:"filter"`
+	Aggregation *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation `json:"aggregation"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator = &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation struct {
+	empty              bool                                                                                                                       `json:"-"`
+	AlignmentPeriod    *string                                                                                                                    `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                   `json:"groupByFields"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation = &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation struct {
+	empty              bool                                                                                                                     `json:"-"`
+	AlignmentPeriod    *string                                                                                                                  `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                 `json:"groupByFields"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation = &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter struct {
+	empty         bool                                                                                                                `json:"-"`
+	RankingMethod *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
+	NumTimeSeries *int64                                                                                                              `json:"numTimeSeries"`
+	Direction     *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	} else {
+
+		r.RankingMethod = res.RankingMethod
+
+		r.NumTimeSeries = res.NumTimeSeries
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter = &DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetScorecardGaugeView struct {
+	empty      bool     `json:"-"`
+	LowerBound *float64 `json:"lowerBound"`
+	UpperBound *float64 `json:"upperBound"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetScorecardGaugeView DashboardMosaicLayoutTilesWidgetScorecardGaugeView
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardGaugeView) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetScorecardGaugeView
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetScorecardGaugeView
+	} else {
+
+		r.LowerBound = res.LowerBound
+
+		r.UpperBound = res.UpperBound
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetScorecardGaugeView is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetScorecardGaugeView *DashboardMosaicLayoutTilesWidgetScorecardGaugeView = &DashboardMosaicLayoutTilesWidgetScorecardGaugeView{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardGaugeView) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardGaugeView) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardGaugeView) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetScorecardSparkChartView struct {
+	empty              bool                                                                       `json:"-"`
+	SparkChartType     *DashboardMosaicLayoutTilesWidgetScorecardSparkChartViewSparkChartTypeEnum `json:"sparkChartType"`
+	MinAlignmentPeriod *string                                                                    `json:"minAlignmentPeriod"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetScorecardSparkChartView DashboardMosaicLayoutTilesWidgetScorecardSparkChartView
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardSparkChartView) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetScorecardSparkChartView
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetScorecardSparkChartView
+	} else {
+
+		r.SparkChartType = res.SparkChartType
+
+		r.MinAlignmentPeriod = res.MinAlignmentPeriod
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetScorecardSparkChartView is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetScorecardSparkChartView *DashboardMosaicLayoutTilesWidgetScorecardSparkChartView = &DashboardMosaicLayoutTilesWidgetScorecardSparkChartView{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardSparkChartView) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardSparkChartView) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardSparkChartView) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetScorecardThresholds struct {
+	empty     bool                                                              `json:"-"`
+	Label     *string                                                           `json:"label"`
+	Value     *float64                                                          `json:"value"`
+	Color     *DashboardMosaicLayoutTilesWidgetScorecardThresholdsColorEnum     `json:"color"`
+	Direction *DashboardMosaicLayoutTilesWidgetScorecardThresholdsDirectionEnum `json:"direction"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetScorecardThresholds DashboardMosaicLayoutTilesWidgetScorecardThresholds
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardThresholds) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetScorecardThresholds
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetScorecardThresholds
+	} else {
+
+		r.Label = res.Label
+
+		r.Value = res.Value
+
+		r.Color = res.Color
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetScorecardThresholds is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetScorecardThresholds *DashboardMosaicLayoutTilesWidgetScorecardThresholds = &DashboardMosaicLayoutTilesWidgetScorecardThresholds{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardThresholds) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardThresholds) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetScorecardThresholds) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetText struct {
+	empty   bool                                            `json:"-"`
+	Content *string                                         `json:"content"`
+	Format  *DashboardMosaicLayoutTilesWidgetTextFormatEnum `json:"format"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetText DashboardMosaicLayoutTilesWidgetText
+
+func (r *DashboardMosaicLayoutTilesWidgetText) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetText
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetText
+	} else {
+
+		r.Content = res.Content
+
+		r.Format = res.Format
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetText is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetText *DashboardMosaicLayoutTilesWidgetText = &DashboardMosaicLayoutTilesWidgetText{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetText) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetText) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetText) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardMosaicLayoutTilesWidgetBlank struct {
+	empty bool `json:"-"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetBlank DashboardMosaicLayoutTilesWidgetBlank
+
+func (r *DashboardMosaicLayoutTilesWidgetBlank) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetBlank
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetBlank
+	} else {
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetBlank is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetBlank *DashboardMosaicLayoutTilesWidgetBlank = &DashboardMosaicLayoutTilesWidgetBlank{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetBlank) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetBlank) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetBlank) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -1268,9 +8260,9 @@ func (r *DashboardRowLayout) HashCode() string {
 }
 
 type DashboardRowLayoutRows struct {
-	empty   bool              `json:"-"`
-	Weight  *int64            `json:"weight"`
-	Widgets []DashboardWidget `json:"widgets"`
+	empty   bool                            `json:"-"`
+	Weight  *int64                          `json:"weight"`
+	Widgets []DashboardRowLayoutRowsWidgets `json:"widgets"`
 }
 
 type jsonDashboardRowLayoutRows DashboardRowLayoutRows
@@ -1310,6 +8302,1963 @@ func (r *DashboardRowLayoutRows) String() string {
 }
 
 func (r *DashboardRowLayoutRows) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgets struct {
+	empty     bool                                    `json:"-"`
+	Title     *string                                 `json:"title"`
+	XyChart   *DashboardRowLayoutRowsWidgetsXyChart   `json:"xyChart"`
+	Scorecard *DashboardRowLayoutRowsWidgetsScorecard `json:"scorecard"`
+	Text      *DashboardRowLayoutRowsWidgetsText      `json:"text"`
+	Blank     *DashboardRowLayoutRowsWidgetsBlank     `json:"blank"`
+}
+
+type jsonDashboardRowLayoutRowsWidgets DashboardRowLayoutRowsWidgets
+
+func (r *DashboardRowLayoutRowsWidgets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgets
+	} else {
+
+		r.Title = res.Title
+
+		r.XyChart = res.XyChart
+
+		r.Scorecard = res.Scorecard
+
+		r.Text = res.Text
+
+		r.Blank = res.Blank
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgets is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgets *DashboardRowLayoutRowsWidgets = &DashboardRowLayoutRowsWidgets{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgets) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgets) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgets) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsXyChart struct {
+	empty             bool                                              `json:"-"`
+	DataSets          []DashboardRowLayoutRowsWidgetsXyChartDataSets    `json:"dataSets"`
+	TimeshiftDuration *string                                           `json:"timeshiftDuration"`
+	Thresholds        []DashboardRowLayoutRowsWidgetsXyChartThresholds  `json:"thresholds"`
+	XAxis             *DashboardRowLayoutRowsWidgetsXyChartXAxis        `json:"xAxis"`
+	YAxis             *DashboardRowLayoutRowsWidgetsXyChartYAxis        `json:"yAxis"`
+	ChartOptions      *DashboardRowLayoutRowsWidgetsXyChartChartOptions `json:"chartOptions"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsXyChart DashboardRowLayoutRowsWidgetsXyChart
+
+func (r *DashboardRowLayoutRowsWidgetsXyChart) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsXyChart
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsXyChart
+	} else {
+
+		r.DataSets = res.DataSets
+
+		r.TimeshiftDuration = res.TimeshiftDuration
+
+		r.Thresholds = res.Thresholds
+
+		r.XAxis = res.XAxis
+
+		r.YAxis = res.YAxis
+
+		r.ChartOptions = res.ChartOptions
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsXyChart is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsXyChart *DashboardRowLayoutRowsWidgetsXyChart = &DashboardRowLayoutRowsWidgetsXyChart{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChart) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChart) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChart) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsXyChartDataSets struct {
+	empty              bool                                                         `json:"-"`
+	TimeSeriesQuery    *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery `json:"timeSeriesQuery"`
+	PlotType           *DashboardRowLayoutRowsWidgetsXyChartDataSetsPlotTypeEnum    `json:"plotType"`
+	LegendTemplate     *string                                                      `json:"legendTemplate"`
+	MinAlignmentPeriod *string                                                      `json:"minAlignmentPeriod"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsXyChartDataSets DashboardRowLayoutRowsWidgetsXyChartDataSets
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsXyChartDataSets
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsXyChartDataSets
+	} else {
+
+		r.TimeSeriesQuery = res.TimeSeriesQuery
+
+		r.PlotType = res.PlotType
+
+		r.LegendTemplate = res.LegendTemplate
+
+		r.MinAlignmentPeriod = res.MinAlignmentPeriod
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsXyChartDataSets is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsXyChartDataSets *DashboardRowLayoutRowsWidgetsXyChartDataSets = &DashboardRowLayoutRowsWidgetsXyChartDataSets{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSets) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSets) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSets) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery struct {
+	empty                   bool                                                                              `json:"-"`
+	TimeSeriesFilter        *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter      `json:"timeSeriesFilter"`
+	TimeSeriesFilterRatio   *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio `json:"timeSeriesFilterRatio"`
+	TimeSeriesQueryLanguage *string                                                                           `json:"timeSeriesQueryLanguage"`
+	UnitOverride            *string                                                                           `json:"unitOverride"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery
+	} else {
+
+		r.TimeSeriesFilter = res.TimeSeriesFilter
+
+		r.TimeSeriesFilterRatio = res.TimeSeriesFilterRatio
+
+		r.TimeSeriesQueryLanguage = res.TimeSeriesQueryLanguage
+
+		r.UnitOverride = res.UnitOverride
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery = &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter struct {
+	empty                bool                                                                                             `json:"-"`
+	Filter               *string                                                                                          `json:"filter"`
+	Aggregation          *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation          `json:"aggregation"`
+	SecondaryAggregation *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation `json:"secondaryAggregation"`
+	PickTimeSeriesFilter *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+		r.SecondaryAggregation = res.SecondaryAggregation
+
+		r.PickTimeSeriesFilter = res.PickTimeSeriesFilter
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter = &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation struct {
+	empty              bool                                                                                                          `json:"-"`
+	AlignmentPeriod    *string                                                                                                       `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                      `json:"groupByFields"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation = &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation struct {
+	empty              bool                                                                                                                   `json:"-"`
+	AlignmentPeriod    *string                                                                                                                `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                               `json:"groupByFields"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation = &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter struct {
+	empty         bool                                                                                                              `json:"-"`
+	RankingMethod *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
+	NumTimeSeries *int64                                                                                                            `json:"numTimeSeries"`
+	Direction     *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	} else {
+
+		r.RankingMethod = res.RankingMethod
+
+		r.NumTimeSeries = res.NumTimeSeries
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter = &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio struct {
+	empty                bool                                                                                                  `json:"-"`
+	Numerator            *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator            `json:"numerator"`
+	Denominator          *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator          `json:"denominator"`
+	SecondaryAggregation *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation `json:"secondaryAggregation"`
+	PickTimeSeriesFilter *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
+	} else {
+
+		r.Numerator = res.Numerator
+
+		r.Denominator = res.Denominator
+
+		r.SecondaryAggregation = res.SecondaryAggregation
+
+		r.PickTimeSeriesFilter = res.PickTimeSeriesFilter
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio = &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator struct {
+	empty       bool                                                                                                  `json:"-"`
+	Filter      *string                                                                                               `json:"filter"`
+	Aggregation *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation `json:"aggregation"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator = &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation struct {
+	empty              bool                                                                                                                        `json:"-"`
+	AlignmentPeriod    *string                                                                                                                     `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                    `json:"groupByFields"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation = &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator struct {
+	empty       bool                                                                                                    `json:"-"`
+	Filter      *string                                                                                                 `json:"filter"`
+	Aggregation *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation `json:"aggregation"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator = &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation struct {
+	empty              bool                                                                                                                          `json:"-"`
+	AlignmentPeriod    *string                                                                                                                       `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                      `json:"groupByFields"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation = &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation struct {
+	empty              bool                                                                                                                        `json:"-"`
+	AlignmentPeriod    *string                                                                                                                     `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                    `json:"groupByFields"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation = &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter struct {
+	empty         bool                                                                                                                   `json:"-"`
+	RankingMethod *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
+	NumTimeSeries *int64                                                                                                                 `json:"numTimeSeries"`
+	Direction     *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	} else {
+
+		r.RankingMethod = res.RankingMethod
+
+		r.NumTimeSeries = res.NumTimeSeries
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter = &DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsXyChartThresholds struct {
+	empty     bool                                                         `json:"-"`
+	Label     *string                                                      `json:"label"`
+	Value     *float64                                                     `json:"value"`
+	Color     *DashboardRowLayoutRowsWidgetsXyChartThresholdsColorEnum     `json:"color"`
+	Direction *DashboardRowLayoutRowsWidgetsXyChartThresholdsDirectionEnum `json:"direction"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsXyChartThresholds DashboardRowLayoutRowsWidgetsXyChartThresholds
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartThresholds) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsXyChartThresholds
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsXyChartThresholds
+	} else {
+
+		r.Label = res.Label
+
+		r.Value = res.Value
+
+		r.Color = res.Color
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsXyChartThresholds is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsXyChartThresholds *DashboardRowLayoutRowsWidgetsXyChartThresholds = &DashboardRowLayoutRowsWidgetsXyChartThresholds{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartThresholds) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartThresholds) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartThresholds) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsXyChartXAxis struct {
+	empty bool                                                `json:"-"`
+	Label *string                                             `json:"label"`
+	Scale *DashboardRowLayoutRowsWidgetsXyChartXAxisScaleEnum `json:"scale"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsXyChartXAxis DashboardRowLayoutRowsWidgetsXyChartXAxis
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartXAxis) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsXyChartXAxis
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsXyChartXAxis
+	} else {
+
+		r.Label = res.Label
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsXyChartXAxis is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsXyChartXAxis *DashboardRowLayoutRowsWidgetsXyChartXAxis = &DashboardRowLayoutRowsWidgetsXyChartXAxis{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartXAxis) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartXAxis) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartXAxis) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsXyChartYAxis struct {
+	empty bool                                                `json:"-"`
+	Label *string                                             `json:"label"`
+	Scale *DashboardRowLayoutRowsWidgetsXyChartYAxisScaleEnum `json:"scale"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsXyChartYAxis DashboardRowLayoutRowsWidgetsXyChartYAxis
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartYAxis) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsXyChartYAxis
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsXyChartYAxis
+	} else {
+
+		r.Label = res.Label
+
+		r.Scale = res.Scale
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsXyChartYAxis is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsXyChartYAxis *DashboardRowLayoutRowsWidgetsXyChartYAxis = &DashboardRowLayoutRowsWidgetsXyChartYAxis{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartYAxis) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartYAxis) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartYAxis) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsXyChartChartOptions struct {
+	empty bool                                                      `json:"-"`
+	Mode  *DashboardRowLayoutRowsWidgetsXyChartChartOptionsModeEnum `json:"mode"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsXyChartChartOptions DashboardRowLayoutRowsWidgetsXyChartChartOptions
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartChartOptions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsXyChartChartOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsXyChartChartOptions
+	} else {
+
+		r.Mode = res.Mode
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsXyChartChartOptions is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsXyChartChartOptions *DashboardRowLayoutRowsWidgetsXyChartChartOptions = &DashboardRowLayoutRowsWidgetsXyChartChartOptions{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartChartOptions) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartChartOptions) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsXyChartChartOptions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsScorecard struct {
+	empty           bool                                                   `json:"-"`
+	TimeSeriesQuery *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery `json:"timeSeriesQuery"`
+	GaugeView       *DashboardRowLayoutRowsWidgetsScorecardGaugeView       `json:"gaugeView"`
+	SparkChartView  *DashboardRowLayoutRowsWidgetsScorecardSparkChartView  `json:"sparkChartView"`
+	Thresholds      []DashboardRowLayoutRowsWidgetsScorecardThresholds     `json:"thresholds"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsScorecard DashboardRowLayoutRowsWidgetsScorecard
+
+func (r *DashboardRowLayoutRowsWidgetsScorecard) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsScorecard
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsScorecard
+	} else {
+
+		r.TimeSeriesQuery = res.TimeSeriesQuery
+
+		r.GaugeView = res.GaugeView
+
+		r.SparkChartView = res.SparkChartView
+
+		r.Thresholds = res.Thresholds
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsScorecard is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsScorecard *DashboardRowLayoutRowsWidgetsScorecard = &DashboardRowLayoutRowsWidgetsScorecard{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecard) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecard) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecard) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery struct {
+	empty                   bool                                                                        `json:"-"`
+	TimeSeriesFilter        *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter      `json:"timeSeriesFilter"`
+	TimeSeriesFilterRatio   *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio `json:"timeSeriesFilterRatio"`
+	TimeSeriesQueryLanguage *string                                                                     `json:"timeSeriesQueryLanguage"`
+	UnitOverride            *string                                                                     `json:"unitOverride"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery
+	} else {
+
+		r.TimeSeriesFilter = res.TimeSeriesFilter
+
+		r.TimeSeriesFilterRatio = res.TimeSeriesFilterRatio
+
+		r.TimeSeriesQueryLanguage = res.TimeSeriesQueryLanguage
+
+		r.UnitOverride = res.UnitOverride
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery = &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter struct {
+	empty                bool                                                                                       `json:"-"`
+	Filter               *string                                                                                    `json:"filter"`
+	Aggregation          *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation          `json:"aggregation"`
+	SecondaryAggregation *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation `json:"secondaryAggregation"`
+	PickTimeSeriesFilter *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+		r.SecondaryAggregation = res.SecondaryAggregation
+
+		r.PickTimeSeriesFilter = res.PickTimeSeriesFilter
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter = &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation struct {
+	empty              bool                                                                                                    `json:"-"`
+	AlignmentPeriod    *string                                                                                                 `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                `json:"groupByFields"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation = &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation struct {
+	empty              bool                                                                                                             `json:"-"`
+	AlignmentPeriod    *string                                                                                                          `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                         `json:"groupByFields"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation = &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter struct {
+	empty         bool                                                                                                        `json:"-"`
+	RankingMethod *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
+	NumTimeSeries *int64                                                                                                      `json:"numTimeSeries"`
+	Direction     *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+	} else {
+
+		r.RankingMethod = res.RankingMethod
+
+		r.NumTimeSeries = res.NumTimeSeries
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter = &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio struct {
+	empty                bool                                                                                            `json:"-"`
+	Numerator            *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator            `json:"numerator"`
+	Denominator          *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator          `json:"denominator"`
+	SecondaryAggregation *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation `json:"secondaryAggregation"`
+	PickTimeSeriesFilter *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
+	} else {
+
+		r.Numerator = res.Numerator
+
+		r.Denominator = res.Denominator
+
+		r.SecondaryAggregation = res.SecondaryAggregation
+
+		r.PickTimeSeriesFilter = res.PickTimeSeriesFilter
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio = &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator struct {
+	empty       bool                                                                                            `json:"-"`
+	Filter      *string                                                                                         `json:"filter"`
+	Aggregation *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation `json:"aggregation"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator = &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation struct {
+	empty              bool                                                                                                                  `json:"-"`
+	AlignmentPeriod    *string                                                                                                               `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                              `json:"groupByFields"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation = &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator struct {
+	empty       bool                                                                                              `json:"-"`
+	Filter      *string                                                                                           `json:"filter"`
+	Aggregation *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation `json:"aggregation"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
+	} else {
+
+		r.Filter = res.Filter
+
+		r.Aggregation = res.Aggregation
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator = &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation struct {
+	empty              bool                                                                                                                    `json:"-"`
+	AlignmentPeriod    *string                                                                                                                 `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                `json:"groupByFields"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation = &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation struct {
+	empty              bool                                                                                                                  `json:"-"`
+	AlignmentPeriod    *string                                                                                                               `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                              `json:"groupByFields"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+	} else {
+
+		r.AlignmentPeriod = res.AlignmentPeriod
+
+		r.PerSeriesAligner = res.PerSeriesAligner
+
+		r.CrossSeriesReducer = res.CrossSeriesReducer
+
+		r.GroupByFields = res.GroupByFields
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation = &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter struct {
+	empty         bool                                                                                                             `json:"-"`
+	RankingMethod *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
+	NumTimeSeries *int64                                                                                                           `json:"numTimeSeries"`
+	Direction     *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+	} else {
+
+		r.RankingMethod = res.RankingMethod
+
+		r.NumTimeSeries = res.NumTimeSeries
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter = &DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsScorecardGaugeView struct {
+	empty      bool     `json:"-"`
+	LowerBound *float64 `json:"lowerBound"`
+	UpperBound *float64 `json:"upperBound"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsScorecardGaugeView DashboardRowLayoutRowsWidgetsScorecardGaugeView
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardGaugeView) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsScorecardGaugeView
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsScorecardGaugeView
+	} else {
+
+		r.LowerBound = res.LowerBound
+
+		r.UpperBound = res.UpperBound
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsScorecardGaugeView is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsScorecardGaugeView *DashboardRowLayoutRowsWidgetsScorecardGaugeView = &DashboardRowLayoutRowsWidgetsScorecardGaugeView{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardGaugeView) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardGaugeView) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardGaugeView) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsScorecardSparkChartView struct {
+	empty              bool                                                                    `json:"-"`
+	SparkChartType     *DashboardRowLayoutRowsWidgetsScorecardSparkChartViewSparkChartTypeEnum `json:"sparkChartType"`
+	MinAlignmentPeriod *string                                                                 `json:"minAlignmentPeriod"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsScorecardSparkChartView DashboardRowLayoutRowsWidgetsScorecardSparkChartView
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardSparkChartView) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsScorecardSparkChartView
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsScorecardSparkChartView
+	} else {
+
+		r.SparkChartType = res.SparkChartType
+
+		r.MinAlignmentPeriod = res.MinAlignmentPeriod
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsScorecardSparkChartView is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsScorecardSparkChartView *DashboardRowLayoutRowsWidgetsScorecardSparkChartView = &DashboardRowLayoutRowsWidgetsScorecardSparkChartView{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardSparkChartView) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardSparkChartView) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardSparkChartView) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsScorecardThresholds struct {
+	empty     bool                                                           `json:"-"`
+	Label     *string                                                        `json:"label"`
+	Value     *float64                                                       `json:"value"`
+	Color     *DashboardRowLayoutRowsWidgetsScorecardThresholdsColorEnum     `json:"color"`
+	Direction *DashboardRowLayoutRowsWidgetsScorecardThresholdsDirectionEnum `json:"direction"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsScorecardThresholds DashboardRowLayoutRowsWidgetsScorecardThresholds
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardThresholds) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsScorecardThresholds
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsScorecardThresholds
+	} else {
+
+		r.Label = res.Label
+
+		r.Value = res.Value
+
+		r.Color = res.Color
+
+		r.Direction = res.Direction
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsScorecardThresholds is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsScorecardThresholds *DashboardRowLayoutRowsWidgetsScorecardThresholds = &DashboardRowLayoutRowsWidgetsScorecardThresholds{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardThresholds) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardThresholds) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsScorecardThresholds) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsText struct {
+	empty   bool                                         `json:"-"`
+	Content *string                                      `json:"content"`
+	Format  *DashboardRowLayoutRowsWidgetsTextFormatEnum `json:"format"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsText DashboardRowLayoutRowsWidgetsText
+
+func (r *DashboardRowLayoutRowsWidgetsText) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsText
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsText
+	} else {
+
+		r.Content = res.Content
+
+		r.Format = res.Format
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsText is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsText *DashboardRowLayoutRowsWidgetsText = &DashboardRowLayoutRowsWidgetsText{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsText) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsText) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsText) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardRowLayoutRowsWidgetsBlank struct {
+	empty bool `json:"-"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsBlank DashboardRowLayoutRowsWidgetsBlank
+
+func (r *DashboardRowLayoutRowsWidgetsBlank) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsBlank
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsBlank
+	} else {
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsBlank is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsBlank *DashboardRowLayoutRowsWidgetsBlank = &DashboardRowLayoutRowsWidgetsBlank{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsBlank) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsBlank) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsBlank) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -1363,9 +10312,9 @@ func (r *DashboardColumnLayout) HashCode() string {
 }
 
 type DashboardColumnLayoutColumns struct {
-	empty   bool              `json:"-"`
-	Weight  *int64            `json:"weight"`
-	Widgets []DashboardWidget `json:"widgets"`
+	empty   bool                                  `json:"-"`
+	Weight  *int64                                `json:"weight"`
+	Widgets []DashboardColumnLayoutColumnsWidgets `json:"widgets"`
 }
 
 type jsonDashboardColumnLayoutColumns DashboardColumnLayoutColumns
@@ -1411,19 +10360,19 @@ func (r *DashboardColumnLayoutColumns) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidget struct {
-	empty     bool                      `json:"-"`
-	Title     *string                   `json:"title"`
-	XyChart   *DashboardWidgetXyChart   `json:"xyChart"`
-	Scorecard *DashboardWidgetScorecard `json:"scorecard"`
-	Text      *DashboardWidgetText      `json:"text"`
-	Blank     *DashboardWidgetBlank     `json:"blank"`
+type DashboardColumnLayoutColumnsWidgets struct {
+	empty     bool                                          `json:"-"`
+	Title     *string                                       `json:"title"`
+	XyChart   *DashboardColumnLayoutColumnsWidgetsXyChart   `json:"xyChart"`
+	Scorecard *DashboardColumnLayoutColumnsWidgetsScorecard `json:"scorecard"`
+	Text      *DashboardColumnLayoutColumnsWidgetsText      `json:"text"`
+	Blank     *DashboardColumnLayoutColumnsWidgetsBlank     `json:"blank"`
 }
 
-type jsonDashboardWidget DashboardWidget
+type jsonDashboardColumnLayoutColumnsWidgets DashboardColumnLayoutColumnsWidgets
 
-func (r *DashboardWidget) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidget
+func (r *DashboardColumnLayoutColumnsWidgets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgets
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1432,7 +10381,7 @@ func (r *DashboardWidget) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidget
+		*r = *EmptyDashboardColumnLayoutColumnsWidgets
 	} else {
 
 		r.Title = res.Title
@@ -1449,40 +10398,40 @@ func (r *DashboardWidget) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidget is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgets is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidget *DashboardWidget = &DashboardWidget{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgets *DashboardColumnLayoutColumnsWidgets = &DashboardColumnLayoutColumnsWidgets{empty: true}
 
-func (r *DashboardWidget) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgets) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidget) String() string {
+func (r *DashboardColumnLayoutColumnsWidgets) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidget) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgets) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChart struct {
-	empty             bool                                `json:"-"`
-	DataSets          []DashboardWidgetXyChartDataSets    `json:"dataSets"`
-	TimeshiftDuration *string                             `json:"timeshiftDuration"`
-	Thresholds        []DashboardWidgetXyChartThresholds  `json:"thresholds"`
-	XAxis             *DashboardWidgetXyChartXAxis        `json:"xAxis"`
-	YAxis             *DashboardWidgetXyChartYAxis        `json:"yAxis"`
-	ChartOptions      *DashboardWidgetXyChartChartOptions `json:"chartOptions"`
+type DashboardColumnLayoutColumnsWidgetsXyChart struct {
+	empty             bool                                                    `json:"-"`
+	DataSets          []DashboardColumnLayoutColumnsWidgetsXyChartDataSets    `json:"dataSets"`
+	TimeshiftDuration *string                                                 `json:"timeshiftDuration"`
+	Thresholds        []DashboardColumnLayoutColumnsWidgetsXyChartThresholds  `json:"thresholds"`
+	XAxis             *DashboardColumnLayoutColumnsWidgetsXyChartXAxis        `json:"xAxis"`
+	YAxis             *DashboardColumnLayoutColumnsWidgetsXyChartYAxis        `json:"yAxis"`
+	ChartOptions      *DashboardColumnLayoutColumnsWidgetsXyChartChartOptions `json:"chartOptions"`
 }
 
-type jsonDashboardWidgetXyChart DashboardWidgetXyChart
+type jsonDashboardColumnLayoutColumnsWidgetsXyChart DashboardColumnLayoutColumnsWidgetsXyChart
 
-func (r *DashboardWidgetXyChart) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetXyChart
+func (r *DashboardColumnLayoutColumnsWidgetsXyChart) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsXyChart
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1491,7 +10440,7 @@ func (r *DashboardWidgetXyChart) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetXyChart
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsXyChart
 	} else {
 
 		r.DataSets = res.DataSets
@@ -1510,38 +10459,38 @@ func (r *DashboardWidgetXyChart) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetXyChart is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsXyChart is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChart *DashboardWidgetXyChart = &DashboardWidgetXyChart{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsXyChart *DashboardColumnLayoutColumnsWidgetsXyChart = &DashboardColumnLayoutColumnsWidgetsXyChart{empty: true}
 
-func (r *DashboardWidgetXyChart) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChart) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetXyChart) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChart) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetXyChart) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChart) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChartDataSets struct {
-	empty              bool                                           `json:"-"`
-	TimeSeriesQuery    *DashboardWidgetXyChartDataSetsTimeSeriesQuery `json:"timeSeriesQuery"`
-	PlotType           *DashboardWidgetXyChartDataSetsPlotTypeEnum    `json:"plotType"`
-	LegendTemplate     *string                                        `json:"legendTemplate"`
-	MinAlignmentPeriod *string                                        `json:"minAlignmentPeriod"`
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSets struct {
+	empty              bool                                                               `json:"-"`
+	TimeSeriesQuery    *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery `json:"timeSeriesQuery"`
+	PlotType           *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsPlotTypeEnum    `json:"plotType"`
+	LegendTemplate     *string                                                            `json:"legendTemplate"`
+	MinAlignmentPeriod *string                                                            `json:"minAlignmentPeriod"`
 }
 
-type jsonDashboardWidgetXyChartDataSets DashboardWidgetXyChartDataSets
+type jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSets DashboardColumnLayoutColumnsWidgetsXyChartDataSets
 
-func (r *DashboardWidgetXyChartDataSets) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetXyChartDataSets
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSets) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSets
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1550,7 +10499,7 @@ func (r *DashboardWidgetXyChartDataSets) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetXyChartDataSets
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSets
 	} else {
 
 		r.TimeSeriesQuery = res.TimeSeriesQuery
@@ -1565,38 +10514,38 @@ func (r *DashboardWidgetXyChartDataSets) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSets is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsXyChartDataSets is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSets *DashboardWidgetXyChartDataSets = &DashboardWidgetXyChartDataSets{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSets *DashboardColumnLayoutColumnsWidgetsXyChartDataSets = &DashboardColumnLayoutColumnsWidgetsXyChartDataSets{empty: true}
 
-func (r *DashboardWidgetXyChartDataSets) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSets) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetXyChartDataSets) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSets) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetXyChartDataSets) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSets) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChartDataSetsTimeSeriesQuery struct {
-	empty                   bool                                                                `json:"-"`
-	TimeSeriesFilter        *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter      `json:"timeSeriesFilter"`
-	TimeSeriesFilterRatio   *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio `json:"timeSeriesFilterRatio"`
-	TimeSeriesQueryLanguage *string                                                             `json:"timeSeriesQueryLanguage"`
-	UnitOverride            *string                                                             `json:"unitOverride"`
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery struct {
+	empty                   bool                                                                                    `json:"-"`
+	TimeSeriesFilter        *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter      `json:"timeSeriesFilter"`
+	TimeSeriesFilterRatio   *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio `json:"timeSeriesFilterRatio"`
+	TimeSeriesQueryLanguage *string                                                                                 `json:"timeSeriesQueryLanguage"`
+	UnitOverride            *string                                                                                 `json:"unitOverride"`
 }
 
-type jsonDashboardWidgetXyChartDataSetsTimeSeriesQuery DashboardWidgetXyChartDataSetsTimeSeriesQuery
+type jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQuery) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQuery
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1605,7 +10554,7 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQuery) UnmarshalJSON(data []byt
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQuery
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery
 	} else {
 
 		r.TimeSeriesFilter = res.TimeSeriesFilter
@@ -1620,38 +10569,38 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQuery) UnmarshalJSON(data []byt
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQuery is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQuery *DashboardWidgetXyChartDataSetsTimeSeriesQuery = &DashboardWidgetXyChartDataSetsTimeSeriesQuery{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery = &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery{empty: true}
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQuery) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQuery) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQuery) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter struct {
-	empty                bool                                                                               `json:"-"`
-	Filter               *string                                                                            `json:"filter"`
-	Aggregation          *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation          `json:"aggregation"`
-	SecondaryAggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation `json:"secondaryAggregation"`
-	PickTimeSeriesFilter *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter struct {
+	empty                bool                                                                                                   `json:"-"`
+	Filter               *string                                                                                                `json:"filter"`
+	Aggregation          *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation          `json:"aggregation"`
+	SecondaryAggregation *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation `json:"secondaryAggregation"`
+	PickTimeSeriesFilter *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
 }
 
-type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
+type jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1660,7 +10609,7 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) Unmarsha
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter
 	} else {
 
 		r.Filter = res.Filter
@@ -1675,38 +10624,38 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) Unmarsha
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter = &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter{empty: true}
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation struct {
-	empty              bool                                                                                            `json:"-"`
-	AlignmentPeriod    *string                                                                                         `json:"alignmentPeriod"`
-	PerSeriesAligner   *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
-	CrossSeriesReducer *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
-	GroupByFields      []string                                                                                        `json:"groupByFields"`
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation struct {
+	empty              bool                                                                                                                `json:"-"`
+	AlignmentPeriod    *string                                                                                                             `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                            `json:"groupByFields"`
 }
 
-type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
+type jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1715,7 +10664,7 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregatio
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation
 	} else {
 
 		r.AlignmentPeriod = res.AlignmentPeriod
@@ -1730,38 +10679,38 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregatio
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation = &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation{empty: true}
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation struct {
-	empty              bool                                                                                                     `json:"-"`
-	AlignmentPeriod    *string                                                                                                  `json:"alignmentPeriod"`
-	PerSeriesAligner   *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
-	CrossSeriesReducer *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
-	GroupByFields      []string                                                                                                 `json:"groupByFields"`
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation struct {
+	empty              bool                                                                                                                         `json:"-"`
+	AlignmentPeriod    *string                                                                                                                      `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                     `json:"groupByFields"`
 }
 
-type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+type jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1770,7 +10719,7 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryA
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
 	} else {
 
 		r.AlignmentPeriod = res.AlignmentPeriod
@@ -1785,37 +10734,37 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryA
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation = &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{empty: true}
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter struct {
-	empty         bool                                                                                                `json:"-"`
-	RankingMethod *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
-	NumTimeSeries *int64                                                                                              `json:"numTimeSeries"`
-	Direction     *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter struct {
+	empty         bool                                                                                                                    `json:"-"`
+	RankingMethod *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
+	NumTimeSeries *int64                                                                                                                  `json:"numTimeSeries"`
+	Direction     *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum     `json:"direction"`
 }
 
-type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+type jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1824,7 +10773,7 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSe
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
 	} else {
 
 		r.RankingMethod = res.RankingMethod
@@ -1837,38 +10786,38 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSe
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter = &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{empty: true}
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio struct {
-	empty                bool                                                                                    `json:"-"`
-	Numerator            *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator            `json:"numerator"`
-	Denominator          *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator          `json:"denominator"`
-	SecondaryAggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation `json:"secondaryAggregation"`
-	PickTimeSeriesFilter *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio struct {
+	empty                bool                                                                                                        `json:"-"`
+	Numerator            *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator            `json:"numerator"`
+	Denominator          *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator          `json:"denominator"`
+	SecondaryAggregation *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation `json:"secondaryAggregation"`
+	PickTimeSeriesFilter *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
 }
 
-type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
+type jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1877,7 +10826,7 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) Unm
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio
 	} else {
 
 		r.Numerator = res.Numerator
@@ -1892,36 +10841,36 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) Unm
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio = &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio{empty: true}
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator struct {
-	empty       bool                                                                                    `json:"-"`
-	Filter      *string                                                                                 `json:"filter"`
-	Aggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation `json:"aggregation"`
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator struct {
+	empty       bool                                                                                                        `json:"-"`
+	Filter      *string                                                                                                     `json:"filter"`
+	Aggregation *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation `json:"aggregation"`
 }
 
-type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
+type jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1930,7 +10879,7 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator
 	} else {
 
 		r.Filter = res.Filter
@@ -1941,38 +10890,38 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator = &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator{empty: true}
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation struct {
-	empty              bool                                                                                                          `json:"-"`
-	AlignmentPeriod    *string                                                                                                       `json:"alignmentPeriod"`
-	PerSeriesAligner   *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
-	CrossSeriesReducer *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
-	GroupByFields      []string                                                                                                      `json:"groupByFields"`
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation struct {
+	empty              bool                                                                                                                              `json:"-"`
+	AlignmentPeriod    *string                                                                                                                           `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                          `json:"groupByFields"`
 }
 
-type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+type jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1981,7 +10930,7 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
 	} else {
 
 		r.AlignmentPeriod = res.AlignmentPeriod
@@ -1996,36 +10945,36 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumer
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation = &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{empty: true}
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator struct {
-	empty       bool                                                                                      `json:"-"`
-	Filter      *string                                                                                   `json:"filter"`
-	Aggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation `json:"aggregation"`
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator struct {
+	empty       bool                                                                                                          `json:"-"`
+	Filter      *string                                                                                                       `json:"filter"`
+	Aggregation *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation `json:"aggregation"`
 }
 
-type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
+type jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2034,7 +10983,7 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator
 	} else {
 
 		r.Filter = res.Filter
@@ -2045,38 +10994,38 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator = &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator{empty: true}
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation struct {
-	empty              bool                                                                                                            `json:"-"`
-	AlignmentPeriod    *string                                                                                                         `json:"alignmentPeriod"`
-	PerSeriesAligner   *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
-	CrossSeriesReducer *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
-	GroupByFields      []string                                                                                                        `json:"groupByFields"`
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation struct {
+	empty              bool                                                                                                                                `json:"-"`
+	AlignmentPeriod    *string                                                                                                                             `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                            `json:"groupByFields"`
 }
 
-type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+type jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2085,7 +11034,7 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
 	} else {
 
 		r.AlignmentPeriod = res.AlignmentPeriod
@@ -2100,38 +11049,38 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenom
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation = &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{empty: true}
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation struct {
-	empty              bool                                                                                                          `json:"-"`
-	AlignmentPeriod    *string                                                                                                       `json:"alignmentPeriod"`
-	PerSeriesAligner   *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
-	CrossSeriesReducer *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
-	GroupByFields      []string                                                                                                      `json:"groupByFields"`
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation struct {
+	empty              bool                                                                                                                              `json:"-"`
+	AlignmentPeriod    *string                                                                                                                           `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                          `json:"groupByFields"`
 }
 
-type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+type jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2140,7 +11089,7 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecon
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
 	} else {
 
 		r.AlignmentPeriod = res.AlignmentPeriod
@@ -2155,37 +11104,37 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecon
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation = &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{empty: true}
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter struct {
-	empty         bool                                                                                                     `json:"-"`
-	RankingMethod *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
-	NumTimeSeries *int64                                                                                                   `json:"numTimeSeries"`
-	Direction     *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+type DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter struct {
+	empty         bool                                                                                                                         `json:"-"`
+	RankingMethod *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
+	NumTimeSeries *int64                                                                                                                       `json:"numTimeSeries"`
+	Direction     *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum     `json:"direction"`
 }
 
-type jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+type jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2194,7 +11143,7 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickT
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
 	} else {
 
 		r.RankingMethod = res.RankingMethod
@@ -2207,38 +11156,38 @@ func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickT
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter = &DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter = &DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{empty: true}
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChartThresholds struct {
-	empty     bool                                           `json:"-"`
-	Label     *string                                        `json:"label"`
-	Value     *float64                                       `json:"value"`
-	Color     *DashboardWidgetXyChartThresholdsColorEnum     `json:"color"`
-	Direction *DashboardWidgetXyChartThresholdsDirectionEnum `json:"direction"`
+type DashboardColumnLayoutColumnsWidgetsXyChartThresholds struct {
+	empty     bool                                                               `json:"-"`
+	Label     *string                                                            `json:"label"`
+	Value     *float64                                                           `json:"value"`
+	Color     *DashboardColumnLayoutColumnsWidgetsXyChartThresholdsColorEnum     `json:"color"`
+	Direction *DashboardColumnLayoutColumnsWidgetsXyChartThresholdsDirectionEnum `json:"direction"`
 }
 
-type jsonDashboardWidgetXyChartThresholds DashboardWidgetXyChartThresholds
+type jsonDashboardColumnLayoutColumnsWidgetsXyChartThresholds DashboardColumnLayoutColumnsWidgetsXyChartThresholds
 
-func (r *DashboardWidgetXyChartThresholds) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetXyChartThresholds
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartThresholds) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsXyChartThresholds
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2247,7 +11196,7 @@ func (r *DashboardWidgetXyChartThresholds) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetXyChartThresholds
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsXyChartThresholds
 	} else {
 
 		r.Label = res.Label
@@ -2262,36 +11211,36 @@ func (r *DashboardWidgetXyChartThresholds) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetXyChartThresholds is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsXyChartThresholds is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartThresholds *DashboardWidgetXyChartThresholds = &DashboardWidgetXyChartThresholds{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsXyChartThresholds *DashboardColumnLayoutColumnsWidgetsXyChartThresholds = &DashboardColumnLayoutColumnsWidgetsXyChartThresholds{empty: true}
 
-func (r *DashboardWidgetXyChartThresholds) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartThresholds) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetXyChartThresholds) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartThresholds) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetXyChartThresholds) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartThresholds) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChartXAxis struct {
-	empty bool                                  `json:"-"`
-	Label *string                               `json:"label"`
-	Scale *DashboardWidgetXyChartXAxisScaleEnum `json:"scale"`
+type DashboardColumnLayoutColumnsWidgetsXyChartXAxis struct {
+	empty bool                                                      `json:"-"`
+	Label *string                                                   `json:"label"`
+	Scale *DashboardColumnLayoutColumnsWidgetsXyChartXAxisScaleEnum `json:"scale"`
 }
 
-type jsonDashboardWidgetXyChartXAxis DashboardWidgetXyChartXAxis
+type jsonDashboardColumnLayoutColumnsWidgetsXyChartXAxis DashboardColumnLayoutColumnsWidgetsXyChartXAxis
 
-func (r *DashboardWidgetXyChartXAxis) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetXyChartXAxis
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartXAxis) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsXyChartXAxis
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2300,7 +11249,7 @@ func (r *DashboardWidgetXyChartXAxis) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetXyChartXAxis
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsXyChartXAxis
 	} else {
 
 		r.Label = res.Label
@@ -2311,36 +11260,36 @@ func (r *DashboardWidgetXyChartXAxis) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetXyChartXAxis is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsXyChartXAxis is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartXAxis *DashboardWidgetXyChartXAxis = &DashboardWidgetXyChartXAxis{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsXyChartXAxis *DashboardColumnLayoutColumnsWidgetsXyChartXAxis = &DashboardColumnLayoutColumnsWidgetsXyChartXAxis{empty: true}
 
-func (r *DashboardWidgetXyChartXAxis) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartXAxis) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetXyChartXAxis) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartXAxis) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetXyChartXAxis) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartXAxis) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChartYAxis struct {
-	empty bool                                  `json:"-"`
-	Label *string                               `json:"label"`
-	Scale *DashboardWidgetXyChartYAxisScaleEnum `json:"scale"`
+type DashboardColumnLayoutColumnsWidgetsXyChartYAxis struct {
+	empty bool                                                      `json:"-"`
+	Label *string                                                   `json:"label"`
+	Scale *DashboardColumnLayoutColumnsWidgetsXyChartYAxisScaleEnum `json:"scale"`
 }
 
-type jsonDashboardWidgetXyChartYAxis DashboardWidgetXyChartYAxis
+type jsonDashboardColumnLayoutColumnsWidgetsXyChartYAxis DashboardColumnLayoutColumnsWidgetsXyChartYAxis
 
-func (r *DashboardWidgetXyChartYAxis) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetXyChartYAxis
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartYAxis) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsXyChartYAxis
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2349,7 +11298,7 @@ func (r *DashboardWidgetXyChartYAxis) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetXyChartYAxis
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsXyChartYAxis
 	} else {
 
 		r.Label = res.Label
@@ -2360,35 +11309,35 @@ func (r *DashboardWidgetXyChartYAxis) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetXyChartYAxis is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsXyChartYAxis is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartYAxis *DashboardWidgetXyChartYAxis = &DashboardWidgetXyChartYAxis{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsXyChartYAxis *DashboardColumnLayoutColumnsWidgetsXyChartYAxis = &DashboardColumnLayoutColumnsWidgetsXyChartYAxis{empty: true}
 
-func (r *DashboardWidgetXyChartYAxis) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartYAxis) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetXyChartYAxis) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartYAxis) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetXyChartYAxis) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartYAxis) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetXyChartChartOptions struct {
-	empty bool                                        `json:"-"`
-	Mode  *DashboardWidgetXyChartChartOptionsModeEnum `json:"mode"`
+type DashboardColumnLayoutColumnsWidgetsXyChartChartOptions struct {
+	empty bool                                                            `json:"-"`
+	Mode  *DashboardColumnLayoutColumnsWidgetsXyChartChartOptionsModeEnum `json:"mode"`
 }
 
-type jsonDashboardWidgetXyChartChartOptions DashboardWidgetXyChartChartOptions
+type jsonDashboardColumnLayoutColumnsWidgetsXyChartChartOptions DashboardColumnLayoutColumnsWidgetsXyChartChartOptions
 
-func (r *DashboardWidgetXyChartChartOptions) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetXyChartChartOptions
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartChartOptions) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsXyChartChartOptions
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2397,7 +11346,7 @@ func (r *DashboardWidgetXyChartChartOptions) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetXyChartChartOptions
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsXyChartChartOptions
 	} else {
 
 		r.Mode = res.Mode
@@ -2406,38 +11355,38 @@ func (r *DashboardWidgetXyChartChartOptions) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetXyChartChartOptions is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsXyChartChartOptions is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetXyChartChartOptions *DashboardWidgetXyChartChartOptions = &DashboardWidgetXyChartChartOptions{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsXyChartChartOptions *DashboardColumnLayoutColumnsWidgetsXyChartChartOptions = &DashboardColumnLayoutColumnsWidgetsXyChartChartOptions{empty: true}
 
-func (r *DashboardWidgetXyChartChartOptions) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartChartOptions) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetXyChartChartOptions) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartChartOptions) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetXyChartChartOptions) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsXyChartChartOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetScorecard struct {
-	empty           bool                                     `json:"-"`
-	TimeSeriesQuery *DashboardWidgetScorecardTimeSeriesQuery `json:"timeSeriesQuery"`
-	GaugeView       *DashboardWidgetScorecardGaugeView       `json:"gaugeView"`
-	SparkChartView  *DashboardWidgetScorecardSparkChartView  `json:"sparkChartView"`
-	Thresholds      []DashboardWidgetScorecardThresholds     `json:"thresholds"`
+type DashboardColumnLayoutColumnsWidgetsScorecard struct {
+	empty           bool                                                         `json:"-"`
+	TimeSeriesQuery *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery `json:"timeSeriesQuery"`
+	GaugeView       *DashboardColumnLayoutColumnsWidgetsScorecardGaugeView       `json:"gaugeView"`
+	SparkChartView  *DashboardColumnLayoutColumnsWidgetsScorecardSparkChartView  `json:"sparkChartView"`
+	Thresholds      []DashboardColumnLayoutColumnsWidgetsScorecardThresholds     `json:"thresholds"`
 }
 
-type jsonDashboardWidgetScorecard DashboardWidgetScorecard
+type jsonDashboardColumnLayoutColumnsWidgetsScorecard DashboardColumnLayoutColumnsWidgetsScorecard
 
-func (r *DashboardWidgetScorecard) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetScorecard
+func (r *DashboardColumnLayoutColumnsWidgetsScorecard) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsScorecard
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2446,7 +11395,7 @@ func (r *DashboardWidgetScorecard) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetScorecard
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsScorecard
 	} else {
 
 		r.TimeSeriesQuery = res.TimeSeriesQuery
@@ -2461,38 +11410,38 @@ func (r *DashboardWidgetScorecard) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetScorecard is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsScorecard is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecard *DashboardWidgetScorecard = &DashboardWidgetScorecard{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsScorecard *DashboardColumnLayoutColumnsWidgetsScorecard = &DashboardColumnLayoutColumnsWidgetsScorecard{empty: true}
 
-func (r *DashboardWidgetScorecard) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecard) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetScorecard) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecard) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetScorecard) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecard) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetScorecardTimeSeriesQuery struct {
-	empty                   bool                                                          `json:"-"`
-	TimeSeriesFilter        *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter      `json:"timeSeriesFilter"`
-	TimeSeriesFilterRatio   *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio `json:"timeSeriesFilterRatio"`
-	TimeSeriesQueryLanguage *string                                                       `json:"timeSeriesQueryLanguage"`
-	UnitOverride            *string                                                       `json:"unitOverride"`
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery struct {
+	empty                   bool                                                                              `json:"-"`
+	TimeSeriesFilter        *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter      `json:"timeSeriesFilter"`
+	TimeSeriesFilterRatio   *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio `json:"timeSeriesFilterRatio"`
+	TimeSeriesQueryLanguage *string                                                                           `json:"timeSeriesQueryLanguage"`
+	UnitOverride            *string                                                                           `json:"unitOverride"`
 }
 
-type jsonDashboardWidgetScorecardTimeSeriesQuery DashboardWidgetScorecardTimeSeriesQuery
+type jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery
 
-func (r *DashboardWidgetScorecardTimeSeriesQuery) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetScorecardTimeSeriesQuery
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2501,7 +11450,7 @@ func (r *DashboardWidgetScorecardTimeSeriesQuery) UnmarshalJSON(data []byte) err
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetScorecardTimeSeriesQuery
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery
 	} else {
 
 		r.TimeSeriesFilter = res.TimeSeriesFilter
@@ -2516,38 +11465,38 @@ func (r *DashboardWidgetScorecardTimeSeriesQuery) UnmarshalJSON(data []byte) err
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQuery is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardTimeSeriesQuery *DashboardWidgetScorecardTimeSeriesQuery = &DashboardWidgetScorecardTimeSeriesQuery{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery = &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery{empty: true}
 
-func (r *DashboardWidgetScorecardTimeSeriesQuery) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQuery) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQuery) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter struct {
-	empty                bool                                                                         `json:"-"`
-	Filter               *string                                                                      `json:"filter"`
-	Aggregation          *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation          `json:"aggregation"`
-	SecondaryAggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation `json:"secondaryAggregation"`
-	PickTimeSeriesFilter *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter struct {
+	empty                bool                                                                                             `json:"-"`
+	Filter               *string                                                                                          `json:"filter"`
+	Aggregation          *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation          `json:"aggregation"`
+	SecondaryAggregation *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation `json:"secondaryAggregation"`
+	PickTimeSeriesFilter *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
 }
 
-type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter
+type jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2556,7 +11505,7 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) UnmarshalJSON(
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter
 	} else {
 
 		r.Filter = res.Filter
@@ -2571,38 +11520,38 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) UnmarshalJSON(
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter = &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter{empty: true}
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilter) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation struct {
-	empty              bool                                                                                      `json:"-"`
-	AlignmentPeriod    *string                                                                                   `json:"alignmentPeriod"`
-	PerSeriesAligner   *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
-	CrossSeriesReducer *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
-	GroupByFields      []string                                                                                  `json:"groupByFields"`
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation struct {
+	empty              bool                                                                                                          `json:"-"`
+	AlignmentPeriod    *string                                                                                                       `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                      `json:"groupByFields"`
 }
 
-type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation
+type jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2611,7 +11560,7 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) Unm
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation
 	} else {
 
 		r.AlignmentPeriod = res.AlignmentPeriod
@@ -2626,38 +11575,38 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) Unm
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation = &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation{empty: true}
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation struct {
-	empty              bool                                                                                               `json:"-"`
-	AlignmentPeriod    *string                                                                                            `json:"alignmentPeriod"`
-	PerSeriesAligner   *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
-	CrossSeriesReducer *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
-	GroupByFields      []string                                                                                           `json:"groupByFields"`
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation struct {
+	empty              bool                                                                                                                   `json:"-"`
+	AlignmentPeriod    *string                                                                                                                `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                               `json:"groupByFields"`
 }
 
-type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+type jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2666,7 +11615,7 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggrega
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation
 	} else {
 
 		r.AlignmentPeriod = res.AlignmentPeriod
@@ -2681,37 +11630,37 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggrega
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation = &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation{empty: true}
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter struct {
-	empty         bool                                                                                          `json:"-"`
-	RankingMethod *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
-	NumTimeSeries *int64                                                                                        `json:"numTimeSeries"`
-	Direction     *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter struct {
+	empty         bool                                                                                                              `json:"-"`
+	RankingMethod *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
+	NumTimeSeries *int64                                                                                                            `json:"numTimeSeries"`
+	Direction     *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterDirectionEnum     `json:"direction"`
 }
 
-type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+type jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2720,7 +11669,7 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFi
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter
 	} else {
 
 		r.RankingMethod = res.RankingMethod
@@ -2733,38 +11682,38 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFi
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter = &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter{empty: true}
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio struct {
-	empty                bool                                                                              `json:"-"`
-	Numerator            *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator            `json:"numerator"`
-	Denominator          *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator          `json:"denominator"`
-	SecondaryAggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation `json:"secondaryAggregation"`
-	PickTimeSeriesFilter *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio struct {
+	empty                bool                                                                                                  `json:"-"`
+	Numerator            *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator            `json:"numerator"`
+	Denominator          *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator          `json:"denominator"`
+	SecondaryAggregation *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation `json:"secondaryAggregation"`
+	PickTimeSeriesFilter *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter `json:"pickTimeSeriesFilter"`
 }
 
-type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
+type jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2773,7 +11722,7 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) Unmarshal
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
 	} else {
 
 		r.Numerator = res.Numerator
@@ -2788,36 +11737,36 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) Unmarshal
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio = &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio{empty: true}
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator struct {
-	empty       bool                                                                              `json:"-"`
-	Filter      *string                                                                           `json:"filter"`
-	Aggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation `json:"aggregation"`
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator struct {
+	empty       bool                                                                                                  `json:"-"`
+	Filter      *string                                                                                               `json:"filter"`
+	Aggregation *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation `json:"aggregation"`
 }
 
-type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
+type jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2826,7 +11775,7 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) 
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator
 	} else {
 
 		r.Filter = res.Filter
@@ -2837,38 +11786,38 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) 
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator = &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator{empty: true}
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation struct {
-	empty              bool                                                                                                    `json:"-"`
-	AlignmentPeriod    *string                                                                                                 `json:"alignmentPeriod"`
-	PerSeriesAligner   *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
-	CrossSeriesReducer *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
-	GroupByFields      []string                                                                                                `json:"groupByFields"`
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation struct {
+	empty              bool                                                                                                                        `json:"-"`
+	AlignmentPeriod    *string                                                                                                                     `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                    `json:"groupByFields"`
 }
 
-type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+type jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2877,7 +11826,7 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAg
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation
 	} else {
 
 		r.AlignmentPeriod = res.AlignmentPeriod
@@ -2892,36 +11841,36 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAg
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation = &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation{empty: true}
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator struct {
-	empty       bool                                                                                `json:"-"`
-	Filter      *string                                                                             `json:"filter"`
-	Aggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation `json:"aggregation"`
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator struct {
+	empty       bool                                                                                                    `json:"-"`
+	Filter      *string                                                                                                 `json:"filter"`
+	Aggregation *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation `json:"aggregation"`
 }
 
-type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
+type jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2930,7 +11879,7 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 	} else {
 
 		r.Filter = res.Filter
@@ -2941,38 +11890,38 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator = &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator{empty: true}
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation struct {
-	empty              bool                                                                                                      `json:"-"`
-	AlignmentPeriod    *string                                                                                                   `json:"alignmentPeriod"`
-	PerSeriesAligner   *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
-	CrossSeriesReducer *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
-	GroupByFields      []string                                                                                                  `json:"groupByFields"`
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation struct {
+	empty              bool                                                                                                                          `json:"-"`
+	AlignmentPeriod    *string                                                                                                                       `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                      `json:"groupByFields"`
 }
 
-type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+type jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -2981,7 +11930,7 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation
 	} else {
 
 		r.AlignmentPeriod = res.AlignmentPeriod
@@ -2996,38 +11945,38 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation = &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation{empty: true}
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation struct {
-	empty              bool                                                                                                    `json:"-"`
-	AlignmentPeriod    *string                                                                                                 `json:"alignmentPeriod"`
-	PerSeriesAligner   *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
-	CrossSeriesReducer *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
-	GroupByFields      []string                                                                                                `json:"groupByFields"`
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation struct {
+	empty              bool                                                                                                                        `json:"-"`
+	AlignmentPeriod    *string                                                                                                                     `json:"alignmentPeriod"`
+	PerSeriesAligner   *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationPerSeriesAlignerEnum   `json:"perSeriesAligner"`
+	CrossSeriesReducer *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationCrossSeriesReducerEnum `json:"crossSeriesReducer"`
+	GroupByFields      []string                                                                                                                    `json:"groupByFields"`
 }
 
-type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+type jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -3036,7 +11985,7 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAg
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation
 	} else {
 
 		r.AlignmentPeriod = res.AlignmentPeriod
@@ -3051,37 +12000,37 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAg
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation = &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation{empty: true}
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter struct {
-	empty         bool                                                                                               `json:"-"`
-	RankingMethod *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
-	NumTimeSeries *int64                                                                                             `json:"numTimeSeries"`
-	Direction     *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum     `json:"direction"`
+type DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter struct {
+	empty         bool                                                                                                                   `json:"-"`
+	RankingMethod *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterRankingMethodEnum `json:"rankingMethod"`
+	NumTimeSeries *int64                                                                                                                 `json:"numTimeSeries"`
+	Direction     *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterDirectionEnum     `json:"direction"`
 }
 
-type jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+type jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -3090,7 +12039,7 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSer
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter
 	} else {
 
 		r.RankingMethod = res.RankingMethod
@@ -3103,36 +12052,36 @@ func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSer
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter = &DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter = &DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter{empty: true}
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetScorecardGaugeView struct {
+type DashboardColumnLayoutColumnsWidgetsScorecardGaugeView struct {
 	empty      bool     `json:"-"`
 	LowerBound *float64 `json:"lowerBound"`
 	UpperBound *float64 `json:"upperBound"`
 }
 
-type jsonDashboardWidgetScorecardGaugeView DashboardWidgetScorecardGaugeView
+type jsonDashboardColumnLayoutColumnsWidgetsScorecardGaugeView DashboardColumnLayoutColumnsWidgetsScorecardGaugeView
 
-func (r *DashboardWidgetScorecardGaugeView) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetScorecardGaugeView
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardGaugeView) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsScorecardGaugeView
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -3141,7 +12090,7 @@ func (r *DashboardWidgetScorecardGaugeView) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetScorecardGaugeView
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsScorecardGaugeView
 	} else {
 
 		r.LowerBound = res.LowerBound
@@ -3152,36 +12101,36 @@ func (r *DashboardWidgetScorecardGaugeView) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetScorecardGaugeView is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsScorecardGaugeView is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardGaugeView *DashboardWidgetScorecardGaugeView = &DashboardWidgetScorecardGaugeView{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsScorecardGaugeView *DashboardColumnLayoutColumnsWidgetsScorecardGaugeView = &DashboardColumnLayoutColumnsWidgetsScorecardGaugeView{empty: true}
 
-func (r *DashboardWidgetScorecardGaugeView) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardGaugeView) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetScorecardGaugeView) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardGaugeView) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetScorecardGaugeView) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardGaugeView) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetScorecardSparkChartView struct {
-	empty              bool                                                      `json:"-"`
-	SparkChartType     *DashboardWidgetScorecardSparkChartViewSparkChartTypeEnum `json:"sparkChartType"`
-	MinAlignmentPeriod *string                                                   `json:"minAlignmentPeriod"`
+type DashboardColumnLayoutColumnsWidgetsScorecardSparkChartView struct {
+	empty              bool                                                                          `json:"-"`
+	SparkChartType     *DashboardColumnLayoutColumnsWidgetsScorecardSparkChartViewSparkChartTypeEnum `json:"sparkChartType"`
+	MinAlignmentPeriod *string                                                                       `json:"minAlignmentPeriod"`
 }
 
-type jsonDashboardWidgetScorecardSparkChartView DashboardWidgetScorecardSparkChartView
+type jsonDashboardColumnLayoutColumnsWidgetsScorecardSparkChartView DashboardColumnLayoutColumnsWidgetsScorecardSparkChartView
 
-func (r *DashboardWidgetScorecardSparkChartView) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetScorecardSparkChartView
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardSparkChartView) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsScorecardSparkChartView
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -3190,7 +12139,7 @@ func (r *DashboardWidgetScorecardSparkChartView) UnmarshalJSON(data []byte) erro
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetScorecardSparkChartView
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsScorecardSparkChartView
 	} else {
 
 		r.SparkChartType = res.SparkChartType
@@ -3201,38 +12150,38 @@ func (r *DashboardWidgetScorecardSparkChartView) UnmarshalJSON(data []byte) erro
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetScorecardSparkChartView is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsScorecardSparkChartView is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardSparkChartView *DashboardWidgetScorecardSparkChartView = &DashboardWidgetScorecardSparkChartView{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsScorecardSparkChartView *DashboardColumnLayoutColumnsWidgetsScorecardSparkChartView = &DashboardColumnLayoutColumnsWidgetsScorecardSparkChartView{empty: true}
 
-func (r *DashboardWidgetScorecardSparkChartView) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardSparkChartView) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetScorecardSparkChartView) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardSparkChartView) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetScorecardSparkChartView) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardSparkChartView) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetScorecardThresholds struct {
-	empty     bool                                             `json:"-"`
-	Label     *string                                          `json:"label"`
-	Value     *float64                                         `json:"value"`
-	Color     *DashboardWidgetScorecardThresholdsColorEnum     `json:"color"`
-	Direction *DashboardWidgetScorecardThresholdsDirectionEnum `json:"direction"`
+type DashboardColumnLayoutColumnsWidgetsScorecardThresholds struct {
+	empty     bool                                                                 `json:"-"`
+	Label     *string                                                              `json:"label"`
+	Value     *float64                                                             `json:"value"`
+	Color     *DashboardColumnLayoutColumnsWidgetsScorecardThresholdsColorEnum     `json:"color"`
+	Direction *DashboardColumnLayoutColumnsWidgetsScorecardThresholdsDirectionEnum `json:"direction"`
 }
 
-type jsonDashboardWidgetScorecardThresholds DashboardWidgetScorecardThresholds
+type jsonDashboardColumnLayoutColumnsWidgetsScorecardThresholds DashboardColumnLayoutColumnsWidgetsScorecardThresholds
 
-func (r *DashboardWidgetScorecardThresholds) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetScorecardThresholds
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardThresholds) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsScorecardThresholds
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -3241,7 +12190,7 @@ func (r *DashboardWidgetScorecardThresholds) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetScorecardThresholds
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsScorecardThresholds
 	} else {
 
 		r.Label = res.Label
@@ -3256,36 +12205,36 @@ func (r *DashboardWidgetScorecardThresholds) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetScorecardThresholds is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsScorecardThresholds is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetScorecardThresholds *DashboardWidgetScorecardThresholds = &DashboardWidgetScorecardThresholds{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsScorecardThresholds *DashboardColumnLayoutColumnsWidgetsScorecardThresholds = &DashboardColumnLayoutColumnsWidgetsScorecardThresholds{empty: true}
 
-func (r *DashboardWidgetScorecardThresholds) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardThresholds) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetScorecardThresholds) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardThresholds) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetScorecardThresholds) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsScorecardThresholds) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetText struct {
-	empty   bool                           `json:"-"`
-	Content *string                        `json:"content"`
-	Format  *DashboardWidgetTextFormatEnum `json:"format"`
+type DashboardColumnLayoutColumnsWidgetsText struct {
+	empty   bool                                               `json:"-"`
+	Content *string                                            `json:"content"`
+	Format  *DashboardColumnLayoutColumnsWidgetsTextFormatEnum `json:"format"`
 }
 
-type jsonDashboardWidgetText DashboardWidgetText
+type jsonDashboardColumnLayoutColumnsWidgetsText DashboardColumnLayoutColumnsWidgetsText
 
-func (r *DashboardWidgetText) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetText
+func (r *DashboardColumnLayoutColumnsWidgetsText) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsText
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -3294,7 +12243,7 @@ func (r *DashboardWidgetText) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetText
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsText
 	} else {
 
 		r.Content = res.Content
@@ -3305,34 +12254,34 @@ func (r *DashboardWidgetText) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetText is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsText is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetText *DashboardWidgetText = &DashboardWidgetText{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsText *DashboardColumnLayoutColumnsWidgetsText = &DashboardColumnLayoutColumnsWidgetsText{empty: true}
 
-func (r *DashboardWidgetText) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsText) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetText) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsText) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetText) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsText) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
-type DashboardWidgetBlank struct {
+type DashboardColumnLayoutColumnsWidgetsBlank struct {
 	empty bool `json:"-"`
 }
 
-type jsonDashboardWidgetBlank DashboardWidgetBlank
+type jsonDashboardColumnLayoutColumnsWidgetsBlank DashboardColumnLayoutColumnsWidgetsBlank
 
-func (r *DashboardWidgetBlank) UnmarshalJSON(data []byte) error {
-	var res jsonDashboardWidgetBlank
+func (r *DashboardColumnLayoutColumnsWidgetsBlank) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsBlank
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -3341,27 +12290,27 @@ func (r *DashboardWidgetBlank) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyDashboardWidgetBlank
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsBlank
 	} else {
 
 	}
 	return nil
 }
 
-// This object is used to assert a desired state where this DashboardWidgetBlank is
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsBlank is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyDashboardWidgetBlank *DashboardWidgetBlank = &DashboardWidgetBlank{empty: true}
+var EmptyDashboardColumnLayoutColumnsWidgetsBlank *DashboardColumnLayoutColumnsWidgetsBlank = &DashboardColumnLayoutColumnsWidgetsBlank{empty: true}
 
-func (r *DashboardWidgetBlank) Empty() bool {
+func (r *DashboardColumnLayoutColumnsWidgetsBlank) Empty() bool {
 	return r.empty
 }
 
-func (r *DashboardWidgetBlank) String() string {
+func (r *DashboardColumnLayoutColumnsWidgetsBlank) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *DashboardWidgetBlank) HashCode() string {
+func (r *DashboardColumnLayoutColumnsWidgetsBlank) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

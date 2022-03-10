@@ -60,12 +60,24 @@ func ProtoToCloudidentityGroupInitialGroupConfigEnum(e cloudidentitypb.Cloudiden
 	return nil
 }
 
-// ProtoToGroupGoogleappscloudidentitygroupsvxentitykey converts a GroupGoogleappscloudidentitygroupsvxentitykey object from its proto representation.
-func ProtoToCloudidentityGroupGoogleappscloudidentitygroupsvxentitykey(p *cloudidentitypb.CloudidentityGroupGoogleappscloudidentitygroupsvxentitykey) *cloudidentity.GroupGoogleappscloudidentitygroupsvxentitykey {
+// ProtoToGroupGroupKey converts a GroupGroupKey object from its proto representation.
+func ProtoToCloudidentityGroupGroupKey(p *cloudidentitypb.CloudidentityGroupGroupKey) *cloudidentity.GroupGroupKey {
 	if p == nil {
 		return nil
 	}
-	obj := &cloudidentity.GroupGoogleappscloudidentitygroupsvxentitykey{
+	obj := &cloudidentity.GroupGroupKey{
+		Id:        dcl.StringOrNil(p.GetId()),
+		Namespace: dcl.StringOrNil(p.GetNamespace()),
+	}
+	return obj
+}
+
+// ProtoToGroupAdditionalGroupKeys converts a GroupAdditionalGroupKeys object from its proto representation.
+func ProtoToCloudidentityGroupAdditionalGroupKeys(p *cloudidentitypb.CloudidentityGroupAdditionalGroupKeys) *cloudidentity.GroupAdditionalGroupKeys {
+	if p == nil {
+		return nil
+	}
+	obj := &cloudidentity.GroupAdditionalGroupKeys{
 		Id:        dcl.StringOrNil(p.GetId()),
 		Namespace: dcl.StringOrNil(p.GetNamespace()),
 	}
@@ -80,6 +92,18 @@ func ProtoToCloudidentityGroupDirectMemberCountPerType(p *cloudidentitypb.Cloudi
 	obj := &cloudidentity.GroupDirectMemberCountPerType{
 		UserCount:  dcl.Int64OrNil(p.GetUserCount()),
 		GroupCount: dcl.Int64OrNil(p.GetGroupCount()),
+	}
+	return obj
+}
+
+// ProtoToGroupDerivedAliases converts a GroupDerivedAliases object from its proto representation.
+func ProtoToCloudidentityGroupDerivedAliases(p *cloudidentitypb.CloudidentityGroupDerivedAliases) *cloudidentity.GroupDerivedAliases {
+	if p == nil {
+		return nil
+	}
+	obj := &cloudidentity.GroupDerivedAliases{
+		Id:        dcl.StringOrNil(p.GetId()),
+		Namespace: dcl.StringOrNil(p.GetNamespace()),
 	}
 	return obj
 }
@@ -126,7 +150,7 @@ func ProtoToCloudidentityGroupDynamicGroupMetadataStatus(p *cloudidentitypb.Clou
 func ProtoToGroup(p *cloudidentitypb.CloudidentityGroup) *cloudidentity.Group {
 	obj := &cloudidentity.Group{
 		Name:                     dcl.StringOrNil(p.GetName()),
-		GroupKey:                 ProtoToCloudidentityGroupGoogleappscloudidentitygroupsvxentitykey(p.GetGroupKey()),
+		GroupKey:                 ProtoToCloudidentityGroupGroupKey(p.GetGroupKey()),
 		Parent:                   dcl.StringOrNil(p.GetParent()),
 		DisplayName:              dcl.StringOrNil(p.GetDisplayName()),
 		Description:              dcl.StringOrNil(p.GetDescription()),
@@ -138,10 +162,10 @@ func ProtoToGroup(p *cloudidentitypb.CloudidentityGroup) *cloudidentity.Group {
 		InitialGroupConfig:       ProtoToCloudidentityGroupInitialGroupConfigEnum(p.GetInitialGroupConfig()),
 	}
 	for _, r := range p.GetAdditionalGroupKeys() {
-		obj.AdditionalGroupKeys = append(obj.AdditionalGroupKeys, *ProtoToCloudidentityGroupGoogleappscloudidentitygroupsvxentitykey(r))
+		obj.AdditionalGroupKeys = append(obj.AdditionalGroupKeys, *ProtoToCloudidentityGroupAdditionalGroupKeys(r))
 	}
 	for _, r := range p.GetDerivedAliases() {
-		obj.DerivedAliases = append(obj.DerivedAliases, *ProtoToCloudidentityGroupGoogleappscloudidentitygroupsvxentitykey(r))
+		obj.DerivedAliases = append(obj.DerivedAliases, *ProtoToCloudidentityGroupDerivedAliases(r))
 	}
 	return obj
 }
@@ -179,12 +203,23 @@ func CloudidentityGroupInitialGroupConfigEnumToProto(e *cloudidentity.GroupIniti
 	return cloudidentitypb.CloudidentityGroupInitialGroupConfigEnum(0)
 }
 
-// GroupGoogleappscloudidentitygroupsvxentitykeyToProto converts a GroupGoogleappscloudidentitygroupsvxentitykey object to its proto representation.
-func CloudidentityGroupGoogleappscloudidentitygroupsvxentitykeyToProto(o *cloudidentity.GroupGoogleappscloudidentitygroupsvxentitykey) *cloudidentitypb.CloudidentityGroupGoogleappscloudidentitygroupsvxentitykey {
+// GroupGroupKeyToProto converts a GroupGroupKey object to its proto representation.
+func CloudidentityGroupGroupKeyToProto(o *cloudidentity.GroupGroupKey) *cloudidentitypb.CloudidentityGroupGroupKey {
 	if o == nil {
 		return nil
 	}
-	p := &cloudidentitypb.CloudidentityGroupGoogleappscloudidentitygroupsvxentitykey{}
+	p := &cloudidentitypb.CloudidentityGroupGroupKey{}
+	p.SetId(dcl.ValueOrEmptyString(o.Id))
+	p.SetNamespace(dcl.ValueOrEmptyString(o.Namespace))
+	return p
+}
+
+// GroupAdditionalGroupKeysToProto converts a GroupAdditionalGroupKeys object to its proto representation.
+func CloudidentityGroupAdditionalGroupKeysToProto(o *cloudidentity.GroupAdditionalGroupKeys) *cloudidentitypb.CloudidentityGroupAdditionalGroupKeys {
+	if o == nil {
+		return nil
+	}
+	p := &cloudidentitypb.CloudidentityGroupAdditionalGroupKeys{}
 	p.SetId(dcl.ValueOrEmptyString(o.Id))
 	p.SetNamespace(dcl.ValueOrEmptyString(o.Namespace))
 	return p
@@ -198,6 +233,17 @@ func CloudidentityGroupDirectMemberCountPerTypeToProto(o *cloudidentity.GroupDir
 	p := &cloudidentitypb.CloudidentityGroupDirectMemberCountPerType{}
 	p.SetUserCount(dcl.ValueOrEmptyInt64(o.UserCount))
 	p.SetGroupCount(dcl.ValueOrEmptyInt64(o.GroupCount))
+	return p
+}
+
+// GroupDerivedAliasesToProto converts a GroupDerivedAliases object to its proto representation.
+func CloudidentityGroupDerivedAliasesToProto(o *cloudidentity.GroupDerivedAliases) *cloudidentitypb.CloudidentityGroupDerivedAliases {
+	if o == nil {
+		return nil
+	}
+	p := &cloudidentitypb.CloudidentityGroupDerivedAliases{}
+	p.SetId(dcl.ValueOrEmptyString(o.Id))
+	p.SetNamespace(dcl.ValueOrEmptyString(o.Namespace))
 	return p
 }
 
@@ -242,7 +288,7 @@ func CloudidentityGroupDynamicGroupMetadataStatusToProto(o *cloudidentity.GroupD
 func GroupToProto(resource *cloudidentity.Group) *cloudidentitypb.CloudidentityGroup {
 	p := &cloudidentitypb.CloudidentityGroup{}
 	p.SetName(dcl.ValueOrEmptyString(resource.Name))
-	p.SetGroupKey(CloudidentityGroupGoogleappscloudidentitygroupsvxentitykeyToProto(resource.GroupKey))
+	p.SetGroupKey(CloudidentityGroupGroupKeyToProto(resource.GroupKey))
 	p.SetParent(dcl.ValueOrEmptyString(resource.Parent))
 	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
 	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
@@ -252,9 +298,9 @@ func GroupToProto(resource *cloudidentity.Group) *cloudidentitypb.CloudidentityG
 	p.SetDirectMemberCountPerType(CloudidentityGroupDirectMemberCountPerTypeToProto(resource.DirectMemberCountPerType))
 	p.SetDynamicGroupMetadata(CloudidentityGroupDynamicGroupMetadataToProto(resource.DynamicGroupMetadata))
 	p.SetInitialGroupConfig(CloudidentityGroupInitialGroupConfigEnumToProto(resource.InitialGroupConfig))
-	sAdditionalGroupKeys := make([]*cloudidentitypb.CloudidentityGroupGoogleappscloudidentitygroupsvxentitykey, len(resource.AdditionalGroupKeys))
+	sAdditionalGroupKeys := make([]*cloudidentitypb.CloudidentityGroupAdditionalGroupKeys, len(resource.AdditionalGroupKeys))
 	for i, r := range resource.AdditionalGroupKeys {
-		sAdditionalGroupKeys[i] = CloudidentityGroupGoogleappscloudidentitygroupsvxentitykeyToProto(&r)
+		sAdditionalGroupKeys[i] = CloudidentityGroupAdditionalGroupKeysToProto(&r)
 	}
 	p.SetAdditionalGroupKeys(sAdditionalGroupKeys)
 	mLabels := make(map[string]string, len(resource.Labels))
@@ -262,9 +308,9 @@ func GroupToProto(resource *cloudidentity.Group) *cloudidentitypb.CloudidentityG
 		mLabels[k] = r
 	}
 	p.SetLabels(mLabels)
-	sDerivedAliases := make([]*cloudidentitypb.CloudidentityGroupGoogleappscloudidentitygroupsvxentitykey, len(resource.DerivedAliases))
+	sDerivedAliases := make([]*cloudidentitypb.CloudidentityGroupDerivedAliases, len(resource.DerivedAliases))
 	for i, r := range resource.DerivedAliases {
-		sDerivedAliases[i] = CloudidentityGroupGoogleappscloudidentitygroupsvxentitykeyToProto(&r)
+		sDerivedAliases[i] = CloudidentityGroupDerivedAliasesToProto(&r)
 	}
 	p.SetDerivedAliases(sDerivedAliases)
 

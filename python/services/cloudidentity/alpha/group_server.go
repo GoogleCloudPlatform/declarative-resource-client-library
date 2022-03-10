@@ -60,12 +60,24 @@ func ProtoToCloudidentityAlphaGroupInitialGroupConfigEnum(e alphapb.Cloudidentit
 	return nil
 }
 
-// ProtoToGroupGoogleappscloudidentitygroupsvxentitykey converts a GroupGoogleappscloudidentitygroupsvxentitykey object from its proto representation.
-func ProtoToCloudidentityAlphaGroupGoogleappscloudidentitygroupsvxentitykey(p *alphapb.CloudidentityAlphaGroupGoogleappscloudidentitygroupsvxentitykey) *alpha.GroupGoogleappscloudidentitygroupsvxentitykey {
+// ProtoToGroupGroupKey converts a GroupGroupKey object from its proto representation.
+func ProtoToCloudidentityAlphaGroupGroupKey(p *alphapb.CloudidentityAlphaGroupGroupKey) *alpha.GroupGroupKey {
 	if p == nil {
 		return nil
 	}
-	obj := &alpha.GroupGoogleappscloudidentitygroupsvxentitykey{
+	obj := &alpha.GroupGroupKey{
+		Id:        dcl.StringOrNil(p.GetId()),
+		Namespace: dcl.StringOrNil(p.GetNamespace()),
+	}
+	return obj
+}
+
+// ProtoToGroupAdditionalGroupKeys converts a GroupAdditionalGroupKeys object from its proto representation.
+func ProtoToCloudidentityAlphaGroupAdditionalGroupKeys(p *alphapb.CloudidentityAlphaGroupAdditionalGroupKeys) *alpha.GroupAdditionalGroupKeys {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.GroupAdditionalGroupKeys{
 		Id:        dcl.StringOrNil(p.GetId()),
 		Namespace: dcl.StringOrNil(p.GetNamespace()),
 	}
@@ -127,7 +139,7 @@ func ProtoToCloudidentityAlphaGroupPosixGroups(p *alphapb.CloudidentityAlphaGrou
 func ProtoToGroup(p *alphapb.CloudidentityAlphaGroup) *alpha.Group {
 	obj := &alpha.Group{
 		Name:                 dcl.StringOrNil(p.GetName()),
-		GroupKey:             ProtoToCloudidentityAlphaGroupGoogleappscloudidentitygroupsvxentitykey(p.GetGroupKey()),
+		GroupKey:             ProtoToCloudidentityAlphaGroupGroupKey(p.GetGroupKey()),
 		Parent:               dcl.StringOrNil(p.GetParent()),
 		DisplayName:          dcl.StringOrNil(p.GetDisplayName()),
 		Description:          dcl.StringOrNil(p.GetDescription()),
@@ -137,7 +149,7 @@ func ProtoToGroup(p *alphapb.CloudidentityAlphaGroup) *alpha.Group {
 		InitialGroupConfig:   ProtoToCloudidentityAlphaGroupInitialGroupConfigEnum(p.GetInitialGroupConfig()),
 	}
 	for _, r := range p.GetAdditionalGroupKeys() {
-		obj.AdditionalGroupKeys = append(obj.AdditionalGroupKeys, *ProtoToCloudidentityAlphaGroupGoogleappscloudidentitygroupsvxentitykey(r))
+		obj.AdditionalGroupKeys = append(obj.AdditionalGroupKeys, *ProtoToCloudidentityAlphaGroupAdditionalGroupKeys(r))
 	}
 	for _, r := range p.GetPosixGroups() {
 		obj.PosixGroups = append(obj.PosixGroups, *ProtoToCloudidentityAlphaGroupPosixGroups(r))
@@ -178,12 +190,23 @@ func CloudidentityAlphaGroupInitialGroupConfigEnumToProto(e *alpha.GroupInitialG
 	return alphapb.CloudidentityAlphaGroupInitialGroupConfigEnum(0)
 }
 
-// GroupGoogleappscloudidentitygroupsvxentitykeyToProto converts a GroupGoogleappscloudidentitygroupsvxentitykey object to its proto representation.
-func CloudidentityAlphaGroupGoogleappscloudidentitygroupsvxentitykeyToProto(o *alpha.GroupGoogleappscloudidentitygroupsvxentitykey) *alphapb.CloudidentityAlphaGroupGoogleappscloudidentitygroupsvxentitykey {
+// GroupGroupKeyToProto converts a GroupGroupKey object to its proto representation.
+func CloudidentityAlphaGroupGroupKeyToProto(o *alpha.GroupGroupKey) *alphapb.CloudidentityAlphaGroupGroupKey {
 	if o == nil {
 		return nil
 	}
-	p := &alphapb.CloudidentityAlphaGroupGoogleappscloudidentitygroupsvxentitykey{}
+	p := &alphapb.CloudidentityAlphaGroupGroupKey{}
+	p.SetId(dcl.ValueOrEmptyString(o.Id))
+	p.SetNamespace(dcl.ValueOrEmptyString(o.Namespace))
+	return p
+}
+
+// GroupAdditionalGroupKeysToProto converts a GroupAdditionalGroupKeys object to its proto representation.
+func CloudidentityAlphaGroupAdditionalGroupKeysToProto(o *alpha.GroupAdditionalGroupKeys) *alphapb.CloudidentityAlphaGroupAdditionalGroupKeys {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.CloudidentityAlphaGroupAdditionalGroupKeys{}
 	p.SetId(dcl.ValueOrEmptyString(o.Id))
 	p.SetNamespace(dcl.ValueOrEmptyString(o.Namespace))
 	return p
@@ -242,7 +265,7 @@ func CloudidentityAlphaGroupPosixGroupsToProto(o *alpha.GroupPosixGroups) *alpha
 func GroupToProto(resource *alpha.Group) *alphapb.CloudidentityAlphaGroup {
 	p := &alphapb.CloudidentityAlphaGroup{}
 	p.SetName(dcl.ValueOrEmptyString(resource.Name))
-	p.SetGroupKey(CloudidentityAlphaGroupGoogleappscloudidentitygroupsvxentitykeyToProto(resource.GroupKey))
+	p.SetGroupKey(CloudidentityAlphaGroupGroupKeyToProto(resource.GroupKey))
 	p.SetParent(dcl.ValueOrEmptyString(resource.Parent))
 	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
 	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
@@ -250,9 +273,9 @@ func GroupToProto(resource *alpha.Group) *alphapb.CloudidentityAlphaGroup {
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
 	p.SetDynamicGroupMetadata(CloudidentityAlphaGroupDynamicGroupMetadataToProto(resource.DynamicGroupMetadata))
 	p.SetInitialGroupConfig(CloudidentityAlphaGroupInitialGroupConfigEnumToProto(resource.InitialGroupConfig))
-	sAdditionalGroupKeys := make([]*alphapb.CloudidentityAlphaGroupGoogleappscloudidentitygroupsvxentitykey, len(resource.AdditionalGroupKeys))
+	sAdditionalGroupKeys := make([]*alphapb.CloudidentityAlphaGroupAdditionalGroupKeys, len(resource.AdditionalGroupKeys))
 	for i, r := range resource.AdditionalGroupKeys {
-		sAdditionalGroupKeys[i] = CloudidentityAlphaGroupGoogleappscloudidentitygroupsvxentitykeyToProto(&r)
+		sAdditionalGroupKeys[i] = CloudidentityAlphaGroupAdditionalGroupKeysToProto(&r)
 	}
 	p.SetAdditionalGroupKeys(sAdditionalGroupKeys)
 	mLabels := make(map[string]string, len(resource.Labels))

@@ -2031,7 +2031,7 @@ func flattenFunctionEventTrigger(c *Client, i interface{}, res *Function) *Funct
 	r.EventType = dcl.FlattenString(m["eventType"])
 	r.Resource = dcl.FlattenString(m["resource"])
 	r.Service = dcl.FlattenString(m["service"])
-	r.FailurePolicy = flattenFunctionEventTriggerFailurePolicy(m["failurePolicy"])
+	r.FailurePolicy = flattenFunctionEventTriggerFailurePolicy(m["failurePolicy"], res)
 
 	return r
 }

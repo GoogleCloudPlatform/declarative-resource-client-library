@@ -195,8 +195,49 @@ components:
                   x-dcl-go-name: CallbackUri
                   description: action url in email template.
                 changeEmailTemplate:
-                  $ref: '#/components/schemas/EmailTemplate'
+                  type: object
                   x-dcl-go-name: ChangeEmailTemplate
+                  x-dcl-go-type: ConfigNotificationSendEmailChangeEmailTemplate
+                  description: Email template for change email
+                  properties:
+                    body:
+                      type: string
+                      x-dcl-go-name: Body
+                      description: Email body
+                      x-kubernetes-immutable: true
+                    bodyFormat:
+                      type: string
+                      x-dcl-go-name: BodyFormat
+                      x-dcl-go-type: ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum
+                      description: 'Email body format Possible values: BODY_FORMAT_UNSPECIFIED,
+                        PLAIN_TEXT, HTML'
+                      enum:
+                      - BODY_FORMAT_UNSPECIFIED
+                      - PLAIN_TEXT
+                      - HTML
+                    customized:
+                      type: boolean
+                      x-dcl-go-name: Customized
+                      readOnly: true
+                      description: Output only. Whether the body or subject of the
+                        email is customized.
+                      x-kubernetes-immutable: true
+                    replyTo:
+                      type: string
+                      x-dcl-go-name: ReplyTo
+                      description: Reply-to address
+                    senderDisplayName:
+                      type: string
+                      x-dcl-go-name: SenderDisplayName
+                      description: Sender display name
+                    senderLocalPart:
+                      type: string
+                      x-dcl-go-name: SenderLocalPart
+                      description: Local part of From address
+                    subject:
+                      type: string
+                      x-dcl-go-name: Subject
+                      description: Subject of the email
                 dnsInfo:
                   type: object
                   x-dcl-go-name: DnsInfo
@@ -254,11 +295,93 @@ components:
                   - DEFAULT
                   - CUSTOM_SMTP
                 resetPasswordTemplate:
-                  $ref: '#/components/schemas/EmailTemplate'
+                  type: object
                   x-dcl-go-name: ResetPasswordTemplate
+                  x-dcl-go-type: ConfigNotificationSendEmailResetPasswordTemplate
+                  description: Email template for reset password
+                  properties:
+                    body:
+                      type: string
+                      x-dcl-go-name: Body
+                      description: Email body
+                    bodyFormat:
+                      type: string
+                      x-dcl-go-name: BodyFormat
+                      x-dcl-go-type: ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum
+                      description: 'Email body format Possible values: BODY_FORMAT_UNSPECIFIED,
+                        PLAIN_TEXT, HTML'
+                      enum:
+                      - BODY_FORMAT_UNSPECIFIED
+                      - PLAIN_TEXT
+                      - HTML
+                    customized:
+                      type: boolean
+                      x-dcl-go-name: Customized
+                      readOnly: true
+                      description: Output only. Whether the body or subject of the
+                        email is customized.
+                      x-kubernetes-immutable: true
+                    replyTo:
+                      type: string
+                      x-dcl-go-name: ReplyTo
+                      description: Reply-to address
+                    senderDisplayName:
+                      type: string
+                      x-dcl-go-name: SenderDisplayName
+                      description: Sender display name
+                    senderLocalPart:
+                      type: string
+                      x-dcl-go-name: SenderLocalPart
+                      description: Local part of From address
+                    subject:
+                      type: string
+                      x-dcl-go-name: Subject
+                      description: Subject of the email
                 revertSecondFactorAdditionTemplate:
-                  $ref: '#/components/schemas/EmailTemplate'
+                  type: object
                   x-dcl-go-name: RevertSecondFactorAdditionTemplate
+                  x-dcl-go-type: ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate
+                  description: Email template for reverting second factor addition
+                    emails
+                  properties:
+                    body:
+                      type: string
+                      x-dcl-go-name: Body
+                      description: Email body
+                      x-kubernetes-immutable: true
+                    bodyFormat:
+                      type: string
+                      x-dcl-go-name: BodyFormat
+                      x-dcl-go-type: ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum
+                      description: 'Email body format Possible values: BODY_FORMAT_UNSPECIFIED,
+                        PLAIN_TEXT, HTML'
+                      enum:
+                      - BODY_FORMAT_UNSPECIFIED
+                      - PLAIN_TEXT
+                      - HTML
+                    customized:
+                      type: boolean
+                      x-dcl-go-name: Customized
+                      readOnly: true
+                      description: Output only. Whether the body or subject of the
+                        email is customized.
+                      x-kubernetes-immutable: true
+                    replyTo:
+                      type: string
+                      x-dcl-go-name: ReplyTo
+                      description: Reply-to address
+                    senderDisplayName:
+                      type: string
+                      x-dcl-go-name: SenderDisplayName
+                      description: Sender display name
+                    senderLocalPart:
+                      type: string
+                      x-dcl-go-name: SenderLocalPart
+                      description: Local part of From address
+                    subject:
+                      type: string
+                      x-dcl-go-name: Subject
+                      description: Subject of the email
                 smtp:
                   type: object
                   x-dcl-go-name: Smtp
@@ -299,8 +422,49 @@ components:
                       x-dcl-go-name: Username
                       description: SMTP relay username
                 verifyEmailTemplate:
-                  $ref: '#/components/schemas/EmailTemplate'
+                  type: object
                   x-dcl-go-name: VerifyEmailTemplate
+                  x-dcl-go-type: ConfigNotificationSendEmailVerifyEmailTemplate
+                  description: Email template for verify email
+                  properties:
+                    body:
+                      type: string
+                      x-dcl-go-name: Body
+                      description: Email body
+                      x-kubernetes-immutable: true
+                    bodyFormat:
+                      type: string
+                      x-dcl-go-name: BodyFormat
+                      x-dcl-go-type: ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum
+                      description: 'Email body format Possible values: BODY_FORMAT_UNSPECIFIED,
+                        PLAIN_TEXT, HTML'
+                      enum:
+                      - BODY_FORMAT_UNSPECIFIED
+                      - PLAIN_TEXT
+                      - HTML
+                    customized:
+                      type: boolean
+                      x-dcl-go-name: Customized
+                      readOnly: true
+                      description: Output only. Whether the body or subject of the
+                        email is customized.
+                      x-kubernetes-immutable: true
+                    replyTo:
+                      type: string
+                      x-dcl-go-name: ReplyTo
+                      description: Reply-to address
+                    senderDisplayName:
+                      type: string
+                      x-dcl-go-name: SenderDisplayName
+                      description: Sender display name
+                    senderLocalPart:
+                      type: string
+                      x-dcl-go-name: SenderLocalPart
+                      description: Local part of From address
+                    subject:
+                      type: string
+                      x-dcl-go-name: Subject
+                      description: Subject of the email
             sendSms:
               type: object
               x-dcl-go-name: SendSms
@@ -555,46 +719,3 @@ components:
           - SUBTYPE_UNSPECIFIED
           - IDENTITY_PLATFORM
           - FIREBASE_AUTH
-    EmailTemplate:
-      x-dcl-has-iam: false
-      type: object
-      x-dcl-go-name: ResetPasswordTemplate
-      x-dcl-go-type: ConfigEmailTemplate
-      description: Email template for reset password
-      properties:
-        body:
-          type: string
-          x-dcl-go-name: Body
-          description: Email body
-        bodyFormat:
-          type: string
-          x-dcl-go-name: BodyFormat
-          x-dcl-go-type: ConfigEmailTemplateBodyFormatEnum
-          description: 'Email body format Possible values: BODY_FORMAT_UNSPECIFIED,
-            PLAIN_TEXT, HTML'
-          enum:
-          - BODY_FORMAT_UNSPECIFIED
-          - PLAIN_TEXT
-          - HTML
-        customized:
-          type: boolean
-          x-dcl-go-name: Customized
-          readOnly: true
-          description: Output only. Whether the body or subject of the email is customized.
-          x-kubernetes-immutable: true
-        replyTo:
-          type: string
-          x-dcl-go-name: ReplyTo
-          description: Reply-to address
-        senderDisplayName:
-          type: string
-          x-dcl-go-name: SenderDisplayName
-          description: Sender display name
-        senderLocalPart:
-          type: string
-          x-dcl-go-name: SenderLocalPart
-          description: Local part of From address
-        subject:
-          type: string
-          x-dcl-go-name: Subject
-          description: Subject of the email

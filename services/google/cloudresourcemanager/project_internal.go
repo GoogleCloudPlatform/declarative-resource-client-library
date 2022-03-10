@@ -634,7 +634,7 @@ func flattenProject(c *Client, i interface{}, res *Project) *Project {
 	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	resultRes.LifecycleState = flattenProjectLifecycleStateEnum(m["lifecycleState"])
 	resultRes.DisplayName = dcl.FlattenString(m["name"])
-	resultRes.Parent = flattenProjectParent(c, m["parent"])
+	resultRes.Parent = flattenProjectParent(c, m["parent"], res)
 	resultRes.Name = dcl.FlattenString(m["projectId"])
 	resultRes.ProjectNumber = dcl.FlattenInteger(m["projectNumber"])
 

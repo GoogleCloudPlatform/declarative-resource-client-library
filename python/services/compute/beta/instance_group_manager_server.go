@@ -153,17 +153,17 @@ func ProtoToComputeBetaInstanceGroupManagerVersions(p *betapb.ComputeBetaInstanc
 	obj := &beta.InstanceGroupManagerVersions{
 		Name:             dcl.StringOrNil(p.GetName()),
 		InstanceTemplate: dcl.StringOrNil(p.GetInstanceTemplate()),
-		TargetSize:       ProtoToComputeBetaInstanceGroupManagerFixedOrPercent(p.GetTargetSize()),
+		TargetSize:       ProtoToComputeBetaInstanceGroupManagerVersionsTargetSize(p.GetTargetSize()),
 	}
 	return obj
 }
 
-// ProtoToInstanceGroupManagerFixedOrPercent converts a InstanceGroupManagerFixedOrPercent object from its proto representation.
-func ProtoToComputeBetaInstanceGroupManagerFixedOrPercent(p *betapb.ComputeBetaInstanceGroupManagerFixedOrPercent) *beta.InstanceGroupManagerFixedOrPercent {
+// ProtoToInstanceGroupManagerVersionsTargetSize converts a InstanceGroupManagerVersionsTargetSize object from its proto representation.
+func ProtoToComputeBetaInstanceGroupManagerVersionsTargetSize(p *betapb.ComputeBetaInstanceGroupManagerVersionsTargetSize) *beta.InstanceGroupManagerVersionsTargetSize {
 	if p == nil {
 		return nil
 	}
-	obj := &beta.InstanceGroupManagerFixedOrPercent{
+	obj := &beta.InstanceGroupManagerVersionsTargetSize{
 		Fixed:      dcl.Int64OrNil(p.GetFixed()),
 		Percent:    dcl.Int64OrNil(p.GetPercent()),
 		Calculated: dcl.Int64OrNil(p.GetCalculated()),
@@ -260,11 +260,37 @@ func ProtoToComputeBetaInstanceGroupManagerUpdatePolicy(p *betapb.ComputeBetaIns
 		Type:                        ProtoToComputeBetaInstanceGroupManagerUpdatePolicyTypeEnum(p.GetType()),
 		InstanceRedistributionType:  ProtoToComputeBetaInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(p.GetInstanceRedistributionType()),
 		MinimalAction:               ProtoToComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnum(p.GetMinimalAction()),
-		MaxSurge:                    ProtoToComputeBetaInstanceGroupManagerFixedOrPercent(p.GetMaxSurge()),
-		MaxUnavailable:              ProtoToComputeBetaInstanceGroupManagerFixedOrPercent(p.GetMaxUnavailable()),
+		MaxSurge:                    ProtoToComputeBetaInstanceGroupManagerUpdatePolicyMaxSurge(p.GetMaxSurge()),
+		MaxUnavailable:              ProtoToComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailable(p.GetMaxUnavailable()),
 		ReplacementMethod:           ProtoToComputeBetaInstanceGroupManagerUpdatePolicyReplacementMethodEnum(p.GetReplacementMethod()),
 		MostDisruptiveAllowedAction: ProtoToComputeBetaInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum(p.GetMostDisruptiveAllowedAction()),
 		MinReadySec:                 dcl.Int64OrNil(p.GetMinReadySec()),
+	}
+	return obj
+}
+
+// ProtoToInstanceGroupManagerUpdatePolicyMaxSurge converts a InstanceGroupManagerUpdatePolicyMaxSurge object from its proto representation.
+func ProtoToComputeBetaInstanceGroupManagerUpdatePolicyMaxSurge(p *betapb.ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurge) *beta.InstanceGroupManagerUpdatePolicyMaxSurge {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.InstanceGroupManagerUpdatePolicyMaxSurge{
+		Fixed:      dcl.Int64OrNil(p.GetFixed()),
+		Percent:    dcl.Int64OrNil(p.GetPercent()),
+		Calculated: dcl.Int64OrNil(p.GetCalculated()),
+	}
+	return obj
+}
+
+// ProtoToInstanceGroupManagerUpdatePolicyMaxUnavailable converts a InstanceGroupManagerUpdatePolicyMaxUnavailable object from its proto representation.
+func ProtoToComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailable(p *betapb.ComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailable) *beta.InstanceGroupManagerUpdatePolicyMaxUnavailable {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.InstanceGroupManagerUpdatePolicyMaxUnavailable{
+		Fixed:      dcl.Int64OrNil(p.GetFixed()),
+		Percent:    dcl.Int64OrNil(p.GetPercent()),
+		Calculated: dcl.Int64OrNil(p.GetCalculated()),
 	}
 	return obj
 }
@@ -473,16 +499,16 @@ func ComputeBetaInstanceGroupManagerVersionsToProto(o *beta.InstanceGroupManager
 	p := &betapb.ComputeBetaInstanceGroupManagerVersions{}
 	p.SetName(dcl.ValueOrEmptyString(o.Name))
 	p.SetInstanceTemplate(dcl.ValueOrEmptyString(o.InstanceTemplate))
-	p.SetTargetSize(ComputeBetaInstanceGroupManagerFixedOrPercentToProto(o.TargetSize))
+	p.SetTargetSize(ComputeBetaInstanceGroupManagerVersionsTargetSizeToProto(o.TargetSize))
 	return p
 }
 
-// InstanceGroupManagerFixedOrPercentToProto converts a InstanceGroupManagerFixedOrPercent object to its proto representation.
-func ComputeBetaInstanceGroupManagerFixedOrPercentToProto(o *beta.InstanceGroupManagerFixedOrPercent) *betapb.ComputeBetaInstanceGroupManagerFixedOrPercent {
+// InstanceGroupManagerVersionsTargetSizeToProto converts a InstanceGroupManagerVersionsTargetSize object to its proto representation.
+func ComputeBetaInstanceGroupManagerVersionsTargetSizeToProto(o *beta.InstanceGroupManagerVersionsTargetSize) *betapb.ComputeBetaInstanceGroupManagerVersionsTargetSize {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.ComputeBetaInstanceGroupManagerFixedOrPercent{}
+	p := &betapb.ComputeBetaInstanceGroupManagerVersionsTargetSize{}
 	p.SetFixed(dcl.ValueOrEmptyInt64(o.Fixed))
 	p.SetPercent(dcl.ValueOrEmptyInt64(o.Percent))
 	p.SetCalculated(dcl.ValueOrEmptyInt64(o.Calculated))
@@ -572,11 +598,35 @@ func ComputeBetaInstanceGroupManagerUpdatePolicyToProto(o *beta.InstanceGroupMan
 	p.SetType(ComputeBetaInstanceGroupManagerUpdatePolicyTypeEnumToProto(o.Type))
 	p.SetInstanceRedistributionType(ComputeBetaInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumToProto(o.InstanceRedistributionType))
 	p.SetMinimalAction(ComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnumToProto(o.MinimalAction))
-	p.SetMaxSurge(ComputeBetaInstanceGroupManagerFixedOrPercentToProto(o.MaxSurge))
-	p.SetMaxUnavailable(ComputeBetaInstanceGroupManagerFixedOrPercentToProto(o.MaxUnavailable))
+	p.SetMaxSurge(ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurgeToProto(o.MaxSurge))
+	p.SetMaxUnavailable(ComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailableToProto(o.MaxUnavailable))
 	p.SetReplacementMethod(ComputeBetaInstanceGroupManagerUpdatePolicyReplacementMethodEnumToProto(o.ReplacementMethod))
 	p.SetMostDisruptiveAllowedAction(ComputeBetaInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnumToProto(o.MostDisruptiveAllowedAction))
 	p.SetMinReadySec(dcl.ValueOrEmptyInt64(o.MinReadySec))
+	return p
+}
+
+// InstanceGroupManagerUpdatePolicyMaxSurgeToProto converts a InstanceGroupManagerUpdatePolicyMaxSurge object to its proto representation.
+func ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurgeToProto(o *beta.InstanceGroupManagerUpdatePolicyMaxSurge) *betapb.ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurge {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurge{}
+	p.SetFixed(dcl.ValueOrEmptyInt64(o.Fixed))
+	p.SetPercent(dcl.ValueOrEmptyInt64(o.Percent))
+	p.SetCalculated(dcl.ValueOrEmptyInt64(o.Calculated))
+	return p
+}
+
+// InstanceGroupManagerUpdatePolicyMaxUnavailableToProto converts a InstanceGroupManagerUpdatePolicyMaxUnavailable object to its proto representation.
+func ComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailableToProto(o *beta.InstanceGroupManagerUpdatePolicyMaxUnavailable) *betapb.ComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailable {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailable{}
+	p.SetFixed(dcl.ValueOrEmptyInt64(o.Fixed))
+	p.SetPercent(dcl.ValueOrEmptyInt64(o.Percent))
+	p.SetCalculated(dcl.ValueOrEmptyInt64(o.Calculated))
 	return p
 }
 

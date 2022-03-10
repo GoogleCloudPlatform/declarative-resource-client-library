@@ -80,9 +80,49 @@ components:
             when you create the resource.
           x-kubernetes-immutable: true
         diskEncryptionKey:
-          $ref: '#/components/schemas/EncryptionKey'
+          type: object
           x-dcl-go-name: DiskEncryptionKey
+          x-dcl-go-type: DiskDiskEncryptionKey
+          description: Encrypts the disk using a [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption).
+            After you encrypt a disk with a customer-supplied key, you must provide
+            the same key if you use the disk later (e.g. to create a disk snapshot,
+            to create a disk image, to create a machine image, or to attach the disk
+            to a virtual machine). Customer-supplied encryption keys do not protect
+            access to metadata of the disk. If you do not provide an encryption key
+            when creating the disk, then the disk will be encrypted using an automatically
+            generated key and you do not need to provide a key to use the disk later.
           x-kubernetes-immutable: true
+          properties:
+            kmsKeyName:
+              type: string
+              x-dcl-go-name: KmsKeyName
+              description: The name of the encryption key that is stored in Google
+                Cloud KMS.
+              x-kubernetes-immutable: true
+            kmsKeyServiceAccount:
+              type: string
+              x-dcl-go-name: KmsKeyServiceAccount
+              description: The service account being used for the encryption request
+                for the given KMS key. If absent, the Compute Engine default service
+                account is used.
+              x-kubernetes-immutable: true
+            rawKey:
+              type: string
+              x-dcl-go-name: RawKey
+              description: Specifies a 256-bit [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption),
+                encoded in [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
+                to either encrypt or decrypt this resource.
+              x-kubernetes-immutable: true
+              x-dcl-sensitive: true
+              x-dcl-mutable-unreadable: true
+            sha256:
+              type: string
+              x-dcl-go-name: Sha256
+              readOnly: true
+              description: '[Output only] The [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
+                encoded SHA-256 hash of the [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption)
+                that protects this resource.'
+              x-kubernetes-immutable: true
         guestOSFeature:
           type: array
           x-dcl-go-name: GuestOSFeature
@@ -388,9 +428,44 @@ components:
           - resource: Compute/Disk
             field: selfLink
         sourceImageEncryptionKey:
-          $ref: '#/components/schemas/EncryptionKey'
+          type: object
           x-dcl-go-name: SourceImageEncryptionKey
+          x-dcl-go-type: DiskSourceImageEncryptionKey
+          description: The [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption)
+            of the source image. Required if the source image is protected by a customer-supplied
+            encryption key.
           x-kubernetes-immutable: true
+          properties:
+            kmsKeyName:
+              type: string
+              x-dcl-go-name: KmsKeyName
+              description: The name of the encryption key that is stored in Google
+                Cloud KMS.
+              x-kubernetes-immutable: true
+            kmsKeyServiceAccount:
+              type: string
+              x-dcl-go-name: KmsKeyServiceAccount
+              description: The service account being used for the encryption request
+                for the given KMS key. If absent, the Compute Engine default service
+                account is used.
+              x-kubernetes-immutable: true
+            rawKey:
+              type: string
+              x-dcl-go-name: RawKey
+              description: Specifies a 256-bit [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption),
+                encoded in [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
+                to either encrypt or decrypt this resource.
+              x-kubernetes-immutable: true
+              x-dcl-sensitive: true
+              x-dcl-mutable-unreadable: true
+            sha256:
+              type: string
+              x-dcl-go-name: Sha256
+              readOnly: true
+              description: '[Output only] The [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
+                encoded SHA-256 hash of the [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption)
+                that protects this resource.'
+              x-kubernetes-immutable: true
         sourceImageId:
           type: string
           x-dcl-go-name: SourceImageId
@@ -413,9 +488,44 @@ components:
             *   `global/snapshots/snapshot`
           x-kubernetes-immutable: true
         sourceSnapshotEncryptionKey:
-          $ref: '#/components/schemas/EncryptionKey'
+          type: object
           x-dcl-go-name: SourceSnapshotEncryptionKey
+          x-dcl-go-type: DiskSourceSnapshotEncryptionKey
+          description: The [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption)
+            of the source snapshot. Required if the source snapshot is protected by
+            a customer-supplied encryption key.
           x-kubernetes-immutable: true
+          properties:
+            kmsKeyName:
+              type: string
+              x-dcl-go-name: KmsKeyName
+              description: The name of the encryption key that is stored in Google
+                Cloud KMS.
+              x-kubernetes-immutable: true
+            kmsKeyServiceAccount:
+              type: string
+              x-dcl-go-name: KmsKeyServiceAccount
+              description: The service account being used for the encryption request
+                for the given KMS key. If absent, the Compute Engine default service
+                account is used.
+              x-kubernetes-immutable: true
+            rawKey:
+              type: string
+              x-dcl-go-name: RawKey
+              description: Specifies a 256-bit [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption),
+                encoded in [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
+                to either encrypt or decrypt this resource.
+              x-kubernetes-immutable: true
+              x-dcl-sensitive: true
+              x-dcl-mutable-unreadable: true
+            sha256:
+              type: string
+              x-dcl-go-name: Sha256
+              readOnly: true
+              description: '[Output only] The [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
+                encoded SHA-256 hash of the [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption)
+                that protects this resource.'
+              x-kubernetes-immutable: true
         sourceSnapshotId:
           type: string
           x-dcl-go-name: SourceSnapshotId
@@ -469,49 +579,4 @@ components:
           description: '[Output Only] URL of the zone where the disk resides. You
             must specify this field as part of the HTTP request URL. It is not settable
             as a field in the request body.'
-          x-kubernetes-immutable: true
-    EncryptionKey:
-      x-dcl-has-iam: false
-      type: object
-      x-dcl-go-name: DiskEncryptionKey
-      x-dcl-go-type: DiskEncryptionKey
-      description: Encrypts the disk using a [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption).
-        After you encrypt a disk with a customer-supplied key, you must provide the
-        same key if you use the disk later (e.g. to create a disk snapshot, to create
-        a disk image, to create a machine image, or to attach the disk to a virtual
-        machine). Customer-supplied encryption keys do not protect access to metadata
-        of the disk. If you do not provide an encryption key when creating the disk,
-        then the disk will be encrypted using an automatically generated key and you
-        do not need to provide a key to use the disk later.
-      x-kubernetes-immutable: true
-      properties:
-        kmsKeyName:
-          type: string
-          x-dcl-go-name: KmsKeyName
-          description: The name of the encryption key that is stored in Google Cloud
-            KMS.
-          x-kubernetes-immutable: true
-        kmsKeyServiceAccount:
-          type: string
-          x-dcl-go-name: KmsKeyServiceAccount
-          description: The service account being used for the encryption request for
-            the given KMS key. If absent, the Compute Engine default service account
-            is used.
-          x-kubernetes-immutable: true
-        rawKey:
-          type: string
-          x-dcl-go-name: RawKey
-          description: Specifies a 256-bit [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption),
-            encoded in [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
-            to either encrypt or decrypt this resource.
-          x-kubernetes-immutable: true
-          x-dcl-sensitive: true
-          x-dcl-mutable-unreadable: true
-        sha256:
-          type: string
-          x-dcl-go-name: Sha256
-          readOnly: true
-          description: '[Output only] The [RFC 4648 base64](https://tools.ietf.org/html/rfc4648#section-4)
-            encoded SHA-256 hash of the [customer-supplied encryption key](/compute/docs/disks/customer-supplied-encryption)
-            that protects this resource.'
           x-kubernetes-immutable: true

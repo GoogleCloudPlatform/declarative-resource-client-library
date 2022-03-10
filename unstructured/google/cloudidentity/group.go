@@ -34,7 +34,14 @@ func GroupToUnstructured(r *dclService.Group) *unstructured.Resource {
 	}
 	var rAdditionalGroupKeys []interface{}
 	for _, rAdditionalGroupKeysVal := range r.AdditionalGroupKeys {
-		rAdditionalGroupKeys = append(rAdditionalGroupKeys, GroupGoogleappscloudidentitygroupsvxentitykeyToUnstructured(&rAdditionalGroupKeysVal))
+		rAdditionalGroupKeysObject := make(map[string]interface{})
+		if rAdditionalGroupKeysVal.Id != nil {
+			rAdditionalGroupKeysObject["id"] = *rAdditionalGroupKeysVal.Id
+		}
+		if rAdditionalGroupKeysVal.Namespace != nil {
+			rAdditionalGroupKeysObject["namespace"] = *rAdditionalGroupKeysVal.Namespace
+		}
+		rAdditionalGroupKeys = append(rAdditionalGroupKeys, rAdditionalGroupKeysObject)
 	}
 	u.Object["additionalGroupKeys"] = rAdditionalGroupKeys
 	if r.CreateTime != nil {
@@ -42,7 +49,14 @@ func GroupToUnstructured(r *dclService.Group) *unstructured.Resource {
 	}
 	var rDerivedAliases []interface{}
 	for _, rDerivedAliasesVal := range r.DerivedAliases {
-		rDerivedAliases = append(rDerivedAliases, GroupGoogleappscloudidentitygroupsvxentitykeyToUnstructured(&rDerivedAliasesVal))
+		rDerivedAliasesObject := make(map[string]interface{})
+		if rDerivedAliasesVal.Id != nil {
+			rDerivedAliasesObject["id"] = *rDerivedAliasesVal.Id
+		}
+		if rDerivedAliasesVal.Namespace != nil {
+			rDerivedAliasesObject["namespace"] = *rDerivedAliasesVal.Namespace
+		}
+		rDerivedAliases = append(rDerivedAliases, rDerivedAliasesObject)
 	}
 	u.Object["derivedAliases"] = rDerivedAliases
 	if r.Description != nil {
@@ -90,8 +104,15 @@ func GroupToUnstructured(r *dclService.Group) *unstructured.Resource {
 		}
 		u.Object["dynamicGroupMetadata"] = rDynamicGroupMetadata
 	}
-	if r.GroupKey != nil {
-		u.Object["groupKey"] = GroupGoogleappscloudidentitygroupsvxentitykeyToUnstructured(r.GroupKey)
+	if r.GroupKey != nil && r.GroupKey != dclService.EmptyGroupGroupKey {
+		rGroupKey := make(map[string]interface{})
+		if r.GroupKey.Id != nil {
+			rGroupKey["id"] = *r.GroupKey.Id
+		}
+		if r.GroupKey.Namespace != nil {
+			rGroupKey["namespace"] = *r.GroupKey.Namespace
+		}
+		u.Object["groupKey"] = rGroupKey
 	}
 	if r.InitialGroupConfig != nil {
 		u.Object["initialGroupConfig"] = string(*r.InitialGroupConfig)
@@ -115,28 +136,28 @@ func GroupToUnstructured(r *dclService.Group) *unstructured.Resource {
 	return u
 }
 
-func GroupGoogleappscloudidentitygroupsvxentitykeyToUnstructured(r *dclService.GroupGoogleappscloudidentitygroupsvxentitykey) map[string]interface{} {
-	result := make(map[string]interface{})
-	if r.Id != nil {
-		result["id"] = *r.Id
-	}
-	if r.Namespace != nil {
-		result["namespace"] = *r.Namespace
-	}
-	return result
-}
-
 func UnstructuredToGroup(u *unstructured.Resource) (*dclService.Group, error) {
 	r := &dclService.Group{}
 	if _, ok := u.Object["additionalGroupKeys"]; ok {
 		if s, ok := u.Object["additionalGroupKeys"].([]interface{}); ok {
 			for _, o := range s {
 				if objval, ok := o.(map[string]interface{}); ok {
-					unstructuredObjval, err := UnstructuredToGroupGoogleappscloudidentitygroupsvxentitykey(objval)
-					if err != nil {
-						return nil, err
+					var rAdditionalGroupKeys dclService.GroupAdditionalGroupKeys
+					if _, ok := objval["id"]; ok {
+						if s, ok := objval["id"].(string); ok {
+							rAdditionalGroupKeys.Id = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("rAdditionalGroupKeys.Id: expected string")
+						}
 					}
-					r.AdditionalGroupKeys = append(r.AdditionalGroupKeys, *unstructuredObjval)
+					if _, ok := objval["namespace"]; ok {
+						if s, ok := objval["namespace"].(string); ok {
+							rAdditionalGroupKeys.Namespace = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("rAdditionalGroupKeys.Namespace: expected string")
+						}
+					}
+					r.AdditionalGroupKeys = append(r.AdditionalGroupKeys, rAdditionalGroupKeys)
 				}
 			}
 		} else {
@@ -154,11 +175,22 @@ func UnstructuredToGroup(u *unstructured.Resource) (*dclService.Group, error) {
 		if s, ok := u.Object["derivedAliases"].([]interface{}); ok {
 			for _, o := range s {
 				if objval, ok := o.(map[string]interface{}); ok {
-					unstructuredObjval, err := UnstructuredToGroupGoogleappscloudidentitygroupsvxentitykey(objval)
-					if err != nil {
-						return nil, err
+					var rDerivedAliases dclService.GroupDerivedAliases
+					if _, ok := objval["id"]; ok {
+						if s, ok := objval["id"].(string); ok {
+							rDerivedAliases.Id = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("rDerivedAliases.Id: expected string")
+						}
 					}
-					r.DerivedAliases = append(r.DerivedAliases, *unstructuredObjval)
+					if _, ok := objval["namespace"]; ok {
+						if s, ok := objval["namespace"].(string); ok {
+							rDerivedAliases.Namespace = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("rDerivedAliases.Namespace: expected string")
+						}
+					}
+					r.DerivedAliases = append(r.DerivedAliases, rDerivedAliases)
 				}
 			}
 		} else {
@@ -263,10 +295,20 @@ func UnstructuredToGroup(u *unstructured.Resource) (*dclService.Group, error) {
 	}
 	if _, ok := u.Object["groupKey"]; ok {
 		if rGroupKey, ok := u.Object["groupKey"].(map[string]interface{}); ok {
-			var err error
-			r.GroupKey, err = UnstructuredToGroupGoogleappscloudidentitygroupsvxentitykey(rGroupKey)
-			if err != nil {
-				return nil, err
+			r.GroupKey = &dclService.GroupGroupKey{}
+			if _, ok := rGroupKey["id"]; ok {
+				if s, ok := rGroupKey["id"].(string); ok {
+					r.GroupKey.Id = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.GroupKey.Id: expected string")
+				}
+			}
+			if _, ok := rGroupKey["namespace"]; ok {
+				if s, ok := rGroupKey["namespace"].(string); ok {
+					r.GroupKey.Namespace = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.GroupKey.Namespace: expected string")
+				}
 			}
 		} else {
 			return nil, fmt.Errorf("r.GroupKey: expected map[string]interface{}")
@@ -311,25 +353,6 @@ func UnstructuredToGroup(u *unstructured.Resource) (*dclService.Group, error) {
 			r.UpdateTime = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.UpdateTime: expected string")
-		}
-	}
-	return r, nil
-}
-
-func UnstructuredToGroupGoogleappscloudidentitygroupsvxentitykey(obj map[string]interface{}) (*dclService.GroupGoogleappscloudidentitygroupsvxentitykey, error) {
-	r := &dclService.GroupGoogleappscloudidentitygroupsvxentitykey{}
-	if _, ok := obj["id"]; ok {
-		if s, ok := obj["id"].(string); ok {
-			r.Id = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.Id: expected string")
-		}
-	}
-	if _, ok := obj["namespace"]; ok {
-		if s, ok := obj["namespace"].(string); ok {
-			r.Namespace = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.Namespace: expected string")
 		}
 	}
 	return r, nil

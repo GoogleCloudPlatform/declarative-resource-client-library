@@ -44,8 +44,8 @@ enum CloudidentityGroupInitialGroupConfigEnum {
 
 message CloudidentityGroup {
   string name = 1;
-  CloudidentityGroupGoogleappscloudidentitygroupsvxentitykey group_key = 2;
-  repeated CloudidentityGroupGoogleappscloudidentitygroupsvxentitykey additional_group_keys = 3;
+  CloudidentityGroupGroupKey group_key = 2;
+  repeated CloudidentityGroupAdditionalGroupKeys additional_group_keys = 3;
   string parent = 4;
   string display_name = 5;
   string description = 6;
@@ -54,12 +54,17 @@ message CloudidentityGroup {
   map<string, string> labels = 9;
   int64 direct_member_count = 10;
   CloudidentityGroupDirectMemberCountPerType direct_member_count_per_type = 11;
-  repeated CloudidentityGroupGoogleappscloudidentitygroupsvxentitykey derived_aliases = 12;
+  repeated CloudidentityGroupDerivedAliases derived_aliases = 12;
   CloudidentityGroupDynamicGroupMetadata dynamic_group_metadata = 13;
   CloudidentityGroupInitialGroupConfigEnum initial_group_config = 14;
 }
 
-message CloudidentityGroupGoogleappscloudidentitygroupsvxentitykey {
+message CloudidentityGroupGroupKey {
+  string id = 1;
+  string namespace = 2;
+}
+
+message CloudidentityGroupAdditionalGroupKeys {
   string id = 1;
   string namespace = 2;
 }
@@ -67,6 +72,11 @@ message CloudidentityGroupGoogleappscloudidentitygroupsvxentitykey {
 message CloudidentityGroupDirectMemberCountPerType {
   int64 user_count = 1;
   int64 group_count = 2;
+}
+
+message CloudidentityGroupDerivedAliases {
+  string id = 1;
+  string namespace = 2;
 }
 
 message CloudidentityGroupDynamicGroupMetadata {

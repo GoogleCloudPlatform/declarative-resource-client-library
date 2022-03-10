@@ -119,6 +119,7 @@ components:
           x-dcl-go-name: Parent
           description: The parent of the resource.
           x-kubernetes-immutable: true
+          x-dcl-forward-slash-allowed: true
           x-dcl-references:
           - resource: Cloudresourcemanager/BillingAccount
             field: name

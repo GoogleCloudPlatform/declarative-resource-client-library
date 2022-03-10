@@ -129,17 +129,17 @@ func ProtoToComputeInstanceGroupManagerVersions(p *computepb.ComputeInstanceGrou
 	obj := &compute.InstanceGroupManagerVersions{
 		Name:             dcl.StringOrNil(p.GetName()),
 		InstanceTemplate: dcl.StringOrNil(p.GetInstanceTemplate()),
-		TargetSize:       ProtoToComputeInstanceGroupManagerFixedOrPercent(p.GetTargetSize()),
+		TargetSize:       ProtoToComputeInstanceGroupManagerVersionsTargetSize(p.GetTargetSize()),
 	}
 	return obj
 }
 
-// ProtoToInstanceGroupManagerFixedOrPercent converts a InstanceGroupManagerFixedOrPercent object from its proto representation.
-func ProtoToComputeInstanceGroupManagerFixedOrPercent(p *computepb.ComputeInstanceGroupManagerFixedOrPercent) *compute.InstanceGroupManagerFixedOrPercent {
+// ProtoToInstanceGroupManagerVersionsTargetSize converts a InstanceGroupManagerVersionsTargetSize object from its proto representation.
+func ProtoToComputeInstanceGroupManagerVersionsTargetSize(p *computepb.ComputeInstanceGroupManagerVersionsTargetSize) *compute.InstanceGroupManagerVersionsTargetSize {
 	if p == nil {
 		return nil
 	}
-	obj := &compute.InstanceGroupManagerFixedOrPercent{
+	obj := &compute.InstanceGroupManagerVersionsTargetSize{
 		Fixed:      dcl.Int64OrNil(p.GetFixed()),
 		Percent:    dcl.Int64OrNil(p.GetPercent()),
 		Calculated: dcl.Int64OrNil(p.GetCalculated()),
@@ -235,9 +235,35 @@ func ProtoToComputeInstanceGroupManagerUpdatePolicy(p *computepb.ComputeInstance
 		Type:                       ProtoToComputeInstanceGroupManagerUpdatePolicyTypeEnum(p.GetType()),
 		InstanceRedistributionType: ProtoToComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(p.GetInstanceRedistributionType()),
 		MinimalAction:              ProtoToComputeInstanceGroupManagerUpdatePolicyMinimalActionEnum(p.GetMinimalAction()),
-		MaxSurge:                   ProtoToComputeInstanceGroupManagerFixedOrPercent(p.GetMaxSurge()),
-		MaxUnavailable:             ProtoToComputeInstanceGroupManagerFixedOrPercent(p.GetMaxUnavailable()),
+		MaxSurge:                   ProtoToComputeInstanceGroupManagerUpdatePolicyMaxSurge(p.GetMaxSurge()),
+		MaxUnavailable:             ProtoToComputeInstanceGroupManagerUpdatePolicyMaxUnavailable(p.GetMaxUnavailable()),
 		ReplacementMethod:          ProtoToComputeInstanceGroupManagerUpdatePolicyReplacementMethodEnum(p.GetReplacementMethod()),
+	}
+	return obj
+}
+
+// ProtoToInstanceGroupManagerUpdatePolicyMaxSurge converts a InstanceGroupManagerUpdatePolicyMaxSurge object from its proto representation.
+func ProtoToComputeInstanceGroupManagerUpdatePolicyMaxSurge(p *computepb.ComputeInstanceGroupManagerUpdatePolicyMaxSurge) *compute.InstanceGroupManagerUpdatePolicyMaxSurge {
+	if p == nil {
+		return nil
+	}
+	obj := &compute.InstanceGroupManagerUpdatePolicyMaxSurge{
+		Fixed:      dcl.Int64OrNil(p.GetFixed()),
+		Percent:    dcl.Int64OrNil(p.GetPercent()),
+		Calculated: dcl.Int64OrNil(p.GetCalculated()),
+	}
+	return obj
+}
+
+// ProtoToInstanceGroupManagerUpdatePolicyMaxUnavailable converts a InstanceGroupManagerUpdatePolicyMaxUnavailable object from its proto representation.
+func ProtoToComputeInstanceGroupManagerUpdatePolicyMaxUnavailable(p *computepb.ComputeInstanceGroupManagerUpdatePolicyMaxUnavailable) *compute.InstanceGroupManagerUpdatePolicyMaxUnavailable {
+	if p == nil {
+		return nil
+	}
+	obj := &compute.InstanceGroupManagerUpdatePolicyMaxUnavailable{
+		Fixed:      dcl.Int64OrNil(p.GetFixed()),
+		Percent:    dcl.Int64OrNil(p.GetPercent()),
+		Calculated: dcl.Int64OrNil(p.GetCalculated()),
 	}
 	return obj
 }
@@ -422,16 +448,16 @@ func ComputeInstanceGroupManagerVersionsToProto(o *compute.InstanceGroupManagerV
 	p := &computepb.ComputeInstanceGroupManagerVersions{}
 	p.SetName(dcl.ValueOrEmptyString(o.Name))
 	p.SetInstanceTemplate(dcl.ValueOrEmptyString(o.InstanceTemplate))
-	p.SetTargetSize(ComputeInstanceGroupManagerFixedOrPercentToProto(o.TargetSize))
+	p.SetTargetSize(ComputeInstanceGroupManagerVersionsTargetSizeToProto(o.TargetSize))
 	return p
 }
 
-// InstanceGroupManagerFixedOrPercentToProto converts a InstanceGroupManagerFixedOrPercent object to its proto representation.
-func ComputeInstanceGroupManagerFixedOrPercentToProto(o *compute.InstanceGroupManagerFixedOrPercent) *computepb.ComputeInstanceGroupManagerFixedOrPercent {
+// InstanceGroupManagerVersionsTargetSizeToProto converts a InstanceGroupManagerVersionsTargetSize object to its proto representation.
+func ComputeInstanceGroupManagerVersionsTargetSizeToProto(o *compute.InstanceGroupManagerVersionsTargetSize) *computepb.ComputeInstanceGroupManagerVersionsTargetSize {
 	if o == nil {
 		return nil
 	}
-	p := &computepb.ComputeInstanceGroupManagerFixedOrPercent{}
+	p := &computepb.ComputeInstanceGroupManagerVersionsTargetSize{}
 	p.SetFixed(dcl.ValueOrEmptyInt64(o.Fixed))
 	p.SetPercent(dcl.ValueOrEmptyInt64(o.Percent))
 	p.SetCalculated(dcl.ValueOrEmptyInt64(o.Calculated))
@@ -520,9 +546,33 @@ func ComputeInstanceGroupManagerUpdatePolicyToProto(o *compute.InstanceGroupMana
 	p.SetType(ComputeInstanceGroupManagerUpdatePolicyTypeEnumToProto(o.Type))
 	p.SetInstanceRedistributionType(ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnumToProto(o.InstanceRedistributionType))
 	p.SetMinimalAction(ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnumToProto(o.MinimalAction))
-	p.SetMaxSurge(ComputeInstanceGroupManagerFixedOrPercentToProto(o.MaxSurge))
-	p.SetMaxUnavailable(ComputeInstanceGroupManagerFixedOrPercentToProto(o.MaxUnavailable))
+	p.SetMaxSurge(ComputeInstanceGroupManagerUpdatePolicyMaxSurgeToProto(o.MaxSurge))
+	p.SetMaxUnavailable(ComputeInstanceGroupManagerUpdatePolicyMaxUnavailableToProto(o.MaxUnavailable))
 	p.SetReplacementMethod(ComputeInstanceGroupManagerUpdatePolicyReplacementMethodEnumToProto(o.ReplacementMethod))
+	return p
+}
+
+// InstanceGroupManagerUpdatePolicyMaxSurgeToProto converts a InstanceGroupManagerUpdatePolicyMaxSurge object to its proto representation.
+func ComputeInstanceGroupManagerUpdatePolicyMaxSurgeToProto(o *compute.InstanceGroupManagerUpdatePolicyMaxSurge) *computepb.ComputeInstanceGroupManagerUpdatePolicyMaxSurge {
+	if o == nil {
+		return nil
+	}
+	p := &computepb.ComputeInstanceGroupManagerUpdatePolicyMaxSurge{}
+	p.SetFixed(dcl.ValueOrEmptyInt64(o.Fixed))
+	p.SetPercent(dcl.ValueOrEmptyInt64(o.Percent))
+	p.SetCalculated(dcl.ValueOrEmptyInt64(o.Calculated))
+	return p
+}
+
+// InstanceGroupManagerUpdatePolicyMaxUnavailableToProto converts a InstanceGroupManagerUpdatePolicyMaxUnavailable object to its proto representation.
+func ComputeInstanceGroupManagerUpdatePolicyMaxUnavailableToProto(o *compute.InstanceGroupManagerUpdatePolicyMaxUnavailable) *computepb.ComputeInstanceGroupManagerUpdatePolicyMaxUnavailable {
+	if o == nil {
+		return nil
+	}
+	p := &computepb.ComputeInstanceGroupManagerUpdatePolicyMaxUnavailable{}
+	p.SetFixed(dcl.ValueOrEmptyInt64(o.Fixed))
+	p.SetPercent(dcl.ValueOrEmptyInt64(o.Percent))
+	p.SetCalculated(dcl.ValueOrEmptyInt64(o.Calculated))
 	return p
 }
 

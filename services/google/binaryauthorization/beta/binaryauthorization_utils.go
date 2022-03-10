@@ -21,15 +21,15 @@ import (
 )
 
 // Returns a copy of the given map with the string "spiffe://" removed from its keys.
-func withoutSpiffe(isiar map[string]PolicyAdmissionRule) map[string]PolicyAdmissionRule {
-	resultISIAR := make(map[string]PolicyAdmissionRule, len(isiar))
+func withoutSpiffe(isiar map[string]PolicyIstioServiceIdentityAdmissionRules) map[string]PolicyIstioServiceIdentityAdmissionRules {
+	resultISIAR := make(map[string]PolicyIstioServiceIdentityAdmissionRules, len(isiar))
 	for k, v := range isiar {
 		resultISIAR[strings.TrimPrefix(k, "spiffe://")] = v
 	}
 	return resultISIAR
 }
 
-func equalsPolicyISIAR(m, n map[string]PolicyAdmissionRule) bool {
+func equalsPolicyISIAR(m, n map[string]PolicyIstioServiceIdentityAdmissionRules) bool {
 	if m == nil && n == nil {
 		return true
 	}
@@ -41,7 +41,7 @@ func equalsPolicyISIAR(m, n map[string]PolicyAdmissionRule) bool {
 
 // Compares two values of istioServiceIdentity
 func canonicalizePolicyISIAR(m, n interface{}) bool {
-	mVal, _ := m.(map[string]PolicyAdmissionRule)
-	nVal, _ := n.(map[string]PolicyAdmissionRule)
+	mVal, _ := m.(map[string]PolicyIstioServiceIdentityAdmissionRules)
+	nVal, _ := n.(map[string]PolicyIstioServiceIdentityAdmissionRules)
 	return equalsPolicyISIAR(mVal, nVal)
 }

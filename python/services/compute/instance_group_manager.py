@@ -428,9 +428,9 @@ class InstanceGroupManagerVersions(object):
             res.name = Primitive.to_proto(resource.name)
         if Primitive.to_proto(resource.instance_template):
             res.instance_template = Primitive.to_proto(resource.instance_template)
-        if InstanceGroupManagerFixedOrPercent.to_proto(resource.target_size):
+        if InstanceGroupManagerVersionsTargetSize.to_proto(resource.target_size):
             res.target_size.CopyFrom(
-                InstanceGroupManagerFixedOrPercent.to_proto(resource.target_size)
+                InstanceGroupManagerVersionsTargetSize.to_proto(resource.target_size)
             )
         else:
             res.ClearField("target_size")
@@ -444,7 +444,7 @@ class InstanceGroupManagerVersions(object):
         return InstanceGroupManagerVersions(
             name=Primitive.from_proto(resource.name),
             instance_template=Primitive.from_proto(resource.instance_template),
-            target_size=InstanceGroupManagerFixedOrPercent.from_proto(
+            target_size=InstanceGroupManagerVersionsTargetSize.from_proto(
                 resource.target_size
             ),
         )
@@ -462,7 +462,7 @@ class InstanceGroupManagerVersionsArray(object):
         return [InstanceGroupManagerVersions.from_proto(i) for i in resources]
 
 
-class InstanceGroupManagerFixedOrPercent(object):
+class InstanceGroupManagerVersionsTargetSize(object):
     def __init__(self, fixed: int = None, percent: int = None, calculated: int = None):
         self.fixed = fixed
         self.percent = percent
@@ -473,7 +473,7 @@ class InstanceGroupManagerFixedOrPercent(object):
         if not resource:
             return None
 
-        res = instance_group_manager_pb2.ComputeInstanceGroupManagerFixedOrPercent()
+        res = instance_group_manager_pb2.ComputeInstanceGroupManagerVersionsTargetSize()
         if Primitive.to_proto(resource.fixed):
             res.fixed = Primitive.to_proto(resource.fixed)
         if Primitive.to_proto(resource.percent):
@@ -487,23 +487,23 @@ class InstanceGroupManagerFixedOrPercent(object):
         if not resource:
             return None
 
-        return InstanceGroupManagerFixedOrPercent(
+        return InstanceGroupManagerVersionsTargetSize(
             fixed=Primitive.from_proto(resource.fixed),
             percent=Primitive.from_proto(resource.percent),
             calculated=Primitive.from_proto(resource.calculated),
         )
 
 
-class InstanceGroupManagerFixedOrPercentArray(object):
+class InstanceGroupManagerVersionsTargetSizeArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [InstanceGroupManagerFixedOrPercent.to_proto(i) for i in resources]
+        return [InstanceGroupManagerVersionsTargetSize.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [InstanceGroupManagerFixedOrPercent.from_proto(i) for i in resources]
+        return [InstanceGroupManagerVersionsTargetSize.from_proto(i) for i in resources]
 
 
 class InstanceGroupManagerCurrentActions(object):
@@ -872,15 +872,19 @@ class InstanceGroupManagerUpdatePolicy(object):
             res.minimal_action = InstanceGroupManagerUpdatePolicyMinimalActionEnum.to_proto(
                 resource.minimal_action
             )
-        if InstanceGroupManagerFixedOrPercent.to_proto(resource.max_surge):
+        if InstanceGroupManagerUpdatePolicyMaxSurge.to_proto(resource.max_surge):
             res.max_surge.CopyFrom(
-                InstanceGroupManagerFixedOrPercent.to_proto(resource.max_surge)
+                InstanceGroupManagerUpdatePolicyMaxSurge.to_proto(resource.max_surge)
             )
         else:
             res.ClearField("max_surge")
-        if InstanceGroupManagerFixedOrPercent.to_proto(resource.max_unavailable):
+        if InstanceGroupManagerUpdatePolicyMaxUnavailable.to_proto(
+            resource.max_unavailable
+        ):
             res.max_unavailable.CopyFrom(
-                InstanceGroupManagerFixedOrPercent.to_proto(resource.max_unavailable)
+                InstanceGroupManagerUpdatePolicyMaxUnavailable.to_proto(
+                    resource.max_unavailable
+                )
             )
         else:
             res.ClearField("max_unavailable")
@@ -905,8 +909,10 @@ class InstanceGroupManagerUpdatePolicy(object):
             minimal_action=InstanceGroupManagerUpdatePolicyMinimalActionEnum.from_proto(
                 resource.minimal_action
             ),
-            max_surge=InstanceGroupManagerFixedOrPercent.from_proto(resource.max_surge),
-            max_unavailable=InstanceGroupManagerFixedOrPercent.from_proto(
+            max_surge=InstanceGroupManagerUpdatePolicyMaxSurge.from_proto(
+                resource.max_surge
+            ),
+            max_unavailable=InstanceGroupManagerUpdatePolicyMaxUnavailable.from_proto(
                 resource.max_unavailable
             ),
             replacement_method=InstanceGroupManagerUpdatePolicyReplacementMethodEnum.from_proto(
@@ -925,6 +931,106 @@ class InstanceGroupManagerUpdatePolicyArray(object):
     @classmethod
     def from_proto(self, resources):
         return [InstanceGroupManagerUpdatePolicy.from_proto(i) for i in resources]
+
+
+class InstanceGroupManagerUpdatePolicyMaxSurge(object):
+    def __init__(self, fixed: int = None, percent: int = None, calculated: int = None):
+        self.fixed = fixed
+        self.percent = percent
+        self.calculated = calculated
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_group_manager_pb2.ComputeInstanceGroupManagerUpdatePolicyMaxSurge()
+        )
+        if Primitive.to_proto(resource.fixed):
+            res.fixed = Primitive.to_proto(resource.fixed)
+        if Primitive.to_proto(resource.percent):
+            res.percent = Primitive.to_proto(resource.percent)
+        if Primitive.to_proto(resource.calculated):
+            res.calculated = Primitive.to_proto(resource.calculated)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceGroupManagerUpdatePolicyMaxSurge(
+            fixed=Primitive.from_proto(resource.fixed),
+            percent=Primitive.from_proto(resource.percent),
+            calculated=Primitive.from_proto(resource.calculated),
+        )
+
+
+class InstanceGroupManagerUpdatePolicyMaxSurgeArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [InstanceGroupManagerUpdatePolicyMaxSurge.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceGroupManagerUpdatePolicyMaxSurge.from_proto(i) for i in resources
+        ]
+
+
+class InstanceGroupManagerUpdatePolicyMaxUnavailable(object):
+    def __init__(self, fixed: int = None, percent: int = None, calculated: int = None):
+        self.fixed = fixed
+        self.percent = percent
+        self.calculated = calculated
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_group_manager_pb2.ComputeInstanceGroupManagerUpdatePolicyMaxUnavailable()
+        )
+        if Primitive.to_proto(resource.fixed):
+            res.fixed = Primitive.to_proto(resource.fixed)
+        if Primitive.to_proto(resource.percent):
+            res.percent = Primitive.to_proto(resource.percent)
+        if Primitive.to_proto(resource.calculated):
+            res.calculated = Primitive.to_proto(resource.calculated)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceGroupManagerUpdatePolicyMaxUnavailable(
+            fixed=Primitive.from_proto(resource.fixed),
+            percent=Primitive.from_proto(resource.percent),
+            calculated=Primitive.from_proto(resource.calculated),
+        )
+
+
+class InstanceGroupManagerUpdatePolicyMaxUnavailableArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstanceGroupManagerUpdatePolicyMaxUnavailable.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceGroupManagerUpdatePolicyMaxUnavailable.from_proto(i)
+            for i in resources
+        ]
 
 
 class InstanceGroupManagerNamedPorts(object):

@@ -44,8 +44,8 @@ enum CloudidentityAlphaGroupInitialGroupConfigEnum {
 
 message CloudidentityAlphaGroup {
   string name = 1;
-  CloudidentityAlphaGroupGoogleappscloudidentitygroupsvxentitykey group_key = 2;
-  repeated CloudidentityAlphaGroupGoogleappscloudidentitygroupsvxentitykey additional_group_keys = 3;
+  CloudidentityAlphaGroupGroupKey group_key = 2;
+  repeated CloudidentityAlphaGroupAdditionalGroupKeys additional_group_keys = 3;
   string parent = 4;
   string display_name = 5;
   string description = 6;
@@ -57,7 +57,12 @@ message CloudidentityAlphaGroup {
   CloudidentityAlphaGroupInitialGroupConfigEnum initial_group_config = 12;
 }
 
-message CloudidentityAlphaGroupGoogleappscloudidentitygroupsvxentitykey {
+message CloudidentityAlphaGroupGroupKey {
+  string id = 1;
+  string namespace = 2;
+}
+
+message CloudidentityAlphaGroupAdditionalGroupKeys {
   string id = 1;
   string namespace = 2;
 }

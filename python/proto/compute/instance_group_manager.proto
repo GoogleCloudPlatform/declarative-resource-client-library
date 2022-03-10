@@ -99,10 +99,10 @@ message ComputeInstanceGroupManagerDistributionPolicyZones {
 message ComputeInstanceGroupManagerVersions {
   string name = 1;
   string instance_template = 2;
-  ComputeInstanceGroupManagerFixedOrPercent target_size = 3;
+  ComputeInstanceGroupManagerVersionsTargetSize target_size = 3;
 }
 
-message ComputeInstanceGroupManagerFixedOrPercent {
+message ComputeInstanceGroupManagerVersionsTargetSize {
   int64 fixed = 1;
   int64 percent = 2;
   int64 calculated = 3;
@@ -149,9 +149,21 @@ message ComputeInstanceGroupManagerUpdatePolicy {
   ComputeInstanceGroupManagerUpdatePolicyTypeEnum type = 1;
   ComputeInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum instance_redistribution_type = 2;
   ComputeInstanceGroupManagerUpdatePolicyMinimalActionEnum minimal_action = 3;
-  ComputeInstanceGroupManagerFixedOrPercent max_surge = 4;
-  ComputeInstanceGroupManagerFixedOrPercent max_unavailable = 5;
+  ComputeInstanceGroupManagerUpdatePolicyMaxSurge max_surge = 4;
+  ComputeInstanceGroupManagerUpdatePolicyMaxUnavailable max_unavailable = 5;
   ComputeInstanceGroupManagerUpdatePolicyReplacementMethodEnum replacement_method = 6;
+}
+
+message ComputeInstanceGroupManagerUpdatePolicyMaxSurge {
+  int64 fixed = 1;
+  int64 percent = 2;
+  int64 calculated = 3;
+}
+
+message ComputeInstanceGroupManagerUpdatePolicyMaxUnavailable {
+  int64 fixed = 1;
+  int64 percent = 2;
+  int64 calculated = 3;
 }
 
 message ComputeInstanceGroupManagerNamedPorts {

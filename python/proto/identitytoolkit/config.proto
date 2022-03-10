@@ -71,11 +71,25 @@ enum IdentitytoolkitConfigNotificationSendEmailSmtpSecurityModeEnum {
   IdentitytoolkitConfigNotificationSendEmailSmtpSecurityModeEnumSTART_TLS = 3;
 }
 
-enum IdentitytoolkitConfigEmailTemplateBodyFormatEnum {
-  IdentitytoolkitConfigEmailTemplateBodyFormatEnumNO_VALUE_DO_NOT_USE = 0;
-  IdentitytoolkitConfigEmailTemplateBodyFormatEnumBODY_FORMAT_UNSPECIFIED = 1;
-  IdentitytoolkitConfigEmailTemplateBodyFormatEnumPLAIN_TEXT = 2;
-  IdentitytoolkitConfigEmailTemplateBodyFormatEnumHTML = 3;
+enum IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum {
+  IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnumNO_VALUE_DO_NOT_USE = 0;
+  IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnumBODY_FORMAT_UNSPECIFIED = 1;
+  IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnumPLAIN_TEXT = 2;
+  IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnumHTML = 3;
+}
+
+enum IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum {
+  IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnumNO_VALUE_DO_NOT_USE = 0;
+  IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnumBODY_FORMAT_UNSPECIFIED = 1;
+  IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnumPLAIN_TEXT = 2;
+  IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnumHTML = 3;
+}
+
+enum IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum {
+  IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnumNO_VALUE_DO_NOT_USE = 0;
+  IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnumBODY_FORMAT_UNSPECIFIED = 1;
+  IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnumPLAIN_TEXT = 2;
+  IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnumHTML = 3;
 }
 
 enum IdentitytoolkitConfigNotificationSendEmailDnsInfoCustomDomainStateEnum {
@@ -85,6 +99,13 @@ enum IdentitytoolkitConfigNotificationSendEmailDnsInfoCustomDomainStateEnum {
   IdentitytoolkitConfigNotificationSendEmailDnsInfoCustomDomainStateEnumIN_PROGRESS = 3;
   IdentitytoolkitConfigNotificationSendEmailDnsInfoCustomDomainStateEnumFAILED = 4;
   IdentitytoolkitConfigNotificationSendEmailDnsInfoCustomDomainStateEnumSUCCEEDED = 5;
+}
+
+enum IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum {
+  IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnumNO_VALUE_DO_NOT_USE = 0;
+  IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnumBODY_FORMAT_UNSPECIFIED = 1;
+  IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnumPLAIN_TEXT = 2;
+  IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnumHTML = 3;
 }
 
 enum IdentitytoolkitConfigSubtypeEnum {
@@ -164,12 +185,12 @@ message IdentitytoolkitConfigNotification {
 message IdentitytoolkitConfigNotificationSendEmail {
   IdentitytoolkitConfigNotificationSendEmailMethodEnum method = 1;
   IdentitytoolkitConfigNotificationSendEmailSmtp smtp = 2;
-  IdentitytoolkitConfigEmailTemplate reset_password_template = 3;
-  IdentitytoolkitConfigEmailTemplate verify_email_template = 4;
-  IdentitytoolkitConfigEmailTemplate change_email_template = 5;
+  IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplate reset_password_template = 3;
+  IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplate verify_email_template = 4;
+  IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplate change_email_template = 5;
   string callback_uri = 6;
   IdentitytoolkitConfigNotificationSendEmailDnsInfo dns_info = 7;
-  IdentitytoolkitConfigEmailTemplate revert_second_factor_addition_template = 8;
+  IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplate revert_second_factor_addition_template = 8;
 }
 
 message IdentitytoolkitConfigNotificationSendEmailSmtp {
@@ -181,12 +202,32 @@ message IdentitytoolkitConfigNotificationSendEmailSmtp {
   IdentitytoolkitConfigNotificationSendEmailSmtpSecurityModeEnum security_mode = 6;
 }
 
-message IdentitytoolkitConfigEmailTemplate {
+message IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplate {
   string sender_local_part = 1;
   string subject = 2;
   string sender_display_name = 3;
   string body = 4;
-  IdentitytoolkitConfigEmailTemplateBodyFormatEnum body_format = 5;
+  IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum body_format = 5;
+  string reply_to = 6;
+  bool customized = 7;
+}
+
+message IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplate {
+  string sender_local_part = 1;
+  string subject = 2;
+  string sender_display_name = 3;
+  string body = 4;
+  IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum body_format = 5;
+  string reply_to = 6;
+  bool customized = 7;
+}
+
+message IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplate {
+  string sender_local_part = 1;
+  string subject = 2;
+  string sender_display_name = 3;
+  string body = 4;
+  IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum body_format = 5;
   string reply_to = 6;
   bool customized = 7;
 }
@@ -197,6 +238,16 @@ message IdentitytoolkitConfigNotificationSendEmailDnsInfo {
   string pending_custom_domain = 3;
   IdentitytoolkitConfigNotificationSendEmailDnsInfoCustomDomainStateEnum custom_domain_state = 4;
   string domain_verification_request_time = 5;
+}
+
+message IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplate {
+  string sender_local_part = 1;
+  string subject = 2;
+  string sender_display_name = 3;
+  string body = 4;
+  IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum body_format = 5;
+  string reply_to = 6;
+  bool customized = 7;
 }
 
 message IdentitytoolkitConfigNotificationSendSms {

@@ -2544,12 +2544,12 @@ func flattenBudgetBudgetFilter(c *Client, i interface{}, res *Budget) *BudgetBud
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyBudgetBudgetFilter
 	}
-	r.Projects = flattenBudgetFilterProjects(c, m["projects"])
+	r.Projects = flattenBudgetFilterProjects(c, m["projects"], res)
 	r.CreditTypes = dcl.FlattenStringSlice(m["creditTypes"])
 	r.CreditTypesTreatment = flattenBudgetBudgetFilterCreditTypesTreatmentEnum(m["creditTypesTreatment"])
 	r.Services = dcl.FlattenStringSlice(m["services"])
 	r.Subaccounts = dcl.FlattenStringSlice(m["subaccounts"])
-	r.Labels = flattenBudgetFilterLabels(m["labels"])
+	r.Labels = flattenBudgetFilterLabels(m["labels"], res)
 	r.CalendarPeriod = flattenBudgetBudgetFilterCalendarPeriodEnum(m["calendarPeriod"])
 	r.CustomPeriod = flattenBudgetBudgetFilterCustomPeriod(c, m["customPeriod"], res)
 

@@ -115,10 +115,10 @@ message ComputeBetaInstanceGroupManagerDistributionPolicyZones {
 message ComputeBetaInstanceGroupManagerVersions {
   string name = 1;
   string instance_template = 2;
-  ComputeBetaInstanceGroupManagerFixedOrPercent target_size = 3;
+  ComputeBetaInstanceGroupManagerVersionsTargetSize target_size = 3;
 }
 
-message ComputeBetaInstanceGroupManagerFixedOrPercent {
+message ComputeBetaInstanceGroupManagerVersionsTargetSize {
   int64 fixed = 1;
   int64 percent = 2;
   int64 calculated = 3;
@@ -166,11 +166,23 @@ message ComputeBetaInstanceGroupManagerUpdatePolicy {
   ComputeBetaInstanceGroupManagerUpdatePolicyTypeEnum type = 1;
   ComputeBetaInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum instance_redistribution_type = 2;
   ComputeBetaInstanceGroupManagerUpdatePolicyMinimalActionEnum minimal_action = 3;
-  ComputeBetaInstanceGroupManagerFixedOrPercent max_surge = 4;
-  ComputeBetaInstanceGroupManagerFixedOrPercent max_unavailable = 5;
+  ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurge max_surge = 4;
+  ComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailable max_unavailable = 5;
   ComputeBetaInstanceGroupManagerUpdatePolicyReplacementMethodEnum replacement_method = 6;
   ComputeBetaInstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum most_disruptive_allowed_action = 7;
   int64 min_ready_sec = 8;
+}
+
+message ComputeBetaInstanceGroupManagerUpdatePolicyMaxSurge {
+  int64 fixed = 1;
+  int64 percent = 2;
+  int64 calculated = 3;
+}
+
+message ComputeBetaInstanceGroupManagerUpdatePolicyMaxUnavailable {
+  int64 fixed = 1;
+  int64 percent = 2;
+  int64 calculated = 3;
 }
 
 message ComputeBetaInstanceGroupManagerNamedPorts {

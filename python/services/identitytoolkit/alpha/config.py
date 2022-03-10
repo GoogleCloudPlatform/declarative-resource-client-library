@@ -639,21 +639,33 @@ class ConfigNotificationSendEmail(object):
             res.smtp.CopyFrom(ConfigNotificationSendEmailSmtp.to_proto(resource.smtp))
         else:
             res.ClearField("smtp")
-        if ConfigEmailTemplate.to_proto(resource.reset_password_template):
+        if ConfigNotificationSendEmailResetPasswordTemplate.to_proto(
+            resource.reset_password_template
+        ):
             res.reset_password_template.CopyFrom(
-                ConfigEmailTemplate.to_proto(resource.reset_password_template)
+                ConfigNotificationSendEmailResetPasswordTemplate.to_proto(
+                    resource.reset_password_template
+                )
             )
         else:
             res.ClearField("reset_password_template")
-        if ConfigEmailTemplate.to_proto(resource.verify_email_template):
+        if ConfigNotificationSendEmailVerifyEmailTemplate.to_proto(
+            resource.verify_email_template
+        ):
             res.verify_email_template.CopyFrom(
-                ConfigEmailTemplate.to_proto(resource.verify_email_template)
+                ConfigNotificationSendEmailVerifyEmailTemplate.to_proto(
+                    resource.verify_email_template
+                )
             )
         else:
             res.ClearField("verify_email_template")
-        if ConfigEmailTemplate.to_proto(resource.change_email_template):
+        if ConfigNotificationSendEmailChangeEmailTemplate.to_proto(
+            resource.change_email_template
+        ):
             res.change_email_template.CopyFrom(
-                ConfigEmailTemplate.to_proto(resource.change_email_template)
+                ConfigNotificationSendEmailChangeEmailTemplate.to_proto(
+                    resource.change_email_template
+                )
             )
         else:
             res.ClearField("change_email_template")
@@ -665,11 +677,11 @@ class ConfigNotificationSendEmail(object):
             )
         else:
             res.ClearField("dns_info")
-        if ConfigEmailTemplate.to_proto(
+        if ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate.to_proto(
             resource.revert_second_factor_addition_template
         ):
             res.revert_second_factor_addition_template.CopyFrom(
-                ConfigEmailTemplate.to_proto(
+                ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate.to_proto(
                     resource.revert_second_factor_addition_template
                 )
             )
@@ -685,18 +697,18 @@ class ConfigNotificationSendEmail(object):
         return ConfigNotificationSendEmail(
             method=ConfigNotificationSendEmailMethodEnum.from_proto(resource.method),
             smtp=ConfigNotificationSendEmailSmtp.from_proto(resource.smtp),
-            reset_password_template=ConfigEmailTemplate.from_proto(
+            reset_password_template=ConfigNotificationSendEmailResetPasswordTemplate.from_proto(
                 resource.reset_password_template
             ),
-            verify_email_template=ConfigEmailTemplate.from_proto(
+            verify_email_template=ConfigNotificationSendEmailVerifyEmailTemplate.from_proto(
                 resource.verify_email_template
             ),
-            change_email_template=ConfigEmailTemplate.from_proto(
+            change_email_template=ConfigNotificationSendEmailChangeEmailTemplate.from_proto(
                 resource.change_email_template
             ),
             callback_uri=Primitive.from_proto(resource.callback_uri),
             dns_info=ConfigNotificationSendEmailDnsInfo.from_proto(resource.dns_info),
-            revert_second_factor_addition_template=ConfigEmailTemplate.from_proto(
+            revert_second_factor_addition_template=ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate.from_proto(
                 resource.revert_second_factor_addition_template
             ),
         )
@@ -784,7 +796,7 @@ class ConfigNotificationSendEmailSmtpArray(object):
         return [ConfigNotificationSendEmailSmtp.from_proto(i) for i in resources]
 
 
-class ConfigEmailTemplate(object):
+class ConfigNotificationSendEmailResetPasswordTemplate(object):
     def __init__(
         self,
         sender_local_part: str = None,
@@ -808,7 +820,9 @@ class ConfigEmailTemplate(object):
         if not resource:
             return None
 
-        res = config_pb2.IdentitytoolkitAlphaConfigEmailTemplate()
+        res = (
+            config_pb2.IdentitytoolkitAlphaConfigNotificationSendEmailResetPasswordTemplate()
+        )
         if Primitive.to_proto(resource.sender_local_part):
             res.sender_local_part = Primitive.to_proto(resource.sender_local_part)
         if Primitive.to_proto(resource.subject):
@@ -817,8 +831,10 @@ class ConfigEmailTemplate(object):
             res.sender_display_name = Primitive.to_proto(resource.sender_display_name)
         if Primitive.to_proto(resource.body):
             res.body = Primitive.to_proto(resource.body)
-        if ConfigEmailTemplateBodyFormatEnum.to_proto(resource.body_format):
-            res.body_format = ConfigEmailTemplateBodyFormatEnum.to_proto(
+        if ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum.to_proto(
+            resource.body_format
+        ):
+            res.body_format = ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum.to_proto(
                 resource.body_format
             )
         if Primitive.to_proto(resource.reply_to):
@@ -832,12 +848,12 @@ class ConfigEmailTemplate(object):
         if not resource:
             return None
 
-        return ConfigEmailTemplate(
+        return ConfigNotificationSendEmailResetPasswordTemplate(
             sender_local_part=Primitive.from_proto(resource.sender_local_part),
             subject=Primitive.from_proto(resource.subject),
             sender_display_name=Primitive.from_proto(resource.sender_display_name),
             body=Primitive.from_proto(resource.body),
-            body_format=ConfigEmailTemplateBodyFormatEnum.from_proto(
+            body_format=ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum.from_proto(
                 resource.body_format
             ),
             reply_to=Primitive.from_proto(resource.reply_to),
@@ -845,16 +861,188 @@ class ConfigEmailTemplate(object):
         )
 
 
-class ConfigEmailTemplateArray(object):
+class ConfigNotificationSendEmailResetPasswordTemplateArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [ConfigEmailTemplate.to_proto(i) for i in resources]
+        return [
+            ConfigNotificationSendEmailResetPasswordTemplate.to_proto(i)
+            for i in resources
+        ]
 
     @classmethod
     def from_proto(self, resources):
-        return [ConfigEmailTemplate.from_proto(i) for i in resources]
+        return [
+            ConfigNotificationSendEmailResetPasswordTemplate.from_proto(i)
+            for i in resources
+        ]
+
+
+class ConfigNotificationSendEmailVerifyEmailTemplate(object):
+    def __init__(
+        self,
+        sender_local_part: str = None,
+        subject: str = None,
+        sender_display_name: str = None,
+        body: str = None,
+        body_format: str = None,
+        reply_to: str = None,
+        customized: bool = None,
+    ):
+        self.sender_local_part = sender_local_part
+        self.subject = subject
+        self.sender_display_name = sender_display_name
+        self.body = body
+        self.body_format = body_format
+        self.reply_to = reply_to
+        self.customized = customized
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            config_pb2.IdentitytoolkitAlphaConfigNotificationSendEmailVerifyEmailTemplate()
+        )
+        if Primitive.to_proto(resource.sender_local_part):
+            res.sender_local_part = Primitive.to_proto(resource.sender_local_part)
+        if Primitive.to_proto(resource.subject):
+            res.subject = Primitive.to_proto(resource.subject)
+        if Primitive.to_proto(resource.sender_display_name):
+            res.sender_display_name = Primitive.to_proto(resource.sender_display_name)
+        if Primitive.to_proto(resource.body):
+            res.body = Primitive.to_proto(resource.body)
+        if ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum.to_proto(
+            resource.body_format
+        ):
+            res.body_format = ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum.to_proto(
+                resource.body_format
+            )
+        if Primitive.to_proto(resource.reply_to):
+            res.reply_to = Primitive.to_proto(resource.reply_to)
+        if Primitive.to_proto(resource.customized):
+            res.customized = Primitive.to_proto(resource.customized)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ConfigNotificationSendEmailVerifyEmailTemplate(
+            sender_local_part=Primitive.from_proto(resource.sender_local_part),
+            subject=Primitive.from_proto(resource.subject),
+            sender_display_name=Primitive.from_proto(resource.sender_display_name),
+            body=Primitive.from_proto(resource.body),
+            body_format=ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum.from_proto(
+                resource.body_format
+            ),
+            reply_to=Primitive.from_proto(resource.reply_to),
+            customized=Primitive.from_proto(resource.customized),
+        )
+
+
+class ConfigNotificationSendEmailVerifyEmailTemplateArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ConfigNotificationSendEmailVerifyEmailTemplate.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ConfigNotificationSendEmailVerifyEmailTemplate.from_proto(i)
+            for i in resources
+        ]
+
+
+class ConfigNotificationSendEmailChangeEmailTemplate(object):
+    def __init__(
+        self,
+        sender_local_part: str = None,
+        subject: str = None,
+        sender_display_name: str = None,
+        body: str = None,
+        body_format: str = None,
+        reply_to: str = None,
+        customized: bool = None,
+    ):
+        self.sender_local_part = sender_local_part
+        self.subject = subject
+        self.sender_display_name = sender_display_name
+        self.body = body
+        self.body_format = body_format
+        self.reply_to = reply_to
+        self.customized = customized
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            config_pb2.IdentitytoolkitAlphaConfigNotificationSendEmailChangeEmailTemplate()
+        )
+        if Primitive.to_proto(resource.sender_local_part):
+            res.sender_local_part = Primitive.to_proto(resource.sender_local_part)
+        if Primitive.to_proto(resource.subject):
+            res.subject = Primitive.to_proto(resource.subject)
+        if Primitive.to_proto(resource.sender_display_name):
+            res.sender_display_name = Primitive.to_proto(resource.sender_display_name)
+        if Primitive.to_proto(resource.body):
+            res.body = Primitive.to_proto(resource.body)
+        if ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum.to_proto(
+            resource.body_format
+        ):
+            res.body_format = ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum.to_proto(
+                resource.body_format
+            )
+        if Primitive.to_proto(resource.reply_to):
+            res.reply_to = Primitive.to_proto(resource.reply_to)
+        if Primitive.to_proto(resource.customized):
+            res.customized = Primitive.to_proto(resource.customized)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ConfigNotificationSendEmailChangeEmailTemplate(
+            sender_local_part=Primitive.from_proto(resource.sender_local_part),
+            subject=Primitive.from_proto(resource.subject),
+            sender_display_name=Primitive.from_proto(resource.sender_display_name),
+            body=Primitive.from_proto(resource.body),
+            body_format=ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum.from_proto(
+                resource.body_format
+            ),
+            reply_to=Primitive.from_proto(resource.reply_to),
+            customized=Primitive.from_proto(resource.customized),
+        )
+
+
+class ConfigNotificationSendEmailChangeEmailTemplateArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ConfigNotificationSendEmailChangeEmailTemplate.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ConfigNotificationSendEmailChangeEmailTemplate.from_proto(i)
+            for i in resources
+        ]
 
 
 class ConfigNotificationSendEmailDnsInfo(object):
@@ -926,6 +1114,89 @@ class ConfigNotificationSendEmailDnsInfoArray(object):
     @classmethod
     def from_proto(self, resources):
         return [ConfigNotificationSendEmailDnsInfo.from_proto(i) for i in resources]
+
+
+class ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(object):
+    def __init__(
+        self,
+        sender_local_part: str = None,
+        subject: str = None,
+        sender_display_name: str = None,
+        body: str = None,
+        body_format: str = None,
+        reply_to: str = None,
+        customized: bool = None,
+    ):
+        self.sender_local_part = sender_local_part
+        self.subject = subject
+        self.sender_display_name = sender_display_name
+        self.body = body
+        self.body_format = body_format
+        self.reply_to = reply_to
+        self.customized = customized
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            config_pb2.IdentitytoolkitAlphaConfigNotificationSendEmailRevertSecondFactorAdditionTemplate()
+        )
+        if Primitive.to_proto(resource.sender_local_part):
+            res.sender_local_part = Primitive.to_proto(resource.sender_local_part)
+        if Primitive.to_proto(resource.subject):
+            res.subject = Primitive.to_proto(resource.subject)
+        if Primitive.to_proto(resource.sender_display_name):
+            res.sender_display_name = Primitive.to_proto(resource.sender_display_name)
+        if Primitive.to_proto(resource.body):
+            res.body = Primitive.to_proto(resource.body)
+        if ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum.to_proto(
+            resource.body_format
+        ):
+            res.body_format = ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum.to_proto(
+                resource.body_format
+            )
+        if Primitive.to_proto(resource.reply_to):
+            res.reply_to = Primitive.to_proto(resource.reply_to)
+        if Primitive.to_proto(resource.customized):
+            res.customized = Primitive.to_proto(resource.customized)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(
+            sender_local_part=Primitive.from_proto(resource.sender_local_part),
+            subject=Primitive.from_proto(resource.subject),
+            sender_display_name=Primitive.from_proto(resource.sender_display_name),
+            body=Primitive.from_proto(resource.body),
+            body_format=ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum.from_proto(
+                resource.body_format
+            ),
+            reply_to=Primitive.from_proto(resource.reply_to),
+            customized=Primitive.from_proto(resource.customized),
+        )
+
+
+class ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate.from_proto(i)
+            for i in resources
+        ]
 
 
 class ConfigNotificationSendSms(object):
@@ -1508,22 +1779,73 @@ class ConfigNotificationSendEmailSmtpSecurityModeEnum(object):
         ]
 
 
-class ConfigEmailTemplateBodyFormatEnum(object):
+class ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return config_pb2.IdentitytoolkitAlphaConfigEmailTemplateBodyFormatEnum.Value(
-            "IdentitytoolkitAlphaConfigEmailTemplateBodyFormatEnum%s" % resource
+        return config_pb2.IdentitytoolkitAlphaConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum.Value(
+            "IdentitytoolkitAlphaConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum%s"
+            % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return config_pb2.IdentitytoolkitAlphaConfigEmailTemplateBodyFormatEnum.Name(
+        return config_pb2.IdentitytoolkitAlphaConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum.Name(
             resource
-        )[len("IdentitytoolkitAlphaConfigEmailTemplateBodyFormatEnum") :]
+        )[
+            len(
+                "IdentitytoolkitAlphaConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum"
+            ) :
+        ]
+
+
+class ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return config_pb2.IdentitytoolkitAlphaConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum.Value(
+            "IdentitytoolkitAlphaConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return config_pb2.IdentitytoolkitAlphaConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum.Name(
+            resource
+        )[
+            len(
+                "IdentitytoolkitAlphaConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum"
+            ) :
+        ]
+
+
+class ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return config_pb2.IdentitytoolkitAlphaConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum.Value(
+            "IdentitytoolkitAlphaConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return config_pb2.IdentitytoolkitAlphaConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum.Name(
+            resource
+        )[
+            len(
+                "IdentitytoolkitAlphaConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum"
+            ) :
+        ]
 
 
 class ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum(object):
@@ -1545,6 +1867,31 @@ class ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum(object):
         )[
             len(
                 "IdentitytoolkitAlphaConfigNotificationSendEmailDnsInfoCustomDomainStateEnum"
+            ) :
+        ]
+
+
+class ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum(
+    object
+):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return config_pb2.IdentitytoolkitAlphaConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum.Value(
+            "IdentitytoolkitAlphaConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return config_pb2.IdentitytoolkitAlphaConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum.Name(
+            resource
+        )[
+            len(
+                "IdentitytoolkitAlphaConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum"
             ) :
         ]
 

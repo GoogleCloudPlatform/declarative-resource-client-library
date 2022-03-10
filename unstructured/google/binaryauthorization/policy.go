@@ -46,12 +46,36 @@ func PolicyToUnstructured(r *dclService.Policy) *unstructured.Resource {
 	if r.ClusterAdmissionRules != nil {
 		rClusterAdmissionRules := make(map[string]interface{})
 		for k, v := range r.ClusterAdmissionRules {
-			rClusterAdmissionRules[k] = PolicyAdmissionRuleToUnstructured(&v)
+			rClusterAdmissionRulesMap := make(map[string]interface{})
+			if v.EnforcementMode != nil {
+				rClusterAdmissionRulesMap["enforcementMode"] = string(*v.EnforcementMode)
+			}
+			if v.EvaluationMode != nil {
+				rClusterAdmissionRulesMap["evaluationMode"] = string(*v.EvaluationMode)
+			}
+			var vRequireAttestationsBy []interface{}
+			for _, vRequireAttestationsByVal := range v.RequireAttestationsBy {
+				vRequireAttestationsBy = append(vRequireAttestationsBy, vRequireAttestationsByVal)
+			}
+			rClusterAdmissionRulesMap["requireAttestationsBy"] = vRequireAttestationsBy
+			rClusterAdmissionRules[k] = rClusterAdmissionRulesMap
 		}
 		u.Object["clusterAdmissionRules"] = rClusterAdmissionRules
 	}
-	if r.DefaultAdmissionRule != nil {
-		u.Object["defaultAdmissionRule"] = PolicyAdmissionRuleToUnstructured(r.DefaultAdmissionRule)
+	if r.DefaultAdmissionRule != nil && r.DefaultAdmissionRule != dclService.EmptyPolicyDefaultAdmissionRule {
+		rDefaultAdmissionRule := make(map[string]interface{})
+		if r.DefaultAdmissionRule.EnforcementMode != nil {
+			rDefaultAdmissionRule["enforcementMode"] = string(*r.DefaultAdmissionRule.EnforcementMode)
+		}
+		if r.DefaultAdmissionRule.EvaluationMode != nil {
+			rDefaultAdmissionRule["evaluationMode"] = string(*r.DefaultAdmissionRule.EvaluationMode)
+		}
+		var rDefaultAdmissionRuleRequireAttestationsBy []interface{}
+		for _, rDefaultAdmissionRuleRequireAttestationsByVal := range r.DefaultAdmissionRule.RequireAttestationsBy {
+			rDefaultAdmissionRuleRequireAttestationsBy = append(rDefaultAdmissionRuleRequireAttestationsBy, rDefaultAdmissionRuleRequireAttestationsByVal)
+		}
+		rDefaultAdmissionRule["requireAttestationsBy"] = rDefaultAdmissionRuleRequireAttestationsBy
+		u.Object["defaultAdmissionRule"] = rDefaultAdmissionRule
 	}
 	if r.Description != nil {
 		u.Object["description"] = *r.Description
@@ -62,21 +86,57 @@ func PolicyToUnstructured(r *dclService.Policy) *unstructured.Resource {
 	if r.IstioServiceIdentityAdmissionRules != nil {
 		rIstioServiceIdentityAdmissionRules := make(map[string]interface{})
 		for k, v := range r.IstioServiceIdentityAdmissionRules {
-			rIstioServiceIdentityAdmissionRules[k] = PolicyAdmissionRuleToUnstructured(&v)
+			rIstioServiceIdentityAdmissionRulesMap := make(map[string]interface{})
+			if v.EnforcementMode != nil {
+				rIstioServiceIdentityAdmissionRulesMap["enforcementMode"] = string(*v.EnforcementMode)
+			}
+			if v.EvaluationMode != nil {
+				rIstioServiceIdentityAdmissionRulesMap["evaluationMode"] = string(*v.EvaluationMode)
+			}
+			var vRequireAttestationsBy []interface{}
+			for _, vRequireAttestationsByVal := range v.RequireAttestationsBy {
+				vRequireAttestationsBy = append(vRequireAttestationsBy, vRequireAttestationsByVal)
+			}
+			rIstioServiceIdentityAdmissionRulesMap["requireAttestationsBy"] = vRequireAttestationsBy
+			rIstioServiceIdentityAdmissionRules[k] = rIstioServiceIdentityAdmissionRulesMap
 		}
 		u.Object["istioServiceIdentityAdmissionRules"] = rIstioServiceIdentityAdmissionRules
 	}
 	if r.KubernetesNamespaceAdmissionRules != nil {
 		rKubernetesNamespaceAdmissionRules := make(map[string]interface{})
 		for k, v := range r.KubernetesNamespaceAdmissionRules {
-			rKubernetesNamespaceAdmissionRules[k] = PolicyAdmissionRuleToUnstructured(&v)
+			rKubernetesNamespaceAdmissionRulesMap := make(map[string]interface{})
+			if v.EnforcementMode != nil {
+				rKubernetesNamespaceAdmissionRulesMap["enforcementMode"] = string(*v.EnforcementMode)
+			}
+			if v.EvaluationMode != nil {
+				rKubernetesNamespaceAdmissionRulesMap["evaluationMode"] = string(*v.EvaluationMode)
+			}
+			var vRequireAttestationsBy []interface{}
+			for _, vRequireAttestationsByVal := range v.RequireAttestationsBy {
+				vRequireAttestationsBy = append(vRequireAttestationsBy, vRequireAttestationsByVal)
+			}
+			rKubernetesNamespaceAdmissionRulesMap["requireAttestationsBy"] = vRequireAttestationsBy
+			rKubernetesNamespaceAdmissionRules[k] = rKubernetesNamespaceAdmissionRulesMap
 		}
 		u.Object["kubernetesNamespaceAdmissionRules"] = rKubernetesNamespaceAdmissionRules
 	}
 	if r.KubernetesServiceAccountAdmissionRules != nil {
 		rKubernetesServiceAccountAdmissionRules := make(map[string]interface{})
 		for k, v := range r.KubernetesServiceAccountAdmissionRules {
-			rKubernetesServiceAccountAdmissionRules[k] = PolicyAdmissionRuleToUnstructured(&v)
+			rKubernetesServiceAccountAdmissionRulesMap := make(map[string]interface{})
+			if v.EnforcementMode != nil {
+				rKubernetesServiceAccountAdmissionRulesMap["enforcementMode"] = string(*v.EnforcementMode)
+			}
+			if v.EvaluationMode != nil {
+				rKubernetesServiceAccountAdmissionRulesMap["evaluationMode"] = string(*v.EvaluationMode)
+			}
+			var vRequireAttestationsBy []interface{}
+			for _, vRequireAttestationsByVal := range v.RequireAttestationsBy {
+				vRequireAttestationsBy = append(vRequireAttestationsBy, vRequireAttestationsByVal)
+			}
+			rKubernetesServiceAccountAdmissionRulesMap["requireAttestationsBy"] = vRequireAttestationsBy
+			rKubernetesServiceAccountAdmissionRules[k] = rKubernetesServiceAccountAdmissionRulesMap
 		}
 		u.Object["kubernetesServiceAccountAdmissionRules"] = rKubernetesServiceAccountAdmissionRules
 	}
@@ -90,22 +150,6 @@ func PolicyToUnstructured(r *dclService.Policy) *unstructured.Resource {
 		u.Object["updateTime"] = *r.UpdateTime
 	}
 	return u
-}
-
-func PolicyAdmissionRuleToUnstructured(r *dclService.PolicyAdmissionRule) map[string]interface{} {
-	result := make(map[string]interface{})
-	if r.EnforcementMode != nil {
-		result["enforcementMode"] = string(*r.EnforcementMode)
-	}
-	if r.EvaluationMode != nil {
-		result["evaluationMode"] = string(*r.EvaluationMode)
-	}
-	var rRequireAttestationsBy []interface{}
-	for _, rRequireAttestationsByVal := range r.RequireAttestationsBy {
-		rRequireAttestationsBy = append(rRequireAttestationsBy, rRequireAttestationsByVal)
-	}
-	result["requireAttestationsBy"] = rRequireAttestationsBy
-	return result
 }
 
 func UnstructuredToPolicy(u *unstructured.Resource) (*dclService.Policy, error) {
@@ -131,14 +175,36 @@ func UnstructuredToPolicy(u *unstructured.Resource) (*dclService.Policy, error) 
 	}
 	if _, ok := u.Object["clusterAdmissionRules"]; ok {
 		if rClusterAdmissionRules, ok := u.Object["clusterAdmissionRules"].(map[string]interface{}); ok {
-			m := make(map[string]dclService.PolicyAdmissionRule)
+			m := make(map[string]dclService.PolicyClusterAdmissionRules)
 			for k, v := range rClusterAdmissionRules {
-				if mapVal, ok := v.(map[string]interface{}); ok {
-					unstructuredObjval, err := UnstructuredToPolicyAdmissionRule(mapVal)
-					if err != nil {
-						return nil, err
+				if objval, ok := v.(map[string]interface{}); ok {
+					var rClusterAdmissionRulesObj dclService.PolicyClusterAdmissionRules
+					if _, ok := objval["enforcementMode"]; ok {
+						if s, ok := objval["enforcementMode"].(string); ok {
+							rClusterAdmissionRulesObj.EnforcementMode = dclService.PolicyClusterAdmissionRulesEnforcementModeEnumRef(s)
+						} else {
+							return nil, fmt.Errorf("rClusterAdmissionRulesObj.EnforcementMode: expected string")
+						}
 					}
-					m[k] = *unstructuredObjval
+					if _, ok := objval["evaluationMode"]; ok {
+						if s, ok := objval["evaluationMode"].(string); ok {
+							rClusterAdmissionRulesObj.EvaluationMode = dclService.PolicyClusterAdmissionRulesEvaluationModeEnumRef(s)
+						} else {
+							return nil, fmt.Errorf("rClusterAdmissionRulesObj.EvaluationMode: expected string")
+						}
+					}
+					if _, ok := objval["requireAttestationsBy"]; ok {
+						if s, ok := objval["requireAttestationsBy"].([]interface{}); ok {
+							for _, ss := range s {
+								if strval, ok := ss.(string); ok {
+									rClusterAdmissionRulesObj.RequireAttestationsBy = append(rClusterAdmissionRulesObj.RequireAttestationsBy, strval)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("rClusterAdmissionRulesObj.RequireAttestationsBy: expected []interface{}")
+						}
+					}
+					m[k] = rClusterAdmissionRulesObj
 				} else {
 					return nil, fmt.Errorf("r.ClusterAdmissionRules: expected map[string]interface{}")
 				}
@@ -150,10 +216,31 @@ func UnstructuredToPolicy(u *unstructured.Resource) (*dclService.Policy, error) 
 	}
 	if _, ok := u.Object["defaultAdmissionRule"]; ok {
 		if rDefaultAdmissionRule, ok := u.Object["defaultAdmissionRule"].(map[string]interface{}); ok {
-			var err error
-			r.DefaultAdmissionRule, err = UnstructuredToPolicyAdmissionRule(rDefaultAdmissionRule)
-			if err != nil {
-				return nil, err
+			r.DefaultAdmissionRule = &dclService.PolicyDefaultAdmissionRule{}
+			if _, ok := rDefaultAdmissionRule["enforcementMode"]; ok {
+				if s, ok := rDefaultAdmissionRule["enforcementMode"].(string); ok {
+					r.DefaultAdmissionRule.EnforcementMode = dclService.PolicyDefaultAdmissionRuleEnforcementModeEnumRef(s)
+				} else {
+					return nil, fmt.Errorf("r.DefaultAdmissionRule.EnforcementMode: expected string")
+				}
+			}
+			if _, ok := rDefaultAdmissionRule["evaluationMode"]; ok {
+				if s, ok := rDefaultAdmissionRule["evaluationMode"].(string); ok {
+					r.DefaultAdmissionRule.EvaluationMode = dclService.PolicyDefaultAdmissionRuleEvaluationModeEnumRef(s)
+				} else {
+					return nil, fmt.Errorf("r.DefaultAdmissionRule.EvaluationMode: expected string")
+				}
+			}
+			if _, ok := rDefaultAdmissionRule["requireAttestationsBy"]; ok {
+				if s, ok := rDefaultAdmissionRule["requireAttestationsBy"].([]interface{}); ok {
+					for _, ss := range s {
+						if strval, ok := ss.(string); ok {
+							r.DefaultAdmissionRule.RequireAttestationsBy = append(r.DefaultAdmissionRule.RequireAttestationsBy, strval)
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.DefaultAdmissionRule.RequireAttestationsBy: expected []interface{}")
+				}
 			}
 		} else {
 			return nil, fmt.Errorf("r.DefaultAdmissionRule: expected map[string]interface{}")
@@ -175,14 +262,36 @@ func UnstructuredToPolicy(u *unstructured.Resource) (*dclService.Policy, error) 
 	}
 	if _, ok := u.Object["istioServiceIdentityAdmissionRules"]; ok {
 		if rIstioServiceIdentityAdmissionRules, ok := u.Object["istioServiceIdentityAdmissionRules"].(map[string]interface{}); ok {
-			m := make(map[string]dclService.PolicyAdmissionRule)
+			m := make(map[string]dclService.PolicyIstioServiceIdentityAdmissionRules)
 			for k, v := range rIstioServiceIdentityAdmissionRules {
-				if mapVal, ok := v.(map[string]interface{}); ok {
-					unstructuredObjval, err := UnstructuredToPolicyAdmissionRule(mapVal)
-					if err != nil {
-						return nil, err
+				if objval, ok := v.(map[string]interface{}); ok {
+					var rIstioServiceIdentityAdmissionRulesObj dclService.PolicyIstioServiceIdentityAdmissionRules
+					if _, ok := objval["enforcementMode"]; ok {
+						if s, ok := objval["enforcementMode"].(string); ok {
+							rIstioServiceIdentityAdmissionRulesObj.EnforcementMode = dclService.PolicyIstioServiceIdentityAdmissionRulesEnforcementModeEnumRef(s)
+						} else {
+							return nil, fmt.Errorf("rIstioServiceIdentityAdmissionRulesObj.EnforcementMode: expected string")
+						}
 					}
-					m[k] = *unstructuredObjval
+					if _, ok := objval["evaluationMode"]; ok {
+						if s, ok := objval["evaluationMode"].(string); ok {
+							rIstioServiceIdentityAdmissionRulesObj.EvaluationMode = dclService.PolicyIstioServiceIdentityAdmissionRulesEvaluationModeEnumRef(s)
+						} else {
+							return nil, fmt.Errorf("rIstioServiceIdentityAdmissionRulesObj.EvaluationMode: expected string")
+						}
+					}
+					if _, ok := objval["requireAttestationsBy"]; ok {
+						if s, ok := objval["requireAttestationsBy"].([]interface{}); ok {
+							for _, ss := range s {
+								if strval, ok := ss.(string); ok {
+									rIstioServiceIdentityAdmissionRulesObj.RequireAttestationsBy = append(rIstioServiceIdentityAdmissionRulesObj.RequireAttestationsBy, strval)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("rIstioServiceIdentityAdmissionRulesObj.RequireAttestationsBy: expected []interface{}")
+						}
+					}
+					m[k] = rIstioServiceIdentityAdmissionRulesObj
 				} else {
 					return nil, fmt.Errorf("r.IstioServiceIdentityAdmissionRules: expected map[string]interface{}")
 				}
@@ -194,14 +303,36 @@ func UnstructuredToPolicy(u *unstructured.Resource) (*dclService.Policy, error) 
 	}
 	if _, ok := u.Object["kubernetesNamespaceAdmissionRules"]; ok {
 		if rKubernetesNamespaceAdmissionRules, ok := u.Object["kubernetesNamespaceAdmissionRules"].(map[string]interface{}); ok {
-			m := make(map[string]dclService.PolicyAdmissionRule)
+			m := make(map[string]dclService.PolicyKubernetesNamespaceAdmissionRules)
 			for k, v := range rKubernetesNamespaceAdmissionRules {
-				if mapVal, ok := v.(map[string]interface{}); ok {
-					unstructuredObjval, err := UnstructuredToPolicyAdmissionRule(mapVal)
-					if err != nil {
-						return nil, err
+				if objval, ok := v.(map[string]interface{}); ok {
+					var rKubernetesNamespaceAdmissionRulesObj dclService.PolicyKubernetesNamespaceAdmissionRules
+					if _, ok := objval["enforcementMode"]; ok {
+						if s, ok := objval["enforcementMode"].(string); ok {
+							rKubernetesNamespaceAdmissionRulesObj.EnforcementMode = dclService.PolicyKubernetesNamespaceAdmissionRulesEnforcementModeEnumRef(s)
+						} else {
+							return nil, fmt.Errorf("rKubernetesNamespaceAdmissionRulesObj.EnforcementMode: expected string")
+						}
 					}
-					m[k] = *unstructuredObjval
+					if _, ok := objval["evaluationMode"]; ok {
+						if s, ok := objval["evaluationMode"].(string); ok {
+							rKubernetesNamespaceAdmissionRulesObj.EvaluationMode = dclService.PolicyKubernetesNamespaceAdmissionRulesEvaluationModeEnumRef(s)
+						} else {
+							return nil, fmt.Errorf("rKubernetesNamespaceAdmissionRulesObj.EvaluationMode: expected string")
+						}
+					}
+					if _, ok := objval["requireAttestationsBy"]; ok {
+						if s, ok := objval["requireAttestationsBy"].([]interface{}); ok {
+							for _, ss := range s {
+								if strval, ok := ss.(string); ok {
+									rKubernetesNamespaceAdmissionRulesObj.RequireAttestationsBy = append(rKubernetesNamespaceAdmissionRulesObj.RequireAttestationsBy, strval)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("rKubernetesNamespaceAdmissionRulesObj.RequireAttestationsBy: expected []interface{}")
+						}
+					}
+					m[k] = rKubernetesNamespaceAdmissionRulesObj
 				} else {
 					return nil, fmt.Errorf("r.KubernetesNamespaceAdmissionRules: expected map[string]interface{}")
 				}
@@ -213,14 +344,36 @@ func UnstructuredToPolicy(u *unstructured.Resource) (*dclService.Policy, error) 
 	}
 	if _, ok := u.Object["kubernetesServiceAccountAdmissionRules"]; ok {
 		if rKubernetesServiceAccountAdmissionRules, ok := u.Object["kubernetesServiceAccountAdmissionRules"].(map[string]interface{}); ok {
-			m := make(map[string]dclService.PolicyAdmissionRule)
+			m := make(map[string]dclService.PolicyKubernetesServiceAccountAdmissionRules)
 			for k, v := range rKubernetesServiceAccountAdmissionRules {
-				if mapVal, ok := v.(map[string]interface{}); ok {
-					unstructuredObjval, err := UnstructuredToPolicyAdmissionRule(mapVal)
-					if err != nil {
-						return nil, err
+				if objval, ok := v.(map[string]interface{}); ok {
+					var rKubernetesServiceAccountAdmissionRulesObj dclService.PolicyKubernetesServiceAccountAdmissionRules
+					if _, ok := objval["enforcementMode"]; ok {
+						if s, ok := objval["enforcementMode"].(string); ok {
+							rKubernetesServiceAccountAdmissionRulesObj.EnforcementMode = dclService.PolicyKubernetesServiceAccountAdmissionRulesEnforcementModeEnumRef(s)
+						} else {
+							return nil, fmt.Errorf("rKubernetesServiceAccountAdmissionRulesObj.EnforcementMode: expected string")
+						}
 					}
-					m[k] = *unstructuredObjval
+					if _, ok := objval["evaluationMode"]; ok {
+						if s, ok := objval["evaluationMode"].(string); ok {
+							rKubernetesServiceAccountAdmissionRulesObj.EvaluationMode = dclService.PolicyKubernetesServiceAccountAdmissionRulesEvaluationModeEnumRef(s)
+						} else {
+							return nil, fmt.Errorf("rKubernetesServiceAccountAdmissionRulesObj.EvaluationMode: expected string")
+						}
+					}
+					if _, ok := objval["requireAttestationsBy"]; ok {
+						if s, ok := objval["requireAttestationsBy"].([]interface{}); ok {
+							for _, ss := range s {
+								if strval, ok := ss.(string); ok {
+									rKubernetesServiceAccountAdmissionRulesObj.RequireAttestationsBy = append(rKubernetesServiceAccountAdmissionRulesObj.RequireAttestationsBy, strval)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("rKubernetesServiceAccountAdmissionRulesObj.RequireAttestationsBy: expected []interface{}")
+						}
+					}
+					m[k] = rKubernetesServiceAccountAdmissionRulesObj
 				} else {
 					return nil, fmt.Errorf("r.KubernetesServiceAccountAdmissionRules: expected map[string]interface{}")
 				}
@@ -249,36 +402,6 @@ func UnstructuredToPolicy(u *unstructured.Resource) (*dclService.Policy, error) 
 			r.UpdateTime = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.UpdateTime: expected string")
-		}
-	}
-	return r, nil
-}
-
-func UnstructuredToPolicyAdmissionRule(obj map[string]interface{}) (*dclService.PolicyAdmissionRule, error) {
-	r := &dclService.PolicyAdmissionRule{}
-	if _, ok := obj["enforcementMode"]; ok {
-		if s, ok := obj["enforcementMode"].(string); ok {
-			r.EnforcementMode = dclService.PolicyAdmissionRuleEnforcementModeEnumRef(s)
-		} else {
-			return nil, fmt.Errorf("r.EnforcementMode: expected string")
-		}
-	}
-	if _, ok := obj["evaluationMode"]; ok {
-		if s, ok := obj["evaluationMode"].(string); ok {
-			r.EvaluationMode = dclService.PolicyAdmissionRuleEvaluationModeEnumRef(s)
-		} else {
-			return nil, fmt.Errorf("r.EvaluationMode: expected string")
-		}
-	}
-	if _, ok := obj["requireAttestationsBy"]; ok {
-		if s, ok := obj["requireAttestationsBy"].([]interface{}); ok {
-			for _, ss := range s {
-				if strval, ok := ss.(string); ok {
-					r.RequireAttestationsBy = append(r.RequireAttestationsBy, strval)
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.RequireAttestationsBy: expected []interface{}")
 		}
 	}
 	return r, nil
