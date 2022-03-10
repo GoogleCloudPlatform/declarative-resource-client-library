@@ -586,7 +586,7 @@ func targetPoolInstances() func(fd *dcl.FieldDiff) []string {
 	}
 }
 
-func flattenNetworkSelfLinkWithID(r map[string]interface{}, _ interface{}) *string {
+func flattenNetworkSelfLinkWithID(r map[string]interface{}, _ interface{}, _ *Network) *string {
 	selfLink, ok := r["selfLink"].(string)
 	if !ok {
 		return nil

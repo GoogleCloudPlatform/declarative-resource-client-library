@@ -1,0 +1,22 @@
+{
+  "name": "{{name}}",
+  "project": "run-v2-deploy-e2e",
+  "location": "{{region}}",
+  "launchStage": "ALPHA",
+  "template": {
+    "task_count": 3,
+    "template": {
+      "timeout": "1800s",
+      "containers": [ {
+        "image": "gcr.io/run-intro/screenshot:latest",
+        "env": [ {
+          "name": "FOO",
+          "value": "foobar"
+        }, {
+          "name": "oops",
+          "value": "ayayay"
+        } ]
+      } ]
+    }
+  }
+}

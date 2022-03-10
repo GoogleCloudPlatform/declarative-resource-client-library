@@ -211,11 +211,31 @@ func InstanceGroupManagerToUnstructured(r *dclService.InstanceGroupManager) *uns
 		if r.UpdatePolicy.InstanceRedistributionType != nil {
 			rUpdatePolicy["instanceRedistributionType"] = string(*r.UpdatePolicy.InstanceRedistributionType)
 		}
-		if r.UpdatePolicy.MaxSurge != nil {
-			rUpdatePolicy["maxSurge"] = InstanceGroupManagerFixedOrPercentToUnstructured(r.UpdatePolicy.MaxSurge)
+		if r.UpdatePolicy.MaxSurge != nil && r.UpdatePolicy.MaxSurge != dclService.EmptyInstanceGroupManagerUpdatePolicyMaxSurge {
+			rUpdatePolicyMaxSurge := make(map[string]interface{})
+			if r.UpdatePolicy.MaxSurge.Calculated != nil {
+				rUpdatePolicyMaxSurge["calculated"] = *r.UpdatePolicy.MaxSurge.Calculated
+			}
+			if r.UpdatePolicy.MaxSurge.Fixed != nil {
+				rUpdatePolicyMaxSurge["fixed"] = *r.UpdatePolicy.MaxSurge.Fixed
+			}
+			if r.UpdatePolicy.MaxSurge.Percent != nil {
+				rUpdatePolicyMaxSurge["percent"] = *r.UpdatePolicy.MaxSurge.Percent
+			}
+			rUpdatePolicy["maxSurge"] = rUpdatePolicyMaxSurge
 		}
-		if r.UpdatePolicy.MaxUnavailable != nil {
-			rUpdatePolicy["maxUnavailable"] = InstanceGroupManagerFixedOrPercentToUnstructured(r.UpdatePolicy.MaxUnavailable)
+		if r.UpdatePolicy.MaxUnavailable != nil && r.UpdatePolicy.MaxUnavailable != dclService.EmptyInstanceGroupManagerUpdatePolicyMaxUnavailable {
+			rUpdatePolicyMaxUnavailable := make(map[string]interface{})
+			if r.UpdatePolicy.MaxUnavailable.Calculated != nil {
+				rUpdatePolicyMaxUnavailable["calculated"] = *r.UpdatePolicy.MaxUnavailable.Calculated
+			}
+			if r.UpdatePolicy.MaxUnavailable.Fixed != nil {
+				rUpdatePolicyMaxUnavailable["fixed"] = *r.UpdatePolicy.MaxUnavailable.Fixed
+			}
+			if r.UpdatePolicy.MaxUnavailable.Percent != nil {
+				rUpdatePolicyMaxUnavailable["percent"] = *r.UpdatePolicy.MaxUnavailable.Percent
+			}
+			rUpdatePolicy["maxUnavailable"] = rUpdatePolicyMaxUnavailable
 		}
 		if r.UpdatePolicy.MinReadySec != nil {
 			rUpdatePolicy["minReadySec"] = *r.UpdatePolicy.MinReadySec
@@ -243,8 +263,18 @@ func InstanceGroupManagerToUnstructured(r *dclService.InstanceGroupManager) *uns
 		if rVersionsVal.Name != nil {
 			rVersionsObject["name"] = *rVersionsVal.Name
 		}
-		if rVersionsVal.TargetSize != nil {
-			rVersionsObject["targetSize"] = InstanceGroupManagerFixedOrPercentToUnstructured(rVersionsVal.TargetSize)
+		if rVersionsVal.TargetSize != nil && rVersionsVal.TargetSize != dclService.EmptyInstanceGroupManagerVersionsTargetSize {
+			rVersionsValTargetSize := make(map[string]interface{})
+			if rVersionsVal.TargetSize.Calculated != nil {
+				rVersionsValTargetSize["calculated"] = *rVersionsVal.TargetSize.Calculated
+			}
+			if rVersionsVal.TargetSize.Fixed != nil {
+				rVersionsValTargetSize["fixed"] = *rVersionsVal.TargetSize.Fixed
+			}
+			if rVersionsVal.TargetSize.Percent != nil {
+				rVersionsValTargetSize["percent"] = *rVersionsVal.TargetSize.Percent
+			}
+			rVersionsObject["targetSize"] = rVersionsValTargetSize
 		}
 		rVersions = append(rVersions, rVersionsObject)
 	}
@@ -253,20 +283,6 @@ func InstanceGroupManagerToUnstructured(r *dclService.InstanceGroupManager) *uns
 		u.Object["zone"] = *r.Zone
 	}
 	return u
-}
-
-func InstanceGroupManagerFixedOrPercentToUnstructured(r *dclService.InstanceGroupManagerFixedOrPercent) map[string]interface{} {
-	result := make(map[string]interface{})
-	if r.Calculated != nil {
-		result["calculated"] = *r.Calculated
-	}
-	if r.Fixed != nil {
-		result["fixed"] = *r.Fixed
-	}
-	if r.Percent != nil {
-		result["percent"] = *r.Percent
-	}
-	return result
 }
 
 func UnstructuredToInstanceGroupManager(u *unstructured.Resource) (*dclService.InstanceGroupManager, error) {
@@ -661,10 +677,27 @@ func UnstructuredToInstanceGroupManager(u *unstructured.Resource) (*dclService.I
 			}
 			if _, ok := rUpdatePolicy["maxSurge"]; ok {
 				if rUpdatePolicyMaxSurge, ok := rUpdatePolicy["maxSurge"].(map[string]interface{}); ok {
-					var err error
-					r.UpdatePolicy.MaxSurge, err = UnstructuredToInstanceGroupManagerFixedOrPercent(rUpdatePolicyMaxSurge)
-					if err != nil {
-						return nil, err
+					r.UpdatePolicy.MaxSurge = &dclService.InstanceGroupManagerUpdatePolicyMaxSurge{}
+					if _, ok := rUpdatePolicyMaxSurge["calculated"]; ok {
+						if i, ok := rUpdatePolicyMaxSurge["calculated"].(int64); ok {
+							r.UpdatePolicy.MaxSurge.Calculated = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("r.UpdatePolicy.MaxSurge.Calculated: expected int64")
+						}
+					}
+					if _, ok := rUpdatePolicyMaxSurge["fixed"]; ok {
+						if i, ok := rUpdatePolicyMaxSurge["fixed"].(int64); ok {
+							r.UpdatePolicy.MaxSurge.Fixed = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("r.UpdatePolicy.MaxSurge.Fixed: expected int64")
+						}
+					}
+					if _, ok := rUpdatePolicyMaxSurge["percent"]; ok {
+						if i, ok := rUpdatePolicyMaxSurge["percent"].(int64); ok {
+							r.UpdatePolicy.MaxSurge.Percent = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("r.UpdatePolicy.MaxSurge.Percent: expected int64")
+						}
 					}
 				} else {
 					return nil, fmt.Errorf("r.UpdatePolicy.MaxSurge: expected map[string]interface{}")
@@ -672,10 +705,27 @@ func UnstructuredToInstanceGroupManager(u *unstructured.Resource) (*dclService.I
 			}
 			if _, ok := rUpdatePolicy["maxUnavailable"]; ok {
 				if rUpdatePolicyMaxUnavailable, ok := rUpdatePolicy["maxUnavailable"].(map[string]interface{}); ok {
-					var err error
-					r.UpdatePolicy.MaxUnavailable, err = UnstructuredToInstanceGroupManagerFixedOrPercent(rUpdatePolicyMaxUnavailable)
-					if err != nil {
-						return nil, err
+					r.UpdatePolicy.MaxUnavailable = &dclService.InstanceGroupManagerUpdatePolicyMaxUnavailable{}
+					if _, ok := rUpdatePolicyMaxUnavailable["calculated"]; ok {
+						if i, ok := rUpdatePolicyMaxUnavailable["calculated"].(int64); ok {
+							r.UpdatePolicy.MaxUnavailable.Calculated = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("r.UpdatePolicy.MaxUnavailable.Calculated: expected int64")
+						}
+					}
+					if _, ok := rUpdatePolicyMaxUnavailable["fixed"]; ok {
+						if i, ok := rUpdatePolicyMaxUnavailable["fixed"].(int64); ok {
+							r.UpdatePolicy.MaxUnavailable.Fixed = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("r.UpdatePolicy.MaxUnavailable.Fixed: expected int64")
+						}
+					}
+					if _, ok := rUpdatePolicyMaxUnavailable["percent"]; ok {
+						if i, ok := rUpdatePolicyMaxUnavailable["percent"].(int64); ok {
+							r.UpdatePolicy.MaxUnavailable.Percent = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("r.UpdatePolicy.MaxUnavailable.Percent: expected int64")
+						}
 					}
 				} else {
 					return nil, fmt.Errorf("r.UpdatePolicy.MaxUnavailable: expected map[string]interface{}")
@@ -741,10 +791,27 @@ func UnstructuredToInstanceGroupManager(u *unstructured.Resource) (*dclService.I
 					}
 					if _, ok := objval["targetSize"]; ok {
 						if rVersionsTargetSize, ok := objval["targetSize"].(map[string]interface{}); ok {
-							var err error
-							rVersions.TargetSize, err = UnstructuredToInstanceGroupManagerFixedOrPercent(rVersionsTargetSize)
-							if err != nil {
-								return nil, err
+							rVersions.TargetSize = &dclService.InstanceGroupManagerVersionsTargetSize{}
+							if _, ok := rVersionsTargetSize["calculated"]; ok {
+								if i, ok := rVersionsTargetSize["calculated"].(int64); ok {
+									rVersions.TargetSize.Calculated = dcl.Int64(i)
+								} else {
+									return nil, fmt.Errorf("rVersions.TargetSize.Calculated: expected int64")
+								}
+							}
+							if _, ok := rVersionsTargetSize["fixed"]; ok {
+								if i, ok := rVersionsTargetSize["fixed"].(int64); ok {
+									rVersions.TargetSize.Fixed = dcl.Int64(i)
+								} else {
+									return nil, fmt.Errorf("rVersions.TargetSize.Fixed: expected int64")
+								}
+							}
+							if _, ok := rVersionsTargetSize["percent"]; ok {
+								if i, ok := rVersionsTargetSize["percent"].(int64); ok {
+									rVersions.TargetSize.Percent = dcl.Int64(i)
+								} else {
+									return nil, fmt.Errorf("rVersions.TargetSize.Percent: expected int64")
+								}
 							}
 						} else {
 							return nil, fmt.Errorf("rVersions.TargetSize: expected map[string]interface{}")
@@ -762,32 +829,6 @@ func UnstructuredToInstanceGroupManager(u *unstructured.Resource) (*dclService.I
 			r.Zone = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.Zone: expected string")
-		}
-	}
-	return r, nil
-}
-
-func UnstructuredToInstanceGroupManagerFixedOrPercent(obj map[string]interface{}) (*dclService.InstanceGroupManagerFixedOrPercent, error) {
-	r := &dclService.InstanceGroupManagerFixedOrPercent{}
-	if _, ok := obj["calculated"]; ok {
-		if i, ok := obj["calculated"].(int64); ok {
-			r.Calculated = dcl.Int64(i)
-		} else {
-			return nil, fmt.Errorf("r.Calculated: expected int64")
-		}
-	}
-	if _, ok := obj["fixed"]; ok {
-		if i, ok := obj["fixed"].(int64); ok {
-			r.Fixed = dcl.Int64(i)
-		} else {
-			return nil, fmt.Errorf("r.Fixed: expected int64")
-		}
-	}
-	if _, ok := obj["percent"]; ok {
-		if i, ok := obj["percent"].(int64); ok {
-			r.Percent = dcl.Int64(i)
-		} else {
-			return nil, fmt.Errorf("r.Percent: expected int64")
 		}
 	}
 	return r, nil

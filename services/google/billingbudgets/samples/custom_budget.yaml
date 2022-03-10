@@ -20,3 +20,6 @@ resource: samples/custom.budget.json
 updates:
 - resource: samples/update_custom.budget.json
   dependencies: []
+variables:
+- name: billing_account_for_budgets
+  type: billing_account_for_budgets

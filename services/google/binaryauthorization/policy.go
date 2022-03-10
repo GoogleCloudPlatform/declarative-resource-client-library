@@ -26,34 +26,34 @@ import (
 )
 
 type Policy struct {
-	AdmissionWhitelistPatterns             []PolicyAdmissionWhitelistPatterns    `json:"admissionWhitelistPatterns"`
-	ClusterAdmissionRules                  map[string]PolicyAdmissionRule        `json:"clusterAdmissionRules"`
-	KubernetesNamespaceAdmissionRules      map[string]PolicyAdmissionRule        `json:"kubernetesNamespaceAdmissionRules"`
-	KubernetesServiceAccountAdmissionRules map[string]PolicyAdmissionRule        `json:"kubernetesServiceAccountAdmissionRules"`
-	IstioServiceIdentityAdmissionRules     map[string]PolicyAdmissionRule        `json:"istioServiceIdentityAdmissionRules"`
-	DefaultAdmissionRule                   *PolicyAdmissionRule                  `json:"defaultAdmissionRule"`
-	Description                            *string                               `json:"description"`
-	GlobalPolicyEvaluationMode             *PolicyGlobalPolicyEvaluationModeEnum `json:"globalPolicyEvaluationMode"`
-	SelfLink                               *string                               `json:"selfLink"`
-	Project                                *string                               `json:"project"`
-	UpdateTime                             *string                               `json:"updateTime"`
+	AdmissionWhitelistPatterns             []PolicyAdmissionWhitelistPatterns                      `json:"admissionWhitelistPatterns"`
+	ClusterAdmissionRules                  map[string]PolicyClusterAdmissionRules                  `json:"clusterAdmissionRules"`
+	KubernetesNamespaceAdmissionRules      map[string]PolicyKubernetesNamespaceAdmissionRules      `json:"kubernetesNamespaceAdmissionRules"`
+	KubernetesServiceAccountAdmissionRules map[string]PolicyKubernetesServiceAccountAdmissionRules `json:"kubernetesServiceAccountAdmissionRules"`
+	IstioServiceIdentityAdmissionRules     map[string]PolicyIstioServiceIdentityAdmissionRules     `json:"istioServiceIdentityAdmissionRules"`
+	DefaultAdmissionRule                   *PolicyDefaultAdmissionRule                             `json:"defaultAdmissionRule"`
+	Description                            *string                                                 `json:"description"`
+	GlobalPolicyEvaluationMode             *PolicyGlobalPolicyEvaluationModeEnum                   `json:"globalPolicyEvaluationMode"`
+	SelfLink                               *string                                                 `json:"selfLink"`
+	Project                                *string                                                 `json:"project"`
+	UpdateTime                             *string                                                 `json:"updateTime"`
 }
 
 func (r *Policy) String() string {
 	return dcl.SprintResource(r)
 }
 
-// The enum PolicyAdmissionRuleEvaluationModeEnum.
-type PolicyAdmissionRuleEvaluationModeEnum string
+// The enum PolicyClusterAdmissionRulesEvaluationModeEnum.
+type PolicyClusterAdmissionRulesEvaluationModeEnum string
 
-// PolicyAdmissionRuleEvaluationModeEnumRef returns a *PolicyAdmissionRuleEvaluationModeEnum with the value of string s
+// PolicyClusterAdmissionRulesEvaluationModeEnumRef returns a *PolicyClusterAdmissionRulesEvaluationModeEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func PolicyAdmissionRuleEvaluationModeEnumRef(s string) *PolicyAdmissionRuleEvaluationModeEnum {
-	v := PolicyAdmissionRuleEvaluationModeEnum(s)
+func PolicyClusterAdmissionRulesEvaluationModeEnumRef(s string) *PolicyClusterAdmissionRulesEvaluationModeEnum {
+	v := PolicyClusterAdmissionRulesEvaluationModeEnum(s)
 	return &v
 }
 
-func (v PolicyAdmissionRuleEvaluationModeEnum) Validate() error {
+func (v PolicyClusterAdmissionRulesEvaluationModeEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -64,23 +64,23 @@ func (v PolicyAdmissionRuleEvaluationModeEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "PolicyAdmissionRuleEvaluationModeEnum",
+		Enum:  "PolicyClusterAdmissionRulesEvaluationModeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum PolicyAdmissionRuleEnforcementModeEnum.
-type PolicyAdmissionRuleEnforcementModeEnum string
+// The enum PolicyClusterAdmissionRulesEnforcementModeEnum.
+type PolicyClusterAdmissionRulesEnforcementModeEnum string
 
-// PolicyAdmissionRuleEnforcementModeEnumRef returns a *PolicyAdmissionRuleEnforcementModeEnum with the value of string s
+// PolicyClusterAdmissionRulesEnforcementModeEnumRef returns a *PolicyClusterAdmissionRulesEnforcementModeEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func PolicyAdmissionRuleEnforcementModeEnumRef(s string) *PolicyAdmissionRuleEnforcementModeEnum {
-	v := PolicyAdmissionRuleEnforcementModeEnum(s)
+func PolicyClusterAdmissionRulesEnforcementModeEnumRef(s string) *PolicyClusterAdmissionRulesEnforcementModeEnum {
+	v := PolicyClusterAdmissionRulesEnforcementModeEnum(s)
 	return &v
 }
 
-func (v PolicyAdmissionRuleEnforcementModeEnum) Validate() error {
+func (v PolicyClusterAdmissionRulesEnforcementModeEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -91,7 +91,223 @@ func (v PolicyAdmissionRuleEnforcementModeEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "PolicyAdmissionRuleEnforcementModeEnum",
+		Enum:  "PolicyClusterAdmissionRulesEnforcementModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum PolicyKubernetesNamespaceAdmissionRulesEvaluationModeEnum.
+type PolicyKubernetesNamespaceAdmissionRulesEvaluationModeEnum string
+
+// PolicyKubernetesNamespaceAdmissionRulesEvaluationModeEnumRef returns a *PolicyKubernetesNamespaceAdmissionRulesEvaluationModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func PolicyKubernetesNamespaceAdmissionRulesEvaluationModeEnumRef(s string) *PolicyKubernetesNamespaceAdmissionRulesEvaluationModeEnum {
+	v := PolicyKubernetesNamespaceAdmissionRulesEvaluationModeEnum(s)
+	return &v
+}
+
+func (v PolicyKubernetesNamespaceAdmissionRulesEvaluationModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALWAYS_ALLOW", "ALWAYS_DENY", "REQUIRE_ATTESTATION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "PolicyKubernetesNamespaceAdmissionRulesEvaluationModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum PolicyKubernetesNamespaceAdmissionRulesEnforcementModeEnum.
+type PolicyKubernetesNamespaceAdmissionRulesEnforcementModeEnum string
+
+// PolicyKubernetesNamespaceAdmissionRulesEnforcementModeEnumRef returns a *PolicyKubernetesNamespaceAdmissionRulesEnforcementModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func PolicyKubernetesNamespaceAdmissionRulesEnforcementModeEnumRef(s string) *PolicyKubernetesNamespaceAdmissionRulesEnforcementModeEnum {
+	v := PolicyKubernetesNamespaceAdmissionRulesEnforcementModeEnum(s)
+	return &v
+}
+
+func (v PolicyKubernetesNamespaceAdmissionRulesEnforcementModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ENFORCEMENT_MODE_UNSPECIFIED", "ENFORCED_BLOCK_AND_AUDIT_LOG", "DRYRUN_AUDIT_LOG_ONLY"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "PolicyKubernetesNamespaceAdmissionRulesEnforcementModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum PolicyKubernetesServiceAccountAdmissionRulesEvaluationModeEnum.
+type PolicyKubernetesServiceAccountAdmissionRulesEvaluationModeEnum string
+
+// PolicyKubernetesServiceAccountAdmissionRulesEvaluationModeEnumRef returns a *PolicyKubernetesServiceAccountAdmissionRulesEvaluationModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func PolicyKubernetesServiceAccountAdmissionRulesEvaluationModeEnumRef(s string) *PolicyKubernetesServiceAccountAdmissionRulesEvaluationModeEnum {
+	v := PolicyKubernetesServiceAccountAdmissionRulesEvaluationModeEnum(s)
+	return &v
+}
+
+func (v PolicyKubernetesServiceAccountAdmissionRulesEvaluationModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALWAYS_ALLOW", "ALWAYS_DENY", "REQUIRE_ATTESTATION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "PolicyKubernetesServiceAccountAdmissionRulesEvaluationModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum PolicyKubernetesServiceAccountAdmissionRulesEnforcementModeEnum.
+type PolicyKubernetesServiceAccountAdmissionRulesEnforcementModeEnum string
+
+// PolicyKubernetesServiceAccountAdmissionRulesEnforcementModeEnumRef returns a *PolicyKubernetesServiceAccountAdmissionRulesEnforcementModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func PolicyKubernetesServiceAccountAdmissionRulesEnforcementModeEnumRef(s string) *PolicyKubernetesServiceAccountAdmissionRulesEnforcementModeEnum {
+	v := PolicyKubernetesServiceAccountAdmissionRulesEnforcementModeEnum(s)
+	return &v
+}
+
+func (v PolicyKubernetesServiceAccountAdmissionRulesEnforcementModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ENFORCEMENT_MODE_UNSPECIFIED", "ENFORCED_BLOCK_AND_AUDIT_LOG", "DRYRUN_AUDIT_LOG_ONLY"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "PolicyKubernetesServiceAccountAdmissionRulesEnforcementModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum PolicyIstioServiceIdentityAdmissionRulesEvaluationModeEnum.
+type PolicyIstioServiceIdentityAdmissionRulesEvaluationModeEnum string
+
+// PolicyIstioServiceIdentityAdmissionRulesEvaluationModeEnumRef returns a *PolicyIstioServiceIdentityAdmissionRulesEvaluationModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func PolicyIstioServiceIdentityAdmissionRulesEvaluationModeEnumRef(s string) *PolicyIstioServiceIdentityAdmissionRulesEvaluationModeEnum {
+	v := PolicyIstioServiceIdentityAdmissionRulesEvaluationModeEnum(s)
+	return &v
+}
+
+func (v PolicyIstioServiceIdentityAdmissionRulesEvaluationModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALWAYS_ALLOW", "ALWAYS_DENY", "REQUIRE_ATTESTATION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "PolicyIstioServiceIdentityAdmissionRulesEvaluationModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum PolicyIstioServiceIdentityAdmissionRulesEnforcementModeEnum.
+type PolicyIstioServiceIdentityAdmissionRulesEnforcementModeEnum string
+
+// PolicyIstioServiceIdentityAdmissionRulesEnforcementModeEnumRef returns a *PolicyIstioServiceIdentityAdmissionRulesEnforcementModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func PolicyIstioServiceIdentityAdmissionRulesEnforcementModeEnumRef(s string) *PolicyIstioServiceIdentityAdmissionRulesEnforcementModeEnum {
+	v := PolicyIstioServiceIdentityAdmissionRulesEnforcementModeEnum(s)
+	return &v
+}
+
+func (v PolicyIstioServiceIdentityAdmissionRulesEnforcementModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ENFORCEMENT_MODE_UNSPECIFIED", "ENFORCED_BLOCK_AND_AUDIT_LOG", "DRYRUN_AUDIT_LOG_ONLY"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "PolicyIstioServiceIdentityAdmissionRulesEnforcementModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum PolicyDefaultAdmissionRuleEvaluationModeEnum.
+type PolicyDefaultAdmissionRuleEvaluationModeEnum string
+
+// PolicyDefaultAdmissionRuleEvaluationModeEnumRef returns a *PolicyDefaultAdmissionRuleEvaluationModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func PolicyDefaultAdmissionRuleEvaluationModeEnumRef(s string) *PolicyDefaultAdmissionRuleEvaluationModeEnum {
+	v := PolicyDefaultAdmissionRuleEvaluationModeEnum(s)
+	return &v
+}
+
+func (v PolicyDefaultAdmissionRuleEvaluationModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ALWAYS_ALLOW", "ALWAYS_DENY", "REQUIRE_ATTESTATION"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "PolicyDefaultAdmissionRuleEvaluationModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum PolicyDefaultAdmissionRuleEnforcementModeEnum.
+type PolicyDefaultAdmissionRuleEnforcementModeEnum string
+
+// PolicyDefaultAdmissionRuleEnforcementModeEnumRef returns a *PolicyDefaultAdmissionRuleEnforcementModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func PolicyDefaultAdmissionRuleEnforcementModeEnumRef(s string) *PolicyDefaultAdmissionRuleEnforcementModeEnum {
+	v := PolicyDefaultAdmissionRuleEnforcementModeEnum(s)
+	return &v
+}
+
+func (v PolicyDefaultAdmissionRuleEnforcementModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ENFORCEMENT_MODE_UNSPECIFIED", "ENFORCED_BLOCK_AND_AUDIT_LOG", "DRYRUN_AUDIT_LOG_ONLY"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "PolicyDefaultAdmissionRuleEnforcementModeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -170,17 +386,17 @@ func (r *PolicyAdmissionWhitelistPatterns) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type PolicyAdmissionRule struct {
-	empty                 bool                                    `json:"-"`
-	EvaluationMode        *PolicyAdmissionRuleEvaluationModeEnum  `json:"evaluationMode"`
-	RequireAttestationsBy []string                                `json:"requireAttestationsBy"`
-	EnforcementMode       *PolicyAdmissionRuleEnforcementModeEnum `json:"enforcementMode"`
+type PolicyClusterAdmissionRules struct {
+	empty                 bool                                            `json:"-"`
+	EvaluationMode        *PolicyClusterAdmissionRulesEvaluationModeEnum  `json:"evaluationMode"`
+	RequireAttestationsBy []string                                        `json:"requireAttestationsBy"`
+	EnforcementMode       *PolicyClusterAdmissionRulesEnforcementModeEnum `json:"enforcementMode"`
 }
 
-type jsonPolicyAdmissionRule PolicyAdmissionRule
+type jsonPolicyClusterAdmissionRules PolicyClusterAdmissionRules
 
-func (r *PolicyAdmissionRule) UnmarshalJSON(data []byte) error {
-	var res jsonPolicyAdmissionRule
+func (r *PolicyClusterAdmissionRules) UnmarshalJSON(data []byte) error {
+	var res jsonPolicyClusterAdmissionRules
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -189,7 +405,7 @@ func (r *PolicyAdmissionRule) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyPolicyAdmissionRule
+		*r = *EmptyPolicyClusterAdmissionRules
 	} else {
 
 		r.EvaluationMode = res.EvaluationMode
@@ -202,20 +418,228 @@ func (r *PolicyAdmissionRule) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this PolicyAdmissionRule is
+// This object is used to assert a desired state where this PolicyClusterAdmissionRules is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyPolicyAdmissionRule *PolicyAdmissionRule = &PolicyAdmissionRule{empty: true}
+var EmptyPolicyClusterAdmissionRules *PolicyClusterAdmissionRules = &PolicyClusterAdmissionRules{empty: true}
 
-func (r *PolicyAdmissionRule) Empty() bool {
+func (r *PolicyClusterAdmissionRules) Empty() bool {
 	return r.empty
 }
 
-func (r *PolicyAdmissionRule) String() string {
+func (r *PolicyClusterAdmissionRules) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *PolicyAdmissionRule) HashCode() string {
+func (r *PolicyClusterAdmissionRules) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type PolicyKubernetesNamespaceAdmissionRules struct {
+	empty                 bool                                                        `json:"-"`
+	EvaluationMode        *PolicyKubernetesNamespaceAdmissionRulesEvaluationModeEnum  `json:"evaluationMode"`
+	RequireAttestationsBy []string                                                    `json:"requireAttestationsBy"`
+	EnforcementMode       *PolicyKubernetesNamespaceAdmissionRulesEnforcementModeEnum `json:"enforcementMode"`
+}
+
+type jsonPolicyKubernetesNamespaceAdmissionRules PolicyKubernetesNamespaceAdmissionRules
+
+func (r *PolicyKubernetesNamespaceAdmissionRules) UnmarshalJSON(data []byte) error {
+	var res jsonPolicyKubernetesNamespaceAdmissionRules
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyPolicyKubernetesNamespaceAdmissionRules
+	} else {
+
+		r.EvaluationMode = res.EvaluationMode
+
+		r.RequireAttestationsBy = res.RequireAttestationsBy
+
+		r.EnforcementMode = res.EnforcementMode
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this PolicyKubernetesNamespaceAdmissionRules is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyPolicyKubernetesNamespaceAdmissionRules *PolicyKubernetesNamespaceAdmissionRules = &PolicyKubernetesNamespaceAdmissionRules{empty: true}
+
+func (r *PolicyKubernetesNamespaceAdmissionRules) Empty() bool {
+	return r.empty
+}
+
+func (r *PolicyKubernetesNamespaceAdmissionRules) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *PolicyKubernetesNamespaceAdmissionRules) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type PolicyKubernetesServiceAccountAdmissionRules struct {
+	empty                 bool                                                             `json:"-"`
+	EvaluationMode        *PolicyKubernetesServiceAccountAdmissionRulesEvaluationModeEnum  `json:"evaluationMode"`
+	RequireAttestationsBy []string                                                         `json:"requireAttestationsBy"`
+	EnforcementMode       *PolicyKubernetesServiceAccountAdmissionRulesEnforcementModeEnum `json:"enforcementMode"`
+}
+
+type jsonPolicyKubernetesServiceAccountAdmissionRules PolicyKubernetesServiceAccountAdmissionRules
+
+func (r *PolicyKubernetesServiceAccountAdmissionRules) UnmarshalJSON(data []byte) error {
+	var res jsonPolicyKubernetesServiceAccountAdmissionRules
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyPolicyKubernetesServiceAccountAdmissionRules
+	} else {
+
+		r.EvaluationMode = res.EvaluationMode
+
+		r.RequireAttestationsBy = res.RequireAttestationsBy
+
+		r.EnforcementMode = res.EnforcementMode
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this PolicyKubernetesServiceAccountAdmissionRules is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyPolicyKubernetesServiceAccountAdmissionRules *PolicyKubernetesServiceAccountAdmissionRules = &PolicyKubernetesServiceAccountAdmissionRules{empty: true}
+
+func (r *PolicyKubernetesServiceAccountAdmissionRules) Empty() bool {
+	return r.empty
+}
+
+func (r *PolicyKubernetesServiceAccountAdmissionRules) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *PolicyKubernetesServiceAccountAdmissionRules) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type PolicyIstioServiceIdentityAdmissionRules struct {
+	empty                 bool                                                         `json:"-"`
+	EvaluationMode        *PolicyIstioServiceIdentityAdmissionRulesEvaluationModeEnum  `json:"evaluationMode"`
+	RequireAttestationsBy []string                                                     `json:"requireAttestationsBy"`
+	EnforcementMode       *PolicyIstioServiceIdentityAdmissionRulesEnforcementModeEnum `json:"enforcementMode"`
+}
+
+type jsonPolicyIstioServiceIdentityAdmissionRules PolicyIstioServiceIdentityAdmissionRules
+
+func (r *PolicyIstioServiceIdentityAdmissionRules) UnmarshalJSON(data []byte) error {
+	var res jsonPolicyIstioServiceIdentityAdmissionRules
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyPolicyIstioServiceIdentityAdmissionRules
+	} else {
+
+		r.EvaluationMode = res.EvaluationMode
+
+		r.RequireAttestationsBy = res.RequireAttestationsBy
+
+		r.EnforcementMode = res.EnforcementMode
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this PolicyIstioServiceIdentityAdmissionRules is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyPolicyIstioServiceIdentityAdmissionRules *PolicyIstioServiceIdentityAdmissionRules = &PolicyIstioServiceIdentityAdmissionRules{empty: true}
+
+func (r *PolicyIstioServiceIdentityAdmissionRules) Empty() bool {
+	return r.empty
+}
+
+func (r *PolicyIstioServiceIdentityAdmissionRules) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *PolicyIstioServiceIdentityAdmissionRules) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type PolicyDefaultAdmissionRule struct {
+	empty                 bool                                           `json:"-"`
+	EvaluationMode        *PolicyDefaultAdmissionRuleEvaluationModeEnum  `json:"evaluationMode"`
+	RequireAttestationsBy []string                                       `json:"requireAttestationsBy"`
+	EnforcementMode       *PolicyDefaultAdmissionRuleEnforcementModeEnum `json:"enforcementMode"`
+}
+
+type jsonPolicyDefaultAdmissionRule PolicyDefaultAdmissionRule
+
+func (r *PolicyDefaultAdmissionRule) UnmarshalJSON(data []byte) error {
+	var res jsonPolicyDefaultAdmissionRule
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyPolicyDefaultAdmissionRule
+	} else {
+
+		r.EvaluationMode = res.EvaluationMode
+
+		r.RequireAttestationsBy = res.RequireAttestationsBy
+
+		r.EnforcementMode = res.EnforcementMode
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this PolicyDefaultAdmissionRule is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyPolicyDefaultAdmissionRule *PolicyDefaultAdmissionRule = &PolicyDefaultAdmissionRule{empty: true}
+
+func (r *PolicyDefaultAdmissionRule) Empty() bool {
+	return r.empty
+}
+
+func (r *PolicyDefaultAdmissionRule) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *PolicyDefaultAdmissionRule) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

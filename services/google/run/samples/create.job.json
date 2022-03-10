@@ -1,0 +1,20 @@
+{
+  "name": "{{name}}",
+  "project": "run-v2-deploy-e2e",
+  "location": "{{region}}",
+  "launchStage": "ALPHA",
+  "template": {
+    "template": {
+      "containers": [ {
+        "image": "gcr.io/run-intro/screenshot:latest",
+        "env": [ {
+          "name": "FOO",
+          "value": "bar]"
+        }, {
+          "name": "oops",
+          "value": "{yay]"
+        } ]
+      } ]
+    }
+  }
+}

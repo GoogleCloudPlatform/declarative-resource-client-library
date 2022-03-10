@@ -135,7 +135,7 @@ class Service(object):
         )
         self.template = ServiceTemplate.from_proto(response.template)
         self.traffic = ServiceTrafficArray.from_proto(response.traffic)
-        self.terminal_condition = ServiceGooglecloudrunopv2Condition.from_proto(
+        self.terminal_condition = ServiceTerminalCondition.from_proto(
             response.terminal_condition
         )
         self.latest_ready_revision = Primitive.from_proto(
@@ -1068,7 +1068,7 @@ class ServiceTrafficArray(object):
         return [ServiceTraffic.from_proto(i) for i in resources]
 
 
-class ServiceGooglecloudrunopv2Condition(object):
+class ServiceTerminalCondition(object):
     def __init__(
         self,
         type: str = None,
@@ -1098,47 +1098,41 @@ class ServiceGooglecloudrunopv2Condition(object):
         if not resource:
             return None
 
-        res = service_pb2.RunAlphaServiceGooglecloudrunopv2Condition()
+        res = service_pb2.RunAlphaServiceTerminalCondition()
         if Primitive.to_proto(resource.type):
             res.type = Primitive.to_proto(resource.type)
-        if ServiceGooglecloudrunopv2ConditionStateEnum.to_proto(resource.state):
-            res.state = ServiceGooglecloudrunopv2ConditionStateEnum.to_proto(
-                resource.state
-            )
+        if ServiceTerminalConditionStateEnum.to_proto(resource.state):
+            res.state = ServiceTerminalConditionStateEnum.to_proto(resource.state)
         if Primitive.to_proto(resource.message):
             res.message = Primitive.to_proto(resource.message)
         if Primitive.to_proto(resource.last_transition_time):
             res.last_transition_time = Primitive.to_proto(resource.last_transition_time)
-        if ServiceGooglecloudrunopv2ConditionSeverityEnum.to_proto(resource.severity):
-            res.severity = ServiceGooglecloudrunopv2ConditionSeverityEnum.to_proto(
+        if ServiceTerminalConditionSeverityEnum.to_proto(resource.severity):
+            res.severity = ServiceTerminalConditionSeverityEnum.to_proto(
                 resource.severity
             )
-        if ServiceGooglecloudrunopv2ConditionReasonEnum.to_proto(resource.reason):
-            res.reason = ServiceGooglecloudrunopv2ConditionReasonEnum.to_proto(
-                resource.reason
-            )
-        if ServiceGooglecloudrunopv2ConditionInternalReasonEnum.to_proto(
+        if ServiceTerminalConditionReasonEnum.to_proto(resource.reason):
+            res.reason = ServiceTerminalConditionReasonEnum.to_proto(resource.reason)
+        if ServiceTerminalConditionInternalReasonEnum.to_proto(
             resource.internal_reason
         ):
-            res.internal_reason = ServiceGooglecloudrunopv2ConditionInternalReasonEnum.to_proto(
+            res.internal_reason = ServiceTerminalConditionInternalReasonEnum.to_proto(
                 resource.internal_reason
             )
-        if ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum.to_proto(
+        if ServiceTerminalConditionDomainMappingReasonEnum.to_proto(
             resource.domain_mapping_reason
         ):
-            res.domain_mapping_reason = ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum.to_proto(
+            res.domain_mapping_reason = ServiceTerminalConditionDomainMappingReasonEnum.to_proto(
                 resource.domain_mapping_reason
             )
-        if ServiceGooglecloudrunopv2ConditionRevisionReasonEnum.to_proto(
+        if ServiceTerminalConditionRevisionReasonEnum.to_proto(
             resource.revision_reason
         ):
-            res.revision_reason = ServiceGooglecloudrunopv2ConditionRevisionReasonEnum.to_proto(
+            res.revision_reason = ServiceTerminalConditionRevisionReasonEnum.to_proto(
                 resource.revision_reason
             )
-        if ServiceGooglecloudrunopv2ConditionJobReasonEnum.to_proto(
-            resource.job_reason
-        ):
-            res.job_reason = ServiceGooglecloudrunopv2ConditionJobReasonEnum.to_proto(
+        if ServiceTerminalConditionJobReasonEnum.to_proto(resource.job_reason):
+            res.job_reason = ServiceTerminalConditionJobReasonEnum.to_proto(
                 resource.job_reason
             )
         return res
@@ -1148,44 +1142,38 @@ class ServiceGooglecloudrunopv2Condition(object):
         if not resource:
             return None
 
-        return ServiceGooglecloudrunopv2Condition(
+        return ServiceTerminalCondition(
             type=Primitive.from_proto(resource.type),
-            state=ServiceGooglecloudrunopv2ConditionStateEnum.from_proto(
-                resource.state
-            ),
+            state=ServiceTerminalConditionStateEnum.from_proto(resource.state),
             message=Primitive.from_proto(resource.message),
             last_transition_time=Primitive.from_proto(resource.last_transition_time),
-            severity=ServiceGooglecloudrunopv2ConditionSeverityEnum.from_proto(
-                resource.severity
-            ),
-            reason=ServiceGooglecloudrunopv2ConditionReasonEnum.from_proto(
-                resource.reason
-            ),
-            internal_reason=ServiceGooglecloudrunopv2ConditionInternalReasonEnum.from_proto(
+            severity=ServiceTerminalConditionSeverityEnum.from_proto(resource.severity),
+            reason=ServiceTerminalConditionReasonEnum.from_proto(resource.reason),
+            internal_reason=ServiceTerminalConditionInternalReasonEnum.from_proto(
                 resource.internal_reason
             ),
-            domain_mapping_reason=ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum.from_proto(
+            domain_mapping_reason=ServiceTerminalConditionDomainMappingReasonEnum.from_proto(
                 resource.domain_mapping_reason
             ),
-            revision_reason=ServiceGooglecloudrunopv2ConditionRevisionReasonEnum.from_proto(
+            revision_reason=ServiceTerminalConditionRevisionReasonEnum.from_proto(
                 resource.revision_reason
             ),
-            job_reason=ServiceGooglecloudrunopv2ConditionJobReasonEnum.from_proto(
+            job_reason=ServiceTerminalConditionJobReasonEnum.from_proto(
                 resource.job_reason
             ),
         )
 
 
-class ServiceGooglecloudrunopv2ConditionArray(object):
+class ServiceTerminalConditionArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [ServiceGooglecloudrunopv2Condition.to_proto(i) for i in resources]
+        return [ServiceTerminalCondition.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [ServiceGooglecloudrunopv2Condition.from_proto(i) for i in resources]
+        return [ServiceTerminalCondition.from_proto(i) for i in resources]
 
 
 class ServiceTrafficStatuses(object):
@@ -1337,137 +1325,130 @@ class ServiceTrafficTypeEnum(object):
         ]
 
 
-class ServiceGooglecloudrunopv2ConditionStateEnum(object):
+class ServiceTerminalConditionStateEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunAlphaServiceGooglecloudrunopv2ConditionStateEnum.Value(
-            "RunAlphaServiceGooglecloudrunopv2ConditionStateEnum%s" % resource
+        return service_pb2.RunAlphaServiceTerminalConditionStateEnum.Value(
+            "RunAlphaServiceTerminalConditionStateEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunAlphaServiceGooglecloudrunopv2ConditionStateEnum.Name(
-            resource
-        )[len("RunAlphaServiceGooglecloudrunopv2ConditionStateEnum") :]
-
-
-class ServiceGooglecloudrunopv2ConditionSeverityEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return service_pb2.RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnum.Value(
-            "RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnum%s" % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return service_pb2.RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnum.Name(
-            resource
-        )[len("RunAlphaServiceGooglecloudrunopv2ConditionSeverityEnum") :]
-
-
-class ServiceGooglecloudrunopv2ConditionReasonEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return service_pb2.RunAlphaServiceGooglecloudrunopv2ConditionReasonEnum.Value(
-            "RunAlphaServiceGooglecloudrunopv2ConditionReasonEnum%s" % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return service_pb2.RunAlphaServiceGooglecloudrunopv2ConditionReasonEnum.Name(
-            resource
-        )[len("RunAlphaServiceGooglecloudrunopv2ConditionReasonEnum") :]
-
-
-class ServiceGooglecloudrunopv2ConditionInternalReasonEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return service_pb2.RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnum.Value(
-            "RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnum%s" % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return service_pb2.RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnum.Name(
-            resource
-        )[
-            len("RunAlphaServiceGooglecloudrunopv2ConditionInternalReasonEnum") :
+        return service_pb2.RunAlphaServiceTerminalConditionStateEnum.Name(resource)[
+            len("RunAlphaServiceTerminalConditionStateEnum") :
         ]
 
 
-class ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum(object):
+class ServiceTerminalConditionSeverityEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum.Value(
-            "RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum%s"
-            % resource
+        return service_pb2.RunAlphaServiceTerminalConditionSeverityEnum.Value(
+            "RunAlphaServiceTerminalConditionSeverityEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum.Name(
-            resource
-        )[
-            len("RunAlphaServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum") :
+        return service_pb2.RunAlphaServiceTerminalConditionSeverityEnum.Name(resource)[
+            len("RunAlphaServiceTerminalConditionSeverityEnum") :
         ]
 
 
-class ServiceGooglecloudrunopv2ConditionRevisionReasonEnum(object):
+class ServiceTerminalConditionReasonEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnum.Value(
-            "RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnum%s" % resource
+        return service_pb2.RunAlphaServiceTerminalConditionReasonEnum.Value(
+            "RunAlphaServiceTerminalConditionReasonEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnum.Name(
-            resource
-        )[
-            len("RunAlphaServiceGooglecloudrunopv2ConditionRevisionReasonEnum") :
+        return service_pb2.RunAlphaServiceTerminalConditionReasonEnum.Name(resource)[
+            len("RunAlphaServiceTerminalConditionReasonEnum") :
         ]
 
 
-class ServiceGooglecloudrunopv2ConditionJobReasonEnum(object):
+class ServiceTerminalConditionInternalReasonEnum(object):
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnum.Value(
-            "RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnum%s" % resource
+        return service_pb2.RunAlphaServiceTerminalConditionInternalReasonEnum.Value(
+            "RunAlphaServiceTerminalConditionInternalReasonEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnum.Name(
+        return service_pb2.RunAlphaServiceTerminalConditionInternalReasonEnum.Name(
             resource
-        )[len("RunAlphaServiceGooglecloudrunopv2ConditionJobReasonEnum") :]
+        )[len("RunAlphaServiceTerminalConditionInternalReasonEnum") :]
+
+
+class ServiceTerminalConditionDomainMappingReasonEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return service_pb2.RunAlphaServiceTerminalConditionDomainMappingReasonEnum.Value(
+            "RunAlphaServiceTerminalConditionDomainMappingReasonEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return service_pb2.RunAlphaServiceTerminalConditionDomainMappingReasonEnum.Name(
+            resource
+        )[len("RunAlphaServiceTerminalConditionDomainMappingReasonEnum") :]
+
+
+class ServiceTerminalConditionRevisionReasonEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return service_pb2.RunAlphaServiceTerminalConditionRevisionReasonEnum.Value(
+            "RunAlphaServiceTerminalConditionRevisionReasonEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return service_pb2.RunAlphaServiceTerminalConditionRevisionReasonEnum.Name(
+            resource
+        )[len("RunAlphaServiceTerminalConditionRevisionReasonEnum") :]
+
+
+class ServiceTerminalConditionJobReasonEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return service_pb2.RunAlphaServiceTerminalConditionJobReasonEnum.Value(
+            "RunAlphaServiceTerminalConditionJobReasonEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return service_pb2.RunAlphaServiceTerminalConditionJobReasonEnum.Name(resource)[
+            len("RunAlphaServiceTerminalConditionJobReasonEnum") :
+        ]
 
 
 class ServiceTrafficStatusesTypeEnum(object):

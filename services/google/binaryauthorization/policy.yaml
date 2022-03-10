@@ -31,55 +31,6 @@ paths:
       description: A full instance of a Policy
 components:
   schemas:
-    AdmissionRule:
-      x-dcl-has-iam: false
-      type: object
-      x-dcl-go-name: DefaultAdmissionRule
-      x-dcl-go-type: PolicyAdmissionRule
-      description: Required. Default admission rule for a cluster without a per-cluster,
-        per-kubernetes-service-account, or per-istio-service-identity admission rule.
-      required:
-      - evaluationMode
-      - enforcementMode
-      properties:
-        enforcementMode:
-          type: string
-          x-dcl-go-name: EnforcementMode
-          x-dcl-go-type: PolicyAdmissionRuleEnforcementModeEnum
-          description: 'Required. The action when a pod creation is denied by the
-            admission rule. Possible values: ENFORCEMENT_MODE_UNSPECIFIED, ENFORCED_BLOCK_AND_AUDIT_LOG,
-            DRYRUN_AUDIT_LOG_ONLY'
-          enum:
-          - ENFORCEMENT_MODE_UNSPECIFIED
-          - ENFORCED_BLOCK_AND_AUDIT_LOG
-          - DRYRUN_AUDIT_LOG_ONLY
-        evaluationMode:
-          type: string
-          x-dcl-go-name: EvaluationMode
-          x-dcl-go-type: PolicyAdmissionRuleEvaluationModeEnum
-          description: 'Required. How this admission rule will be evaluated. Possible
-            values: ALWAYS_ALLOW, ALWAYS_DENY, REQUIRE_ATTESTATION'
-          enum:
-          - ALWAYS_ALLOW
-          - ALWAYS_DENY
-          - REQUIRE_ATTESTATION
-        requireAttestationsBy:
-          type: array
-          x-dcl-go-name: RequireAttestationsBy
-          description: 'Optional. The resource names of the attestors that must attest
-            to a container image, in the format `projects/*/attestors/*`. Each attestor
-            must exist before a policy can reference it. To add an attestor to a policy
-            the principal issuing the policy change request must be able to read the
-            attestor resource. Note: this field must be non-empty when the evaluation_mode
-            field specifies REQUIRE_ATTESTATION, otherwise it must be empty.'
-          x-dcl-send-empty: true
-          x-dcl-list-type: list
-          items:
-            type: string
-            x-dcl-go-type: string
-            x-dcl-references:
-            - resource: Binaryauthorization/Attestor
-              field: name
     Policy:
       title: Policy
       x-dcl-id: projects/{{project}}/policy
@@ -111,7 +62,51 @@ components:
         clusterAdmissionRules:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/AdmissionRule'
+            type: object
+            x-dcl-go-type: PolicyClusterAdmissionRules
+            required:
+            - evaluationMode
+            - enforcementMode
+            properties:
+              enforcementMode:
+                type: string
+                x-dcl-go-name: EnforcementMode
+                x-dcl-go-type: PolicyClusterAdmissionRulesEnforcementModeEnum
+                description: 'Required. The action when a pod creation is denied by
+                  the admission rule. Possible values: ENFORCEMENT_MODE_UNSPECIFIED,
+                  ENFORCED_BLOCK_AND_AUDIT_LOG, DRYRUN_AUDIT_LOG_ONLY'
+                enum:
+                - ENFORCEMENT_MODE_UNSPECIFIED
+                - ENFORCED_BLOCK_AND_AUDIT_LOG
+                - DRYRUN_AUDIT_LOG_ONLY
+              evaluationMode:
+                type: string
+                x-dcl-go-name: EvaluationMode
+                x-dcl-go-type: PolicyClusterAdmissionRulesEvaluationModeEnum
+                description: 'Required. How this admission rule will be evaluated.
+                  Possible values: ALWAYS_ALLOW, ALWAYS_DENY, REQUIRE_ATTESTATION'
+                enum:
+                - ALWAYS_ALLOW
+                - ALWAYS_DENY
+                - REQUIRE_ATTESTATION
+              requireAttestationsBy:
+                type: array
+                x-dcl-go-name: RequireAttestationsBy
+                description: 'Optional. The resource names of the attestors that must
+                  attest to a container image, in the format `projects/*/attestors/*`.
+                  Each attestor must exist before a policy can reference it. To add
+                  an attestor to a policy the principal issuing the policy change
+                  request must be able to read the attestor resource. Note: this field
+                  must be non-empty when the evaluation_mode field specifies REQUIRE_ATTESTATION,
+                  otherwise it must be empty.'
+                x-dcl-send-empty: true
+                x-dcl-list-type: list
+                items:
+                  type: string
+                  x-dcl-go-type: string
+                  x-dcl-references:
+                  - resource: Binaryauthorization/Attestor
+                    field: name
           x-dcl-go-name: ClusterAdmissionRules
           description: 'Optional. Per-cluster admission rules. Cluster spec format:
             location.clusterId. There can be at most one admission rule per cluster
@@ -122,8 +117,55 @@ components:
           - kubernetesServiceAccountAdmissionRules
           - istioServiceIdentityAdmissionRules
         defaultAdmissionRule:
-          $ref: '#/components/schemas/AdmissionRule'
+          type: object
           x-dcl-go-name: DefaultAdmissionRule
+          x-dcl-go-type: PolicyDefaultAdmissionRule
+          description: Required. Default admission rule for a cluster without a per-cluster,
+            per-kubernetes-service-account, or per-istio-service-identity admission
+            rule.
+          required:
+          - evaluationMode
+          - enforcementMode
+          properties:
+            enforcementMode:
+              type: string
+              x-dcl-go-name: EnforcementMode
+              x-dcl-go-type: PolicyDefaultAdmissionRuleEnforcementModeEnum
+              description: 'Required. The action when a pod creation is denied by
+                the admission rule. Possible values: ENFORCEMENT_MODE_UNSPECIFIED,
+                ENFORCED_BLOCK_AND_AUDIT_LOG, DRYRUN_AUDIT_LOG_ONLY'
+              enum:
+              - ENFORCEMENT_MODE_UNSPECIFIED
+              - ENFORCED_BLOCK_AND_AUDIT_LOG
+              - DRYRUN_AUDIT_LOG_ONLY
+            evaluationMode:
+              type: string
+              x-dcl-go-name: EvaluationMode
+              x-dcl-go-type: PolicyDefaultAdmissionRuleEvaluationModeEnum
+              description: 'Required. How this admission rule will be evaluated. Possible
+                values: ALWAYS_ALLOW, ALWAYS_DENY, REQUIRE_ATTESTATION'
+              enum:
+              - ALWAYS_ALLOW
+              - ALWAYS_DENY
+              - REQUIRE_ATTESTATION
+            requireAttestationsBy:
+              type: array
+              x-dcl-go-name: RequireAttestationsBy
+              description: 'Optional. The resource names of the attestors that must
+                attest to a container image, in the format `projects/*/attestors/*`.
+                Each attestor must exist before a policy can reference it. To add
+                an attestor to a policy the principal issuing the policy change request
+                must be able to read the attestor resource. Note: this field must
+                be non-empty when the evaluation_mode field specifies REQUIRE_ATTESTATION,
+                otherwise it must be empty.'
+              x-dcl-send-empty: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+                x-dcl-references:
+                - resource: Binaryauthorization/Attestor
+                  field: name
         description:
           type: string
           x-dcl-go-name: Description
@@ -144,7 +186,51 @@ components:
         istioServiceIdentityAdmissionRules:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/AdmissionRule'
+            type: object
+            x-dcl-go-type: PolicyIstioServiceIdentityAdmissionRules
+            required:
+            - evaluationMode
+            - enforcementMode
+            properties:
+              enforcementMode:
+                type: string
+                x-dcl-go-name: EnforcementMode
+                x-dcl-go-type: PolicyIstioServiceIdentityAdmissionRulesEnforcementModeEnum
+                description: 'Required. The action when a pod creation is denied by
+                  the admission rule. Possible values: ENFORCEMENT_MODE_UNSPECIFIED,
+                  ENFORCED_BLOCK_AND_AUDIT_LOG, DRYRUN_AUDIT_LOG_ONLY'
+                enum:
+                - ENFORCEMENT_MODE_UNSPECIFIED
+                - ENFORCED_BLOCK_AND_AUDIT_LOG
+                - DRYRUN_AUDIT_LOG_ONLY
+              evaluationMode:
+                type: string
+                x-dcl-go-name: EvaluationMode
+                x-dcl-go-type: PolicyIstioServiceIdentityAdmissionRulesEvaluationModeEnum
+                description: 'Required. How this admission rule will be evaluated.
+                  Possible values: ALWAYS_ALLOW, ALWAYS_DENY, REQUIRE_ATTESTATION'
+                enum:
+                - ALWAYS_ALLOW
+                - ALWAYS_DENY
+                - REQUIRE_ATTESTATION
+              requireAttestationsBy:
+                type: array
+                x-dcl-go-name: RequireAttestationsBy
+                description: 'Optional. The resource names of the attestors that must
+                  attest to a container image, in the format `projects/*/attestors/*`.
+                  Each attestor must exist before a policy can reference it. To add
+                  an attestor to a policy the principal issuing the policy change
+                  request must be able to read the attestor resource. Note: this field
+                  must be non-empty when the evaluation_mode field specifies REQUIRE_ATTESTATION,
+                  otherwise it must be empty.'
+                x-dcl-send-empty: true
+                x-dcl-list-type: list
+                items:
+                  type: string
+                  x-dcl-go-type: string
+                  x-dcl-references:
+                  - resource: Binaryauthorization/Attestor
+                    field: name
           x-dcl-go-name: IstioServiceIdentityAdmissionRules
           description: 'Optional. Per-istio-service-identity admission rules. Istio
             service identity spec format: spiffe:///ns//sa/ or /ns//sa/ e.g. spiffe://example.com/ns/test-ns/sa/default'
@@ -155,7 +241,51 @@ components:
         kubernetesNamespaceAdmissionRules:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/AdmissionRule'
+            type: object
+            x-dcl-go-type: PolicyKubernetesNamespaceAdmissionRules
+            required:
+            - evaluationMode
+            - enforcementMode
+            properties:
+              enforcementMode:
+                type: string
+                x-dcl-go-name: EnforcementMode
+                x-dcl-go-type: PolicyKubernetesNamespaceAdmissionRulesEnforcementModeEnum
+                description: 'Required. The action when a pod creation is denied by
+                  the admission rule. Possible values: ENFORCEMENT_MODE_UNSPECIFIED,
+                  ENFORCED_BLOCK_AND_AUDIT_LOG, DRYRUN_AUDIT_LOG_ONLY'
+                enum:
+                - ENFORCEMENT_MODE_UNSPECIFIED
+                - ENFORCED_BLOCK_AND_AUDIT_LOG
+                - DRYRUN_AUDIT_LOG_ONLY
+              evaluationMode:
+                type: string
+                x-dcl-go-name: EvaluationMode
+                x-dcl-go-type: PolicyKubernetesNamespaceAdmissionRulesEvaluationModeEnum
+                description: 'Required. How this admission rule will be evaluated.
+                  Possible values: ALWAYS_ALLOW, ALWAYS_DENY, REQUIRE_ATTESTATION'
+                enum:
+                - ALWAYS_ALLOW
+                - ALWAYS_DENY
+                - REQUIRE_ATTESTATION
+              requireAttestationsBy:
+                type: array
+                x-dcl-go-name: RequireAttestationsBy
+                description: 'Optional. The resource names of the attestors that must
+                  attest to a container image, in the format `projects/*/attestors/*`.
+                  Each attestor must exist before a policy can reference it. To add
+                  an attestor to a policy the principal issuing the policy change
+                  request must be able to read the attestor resource. Note: this field
+                  must be non-empty when the evaluation_mode field specifies REQUIRE_ATTESTATION,
+                  otherwise it must be empty.'
+                x-dcl-send-empty: true
+                x-dcl-list-type: list
+                items:
+                  type: string
+                  x-dcl-go-type: string
+                  x-dcl-references:
+                  - resource: Binaryauthorization/Attestor
+                    field: name
           x-dcl-go-name: KubernetesNamespaceAdmissionRules
           description: 'Optional. Per-kubernetes-namespace admission rules. K8s namespace
             spec format: [a-z.-]+, e.g. ''some-namespace'''
@@ -166,7 +296,51 @@ components:
         kubernetesServiceAccountAdmissionRules:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/AdmissionRule'
+            type: object
+            x-dcl-go-type: PolicyKubernetesServiceAccountAdmissionRules
+            required:
+            - evaluationMode
+            - enforcementMode
+            properties:
+              enforcementMode:
+                type: string
+                x-dcl-go-name: EnforcementMode
+                x-dcl-go-type: PolicyKubernetesServiceAccountAdmissionRulesEnforcementModeEnum
+                description: 'Required. The action when a pod creation is denied by
+                  the admission rule. Possible values: ENFORCEMENT_MODE_UNSPECIFIED,
+                  ENFORCED_BLOCK_AND_AUDIT_LOG, DRYRUN_AUDIT_LOG_ONLY'
+                enum:
+                - ENFORCEMENT_MODE_UNSPECIFIED
+                - ENFORCED_BLOCK_AND_AUDIT_LOG
+                - DRYRUN_AUDIT_LOG_ONLY
+              evaluationMode:
+                type: string
+                x-dcl-go-name: EvaluationMode
+                x-dcl-go-type: PolicyKubernetesServiceAccountAdmissionRulesEvaluationModeEnum
+                description: 'Required. How this admission rule will be evaluated.
+                  Possible values: ALWAYS_ALLOW, ALWAYS_DENY, REQUIRE_ATTESTATION'
+                enum:
+                - ALWAYS_ALLOW
+                - ALWAYS_DENY
+                - REQUIRE_ATTESTATION
+              requireAttestationsBy:
+                type: array
+                x-dcl-go-name: RequireAttestationsBy
+                description: 'Optional. The resource names of the attestors that must
+                  attest to a container image, in the format `projects/*/attestors/*`.
+                  Each attestor must exist before a policy can reference it. To add
+                  an attestor to a policy the principal issuing the policy change
+                  request must be able to read the attestor resource. Note: this field
+                  must be non-empty when the evaluation_mode field specifies REQUIRE_ATTESTATION,
+                  otherwise it must be empty.'
+                x-dcl-send-empty: true
+                x-dcl-list-type: list
+                items:
+                  type: string
+                  x-dcl-go-type: string
+                  x-dcl-references:
+                  - resource: Binaryauthorization/Attestor
+                    field: name
           x-dcl-go-name: KubernetesServiceAccountAdmissionRules
           description: 'Optional. Per-kubernetes-service-account admission rules.
             Service account spec format: namespace:serviceaccount. e.g. ''test-ns:default'''

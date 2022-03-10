@@ -100,6 +100,7 @@ components:
             Authorization requires the following IAM permission on the specified resource
             parent: logging.exclusions.create'
           x-kubernetes-immutable: true
+          x-dcl-forward-slash-allowed: true
           x-dcl-references:
           - resource: Cloudresourcemanager/Project
             field: name

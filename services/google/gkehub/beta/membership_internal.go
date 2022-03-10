@@ -2582,7 +2582,7 @@ func flattenMembershipEndpointGkeCluster(c *Client, i interface{}, res *Membersh
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyMembershipEndpointGkeCluster
 	}
-	r.ResourceLink = flattenHubReferenceLink(m["resourceLink"])
+	r.ResourceLink = flattenHubReferenceLink(m["resourceLink"], res)
 
 	return r
 }

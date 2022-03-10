@@ -368,10 +368,10 @@ func (r *InstanceGroupManagerDistributionPolicyZones) HashCode() string {
 }
 
 type InstanceGroupManagerVersions struct {
-	empty            bool                                `json:"-"`
-	Name             *string                             `json:"name"`
-	InstanceTemplate *string                             `json:"instanceTemplate"`
-	TargetSize       *InstanceGroupManagerFixedOrPercent `json:"targetSize"`
+	empty            bool                                    `json:"-"`
+	Name             *string                                 `json:"name"`
+	InstanceTemplate *string                                 `json:"instanceTemplate"`
+	TargetSize       *InstanceGroupManagerVersionsTargetSize `json:"targetSize"`
 }
 
 type jsonInstanceGroupManagerVersions InstanceGroupManagerVersions
@@ -419,17 +419,17 @@ func (r *InstanceGroupManagerVersions) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type InstanceGroupManagerFixedOrPercent struct {
+type InstanceGroupManagerVersionsTargetSize struct {
 	empty      bool   `json:"-"`
 	Fixed      *int64 `json:"fixed"`
 	Percent    *int64 `json:"percent"`
 	Calculated *int64 `json:"calculated"`
 }
 
-type jsonInstanceGroupManagerFixedOrPercent InstanceGroupManagerFixedOrPercent
+type jsonInstanceGroupManagerVersionsTargetSize InstanceGroupManagerVersionsTargetSize
 
-func (r *InstanceGroupManagerFixedOrPercent) UnmarshalJSON(data []byte) error {
-	var res jsonInstanceGroupManagerFixedOrPercent
+func (r *InstanceGroupManagerVersionsTargetSize) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerVersionsTargetSize
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -438,7 +438,7 @@ func (r *InstanceGroupManagerFixedOrPercent) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyInstanceGroupManagerFixedOrPercent
+		*r = *EmptyInstanceGroupManagerVersionsTargetSize
 	} else {
 
 		r.Fixed = res.Fixed
@@ -451,20 +451,20 @@ func (r *InstanceGroupManagerFixedOrPercent) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this InstanceGroupManagerFixedOrPercent is
+// This object is used to assert a desired state where this InstanceGroupManagerVersionsTargetSize is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyInstanceGroupManagerFixedOrPercent *InstanceGroupManagerFixedOrPercent = &InstanceGroupManagerFixedOrPercent{empty: true}
+var EmptyInstanceGroupManagerVersionsTargetSize *InstanceGroupManagerVersionsTargetSize = &InstanceGroupManagerVersionsTargetSize{empty: true}
 
-func (r *InstanceGroupManagerFixedOrPercent) Empty() bool {
+func (r *InstanceGroupManagerVersionsTargetSize) Empty() bool {
 	return r.empty
 }
 
-func (r *InstanceGroupManagerFixedOrPercent) String() string {
+func (r *InstanceGroupManagerVersionsTargetSize) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *InstanceGroupManagerFixedOrPercent) HashCode() string {
+func (r *InstanceGroupManagerVersionsTargetSize) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -794,8 +794,8 @@ type InstanceGroupManagerUpdatePolicy struct {
 	Type                        *InstanceGroupManagerUpdatePolicyTypeEnum                        `json:"type"`
 	InstanceRedistributionType  *InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum  `json:"instanceRedistributionType"`
 	MinimalAction               *InstanceGroupManagerUpdatePolicyMinimalActionEnum               `json:"minimalAction"`
-	MaxSurge                    *InstanceGroupManagerFixedOrPercent                              `json:"maxSurge"`
-	MaxUnavailable              *InstanceGroupManagerFixedOrPercent                              `json:"maxUnavailable"`
+	MaxSurge                    *InstanceGroupManagerUpdatePolicyMaxSurge                        `json:"maxSurge"`
+	MaxUnavailable              *InstanceGroupManagerUpdatePolicyMaxUnavailable                  `json:"maxUnavailable"`
 	ReplacementMethod           *InstanceGroupManagerUpdatePolicyReplacementMethodEnum           `json:"replacementMethod"`
 	MostDisruptiveAllowedAction *InstanceGroupManagerUpdatePolicyMostDisruptiveAllowedActionEnum `json:"mostDisruptiveAllowedAction"`
 	MinReadySec                 *int64                                                           `json:"minReadySec"`
@@ -850,6 +850,110 @@ func (r *InstanceGroupManagerUpdatePolicy) String() string {
 }
 
 func (r *InstanceGroupManagerUpdatePolicy) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceGroupManagerUpdatePolicyMaxSurge struct {
+	empty      bool   `json:"-"`
+	Fixed      *int64 `json:"fixed"`
+	Percent    *int64 `json:"percent"`
+	Calculated *int64 `json:"calculated"`
+}
+
+type jsonInstanceGroupManagerUpdatePolicyMaxSurge InstanceGroupManagerUpdatePolicyMaxSurge
+
+func (r *InstanceGroupManagerUpdatePolicyMaxSurge) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerUpdatePolicyMaxSurge
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGroupManagerUpdatePolicyMaxSurge
+	} else {
+
+		r.Fixed = res.Fixed
+
+		r.Percent = res.Percent
+
+		r.Calculated = res.Calculated
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceGroupManagerUpdatePolicyMaxSurge is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyInstanceGroupManagerUpdatePolicyMaxSurge *InstanceGroupManagerUpdatePolicyMaxSurge = &InstanceGroupManagerUpdatePolicyMaxSurge{empty: true}
+
+func (r *InstanceGroupManagerUpdatePolicyMaxSurge) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceGroupManagerUpdatePolicyMaxSurge) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceGroupManagerUpdatePolicyMaxSurge) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type InstanceGroupManagerUpdatePolicyMaxUnavailable struct {
+	empty      bool   `json:"-"`
+	Fixed      *int64 `json:"fixed"`
+	Percent    *int64 `json:"percent"`
+	Calculated *int64 `json:"calculated"`
+}
+
+type jsonInstanceGroupManagerUpdatePolicyMaxUnavailable InstanceGroupManagerUpdatePolicyMaxUnavailable
+
+func (r *InstanceGroupManagerUpdatePolicyMaxUnavailable) UnmarshalJSON(data []byte) error {
+	var res jsonInstanceGroupManagerUpdatePolicyMaxUnavailable
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyInstanceGroupManagerUpdatePolicyMaxUnavailable
+	} else {
+
+		r.Fixed = res.Fixed
+
+		r.Percent = res.Percent
+
+		r.Calculated = res.Calculated
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this InstanceGroupManagerUpdatePolicyMaxUnavailable is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyInstanceGroupManagerUpdatePolicyMaxUnavailable *InstanceGroupManagerUpdatePolicyMaxUnavailable = &InstanceGroupManagerUpdatePolicyMaxUnavailable{empty: true}
+
+func (r *InstanceGroupManagerUpdatePolicyMaxUnavailable) Empty() bool {
+	return r.empty
+}
+
+func (r *InstanceGroupManagerUpdatePolicyMaxUnavailable) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *InstanceGroupManagerUpdatePolicyMaxUnavailable) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

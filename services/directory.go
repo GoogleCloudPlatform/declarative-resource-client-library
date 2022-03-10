@@ -785,6 +785,8 @@ func Services() *Directory {
 	d.AddResource("alpha", "osconfig", "GuestPolicy", osconfig_alpha.YAML_guest_policy)
 	d.AddResource("alpha", "pubsub", dcl.TitleToSnakeCase("Topic"), pubsub_alpha.YAML_topic)
 	d.AddResource("alpha", "pubsub", "Topic", pubsub_alpha.YAML_topic)
+	d.AddResource("alpha", "run", dcl.TitleToSnakeCase("Job"), run_alpha.YAML_job)
+	d.AddResource("alpha", "run", "Job", run_alpha.YAML_job)
 	d.AddResource("alpha", "run", dcl.TitleToSnakeCase("Service"), run_alpha.YAML_service)
 	d.AddResource("alpha", "run", "Service", run_alpha.YAML_service)
 	d.AddResource("alpha", "servicemanagement", dcl.TitleToSnakeCase("ManagedService"), servicemanagement_alpha.YAML_managed_service)

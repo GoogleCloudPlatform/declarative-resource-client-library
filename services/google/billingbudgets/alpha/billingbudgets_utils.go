@@ -148,7 +148,7 @@ func (op *updateBudgetUpdateBudgetOperation) do(ctx context.Context, r *Budget, 
 }
 
 // Returns a list of project ids given a list of project numbers, both in the form projects/<value>.
-func flattenBudgetFilterProjects(c *Client, projects interface{}) []string {
+func flattenBudgetFilterProjects(c *Client, projects interface{}, _ *Budget) []string {
 	ctx := context.Background()
 	projectInterfaces, ok := projects.([]interface{})
 	if !ok {
@@ -196,7 +196,7 @@ func expandBudgetFilterLabels(_ *Client, labels map[string]BudgetBudgetFilterLab
 	return m, nil
 }
 
-func flattenBudgetFilterLabels(labels interface{}) map[string]BudgetBudgetFilterLabels {
+func flattenBudgetFilterLabels(labels interface{}, _ *Budget) map[string]BudgetBudgetFilterLabels {
 	labelsInterfaceMap, ok := labels.(map[string]interface{})
 	if !ok {
 		return nil

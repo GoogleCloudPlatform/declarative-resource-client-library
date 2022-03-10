@@ -31,7 +31,7 @@
         "senderLocalPart": "new-noreply",
         "subject": "Reset the password for %APP_NAME%",
         "senderDisplayName": "DCL",
-        "body": "Sample message body",
+        "body": "<p>Sample message body</p>",
         "bodyFormat": "HTML",
         "replyTo": "new-noreply"
       },
@@ -40,7 +40,7 @@
         "subject": "Verify the email for %APP_NAME%",
         "senderDisplayName": "DCL",
         "body": "\u003cp\u003eHello %DISPLAY_NAME%,\u003c/p\u003e\n\u003cp\u003eFollow this link to verify your email address.\u003c/p\u003e\n\u003cp\u003e\u003ca href='%LINK%'\u003e%LINK%\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eIf you didn’t ask to verify this address, you can ignore this email.\u003c/p\u003e\n\u003cp\u003eThanks,\u003c/p\u003e\n\u003cp\u003eYour %APP_NAME% team\u003c/p\u003e",
-        "bodyFormat": "PLAIN_TEXT",
+        "bodyFormat": "HTML",
         "replyTo": "new-noreply"
       },
       "changeEmailTemplate": {
@@ -48,7 +48,7 @@
         "subject": "The sign-in email was changed for %APP_NAME%",
         "senderDisplayName": "DCL",
         "body": "\u003cp\u003eHello %DISPLAY_NAME%,\u003c/p\u003e\n\u003cp\u003eYour sign-in email for %APP_NAME% was changed to %NEW_EMAIL%.\u003c/p\u003e\n\u003cp\u003eIf you didn’t ask to change your email, follow this link to reset your sign-in email.\u003c/p\u003e\n\u003cp\u003e\u003ca href='%LINK%'\u003e%LINK%\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eThanks,\u003c/p\u003e\n\u003cp\u003eYour %APP_NAME% team\u003c/p\u003e",
-        "bodyFormat": "PLAIN_TEXT",
+        "bodyFormat": "HTML",
         "replyTo": "new-noreply"
       },
       "callbackUri": "https://{{project}}.firebaseapp.com/__/auth/new-action",
@@ -60,7 +60,7 @@
         "subject": "You've added 2 step verification to the %APP_NAME% account.",
         "senderDisplayName": "DCL",
         "body": "\u003cp\u003eHello %DISPLAY_NAME%,\u003c/p\u003e\n\u003cp\u003eYour account in %APP_NAME% has been updated with a phone number %SECOND_FACTOR% for 2-step verification.\u003c/p\u003e\n\u003cp\u003eIf you didn't add this phone number for 2-step verification, click the link below to remove it.\u003c/p\u003e\n\u003cp\u003e\u003ca href='%LINK%'\u003e%LINK%\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eThanks,\u003c/p\u003e\n\u003cp\u003eYour %APP_NAME% team\u003c/p\u003e",
-        "bodyFormat": "PLAIN_TEXT",
+        "bodyFormat": "HTML",
         "replyTo": "new-noreply"
       }
     },
@@ -92,12 +92,10 @@
   ],
   "subtype": "IDENTITY_PLATFORM",
   "client": {
-    "apiKey": "AIzaSyBekbEJXGiUoTESQ364YQA8UFIj4kMunMI",
     "permissions": {
       "disabledUserSignup": false,
       "disabledUserDeletion": false
-    },
-    "firebaseSubdomain": "{{project}}"
+    }
   },
   "mfa": {
     "state": "DISABLED"

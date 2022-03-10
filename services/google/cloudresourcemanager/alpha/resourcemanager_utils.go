@@ -146,7 +146,7 @@ func expandProjectParent(_ *Client, fval *string, _ *Project) (map[string]interf
 
 // flattenProjectParent flattens an instance of ProjectParent from a JSON
 // response object.
-func flattenProjectParent(c *Client, i interface{}) *string {
+func flattenProjectParent(c *Client, i interface{}, _ *Project) *string {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil

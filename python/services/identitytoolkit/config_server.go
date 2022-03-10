@@ -73,13 +73,37 @@ func ProtoToIdentitytoolkitConfigNotificationSendEmailSmtpSecurityModeEnum(e ide
 	return nil
 }
 
-// ProtoToConfigEmailTemplateBodyFormatEnum converts a ConfigEmailTemplateBodyFormatEnum enum from its proto representation.
-func ProtoToIdentitytoolkitConfigEmailTemplateBodyFormatEnum(e identitytoolkitpb.IdentitytoolkitConfigEmailTemplateBodyFormatEnum) *identitytoolkit.ConfigEmailTemplateBodyFormatEnum {
+// ProtoToConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum converts a ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum enum from its proto representation.
+func ProtoToIdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum(e identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum) *identitytoolkit.ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum {
 	if e == 0 {
 		return nil
 	}
-	if n, ok := identitytoolkitpb.IdentitytoolkitConfigEmailTemplateBodyFormatEnum_name[int32(e)]; ok {
-		e := identitytoolkit.ConfigEmailTemplateBodyFormatEnum(n[len("IdentitytoolkitConfigEmailTemplateBodyFormatEnum"):])
+	if n, ok := identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum_name[int32(e)]; ok {
+		e := identitytoolkit.ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum(n[len("IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum converts a ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum enum from its proto representation.
+func ProtoToIdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum(e identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum) *identitytoolkit.ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum_name[int32(e)]; ok {
+		e := identitytoolkit.ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum(n[len("IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum converts a ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum enum from its proto representation.
+func ProtoToIdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum(e identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum) *identitytoolkit.ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum_name[int32(e)]; ok {
+		e := identitytoolkit.ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum(n[len("IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum"):])
 		return &e
 	}
 	return nil
@@ -92,6 +116,18 @@ func ProtoToIdentitytoolkitConfigNotificationSendEmailDnsInfoCustomDomainStateEn
 	}
 	if n, ok := identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailDnsInfoCustomDomainStateEnum_name[int32(e)]; ok {
 		e := identitytoolkit.ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum(n[len("IdentitytoolkitConfigNotificationSendEmailDnsInfoCustomDomainStateEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum converts a ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum enum from its proto representation.
+func ProtoToIdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum(e identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum) *identitytoolkit.ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum_name[int32(e)]; ok {
+		e := identitytoolkit.ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum(n[len("IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum"):])
 		return &e
 	}
 	return nil
@@ -222,12 +258,12 @@ func ProtoToIdentitytoolkitConfigNotificationSendEmail(p *identitytoolkitpb.Iden
 	obj := &identitytoolkit.ConfigNotificationSendEmail{
 		Method:                             ProtoToIdentitytoolkitConfigNotificationSendEmailMethodEnum(p.GetMethod()),
 		Smtp:                               ProtoToIdentitytoolkitConfigNotificationSendEmailSmtp(p.GetSmtp()),
-		ResetPasswordTemplate:              ProtoToIdentitytoolkitConfigEmailTemplate(p.GetResetPasswordTemplate()),
-		VerifyEmailTemplate:                ProtoToIdentitytoolkitConfigEmailTemplate(p.GetVerifyEmailTemplate()),
-		ChangeEmailTemplate:                ProtoToIdentitytoolkitConfigEmailTemplate(p.GetChangeEmailTemplate()),
+		ResetPasswordTemplate:              ProtoToIdentitytoolkitConfigNotificationSendEmailResetPasswordTemplate(p.GetResetPasswordTemplate()),
+		VerifyEmailTemplate:                ProtoToIdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplate(p.GetVerifyEmailTemplate()),
+		ChangeEmailTemplate:                ProtoToIdentitytoolkitConfigNotificationSendEmailChangeEmailTemplate(p.GetChangeEmailTemplate()),
 		CallbackUri:                        dcl.StringOrNil(p.GetCallbackUri()),
 		DnsInfo:                            ProtoToIdentitytoolkitConfigNotificationSendEmailDnsInfo(p.GetDnsInfo()),
-		RevertSecondFactorAdditionTemplate: ProtoToIdentitytoolkitConfigEmailTemplate(p.GetRevertSecondFactorAdditionTemplate()),
+		RevertSecondFactorAdditionTemplate: ProtoToIdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(p.GetRevertSecondFactorAdditionTemplate()),
 	}
 	return obj
 }
@@ -248,17 +284,51 @@ func ProtoToIdentitytoolkitConfigNotificationSendEmailSmtp(p *identitytoolkitpb.
 	return obj
 }
 
-// ProtoToConfigEmailTemplate converts a ConfigEmailTemplate object from its proto representation.
-func ProtoToIdentitytoolkitConfigEmailTemplate(p *identitytoolkitpb.IdentitytoolkitConfigEmailTemplate) *identitytoolkit.ConfigEmailTemplate {
+// ProtoToConfigNotificationSendEmailResetPasswordTemplate converts a ConfigNotificationSendEmailResetPasswordTemplate object from its proto representation.
+func ProtoToIdentitytoolkitConfigNotificationSendEmailResetPasswordTemplate(p *identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplate) *identitytoolkit.ConfigNotificationSendEmailResetPasswordTemplate {
 	if p == nil {
 		return nil
 	}
-	obj := &identitytoolkit.ConfigEmailTemplate{
+	obj := &identitytoolkit.ConfigNotificationSendEmailResetPasswordTemplate{
 		SenderLocalPart:   dcl.StringOrNil(p.GetSenderLocalPart()),
 		Subject:           dcl.StringOrNil(p.GetSubject()),
 		SenderDisplayName: dcl.StringOrNil(p.GetSenderDisplayName()),
 		Body:              dcl.StringOrNil(p.GetBody()),
-		BodyFormat:        ProtoToIdentitytoolkitConfigEmailTemplateBodyFormatEnum(p.GetBodyFormat()),
+		BodyFormat:        ProtoToIdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum(p.GetBodyFormat()),
+		ReplyTo:           dcl.StringOrNil(p.GetReplyTo()),
+		Customized:        dcl.Bool(p.GetCustomized()),
+	}
+	return obj
+}
+
+// ProtoToConfigNotificationSendEmailVerifyEmailTemplate converts a ConfigNotificationSendEmailVerifyEmailTemplate object from its proto representation.
+func ProtoToIdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplate(p *identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplate) *identitytoolkit.ConfigNotificationSendEmailVerifyEmailTemplate {
+	if p == nil {
+		return nil
+	}
+	obj := &identitytoolkit.ConfigNotificationSendEmailVerifyEmailTemplate{
+		SenderLocalPart:   dcl.StringOrNil(p.GetSenderLocalPart()),
+		Subject:           dcl.StringOrNil(p.GetSubject()),
+		SenderDisplayName: dcl.StringOrNil(p.GetSenderDisplayName()),
+		Body:              dcl.StringOrNil(p.GetBody()),
+		BodyFormat:        ProtoToIdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum(p.GetBodyFormat()),
+		ReplyTo:           dcl.StringOrNil(p.GetReplyTo()),
+		Customized:        dcl.Bool(p.GetCustomized()),
+	}
+	return obj
+}
+
+// ProtoToConfigNotificationSendEmailChangeEmailTemplate converts a ConfigNotificationSendEmailChangeEmailTemplate object from its proto representation.
+func ProtoToIdentitytoolkitConfigNotificationSendEmailChangeEmailTemplate(p *identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplate) *identitytoolkit.ConfigNotificationSendEmailChangeEmailTemplate {
+	if p == nil {
+		return nil
+	}
+	obj := &identitytoolkit.ConfigNotificationSendEmailChangeEmailTemplate{
+		SenderLocalPart:   dcl.StringOrNil(p.GetSenderLocalPart()),
+		Subject:           dcl.StringOrNil(p.GetSubject()),
+		SenderDisplayName: dcl.StringOrNil(p.GetSenderDisplayName()),
+		Body:              dcl.StringOrNil(p.GetBody()),
+		BodyFormat:        ProtoToIdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum(p.GetBodyFormat()),
 		ReplyTo:           dcl.StringOrNil(p.GetReplyTo()),
 		Customized:        dcl.Bool(p.GetCustomized()),
 	}
@@ -276,6 +346,23 @@ func ProtoToIdentitytoolkitConfigNotificationSendEmailDnsInfo(p *identitytoolkit
 		PendingCustomDomain:           dcl.StringOrNil(p.GetPendingCustomDomain()),
 		CustomDomainState:             ProtoToIdentitytoolkitConfigNotificationSendEmailDnsInfoCustomDomainStateEnum(p.GetCustomDomainState()),
 		DomainVerificationRequestTime: dcl.StringOrNil(p.GetDomainVerificationRequestTime()),
+	}
+	return obj
+}
+
+// ProtoToConfigNotificationSendEmailRevertSecondFactorAdditionTemplate converts a ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate object from its proto representation.
+func ProtoToIdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(p *identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplate) *identitytoolkit.ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate {
+	if p == nil {
+		return nil
+	}
+	obj := &identitytoolkit.ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate{
+		SenderLocalPart:   dcl.StringOrNil(p.GetSenderLocalPart()),
+		Subject:           dcl.StringOrNil(p.GetSubject()),
+		SenderDisplayName: dcl.StringOrNil(p.GetSenderDisplayName()),
+		Body:              dcl.StringOrNil(p.GetBody()),
+		BodyFormat:        ProtoToIdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum(p.GetBodyFormat()),
+		ReplyTo:           dcl.StringOrNil(p.GetReplyTo()),
+		Customized:        dcl.Bool(p.GetCustomized()),
 	}
 	return obj
 }
@@ -482,15 +569,37 @@ func IdentitytoolkitConfigNotificationSendEmailSmtpSecurityModeEnumToProto(e *id
 	return identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailSmtpSecurityModeEnum(0)
 }
 
-// ConfigEmailTemplateBodyFormatEnumToProto converts a ConfigEmailTemplateBodyFormatEnum enum to its proto representation.
-func IdentitytoolkitConfigEmailTemplateBodyFormatEnumToProto(e *identitytoolkit.ConfigEmailTemplateBodyFormatEnum) identitytoolkitpb.IdentitytoolkitConfigEmailTemplateBodyFormatEnum {
+// ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnumToProto converts a ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum enum to its proto representation.
+func IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnumToProto(e *identitytoolkit.ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum) identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum {
 	if e == nil {
-		return identitytoolkitpb.IdentitytoolkitConfigEmailTemplateBodyFormatEnum(0)
+		return identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum(0)
 	}
-	if v, ok := identitytoolkitpb.IdentitytoolkitConfigEmailTemplateBodyFormatEnum_value["ConfigEmailTemplateBodyFormatEnum"+string(*e)]; ok {
-		return identitytoolkitpb.IdentitytoolkitConfigEmailTemplateBodyFormatEnum(v)
+	if v, ok := identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum_value["ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum"+string(*e)]; ok {
+		return identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum(v)
 	}
-	return identitytoolkitpb.IdentitytoolkitConfigEmailTemplateBodyFormatEnum(0)
+	return identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum(0)
+}
+
+// ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnumToProto converts a ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum enum to its proto representation.
+func IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnumToProto(e *identitytoolkit.ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum) identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum {
+	if e == nil {
+		return identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum(0)
+	}
+	if v, ok := identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum_value["ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum"+string(*e)]; ok {
+		return identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum(v)
+	}
+	return identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum(0)
+}
+
+// ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnumToProto converts a ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum enum to its proto representation.
+func IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnumToProto(e *identitytoolkit.ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum) identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum {
+	if e == nil {
+		return identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum(0)
+	}
+	if v, ok := identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum_value["ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum"+string(*e)]; ok {
+		return identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum(v)
+	}
+	return identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum(0)
 }
 
 // ConfigNotificationSendEmailDnsInfoCustomDomainStateEnumToProto converts a ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum enum to its proto representation.
@@ -502,6 +611,17 @@ func IdentitytoolkitConfigNotificationSendEmailDnsInfoCustomDomainStateEnumToPro
 		return identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailDnsInfoCustomDomainStateEnum(v)
 	}
 	return identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailDnsInfoCustomDomainStateEnum(0)
+}
+
+// ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnumToProto converts a ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum enum to its proto representation.
+func IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnumToProto(e *identitytoolkit.ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum) identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum {
+	if e == nil {
+		return identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum(0)
+	}
+	if v, ok := identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum_value["ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum"+string(*e)]; ok {
+		return identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum(v)
+	}
+	return identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum(0)
 }
 
 // ConfigSubtypeEnumToProto converts a ConfigSubtypeEnum enum to its proto representation.
@@ -625,12 +745,12 @@ func IdentitytoolkitConfigNotificationSendEmailToProto(o *identitytoolkit.Config
 	p := &identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmail{}
 	p.SetMethod(IdentitytoolkitConfigNotificationSendEmailMethodEnumToProto(o.Method))
 	p.SetSmtp(IdentitytoolkitConfigNotificationSendEmailSmtpToProto(o.Smtp))
-	p.SetResetPasswordTemplate(IdentitytoolkitConfigEmailTemplateToProto(o.ResetPasswordTemplate))
-	p.SetVerifyEmailTemplate(IdentitytoolkitConfigEmailTemplateToProto(o.VerifyEmailTemplate))
-	p.SetChangeEmailTemplate(IdentitytoolkitConfigEmailTemplateToProto(o.ChangeEmailTemplate))
+	p.SetResetPasswordTemplate(IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateToProto(o.ResetPasswordTemplate))
+	p.SetVerifyEmailTemplate(IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateToProto(o.VerifyEmailTemplate))
+	p.SetChangeEmailTemplate(IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateToProto(o.ChangeEmailTemplate))
 	p.SetCallbackUri(dcl.ValueOrEmptyString(o.CallbackUri))
 	p.SetDnsInfo(IdentitytoolkitConfigNotificationSendEmailDnsInfoToProto(o.DnsInfo))
-	p.SetRevertSecondFactorAdditionTemplate(IdentitytoolkitConfigEmailTemplateToProto(o.RevertSecondFactorAdditionTemplate))
+	p.SetRevertSecondFactorAdditionTemplate(IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateToProto(o.RevertSecondFactorAdditionTemplate))
 	return p
 }
 
@@ -649,17 +769,49 @@ func IdentitytoolkitConfigNotificationSendEmailSmtpToProto(o *identitytoolkit.Co
 	return p
 }
 
-// ConfigEmailTemplateToProto converts a ConfigEmailTemplate object to its proto representation.
-func IdentitytoolkitConfigEmailTemplateToProto(o *identitytoolkit.ConfigEmailTemplate) *identitytoolkitpb.IdentitytoolkitConfigEmailTemplate {
+// ConfigNotificationSendEmailResetPasswordTemplateToProto converts a ConfigNotificationSendEmailResetPasswordTemplate object to its proto representation.
+func IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateToProto(o *identitytoolkit.ConfigNotificationSendEmailResetPasswordTemplate) *identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplate {
 	if o == nil {
 		return nil
 	}
-	p := &identitytoolkitpb.IdentitytoolkitConfigEmailTemplate{}
+	p := &identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplate{}
 	p.SetSenderLocalPart(dcl.ValueOrEmptyString(o.SenderLocalPart))
 	p.SetSubject(dcl.ValueOrEmptyString(o.Subject))
 	p.SetSenderDisplayName(dcl.ValueOrEmptyString(o.SenderDisplayName))
 	p.SetBody(dcl.ValueOrEmptyString(o.Body))
-	p.SetBodyFormat(IdentitytoolkitConfigEmailTemplateBodyFormatEnumToProto(o.BodyFormat))
+	p.SetBodyFormat(IdentitytoolkitConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnumToProto(o.BodyFormat))
+	p.SetReplyTo(dcl.ValueOrEmptyString(o.ReplyTo))
+	p.SetCustomized(dcl.ValueOrEmptyBool(o.Customized))
+	return p
+}
+
+// ConfigNotificationSendEmailVerifyEmailTemplateToProto converts a ConfigNotificationSendEmailVerifyEmailTemplate object to its proto representation.
+func IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateToProto(o *identitytoolkit.ConfigNotificationSendEmailVerifyEmailTemplate) *identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplate {
+	if o == nil {
+		return nil
+	}
+	p := &identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplate{}
+	p.SetSenderLocalPart(dcl.ValueOrEmptyString(o.SenderLocalPart))
+	p.SetSubject(dcl.ValueOrEmptyString(o.Subject))
+	p.SetSenderDisplayName(dcl.ValueOrEmptyString(o.SenderDisplayName))
+	p.SetBody(dcl.ValueOrEmptyString(o.Body))
+	p.SetBodyFormat(IdentitytoolkitConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnumToProto(o.BodyFormat))
+	p.SetReplyTo(dcl.ValueOrEmptyString(o.ReplyTo))
+	p.SetCustomized(dcl.ValueOrEmptyBool(o.Customized))
+	return p
+}
+
+// ConfigNotificationSendEmailChangeEmailTemplateToProto converts a ConfigNotificationSendEmailChangeEmailTemplate object to its proto representation.
+func IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateToProto(o *identitytoolkit.ConfigNotificationSendEmailChangeEmailTemplate) *identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplate {
+	if o == nil {
+		return nil
+	}
+	p := &identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplate{}
+	p.SetSenderLocalPart(dcl.ValueOrEmptyString(o.SenderLocalPart))
+	p.SetSubject(dcl.ValueOrEmptyString(o.Subject))
+	p.SetSenderDisplayName(dcl.ValueOrEmptyString(o.SenderDisplayName))
+	p.SetBody(dcl.ValueOrEmptyString(o.Body))
+	p.SetBodyFormat(IdentitytoolkitConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnumToProto(o.BodyFormat))
 	p.SetReplyTo(dcl.ValueOrEmptyString(o.ReplyTo))
 	p.SetCustomized(dcl.ValueOrEmptyBool(o.Customized))
 	return p
@@ -676,6 +828,22 @@ func IdentitytoolkitConfigNotificationSendEmailDnsInfoToProto(o *identitytoolkit
 	p.SetPendingCustomDomain(dcl.ValueOrEmptyString(o.PendingCustomDomain))
 	p.SetCustomDomainState(IdentitytoolkitConfigNotificationSendEmailDnsInfoCustomDomainStateEnumToProto(o.CustomDomainState))
 	p.SetDomainVerificationRequestTime(dcl.ValueOrEmptyString(o.DomainVerificationRequestTime))
+	return p
+}
+
+// ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateToProto converts a ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate object to its proto representation.
+func IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateToProto(o *identitytoolkit.ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate) *identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplate {
+	if o == nil {
+		return nil
+	}
+	p := &identitytoolkitpb.IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplate{}
+	p.SetSenderLocalPart(dcl.ValueOrEmptyString(o.SenderLocalPart))
+	p.SetSubject(dcl.ValueOrEmptyString(o.Subject))
+	p.SetSenderDisplayName(dcl.ValueOrEmptyString(o.SenderDisplayName))
+	p.SetBody(dcl.ValueOrEmptyString(o.Body))
+	p.SetBodyFormat(IdentitytoolkitConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnumToProto(o.BodyFormat))
+	p.SetReplyTo(dcl.ValueOrEmptyString(o.ReplyTo))
+	p.SetCustomized(dcl.ValueOrEmptyBool(o.Customized))
 	return p
 }
 

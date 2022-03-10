@@ -169,7 +169,7 @@ func (r *ServiceTemplateVolumesCloudSqlInstance) validate() error {
 func (r *ServiceTraffic) validate() error {
 	return nil
 }
-func (r *ServiceGooglecloudrunopv2Condition) validate() error {
+func (r *ServiceTerminalCondition) validate() error {
 	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Reason", "InternalReason", "DomainMappingReason", "RevisionReason", "JobReason"}, r.Reason, r.InternalReason, r.DomainMappingReason, r.RevisionReason, r.JobReason); err != nil {
 		return err
 	}
@@ -304,7 +304,7 @@ func newUpdateServiceUpdateServiceRequest(ctx context.Context, f *Service, c *Cl
 	} else if v != nil {
 		req["traffic"] = v
 	}
-	if v, err := expandServiceGooglecloudrunopv2Condition(c, f.TerminalCondition, res); err != nil {
+	if v, err := expandServiceTerminalCondition(c, f.TerminalCondition, res); err != nil {
 		return nil, fmt.Errorf("error expanding TerminalCondition into terminalCondition: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["terminalCondition"] = v
@@ -632,7 +632,7 @@ func canonicalizeServiceDesiredState(rawDesired, rawInitial *Service, opts ...dc
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
 		rawDesired.BinaryAuthorization = canonicalizeServiceBinaryAuthorization(rawDesired.BinaryAuthorization, nil, opts...)
 		rawDesired.Template = canonicalizeServiceTemplate(rawDesired.Template, nil, opts...)
-		rawDesired.TerminalCondition = canonicalizeServiceGooglecloudrunopv2Condition(rawDesired.TerminalCondition, nil, opts...)
+		rawDesired.TerminalCondition = canonicalizeServiceTerminalCondition(rawDesired.TerminalCondition, nil, opts...)
 
 		return rawDesired, nil
 	}
@@ -816,7 +816,7 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 	if dcl.IsNotReturnedByServer(rawNew.TerminalCondition) && dcl.IsNotReturnedByServer(rawDesired.TerminalCondition) {
 		rawNew.TerminalCondition = rawDesired.TerminalCondition
 	} else {
-		rawNew.TerminalCondition = canonicalizeNewServiceGooglecloudrunopv2Condition(c, rawDesired.TerminalCondition, rawNew.TerminalCondition)
+		rawNew.TerminalCondition = canonicalizeNewServiceTerminalCondition(c, rawDesired.TerminalCondition, rawNew.TerminalCondition)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LatestReadyRevision) && dcl.IsNotReturnedByServer(rawDesired.LatestReadyRevision) {
@@ -2935,7 +2935,7 @@ func canonicalizeNewServiceTrafficSlice(c *Client, des, nw []ServiceTraffic) []S
 	return items
 }
 
-func canonicalizeServiceGooglecloudrunopv2Condition(des, initial *ServiceGooglecloudrunopv2Condition, opts ...dcl.ApplyOption) *ServiceGooglecloudrunopv2Condition {
+func canonicalizeServiceTerminalCondition(des, initial *ServiceTerminalCondition, opts ...dcl.ApplyOption) *ServiceTerminalCondition {
 	if des == nil {
 		return initial
 	}
@@ -2997,7 +2997,7 @@ func canonicalizeServiceGooglecloudrunopv2Condition(des, initial *ServiceGooglec
 		return des
 	}
 
-	cDes := &ServiceGooglecloudrunopv2Condition{}
+	cDes := &ServiceTerminalCondition{}
 
 	if dcl.StringCanonicalize(des.Type, initial.Type) || dcl.IsZeroValue(des.Type) {
 		cDes.Type = initial.Type
@@ -3061,16 +3061,16 @@ func canonicalizeServiceGooglecloudrunopv2Condition(des, initial *ServiceGooglec
 	return cDes
 }
 
-func canonicalizeServiceGooglecloudrunopv2ConditionSlice(des, initial []ServiceGooglecloudrunopv2Condition, opts ...dcl.ApplyOption) []ServiceGooglecloudrunopv2Condition {
+func canonicalizeServiceTerminalConditionSlice(des, initial []ServiceTerminalCondition, opts ...dcl.ApplyOption) []ServiceTerminalCondition {
 	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
 	if len(des) != len(initial) {
 
-		items := make([]ServiceGooglecloudrunopv2Condition, 0, len(des))
+		items := make([]ServiceTerminalCondition, 0, len(des))
 		for _, d := range des {
-			cd := canonicalizeServiceGooglecloudrunopv2Condition(&d, nil, opts...)
+			cd := canonicalizeServiceTerminalCondition(&d, nil, opts...)
 			if cd != nil {
 				items = append(items, *cd)
 			}
@@ -3078,9 +3078,9 @@ func canonicalizeServiceGooglecloudrunopv2ConditionSlice(des, initial []ServiceG
 		return items
 	}
 
-	items := make([]ServiceGooglecloudrunopv2Condition, 0, len(des))
+	items := make([]ServiceTerminalCondition, 0, len(des))
 	for i, d := range des {
-		cd := canonicalizeServiceGooglecloudrunopv2Condition(&d, &initial[i], opts...)
+		cd := canonicalizeServiceTerminalCondition(&d, &initial[i], opts...)
 		if cd != nil {
 			items = append(items, *cd)
 		}
@@ -3089,7 +3089,7 @@ func canonicalizeServiceGooglecloudrunopv2ConditionSlice(des, initial []ServiceG
 
 }
 
-func canonicalizeNewServiceGooglecloudrunopv2Condition(c *Client, des, nw *ServiceGooglecloudrunopv2Condition) *ServiceGooglecloudrunopv2Condition {
+func canonicalizeNewServiceTerminalCondition(c *Client, des, nw *ServiceTerminalCondition) *ServiceTerminalCondition {
 
 	if des == nil {
 		return nw
@@ -3097,7 +3097,7 @@ func canonicalizeNewServiceGooglecloudrunopv2Condition(c *Client, des, nw *Servi
 
 	if nw == nil {
 		if dcl.IsNotReturnedByServer(des) {
-			c.Config.Logger.Info("Found explicitly empty value for ServiceGooglecloudrunopv2Condition while comparing non-nil desired to nil actual.  Returning desired object.")
+			c.Config.Logger.Info("Found explicitly empty value for ServiceTerminalCondition while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
 		return nil
@@ -3113,15 +3113,15 @@ func canonicalizeNewServiceGooglecloudrunopv2Condition(c *Client, des, nw *Servi
 	return nw
 }
 
-func canonicalizeNewServiceGooglecloudrunopv2ConditionSet(c *Client, des, nw []ServiceGooglecloudrunopv2Condition) []ServiceGooglecloudrunopv2Condition {
+func canonicalizeNewServiceTerminalConditionSet(c *Client, des, nw []ServiceTerminalCondition) []ServiceTerminalCondition {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []ServiceGooglecloudrunopv2Condition
+	var reorderedNew []ServiceTerminalCondition
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareServiceGooglecloudrunopv2ConditionNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareServiceTerminalConditionNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -3136,7 +3136,7 @@ func canonicalizeNewServiceGooglecloudrunopv2ConditionSet(c *Client, des, nw []S
 	return reorderedNew
 }
 
-func canonicalizeNewServiceGooglecloudrunopv2ConditionSlice(c *Client, des, nw []ServiceGooglecloudrunopv2Condition) []ServiceGooglecloudrunopv2Condition {
+func canonicalizeNewServiceTerminalConditionSlice(c *Client, des, nw []ServiceTerminalCondition) []ServiceTerminalCondition {
 	if des == nil {
 		return nw
 	}
@@ -3147,10 +3147,10 @@ func canonicalizeNewServiceGooglecloudrunopv2ConditionSlice(c *Client, des, nw [
 		return nw
 	}
 
-	var items []ServiceGooglecloudrunopv2Condition
+	var items []ServiceTerminalCondition
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewServiceGooglecloudrunopv2Condition(c, &d, &n))
+		items = append(items, *canonicalizeNewServiceTerminalCondition(c, &d, &n))
 	}
 
 	return items
@@ -3450,7 +3450,7 @@ func diffService(c *Client, desired, actual *Service, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TerminalCondition, actual.TerminalCondition, dcl.Info{OutputOnly: true, ObjectFunction: compareServiceGooglecloudrunopv2ConditionNewStyle, EmptyObject: EmptyServiceGooglecloudrunopv2Condition, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TerminalCondition")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TerminalCondition, actual.TerminalCondition, dcl.Info{OutputOnly: true, ObjectFunction: compareServiceTerminalConditionNewStyle, EmptyObject: EmptyServiceTerminalCondition, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TerminalCondition")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4231,22 +4231,22 @@ func compareServiceTrafficNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 	return diffs, nil
 }
 
-func compareServiceGooglecloudrunopv2ConditionNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareServiceTerminalConditionNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*ServiceGooglecloudrunopv2Condition)
+	desired, ok := d.(*ServiceTerminalCondition)
 	if !ok {
-		desiredNotPointer, ok := d.(ServiceGooglecloudrunopv2Condition)
+		desiredNotPointer, ok := d.(ServiceTerminalCondition)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a ServiceGooglecloudrunopv2Condition or *ServiceGooglecloudrunopv2Condition", d)
+			return nil, fmt.Errorf("obj %v is not a ServiceTerminalCondition or *ServiceTerminalCondition", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*ServiceGooglecloudrunopv2Condition)
+	actual, ok := a.(*ServiceTerminalCondition)
 	if !ok {
-		actualNotPointer, ok := a.(ServiceGooglecloudrunopv2Condition)
+		actualNotPointer, ok := a.(ServiceTerminalCondition)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a ServiceGooglecloudrunopv2Condition", a)
+			return nil, fmt.Errorf("obj %v is not a ServiceTerminalCondition", a)
 		}
 		actual = &actualNotPointer
 	}
@@ -4535,7 +4535,7 @@ func flattenService(c *Client, i interface{}, res *Service) *Service {
 	resultRes.BinaryAuthorization = flattenServiceBinaryAuthorization(c, m["binaryAuthorization"], res)
 	resultRes.Template = flattenServiceTemplate(c, m["template"], res)
 	resultRes.Traffic = flattenServiceTrafficSlice(c, m["traffic"], res)
-	resultRes.TerminalCondition = flattenServiceGooglecloudrunopv2Condition(c, m["terminalCondition"], res)
+	resultRes.TerminalCondition = flattenServiceTerminalCondition(c, m["terminalCondition"], res)
 	resultRes.LatestReadyRevision = dcl.FlattenString(m["latestReadyRevision"])
 	resultRes.LatestCreatedRevision = dcl.FlattenString(m["latestCreatedRevision"])
 	resultRes.TrafficStatuses = flattenServiceTrafficStatusesSlice(c, m["trafficStatuses"], res)
@@ -6548,16 +6548,16 @@ func flattenServiceTraffic(c *Client, i interface{}, res *Service) *ServiceTraff
 	return r
 }
 
-// expandServiceGooglecloudrunopv2ConditionMap expands the contents of ServiceGooglecloudrunopv2Condition into a JSON
+// expandServiceTerminalConditionMap expands the contents of ServiceTerminalCondition into a JSON
 // request object.
-func expandServiceGooglecloudrunopv2ConditionMap(c *Client, f map[string]ServiceGooglecloudrunopv2Condition, res *Service) (map[string]interface{}, error) {
+func expandServiceTerminalConditionMap(c *Client, f map[string]ServiceTerminalCondition, res *Service) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandServiceGooglecloudrunopv2Condition(c, &item, res)
+		i, err := expandServiceTerminalCondition(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6569,16 +6569,16 @@ func expandServiceGooglecloudrunopv2ConditionMap(c *Client, f map[string]Service
 	return items, nil
 }
 
-// expandServiceGooglecloudrunopv2ConditionSlice expands the contents of ServiceGooglecloudrunopv2Condition into a JSON
+// expandServiceTerminalConditionSlice expands the contents of ServiceTerminalCondition into a JSON
 // request object.
-func expandServiceGooglecloudrunopv2ConditionSlice(c *Client, f []ServiceGooglecloudrunopv2Condition, res *Service) ([]map[string]interface{}, error) {
+func expandServiceTerminalConditionSlice(c *Client, f []ServiceTerminalCondition, res *Service) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandServiceGooglecloudrunopv2Condition(c, &item, res)
+		i, err := expandServiceTerminalCondition(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -6589,49 +6589,49 @@ func expandServiceGooglecloudrunopv2ConditionSlice(c *Client, f []ServiceGooglec
 	return items, nil
 }
 
-// flattenServiceGooglecloudrunopv2ConditionMap flattens the contents of ServiceGooglecloudrunopv2Condition from a JSON
+// flattenServiceTerminalConditionMap flattens the contents of ServiceTerminalCondition from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionMap(c *Client, i interface{}, res *Service) map[string]ServiceGooglecloudrunopv2Condition {
+func flattenServiceTerminalConditionMap(c *Client, i interface{}, res *Service) map[string]ServiceTerminalCondition {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]ServiceGooglecloudrunopv2Condition{}
+		return map[string]ServiceTerminalCondition{}
 	}
 
 	if len(a) == 0 {
-		return map[string]ServiceGooglecloudrunopv2Condition{}
+		return map[string]ServiceTerminalCondition{}
 	}
 
-	items := make(map[string]ServiceGooglecloudrunopv2Condition)
+	items := make(map[string]ServiceTerminalCondition)
 	for k, item := range a {
-		items[k] = *flattenServiceGooglecloudrunopv2Condition(c, item.(map[string]interface{}), res)
+		items[k] = *flattenServiceTerminalCondition(c, item.(map[string]interface{}), res)
 	}
 
 	return items
 }
 
-// flattenServiceGooglecloudrunopv2ConditionSlice flattens the contents of ServiceGooglecloudrunopv2Condition from a JSON
+// flattenServiceTerminalConditionSlice flattens the contents of ServiceTerminalCondition from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionSlice(c *Client, i interface{}, res *Service) []ServiceGooglecloudrunopv2Condition {
+func flattenServiceTerminalConditionSlice(c *Client, i interface{}, res *Service) []ServiceTerminalCondition {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []ServiceGooglecloudrunopv2Condition{}
+		return []ServiceTerminalCondition{}
 	}
 
 	if len(a) == 0 {
-		return []ServiceGooglecloudrunopv2Condition{}
+		return []ServiceTerminalCondition{}
 	}
 
-	items := make([]ServiceGooglecloudrunopv2Condition, 0, len(a))
+	items := make([]ServiceTerminalCondition, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceGooglecloudrunopv2Condition(c, item.(map[string]interface{}), res))
+		items = append(items, *flattenServiceTerminalCondition(c, item.(map[string]interface{}), res))
 	}
 
 	return items
 }
 
-// expandServiceGooglecloudrunopv2Condition expands an instance of ServiceGooglecloudrunopv2Condition into a JSON
+// expandServiceTerminalCondition expands an instance of ServiceTerminalCondition into a JSON
 // request object.
-func expandServiceGooglecloudrunopv2Condition(c *Client, f *ServiceGooglecloudrunopv2Condition, res *Service) (map[string]interface{}, error) {
+func expandServiceTerminalCondition(c *Client, f *ServiceTerminalCondition, res *Service) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -6671,29 +6671,29 @@ func expandServiceGooglecloudrunopv2Condition(c *Client, f *ServiceGooglecloudru
 	return m, nil
 }
 
-// flattenServiceGooglecloudrunopv2Condition flattens an instance of ServiceGooglecloudrunopv2Condition from a JSON
+// flattenServiceTerminalCondition flattens an instance of ServiceTerminalCondition from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2Condition(c *Client, i interface{}, res *Service) *ServiceGooglecloudrunopv2Condition {
+func flattenServiceTerminalCondition(c *Client, i interface{}, res *Service) *ServiceTerminalCondition {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &ServiceGooglecloudrunopv2Condition{}
+	r := &ServiceTerminalCondition{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyServiceGooglecloudrunopv2Condition
+		return EmptyServiceTerminalCondition
 	}
 	r.Type = dcl.FlattenString(m["type"])
-	r.State = flattenServiceGooglecloudrunopv2ConditionStateEnum(m["state"])
+	r.State = flattenServiceTerminalConditionStateEnum(m["state"])
 	r.Message = dcl.FlattenString(m["message"])
 	r.LastTransitionTime = dcl.FlattenString(m["lastTransitionTime"])
-	r.Severity = flattenServiceGooglecloudrunopv2ConditionSeverityEnum(m["severity"])
-	r.Reason = flattenServiceGooglecloudrunopv2ConditionReasonEnum(m["reason"])
-	r.InternalReason = flattenServiceGooglecloudrunopv2ConditionInternalReasonEnum(m["internalReason"])
-	r.DomainMappingReason = flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum(m["domainMappingReason"])
-	r.RevisionReason = flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnum(m["revisionReason"])
-	r.JobReason = flattenServiceGooglecloudrunopv2ConditionJobReasonEnum(m["jobReason"])
+	r.Severity = flattenServiceTerminalConditionSeverityEnum(m["severity"])
+	r.Reason = flattenServiceTerminalConditionReasonEnum(m["reason"])
+	r.InternalReason = flattenServiceTerminalConditionInternalReasonEnum(m["internalReason"])
+	r.DomainMappingReason = flattenServiceTerminalConditionDomainMappingReasonEnum(m["domainMappingReason"])
+	r.RevisionReason = flattenServiceTerminalConditionRevisionReasonEnum(m["revisionReason"])
+	r.JobReason = flattenServiceTerminalConditionJobReasonEnum(m["jobReason"])
 
 	return r
 }
@@ -7083,361 +7083,361 @@ func flattenServiceTrafficTypeEnum(i interface{}) *ServiceTrafficTypeEnum {
 	return ServiceTrafficTypeEnumRef(s)
 }
 
-// flattenServiceGooglecloudrunopv2ConditionStateEnumMap flattens the contents of ServiceGooglecloudrunopv2ConditionStateEnum from a JSON
+// flattenServiceTerminalConditionStateEnumMap flattens the contents of ServiceTerminalConditionStateEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionStateEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceGooglecloudrunopv2ConditionStateEnum {
+func flattenServiceTerminalConditionStateEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceTerminalConditionStateEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]ServiceGooglecloudrunopv2ConditionStateEnum{}
+		return map[string]ServiceTerminalConditionStateEnum{}
 	}
 
 	if len(a) == 0 {
-		return map[string]ServiceGooglecloudrunopv2ConditionStateEnum{}
+		return map[string]ServiceTerminalConditionStateEnum{}
 	}
 
-	items := make(map[string]ServiceGooglecloudrunopv2ConditionStateEnum)
+	items := make(map[string]ServiceTerminalConditionStateEnum)
 	for k, item := range a {
-		items[k] = *flattenServiceGooglecloudrunopv2ConditionStateEnum(item.(interface{}))
+		items[k] = *flattenServiceTerminalConditionStateEnum(item.(interface{}))
 	}
 
 	return items
 }
 
-// flattenServiceGooglecloudrunopv2ConditionStateEnumSlice flattens the contents of ServiceGooglecloudrunopv2ConditionStateEnum from a JSON
+// flattenServiceTerminalConditionStateEnumSlice flattens the contents of ServiceTerminalConditionStateEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionStateEnumSlice(c *Client, i interface{}, res *Service) []ServiceGooglecloudrunopv2ConditionStateEnum {
+func flattenServiceTerminalConditionStateEnumSlice(c *Client, i interface{}, res *Service) []ServiceTerminalConditionStateEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []ServiceGooglecloudrunopv2ConditionStateEnum{}
+		return []ServiceTerminalConditionStateEnum{}
 	}
 
 	if len(a) == 0 {
-		return []ServiceGooglecloudrunopv2ConditionStateEnum{}
+		return []ServiceTerminalConditionStateEnum{}
 	}
 
-	items := make([]ServiceGooglecloudrunopv2ConditionStateEnum, 0, len(a))
+	items := make([]ServiceTerminalConditionStateEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceGooglecloudrunopv2ConditionStateEnum(item.(interface{})))
+		items = append(items, *flattenServiceTerminalConditionStateEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenServiceGooglecloudrunopv2ConditionStateEnum asserts that an interface is a string, and returns a
-// pointer to a *ServiceGooglecloudrunopv2ConditionStateEnum with the same value as that string.
-func flattenServiceGooglecloudrunopv2ConditionStateEnum(i interface{}) *ServiceGooglecloudrunopv2ConditionStateEnum {
+// flattenServiceTerminalConditionStateEnum asserts that an interface is a string, and returns a
+// pointer to a *ServiceTerminalConditionStateEnum with the same value as that string.
+func flattenServiceTerminalConditionStateEnum(i interface{}) *ServiceTerminalConditionStateEnum {
 	s, ok := i.(string)
 	if !ok {
 		return nil
 	}
 
-	return ServiceGooglecloudrunopv2ConditionStateEnumRef(s)
+	return ServiceTerminalConditionStateEnumRef(s)
 }
 
-// flattenServiceGooglecloudrunopv2ConditionSeverityEnumMap flattens the contents of ServiceGooglecloudrunopv2ConditionSeverityEnum from a JSON
+// flattenServiceTerminalConditionSeverityEnumMap flattens the contents of ServiceTerminalConditionSeverityEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionSeverityEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceGooglecloudrunopv2ConditionSeverityEnum {
+func flattenServiceTerminalConditionSeverityEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceTerminalConditionSeverityEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]ServiceGooglecloudrunopv2ConditionSeverityEnum{}
+		return map[string]ServiceTerminalConditionSeverityEnum{}
 	}
 
 	if len(a) == 0 {
-		return map[string]ServiceGooglecloudrunopv2ConditionSeverityEnum{}
+		return map[string]ServiceTerminalConditionSeverityEnum{}
 	}
 
-	items := make(map[string]ServiceGooglecloudrunopv2ConditionSeverityEnum)
+	items := make(map[string]ServiceTerminalConditionSeverityEnum)
 	for k, item := range a {
-		items[k] = *flattenServiceGooglecloudrunopv2ConditionSeverityEnum(item.(interface{}))
+		items[k] = *flattenServiceTerminalConditionSeverityEnum(item.(interface{}))
 	}
 
 	return items
 }
 
-// flattenServiceGooglecloudrunopv2ConditionSeverityEnumSlice flattens the contents of ServiceGooglecloudrunopv2ConditionSeverityEnum from a JSON
+// flattenServiceTerminalConditionSeverityEnumSlice flattens the contents of ServiceTerminalConditionSeverityEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionSeverityEnumSlice(c *Client, i interface{}, res *Service) []ServiceGooglecloudrunopv2ConditionSeverityEnum {
+func flattenServiceTerminalConditionSeverityEnumSlice(c *Client, i interface{}, res *Service) []ServiceTerminalConditionSeverityEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []ServiceGooglecloudrunopv2ConditionSeverityEnum{}
+		return []ServiceTerminalConditionSeverityEnum{}
 	}
 
 	if len(a) == 0 {
-		return []ServiceGooglecloudrunopv2ConditionSeverityEnum{}
+		return []ServiceTerminalConditionSeverityEnum{}
 	}
 
-	items := make([]ServiceGooglecloudrunopv2ConditionSeverityEnum, 0, len(a))
+	items := make([]ServiceTerminalConditionSeverityEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceGooglecloudrunopv2ConditionSeverityEnum(item.(interface{})))
+		items = append(items, *flattenServiceTerminalConditionSeverityEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenServiceGooglecloudrunopv2ConditionSeverityEnum asserts that an interface is a string, and returns a
-// pointer to a *ServiceGooglecloudrunopv2ConditionSeverityEnum with the same value as that string.
-func flattenServiceGooglecloudrunopv2ConditionSeverityEnum(i interface{}) *ServiceGooglecloudrunopv2ConditionSeverityEnum {
+// flattenServiceTerminalConditionSeverityEnum asserts that an interface is a string, and returns a
+// pointer to a *ServiceTerminalConditionSeverityEnum with the same value as that string.
+func flattenServiceTerminalConditionSeverityEnum(i interface{}) *ServiceTerminalConditionSeverityEnum {
 	s, ok := i.(string)
 	if !ok {
 		return nil
 	}
 
-	return ServiceGooglecloudrunopv2ConditionSeverityEnumRef(s)
+	return ServiceTerminalConditionSeverityEnumRef(s)
 }
 
-// flattenServiceGooglecloudrunopv2ConditionReasonEnumMap flattens the contents of ServiceGooglecloudrunopv2ConditionReasonEnum from a JSON
+// flattenServiceTerminalConditionReasonEnumMap flattens the contents of ServiceTerminalConditionReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionReasonEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceGooglecloudrunopv2ConditionReasonEnum {
+func flattenServiceTerminalConditionReasonEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceTerminalConditionReasonEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]ServiceGooglecloudrunopv2ConditionReasonEnum{}
+		return map[string]ServiceTerminalConditionReasonEnum{}
 	}
 
 	if len(a) == 0 {
-		return map[string]ServiceGooglecloudrunopv2ConditionReasonEnum{}
+		return map[string]ServiceTerminalConditionReasonEnum{}
 	}
 
-	items := make(map[string]ServiceGooglecloudrunopv2ConditionReasonEnum)
+	items := make(map[string]ServiceTerminalConditionReasonEnum)
 	for k, item := range a {
-		items[k] = *flattenServiceGooglecloudrunopv2ConditionReasonEnum(item.(interface{}))
+		items[k] = *flattenServiceTerminalConditionReasonEnum(item.(interface{}))
 	}
 
 	return items
 }
 
-// flattenServiceGooglecloudrunopv2ConditionReasonEnumSlice flattens the contents of ServiceGooglecloudrunopv2ConditionReasonEnum from a JSON
+// flattenServiceTerminalConditionReasonEnumSlice flattens the contents of ServiceTerminalConditionReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionReasonEnumSlice(c *Client, i interface{}, res *Service) []ServiceGooglecloudrunopv2ConditionReasonEnum {
+func flattenServiceTerminalConditionReasonEnumSlice(c *Client, i interface{}, res *Service) []ServiceTerminalConditionReasonEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []ServiceGooglecloudrunopv2ConditionReasonEnum{}
+		return []ServiceTerminalConditionReasonEnum{}
 	}
 
 	if len(a) == 0 {
-		return []ServiceGooglecloudrunopv2ConditionReasonEnum{}
+		return []ServiceTerminalConditionReasonEnum{}
 	}
 
-	items := make([]ServiceGooglecloudrunopv2ConditionReasonEnum, 0, len(a))
+	items := make([]ServiceTerminalConditionReasonEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceGooglecloudrunopv2ConditionReasonEnum(item.(interface{})))
+		items = append(items, *flattenServiceTerminalConditionReasonEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenServiceGooglecloudrunopv2ConditionReasonEnum asserts that an interface is a string, and returns a
-// pointer to a *ServiceGooglecloudrunopv2ConditionReasonEnum with the same value as that string.
-func flattenServiceGooglecloudrunopv2ConditionReasonEnum(i interface{}) *ServiceGooglecloudrunopv2ConditionReasonEnum {
+// flattenServiceTerminalConditionReasonEnum asserts that an interface is a string, and returns a
+// pointer to a *ServiceTerminalConditionReasonEnum with the same value as that string.
+func flattenServiceTerminalConditionReasonEnum(i interface{}) *ServiceTerminalConditionReasonEnum {
 	s, ok := i.(string)
 	if !ok {
 		return nil
 	}
 
-	return ServiceGooglecloudrunopv2ConditionReasonEnumRef(s)
+	return ServiceTerminalConditionReasonEnumRef(s)
 }
 
-// flattenServiceGooglecloudrunopv2ConditionInternalReasonEnumMap flattens the contents of ServiceGooglecloudrunopv2ConditionInternalReasonEnum from a JSON
+// flattenServiceTerminalConditionInternalReasonEnumMap flattens the contents of ServiceTerminalConditionInternalReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionInternalReasonEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceGooglecloudrunopv2ConditionInternalReasonEnum {
+func flattenServiceTerminalConditionInternalReasonEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceTerminalConditionInternalReasonEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]ServiceGooglecloudrunopv2ConditionInternalReasonEnum{}
+		return map[string]ServiceTerminalConditionInternalReasonEnum{}
 	}
 
 	if len(a) == 0 {
-		return map[string]ServiceGooglecloudrunopv2ConditionInternalReasonEnum{}
+		return map[string]ServiceTerminalConditionInternalReasonEnum{}
 	}
 
-	items := make(map[string]ServiceGooglecloudrunopv2ConditionInternalReasonEnum)
+	items := make(map[string]ServiceTerminalConditionInternalReasonEnum)
 	for k, item := range a {
-		items[k] = *flattenServiceGooglecloudrunopv2ConditionInternalReasonEnum(item.(interface{}))
+		items[k] = *flattenServiceTerminalConditionInternalReasonEnum(item.(interface{}))
 	}
 
 	return items
 }
 
-// flattenServiceGooglecloudrunopv2ConditionInternalReasonEnumSlice flattens the contents of ServiceGooglecloudrunopv2ConditionInternalReasonEnum from a JSON
+// flattenServiceTerminalConditionInternalReasonEnumSlice flattens the contents of ServiceTerminalConditionInternalReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionInternalReasonEnumSlice(c *Client, i interface{}, res *Service) []ServiceGooglecloudrunopv2ConditionInternalReasonEnum {
+func flattenServiceTerminalConditionInternalReasonEnumSlice(c *Client, i interface{}, res *Service) []ServiceTerminalConditionInternalReasonEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []ServiceGooglecloudrunopv2ConditionInternalReasonEnum{}
+		return []ServiceTerminalConditionInternalReasonEnum{}
 	}
 
 	if len(a) == 0 {
-		return []ServiceGooglecloudrunopv2ConditionInternalReasonEnum{}
+		return []ServiceTerminalConditionInternalReasonEnum{}
 	}
 
-	items := make([]ServiceGooglecloudrunopv2ConditionInternalReasonEnum, 0, len(a))
+	items := make([]ServiceTerminalConditionInternalReasonEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceGooglecloudrunopv2ConditionInternalReasonEnum(item.(interface{})))
+		items = append(items, *flattenServiceTerminalConditionInternalReasonEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenServiceGooglecloudrunopv2ConditionInternalReasonEnum asserts that an interface is a string, and returns a
-// pointer to a *ServiceGooglecloudrunopv2ConditionInternalReasonEnum with the same value as that string.
-func flattenServiceGooglecloudrunopv2ConditionInternalReasonEnum(i interface{}) *ServiceGooglecloudrunopv2ConditionInternalReasonEnum {
+// flattenServiceTerminalConditionInternalReasonEnum asserts that an interface is a string, and returns a
+// pointer to a *ServiceTerminalConditionInternalReasonEnum with the same value as that string.
+func flattenServiceTerminalConditionInternalReasonEnum(i interface{}) *ServiceTerminalConditionInternalReasonEnum {
 	s, ok := i.(string)
 	if !ok {
 		return nil
 	}
 
-	return ServiceGooglecloudrunopv2ConditionInternalReasonEnumRef(s)
+	return ServiceTerminalConditionInternalReasonEnumRef(s)
 }
 
-// flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumMap flattens the contents of ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum from a JSON
+// flattenServiceTerminalConditionDomainMappingReasonEnumMap flattens the contents of ServiceTerminalConditionDomainMappingReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum {
+func flattenServiceTerminalConditionDomainMappingReasonEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceTerminalConditionDomainMappingReasonEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum{}
+		return map[string]ServiceTerminalConditionDomainMappingReasonEnum{}
 	}
 
 	if len(a) == 0 {
-		return map[string]ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum{}
+		return map[string]ServiceTerminalConditionDomainMappingReasonEnum{}
 	}
 
-	items := make(map[string]ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum)
+	items := make(map[string]ServiceTerminalConditionDomainMappingReasonEnum)
 	for k, item := range a {
-		items[k] = *flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum(item.(interface{}))
+		items[k] = *flattenServiceTerminalConditionDomainMappingReasonEnum(item.(interface{}))
 	}
 
 	return items
 }
 
-// flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumSlice flattens the contents of ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum from a JSON
+// flattenServiceTerminalConditionDomainMappingReasonEnumSlice flattens the contents of ServiceTerminalConditionDomainMappingReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumSlice(c *Client, i interface{}, res *Service) []ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum {
+func flattenServiceTerminalConditionDomainMappingReasonEnumSlice(c *Client, i interface{}, res *Service) []ServiceTerminalConditionDomainMappingReasonEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum{}
+		return []ServiceTerminalConditionDomainMappingReasonEnum{}
 	}
 
 	if len(a) == 0 {
-		return []ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum{}
+		return []ServiceTerminalConditionDomainMappingReasonEnum{}
 	}
 
-	items := make([]ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum, 0, len(a))
+	items := make([]ServiceTerminalConditionDomainMappingReasonEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum(item.(interface{})))
+		items = append(items, *flattenServiceTerminalConditionDomainMappingReasonEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum asserts that an interface is a string, and returns a
-// pointer to a *ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum with the same value as that string.
-func flattenServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum(i interface{}) *ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum {
+// flattenServiceTerminalConditionDomainMappingReasonEnum asserts that an interface is a string, and returns a
+// pointer to a *ServiceTerminalConditionDomainMappingReasonEnum with the same value as that string.
+func flattenServiceTerminalConditionDomainMappingReasonEnum(i interface{}) *ServiceTerminalConditionDomainMappingReasonEnum {
 	s, ok := i.(string)
 	if !ok {
 		return nil
 	}
 
-	return ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumRef(s)
+	return ServiceTerminalConditionDomainMappingReasonEnumRef(s)
 }
 
-// flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnumMap flattens the contents of ServiceGooglecloudrunopv2ConditionRevisionReasonEnum from a JSON
+// flattenServiceTerminalConditionRevisionReasonEnumMap flattens the contents of ServiceTerminalConditionRevisionReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceGooglecloudrunopv2ConditionRevisionReasonEnum {
+func flattenServiceTerminalConditionRevisionReasonEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceTerminalConditionRevisionReasonEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]ServiceGooglecloudrunopv2ConditionRevisionReasonEnum{}
+		return map[string]ServiceTerminalConditionRevisionReasonEnum{}
 	}
 
 	if len(a) == 0 {
-		return map[string]ServiceGooglecloudrunopv2ConditionRevisionReasonEnum{}
+		return map[string]ServiceTerminalConditionRevisionReasonEnum{}
 	}
 
-	items := make(map[string]ServiceGooglecloudrunopv2ConditionRevisionReasonEnum)
+	items := make(map[string]ServiceTerminalConditionRevisionReasonEnum)
 	for k, item := range a {
-		items[k] = *flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnum(item.(interface{}))
+		items[k] = *flattenServiceTerminalConditionRevisionReasonEnum(item.(interface{}))
 	}
 
 	return items
 }
 
-// flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnumSlice flattens the contents of ServiceGooglecloudrunopv2ConditionRevisionReasonEnum from a JSON
+// flattenServiceTerminalConditionRevisionReasonEnumSlice flattens the contents of ServiceTerminalConditionRevisionReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnumSlice(c *Client, i interface{}, res *Service) []ServiceGooglecloudrunopv2ConditionRevisionReasonEnum {
+func flattenServiceTerminalConditionRevisionReasonEnumSlice(c *Client, i interface{}, res *Service) []ServiceTerminalConditionRevisionReasonEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []ServiceGooglecloudrunopv2ConditionRevisionReasonEnum{}
+		return []ServiceTerminalConditionRevisionReasonEnum{}
 	}
 
 	if len(a) == 0 {
-		return []ServiceGooglecloudrunopv2ConditionRevisionReasonEnum{}
+		return []ServiceTerminalConditionRevisionReasonEnum{}
 	}
 
-	items := make([]ServiceGooglecloudrunopv2ConditionRevisionReasonEnum, 0, len(a))
+	items := make([]ServiceTerminalConditionRevisionReasonEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnum(item.(interface{})))
+		items = append(items, *flattenServiceTerminalConditionRevisionReasonEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnum asserts that an interface is a string, and returns a
-// pointer to a *ServiceGooglecloudrunopv2ConditionRevisionReasonEnum with the same value as that string.
-func flattenServiceGooglecloudrunopv2ConditionRevisionReasonEnum(i interface{}) *ServiceGooglecloudrunopv2ConditionRevisionReasonEnum {
+// flattenServiceTerminalConditionRevisionReasonEnum asserts that an interface is a string, and returns a
+// pointer to a *ServiceTerminalConditionRevisionReasonEnum with the same value as that string.
+func flattenServiceTerminalConditionRevisionReasonEnum(i interface{}) *ServiceTerminalConditionRevisionReasonEnum {
 	s, ok := i.(string)
 	if !ok {
 		return nil
 	}
 
-	return ServiceGooglecloudrunopv2ConditionRevisionReasonEnumRef(s)
+	return ServiceTerminalConditionRevisionReasonEnumRef(s)
 }
 
-// flattenServiceGooglecloudrunopv2ConditionJobReasonEnumMap flattens the contents of ServiceGooglecloudrunopv2ConditionJobReasonEnum from a JSON
+// flattenServiceTerminalConditionJobReasonEnumMap flattens the contents of ServiceTerminalConditionJobReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionJobReasonEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceGooglecloudrunopv2ConditionJobReasonEnum {
+func flattenServiceTerminalConditionJobReasonEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceTerminalConditionJobReasonEnum {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]ServiceGooglecloudrunopv2ConditionJobReasonEnum{}
+		return map[string]ServiceTerminalConditionJobReasonEnum{}
 	}
 
 	if len(a) == 0 {
-		return map[string]ServiceGooglecloudrunopv2ConditionJobReasonEnum{}
+		return map[string]ServiceTerminalConditionJobReasonEnum{}
 	}
 
-	items := make(map[string]ServiceGooglecloudrunopv2ConditionJobReasonEnum)
+	items := make(map[string]ServiceTerminalConditionJobReasonEnum)
 	for k, item := range a {
-		items[k] = *flattenServiceGooglecloudrunopv2ConditionJobReasonEnum(item.(interface{}))
+		items[k] = *flattenServiceTerminalConditionJobReasonEnum(item.(interface{}))
 	}
 
 	return items
 }
 
-// flattenServiceGooglecloudrunopv2ConditionJobReasonEnumSlice flattens the contents of ServiceGooglecloudrunopv2ConditionJobReasonEnum from a JSON
+// flattenServiceTerminalConditionJobReasonEnumSlice flattens the contents of ServiceTerminalConditionJobReasonEnum from a JSON
 // response object.
-func flattenServiceGooglecloudrunopv2ConditionJobReasonEnumSlice(c *Client, i interface{}, res *Service) []ServiceGooglecloudrunopv2ConditionJobReasonEnum {
+func flattenServiceTerminalConditionJobReasonEnumSlice(c *Client, i interface{}, res *Service) []ServiceTerminalConditionJobReasonEnum {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []ServiceGooglecloudrunopv2ConditionJobReasonEnum{}
+		return []ServiceTerminalConditionJobReasonEnum{}
 	}
 
 	if len(a) == 0 {
-		return []ServiceGooglecloudrunopv2ConditionJobReasonEnum{}
+		return []ServiceTerminalConditionJobReasonEnum{}
 	}
 
-	items := make([]ServiceGooglecloudrunopv2ConditionJobReasonEnum, 0, len(a))
+	items := make([]ServiceTerminalConditionJobReasonEnum, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenServiceGooglecloudrunopv2ConditionJobReasonEnum(item.(interface{})))
+		items = append(items, *flattenServiceTerminalConditionJobReasonEnum(item.(interface{})))
 	}
 
 	return items
 }
 
-// flattenServiceGooglecloudrunopv2ConditionJobReasonEnum asserts that an interface is a string, and returns a
-// pointer to a *ServiceGooglecloudrunopv2ConditionJobReasonEnum with the same value as that string.
-func flattenServiceGooglecloudrunopv2ConditionJobReasonEnum(i interface{}) *ServiceGooglecloudrunopv2ConditionJobReasonEnum {
+// flattenServiceTerminalConditionJobReasonEnum asserts that an interface is a string, and returns a
+// pointer to a *ServiceTerminalConditionJobReasonEnum with the same value as that string.
+func flattenServiceTerminalConditionJobReasonEnum(i interface{}) *ServiceTerminalConditionJobReasonEnum {
 	s, ok := i.(string)
 	if !ok {
 		return nil
 	}
 
-	return ServiceGooglecloudrunopv2ConditionJobReasonEnumRef(s)
+	return ServiceTerminalConditionJobReasonEnumRef(s)
 }
 
 // flattenServiceTrafficStatusesTypeEnumMap flattens the contents of ServiceTrafficStatusesTypeEnum from a JSON
@@ -7605,8 +7605,17 @@ func extractServiceFields(r *Service) error {
 	if !dcl.IsNotReturnedByServer(vTemplate) {
 		r.Template = vTemplate
 	}
-	// *ServiceGooglecloudrunopv2Condition is a reused type - that's not compatible with function extractors.
-
+	vTerminalCondition := r.TerminalCondition
+	if vTerminalCondition == nil {
+		// note: explicitly not the empty object.
+		vTerminalCondition = &ServiceTerminalCondition{}
+	}
+	if err := extractServiceTerminalConditionFields(r, vTerminalCondition); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTerminalCondition) {
+		r.TerminalCondition = vTerminalCondition
+	}
 	return nil
 }
 func extractServiceBinaryAuthorizationFields(r *Service, o *ServiceBinaryAuthorization) error {
@@ -7734,7 +7743,7 @@ func extractServiceTemplateVolumesCloudSqlInstanceFields(r *Service, o *ServiceT
 func extractServiceTrafficFields(r *Service, o *ServiceTraffic) error {
 	return nil
 }
-func extractServiceGooglecloudrunopv2ConditionFields(r *Service, o *ServiceGooglecloudrunopv2Condition) error {
+func extractServiceTerminalConditionFields(r *Service, o *ServiceTerminalCondition) error {
 	return nil
 }
 func extractServiceTrafficStatusesFields(r *Service, o *ServiceTrafficStatuses) error {
@@ -7764,8 +7773,17 @@ func postReadExtractServiceFields(r *Service) error {
 	if !dcl.IsNotReturnedByServer(vTemplate) {
 		r.Template = vTemplate
 	}
-	// *ServiceGooglecloudrunopv2Condition is a reused type - that's not compatible with function extractors.
-
+	vTerminalCondition := r.TerminalCondition
+	if vTerminalCondition == nil {
+		// note: explicitly not the empty object.
+		vTerminalCondition = &ServiceTerminalCondition{}
+	}
+	if err := postReadExtractServiceTerminalConditionFields(r, vTerminalCondition); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTerminalCondition) {
+		r.TerminalCondition = vTerminalCondition
+	}
 	return nil
 }
 func postReadExtractServiceBinaryAuthorizationFields(r *Service, o *ServiceBinaryAuthorization) error {
@@ -7893,7 +7911,7 @@ func postReadExtractServiceTemplateVolumesCloudSqlInstanceFields(r *Service, o *
 func postReadExtractServiceTrafficFields(r *Service, o *ServiceTraffic) error {
 	return nil
 }
-func postReadExtractServiceGooglecloudrunopv2ConditionFields(r *Service, o *ServiceGooglecloudrunopv2Condition) error {
+func postReadExtractServiceTerminalConditionFields(r *Service, o *ServiceTerminalCondition) error {
 	return nil
 }
 func postReadExtractServiceTrafficStatusesFields(r *Service, o *ServiceTrafficStatuses) error {

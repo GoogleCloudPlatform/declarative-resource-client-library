@@ -13,6 +13,8 @@
 // limitations under the License.
 #include "connector/connector.h"
 
+#include <string>
+
 #include "connector/connector.cgo.h"
 
 void Connector::Initialize(absl::string_view request, std::string *response) {

@@ -108,6 +108,7 @@ components:
           x-dcl-go-name: Network
           description: The network of the resource.
           x-kubernetes-immutable: true
+          x-dcl-forward-slash-allowed: true
           x-dcl-references:
           - resource: Compute/Network
             field: name

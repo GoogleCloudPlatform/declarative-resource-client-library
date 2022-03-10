@@ -71,6 +71,7 @@ components:
           x-dcl-go-name: Envgroup
           description: The envgroup for the resource
           x-kubernetes-immutable: true
+          x-dcl-forward-slash-allowed: true
           x-dcl-references:
           - resource: Apigee/Envgroup
             field: name

@@ -26,18 +26,18 @@ import (
 )
 
 type Group struct {
-	Name                 *string                                         `json:"name"`
-	GroupKey             *GroupGoogleappscloudidentitygroupsvxentitykey  `json:"groupKey"`
-	AdditionalGroupKeys  []GroupGoogleappscloudidentitygroupsvxentitykey `json:"additionalGroupKeys"`
-	Parent               *string                                         `json:"parent"`
-	DisplayName          *string                                         `json:"displayName"`
-	Description          *string                                         `json:"description"`
-	CreateTime           *string                                         `json:"createTime"`
-	UpdateTime           *string                                         `json:"updateTime"`
-	Labels               map[string]string                               `json:"labels"`
-	DynamicGroupMetadata *GroupDynamicGroupMetadata                      `json:"dynamicGroupMetadata"`
-	PosixGroups          []GroupPosixGroups                              `json:"posixGroups"`
-	InitialGroupConfig   *GroupInitialGroupConfigEnum                    `json:"initialGroupConfig"`
+	Name                 *string                      `json:"name"`
+	GroupKey             *GroupGroupKey               `json:"groupKey"`
+	AdditionalGroupKeys  []GroupAdditionalGroupKeys   `json:"additionalGroupKeys"`
+	Parent               *string                      `json:"parent"`
+	DisplayName          *string                      `json:"displayName"`
+	Description          *string                      `json:"description"`
+	CreateTime           *string                      `json:"createTime"`
+	UpdateTime           *string                      `json:"updateTime"`
+	Labels               map[string]string            `json:"labels"`
+	DynamicGroupMetadata *GroupDynamicGroupMetadata   `json:"dynamicGroupMetadata"`
+	PosixGroups          []GroupPosixGroups           `json:"posixGroups"`
+	InitialGroupConfig   *GroupInitialGroupConfigEnum `json:"initialGroupConfig"`
 }
 
 func (r *Group) String() string {
@@ -125,16 +125,16 @@ func (v GroupInitialGroupConfigEnum) Validate() error {
 	}
 }
 
-type GroupGoogleappscloudidentitygroupsvxentitykey struct {
+type GroupGroupKey struct {
 	empty     bool    `json:"-"`
 	Id        *string `json:"id"`
 	Namespace *string `json:"namespace"`
 }
 
-type jsonGroupGoogleappscloudidentitygroupsvxentitykey GroupGoogleappscloudidentitygroupsvxentitykey
+type jsonGroupGroupKey GroupGroupKey
 
-func (r *GroupGoogleappscloudidentitygroupsvxentitykey) UnmarshalJSON(data []byte) error {
-	var res jsonGroupGoogleappscloudidentitygroupsvxentitykey
+func (r *GroupGroupKey) UnmarshalJSON(data []byte) error {
+	var res jsonGroupGroupKey
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -143,7 +143,7 @@ func (r *GroupGoogleappscloudidentitygroupsvxentitykey) UnmarshalJSON(data []byt
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyGroupGoogleappscloudidentitygroupsvxentitykey
+		*r = *EmptyGroupGroupKey
 	} else {
 
 		r.Id = res.Id
@@ -154,20 +154,69 @@ func (r *GroupGoogleappscloudidentitygroupsvxentitykey) UnmarshalJSON(data []byt
 	return nil
 }
 
-// This object is used to assert a desired state where this GroupGoogleappscloudidentitygroupsvxentitykey is
+// This object is used to assert a desired state where this GroupGroupKey is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyGroupGoogleappscloudidentitygroupsvxentitykey *GroupGoogleappscloudidentitygroupsvxentitykey = &GroupGoogleappscloudidentitygroupsvxentitykey{empty: true}
+var EmptyGroupGroupKey *GroupGroupKey = &GroupGroupKey{empty: true}
 
-func (r *GroupGoogleappscloudidentitygroupsvxentitykey) Empty() bool {
+func (r *GroupGroupKey) Empty() bool {
 	return r.empty
 }
 
-func (r *GroupGoogleappscloudidentitygroupsvxentitykey) String() string {
+func (r *GroupGroupKey) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *GroupGoogleappscloudidentitygroupsvxentitykey) HashCode() string {
+func (r *GroupGroupKey) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type GroupAdditionalGroupKeys struct {
+	empty     bool    `json:"-"`
+	Id        *string `json:"id"`
+	Namespace *string `json:"namespace"`
+}
+
+type jsonGroupAdditionalGroupKeys GroupAdditionalGroupKeys
+
+func (r *GroupAdditionalGroupKeys) UnmarshalJSON(data []byte) error {
+	var res jsonGroupAdditionalGroupKeys
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyGroupAdditionalGroupKeys
+	} else {
+
+		r.Id = res.Id
+
+		r.Namespace = res.Namespace
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this GroupAdditionalGroupKeys is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyGroupAdditionalGroupKeys *GroupAdditionalGroupKeys = &GroupAdditionalGroupKeys{empty: true}
+
+func (r *GroupAdditionalGroupKeys) Empty() bool {
+	return r.empty
+}
+
+func (r *GroupAdditionalGroupKeys) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *GroupAdditionalGroupKeys) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

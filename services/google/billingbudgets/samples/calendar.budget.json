@@ -1,5 +1,5 @@
 {
-  "billingAccount": "0186CC-FE4258-F9F63E",
+  "billingAccount": "{{billing_account_for_budgets}}",
   "displayName": "sample-budget",
   "budgetFilter": {
     "projects": ["projects/{{ref:first.cloudresourcemanager.project.json:name}}"],

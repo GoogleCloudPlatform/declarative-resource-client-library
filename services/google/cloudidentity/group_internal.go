@@ -54,13 +54,25 @@ func (r *Group) validate() error {
 	}
 	return nil
 }
-func (r *GroupGoogleappscloudidentitygroupsvxentitykey) validate() error {
+func (r *GroupGroupKey) validate() error {
+	if err := dcl.Required(r, "id"); err != nil {
+		return err
+	}
+	return nil
+}
+func (r *GroupAdditionalGroupKeys) validate() error {
 	if err := dcl.Required(r, "id"); err != nil {
 		return err
 	}
 	return nil
 }
 func (r *GroupDirectMemberCountPerType) validate() error {
+	return nil
+}
+func (r *GroupDerivedAliases) validate() error {
+	if err := dcl.Required(r, "id"); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *GroupDynamicGroupMetadata) validate() error {
@@ -489,7 +501,7 @@ func canonicalizeGroupDesiredState(rawDesired, rawInitial *Group, opts ...dcl.Ap
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
-		rawDesired.GroupKey = canonicalizeGroupGoogleappscloudidentitygroupsvxentitykey(rawDesired.GroupKey, nil, opts...)
+		rawDesired.GroupKey = canonicalizeGroupGroupKey(rawDesired.GroupKey, nil, opts...)
 		rawDesired.DirectMemberCountPerType = canonicalizeGroupDirectMemberCountPerType(rawDesired.DirectMemberCountPerType, nil, opts...)
 		rawDesired.DynamicGroupMetadata = canonicalizeGroupDynamicGroupMetadata(rawDesired.DynamicGroupMetadata, nil, opts...)
 
@@ -502,13 +514,8 @@ func canonicalizeGroupDesiredState(rawDesired, rawInitial *Group, opts ...dcl.Ap
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	canonicalDesired.GroupKey = canonicalizeGroupGoogleappscloudidentitygroupsvxentitykey(rawDesired.GroupKey, rawInitial.GroupKey, opts...)
-	if dcl.IsZeroValue(rawDesired.AdditionalGroupKeys) || (dcl.IsEmptyValueIndirect(rawDesired.AdditionalGroupKeys) && dcl.IsEmptyValueIndirect(rawInitial.AdditionalGroupKeys)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		canonicalDesired.AdditionalGroupKeys = rawInitial.AdditionalGroupKeys
-	} else {
-		canonicalDesired.AdditionalGroupKeys = rawDesired.AdditionalGroupKeys
-	}
+	canonicalDesired.GroupKey = canonicalizeGroupGroupKey(rawDesired.GroupKey, rawInitial.GroupKey, opts...)
+	canonicalDesired.AdditionalGroupKeys = canonicalizeGroupAdditionalGroupKeysSlice(rawDesired.AdditionalGroupKeys, rawInitial.AdditionalGroupKeys, opts...)
 	if dcl.StringCanonicalize(rawDesired.Parent, rawInitial.Parent) {
 		canonicalDesired.Parent = rawInitial.Parent
 	} else {
@@ -551,7 +558,7 @@ func canonicalizeGroupNewState(c *Client, rawNew, rawDesired *Group) (*Group, er
 	if dcl.IsNotReturnedByServer(rawNew.GroupKey) && dcl.IsNotReturnedByServer(rawDesired.GroupKey) {
 		rawNew.GroupKey = rawDesired.GroupKey
 	} else {
-		rawNew.GroupKey = canonicalizeNewGroupGoogleappscloudidentitygroupsvxentitykey(c, rawDesired.GroupKey, rawNew.GroupKey)
+		rawNew.GroupKey = canonicalizeNewGroupGroupKey(c, rawDesired.GroupKey, rawNew.GroupKey)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AdditionalGroupKeys) && dcl.IsNotReturnedByServer(rawDesired.AdditionalGroupKeys) {
@@ -613,6 +620,7 @@ func canonicalizeGroupNewState(c *Client, rawNew, rawDesired *Group) (*Group, er
 	if dcl.IsNotReturnedByServer(rawNew.DerivedAliases) && dcl.IsNotReturnedByServer(rawDesired.DerivedAliases) {
 		rawNew.DerivedAliases = rawDesired.DerivedAliases
 	} else {
+		rawNew.DerivedAliases = canonicalizeNewGroupDerivedAliasesSlice(c, rawDesired.DerivedAliases, rawNew.DerivedAliases)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DynamicGroupMetadata) && dcl.IsNotReturnedByServer(rawDesired.DynamicGroupMetadata) {
@@ -626,7 +634,7 @@ func canonicalizeGroupNewState(c *Client, rawNew, rawDesired *Group) (*Group, er
 	return rawNew, nil
 }
 
-func canonicalizeGroupGoogleappscloudidentitygroupsvxentitykey(des, initial *GroupGoogleappscloudidentitygroupsvxentitykey, opts ...dcl.ApplyOption) *GroupGoogleappscloudidentitygroupsvxentitykey {
+func canonicalizeGroupGroupKey(des, initial *GroupGroupKey, opts ...dcl.ApplyOption) *GroupGroupKey {
 	if des == nil {
 		return initial
 	}
@@ -638,7 +646,7 @@ func canonicalizeGroupGoogleappscloudidentitygroupsvxentitykey(des, initial *Gro
 		return des
 	}
 
-	cDes := &GroupGoogleappscloudidentitygroupsvxentitykey{}
+	cDes := &GroupGroupKey{}
 
 	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
 		cDes.Id = initial.Id
@@ -654,16 +662,16 @@ func canonicalizeGroupGoogleappscloudidentitygroupsvxentitykey(des, initial *Gro
 	return cDes
 }
 
-func canonicalizeGroupGoogleappscloudidentitygroupsvxentitykeySlice(des, initial []GroupGoogleappscloudidentitygroupsvxentitykey, opts ...dcl.ApplyOption) []GroupGoogleappscloudidentitygroupsvxentitykey {
+func canonicalizeGroupGroupKeySlice(des, initial []GroupGroupKey, opts ...dcl.ApplyOption) []GroupGroupKey {
 	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
 	if len(des) != len(initial) {
 
-		items := make([]GroupGoogleappscloudidentitygroupsvxentitykey, 0, len(des))
+		items := make([]GroupGroupKey, 0, len(des))
 		for _, d := range des {
-			cd := canonicalizeGroupGoogleappscloudidentitygroupsvxentitykey(&d, nil, opts...)
+			cd := canonicalizeGroupGroupKey(&d, nil, opts...)
 			if cd != nil {
 				items = append(items, *cd)
 			}
@@ -671,9 +679,9 @@ func canonicalizeGroupGoogleappscloudidentitygroupsvxentitykeySlice(des, initial
 		return items
 	}
 
-	items := make([]GroupGoogleappscloudidentitygroupsvxentitykey, 0, len(des))
+	items := make([]GroupGroupKey, 0, len(des))
 	for i, d := range des {
-		cd := canonicalizeGroupGoogleappscloudidentitygroupsvxentitykey(&d, &initial[i], opts...)
+		cd := canonicalizeGroupGroupKey(&d, &initial[i], opts...)
 		if cd != nil {
 			items = append(items, *cd)
 		}
@@ -682,7 +690,7 @@ func canonicalizeGroupGoogleappscloudidentitygroupsvxentitykeySlice(des, initial
 
 }
 
-func canonicalizeNewGroupGoogleappscloudidentitygroupsvxentitykey(c *Client, des, nw *GroupGoogleappscloudidentitygroupsvxentitykey) *GroupGoogleappscloudidentitygroupsvxentitykey {
+func canonicalizeNewGroupGroupKey(c *Client, des, nw *GroupGroupKey) *GroupGroupKey {
 
 	if des == nil {
 		return nw
@@ -690,7 +698,7 @@ func canonicalizeNewGroupGoogleappscloudidentitygroupsvxentitykey(c *Client, des
 
 	if nw == nil {
 		if dcl.IsNotReturnedByServer(des) {
-			c.Config.Logger.Info("Found explicitly empty value for GroupGoogleappscloudidentitygroupsvxentitykey while comparing non-nil desired to nil actual.  Returning desired object.")
+			c.Config.Logger.Info("Found explicitly empty value for GroupGroupKey while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
 		return nil
@@ -706,15 +714,15 @@ func canonicalizeNewGroupGoogleappscloudidentitygroupsvxentitykey(c *Client, des
 	return nw
 }
 
-func canonicalizeNewGroupGoogleappscloudidentitygroupsvxentitykeySet(c *Client, des, nw []GroupGoogleappscloudidentitygroupsvxentitykey) []GroupGoogleappscloudidentitygroupsvxentitykey {
+func canonicalizeNewGroupGroupKeySet(c *Client, des, nw []GroupGroupKey) []GroupGroupKey {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []GroupGoogleappscloudidentitygroupsvxentitykey
+	var reorderedNew []GroupGroupKey
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareGroupGoogleappscloudidentitygroupsvxentitykeyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareGroupGroupKeyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -729,7 +737,7 @@ func canonicalizeNewGroupGoogleappscloudidentitygroupsvxentitykeySet(c *Client, 
 	return reorderedNew
 }
 
-func canonicalizeNewGroupGoogleappscloudidentitygroupsvxentitykeySlice(c *Client, des, nw []GroupGoogleappscloudidentitygroupsvxentitykey) []GroupGoogleappscloudidentitygroupsvxentitykey {
+func canonicalizeNewGroupGroupKeySlice(c *Client, des, nw []GroupGroupKey) []GroupGroupKey {
 	if des == nil {
 		return nw
 	}
@@ -740,10 +748,133 @@ func canonicalizeNewGroupGoogleappscloudidentitygroupsvxentitykeySlice(c *Client
 		return nw
 	}
 
-	var items []GroupGoogleappscloudidentitygroupsvxentitykey
+	var items []GroupGroupKey
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewGroupGoogleappscloudidentitygroupsvxentitykey(c, &d, &n))
+		items = append(items, *canonicalizeNewGroupGroupKey(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeGroupAdditionalGroupKeys(des, initial *GroupAdditionalGroupKeys, opts ...dcl.ApplyOption) *GroupAdditionalGroupKeys {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &GroupAdditionalGroupKeys{}
+
+	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
+	}
+	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) || dcl.IsZeroValue(des.Namespace) {
+		cDes.Namespace = initial.Namespace
+	} else {
+		cDes.Namespace = des.Namespace
+	}
+
+	return cDes
+}
+
+func canonicalizeGroupAdditionalGroupKeysSlice(des, initial []GroupAdditionalGroupKeys, opts ...dcl.ApplyOption) []GroupAdditionalGroupKeys {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GroupAdditionalGroupKeys, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGroupAdditionalGroupKeys(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GroupAdditionalGroupKeys, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGroupAdditionalGroupKeys(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewGroupAdditionalGroupKeys(c *Client, des, nw *GroupAdditionalGroupKeys) *GroupAdditionalGroupKeys {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GroupAdditionalGroupKeys while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Id, nw.Id) {
+		nw.Id = des.Id
+	}
+	if dcl.StringCanonicalize(des.Namespace, nw.Namespace) {
+		nw.Namespace = des.Namespace
+	}
+
+	return nw
+}
+
+func canonicalizeNewGroupAdditionalGroupKeysSet(c *Client, des, nw []GroupAdditionalGroupKeys) []GroupAdditionalGroupKeys {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []GroupAdditionalGroupKeys
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareGroupAdditionalGroupKeysNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewGroupAdditionalGroupKeysSlice(c *Client, des, nw []GroupAdditionalGroupKeys) []GroupAdditionalGroupKeys {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []GroupAdditionalGroupKeys
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGroupAdditionalGroupKeys(c, &d, &n))
 	}
 
 	return items
@@ -849,6 +980,129 @@ func canonicalizeNewGroupDirectMemberCountPerTypeSlice(c *Client, des, nw []Grou
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewGroupDirectMemberCountPerType(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeGroupDerivedAliases(des, initial *GroupDerivedAliases, opts ...dcl.ApplyOption) *GroupDerivedAliases {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &GroupDerivedAliases{}
+
+	if dcl.StringCanonicalize(des.Id, initial.Id) || dcl.IsZeroValue(des.Id) {
+		cDes.Id = initial.Id
+	} else {
+		cDes.Id = des.Id
+	}
+	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) || dcl.IsZeroValue(des.Namespace) {
+		cDes.Namespace = initial.Namespace
+	} else {
+		cDes.Namespace = des.Namespace
+	}
+
+	return cDes
+}
+
+func canonicalizeGroupDerivedAliasesSlice(des, initial []GroupDerivedAliases, opts ...dcl.ApplyOption) []GroupDerivedAliases {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]GroupDerivedAliases, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeGroupDerivedAliases(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]GroupDerivedAliases, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeGroupDerivedAliases(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewGroupDerivedAliases(c *Client, des, nw *GroupDerivedAliases) *GroupDerivedAliases {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for GroupDerivedAliases while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Id, nw.Id) {
+		nw.Id = des.Id
+	}
+	if dcl.StringCanonicalize(des.Namespace, nw.Namespace) {
+		nw.Namespace = des.Namespace
+	}
+
+	return nw
+}
+
+func canonicalizeNewGroupDerivedAliasesSet(c *Client, des, nw []GroupDerivedAliases) []GroupDerivedAliases {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []GroupDerivedAliases
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareGroupDerivedAliasesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewGroupDerivedAliasesSlice(c *Client, des, nw []GroupDerivedAliases) []GroupDerivedAliases {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []GroupDerivedAliases
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewGroupDerivedAliases(c, &d, &n))
 	}
 
 	return items
@@ -1228,14 +1482,14 @@ func diffGroup(c *Client, desired, actual *Group, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupKey, actual.GroupKey, dcl.Info{ObjectFunction: compareGroupGoogleappscloudidentitygroupsvxentitykeyNewStyle, EmptyObject: EmptyGroupGoogleappscloudidentitygroupsvxentitykey, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GroupKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupKey, actual.GroupKey, dcl.Info{ObjectFunction: compareGroupGroupKeyNewStyle, EmptyObject: EmptyGroupGroupKey, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GroupKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AdditionalGroupKeys, actual.AdditionalGroupKeys, dcl.Info{ObjectFunction: compareGroupGoogleappscloudidentitygroupsvxentitykeyNewStyle, EmptyObject: EmptyGroupGoogleappscloudidentitygroupsvxentitykey, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AdditionalGroupKeys")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AdditionalGroupKeys, actual.AdditionalGroupKeys, dcl.Info{ObjectFunction: compareGroupAdditionalGroupKeysNewStyle, EmptyObject: EmptyGroupAdditionalGroupKeys, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AdditionalGroupKeys")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1298,7 +1552,7 @@ func diffGroup(c *Client, desired, actual *Group, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DerivedAliases, actual.DerivedAliases, dcl.Info{OutputOnly: true, ObjectFunction: compareGroupGoogleappscloudidentitygroupsvxentitykeyNewStyle, EmptyObject: EmptyGroupGoogleappscloudidentitygroupsvxentitykey, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DerivedAliases")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DerivedAliases, actual.DerivedAliases, dcl.Info{OutputOnly: true, ObjectFunction: compareGroupDerivedAliasesNewStyle, EmptyObject: EmptyGroupDerivedAliases, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DerivedAliases")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1321,22 +1575,58 @@ func diffGroup(c *Client, desired, actual *Group, opts ...dcl.ApplyOption) ([]*d
 
 	return newDiffs, nil
 }
-func compareGroupGoogleappscloudidentitygroupsvxentitykeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareGroupGroupKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*GroupGoogleappscloudidentitygroupsvxentitykey)
+	desired, ok := d.(*GroupGroupKey)
 	if !ok {
-		desiredNotPointer, ok := d.(GroupGoogleappscloudidentitygroupsvxentitykey)
+		desiredNotPointer, ok := d.(GroupGroupKey)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a GroupGoogleappscloudidentitygroupsvxentitykey or *GroupGoogleappscloudidentitygroupsvxentitykey", d)
+			return nil, fmt.Errorf("obj %v is not a GroupGroupKey or *GroupGroupKey", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*GroupGoogleappscloudidentitygroupsvxentitykey)
+	actual, ok := a.(*GroupGroupKey)
 	if !ok {
-		actualNotPointer, ok := a.(GroupGoogleappscloudidentitygroupsvxentitykey)
+		actualNotPointer, ok := a.(GroupGroupKey)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a GroupGoogleappscloudidentitygroupsvxentitykey", a)
+			return nil, fmt.Errorf("obj %v is not a GroupGroupKey", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Namespace, actual.Namespace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Namespace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareGroupAdditionalGroupKeysNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GroupAdditionalGroupKeys)
+	if !ok {
+		desiredNotPointer, ok := d.(GroupAdditionalGroupKeys)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GroupAdditionalGroupKeys or *GroupAdditionalGroupKeys", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GroupAdditionalGroupKeys)
+	if !ok {
+		actualNotPointer, ok := a.(GroupAdditionalGroupKeys)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GroupAdditionalGroupKeys", a)
 		}
 		actual = &actualNotPointer
 	}
@@ -1385,6 +1675,42 @@ func compareGroupDirectMemberCountPerTypeNewStyle(d, a interface{}, fn dcl.Field
 	}
 
 	if ds, err := dcl.Diff(desired.GroupCount, actual.GroupCount, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GroupCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareGroupDerivedAliasesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*GroupDerivedAliases)
+	if !ok {
+		desiredNotPointer, ok := d.(GroupDerivedAliases)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GroupDerivedAliases or *GroupDerivedAliases", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*GroupDerivedAliases)
+	if !ok {
+		actualNotPointer, ok := a.(GroupDerivedAliases)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a GroupDerivedAliases", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Namespace, actual.Namespace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Namespace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1567,12 +1893,14 @@ func expandGroup(c *Client, f *Group) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v, err := expandGroupGoogleappscloudidentitygroupsvxentitykey(c, f.GroupKey, res); err != nil {
+	if v, err := expandGroupGroupKey(c, f.GroupKey, res); err != nil {
 		return nil, fmt.Errorf("error expanding GroupKey into groupKey: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["groupKey"] = v
 	}
-	if v := f.AdditionalGroupKeys; v != nil {
+	if v, err := expandGroupAdditionalGroupKeysSlice(c, f.AdditionalGroupKeys, res); err != nil {
+		return nil, fmt.Errorf("error expanding AdditionalGroupKeys into additionalGroupKeys: %w", err)
+	} else if v != nil {
 		m["additionalGroupKeys"] = v
 	}
 	if v := f.Parent; dcl.ValueShouldBeSent(v) {
@@ -1614,8 +1942,8 @@ func flattenGroup(c *Client, i interface{}, res *Group) *Group {
 
 	resultRes := &Group{}
 	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
-	resultRes.GroupKey = flattenGroupGoogleappscloudidentitygroupsvxentitykey(c, m["groupKey"], res)
-	resultRes.AdditionalGroupKeys = flattenGroupGoogleappscloudidentitygroupsvxentitykeySlice(c, m["additionalGroupKeys"], res)
+	resultRes.GroupKey = flattenGroupGroupKey(c, m["groupKey"], res)
+	resultRes.AdditionalGroupKeys = flattenGroupAdditionalGroupKeysSlice(c, m["additionalGroupKeys"], res)
 	resultRes.Parent = dcl.FlattenString(m["parent"])
 	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
 	resultRes.Description = dcl.FlattenString(m["description"])
@@ -1624,23 +1952,23 @@ func flattenGroup(c *Client, i interface{}, res *Group) *Group {
 	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	resultRes.DirectMemberCount = dcl.FlattenInteger(m["directMemberCount"])
 	resultRes.DirectMemberCountPerType = flattenGroupDirectMemberCountPerType(c, m["directMemberCountPerType"], res)
-	resultRes.DerivedAliases = flattenGroupGoogleappscloudidentitygroupsvxentitykeySlice(c, m["derivedAliases"], res)
+	resultRes.DerivedAliases = flattenGroupDerivedAliasesSlice(c, m["derivedAliases"], res)
 	resultRes.DynamicGroupMetadata = flattenGroupDynamicGroupMetadata(c, m["dynamicGroupMetadata"], res)
 	resultRes.InitialGroupConfig = flattenGroupInitialGroupConfigEnum(m["initialGroupConfig"])
 
 	return resultRes
 }
 
-// expandGroupGoogleappscloudidentitygroupsvxentitykeyMap expands the contents of GroupGoogleappscloudidentitygroupsvxentitykey into a JSON
+// expandGroupGroupKeyMap expands the contents of GroupGroupKey into a JSON
 // request object.
-func expandGroupGoogleappscloudidentitygroupsvxentitykeyMap(c *Client, f map[string]GroupGoogleappscloudidentitygroupsvxentitykey, res *Group) (map[string]interface{}, error) {
+func expandGroupGroupKeyMap(c *Client, f map[string]GroupGroupKey, res *Group) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandGroupGoogleappscloudidentitygroupsvxentitykey(c, &item, res)
+		i, err := expandGroupGroupKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1652,16 +1980,16 @@ func expandGroupGoogleappscloudidentitygroupsvxentitykeyMap(c *Client, f map[str
 	return items, nil
 }
 
-// expandGroupGoogleappscloudidentitygroupsvxentitykeySlice expands the contents of GroupGoogleappscloudidentitygroupsvxentitykey into a JSON
+// expandGroupGroupKeySlice expands the contents of GroupGroupKey into a JSON
 // request object.
-func expandGroupGoogleappscloudidentitygroupsvxentitykeySlice(c *Client, f []GroupGoogleappscloudidentitygroupsvxentitykey, res *Group) ([]map[string]interface{}, error) {
+func expandGroupGroupKeySlice(c *Client, f []GroupGroupKey, res *Group) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandGroupGoogleappscloudidentitygroupsvxentitykey(c, &item, res)
+		i, err := expandGroupGroupKey(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -1672,49 +2000,49 @@ func expandGroupGoogleappscloudidentitygroupsvxentitykeySlice(c *Client, f []Gro
 	return items, nil
 }
 
-// flattenGroupGoogleappscloudidentitygroupsvxentitykeyMap flattens the contents of GroupGoogleappscloudidentitygroupsvxentitykey from a JSON
+// flattenGroupGroupKeyMap flattens the contents of GroupGroupKey from a JSON
 // response object.
-func flattenGroupGoogleappscloudidentitygroupsvxentitykeyMap(c *Client, i interface{}, res *Group) map[string]GroupGoogleappscloudidentitygroupsvxentitykey {
+func flattenGroupGroupKeyMap(c *Client, i interface{}, res *Group) map[string]GroupGroupKey {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]GroupGoogleappscloudidentitygroupsvxentitykey{}
+		return map[string]GroupGroupKey{}
 	}
 
 	if len(a) == 0 {
-		return map[string]GroupGoogleappscloudidentitygroupsvxentitykey{}
+		return map[string]GroupGroupKey{}
 	}
 
-	items := make(map[string]GroupGoogleappscloudidentitygroupsvxentitykey)
+	items := make(map[string]GroupGroupKey)
 	for k, item := range a {
-		items[k] = *flattenGroupGoogleappscloudidentitygroupsvxentitykey(c, item.(map[string]interface{}), res)
+		items[k] = *flattenGroupGroupKey(c, item.(map[string]interface{}), res)
 	}
 
 	return items
 }
 
-// flattenGroupGoogleappscloudidentitygroupsvxentitykeySlice flattens the contents of GroupGoogleappscloudidentitygroupsvxentitykey from a JSON
+// flattenGroupGroupKeySlice flattens the contents of GroupGroupKey from a JSON
 // response object.
-func flattenGroupGoogleappscloudidentitygroupsvxentitykeySlice(c *Client, i interface{}, res *Group) []GroupGoogleappscloudidentitygroupsvxentitykey {
+func flattenGroupGroupKeySlice(c *Client, i interface{}, res *Group) []GroupGroupKey {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []GroupGoogleappscloudidentitygroupsvxentitykey{}
+		return []GroupGroupKey{}
 	}
 
 	if len(a) == 0 {
-		return []GroupGoogleappscloudidentitygroupsvxentitykey{}
+		return []GroupGroupKey{}
 	}
 
-	items := make([]GroupGoogleappscloudidentitygroupsvxentitykey, 0, len(a))
+	items := make([]GroupGroupKey, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenGroupGoogleappscloudidentitygroupsvxentitykey(c, item.(map[string]interface{}), res))
+		items = append(items, *flattenGroupGroupKey(c, item.(map[string]interface{}), res))
 	}
 
 	return items
 }
 
-// expandGroupGoogleappscloudidentitygroupsvxentitykey expands an instance of GroupGoogleappscloudidentitygroupsvxentitykey into a JSON
+// expandGroupGroupKey expands an instance of GroupGroupKey into a JSON
 // request object.
-func expandGroupGoogleappscloudidentitygroupsvxentitykey(c *Client, f *GroupGoogleappscloudidentitygroupsvxentitykey, res *Group) (map[string]interface{}, error) {
+func expandGroupGroupKey(c *Client, f *GroupGroupKey, res *Group) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -1730,18 +2058,136 @@ func expandGroupGoogleappscloudidentitygroupsvxentitykey(c *Client, f *GroupGoog
 	return m, nil
 }
 
-// flattenGroupGoogleappscloudidentitygroupsvxentitykey flattens an instance of GroupGoogleappscloudidentitygroupsvxentitykey from a JSON
+// flattenGroupGroupKey flattens an instance of GroupGroupKey from a JSON
 // response object.
-func flattenGroupGoogleappscloudidentitygroupsvxentitykey(c *Client, i interface{}, res *Group) *GroupGoogleappscloudidentitygroupsvxentitykey {
+func flattenGroupGroupKey(c *Client, i interface{}, res *Group) *GroupGroupKey {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &GroupGoogleappscloudidentitygroupsvxentitykey{}
+	r := &GroupGroupKey{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyGroupGoogleappscloudidentitygroupsvxentitykey
+		return EmptyGroupGroupKey
+	}
+	r.Id = dcl.FlattenString(m["id"])
+	r.Namespace = dcl.FlattenString(m["namespace"])
+
+	return r
+}
+
+// expandGroupAdditionalGroupKeysMap expands the contents of GroupAdditionalGroupKeys into a JSON
+// request object.
+func expandGroupAdditionalGroupKeysMap(c *Client, f map[string]GroupAdditionalGroupKeys, res *Group) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandGroupAdditionalGroupKeys(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandGroupAdditionalGroupKeysSlice expands the contents of GroupAdditionalGroupKeys into a JSON
+// request object.
+func expandGroupAdditionalGroupKeysSlice(c *Client, f []GroupAdditionalGroupKeys, res *Group) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandGroupAdditionalGroupKeys(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenGroupAdditionalGroupKeysMap flattens the contents of GroupAdditionalGroupKeys from a JSON
+// response object.
+func flattenGroupAdditionalGroupKeysMap(c *Client, i interface{}, res *Group) map[string]GroupAdditionalGroupKeys {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]GroupAdditionalGroupKeys{}
+	}
+
+	if len(a) == 0 {
+		return map[string]GroupAdditionalGroupKeys{}
+	}
+
+	items := make(map[string]GroupAdditionalGroupKeys)
+	for k, item := range a {
+		items[k] = *flattenGroupAdditionalGroupKeys(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenGroupAdditionalGroupKeysSlice flattens the contents of GroupAdditionalGroupKeys from a JSON
+// response object.
+func flattenGroupAdditionalGroupKeysSlice(c *Client, i interface{}, res *Group) []GroupAdditionalGroupKeys {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []GroupAdditionalGroupKeys{}
+	}
+
+	if len(a) == 0 {
+		return []GroupAdditionalGroupKeys{}
+	}
+
+	items := make([]GroupAdditionalGroupKeys, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenGroupAdditionalGroupKeys(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandGroupAdditionalGroupKeys expands an instance of GroupAdditionalGroupKeys into a JSON
+// request object.
+func expandGroupAdditionalGroupKeys(c *Client, f *GroupAdditionalGroupKeys, res *Group) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
+		m["id"] = v
+	}
+	if v := f.Namespace; !dcl.IsEmptyValueIndirect(v) {
+		m["namespace"] = v
+	}
+
+	return m, nil
+}
+
+// flattenGroupAdditionalGroupKeys flattens an instance of GroupAdditionalGroupKeys from a JSON
+// response object.
+func flattenGroupAdditionalGroupKeys(c *Client, i interface{}, res *Group) *GroupAdditionalGroupKeys {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &GroupAdditionalGroupKeys{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGroupAdditionalGroupKeys
 	}
 	r.Id = dcl.FlattenString(m["id"])
 	r.Namespace = dcl.FlattenString(m["namespace"])
@@ -1857,6 +2303,124 @@ func flattenGroupDirectMemberCountPerType(c *Client, i interface{}, res *Group) 
 	}
 	r.UserCount = dcl.FlattenInteger(m["userCount"])
 	r.GroupCount = dcl.FlattenInteger(m["groupCount"])
+
+	return r
+}
+
+// expandGroupDerivedAliasesMap expands the contents of GroupDerivedAliases into a JSON
+// request object.
+func expandGroupDerivedAliasesMap(c *Client, f map[string]GroupDerivedAliases, res *Group) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandGroupDerivedAliases(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandGroupDerivedAliasesSlice expands the contents of GroupDerivedAliases into a JSON
+// request object.
+func expandGroupDerivedAliasesSlice(c *Client, f []GroupDerivedAliases, res *Group) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandGroupDerivedAliases(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenGroupDerivedAliasesMap flattens the contents of GroupDerivedAliases from a JSON
+// response object.
+func flattenGroupDerivedAliasesMap(c *Client, i interface{}, res *Group) map[string]GroupDerivedAliases {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]GroupDerivedAliases{}
+	}
+
+	if len(a) == 0 {
+		return map[string]GroupDerivedAliases{}
+	}
+
+	items := make(map[string]GroupDerivedAliases)
+	for k, item := range a {
+		items[k] = *flattenGroupDerivedAliases(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenGroupDerivedAliasesSlice flattens the contents of GroupDerivedAliases from a JSON
+// response object.
+func flattenGroupDerivedAliasesSlice(c *Client, i interface{}, res *Group) []GroupDerivedAliases {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []GroupDerivedAliases{}
+	}
+
+	if len(a) == 0 {
+		return []GroupDerivedAliases{}
+	}
+
+	items := make([]GroupDerivedAliases, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenGroupDerivedAliases(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandGroupDerivedAliases expands an instance of GroupDerivedAliases into a JSON
+// request object.
+func expandGroupDerivedAliases(c *Client, f *GroupDerivedAliases, res *Group) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Id; !dcl.IsEmptyValueIndirect(v) {
+		m["id"] = v
+	}
+	if v := f.Namespace; !dcl.IsEmptyValueIndirect(v) {
+		m["namespace"] = v
+	}
+
+	return m, nil
+}
+
+// flattenGroupDerivedAliases flattens an instance of GroupDerivedAliases from a JSON
+// response object.
+func flattenGroupDerivedAliases(c *Client, i interface{}, res *Group) *GroupDerivedAliases {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &GroupDerivedAliases{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyGroupDerivedAliases
+	}
+	r.Id = dcl.FlattenString(m["id"])
+	r.Namespace = dcl.FlattenString(m["namespace"])
 
 	return r
 }
@@ -2443,8 +3007,17 @@ func convertOpNameToGroupApiOperation(opName string, fieldDiffs []*dcl.FieldDiff
 }
 
 func extractGroupFields(r *Group) error {
-	// *GroupGoogleappscloudidentitygroupsvxentitykey is a reused type - that's not compatible with function extractors.
-
+	vGroupKey := r.GroupKey
+	if vGroupKey == nil {
+		// note: explicitly not the empty object.
+		vGroupKey = &GroupGroupKey{}
+	}
+	if err := extractGroupGroupKeyFields(r, vGroupKey); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGroupKey) {
+		r.GroupKey = vGroupKey
+	}
 	vDirectMemberCountPerType := r.DirectMemberCountPerType
 	if vDirectMemberCountPerType == nil {
 		// note: explicitly not the empty object.
@@ -2469,10 +3042,16 @@ func extractGroupFields(r *Group) error {
 	}
 	return nil
 }
-func extractGroupGoogleappscloudidentitygroupsvxentitykeyFields(r *Group, o *GroupGoogleappscloudidentitygroupsvxentitykey) error {
+func extractGroupGroupKeyFields(r *Group, o *GroupGroupKey) error {
+	return nil
+}
+func extractGroupAdditionalGroupKeysFields(r *Group, o *GroupAdditionalGroupKeys) error {
 	return nil
 }
 func extractGroupDirectMemberCountPerTypeFields(r *Group, o *GroupDirectMemberCountPerType) error {
+	return nil
+}
+func extractGroupDerivedAliasesFields(r *Group, o *GroupDerivedAliases) error {
 	return nil
 }
 func extractGroupDynamicGroupMetadataFields(r *Group, o *GroupDynamicGroupMetadata) error {
@@ -2497,8 +3076,17 @@ func extractGroupDynamicGroupMetadataStatusFields(r *Group, o *GroupDynamicGroup
 }
 
 func postReadExtractGroupFields(r *Group) error {
-	// *GroupGoogleappscloudidentitygroupsvxentitykey is a reused type - that's not compatible with function extractors.
-
+	vGroupKey := r.GroupKey
+	if vGroupKey == nil {
+		// note: explicitly not the empty object.
+		vGroupKey = &GroupGroupKey{}
+	}
+	if err := postReadExtractGroupGroupKeyFields(r, vGroupKey); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGroupKey) {
+		r.GroupKey = vGroupKey
+	}
 	vDirectMemberCountPerType := r.DirectMemberCountPerType
 	if vDirectMemberCountPerType == nil {
 		// note: explicitly not the empty object.
@@ -2523,10 +3111,16 @@ func postReadExtractGroupFields(r *Group) error {
 	}
 	return nil
 }
-func postReadExtractGroupGoogleappscloudidentitygroupsvxentitykeyFields(r *Group, o *GroupGoogleappscloudidentitygroupsvxentitykey) error {
+func postReadExtractGroupGroupKeyFields(r *Group, o *GroupGroupKey) error {
+	return nil
+}
+func postReadExtractGroupAdditionalGroupKeysFields(r *Group, o *GroupAdditionalGroupKeys) error {
 	return nil
 }
 func postReadExtractGroupDirectMemberCountPerTypeFields(r *Group, o *GroupDirectMemberCountPerType) error {
+	return nil
+}
+func postReadExtractGroupDerivedAliasesFields(r *Group, o *GroupDerivedAliases) error {
 	return nil
 }
 func postReadExtractGroupDynamicGroupMetadataFields(r *Group, o *GroupDynamicGroupMetadata) error {

@@ -91,12 +91,10 @@
   ],
   "subtype": "IDENTITY_PLATFORM",
   "client": {
-    "apiKey": "AIzaSyBekbEJXGiUoTESQ364YQA8UFIj4kMunMI",
     "permissions": {
       "disabledUserSignup": true,
       "disabledUserDeletion": true
-    },
-    "firebaseSubdomain": "{{project}}"
+    }
   },
   "mfa": {
     "state": "ENABLED"

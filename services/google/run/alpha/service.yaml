@@ -59,169 +59,6 @@ paths:
         type: string
 components:
   schemas:
-    Googlecloudrunopv2Condition:
-      x-dcl-has-iam: false
-      type: object
-      x-dcl-go-name: TerminalCondition
-      x-dcl-go-type: ServiceGooglecloudrunopv2Condition
-      readOnly: true
-      description: Output only. The Condition of this Service, containing its readiness
-        status, and detailed error information in case it did not reach a serving
-        state. See comments in `reconciling` for additional information on reconciliation
-        process in Cloud Run.
-      properties:
-        domainMappingReason:
-          type: string
-          x-dcl-go-name: DomainMappingReason
-          x-dcl-go-type: ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum
-          description: 'A reason for the domain mapping condition. Possible values:
-            DOMAIN_MAPPING_REASON_UNDEFINED, ROUTE_NOT_READY, PERMISSION_DENIED, CERTIFICATE_ALREADY_EXISTS,
-            MAPPING_ALREADY_EXISTS, CERTIFICATE_PENDING, CERTIFICATE_FAILED'
-          x-dcl-conflicts:
-          - reason
-          - internalReason
-          - revisionReason
-          - jobReason
-          enum:
-          - DOMAIN_MAPPING_REASON_UNDEFINED
-          - ROUTE_NOT_READY
-          - PERMISSION_DENIED
-          - CERTIFICATE_ALREADY_EXISTS
-          - MAPPING_ALREADY_EXISTS
-          - CERTIFICATE_PENDING
-          - CERTIFICATE_FAILED
-        internalReason:
-          type: string
-          x-dcl-go-name: InternalReason
-          x-dcl-go-type: ServiceGooglecloudrunopv2ConditionInternalReasonEnum
-          description: 'A reason for the internal condition. Possible values: INTERNAL_REASON_UNDEFINED,
-            CONFLICTING_REVISION_NAME, REVISION_MISSING, CONFIGURATION_MISSING, ASSIGNING_TRAFFIC,
-            UPDATING_INGRESS_TRAFFIC_ALLOWED, REVISION_ORG_POLICY_VIOLATION, ENABLING_GCFV2_URI_SUPPORT'
-          x-dcl-conflicts:
-          - reason
-          - domainMappingReason
-          - revisionReason
-          - jobReason
-          enum:
-          - INTERNAL_REASON_UNDEFINED
-          - CONFLICTING_REVISION_NAME
-          - REVISION_MISSING
-          - CONFIGURATION_MISSING
-          - ASSIGNING_TRAFFIC
-          - UPDATING_INGRESS_TRAFFIC_ALLOWED
-          - REVISION_ORG_POLICY_VIOLATION
-          - ENABLING_GCFV2_URI_SUPPORT
-        jobReason:
-          type: string
-          x-dcl-go-name: JobReason
-          x-dcl-go-type: ServiceGooglecloudrunopv2ConditionJobReasonEnum
-          description: 'A reason for the job condition. Possible values: JOB_REASON_UNDEFINED,
-            JOB_STATUS_SERVICE_POLLING_ERROR'
-          x-dcl-conflicts:
-          - reason
-          - internalReason
-          - domainMappingReason
-          - revisionReason
-          enum:
-          - JOB_REASON_UNDEFINED
-          - JOB_STATUS_SERVICE_POLLING_ERROR
-        lastTransitionTime:
-          type: string
-          format: date-time
-          x-dcl-go-name: LastTransitionTime
-          description: Last time the condition transitioned from one status to another.
-        message:
-          type: string
-          x-dcl-go-name: Message
-          description: Human readable message indicating details about the current
-            status.
-        reason:
-          type: string
-          x-dcl-go-name: Reason
-          x-dcl-go-type: ServiceGooglecloudrunopv2ConditionReasonEnum
-          description: 'A common (service-level) reason for this condition. Possible
-            values: COMMON_REASON_UNDEFINED, UNKNOWN, ROUTE_MISSING, REVISION_FAILED,
-            PROGRESS_DEADLINE_EXCEEDED, BUILD_STEP_FAILED, CONTAINER_MISSING, CONTAINER_PERMISSION_DENIED,
-            CONTAINER_IMAGE_UNAUTHORIZED, CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED,
-            ENCRYPTION_KEY_PERMISSION_DENIED, ENCRYPTION_KEY_CHECK_FAILED, SECRETS_ACCESS_CHECK_FAILED,
-            WAITING_FOR_OPERATION, IMMEDIATE_RETRY, POSTPONED_RETRY'
-          x-dcl-conflicts:
-          - internalReason
-          - domainMappingReason
-          - revisionReason
-          - jobReason
-          enum:
-          - COMMON_REASON_UNDEFINED
-          - UNKNOWN
-          - ROUTE_MISSING
-          - REVISION_FAILED
-          - PROGRESS_DEADLINE_EXCEEDED
-          - BUILD_STEP_FAILED
-          - CONTAINER_MISSING
-          - CONTAINER_PERMISSION_DENIED
-          - CONTAINER_IMAGE_UNAUTHORIZED
-          - CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED
-          - ENCRYPTION_KEY_PERMISSION_DENIED
-          - ENCRYPTION_KEY_CHECK_FAILED
-          - SECRETS_ACCESS_CHECK_FAILED
-          - WAITING_FOR_OPERATION
-          - IMMEDIATE_RETRY
-          - POSTPONED_RETRY
-        revisionReason:
-          type: string
-          x-dcl-go-name: RevisionReason
-          x-dcl-go-type: ServiceGooglecloudrunopv2ConditionRevisionReasonEnum
-          description: 'A reason for the revision condition. Possible values: REVISION_REASON_UNDEFINED,
-            PENDING, RESERVE, RETIRED, RETIRING, RECREATING, HEALTH_CHECK_CONTAINER_ERROR,
-            CUSTOMIZED_PATH_RESPONSE_PENDING, MIN_INSTANCES_NOT_PROVISIONED, ACTIVE_REVISION_LIMIT_REACHED,
-            NO_DEPLOYMENT'
-          x-dcl-conflicts:
-          - reason
-          - internalReason
-          - domainMappingReason
-          - jobReason
-          enum:
-          - REVISION_REASON_UNDEFINED
-          - PENDING
-          - RESERVE
-          - RETIRED
-          - RETIRING
-          - RECREATING
-          - HEALTH_CHECK_CONTAINER_ERROR
-          - CUSTOMIZED_PATH_RESPONSE_PENDING
-          - MIN_INSTANCES_NOT_PROVISIONED
-          - ACTIVE_REVISION_LIMIT_REACHED
-          - NO_DEPLOYMENT
-        severity:
-          type: string
-          x-dcl-go-name: Severity
-          x-dcl-go-type: ServiceGooglecloudrunopv2ConditionSeverityEnum
-          description: 'How to interpret failures of this condition, one of Error,
-            Warning, Info Possible values: SEVERITY_UNSPECIFIED, ERROR, WARNING, INFO'
-          enum:
-          - SEVERITY_UNSPECIFIED
-          - ERROR
-          - WARNING
-          - INFO
-        state:
-          type: string
-          x-dcl-go-name: State
-          x-dcl-go-type: ServiceGooglecloudrunopv2ConditionStateEnum
-          description: 'State of the condition. Possible values: STATE_UNSPECIFIED,
-            CONDITION_PENDING, CONDITION_RECONCILING, CONDITION_FAILED, CONDITION_SUCCEEDED'
-          enum:
-          - STATE_UNSPECIFIED
-          - CONDITION_PENDING
-          - CONDITION_RECONCILING
-          - CONDITION_FAILED
-          - CONDITION_SUCCEEDED
-        type:
-          type: string
-          x-dcl-go-name: Type
-          description: 'type is used to communicate the status of the reconciliation
-            process. See also: https://github.com/knative/serving/blob/main/docs/spec/errors.md#error-conditions-and-reporting
-            Types common to all resources include: * "Ready": True when the Resource
-            is ready.'
     Service:
       title: Service
       x-dcl-id: projects/{{project}}/locations/{{location}}/services/{{name}}
@@ -856,8 +693,171 @@ components:
                   - ALL_TRAFFIC
                   - PRIVATE_RANGES_ONLY
         terminalCondition:
-          $ref: '#/components/schemas/Googlecloudrunopv2Condition'
+          type: object
           x-dcl-go-name: TerminalCondition
+          x-dcl-go-type: ServiceTerminalCondition
+          readOnly: true
+          description: Output only. The Condition of this Service, containing its
+            readiness status, and detailed error information in case it did not reach
+            a serving state. See comments in `reconciling` for additional information
+            on reconciliation process in Cloud Run.
+          properties:
+            domainMappingReason:
+              type: string
+              x-dcl-go-name: DomainMappingReason
+              x-dcl-go-type: ServiceTerminalConditionDomainMappingReasonEnum
+              description: 'A reason for the domain mapping condition. Possible values:
+                DOMAIN_MAPPING_REASON_UNDEFINED, ROUTE_NOT_READY, PERMISSION_DENIED,
+                CERTIFICATE_ALREADY_EXISTS, MAPPING_ALREADY_EXISTS, CERTIFICATE_PENDING,
+                CERTIFICATE_FAILED'
+              x-dcl-conflicts:
+              - reason
+              - internalReason
+              - revisionReason
+              - jobReason
+              enum:
+              - DOMAIN_MAPPING_REASON_UNDEFINED
+              - ROUTE_NOT_READY
+              - PERMISSION_DENIED
+              - CERTIFICATE_ALREADY_EXISTS
+              - MAPPING_ALREADY_EXISTS
+              - CERTIFICATE_PENDING
+              - CERTIFICATE_FAILED
+            internalReason:
+              type: string
+              x-dcl-go-name: InternalReason
+              x-dcl-go-type: ServiceTerminalConditionInternalReasonEnum
+              description: 'A reason for the internal condition. Possible values:
+                INTERNAL_REASON_UNDEFINED, CONFLICTING_REVISION_NAME, REVISION_MISSING,
+                CONFIGURATION_MISSING, ASSIGNING_TRAFFIC, UPDATING_INGRESS_TRAFFIC_ALLOWED,
+                REVISION_ORG_POLICY_VIOLATION, ENABLING_GCFV2_URI_SUPPORT'
+              x-dcl-conflicts:
+              - reason
+              - domainMappingReason
+              - revisionReason
+              - jobReason
+              enum:
+              - INTERNAL_REASON_UNDEFINED
+              - CONFLICTING_REVISION_NAME
+              - REVISION_MISSING
+              - CONFIGURATION_MISSING
+              - ASSIGNING_TRAFFIC
+              - UPDATING_INGRESS_TRAFFIC_ALLOWED
+              - REVISION_ORG_POLICY_VIOLATION
+              - ENABLING_GCFV2_URI_SUPPORT
+            jobReason:
+              type: string
+              x-dcl-go-name: JobReason
+              x-dcl-go-type: ServiceTerminalConditionJobReasonEnum
+              description: 'A reason for the job condition. Possible values: JOB_REASON_UNDEFINED,
+                JOB_STATUS_SERVICE_POLLING_ERROR'
+              x-dcl-conflicts:
+              - reason
+              - internalReason
+              - domainMappingReason
+              - revisionReason
+              enum:
+              - JOB_REASON_UNDEFINED
+              - JOB_STATUS_SERVICE_POLLING_ERROR
+            lastTransitionTime:
+              type: string
+              format: date-time
+              x-dcl-go-name: LastTransitionTime
+              description: Last time the condition transitioned from one status to
+                another.
+            message:
+              type: string
+              x-dcl-go-name: Message
+              description: Human readable message indicating details about the current
+                status.
+            reason:
+              type: string
+              x-dcl-go-name: Reason
+              x-dcl-go-type: ServiceTerminalConditionReasonEnum
+              description: 'A common (service-level) reason for this condition. Possible
+                values: COMMON_REASON_UNDEFINED, UNKNOWN, ROUTE_MISSING, REVISION_FAILED,
+                PROGRESS_DEADLINE_EXCEEDED, BUILD_STEP_FAILED, CONTAINER_MISSING,
+                CONTAINER_PERMISSION_DENIED, CONTAINER_IMAGE_UNAUTHORIZED, CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED,
+                ENCRYPTION_KEY_PERMISSION_DENIED, ENCRYPTION_KEY_CHECK_FAILED, SECRETS_ACCESS_CHECK_FAILED,
+                WAITING_FOR_OPERATION, IMMEDIATE_RETRY, POSTPONED_RETRY'
+              x-dcl-conflicts:
+              - internalReason
+              - domainMappingReason
+              - revisionReason
+              - jobReason
+              enum:
+              - COMMON_REASON_UNDEFINED
+              - UNKNOWN
+              - ROUTE_MISSING
+              - REVISION_FAILED
+              - PROGRESS_DEADLINE_EXCEEDED
+              - BUILD_STEP_FAILED
+              - CONTAINER_MISSING
+              - CONTAINER_PERMISSION_DENIED
+              - CONTAINER_IMAGE_UNAUTHORIZED
+              - CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED
+              - ENCRYPTION_KEY_PERMISSION_DENIED
+              - ENCRYPTION_KEY_CHECK_FAILED
+              - SECRETS_ACCESS_CHECK_FAILED
+              - WAITING_FOR_OPERATION
+              - IMMEDIATE_RETRY
+              - POSTPONED_RETRY
+            revisionReason:
+              type: string
+              x-dcl-go-name: RevisionReason
+              x-dcl-go-type: ServiceTerminalConditionRevisionReasonEnum
+              description: 'A reason for the revision condition. Possible values:
+                REVISION_REASON_UNDEFINED, PENDING, RESERVE, RETIRED, RETIRING, RECREATING,
+                HEALTH_CHECK_CONTAINER_ERROR, CUSTOMIZED_PATH_RESPONSE_PENDING, MIN_INSTANCES_NOT_PROVISIONED,
+                ACTIVE_REVISION_LIMIT_REACHED, NO_DEPLOYMENT'
+              x-dcl-conflicts:
+              - reason
+              - internalReason
+              - domainMappingReason
+              - jobReason
+              enum:
+              - REVISION_REASON_UNDEFINED
+              - PENDING
+              - RESERVE
+              - RETIRED
+              - RETIRING
+              - RECREATING
+              - HEALTH_CHECK_CONTAINER_ERROR
+              - CUSTOMIZED_PATH_RESPONSE_PENDING
+              - MIN_INSTANCES_NOT_PROVISIONED
+              - ACTIVE_REVISION_LIMIT_REACHED
+              - NO_DEPLOYMENT
+            severity:
+              type: string
+              x-dcl-go-name: Severity
+              x-dcl-go-type: ServiceTerminalConditionSeverityEnum
+              description: 'How to interpret failures of this condition, one of Error,
+                Warning, Info Possible values: SEVERITY_UNSPECIFIED, ERROR, WARNING,
+                INFO'
+              enum:
+              - SEVERITY_UNSPECIFIED
+              - ERROR
+              - WARNING
+              - INFO
+            state:
+              type: string
+              x-dcl-go-name: State
+              x-dcl-go-type: ServiceTerminalConditionStateEnum
+              description: 'State of the condition. Possible values: STATE_UNSPECIFIED,
+                CONDITION_PENDING, CONDITION_RECONCILING, CONDITION_FAILED, CONDITION_SUCCEEDED'
+              enum:
+              - STATE_UNSPECIFIED
+              - CONDITION_PENDING
+              - CONDITION_RECONCILING
+              - CONDITION_FAILED
+              - CONDITION_SUCCEEDED
+            type:
+              type: string
+              x-dcl-go-name: Type
+              description: 'type is used to communicate the status of the reconciliation
+                process. See also: https://github.com/knative/serving/blob/main/docs/spec/errors.md#error-conditions-and-reporting
+                Types common to all resources include: * "Ready": True when the Resource
+                is ready.'
         traffic:
           type: array
           x-dcl-go-name: Traffic

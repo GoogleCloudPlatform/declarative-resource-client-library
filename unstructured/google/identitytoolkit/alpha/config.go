@@ -113,8 +113,30 @@ func ConfigToUnstructured(r *dclService.Config) *unstructured.Resource {
 			if r.Notification.SendEmail.CallbackUri != nil {
 				rNotificationSendEmail["callbackUri"] = *r.Notification.SendEmail.CallbackUri
 			}
-			if r.Notification.SendEmail.ChangeEmailTemplate != nil {
-				rNotificationSendEmail["changeEmailTemplate"] = ConfigEmailTemplateToUnstructured(r.Notification.SendEmail.ChangeEmailTemplate)
+			if r.Notification.SendEmail.ChangeEmailTemplate != nil && r.Notification.SendEmail.ChangeEmailTemplate != dclService.EmptyConfigNotificationSendEmailChangeEmailTemplate {
+				rNotificationSendEmailChangeEmailTemplate := make(map[string]interface{})
+				if r.Notification.SendEmail.ChangeEmailTemplate.Body != nil {
+					rNotificationSendEmailChangeEmailTemplate["body"] = *r.Notification.SendEmail.ChangeEmailTemplate.Body
+				}
+				if r.Notification.SendEmail.ChangeEmailTemplate.BodyFormat != nil {
+					rNotificationSendEmailChangeEmailTemplate["bodyFormat"] = string(*r.Notification.SendEmail.ChangeEmailTemplate.BodyFormat)
+				}
+				if r.Notification.SendEmail.ChangeEmailTemplate.Customized != nil {
+					rNotificationSendEmailChangeEmailTemplate["customized"] = *r.Notification.SendEmail.ChangeEmailTemplate.Customized
+				}
+				if r.Notification.SendEmail.ChangeEmailTemplate.ReplyTo != nil {
+					rNotificationSendEmailChangeEmailTemplate["replyTo"] = *r.Notification.SendEmail.ChangeEmailTemplate.ReplyTo
+				}
+				if r.Notification.SendEmail.ChangeEmailTemplate.SenderDisplayName != nil {
+					rNotificationSendEmailChangeEmailTemplate["senderDisplayName"] = *r.Notification.SendEmail.ChangeEmailTemplate.SenderDisplayName
+				}
+				if r.Notification.SendEmail.ChangeEmailTemplate.SenderLocalPart != nil {
+					rNotificationSendEmailChangeEmailTemplate["senderLocalPart"] = *r.Notification.SendEmail.ChangeEmailTemplate.SenderLocalPart
+				}
+				if r.Notification.SendEmail.ChangeEmailTemplate.Subject != nil {
+					rNotificationSendEmailChangeEmailTemplate["subject"] = *r.Notification.SendEmail.ChangeEmailTemplate.Subject
+				}
+				rNotificationSendEmail["changeEmailTemplate"] = rNotificationSendEmailChangeEmailTemplate
 			}
 			if r.Notification.SendEmail.DnsInfo != nil && r.Notification.SendEmail.DnsInfo != dclService.EmptyConfigNotificationSendEmailDnsInfo {
 				rNotificationSendEmailDnsInfo := make(map[string]interface{})
@@ -138,11 +160,55 @@ func ConfigToUnstructured(r *dclService.Config) *unstructured.Resource {
 			if r.Notification.SendEmail.Method != nil {
 				rNotificationSendEmail["method"] = string(*r.Notification.SendEmail.Method)
 			}
-			if r.Notification.SendEmail.ResetPasswordTemplate != nil {
-				rNotificationSendEmail["resetPasswordTemplate"] = ConfigEmailTemplateToUnstructured(r.Notification.SendEmail.ResetPasswordTemplate)
+			if r.Notification.SendEmail.ResetPasswordTemplate != nil && r.Notification.SendEmail.ResetPasswordTemplate != dclService.EmptyConfigNotificationSendEmailResetPasswordTemplate {
+				rNotificationSendEmailResetPasswordTemplate := make(map[string]interface{})
+				if r.Notification.SendEmail.ResetPasswordTemplate.Body != nil {
+					rNotificationSendEmailResetPasswordTemplate["body"] = *r.Notification.SendEmail.ResetPasswordTemplate.Body
+				}
+				if r.Notification.SendEmail.ResetPasswordTemplate.BodyFormat != nil {
+					rNotificationSendEmailResetPasswordTemplate["bodyFormat"] = string(*r.Notification.SendEmail.ResetPasswordTemplate.BodyFormat)
+				}
+				if r.Notification.SendEmail.ResetPasswordTemplate.Customized != nil {
+					rNotificationSendEmailResetPasswordTemplate["customized"] = *r.Notification.SendEmail.ResetPasswordTemplate.Customized
+				}
+				if r.Notification.SendEmail.ResetPasswordTemplate.ReplyTo != nil {
+					rNotificationSendEmailResetPasswordTemplate["replyTo"] = *r.Notification.SendEmail.ResetPasswordTemplate.ReplyTo
+				}
+				if r.Notification.SendEmail.ResetPasswordTemplate.SenderDisplayName != nil {
+					rNotificationSendEmailResetPasswordTemplate["senderDisplayName"] = *r.Notification.SendEmail.ResetPasswordTemplate.SenderDisplayName
+				}
+				if r.Notification.SendEmail.ResetPasswordTemplate.SenderLocalPart != nil {
+					rNotificationSendEmailResetPasswordTemplate["senderLocalPart"] = *r.Notification.SendEmail.ResetPasswordTemplate.SenderLocalPart
+				}
+				if r.Notification.SendEmail.ResetPasswordTemplate.Subject != nil {
+					rNotificationSendEmailResetPasswordTemplate["subject"] = *r.Notification.SendEmail.ResetPasswordTemplate.Subject
+				}
+				rNotificationSendEmail["resetPasswordTemplate"] = rNotificationSendEmailResetPasswordTemplate
 			}
-			if r.Notification.SendEmail.RevertSecondFactorAdditionTemplate != nil {
-				rNotificationSendEmail["revertSecondFactorAdditionTemplate"] = ConfigEmailTemplateToUnstructured(r.Notification.SendEmail.RevertSecondFactorAdditionTemplate)
+			if r.Notification.SendEmail.RevertSecondFactorAdditionTemplate != nil && r.Notification.SendEmail.RevertSecondFactorAdditionTemplate != dclService.EmptyConfigNotificationSendEmailRevertSecondFactorAdditionTemplate {
+				rNotificationSendEmailRevertSecondFactorAdditionTemplate := make(map[string]interface{})
+				if r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.Body != nil {
+					rNotificationSendEmailRevertSecondFactorAdditionTemplate["body"] = *r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.Body
+				}
+				if r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.BodyFormat != nil {
+					rNotificationSendEmailRevertSecondFactorAdditionTemplate["bodyFormat"] = string(*r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.BodyFormat)
+				}
+				if r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.Customized != nil {
+					rNotificationSendEmailRevertSecondFactorAdditionTemplate["customized"] = *r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.Customized
+				}
+				if r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.ReplyTo != nil {
+					rNotificationSendEmailRevertSecondFactorAdditionTemplate["replyTo"] = *r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.ReplyTo
+				}
+				if r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.SenderDisplayName != nil {
+					rNotificationSendEmailRevertSecondFactorAdditionTemplate["senderDisplayName"] = *r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.SenderDisplayName
+				}
+				if r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.SenderLocalPart != nil {
+					rNotificationSendEmailRevertSecondFactorAdditionTemplate["senderLocalPart"] = *r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.SenderLocalPart
+				}
+				if r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.Subject != nil {
+					rNotificationSendEmailRevertSecondFactorAdditionTemplate["subject"] = *r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.Subject
+				}
+				rNotificationSendEmail["revertSecondFactorAdditionTemplate"] = rNotificationSendEmailRevertSecondFactorAdditionTemplate
 			}
 			if r.Notification.SendEmail.Smtp != nil && r.Notification.SendEmail.Smtp != dclService.EmptyConfigNotificationSendEmailSmtp {
 				rNotificationSendEmailSmtp := make(map[string]interface{})
@@ -166,8 +232,30 @@ func ConfigToUnstructured(r *dclService.Config) *unstructured.Resource {
 				}
 				rNotificationSendEmail["smtp"] = rNotificationSendEmailSmtp
 			}
-			if r.Notification.SendEmail.VerifyEmailTemplate != nil {
-				rNotificationSendEmail["verifyEmailTemplate"] = ConfigEmailTemplateToUnstructured(r.Notification.SendEmail.VerifyEmailTemplate)
+			if r.Notification.SendEmail.VerifyEmailTemplate != nil && r.Notification.SendEmail.VerifyEmailTemplate != dclService.EmptyConfigNotificationSendEmailVerifyEmailTemplate {
+				rNotificationSendEmailVerifyEmailTemplate := make(map[string]interface{})
+				if r.Notification.SendEmail.VerifyEmailTemplate.Body != nil {
+					rNotificationSendEmailVerifyEmailTemplate["body"] = *r.Notification.SendEmail.VerifyEmailTemplate.Body
+				}
+				if r.Notification.SendEmail.VerifyEmailTemplate.BodyFormat != nil {
+					rNotificationSendEmailVerifyEmailTemplate["bodyFormat"] = string(*r.Notification.SendEmail.VerifyEmailTemplate.BodyFormat)
+				}
+				if r.Notification.SendEmail.VerifyEmailTemplate.Customized != nil {
+					rNotificationSendEmailVerifyEmailTemplate["customized"] = *r.Notification.SendEmail.VerifyEmailTemplate.Customized
+				}
+				if r.Notification.SendEmail.VerifyEmailTemplate.ReplyTo != nil {
+					rNotificationSendEmailVerifyEmailTemplate["replyTo"] = *r.Notification.SendEmail.VerifyEmailTemplate.ReplyTo
+				}
+				if r.Notification.SendEmail.VerifyEmailTemplate.SenderDisplayName != nil {
+					rNotificationSendEmailVerifyEmailTemplate["senderDisplayName"] = *r.Notification.SendEmail.VerifyEmailTemplate.SenderDisplayName
+				}
+				if r.Notification.SendEmail.VerifyEmailTemplate.SenderLocalPart != nil {
+					rNotificationSendEmailVerifyEmailTemplate["senderLocalPart"] = *r.Notification.SendEmail.VerifyEmailTemplate.SenderLocalPart
+				}
+				if r.Notification.SendEmail.VerifyEmailTemplate.Subject != nil {
+					rNotificationSendEmailVerifyEmailTemplate["subject"] = *r.Notification.SendEmail.VerifyEmailTemplate.Subject
+				}
+				rNotificationSendEmail["verifyEmailTemplate"] = rNotificationSendEmailVerifyEmailTemplate
 			}
 			rNotification["sendEmail"] = rNotificationSendEmail
 		}
@@ -287,32 +375,6 @@ func ConfigToUnstructured(r *dclService.Config) *unstructured.Resource {
 		u.Object["subtype"] = string(*r.Subtype)
 	}
 	return u
-}
-
-func ConfigEmailTemplateToUnstructured(r *dclService.ConfigEmailTemplate) map[string]interface{} {
-	result := make(map[string]interface{})
-	if r.Body != nil {
-		result["body"] = *r.Body
-	}
-	if r.BodyFormat != nil {
-		result["bodyFormat"] = string(*r.BodyFormat)
-	}
-	if r.Customized != nil {
-		result["customized"] = *r.Customized
-	}
-	if r.ReplyTo != nil {
-		result["replyTo"] = *r.ReplyTo
-	}
-	if r.SenderDisplayName != nil {
-		result["senderDisplayName"] = *r.SenderDisplayName
-	}
-	if r.SenderLocalPart != nil {
-		result["senderLocalPart"] = *r.SenderLocalPart
-	}
-	if r.Subject != nil {
-		result["subject"] = *r.Subject
-	}
-	return result
 }
 
 func UnstructuredToConfig(u *unstructured.Resource) (*dclService.Config, error) {
@@ -485,10 +547,55 @@ func UnstructuredToConfig(u *unstructured.Resource) (*dclService.Config, error) 
 					}
 					if _, ok := rNotificationSendEmail["changeEmailTemplate"]; ok {
 						if rNotificationSendEmailChangeEmailTemplate, ok := rNotificationSendEmail["changeEmailTemplate"].(map[string]interface{}); ok {
-							var err error
-							r.Notification.SendEmail.ChangeEmailTemplate, err = UnstructuredToConfigEmailTemplate(rNotificationSendEmailChangeEmailTemplate)
-							if err != nil {
-								return nil, err
+							r.Notification.SendEmail.ChangeEmailTemplate = &dclService.ConfigNotificationSendEmailChangeEmailTemplate{}
+							if _, ok := rNotificationSendEmailChangeEmailTemplate["body"]; ok {
+								if s, ok := rNotificationSendEmailChangeEmailTemplate["body"].(string); ok {
+									r.Notification.SendEmail.ChangeEmailTemplate.Body = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.ChangeEmailTemplate.Body: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailChangeEmailTemplate["bodyFormat"]; ok {
+								if s, ok := rNotificationSendEmailChangeEmailTemplate["bodyFormat"].(string); ok {
+									r.Notification.SendEmail.ChangeEmailTemplate.BodyFormat = dclService.ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnumRef(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.ChangeEmailTemplate.BodyFormat: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailChangeEmailTemplate["customized"]; ok {
+								if b, ok := rNotificationSendEmailChangeEmailTemplate["customized"].(bool); ok {
+									r.Notification.SendEmail.ChangeEmailTemplate.Customized = dcl.Bool(b)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.ChangeEmailTemplate.Customized: expected bool")
+								}
+							}
+							if _, ok := rNotificationSendEmailChangeEmailTemplate["replyTo"]; ok {
+								if s, ok := rNotificationSendEmailChangeEmailTemplate["replyTo"].(string); ok {
+									r.Notification.SendEmail.ChangeEmailTemplate.ReplyTo = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.ChangeEmailTemplate.ReplyTo: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailChangeEmailTemplate["senderDisplayName"]; ok {
+								if s, ok := rNotificationSendEmailChangeEmailTemplate["senderDisplayName"].(string); ok {
+									r.Notification.SendEmail.ChangeEmailTemplate.SenderDisplayName = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.ChangeEmailTemplate.SenderDisplayName: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailChangeEmailTemplate["senderLocalPart"]; ok {
+								if s, ok := rNotificationSendEmailChangeEmailTemplate["senderLocalPart"].(string); ok {
+									r.Notification.SendEmail.ChangeEmailTemplate.SenderLocalPart = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.ChangeEmailTemplate.SenderLocalPart: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailChangeEmailTemplate["subject"]; ok {
+								if s, ok := rNotificationSendEmailChangeEmailTemplate["subject"].(string); ok {
+									r.Notification.SendEmail.ChangeEmailTemplate.Subject = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.ChangeEmailTemplate.Subject: expected string")
+								}
 							}
 						} else {
 							return nil, fmt.Errorf("r.Notification.SendEmail.ChangeEmailTemplate: expected map[string]interface{}")
@@ -545,10 +652,55 @@ func UnstructuredToConfig(u *unstructured.Resource) (*dclService.Config, error) 
 					}
 					if _, ok := rNotificationSendEmail["resetPasswordTemplate"]; ok {
 						if rNotificationSendEmailResetPasswordTemplate, ok := rNotificationSendEmail["resetPasswordTemplate"].(map[string]interface{}); ok {
-							var err error
-							r.Notification.SendEmail.ResetPasswordTemplate, err = UnstructuredToConfigEmailTemplate(rNotificationSendEmailResetPasswordTemplate)
-							if err != nil {
-								return nil, err
+							r.Notification.SendEmail.ResetPasswordTemplate = &dclService.ConfigNotificationSendEmailResetPasswordTemplate{}
+							if _, ok := rNotificationSendEmailResetPasswordTemplate["body"]; ok {
+								if s, ok := rNotificationSendEmailResetPasswordTemplate["body"].(string); ok {
+									r.Notification.SendEmail.ResetPasswordTemplate.Body = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.ResetPasswordTemplate.Body: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailResetPasswordTemplate["bodyFormat"]; ok {
+								if s, ok := rNotificationSendEmailResetPasswordTemplate["bodyFormat"].(string); ok {
+									r.Notification.SendEmail.ResetPasswordTemplate.BodyFormat = dclService.ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnumRef(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.ResetPasswordTemplate.BodyFormat: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailResetPasswordTemplate["customized"]; ok {
+								if b, ok := rNotificationSendEmailResetPasswordTemplate["customized"].(bool); ok {
+									r.Notification.SendEmail.ResetPasswordTemplate.Customized = dcl.Bool(b)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.ResetPasswordTemplate.Customized: expected bool")
+								}
+							}
+							if _, ok := rNotificationSendEmailResetPasswordTemplate["replyTo"]; ok {
+								if s, ok := rNotificationSendEmailResetPasswordTemplate["replyTo"].(string); ok {
+									r.Notification.SendEmail.ResetPasswordTemplate.ReplyTo = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.ResetPasswordTemplate.ReplyTo: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailResetPasswordTemplate["senderDisplayName"]; ok {
+								if s, ok := rNotificationSendEmailResetPasswordTemplate["senderDisplayName"].(string); ok {
+									r.Notification.SendEmail.ResetPasswordTemplate.SenderDisplayName = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.ResetPasswordTemplate.SenderDisplayName: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailResetPasswordTemplate["senderLocalPart"]; ok {
+								if s, ok := rNotificationSendEmailResetPasswordTemplate["senderLocalPart"].(string); ok {
+									r.Notification.SendEmail.ResetPasswordTemplate.SenderLocalPart = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.ResetPasswordTemplate.SenderLocalPart: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailResetPasswordTemplate["subject"]; ok {
+								if s, ok := rNotificationSendEmailResetPasswordTemplate["subject"].(string); ok {
+									r.Notification.SendEmail.ResetPasswordTemplate.Subject = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.ResetPasswordTemplate.Subject: expected string")
+								}
 							}
 						} else {
 							return nil, fmt.Errorf("r.Notification.SendEmail.ResetPasswordTemplate: expected map[string]interface{}")
@@ -556,10 +708,55 @@ func UnstructuredToConfig(u *unstructured.Resource) (*dclService.Config, error) 
 					}
 					if _, ok := rNotificationSendEmail["revertSecondFactorAdditionTemplate"]; ok {
 						if rNotificationSendEmailRevertSecondFactorAdditionTemplate, ok := rNotificationSendEmail["revertSecondFactorAdditionTemplate"].(map[string]interface{}); ok {
-							var err error
-							r.Notification.SendEmail.RevertSecondFactorAdditionTemplate, err = UnstructuredToConfigEmailTemplate(rNotificationSendEmailRevertSecondFactorAdditionTemplate)
-							if err != nil {
-								return nil, err
+							r.Notification.SendEmail.RevertSecondFactorAdditionTemplate = &dclService.ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate{}
+							if _, ok := rNotificationSendEmailRevertSecondFactorAdditionTemplate["body"]; ok {
+								if s, ok := rNotificationSendEmailRevertSecondFactorAdditionTemplate["body"].(string); ok {
+									r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.Body = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.Body: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailRevertSecondFactorAdditionTemplate["bodyFormat"]; ok {
+								if s, ok := rNotificationSendEmailRevertSecondFactorAdditionTemplate["bodyFormat"].(string); ok {
+									r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.BodyFormat = dclService.ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnumRef(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.BodyFormat: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailRevertSecondFactorAdditionTemplate["customized"]; ok {
+								if b, ok := rNotificationSendEmailRevertSecondFactorAdditionTemplate["customized"].(bool); ok {
+									r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.Customized = dcl.Bool(b)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.Customized: expected bool")
+								}
+							}
+							if _, ok := rNotificationSendEmailRevertSecondFactorAdditionTemplate["replyTo"]; ok {
+								if s, ok := rNotificationSendEmailRevertSecondFactorAdditionTemplate["replyTo"].(string); ok {
+									r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.ReplyTo = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.ReplyTo: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailRevertSecondFactorAdditionTemplate["senderDisplayName"]; ok {
+								if s, ok := rNotificationSendEmailRevertSecondFactorAdditionTemplate["senderDisplayName"].(string); ok {
+									r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.SenderDisplayName = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.SenderDisplayName: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailRevertSecondFactorAdditionTemplate["senderLocalPart"]; ok {
+								if s, ok := rNotificationSendEmailRevertSecondFactorAdditionTemplate["senderLocalPart"].(string); ok {
+									r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.SenderLocalPart = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.SenderLocalPart: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailRevertSecondFactorAdditionTemplate["subject"]; ok {
+								if s, ok := rNotificationSendEmailRevertSecondFactorAdditionTemplate["subject"].(string); ok {
+									r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.Subject = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.RevertSecondFactorAdditionTemplate.Subject: expected string")
+								}
 							}
 						} else {
 							return nil, fmt.Errorf("r.Notification.SendEmail.RevertSecondFactorAdditionTemplate: expected map[string]interface{}")
@@ -616,10 +813,55 @@ func UnstructuredToConfig(u *unstructured.Resource) (*dclService.Config, error) 
 					}
 					if _, ok := rNotificationSendEmail["verifyEmailTemplate"]; ok {
 						if rNotificationSendEmailVerifyEmailTemplate, ok := rNotificationSendEmail["verifyEmailTemplate"].(map[string]interface{}); ok {
-							var err error
-							r.Notification.SendEmail.VerifyEmailTemplate, err = UnstructuredToConfigEmailTemplate(rNotificationSendEmailVerifyEmailTemplate)
-							if err != nil {
-								return nil, err
+							r.Notification.SendEmail.VerifyEmailTemplate = &dclService.ConfigNotificationSendEmailVerifyEmailTemplate{}
+							if _, ok := rNotificationSendEmailVerifyEmailTemplate["body"]; ok {
+								if s, ok := rNotificationSendEmailVerifyEmailTemplate["body"].(string); ok {
+									r.Notification.SendEmail.VerifyEmailTemplate.Body = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.VerifyEmailTemplate.Body: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailVerifyEmailTemplate["bodyFormat"]; ok {
+								if s, ok := rNotificationSendEmailVerifyEmailTemplate["bodyFormat"].(string); ok {
+									r.Notification.SendEmail.VerifyEmailTemplate.BodyFormat = dclService.ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnumRef(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.VerifyEmailTemplate.BodyFormat: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailVerifyEmailTemplate["customized"]; ok {
+								if b, ok := rNotificationSendEmailVerifyEmailTemplate["customized"].(bool); ok {
+									r.Notification.SendEmail.VerifyEmailTemplate.Customized = dcl.Bool(b)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.VerifyEmailTemplate.Customized: expected bool")
+								}
+							}
+							if _, ok := rNotificationSendEmailVerifyEmailTemplate["replyTo"]; ok {
+								if s, ok := rNotificationSendEmailVerifyEmailTemplate["replyTo"].(string); ok {
+									r.Notification.SendEmail.VerifyEmailTemplate.ReplyTo = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.VerifyEmailTemplate.ReplyTo: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailVerifyEmailTemplate["senderDisplayName"]; ok {
+								if s, ok := rNotificationSendEmailVerifyEmailTemplate["senderDisplayName"].(string); ok {
+									r.Notification.SendEmail.VerifyEmailTemplate.SenderDisplayName = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.VerifyEmailTemplate.SenderDisplayName: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailVerifyEmailTemplate["senderLocalPart"]; ok {
+								if s, ok := rNotificationSendEmailVerifyEmailTemplate["senderLocalPart"].(string); ok {
+									r.Notification.SendEmail.VerifyEmailTemplate.SenderLocalPart = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.VerifyEmailTemplate.SenderLocalPart: expected string")
+								}
+							}
+							if _, ok := rNotificationSendEmailVerifyEmailTemplate["subject"]; ok {
+								if s, ok := rNotificationSendEmailVerifyEmailTemplate["subject"].(string); ok {
+									r.Notification.SendEmail.VerifyEmailTemplate.Subject = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Notification.SendEmail.VerifyEmailTemplate.Subject: expected string")
+								}
 							}
 						} else {
 							return nil, fmt.Errorf("r.Notification.SendEmail.VerifyEmailTemplate: expected map[string]interface{}")
@@ -868,60 +1110,6 @@ func UnstructuredToConfig(u *unstructured.Resource) (*dclService.Config, error) 
 			r.Subtype = dclService.ConfigSubtypeEnumRef(s)
 		} else {
 			return nil, fmt.Errorf("r.Subtype: expected string")
-		}
-	}
-	return r, nil
-}
-
-func UnstructuredToConfigEmailTemplate(obj map[string]interface{}) (*dclService.ConfigEmailTemplate, error) {
-	r := &dclService.ConfigEmailTemplate{}
-	if _, ok := obj["body"]; ok {
-		if s, ok := obj["body"].(string); ok {
-			r.Body = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.Body: expected string")
-		}
-	}
-	if _, ok := obj["bodyFormat"]; ok {
-		if s, ok := obj["bodyFormat"].(string); ok {
-			r.BodyFormat = dclService.ConfigEmailTemplateBodyFormatEnumRef(s)
-		} else {
-			return nil, fmt.Errorf("r.BodyFormat: expected string")
-		}
-	}
-	if _, ok := obj["customized"]; ok {
-		if b, ok := obj["customized"].(bool); ok {
-			r.Customized = dcl.Bool(b)
-		} else {
-			return nil, fmt.Errorf("r.Customized: expected bool")
-		}
-	}
-	if _, ok := obj["replyTo"]; ok {
-		if s, ok := obj["replyTo"].(string); ok {
-			r.ReplyTo = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.ReplyTo: expected string")
-		}
-	}
-	if _, ok := obj["senderDisplayName"]; ok {
-		if s, ok := obj["senderDisplayName"].(string); ok {
-			r.SenderDisplayName = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.SenderDisplayName: expected string")
-		}
-	}
-	if _, ok := obj["senderLocalPart"]; ok {
-		if s, ok := obj["senderLocalPart"].(string); ok {
-			r.SenderLocalPart = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.SenderLocalPart: expected string")
-		}
-	}
-	if _, ok := obj["subject"]; ok {
-		if s, ok := obj["subject"].(string); ok {
-			r.Subject = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.Subject: expected string")
 		}
 	}
 	return r, nil

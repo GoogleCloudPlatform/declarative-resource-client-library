@@ -297,8 +297,39 @@ func ServiceToUnstructured(r *dclService.Service) *unstructured.Resource {
 		}
 		u.Object["template"] = rTemplate
 	}
-	if r.TerminalCondition != nil {
-		u.Object["terminalCondition"] = ServiceGooglecloudrunopv2ConditionToUnstructured(r.TerminalCondition)
+	if r.TerminalCondition != nil && r.TerminalCondition != dclService.EmptyServiceTerminalCondition {
+		rTerminalCondition := make(map[string]interface{})
+		if r.TerminalCondition.DomainMappingReason != nil {
+			rTerminalCondition["domainMappingReason"] = string(*r.TerminalCondition.DomainMappingReason)
+		}
+		if r.TerminalCondition.InternalReason != nil {
+			rTerminalCondition["internalReason"] = string(*r.TerminalCondition.InternalReason)
+		}
+		if r.TerminalCondition.JobReason != nil {
+			rTerminalCondition["jobReason"] = string(*r.TerminalCondition.JobReason)
+		}
+		if r.TerminalCondition.LastTransitionTime != nil {
+			rTerminalCondition["lastTransitionTime"] = *r.TerminalCondition.LastTransitionTime
+		}
+		if r.TerminalCondition.Message != nil {
+			rTerminalCondition["message"] = *r.TerminalCondition.Message
+		}
+		if r.TerminalCondition.Reason != nil {
+			rTerminalCondition["reason"] = string(*r.TerminalCondition.Reason)
+		}
+		if r.TerminalCondition.RevisionReason != nil {
+			rTerminalCondition["revisionReason"] = string(*r.TerminalCondition.RevisionReason)
+		}
+		if r.TerminalCondition.Severity != nil {
+			rTerminalCondition["severity"] = string(*r.TerminalCondition.Severity)
+		}
+		if r.TerminalCondition.State != nil {
+			rTerminalCondition["state"] = string(*r.TerminalCondition.State)
+		}
+		if r.TerminalCondition.Type != nil {
+			rTerminalCondition["type"] = *r.TerminalCondition.Type
+		}
+		u.Object["terminalCondition"] = rTerminalCondition
 	}
 	var rTraffic []interface{}
 	for _, rTrafficVal := range r.Traffic {
@@ -349,41 +380,6 @@ func ServiceToUnstructured(r *dclService.Service) *unstructured.Resource {
 		u.Object["uri"] = *r.Uri
 	}
 	return u
-}
-
-func ServiceGooglecloudrunopv2ConditionToUnstructured(r *dclService.ServiceGooglecloudrunopv2Condition) map[string]interface{} {
-	result := make(map[string]interface{})
-	if r.DomainMappingReason != nil {
-		result["domainMappingReason"] = string(*r.DomainMappingReason)
-	}
-	if r.InternalReason != nil {
-		result["internalReason"] = string(*r.InternalReason)
-	}
-	if r.JobReason != nil {
-		result["jobReason"] = string(*r.JobReason)
-	}
-	if r.LastTransitionTime != nil {
-		result["lastTransitionTime"] = *r.LastTransitionTime
-	}
-	if r.Message != nil {
-		result["message"] = *r.Message
-	}
-	if r.Reason != nil {
-		result["reason"] = string(*r.Reason)
-	}
-	if r.RevisionReason != nil {
-		result["revisionReason"] = string(*r.RevisionReason)
-	}
-	if r.Severity != nil {
-		result["severity"] = string(*r.Severity)
-	}
-	if r.State != nil {
-		result["state"] = string(*r.State)
-	}
-	if r.Type != nil {
-		result["type"] = *r.Type
-	}
-	return result
 }
 
 func UnstructuredToService(u *unstructured.Resource) (*dclService.Service, error) {
@@ -952,10 +948,76 @@ func UnstructuredToService(u *unstructured.Resource) (*dclService.Service, error
 	}
 	if _, ok := u.Object["terminalCondition"]; ok {
 		if rTerminalCondition, ok := u.Object["terminalCondition"].(map[string]interface{}); ok {
-			var err error
-			r.TerminalCondition, err = UnstructuredToServiceGooglecloudrunopv2Condition(rTerminalCondition)
-			if err != nil {
-				return nil, err
+			r.TerminalCondition = &dclService.ServiceTerminalCondition{}
+			if _, ok := rTerminalCondition["domainMappingReason"]; ok {
+				if s, ok := rTerminalCondition["domainMappingReason"].(string); ok {
+					r.TerminalCondition.DomainMappingReason = dclService.ServiceTerminalConditionDomainMappingReasonEnumRef(s)
+				} else {
+					return nil, fmt.Errorf("r.TerminalCondition.DomainMappingReason: expected string")
+				}
+			}
+			if _, ok := rTerminalCondition["internalReason"]; ok {
+				if s, ok := rTerminalCondition["internalReason"].(string); ok {
+					r.TerminalCondition.InternalReason = dclService.ServiceTerminalConditionInternalReasonEnumRef(s)
+				} else {
+					return nil, fmt.Errorf("r.TerminalCondition.InternalReason: expected string")
+				}
+			}
+			if _, ok := rTerminalCondition["jobReason"]; ok {
+				if s, ok := rTerminalCondition["jobReason"].(string); ok {
+					r.TerminalCondition.JobReason = dclService.ServiceTerminalConditionJobReasonEnumRef(s)
+				} else {
+					return nil, fmt.Errorf("r.TerminalCondition.JobReason: expected string")
+				}
+			}
+			if _, ok := rTerminalCondition["lastTransitionTime"]; ok {
+				if s, ok := rTerminalCondition["lastTransitionTime"].(string); ok {
+					r.TerminalCondition.LastTransitionTime = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.TerminalCondition.LastTransitionTime: expected string")
+				}
+			}
+			if _, ok := rTerminalCondition["message"]; ok {
+				if s, ok := rTerminalCondition["message"].(string); ok {
+					r.TerminalCondition.Message = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.TerminalCondition.Message: expected string")
+				}
+			}
+			if _, ok := rTerminalCondition["reason"]; ok {
+				if s, ok := rTerminalCondition["reason"].(string); ok {
+					r.TerminalCondition.Reason = dclService.ServiceTerminalConditionReasonEnumRef(s)
+				} else {
+					return nil, fmt.Errorf("r.TerminalCondition.Reason: expected string")
+				}
+			}
+			if _, ok := rTerminalCondition["revisionReason"]; ok {
+				if s, ok := rTerminalCondition["revisionReason"].(string); ok {
+					r.TerminalCondition.RevisionReason = dclService.ServiceTerminalConditionRevisionReasonEnumRef(s)
+				} else {
+					return nil, fmt.Errorf("r.TerminalCondition.RevisionReason: expected string")
+				}
+			}
+			if _, ok := rTerminalCondition["severity"]; ok {
+				if s, ok := rTerminalCondition["severity"].(string); ok {
+					r.TerminalCondition.Severity = dclService.ServiceTerminalConditionSeverityEnumRef(s)
+				} else {
+					return nil, fmt.Errorf("r.TerminalCondition.Severity: expected string")
+				}
+			}
+			if _, ok := rTerminalCondition["state"]; ok {
+				if s, ok := rTerminalCondition["state"].(string); ok {
+					r.TerminalCondition.State = dclService.ServiceTerminalConditionStateEnumRef(s)
+				} else {
+					return nil, fmt.Errorf("r.TerminalCondition.State: expected string")
+				}
+			}
+			if _, ok := rTerminalCondition["type"]; ok {
+				if s, ok := rTerminalCondition["type"].(string); ok {
+					r.TerminalCondition.Type = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.TerminalCondition.Type: expected string")
+				}
 			}
 		} else {
 			return nil, fmt.Errorf("r.TerminalCondition: expected map[string]interface{}")
@@ -1067,81 +1129,6 @@ func UnstructuredToService(u *unstructured.Resource) (*dclService.Service, error
 			r.Uri = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.Uri: expected string")
-		}
-	}
-	return r, nil
-}
-
-func UnstructuredToServiceGooglecloudrunopv2Condition(obj map[string]interface{}) (*dclService.ServiceGooglecloudrunopv2Condition, error) {
-	r := &dclService.ServiceGooglecloudrunopv2Condition{}
-	if _, ok := obj["domainMappingReason"]; ok {
-		if s, ok := obj["domainMappingReason"].(string); ok {
-			r.DomainMappingReason = dclService.ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumRef(s)
-		} else {
-			return nil, fmt.Errorf("r.DomainMappingReason: expected string")
-		}
-	}
-	if _, ok := obj["internalReason"]; ok {
-		if s, ok := obj["internalReason"].(string); ok {
-			r.InternalReason = dclService.ServiceGooglecloudrunopv2ConditionInternalReasonEnumRef(s)
-		} else {
-			return nil, fmt.Errorf("r.InternalReason: expected string")
-		}
-	}
-	if _, ok := obj["jobReason"]; ok {
-		if s, ok := obj["jobReason"].(string); ok {
-			r.JobReason = dclService.ServiceGooglecloudrunopv2ConditionJobReasonEnumRef(s)
-		} else {
-			return nil, fmt.Errorf("r.JobReason: expected string")
-		}
-	}
-	if _, ok := obj["lastTransitionTime"]; ok {
-		if s, ok := obj["lastTransitionTime"].(string); ok {
-			r.LastTransitionTime = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.LastTransitionTime: expected string")
-		}
-	}
-	if _, ok := obj["message"]; ok {
-		if s, ok := obj["message"].(string); ok {
-			r.Message = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.Message: expected string")
-		}
-	}
-	if _, ok := obj["reason"]; ok {
-		if s, ok := obj["reason"].(string); ok {
-			r.Reason = dclService.ServiceGooglecloudrunopv2ConditionReasonEnumRef(s)
-		} else {
-			return nil, fmt.Errorf("r.Reason: expected string")
-		}
-	}
-	if _, ok := obj["revisionReason"]; ok {
-		if s, ok := obj["revisionReason"].(string); ok {
-			r.RevisionReason = dclService.ServiceGooglecloudrunopv2ConditionRevisionReasonEnumRef(s)
-		} else {
-			return nil, fmt.Errorf("r.RevisionReason: expected string")
-		}
-	}
-	if _, ok := obj["severity"]; ok {
-		if s, ok := obj["severity"].(string); ok {
-			r.Severity = dclService.ServiceGooglecloudrunopv2ConditionSeverityEnumRef(s)
-		} else {
-			return nil, fmt.Errorf("r.Severity: expected string")
-		}
-	}
-	if _, ok := obj["state"]; ok {
-		if s, ok := obj["state"].(string); ok {
-			r.State = dclService.ServiceGooglecloudrunopv2ConditionStateEnumRef(s)
-		} else {
-			return nil, fmt.Errorf("r.State: expected string")
-		}
-	}
-	if _, ok := obj["type"]; ok {
-		if s, ok := obj["type"].(string); ok {
-			r.Type = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.Type: expected string")
 		}
 	}
 	return r, nil

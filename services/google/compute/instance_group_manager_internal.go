@@ -75,7 +75,7 @@ func (r *InstanceGroupManagerVersions) validate() error {
 	}
 	return nil
 }
-func (r *InstanceGroupManagerFixedOrPercent) validate() error {
+func (r *InstanceGroupManagerVersionsTargetSize) validate() error {
 	return nil
 }
 func (r *InstanceGroupManagerCurrentActions) validate() error {
@@ -122,6 +122,12 @@ func (r *InstanceGroupManagerUpdatePolicy) validate() error {
 			return err
 		}
 	}
+	return nil
+}
+func (r *InstanceGroupManagerUpdatePolicyMaxSurge) validate() error {
+	return nil
+}
+func (r *InstanceGroupManagerUpdatePolicyMaxUnavailable) validate() error {
 	return nil
 }
 func (r *InstanceGroupManagerNamedPorts) validate() error {
@@ -1223,7 +1229,7 @@ func canonicalizeInstanceGroupManagerVersions(des, initial *InstanceGroupManager
 	} else {
 		cDes.InstanceTemplate = des.InstanceTemplate
 	}
-	cDes.TargetSize = canonicalizeInstanceGroupManagerFixedOrPercent(des.TargetSize, initial.TargetSize, opts...)
+	cDes.TargetSize = canonicalizeInstanceGroupManagerVersionsTargetSize(des.TargetSize, initial.TargetSize, opts...)
 
 	return cDes
 }
@@ -1276,7 +1282,7 @@ func canonicalizeNewInstanceGroupManagerVersions(c *Client, des, nw *InstanceGro
 	if dcl.NameToSelfLink(des.InstanceTemplate, nw.InstanceTemplate) {
 		nw.InstanceTemplate = des.InstanceTemplate
 	}
-	nw.TargetSize = canonicalizeNewInstanceGroupManagerFixedOrPercent(c, des.TargetSize, nw.TargetSize)
+	nw.TargetSize = canonicalizeNewInstanceGroupManagerVersionsTargetSize(c, des.TargetSize, nw.TargetSize)
 
 	return nw
 }
@@ -1324,7 +1330,7 @@ func canonicalizeNewInstanceGroupManagerVersionsSlice(c *Client, des, nw []Insta
 	return items
 }
 
-func canonicalizeInstanceGroupManagerFixedOrPercent(des, initial *InstanceGroupManagerFixedOrPercent, opts ...dcl.ApplyOption) *InstanceGroupManagerFixedOrPercent {
+func canonicalizeInstanceGroupManagerVersionsTargetSize(des, initial *InstanceGroupManagerVersionsTargetSize, opts ...dcl.ApplyOption) *InstanceGroupManagerVersionsTargetSize {
 	if des == nil {
 		return initial
 	}
@@ -1336,7 +1342,7 @@ func canonicalizeInstanceGroupManagerFixedOrPercent(des, initial *InstanceGroupM
 		return des
 	}
 
-	cDes := &InstanceGroupManagerFixedOrPercent{}
+	cDes := &InstanceGroupManagerVersionsTargetSize{}
 
 	if dcl.IsZeroValue(des.Fixed) || (dcl.IsEmptyValueIndirect(des.Fixed) && dcl.IsEmptyValueIndirect(initial.Fixed)) {
 		// Desired and initial values are equivalent, so set canonical desired value to initial value.
@@ -1354,16 +1360,16 @@ func canonicalizeInstanceGroupManagerFixedOrPercent(des, initial *InstanceGroupM
 	return cDes
 }
 
-func canonicalizeInstanceGroupManagerFixedOrPercentSlice(des, initial []InstanceGroupManagerFixedOrPercent, opts ...dcl.ApplyOption) []InstanceGroupManagerFixedOrPercent {
+func canonicalizeInstanceGroupManagerVersionsTargetSizeSlice(des, initial []InstanceGroupManagerVersionsTargetSize, opts ...dcl.ApplyOption) []InstanceGroupManagerVersionsTargetSize {
 	if dcl.IsEmptyValueIndirect(des) {
 		return initial
 	}
 
 	if len(des) != len(initial) {
 
-		items := make([]InstanceGroupManagerFixedOrPercent, 0, len(des))
+		items := make([]InstanceGroupManagerVersionsTargetSize, 0, len(des))
 		for _, d := range des {
-			cd := canonicalizeInstanceGroupManagerFixedOrPercent(&d, nil, opts...)
+			cd := canonicalizeInstanceGroupManagerVersionsTargetSize(&d, nil, opts...)
 			if cd != nil {
 				items = append(items, *cd)
 			}
@@ -1371,9 +1377,9 @@ func canonicalizeInstanceGroupManagerFixedOrPercentSlice(des, initial []Instance
 		return items
 	}
 
-	items := make([]InstanceGroupManagerFixedOrPercent, 0, len(des))
+	items := make([]InstanceGroupManagerVersionsTargetSize, 0, len(des))
 	for i, d := range des {
-		cd := canonicalizeInstanceGroupManagerFixedOrPercent(&d, &initial[i], opts...)
+		cd := canonicalizeInstanceGroupManagerVersionsTargetSize(&d, &initial[i], opts...)
 		if cd != nil {
 			items = append(items, *cd)
 		}
@@ -1382,7 +1388,7 @@ func canonicalizeInstanceGroupManagerFixedOrPercentSlice(des, initial []Instance
 
 }
 
-func canonicalizeNewInstanceGroupManagerFixedOrPercent(c *Client, des, nw *InstanceGroupManagerFixedOrPercent) *InstanceGroupManagerFixedOrPercent {
+func canonicalizeNewInstanceGroupManagerVersionsTargetSize(c *Client, des, nw *InstanceGroupManagerVersionsTargetSize) *InstanceGroupManagerVersionsTargetSize {
 
 	if des == nil {
 		return nw
@@ -1390,7 +1396,7 @@ func canonicalizeNewInstanceGroupManagerFixedOrPercent(c *Client, des, nw *Insta
 
 	if nw == nil {
 		if dcl.IsNotReturnedByServer(des) {
-			c.Config.Logger.Info("Found explicitly empty value for InstanceGroupManagerFixedOrPercent while comparing non-nil desired to nil actual.  Returning desired object.")
+			c.Config.Logger.Info("Found explicitly empty value for InstanceGroupManagerVersionsTargetSize while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
 		return nil
@@ -1399,15 +1405,15 @@ func canonicalizeNewInstanceGroupManagerFixedOrPercent(c *Client, des, nw *Insta
 	return nw
 }
 
-func canonicalizeNewInstanceGroupManagerFixedOrPercentSet(c *Client, des, nw []InstanceGroupManagerFixedOrPercent) []InstanceGroupManagerFixedOrPercent {
+func canonicalizeNewInstanceGroupManagerVersionsTargetSizeSet(c *Client, des, nw []InstanceGroupManagerVersionsTargetSize) []InstanceGroupManagerVersionsTargetSize {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []InstanceGroupManagerFixedOrPercent
+	var reorderedNew []InstanceGroupManagerVersionsTargetSize
 	for _, d := range des {
 		matchedNew := -1
 		for idx, n := range nw {
-			if diffs, _ := compareInstanceGroupManagerFixedOrPercentNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+			if diffs, _ := compareInstanceGroupManagerVersionsTargetSizeNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
 				matchedNew = idx
 				break
 			}
@@ -1422,7 +1428,7 @@ func canonicalizeNewInstanceGroupManagerFixedOrPercentSet(c *Client, des, nw []I
 	return reorderedNew
 }
 
-func canonicalizeNewInstanceGroupManagerFixedOrPercentSlice(c *Client, des, nw []InstanceGroupManagerFixedOrPercent) []InstanceGroupManagerFixedOrPercent {
+func canonicalizeNewInstanceGroupManagerVersionsTargetSizeSlice(c *Client, des, nw []InstanceGroupManagerVersionsTargetSize) []InstanceGroupManagerVersionsTargetSize {
 	if des == nil {
 		return nw
 	}
@@ -1433,10 +1439,10 @@ func canonicalizeNewInstanceGroupManagerFixedOrPercentSlice(c *Client, des, nw [
 		return nw
 	}
 
-	var items []InstanceGroupManagerFixedOrPercent
+	var items []InstanceGroupManagerVersionsTargetSize
 	for i, d := range des {
 		n := nw[i]
-		items = append(items, *canonicalizeNewInstanceGroupManagerFixedOrPercent(c, &d, &n))
+		items = append(items, *canonicalizeNewInstanceGroupManagerVersionsTargetSize(c, &d, &n))
 	}
 
 	return items
@@ -2148,8 +2154,8 @@ func canonicalizeInstanceGroupManagerUpdatePolicy(des, initial *InstanceGroupMan
 	} else {
 		cDes.MinimalAction = des.MinimalAction
 	}
-	cDes.MaxSurge = canonicalizeInstanceGroupManagerFixedOrPercent(des.MaxSurge, initial.MaxSurge, opts...)
-	cDes.MaxUnavailable = canonicalizeInstanceGroupManagerFixedOrPercent(des.MaxUnavailable, initial.MaxUnavailable, opts...)
+	cDes.MaxSurge = canonicalizeInstanceGroupManagerUpdatePolicyMaxSurge(des.MaxSurge, initial.MaxSurge, opts...)
+	cDes.MaxUnavailable = canonicalizeInstanceGroupManagerUpdatePolicyMaxUnavailable(des.MaxUnavailable, initial.MaxUnavailable, opts...)
 	if dcl.IsZeroValue(des.ReplacementMethod) || (dcl.IsEmptyValueIndirect(des.ReplacementMethod) && dcl.IsEmptyValueIndirect(initial.ReplacementMethod)) {
 		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ReplacementMethod = initial.ReplacementMethod
@@ -2202,8 +2208,8 @@ func canonicalizeNewInstanceGroupManagerUpdatePolicy(c *Client, des, nw *Instanc
 		return nil
 	}
 
-	nw.MaxSurge = canonicalizeNewInstanceGroupManagerFixedOrPercent(c, des.MaxSurge, nw.MaxSurge)
-	nw.MaxUnavailable = canonicalizeNewInstanceGroupManagerFixedOrPercent(c, des.MaxUnavailable, nw.MaxUnavailable)
+	nw.MaxSurge = canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurge(c, des.MaxSurge, nw.MaxSurge)
+	nw.MaxUnavailable = canonicalizeNewInstanceGroupManagerUpdatePolicyMaxUnavailable(c, des.MaxUnavailable, nw.MaxUnavailable)
 
 	return nw
 }
@@ -2246,6 +2252,242 @@ func canonicalizeNewInstanceGroupManagerUpdatePolicySlice(c *Client, des, nw []I
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceGroupManagerUpdatePolicy(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceGroupManagerUpdatePolicyMaxSurge(des, initial *InstanceGroupManagerUpdatePolicyMaxSurge, opts ...dcl.ApplyOption) *InstanceGroupManagerUpdatePolicyMaxSurge {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceGroupManagerUpdatePolicyMaxSurge{}
+
+	if dcl.IsZeroValue(des.Fixed) || (dcl.IsEmptyValueIndirect(des.Fixed) && dcl.IsEmptyValueIndirect(initial.Fixed)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.Fixed = initial.Fixed
+	} else {
+		cDes.Fixed = des.Fixed
+	}
+	if dcl.IsZeroValue(des.Percent) || (dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.Percent = initial.Percent
+	} else {
+		cDes.Percent = des.Percent
+	}
+
+	return cDes
+}
+
+func canonicalizeInstanceGroupManagerUpdatePolicyMaxSurgeSlice(des, initial []InstanceGroupManagerUpdatePolicyMaxSurge, opts ...dcl.ApplyOption) []InstanceGroupManagerUpdatePolicyMaxSurge {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerUpdatePolicyMaxSurge, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerUpdatePolicyMaxSurge(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerUpdatePolicyMaxSurge, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerUpdatePolicyMaxSurge(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurge(c *Client, des, nw *InstanceGroupManagerUpdatePolicyMaxSurge) *InstanceGroupManagerUpdatePolicyMaxSurge {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceGroupManagerUpdatePolicyMaxSurge while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeSet(c *Client, des, nw []InstanceGroupManagerUpdatePolicyMaxSurge) []InstanceGroupManagerUpdatePolicyMaxSurge {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceGroupManagerUpdatePolicyMaxSurge
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceGroupManagerUpdatePolicyMaxSurgeNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurgeSlice(c *Client, des, nw []InstanceGroupManagerUpdatePolicyMaxSurge) []InstanceGroupManagerUpdatePolicyMaxSurge {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceGroupManagerUpdatePolicyMaxSurge
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerUpdatePolicyMaxSurge(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceGroupManagerUpdatePolicyMaxUnavailable(des, initial *InstanceGroupManagerUpdatePolicyMaxUnavailable, opts ...dcl.ApplyOption) *InstanceGroupManagerUpdatePolicyMaxUnavailable {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceGroupManagerUpdatePolicyMaxUnavailable{}
+
+	if dcl.IsZeroValue(des.Fixed) || (dcl.IsEmptyValueIndirect(des.Fixed) && dcl.IsEmptyValueIndirect(initial.Fixed)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.Fixed = initial.Fixed
+	} else {
+		cDes.Fixed = des.Fixed
+	}
+	if dcl.IsZeroValue(des.Percent) || (dcl.IsEmptyValueIndirect(des.Percent) && dcl.IsEmptyValueIndirect(initial.Percent)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.Percent = initial.Percent
+	} else {
+		cDes.Percent = des.Percent
+	}
+
+	return cDes
+}
+
+func canonicalizeInstanceGroupManagerUpdatePolicyMaxUnavailableSlice(des, initial []InstanceGroupManagerUpdatePolicyMaxUnavailable, opts ...dcl.ApplyOption) []InstanceGroupManagerUpdatePolicyMaxUnavailable {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerUpdatePolicyMaxUnavailable, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerUpdatePolicyMaxUnavailable(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerUpdatePolicyMaxUnavailable, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerUpdatePolicyMaxUnavailable(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxUnavailable(c *Client, des, nw *InstanceGroupManagerUpdatePolicyMaxUnavailable) *InstanceGroupManagerUpdatePolicyMaxUnavailable {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceGroupManagerUpdatePolicyMaxUnavailable while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxUnavailableSet(c *Client, des, nw []InstanceGroupManagerUpdatePolicyMaxUnavailable) []InstanceGroupManagerUpdatePolicyMaxUnavailable {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceGroupManagerUpdatePolicyMaxUnavailable
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceGroupManagerUpdatePolicyMaxUnavailableNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceGroupManagerUpdatePolicyMaxUnavailableSlice(c *Client, des, nw []InstanceGroupManagerUpdatePolicyMaxUnavailable) []InstanceGroupManagerUpdatePolicyMaxUnavailable {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceGroupManagerUpdatePolicyMaxUnavailable
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerUpdatePolicyMaxUnavailable(c, &d, &n))
 	}
 
 	return items
@@ -2985,7 +3227,7 @@ func compareInstanceGroupManagerVersionsNewStyle(d, a interface{}, fn dcl.FieldN
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetSize, actual.TargetSize, dcl.Info{ObjectFunction: compareInstanceGroupManagerFixedOrPercentNewStyle, EmptyObject: EmptyInstanceGroupManagerFixedOrPercent, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("TargetSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetSize, actual.TargetSize, dcl.Info{ObjectFunction: compareInstanceGroupManagerVersionsTargetSizeNewStyle, EmptyObject: EmptyInstanceGroupManagerVersionsTargetSize, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("TargetSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2994,22 +3236,22 @@ func compareInstanceGroupManagerVersionsNewStyle(d, a interface{}, fn dcl.FieldN
 	return diffs, nil
 }
 
-func compareInstanceGroupManagerFixedOrPercentNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func compareInstanceGroupManagerVersionsTargetSizeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
-	desired, ok := d.(*InstanceGroupManagerFixedOrPercent)
+	desired, ok := d.(*InstanceGroupManagerVersionsTargetSize)
 	if !ok {
-		desiredNotPointer, ok := d.(InstanceGroupManagerFixedOrPercent)
+		desiredNotPointer, ok := d.(InstanceGroupManagerVersionsTargetSize)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerFixedOrPercent or *InstanceGroupManagerFixedOrPercent", d)
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerVersionsTargetSize or *InstanceGroupManagerVersionsTargetSize", d)
 		}
 		desired = &desiredNotPointer
 	}
-	actual, ok := a.(*InstanceGroupManagerFixedOrPercent)
+	actual, ok := a.(*InstanceGroupManagerVersionsTargetSize)
 	if !ok {
-		actualNotPointer, ok := a.(InstanceGroupManagerFixedOrPercent)
+		actualNotPointer, ok := a.(InstanceGroupManagerVersionsTargetSize)
 		if !ok {
-			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerFixedOrPercent", a)
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerVersionsTargetSize", a)
 		}
 		actual = &actualNotPointer
 	}
@@ -3343,14 +3585,14 @@ func compareInstanceGroupManagerUpdatePolicyNewStyle(d, a interface{}, fn dcl.Fi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxSurge, actual.MaxSurge, dcl.Info{ObjectFunction: compareInstanceGroupManagerFixedOrPercentNewStyle, EmptyObject: EmptyInstanceGroupManagerFixedOrPercent, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MaxSurge")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxSurge, actual.MaxSurge, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyMaxSurgeNewStyle, EmptyObject: EmptyInstanceGroupManagerUpdatePolicyMaxSurge, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MaxSurge")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxUnavailable, actual.MaxUnavailable, dcl.Info{ObjectFunction: compareInstanceGroupManagerFixedOrPercentNewStyle, EmptyObject: EmptyInstanceGroupManagerFixedOrPercent, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MaxUnavailable")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxUnavailable, actual.MaxUnavailable, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyMaxUnavailableNewStyle, EmptyObject: EmptyInstanceGroupManagerUpdatePolicyMaxUnavailable, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MaxUnavailable")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3358,6 +3600,92 @@ func compareInstanceGroupManagerUpdatePolicyNewStyle(d, a interface{}, fn dcl.Fi
 	}
 
 	if ds, err := dcl.Diff(desired.ReplacementMethod, actual.ReplacementMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("ReplacementMethod")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceGroupManagerUpdatePolicyMaxSurgeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerUpdatePolicyMaxSurge)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerUpdatePolicyMaxSurge)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicyMaxSurge or *InstanceGroupManagerUpdatePolicyMaxSurge", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerUpdatePolicyMaxSurge)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerUpdatePolicyMaxSurge)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicyMaxSurge", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Fixed, actual.Fixed, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Fixed")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Calculated, actual.Calculated, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Calculated")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceGroupManagerUpdatePolicyMaxUnavailableNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerUpdatePolicyMaxUnavailable)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerUpdatePolicyMaxUnavailable)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicyMaxUnavailable or *InstanceGroupManagerUpdatePolicyMaxUnavailable", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerUpdatePolicyMaxUnavailable)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerUpdatePolicyMaxUnavailable)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerUpdatePolicyMaxUnavailable", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Fixed, actual.Fixed, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Fixed")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Calculated, actual.Calculated, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Calculated")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4031,7 +4359,7 @@ func expandInstanceGroupManagerVersions(c *Client, f *InstanceGroupManagerVersio
 	if v := f.InstanceTemplate; !dcl.IsEmptyValueIndirect(v) {
 		m["instanceTemplate"] = v
 	}
-	if v, err := expandInstanceGroupManagerFixedOrPercent(c, f.TargetSize, res); err != nil {
+	if v, err := expandInstanceGroupManagerVersionsTargetSize(c, f.TargetSize, res); err != nil {
 		return nil, fmt.Errorf("error expanding TargetSize into targetSize: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["targetSize"] = v
@@ -4055,21 +4383,21 @@ func flattenInstanceGroupManagerVersions(c *Client, i interface{}, res *Instance
 	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.InstanceTemplate = dcl.FlattenString(m["instanceTemplate"])
-	r.TargetSize = flattenInstanceGroupManagerFixedOrPercent(c, m["targetSize"], res)
+	r.TargetSize = flattenInstanceGroupManagerVersionsTargetSize(c, m["targetSize"], res)
 
 	return r
 }
 
-// expandInstanceGroupManagerFixedOrPercentMap expands the contents of InstanceGroupManagerFixedOrPercent into a JSON
+// expandInstanceGroupManagerVersionsTargetSizeMap expands the contents of InstanceGroupManagerVersionsTargetSize into a JSON
 // request object.
-func expandInstanceGroupManagerFixedOrPercentMap(c *Client, f map[string]InstanceGroupManagerFixedOrPercent, res *InstanceGroupManager) (map[string]interface{}, error) {
+func expandInstanceGroupManagerVersionsTargetSizeMap(c *Client, f map[string]InstanceGroupManagerVersionsTargetSize, res *InstanceGroupManager) (map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := make(map[string]interface{})
 	for k, item := range f {
-		i, err := expandInstanceGroupManagerFixedOrPercent(c, &item, res)
+		i, err := expandInstanceGroupManagerVersionsTargetSize(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4081,16 +4409,16 @@ func expandInstanceGroupManagerFixedOrPercentMap(c *Client, f map[string]Instanc
 	return items, nil
 }
 
-// expandInstanceGroupManagerFixedOrPercentSlice expands the contents of InstanceGroupManagerFixedOrPercent into a JSON
+// expandInstanceGroupManagerVersionsTargetSizeSlice expands the contents of InstanceGroupManagerVersionsTargetSize into a JSON
 // request object.
-func expandInstanceGroupManagerFixedOrPercentSlice(c *Client, f []InstanceGroupManagerFixedOrPercent, res *InstanceGroupManager) ([]map[string]interface{}, error) {
+func expandInstanceGroupManagerVersionsTargetSizeSlice(c *Client, f []InstanceGroupManagerVersionsTargetSize, res *InstanceGroupManager) ([]map[string]interface{}, error) {
 	if f == nil {
 		return nil, nil
 	}
 
 	items := []map[string]interface{}{}
 	for _, item := range f {
-		i, err := expandInstanceGroupManagerFixedOrPercent(c, &item, res)
+		i, err := expandInstanceGroupManagerVersionsTargetSize(c, &item, res)
 		if err != nil {
 			return nil, err
 		}
@@ -4101,49 +4429,49 @@ func expandInstanceGroupManagerFixedOrPercentSlice(c *Client, f []InstanceGroupM
 	return items, nil
 }
 
-// flattenInstanceGroupManagerFixedOrPercentMap flattens the contents of InstanceGroupManagerFixedOrPercent from a JSON
+// flattenInstanceGroupManagerVersionsTargetSizeMap flattens the contents of InstanceGroupManagerVersionsTargetSize from a JSON
 // response object.
-func flattenInstanceGroupManagerFixedOrPercentMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerFixedOrPercent {
+func flattenInstanceGroupManagerVersionsTargetSizeMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerVersionsTargetSize {
 	a, ok := i.(map[string]interface{})
 	if !ok {
-		return map[string]InstanceGroupManagerFixedOrPercent{}
+		return map[string]InstanceGroupManagerVersionsTargetSize{}
 	}
 
 	if len(a) == 0 {
-		return map[string]InstanceGroupManagerFixedOrPercent{}
+		return map[string]InstanceGroupManagerVersionsTargetSize{}
 	}
 
-	items := make(map[string]InstanceGroupManagerFixedOrPercent)
+	items := make(map[string]InstanceGroupManagerVersionsTargetSize)
 	for k, item := range a {
-		items[k] = *flattenInstanceGroupManagerFixedOrPercent(c, item.(map[string]interface{}), res)
+		items[k] = *flattenInstanceGroupManagerVersionsTargetSize(c, item.(map[string]interface{}), res)
 	}
 
 	return items
 }
 
-// flattenInstanceGroupManagerFixedOrPercentSlice flattens the contents of InstanceGroupManagerFixedOrPercent from a JSON
+// flattenInstanceGroupManagerVersionsTargetSizeSlice flattens the contents of InstanceGroupManagerVersionsTargetSize from a JSON
 // response object.
-func flattenInstanceGroupManagerFixedOrPercentSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerFixedOrPercent {
+func flattenInstanceGroupManagerVersionsTargetSizeSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerVersionsTargetSize {
 	a, ok := i.([]interface{})
 	if !ok {
-		return []InstanceGroupManagerFixedOrPercent{}
+		return []InstanceGroupManagerVersionsTargetSize{}
 	}
 
 	if len(a) == 0 {
-		return []InstanceGroupManagerFixedOrPercent{}
+		return []InstanceGroupManagerVersionsTargetSize{}
 	}
 
-	items := make([]InstanceGroupManagerFixedOrPercent, 0, len(a))
+	items := make([]InstanceGroupManagerVersionsTargetSize, 0, len(a))
 	for _, item := range a {
-		items = append(items, *flattenInstanceGroupManagerFixedOrPercent(c, item.(map[string]interface{}), res))
+		items = append(items, *flattenInstanceGroupManagerVersionsTargetSize(c, item.(map[string]interface{}), res))
 	}
 
 	return items
 }
 
-// expandInstanceGroupManagerFixedOrPercent expands an instance of InstanceGroupManagerFixedOrPercent into a JSON
+// expandInstanceGroupManagerVersionsTargetSize expands an instance of InstanceGroupManagerVersionsTargetSize into a JSON
 // request object.
-func expandInstanceGroupManagerFixedOrPercent(c *Client, f *InstanceGroupManagerFixedOrPercent, res *InstanceGroupManager) (map[string]interface{}, error) {
+func expandInstanceGroupManagerVersionsTargetSize(c *Client, f *InstanceGroupManagerVersionsTargetSize, res *InstanceGroupManager) (map[string]interface{}, error) {
 	if dcl.IsEmptyValueIndirect(f) {
 		return nil, nil
 	}
@@ -4159,18 +4487,18 @@ func expandInstanceGroupManagerFixedOrPercent(c *Client, f *InstanceGroupManager
 	return m, nil
 }
 
-// flattenInstanceGroupManagerFixedOrPercent flattens an instance of InstanceGroupManagerFixedOrPercent from a JSON
+// flattenInstanceGroupManagerVersionsTargetSize flattens an instance of InstanceGroupManagerVersionsTargetSize from a JSON
 // response object.
-func flattenInstanceGroupManagerFixedOrPercent(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerFixedOrPercent {
+func flattenInstanceGroupManagerVersionsTargetSize(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerVersionsTargetSize {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
 	}
 
-	r := &InstanceGroupManagerFixedOrPercent{}
+	r := &InstanceGroupManagerVersionsTargetSize{}
 
 	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyInstanceGroupManagerFixedOrPercent
+		return EmptyInstanceGroupManagerVersionsTargetSize
 	}
 	r.Fixed = dcl.FlattenInteger(m["fixed"])
 	r.Percent = dcl.FlattenInteger(m["percent"])
@@ -4965,12 +5293,12 @@ func expandInstanceGroupManagerUpdatePolicy(c *Client, f *InstanceGroupManagerUp
 	if v := f.MinimalAction; !dcl.IsEmptyValueIndirect(v) {
 		m["minimalAction"] = v
 	}
-	if v, err := expandInstanceGroupManagerFixedOrPercent(c, f.MaxSurge, res); err != nil {
+	if v, err := expandInstanceGroupManagerUpdatePolicyMaxSurge(c, f.MaxSurge, res); err != nil {
 		return nil, fmt.Errorf("error expanding MaxSurge into maxSurge: %w", err)
 	} else if v != nil {
 		m["maxSurge"] = v
 	}
-	if v, err := expandInstanceGroupManagerFixedOrPercent(c, f.MaxUnavailable, res); err != nil {
+	if v, err := expandInstanceGroupManagerUpdatePolicyMaxUnavailable(c, f.MaxUnavailable, res); err != nil {
 		return nil, fmt.Errorf("error expanding MaxUnavailable into maxUnavailable: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["maxUnavailable"] = v
@@ -4998,9 +5326,247 @@ func flattenInstanceGroupManagerUpdatePolicy(c *Client, i interface{}, res *Inst
 	r.Type = flattenInstanceGroupManagerUpdatePolicyTypeEnum(m["type"])
 	r.InstanceRedistributionType = flattenInstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum(m["instanceRedistributionType"])
 	r.MinimalAction = flattenInstanceGroupManagerUpdatePolicyMinimalActionEnum(m["minimalAction"])
-	r.MaxSurge = flattenInstanceGroupManagerFixedOrPercent(c, m["maxSurge"], res)
-	r.MaxUnavailable = flattenInstanceGroupManagerFixedOrPercent(c, m["maxUnavailable"], res)
+	r.MaxSurge = flattenInstanceGroupManagerUpdatePolicyMaxSurge(c, m["maxSurge"], res)
+	r.MaxUnavailable = flattenInstanceGroupManagerUpdatePolicyMaxUnavailable(c, m["maxUnavailable"], res)
 	r.ReplacementMethod = flattenInstanceGroupManagerUpdatePolicyReplacementMethodEnum(m["replacementMethod"])
+
+	return r
+}
+
+// expandInstanceGroupManagerUpdatePolicyMaxSurgeMap expands the contents of InstanceGroupManagerUpdatePolicyMaxSurge into a JSON
+// request object.
+func expandInstanceGroupManagerUpdatePolicyMaxSurgeMap(c *Client, f map[string]InstanceGroupManagerUpdatePolicyMaxSurge, res *InstanceGroupManager) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceGroupManagerUpdatePolicyMaxSurge(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceGroupManagerUpdatePolicyMaxSurgeSlice expands the contents of InstanceGroupManagerUpdatePolicyMaxSurge into a JSON
+// request object.
+func expandInstanceGroupManagerUpdatePolicyMaxSurgeSlice(c *Client, f []InstanceGroupManagerUpdatePolicyMaxSurge, res *InstanceGroupManager) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceGroupManagerUpdatePolicyMaxSurge(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceGroupManagerUpdatePolicyMaxSurgeMap flattens the contents of InstanceGroupManagerUpdatePolicyMaxSurge from a JSON
+// response object.
+func flattenInstanceGroupManagerUpdatePolicyMaxSurgeMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerUpdatePolicyMaxSurge {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceGroupManagerUpdatePolicyMaxSurge{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceGroupManagerUpdatePolicyMaxSurge{}
+	}
+
+	items := make(map[string]InstanceGroupManagerUpdatePolicyMaxSurge)
+	for k, item := range a {
+		items[k] = *flattenInstanceGroupManagerUpdatePolicyMaxSurge(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerUpdatePolicyMaxSurgeSlice flattens the contents of InstanceGroupManagerUpdatePolicyMaxSurge from a JSON
+// response object.
+func flattenInstanceGroupManagerUpdatePolicyMaxSurgeSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerUpdatePolicyMaxSurge {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceGroupManagerUpdatePolicyMaxSurge{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceGroupManagerUpdatePolicyMaxSurge{}
+	}
+
+	items := make([]InstanceGroupManagerUpdatePolicyMaxSurge, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceGroupManagerUpdatePolicyMaxSurge(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandInstanceGroupManagerUpdatePolicyMaxSurge expands an instance of InstanceGroupManagerUpdatePolicyMaxSurge into a JSON
+// request object.
+func expandInstanceGroupManagerUpdatePolicyMaxSurge(c *Client, f *InstanceGroupManagerUpdatePolicyMaxSurge, res *InstanceGroupManager) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Fixed; v != nil {
+		m["fixed"] = v
+	}
+	if v := f.Percent; v != nil {
+		m["percent"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceGroupManagerUpdatePolicyMaxSurge flattens an instance of InstanceGroupManagerUpdatePolicyMaxSurge from a JSON
+// response object.
+func flattenInstanceGroupManagerUpdatePolicyMaxSurge(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerUpdatePolicyMaxSurge {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceGroupManagerUpdatePolicyMaxSurge{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerUpdatePolicyMaxSurge
+	}
+	r.Fixed = dcl.FlattenInteger(m["fixed"])
+	r.Percent = dcl.FlattenInteger(m["percent"])
+	r.Calculated = dcl.FlattenInteger(m["calculated"])
+
+	return r
+}
+
+// expandInstanceGroupManagerUpdatePolicyMaxUnavailableMap expands the contents of InstanceGroupManagerUpdatePolicyMaxUnavailable into a JSON
+// request object.
+func expandInstanceGroupManagerUpdatePolicyMaxUnavailableMap(c *Client, f map[string]InstanceGroupManagerUpdatePolicyMaxUnavailable, res *InstanceGroupManager) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceGroupManagerUpdatePolicyMaxUnavailable(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceGroupManagerUpdatePolicyMaxUnavailableSlice expands the contents of InstanceGroupManagerUpdatePolicyMaxUnavailable into a JSON
+// request object.
+func expandInstanceGroupManagerUpdatePolicyMaxUnavailableSlice(c *Client, f []InstanceGroupManagerUpdatePolicyMaxUnavailable, res *InstanceGroupManager) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceGroupManagerUpdatePolicyMaxUnavailable(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceGroupManagerUpdatePolicyMaxUnavailableMap flattens the contents of InstanceGroupManagerUpdatePolicyMaxUnavailable from a JSON
+// response object.
+func flattenInstanceGroupManagerUpdatePolicyMaxUnavailableMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerUpdatePolicyMaxUnavailable {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceGroupManagerUpdatePolicyMaxUnavailable{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceGroupManagerUpdatePolicyMaxUnavailable{}
+	}
+
+	items := make(map[string]InstanceGroupManagerUpdatePolicyMaxUnavailable)
+	for k, item := range a {
+		items[k] = *flattenInstanceGroupManagerUpdatePolicyMaxUnavailable(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerUpdatePolicyMaxUnavailableSlice flattens the contents of InstanceGroupManagerUpdatePolicyMaxUnavailable from a JSON
+// response object.
+func flattenInstanceGroupManagerUpdatePolicyMaxUnavailableSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerUpdatePolicyMaxUnavailable {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceGroupManagerUpdatePolicyMaxUnavailable{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceGroupManagerUpdatePolicyMaxUnavailable{}
+	}
+
+	items := make([]InstanceGroupManagerUpdatePolicyMaxUnavailable, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceGroupManagerUpdatePolicyMaxUnavailable(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandInstanceGroupManagerUpdatePolicyMaxUnavailable expands an instance of InstanceGroupManagerUpdatePolicyMaxUnavailable into a JSON
+// request object.
+func expandInstanceGroupManagerUpdatePolicyMaxUnavailable(c *Client, f *InstanceGroupManagerUpdatePolicyMaxUnavailable, res *InstanceGroupManager) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Fixed; v != nil {
+		m["fixed"] = v
+	}
+	if v := f.Percent; v != nil {
+		m["percent"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceGroupManagerUpdatePolicyMaxUnavailable flattens an instance of InstanceGroupManagerUpdatePolicyMaxUnavailable from a JSON
+// response object.
+func flattenInstanceGroupManagerUpdatePolicyMaxUnavailable(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerUpdatePolicyMaxUnavailable {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceGroupManagerUpdatePolicyMaxUnavailable{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerUpdatePolicyMaxUnavailable
+	}
+	r.Fixed = dcl.FlattenInteger(m["fixed"])
+	r.Percent = dcl.FlattenInteger(m["percent"])
+	r.Calculated = dcl.FlattenInteger(m["calculated"])
 
 	return r
 }
@@ -5937,11 +6503,20 @@ func extractInstanceGroupManagerDistributionPolicyZonesFields(r *InstanceGroupMa
 	return nil
 }
 func extractInstanceGroupManagerVersionsFields(r *InstanceGroupManager, o *InstanceGroupManagerVersions) error {
-	// *InstanceGroupManagerFixedOrPercent is a reused type - that's not compatible with function extractors.
-
+	vTargetSize := o.TargetSize
+	if vTargetSize == nil {
+		// note: explicitly not the empty object.
+		vTargetSize = &InstanceGroupManagerVersionsTargetSize{}
+	}
+	if err := extractInstanceGroupManagerVersionsTargetSizeFields(r, vTargetSize); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTargetSize) {
+		o.TargetSize = vTargetSize
+	}
 	return nil
 }
-func extractInstanceGroupManagerFixedOrPercentFields(r *InstanceGroupManager, o *InstanceGroupManagerFixedOrPercent) error {
+func extractInstanceGroupManagerVersionsTargetSizeFields(r *InstanceGroupManager, o *InstanceGroupManagerVersionsTargetSize) error {
 	return nil
 }
 func extractInstanceGroupManagerCurrentActionsFields(r *InstanceGroupManager, o *InstanceGroupManagerCurrentActions) error {
@@ -5996,10 +6571,34 @@ func extractInstanceGroupManagerAutoHealingPoliciesFields(r *InstanceGroupManage
 	return nil
 }
 func extractInstanceGroupManagerUpdatePolicyFields(r *InstanceGroupManager, o *InstanceGroupManagerUpdatePolicy) error {
-	// *InstanceGroupManagerFixedOrPercent is a reused type - that's not compatible with function extractors.
-
-	// *InstanceGroupManagerFixedOrPercent is a reused type - that's not compatible with function extractors.
-
+	vMaxSurge := o.MaxSurge
+	if vMaxSurge == nil {
+		// note: explicitly not the empty object.
+		vMaxSurge = &InstanceGroupManagerUpdatePolicyMaxSurge{}
+	}
+	if err := extractInstanceGroupManagerUpdatePolicyMaxSurgeFields(r, vMaxSurge); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMaxSurge) {
+		o.MaxSurge = vMaxSurge
+	}
+	vMaxUnavailable := o.MaxUnavailable
+	if vMaxUnavailable == nil {
+		// note: explicitly not the empty object.
+		vMaxUnavailable = &InstanceGroupManagerUpdatePolicyMaxUnavailable{}
+	}
+	if err := extractInstanceGroupManagerUpdatePolicyMaxUnavailableFields(r, vMaxUnavailable); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMaxUnavailable) {
+		o.MaxUnavailable = vMaxUnavailable
+	}
+	return nil
+}
+func extractInstanceGroupManagerUpdatePolicyMaxSurgeFields(r *InstanceGroupManager, o *InstanceGroupManagerUpdatePolicyMaxSurge) error {
+	return nil
+}
+func extractInstanceGroupManagerUpdatePolicyMaxUnavailableFields(r *InstanceGroupManager, o *InstanceGroupManagerUpdatePolicyMaxUnavailable) error {
 	return nil
 }
 func extractInstanceGroupManagerNamedPortsFields(r *InstanceGroupManager, o *InstanceGroupManagerNamedPorts) error {
@@ -6091,11 +6690,20 @@ func postReadExtractInstanceGroupManagerDistributionPolicyZonesFields(r *Instanc
 	return nil
 }
 func postReadExtractInstanceGroupManagerVersionsFields(r *InstanceGroupManager, o *InstanceGroupManagerVersions) error {
-	// *InstanceGroupManagerFixedOrPercent is a reused type - that's not compatible with function extractors.
-
+	vTargetSize := o.TargetSize
+	if vTargetSize == nil {
+		// note: explicitly not the empty object.
+		vTargetSize = &InstanceGroupManagerVersionsTargetSize{}
+	}
+	if err := extractInstanceGroupManagerVersionsTargetSizeFields(r, vTargetSize); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vTargetSize) {
+		o.TargetSize = vTargetSize
+	}
 	return nil
 }
-func postReadExtractInstanceGroupManagerFixedOrPercentFields(r *InstanceGroupManager, o *InstanceGroupManagerFixedOrPercent) error {
+func postReadExtractInstanceGroupManagerVersionsTargetSizeFields(r *InstanceGroupManager, o *InstanceGroupManagerVersionsTargetSize) error {
 	return nil
 }
 func postReadExtractInstanceGroupManagerCurrentActionsFields(r *InstanceGroupManager, o *InstanceGroupManagerCurrentActions) error {
@@ -6150,10 +6758,34 @@ func postReadExtractInstanceGroupManagerAutoHealingPoliciesFields(r *InstanceGro
 	return nil
 }
 func postReadExtractInstanceGroupManagerUpdatePolicyFields(r *InstanceGroupManager, o *InstanceGroupManagerUpdatePolicy) error {
-	// *InstanceGroupManagerFixedOrPercent is a reused type - that's not compatible with function extractors.
-
-	// *InstanceGroupManagerFixedOrPercent is a reused type - that's not compatible with function extractors.
-
+	vMaxSurge := o.MaxSurge
+	if vMaxSurge == nil {
+		// note: explicitly not the empty object.
+		vMaxSurge = &InstanceGroupManagerUpdatePolicyMaxSurge{}
+	}
+	if err := extractInstanceGroupManagerUpdatePolicyMaxSurgeFields(r, vMaxSurge); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMaxSurge) {
+		o.MaxSurge = vMaxSurge
+	}
+	vMaxUnavailable := o.MaxUnavailable
+	if vMaxUnavailable == nil {
+		// note: explicitly not the empty object.
+		vMaxUnavailable = &InstanceGroupManagerUpdatePolicyMaxUnavailable{}
+	}
+	if err := extractInstanceGroupManagerUpdatePolicyMaxUnavailableFields(r, vMaxUnavailable); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vMaxUnavailable) {
+		o.MaxUnavailable = vMaxUnavailable
+	}
+	return nil
+}
+func postReadExtractInstanceGroupManagerUpdatePolicyMaxSurgeFields(r *InstanceGroupManager, o *InstanceGroupManagerUpdatePolicyMaxSurge) error {
+	return nil
+}
+func postReadExtractInstanceGroupManagerUpdatePolicyMaxUnavailableFields(r *InstanceGroupManager, o *InstanceGroupManagerUpdatePolicyMaxUnavailable) error {
 	return nil
 }
 func postReadExtractInstanceGroupManagerNamedPortsFields(r *InstanceGroupManager, o *InstanceGroupManagerNamedPorts) error {

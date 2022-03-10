@@ -51,33 +51,6 @@ paths:
         type: string
 components:
   schemas:
-    Googleappscloudidentitygroupsvxentitykey:
-      x-dcl-has-iam: false
-      type: object
-      x-dcl-go-name: GroupKey
-      x-dcl-go-type: GroupGoogleappscloudidentitygroupsvxentitykey
-      description: Required. Immutable. The `EntityKey` of the `Group`.
-      x-kubernetes-immutable: true
-      required:
-      - id
-      properties:
-        id:
-          type: string
-          x-dcl-go-name: Id
-          description: The ID of the entity. For Google-managed entities, the `id`
-            must be the email address of a group or user. For external-identity-mapped
-            entities, the `id` must be a string conforming to the Identity Source's
-            requirements. Must be unique within a `namespace`.
-          x-kubernetes-immutable: true
-        namespace:
-          type: string
-          x-dcl-go-name: Namespace
-          description: The namespace in which the entity exists. If not specified,
-            the `EntityKey` represents a Google-managed entity such as a Google user
-            or a Google Group. If specified, the `EntityKey` represents an external-identity-mapped
-            group. The namespace must correspond to an identity source created in
-            Admin Console and must be in the form of `identitysources/{identity_source_id}`.
-          x-kubernetes-immutable: true
     Group:
       title: Group
       x-dcl-id: groups/{{name}}
@@ -98,9 +71,28 @@ components:
           x-dcl-list-type: list
           items:
             type: object
-            $ref: '#/components/schemas/Googleappscloudidentitygroupsvxentitykey'
-            x-dcl-go-name: AdditionalGroupKeys
-            x-dcl-go-type: GroupGoogleappscloudidentitygroupsvxentitykey
+            x-dcl-go-type: GroupAdditionalGroupKeys
+            required:
+            - id
+            properties:
+              id:
+                type: string
+                x-dcl-go-name: Id
+                description: The ID of the entity. For Google-managed entities, the
+                  `id` must be the email address of a group or user. For external-identity-mapped
+                  entities, the `id` must be a string conforming to the Identity Source's
+                  requirements. Must be unique within a `namespace`.
+                x-kubernetes-immutable: true
+              namespace:
+                type: string
+                x-dcl-go-name: Namespace
+                description: The namespace in which the entity exists. If not specified,
+                  the `EntityKey` represents a Google-managed entity such as a Google
+                  user or a Google Group. If specified, the `EntityKey` represents
+                  an external-identity-mapped group. The namespace must correspond
+                  to an identity source created in Admin Console and must be in the
+                  form of `identitysources/{identity_source_id}`.
+                x-kubernetes-immutable: true
           x-dcl-mutable-unreadable: true
         createTime:
           type: string
@@ -176,9 +168,32 @@ components:
                     be up to date. UPDATING_MEMBERSHIPS - The time at which dynamic
                     group was created.'
         groupKey:
-          $ref: '#/components/schemas/Googleappscloudidentitygroupsvxentitykey'
+          type: object
           x-dcl-go-name: GroupKey
+          x-dcl-go-type: GroupGroupKey
+          description: Required. Immutable. The `EntityKey` of the `Group`.
           x-kubernetes-immutable: true
+          required:
+          - id
+          properties:
+            id:
+              type: string
+              x-dcl-go-name: Id
+              description: The ID of the entity. For Google-managed entities, the
+                `id` must be the email address of a group or user. For external-identity-mapped
+                entities, the `id` must be a string conforming to the Identity Source's
+                requirements. Must be unique within a `namespace`.
+              x-kubernetes-immutable: true
+            namespace:
+              type: string
+              x-dcl-go-name: Namespace
+              description: The namespace in which the entity exists. If not specified,
+                the `EntityKey` represents a Google-managed entity such as a Google
+                user or a Google Group. If specified, the `EntityKey` represents an
+                external-identity-mapped group. The namespace must correspond to an
+                identity source created in Admin Console and must be in the form of
+                `identitysources/{identity_source_id}`.
+              x-kubernetes-immutable: true
         initialGroupConfig:
           type: string
           x-dcl-go-name: InitialGroupConfig

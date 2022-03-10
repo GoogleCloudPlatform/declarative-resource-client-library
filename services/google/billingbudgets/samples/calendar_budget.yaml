@@ -38,6 +38,8 @@ updates:
   - samples/second.pubsub.topic.json
   - samples/second.monitoring.notification_channel.json
 variables:
+- name: billing_account_for_budgets
+  type: billing_account_for_budgets
 - name: id1
   type: resource_name
 - name: id2

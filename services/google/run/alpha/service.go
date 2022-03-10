@@ -26,34 +26,34 @@ import (
 )
 
 type Service struct {
-	Name                  *string                             `json:"name"`
-	Description           *string                             `json:"description"`
-	Uid                   *string                             `json:"uid"`
-	Generation            *int64                              `json:"generation"`
-	Labels                map[string]string                   `json:"labels"`
-	Annotations           map[string]string                   `json:"annotations"`
-	CreateTime            *string                             `json:"createTime"`
-	UpdateTime            *string                             `json:"updateTime"`
-	DeleteTime            *string                             `json:"deleteTime"`
-	ExpireTime            *string                             `json:"expireTime"`
-	Creator               *string                             `json:"creator"`
-	LastModifier          *string                             `json:"lastModifier"`
-	Client                *string                             `json:"client"`
-	ClientVersion         *string                             `json:"clientVersion"`
-	Ingress               *ServiceIngressEnum                 `json:"ingress"`
-	LaunchStage           *ServiceLaunchStageEnum             `json:"launchStage"`
-	BinaryAuthorization   *ServiceBinaryAuthorization         `json:"binaryAuthorization"`
-	Template              *ServiceTemplate                    `json:"template"`
-	Traffic               []ServiceTraffic                    `json:"traffic"`
-	TerminalCondition     *ServiceGooglecloudrunopv2Condition `json:"terminalCondition"`
-	LatestReadyRevision   *string                             `json:"latestReadyRevision"`
-	LatestCreatedRevision *string                             `json:"latestCreatedRevision"`
-	TrafficStatuses       []ServiceTrafficStatuses            `json:"trafficStatuses"`
-	Uri                   *string                             `json:"uri"`
-	Reconciling           *bool                               `json:"reconciling"`
-	Etag                  *string                             `json:"etag"`
-	Project               *string                             `json:"project"`
-	Location              *string                             `json:"location"`
+	Name                  *string                     `json:"name"`
+	Description           *string                     `json:"description"`
+	Uid                   *string                     `json:"uid"`
+	Generation            *int64                      `json:"generation"`
+	Labels                map[string]string           `json:"labels"`
+	Annotations           map[string]string           `json:"annotations"`
+	CreateTime            *string                     `json:"createTime"`
+	UpdateTime            *string                     `json:"updateTime"`
+	DeleteTime            *string                     `json:"deleteTime"`
+	ExpireTime            *string                     `json:"expireTime"`
+	Creator               *string                     `json:"creator"`
+	LastModifier          *string                     `json:"lastModifier"`
+	Client                *string                     `json:"client"`
+	ClientVersion         *string                     `json:"clientVersion"`
+	Ingress               *ServiceIngressEnum         `json:"ingress"`
+	LaunchStage           *ServiceLaunchStageEnum     `json:"launchStage"`
+	BinaryAuthorization   *ServiceBinaryAuthorization `json:"binaryAuthorization"`
+	Template              *ServiceTemplate            `json:"template"`
+	Traffic               []ServiceTraffic            `json:"traffic"`
+	TerminalCondition     *ServiceTerminalCondition   `json:"terminalCondition"`
+	LatestReadyRevision   *string                     `json:"latestReadyRevision"`
+	LatestCreatedRevision *string                     `json:"latestCreatedRevision"`
+	TrafficStatuses       []ServiceTrafficStatuses    `json:"trafficStatuses"`
+	Uri                   *string                     `json:"uri"`
+	Reconciling           *bool                       `json:"reconciling"`
+	Etag                  *string                     `json:"etag"`
+	Project               *string                     `json:"project"`
+	Location              *string                     `json:"location"`
 }
 
 func (r *Service) String() string {
@@ -195,17 +195,17 @@ func (v ServiceTrafficTypeEnum) Validate() error {
 	}
 }
 
-// The enum ServiceGooglecloudrunopv2ConditionStateEnum.
-type ServiceGooglecloudrunopv2ConditionStateEnum string
+// The enum ServiceTerminalConditionStateEnum.
+type ServiceTerminalConditionStateEnum string
 
-// ServiceGooglecloudrunopv2ConditionStateEnumRef returns a *ServiceGooglecloudrunopv2ConditionStateEnum with the value of string s
+// ServiceTerminalConditionStateEnumRef returns a *ServiceTerminalConditionStateEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func ServiceGooglecloudrunopv2ConditionStateEnumRef(s string) *ServiceGooglecloudrunopv2ConditionStateEnum {
-	v := ServiceGooglecloudrunopv2ConditionStateEnum(s)
+func ServiceTerminalConditionStateEnumRef(s string) *ServiceTerminalConditionStateEnum {
+	v := ServiceTerminalConditionStateEnum(s)
 	return &v
 }
 
-func (v ServiceGooglecloudrunopv2ConditionStateEnum) Validate() error {
+func (v ServiceTerminalConditionStateEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -216,23 +216,23 @@ func (v ServiceGooglecloudrunopv2ConditionStateEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "ServiceGooglecloudrunopv2ConditionStateEnum",
+		Enum:  "ServiceTerminalConditionStateEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum ServiceGooglecloudrunopv2ConditionSeverityEnum.
-type ServiceGooglecloudrunopv2ConditionSeverityEnum string
+// The enum ServiceTerminalConditionSeverityEnum.
+type ServiceTerminalConditionSeverityEnum string
 
-// ServiceGooglecloudrunopv2ConditionSeverityEnumRef returns a *ServiceGooglecloudrunopv2ConditionSeverityEnum with the value of string s
+// ServiceTerminalConditionSeverityEnumRef returns a *ServiceTerminalConditionSeverityEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func ServiceGooglecloudrunopv2ConditionSeverityEnumRef(s string) *ServiceGooglecloudrunopv2ConditionSeverityEnum {
-	v := ServiceGooglecloudrunopv2ConditionSeverityEnum(s)
+func ServiceTerminalConditionSeverityEnumRef(s string) *ServiceTerminalConditionSeverityEnum {
+	v := ServiceTerminalConditionSeverityEnum(s)
 	return &v
 }
 
-func (v ServiceGooglecloudrunopv2ConditionSeverityEnum) Validate() error {
+func (v ServiceTerminalConditionSeverityEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -243,23 +243,23 @@ func (v ServiceGooglecloudrunopv2ConditionSeverityEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "ServiceGooglecloudrunopv2ConditionSeverityEnum",
+		Enum:  "ServiceTerminalConditionSeverityEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum ServiceGooglecloudrunopv2ConditionReasonEnum.
-type ServiceGooglecloudrunopv2ConditionReasonEnum string
+// The enum ServiceTerminalConditionReasonEnum.
+type ServiceTerminalConditionReasonEnum string
 
-// ServiceGooglecloudrunopv2ConditionReasonEnumRef returns a *ServiceGooglecloudrunopv2ConditionReasonEnum with the value of string s
+// ServiceTerminalConditionReasonEnumRef returns a *ServiceTerminalConditionReasonEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func ServiceGooglecloudrunopv2ConditionReasonEnumRef(s string) *ServiceGooglecloudrunopv2ConditionReasonEnum {
-	v := ServiceGooglecloudrunopv2ConditionReasonEnum(s)
+func ServiceTerminalConditionReasonEnumRef(s string) *ServiceTerminalConditionReasonEnum {
+	v := ServiceTerminalConditionReasonEnum(s)
 	return &v
 }
 
-func (v ServiceGooglecloudrunopv2ConditionReasonEnum) Validate() error {
+func (v ServiceTerminalConditionReasonEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -270,23 +270,23 @@ func (v ServiceGooglecloudrunopv2ConditionReasonEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "ServiceGooglecloudrunopv2ConditionReasonEnum",
+		Enum:  "ServiceTerminalConditionReasonEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum ServiceGooglecloudrunopv2ConditionInternalReasonEnum.
-type ServiceGooglecloudrunopv2ConditionInternalReasonEnum string
+// The enum ServiceTerminalConditionInternalReasonEnum.
+type ServiceTerminalConditionInternalReasonEnum string
 
-// ServiceGooglecloudrunopv2ConditionInternalReasonEnumRef returns a *ServiceGooglecloudrunopv2ConditionInternalReasonEnum with the value of string s
+// ServiceTerminalConditionInternalReasonEnumRef returns a *ServiceTerminalConditionInternalReasonEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func ServiceGooglecloudrunopv2ConditionInternalReasonEnumRef(s string) *ServiceGooglecloudrunopv2ConditionInternalReasonEnum {
-	v := ServiceGooglecloudrunopv2ConditionInternalReasonEnum(s)
+func ServiceTerminalConditionInternalReasonEnumRef(s string) *ServiceTerminalConditionInternalReasonEnum {
+	v := ServiceTerminalConditionInternalReasonEnum(s)
 	return &v
 }
 
-func (v ServiceGooglecloudrunopv2ConditionInternalReasonEnum) Validate() error {
+func (v ServiceTerminalConditionInternalReasonEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -297,23 +297,23 @@ func (v ServiceGooglecloudrunopv2ConditionInternalReasonEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "ServiceGooglecloudrunopv2ConditionInternalReasonEnum",
+		Enum:  "ServiceTerminalConditionInternalReasonEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum.
-type ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum string
+// The enum ServiceTerminalConditionDomainMappingReasonEnum.
+type ServiceTerminalConditionDomainMappingReasonEnum string
 
-// ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumRef returns a *ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum with the value of string s
+// ServiceTerminalConditionDomainMappingReasonEnumRef returns a *ServiceTerminalConditionDomainMappingReasonEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnumRef(s string) *ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum {
-	v := ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum(s)
+func ServiceTerminalConditionDomainMappingReasonEnumRef(s string) *ServiceTerminalConditionDomainMappingReasonEnum {
+	v := ServiceTerminalConditionDomainMappingReasonEnum(s)
 	return &v
 }
 
-func (v ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum) Validate() error {
+func (v ServiceTerminalConditionDomainMappingReasonEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -324,23 +324,23 @@ func (v ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum) Validate() er
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum",
+		Enum:  "ServiceTerminalConditionDomainMappingReasonEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum ServiceGooglecloudrunopv2ConditionRevisionReasonEnum.
-type ServiceGooglecloudrunopv2ConditionRevisionReasonEnum string
+// The enum ServiceTerminalConditionRevisionReasonEnum.
+type ServiceTerminalConditionRevisionReasonEnum string
 
-// ServiceGooglecloudrunopv2ConditionRevisionReasonEnumRef returns a *ServiceGooglecloudrunopv2ConditionRevisionReasonEnum with the value of string s
+// ServiceTerminalConditionRevisionReasonEnumRef returns a *ServiceTerminalConditionRevisionReasonEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func ServiceGooglecloudrunopv2ConditionRevisionReasonEnumRef(s string) *ServiceGooglecloudrunopv2ConditionRevisionReasonEnum {
-	v := ServiceGooglecloudrunopv2ConditionRevisionReasonEnum(s)
+func ServiceTerminalConditionRevisionReasonEnumRef(s string) *ServiceTerminalConditionRevisionReasonEnum {
+	v := ServiceTerminalConditionRevisionReasonEnum(s)
 	return &v
 }
 
-func (v ServiceGooglecloudrunopv2ConditionRevisionReasonEnum) Validate() error {
+func (v ServiceTerminalConditionRevisionReasonEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -351,23 +351,23 @@ func (v ServiceGooglecloudrunopv2ConditionRevisionReasonEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "ServiceGooglecloudrunopv2ConditionRevisionReasonEnum",
+		Enum:  "ServiceTerminalConditionRevisionReasonEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
 }
 
-// The enum ServiceGooglecloudrunopv2ConditionJobReasonEnum.
-type ServiceGooglecloudrunopv2ConditionJobReasonEnum string
+// The enum ServiceTerminalConditionJobReasonEnum.
+type ServiceTerminalConditionJobReasonEnum string
 
-// ServiceGooglecloudrunopv2ConditionJobReasonEnumRef returns a *ServiceGooglecloudrunopv2ConditionJobReasonEnum with the value of string s
+// ServiceTerminalConditionJobReasonEnumRef returns a *ServiceTerminalConditionJobReasonEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func ServiceGooglecloudrunopv2ConditionJobReasonEnumRef(s string) *ServiceGooglecloudrunopv2ConditionJobReasonEnum {
-	v := ServiceGooglecloudrunopv2ConditionJobReasonEnum(s)
+func ServiceTerminalConditionJobReasonEnumRef(s string) *ServiceTerminalConditionJobReasonEnum {
+	v := ServiceTerminalConditionJobReasonEnum(s)
 	return &v
 }
 
-func (v ServiceGooglecloudrunopv2ConditionJobReasonEnum) Validate() error {
+func (v ServiceTerminalConditionJobReasonEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -378,7 +378,7 @@ func (v ServiceGooglecloudrunopv2ConditionJobReasonEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "ServiceGooglecloudrunopv2ConditionJobReasonEnum",
+		Enum:  "ServiceTerminalConditionJobReasonEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -1255,24 +1255,24 @@ func (r *ServiceTraffic) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type ServiceGooglecloudrunopv2Condition struct {
-	empty               bool                                                       `json:"-"`
-	Type                *string                                                    `json:"type"`
-	State               *ServiceGooglecloudrunopv2ConditionStateEnum               `json:"state"`
-	Message             *string                                                    `json:"message"`
-	LastTransitionTime  *string                                                    `json:"lastTransitionTime"`
-	Severity            *ServiceGooglecloudrunopv2ConditionSeverityEnum            `json:"severity"`
-	Reason              *ServiceGooglecloudrunopv2ConditionReasonEnum              `json:"reason"`
-	InternalReason      *ServiceGooglecloudrunopv2ConditionInternalReasonEnum      `json:"internalReason"`
-	DomainMappingReason *ServiceGooglecloudrunopv2ConditionDomainMappingReasonEnum `json:"domainMappingReason"`
-	RevisionReason      *ServiceGooglecloudrunopv2ConditionRevisionReasonEnum      `json:"revisionReason"`
-	JobReason           *ServiceGooglecloudrunopv2ConditionJobReasonEnum           `json:"jobReason"`
+type ServiceTerminalCondition struct {
+	empty               bool                                             `json:"-"`
+	Type                *string                                          `json:"type"`
+	State               *ServiceTerminalConditionStateEnum               `json:"state"`
+	Message             *string                                          `json:"message"`
+	LastTransitionTime  *string                                          `json:"lastTransitionTime"`
+	Severity            *ServiceTerminalConditionSeverityEnum            `json:"severity"`
+	Reason              *ServiceTerminalConditionReasonEnum              `json:"reason"`
+	InternalReason      *ServiceTerminalConditionInternalReasonEnum      `json:"internalReason"`
+	DomainMappingReason *ServiceTerminalConditionDomainMappingReasonEnum `json:"domainMappingReason"`
+	RevisionReason      *ServiceTerminalConditionRevisionReasonEnum      `json:"revisionReason"`
+	JobReason           *ServiceTerminalConditionJobReasonEnum           `json:"jobReason"`
 }
 
-type jsonServiceGooglecloudrunopv2Condition ServiceGooglecloudrunopv2Condition
+type jsonServiceTerminalCondition ServiceTerminalCondition
 
-func (r *ServiceGooglecloudrunopv2Condition) UnmarshalJSON(data []byte) error {
-	var res jsonServiceGooglecloudrunopv2Condition
+func (r *ServiceTerminalCondition) UnmarshalJSON(data []byte) error {
+	var res jsonServiceTerminalCondition
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -1281,7 +1281,7 @@ func (r *ServiceGooglecloudrunopv2Condition) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyServiceGooglecloudrunopv2Condition
+		*r = *EmptyServiceTerminalCondition
 	} else {
 
 		r.Type = res.Type
@@ -1308,20 +1308,20 @@ func (r *ServiceGooglecloudrunopv2Condition) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this ServiceGooglecloudrunopv2Condition is
+// This object is used to assert a desired state where this ServiceTerminalCondition is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyServiceGooglecloudrunopv2Condition *ServiceGooglecloudrunopv2Condition = &ServiceGooglecloudrunopv2Condition{empty: true}
+var EmptyServiceTerminalCondition *ServiceTerminalCondition = &ServiceTerminalCondition{empty: true}
 
-func (r *ServiceGooglecloudrunopv2Condition) Empty() bool {
+func (r *ServiceTerminalCondition) Empty() bool {
 	return r.empty
 }
 
-func (r *ServiceGooglecloudrunopv2Condition) String() string {
+func (r *ServiceTerminalCondition) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ServiceGooglecloudrunopv2Condition) HashCode() string {
+func (r *ServiceTerminalCondition) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

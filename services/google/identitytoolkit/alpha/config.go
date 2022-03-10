@@ -150,17 +150,17 @@ func (v ConfigNotificationSendEmailSmtpSecurityModeEnum) Validate() error {
 	}
 }
 
-// The enum ConfigEmailTemplateBodyFormatEnum.
-type ConfigEmailTemplateBodyFormatEnum string
+// The enum ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum.
+type ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum string
 
-// ConfigEmailTemplateBodyFormatEnumRef returns a *ConfigEmailTemplateBodyFormatEnum with the value of string s
+// ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnumRef returns a *ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum with the value of string s
 // If the empty string is provided, nil is returned.
-func ConfigEmailTemplateBodyFormatEnumRef(s string) *ConfigEmailTemplateBodyFormatEnum {
-	v := ConfigEmailTemplateBodyFormatEnum(s)
+func ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnumRef(s string) *ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum {
+	v := ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum(s)
 	return &v
 }
 
-func (v ConfigEmailTemplateBodyFormatEnum) Validate() error {
+func (v ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum) Validate() error {
 	if string(v) == "" {
 		// Empty enum is okay.
 		return nil
@@ -171,7 +171,61 @@ func (v ConfigEmailTemplateBodyFormatEnum) Validate() error {
 		}
 	}
 	return &dcl.EnumInvalidError{
-		Enum:  "ConfigEmailTemplateBodyFormatEnum",
+		Enum:  "ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum.
+type ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum string
+
+// ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnumRef returns a *ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnumRef(s string) *ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum {
+	v := ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum(s)
+	return &v
+}
+
+func (v ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"BODY_FORMAT_UNSPECIFIED", "PLAIN_TEXT", "HTML"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum.
+type ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum string
+
+// ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnumRef returns a *ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnumRef(s string) *ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum {
+	v := ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum(s)
+	return &v
+}
+
+func (v ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"BODY_FORMAT_UNSPECIFIED", "PLAIN_TEXT", "HTML"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -199,6 +253,33 @@ func (v ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum) Validate() erro
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum.
+type ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum string
+
+// ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnumRef returns a *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnumRef(s string) *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum {
+	v := ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum(s)
+	return &v
+}
+
+func (v ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"BODY_FORMAT_UNSPECIFIED", "PLAIN_TEXT", "HTML"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -632,15 +713,15 @@ func (r *ConfigNotification) HashCode() string {
 }
 
 type ConfigNotificationSendEmail struct {
-	empty                              bool                                   `json:"-"`
-	Method                             *ConfigNotificationSendEmailMethodEnum `json:"method"`
-	Smtp                               *ConfigNotificationSendEmailSmtp       `json:"smtp"`
-	ResetPasswordTemplate              *ConfigEmailTemplate                   `json:"resetPasswordTemplate"`
-	VerifyEmailTemplate                *ConfigEmailTemplate                   `json:"verifyEmailTemplate"`
-	ChangeEmailTemplate                *ConfigEmailTemplate                   `json:"changeEmailTemplate"`
-	CallbackUri                        *string                                `json:"callbackUri"`
-	DnsInfo                            *ConfigNotificationSendEmailDnsInfo    `json:"dnsInfo"`
-	RevertSecondFactorAdditionTemplate *ConfigEmailTemplate                   `json:"revertSecondFactorAdditionTemplate"`
+	empty                              bool                                                           `json:"-"`
+	Method                             *ConfigNotificationSendEmailMethodEnum                         `json:"method"`
+	Smtp                               *ConfigNotificationSendEmailSmtp                               `json:"smtp"`
+	ResetPasswordTemplate              *ConfigNotificationSendEmailResetPasswordTemplate              `json:"resetPasswordTemplate"`
+	VerifyEmailTemplate                *ConfigNotificationSendEmailVerifyEmailTemplate                `json:"verifyEmailTemplate"`
+	ChangeEmailTemplate                *ConfigNotificationSendEmailChangeEmailTemplate                `json:"changeEmailTemplate"`
+	CallbackUri                        *string                                                        `json:"callbackUri"`
+	DnsInfo                            *ConfigNotificationSendEmailDnsInfo                            `json:"dnsInfo"`
+	RevertSecondFactorAdditionTemplate *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate `json:"revertSecondFactorAdditionTemplate"`
 }
 
 type jsonConfigNotificationSendEmail ConfigNotificationSendEmail
@@ -759,21 +840,21 @@ func (r *ConfigNotificationSendEmailSmtp) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type ConfigEmailTemplate struct {
-	empty             bool                               `json:"-"`
-	SenderLocalPart   *string                            `json:"senderLocalPart"`
-	Subject           *string                            `json:"subject"`
-	SenderDisplayName *string                            `json:"senderDisplayName"`
-	Body              *string                            `json:"body"`
-	BodyFormat        *ConfigEmailTemplateBodyFormatEnum `json:"bodyFormat"`
-	ReplyTo           *string                            `json:"replyTo"`
-	Customized        *bool                              `json:"customized"`
+type ConfigNotificationSendEmailResetPasswordTemplate struct {
+	empty             bool                                                            `json:"-"`
+	SenderLocalPart   *string                                                         `json:"senderLocalPart"`
+	Subject           *string                                                         `json:"subject"`
+	SenderDisplayName *string                                                         `json:"senderDisplayName"`
+	Body              *string                                                         `json:"body"`
+	BodyFormat        *ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum `json:"bodyFormat"`
+	ReplyTo           *string                                                         `json:"replyTo"`
+	Customized        *bool                                                           `json:"customized"`
 }
 
-type jsonConfigEmailTemplate ConfigEmailTemplate
+type jsonConfigNotificationSendEmailResetPasswordTemplate ConfigNotificationSendEmailResetPasswordTemplate
 
-func (r *ConfigEmailTemplate) UnmarshalJSON(data []byte) error {
-	var res jsonConfigEmailTemplate
+func (r *ConfigNotificationSendEmailResetPasswordTemplate) UnmarshalJSON(data []byte) error {
+	var res jsonConfigNotificationSendEmailResetPasswordTemplate
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -782,7 +863,7 @@ func (r *ConfigEmailTemplate) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyConfigEmailTemplate
+		*r = *EmptyConfigNotificationSendEmailResetPasswordTemplate
 	} else {
 
 		r.SenderLocalPart = res.SenderLocalPart
@@ -803,20 +884,148 @@ func (r *ConfigEmailTemplate) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this ConfigEmailTemplate is
+// This object is used to assert a desired state where this ConfigNotificationSendEmailResetPasswordTemplate is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyConfigEmailTemplate *ConfigEmailTemplate = &ConfigEmailTemplate{empty: true}
+var EmptyConfigNotificationSendEmailResetPasswordTemplate *ConfigNotificationSendEmailResetPasswordTemplate = &ConfigNotificationSendEmailResetPasswordTemplate{empty: true}
 
-func (r *ConfigEmailTemplate) Empty() bool {
+func (r *ConfigNotificationSendEmailResetPasswordTemplate) Empty() bool {
 	return r.empty
 }
 
-func (r *ConfigEmailTemplate) String() string {
+func (r *ConfigNotificationSendEmailResetPasswordTemplate) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *ConfigEmailTemplate) HashCode() string {
+func (r *ConfigNotificationSendEmailResetPasswordTemplate) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ConfigNotificationSendEmailVerifyEmailTemplate struct {
+	empty             bool                                                          `json:"-"`
+	SenderLocalPart   *string                                                       `json:"senderLocalPart"`
+	Subject           *string                                                       `json:"subject"`
+	SenderDisplayName *string                                                       `json:"senderDisplayName"`
+	Body              *string                                                       `json:"body"`
+	BodyFormat        *ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum `json:"bodyFormat"`
+	ReplyTo           *string                                                       `json:"replyTo"`
+	Customized        *bool                                                         `json:"customized"`
+}
+
+type jsonConfigNotificationSendEmailVerifyEmailTemplate ConfigNotificationSendEmailVerifyEmailTemplate
+
+func (r *ConfigNotificationSendEmailVerifyEmailTemplate) UnmarshalJSON(data []byte) error {
+	var res jsonConfigNotificationSendEmailVerifyEmailTemplate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyConfigNotificationSendEmailVerifyEmailTemplate
+	} else {
+
+		r.SenderLocalPart = res.SenderLocalPart
+
+		r.Subject = res.Subject
+
+		r.SenderDisplayName = res.SenderDisplayName
+
+		r.Body = res.Body
+
+		r.BodyFormat = res.BodyFormat
+
+		r.ReplyTo = res.ReplyTo
+
+		r.Customized = res.Customized
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ConfigNotificationSendEmailVerifyEmailTemplate is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyConfigNotificationSendEmailVerifyEmailTemplate *ConfigNotificationSendEmailVerifyEmailTemplate = &ConfigNotificationSendEmailVerifyEmailTemplate{empty: true}
+
+func (r *ConfigNotificationSendEmailVerifyEmailTemplate) Empty() bool {
+	return r.empty
+}
+
+func (r *ConfigNotificationSendEmailVerifyEmailTemplate) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ConfigNotificationSendEmailVerifyEmailTemplate) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ConfigNotificationSendEmailChangeEmailTemplate struct {
+	empty             bool                                                          `json:"-"`
+	SenderLocalPart   *string                                                       `json:"senderLocalPart"`
+	Subject           *string                                                       `json:"subject"`
+	SenderDisplayName *string                                                       `json:"senderDisplayName"`
+	Body              *string                                                       `json:"body"`
+	BodyFormat        *ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum `json:"bodyFormat"`
+	ReplyTo           *string                                                       `json:"replyTo"`
+	Customized        *bool                                                         `json:"customized"`
+}
+
+type jsonConfigNotificationSendEmailChangeEmailTemplate ConfigNotificationSendEmailChangeEmailTemplate
+
+func (r *ConfigNotificationSendEmailChangeEmailTemplate) UnmarshalJSON(data []byte) error {
+	var res jsonConfigNotificationSendEmailChangeEmailTemplate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyConfigNotificationSendEmailChangeEmailTemplate
+	} else {
+
+		r.SenderLocalPart = res.SenderLocalPart
+
+		r.Subject = res.Subject
+
+		r.SenderDisplayName = res.SenderDisplayName
+
+		r.Body = res.Body
+
+		r.BodyFormat = res.BodyFormat
+
+		r.ReplyTo = res.ReplyTo
+
+		r.Customized = res.Customized
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ConfigNotificationSendEmailChangeEmailTemplate is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyConfigNotificationSendEmailChangeEmailTemplate *ConfigNotificationSendEmailChangeEmailTemplate = &ConfigNotificationSendEmailChangeEmailTemplate{empty: true}
+
+func (r *ConfigNotificationSendEmailChangeEmailTemplate) Empty() bool {
+	return r.empty
+}
+
+func (r *ConfigNotificationSendEmailChangeEmailTemplate) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ConfigNotificationSendEmailChangeEmailTemplate) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -875,6 +1084,70 @@ func (r *ConfigNotificationSendEmailDnsInfo) String() string {
 }
 
 func (r *ConfigNotificationSendEmailDnsInfo) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate struct {
+	empty             bool                                                                         `json:"-"`
+	SenderLocalPart   *string                                                                      `json:"senderLocalPart"`
+	Subject           *string                                                                      `json:"subject"`
+	SenderDisplayName *string                                                                      `json:"senderDisplayName"`
+	Body              *string                                                                      `json:"body"`
+	BodyFormat        *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateBodyFormatEnum `json:"bodyFormat"`
+	ReplyTo           *string                                                                      `json:"replyTo"`
+	Customized        *bool                                                                        `json:"customized"`
+}
+
+type jsonConfigNotificationSendEmailRevertSecondFactorAdditionTemplate ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate
+
+func (r *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate) UnmarshalJSON(data []byte) error {
+	var res jsonConfigNotificationSendEmailRevertSecondFactorAdditionTemplate
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyConfigNotificationSendEmailRevertSecondFactorAdditionTemplate
+	} else {
+
+		r.SenderLocalPart = res.SenderLocalPart
+
+		r.Subject = res.Subject
+
+		r.SenderDisplayName = res.SenderDisplayName
+
+		r.Body = res.Body
+
+		r.BodyFormat = res.BodyFormat
+
+		r.ReplyTo = res.ReplyTo
+
+		r.Customized = res.Customized
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyConfigNotificationSendEmailRevertSecondFactorAdditionTemplate *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate = &ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate{empty: true}
+
+func (r *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate) Empty() bool {
+	return r.empty
+}
+
+func (r *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
