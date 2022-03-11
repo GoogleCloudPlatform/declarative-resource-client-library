@@ -82,6 +82,12 @@ type RegisteredResource interface {
 	// SetPolicy provides an indirection for the type-specific SetPolicy call.
 	SetPolicy(ctx context.Context, config *dcl.Config, r *Resource, p *Resource) (*Resource, error)
 
+	// GetPolicyMember provides an indirection for the type-specific GetPolicyMember call.
+	GetPolicyMember(ctx context.Context, config *dcl.Config, r *Resource, role, member string) (*Resource, error)
+
+	// SetPolicyMember provides an indirection for the type-specific SetPolicyMember call.
+	SetPolicyMember(ctx context.Context, config *dcl.Config, r *Resource, m *Resource) (*Resource, error)
+
 	// ID returns a string uniquely identifying this resource.
 	ID(r *Resource) (string, error)
 }
@@ -194,6 +200,24 @@ func SetPolicy(ctx context.Context, config *dcl.Config, r *Resource, p *Resource
 		return nil, fmt.Errorf("unknown resource type %s", r.STV.String())
 	}
 	return rr.SetPolicy(ctx, config, r, p)
+}
+
+// GetPolicyMember gets the IAMPolicyMember for the provided resource.
+func GetPolicyMember(ctx context.Context, config *dcl.Config, r *Resource, role, member string) (*Resource, error) {
+	rr := registration(r)
+	if rr == nil {
+		return nil, fmt.Errorf("unknown resource type %s", r.STV.String())
+	}
+	return rr.GetPolicyMember(ctx, config, r, role, member)
+}
+
+// SetPolicyMember sets the IAMPolicyMember for the provided resource.
+func SetPolicyMember(ctx context.Context, config *dcl.Config, r *Resource, m *Resource) (*Resource, error) {
+	rr := registration(r)
+	if rr == nil {
+		return nil, fmt.Errorf("unknown resource type %s", r.STV.String())
+	}
+	return rr.SetPolicyMember(ctx, config, r, m)
 }
 
 // ID returns a unique ID for the provided resource.
