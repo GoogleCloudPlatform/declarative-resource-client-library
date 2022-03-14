@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// Package alpha contains all of the utils for Cloud Run.
+// Package run contains all of the utils for Cloud Run.
 package alpha
 
 // EncodeServiceCreateRequest properly encodes the create request for a Cloud Run Service.
