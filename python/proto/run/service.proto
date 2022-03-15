@@ -1,4 +1,4 @@
-// Copyright 2021 Google LLC. All Rights Reserved.
+// Copyright 2022 Google LLC. All Rights Reserved.
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,354 +12,294 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 syntax = "proto3";
+// All generated protos should be opaque, with "xxx_hidden_" prepended to their field names.
+
 
 package dcl;
 
 import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
+
+enum RunServiceIngressEnum {
+  RunServiceIngressEnumNO_VALUE_DO_NOT_USE = 0;
+  RunServiceIngressEnumINGRESS_TRAFFIC_UNSPECIFIED = 1;
+  RunServiceIngressEnumINGRESS_TRAFFIC_ALL = 2;
+  RunServiceIngressEnumINGRESS_TRAFFIC_INTERNAL_ONLY = 3;
+  RunServiceIngressEnumINGRESS_TRAFFIC_INTERNAL_LOAD_BALANCER = 4;
+}
+
+enum RunServiceLaunchStageEnum {
+  RunServiceLaunchStageEnumNO_VALUE_DO_NOT_USE = 0;
+  RunServiceLaunchStageEnumLAUNCH_STAGE_UNSPECIFIED = 1;
+  RunServiceLaunchStageEnumUNIMPLEMENTED = 2;
+  RunServiceLaunchStageEnumPRELAUNCH = 3;
+  RunServiceLaunchStageEnumEARLY_ACCESS = 4;
+  RunServiceLaunchStageEnumALPHA = 5;
+  RunServiceLaunchStageEnumBETA = 6;
+  RunServiceLaunchStageEnumGA = 7;
+  RunServiceLaunchStageEnumDEPRECATED = 8;
+}
+
+enum RunServiceTemplateVPCAccessEgressEnum {
+  RunServiceTemplateVPCAccessEgressEnumNO_VALUE_DO_NOT_USE = 0;
+  RunServiceTemplateVPCAccessEgressEnumVPC_EGRESS_UNSPECIFIED = 1;
+  RunServiceTemplateVPCAccessEgressEnumALL_TRAFFIC = 2;
+  RunServiceTemplateVPCAccessEgressEnumPRIVATE_RANGES_ONLY = 3;
+}
+
+enum RunServiceTemplateExecutionEnvironmentEnum {
+  RunServiceTemplateExecutionEnvironmentEnumNO_VALUE_DO_NOT_USE = 0;
+  RunServiceTemplateExecutionEnvironmentEnumEXECUTION_ENVIRONMENT_UNSPECIFIED = 1;
+  RunServiceTemplateExecutionEnvironmentEnumEXECUTION_ENVIRONMENT_DEFAULT = 2;
+  RunServiceTemplateExecutionEnvironmentEnumEXECUTION_ENVIRONMENT_GEN2 = 3;
+}
+
+enum RunServiceTrafficTypeEnum {
+  RunServiceTrafficTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  RunServiceTrafficTypeEnumTRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED = 1;
+  RunServiceTrafficTypeEnumTRAFFIC_TARGET_ALLOCATION_TYPE_LATEST = 2;
+  RunServiceTrafficTypeEnumTRAFFIC_TARGET_ALLOCATION_TYPE_REVISION = 3;
+}
+
+enum RunServiceTerminalConditionStateEnum {
+  RunServiceTerminalConditionStateEnumNO_VALUE_DO_NOT_USE = 0;
+  RunServiceTerminalConditionStateEnumSTATE_UNSPECIFIED = 1;
+  RunServiceTerminalConditionStateEnumCONDITION_PENDING = 2;
+  RunServiceTerminalConditionStateEnumCONDITION_RECONCILING = 3;
+  RunServiceTerminalConditionStateEnumCONDITION_FAILED = 4;
+  RunServiceTerminalConditionStateEnumCONDITION_SUCCEEDED = 5;
+}
+
+enum RunServiceTerminalConditionSeverityEnum {
+  RunServiceTerminalConditionSeverityEnumNO_VALUE_DO_NOT_USE = 0;
+  RunServiceTerminalConditionSeverityEnumSEVERITY_UNSPECIFIED = 1;
+  RunServiceTerminalConditionSeverityEnumERROR = 2;
+  RunServiceTerminalConditionSeverityEnumWARNING = 3;
+  RunServiceTerminalConditionSeverityEnumINFO = 4;
+}
+
+enum RunServiceTerminalConditionReasonEnum {
+  RunServiceTerminalConditionReasonEnumNO_VALUE_DO_NOT_USE = 0;
+  RunServiceTerminalConditionReasonEnumCOMMON_REASON_UNDEFINED = 1;
+  RunServiceTerminalConditionReasonEnumUNKNOWN = 2;
+  RunServiceTerminalConditionReasonEnumROUTE_MISSING = 3;
+  RunServiceTerminalConditionReasonEnumREVISION_FAILED = 4;
+  RunServiceTerminalConditionReasonEnumPROGRESS_DEADLINE_EXCEEDED = 5;
+  RunServiceTerminalConditionReasonEnumBUILD_STEP_FAILED = 6;
+  RunServiceTerminalConditionReasonEnumCONTAINER_MISSING = 7;
+  RunServiceTerminalConditionReasonEnumCONTAINER_PERMISSION_DENIED = 8;
+  RunServiceTerminalConditionReasonEnumCONTAINER_IMAGE_UNAUTHORIZED = 9;
+  RunServiceTerminalConditionReasonEnumCONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED = 10;
+  RunServiceTerminalConditionReasonEnumENCRYPTION_KEY_PERMISSION_DENIED = 11;
+  RunServiceTerminalConditionReasonEnumENCRYPTION_KEY_CHECK_FAILED = 12;
+  RunServiceTerminalConditionReasonEnumSECRETS_ACCESS_CHECK_FAILED = 13;
+  RunServiceTerminalConditionReasonEnumWAITING_FOR_OPERATION = 14;
+  RunServiceTerminalConditionReasonEnumIMMEDIATE_RETRY = 15;
+  RunServiceTerminalConditionReasonEnumPOSTPONED_RETRY = 16;
+}
+
+enum RunServiceTerminalConditionInternalReasonEnum {
+  RunServiceTerminalConditionInternalReasonEnumNO_VALUE_DO_NOT_USE = 0;
+  RunServiceTerminalConditionInternalReasonEnumINTERNAL_REASON_UNDEFINED = 1;
+  RunServiceTerminalConditionInternalReasonEnumCONFLICTING_REVISION_NAME = 2;
+  RunServiceTerminalConditionInternalReasonEnumREVISION_MISSING = 3;
+  RunServiceTerminalConditionInternalReasonEnumCONFIGURATION_MISSING = 4;
+  RunServiceTerminalConditionInternalReasonEnumASSIGNING_TRAFFIC = 5;
+  RunServiceTerminalConditionInternalReasonEnumUPDATING_INGRESS_TRAFFIC_ALLOWED = 6;
+  RunServiceTerminalConditionInternalReasonEnumREVISION_ORG_POLICY_VIOLATION = 7;
+  RunServiceTerminalConditionInternalReasonEnumENABLING_GCFV2_URI_SUPPORT = 8;
+}
+
+enum RunServiceTerminalConditionDomainMappingReasonEnum {
+  RunServiceTerminalConditionDomainMappingReasonEnumNO_VALUE_DO_NOT_USE = 0;
+  RunServiceTerminalConditionDomainMappingReasonEnumDOMAIN_MAPPING_REASON_UNDEFINED = 1;
+  RunServiceTerminalConditionDomainMappingReasonEnumROUTE_NOT_READY = 2;
+  RunServiceTerminalConditionDomainMappingReasonEnumPERMISSION_DENIED = 3;
+  RunServiceTerminalConditionDomainMappingReasonEnumCERTIFICATE_ALREADY_EXISTS = 4;
+  RunServiceTerminalConditionDomainMappingReasonEnumMAPPING_ALREADY_EXISTS = 5;
+  RunServiceTerminalConditionDomainMappingReasonEnumCERTIFICATE_PENDING = 6;
+  RunServiceTerminalConditionDomainMappingReasonEnumCERTIFICATE_FAILED = 7;
+}
+
+enum RunServiceTerminalConditionRevisionReasonEnum {
+  RunServiceTerminalConditionRevisionReasonEnumNO_VALUE_DO_NOT_USE = 0;
+  RunServiceTerminalConditionRevisionReasonEnumREVISION_REASON_UNDEFINED = 1;
+  RunServiceTerminalConditionRevisionReasonEnumPENDING = 2;
+  RunServiceTerminalConditionRevisionReasonEnumRESERVE = 3;
+  RunServiceTerminalConditionRevisionReasonEnumRETIRED = 4;
+  RunServiceTerminalConditionRevisionReasonEnumRETIRING = 5;
+  RunServiceTerminalConditionRevisionReasonEnumRECREATING = 6;
+  RunServiceTerminalConditionRevisionReasonEnumHEALTH_CHECK_CONTAINER_ERROR = 7;
+  RunServiceTerminalConditionRevisionReasonEnumCUSTOMIZED_PATH_RESPONSE_PENDING = 8;
+  RunServiceTerminalConditionRevisionReasonEnumMIN_INSTANCES_NOT_PROVISIONED = 9;
+  RunServiceTerminalConditionRevisionReasonEnumACTIVE_REVISION_LIMIT_REACHED = 10;
+  RunServiceTerminalConditionRevisionReasonEnumNO_DEPLOYMENT = 11;
+}
+
+enum RunServiceTerminalConditionJobReasonEnum {
+  RunServiceTerminalConditionJobReasonEnumNO_VALUE_DO_NOT_USE = 0;
+  RunServiceTerminalConditionJobReasonEnumJOB_REASON_UNDEFINED = 1;
+  RunServiceTerminalConditionJobReasonEnumJOB_STATUS_SERVICE_POLLING_ERROR = 2;
+}
+
+enum RunServiceTrafficStatusesTypeEnum {
+  RunServiceTrafficStatusesTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  RunServiceTrafficStatusesTypeEnumTRAFFIC_TARGET_ALLOCATION_TYPE_UNSPECIFIED = 1;
+  RunServiceTrafficStatusesTypeEnumTRAFFIC_TARGET_ALLOCATION_TYPE_LATEST = 2;
+  RunServiceTrafficStatusesTypeEnumTRAFFIC_TARGET_ALLOCATION_TYPE_REVISION = 3;
+}
+
 message RunService {
   string name = 1;
-  string api_version = 2;
-  string kind = 3;
-  RunServiceMetadata metadata = 4;
-  RunServiceSpec spec = 5;
-  RunServiceStatus status = 6;
-  string project = 7;
-  string location = 8;
+  string description = 2;
+  string uid = 3;
+  int64 generation = 4;
+  map<string, string> labels = 5;
+  map<string, string> annotations = 6;
+  string create_time = 7;
+  string update_time = 8;
+  string delete_time = 9;
+  string expire_time = 10;
+  string creator = 11;
+  string last_modifier = 12;
+  string client = 13;
+  string client_version = 14;
+  RunServiceIngressEnum ingress = 15;
+  RunServiceLaunchStageEnum launch_stage = 16;
+  RunServiceBinaryAuthorization binary_authorization = 17;
+  RunServiceTemplate template = 18;
+  repeated RunServiceTraffic traffic = 19;
+  RunServiceTerminalCondition terminal_condition = 20;
+  string latest_ready_revision = 21;
+  string latest_created_revision = 22;
+  repeated RunServiceTrafficStatuses traffic_statuses = 23;
+  string uri = 24;
+  bool reconciling = 25;
+  string etag = 26;
+  string project = 27;
+  string location = 28;
 }
 
-message RunServiceMetadata {
-  string generate_name = 1;
-  string namespace = 2;
-  string self_link = 3;
-  string uid = 4;
-  string resource_version = 5;
-  int64 generation = 6;
-  RunServiceMetadataCreateTime create_time = 7;
-  map<string, string> labels = 8;
-  map<string, string> annotations = 9;
-  repeated RunServiceMetadataOwnerReferences owner_references = 10;
-  RunServiceMetadataDeleteTime delete_time = 11;
-  int64 deletion_grace_period_seconds = 12;
-  repeated string finalizers = 13;
-  string cluster_name = 14;
+message RunServiceBinaryAuthorization {
+  bool use_default = 1;
+  string breakglass_justification = 2;
 }
 
-message RunServiceMetadataCreateTime {
-  int64 seconds = 1;
-  int64 nanos = 2;
+message RunServiceTemplate {
+  string revision = 1;
+  map<string, string> labels = 2;
+  map<string, string> annotations = 3;
+  RunServiceTemplateScaling scaling = 4;
+  RunServiceTemplateVPCAccess vpc_access = 5;
+  int64 container_concurrency = 6;
+  string timeout = 7;
+  string service_account = 8;
+  repeated RunServiceTemplateContainers containers = 9;
+  repeated RunServiceTemplateVolumes volumes = 10;
+  bool confidential = 11;
+  RunServiceTemplateExecutionEnvironmentEnum execution_environment = 12;
 }
 
-message RunServiceMetadataOwnerReferences {
-  string api_version = 1;
-  string kind = 2;
-  string name = 3;
-  string uid = 4;
-  bool controller = 5;
-  bool block_owner_deletion = 6;
+message RunServiceTemplateScaling {
+  int64 min_instance_count = 1;
+  int64 max_instance_count = 2;
 }
 
-message RunServiceMetadataDeleteTime {
-  int64 seconds = 1;
-  int64 nanos = 2;
+message RunServiceTemplateVPCAccess {
+  string connector = 1;
+  RunServiceTemplateVPCAccessEgressEnum egress = 2;
 }
 
-message RunServiceSpec {
-  RunServiceSpecTemplate template = 1;
-  repeated RunServiceSpecTraffic traffic = 2;
-}
-
-message RunServiceSpecTemplate {
-  RunServiceSpecTemplateMetadata metadata = 1;
-  RunServiceSpecTemplateSpec spec = 2;
-}
-
-message RunServiceSpecTemplateMetadata {
-  string name = 1;
-  string generate_name = 2;
-  string namespace = 3;
-  string self_link = 4;
-  string uid = 5;
-  string resource_version = 6;
-  int64 generation = 7;
-  RunServiceSpecTemplateMetadataCreateTime create_time = 8;
-  map<string, string> labels = 9;
-  map<string, string> annotations = 10;
-  repeated RunServiceSpecTemplateMetadataOwnerReferences owner_references = 11;
-  RunServiceSpecTemplateMetadataDeleteTime delete_time = 12;
-  int64 deletion_grace_period_seconds = 13;
-  repeated string finalizers = 14;
-  string cluster_name = 15;
-}
-
-message RunServiceSpecTemplateMetadataCreateTime {
-  int64 seconds = 1;
-  int64 nanos = 2;
-}
-
-message RunServiceSpecTemplateMetadataOwnerReferences {
-  string api_version = 1;
-  string kind = 2;
-  string name = 3;
-  string uid = 4;
-  bool controller = 5;
-  bool block_owner_deletion = 6;
-}
-
-message RunServiceSpecTemplateMetadataDeleteTime {
-  int64 seconds = 1;
-  int64 nanos = 2;
-}
-
-message RunServiceSpecTemplateSpec {
-  int64 container_concurrency = 1;
-  int64 timeout_seconds = 2;
-  string service_account_name = 3;
-  repeated RunServiceSpecTemplateSpecContainers containers = 4;
-  repeated RunServiceSpecTemplateSpecVolumes volumes = 5;
-}
-
-message RunServiceSpecTemplateSpecContainers {
+message RunServiceTemplateContainers {
   string name = 1;
   string image = 2;
   repeated string command = 3;
   repeated string args = 4;
-  repeated RunServiceSpecTemplateSpecContainersEnv env = 5;
-  RunServiceSpecTemplateSpecContainersResources resources = 6;
-  string working_dir = 7;
-  repeated RunServiceSpecTemplateSpecContainersPorts ports = 8;
-  repeated RunServiceSpecTemplateSpecContainersEnvFrom env_from = 9;
-  repeated RunServiceSpecTemplateSpecContainersVolumeMounts volume_mounts = 10;
-  RunServiceSpecTemplateSpecContainersLivenessProbe liveness_probe = 11;
-  RunServiceSpecTemplateSpecContainersReadinessProbe readiness_probe = 12;
-  string termination_message_path = 13;
-  string termination_message_policy = 14;
-  string image_pull_policy = 15;
-  RunServiceSpecTemplateSpecContainersSecurityContext security_context = 16;
+  repeated RunServiceTemplateContainersEnv env = 5;
+  RunServiceTemplateContainersResources resources = 6;
+  repeated RunServiceTemplateContainersPorts ports = 7;
+  repeated RunServiceTemplateContainersVolumeMounts volume_mounts = 8;
 }
 
-message RunServiceSpecTemplateSpecContainersEnv {
+message RunServiceTemplateContainersEnv {
   string name = 1;
   string value = 2;
-  RunServiceSpecTemplateSpecContainersEnvValueFrom value_from = 3;
+  RunServiceTemplateContainersEnvValueSource value_source = 3;
 }
 
-message RunServiceSpecTemplateSpecContainersEnvValueFrom {
-  RunServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef config_map_key_ref = 1;
-  RunServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef secret_key_ref = 2;
+message RunServiceTemplateContainersEnvValueSource {
+  RunServiceTemplateContainersEnvValueSourceSecretKeyRef secret_key_ref = 1;
 }
 
-message RunServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRef {
-  RunServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference local_object_reference = 1;
-  string key = 2;
-  bool optional = 3;
-  string name = 4;
+message RunServiceTemplateContainersEnvValueSourceSecretKeyRef {
+  string secret = 1;
+  string version = 2;
 }
 
-message RunServiceSpecTemplateSpecContainersEnvValueFromConfigMapKeyRefLocalObjectReference {
-  string name = 1;
-}
-
-message RunServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRef {
-  RunServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference local_object_reference = 1;
-  string key = 2;
-  bool optional = 3;
-  string name = 4;
-}
-
-message RunServiceSpecTemplateSpecContainersEnvValueFromSecretKeyRefLocalObjectReference {
-  string name = 1;
-}
-
-message RunServiceSpecTemplateSpecContainersResources {
+message RunServiceTemplateContainersResources {
   map<string, string> limits = 1;
-  map<string, string> requests = 2;
+  bool cpu_idle = 2;
 }
 
-message RunServiceSpecTemplateSpecContainersPorts {
+message RunServiceTemplateContainersPorts {
   string name = 1;
   int64 container_port = 2;
-  string protocol = 3;
 }
 
-message RunServiceSpecTemplateSpecContainersEnvFrom {
-  string prefix = 1;
-  RunServiceSpecTemplateSpecContainersEnvFromConfigMapRef config_map_ref = 2;
-  RunServiceSpecTemplateSpecContainersEnvFromSecretRef secret_ref = 3;
-}
-
-message RunServiceSpecTemplateSpecContainersEnvFromConfigMapRef {
-  RunServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference local_object_reference = 1;
-  bool optional = 2;
-  string name = 3;
-}
-
-message RunServiceSpecTemplateSpecContainersEnvFromConfigMapRefLocalObjectReference {
+message RunServiceTemplateContainersVolumeMounts {
   string name = 1;
+  string mount_path = 2;
 }
 
-message RunServiceSpecTemplateSpecContainersEnvFromSecretRef {
-  RunServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference local_object_reference = 1;
-  bool optional = 2;
-  string name = 3;
-}
-
-message RunServiceSpecTemplateSpecContainersEnvFromSecretRefLocalObjectReference {
+message RunServiceTemplateVolumes {
   string name = 1;
+  RunServiceTemplateVolumesSecret secret = 2;
+  RunServiceTemplateVolumesCloudSqlInstance cloud_sql_instance = 3;
 }
 
-message RunServiceSpecTemplateSpecContainersVolumeMounts {
-  string name = 1;
-  bool read_only = 2;
-  string mount_path = 3;
-  string sub_path = 4;
-}
-
-message RunServiceSpecTemplateSpecContainersLivenessProbe {
-  int64 initial_delay_seconds = 1;
-  int64 timeout_seconds = 2;
-  int64 period_seconds = 3;
-  int64 success_threshold = 4;
-  int64 failure_threshold = 5;
-  RunServiceSpecTemplateSpecContainersLivenessProbeExec exec = 6;
-  RunServiceSpecTemplateSpecContainersLivenessProbeHttpGet http_get = 7;
-  RunServiceSpecTemplateSpecContainersLivenessProbeTcpSocket tcp_socket = 8;
-}
-
-message RunServiceSpecTemplateSpecContainersLivenessProbeExec {
-  string command = 1;
-}
-
-message RunServiceSpecTemplateSpecContainersLivenessProbeHttpGet {
-  string path = 1;
-  string host = 2;
-  string scheme = 3;
-  repeated RunServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders http_headers = 4;
-}
-
-message RunServiceSpecTemplateSpecContainersLivenessProbeHttpGetHttpHeaders {
-  string name = 1;
-  string value = 2;
-}
-
-message RunServiceSpecTemplateSpecContainersLivenessProbeTcpSocket {
-  int64 port = 1;
-  string host = 2;
-}
-
-message RunServiceSpecTemplateSpecContainersReadinessProbe {
-  int64 initial_delay_seconds = 1;
-  int64 timeout_seconds = 2;
-  int64 period_seconds = 3;
-  int64 success_threshold = 4;
-  int64 failure_threshold = 5;
-  RunServiceSpecTemplateSpecContainersReadinessProbeExec exec = 6;
-  RunServiceSpecTemplateSpecContainersReadinessProbeHttpGet http_get = 7;
-  RunServiceSpecTemplateSpecContainersReadinessProbeTcpSocket tcp_socket = 8;
-}
-
-message RunServiceSpecTemplateSpecContainersReadinessProbeExec {
-  string command = 1;
-}
-
-message RunServiceSpecTemplateSpecContainersReadinessProbeHttpGet {
-  string path = 1;
-  string host = 2;
-  string scheme = 3;
-  repeated RunServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders http_headers = 4;
-}
-
-message RunServiceSpecTemplateSpecContainersReadinessProbeHttpGetHttpHeaders {
-  string name = 1;
-  string value = 2;
-}
-
-message RunServiceSpecTemplateSpecContainersReadinessProbeTcpSocket {
-  int64 port = 1;
-  string host = 2;
-}
-
-message RunServiceSpecTemplateSpecContainersSecurityContext {
-  int64 run_as_user = 1;
-}
-
-message RunServiceSpecTemplateSpecVolumes {
-  string name = 1;
-  RunServiceSpecTemplateSpecVolumesSecret secret = 2;
-  RunServiceSpecTemplateSpecVolumesConfigMap config_map = 3;
-}
-
-message RunServiceSpecTemplateSpecVolumesSecret {
-  string secret_name = 1;
-  repeated RunServiceSpecTemplateSpecVolumesSecretItems items = 2;
+message RunServiceTemplateVolumesSecret {
+  string secret = 1;
+  repeated RunServiceTemplateVolumesSecretItems items = 2;
   int64 default_mode = 3;
-  bool optional = 4;
 }
 
-message RunServiceSpecTemplateSpecVolumesSecretItems {
-  string key = 1;
-  string path = 2;
+message RunServiceTemplateVolumesSecretItems {
+  string path = 1;
+  string version = 2;
   int64 mode = 3;
 }
 
-message RunServiceSpecTemplateSpecVolumesConfigMap {
-  string name = 1;
-  repeated RunServiceSpecTemplateSpecVolumesConfigMapItems items = 2;
-  int64 default_mode = 3;
-  bool optional = 4;
+message RunServiceTemplateVolumesCloudSqlInstance {
+  repeated string connections = 1;
 }
 
-message RunServiceSpecTemplateSpecVolumesConfigMapItems {
-  string key = 1;
-  string path = 2;
-  int64 mode = 3;
-}
-
-message RunServiceSpecTraffic {
-  string configuration_name = 1;
-  string revision_name = 2;
+message RunServiceTraffic {
+  RunServiceTrafficTypeEnum type = 1;
+  string revision = 2;
   int64 percent = 3;
   string tag = 4;
-  bool latest_revision = 5;
-  string url = 6;
 }
 
-message RunServiceStatus {
-  int64 observed_generation = 1;
-  repeated RunServiceStatusConditions conditions = 2;
-  string latest_ready_revision_name = 3;
-  string latest_created_revision_name = 4;
-  repeated RunServiceStatusTraffic traffic = 5;
-  string url = 6;
-  RunServiceStatusAddress address = 7;
-}
-
-message RunServiceStatusConditions {
+message RunServiceTerminalCondition {
   string type = 1;
-  string status = 2;
-  string reason = 3;
-  string message = 4;
-  RunServiceStatusConditionsLastTransitionTime last_transition_time = 5;
-  string severity = 6;
+  RunServiceTerminalConditionStateEnum state = 2;
+  string message = 3;
+  string last_transition_time = 4;
+  RunServiceTerminalConditionSeverityEnum severity = 5;
+  RunServiceTerminalConditionReasonEnum reason = 6;
+  RunServiceTerminalConditionInternalReasonEnum internal_reason = 7;
+  RunServiceTerminalConditionDomainMappingReasonEnum domain_mapping_reason = 8;
+  RunServiceTerminalConditionRevisionReasonEnum revision_reason = 9;
+  RunServiceTerminalConditionJobReasonEnum job_reason = 10;
 }
 
-message RunServiceStatusConditionsLastTransitionTime {
-  int64 seconds = 1;
-  int64 nanos = 2;
-}
-
-message RunServiceStatusTraffic {
-  string configuration_name = 1;
-  string revision_name = 2;
+message RunServiceTrafficStatuses {
+  RunServiceTrafficStatusesTypeEnum type = 1;
+  string revision = 2;
   int64 percent = 3;
   string tag = 4;
-  bool latest_revision = 5;
-  string url = 6;
-}
-
-message RunServiceStatusAddress {
-  string url = 1;
+  string uri = 5;
 }
 
 message ApplyRunServiceRequest {

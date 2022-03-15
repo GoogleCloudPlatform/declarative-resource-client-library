@@ -226,6 +226,10 @@ import (
 
 	pubsub_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/alpha_connector"
 
+	run_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/run/connector"
+
+	run_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/run/beta_connector"
+
 	run_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/run/alpha_connector"
 
 	servicemanagement_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/servicemanagement/connector"
@@ -478,6 +482,10 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	pubsub_beta_connector.RegisterServers(grpcServer)
 
 	pubsub_alpha_connector.RegisterServers(grpcServer)
+
+	run_connector.RegisterServers(grpcServer)
+
+	run_beta_connector.RegisterServers(grpcServer)
 
 	run_alpha_connector.RegisterServers(grpcServer)
 

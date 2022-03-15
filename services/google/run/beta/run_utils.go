@@ -11,14 +11,15 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package server
+// Package run contains all of the utils for Cloud Run.
+package beta
 
-import (
-	"google.golang.org/grpc"
-	sdkgrpc "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/run/run_go_proto"
-)
+// EncodeServiceCreateRequest properly encodes the create request for a Cloud Run Service.
+func EncodeServiceCreateRequest(m map[string]interface{}) map[string]interface{} {
+	// Create requests involving a master version have to be sent under the "initialMasterVersion" key.
+	if _, ok := m["name"]; ok {
+		delete(m, "name")
+	}
 
-// RegisterServers registers each resource with the gRPC server.
-func RegisterServers(s *grpc.Server) {
-	sdkgrpc.RegisterRunServiceServiceServer(s, &ServiceServer{})
+	return m
 }

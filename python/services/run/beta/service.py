@@ -68,8 +68,8 @@ class Service(object):
         self.service_account_file = service_account_file
 
     def apply(self):
-        stub = service_pb2_grpc.RunServiceServiceStub(channel.Channel())
-        request = service_pb2.ApplyRunServiceRequest()
+        stub = service_pb2_grpc.RunBetaServiceServiceStub(channel.Channel())
+        request = service_pb2.ApplyRunBetaServiceRequest()
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
@@ -113,7 +113,7 @@ class Service(object):
 
         request.service_account_file = self.service_account_file
 
-        response = stub.ApplyRunService(request)
+        response = stub.ApplyRunBetaService(request)
         self.name = Primitive.from_proto(response.name)
         self.description = Primitive.from_proto(response.description)
         self.uid = Primitive.from_proto(response.uid)
@@ -154,8 +154,8 @@ class Service(object):
         self.location = Primitive.from_proto(response.location)
 
     def delete(self):
-        stub = service_pb2_grpc.RunServiceServiceStub(channel.Channel())
-        request = service_pb2.DeleteRunServiceRequest()
+        stub = service_pb2_grpc.RunBetaServiceServiceStub(channel.Channel())
+        request = service_pb2.DeleteRunBetaServiceRequest()
         request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
@@ -198,21 +198,21 @@ class Service(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
-        response = stub.DeleteRunService(request)
+        response = stub.DeleteRunBetaService(request)
 
     @classmethod
     def list(self, project, location, service_account_file=""):
-        stub = service_pb2_grpc.RunServiceServiceStub(channel.Channel())
-        request = service_pb2.ListRunServiceRequest()
+        stub = service_pb2_grpc.RunBetaServiceServiceStub(channel.Channel())
+        request = service_pb2.ListRunBetaServiceRequest()
         request.service_account_file = service_account_file
         request.Project = project
 
         request.Location = location
 
-        return stub.ListRunService(request).items
+        return stub.ListRunBetaService(request).items
 
     def to_proto(self):
-        resource = service_pb2.RunService()
+        resource = service_pb2.RunBetaService()
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.description):
@@ -256,7 +256,7 @@ class ServiceBinaryAuthorization(object):
         if not resource:
             return None
 
-        res = service_pb2.RunServiceBinaryAuthorization()
+        res = service_pb2.RunBetaServiceBinaryAuthorization()
         if Primitive.to_proto(resource.use_default):
             res.use_default = Primitive.to_proto(resource.use_default)
         if Primitive.to_proto(resource.breakglass_justification):
@@ -324,7 +324,7 @@ class ServiceTemplate(object):
         if not resource:
             return None
 
-        res = service_pb2.RunServiceTemplate()
+        res = service_pb2.RunBetaServiceTemplate()
         if Primitive.to_proto(resource.revision):
             res.revision = Primitive.to_proto(resource.revision)
         if Primitive.to_proto(resource.labels):
@@ -410,7 +410,7 @@ class ServiceTemplateScaling(object):
         if not resource:
             return None
 
-        res = service_pb2.RunServiceTemplateScaling()
+        res = service_pb2.RunBetaServiceTemplateScaling()
         if Primitive.to_proto(resource.min_instance_count):
             res.min_instance_count = Primitive.to_proto(resource.min_instance_count)
         if Primitive.to_proto(resource.max_instance_count):
@@ -450,7 +450,7 @@ class ServiceTemplateVPCAccess(object):
         if not resource:
             return None
 
-        res = service_pb2.RunServiceTemplateVPCAccess()
+        res = service_pb2.RunBetaServiceTemplateVPCAccess()
         if Primitive.to_proto(resource.connector):
             res.connector = Primitive.to_proto(resource.connector)
         if ServiceTemplateVPCAccessEgressEnum.to_proto(resource.egress):
@@ -506,7 +506,7 @@ class ServiceTemplateContainers(object):
         if not resource:
             return None
 
-        res = service_pb2.RunServiceTemplateContainers()
+        res = service_pb2.RunBetaServiceTemplateContainers()
         if Primitive.to_proto(resource.name):
             res.name = Primitive.to_proto(resource.name)
         if Primitive.to_proto(resource.image):
@@ -577,7 +577,7 @@ class ServiceTemplateContainersEnv(object):
         if not resource:
             return None
 
-        res = service_pb2.RunServiceTemplateContainersEnv()
+        res = service_pb2.RunBetaServiceTemplateContainersEnv()
         if Primitive.to_proto(resource.name):
             res.name = Primitive.to_proto(resource.name)
         if Primitive.to_proto(resource.value):
@@ -625,7 +625,7 @@ class ServiceTemplateContainersEnvValueSource(object):
         if not resource:
             return None
 
-        res = service_pb2.RunServiceTemplateContainersEnvValueSource()
+        res = service_pb2.RunBetaServiceTemplateContainersEnvValueSource()
         if ServiceTemplateContainersEnvValueSourceSecretKeyRef.to_proto(
             resource.secret_key_ref
         ):
@@ -674,7 +674,7 @@ class ServiceTemplateContainersEnvValueSourceSecretKeyRef(object):
         if not resource:
             return None
 
-        res = service_pb2.RunServiceTemplateContainersEnvValueSourceSecretKeyRef()
+        res = service_pb2.RunBetaServiceTemplateContainersEnvValueSourceSecretKeyRef()
         if Primitive.to_proto(resource.secret):
             res.secret = Primitive.to_proto(resource.secret)
         if Primitive.to_proto(resource.version):
@@ -720,7 +720,7 @@ class ServiceTemplateContainersResources(object):
         if not resource:
             return None
 
-        res = service_pb2.RunServiceTemplateContainersResources()
+        res = service_pb2.RunBetaServiceTemplateContainersResources()
         if Primitive.to_proto(resource.limits):
             res.limits = Primitive.to_proto(resource.limits)
         if Primitive.to_proto(resource.cpu_idle):
@@ -760,7 +760,7 @@ class ServiceTemplateContainersPorts(object):
         if not resource:
             return None
 
-        res = service_pb2.RunServiceTemplateContainersPorts()
+        res = service_pb2.RunBetaServiceTemplateContainersPorts()
         if Primitive.to_proto(resource.name):
             res.name = Primitive.to_proto(resource.name)
         if Primitive.to_proto(resource.container_port):
@@ -800,7 +800,7 @@ class ServiceTemplateContainersVolumeMounts(object):
         if not resource:
             return None
 
-        res = service_pb2.RunServiceTemplateContainersVolumeMounts()
+        res = service_pb2.RunBetaServiceTemplateContainersVolumeMounts()
         if Primitive.to_proto(resource.name):
             res.name = Primitive.to_proto(resource.name)
         if Primitive.to_proto(resource.mount_path):
@@ -843,7 +843,7 @@ class ServiceTemplateVolumes(object):
         if not resource:
             return None
 
-        res = service_pb2.RunServiceTemplateVolumes()
+        res = service_pb2.RunBetaServiceTemplateVolumes()
         if Primitive.to_proto(resource.name):
             res.name = Primitive.to_proto(resource.name)
         if ServiceTemplateVolumesSecret.to_proto(resource.secret):
@@ -899,7 +899,7 @@ class ServiceTemplateVolumesSecret(object):
         if not resource:
             return None
 
-        res = service_pb2.RunServiceTemplateVolumesSecret()
+        res = service_pb2.RunBetaServiceTemplateVolumesSecret()
         if Primitive.to_proto(resource.secret):
             res.secret = Primitive.to_proto(resource.secret)
         if ServiceTemplateVolumesSecretItemsArray.to_proto(resource.items):
@@ -945,7 +945,7 @@ class ServiceTemplateVolumesSecretItems(object):
         if not resource:
             return None
 
-        res = service_pb2.RunServiceTemplateVolumesSecretItems()
+        res = service_pb2.RunBetaServiceTemplateVolumesSecretItems()
         if Primitive.to_proto(resource.path):
             res.path = Primitive.to_proto(resource.path)
         if Primitive.to_proto(resource.version):
@@ -987,7 +987,7 @@ class ServiceTemplateVolumesCloudSqlInstance(object):
         if not resource:
             return None
 
-        res = service_pb2.RunServiceTemplateVolumesCloudSqlInstance()
+        res = service_pb2.RunBetaServiceTemplateVolumesCloudSqlInstance()
         if Primitive.to_proto(resource.connections):
             res.connections.extend(Primitive.to_proto(resource.connections))
         return res
@@ -1032,7 +1032,7 @@ class ServiceTraffic(object):
         if not resource:
             return None
 
-        res = service_pb2.RunServiceTraffic()
+        res = service_pb2.RunBetaServiceTraffic()
         if ServiceTrafficTypeEnum.to_proto(resource.type):
             res.type = ServiceTrafficTypeEnum.to_proto(resource.type)
         if Primitive.to_proto(resource.revision):
@@ -1098,7 +1098,7 @@ class ServiceTerminalCondition(object):
         if not resource:
             return None
 
-        res = service_pb2.RunServiceTerminalCondition()
+        res = service_pb2.RunBetaServiceTerminalCondition()
         if Primitive.to_proto(resource.type):
             res.type = Primitive.to_proto(resource.type)
         if ServiceTerminalConditionStateEnum.to_proto(resource.state):
@@ -1196,7 +1196,7 @@ class ServiceTrafficStatuses(object):
         if not resource:
             return None
 
-        res = service_pb2.RunServiceTrafficStatuses()
+        res = service_pb2.RunBetaServiceTrafficStatuses()
         if ServiceTrafficStatusesTypeEnum.to_proto(resource.type):
             res.type = ServiceTrafficStatusesTypeEnum.to_proto(resource.type)
         if Primitive.to_proto(resource.revision):
@@ -1240,16 +1240,16 @@ class ServiceIngressEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceIngressEnum.Value(
-            "RunServiceIngressEnum%s" % resource
+        return service_pb2.RunBetaServiceIngressEnum.Value(
+            "RunBetaServiceIngressEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceIngressEnum.Name(resource)[
-            len("RunServiceIngressEnum") :
+        return service_pb2.RunBetaServiceIngressEnum.Name(resource)[
+            len("RunBetaServiceIngressEnum") :
         ]
 
 
@@ -1258,16 +1258,16 @@ class ServiceLaunchStageEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceLaunchStageEnum.Value(
-            "RunServiceLaunchStageEnum%s" % resource
+        return service_pb2.RunBetaServiceLaunchStageEnum.Value(
+            "RunBetaServiceLaunchStageEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceLaunchStageEnum.Name(resource)[
-            len("RunServiceLaunchStageEnum") :
+        return service_pb2.RunBetaServiceLaunchStageEnum.Name(resource)[
+            len("RunBetaServiceLaunchStageEnum") :
         ]
 
 
@@ -1276,16 +1276,16 @@ class ServiceTemplateVPCAccessEgressEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTemplateVPCAccessEgressEnum.Value(
-            "RunServiceTemplateVPCAccessEgressEnum%s" % resource
+        return service_pb2.RunBetaServiceTemplateVPCAccessEgressEnum.Value(
+            "RunBetaServiceTemplateVPCAccessEgressEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTemplateVPCAccessEgressEnum.Name(resource)[
-            len("RunServiceTemplateVPCAccessEgressEnum") :
+        return service_pb2.RunBetaServiceTemplateVPCAccessEgressEnum.Name(resource)[
+            len("RunBetaServiceTemplateVPCAccessEgressEnum") :
         ]
 
 
@@ -1294,17 +1294,17 @@ class ServiceTemplateExecutionEnvironmentEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTemplateExecutionEnvironmentEnum.Value(
-            "RunServiceTemplateExecutionEnvironmentEnum%s" % resource
+        return service_pb2.RunBetaServiceTemplateExecutionEnvironmentEnum.Value(
+            "RunBetaServiceTemplateExecutionEnvironmentEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTemplateExecutionEnvironmentEnum.Name(resource)[
-            len("RunServiceTemplateExecutionEnvironmentEnum") :
-        ]
+        return service_pb2.RunBetaServiceTemplateExecutionEnvironmentEnum.Name(
+            resource
+        )[len("RunBetaServiceTemplateExecutionEnvironmentEnum") :]
 
 
 class ServiceTrafficTypeEnum(object):
@@ -1312,16 +1312,16 @@ class ServiceTrafficTypeEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTrafficTypeEnum.Value(
-            "RunServiceTrafficTypeEnum%s" % resource
+        return service_pb2.RunBetaServiceTrafficTypeEnum.Value(
+            "RunBetaServiceTrafficTypeEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTrafficTypeEnum.Name(resource)[
-            len("RunServiceTrafficTypeEnum") :
+        return service_pb2.RunBetaServiceTrafficTypeEnum.Name(resource)[
+            len("RunBetaServiceTrafficTypeEnum") :
         ]
 
 
@@ -1330,16 +1330,16 @@ class ServiceTerminalConditionStateEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTerminalConditionStateEnum.Value(
-            "RunServiceTerminalConditionStateEnum%s" % resource
+        return service_pb2.RunBetaServiceTerminalConditionStateEnum.Value(
+            "RunBetaServiceTerminalConditionStateEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTerminalConditionStateEnum.Name(resource)[
-            len("RunServiceTerminalConditionStateEnum") :
+        return service_pb2.RunBetaServiceTerminalConditionStateEnum.Name(resource)[
+            len("RunBetaServiceTerminalConditionStateEnum") :
         ]
 
 
@@ -1348,16 +1348,16 @@ class ServiceTerminalConditionSeverityEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTerminalConditionSeverityEnum.Value(
-            "RunServiceTerminalConditionSeverityEnum%s" % resource
+        return service_pb2.RunBetaServiceTerminalConditionSeverityEnum.Value(
+            "RunBetaServiceTerminalConditionSeverityEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTerminalConditionSeverityEnum.Name(resource)[
-            len("RunServiceTerminalConditionSeverityEnum") :
+        return service_pb2.RunBetaServiceTerminalConditionSeverityEnum.Name(resource)[
+            len("RunBetaServiceTerminalConditionSeverityEnum") :
         ]
 
 
@@ -1366,16 +1366,16 @@ class ServiceTerminalConditionReasonEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTerminalConditionReasonEnum.Value(
-            "RunServiceTerminalConditionReasonEnum%s" % resource
+        return service_pb2.RunBetaServiceTerminalConditionReasonEnum.Value(
+            "RunBetaServiceTerminalConditionReasonEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTerminalConditionReasonEnum.Name(resource)[
-            len("RunServiceTerminalConditionReasonEnum") :
+        return service_pb2.RunBetaServiceTerminalConditionReasonEnum.Name(resource)[
+            len("RunBetaServiceTerminalConditionReasonEnum") :
         ]
 
 
@@ -1384,17 +1384,17 @@ class ServiceTerminalConditionInternalReasonEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTerminalConditionInternalReasonEnum.Value(
-            "RunServiceTerminalConditionInternalReasonEnum%s" % resource
+        return service_pb2.RunBetaServiceTerminalConditionInternalReasonEnum.Value(
+            "RunBetaServiceTerminalConditionInternalReasonEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTerminalConditionInternalReasonEnum.Name(resource)[
-            len("RunServiceTerminalConditionInternalReasonEnum") :
-        ]
+        return service_pb2.RunBetaServiceTerminalConditionInternalReasonEnum.Name(
+            resource
+        )[len("RunBetaServiceTerminalConditionInternalReasonEnum") :]
 
 
 class ServiceTerminalConditionDomainMappingReasonEnum(object):
@@ -1402,17 +1402,17 @@ class ServiceTerminalConditionDomainMappingReasonEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTerminalConditionDomainMappingReasonEnum.Value(
-            "RunServiceTerminalConditionDomainMappingReasonEnum%s" % resource
+        return service_pb2.RunBetaServiceTerminalConditionDomainMappingReasonEnum.Value(
+            "RunBetaServiceTerminalConditionDomainMappingReasonEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTerminalConditionDomainMappingReasonEnum.Name(
+        return service_pb2.RunBetaServiceTerminalConditionDomainMappingReasonEnum.Name(
             resource
-        )[len("RunServiceTerminalConditionDomainMappingReasonEnum") :]
+        )[len("RunBetaServiceTerminalConditionDomainMappingReasonEnum") :]
 
 
 class ServiceTerminalConditionRevisionReasonEnum(object):
@@ -1420,17 +1420,17 @@ class ServiceTerminalConditionRevisionReasonEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTerminalConditionRevisionReasonEnum.Value(
-            "RunServiceTerminalConditionRevisionReasonEnum%s" % resource
+        return service_pb2.RunBetaServiceTerminalConditionRevisionReasonEnum.Value(
+            "RunBetaServiceTerminalConditionRevisionReasonEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTerminalConditionRevisionReasonEnum.Name(resource)[
-            len("RunServiceTerminalConditionRevisionReasonEnum") :
-        ]
+        return service_pb2.RunBetaServiceTerminalConditionRevisionReasonEnum.Name(
+            resource
+        )[len("RunBetaServiceTerminalConditionRevisionReasonEnum") :]
 
 
 class ServiceTerminalConditionJobReasonEnum(object):
@@ -1438,16 +1438,16 @@ class ServiceTerminalConditionJobReasonEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTerminalConditionJobReasonEnum.Value(
-            "RunServiceTerminalConditionJobReasonEnum%s" % resource
+        return service_pb2.RunBetaServiceTerminalConditionJobReasonEnum.Value(
+            "RunBetaServiceTerminalConditionJobReasonEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTerminalConditionJobReasonEnum.Name(resource)[
-            len("RunServiceTerminalConditionJobReasonEnum") :
+        return service_pb2.RunBetaServiceTerminalConditionJobReasonEnum.Name(resource)[
+            len("RunBetaServiceTerminalConditionJobReasonEnum") :
         ]
 
 
@@ -1456,16 +1456,16 @@ class ServiceTrafficStatusesTypeEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTrafficStatusesTypeEnum.Value(
-            "RunServiceTrafficStatusesTypeEnum%s" % resource
+        return service_pb2.RunBetaServiceTrafficStatusesTypeEnum.Value(
+            "RunBetaServiceTrafficStatusesTypeEnum%s" % resource
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return service_pb2.RunServiceTrafficStatusesTypeEnum.Name(resource)[
-            len("RunServiceTrafficStatusesTypeEnum") :
+        return service_pb2.RunBetaServiceTrafficStatusesTypeEnum.Name(resource)[
+            len("RunBetaServiceTrafficStatusesTypeEnum") :
         ]
 
 

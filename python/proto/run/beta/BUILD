@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="run", resources=["service"])
+proto_package(name="run/beta", resources=["service"])

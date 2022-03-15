@@ -11,14 +11,22 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package server
+// Package beta defines operations in the declarative SDK.
+package beta
 
 import (
-	"google.golang.org/grpc"
-	sdkgrpc "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/run/run_go_proto"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
-// RegisterServers registers each resource with the gRPC server.
-func RegisterServers(s *grpc.Server) {
-	sdkgrpc.RegisterRunServiceServiceServer(s, &ServiceServer{})
+// The Client is the base struct of all operations.  This will receive the
+// Get, Delete, List, and Apply operations on all resources.
+type Client struct {
+	Config *dcl.Config
+}
+
+// NewClient creates a client that retries all operations a few times each.
+func NewClient(c *dcl.Config) *Client {
+	return &Client{
+		Config: c,
+	}
 }
