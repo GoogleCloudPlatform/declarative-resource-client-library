@@ -5,8 +5,8 @@
   "cluster": "{{ref:minimal.cluster.json:name}}",
   "version": "1.21.5-gke.2800",
   "autoscaling": {
-    "minNodeCount": 1,
-    "maxNodeCount": 5
+    "minNodeCount": 3,
+    "maxNodeCount": 8
   },
   "subnetId": "{{aws_subnet}}",
   "maxPodsConstraint": {
@@ -15,13 +15,13 @@
   "config": {
     "instanceType": "t3.medium",
     "configEncryption": {
-      "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/{{aws_database_encryption_key}}"
+      "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/updated-config-encryption-kms-key-arn"
     },
     "rootVolume": {
-      "sizeGib": 10,
-      "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/{{aws_volume_encryption_key}}",
-      "volumeType": "GP3",
-      "iops": 3000
+      "sizeGib": 12,
+      "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/updated-volume-encryption-kms-key-arn",
+      "volumeType": "GP2",
+      "iops": 0
     },
     "taints": [
       {
@@ -40,7 +40,7 @@
     "sshConfig": {
       "ec2KeyPair": "{{byo_multicloud_prefix}}-1p-dev-ssh"
     },
-    "securityGroupIds": ["{{aws_security_group}}"]
+    "securityGroupIds": ["sg-1", "sg-2"]
   },
   "annotations": {
     "label-two": "value-two"

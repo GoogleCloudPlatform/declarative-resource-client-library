@@ -107,7 +107,6 @@ components:
           x-dcl-go-name: Autoscaling
           x-dcl-go-type: NodePoolAutoscaling
           description: Required. Autoscaler configuration for this node pool.
-          x-kubernetes-immutable: true
           required:
           - minNodeCount
           - maxNodeCount
@@ -118,14 +117,12 @@ components:
               x-dcl-go-name: MaxNodeCount
               description: Required. Maximum number of nodes in the NodePool. Must
                 be >= min_node_count.
-              x-kubernetes-immutable: true
             minNodeCount:
               type: integer
               format: int64
               x-dcl-go-name: MinNodeCount
               description: Required. Minimum number of nodes in the NodePool. Must
                 be >= 1 and <= max_node_count.
-              x-kubernetes-immutable: true
         cluster:
           type: string
           x-dcl-go-name: Cluster
@@ -140,7 +137,6 @@ components:
           x-dcl-go-name: Config
           x-dcl-go-type: NodePoolConfig
           description: Required. The configuration of the node pool.
-          x-kubernetes-immutable: true
           required:
           - iamInstanceProfile
           - configEncryption
@@ -151,7 +147,6 @@ components:
               x-dcl-go-type: NodePoolConfigConfigEncryption
               description: Required. The ARN of the AWS KMS key used to encrypt node
                 pool configuration.
-              x-kubernetes-immutable: true
               required:
               - kmsKeyArn
               properties:
@@ -160,7 +155,6 @@ components:
                   x-dcl-go-name: KmsKeyArn
                   description: Required. The ARN of the AWS KMS key used to encrypt
                     node pool configuration.
-                  x-kubernetes-immutable: true
             iamInstanceProfile:
               type: string
               x-dcl-go-name: IamInstanceProfile
@@ -191,7 +185,6 @@ components:
                 node pool nodes. Volumes will be provisioned in the availability zone
                 assigned to the node pool subnet. When unspecified, it defaults to
                 32 GiB with the GP2 volume type.
-              x-kubernetes-immutable: true
               x-dcl-server-default: true
               properties:
                 iops:
@@ -200,7 +193,6 @@ components:
                   x-dcl-go-name: Iops
                   description: Optional. The number of I/O operations per second (IOPS)
                     to provision for GP3 volume.
-                  x-kubernetes-immutable: true
                   x-dcl-server-default: true
                 kmsKeyArn:
                   type: string
@@ -209,7 +201,6 @@ components:
                     Managed Key (CMK) used to encrypt AWS EBS volumes. If not specified,
                     the default Amazon managed key associated to the AWS region where
                     this cluster runs will be used.
-                  x-kubernetes-immutable: true
                 sizeGib:
                   type: integer
                   format: int64
@@ -217,7 +208,6 @@ components:
                   description: Optional. The size of the volume, in GiBs. When unspecified,
                     a default value is provided. See the specific reference in the
                     parent resource.
-                  x-kubernetes-immutable: true
                   x-dcl-server-default: true
                 volumeType:
                   type: string
@@ -226,7 +216,6 @@ components:
                   description: 'Optional. Type of the EBS volume. When unspecified,
                     it defaults to GP2 volume. Possible values: VOLUME_TYPE_UNSPECIFIED,
                     GP2, GP3'
-                  x-kubernetes-immutable: true
                   x-dcl-server-default: true
                   enum:
                   - VOLUME_TYPE_UNSPECIFIED
@@ -238,7 +227,6 @@ components:
               description: Optional. The IDs of additional security groups to add
                 to nodes in this pool. The manager will automatically create security
                 groups with minimum rules needed for a functioning cluster.
-              x-kubernetes-immutable: true
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -406,4 +394,3 @@ components:
           description: Required. The Kubernetes version to run on this node pool (e.g.
             `1.19.10-gke.1000`). You can list all supported versions on a given Google
             Cloud region by calling GetAwsServerConfig.
-          x-kubernetes-immutable: true

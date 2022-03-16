@@ -128,9 +128,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/recaptchaenterprise"
 	recaptchaenterprise_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/recaptchaenterprise/alpha"
 	recaptchaenterprise_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/recaptchaenterprise/beta"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/run"
 	run_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/run/alpha"
-	run_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/run/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/servicemanagement"
 	servicemanagement_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/servicemanagement/alpha"
 	servicemanagement_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/servicemanagement/beta"
@@ -363,8 +361,6 @@ func Services() *Directory {
 	d.AddResource("ga", "osconfig", "PatchDeployment", osconfig.YAML_patch_deployment)
 	d.AddResource("ga", "pubsub", dcl.TitleToSnakeCase("Topic"), pubsub.YAML_topic)
 	d.AddResource("ga", "pubsub", "Topic", pubsub.YAML_topic)
-	d.AddResource("ga", "run", dcl.TitleToSnakeCase("Service"), run.YAML_service)
-	d.AddResource("ga", "run", "Service", run.YAML_service)
 	d.AddResource("ga", "servicemanagement", dcl.TitleToSnakeCase("ManagedService"), servicemanagement.YAML_managed_service)
 	d.AddResource("ga", "servicemanagement", "ManagedService", servicemanagement.YAML_managed_service)
 	d.AddResource("ga", "storage", dcl.TitleToSnakeCase("Bucket"), storage.YAML_bucket)
@@ -569,8 +565,6 @@ func Services() *Directory {
 	d.AddResource("beta", "osconfig", "GuestPolicy", osconfig_beta.YAML_guest_policy)
 	d.AddResource("beta", "pubsub", dcl.TitleToSnakeCase("Topic"), pubsub_beta.YAML_topic)
 	d.AddResource("beta", "pubsub", "Topic", pubsub_beta.YAML_topic)
-	d.AddResource("beta", "run", dcl.TitleToSnakeCase("Service"), run_beta.YAML_service)
-	d.AddResource("beta", "run", "Service", run_beta.YAML_service)
 	d.AddResource("beta", "servicemanagement", dcl.TitleToSnakeCase("ManagedService"), servicemanagement_beta.YAML_managed_service)
 	d.AddResource("beta", "servicemanagement", "ManagedService", servicemanagement_beta.YAML_managed_service)
 	d.AddResource("beta", "storage", dcl.TitleToSnakeCase("Bucket"), storage_beta.YAML_bucket)
