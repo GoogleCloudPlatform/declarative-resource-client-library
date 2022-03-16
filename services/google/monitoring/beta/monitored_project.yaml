@@ -86,10 +86,6 @@ components:
           description: 'Required. The resource name of the existing Metrics Scope
             that will monitor this project. Example: locations/global/metricsScopes/{SCOPING_PROJECT_ID_OR_NUMBER}'
           x-kubernetes-immutable: true
-          x-dcl-references:
-          - resource: Monitoring/MetricsScope
-            field: name
-            parent: true
         name:
           type: string
           x-dcl-go-name: Name

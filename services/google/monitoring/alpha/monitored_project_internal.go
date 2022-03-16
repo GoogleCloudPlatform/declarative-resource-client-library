@@ -394,7 +394,7 @@ func diffMonitoredProject(c *Client, desired, actual *MonitoredProject, opts ...
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MetricsScope, actual.MetricsScope, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricsScope")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricsScope, actual.MetricsScope, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricsScope")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

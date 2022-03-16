@@ -24,10 +24,10 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterMonitoringAlphaGroupServiceServer(s, &GroupServer{})
 	sdkgrpc.RegisterMonitoringAlphaMetricDescriptorServiceServer(s, &MetricDescriptorServer{})
 	sdkgrpc.RegisterMonitoringAlphaMetricsScopeServiceServer(s, &MetricsScopeServer{})
+	sdkgrpc.RegisterMonitoringAlphaMonitoredProjectServiceServer(s, &MonitoredProjectServer{})
 	sdkgrpc.RegisterMonitoringAlphaNotificationChannelServiceServer(s, &NotificationChannelServer{})
 	sdkgrpc.RegisterMonitoringAlphaUptimeCheckConfigServiceServer(s, &UptimeCheckConfigServer{})
 	sdkgrpc.RegisterMonitoringAlphaServiceServiceServer(s, &ServiceServer{})
 	sdkgrpc.RegisterMonitoringAlphaServiceLevelObjectiveServiceServer(s, &ServiceLevelObjectiveServer{})
-	sdkgrpc.RegisterMonitoringAlphaMonitoredProjectServiceServer(s, &MonitoredProjectServer{})
 	sdkgrpc.RegisterMonitoringAlphaAlertPolicyServiceServer(s, &AlertPolicyServer{})
 }

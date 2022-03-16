@@ -15,11 +15,11 @@ name: basic_monitored_project
 description: A basic example of a monitoring monitored project
 type: monitored_project
 versions:
+- ga
 - beta
 resource: samples/basic.monitored_project.json
 dependencies:
 - samples/basic.cloudresourcemanager.project.json
-- samples/basic.metrics_scope.json
 variables:
 - name: id
   type: resource_name
