@@ -72,7 +72,7 @@
       }
     }
   },
-  "duration": "10s",
+  "duration": "7200s",
   "recurringSchedule": {
     "timeZone": {
       "id": "America/New_York",

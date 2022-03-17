@@ -70,7 +70,7 @@
       }
     }
   },
-  "duration": "11s",
+  "duration": "3600s",
   "recurringSchedule": {
     "timeZone": {
       "id": "America/Los_Angeles",
