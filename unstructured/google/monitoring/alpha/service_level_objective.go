@@ -936,6 +936,10 @@ func (r *ServiceLevelObjective) SetPolicy(ctx context.Context, config *dcl.Confi
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *ServiceLevelObjective) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *ServiceLevelObjective) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

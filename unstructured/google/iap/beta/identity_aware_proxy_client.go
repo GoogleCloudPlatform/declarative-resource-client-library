@@ -205,6 +205,10 @@ func (r *IdentityAwareProxyClient) SetPolicy(ctx context.Context, config *dcl.Co
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *IdentityAwareProxyClient) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *IdentityAwareProxyClient) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

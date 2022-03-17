@@ -235,6 +235,10 @@ func (r *Client) SetPolicy(ctx context.Context, config *dcl.Config, resource *un
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *Client) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *Client) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

@@ -398,6 +398,10 @@ func (r *Spoke) SetPolicy(ctx context.Context, config *dcl.Config, resource *uns
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *Spoke) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *Spoke) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

@@ -265,6 +265,10 @@ func (r *HttpFilter) SetPolicy(ctx context.Context, config *dcl.Config, resource
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *HttpFilter) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *HttpFilter) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

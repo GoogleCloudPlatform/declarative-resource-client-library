@@ -418,6 +418,24 @@ func SetPolicyAuthorizationPolicy(ctx context.Context, config *dcl.Config, u *un
 	return iamUnstruct.PolicyToUnstructured(newPolicy), nil
 }
 
+func SetPolicyWithEtagAuthorizationPolicy(ctx context.Context, config *dcl.Config, u *unstructured.Resource, p *unstructured.Resource) (*unstructured.Resource, error) {
+	r, err := UnstructuredToAuthorizationPolicy(u)
+	if err != nil {
+		return nil, err
+	}
+	policy, err := iamUnstruct.UnstructuredToPolicy(p)
+	if err != nil {
+		return nil, err
+	}
+	policy.Resource = r
+	iamClient := iam.NewClient(config)
+	newPolicy, err := iamClient.SetPolicyWithEtag(ctx, policy)
+	if err != nil {
+		return nil, err
+	}
+	return iamUnstruct.PolicyToUnstructured(newPolicy), nil
+}
+
 func GetPolicyAuthorizationPolicy(ctx context.Context, config *dcl.Config, u *unstructured.Resource) (*unstructured.Resource, error) {
 	r, err := UnstructuredToAuthorizationPolicy(u)
 	if err != nil {
@@ -472,6 +490,10 @@ func (r *AuthorizationPolicy) GetPolicyMember(ctx context.Context, config *dcl.C
 
 func (r *AuthorizationPolicy) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return SetPolicyAuthorizationPolicy(ctx, config, resource, policy)
+}
+
+func (r *AuthorizationPolicy) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return SetPolicyWithEtagAuthorizationPolicy(ctx, config, resource, policy)
 }
 
 func (r *AuthorizationPolicy) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {

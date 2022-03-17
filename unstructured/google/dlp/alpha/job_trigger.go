@@ -1979,6 +1979,10 @@ func (r *JobTrigger) SetPolicy(ctx context.Context, config *dcl.Config, resource
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *JobTrigger) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *JobTrigger) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

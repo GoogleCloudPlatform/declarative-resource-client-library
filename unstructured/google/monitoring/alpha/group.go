@@ -215,6 +215,10 @@ func (r *Group) SetPolicy(ctx context.Context, config *dcl.Config, resource *uns
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *Group) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *Group) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

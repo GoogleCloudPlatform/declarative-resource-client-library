@@ -243,6 +243,24 @@ func SetPolicyFolder(ctx context.Context, config *dcl.Config, u *unstructured.Re
 	return iamUnstruct.PolicyToUnstructured(newPolicy), nil
 }
 
+func SetPolicyWithEtagFolder(ctx context.Context, config *dcl.Config, u *unstructured.Resource, p *unstructured.Resource) (*unstructured.Resource, error) {
+	r, err := UnstructuredToFolder(u)
+	if err != nil {
+		return nil, err
+	}
+	policy, err := iamUnstruct.UnstructuredToPolicy(p)
+	if err != nil {
+		return nil, err
+	}
+	policy.Resource = r
+	iamClient := iam.NewClient(config)
+	newPolicy, err := iamClient.SetPolicyWithEtag(ctx, policy)
+	if err != nil {
+		return nil, err
+	}
+	return iamUnstruct.PolicyToUnstructured(newPolicy), nil
+}
+
 func GetPolicyFolder(ctx context.Context, config *dcl.Config, u *unstructured.Resource) (*unstructured.Resource, error) {
 	r, err := UnstructuredToFolder(u)
 	if err != nil {
@@ -297,6 +315,10 @@ func (r *Folder) GetPolicyMember(ctx context.Context, config *dcl.Config, resour
 
 func (r *Folder) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return SetPolicyFolder(ctx, config, resource, policy)
+}
+
+func (r *Folder) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return SetPolicyWithEtagFolder(ctx, config, resource, policy)
 }
 
 func (r *Folder) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {

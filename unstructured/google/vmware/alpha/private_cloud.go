@@ -546,6 +546,24 @@ func SetPolicyPrivateCloud(ctx context.Context, config *dcl.Config, u *unstructu
 	return iamUnstruct.PolicyToUnstructured(newPolicy), nil
 }
 
+func SetPolicyWithEtagPrivateCloud(ctx context.Context, config *dcl.Config, u *unstructured.Resource, p *unstructured.Resource) (*unstructured.Resource, error) {
+	r, err := UnstructuredToPrivateCloud(u)
+	if err != nil {
+		return nil, err
+	}
+	policy, err := iamUnstruct.UnstructuredToPolicy(p)
+	if err != nil {
+		return nil, err
+	}
+	policy.Resource = r
+	iamClient := iam.NewClient(config)
+	newPolicy, err := iamClient.SetPolicyWithEtag(ctx, policy)
+	if err != nil {
+		return nil, err
+	}
+	return iamUnstruct.PolicyToUnstructured(newPolicy), nil
+}
+
 func GetPolicyPrivateCloud(ctx context.Context, config *dcl.Config, u *unstructured.Resource) (*unstructured.Resource, error) {
 	r, err := UnstructuredToPrivateCloud(u)
 	if err != nil {
@@ -600,6 +618,10 @@ func (r *PrivateCloud) GetPolicyMember(ctx context.Context, config *dcl.Config, 
 
 func (r *PrivateCloud) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return SetPolicyPrivateCloud(ctx, config, resource, policy)
+}
+
+func (r *PrivateCloud) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return SetPolicyWithEtagPrivateCloud(ctx, config, resource, policy)
 }
 
 func (r *PrivateCloud) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {

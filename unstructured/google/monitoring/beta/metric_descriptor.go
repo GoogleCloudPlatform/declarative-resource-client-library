@@ -350,6 +350,10 @@ func (r *MetricDescriptor) SetPolicy(ctx context.Context, config *dcl.Config, re
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *MetricDescriptor) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *MetricDescriptor) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

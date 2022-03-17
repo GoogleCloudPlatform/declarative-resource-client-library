@@ -1895,6 +1895,10 @@ func (r *CertificateAuthority) SetPolicy(ctx context.Context, config *dcl.Config
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *CertificateAuthority) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *CertificateAuthority) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

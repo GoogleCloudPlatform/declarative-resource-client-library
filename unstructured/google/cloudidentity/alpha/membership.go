@@ -348,6 +348,10 @@ func (r *Membership) SetPolicy(ctx context.Context, config *dcl.Config, resource
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *Membership) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *Membership) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

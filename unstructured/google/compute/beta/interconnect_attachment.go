@@ -509,6 +509,10 @@ func (r *InterconnectAttachment) SetPolicy(ctx context.Context, config *dcl.Conf
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *InterconnectAttachment) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *InterconnectAttachment) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

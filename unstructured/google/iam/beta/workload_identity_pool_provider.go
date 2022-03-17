@@ -339,6 +339,10 @@ func (r *WorkloadIdentityPoolProvider) SetPolicy(ctx context.Context, config *dc
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *WorkloadIdentityPoolProvider) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *WorkloadIdentityPoolProvider) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

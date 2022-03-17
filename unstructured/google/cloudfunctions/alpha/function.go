@@ -486,6 +486,24 @@ func SetPolicyFunction(ctx context.Context, config *dcl.Config, u *unstructured.
 	return iamUnstruct.PolicyToUnstructured(newPolicy), nil
 }
 
+func SetPolicyWithEtagFunction(ctx context.Context, config *dcl.Config, u *unstructured.Resource, p *unstructured.Resource) (*unstructured.Resource, error) {
+	r, err := UnstructuredToFunction(u)
+	if err != nil {
+		return nil, err
+	}
+	policy, err := iamUnstruct.UnstructuredToPolicy(p)
+	if err != nil {
+		return nil, err
+	}
+	policy.Resource = r
+	iamClient := iam.NewClient(config)
+	newPolicy, err := iamClient.SetPolicyWithEtag(ctx, policy)
+	if err != nil {
+		return nil, err
+	}
+	return iamUnstruct.PolicyToUnstructured(newPolicy), nil
+}
+
 func GetPolicyFunction(ctx context.Context, config *dcl.Config, u *unstructured.Resource) (*unstructured.Resource, error) {
 	r, err := UnstructuredToFunction(u)
 	if err != nil {
@@ -540,6 +558,10 @@ func (r *Function) GetPolicyMember(ctx context.Context, config *dcl.Config, reso
 
 func (r *Function) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return SetPolicyFunction(ctx, config, resource, policy)
+}
+
+func (r *Function) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return SetPolicyWithEtagFunction(ctx, config, resource, policy)
 }
 
 func (r *Function) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {

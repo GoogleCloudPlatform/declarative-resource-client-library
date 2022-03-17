@@ -265,6 +265,10 @@ func (r *NotificationChannel) SetPolicy(ctx context.Context, config *dcl.Config,
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *NotificationChannel) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *NotificationChannel) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

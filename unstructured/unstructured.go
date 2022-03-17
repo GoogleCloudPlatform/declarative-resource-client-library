@@ -82,6 +82,9 @@ type RegisteredResource interface {
 	// SetPolicy provides an indirection for the type-specific SetPolicy call.
 	SetPolicy(ctx context.Context, config *dcl.Config, r *Resource, p *Resource) (*Resource, error)
 
+	// SetPolicyWithEtag provides an indirection for the type-specific SetPolicy call.
+	SetPolicyWithEtag(ctx context.Context, config *dcl.Config, r *Resource, p *Resource) (*Resource, error)
+
 	// GetPolicyMember provides an indirection for the type-specific GetPolicyMember call.
 	GetPolicyMember(ctx context.Context, config *dcl.Config, r *Resource, role, member string) (*Resource, error)
 
@@ -200,6 +203,15 @@ func SetPolicy(ctx context.Context, config *dcl.Config, r *Resource, p *Resource
 		return nil, fmt.Errorf("unknown resource type %s", r.STV.String())
 	}
 	return rr.SetPolicy(ctx, config, r, p)
+}
+
+// SetPolicyWithEtag sets the IAMPolicy using the etag container for the provided resource.
+func SetPolicyWithEtag(ctx context.Context, config *dcl.Config, r *Resource, p *Resource) (*Resource, error) {
+	rr := registration(r)
+	if rr == nil {
+		return nil, fmt.Errorf("unknown resource type %s", r.STV.String())
+	}
+	return rr.SetPolicyWithEtag(ctx, config, r, p)
 }
 
 // GetPolicyMember gets the IAMPolicyMember for the provided resource.

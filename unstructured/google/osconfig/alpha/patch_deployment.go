@@ -1318,6 +1318,10 @@ func (r *PatchDeployment) SetPolicy(ctx context.Context, config *dcl.Config, res
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *PatchDeployment) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *PatchDeployment) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

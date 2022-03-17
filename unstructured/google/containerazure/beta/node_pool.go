@@ -440,6 +440,10 @@ func (r *NodePool) SetPolicy(ctx context.Context, config *dcl.Config, resource *
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *NodePool) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *NodePool) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

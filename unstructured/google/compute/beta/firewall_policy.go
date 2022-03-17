@@ -255,6 +255,10 @@ func (r *FirewallPolicy) SetPolicy(ctx context.Context, config *dcl.Config, reso
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *FirewallPolicy) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *FirewallPolicy) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

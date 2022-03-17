@@ -133,6 +133,12 @@ func (c *Client) SetPolicy(ctx context.Context, p *Policy) (*Policy, error) {
 		return nil, err
 	}
 	p.Etag = currentPolicy.Etag
+	return c.SetPolicyWithEtag(ctx, p)
+}
+
+// SetPolicyWithEtag sets the policy for the given resource using the etag contained in the Policy.
+func (c *Client) SetPolicyWithEtag(ctx context.Context, p *Policy) (*Policy, error) {
+	ctx = context.WithValue(ctx, dcl.APIRequestIDKey, dcl.CreateAPIRequestID())
 	versionPtr := p.Resource.IAMPolicyVersion()
 	p.Version = &versionPtr
 	verb := p.Resource.SetPolicyVerb()

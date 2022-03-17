@@ -106,6 +106,12 @@ func MemberSetPolicy(_ context.Context, _ *dcl.Config, _ *unstructured.Resource,
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+// MemberSetPolicyWithEtag is an empty function that will return an error because these types are meant
+// to be handled by the resources that the policies apply to rather than by explicit policy resources.
+func MemberSetPolicyWithEtag(_ context.Context, _ *dcl.Config, _ *unstructured.Resource, _ *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 // MemberGetPolicyMember is an empty function that will return an error because these types are meant
 // to be handled by the resources that the policies apply to rather than by explicit policy resources.
 func MemberGetPolicyMember(_ context.Context, _ *dcl.Config, _ *unstructured.Resource, _, _ string) (*unstructured.Resource, error) {
@@ -160,6 +166,11 @@ func (r *Member) GetPolicy(ctx context.Context, config *dcl.Config, resource *un
 // SetPolicy calls the empty MemberSetPolicy function.
 func (r *Member) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return MemberSetPolicy(ctx, config, resource, policy)
+}
+
+// SetPolicyWithEtag calls the empty MemberSetPolicyWithEtag function.
+func (r *Member) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return MemberSetPolicyWithEtag(ctx, config, resource, policy)
 }
 
 // GetPolicy calls the empty MemberGetPolicy function.

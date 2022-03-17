@@ -408,6 +408,10 @@ func (r *TcpRoute) SetPolicy(ctx context.Context, config *dcl.Config, resource *
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *TcpRoute) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *TcpRoute) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

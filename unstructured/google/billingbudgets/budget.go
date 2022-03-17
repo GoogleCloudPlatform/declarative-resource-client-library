@@ -581,6 +581,10 @@ func (r *Budget) SetPolicy(ctx context.Context, config *dcl.Config, resource *un
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *Budget) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *Budget) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

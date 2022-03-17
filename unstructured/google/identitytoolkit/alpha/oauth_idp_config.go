@@ -266,6 +266,10 @@ func (r *OAuthIdpConfig) SetPolicy(ctx context.Context, config *dcl.Config, reso
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *OAuthIdpConfig) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *OAuthIdpConfig) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

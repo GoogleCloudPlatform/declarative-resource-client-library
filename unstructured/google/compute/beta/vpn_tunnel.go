@@ -397,6 +397,10 @@ func (r *VpnTunnel) SetPolicy(ctx context.Context, config *dcl.Config, resource 
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *VpnTunnel) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *VpnTunnel) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

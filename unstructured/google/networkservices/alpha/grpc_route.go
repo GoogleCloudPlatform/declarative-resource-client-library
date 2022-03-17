@@ -613,6 +613,10 @@ func (r *GrpcRoute) SetPolicy(ctx context.Context, config *dcl.Config, resource 
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *GrpcRoute) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *GrpcRoute) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

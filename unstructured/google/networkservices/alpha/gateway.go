@@ -317,6 +317,10 @@ func (r *Gateway) SetPolicy(ctx context.Context, config *dcl.Config, resource *u
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *Gateway) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *Gateway) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

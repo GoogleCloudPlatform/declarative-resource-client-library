@@ -561,6 +561,10 @@ func (r *LogMetric) SetPolicy(ctx context.Context, config *dcl.Config, resource 
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *LogMetric) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *LogMetric) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

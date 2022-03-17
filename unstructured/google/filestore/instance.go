@@ -457,6 +457,10 @@ func (r *Instance) SetPolicy(ctx context.Context, config *dcl.Config, resource *
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *Instance) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *Instance) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

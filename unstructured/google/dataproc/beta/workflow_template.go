@@ -2922,6 +2922,10 @@ func (r *WorkflowTemplate) SetPolicy(ctx context.Context, config *dcl.Config, re
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *WorkflowTemplate) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *WorkflowTemplate) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

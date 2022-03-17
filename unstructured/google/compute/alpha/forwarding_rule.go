@@ -487,6 +487,10 @@ func (r *ForwardingRule) SetPolicy(ctx context.Context, config *dcl.Config, reso
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *ForwardingRule) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
+	return nil, unstructured.ErrNoSuchMethod
+}
+
 func (r *ForwardingRule) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }
