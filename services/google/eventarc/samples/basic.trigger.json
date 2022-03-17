@@ -24,6 +24,11 @@
     {
       "attribute": "methodName",
       "value": "storage.objects.create"
+    },
+    {
+      "attribute": "resourceName",
+      "value": "/projects/_/buckets/bucket-1/objects/*",
+      "operator": "match-path-pattern"
     }
   ]
 }

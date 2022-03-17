@@ -3,12 +3,14 @@
   "location": "{{region}}",
   "name": "{{name}}",
   "labels": {
-    "foo1": "bar2"
+    "foo1": "bar1"
   },
   "destination": {
-    "cloudRunService": {
-      "service": "projects/{{project}}/locations/{{region}}/services/{{ref:secondservice.run1.service.json:name}}",
-      "region": "us-west1",
+    "gke": {
+      "cluster": "projects/{{project}}/locations/us-central1-c/clusters/eventarc-trigger-cli-cluster",
+      "location": "us-central1-c",
+      "namespace": "default",
+      "service": "eventarc-trigger-cloudrun-anthos-2",
       "path": "/route/subroute"
     }
   },
@@ -24,12 +26,7 @@
     },
     {
       "attribute": "methodName",
-      "value": "storage.objects.read"
-    },
-    {
-      "attribute": "resourceName",
-      "value": "/projects/_/buckets/bucket-2/objects/*",
-      "operator": ""
+      "value": "storage.objects.create"
     }
   ]
 }

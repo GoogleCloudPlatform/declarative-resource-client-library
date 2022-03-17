@@ -53,6 +53,28 @@ func TriggerToUnstructured(r *dclService.Trigger) *unstructured.Resource {
 			}
 			rDestination["cloudRunService"] = rDestinationCloudRunService
 		}
+		if r.Destination.Gke != nil && r.Destination.Gke != dclService.EmptyTriggerDestinationGke {
+			rDestinationGke := make(map[string]interface{})
+			if r.Destination.Gke.Cluster != nil {
+				rDestinationGke["cluster"] = *r.Destination.Gke.Cluster
+			}
+			if r.Destination.Gke.Location != nil {
+				rDestinationGke["location"] = *r.Destination.Gke.Location
+			}
+			if r.Destination.Gke.Namespace != nil {
+				rDestinationGke["namespace"] = *r.Destination.Gke.Namespace
+			}
+			if r.Destination.Gke.Path != nil {
+				rDestinationGke["path"] = *r.Destination.Gke.Path
+			}
+			if r.Destination.Gke.Service != nil {
+				rDestinationGke["service"] = *r.Destination.Gke.Service
+			}
+			rDestination["gke"] = rDestinationGke
+		}
+		if r.Destination.Workflow != nil {
+			rDestination["workflow"] = *r.Destination.Workflow
+		}
 		u.Object["destination"] = rDestination
 	}
 	if r.Etag != nil {
@@ -73,6 +95,9 @@ func TriggerToUnstructured(r *dclService.Trigger) *unstructured.Resource {
 		rMatchingCriteriaObject := make(map[string]interface{})
 		if rMatchingCriteriaVal.Attribute != nil {
 			rMatchingCriteriaObject["attribute"] = *rMatchingCriteriaVal.Attribute
+		}
+		if rMatchingCriteriaVal.Operator != nil {
+			rMatchingCriteriaObject["operator"] = *rMatchingCriteriaVal.Operator
 		}
 		if rMatchingCriteriaVal.Value != nil {
 			rMatchingCriteriaObject["value"] = *rMatchingCriteriaVal.Value
@@ -159,6 +184,55 @@ func UnstructuredToTrigger(u *unstructured.Resource) (*dclService.Trigger, error
 					return nil, fmt.Errorf("r.Destination.CloudRunService: expected map[string]interface{}")
 				}
 			}
+			if _, ok := rDestination["gke"]; ok {
+				if rDestinationGke, ok := rDestination["gke"].(map[string]interface{}); ok {
+					r.Destination.Gke = &dclService.TriggerDestinationGke{}
+					if _, ok := rDestinationGke["cluster"]; ok {
+						if s, ok := rDestinationGke["cluster"].(string); ok {
+							r.Destination.Gke.Cluster = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Destination.Gke.Cluster: expected string")
+						}
+					}
+					if _, ok := rDestinationGke["location"]; ok {
+						if s, ok := rDestinationGke["location"].(string); ok {
+							r.Destination.Gke.Location = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Destination.Gke.Location: expected string")
+						}
+					}
+					if _, ok := rDestinationGke["namespace"]; ok {
+						if s, ok := rDestinationGke["namespace"].(string); ok {
+							r.Destination.Gke.Namespace = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Destination.Gke.Namespace: expected string")
+						}
+					}
+					if _, ok := rDestinationGke["path"]; ok {
+						if s, ok := rDestinationGke["path"].(string); ok {
+							r.Destination.Gke.Path = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Destination.Gke.Path: expected string")
+						}
+					}
+					if _, ok := rDestinationGke["service"]; ok {
+						if s, ok := rDestinationGke["service"].(string); ok {
+							r.Destination.Gke.Service = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Destination.Gke.Service: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Destination.Gke: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rDestination["workflow"]; ok {
+				if s, ok := rDestination["workflow"].(string); ok {
+					r.Destination.Workflow = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.Destination.Workflow: expected string")
+				}
+			}
 		} else {
 			return nil, fmt.Errorf("r.Destination: expected map[string]interface{}")
 		}
@@ -200,6 +274,13 @@ func UnstructuredToTrigger(u *unstructured.Resource) (*dclService.Trigger, error
 							rMatchingCriteria.Attribute = dcl.String(s)
 						} else {
 							return nil, fmt.Errorf("rMatchingCriteria.Attribute: expected string")
+						}
+					}
+					if _, ok := objval["operator"]; ok {
+						if s, ok := objval["operator"].(string); ok {
+							rMatchingCriteria.Operator = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("rMatchingCriteria.Operator: expected string")
 						}
 					}
 					if _, ok := objval["value"]; ok {

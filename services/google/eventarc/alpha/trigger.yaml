@@ -94,6 +94,8 @@ components:
                 supported as of today. The Cloud Function resource name. Format: projects/{project}/locations/{location}/functions/{function}'
               x-dcl-conflicts:
               - cloudRunService
+              - gke
+              - workflow
               x-dcl-references:
               - resource: Cloudfunctions/Function
                 field: name
@@ -105,6 +107,8 @@ components:
                 The service should be running in the same project of the trigger.
               x-dcl-conflicts:
               - cloudFunction
+              - gke
+              - workflow
               required:
               - service
               - region
@@ -131,6 +135,67 @@ components:
                   x-dcl-references:
                   - resource: Run/Service
                     field: name
+            gke:
+              type: object
+              x-dcl-go-name: Gke
+              x-dcl-go-type: TriggerDestinationGke
+              description: A GKE service capable of receiving events. The service
+                should be running in the same project as the trigger.
+              x-dcl-conflicts:
+              - cloudRunService
+              - cloudFunction
+              - workflow
+              required:
+              - cluster
+              - location
+              - namespace
+              - service
+              properties:
+                cluster:
+                  type: string
+                  x-dcl-go-name: Cluster
+                  description: Required. The name of the cluster the GKE service is
+                    running in. The cluster must be running in the same project as
+                    the trigger being created.
+                  x-dcl-references:
+                  - resource: Container/Cluster
+                    field: selfLink
+                location:
+                  type: string
+                  x-dcl-go-name: Location
+                  description: Required. The name of the Google Compute Engine in
+                    which the cluster resides, which can either be compute zone (for
+                    example, us-central1-a) for the zonal clusters or region (for
+                    example, us-central1) for regional clusters.
+                namespace:
+                  type: string
+                  x-dcl-go-name: Namespace
+                  description: Required. The namespace the GKE service is running
+                    in.
+                path:
+                  type: string
+                  x-dcl-go-name: Path
+                  description: 'Optional. The relative path on the GKE service the
+                    events should be sent to. The value must conform to the definition
+                    of a URI path segment (section 3.3 of RFC2396). Examples: "/route",
+                    "route", "route/subroute".'
+                service:
+                  type: string
+                  x-dcl-go-name: Service
+                  description: Required. Name of the GKE service.
+            workflow:
+              type: string
+              x-dcl-go-name: Workflow
+              description: 'The resource name of the Workflow whose Executions are
+                triggered by the events. The Workflow resource should be deployed
+                in the same project as the trigger. Format: `projects/{project}/locations/{location}/workflows/{workflow}`'
+              x-dcl-conflicts:
+              - cloudRunService
+              - cloudFunction
+              - gke
+              x-dcl-references:
+              - resource: Workflows/Workflow
+                field: name
         etag:
           type: string
           x-dcl-go-name: Etag
@@ -171,6 +236,13 @@ components:
                 description: Required. The name of a CloudEvents attribute. Currently,
                   only a subset of attributes are supported for filtering. All triggers
                   MUST provide a filter for the 'type' attribute.
+              operator:
+                type: string
+                x-dcl-go-name: Operator
+                description: Optional. The operator used for matching the events with
+                  the value of the filter. If not specified, only events that have
+                  an exact key-value pair specified in the filter are matched. The
+                  only allowed value is `match-path-pattern`.
               value:
                 type: string
                 x-dcl-go-name: Value

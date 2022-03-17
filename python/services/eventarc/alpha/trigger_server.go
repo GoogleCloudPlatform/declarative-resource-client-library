@@ -32,6 +32,7 @@ func ProtoToEventarcAlphaTriggerMatchingCriteria(p *alphapb.EventarcAlphaTrigger
 	obj := &alpha.TriggerMatchingCriteria{
 		Attribute: dcl.StringOrNil(p.GetAttribute()),
 		Value:     dcl.StringOrNil(p.GetValue()),
+		Operator:  dcl.StringOrNil(p.GetOperator()),
 	}
 	return obj
 }
@@ -44,6 +45,8 @@ func ProtoToEventarcAlphaTriggerDestination(p *alphapb.EventarcAlphaTriggerDesti
 	obj := &alpha.TriggerDestination{
 		CloudRunService: ProtoToEventarcAlphaTriggerDestinationCloudRunService(p.GetCloudRunService()),
 		CloudFunction:   dcl.StringOrNil(p.GetCloudFunction()),
+		Gke:             ProtoToEventarcAlphaTriggerDestinationGke(p.GetGke()),
+		Workflow:        dcl.StringOrNil(p.GetWorkflow()),
 	}
 	return obj
 }
@@ -57,6 +60,21 @@ func ProtoToEventarcAlphaTriggerDestinationCloudRunService(p *alphapb.EventarcAl
 		Service: dcl.StringOrNil(p.GetService()),
 		Path:    dcl.StringOrNil(p.GetPath()),
 		Region:  dcl.StringOrNil(p.GetRegion()),
+	}
+	return obj
+}
+
+// ProtoToTriggerDestinationGke converts a TriggerDestinationGke object from its proto representation.
+func ProtoToEventarcAlphaTriggerDestinationGke(p *alphapb.EventarcAlphaTriggerDestinationGke) *alpha.TriggerDestinationGke {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.TriggerDestinationGke{
+		Cluster:   dcl.StringOrNil(p.GetCluster()),
+		Location:  dcl.StringOrNil(p.GetLocation()),
+		Namespace: dcl.StringOrNil(p.GetNamespace()),
+		Service:   dcl.StringOrNil(p.GetService()),
+		Path:      dcl.StringOrNil(p.GetPath()),
 	}
 	return obj
 }
@@ -112,6 +130,7 @@ func EventarcAlphaTriggerMatchingCriteriaToProto(o *alpha.TriggerMatchingCriteri
 	p := &alphapb.EventarcAlphaTriggerMatchingCriteria{}
 	p.SetAttribute(dcl.ValueOrEmptyString(o.Attribute))
 	p.SetValue(dcl.ValueOrEmptyString(o.Value))
+	p.SetOperator(dcl.ValueOrEmptyString(o.Operator))
 	return p
 }
 
@@ -123,6 +142,8 @@ func EventarcAlphaTriggerDestinationToProto(o *alpha.TriggerDestination) *alphap
 	p := &alphapb.EventarcAlphaTriggerDestination{}
 	p.SetCloudRunService(EventarcAlphaTriggerDestinationCloudRunServiceToProto(o.CloudRunService))
 	p.SetCloudFunction(dcl.ValueOrEmptyString(o.CloudFunction))
+	p.SetGke(EventarcAlphaTriggerDestinationGkeToProto(o.Gke))
+	p.SetWorkflow(dcl.ValueOrEmptyString(o.Workflow))
 	return p
 }
 
@@ -135,6 +156,20 @@ func EventarcAlphaTriggerDestinationCloudRunServiceToProto(o *alpha.TriggerDesti
 	p.SetService(dcl.ValueOrEmptyString(o.Service))
 	p.SetPath(dcl.ValueOrEmptyString(o.Path))
 	p.SetRegion(dcl.ValueOrEmptyString(o.Region))
+	return p
+}
+
+// TriggerDestinationGkeToProto converts a TriggerDestinationGke object to its proto representation.
+func EventarcAlphaTriggerDestinationGkeToProto(o *alpha.TriggerDestinationGke) *alphapb.EventarcAlphaTriggerDestinationGke {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.EventarcAlphaTriggerDestinationGke{}
+	p.SetCluster(dcl.ValueOrEmptyString(o.Cluster))
+	p.SetLocation(dcl.ValueOrEmptyString(o.Location))
+	p.SetNamespace(dcl.ValueOrEmptyString(o.Namespace))
+	p.SetService(dcl.ValueOrEmptyString(o.Service))
+	p.SetPath(dcl.ValueOrEmptyString(o.Path))
 	return p
 }
 

@@ -32,6 +32,7 @@ func ProtoToEventarcBetaTriggerMatchingCriteria(p *betapb.EventarcBetaTriggerMat
 	obj := &beta.TriggerMatchingCriteria{
 		Attribute: dcl.StringOrNil(p.GetAttribute()),
 		Value:     dcl.StringOrNil(p.GetValue()),
+		Operator:  dcl.StringOrNil(p.GetOperator()),
 	}
 	return obj
 }
@@ -44,6 +45,8 @@ func ProtoToEventarcBetaTriggerDestination(p *betapb.EventarcBetaTriggerDestinat
 	obj := &beta.TriggerDestination{
 		CloudRunService: ProtoToEventarcBetaTriggerDestinationCloudRunService(p.GetCloudRunService()),
 		CloudFunction:   dcl.StringOrNil(p.GetCloudFunction()),
+		Gke:             ProtoToEventarcBetaTriggerDestinationGke(p.GetGke()),
+		Workflow:        dcl.StringOrNil(p.GetWorkflow()),
 	}
 	return obj
 }
@@ -57,6 +60,21 @@ func ProtoToEventarcBetaTriggerDestinationCloudRunService(p *betapb.EventarcBeta
 		Service: dcl.StringOrNil(p.GetService()),
 		Path:    dcl.StringOrNil(p.GetPath()),
 		Region:  dcl.StringOrNil(p.GetRegion()),
+	}
+	return obj
+}
+
+// ProtoToTriggerDestinationGke converts a TriggerDestinationGke object from its proto representation.
+func ProtoToEventarcBetaTriggerDestinationGke(p *betapb.EventarcBetaTriggerDestinationGke) *beta.TriggerDestinationGke {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.TriggerDestinationGke{
+		Cluster:   dcl.StringOrNil(p.GetCluster()),
+		Location:  dcl.StringOrNil(p.GetLocation()),
+		Namespace: dcl.StringOrNil(p.GetNamespace()),
+		Service:   dcl.StringOrNil(p.GetService()),
+		Path:      dcl.StringOrNil(p.GetPath()),
 	}
 	return obj
 }
@@ -112,6 +130,7 @@ func EventarcBetaTriggerMatchingCriteriaToProto(o *beta.TriggerMatchingCriteria)
 	p := &betapb.EventarcBetaTriggerMatchingCriteria{}
 	p.SetAttribute(dcl.ValueOrEmptyString(o.Attribute))
 	p.SetValue(dcl.ValueOrEmptyString(o.Value))
+	p.SetOperator(dcl.ValueOrEmptyString(o.Operator))
 	return p
 }
 
@@ -123,6 +142,8 @@ func EventarcBetaTriggerDestinationToProto(o *beta.TriggerDestination) *betapb.E
 	p := &betapb.EventarcBetaTriggerDestination{}
 	p.SetCloudRunService(EventarcBetaTriggerDestinationCloudRunServiceToProto(o.CloudRunService))
 	p.SetCloudFunction(dcl.ValueOrEmptyString(o.CloudFunction))
+	p.SetGke(EventarcBetaTriggerDestinationGkeToProto(o.Gke))
+	p.SetWorkflow(dcl.ValueOrEmptyString(o.Workflow))
 	return p
 }
 
@@ -135,6 +156,20 @@ func EventarcBetaTriggerDestinationCloudRunServiceToProto(o *beta.TriggerDestina
 	p.SetService(dcl.ValueOrEmptyString(o.Service))
 	p.SetPath(dcl.ValueOrEmptyString(o.Path))
 	p.SetRegion(dcl.ValueOrEmptyString(o.Region))
+	return p
+}
+
+// TriggerDestinationGkeToProto converts a TriggerDestinationGke object to its proto representation.
+func EventarcBetaTriggerDestinationGkeToProto(o *beta.TriggerDestinationGke) *betapb.EventarcBetaTriggerDestinationGke {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.EventarcBetaTriggerDestinationGke{}
+	p.SetCluster(dcl.ValueOrEmptyString(o.Cluster))
+	p.SetLocation(dcl.ValueOrEmptyString(o.Location))
+	p.SetNamespace(dcl.ValueOrEmptyString(o.Namespace))
+	p.SetService(dcl.ValueOrEmptyString(o.Service))
+	p.SetPath(dcl.ValueOrEmptyString(o.Path))
 	return p
 }
 

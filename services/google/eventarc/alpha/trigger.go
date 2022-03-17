@@ -47,6 +47,7 @@ type TriggerMatchingCriteria struct {
 	empty     bool    `json:"-"`
 	Attribute *string `json:"attribute"`
 	Value     *string `json:"value"`
+	Operator  *string `json:"operator"`
 }
 
 type jsonTriggerMatchingCriteria TriggerMatchingCriteria
@@ -67,6 +68,8 @@ func (r *TriggerMatchingCriteria) UnmarshalJSON(data []byte) error {
 		r.Attribute = res.Attribute
 
 		r.Value = res.Value
+
+		r.Operator = res.Operator
 
 	}
 	return nil
@@ -96,6 +99,8 @@ type TriggerDestination struct {
 	empty           bool                               `json:"-"`
 	CloudRunService *TriggerDestinationCloudRunService `json:"cloudRunService"`
 	CloudFunction   *string                            `json:"cloudFunction"`
+	Gke             *TriggerDestinationGke             `json:"gke"`
+	Workflow        *string                            `json:"workflow"`
 }
 
 type jsonTriggerDestination TriggerDestination
@@ -116,6 +121,10 @@ func (r *TriggerDestination) UnmarshalJSON(data []byte) error {
 		r.CloudRunService = res.CloudRunService
 
 		r.CloudFunction = res.CloudFunction
+
+		r.Gke = res.Gke
+
+		r.Workflow = res.Workflow
 
 	}
 	return nil
@@ -187,6 +196,64 @@ func (r *TriggerDestinationCloudRunService) String() string {
 }
 
 func (r *TriggerDestinationCloudRunService) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type TriggerDestinationGke struct {
+	empty     bool    `json:"-"`
+	Cluster   *string `json:"cluster"`
+	Location  *string `json:"location"`
+	Namespace *string `json:"namespace"`
+	Service   *string `json:"service"`
+	Path      *string `json:"path"`
+}
+
+type jsonTriggerDestinationGke TriggerDestinationGke
+
+func (r *TriggerDestinationGke) UnmarshalJSON(data []byte) error {
+	var res jsonTriggerDestinationGke
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTriggerDestinationGke
+	} else {
+
+		r.Cluster = res.Cluster
+
+		r.Location = res.Location
+
+		r.Namespace = res.Namespace
+
+		r.Service = res.Service
+
+		r.Path = res.Path
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this TriggerDestinationGke is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyTriggerDestinationGke *TriggerDestinationGke = &TriggerDestinationGke{empty: true}
+
+func (r *TriggerDestinationGke) Empty() bool {
+	return r.empty
+}
+
+func (r *TriggerDestinationGke) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *TriggerDestinationGke) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

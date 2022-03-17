@@ -39,17 +39,28 @@ message EventarcAlphaTrigger {
 message EventarcAlphaTriggerMatchingCriteria {
   string attribute = 1;
   string value = 2;
+  string operator = 3;
 }
 
 message EventarcAlphaTriggerDestination {
   EventarcAlphaTriggerDestinationCloudRunService cloud_run_service = 1;
   string cloud_function = 2;
+  EventarcAlphaTriggerDestinationGke gke = 3;
+  string workflow = 4;
 }
 
 message EventarcAlphaTriggerDestinationCloudRunService {
   string service = 1;
   string path = 2;
   string region = 3;
+}
+
+message EventarcAlphaTriggerDestinationGke {
+  string cluster = 1;
+  string location = 2;
+  string namespace = 3;
+  string service = 4;
+  string path = 5;
 }
 
 message EventarcAlphaTriggerTransport {

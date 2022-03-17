@@ -65,11 +65,16 @@ func (r *TriggerMatchingCriteria) validate() error {
 	return nil
 }
 func (r *TriggerDestination) validate() error {
-	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"CloudRunService", "CloudFunction"}, r.CloudRunService, r.CloudFunction); err != nil {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"CloudRunService", "CloudFunction", "Gke", "Workflow"}, r.CloudRunService, r.CloudFunction, r.Gke, r.Workflow); err != nil {
 		return err
 	}
 	if !dcl.IsEmptyValueIndirect(r.CloudRunService) {
 		if err := r.CloudRunService.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.Gke) {
+		if err := r.Gke.validate(); err != nil {
 			return err
 		}
 	}
@@ -80,6 +85,21 @@ func (r *TriggerDestinationCloudRunService) validate() error {
 		return err
 	}
 	if err := dcl.Required(r, "region"); err != nil {
+		return err
+	}
+	return nil
+}
+func (r *TriggerDestinationGke) validate() error {
+	if err := dcl.Required(r, "cluster"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "location"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "namespace"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "service"); err != nil {
 		return err
 	}
 	return nil
@@ -653,6 +673,11 @@ func canonicalizeTriggerMatchingCriteria(des, initial *TriggerMatchingCriteria, 
 	} else {
 		cDes.Value = des.Value
 	}
+	if dcl.StringCanonicalize(des.Operator, initial.Operator) || dcl.IsZeroValue(des.Operator) {
+		cDes.Operator = initial.Operator
+	} else {
+		cDes.Operator = des.Operator
+	}
 
 	return cDes
 }
@@ -704,6 +729,9 @@ func canonicalizeNewTriggerMatchingCriteria(c *Client, des, nw *TriggerMatchingC
 	}
 	if dcl.StringCanonicalize(des.Value, nw.Value) {
 		nw.Value = des.Value
+	}
+	if dcl.StringCanonicalize(des.Operator, nw.Operator) {
+		nw.Operator = des.Operator
 	}
 
 	return nw
@@ -762,7 +790,7 @@ func canonicalizeTriggerDestination(des, initial *TriggerDestination, opts ...dc
 
 	if des.CloudRunService != nil || (initial != nil && initial.CloudRunService != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.CloudFunction) {
+		if dcl.AnySet(des.CloudFunction, des.Gke, des.Workflow) {
 			des.CloudRunService = nil
 			if initial != nil {
 				initial.CloudRunService = nil
@@ -772,10 +800,30 @@ func canonicalizeTriggerDestination(des, initial *TriggerDestination, opts ...dc
 
 	if des.CloudFunction != nil || (initial != nil && initial.CloudFunction != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.CloudRunService) {
+		if dcl.AnySet(des.CloudRunService, des.Gke, des.Workflow) {
 			des.CloudFunction = nil
 			if initial != nil {
 				initial.CloudFunction = nil
+			}
+		}
+	}
+
+	if des.Gke != nil || (initial != nil && initial.Gke != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.CloudRunService, des.CloudFunction, des.Workflow) {
+			des.Gke = nil
+			if initial != nil {
+				initial.Gke = nil
+			}
+		}
+	}
+
+	if des.Workflow != nil || (initial != nil && initial.Workflow != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.CloudRunService, des.CloudFunction, des.Gke) {
+			des.Workflow = nil
+			if initial != nil {
+				initial.Workflow = nil
 			}
 		}
 	}
@@ -791,6 +839,12 @@ func canonicalizeTriggerDestination(des, initial *TriggerDestination, opts ...dc
 		cDes.CloudFunction = initial.CloudFunction
 	} else {
 		cDes.CloudFunction = des.CloudFunction
+	}
+	cDes.Gke = canonicalizeTriggerDestinationGke(des.Gke, initial.Gke, opts...)
+	if dcl.PartialSelfLinkToSelfLink(des.Workflow, initial.Workflow) || dcl.IsZeroValue(des.Workflow) {
+		cDes.Workflow = initial.Workflow
+	} else {
+		cDes.Workflow = des.Workflow
 	}
 
 	return cDes
@@ -841,6 +895,10 @@ func canonicalizeNewTriggerDestination(c *Client, des, nw *TriggerDestination) *
 	nw.CloudRunService = canonicalizeNewTriggerDestinationCloudRunService(c, des.CloudRunService, nw.CloudRunService)
 	if dcl.PartialSelfLinkToSelfLink(des.CloudFunction, nw.CloudFunction) {
 		nw.CloudFunction = des.CloudFunction
+	}
+	nw.Gke = canonicalizeNewTriggerDestinationGke(c, des.Gke, nw.Gke)
+	if dcl.PartialSelfLinkToSelfLink(des.Workflow, nw.Workflow) {
+		nw.Workflow = des.Workflow
 	}
 
 	return nw
@@ -1015,6 +1073,153 @@ func canonicalizeNewTriggerDestinationCloudRunServiceSlice(c *Client, des, nw []
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewTriggerDestinationCloudRunService(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeTriggerDestinationGke(des, initial *TriggerDestinationGke, opts ...dcl.ApplyOption) *TriggerDestinationGke {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &TriggerDestinationGke{}
+
+	if dcl.NameToSelfLink(des.Cluster, initial.Cluster) || dcl.IsZeroValue(des.Cluster) {
+		cDes.Cluster = initial.Cluster
+	} else {
+		cDes.Cluster = des.Cluster
+	}
+	if dcl.StringCanonicalize(des.Location, initial.Location) || dcl.IsZeroValue(des.Location) {
+		cDes.Location = initial.Location
+	} else {
+		cDes.Location = des.Location
+	}
+	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) || dcl.IsZeroValue(des.Namespace) {
+		cDes.Namespace = initial.Namespace
+	} else {
+		cDes.Namespace = des.Namespace
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+	if dcl.StringCanonicalize(des.Path, initial.Path) || dcl.IsZeroValue(des.Path) {
+		cDes.Path = initial.Path
+	} else {
+		cDes.Path = des.Path
+	}
+
+	return cDes
+}
+
+func canonicalizeTriggerDestinationGkeSlice(des, initial []TriggerDestinationGke, opts ...dcl.ApplyOption) []TriggerDestinationGke {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]TriggerDestinationGke, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeTriggerDestinationGke(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]TriggerDestinationGke, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeTriggerDestinationGke(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewTriggerDestinationGke(c *Client, des, nw *TriggerDestinationGke) *TriggerDestinationGke {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for TriggerDestinationGke while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.NameToSelfLink(des.Cluster, nw.Cluster) {
+		nw.Cluster = des.Cluster
+	}
+	if dcl.StringCanonicalize(des.Location, nw.Location) {
+		nw.Location = des.Location
+	}
+	if dcl.StringCanonicalize(des.Namespace, nw.Namespace) {
+		nw.Namespace = des.Namespace
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+	if dcl.StringCanonicalize(des.Path, nw.Path) {
+		nw.Path = des.Path
+	}
+
+	return nw
+}
+
+func canonicalizeNewTriggerDestinationGkeSet(c *Client, des, nw []TriggerDestinationGke) []TriggerDestinationGke {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []TriggerDestinationGke
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareTriggerDestinationGkeNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewTriggerDestinationGkeSlice(c *Client, des, nw []TriggerDestinationGke) []TriggerDestinationGke {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []TriggerDestinationGke
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewTriggerDestinationGke(c, &d, &n))
 	}
 
 	return items
@@ -1384,6 +1589,13 @@ func compareTriggerMatchingCriteriaNewStyle(d, a interface{}, fn dcl.FieldName) 
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Operator, actual.Operator, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("Operator")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -1415,6 +1627,20 @@ func compareTriggerDestinationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 	}
 
 	if ds, err := dcl.Diff(desired.CloudFunction, actual.CloudFunction, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CloudFunction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Gke, actual.Gke, dcl.Info{ObjectFunction: compareTriggerDestinationGkeNewStyle, EmptyObject: EmptyTriggerDestinationGke, OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("Gke")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Workflow, actual.Workflow, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("Workflow")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1458,6 +1684,63 @@ func compareTriggerDestinationCloudRunServiceNewStyle(d, a interface{}, fn dcl.F
 	}
 
 	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareTriggerDestinationGkeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*TriggerDestinationGke)
+	if !ok {
+		desiredNotPointer, ok := d.(TriggerDestinationGke)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TriggerDestinationGke or *TriggerDestinationGke", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*TriggerDestinationGke)
+	if !ok {
+		actualNotPointer, ok := a.(TriggerDestinationGke)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TriggerDestinationGke", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Cluster, actual.Cluster, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Cluster")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Namespace, actual.Namespace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("Namespace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1758,6 +2041,9 @@ func expandTriggerMatchingCriteria(c *Client, f *TriggerMatchingCriteria, res *T
 	if v := f.Value; !dcl.IsEmptyValueIndirect(v) {
 		m["value"] = v
 	}
+	if v := f.Operator; !dcl.IsEmptyValueIndirect(v) {
+		m["operator"] = v
+	}
 
 	return m, nil
 }
@@ -1777,6 +2063,7 @@ func flattenTriggerMatchingCriteria(c *Client, i interface{}, res *Trigger) *Tri
 	}
 	r.Attribute = dcl.FlattenString(m["attribute"])
 	r.Value = dcl.FlattenString(m["value"])
+	r.Operator = dcl.FlattenString(m["operator"])
 
 	return r
 }
@@ -1880,6 +2167,16 @@ func expandTriggerDestination(c *Client, f *TriggerDestination, res *Trigger) (m
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["cloudFunction"] = v
 	}
+	if v, err := expandTriggerDestinationGke(c, f.Gke, res); err != nil {
+		return nil, fmt.Errorf("error expanding Gke into gke: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["gke"] = v
+	}
+	if v, err := dcl.DeriveField("projects/%s/locations/%s/workflows/%s", f.Workflow, dcl.SelfLinkToName(res.Project), dcl.SelfLinkToName(res.Location), dcl.SelfLinkToName(f.Workflow)); err != nil {
+		return nil, fmt.Errorf("error expanding Workflow into workflow: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["workflow"] = v
+	}
 
 	return m, nil
 }
@@ -1899,6 +2196,8 @@ func flattenTriggerDestination(c *Client, i interface{}, res *Trigger) *TriggerD
 	}
 	r.CloudRunService = flattenTriggerDestinationCloudRunService(c, m["cloudRun"], res)
 	r.CloudFunction = dcl.FlattenString(m["cloudFunction"])
+	r.Gke = flattenTriggerDestinationGke(c, m["gke"], res)
+	r.Workflow = dcl.FlattenString(m["workflow"])
 
 	return r
 }
@@ -2023,6 +2322,138 @@ func flattenTriggerDestinationCloudRunService(c *Client, i interface{}, res *Tri
 	r.Service = dcl.FlattenString(m["service"])
 	r.Path = dcl.FlattenString(m["path"])
 	r.Region = dcl.FlattenString(m["region"])
+
+	return r
+}
+
+// expandTriggerDestinationGkeMap expands the contents of TriggerDestinationGke into a JSON
+// request object.
+func expandTriggerDestinationGkeMap(c *Client, f map[string]TriggerDestinationGke, res *Trigger) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandTriggerDestinationGke(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandTriggerDestinationGkeSlice expands the contents of TriggerDestinationGke into a JSON
+// request object.
+func expandTriggerDestinationGkeSlice(c *Client, f []TriggerDestinationGke, res *Trigger) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandTriggerDestinationGke(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenTriggerDestinationGkeMap flattens the contents of TriggerDestinationGke from a JSON
+// response object.
+func flattenTriggerDestinationGkeMap(c *Client, i interface{}, res *Trigger) map[string]TriggerDestinationGke {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]TriggerDestinationGke{}
+	}
+
+	if len(a) == 0 {
+		return map[string]TriggerDestinationGke{}
+	}
+
+	items := make(map[string]TriggerDestinationGke)
+	for k, item := range a {
+		items[k] = *flattenTriggerDestinationGke(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenTriggerDestinationGkeSlice flattens the contents of TriggerDestinationGke from a JSON
+// response object.
+func flattenTriggerDestinationGkeSlice(c *Client, i interface{}, res *Trigger) []TriggerDestinationGke {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []TriggerDestinationGke{}
+	}
+
+	if len(a) == 0 {
+		return []TriggerDestinationGke{}
+	}
+
+	items := make([]TriggerDestinationGke, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenTriggerDestinationGke(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandTriggerDestinationGke expands an instance of TriggerDestinationGke into a JSON
+// request object.
+func expandTriggerDestinationGke(c *Client, f *TriggerDestinationGke, res *Trigger) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := dcl.SelfLinkToNameExpander(f.Cluster); err != nil {
+		return nil, fmt.Errorf("error expanding Cluster into cluster: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["cluster"] = v
+	}
+	if v := f.Location; !dcl.IsEmptyValueIndirect(v) {
+		m["location"] = v
+	}
+	if v := f.Namespace; !dcl.IsEmptyValueIndirect(v) {
+		m["namespace"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+	if v := f.Path; !dcl.IsEmptyValueIndirect(v) {
+		m["path"] = v
+	}
+
+	return m, nil
+}
+
+// flattenTriggerDestinationGke flattens an instance of TriggerDestinationGke from a JSON
+// response object.
+func flattenTriggerDestinationGke(c *Client, i interface{}, res *Trigger) *TriggerDestinationGke {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &TriggerDestinationGke{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTriggerDestinationGke
+	}
+	r.Cluster = dcl.FlattenString(m["cluster"])
+	r.Location = dcl.FlattenString(m["location"])
+	r.Namespace = dcl.FlattenString(m["namespace"])
+	r.Service = dcl.FlattenString(m["service"])
+	r.Path = dcl.FlattenString(m["path"])
 
 	return r
 }
@@ -2391,9 +2822,23 @@ func extractTriggerDestinationFields(r *Trigger, o *TriggerDestination) error {
 	if !dcl.IsNotReturnedByServer(vCloudRunService) {
 		o.CloudRunService = vCloudRunService
 	}
+	vGke := o.Gke
+	if vGke == nil {
+		// note: explicitly not the empty object.
+		vGke = &TriggerDestinationGke{}
+	}
+	if err := extractTriggerDestinationGkeFields(r, vGke); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGke) {
+		o.Gke = vGke
+	}
 	return nil
 }
 func extractTriggerDestinationCloudRunServiceFields(r *Trigger, o *TriggerDestinationCloudRunService) error {
+	return nil
+}
+func extractTriggerDestinationGkeFields(r *Trigger, o *TriggerDestinationGke) error {
 	return nil
 }
 func extractTriggerTransportFields(r *Trigger, o *TriggerTransport) error {
@@ -2454,9 +2899,23 @@ func postReadExtractTriggerDestinationFields(r *Trigger, o *TriggerDestination) 
 	if !dcl.IsNotReturnedByServer(vCloudRunService) {
 		o.CloudRunService = vCloudRunService
 	}
+	vGke := o.Gke
+	if vGke == nil {
+		// note: explicitly not the empty object.
+		vGke = &TriggerDestinationGke{}
+	}
+	if err := extractTriggerDestinationGkeFields(r, vGke); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vGke) {
+		o.Gke = vGke
+	}
 	return nil
 }
 func postReadExtractTriggerDestinationCloudRunServiceFields(r *Trigger, o *TriggerDestinationCloudRunService) error {
+	return nil
+}
+func postReadExtractTriggerDestinationGkeFields(r *Trigger, o *TriggerDestinationGke) error {
 	return nil
 }
 func postReadExtractTriggerTransportFields(r *Trigger, o *TriggerTransport) error {
