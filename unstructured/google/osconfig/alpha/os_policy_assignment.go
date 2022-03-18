@@ -1791,6 +1791,10 @@ func (r *OSPolicyAssignment) GetPolicyMember(ctx context.Context, config *dcl.Co
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *OSPolicyAssignment) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return unstructured.ErrNoSuchMethod
+}
+
 func (r *OSPolicyAssignment) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

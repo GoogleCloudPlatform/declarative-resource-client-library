@@ -91,6 +91,9 @@ type RegisteredResource interface {
 	// SetPolicyMember provides an indirection for the type-specific SetPolicyMember call.
 	SetPolicyMember(ctx context.Context, config *dcl.Config, r *Resource, m *Resource) (*Resource, error)
 
+	// DeletePolicyMember provides an indirection for the type-specific DeletePolicyMember call.
+	DeletePolicyMember(ctx context.Context, config *dcl.Config, r *Resource, m *Resource) error
+
 	// ID returns a string uniquely identifying this resource.
 	ID(r *Resource) (string, error)
 }
@@ -230,6 +233,15 @@ func SetPolicyMember(ctx context.Context, config *dcl.Config, r *Resource, m *Re
 		return nil, fmt.Errorf("unknown resource type %s", r.STV.String())
 	}
 	return rr.SetPolicyMember(ctx, config, r, m)
+}
+
+// DeletePolicyMember deletes the IAMPolicyMember for the provided resource.
+func DeletePolicyMember(ctx context.Context, config *dcl.Config, r *Resource, m *Resource) error {
+	rr := registration(r)
+	if rr == nil {
+		return fmt.Errorf("unknown resource type %s", r.STV.String())
+	}
+	return rr.DeletePolicyMember(ctx, config, r, m)
 }
 
 // ID returns a unique ID for the provided resource.

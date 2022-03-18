@@ -335,6 +335,10 @@ func (r *WorkloadIdentityPoolProvider) GetPolicyMember(ctx context.Context, conf
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *WorkloadIdentityPoolProvider) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return unstructured.ErrNoSuchMethod
+}
+
 func (r *WorkloadIdentityPoolProvider) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

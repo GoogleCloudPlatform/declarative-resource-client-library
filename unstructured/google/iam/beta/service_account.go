@@ -344,12 +344,33 @@ func GetPolicyMemberServiceAccount(ctx context.Context, config *dcl.Config, u *u
 	return iamUnstruct.MemberToUnstructured(policyMember), nil
 }
 
+func DeletePolicyMemberServiceAccount(ctx context.Context, config *dcl.Config, u *unstructured.Resource, m *unstructured.Resource) error {
+	r, err := UnstructuredToServiceAccount(u)
+	if err != nil {
+		return err
+	}
+	member, err := iamUnstruct.UnstructuredToMember(m)
+	if err != nil {
+		return err
+	}
+	member.Resource = r
+	iamClient := iam.NewClient(config)
+	if err := iamClient.DeleteMember(ctx, member); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (r *ServiceAccount) SetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) (*unstructured.Resource, error) {
 	return SetPolicyMemberServiceAccount(ctx, config, resource, member)
 }
 
 func (r *ServiceAccount) GetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, role, member string) (*unstructured.Resource, error) {
 	return GetPolicyMemberServiceAccount(ctx, config, resource, role, member)
+}
+
+func (r *ServiceAccount) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return DeletePolicyMemberServiceAccount(ctx, config, resource, member)
 }
 
 func (r *ServiceAccount) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {

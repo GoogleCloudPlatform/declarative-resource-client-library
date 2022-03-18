@@ -193,6 +193,10 @@ func (r *MetricsScope) GetPolicyMember(ctx context.Context, config *dcl.Config, 
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *MetricsScope) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return unstructured.ErrNoSuchMethod
+}
+
 func (r *MetricsScope) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

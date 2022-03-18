@@ -689,6 +689,10 @@ func (r *Cluster) GetPolicyMember(ctx context.Context, config *dcl.Config, resou
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *Cluster) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return unstructured.ErrNoSuchMethod
+}
+
 func (r *Cluster) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

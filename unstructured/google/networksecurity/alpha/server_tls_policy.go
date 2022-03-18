@@ -480,12 +480,33 @@ func GetPolicyMemberServerTlsPolicy(ctx context.Context, config *dcl.Config, u *
 	return iamUnstruct.MemberToUnstructured(policyMember), nil
 }
 
+func DeletePolicyMemberServerTlsPolicy(ctx context.Context, config *dcl.Config, u *unstructured.Resource, m *unstructured.Resource) error {
+	r, err := UnstructuredToServerTlsPolicy(u)
+	if err != nil {
+		return err
+	}
+	member, err := iamUnstruct.UnstructuredToMember(m)
+	if err != nil {
+		return err
+	}
+	member.Resource = r
+	iamClient := iam.NewClient(config)
+	if err := iamClient.DeleteMember(ctx, member); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (r *ServerTlsPolicy) SetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) (*unstructured.Resource, error) {
 	return SetPolicyMemberServerTlsPolicy(ctx, config, resource, member)
 }
 
 func (r *ServerTlsPolicy) GetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, role, member string) (*unstructured.Resource, error) {
 	return GetPolicyMemberServerTlsPolicy(ctx, config, resource, role, member)
+}
+
+func (r *ServerTlsPolicy) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return DeletePolicyMemberServerTlsPolicy(ctx, config, resource, member)
 }
 
 func (r *ServerTlsPolicy) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {

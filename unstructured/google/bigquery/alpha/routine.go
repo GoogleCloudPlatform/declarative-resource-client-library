@@ -450,6 +450,10 @@ func (r *Routine) GetPolicyMember(ctx context.Context, config *dcl.Config, resou
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *Routine) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return unstructured.ErrNoSuchMethod
+}
+
 func (r *Routine) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

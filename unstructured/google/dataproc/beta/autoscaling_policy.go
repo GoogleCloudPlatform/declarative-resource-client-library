@@ -345,6 +345,10 @@ func (r *AutoscalingPolicy) GetPolicyMember(ctx context.Context, config *dcl.Con
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *AutoscalingPolicy) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return unstructured.ErrNoSuchMethod
+}
+
 func (r *AutoscalingPolicy) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

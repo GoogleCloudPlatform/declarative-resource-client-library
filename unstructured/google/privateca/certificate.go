@@ -1734,6 +1734,10 @@ func (r *Certificate) GetPolicyMember(ctx context.Context, config *dcl.Config, r
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *Certificate) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return unstructured.ErrNoSuchMethod
+}
+
 func (r *Certificate) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

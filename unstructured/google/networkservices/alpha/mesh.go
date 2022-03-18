@@ -251,6 +251,10 @@ func (r *Mesh) GetPolicyMember(ctx context.Context, config *dcl.Config, resource
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *Mesh) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return unstructured.ErrNoSuchMethod
+}
+
 func (r *Mesh) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

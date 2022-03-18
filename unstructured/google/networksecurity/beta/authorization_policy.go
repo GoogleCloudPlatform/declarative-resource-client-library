@@ -480,12 +480,33 @@ func GetPolicyMemberAuthorizationPolicy(ctx context.Context, config *dcl.Config,
 	return iamUnstruct.MemberToUnstructured(policyMember), nil
 }
 
+func DeletePolicyMemberAuthorizationPolicy(ctx context.Context, config *dcl.Config, u *unstructured.Resource, m *unstructured.Resource) error {
+	r, err := UnstructuredToAuthorizationPolicy(u)
+	if err != nil {
+		return err
+	}
+	member, err := iamUnstruct.UnstructuredToMember(m)
+	if err != nil {
+		return err
+	}
+	member.Resource = r
+	iamClient := iam.NewClient(config)
+	if err := iamClient.DeleteMember(ctx, member); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (r *AuthorizationPolicy) SetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) (*unstructured.Resource, error) {
 	return SetPolicyMemberAuthorizationPolicy(ctx, config, resource, member)
 }
 
 func (r *AuthorizationPolicy) GetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, role, member string) (*unstructured.Resource, error) {
 	return GetPolicyMemberAuthorizationPolicy(ctx, config, resource, role, member)
+}
+
+func (r *AuthorizationPolicy) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return DeletePolicyMemberAuthorizationPolicy(ctx, config, resource, member)
 }
 
 func (r *AuthorizationPolicy) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {

@@ -241,6 +241,10 @@ func (r *Realm) GetPolicyMember(ctx context.Context, config *dcl.Config, resourc
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *Realm) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return unstructured.ErrNoSuchMethod
+}
+
 func (r *Realm) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

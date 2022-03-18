@@ -1422,6 +1422,10 @@ func (r *GuestPolicy) GetPolicyMember(ctx context.Context, config *dcl.Config, r
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *GuestPolicy) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return unstructured.ErrNoSuchMethod
+}
+
 func (r *GuestPolicy) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

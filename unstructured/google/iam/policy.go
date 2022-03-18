@@ -200,6 +200,12 @@ func PolicySetPolicyMember(_ context.Context, _ *dcl.Config, _ *unstructured.Res
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+// PolicyDeletePolicyMember is an empty function that will return an error because these types are meant
+// to be handled by the resources that the policies apply to rather than by explicit policy resources.
+func PolicyDeletePolicyMember(_ context.Context, _ *dcl.Config, _ *unstructured.Resource, _ *unstructured.Resource) error {
+	return unstructured.ErrNoSuchMethod
+}
+
 // STV returns the ServiceTypeVersion of the IAM Policy resource.
 func (r *Policy) STV() unstructured.ServiceTypeVersion {
 	return unstructured.ServiceTypeVersion{
@@ -257,6 +263,11 @@ func (r *Policy) GetPolicyMember(ctx context.Context, config *dcl.Config, resour
 // SetPolicyMember calls the empty PolicySetPolicyMember function.
 func (r *Policy) SetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) (*unstructured.Resource, error) {
 	return PolicySetPolicyMember(ctx, config, resource, member)
+}
+
+// DeletePolicyMember calls the empty PolicyDeletePolicyMember function.
+func (r *Policy) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return PolicyDeletePolicyMember(ctx, config, resource, member)
 }
 
 func init() {

@@ -375,6 +375,10 @@ func (r *Route) GetPolicyMember(ctx context.Context, config *dcl.Config, resourc
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *Route) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return unstructured.ErrNoSuchMethod
+}
+
 func (r *Route) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

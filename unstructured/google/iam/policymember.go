@@ -124,6 +124,12 @@ func MemberSetPolicyMember(_ context.Context, _ *dcl.Config, _ *unstructured.Res
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+// MemberDeletePolicyMember is an empty function that will return an error because these types are meant
+// to be handled by the resources that the policies apply to rather than by explicit policy resources.
+func MemberDeletePolicyMember(_ context.Context, _ *dcl.Config, _ *unstructured.Resource, _ *unstructured.Resource) error {
+	return unstructured.ErrNoSuchMethod
+}
+
 // STV returns the ServiceTypeVersion of the IAM PolicyMember resource.
 func (r *Member) STV() unstructured.ServiceTypeVersion {
 	return unstructured.ServiceTypeVersion{
@@ -173,14 +179,19 @@ func (r *Member) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, reso
 	return MemberSetPolicyWithEtag(ctx, config, resource, policy)
 }
 
-// GetPolicy calls the empty MemberGetPolicy function.
+// GetPolicyMember calls the empty MemberGetPolicyMember function.
 func (r *Member) GetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, role, member string) (*unstructured.Resource, error) {
 	return MemberGetPolicyMember(ctx, config, resource, role, member)
 }
 
-// SetPolicy calls the empty MemberSetPolicy function.
+// SetPolicyMember calls the empty MemberSetPolicyMember function.
 func (r *Member) SetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) (*unstructured.Resource, error) {
 	return MemberSetPolicyMember(ctx, config, resource, member)
+}
+
+// DeletePolicyMember calls the empty MemberDeletePolicyMember function.
+func (r *Member) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return MemberDeletePolicyMember(ctx, config, resource, member)
 }
 
 func init() {

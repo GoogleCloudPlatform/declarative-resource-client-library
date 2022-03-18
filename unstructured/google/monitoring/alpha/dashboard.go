@@ -5782,6 +5782,10 @@ func (r *Dashboard) GetPolicyMember(ctx context.Context, config *dcl.Config, res
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *Dashboard) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return unstructured.ErrNoSuchMethod
+}
+
 func (r *Dashboard) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

@@ -394,6 +394,10 @@ func (r *Spoke) GetPolicyMember(ctx context.Context, config *dcl.Config, resourc
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *Spoke) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return unstructured.ErrNoSuchMethod
+}
+
 func (r *Spoke) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

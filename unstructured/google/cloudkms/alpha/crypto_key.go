@@ -539,6 +539,10 @@ func (r *CryptoKey) GetPolicyMember(ctx context.Context, config *dcl.Config, res
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *CryptoKey) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return unstructured.ErrNoSuchMethod
+}
+
 func (r *CryptoKey) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

@@ -923,6 +923,10 @@ func (r *InspectTemplate) GetPolicyMember(ctx context.Context, config *dcl.Confi
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *InspectTemplate) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return unstructured.ErrNoSuchMethod
+}
+
 func (r *InspectTemplate) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }

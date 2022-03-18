@@ -186,6 +186,10 @@ func (r *KeyRing) GetPolicyMember(ctx context.Context, config *dcl.Config, resou
 	return nil, unstructured.ErrNoSuchMethod
 }
 
+func (r *KeyRing) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
+	return unstructured.ErrNoSuchMethod
+}
+
 func (r *KeyRing) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
 	return nil, unstructured.ErrNoSuchMethod
 }
