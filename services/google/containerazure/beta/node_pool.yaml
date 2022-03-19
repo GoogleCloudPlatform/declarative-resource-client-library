@@ -106,7 +106,7 @@ components:
           type: object
           x-dcl-go-name: Autoscaling
           x-dcl-go-type: NodePoolAutoscaling
-          description: Required. Autoscaler configuration for this node pool.
+          description: Autoscaler configuration for this node pool.
           x-kubernetes-immutable: true
           required:
           - minNodeCount
@@ -116,15 +116,14 @@ components:
               type: integer
               format: int64
               x-dcl-go-name: MaxNodeCount
-              description: Required. Maximum number of nodes in the node pool. Must
-                be >= min_node_count.
+              description: Maximum number of nodes in the node pool. Must be >= min_node_count.
               x-kubernetes-immutable: true
             minNodeCount:
               type: integer
               format: int64
               x-dcl-go-name: MinNodeCount
-              description: Required. Minimum number of nodes in the node pool. Must
-                be >= 1 and <= max_node_count.
+              description: Minimum number of nodes in the node pool. Must be >= 1
+                and <= max_node_count.
               x-kubernetes-immutable: true
         azureAvailabilityZone:
           type: string
@@ -146,7 +145,7 @@ components:
           type: object
           x-dcl-go-name: Config
           x-dcl-go-type: NodePoolConfig
-          description: Required. The node configuration of the node pool.
+          description: The node configuration of the node pool.
           x-kubernetes-immutable: true
           required:
           - sshConfig
@@ -174,8 +173,7 @@ components:
               type: object
               x-dcl-go-name: SshConfig
               x-dcl-go-type: NodePoolConfigSshConfig
-              description: Required. SSH configuration for how to access the node
-                pool machines.
+              description: SSH configuration for how to access the node pool machines.
               x-kubernetes-immutable: true
               required:
               - authorizedKey
@@ -183,9 +181,9 @@ components:
                 authorizedKey:
                   type: string
                   x-dcl-go-name: AuthorizedKey
-                  description: Required. The SSH public key data for VMs managed by
-                    Anthos. This accepts the authorized_keys file format used in OpenSSH
-                    according to the sshd(8) manual page.
+                  description: The SSH public key data for VMs managed by Anthos.
+                    This accepts the authorized_keys file format used in OpenSSH according
+                    to the sshd(8) manual page.
                   x-kubernetes-immutable: true
             tags:
               type: object
@@ -230,8 +228,8 @@ components:
           type: object
           x-dcl-go-name: MaxPodsConstraint
           x-dcl-go-type: NodePoolMaxPodsConstraint
-          description: Required. The constraint on the maximum number of pods that
-            can be run simultaneously on a node in the node pool.
+          description: The constraint on the maximum number of pods that can be run
+            simultaneously on a node in the node pool.
           x-kubernetes-immutable: true
           required:
           - maxPodsPerNode
@@ -240,8 +238,7 @@ components:
               type: integer
               format: int64
               x-dcl-go-name: MaxPodsPerNode
-              description: Required. The maximum number of pods to schedule on a single
-                node.
+              description: The maximum number of pods to schedule on a single node.
               x-kubernetes-immutable: true
         name:
           type: string
@@ -284,9 +281,8 @@ components:
         subnetId:
           type: string
           x-dcl-go-name: SubnetId
-          description: Required. The ARM ID of the subnet where the node pool VMs
-            run. Make sure it's a subnet under the virtual network in the cluster
-            configuration.
+          description: The ARM ID of the subnet where the node pool VMs run. Make
+            sure it's a subnet under the virtual network in the cluster configuration.
           x-kubernetes-immutable: true
         uid:
           type: string
@@ -304,5 +300,5 @@ components:
         version:
           type: string
           x-dcl-go-name: Version
-          description: Required. The Kubernetes version (e.g. `1.19.10-gke.1000`)
-            running on this node pool.
+          description: The Kubernetes version (e.g. `1.19.10-gke.1000`) running on
+            this node pool.

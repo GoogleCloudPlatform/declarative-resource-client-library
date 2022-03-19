@@ -508,6 +508,7 @@ components:
                 ((.spec.task_count - .status.successful) < .spec.parallelism), i.e.
                 when the work left to do is less than max parallelism. More info:
                 https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/'
+              x-dcl-server-default: true
             taskCount:
               type: integer
               format: int64
@@ -515,6 +516,7 @@ components:
               description: 'Specifies the desired number of tasks the execution should
                 run. Setting to 1 means that parallelism is limited to 1 and the success
                 of that task signals the success of the execution. More info: https://kubernetes.io/docs/concepts/workloads/controllers/jobs-run-to-completion/'
+              x-dcl-server-default: true
             template:
               type: object
               x-dcl-go-name: Template
@@ -677,6 +679,7 @@ components:
                         x-dcl-go-type: JobTemplateTemplateContainersResources
                         description: 'Compute Resource requirements by this container.
                           More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources'
+                        x-dcl-server-default: true
                         properties:
                           cpuIdle:
                             type: boolean
@@ -754,6 +757,7 @@ components:
                     of the running task, and determines what permissions the task
                     has. If not provided, the task will use the project's default
                     service account.
+                  x-dcl-server-default: true
                 timeout:
                   type: string
                   x-dcl-go-name: Timeout
@@ -761,6 +765,7 @@ components:
                     the system will actively try to mark it failed and kill associated
                     containers. This applies per attempt of a task, meaning each retry
                     can run for the full timeout.
+                  x-dcl-server-default: true
                 volumes:
                   type: array
                   x-dcl-go-name: Volumes

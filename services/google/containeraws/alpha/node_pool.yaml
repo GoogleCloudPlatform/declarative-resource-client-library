@@ -106,7 +106,7 @@ components:
           type: object
           x-dcl-go-name: Autoscaling
           x-dcl-go-type: NodePoolAutoscaling
-          description: Required. Autoscaler configuration for this node pool.
+          description: Autoscaler configuration for this node pool.
           required:
           - minNodeCount
           - maxNodeCount
@@ -115,14 +115,13 @@ components:
               type: integer
               format: int64
               x-dcl-go-name: MaxNodeCount
-              description: Required. Maximum number of nodes in the NodePool. Must
-                be >= min_node_count.
+              description: Maximum number of nodes in the NodePool. Must be >= min_node_count.
             minNodeCount:
               type: integer
               format: int64
               x-dcl-go-name: MinNodeCount
-              description: Required. Minimum number of nodes in the NodePool. Must
-                be >= 1 and <= max_node_count.
+              description: Minimum number of nodes in the NodePool. Must be >= 1 and
+                <= max_node_count.
         cluster:
           type: string
           x-dcl-go-name: Cluster
@@ -136,7 +135,7 @@ components:
           type: object
           x-dcl-go-name: Config
           x-dcl-go-type: NodePoolConfig
-          description: Required. The configuration of the node pool.
+          description: The configuration of the node pool.
           required:
           - iamInstanceProfile
           - configEncryption
@@ -145,21 +144,19 @@ components:
               type: object
               x-dcl-go-name: ConfigEncryption
               x-dcl-go-type: NodePoolConfigConfigEncryption
-              description: Required. The ARN of the AWS KMS key used to encrypt node
-                pool configuration.
+              description: The ARN of the AWS KMS key used to encrypt node pool configuration.
               required:
               - kmsKeyArn
               properties:
                 kmsKeyArn:
                   type: string
                   x-dcl-go-name: KmsKeyArn
-                  description: Required. The ARN of the AWS KMS key used to encrypt
-                    node pool configuration.
+                  description: The ARN of the AWS KMS key used to encrypt node pool
+                    configuration.
             iamInstanceProfile:
               type: string
               x-dcl-go-name: IamInstanceProfile
-              description: Required. The name of the AWS IAM role assigned to nodes
-                in the pool.
+              description: The name of the AWS IAM role assigned to nodes in the pool.
               x-kubernetes-immutable: true
             instanceType:
               type: string
@@ -244,8 +241,8 @@ components:
                 ec2KeyPair:
                   type: string
                   x-dcl-go-name: Ec2KeyPair
-                  description: Required. The name of the EC2 key pair used to login
-                    into cluster machines.
+                  description: The name of the EC2 key pair used to login into cluster
+                    machines.
                   x-kubernetes-immutable: true
             tags:
               type: object
@@ -277,7 +274,7 @@ components:
                     type: string
                     x-dcl-go-name: Effect
                     x-dcl-go-type: NodePoolConfigTaintsEffectEnum
-                    description: 'Required. The taint effect. Possible values: EFFECT_UNSPECIFIED,
+                    description: 'The taint effect. Possible values: EFFECT_UNSPECIFIED,
                       NO_SCHEDULE, PREFER_NO_SCHEDULE, NO_EXECUTE'
                     x-kubernetes-immutable: true
                     enum:
@@ -288,12 +285,12 @@ components:
                   key:
                     type: string
                     x-dcl-go-name: Key
-                    description: Required. Key for the taint.
+                    description: Key for the taint.
                     x-kubernetes-immutable: true
                   value:
                     type: string
                     x-dcl-go-name: Value
-                    description: Required. Value for the taint.
+                    description: Value for the taint.
                     x-kubernetes-immutable: true
         createTime:
           type: string
@@ -319,8 +316,8 @@ components:
           type: object
           x-dcl-go-name: MaxPodsConstraint
           x-dcl-go-type: NodePoolMaxPodsConstraint
-          description: Required. The constraint on the maximum number of pods that
-            can be run simultaneously on a node in the node pool.
+          description: The constraint on the maximum number of pods that can be run
+            simultaneously on a node in the node pool.
           x-kubernetes-immutable: true
           required:
           - maxPodsPerNode
@@ -329,8 +326,7 @@ components:
               type: integer
               format: int64
               x-dcl-go-name: MaxPodsPerNode
-              description: Required. The maximum number of pods to schedule on a single
-                node.
+              description: The maximum number of pods to schedule on a single node.
               x-kubernetes-immutable: true
         name:
           type: string
@@ -373,7 +369,7 @@ components:
         subnetId:
           type: string
           x-dcl-go-name: SubnetId
-          description: Required. The subnet where the node pool node run.
+          description: The subnet where the node pool node run.
           x-kubernetes-immutable: true
         uid:
           type: string
@@ -391,6 +387,6 @@ components:
         version:
           type: string
           x-dcl-go-name: Version
-          description: Required. The Kubernetes version to run on this node pool (e.g.
-            `1.19.10-gke.1000`). You can list all supported versions on a given Google
-            Cloud region by calling GetAwsServerConfig.
+          description: The Kubernetes version to run on this node pool (e.g. `1.19.10-gke.1000`).
+            You can list all supported versions on a given Google Cloud region by
+            calling GetAwsServerConfig.

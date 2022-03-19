@@ -96,17 +96,17 @@ components:
           type: object
           x-dcl-go-name: Authorization
           x-dcl-go-type: ClusterAuthorization
-          description: Required. Configuration related to the cluster RBAC settings.
+          description: Configuration related to the cluster RBAC settings.
           required:
           - adminUsers
           properties:
             adminUsers:
               type: array
               x-dcl-go-name: AdminUsers
-              description: Required. Users to perform operations as a cluster admin.
-                A managed ClusterRoleBinding will be created to grant the `cluster-admin`
-                ClusterRole to the users. At most one user can be specified. For more
-                info on RBAC, see https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles
+              description: Users to perform operations as a cluster admin. A managed
+                ClusterRoleBinding will be created to grant the `cluster-admin` ClusterRole
+                to the users. At most one user can be specified. For more info on
+                RBAC, see https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -118,19 +118,19 @@ components:
                   username:
                     type: string
                     x-dcl-go-name: Username
-                    description: Required. The name of the user, e.g. `my-gcp-id@gmail.com`.
+                    description: The name of the user, e.g. `my-gcp-id@gmail.com`.
         awsRegion:
           type: string
           x-dcl-go-name: AwsRegion
-          description: Required. The AWS region where the cluster runs. Each Google
-            Cloud region supports a subset of nearby AWS regions. You can call to
-            list all supported AWS regions within a given Google Cloud region.
+          description: The AWS region where the cluster runs. Each Google Cloud region
+            supports a subset of nearby AWS regions. You can call to list all supported
+            AWS regions within a given Google Cloud region.
           x-kubernetes-immutable: true
         controlPlane:
           type: object
           x-dcl-go-name: ControlPlane
           x-dcl-go-type: ClusterControlPlane
-          description: Required. Configuration related to the cluster control plane.
+          description: Configuration related to the cluster control plane.
           required:
           - version
           - subnetIds
@@ -143,17 +143,16 @@ components:
               type: object
               x-dcl-go-name: AwsServicesAuthentication
               x-dcl-go-type: ClusterControlPlaneAwsServicesAuthentication
-              description: Required. Authentication configuration for management of
-                AWS resources.
+              description: Authentication configuration for management of AWS resources.
               required:
               - roleArn
               properties:
                 roleArn:
                   type: string
                   x-dcl-go-name: RoleArn
-                  description: Required. The Amazon Resource Name (ARN) of the role
-                    that the Anthos Multi-Cloud API will assume when managing AWS
-                    resources on your account.
+                  description: The Amazon Resource Name (ARN) of the role that the
+                    Anthos Multi-Cloud API will assume when managing AWS resources
+                    on your account.
                 roleSessionName:
                   type: string
                   x-dcl-go-name: RoleSessionName
@@ -164,22 +163,20 @@ components:
               type: object
               x-dcl-go-name: ConfigEncryption
               x-dcl-go-type: ClusterControlPlaneConfigEncryption
-              description: Required. The ARN of the AWS KMS key used to encrypt cluster
-                configuration.
+              description: The ARN of the AWS KMS key used to encrypt cluster configuration.
               required:
               - kmsKeyArn
               properties:
                 kmsKeyArn:
                   type: string
                   x-dcl-go-name: KmsKeyArn
-                  description: Required. The ARN of the AWS KMS key used to encrypt
-                    cluster configuration.
+                  description: The ARN of the AWS KMS key used to encrypt cluster
+                    configuration.
             databaseEncryption:
               type: object
               x-dcl-go-name: DatabaseEncryption
               x-dcl-go-type: ClusterControlPlaneDatabaseEncryption
-              description: Required. The ARN of the AWS KMS key used to encrypt cluster
-                secrets.
+              description: The ARN of the AWS KMS key used to encrypt cluster secrets.
               x-kubernetes-immutable: true
               required:
               - kmsKeyArn
@@ -187,14 +184,14 @@ components:
                 kmsKeyArn:
                   type: string
                   x-dcl-go-name: KmsKeyArn
-                  description: Required. The ARN of the AWS KMS key used to encrypt
-                    cluster secrets.
+                  description: The ARN of the AWS KMS key used to encrypt cluster
+                    secrets.
                   x-kubernetes-immutable: true
             iamInstanceProfile:
               type: string
               x-dcl-go-name: IamInstanceProfile
-              description: Required. The name of the AWS IAM instance pofile to assign
-                to each control plane replica.
+              description: The name of the AWS IAM instance pofile to assign to each
+                control plane replica.
               x-kubernetes-immutable: true
             instanceType:
               type: string
@@ -340,15 +337,15 @@ components:
                 ec2KeyPair:
                   type: string
                   x-dcl-go-name: Ec2KeyPair
-                  description: Required. The name of the EC2 key pair used to login
-                    into cluster machines.
+                  description: The name of the EC2 key pair used to login into cluster
+                    machines.
                   x-kubernetes-immutable: true
             subnetIds:
               type: array
               x-dcl-go-name: SubnetIds
-              description: Required. The list of subnets where control plane replicas
-                will run. A replica will be provisioned on each subnet and up to three
-                values can be provided. Each subnet must be in a different AWS Availability
+              description: The list of subnets where control plane replicas will run.
+                A replica will be provisioned on each subnet and up to three values
+                can be provided. Each subnet must be in a different AWS Availability
                 Zone (AZ).
               x-kubernetes-immutable: true
               x-dcl-send-empty: true
@@ -369,9 +366,9 @@ components:
             version:
               type: string
               x-dcl-go-name: Version
-              description: Required. The Kubernetes version to run on control plane
-                replicas (e.g. `1.19.10-gke.1000`). You can list all supported versions
-                on a given Google Cloud region by calling .
+              description: The Kubernetes version to run on control plane replicas
+                (e.g. `1.19.10-gke.1000`). You can list all supported versions on
+                a given Google Cloud region by calling .
         createTime:
           type: string
           format: date-time
@@ -438,7 +435,7 @@ components:
           type: object
           x-dcl-go-name: Networking
           x-dcl-go-type: ClusterNetworking
-          description: Required. Cluster-wide networking configuration.
+          description: Cluster-wide networking configuration.
           x-kubernetes-immutable: true
           required:
           - vpcId
@@ -448,9 +445,9 @@ components:
             podAddressCidrBlocks:
               type: array
               x-dcl-go-name: PodAddressCidrBlocks
-              description: Required. All pods in the cluster are assigned an RFC1918
-                IPv4 address from these ranges. Only a single range is supported.
-                This field cannot be changed after creation.
+              description: All pods in the cluster are assigned an RFC1918 IPv4 address
+                from these ranges. Only a single range is supported. This field cannot
+                be changed after creation.
               x-kubernetes-immutable: true
               x-dcl-send-empty: true
               x-dcl-list-type: list
@@ -460,9 +457,9 @@ components:
             serviceAddressCidrBlocks:
               type: array
               x-dcl-go-name: ServiceAddressCidrBlocks
-              description: Required. All services in the cluster are assigned an RFC1918
-                IPv4 address from these ranges. Only a single range is supported.
-                This field cannot be changed after creation.
+              description: All services in the cluster are assigned an RFC1918 IPv4
+                address from these ranges. Only a single range is supported. This
+                field cannot be changed after creation.
               x-kubernetes-immutable: true
               x-dcl-send-empty: true
               x-dcl-list-type: list
@@ -472,9 +469,9 @@ components:
             vpcId:
               type: string
               x-dcl-go-name: VPCId
-              description: Required. The VPC associated with the cluster. All component
-                clusters (i.e. control plane and node pools) run on a single VPC.
-                This field cannot be changed after creation.
+              description: The VPC associated with the cluster. All component clusters
+                (i.e. control plane and node pools) run on a single VPC. This field
+                cannot be changed after creation.
               x-kubernetes-immutable: true
         project:
           type: string
