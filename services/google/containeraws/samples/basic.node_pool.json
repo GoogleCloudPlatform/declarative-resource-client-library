@@ -40,7 +40,10 @@
     "sshConfig": {
       "ec2KeyPair": "{{byo_multicloud_prefix}}-1p-dev-ssh"
     },
-    "securityGroupIds": ["{{aws_security_group}}"]
+    "securityGroupIds": ["{{aws_security_group}}"],
+    "instancePlacement": {
+      "tenancy": "DEDICATED"
+    }
   },
   "annotations": {
     "label-one": "value-one"
