@@ -197,7 +197,7 @@ components:
               type: string
               x-dcl-go-name: InstanceType
               description: Optional. The AWS instance type. When unspecified, it defaults
-                to `t3.medium`.
+                to `m5.large`.
               x-dcl-server-default: true
             mainVolume:
               type: object
