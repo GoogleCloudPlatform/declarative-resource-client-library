@@ -1,6 +1,6 @@
 {
   "name": "{{connectivity_peer3}}",
-  "project": "{{project}}",
+  "project": "{{ref:compute.serviceusage.service.json:project}}",
   "location": "{{region}}",
   "router": "{{ref:second.compute.router.json:name}}",
   "ipAddress": "169.254.0.8",

@@ -1,6 +1,6 @@
 {
   "name": "{{hub}}",
-  "project": "{{project}}",
+  "project": "{{ref:networkconnectivity.serviceusage.service.json:project}}",
   "labels": {
     "label-one": "value-one"
   },

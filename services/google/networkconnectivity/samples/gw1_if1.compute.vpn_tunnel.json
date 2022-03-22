@@ -1,6 +1,6 @@
 {
   "name": "{{connectivity_tunnel2}}",
-  "project": "{{project}}",
+  "project": "{{ref:compute.serviceusage.service.json:project}}",
   "region": "{{region}}",
   "vpnGateway": "{{ref:first.compute.vpn_gateway.json:selfLink}}",
   "vpnGatewayInterface": 1,

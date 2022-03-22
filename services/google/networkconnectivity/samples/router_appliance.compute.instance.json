@@ -1,6 +1,6 @@
 {
   "name": "{{instance1}}",
-  "project": "{{project}}",
+  "project": "{{ref:compute.serviceusage.service.json:project}}",
   "zone": "{{zone}}",
   "machineType": "zones/{{zone}}/machineTypes/e2-medium",
   "canIpForward": true,

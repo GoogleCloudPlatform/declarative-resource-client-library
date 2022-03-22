@@ -19,6 +19,10 @@ versions:
 - ga
 resource: samples/router_appliance.spoke.json
 dependencies:
+- samples/basic.cloudresourcemanager.project.json
+- samples/basic.cloudbilling.project_billing_info.json
+- samples/compute.serviceusage.service.json
+- samples/networkconnectivity.serviceusage.service.json
 - samples/basic.hub.json
 - samples/router_appliance.compute.instance.json
 - samples/first.compute.subnetwork.json
@@ -26,21 +30,29 @@ dependencies:
 updates:
 - resource: samples/update_router_appliance.spoke.json
   dependencies:
+  - samples/basic.cloudresourcemanager.project.json
+  - samples/basic.cloudbilling.project_billing_info.json
+  - samples/compute.serviceusage.service.json
+  - samples/networkconnectivity.serviceusage.service.json
   - samples/basic.hub.json
   - samples/router_appliance.compute.instance.json
   - samples/first.compute.subnetwork.json
   - samples/first.compute.network.json
 variables:
+- name: billing_account
+  type: billing_account
 - name: connectivity_network1
   type: resource_name
 - name: connectivity_subnet1
   type: resource_name
 - name: hub
   type: resource_name
+- name: id1
+  type: resource_name
 - name: instance1
   type: resource_name
-- name: project
-  type: project
+- name: org_id
+  type: org_id
 - name: region
   type: region
 - name: spoke
