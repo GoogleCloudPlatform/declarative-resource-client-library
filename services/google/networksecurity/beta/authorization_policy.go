@@ -611,9 +611,9 @@ func applyAuthorizationPolicyDiff(c *Client, ctx context.Context, desired *Autho
 func (r *AuthorizationPolicy) GetPolicy(basePath string) (string, string, *bytes.Buffer, error) {
 	u := r.getPolicyURL(basePath)
 	body := &bytes.Buffer{}
-	u, err := dcl.AddQueryParams(u, map[string]string{"optionsRequestedPolicyVersion": fmt.Sprintf("%d", r.IAMPolicyVersion())})
+	u, err := dcl.AddQueryParams(u, map[string]string{"options.requestedPolicyVersion": fmt.Sprintf("%d", r.IAMPolicyVersion())})
 	if err != nil {
 		return "", "", nil, err
 	}
-	return u, "POST", body, nil
+	return u, "GET", body, nil
 }

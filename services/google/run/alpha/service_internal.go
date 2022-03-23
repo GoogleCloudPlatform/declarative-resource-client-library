@@ -231,7 +231,7 @@ func (r *Service) SetPolicyURL(userBasePath string) string {
 		"location": *nr.Location,
 		"name":     *nr.Name,
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/services/{{name}}", nr.basePath(), userBasePath, fields)
+	return dcl.URL("projects/{{project}}/locations/{{location}}/services/{{name}}:setIamPolicy", nr.basePath(), userBasePath, fields)
 }
 
 func (r *Service) SetPolicyVerb() string {
@@ -245,7 +245,7 @@ func (r *Service) getPolicyURL(userBasePath string) string {
 		"location": *nr.Location,
 		"name":     *nr.Name,
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/services/{{name}}", nr.basePath(), userBasePath, fields)
+	return dcl.URL("projects/{{project}}/locations/{{location}}/services/{{name}}:getIamPolicy", nr.basePath(), userBasePath, fields)
 }
 
 func (r *Service) IAMPolicyVersion() int {
