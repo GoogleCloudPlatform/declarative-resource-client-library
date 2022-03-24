@@ -122,6 +122,18 @@ func ForwardingRuleToUnstructured(r *dclService.ForwardingRule) *unstructured.Re
 	if r.SelfLink != nil {
 		u.Object["selfLink"] = *r.SelfLink
 	}
+	var rServiceDirectoryRegistrations []interface{}
+	for _, rServiceDirectoryRegistrationsVal := range r.ServiceDirectoryRegistrations {
+		rServiceDirectoryRegistrationsObject := make(map[string]interface{})
+		if rServiceDirectoryRegistrationsVal.Namespace != nil {
+			rServiceDirectoryRegistrationsObject["namespace"] = *rServiceDirectoryRegistrationsVal.Namespace
+		}
+		if rServiceDirectoryRegistrationsVal.Service != nil {
+			rServiceDirectoryRegistrationsObject["service"] = *rServiceDirectoryRegistrationsVal.Service
+		}
+		rServiceDirectoryRegistrations = append(rServiceDirectoryRegistrations, rServiceDirectoryRegistrationsObject)
+	}
+	u.Object["serviceDirectoryRegistrations"] = rServiceDirectoryRegistrations
 	if r.ServiceLabel != nil {
 		u.Object["serviceLabel"] = *r.ServiceLabel
 	}
@@ -339,6 +351,32 @@ func UnstructuredToForwardingRule(u *unstructured.Resource) (*dclService.Forward
 			r.SelfLink = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.SelfLink: expected string")
+		}
+	}
+	if _, ok := u.Object["serviceDirectoryRegistrations"]; ok {
+		if s, ok := u.Object["serviceDirectoryRegistrations"].([]interface{}); ok {
+			for _, o := range s {
+				if objval, ok := o.(map[string]interface{}); ok {
+					var rServiceDirectoryRegistrations dclService.ForwardingRuleServiceDirectoryRegistrations
+					if _, ok := objval["namespace"]; ok {
+						if s, ok := objval["namespace"].(string); ok {
+							rServiceDirectoryRegistrations.Namespace = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("rServiceDirectoryRegistrations.Namespace: expected string")
+						}
+					}
+					if _, ok := objval["service"]; ok {
+						if s, ok := objval["service"].(string); ok {
+							rServiceDirectoryRegistrations.Service = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("rServiceDirectoryRegistrations.Service: expected string")
+						}
+					}
+					r.ServiceDirectoryRegistrations = append(r.ServiceDirectoryRegistrations, rServiceDirectoryRegistrations)
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.ServiceDirectoryRegistrations: expected []interface{}")
 		}
 	}
 	if _, ok := u.Object["serviceLabel"]; ok {

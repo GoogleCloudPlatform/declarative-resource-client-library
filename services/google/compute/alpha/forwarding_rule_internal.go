@@ -54,6 +54,9 @@ func (r *ForwardingRuleMetadataFilterFilterLabel) validate() error {
 	}
 	return nil
 }
+func (r *ForwardingRuleServiceDirectoryRegistrations) validate() error {
+	return nil
+}
 func (r *ForwardingRule) basePath() string {
 	params := map[string]interface{}{}
 	return dcl.Nprintf("https://www.googleapis.com/compute/beta/", params)
@@ -294,6 +297,11 @@ func newUpdateForwardingRuleUpdateRequest(ctx context.Context, f *ForwardingRule
 		return nil, fmt.Errorf("error expanding AllowGlobalAccess into allowGlobalAccess: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["allowGlobalAccess"] = v
+	}
+	if v, err := expandForwardingRuleServiceDirectoryRegistrationsSlice(c, f.ServiceDirectoryRegistrations, res); err != nil {
+		return nil, fmt.Errorf("error expanding ServiceDirectoryRegistrations into serviceDirectoryRegistrations: %w", err)
+	} else if v != nil {
+		req["serviceDirectoryRegistrations"] = v
 	}
 	return req, nil
 }
@@ -733,6 +741,7 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
+	canonicalDesired.ServiceDirectoryRegistrations = canonicalizeForwardingRuleServiceDirectoryRegistrationsSlice(rawDesired.ServiceDirectoryRegistrations, rawInitial.ServiceDirectoryRegistrations, opts...)
 
 	return canonicalDesired, nil
 }
@@ -923,6 +932,12 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	}
 
 	rawNew.Location = rawDesired.Location
+
+	if dcl.IsNotReturnedByServer(rawNew.ServiceDirectoryRegistrations) && dcl.IsNotReturnedByServer(rawDesired.ServiceDirectoryRegistrations) {
+		rawNew.ServiceDirectoryRegistrations = rawDesired.ServiceDirectoryRegistrations
+	} else {
+		rawNew.ServiceDirectoryRegistrations = canonicalizeNewForwardingRuleServiceDirectoryRegistrationsSlice(c, rawDesired.ServiceDirectoryRegistrations, rawNew.ServiceDirectoryRegistrations)
+	}
 
 	return rawNew, nil
 }
@@ -1165,6 +1180,129 @@ func canonicalizeNewForwardingRuleMetadataFilterFilterLabelSlice(c *Client, des,
 	return items
 }
 
+func canonicalizeForwardingRuleServiceDirectoryRegistrations(des, initial *ForwardingRuleServiceDirectoryRegistrations, opts ...dcl.ApplyOption) *ForwardingRuleServiceDirectoryRegistrations {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ForwardingRuleServiceDirectoryRegistrations{}
+
+	if dcl.StringCanonicalize(des.Namespace, initial.Namespace) || dcl.IsZeroValue(des.Namespace) {
+		cDes.Namespace = initial.Namespace
+	} else {
+		cDes.Namespace = des.Namespace
+	}
+	if dcl.StringCanonicalize(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+
+	return cDes
+}
+
+func canonicalizeForwardingRuleServiceDirectoryRegistrationsSlice(des, initial []ForwardingRuleServiceDirectoryRegistrations, opts ...dcl.ApplyOption) []ForwardingRuleServiceDirectoryRegistrations {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ForwardingRuleServiceDirectoryRegistrations, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeForwardingRuleServiceDirectoryRegistrations(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ForwardingRuleServiceDirectoryRegistrations, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeForwardingRuleServiceDirectoryRegistrations(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewForwardingRuleServiceDirectoryRegistrations(c *Client, des, nw *ForwardingRuleServiceDirectoryRegistrations) *ForwardingRuleServiceDirectoryRegistrations {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ForwardingRuleServiceDirectoryRegistrations while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Namespace, nw.Namespace) {
+		nw.Namespace = des.Namespace
+	}
+	if dcl.StringCanonicalize(des.Service, nw.Service) {
+		nw.Service = des.Service
+	}
+
+	return nw
+}
+
+func canonicalizeNewForwardingRuleServiceDirectoryRegistrationsSet(c *Client, des, nw []ForwardingRuleServiceDirectoryRegistrations) []ForwardingRuleServiceDirectoryRegistrations {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ForwardingRuleServiceDirectoryRegistrations
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareForwardingRuleServiceDirectoryRegistrationsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewForwardingRuleServiceDirectoryRegistrationsSlice(c *Client, des, nw []ForwardingRuleServiceDirectoryRegistrations) []ForwardingRuleServiceDirectoryRegistrations {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ForwardingRuleServiceDirectoryRegistrations
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewForwardingRuleServiceDirectoryRegistrations(c, &d, &n))
+	}
+
+	return items
+}
+
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -1365,6 +1503,13 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.ServiceDirectoryRegistrations, actual.ServiceDirectoryRegistrations, dcl.Info{ObjectFunction: compareForwardingRuleServiceDirectoryRegistrationsNewStyle, EmptyObject: EmptyForwardingRuleServiceDirectoryRegistrations, OperationSelector: dcl.TriggersOperation("updateForwardingRuleUpdateOperation")}, fn.AddNest("ServiceDirectoryRegistrations")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	return newDiffs, nil
 }
 func compareForwardingRuleMetadataFilterNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1431,6 +1576,42 @@ func compareForwardingRuleMetadataFilterFilterLabelNewStyle(d, a interface{}, fn
 	}
 
 	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareForwardingRuleServiceDirectoryRegistrationsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ForwardingRuleServiceDirectoryRegistrations)
+	if !ok {
+		desiredNotPointer, ok := d.(ForwardingRuleServiceDirectoryRegistrations)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ForwardingRuleServiceDirectoryRegistrations or *ForwardingRuleServiceDirectoryRegistrations", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ForwardingRuleServiceDirectoryRegistrations)
+	if !ok {
+		actualNotPointer, ok := a.(ForwardingRuleServiceDirectoryRegistrations)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ForwardingRuleServiceDirectoryRegistrations", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Namespace, actual.Namespace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateForwardingRuleUpdateOperation")}, fn.AddNest("Namespace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateForwardingRuleUpdateOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1623,6 +1804,11 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
+	if v, err := expandForwardingRuleServiceDirectoryRegistrationsSlice(c, f.ServiceDirectoryRegistrations, res); err != nil {
+		return nil, fmt.Errorf("error expanding ServiceDirectoryRegistrations into serviceDirectoryRegistrations: %w", err)
+	} else if v != nil {
+		m["serviceDirectoryRegistrations"] = v
+	}
 
 	return m, nil
 }
@@ -1665,6 +1851,7 @@ func flattenForwardingRule(c *Client, i interface{}, res *ForwardingRule) *Forwa
 	resultRes.Target = dcl.FlattenString(m["target"])
 	resultRes.Project = dcl.FlattenString(m["project"])
 	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.ServiceDirectoryRegistrations = flattenForwardingRuleServiceDirectoryRegistrationsSlice(c, m["serviceDirectoryRegistrations"], res)
 
 	return resultRes
 }
@@ -1903,6 +2090,124 @@ func flattenForwardingRuleMetadataFilterFilterLabel(c *Client, i interface{}, re
 	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Value = dcl.FlattenString(m["value"])
+
+	return r
+}
+
+// expandForwardingRuleServiceDirectoryRegistrationsMap expands the contents of ForwardingRuleServiceDirectoryRegistrations into a JSON
+// request object.
+func expandForwardingRuleServiceDirectoryRegistrationsMap(c *Client, f map[string]ForwardingRuleServiceDirectoryRegistrations, res *ForwardingRule) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandForwardingRuleServiceDirectoryRegistrations(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandForwardingRuleServiceDirectoryRegistrationsSlice expands the contents of ForwardingRuleServiceDirectoryRegistrations into a JSON
+// request object.
+func expandForwardingRuleServiceDirectoryRegistrationsSlice(c *Client, f []ForwardingRuleServiceDirectoryRegistrations, res *ForwardingRule) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandForwardingRuleServiceDirectoryRegistrations(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenForwardingRuleServiceDirectoryRegistrationsMap flattens the contents of ForwardingRuleServiceDirectoryRegistrations from a JSON
+// response object.
+func flattenForwardingRuleServiceDirectoryRegistrationsMap(c *Client, i interface{}, res *ForwardingRule) map[string]ForwardingRuleServiceDirectoryRegistrations {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ForwardingRuleServiceDirectoryRegistrations{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ForwardingRuleServiceDirectoryRegistrations{}
+	}
+
+	items := make(map[string]ForwardingRuleServiceDirectoryRegistrations)
+	for k, item := range a {
+		items[k] = *flattenForwardingRuleServiceDirectoryRegistrations(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenForwardingRuleServiceDirectoryRegistrationsSlice flattens the contents of ForwardingRuleServiceDirectoryRegistrations from a JSON
+// response object.
+func flattenForwardingRuleServiceDirectoryRegistrationsSlice(c *Client, i interface{}, res *ForwardingRule) []ForwardingRuleServiceDirectoryRegistrations {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ForwardingRuleServiceDirectoryRegistrations{}
+	}
+
+	if len(a) == 0 {
+		return []ForwardingRuleServiceDirectoryRegistrations{}
+	}
+
+	items := make([]ForwardingRuleServiceDirectoryRegistrations, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenForwardingRuleServiceDirectoryRegistrations(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandForwardingRuleServiceDirectoryRegistrations expands an instance of ForwardingRuleServiceDirectoryRegistrations into a JSON
+// request object.
+func expandForwardingRuleServiceDirectoryRegistrations(c *Client, f *ForwardingRuleServiceDirectoryRegistrations, res *ForwardingRule) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Namespace; !dcl.IsEmptyValueIndirect(v) {
+		m["namespace"] = v
+	}
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+
+	return m, nil
+}
+
+// flattenForwardingRuleServiceDirectoryRegistrations flattens an instance of ForwardingRuleServiceDirectoryRegistrations from a JSON
+// response object.
+func flattenForwardingRuleServiceDirectoryRegistrations(c *Client, i interface{}, res *ForwardingRule) *ForwardingRuleServiceDirectoryRegistrations {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ForwardingRuleServiceDirectoryRegistrations{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyForwardingRuleServiceDirectoryRegistrations
+	}
+	r.Namespace = dcl.FlattenString(m["namespace"])
+	r.Service = dcl.FlattenString(m["service"])
 
 	return r
 }
@@ -2268,6 +2573,9 @@ func extractForwardingRuleMetadataFilterFields(r *ForwardingRule, o *ForwardingR
 func extractForwardingRuleMetadataFilterFilterLabelFields(r *ForwardingRule, o *ForwardingRuleMetadataFilterFilterLabel) error {
 	return nil
 }
+func extractForwardingRuleServiceDirectoryRegistrationsFields(r *ForwardingRule, o *ForwardingRuleServiceDirectoryRegistrations) error {
+	return nil
+}
 
 func postReadExtractForwardingRuleFields(r *ForwardingRule) error {
 	return nil
@@ -2276,5 +2584,8 @@ func postReadExtractForwardingRuleMetadataFilterFields(r *ForwardingRule, o *For
 	return nil
 }
 func postReadExtractForwardingRuleMetadataFilterFilterLabelFields(r *ForwardingRule, o *ForwardingRuleMetadataFilterFilterLabel) error {
+	return nil
+}
+func postReadExtractForwardingRuleServiceDirectoryRegistrationsFields(r *ForwardingRule, o *ForwardingRuleServiceDirectoryRegistrations) error {
 	return nil
 }

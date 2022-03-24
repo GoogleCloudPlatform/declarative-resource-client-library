@@ -47,6 +47,7 @@ class ForwardingRule(object):
         target: str = None,
         project: str = None,
         location: str = None,
+        service_directory_registrations: list = None,
         service_account_file: str = "",
     ):
 
@@ -73,6 +74,7 @@ class ForwardingRule(object):
         self.target = target
         self.project = project
         self.location = location
+        self.service_directory_registrations = service_directory_registrations
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -158,6 +160,14 @@ class ForwardingRule(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
+        if ForwardingRuleServiceDirectoryRegistrationsArray.to_proto(
+            self.service_directory_registrations
+        ):
+            request.resource.service_directory_registrations.extend(
+                ForwardingRuleServiceDirectoryRegistrationsArray.to_proto(
+                    self.service_directory_registrations
+                )
+            )
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyComputeForwardingRule(request)
@@ -195,6 +205,9 @@ class ForwardingRule(object):
         self.target = Primitive.from_proto(response.target)
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
+        self.service_directory_registrations = ForwardingRuleServiceDirectoryRegistrationsArray.from_proto(
+            response.service_directory_registrations
+        )
 
     def delete(self):
         stub = forwarding_rule_pb2_grpc.ComputeForwardingRuleServiceStub(
@@ -280,6 +293,14 @@ class ForwardingRule(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
+        if ForwardingRuleServiceDirectoryRegistrationsArray.to_proto(
+            self.service_directory_registrations
+        ):
+            request.resource.service_directory_registrations.extend(
+                ForwardingRuleServiceDirectoryRegistrationsArray.to_proto(
+                    self.service_directory_registrations
+                )
+            )
         response = stub.DeleteComputeForwardingRule(request)
 
     @classmethod
@@ -351,6 +372,14 @@ class ForwardingRule(object):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):
             resource.location = Primitive.to_proto(self.location)
+        if ForwardingRuleServiceDirectoryRegistrationsArray.to_proto(
+            self.service_directory_registrations
+        ):
+            resource.service_directory_registrations.extend(
+                ForwardingRuleServiceDirectoryRegistrationsArray.to_proto(
+                    self.service_directory_registrations
+                )
+            )
         return resource
 
 
@@ -445,6 +474,50 @@ class ForwardingRuleMetadataFilterFilterLabelArray(object):
     def from_proto(self, resources):
         return [
             ForwardingRuleMetadataFilterFilterLabel.from_proto(i) for i in resources
+        ]
+
+
+class ForwardingRuleServiceDirectoryRegistrations(object):
+    def __init__(self, namespace: str = None, service: str = None):
+        self.namespace = namespace
+        self.service = service
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = forwarding_rule_pb2.ComputeForwardingRuleServiceDirectoryRegistrations()
+        if Primitive.to_proto(resource.namespace):
+            res.namespace = Primitive.to_proto(resource.namespace)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ForwardingRuleServiceDirectoryRegistrations(
+            namespace=Primitive.from_proto(resource.namespace),
+            service=Primitive.from_proto(resource.service),
+        )
+
+
+class ForwardingRuleServiceDirectoryRegistrationsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ForwardingRuleServiceDirectoryRegistrations.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ForwardingRuleServiceDirectoryRegistrations.from_proto(i) for i in resources
         ]
 
 

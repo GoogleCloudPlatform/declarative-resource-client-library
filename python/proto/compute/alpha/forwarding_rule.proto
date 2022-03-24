@@ -89,6 +89,7 @@ message ComputeAlphaForwardingRule {
   string target = 24;
   string project = 25;
   string location = 26;
+  repeated ComputeAlphaForwardingRuleServiceDirectoryRegistrations service_directory_registrations = 27;
 }
 
 message ComputeAlphaForwardingRuleMetadataFilter {
@@ -99,6 +100,11 @@ message ComputeAlphaForwardingRuleMetadataFilter {
 message ComputeAlphaForwardingRuleMetadataFilterFilterLabel {
   string name = 1;
   string value = 2;
+}
+
+message ComputeAlphaForwardingRuleServiceDirectoryRegistrations {
+  string namespace = 1;
+  string service = 2;
 }
 
 message ApplyComputeAlphaForwardingRuleRequest {

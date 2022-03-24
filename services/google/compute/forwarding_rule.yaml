@@ -375,6 +375,27 @@ components:
           readOnly: true
           description: '[Output Only] Server-defined URL for the resource.'
           x-kubernetes-immutable: true
+        serviceDirectoryRegistrations:
+          type: array
+          x-dcl-go-name: ServiceDirectoryRegistrations
+          description: Service Directory resources to register this forwarding rule
+            with. Currently, only supports a single Service Directory resource.
+          x-dcl-send-empty: true
+          x-dcl-list-type: list
+          items:
+            type: object
+            x-dcl-go-type: ForwardingRuleServiceDirectoryRegistrations
+            properties:
+              namespace:
+                type: string
+                x-dcl-go-name: Namespace
+                description: Service Directory namespace to register the forwarding
+                  rule under.
+              service:
+                type: string
+                x-dcl-go-name: Service
+                description: Service Directory service to register the forwarding
+                  rule under.
         serviceLabel:
           type: string
           x-dcl-go-name: ServiceLabel

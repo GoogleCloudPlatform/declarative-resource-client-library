@@ -110,6 +110,18 @@ func ProtoToComputeAlphaForwardingRuleMetadataFilterFilterLabel(p *alphapb.Compu
 	return obj
 }
 
+// ProtoToForwardingRuleServiceDirectoryRegistrations converts a ForwardingRuleServiceDirectoryRegistrations object from its proto representation.
+func ProtoToComputeAlphaForwardingRuleServiceDirectoryRegistrations(p *alphapb.ComputeAlphaForwardingRuleServiceDirectoryRegistrations) *alpha.ForwardingRuleServiceDirectoryRegistrations {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ForwardingRuleServiceDirectoryRegistrations{
+		Namespace: dcl.StringOrNil(p.GetNamespace()),
+		Service:   dcl.StringOrNil(p.GetService()),
+	}
+	return obj
+}
+
 // ProtoToForwardingRule converts a ForwardingRule resource from its proto representation.
 func ProtoToForwardingRule(p *alphapb.ComputeAlphaForwardingRule) *alpha.ForwardingRule {
 	obj := &alpha.ForwardingRule{
@@ -142,6 +154,9 @@ func ProtoToForwardingRule(p *alphapb.ComputeAlphaForwardingRule) *alpha.Forward
 	}
 	for _, r := range p.GetPorts() {
 		obj.Ports = append(obj.Ports, r)
+	}
+	for _, r := range p.GetServiceDirectoryRegistrations() {
+		obj.ServiceDirectoryRegistrations = append(obj.ServiceDirectoryRegistrations, *ProtoToComputeAlphaForwardingRuleServiceDirectoryRegistrations(r))
 	}
 	return obj
 }
@@ -227,6 +242,17 @@ func ComputeAlphaForwardingRuleMetadataFilterFilterLabelToProto(o *alpha.Forward
 	return p
 }
 
+// ForwardingRuleServiceDirectoryRegistrationsToProto converts a ForwardingRuleServiceDirectoryRegistrations object to its proto representation.
+func ComputeAlphaForwardingRuleServiceDirectoryRegistrationsToProto(o *alpha.ForwardingRuleServiceDirectoryRegistrations) *alphapb.ComputeAlphaForwardingRuleServiceDirectoryRegistrations {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ComputeAlphaForwardingRuleServiceDirectoryRegistrations{}
+	p.SetNamespace(dcl.ValueOrEmptyString(o.Namespace))
+	p.SetService(dcl.ValueOrEmptyString(o.Service))
+	return p
+}
+
 // ForwardingRuleToProto converts a ForwardingRule resource to its proto representation.
 func ForwardingRuleToProto(resource *alpha.ForwardingRule) *alphapb.ComputeAlphaForwardingRule {
 	p := &alphapb.ComputeAlphaForwardingRule{}
@@ -268,6 +294,11 @@ func ForwardingRuleToProto(resource *alpha.ForwardingRule) *alphapb.ComputeAlpha
 		sPorts[i] = r
 	}
 	p.SetPorts(sPorts)
+	sServiceDirectoryRegistrations := make([]*alphapb.ComputeAlphaForwardingRuleServiceDirectoryRegistrations, len(resource.ServiceDirectoryRegistrations))
+	for i, r := range resource.ServiceDirectoryRegistrations {
+		sServiceDirectoryRegistrations[i] = ComputeAlphaForwardingRuleServiceDirectoryRegistrationsToProto(&r)
+	}
+	p.SetServiceDirectoryRegistrations(sServiceDirectoryRegistrations)
 
 	return p
 }

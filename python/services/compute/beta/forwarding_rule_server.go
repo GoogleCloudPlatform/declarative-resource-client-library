@@ -110,6 +110,18 @@ func ProtoToComputeBetaForwardingRuleMetadataFilterFilterLabel(p *betapb.Compute
 	return obj
 }
 
+// ProtoToForwardingRuleServiceDirectoryRegistrations converts a ForwardingRuleServiceDirectoryRegistrations object from its proto representation.
+func ProtoToComputeBetaForwardingRuleServiceDirectoryRegistrations(p *betapb.ComputeBetaForwardingRuleServiceDirectoryRegistrations) *beta.ForwardingRuleServiceDirectoryRegistrations {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.ForwardingRuleServiceDirectoryRegistrations{
+		Namespace: dcl.StringOrNil(p.GetNamespace()),
+		Service:   dcl.StringOrNil(p.GetService()),
+	}
+	return obj
+}
+
 // ProtoToForwardingRule converts a ForwardingRule resource from its proto representation.
 func ProtoToForwardingRule(p *betapb.ComputeBetaForwardingRule) *beta.ForwardingRule {
 	obj := &beta.ForwardingRule{
@@ -142,6 +154,9 @@ func ProtoToForwardingRule(p *betapb.ComputeBetaForwardingRule) *beta.Forwarding
 	}
 	for _, r := range p.GetPorts() {
 		obj.Ports = append(obj.Ports, r)
+	}
+	for _, r := range p.GetServiceDirectoryRegistrations() {
+		obj.ServiceDirectoryRegistrations = append(obj.ServiceDirectoryRegistrations, *ProtoToComputeBetaForwardingRuleServiceDirectoryRegistrations(r))
 	}
 	return obj
 }
@@ -227,6 +242,17 @@ func ComputeBetaForwardingRuleMetadataFilterFilterLabelToProto(o *beta.Forwardin
 	return p
 }
 
+// ForwardingRuleServiceDirectoryRegistrationsToProto converts a ForwardingRuleServiceDirectoryRegistrations object to its proto representation.
+func ComputeBetaForwardingRuleServiceDirectoryRegistrationsToProto(o *beta.ForwardingRuleServiceDirectoryRegistrations) *betapb.ComputeBetaForwardingRuleServiceDirectoryRegistrations {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ComputeBetaForwardingRuleServiceDirectoryRegistrations{}
+	p.SetNamespace(dcl.ValueOrEmptyString(o.Namespace))
+	p.SetService(dcl.ValueOrEmptyString(o.Service))
+	return p
+}
+
 // ForwardingRuleToProto converts a ForwardingRule resource to its proto representation.
 func ForwardingRuleToProto(resource *beta.ForwardingRule) *betapb.ComputeBetaForwardingRule {
 	p := &betapb.ComputeBetaForwardingRule{}
@@ -268,6 +294,11 @@ func ForwardingRuleToProto(resource *beta.ForwardingRule) *betapb.ComputeBetaFor
 		sPorts[i] = r
 	}
 	p.SetPorts(sPorts)
+	sServiceDirectoryRegistrations := make([]*betapb.ComputeBetaForwardingRuleServiceDirectoryRegistrations, len(resource.ServiceDirectoryRegistrations))
+	for i, r := range resource.ServiceDirectoryRegistrations {
+		sServiceDirectoryRegistrations[i] = ComputeBetaForwardingRuleServiceDirectoryRegistrationsToProto(&r)
+	}
+	p.SetServiceDirectoryRegistrations(sServiceDirectoryRegistrations)
 
 	return p
 }

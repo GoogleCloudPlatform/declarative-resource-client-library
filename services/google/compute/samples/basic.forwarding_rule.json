@@ -6,5 +6,11 @@
   "networkTier": "STANDARD",
   "description": "A test forwarding rule",
   "IPProtocol": "UDP",
-  "portRange": "80-81"
+  "portRange": "80-81",
+  "serviceDirectoryRegistrations": [
+    {
+      "namespace": "servicens",
+      "service": "aservice"
+    }
+  ]
 }

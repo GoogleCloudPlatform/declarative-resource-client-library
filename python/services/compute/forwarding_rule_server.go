@@ -110,6 +110,18 @@ func ProtoToComputeForwardingRuleMetadataFilterFilterLabel(p *computepb.ComputeF
 	return obj
 }
 
+// ProtoToForwardingRuleServiceDirectoryRegistrations converts a ForwardingRuleServiceDirectoryRegistrations object from its proto representation.
+func ProtoToComputeForwardingRuleServiceDirectoryRegistrations(p *computepb.ComputeForwardingRuleServiceDirectoryRegistrations) *compute.ForwardingRuleServiceDirectoryRegistrations {
+	if p == nil {
+		return nil
+	}
+	obj := &compute.ForwardingRuleServiceDirectoryRegistrations{
+		Namespace: dcl.StringOrNil(p.GetNamespace()),
+		Service:   dcl.StringOrNil(p.GetService()),
+	}
+	return obj
+}
+
 // ProtoToForwardingRule converts a ForwardingRule resource from its proto representation.
 func ProtoToForwardingRule(p *computepb.ComputeForwardingRule) *compute.ForwardingRule {
 	obj := &compute.ForwardingRule{
@@ -142,6 +154,9 @@ func ProtoToForwardingRule(p *computepb.ComputeForwardingRule) *compute.Forwardi
 	}
 	for _, r := range p.GetPorts() {
 		obj.Ports = append(obj.Ports, r)
+	}
+	for _, r := range p.GetServiceDirectoryRegistrations() {
+		obj.ServiceDirectoryRegistrations = append(obj.ServiceDirectoryRegistrations, *ProtoToComputeForwardingRuleServiceDirectoryRegistrations(r))
 	}
 	return obj
 }
@@ -227,6 +242,17 @@ func ComputeForwardingRuleMetadataFilterFilterLabelToProto(o *compute.Forwarding
 	return p
 }
 
+// ForwardingRuleServiceDirectoryRegistrationsToProto converts a ForwardingRuleServiceDirectoryRegistrations object to its proto representation.
+func ComputeForwardingRuleServiceDirectoryRegistrationsToProto(o *compute.ForwardingRuleServiceDirectoryRegistrations) *computepb.ComputeForwardingRuleServiceDirectoryRegistrations {
+	if o == nil {
+		return nil
+	}
+	p := &computepb.ComputeForwardingRuleServiceDirectoryRegistrations{}
+	p.SetNamespace(dcl.ValueOrEmptyString(o.Namespace))
+	p.SetService(dcl.ValueOrEmptyString(o.Service))
+	return p
+}
+
 // ForwardingRuleToProto converts a ForwardingRule resource to its proto representation.
 func ForwardingRuleToProto(resource *compute.ForwardingRule) *computepb.ComputeForwardingRule {
 	p := &computepb.ComputeForwardingRule{}
@@ -268,6 +294,11 @@ func ForwardingRuleToProto(resource *compute.ForwardingRule) *computepb.ComputeF
 		sPorts[i] = r
 	}
 	p.SetPorts(sPorts)
+	sServiceDirectoryRegistrations := make([]*computepb.ComputeForwardingRuleServiceDirectoryRegistrations, len(resource.ServiceDirectoryRegistrations))
+	for i, r := range resource.ServiceDirectoryRegistrations {
+		sServiceDirectoryRegistrations[i] = ComputeForwardingRuleServiceDirectoryRegistrationsToProto(&r)
+	}
+	p.SetServiceDirectoryRegistrations(sServiceDirectoryRegistrations)
 
 	return p
 }
