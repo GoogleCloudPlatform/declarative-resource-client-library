@@ -39,6 +39,7 @@ class Cluster(object):
         project: str = None,
         location: str = None,
         fleet: dict = None,
+        logging_config: dict = None,
         service_account_file: str = "",
     ):
 
@@ -53,6 +54,7 @@ class Cluster(object):
         self.project = project
         self.location = location
         self.fleet = fleet
+        self.logging_config = logging_config
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -98,6 +100,12 @@ class Cluster(object):
             request.resource.fleet.CopyFrom(ClusterFleet.to_proto(self.fleet))
         else:
             request.resource.ClearField("fleet")
+        if ClusterLoggingConfig.to_proto(self.logging_config):
+            request.resource.logging_config.CopyFrom(
+                ClusterLoggingConfig.to_proto(self.logging_config)
+            )
+        else:
+            request.resource.ClearField("logging_config")
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyContainerawsAlphaCluster(request)
@@ -121,6 +129,7 @@ class Cluster(object):
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
         self.fleet = ClusterFleet.from_proto(response.fleet)
+        self.logging_config = ClusterLoggingConfig.from_proto(response.logging_config)
 
     def delete(self):
         stub = cluster_pb2_grpc.ContainerawsAlphaClusterServiceStub(channel.Channel())
@@ -166,6 +175,12 @@ class Cluster(object):
             request.resource.fleet.CopyFrom(ClusterFleet.to_proto(self.fleet))
         else:
             request.resource.ClearField("fleet")
+        if ClusterLoggingConfig.to_proto(self.logging_config):
+            request.resource.logging_config.CopyFrom(
+                ClusterLoggingConfig.to_proto(self.logging_config)
+            )
+        else:
+            request.resource.ClearField("logging_config")
         response = stub.DeleteContainerawsAlphaCluster(request)
 
     @classmethod
@@ -213,6 +228,12 @@ class Cluster(object):
             resource.fleet.CopyFrom(ClusterFleet.to_proto(self.fleet))
         else:
             resource.ClearField("fleet")
+        if ClusterLoggingConfig.to_proto(self.logging_config):
+            resource.logging_config.CopyFrom(
+                ClusterLoggingConfig.to_proto(self.logging_config)
+            )
+        else:
+            resource.ClearField("logging_config")
         return resource
 
 
@@ -289,6 +310,7 @@ class ClusterControlPlane(object):
         tags: dict = None,
         aws_services_authentication: dict = None,
         proxy_config: dict = None,
+        instance_placement: dict = None,
     ):
         self.version = version
         self.instance_type = instance_type
@@ -303,6 +325,7 @@ class ClusterControlPlane(object):
         self.tags = tags
         self.aws_services_authentication = aws_services_authentication
         self.proxy_config = proxy_config
+        self.instance_placement = instance_placement
 
     @classmethod
     def to_proto(self, resource):
@@ -372,6 +395,14 @@ class ClusterControlPlane(object):
             )
         else:
             res.ClearField("proxy_config")
+        if ClusterControlPlaneInstancePlacement.to_proto(resource.instance_placement):
+            res.instance_placement.CopyFrom(
+                ClusterControlPlaneInstancePlacement.to_proto(
+                    resource.instance_placement
+                )
+            )
+        else:
+            res.ClearField("instance_placement")
         return res
 
     @classmethod
@@ -400,6 +431,9 @@ class ClusterControlPlane(object):
             ),
             proxy_config=ClusterControlPlaneProxyConfig.from_proto(
                 resource.proxy_config
+            ),
+            instance_placement=ClusterControlPlaneInstancePlacement.from_proto(
+                resource.instance_placement
             ),
         )
 
@@ -727,6 +761,46 @@ class ClusterControlPlaneProxyConfigArray(object):
         return [ClusterControlPlaneProxyConfig.from_proto(i) for i in resources]
 
 
+class ClusterControlPlaneInstancePlacement(object):
+    def __init__(self, tenancy: str = None):
+        self.tenancy = tenancy
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.ContainerawsAlphaClusterControlPlaneInstancePlacement()
+        if ClusterControlPlaneInstancePlacementTenancyEnum.to_proto(resource.tenancy):
+            res.tenancy = ClusterControlPlaneInstancePlacementTenancyEnum.to_proto(
+                resource.tenancy
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterControlPlaneInstancePlacement(
+            tenancy=ClusterControlPlaneInstancePlacementTenancyEnum.from_proto(
+                resource.tenancy
+            ),
+        )
+
+
+class ClusterControlPlaneInstancePlacementArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterControlPlaneInstancePlacement.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterControlPlaneInstancePlacement.from_proto(i) for i in resources]
+
+
 class ClusterAuthorization(object):
     def __init__(self, admin_users: list = None):
         self.admin_users = admin_users
@@ -892,6 +966,92 @@ class ClusterFleetArray(object):
         return [ClusterFleet.from_proto(i) for i in resources]
 
 
+class ClusterLoggingConfig(object):
+    def __init__(self, component_config: dict = None):
+        self.component_config = component_config
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.ContainerawsAlphaClusterLoggingConfig()
+        if ClusterLoggingConfigComponentConfig.to_proto(resource.component_config):
+            res.component_config.CopyFrom(
+                ClusterLoggingConfigComponentConfig.to_proto(resource.component_config)
+            )
+        else:
+            res.ClearField("component_config")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterLoggingConfig(
+            component_config=ClusterLoggingConfigComponentConfig.from_proto(
+                resource.component_config
+            ),
+        )
+
+
+class ClusterLoggingConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterLoggingConfig.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterLoggingConfig.from_proto(i) for i in resources]
+
+
+class ClusterLoggingConfigComponentConfig(object):
+    def __init__(self, enable_components: list = None):
+        self.enable_components = enable_components
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.ContainerawsAlphaClusterLoggingConfigComponentConfig()
+        if ClusterLoggingConfigComponentConfigEnableComponentsEnumArray.to_proto(
+            resource.enable_components
+        ):
+            res.enable_components.extend(
+                ClusterLoggingConfigComponentConfigEnableComponentsEnumArray.to_proto(
+                    resource.enable_components
+                )
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterLoggingConfigComponentConfig(
+            enable_components=ClusterLoggingConfigComponentConfigEnableComponentsEnumArray.from_proto(
+                resource.enable_components
+            ),
+        )
+
+
+class ClusterLoggingConfigComponentConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterLoggingConfigComponentConfig.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterLoggingConfigComponentConfig.from_proto(i) for i in resources]
+
+
 class ClusterControlPlaneRootVolumeVolumeTypeEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -932,6 +1092,27 @@ class ClusterControlPlaneMainVolumeVolumeTypeEnum(object):
         ]
 
 
+class ClusterControlPlaneInstancePlacementTenancyEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return cluster_pb2.ContainerawsAlphaClusterControlPlaneInstancePlacementTenancyEnum.Value(
+            "ContainerawsAlphaClusterControlPlaneInstancePlacementTenancyEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return cluster_pb2.ContainerawsAlphaClusterControlPlaneInstancePlacementTenancyEnum.Name(
+            resource
+        )[
+            len("ContainerawsAlphaClusterControlPlaneInstancePlacementTenancyEnum") :
+        ]
+
+
 class ClusterStateEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -947,6 +1128,29 @@ class ClusterStateEnum(object):
             return resource
         return cluster_pb2.ContainerawsAlphaClusterStateEnum.Name(resource)[
             len("ContainerawsAlphaClusterStateEnum") :
+        ]
+
+
+class ClusterLoggingConfigComponentConfigEnableComponentsEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return cluster_pb2.ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum.Value(
+            "ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return cluster_pb2.ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum.Name(
+            resource
+        )[
+            len(
+                "ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum"
+            ) :
         ]
 
 

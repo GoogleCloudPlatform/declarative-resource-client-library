@@ -36,6 +36,14 @@ enum ContainerawsBetaNodePoolConfigTaintsEffectEnum {
   ContainerawsBetaNodePoolConfigTaintsEffectEnumNO_EXECUTE = 4;
 }
 
+enum ContainerawsBetaNodePoolConfigInstancePlacementTenancyEnum {
+  ContainerawsBetaNodePoolConfigInstancePlacementTenancyEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerawsBetaNodePoolConfigInstancePlacementTenancyEnumTENANCY_UNSPECIFIED = 1;
+  ContainerawsBetaNodePoolConfigInstancePlacementTenancyEnumDEFAULT = 2;
+  ContainerawsBetaNodePoolConfigInstancePlacementTenancyEnumDEDICATED = 3;
+  ContainerawsBetaNodePoolConfigInstancePlacementTenancyEnumHOST = 4;
+}
+
 enum ContainerawsBetaNodePoolStateEnum {
   ContainerawsBetaNodePoolStateEnumNO_VALUE_DO_NOT_USE = 0;
   ContainerawsBetaNodePoolStateEnumSTATE_UNSPECIFIED = 1;
@@ -76,6 +84,7 @@ message ContainerawsBetaNodePoolConfig {
   ContainerawsBetaNodePoolConfigConfigEncryption config_encryption = 7;
   ContainerawsBetaNodePoolConfigSshConfig ssh_config = 8;
   repeated string security_group_ids = 9;
+  ContainerawsBetaNodePoolConfigInstancePlacement instance_placement = 10;
 }
 
 message ContainerawsBetaNodePoolConfigRootVolume {
@@ -97,6 +106,10 @@ message ContainerawsBetaNodePoolConfigConfigEncryption {
 
 message ContainerawsBetaNodePoolConfigSshConfig {
   string ec2_key_pair = 1;
+}
+
+message ContainerawsBetaNodePoolConfigInstancePlacement {
+  ContainerawsBetaNodePoolConfigInstancePlacementTenancyEnum tenancy = 1;
 }
 
 message ContainerawsBetaNodePoolAutoscaling {

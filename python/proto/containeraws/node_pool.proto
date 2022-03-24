@@ -76,6 +76,7 @@ message ContainerawsNodePoolConfig {
   ContainerawsNodePoolConfigConfigEncryption config_encryption = 7;
   ContainerawsNodePoolConfigSshConfig ssh_config = 8;
   repeated string security_group_ids = 9;
+  ContainerawsNodePoolConfigProxyConfig proxy_config = 10;
 }
 
 message ContainerawsNodePoolConfigRootVolume {
@@ -97,6 +98,11 @@ message ContainerawsNodePoolConfigConfigEncryption {
 
 message ContainerawsNodePoolConfigSshConfig {
   string ec2_key_pair = 1;
+}
+
+message ContainerawsNodePoolConfigProxyConfig {
+  string secret_arn = 1;
+  string secret_version = 2;
 }
 
 message ContainerawsNodePoolAutoscaling {

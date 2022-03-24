@@ -84,6 +84,13 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 		if r.ControlPlane.IamInstanceProfile != nil {
 			rControlPlane["iamInstanceProfile"] = *r.ControlPlane.IamInstanceProfile
 		}
+		if r.ControlPlane.InstancePlacement != nil && r.ControlPlane.InstancePlacement != dclService.EmptyClusterControlPlaneInstancePlacement {
+			rControlPlaneInstancePlacement := make(map[string]interface{})
+			if r.ControlPlane.InstancePlacement.Tenancy != nil {
+				rControlPlaneInstancePlacement["tenancy"] = string(*r.ControlPlane.InstancePlacement.Tenancy)
+			}
+			rControlPlane["instancePlacement"] = rControlPlaneInstancePlacement
+		}
 		if r.ControlPlane.InstanceType != nil {
 			rControlPlane["instanceType"] = *r.ControlPlane.InstanceType
 		}
@@ -182,6 +189,19 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 	}
 	if r.Location != nil {
 		u.Object["location"] = *r.Location
+	}
+	if r.LoggingConfig != nil && r.LoggingConfig != dclService.EmptyClusterLoggingConfig {
+		rLoggingConfig := make(map[string]interface{})
+		if r.LoggingConfig.ComponentConfig != nil && r.LoggingConfig.ComponentConfig != dclService.EmptyClusterLoggingConfigComponentConfig {
+			rLoggingConfigComponentConfig := make(map[string]interface{})
+			var rLoggingConfigComponentConfigEnableComponents []interface{}
+			for _, rLoggingConfigComponentConfigEnableComponentsVal := range r.LoggingConfig.ComponentConfig.EnableComponents {
+				rLoggingConfigComponentConfigEnableComponents = append(rLoggingConfigComponentConfigEnableComponents, string(rLoggingConfigComponentConfigEnableComponentsVal))
+			}
+			rLoggingConfigComponentConfig["enableComponents"] = rLoggingConfigComponentConfigEnableComponents
+			rLoggingConfig["componentConfig"] = rLoggingConfigComponentConfig
+		}
+		u.Object["loggingConfig"] = rLoggingConfig
 	}
 	if r.Name != nil {
 		u.Object["name"] = *r.Name
@@ -339,6 +359,20 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 					r.ControlPlane.IamInstanceProfile = dcl.String(s)
 				} else {
 					return nil, fmt.Errorf("r.ControlPlane.IamInstanceProfile: expected string")
+				}
+			}
+			if _, ok := rControlPlane["instancePlacement"]; ok {
+				if rControlPlaneInstancePlacement, ok := rControlPlane["instancePlacement"].(map[string]interface{}); ok {
+					r.ControlPlane.InstancePlacement = &dclService.ClusterControlPlaneInstancePlacement{}
+					if _, ok := rControlPlaneInstancePlacement["tenancy"]; ok {
+						if s, ok := rControlPlaneInstancePlacement["tenancy"].(string); ok {
+							r.ControlPlane.InstancePlacement.Tenancy = dclService.ClusterControlPlaneInstancePlacementTenancyEnumRef(s)
+						} else {
+							return nil, fmt.Errorf("r.ControlPlane.InstancePlacement.Tenancy: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.ControlPlane.InstancePlacement: expected map[string]interface{}")
 				}
 			}
 			if _, ok := rControlPlane["instanceType"]; ok {
@@ -553,6 +587,31 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 			r.Location = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.Location: expected string")
+		}
+	}
+	if _, ok := u.Object["loggingConfig"]; ok {
+		if rLoggingConfig, ok := u.Object["loggingConfig"].(map[string]interface{}); ok {
+			r.LoggingConfig = &dclService.ClusterLoggingConfig{}
+			if _, ok := rLoggingConfig["componentConfig"]; ok {
+				if rLoggingConfigComponentConfig, ok := rLoggingConfig["componentConfig"].(map[string]interface{}); ok {
+					r.LoggingConfig.ComponentConfig = &dclService.ClusterLoggingConfigComponentConfig{}
+					if _, ok := rLoggingConfigComponentConfig["enableComponents"]; ok {
+						if s, ok := rLoggingConfigComponentConfig["enableComponents"].([]interface{}); ok {
+							for _, ss := range s {
+								if strval, ok := ss.(string); ok {
+									r.LoggingConfig.ComponentConfig.EnableComponents = append(r.LoggingConfig.ComponentConfig.EnableComponents, dclService.ClusterLoggingConfigComponentConfigEnableComponentsEnum(strval))
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.LoggingConfig.ComponentConfig.EnableComponents: expected []interface{}")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.LoggingConfig.ComponentConfig: expected map[string]interface{}")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.LoggingConfig: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["name"]; ok {

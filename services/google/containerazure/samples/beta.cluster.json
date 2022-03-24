@@ -55,5 +55,10 @@
   },
   "fleet": {
     "project": "{{project_number}}"
+  },
+  "loggingConfig": {
+    "componentConfig": {
+      "enableComponents": ["SYSTEM_COMPONENTS", "WORKLOADS"]
+    }
   }
 }

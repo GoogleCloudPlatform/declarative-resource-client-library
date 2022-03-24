@@ -158,6 +158,27 @@ components:
               x-dcl-go-name: IamInstanceProfile
               description: The name of the AWS IAM role assigned to nodes in the pool.
               x-kubernetes-immutable: true
+            instancePlacement:
+              type: object
+              x-dcl-go-name: InstancePlacement
+              x-dcl-go-type: NodePoolConfigInstancePlacement
+              description: Details of placement information for an instance.
+              x-kubernetes-immutable: true
+              x-dcl-server-default: true
+              properties:
+                tenancy:
+                  type: string
+                  x-dcl-go-name: Tenancy
+                  x-dcl-go-type: NodePoolConfigInstancePlacementTenancyEnum
+                  description: 'The tenancy for the instance. Possible values: TENANCY_UNSPECIFIED,
+                    DEFAULT, DEDICATED, HOST'
+                  x-kubernetes-immutable: true
+                  x-dcl-server-default: true
+                  enum:
+                  - TENANCY_UNSPECIFIED
+                  - DEFAULT
+                  - DEDICATED
+                  - HOST
             instanceType:
               type: string
               x-dcl-go-name: InstanceType

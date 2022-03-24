@@ -224,6 +224,7 @@ class NodePoolConfig(object):
         config_encryption: dict = None,
         ssh_config: dict = None,
         security_group_ids: list = None,
+        instance_placement: dict = None,
     ):
         self.instance_type = instance_type
         self.root_volume = root_volume
@@ -234,6 +235,7 @@ class NodePoolConfig(object):
         self.config_encryption = config_encryption
         self.ssh_config = ssh_config
         self.security_group_ids = security_group_ids
+        self.instance_placement = instance_placement
 
     @classmethod
     def to_proto(self, resource):
@@ -273,6 +275,12 @@ class NodePoolConfig(object):
             res.security_group_ids.extend(
                 Primitive.to_proto(resource.security_group_ids)
             )
+        if NodePoolConfigInstancePlacement.to_proto(resource.instance_placement):
+            res.instance_placement.CopyFrom(
+                NodePoolConfigInstancePlacement.to_proto(resource.instance_placement)
+            )
+        else:
+            res.ClearField("instance_placement")
         return res
 
     @classmethod
@@ -292,6 +300,9 @@ class NodePoolConfig(object):
             ),
             ssh_config=NodePoolConfigSshConfig.from_proto(resource.ssh_config),
             security_group_ids=Primitive.from_proto(resource.security_group_ids),
+            instance_placement=NodePoolConfigInstancePlacement.from_proto(
+                resource.instance_placement
+            ),
         )
 
 
@@ -481,6 +492,46 @@ class NodePoolConfigSshConfigArray(object):
         return [NodePoolConfigSshConfig.from_proto(i) for i in resources]
 
 
+class NodePoolConfigInstancePlacement(object):
+    def __init__(self, tenancy: str = None):
+        self.tenancy = tenancy
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = node_pool_pb2.ContainerawsAlphaNodePoolConfigInstancePlacement()
+        if NodePoolConfigInstancePlacementTenancyEnum.to_proto(resource.tenancy):
+            res.tenancy = NodePoolConfigInstancePlacementTenancyEnum.to_proto(
+                resource.tenancy
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return NodePoolConfigInstancePlacement(
+            tenancy=NodePoolConfigInstancePlacementTenancyEnum.from_proto(
+                resource.tenancy
+            ),
+        )
+
+
+class NodePoolConfigInstancePlacementArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [NodePoolConfigInstancePlacement.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [NodePoolConfigInstancePlacement.from_proto(i) for i in resources]
+
+
 class NodePoolAutoscaling(object):
     def __init__(self, min_node_count: int = None, max_node_count: int = None):
         self.min_node_count = min_node_count
@@ -593,6 +644,26 @@ class NodePoolConfigTaintsEffectEnum(object):
         return node_pool_pb2.ContainerawsAlphaNodePoolConfigTaintsEffectEnum.Name(
             resource
         )[len("ContainerawsAlphaNodePoolConfigTaintsEffectEnum") :]
+
+
+class NodePoolConfigInstancePlacementTenancyEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return node_pool_pb2.ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnum.Value(
+            "ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return node_pool_pb2.ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnum.Name(
+            resource
+        )[
+            len("ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnum") :
+        ]
 
 
 class NodePoolStateEnum(object):

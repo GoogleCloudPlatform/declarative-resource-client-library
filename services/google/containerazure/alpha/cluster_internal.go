@@ -83,6 +83,11 @@ func (r *Cluster) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.LoggingConfig) {
+		if err := r.LoggingConfig.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *ClusterNetworking) validate() error {
@@ -189,6 +194,17 @@ func (r *ClusterFleet) validate() error {
 	if err := dcl.Required(r, "project"); err != nil {
 		return err
 	}
+	return nil
+}
+func (r *ClusterLoggingConfig) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.ComponentConfig) {
+		if err := r.ComponentConfig.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ClusterLoggingConfigComponentConfig) validate() error {
 	return nil
 }
 func (r *Cluster) basePath() string {
@@ -619,6 +635,7 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 		rawDesired.Authorization = canonicalizeClusterAuthorization(rawDesired.Authorization, nil, opts...)
 		rawDesired.WorkloadIdentityConfig = canonicalizeClusterWorkloadIdentityConfig(rawDesired.WorkloadIdentityConfig, nil, opts...)
 		rawDesired.Fleet = canonicalizeClusterFleet(rawDesired.Fleet, nil, opts...)
+		rawDesired.LoggingConfig = canonicalizeClusterLoggingConfig(rawDesired.LoggingConfig, nil, opts...)
 
 		return rawDesired, nil
 	}
@@ -668,6 +685,7 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 		canonicalDesired.Location = rawDesired.Location
 	}
 	canonicalDesired.Fleet = canonicalizeClusterFleet(rawDesired.Fleet, rawInitial.Fleet, opts...)
+	canonicalDesired.LoggingConfig = canonicalizeClusterLoggingConfig(rawDesired.LoggingConfig, rawInitial.LoggingConfig, opts...)
 
 	return canonicalDesired, nil
 }
@@ -798,6 +816,12 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 		rawNew.Fleet = rawDesired.Fleet
 	} else {
 		rawNew.Fleet = canonicalizeNewClusterFleet(c, rawDesired.Fleet, rawNew.Fleet)
+	}
+
+	if dcl.IsNotReturnedByServer(rawNew.LoggingConfig) && dcl.IsNotReturnedByServer(rawDesired.LoggingConfig) {
+		rawNew.LoggingConfig = rawDesired.LoggingConfig
+	} else {
+		rawNew.LoggingConfig = canonicalizeNewClusterLoggingConfig(c, rawDesired.LoggingConfig, rawNew.LoggingConfig)
 	}
 
 	return rawNew, nil
@@ -2256,6 +2280,227 @@ func canonicalizeNewClusterFleetSlice(c *Client, des, nw []ClusterFleet) []Clust
 	return items
 }
 
+func canonicalizeClusterLoggingConfig(des, initial *ClusterLoggingConfig, opts ...dcl.ApplyOption) *ClusterLoggingConfig {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ClusterLoggingConfig{}
+
+	cDes.ComponentConfig = canonicalizeClusterLoggingConfigComponentConfig(des.ComponentConfig, initial.ComponentConfig, opts...)
+
+	return cDes
+}
+
+func canonicalizeClusterLoggingConfigSlice(des, initial []ClusterLoggingConfig, opts ...dcl.ApplyOption) []ClusterLoggingConfig {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterLoggingConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterLoggingConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterLoggingConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterLoggingConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewClusterLoggingConfig(c *Client, des, nw *ClusterLoggingConfig) *ClusterLoggingConfig {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ClusterLoggingConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	nw.ComponentConfig = canonicalizeNewClusterLoggingConfigComponentConfig(c, des.ComponentConfig, nw.ComponentConfig)
+
+	return nw
+}
+
+func canonicalizeNewClusterLoggingConfigSet(c *Client, des, nw []ClusterLoggingConfig) []ClusterLoggingConfig {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ClusterLoggingConfig
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareClusterLoggingConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewClusterLoggingConfigSlice(c *Client, des, nw []ClusterLoggingConfig) []ClusterLoggingConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ClusterLoggingConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterLoggingConfig(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeClusterLoggingConfigComponentConfig(des, initial *ClusterLoggingConfigComponentConfig, opts ...dcl.ApplyOption) *ClusterLoggingConfigComponentConfig {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ClusterLoggingConfigComponentConfig{}
+
+	if dcl.IsZeroValue(des.EnableComponents) || (dcl.IsEmptyValueIndirect(des.EnableComponents) && dcl.IsEmptyValueIndirect(initial.EnableComponents)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.EnableComponents = initial.EnableComponents
+	} else {
+		cDes.EnableComponents = des.EnableComponents
+	}
+
+	return cDes
+}
+
+func canonicalizeClusterLoggingConfigComponentConfigSlice(des, initial []ClusterLoggingConfigComponentConfig, opts ...dcl.ApplyOption) []ClusterLoggingConfigComponentConfig {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterLoggingConfigComponentConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterLoggingConfigComponentConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterLoggingConfigComponentConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterLoggingConfigComponentConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewClusterLoggingConfigComponentConfig(c *Client, des, nw *ClusterLoggingConfigComponentConfig) *ClusterLoggingConfigComponentConfig {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ClusterLoggingConfigComponentConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	return nw
+}
+
+func canonicalizeNewClusterLoggingConfigComponentConfigSet(c *Client, des, nw []ClusterLoggingConfigComponentConfig) []ClusterLoggingConfigComponentConfig {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ClusterLoggingConfigComponentConfig
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareClusterLoggingConfigComponentConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewClusterLoggingConfigComponentConfigSlice(c *Client, des, nw []ClusterLoggingConfigComponentConfig) []ClusterLoggingConfigComponentConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ClusterLoggingConfigComponentConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterLoggingConfigComponentConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -2408,6 +2653,13 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 	}
 
 	if ds, err := dcl.Diff(desired.Fleet, actual.Fleet, dcl.Info{ObjectFunction: compareClusterFleetNewStyle, EmptyObject: EmptyClusterFleet, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fleet")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareClusterLoggingConfigNewStyle, EmptyObject: EmptyClusterLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2876,6 +3128,64 @@ func compareClusterFleetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fie
 	return diffs, nil
 }
 
+func compareClusterLoggingConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterLoggingConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterLoggingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterLoggingConfig or *ClusterLoggingConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterLoggingConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterLoggingConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterLoggingConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ComponentConfig, actual.ComponentConfig, dcl.Info{ObjectFunction: compareClusterLoggingConfigComponentConfigNewStyle, EmptyObject: EmptyClusterLoggingConfigComponentConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ComponentConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareClusterLoggingConfigComponentConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterLoggingConfigComponentConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterLoggingConfigComponentConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterLoggingConfigComponentConfig or *ClusterLoggingConfigComponentConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterLoggingConfigComponentConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterLoggingConfigComponentConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterLoggingConfigComponentConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.EnableComponents, actual.EnableComponents, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnableComponents")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
@@ -2994,6 +3304,11 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["fleet"] = v
 	}
+	if v, err := expandClusterLoggingConfig(c, f.LoggingConfig, res); err != nil {
+		return nil, fmt.Errorf("error expanding LoggingConfig into loggingConfig: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["loggingConfig"] = v
+	}
 
 	return m, nil
 }
@@ -3030,6 +3345,7 @@ func flattenCluster(c *Client, i interface{}, res *Cluster) *Cluster {
 	resultRes.Project = dcl.FlattenString(m["project"])
 	resultRes.Location = dcl.FlattenString(m["location"])
 	resultRes.Fleet = flattenClusterFleet(c, m["fleet"], res)
+	resultRes.LoggingConfig = flattenClusterLoggingConfig(c, m["loggingConfig"], res)
 
 	return resultRes
 }
@@ -4479,6 +4795,236 @@ func flattenClusterFleet(c *Client, i interface{}, res *Cluster) *ClusterFleet {
 	return r
 }
 
+// expandClusterLoggingConfigMap expands the contents of ClusterLoggingConfig into a JSON
+// request object.
+func expandClusterLoggingConfigMap(c *Client, f map[string]ClusterLoggingConfig, res *Cluster) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandClusterLoggingConfig(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandClusterLoggingConfigSlice expands the contents of ClusterLoggingConfig into a JSON
+// request object.
+func expandClusterLoggingConfigSlice(c *Client, f []ClusterLoggingConfig, res *Cluster) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandClusterLoggingConfig(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenClusterLoggingConfigMap flattens the contents of ClusterLoggingConfig from a JSON
+// response object.
+func flattenClusterLoggingConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterLoggingConfig {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterLoggingConfig{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterLoggingConfig{}
+	}
+
+	items := make(map[string]ClusterLoggingConfig)
+	for k, item := range a {
+		items[k] = *flattenClusterLoggingConfig(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenClusterLoggingConfigSlice flattens the contents of ClusterLoggingConfig from a JSON
+// response object.
+func flattenClusterLoggingConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterLoggingConfig {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ClusterLoggingConfig{}
+	}
+
+	if len(a) == 0 {
+		return []ClusterLoggingConfig{}
+	}
+
+	items := make([]ClusterLoggingConfig, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenClusterLoggingConfig(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandClusterLoggingConfig expands an instance of ClusterLoggingConfig into a JSON
+// request object.
+func expandClusterLoggingConfig(c *Client, f *ClusterLoggingConfig, res *Cluster) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := expandClusterLoggingConfigComponentConfig(c, f.ComponentConfig, res); err != nil {
+		return nil, fmt.Errorf("error expanding ComponentConfig into componentConfig: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["componentConfig"] = v
+	}
+
+	return m, nil
+}
+
+// flattenClusterLoggingConfig flattens an instance of ClusterLoggingConfig from a JSON
+// response object.
+func flattenClusterLoggingConfig(c *Client, i interface{}, res *Cluster) *ClusterLoggingConfig {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ClusterLoggingConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterLoggingConfig
+	}
+	r.ComponentConfig = flattenClusterLoggingConfigComponentConfig(c, m["componentConfig"], res)
+
+	return r
+}
+
+// expandClusterLoggingConfigComponentConfigMap expands the contents of ClusterLoggingConfigComponentConfig into a JSON
+// request object.
+func expandClusterLoggingConfigComponentConfigMap(c *Client, f map[string]ClusterLoggingConfigComponentConfig, res *Cluster) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandClusterLoggingConfigComponentConfig(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandClusterLoggingConfigComponentConfigSlice expands the contents of ClusterLoggingConfigComponentConfig into a JSON
+// request object.
+func expandClusterLoggingConfigComponentConfigSlice(c *Client, f []ClusterLoggingConfigComponentConfig, res *Cluster) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandClusterLoggingConfigComponentConfig(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenClusterLoggingConfigComponentConfigMap flattens the contents of ClusterLoggingConfigComponentConfig from a JSON
+// response object.
+func flattenClusterLoggingConfigComponentConfigMap(c *Client, i interface{}, res *Cluster) map[string]ClusterLoggingConfigComponentConfig {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterLoggingConfigComponentConfig{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterLoggingConfigComponentConfig{}
+	}
+
+	items := make(map[string]ClusterLoggingConfigComponentConfig)
+	for k, item := range a {
+		items[k] = *flattenClusterLoggingConfigComponentConfig(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenClusterLoggingConfigComponentConfigSlice flattens the contents of ClusterLoggingConfigComponentConfig from a JSON
+// response object.
+func flattenClusterLoggingConfigComponentConfigSlice(c *Client, i interface{}, res *Cluster) []ClusterLoggingConfigComponentConfig {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ClusterLoggingConfigComponentConfig{}
+	}
+
+	if len(a) == 0 {
+		return []ClusterLoggingConfigComponentConfig{}
+	}
+
+	items := make([]ClusterLoggingConfigComponentConfig, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenClusterLoggingConfigComponentConfig(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandClusterLoggingConfigComponentConfig expands an instance of ClusterLoggingConfigComponentConfig into a JSON
+// request object.
+func expandClusterLoggingConfigComponentConfig(c *Client, f *ClusterLoggingConfigComponentConfig, res *Cluster) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.EnableComponents; v != nil {
+		m["enableComponents"] = v
+	}
+
+	return m, nil
+}
+
+// flattenClusterLoggingConfigComponentConfig flattens an instance of ClusterLoggingConfigComponentConfig from a JSON
+// response object.
+func flattenClusterLoggingConfigComponentConfig(c *Client, i interface{}, res *Cluster) *ClusterLoggingConfigComponentConfig {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ClusterLoggingConfigComponentConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterLoggingConfigComponentConfig
+	}
+	r.EnableComponents = flattenClusterLoggingConfigComponentConfigEnableComponentsEnumSlice(c, m["enableComponents"], res)
+
+	return r
+}
+
 // flattenClusterStateEnumMap flattens the contents of ClusterStateEnum from a JSON
 // response object.
 func flattenClusterStateEnumMap(c *Client, i interface{}, res *Cluster) map[string]ClusterStateEnum {
@@ -4528,6 +5074,57 @@ func flattenClusterStateEnum(i interface{}) *ClusterStateEnum {
 	}
 
 	return ClusterStateEnumRef(s)
+}
+
+// flattenClusterLoggingConfigComponentConfigEnableComponentsEnumMap flattens the contents of ClusterLoggingConfigComponentConfigEnableComponentsEnum from a JSON
+// response object.
+func flattenClusterLoggingConfigComponentConfigEnableComponentsEnumMap(c *Client, i interface{}, res *Cluster) map[string]ClusterLoggingConfigComponentConfigEnableComponentsEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterLoggingConfigComponentConfigEnableComponentsEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterLoggingConfigComponentConfigEnableComponentsEnum{}
+	}
+
+	items := make(map[string]ClusterLoggingConfigComponentConfigEnableComponentsEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterLoggingConfigComponentConfigEnableComponentsEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenClusterLoggingConfigComponentConfigEnableComponentsEnumSlice flattens the contents of ClusterLoggingConfigComponentConfigEnableComponentsEnum from a JSON
+// response object.
+func flattenClusterLoggingConfigComponentConfigEnableComponentsEnumSlice(c *Client, i interface{}, res *Cluster) []ClusterLoggingConfigComponentConfigEnableComponentsEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ClusterLoggingConfigComponentConfigEnableComponentsEnum{}
+	}
+
+	if len(a) == 0 {
+		return []ClusterLoggingConfigComponentConfigEnableComponentsEnum{}
+	}
+
+	items := make([]ClusterLoggingConfigComponentConfigEnableComponentsEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenClusterLoggingConfigComponentConfigEnableComponentsEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenClusterLoggingConfigComponentConfigEnableComponentsEnum asserts that an interface is a string, and returns a
+// pointer to a *ClusterLoggingConfigComponentConfigEnableComponentsEnum with the same value as that string.
+func flattenClusterLoggingConfigComponentConfigEnableComponentsEnum(i interface{}) *ClusterLoggingConfigComponentConfigEnableComponentsEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return ClusterLoggingConfigComponentConfigEnableComponentsEnumRef(s)
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource
@@ -4677,6 +5274,17 @@ func extractClusterFields(r *Cluster) error {
 	if !dcl.IsNotReturnedByServer(vFleet) {
 		r.Fleet = vFleet
 	}
+	vLoggingConfig := r.LoggingConfig
+	if vLoggingConfig == nil {
+		// note: explicitly not the empty object.
+		vLoggingConfig = &ClusterLoggingConfig{}
+	}
+	if err := extractClusterLoggingConfigFields(r, vLoggingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLoggingConfig) {
+		r.LoggingConfig = vLoggingConfig
+	}
 	return nil
 }
 func extractClusterNetworkingFields(r *Cluster, o *ClusterNetworking) error {
@@ -4770,6 +5378,23 @@ func extractClusterWorkloadIdentityConfigFields(r *Cluster, o *ClusterWorkloadId
 func extractClusterFleetFields(r *Cluster, o *ClusterFleet) error {
 	return nil
 }
+func extractClusterLoggingConfigFields(r *Cluster, o *ClusterLoggingConfig) error {
+	vComponentConfig := o.ComponentConfig
+	if vComponentConfig == nil {
+		// note: explicitly not the empty object.
+		vComponentConfig = &ClusterLoggingConfigComponentConfig{}
+	}
+	if err := extractClusterLoggingConfigComponentConfigFields(r, vComponentConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vComponentConfig) {
+		o.ComponentConfig = vComponentConfig
+	}
+	return nil
+}
+func extractClusterLoggingConfigComponentConfigFields(r *Cluster, o *ClusterLoggingConfigComponentConfig) error {
+	return nil
+}
 
 func postReadExtractClusterFields(r *Cluster) error {
 	vNetworking := r.Networking
@@ -4826,6 +5451,17 @@ func postReadExtractClusterFields(r *Cluster) error {
 	}
 	if !dcl.IsNotReturnedByServer(vFleet) {
 		r.Fleet = vFleet
+	}
+	vLoggingConfig := r.LoggingConfig
+	if vLoggingConfig == nil {
+		// note: explicitly not the empty object.
+		vLoggingConfig = &ClusterLoggingConfig{}
+	}
+	if err := postReadExtractClusterLoggingConfigFields(r, vLoggingConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLoggingConfig) {
+		r.LoggingConfig = vLoggingConfig
 	}
 	return nil
 }
@@ -4918,5 +5554,22 @@ func postReadExtractClusterWorkloadIdentityConfigFields(r *Cluster, o *ClusterWo
 	return nil
 }
 func postReadExtractClusterFleetFields(r *Cluster, o *ClusterFleet) error {
+	return nil
+}
+func postReadExtractClusterLoggingConfigFields(r *Cluster, o *ClusterLoggingConfig) error {
+	vComponentConfig := o.ComponentConfig
+	if vComponentConfig == nil {
+		// note: explicitly not the empty object.
+		vComponentConfig = &ClusterLoggingConfigComponentConfig{}
+	}
+	if err := extractClusterLoggingConfigComponentConfigFields(r, vComponentConfig); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vComponentConfig) {
+		o.ComponentConfig = vComponentConfig
+	}
+	return nil
+}
+func postReadExtractClusterLoggingConfigComponentConfigFields(r *Cluster, o *ClusterLoggingConfigComponentConfig) error {
 	return nil
 }

@@ -94,6 +94,11 @@ func (r *NodePoolConfig) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.InstancePlacement) {
+		if err := r.InstancePlacement.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *NodePoolConfigRootVolume) validate() error {
@@ -121,6 +126,9 @@ func (r *NodePoolConfigSshConfig) validate() error {
 	if err := dcl.Required(r, "ec2KeyPair"); err != nil {
 		return err
 	}
+	return nil
+}
+func (r *NodePoolConfigInstancePlacement) validate() error {
 	return nil
 }
 func (r *NodePoolAutoscaling) validate() error {
@@ -758,6 +766,7 @@ func canonicalizeNodePoolConfig(des, initial *NodePoolConfig, opts ...dcl.ApplyO
 	} else {
 		cDes.SecurityGroupIds = des.SecurityGroupIds
 	}
+	cDes.InstancePlacement = canonicalizeNodePoolConfigInstancePlacement(des.InstancePlacement, initial.InstancePlacement, opts...)
 
 	return cDes
 }
@@ -817,6 +826,7 @@ func canonicalizeNewNodePoolConfig(c *Client, des, nw *NodePoolConfig) *NodePool
 	if dcl.StringArrayCanonicalize(des.SecurityGroupIds, nw.SecurityGroupIds) {
 		nw.SecurityGroupIds = des.SecurityGroupIds
 	}
+	nw.InstancePlacement = canonicalizeNewNodePoolConfigInstancePlacement(c, des.InstancePlacement, nw.InstancePlacement)
 
 	return nw
 }
@@ -1356,6 +1366,118 @@ func canonicalizeNewNodePoolConfigSshConfigSlice(c *Client, des, nw []NodePoolCo
 	return items
 }
 
+func canonicalizeNodePoolConfigInstancePlacement(des, initial *NodePoolConfigInstancePlacement, opts ...dcl.ApplyOption) *NodePoolConfigInstancePlacement {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &NodePoolConfigInstancePlacement{}
+
+	if dcl.IsZeroValue(des.Tenancy) || (dcl.IsEmptyValueIndirect(des.Tenancy) && dcl.IsEmptyValueIndirect(initial.Tenancy)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.Tenancy = initial.Tenancy
+	} else {
+		cDes.Tenancy = des.Tenancy
+	}
+
+	return cDes
+}
+
+func canonicalizeNodePoolConfigInstancePlacementSlice(des, initial []NodePoolConfigInstancePlacement, opts ...dcl.ApplyOption) []NodePoolConfigInstancePlacement {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NodePoolConfigInstancePlacement, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNodePoolConfigInstancePlacement(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NodePoolConfigInstancePlacement, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNodePoolConfigInstancePlacement(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewNodePoolConfigInstancePlacement(c *Client, des, nw *NodePoolConfigInstancePlacement) *NodePoolConfigInstancePlacement {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NodePoolConfigInstancePlacement while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	return nw
+}
+
+func canonicalizeNewNodePoolConfigInstancePlacementSet(c *Client, des, nw []NodePoolConfigInstancePlacement) []NodePoolConfigInstancePlacement {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []NodePoolConfigInstancePlacement
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareNodePoolConfigInstancePlacementNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewNodePoolConfigInstancePlacementSlice(c *Client, des, nw []NodePoolConfigInstancePlacement) []NodePoolConfigInstancePlacement {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []NodePoolConfigInstancePlacement
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNodePoolConfigInstancePlacement(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeNodePoolAutoscaling(des, initial *NodePoolAutoscaling, opts ...dcl.ApplyOption) *NodePoolAutoscaling {
 	if des == nil {
 		return initial
@@ -1800,6 +1922,13 @@ func compareNodePoolConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.InstancePlacement, actual.InstancePlacement, dcl.Info{ObjectFunction: compareNodePoolConfigInstancePlacementNewStyle, EmptyObject: EmptyNodePoolConfigInstancePlacement, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstancePlacement")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -1946,6 +2075,35 @@ func compareNodePoolConfigSshConfigNewStyle(d, a interface{}, fn dcl.FieldName) 
 	}
 
 	if ds, err := dcl.Diff(desired.Ec2KeyPair, actual.Ec2KeyPair, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Ec2KeyPair")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareNodePoolConfigInstancePlacementNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NodePoolConfigInstancePlacement)
+	if !ok {
+		desiredNotPointer, ok := d.(NodePoolConfigInstancePlacement)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolConfigInstancePlacement or *NodePoolConfigInstancePlacement", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NodePoolConfigInstancePlacement)
+	if !ok {
+		actualNotPointer, ok := a.(NodePoolConfigInstancePlacement)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NodePoolConfigInstancePlacement", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Tenancy, actual.Tenancy, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tenancy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2290,6 +2448,11 @@ func expandNodePoolConfig(c *Client, f *NodePoolConfig, res *NodePool) (map[stri
 	if v := f.SecurityGroupIds; v != nil {
 		m["securityGroupIds"] = v
 	}
+	if v, err := expandNodePoolConfigInstancePlacement(c, f.InstancePlacement, res); err != nil {
+		return nil, fmt.Errorf("error expanding InstancePlacement into instancePlacement: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["instancePlacement"] = v
+	}
 
 	return m, nil
 }
@@ -2316,6 +2479,7 @@ func flattenNodePoolConfig(c *Client, i interface{}, res *NodePool) *NodePoolCon
 	r.ConfigEncryption = flattenNodePoolConfigConfigEncryption(c, m["configEncryption"], res)
 	r.SshConfig = flattenNodePoolConfigSshConfig(c, m["sshConfig"], res)
 	r.SecurityGroupIds = dcl.FlattenStringSlice(m["securityGroupIds"])
+	r.InstancePlacement = flattenNodePoolConfigInstancePlacement(c, m["instancePlacement"], res)
 
 	return r
 }
@@ -2796,6 +2960,120 @@ func flattenNodePoolConfigSshConfig(c *Client, i interface{}, res *NodePool) *No
 	return r
 }
 
+// expandNodePoolConfigInstancePlacementMap expands the contents of NodePoolConfigInstancePlacement into a JSON
+// request object.
+func expandNodePoolConfigInstancePlacementMap(c *Client, f map[string]NodePoolConfigInstancePlacement, res *NodePool) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandNodePoolConfigInstancePlacement(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandNodePoolConfigInstancePlacementSlice expands the contents of NodePoolConfigInstancePlacement into a JSON
+// request object.
+func expandNodePoolConfigInstancePlacementSlice(c *Client, f []NodePoolConfigInstancePlacement, res *NodePool) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandNodePoolConfigInstancePlacement(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenNodePoolConfigInstancePlacementMap flattens the contents of NodePoolConfigInstancePlacement from a JSON
+// response object.
+func flattenNodePoolConfigInstancePlacementMap(c *Client, i interface{}, res *NodePool) map[string]NodePoolConfigInstancePlacement {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NodePoolConfigInstancePlacement{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NodePoolConfigInstancePlacement{}
+	}
+
+	items := make(map[string]NodePoolConfigInstancePlacement)
+	for k, item := range a {
+		items[k] = *flattenNodePoolConfigInstancePlacement(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenNodePoolConfigInstancePlacementSlice flattens the contents of NodePoolConfigInstancePlacement from a JSON
+// response object.
+func flattenNodePoolConfigInstancePlacementSlice(c *Client, i interface{}, res *NodePool) []NodePoolConfigInstancePlacement {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NodePoolConfigInstancePlacement{}
+	}
+
+	if len(a) == 0 {
+		return []NodePoolConfigInstancePlacement{}
+	}
+
+	items := make([]NodePoolConfigInstancePlacement, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNodePoolConfigInstancePlacement(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandNodePoolConfigInstancePlacement expands an instance of NodePoolConfigInstancePlacement into a JSON
+// request object.
+func expandNodePoolConfigInstancePlacement(c *Client, f *NodePoolConfigInstancePlacement, res *NodePool) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Tenancy; !dcl.IsEmptyValueIndirect(v) {
+		m["tenancy"] = v
+	}
+
+	return m, nil
+}
+
+// flattenNodePoolConfigInstancePlacement flattens an instance of NodePoolConfigInstancePlacement from a JSON
+// response object.
+func flattenNodePoolConfigInstancePlacement(c *Client, i interface{}, res *NodePool) *NodePoolConfigInstancePlacement {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &NodePoolConfigInstancePlacement{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNodePoolConfigInstancePlacement
+	}
+	r.Tenancy = flattenNodePoolConfigInstancePlacementTenancyEnum(m["tenancy"])
+
+	return r
+}
+
 // expandNodePoolAutoscalingMap expands the contents of NodePoolAutoscaling into a JSON
 // request object.
 func expandNodePoolAutoscalingMap(c *Client, f map[string]NodePoolAutoscaling, res *NodePool) (map[string]interface{}, error) {
@@ -3130,6 +3408,57 @@ func flattenNodePoolConfigTaintsEffectEnum(i interface{}) *NodePoolConfigTaintsE
 	return NodePoolConfigTaintsEffectEnumRef(s)
 }
 
+// flattenNodePoolConfigInstancePlacementTenancyEnumMap flattens the contents of NodePoolConfigInstancePlacementTenancyEnum from a JSON
+// response object.
+func flattenNodePoolConfigInstancePlacementTenancyEnumMap(c *Client, i interface{}, res *NodePool) map[string]NodePoolConfigInstancePlacementTenancyEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NodePoolConfigInstancePlacementTenancyEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NodePoolConfigInstancePlacementTenancyEnum{}
+	}
+
+	items := make(map[string]NodePoolConfigInstancePlacementTenancyEnum)
+	for k, item := range a {
+		items[k] = *flattenNodePoolConfigInstancePlacementTenancyEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenNodePoolConfigInstancePlacementTenancyEnumSlice flattens the contents of NodePoolConfigInstancePlacementTenancyEnum from a JSON
+// response object.
+func flattenNodePoolConfigInstancePlacementTenancyEnumSlice(c *Client, i interface{}, res *NodePool) []NodePoolConfigInstancePlacementTenancyEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NodePoolConfigInstancePlacementTenancyEnum{}
+	}
+
+	if len(a) == 0 {
+		return []NodePoolConfigInstancePlacementTenancyEnum{}
+	}
+
+	items := make([]NodePoolConfigInstancePlacementTenancyEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNodePoolConfigInstancePlacementTenancyEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenNodePoolConfigInstancePlacementTenancyEnum asserts that an interface is a string, and returns a
+// pointer to a *NodePoolConfigInstancePlacementTenancyEnum with the same value as that string.
+func flattenNodePoolConfigInstancePlacementTenancyEnum(i interface{}) *NodePoolConfigInstancePlacementTenancyEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return NodePoolConfigInstancePlacementTenancyEnumRef(s)
+}
+
 // flattenNodePoolStateEnumMap flattens the contents of NodePoolStateEnum from a JSON
 // response object.
 func flattenNodePoolStateEnumMap(c *Client, i interface{}, res *NodePool) map[string]NodePoolStateEnum {
@@ -3350,6 +3679,17 @@ func extractNodePoolConfigFields(r *NodePool, o *NodePoolConfig) error {
 	if !dcl.IsNotReturnedByServer(vSshConfig) {
 		o.SshConfig = vSshConfig
 	}
+	vInstancePlacement := o.InstancePlacement
+	if vInstancePlacement == nil {
+		// note: explicitly not the empty object.
+		vInstancePlacement = &NodePoolConfigInstancePlacement{}
+	}
+	if err := extractNodePoolConfigInstancePlacementFields(r, vInstancePlacement); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vInstancePlacement) {
+		o.InstancePlacement = vInstancePlacement
+	}
 	return nil
 }
 func extractNodePoolConfigRootVolumeFields(r *NodePool, o *NodePoolConfigRootVolume) error {
@@ -3362,6 +3702,9 @@ func extractNodePoolConfigConfigEncryptionFields(r *NodePool, o *NodePoolConfigC
 	return nil
 }
 func extractNodePoolConfigSshConfigFields(r *NodePool, o *NodePoolConfigSshConfig) error {
+	return nil
+}
+func extractNodePoolConfigInstancePlacementFields(r *NodePool, o *NodePoolConfigInstancePlacement) error {
 	return nil
 }
 func extractNodePoolAutoscalingFields(r *NodePool, o *NodePoolAutoscaling) error {
@@ -3441,6 +3784,17 @@ func postReadExtractNodePoolConfigFields(r *NodePool, o *NodePoolConfig) error {
 	if !dcl.IsNotReturnedByServer(vSshConfig) {
 		o.SshConfig = vSshConfig
 	}
+	vInstancePlacement := o.InstancePlacement
+	if vInstancePlacement == nil {
+		// note: explicitly not the empty object.
+		vInstancePlacement = &NodePoolConfigInstancePlacement{}
+	}
+	if err := extractNodePoolConfigInstancePlacementFields(r, vInstancePlacement); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vInstancePlacement) {
+		o.InstancePlacement = vInstancePlacement
+	}
 	return nil
 }
 func postReadExtractNodePoolConfigRootVolumeFields(r *NodePool, o *NodePoolConfigRootVolume) error {
@@ -3453,6 +3807,9 @@ func postReadExtractNodePoolConfigConfigEncryptionFields(r *NodePool, o *NodePoo
 	return nil
 }
 func postReadExtractNodePoolConfigSshConfigFields(r *NodePool, o *NodePoolConfigSshConfig) error {
+	return nil
+}
+func postReadExtractNodePoolConfigInstancePlacementFields(r *NodePool, o *NodePoolConfigInstancePlacement) error {
 	return nil
 }
 func postReadExtractNodePoolAutoscalingFields(r *NodePool, o *NodePoolAutoscaling) error {

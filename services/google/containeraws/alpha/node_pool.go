@@ -101,6 +101,33 @@ func (v NodePoolConfigTaintsEffectEnum) Validate() error {
 	}
 }
 
+// The enum NodePoolConfigInstancePlacementTenancyEnum.
+type NodePoolConfigInstancePlacementTenancyEnum string
+
+// NodePoolConfigInstancePlacementTenancyEnumRef returns a *NodePoolConfigInstancePlacementTenancyEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func NodePoolConfigInstancePlacementTenancyEnumRef(s string) *NodePoolConfigInstancePlacementTenancyEnum {
+	v := NodePoolConfigInstancePlacementTenancyEnum(s)
+	return &v
+}
+
+func (v NodePoolConfigInstancePlacementTenancyEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"TENANCY_UNSPECIFIED", "DEFAULT", "DEDICATED", "HOST"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "NodePoolConfigInstancePlacementTenancyEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 // The enum NodePoolStateEnum.
 type NodePoolStateEnum string
 
@@ -129,16 +156,17 @@ func (v NodePoolStateEnum) Validate() error {
 }
 
 type NodePoolConfig struct {
-	empty              bool                            `json:"-"`
-	InstanceType       *string                         `json:"instanceType"`
-	RootVolume         *NodePoolConfigRootVolume       `json:"rootVolume"`
-	Taints             []NodePoolConfigTaints          `json:"taints"`
-	Labels             map[string]string               `json:"labels"`
-	Tags               map[string]string               `json:"tags"`
-	IamInstanceProfile *string                         `json:"iamInstanceProfile"`
-	ConfigEncryption   *NodePoolConfigConfigEncryption `json:"configEncryption"`
-	SshConfig          *NodePoolConfigSshConfig        `json:"sshConfig"`
-	SecurityGroupIds   []string                        `json:"securityGroupIds"`
+	empty              bool                             `json:"-"`
+	InstanceType       *string                          `json:"instanceType"`
+	RootVolume         *NodePoolConfigRootVolume        `json:"rootVolume"`
+	Taints             []NodePoolConfigTaints           `json:"taints"`
+	Labels             map[string]string                `json:"labels"`
+	Tags               map[string]string                `json:"tags"`
+	IamInstanceProfile *string                          `json:"iamInstanceProfile"`
+	ConfigEncryption   *NodePoolConfigConfigEncryption  `json:"configEncryption"`
+	SshConfig          *NodePoolConfigSshConfig         `json:"sshConfig"`
+	SecurityGroupIds   []string                         `json:"securityGroupIds"`
+	InstancePlacement  *NodePoolConfigInstancePlacement `json:"instancePlacement"`
 }
 
 type jsonNodePoolConfig NodePoolConfig
@@ -173,6 +201,8 @@ func (r *NodePoolConfig) UnmarshalJSON(data []byte) error {
 		r.SshConfig = res.SshConfig
 
 		r.SecurityGroupIds = res.SecurityGroupIds
+
+		r.InstancePlacement = res.InstancePlacement
 
 	}
 	return nil
@@ -391,6 +421,52 @@ func (r *NodePoolConfigSshConfig) String() string {
 }
 
 func (r *NodePoolConfigSshConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type NodePoolConfigInstancePlacement struct {
+	empty   bool                                        `json:"-"`
+	Tenancy *NodePoolConfigInstancePlacementTenancyEnum `json:"tenancy"`
+}
+
+type jsonNodePoolConfigInstancePlacement NodePoolConfigInstancePlacement
+
+func (r *NodePoolConfigInstancePlacement) UnmarshalJSON(data []byte) error {
+	var res jsonNodePoolConfigInstancePlacement
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodePoolConfigInstancePlacement
+	} else {
+
+		r.Tenancy = res.Tenancy
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this NodePoolConfigInstancePlacement is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyNodePoolConfigInstancePlacement *NodePoolConfigInstancePlacement = &NodePoolConfigInstancePlacement{empty: true}
+
+func (r *NodePoolConfigInstancePlacement) Empty() bool {
+	return r.empty
+}
+
+func (r *NodePoolConfigInstancePlacement) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NodePoolConfigInstancePlacement) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

@@ -18,7 +18,7 @@ versions:
 - ga
 resource: samples/minimal.cluster.json
 dependencies:
-- samples/basic.azure_client.json
+- samples/first.azure_client.json
 variables:
 - name: azure_ad_tenant
   type: azure_ad_tenant

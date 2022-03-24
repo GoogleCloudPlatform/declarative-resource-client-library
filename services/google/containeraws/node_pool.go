@@ -139,6 +139,7 @@ type NodePoolConfig struct {
 	ConfigEncryption   *NodePoolConfigConfigEncryption `json:"configEncryption"`
 	SshConfig          *NodePoolConfigSshConfig        `json:"sshConfig"`
 	SecurityGroupIds   []string                        `json:"securityGroupIds"`
+	ProxyConfig        *NodePoolConfigProxyConfig      `json:"proxyConfig"`
 }
 
 type jsonNodePoolConfig NodePoolConfig
@@ -173,6 +174,8 @@ func (r *NodePoolConfig) UnmarshalJSON(data []byte) error {
 		r.SshConfig = res.SshConfig
 
 		r.SecurityGroupIds = res.SecurityGroupIds
+
+		r.ProxyConfig = res.ProxyConfig
 
 	}
 	return nil
@@ -391,6 +394,55 @@ func (r *NodePoolConfigSshConfig) String() string {
 }
 
 func (r *NodePoolConfigSshConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type NodePoolConfigProxyConfig struct {
+	empty         bool    `json:"-"`
+	SecretArn     *string `json:"secretArn"`
+	SecretVersion *string `json:"secretVersion"`
+}
+
+type jsonNodePoolConfigProxyConfig NodePoolConfigProxyConfig
+
+func (r *NodePoolConfigProxyConfig) UnmarshalJSON(data []byte) error {
+	var res jsonNodePoolConfigProxyConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodePoolConfigProxyConfig
+	} else {
+
+		r.SecretArn = res.SecretArn
+
+		r.SecretVersion = res.SecretVersion
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this NodePoolConfigProxyConfig is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyNodePoolConfigProxyConfig *NodePoolConfigProxyConfig = &NodePoolConfigProxyConfig{empty: true}
+
+func (r *NodePoolConfigProxyConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *NodePoolConfigProxyConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NodePoolConfigProxyConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

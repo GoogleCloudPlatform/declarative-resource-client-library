@@ -48,6 +48,18 @@ func ProtoToContainerawsBetaNodePoolConfigTaintsEffectEnum(e betapb.Containeraws
 	return nil
 }
 
+// ProtoToNodePoolConfigInstancePlacementTenancyEnum converts a NodePoolConfigInstancePlacementTenancyEnum enum from its proto representation.
+func ProtoToContainerawsBetaNodePoolConfigInstancePlacementTenancyEnum(e betapb.ContainerawsBetaNodePoolConfigInstancePlacementTenancyEnum) *beta.NodePoolConfigInstancePlacementTenancyEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.ContainerawsBetaNodePoolConfigInstancePlacementTenancyEnum_name[int32(e)]; ok {
+		e := beta.NodePoolConfigInstancePlacementTenancyEnum(n[len("ContainerawsBetaNodePoolConfigInstancePlacementTenancyEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToNodePoolStateEnum converts a NodePoolStateEnum enum from its proto representation.
 func ProtoToContainerawsBetaNodePoolStateEnum(e betapb.ContainerawsBetaNodePoolStateEnum) *beta.NodePoolStateEnum {
 	if e == 0 {
@@ -71,6 +83,7 @@ func ProtoToContainerawsBetaNodePoolConfig(p *betapb.ContainerawsBetaNodePoolCon
 		IamInstanceProfile: dcl.StringOrNil(p.GetIamInstanceProfile()),
 		ConfigEncryption:   ProtoToContainerawsBetaNodePoolConfigConfigEncryption(p.GetConfigEncryption()),
 		SshConfig:          ProtoToContainerawsBetaNodePoolConfigSshConfig(p.GetSshConfig()),
+		InstancePlacement:  ProtoToContainerawsBetaNodePoolConfigInstancePlacement(p.GetInstancePlacement()),
 	}
 	for _, r := range p.GetTaints() {
 		obj.Taints = append(obj.Taints, *ProtoToContainerawsBetaNodePoolConfigTaints(r))
@@ -126,6 +139,17 @@ func ProtoToContainerawsBetaNodePoolConfigSshConfig(p *betapb.ContainerawsBetaNo
 	}
 	obj := &beta.NodePoolConfigSshConfig{
 		Ec2KeyPair: dcl.StringOrNil(p.GetEc2KeyPair()),
+	}
+	return obj
+}
+
+// ProtoToNodePoolConfigInstancePlacement converts a NodePoolConfigInstancePlacement object from its proto representation.
+func ProtoToContainerawsBetaNodePoolConfigInstancePlacement(p *betapb.ContainerawsBetaNodePoolConfigInstancePlacement) *beta.NodePoolConfigInstancePlacement {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.NodePoolConfigInstancePlacement{
+		Tenancy: ProtoToContainerawsBetaNodePoolConfigInstancePlacementTenancyEnum(p.GetTenancy()),
 	}
 	return obj
 }
@@ -197,6 +221,17 @@ func ContainerawsBetaNodePoolConfigTaintsEffectEnumToProto(e *beta.NodePoolConfi
 	return betapb.ContainerawsBetaNodePoolConfigTaintsEffectEnum(0)
 }
 
+// NodePoolConfigInstancePlacementTenancyEnumToProto converts a NodePoolConfigInstancePlacementTenancyEnum enum to its proto representation.
+func ContainerawsBetaNodePoolConfigInstancePlacementTenancyEnumToProto(e *beta.NodePoolConfigInstancePlacementTenancyEnum) betapb.ContainerawsBetaNodePoolConfigInstancePlacementTenancyEnum {
+	if e == nil {
+		return betapb.ContainerawsBetaNodePoolConfigInstancePlacementTenancyEnum(0)
+	}
+	if v, ok := betapb.ContainerawsBetaNodePoolConfigInstancePlacementTenancyEnum_value["NodePoolConfigInstancePlacementTenancyEnum"+string(*e)]; ok {
+		return betapb.ContainerawsBetaNodePoolConfigInstancePlacementTenancyEnum(v)
+	}
+	return betapb.ContainerawsBetaNodePoolConfigInstancePlacementTenancyEnum(0)
+}
+
 // NodePoolStateEnumToProto converts a NodePoolStateEnum enum to its proto representation.
 func ContainerawsBetaNodePoolStateEnumToProto(e *beta.NodePoolStateEnum) betapb.ContainerawsBetaNodePoolStateEnum {
 	if e == nil {
@@ -219,6 +254,7 @@ func ContainerawsBetaNodePoolConfigToProto(o *beta.NodePoolConfig) *betapb.Conta
 	p.SetIamInstanceProfile(dcl.ValueOrEmptyString(o.IamInstanceProfile))
 	p.SetConfigEncryption(ContainerawsBetaNodePoolConfigConfigEncryptionToProto(o.ConfigEncryption))
 	p.SetSshConfig(ContainerawsBetaNodePoolConfigSshConfigToProto(o.SshConfig))
+	p.SetInstancePlacement(ContainerawsBetaNodePoolConfigInstancePlacementToProto(o.InstancePlacement))
 	sTaints := make([]*betapb.ContainerawsBetaNodePoolConfigTaints, len(o.Taints))
 	for i, r := range o.Taints {
 		sTaints[i] = ContainerawsBetaNodePoolConfigTaintsToProto(&r)
@@ -284,6 +320,16 @@ func ContainerawsBetaNodePoolConfigSshConfigToProto(o *beta.NodePoolConfigSshCon
 	}
 	p := &betapb.ContainerawsBetaNodePoolConfigSshConfig{}
 	p.SetEc2KeyPair(dcl.ValueOrEmptyString(o.Ec2KeyPair))
+	return p
+}
+
+// NodePoolConfigInstancePlacementToProto converts a NodePoolConfigInstancePlacement object to its proto representation.
+func ContainerawsBetaNodePoolConfigInstancePlacementToProto(o *beta.NodePoolConfigInstancePlacement) *betapb.ContainerawsBetaNodePoolConfigInstancePlacement {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ContainerawsBetaNodePoolConfigInstancePlacement{}
+	p.SetTenancy(ContainerawsBetaNodePoolConfigInstancePlacementTenancyEnumToProto(o.Tenancy))
 	return p
 }
 

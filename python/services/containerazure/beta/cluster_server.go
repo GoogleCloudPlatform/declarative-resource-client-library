@@ -36,6 +36,18 @@ func ProtoToContainerazureBetaClusterStateEnum(e betapb.ContainerazureBetaCluste
 	return nil
 }
 
+// ProtoToClusterLoggingConfigComponentConfigEnableComponentsEnum converts a ClusterLoggingConfigComponentConfigEnableComponentsEnum enum from its proto representation.
+func ProtoToContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnum(e betapb.ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnum) *beta.ClusterLoggingConfigComponentConfigEnableComponentsEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnum_name[int32(e)]; ok {
+		e := beta.ClusterLoggingConfigComponentConfigEnableComponentsEnum(n[len("ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToClusterNetworking converts a ClusterNetworking object from its proto representation.
 func ProtoToContainerazureBetaClusterNetworking(p *betapb.ContainerazureBetaClusterNetworking) *beta.ClusterNetworking {
 	if p == nil {
@@ -190,6 +202,29 @@ func ProtoToContainerazureBetaClusterFleet(p *betapb.ContainerazureBetaClusterFl
 	return obj
 }
 
+// ProtoToClusterLoggingConfig converts a ClusterLoggingConfig object from its proto representation.
+func ProtoToContainerazureBetaClusterLoggingConfig(p *betapb.ContainerazureBetaClusterLoggingConfig) *beta.ClusterLoggingConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.ClusterLoggingConfig{
+		ComponentConfig: ProtoToContainerazureBetaClusterLoggingConfigComponentConfig(p.GetComponentConfig()),
+	}
+	return obj
+}
+
+// ProtoToClusterLoggingConfigComponentConfig converts a ClusterLoggingConfigComponentConfig object from its proto representation.
+func ProtoToContainerazureBetaClusterLoggingConfigComponentConfig(p *betapb.ContainerazureBetaClusterLoggingConfigComponentConfig) *beta.ClusterLoggingConfigComponentConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.ClusterLoggingConfigComponentConfig{}
+	for _, r := range p.GetEnableComponents() {
+		obj.EnableComponents = append(obj.EnableComponents, *ProtoToContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnum(r))
+	}
+	return obj
+}
+
 // ProtoToCluster converts a Cluster resource from its proto representation.
 func ProtoToCluster(p *betapb.ContainerazureBetaCluster) *beta.Cluster {
 	obj := &beta.Cluster{
@@ -212,6 +247,7 @@ func ProtoToCluster(p *betapb.ContainerazureBetaCluster) *beta.Cluster {
 		Project:                dcl.StringOrNil(p.GetProject()),
 		Location:               dcl.StringOrNil(p.GetLocation()),
 		Fleet:                  ProtoToContainerazureBetaClusterFleet(p.GetFleet()),
+		LoggingConfig:          ProtoToContainerazureBetaClusterLoggingConfig(p.GetLoggingConfig()),
 	}
 	return obj
 }
@@ -225,6 +261,17 @@ func ContainerazureBetaClusterStateEnumToProto(e *beta.ClusterStateEnum) betapb.
 		return betapb.ContainerazureBetaClusterStateEnum(v)
 	}
 	return betapb.ContainerazureBetaClusterStateEnum(0)
+}
+
+// ClusterLoggingConfigComponentConfigEnableComponentsEnumToProto converts a ClusterLoggingConfigComponentConfigEnableComponentsEnum enum to its proto representation.
+func ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnumToProto(e *beta.ClusterLoggingConfigComponentConfigEnableComponentsEnum) betapb.ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnum {
+	if e == nil {
+		return betapb.ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnum(0)
+	}
+	if v, ok := betapb.ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnum_value["ClusterLoggingConfigComponentConfigEnableComponentsEnum"+string(*e)]; ok {
+		return betapb.ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnum(v)
+	}
+	return betapb.ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnum(0)
 }
 
 // ClusterNetworkingToProto converts a ClusterNetworking object to its proto representation.
@@ -383,6 +430,30 @@ func ContainerazureBetaClusterFleetToProto(o *beta.ClusterFleet) *betapb.Contain
 	return p
 }
 
+// ClusterLoggingConfigToProto converts a ClusterLoggingConfig object to its proto representation.
+func ContainerazureBetaClusterLoggingConfigToProto(o *beta.ClusterLoggingConfig) *betapb.ContainerazureBetaClusterLoggingConfig {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ContainerazureBetaClusterLoggingConfig{}
+	p.SetComponentConfig(ContainerazureBetaClusterLoggingConfigComponentConfigToProto(o.ComponentConfig))
+	return p
+}
+
+// ClusterLoggingConfigComponentConfigToProto converts a ClusterLoggingConfigComponentConfig object to its proto representation.
+func ContainerazureBetaClusterLoggingConfigComponentConfigToProto(o *beta.ClusterLoggingConfigComponentConfig) *betapb.ContainerazureBetaClusterLoggingConfigComponentConfig {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ContainerazureBetaClusterLoggingConfigComponentConfig{}
+	sEnableComponents := make([]betapb.ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnum, len(o.EnableComponents))
+	for i, r := range o.EnableComponents {
+		sEnableComponents[i] = betapb.ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnum(betapb.ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnum_value[string(r)])
+	}
+	p.SetEnableComponents(sEnableComponents)
+	return p
+}
+
 // ClusterToProto converts a Cluster resource to its proto representation.
 func ClusterToProto(resource *beta.Cluster) *betapb.ContainerazureBetaCluster {
 	p := &betapb.ContainerazureBetaCluster{}
@@ -405,6 +476,7 @@ func ClusterToProto(resource *beta.Cluster) *betapb.ContainerazureBetaCluster {
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetFleet(ContainerazureBetaClusterFleetToProto(resource.Fleet))
+	p.SetLoggingConfig(ContainerazureBetaClusterLoggingConfigToProto(resource.LoggingConfig))
 	mAnnotations := make(map[string]string, len(resource.Annotations))
 	for k, r := range resource.Annotations {
 		mAnnotations[k] = r

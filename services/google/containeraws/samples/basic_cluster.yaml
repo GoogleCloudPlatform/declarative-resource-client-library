@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 name: basic_cluster
-description: A basic example of a containeraws aws cluster
+description: A basic example of a containeraws cluster
 type: cluster
 versions:
 - ga

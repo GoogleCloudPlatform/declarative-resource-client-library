@@ -19,7 +19,7 @@ versions:
 resource: samples/minimal.node_pool.json
 dependencies:
 - samples/minimal.cluster.json
-- samples/basic.azure_client.json
+- samples/first.azure_client.json
 variables:
 - name: azure_ad_tenant
   type: azure_ad_tenant

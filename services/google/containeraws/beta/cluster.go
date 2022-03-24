@@ -43,6 +43,7 @@ type Cluster struct {
 	Project                *string                        `json:"project"`
 	Location               *string                        `json:"location"`
 	Fleet                  *ClusterFleet                  `json:"fleet"`
+	LoggingConfig          *ClusterLoggingConfig          `json:"loggingConfig"`
 }
 
 func (r *Cluster) String() string {
@@ -103,6 +104,33 @@ func (v ClusterControlPlaneMainVolumeVolumeTypeEnum) Validate() error {
 	}
 }
 
+// The enum ClusterControlPlaneInstancePlacementTenancyEnum.
+type ClusterControlPlaneInstancePlacementTenancyEnum string
+
+// ClusterControlPlaneInstancePlacementTenancyEnumRef returns a *ClusterControlPlaneInstancePlacementTenancyEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func ClusterControlPlaneInstancePlacementTenancyEnumRef(s string) *ClusterControlPlaneInstancePlacementTenancyEnum {
+	v := ClusterControlPlaneInstancePlacementTenancyEnum(s)
+	return &v
+}
+
+func (v ClusterControlPlaneInstancePlacementTenancyEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"TENANCY_UNSPECIFIED", "DEFAULT", "DEDICATED", "HOST"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "ClusterControlPlaneInstancePlacementTenancyEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 // The enum ClusterStateEnum.
 type ClusterStateEnum string
 
@@ -125,6 +153,33 @@ func (v ClusterStateEnum) Validate() error {
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "ClusterStateEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum ClusterLoggingConfigComponentConfigEnableComponentsEnum.
+type ClusterLoggingConfigComponentConfigEnableComponentsEnum string
+
+// ClusterLoggingConfigComponentConfigEnableComponentsEnumRef returns a *ClusterLoggingConfigComponentConfigEnableComponentsEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func ClusterLoggingConfigComponentConfigEnableComponentsEnumRef(s string) *ClusterLoggingConfigComponentConfigEnableComponentsEnum {
+	v := ClusterLoggingConfigComponentConfigEnableComponentsEnum(s)
+	return &v
+}
+
+func (v ClusterLoggingConfigComponentConfigEnableComponentsEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"COMPONENT_UNSPECIFIED", "SYSTEM_COMPONENTS", "WORKLOADS"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "ClusterLoggingConfigComponentConfigEnableComponentsEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -197,6 +252,7 @@ type ClusterControlPlane struct {
 	Tags                      map[string]string                             `json:"tags"`
 	AwsServicesAuthentication *ClusterControlPlaneAwsServicesAuthentication `json:"awsServicesAuthentication"`
 	ProxyConfig               *ClusterControlPlaneProxyConfig               `json:"proxyConfig"`
+	InstancePlacement         *ClusterControlPlaneInstancePlacement         `json:"instancePlacement"`
 }
 
 type jsonClusterControlPlane ClusterControlPlane
@@ -239,6 +295,8 @@ func (r *ClusterControlPlane) UnmarshalJSON(data []byte) error {
 		r.AwsServicesAuthentication = res.AwsServicesAuthentication
 
 		r.ProxyConfig = res.ProxyConfig
+
+		r.InstancePlacement = res.InstancePlacement
 
 	}
 	return nil
@@ -610,6 +668,52 @@ func (r *ClusterControlPlaneProxyConfig) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
+type ClusterControlPlaneInstancePlacement struct {
+	empty   bool                                             `json:"-"`
+	Tenancy *ClusterControlPlaneInstancePlacementTenancyEnum `json:"tenancy"`
+}
+
+type jsonClusterControlPlaneInstancePlacement ClusterControlPlaneInstancePlacement
+
+func (r *ClusterControlPlaneInstancePlacement) UnmarshalJSON(data []byte) error {
+	var res jsonClusterControlPlaneInstancePlacement
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterControlPlaneInstancePlacement
+	} else {
+
+		r.Tenancy = res.Tenancy
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ClusterControlPlaneInstancePlacement is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyClusterControlPlaneInstancePlacement *ClusterControlPlaneInstancePlacement = &ClusterControlPlaneInstancePlacement{empty: true}
+
+func (r *ClusterControlPlaneInstancePlacement) Empty() bool {
+	return r.empty
+}
+
+func (r *ClusterControlPlaneInstancePlacement) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ClusterControlPlaneInstancePlacement) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 type ClusterAuthorization struct {
 	empty      bool                             `json:"-"`
 	AdminUsers []ClusterAuthorizationAdminUsers `json:"adminUsers"`
@@ -803,6 +907,98 @@ func (r *ClusterFleet) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
+type ClusterLoggingConfig struct {
+	empty           bool                                 `json:"-"`
+	ComponentConfig *ClusterLoggingConfigComponentConfig `json:"componentConfig"`
+}
+
+type jsonClusterLoggingConfig ClusterLoggingConfig
+
+func (r *ClusterLoggingConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterLoggingConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterLoggingConfig
+	} else {
+
+		r.ComponentConfig = res.ComponentConfig
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ClusterLoggingConfig is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyClusterLoggingConfig *ClusterLoggingConfig = &ClusterLoggingConfig{empty: true}
+
+func (r *ClusterLoggingConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *ClusterLoggingConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ClusterLoggingConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ClusterLoggingConfigComponentConfig struct {
+	empty            bool                                                      `json:"-"`
+	EnableComponents []ClusterLoggingConfigComponentConfigEnableComponentsEnum `json:"enableComponents"`
+}
+
+type jsonClusterLoggingConfigComponentConfig ClusterLoggingConfigComponentConfig
+
+func (r *ClusterLoggingConfigComponentConfig) UnmarshalJSON(data []byte) error {
+	var res jsonClusterLoggingConfigComponentConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterLoggingConfigComponentConfig
+	} else {
+
+		r.EnableComponents = res.EnableComponents
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ClusterLoggingConfigComponentConfig is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyClusterLoggingConfigComponentConfig *ClusterLoggingConfigComponentConfig = &ClusterLoggingConfigComponentConfig{empty: true}
+
+func (r *ClusterLoggingConfigComponentConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *ClusterLoggingConfigComponentConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ClusterLoggingConfigComponentConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 // Describe returns a simple description of this resource to ensure that automated tools
 // can identify it.
 func (r *Cluster) Describe() dcl.ServiceTypeVersion {
@@ -837,6 +1033,7 @@ func (r *Cluster) ID() (string, error) {
 		"project":                dcl.ValueOrEmptyString(nr.Project),
 		"location":               dcl.ValueOrEmptyString(nr.Location),
 		"fleet":                  dcl.ValueOrEmptyString(nr.Fleet),
+		"loggingConfig":          dcl.ValueOrEmptyString(nr.LoggingConfig),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/awsClusters/{{name}}", params), nil
 }

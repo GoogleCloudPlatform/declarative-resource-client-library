@@ -74,6 +74,16 @@ func NodePoolToUnstructured(r *dclService.NodePool) *unstructured.Resource {
 			}
 			rConfig["labels"] = rConfigLabels
 		}
+		if r.Config.ProxyConfig != nil && r.Config.ProxyConfig != dclService.EmptyNodePoolConfigProxyConfig {
+			rConfigProxyConfig := make(map[string]interface{})
+			if r.Config.ProxyConfig.SecretArn != nil {
+				rConfigProxyConfig["secretArn"] = *r.Config.ProxyConfig.SecretArn
+			}
+			if r.Config.ProxyConfig.SecretVersion != nil {
+				rConfigProxyConfig["secretVersion"] = *r.Config.ProxyConfig.SecretVersion
+			}
+			rConfig["proxyConfig"] = rConfigProxyConfig
+		}
 		if r.Config.RootVolume != nil && r.Config.RootVolume != dclService.EmptyNodePoolConfigRootVolume {
 			rConfigRootVolume := make(map[string]interface{})
 			if r.Config.RootVolume.Iops != nil {
@@ -254,6 +264,27 @@ func UnstructuredToNodePool(u *unstructured.Resource) (*dclService.NodePool, err
 					r.Config.Labels = m
 				} else {
 					return nil, fmt.Errorf("r.Config.Labels: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rConfig["proxyConfig"]; ok {
+				if rConfigProxyConfig, ok := rConfig["proxyConfig"].(map[string]interface{}); ok {
+					r.Config.ProxyConfig = &dclService.NodePoolConfigProxyConfig{}
+					if _, ok := rConfigProxyConfig["secretArn"]; ok {
+						if s, ok := rConfigProxyConfig["secretArn"].(string); ok {
+							r.Config.ProxyConfig.SecretArn = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.ProxyConfig.SecretArn: expected string")
+						}
+					}
+					if _, ok := rConfigProxyConfig["secretVersion"]; ok {
+						if s, ok := rConfigProxyConfig["secretVersion"].(string); ok {
+							r.Config.ProxyConfig.SecretVersion = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.ProxyConfig.SecretVersion: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Config.ProxyConfig: expected map[string]interface{}")
 				}
 			}
 			if _, ok := rConfig["rootVolume"]; ok {

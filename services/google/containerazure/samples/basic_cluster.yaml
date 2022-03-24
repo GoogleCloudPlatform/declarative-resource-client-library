@@ -15,16 +15,16 @@ name: basic_cluster
 description: A basic example of a containerazure azure cluster
 type: cluster
 versions:
-- ga
+- beta
 resource: samples/basic.cluster.json
 dependencies:
-- samples/basic.azure_client.json
-- samples/update.azure_client.json
+- samples/first.azure_client.json
+- samples/second.azure_client.json
 updates:
 - resource: samples/update.cluster.json
   dependencies:
-  - samples/basic.azure_client.json
-  - samples/update.azure_client.json
+  - samples/first.azure_client.json
+  - samples/second.azure_client.json
 variables:
 - name: azure_ad_tenant
   type: azure_ad_tenant

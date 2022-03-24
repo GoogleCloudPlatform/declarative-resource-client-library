@@ -32,6 +32,13 @@ enum ContainerazureAlphaClusterStateEnum {
   ContainerazureAlphaClusterStateEnumDEGRADED = 7;
 }
 
+enum ContainerazureAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum {
+  ContainerazureAlphaClusterLoggingConfigComponentConfigEnableComponentsEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerazureAlphaClusterLoggingConfigComponentConfigEnableComponentsEnumCOMPONENT_UNSPECIFIED = 1;
+  ContainerazureAlphaClusterLoggingConfigComponentConfigEnableComponentsEnumSYSTEM_COMPONENTS = 2;
+  ContainerazureAlphaClusterLoggingConfigComponentConfigEnableComponentsEnumWORKLOADS = 3;
+}
+
 message ContainerazureAlphaCluster {
   string name = 1;
   string description = 2;
@@ -53,6 +60,7 @@ message ContainerazureAlphaCluster {
   string project = 18;
   string location = 19;
   ContainerazureAlphaClusterFleet fleet = 20;
+  ContainerazureAlphaClusterLoggingConfig logging_config = 21;
 }
 
 message ContainerazureAlphaClusterNetworking {
@@ -117,6 +125,14 @@ message ContainerazureAlphaClusterWorkloadIdentityConfig {
 message ContainerazureAlphaClusterFleet {
   string project = 1;
   string membership = 2;
+}
+
+message ContainerazureAlphaClusterLoggingConfig {
+  ContainerazureAlphaClusterLoggingConfigComponentConfig component_config = 1;
+}
+
+message ContainerazureAlphaClusterLoggingConfigComponentConfig {
+  repeated ContainerazureAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum enable_components = 1;
 }
 
 message ApplyContainerazureAlphaClusterRequest {

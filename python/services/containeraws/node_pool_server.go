@@ -71,6 +71,7 @@ func ProtoToContainerawsNodePoolConfig(p *containerawspb.ContainerawsNodePoolCon
 		IamInstanceProfile: dcl.StringOrNil(p.GetIamInstanceProfile()),
 		ConfigEncryption:   ProtoToContainerawsNodePoolConfigConfigEncryption(p.GetConfigEncryption()),
 		SshConfig:          ProtoToContainerawsNodePoolConfigSshConfig(p.GetSshConfig()),
+		ProxyConfig:        ProtoToContainerawsNodePoolConfigProxyConfig(p.GetProxyConfig()),
 	}
 	for _, r := range p.GetTaints() {
 		obj.Taints = append(obj.Taints, *ProtoToContainerawsNodePoolConfigTaints(r))
@@ -126,6 +127,18 @@ func ProtoToContainerawsNodePoolConfigSshConfig(p *containerawspb.ContainerawsNo
 	}
 	obj := &containeraws.NodePoolConfigSshConfig{
 		Ec2KeyPair: dcl.StringOrNil(p.GetEc2KeyPair()),
+	}
+	return obj
+}
+
+// ProtoToNodePoolConfigProxyConfig converts a NodePoolConfigProxyConfig object from its proto representation.
+func ProtoToContainerawsNodePoolConfigProxyConfig(p *containerawspb.ContainerawsNodePoolConfigProxyConfig) *containeraws.NodePoolConfigProxyConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &containeraws.NodePoolConfigProxyConfig{
+		SecretArn:     dcl.StringOrNil(p.GetSecretArn()),
+		SecretVersion: dcl.StringOrNil(p.GetSecretVersion()),
 	}
 	return obj
 }
@@ -219,6 +232,7 @@ func ContainerawsNodePoolConfigToProto(o *containeraws.NodePoolConfig) *containe
 	p.SetIamInstanceProfile(dcl.ValueOrEmptyString(o.IamInstanceProfile))
 	p.SetConfigEncryption(ContainerawsNodePoolConfigConfigEncryptionToProto(o.ConfigEncryption))
 	p.SetSshConfig(ContainerawsNodePoolConfigSshConfigToProto(o.SshConfig))
+	p.SetProxyConfig(ContainerawsNodePoolConfigProxyConfigToProto(o.ProxyConfig))
 	sTaints := make([]*containerawspb.ContainerawsNodePoolConfigTaints, len(o.Taints))
 	for i, r := range o.Taints {
 		sTaints[i] = ContainerawsNodePoolConfigTaintsToProto(&r)
@@ -284,6 +298,17 @@ func ContainerawsNodePoolConfigSshConfigToProto(o *containeraws.NodePoolConfigSs
 	}
 	p := &containerawspb.ContainerawsNodePoolConfigSshConfig{}
 	p.SetEc2KeyPair(dcl.ValueOrEmptyString(o.Ec2KeyPair))
+	return p
+}
+
+// NodePoolConfigProxyConfigToProto converts a NodePoolConfigProxyConfig object to its proto representation.
+func ContainerawsNodePoolConfigProxyConfigToProto(o *containeraws.NodePoolConfigProxyConfig) *containerawspb.ContainerawsNodePoolConfigProxyConfig {
+	if o == nil {
+		return nil
+	}
+	p := &containerawspb.ContainerawsNodePoolConfigProxyConfig{}
+	p.SetSecretArn(dcl.ValueOrEmptyString(o.SecretArn))
+	p.SetSecretVersion(dcl.ValueOrEmptyString(o.SecretVersion))
 	return p
 }
 

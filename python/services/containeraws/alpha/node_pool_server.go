@@ -48,6 +48,18 @@ func ProtoToContainerawsAlphaNodePoolConfigTaintsEffectEnum(e alphapb.Containera
 	return nil
 }
 
+// ProtoToNodePoolConfigInstancePlacementTenancyEnum converts a NodePoolConfigInstancePlacementTenancyEnum enum from its proto representation.
+func ProtoToContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnum(e alphapb.ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnum) *alpha.NodePoolConfigInstancePlacementTenancyEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnum_name[int32(e)]; ok {
+		e := alpha.NodePoolConfigInstancePlacementTenancyEnum(n[len("ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToNodePoolStateEnum converts a NodePoolStateEnum enum from its proto representation.
 func ProtoToContainerawsAlphaNodePoolStateEnum(e alphapb.ContainerawsAlphaNodePoolStateEnum) *alpha.NodePoolStateEnum {
 	if e == 0 {
@@ -71,6 +83,7 @@ func ProtoToContainerawsAlphaNodePoolConfig(p *alphapb.ContainerawsAlphaNodePool
 		IamInstanceProfile: dcl.StringOrNil(p.GetIamInstanceProfile()),
 		ConfigEncryption:   ProtoToContainerawsAlphaNodePoolConfigConfigEncryption(p.GetConfigEncryption()),
 		SshConfig:          ProtoToContainerawsAlphaNodePoolConfigSshConfig(p.GetSshConfig()),
+		InstancePlacement:  ProtoToContainerawsAlphaNodePoolConfigInstancePlacement(p.GetInstancePlacement()),
 	}
 	for _, r := range p.GetTaints() {
 		obj.Taints = append(obj.Taints, *ProtoToContainerawsAlphaNodePoolConfigTaints(r))
@@ -126,6 +139,17 @@ func ProtoToContainerawsAlphaNodePoolConfigSshConfig(p *alphapb.ContainerawsAlph
 	}
 	obj := &alpha.NodePoolConfigSshConfig{
 		Ec2KeyPair: dcl.StringOrNil(p.GetEc2KeyPair()),
+	}
+	return obj
+}
+
+// ProtoToNodePoolConfigInstancePlacement converts a NodePoolConfigInstancePlacement object from its proto representation.
+func ProtoToContainerawsAlphaNodePoolConfigInstancePlacement(p *alphapb.ContainerawsAlphaNodePoolConfigInstancePlacement) *alpha.NodePoolConfigInstancePlacement {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.NodePoolConfigInstancePlacement{
+		Tenancy: ProtoToContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnum(p.GetTenancy()),
 	}
 	return obj
 }
@@ -197,6 +221,17 @@ func ContainerawsAlphaNodePoolConfigTaintsEffectEnumToProto(e *alpha.NodePoolCon
 	return alphapb.ContainerawsAlphaNodePoolConfigTaintsEffectEnum(0)
 }
 
+// NodePoolConfigInstancePlacementTenancyEnumToProto converts a NodePoolConfigInstancePlacementTenancyEnum enum to its proto representation.
+func ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnumToProto(e *alpha.NodePoolConfigInstancePlacementTenancyEnum) alphapb.ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnum {
+	if e == nil {
+		return alphapb.ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnum(0)
+	}
+	if v, ok := alphapb.ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnum_value["NodePoolConfigInstancePlacementTenancyEnum"+string(*e)]; ok {
+		return alphapb.ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnum(v)
+	}
+	return alphapb.ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnum(0)
+}
+
 // NodePoolStateEnumToProto converts a NodePoolStateEnum enum to its proto representation.
 func ContainerawsAlphaNodePoolStateEnumToProto(e *alpha.NodePoolStateEnum) alphapb.ContainerawsAlphaNodePoolStateEnum {
 	if e == nil {
@@ -219,6 +254,7 @@ func ContainerawsAlphaNodePoolConfigToProto(o *alpha.NodePoolConfig) *alphapb.Co
 	p.SetIamInstanceProfile(dcl.ValueOrEmptyString(o.IamInstanceProfile))
 	p.SetConfigEncryption(ContainerawsAlphaNodePoolConfigConfigEncryptionToProto(o.ConfigEncryption))
 	p.SetSshConfig(ContainerawsAlphaNodePoolConfigSshConfigToProto(o.SshConfig))
+	p.SetInstancePlacement(ContainerawsAlphaNodePoolConfigInstancePlacementToProto(o.InstancePlacement))
 	sTaints := make([]*alphapb.ContainerawsAlphaNodePoolConfigTaints, len(o.Taints))
 	for i, r := range o.Taints {
 		sTaints[i] = ContainerawsAlphaNodePoolConfigTaintsToProto(&r)
@@ -284,6 +320,16 @@ func ContainerawsAlphaNodePoolConfigSshConfigToProto(o *alpha.NodePoolConfigSshC
 	}
 	p := &alphapb.ContainerawsAlphaNodePoolConfigSshConfig{}
 	p.SetEc2KeyPair(dcl.ValueOrEmptyString(o.Ec2KeyPair))
+	return p
+}
+
+// NodePoolConfigInstancePlacementToProto converts a NodePoolConfigInstancePlacement object to its proto representation.
+func ContainerawsAlphaNodePoolConfigInstancePlacementToProto(o *alpha.NodePoolConfigInstancePlacement) *alphapb.ContainerawsAlphaNodePoolConfigInstancePlacement {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerawsAlphaNodePoolConfigInstancePlacement{}
+	p.SetTenancy(ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnumToProto(o.Tenancy))
 	return p
 }
 

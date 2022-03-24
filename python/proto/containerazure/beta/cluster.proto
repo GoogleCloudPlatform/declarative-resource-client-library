@@ -32,6 +32,13 @@ enum ContainerazureBetaClusterStateEnum {
   ContainerazureBetaClusterStateEnumDEGRADED = 7;
 }
 
+enum ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnum {
+  ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnumCOMPONENT_UNSPECIFIED = 1;
+  ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnumSYSTEM_COMPONENTS = 2;
+  ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnumWORKLOADS = 3;
+}
+
 message ContainerazureBetaCluster {
   string name = 1;
   string description = 2;
@@ -53,6 +60,7 @@ message ContainerazureBetaCluster {
   string project = 18;
   string location = 19;
   ContainerazureBetaClusterFleet fleet = 20;
+  ContainerazureBetaClusterLoggingConfig logging_config = 21;
 }
 
 message ContainerazureBetaClusterNetworking {
@@ -117,6 +125,14 @@ message ContainerazureBetaClusterWorkloadIdentityConfig {
 message ContainerazureBetaClusterFleet {
   string project = 1;
   string membership = 2;
+}
+
+message ContainerazureBetaClusterLoggingConfig {
+  ContainerazureBetaClusterLoggingConfigComponentConfig component_config = 1;
+}
+
+message ContainerazureBetaClusterLoggingConfigComponentConfig {
+  repeated ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnum enable_components = 1;
 }
 
 message ApplyContainerazureBetaClusterRequest {

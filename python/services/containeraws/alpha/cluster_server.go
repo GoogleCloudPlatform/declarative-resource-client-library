@@ -48,6 +48,18 @@ func ProtoToContainerawsAlphaClusterControlPlaneMainVolumeVolumeTypeEnum(e alpha
 	return nil
 }
 
+// ProtoToClusterControlPlaneInstancePlacementTenancyEnum converts a ClusterControlPlaneInstancePlacementTenancyEnum enum from its proto representation.
+func ProtoToContainerawsAlphaClusterControlPlaneInstancePlacementTenancyEnum(e alphapb.ContainerawsAlphaClusterControlPlaneInstancePlacementTenancyEnum) *alpha.ClusterControlPlaneInstancePlacementTenancyEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.ContainerawsAlphaClusterControlPlaneInstancePlacementTenancyEnum_name[int32(e)]; ok {
+		e := alpha.ClusterControlPlaneInstancePlacementTenancyEnum(n[len("ContainerawsAlphaClusterControlPlaneInstancePlacementTenancyEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToClusterStateEnum converts a ClusterStateEnum enum from its proto representation.
 func ProtoToContainerawsAlphaClusterStateEnum(e alphapb.ContainerawsAlphaClusterStateEnum) *alpha.ClusterStateEnum {
 	if e == 0 {
@@ -55,6 +67,18 @@ func ProtoToContainerawsAlphaClusterStateEnum(e alphapb.ContainerawsAlphaCluster
 	}
 	if n, ok := alphapb.ContainerawsAlphaClusterStateEnum_name[int32(e)]; ok {
 		e := alpha.ClusterStateEnum(n[len("ContainerawsAlphaClusterStateEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToClusterLoggingConfigComponentConfigEnableComponentsEnum converts a ClusterLoggingConfigComponentConfigEnableComponentsEnum enum from its proto representation.
+func ProtoToContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum(e alphapb.ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum) *alpha.ClusterLoggingConfigComponentConfigEnableComponentsEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum_name[int32(e)]; ok {
+		e := alpha.ClusterLoggingConfigComponentConfigEnableComponentsEnum(n[len("ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum"):])
 		return &e
 	}
 	return nil
@@ -93,6 +117,7 @@ func ProtoToContainerawsAlphaClusterControlPlane(p *alphapb.ContainerawsAlphaClu
 		DatabaseEncryption:        ProtoToContainerawsAlphaClusterControlPlaneDatabaseEncryption(p.GetDatabaseEncryption()),
 		AwsServicesAuthentication: ProtoToContainerawsAlphaClusterControlPlaneAwsServicesAuthentication(p.GetAwsServicesAuthentication()),
 		ProxyConfig:               ProtoToContainerawsAlphaClusterControlPlaneProxyConfig(p.GetProxyConfig()),
+		InstancePlacement:         ProtoToContainerawsAlphaClusterControlPlaneInstancePlacement(p.GetInstancePlacement()),
 	}
 	for _, r := range p.GetSubnetIds() {
 		obj.SubnetIds = append(obj.SubnetIds, r)
@@ -188,6 +213,17 @@ func ProtoToContainerawsAlphaClusterControlPlaneProxyConfig(p *alphapb.Container
 	return obj
 }
 
+// ProtoToClusterControlPlaneInstancePlacement converts a ClusterControlPlaneInstancePlacement object from its proto representation.
+func ProtoToContainerawsAlphaClusterControlPlaneInstancePlacement(p *alphapb.ContainerawsAlphaClusterControlPlaneInstancePlacement) *alpha.ClusterControlPlaneInstancePlacement {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterControlPlaneInstancePlacement{
+		Tenancy: ProtoToContainerawsAlphaClusterControlPlaneInstancePlacementTenancyEnum(p.GetTenancy()),
+	}
+	return obj
+}
+
 // ProtoToClusterAuthorization converts a ClusterAuthorization object from its proto representation.
 func ProtoToContainerawsAlphaClusterAuthorization(p *alphapb.ContainerawsAlphaClusterAuthorization) *alpha.ClusterAuthorization {
 	if p == nil {
@@ -236,6 +272,29 @@ func ProtoToContainerawsAlphaClusterFleet(p *alphapb.ContainerawsAlphaClusterFle
 	return obj
 }
 
+// ProtoToClusterLoggingConfig converts a ClusterLoggingConfig object from its proto representation.
+func ProtoToContainerawsAlphaClusterLoggingConfig(p *alphapb.ContainerawsAlphaClusterLoggingConfig) *alpha.ClusterLoggingConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterLoggingConfig{
+		ComponentConfig: ProtoToContainerawsAlphaClusterLoggingConfigComponentConfig(p.GetComponentConfig()),
+	}
+	return obj
+}
+
+// ProtoToClusterLoggingConfigComponentConfig converts a ClusterLoggingConfigComponentConfig object from its proto representation.
+func ProtoToContainerawsAlphaClusterLoggingConfigComponentConfig(p *alphapb.ContainerawsAlphaClusterLoggingConfigComponentConfig) *alpha.ClusterLoggingConfigComponentConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterLoggingConfigComponentConfig{}
+	for _, r := range p.GetEnableComponents() {
+		obj.EnableComponents = append(obj.EnableComponents, *ProtoToContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum(r))
+	}
+	return obj
+}
+
 // ProtoToCluster converts a Cluster resource from its proto representation.
 func ProtoToCluster(p *alphapb.ContainerawsAlphaCluster) *alpha.Cluster {
 	obj := &alpha.Cluster{
@@ -256,6 +315,7 @@ func ProtoToCluster(p *alphapb.ContainerawsAlphaCluster) *alpha.Cluster {
 		Project:                dcl.StringOrNil(p.GetProject()),
 		Location:               dcl.StringOrNil(p.GetLocation()),
 		Fleet:                  ProtoToContainerawsAlphaClusterFleet(p.GetFleet()),
+		LoggingConfig:          ProtoToContainerawsAlphaClusterLoggingConfig(p.GetLoggingConfig()),
 	}
 	return obj
 }
@@ -282,6 +342,17 @@ func ContainerawsAlphaClusterControlPlaneMainVolumeVolumeTypeEnumToProto(e *alph
 	return alphapb.ContainerawsAlphaClusterControlPlaneMainVolumeVolumeTypeEnum(0)
 }
 
+// ClusterControlPlaneInstancePlacementTenancyEnumToProto converts a ClusterControlPlaneInstancePlacementTenancyEnum enum to its proto representation.
+func ContainerawsAlphaClusterControlPlaneInstancePlacementTenancyEnumToProto(e *alpha.ClusterControlPlaneInstancePlacementTenancyEnum) alphapb.ContainerawsAlphaClusterControlPlaneInstancePlacementTenancyEnum {
+	if e == nil {
+		return alphapb.ContainerawsAlphaClusterControlPlaneInstancePlacementTenancyEnum(0)
+	}
+	if v, ok := alphapb.ContainerawsAlphaClusterControlPlaneInstancePlacementTenancyEnum_value["ClusterControlPlaneInstancePlacementTenancyEnum"+string(*e)]; ok {
+		return alphapb.ContainerawsAlphaClusterControlPlaneInstancePlacementTenancyEnum(v)
+	}
+	return alphapb.ContainerawsAlphaClusterControlPlaneInstancePlacementTenancyEnum(0)
+}
+
 // ClusterStateEnumToProto converts a ClusterStateEnum enum to its proto representation.
 func ContainerawsAlphaClusterStateEnumToProto(e *alpha.ClusterStateEnum) alphapb.ContainerawsAlphaClusterStateEnum {
 	if e == nil {
@@ -291,6 +362,17 @@ func ContainerawsAlphaClusterStateEnumToProto(e *alpha.ClusterStateEnum) alphapb
 		return alphapb.ContainerawsAlphaClusterStateEnum(v)
 	}
 	return alphapb.ContainerawsAlphaClusterStateEnum(0)
+}
+
+// ClusterLoggingConfigComponentConfigEnableComponentsEnumToProto converts a ClusterLoggingConfigComponentConfigEnableComponentsEnum enum to its proto representation.
+func ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnumToProto(e *alpha.ClusterLoggingConfigComponentConfigEnableComponentsEnum) alphapb.ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum {
+	if e == nil {
+		return alphapb.ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum(0)
+	}
+	if v, ok := alphapb.ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum_value["ClusterLoggingConfigComponentConfigEnableComponentsEnum"+string(*e)]; ok {
+		return alphapb.ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum(v)
+	}
+	return alphapb.ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum(0)
 }
 
 // ClusterNetworkingToProto converts a ClusterNetworking object to its proto representation.
@@ -329,6 +411,7 @@ func ContainerawsAlphaClusterControlPlaneToProto(o *alpha.ClusterControlPlane) *
 	p.SetDatabaseEncryption(ContainerawsAlphaClusterControlPlaneDatabaseEncryptionToProto(o.DatabaseEncryption))
 	p.SetAwsServicesAuthentication(ContainerawsAlphaClusterControlPlaneAwsServicesAuthenticationToProto(o.AwsServicesAuthentication))
 	p.SetProxyConfig(ContainerawsAlphaClusterControlPlaneProxyConfigToProto(o.ProxyConfig))
+	p.SetInstancePlacement(ContainerawsAlphaClusterControlPlaneInstancePlacementToProto(o.InstancePlacement))
 	sSubnetIds := make([]string, len(o.SubnetIds))
 	for i, r := range o.SubnetIds {
 		sSubnetIds[i] = r
@@ -425,6 +508,16 @@ func ContainerawsAlphaClusterControlPlaneProxyConfigToProto(o *alpha.ClusterCont
 	return p
 }
 
+// ClusterControlPlaneInstancePlacementToProto converts a ClusterControlPlaneInstancePlacement object to its proto representation.
+func ContainerawsAlphaClusterControlPlaneInstancePlacementToProto(o *alpha.ClusterControlPlaneInstancePlacement) *alphapb.ContainerawsAlphaClusterControlPlaneInstancePlacement {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerawsAlphaClusterControlPlaneInstancePlacement{}
+	p.SetTenancy(ContainerawsAlphaClusterControlPlaneInstancePlacementTenancyEnumToProto(o.Tenancy))
+	return p
+}
+
 // ClusterAuthorizationToProto converts a ClusterAuthorization object to its proto representation.
 func ContainerawsAlphaClusterAuthorizationToProto(o *alpha.ClusterAuthorization) *alphapb.ContainerawsAlphaClusterAuthorization {
 	if o == nil {
@@ -472,6 +565,30 @@ func ContainerawsAlphaClusterFleetToProto(o *alpha.ClusterFleet) *alphapb.Contai
 	return p
 }
 
+// ClusterLoggingConfigToProto converts a ClusterLoggingConfig object to its proto representation.
+func ContainerawsAlphaClusterLoggingConfigToProto(o *alpha.ClusterLoggingConfig) *alphapb.ContainerawsAlphaClusterLoggingConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerawsAlphaClusterLoggingConfig{}
+	p.SetComponentConfig(ContainerawsAlphaClusterLoggingConfigComponentConfigToProto(o.ComponentConfig))
+	return p
+}
+
+// ClusterLoggingConfigComponentConfigToProto converts a ClusterLoggingConfigComponentConfig object to its proto representation.
+func ContainerawsAlphaClusterLoggingConfigComponentConfigToProto(o *alpha.ClusterLoggingConfigComponentConfig) *alphapb.ContainerawsAlphaClusterLoggingConfigComponentConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerawsAlphaClusterLoggingConfigComponentConfig{}
+	sEnableComponents := make([]alphapb.ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum, len(o.EnableComponents))
+	for i, r := range o.EnableComponents {
+		sEnableComponents[i] = alphapb.ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum(alphapb.ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum_value[string(r)])
+	}
+	p.SetEnableComponents(sEnableComponents)
+	return p
+}
+
 // ClusterToProto converts a Cluster resource to its proto representation.
 func ClusterToProto(resource *alpha.Cluster) *alphapb.ContainerawsAlphaCluster {
 	p := &alphapb.ContainerawsAlphaCluster{}
@@ -492,6 +609,7 @@ func ClusterToProto(resource *alpha.Cluster) *alphapb.ContainerawsAlphaCluster {
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetFleet(ContainerawsAlphaClusterFleetToProto(resource.Fleet))
+	p.SetLoggingConfig(ContainerawsAlphaClusterLoggingConfigToProto(resource.LoggingConfig))
 	mAnnotations := make(map[string]string, len(resource.Annotations))
 	for k, r := range resource.Annotations {
 		mAnnotations[k] = r

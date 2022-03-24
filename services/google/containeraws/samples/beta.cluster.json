@@ -48,6 +48,9 @@
     "proxyConfig": {
       "secretArn": "arn:aws:secretsmanager:us-west-2:126285863215:secret:proxy_config20210824150329476300000001-ABCDEF",
       "secretVersion": "12345678-ABCD-EFGH-IJKL-987654321098"
+    },
+    "instancePlacement": {
+      "tenancy": "DEDICATED"
     }
   },
   "authorization": {
@@ -62,5 +65,10 @@
   },
   "fleet": {
     "project": "{{project_number}}"
+  },
+  "loggingConfig": {
+    "componentConfig": {
+      "enableComponents": ["SYSTEM_COMPONENTS", "WORKLOADS"]
+    }
   }
 }

@@ -36,6 +36,14 @@ enum ContainerawsAlphaNodePoolConfigTaintsEffectEnum {
   ContainerawsAlphaNodePoolConfigTaintsEffectEnumNO_EXECUTE = 4;
 }
 
+enum ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnum {
+  ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnumTENANCY_UNSPECIFIED = 1;
+  ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnumDEFAULT = 2;
+  ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnumDEDICATED = 3;
+  ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnumHOST = 4;
+}
+
 enum ContainerawsAlphaNodePoolStateEnum {
   ContainerawsAlphaNodePoolStateEnumNO_VALUE_DO_NOT_USE = 0;
   ContainerawsAlphaNodePoolStateEnumSTATE_UNSPECIFIED = 1;
@@ -76,6 +84,7 @@ message ContainerawsAlphaNodePoolConfig {
   ContainerawsAlphaNodePoolConfigConfigEncryption config_encryption = 7;
   ContainerawsAlphaNodePoolConfigSshConfig ssh_config = 8;
   repeated string security_group_ids = 9;
+  ContainerawsAlphaNodePoolConfigInstancePlacement instance_placement = 10;
 }
 
 message ContainerawsAlphaNodePoolConfigRootVolume {
@@ -97,6 +106,10 @@ message ContainerawsAlphaNodePoolConfigConfigEncryption {
 
 message ContainerawsAlphaNodePoolConfigSshConfig {
   string ec2_key_pair = 1;
+}
+
+message ContainerawsAlphaNodePoolConfigInstancePlacement {
+  ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnum tenancy = 1;
 }
 
 message ContainerawsAlphaNodePoolAutoscaling {

@@ -64,6 +64,13 @@ func NodePoolToUnstructured(r *dclService.NodePool) *unstructured.Resource {
 		if r.Config.IamInstanceProfile != nil {
 			rConfig["iamInstanceProfile"] = *r.Config.IamInstanceProfile
 		}
+		if r.Config.InstancePlacement != nil && r.Config.InstancePlacement != dclService.EmptyNodePoolConfigInstancePlacement {
+			rConfigInstancePlacement := make(map[string]interface{})
+			if r.Config.InstancePlacement.Tenancy != nil {
+				rConfigInstancePlacement["tenancy"] = string(*r.Config.InstancePlacement.Tenancy)
+			}
+			rConfig["instancePlacement"] = rConfigInstancePlacement
+		}
 		if r.Config.InstanceType != nil {
 			rConfig["instanceType"] = *r.Config.InstanceType
 		}
@@ -234,6 +241,20 @@ func UnstructuredToNodePool(u *unstructured.Resource) (*dclService.NodePool, err
 					r.Config.IamInstanceProfile = dcl.String(s)
 				} else {
 					return nil, fmt.Errorf("r.Config.IamInstanceProfile: expected string")
+				}
+			}
+			if _, ok := rConfig["instancePlacement"]; ok {
+				if rConfigInstancePlacement, ok := rConfig["instancePlacement"].(map[string]interface{}); ok {
+					r.Config.InstancePlacement = &dclService.NodePoolConfigInstancePlacement{}
+					if _, ok := rConfigInstancePlacement["tenancy"]; ok {
+						if s, ok := rConfigInstancePlacement["tenancy"].(string); ok {
+							r.Config.InstancePlacement.Tenancy = dclService.NodePoolConfigInstancePlacementTenancyEnumRef(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.InstancePlacement.Tenancy: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Config.InstancePlacement: expected map[string]interface{}")
 				}
 			}
 			if _, ok := rConfig["instanceType"]; ok {
