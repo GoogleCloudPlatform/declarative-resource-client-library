@@ -84,6 +84,7 @@ func ProtoToContainerawsAlphaNodePoolConfig(p *alphapb.ContainerawsAlphaNodePool
 		ConfigEncryption:   ProtoToContainerawsAlphaNodePoolConfigConfigEncryption(p.GetConfigEncryption()),
 		SshConfig:          ProtoToContainerawsAlphaNodePoolConfigSshConfig(p.GetSshConfig()),
 		InstancePlacement:  ProtoToContainerawsAlphaNodePoolConfigInstancePlacement(p.GetInstancePlacement()),
+		ImageType:          dcl.StringOrNil(p.GetImageType()),
 	}
 	for _, r := range p.GetTaints() {
 		obj.Taints = append(obj.Taints, *ProtoToContainerawsAlphaNodePoolConfigTaints(r))
@@ -255,6 +256,7 @@ func ContainerawsAlphaNodePoolConfigToProto(o *alpha.NodePoolConfig) *alphapb.Co
 	p.SetConfigEncryption(ContainerawsAlphaNodePoolConfigConfigEncryptionToProto(o.ConfigEncryption))
 	p.SetSshConfig(ContainerawsAlphaNodePoolConfigSshConfigToProto(o.SshConfig))
 	p.SetInstancePlacement(ContainerawsAlphaNodePoolConfigInstancePlacementToProto(o.InstancePlacement))
+	p.SetImageType(dcl.ValueOrEmptyString(o.ImageType))
 	sTaints := make([]*alphapb.ContainerawsAlphaNodePoolConfigTaints, len(o.Taints))
 	for i, r := range o.Taints {
 		sTaints[i] = ContainerawsAlphaNodePoolConfigTaintsToProto(&r)

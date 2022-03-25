@@ -85,6 +85,7 @@ message ContainerawsBetaNodePoolConfig {
   ContainerawsBetaNodePoolConfigSshConfig ssh_config = 8;
   repeated string security_group_ids = 9;
   ContainerawsBetaNodePoolConfigInstancePlacement instance_placement = 10;
+  string image_type = 11;
 }
 
 message ContainerawsBetaNodePoolConfigRootVolume {

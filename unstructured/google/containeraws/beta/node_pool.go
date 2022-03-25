@@ -64,6 +64,9 @@ func NodePoolToUnstructured(r *dclService.NodePool) *unstructured.Resource {
 		if r.Config.IamInstanceProfile != nil {
 			rConfig["iamInstanceProfile"] = *r.Config.IamInstanceProfile
 		}
+		if r.Config.ImageType != nil {
+			rConfig["imageType"] = *r.Config.ImageType
+		}
 		if r.Config.InstancePlacement != nil && r.Config.InstancePlacement != dclService.EmptyNodePoolConfigInstancePlacement {
 			rConfigInstancePlacement := make(map[string]interface{})
 			if r.Config.InstancePlacement.Tenancy != nil {
@@ -241,6 +244,13 @@ func UnstructuredToNodePool(u *unstructured.Resource) (*dclService.NodePool, err
 					r.Config.IamInstanceProfile = dcl.String(s)
 				} else {
 					return nil, fmt.Errorf("r.Config.IamInstanceProfile: expected string")
+				}
+			}
+			if _, ok := rConfig["imageType"]; ok {
+				if s, ok := rConfig["imageType"].(string); ok {
+					r.Config.ImageType = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.Config.ImageType: expected string")
 				}
 			}
 			if _, ok := rConfig["instancePlacement"]; ok {

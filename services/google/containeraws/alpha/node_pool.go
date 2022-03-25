@@ -167,6 +167,7 @@ type NodePoolConfig struct {
 	SshConfig          *NodePoolConfigSshConfig         `json:"sshConfig"`
 	SecurityGroupIds   []string                         `json:"securityGroupIds"`
 	InstancePlacement  *NodePoolConfigInstancePlacement `json:"instancePlacement"`
+	ImageType          *string                          `json:"imageType"`
 }
 
 type jsonNodePoolConfig NodePoolConfig
@@ -203,6 +204,8 @@ func (r *NodePoolConfig) UnmarshalJSON(data []byte) error {
 		r.SecurityGroupIds = res.SecurityGroupIds
 
 		r.InstancePlacement = res.InstancePlacement
+
+		r.ImageType = res.ImageType
 
 	}
 	return nil

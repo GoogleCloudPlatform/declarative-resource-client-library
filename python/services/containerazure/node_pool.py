@@ -234,11 +234,13 @@ class NodePoolConfig(object):
         root_volume: dict = None,
         tags: dict = None,
         ssh_config: dict = None,
+        proxy_config: dict = None,
     ):
         self.vm_size = vm_size
         self.root_volume = root_volume
         self.tags = tags
         self.ssh_config = ssh_config
+        self.proxy_config = proxy_config
 
     @classmethod
     def to_proto(self, resource):
@@ -262,6 +264,12 @@ class NodePoolConfig(object):
             )
         else:
             res.ClearField("ssh_config")
+        if NodePoolConfigProxyConfig.to_proto(resource.proxy_config):
+            res.proxy_config.CopyFrom(
+                NodePoolConfigProxyConfig.to_proto(resource.proxy_config)
+            )
+        else:
+            res.ClearField("proxy_config")
         return res
 
     @classmethod
@@ -274,6 +282,7 @@ class NodePoolConfig(object):
             root_volume=NodePoolConfigRootVolume.from_proto(resource.root_volume),
             tags=Primitive.from_proto(resource.tags),
             ssh_config=NodePoolConfigSshConfig.from_proto(resource.ssh_config),
+            proxy_config=NodePoolConfigProxyConfig.from_proto(resource.proxy_config),
         )
 
 
@@ -359,6 +368,46 @@ class NodePoolConfigSshConfigArray(object):
     @classmethod
     def from_proto(self, resources):
         return [NodePoolConfigSshConfig.from_proto(i) for i in resources]
+
+
+class NodePoolConfigProxyConfig(object):
+    def __init__(self, resource_group_id: str = None, secret_id: str = None):
+        self.resource_group_id = resource_group_id
+        self.secret_id = secret_id
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = node_pool_pb2.ContainerazureNodePoolConfigProxyConfig()
+        if Primitive.to_proto(resource.resource_group_id):
+            res.resource_group_id = Primitive.to_proto(resource.resource_group_id)
+        if Primitive.to_proto(resource.secret_id):
+            res.secret_id = Primitive.to_proto(resource.secret_id)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return NodePoolConfigProxyConfig(
+            resource_group_id=Primitive.from_proto(resource.resource_group_id),
+            secret_id=Primitive.from_proto(resource.secret_id),
+        )
+
+
+class NodePoolConfigProxyConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [NodePoolConfigProxyConfig.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [NodePoolConfigProxyConfig.from_proto(i) for i in resources]
 
 
 class NodePoolAutoscaling(object):

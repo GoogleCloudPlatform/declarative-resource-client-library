@@ -150,6 +150,34 @@ components:
           required:
           - sshConfig
           properties:
+            imageType:
+              type: string
+              x-dcl-go-name: ImageType
+              description: The OS image type to use on node pool instances.
+              x-kubernetes-immutable: true
+              x-dcl-server-default: true
+            proxyConfig:
+              type: object
+              x-dcl-go-name: ProxyConfig
+              x-dcl-go-type: NodePoolConfigProxyConfig
+              description: Proxy configuration for outbound HTTP(S) traffic.
+              x-kubernetes-immutable: true
+              required:
+              - resourceGroupId
+              - secretId
+              properties:
+                resourceGroupId:
+                  type: string
+                  x-dcl-go-name: ResourceGroupId
+                  description: The ARM ID the of the resource group containing proxy
+                    keyvault. Resource group ids are formatted as `/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>`
+                  x-kubernetes-immutable: true
+                secretId:
+                  type: string
+                  x-dcl-go-name: SecretId
+                  description: The URL the of the proxy setting secret with its version.
+                    Secret ids are formatted as `https:<key-vault-name>.vault.azure.net/secrets/<secret-name>/<secret-version>`.
+                  x-kubernetes-immutable: true
             rootVolume:
               type: object
               x-dcl-go-name: RootVolume

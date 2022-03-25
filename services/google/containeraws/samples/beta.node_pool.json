@@ -43,7 +43,8 @@
     "securityGroupIds": ["{{aws_security_group}}"],
     "instancePlacement": {
       "tenancy": "DEDICATED"
-    }
+    },
+    "imageType": "ubuntu"
   },
   "annotations": {
     "label-one": "value-one"

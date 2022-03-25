@@ -57,6 +57,16 @@ func NodePoolToUnstructured(r *dclService.NodePool) *unstructured.Resource {
 	}
 	if r.Config != nil && r.Config != dclService.EmptyNodePoolConfig {
 		rConfig := make(map[string]interface{})
+		if r.Config.ProxyConfig != nil && r.Config.ProxyConfig != dclService.EmptyNodePoolConfigProxyConfig {
+			rConfigProxyConfig := make(map[string]interface{})
+			if r.Config.ProxyConfig.ResourceGroupId != nil {
+				rConfigProxyConfig["resourceGroupId"] = *r.Config.ProxyConfig.ResourceGroupId
+			}
+			if r.Config.ProxyConfig.SecretId != nil {
+				rConfigProxyConfig["secretId"] = *r.Config.ProxyConfig.SecretId
+			}
+			rConfig["proxyConfig"] = rConfigProxyConfig
+		}
 		if r.Config.RootVolume != nil && r.Config.RootVolume != dclService.EmptyNodePoolConfigRootVolume {
 			rConfigRootVolume := make(map[string]interface{})
 			if r.Config.RootVolume.SizeGib != nil {
@@ -179,6 +189,27 @@ func UnstructuredToNodePool(u *unstructured.Resource) (*dclService.NodePool, err
 	if _, ok := u.Object["config"]; ok {
 		if rConfig, ok := u.Object["config"].(map[string]interface{}); ok {
 			r.Config = &dclService.NodePoolConfig{}
+			if _, ok := rConfig["proxyConfig"]; ok {
+				if rConfigProxyConfig, ok := rConfig["proxyConfig"].(map[string]interface{}); ok {
+					r.Config.ProxyConfig = &dclService.NodePoolConfigProxyConfig{}
+					if _, ok := rConfigProxyConfig["resourceGroupId"]; ok {
+						if s, ok := rConfigProxyConfig["resourceGroupId"].(string); ok {
+							r.Config.ProxyConfig.ResourceGroupId = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.ProxyConfig.ResourceGroupId: expected string")
+						}
+					}
+					if _, ok := rConfigProxyConfig["secretId"]; ok {
+						if s, ok := rConfigProxyConfig["secretId"].(string); ok {
+							r.Config.ProxyConfig.SecretId = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.ProxyConfig.SecretId: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Config.ProxyConfig: expected map[string]interface{}")
+				}
+			}
 			if _, ok := rConfig["rootVolume"]; ok {
 				if rConfigRootVolume, ok := rConfig["rootVolume"].(map[string]interface{}); ok {
 					r.Config.RootVolume = &dclService.NodePoolConfigRootVolume{}

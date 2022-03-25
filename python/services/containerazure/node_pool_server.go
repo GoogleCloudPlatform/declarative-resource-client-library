@@ -42,9 +42,10 @@ func ProtoToContainerazureNodePoolConfig(p *containerazurepb.ContainerazureNodeP
 		return nil
 	}
 	obj := &containerazure.NodePoolConfig{
-		VmSize:     dcl.StringOrNil(p.GetVmSize()),
-		RootVolume: ProtoToContainerazureNodePoolConfigRootVolume(p.GetRootVolume()),
-		SshConfig:  ProtoToContainerazureNodePoolConfigSshConfig(p.GetSshConfig()),
+		VmSize:      dcl.StringOrNil(p.GetVmSize()),
+		RootVolume:  ProtoToContainerazureNodePoolConfigRootVolume(p.GetRootVolume()),
+		SshConfig:   ProtoToContainerazureNodePoolConfigSshConfig(p.GetSshConfig()),
+		ProxyConfig: ProtoToContainerazureNodePoolConfigProxyConfig(p.GetProxyConfig()),
 	}
 	return obj
 }
@@ -67,6 +68,18 @@ func ProtoToContainerazureNodePoolConfigSshConfig(p *containerazurepb.Containera
 	}
 	obj := &containerazure.NodePoolConfigSshConfig{
 		AuthorizedKey: dcl.StringOrNil(p.GetAuthorizedKey()),
+	}
+	return obj
+}
+
+// ProtoToNodePoolConfigProxyConfig converts a NodePoolConfigProxyConfig object from its proto representation.
+func ProtoToContainerazureNodePoolConfigProxyConfig(p *containerazurepb.ContainerazureNodePoolConfigProxyConfig) *containerazure.NodePoolConfigProxyConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &containerazure.NodePoolConfigProxyConfig{
+		ResourceGroupId: dcl.StringOrNil(p.GetResourceGroupId()),
+		SecretId:        dcl.StringOrNil(p.GetSecretId()),
 	}
 	return obj
 }
@@ -137,6 +150,7 @@ func ContainerazureNodePoolConfigToProto(o *containerazure.NodePoolConfig) *cont
 	p.SetVmSize(dcl.ValueOrEmptyString(o.VmSize))
 	p.SetRootVolume(ContainerazureNodePoolConfigRootVolumeToProto(o.RootVolume))
 	p.SetSshConfig(ContainerazureNodePoolConfigSshConfigToProto(o.SshConfig))
+	p.SetProxyConfig(ContainerazureNodePoolConfigProxyConfigToProto(o.ProxyConfig))
 	mTags := make(map[string]string, len(o.Tags))
 	for k, r := range o.Tags {
 		mTags[k] = r
@@ -162,6 +176,17 @@ func ContainerazureNodePoolConfigSshConfigToProto(o *containerazure.NodePoolConf
 	}
 	p := &containerazurepb.ContainerazureNodePoolConfigSshConfig{}
 	p.SetAuthorizedKey(dcl.ValueOrEmptyString(o.AuthorizedKey))
+	return p
+}
+
+// NodePoolConfigProxyConfigToProto converts a NodePoolConfigProxyConfig object to its proto representation.
+func ContainerazureNodePoolConfigProxyConfigToProto(o *containerazure.NodePoolConfigProxyConfig) *containerazurepb.ContainerazureNodePoolConfigProxyConfig {
+	if o == nil {
+		return nil
+	}
+	p := &containerazurepb.ContainerazureNodePoolConfigProxyConfig{}
+	p.SetResourceGroupId(dcl.ValueOrEmptyString(o.ResourceGroupId))
+	p.SetSecretId(dcl.ValueOrEmptyString(o.SecretId))
 	return p
 }
 

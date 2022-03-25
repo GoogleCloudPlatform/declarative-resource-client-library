@@ -158,6 +158,12 @@ components:
               x-dcl-go-name: IamInstanceProfile
               description: The name of the AWS IAM role assigned to nodes in the pool.
               x-kubernetes-immutable: true
+            imageType:
+              type: string
+              x-dcl-go-name: ImageType
+              description: The OS image type to use on node pool instances.
+              x-kubernetes-immutable: true
+              x-dcl-server-default: true
             instancePlacement:
               type: object
               x-dcl-go-name: InstancePlacement

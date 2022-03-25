@@ -57,6 +57,8 @@ message ContainerazureAlphaNodePoolConfig {
   ContainerazureAlphaNodePoolConfigRootVolume root_volume = 2;
   map<string, string> tags = 3;
   ContainerazureAlphaNodePoolConfigSshConfig ssh_config = 4;
+  string image_type = 5;
+  ContainerazureAlphaNodePoolConfigProxyConfig proxy_config = 6;
 }
 
 message ContainerazureAlphaNodePoolConfigRootVolume {
@@ -65,6 +67,11 @@ message ContainerazureAlphaNodePoolConfigRootVolume {
 
 message ContainerazureAlphaNodePoolConfigSshConfig {
   string authorized_key = 1;
+}
+
+message ContainerazureAlphaNodePoolConfigProxyConfig {
+  string resource_group_id = 1;
+  string secret_id = 2;
 }
 
 message ContainerazureAlphaNodePoolAutoscaling {

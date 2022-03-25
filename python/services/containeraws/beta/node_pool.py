@@ -219,6 +219,7 @@ class NodePoolConfig(object):
         ssh_config: dict = None,
         security_group_ids: list = None,
         instance_placement: dict = None,
+        image_type: str = None,
     ):
         self.instance_type = instance_type
         self.root_volume = root_volume
@@ -230,6 +231,7 @@ class NodePoolConfig(object):
         self.ssh_config = ssh_config
         self.security_group_ids = security_group_ids
         self.instance_placement = instance_placement
+        self.image_type = image_type
 
     @classmethod
     def to_proto(self, resource):
@@ -275,6 +277,8 @@ class NodePoolConfig(object):
             )
         else:
             res.ClearField("instance_placement")
+        if Primitive.to_proto(resource.image_type):
+            res.image_type = Primitive.to_proto(resource.image_type)
         return res
 
     @classmethod
@@ -297,6 +301,7 @@ class NodePoolConfig(object):
             instance_placement=NodePoolConfigInstancePlacement.from_proto(
                 resource.instance_placement
             ),
+            image_type=Primitive.from_proto(resource.image_type),
         )
 
 

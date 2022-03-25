@@ -84,6 +84,7 @@ func ProtoToContainerawsBetaNodePoolConfig(p *betapb.ContainerawsBetaNodePoolCon
 		ConfigEncryption:   ProtoToContainerawsBetaNodePoolConfigConfigEncryption(p.GetConfigEncryption()),
 		SshConfig:          ProtoToContainerawsBetaNodePoolConfigSshConfig(p.GetSshConfig()),
 		InstancePlacement:  ProtoToContainerawsBetaNodePoolConfigInstancePlacement(p.GetInstancePlacement()),
+		ImageType:          dcl.StringOrNil(p.GetImageType()),
 	}
 	for _, r := range p.GetTaints() {
 		obj.Taints = append(obj.Taints, *ProtoToContainerawsBetaNodePoolConfigTaints(r))
@@ -255,6 +256,7 @@ func ContainerawsBetaNodePoolConfigToProto(o *beta.NodePoolConfig) *betapb.Conta
 	p.SetConfigEncryption(ContainerawsBetaNodePoolConfigConfigEncryptionToProto(o.ConfigEncryption))
 	p.SetSshConfig(ContainerawsBetaNodePoolConfigSshConfigToProto(o.SshConfig))
 	p.SetInstancePlacement(ContainerawsBetaNodePoolConfigInstancePlacementToProto(o.InstancePlacement))
+	p.SetImageType(dcl.ValueOrEmptyString(o.ImageType))
 	sTaints := make([]*betapb.ContainerawsBetaNodePoolConfigTaints, len(o.Taints))
 	for i, r := range o.Taints {
 		sTaints[i] = ContainerawsBetaNodePoolConfigTaintsToProto(&r)

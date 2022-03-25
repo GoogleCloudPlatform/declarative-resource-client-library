@@ -767,6 +767,11 @@ func canonicalizeNodePoolConfig(des, initial *NodePoolConfig, opts ...dcl.ApplyO
 		cDes.SecurityGroupIds = des.SecurityGroupIds
 	}
 	cDes.InstancePlacement = canonicalizeNodePoolConfigInstancePlacement(des.InstancePlacement, initial.InstancePlacement, opts...)
+	if dcl.StringCanonicalize(des.ImageType, initial.ImageType) || dcl.IsZeroValue(des.ImageType) {
+		cDes.ImageType = initial.ImageType
+	} else {
+		cDes.ImageType = des.ImageType
+	}
 
 	return cDes
 }
@@ -827,6 +832,9 @@ func canonicalizeNewNodePoolConfig(c *Client, des, nw *NodePoolConfig) *NodePool
 		nw.SecurityGroupIds = des.SecurityGroupIds
 	}
 	nw.InstancePlacement = canonicalizeNewNodePoolConfigInstancePlacement(c, des.InstancePlacement, nw.InstancePlacement)
+	if dcl.StringCanonicalize(des.ImageType, nw.ImageType) {
+		nw.ImageType = des.ImageType
+	}
 
 	return nw
 }
@@ -1929,6 +1937,13 @@ func compareNodePoolConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.ImageType, actual.ImageType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ImageType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -2453,6 +2468,9 @@ func expandNodePoolConfig(c *Client, f *NodePoolConfig, res *NodePool) (map[stri
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["instancePlacement"] = v
 	}
+	if v := f.ImageType; !dcl.IsEmptyValueIndirect(v) {
+		m["imageType"] = v
+	}
 
 	return m, nil
 }
@@ -2480,6 +2498,7 @@ func flattenNodePoolConfig(c *Client, i interface{}, res *NodePool) *NodePoolCon
 	r.SshConfig = flattenNodePoolConfigSshConfig(c, m["sshConfig"], res)
 	r.SecurityGroupIds = dcl.FlattenStringSlice(m["securityGroupIds"])
 	r.InstancePlacement = flattenNodePoolConfigInstancePlacement(c, m["instancePlacement"], res)
+	r.ImageType = dcl.FlattenString(m["imageType"])
 
 	return r
 }
