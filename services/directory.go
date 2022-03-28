@@ -777,6 +777,8 @@ func Services() *Directory {
 	d.AddResource("alpha", "networkservices", "TcpRoute", networkservices_alpha.YAML_tcp_route)
 	d.AddResource("alpha", "networkservices", dcl.TitleToSnakeCase("Gateway"), networkservices_alpha.YAML_gateway)
 	d.AddResource("alpha", "networkservices", "Gateway", networkservices_alpha.YAML_gateway)
+	d.AddResource("alpha", "networkservices", dcl.TitleToSnakeCase("TlsRoute"), networkservices_alpha.YAML_tls_route)
+	d.AddResource("alpha", "networkservices", "TlsRoute", networkservices_alpha.YAML_tls_route)
 	d.AddResource("alpha", "orgpolicy", dcl.TitleToSnakeCase("Policy"), orgpolicy_alpha.YAML_policy)
 	d.AddResource("alpha", "orgpolicy", "Policy", orgpolicy_alpha.YAML_policy)
 	d.AddResource("alpha", "osconfig", dcl.TitleToSnakeCase("OSPolicyAssignment"), osconfig_alpha.YAML_os_policy_assignment)

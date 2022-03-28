@@ -246,7 +246,8 @@ components:
               value:
                 type: string
                 x-dcl-go-name: Value
-                description: Required. The value for the attribute.
+                description: Required. The value for the attribute. See https://cloud.google.com/eventarc/docs/creating-triggers#trigger-gcloud
+                  for available values.
         name:
           type: string
           x-dcl-go-name: Name
