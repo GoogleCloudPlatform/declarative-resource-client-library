@@ -90,6 +90,17 @@ func NewBackoff() *Backoff {
 	}
 }
 
+// NewBackoffWithOptions returns a Backoff with caller-supplied parameters.
+func NewBackoffWithOptions(initialInterval, maxInterval time.Duration) *Backoff {
+	bo := backoff.NewExponentialBackOff()
+	bo.MaxInterval = maxInterval
+	bo.InitialInterval = initialInterval
+	bo.MaxElapsedTime = 0
+	return &Backoff{
+		bo: bo,
+	}
+}
+
 // RetryAfter implementation that uses exponential backoff.
 func (n *Backoff) RetryAfter(_ *RetryDetails) time.Duration {
 	if next := n.bo.NextBackOff(); next != backoff.Stop {
