@@ -1,5 +1,4 @@
 {
-  "name": "{{ref:__state__:name}}",
   "parent": "projects/{{project}}",
   "location": "{{region}}",
   "displayName": "new-sample-template",

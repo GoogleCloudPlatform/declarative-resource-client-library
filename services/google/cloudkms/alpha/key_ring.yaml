@@ -68,10 +68,8 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          description: Output only. The resource name for the KeyRing in the format
-            `projects/*/locations/*/keyRings/*`.
+          description: The resource name for the KeyRing in the format `projects/*/locations/*/keyRings/*`.
           x-kubernetes-immutable: true
-          x-dcl-server-generated-parameter: true
         project:
           type: string
           x-dcl-go-name: Project

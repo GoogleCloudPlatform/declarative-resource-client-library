@@ -572,13 +572,6 @@ func (op *createCertificateOperation) do(ctx context.Context, r *Certificate, c 
 	}
 	op.response = o
 
-	// Include Name in URL substitution for initial GET request.
-	name, ok := op.response["name"].(string)
-	if !ok {
-		return fmt.Errorf("expected name to be a string in %v, was %T", op.response, op.response["name"])
-	}
-	r.Name = &name
-
 	if _, err := c.GetCertificate(ctx, r); err != nil {
 		c.Config.Logger.WarningWithContextf(ctx, "get returned error: %v", err)
 		return err
@@ -621,12 +614,6 @@ func (c *Client) certificateDiffsForRawDesired(ctx context.Context, rawDesired *
 		fetchState = rawDesired
 	}
 
-	if fetchState.Name == nil {
-		// We cannot perform a get because of lack of information. We have to assume
-		// that this is being created for the first time.
-		desired, err := canonicalizeCertificateDesiredState(rawDesired, nil)
-		return nil, desired, nil, err
-	}
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetCertificate(ctx, fetchState)
 	if rawInitial == nil {
@@ -722,8 +709,7 @@ func canonicalizeCertificateDesiredState(rawDesired, rawInitial *Certificate, op
 	}
 
 	canonicalDesired := &Certificate{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -785,6 +771,9 @@ func canonicalizeCertificateNewState(c *Client, rawNew, rawDesired *Certificate)
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PemCsr) && dcl.IsNotReturnedByServer(rawDesired.PemCsr) {
@@ -7149,7 +7138,7 @@ func flattenCertificate(c *Client, i interface{}, res *Certificate) *Certificate
 	}
 
 	resultRes := &Certificate{}
-	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Name = dcl.FlattenString(m["name"])
 	resultRes.PemCsr = dcl.FlattenString(m["pemCsr"])
 	resultRes.Config = flattenCertificateConfig(c, m["config"], res)
 	resultRes.IssuerCertificateAuthority = dcl.FlattenString(m["issuerCertificateAuthority"])

@@ -348,6 +348,10 @@ func (op *createWorkloadOperation) do(ctx context.Context, r *Workload, c *Clien
 	if err != nil {
 		return err
 	}
+	if r.Name != nil {
+		// Allowing creation to continue with Name set could result in a Workload with the wrong Name.
+		return fmt.Errorf("server-generated parameter Name was specified by user as %v, should be unspecified", dcl.ValueOrEmptyString(r.Name))
+	}
 	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err

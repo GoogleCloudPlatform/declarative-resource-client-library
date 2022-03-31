@@ -1067,10 +1067,8 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          description: Output only. The resource name for this Certificate in the
-            format `projects/*/locations/*/caPools/*/certificates/*`.
+          description: The resource name for this Certificate in the format `projects/*/locations/*/caPools/*/certificates/*`.
           x-kubernetes-immutable: true
-          x-dcl-server-generated-parameter: true
           x-dcl-references:
           - resource: Privateca/Certificate
             field: selfLink

@@ -1,5 +1,4 @@
 {
-  "name": "{{template}}",
   "parent": "organizations/{{org_id}}",
   "location": "global",
   "inspectConfig": {

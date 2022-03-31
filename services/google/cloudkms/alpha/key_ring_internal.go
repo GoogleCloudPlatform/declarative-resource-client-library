@@ -168,13 +168,6 @@ func (op *createKeyRingOperation) do(ctx context.Context, r *KeyRing, c *Client)
 	}
 	op.response = o
 
-	// Include Name in URL substitution for initial GET request.
-	name, ok := op.response["name"].(string)
-	if !ok {
-		return fmt.Errorf("expected name to be a string in %v, was %T", op.response, op.response["name"])
-	}
-	r.Name = &name
-
 	if _, err := c.GetKeyRing(ctx, r); err != nil {
 		c.Config.Logger.WarningWithContextf(ctx, "get returned error: %v", err)
 		return err
@@ -217,12 +210,6 @@ func (c *Client) keyRingDiffsForRawDesired(ctx context.Context, rawDesired *KeyR
 		fetchState = rawDesired
 	}
 
-	if fetchState.Name == nil {
-		// We cannot perform a get because of lack of information. We have to assume
-		// that this is being created for the first time.
-		desired, err := canonicalizeKeyRingDesiredState(rawDesired, nil)
-		return nil, desired, nil, err
-	}
 	// 1.2: Retrieval of raw initial state from API
 	rawInitial, err := c.GetKeyRing(ctx, fetchState)
 	if rawInitial == nil {
@@ -283,8 +270,7 @@ func canonicalizeKeyRingDesiredState(rawDesired, rawInitial *KeyRing, opts ...dc
 		return rawDesired, nil
 	}
 	canonicalDesired := &KeyRing{}
-	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -308,6 +294,9 @@ func canonicalizeKeyRingNewState(c *Client, rawNew, rawDesired *KeyRing) (*KeyRi
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
+		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
+			rawNew.Name = rawDesired.Name
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
@@ -340,7 +329,7 @@ func diffKeyRing(c *Client, desired, actual *KeyRing, opts ...dcl.ApplyOption) (
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -452,7 +441,7 @@ func flattenKeyRing(c *Client, i interface{}, res *KeyRing) *KeyRing {
 	}
 
 	resultRes := &KeyRing{}
-	resultRes.Name = dcl.SelfLinkToName(dcl.FlattenString(m["name"]))
+	resultRes.Name = dcl.FlattenString(m["name"])
 	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
 	resultRes.Project = dcl.FlattenString(m["project"])
 	resultRes.Location = dcl.FlattenString(m["location"])

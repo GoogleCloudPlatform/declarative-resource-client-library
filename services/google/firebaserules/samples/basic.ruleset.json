@@ -1,5 +1,4 @@
 {
-  "name": "{{ruleset}}",
   "project": "{{project}}",
   "source": {
     "files": [{

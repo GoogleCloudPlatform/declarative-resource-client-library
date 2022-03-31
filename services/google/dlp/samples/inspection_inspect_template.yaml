@@ -24,5 +24,3 @@ updates:
 variables:
 - name: org_id
   type: org_id
-- name: template
-  type: resource_name

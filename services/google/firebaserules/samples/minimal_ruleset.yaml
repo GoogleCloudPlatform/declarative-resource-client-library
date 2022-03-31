@@ -20,5 +20,3 @@ resource: samples/minimal.ruleset.json
 variables:
 - name: project
   type: project
-- name: ruleset
-  type: resource_name

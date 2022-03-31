@@ -21,5 +21,3 @@ resource: samples/minimal.inspect_template.json
 variables:
 - name: project
   type: project
-- name: template
-  type: resource_name

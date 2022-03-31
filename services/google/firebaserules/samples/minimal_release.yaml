@@ -24,5 +24,3 @@ variables:
   type: project
 - name: release
   type: resource_name
-- name: ruleset
-  type: resource_name

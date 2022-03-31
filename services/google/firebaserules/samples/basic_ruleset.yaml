@@ -20,5 +20,3 @@ resource: samples/basic.ruleset.json
 variables:
 - name: project
   type: project
-- name: ruleset
-  type: resource_name

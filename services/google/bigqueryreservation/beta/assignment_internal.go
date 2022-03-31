@@ -232,6 +232,10 @@ func (op *createAssignmentOperation) do(ctx context.Context, r *Assignment, c *C
 	if err != nil {
 		return err
 	}
+	if r.Name != nil {
+		// Allowing creation to continue with Name set could result in a Assignment with the wrong Name.
+		return fmt.Errorf("server-generated parameter Name was specified by user as %v, should be unspecified", dcl.ValueOrEmptyString(r.Name))
+	}
 	resp, err := dcl.SendRequest(ctx, c.Config, "POST", u, bytes.NewBuffer(req), c.Config.RetryProvider)
 	if err != nil {
 		return err
