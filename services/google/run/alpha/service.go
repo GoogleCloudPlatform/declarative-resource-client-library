@@ -156,7 +156,7 @@ func (v ServiceTemplateExecutionEnvironmentEnum) Validate() error {
 		// Empty enum is okay.
 		return nil
 	}
-	for _, s := range []string{"EXECUTION_ENVIRONMENT_UNSPECIFIED", "EXECUTION_ENVIRONMENT_DEFAULT", "EXECUTION_ENVIRONMENT_GEN2"} {
+	for _, s := range []string{"EXECUTION_ENVIRONMENT_UNSPECIFIED", "EXECUTION_ENVIRONMENT_GEN1", "EXECUTION_ENVIRONMENT_GEN2"} {
 		if string(v) == s {
 			return nil
 		}

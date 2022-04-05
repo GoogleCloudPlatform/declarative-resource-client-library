@@ -486,11 +486,11 @@ components:
               x-dcl-go-name: ExecutionEnvironment
               x-dcl-go-type: ServiceTemplateExecutionEnvironmentEnum
               description: 'The sandbox environment to host this Revision. Possible
-                values: EXECUTION_ENVIRONMENT_UNSPECIFIED, EXECUTION_ENVIRONMENT_DEFAULT,
+                values: EXECUTION_ENVIRONMENT_UNSPECIFIED, EXECUTION_ENVIRONMENT_GEN1,
                 EXECUTION_ENVIRONMENT_GEN2'
               enum:
               - EXECUTION_ENVIRONMENT_UNSPECIFIED
-              - EXECUTION_ENVIRONMENT_DEFAULT
+              - EXECUTION_ENVIRONMENT_GEN1
               - EXECUTION_ENVIRONMENT_GEN2
             labels:
               type: object

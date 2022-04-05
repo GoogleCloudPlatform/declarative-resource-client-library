@@ -51,7 +51,7 @@ enum RunAlphaServiceTemplateVPCAccessEgressEnum {
 enum RunAlphaServiceTemplateExecutionEnvironmentEnum {
   RunAlphaServiceTemplateExecutionEnvironmentEnumNO_VALUE_DO_NOT_USE = 0;
   RunAlphaServiceTemplateExecutionEnvironmentEnumEXECUTION_ENVIRONMENT_UNSPECIFIED = 1;
-  RunAlphaServiceTemplateExecutionEnvironmentEnumEXECUTION_ENVIRONMENT_DEFAULT = 2;
+  RunAlphaServiceTemplateExecutionEnvironmentEnumEXECUTION_ENVIRONMENT_GEN1 = 2;
   RunAlphaServiceTemplateExecutionEnvironmentEnumEXECUTION_ENVIRONMENT_GEN2 = 3;
 }
 
