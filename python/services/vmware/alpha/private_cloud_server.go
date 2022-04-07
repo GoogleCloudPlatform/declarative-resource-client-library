@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vmware/alpha"
 )
 
-// Server implements the gRPC interface for PrivateCloud.
+// PrivateCloudServer implements the gRPC interface for PrivateCloud.
 type PrivateCloudServer struct{}
 
 // ProtoToPrivateCloudStateEnum converts a PrivateCloudStateEnum enum from its proto representation.

@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iap/alpha"
 )
 
-// Server implements the gRPC interface for IdentityAwareProxyClient.
+// IdentityAwareProxyClientServer implements the gRPC interface for IdentityAwareProxyClient.
 type IdentityAwareProxyClientServer struct{}
 
 // ProtoToIdentityAwareProxyClient converts a IdentityAwareProxyClient resource from its proto representation.

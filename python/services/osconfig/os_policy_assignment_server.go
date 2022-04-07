@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig"
 )
 
-// Server implements the gRPC interface for OSPolicyAssignment.
+// OSPolicyAssignmentServer implements the gRPC interface for OSPolicyAssignment.
 type OSPolicyAssignmentServer struct{}
 
 // ProtoToOSPolicyAssignmentOSPoliciesModeEnum converts a OSPolicyAssignmentOSPoliciesModeEnum enum from its proto representation.

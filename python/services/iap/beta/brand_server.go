@@ -22,7 +22,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iap/beta"
 )
 
-// Server implements the gRPC interface for Brand.
+// BrandServer implements the gRPC interface for Brand.
 type BrandServer struct{}
 
 // ProtoToBrand converts a Brand resource from its proto representation.

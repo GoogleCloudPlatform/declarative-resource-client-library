@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc"
 )
 
-// Server implements the gRPC interface for Trigger.
+// TriggerServer implements the gRPC interface for Trigger.
 type TriggerServer struct{}
 
 // ProtoToTriggerMatchingCriteria converts a TriggerMatchingCriteria object from its proto representation.

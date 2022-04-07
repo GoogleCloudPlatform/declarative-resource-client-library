@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/identitytoolkit/alpha"
 )
 
-// Server implements the gRPC interface for OAuthIdpConfig.
+// OAuthIdpConfigServer implements the gRPC interface for OAuthIdpConfig.
 type OAuthIdpConfigServer struct{}
 
 // ProtoToOAuthIdpConfigResponseType converts a OAuthIdpConfigResponseType object from its proto representation.

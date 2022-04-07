@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/beta"
 )
 
-// Server implements the gRPC interface for PatchDeployment.
+// PatchDeploymentServer implements the gRPC interface for PatchDeployment.
 type PatchDeploymentServer struct{}
 
 // ProtoToPatchDeploymentPatchConfigRebootConfigEnum converts a PatchDeploymentPatchConfigRebootConfigEnum enum from its proto representation.

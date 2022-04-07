@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/alpha"
 )
 
-// Server implements the gRPC interface for HttpFilter.
+// HttpFilterServer implements the gRPC interface for HttpFilter.
 type HttpFilterServer struct{}
 
 // ProtoToHttpFilter converts a HttpFilter resource from its proto representation.

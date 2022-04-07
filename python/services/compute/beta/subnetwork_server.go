@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute/beta"
 )
 
-// Server implements the gRPC interface for Subnetwork.
+// SubnetworkServer implements the gRPC interface for Subnetwork.
 type SubnetworkServer struct{}
 
 // ProtoToSubnetworkPurposeEnum converts a SubnetworkPurposeEnum enum from its proto representation.

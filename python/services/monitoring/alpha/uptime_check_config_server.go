@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/alpha"
 )
 
-// Server implements the gRPC interface for UptimeCheckConfig.
+// UptimeCheckConfigServer implements the gRPC interface for UptimeCheckConfig.
 type UptimeCheckConfigServer struct{}
 
 // ProtoToUptimeCheckConfigResourceGroupResourceTypeEnum converts a UptimeCheckConfigResourceGroupResourceTypeEnum enum from its proto representation.

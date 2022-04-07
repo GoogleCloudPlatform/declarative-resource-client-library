@@ -22,7 +22,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms/alpha"
 )
 
-// Server implements the gRPC interface for CryptoKey.
+// CryptoKeyServer implements the gRPC interface for CryptoKey.
 type CryptoKeyServer struct{}
 
 // ProtoToCryptoKeyPrimaryStateEnum converts a CryptoKeyPrimaryStateEnum enum from its proto representation.

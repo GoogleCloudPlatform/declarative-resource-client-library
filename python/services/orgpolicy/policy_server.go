@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/orgpolicy"
 )
 
-// Server implements the gRPC interface for Policy.
+// PolicyServer implements the gRPC interface for Policy.
 type PolicyServer struct{}
 
 // ProtoToPolicySpec converts a PolicySpec object from its proto representation.

@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation/beta"
 )
 
-// Server implements the gRPC interface for CapacityCommitment.
+// CapacityCommitmentServer implements the gRPC interface for CapacityCommitment.
 type CapacityCommitmentServer struct{}
 
 // ProtoToCapacityCommitmentPlanEnum converts a CapacityCommitmentPlanEnum enum from its proto representation.

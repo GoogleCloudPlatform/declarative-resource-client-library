@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dlp/beta"
 )
 
-// Server implements the gRPC interface for DeidentifyTemplate.
+// DeidentifyTemplateServer implements the gRPC interface for DeidentifyTemplate.
 type DeidentifyTemplateServer struct{}
 
 // ProtoToDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDayOfWeekValueEnum converts a DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDayOfWeekValueEnum enum from its proto representation.

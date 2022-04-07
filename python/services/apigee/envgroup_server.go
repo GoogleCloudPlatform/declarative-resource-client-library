@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apigee"
 )
 
-// Server implements the gRPC interface for Envgroup.
+// EnvgroupServer implements the gRPC interface for Envgroup.
 type EnvgroupServer struct{}
 
 // ProtoToEnvgroupStateEnum converts a EnvgroupStateEnum enum from its proto representation.

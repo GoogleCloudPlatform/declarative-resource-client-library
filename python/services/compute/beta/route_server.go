@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute/beta"
 )
 
-// Server implements the gRPC interface for Route.
+// RouteServer implements the gRPC interface for Route.
 type RouteServer struct{}
 
 // ProtoToRouteWarningCodeEnum converts a RouteWarningCodeEnum enum from its proto representation.

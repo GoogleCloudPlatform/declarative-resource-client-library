@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/logging"
 )
 
-// Server implements the gRPC interface for LogExclusion.
+// LogExclusionServer implements the gRPC interface for LogExclusion.
 type LogExclusionServer struct{}
 
 // ProtoToLogExclusion converts a LogExclusion resource from its proto representation.

@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkconnectivity/beta"
 )
 
-// Server implements the gRPC interface for Hub.
+// HubServer implements the gRPC interface for Hub.
 type HubServer struct{}
 
 // ProtoToHubStateEnum converts a HubStateEnum enum from its proto representation.

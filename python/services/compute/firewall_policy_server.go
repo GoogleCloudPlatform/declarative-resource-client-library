@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute"
 )
 
-// Server implements the gRPC interface for FirewallPolicy.
+// FirewallPolicyServer implements the gRPC interface for FirewallPolicy.
 type FirewallPolicyServer struct{}
 
 // ProtoToFirewallPolicy converts a FirewallPolicy resource from its proto representation.

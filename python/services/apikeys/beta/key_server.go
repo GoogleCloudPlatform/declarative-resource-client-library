@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apikeys/beta"
 )
 
-// Server implements the gRPC interface for Key.
+// KeyServer implements the gRPC interface for Key.
 type KeyServer struct{}
 
 // ProtoToKeyRestrictions converts a KeyRestrictions object from its proto representation.

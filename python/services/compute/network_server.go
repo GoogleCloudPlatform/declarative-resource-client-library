@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute"
 )
 
-// Server implements the gRPC interface for Network.
+// NetworkServer implements the gRPC interface for Network.
 type NetworkServer struct{}
 
 // ProtoToNetworkRoutingConfigRoutingModeEnum converts a NetworkRoutingConfigRoutingModeEnum enum from its proto representation.

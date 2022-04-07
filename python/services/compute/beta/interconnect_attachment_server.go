@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute/beta"
 )
 
-// Server implements the gRPC interface for InterconnectAttachment.
+// InterconnectAttachmentServer implements the gRPC interface for InterconnectAttachment.
 type InterconnectAttachmentServer struct{}
 
 // ProtoToInterconnectAttachmentOperationalStatusEnum converts a InterconnectAttachmentOperationalStatusEnum enum from its proto representation.

@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeraws/alpha"
 )
 
-// Server implements the gRPC interface for Cluster.
+// ClusterServer implements the gRPC interface for Cluster.
 type ClusterServer struct{}
 
 // ProtoToClusterControlPlaneRootVolumeVolumeTypeEnum converts a ClusterControlPlaneRootVolumeVolumeTypeEnum enum from its proto representation.

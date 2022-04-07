@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/beta"
 )
 
-// Server implements the gRPC interface for CertificateTemplate.
+// CertificateTemplateServer implements the gRPC interface for CertificateTemplate.
 type CertificateTemplateServer struct{}
 
 // ProtoToCertificateTemplatePassthroughExtensionsKnownExtensionsEnum converts a CertificateTemplatePassthroughExtensionsKnownExtensionsEnum enum from its proto representation.

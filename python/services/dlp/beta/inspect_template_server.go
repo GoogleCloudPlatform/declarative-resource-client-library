@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dlp/beta"
 )
 
-// Server implements the gRPC interface for InspectTemplate.
+// InspectTemplateServer implements the gRPC interface for InspectTemplate.
 type InspectTemplateServer struct{}
 
 // ProtoToInspectTemplateInspectConfigMinLikelihoodEnum converts a InspectTemplateInspectConfigMinLikelihoodEnum enum from its proto representation.

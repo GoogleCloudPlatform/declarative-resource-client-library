@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/identitytoolkit/alpha"
 )
 
-// Server implements the gRPC interface for Tenant.
+// TenantServer implements the gRPC interface for Tenant.
 type TenantServer struct{}
 
 // ProtoToTenantMfaConfigStateEnum converts a TenantMfaConfigStateEnum enum from its proto representation.

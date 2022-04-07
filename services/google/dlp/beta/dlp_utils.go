@@ -17,7 +17,6 @@ package beta
 import (
 	"bytes"
 	"context"
-	"strings"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -27,18 +26,6 @@ func encodeDLPCreateRequest(m map[string]interface{}, resourceName string, idFie
 	req := make(map[string]interface{})
 	// Put base object into object field.
 	dcl.PutMapEntry(req, []string{resourceName}, m)
-	name, ok := m["name"].(*string)
-	if !ok {
-		// No name specified, server will generate one.
-		return req
-	}
-	// Remove name from resource object.
-	delete(m, "name")
-	// Convert to short name.
-	nameParts := strings.Split(dcl.ValueOrEmptyString(name), "/")
-	if len(nameParts) > 0 {
-		req[idFieldName] = nameParts[len(nameParts)-1]
-	}
 	return req
 }
 

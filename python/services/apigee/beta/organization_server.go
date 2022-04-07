@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apigee/beta"
 )
 
-// Server implements the gRPC interface for Organization.
+// OrganizationServer implements the gRPC interface for Organization.
 type OrganizationServer struct{}
 
 // ProtoToOrganizationRuntimeTypeEnum converts a OrganizationRuntimeTypeEnum enum from its proto representation.

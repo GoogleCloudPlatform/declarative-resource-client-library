@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apigee/beta"
 )
 
-// Server implements the gRPC interface for Attachment.
+// AttachmentServer implements the gRPC interface for Attachment.
 type AttachmentServer struct{}
 
 // ProtoToAttachment converts a Attachment resource from its proto representation.

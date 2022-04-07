@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeraws"
 )
 
-// Server implements the gRPC interface for NodePool.
+// NodePoolServer implements the gRPC interface for NodePool.
 type NodePoolServer struct{}
 
 // ProtoToNodePoolConfigRootVolumeVolumeTypeEnum converts a NodePoolConfigRootVolumeVolumeTypeEnum enum from its proto representation.

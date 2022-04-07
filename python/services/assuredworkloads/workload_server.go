@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/assuredworkloads"
 )
 
-// Server implements the gRPC interface for Workload.
+// WorkloadServer implements the gRPC interface for Workload.
 type WorkloadServer struct{}
 
 // ProtoToWorkloadResourcesResourceTypeEnum converts a WorkloadResourcesResourceTypeEnum enum from its proto representation.

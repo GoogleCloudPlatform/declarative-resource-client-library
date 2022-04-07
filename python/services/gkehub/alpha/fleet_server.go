@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/alpha"
 )
 
-// Server implements the gRPC interface for Fleet.
+// FleetServer implements the gRPC interface for Fleet.
 type FleetServer struct{}
 
 // ProtoToFleet converts a Fleet resource from its proto representation.

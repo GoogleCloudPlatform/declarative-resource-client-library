@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/alpha"
 )
 
-// Server implements the gRPC interface for GrpcRoute.
+// GrpcRouteServer implements the gRPC interface for GrpcRoute.
 type GrpcRouteServer struct{}
 
 // ProtoToGrpcRouteRulesMatchesMethodTypeEnum converts a GrpcRouteRulesMatchesMethodTypeEnum enum from its proto representation.

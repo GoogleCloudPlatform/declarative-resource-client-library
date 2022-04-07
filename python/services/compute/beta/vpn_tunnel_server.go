@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute/beta"
 )
 
-// Server implements the gRPC interface for VpnTunnel.
+// VpnTunnelServer implements the gRPC interface for VpnTunnel.
 type VpnTunnelServer struct{}
 
 // ProtoToVpnTunnelStatusEnum converts a VpnTunnelStatusEnum enum from its proto representation.

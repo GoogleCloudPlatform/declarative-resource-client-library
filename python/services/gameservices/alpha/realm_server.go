@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices/alpha"
 )
 
-// Server implements the gRPC interface for Realm.
+// RealmServer implements the gRPC interface for Realm.
 type RealmServer struct{}
 
 // ProtoToRealm converts a Realm resource from its proto representation.

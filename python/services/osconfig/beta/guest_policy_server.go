@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/osconfig/beta"
 )
 
-// Server implements the gRPC interface for GuestPolicy.
+// GuestPolicyServer implements the gRPC interface for GuestPolicy.
 type GuestPolicyServer struct{}
 
 // ProtoToGuestPolicyPackagesDesiredStateEnum converts a GuestPolicyPackagesDesiredStateEnum enum from its proto representation.

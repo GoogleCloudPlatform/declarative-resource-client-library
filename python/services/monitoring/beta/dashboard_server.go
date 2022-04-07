@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/beta"
 )
 
-// Server implements the gRPC interface for Dashboard.
+// DashboardServer implements the gRPC interface for Dashboard.
 type DashboardServer struct{}
 
 // ProtoToDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum converts a DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationPerSeriesAlignerEnum enum from its proto representation.

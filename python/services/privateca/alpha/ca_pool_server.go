@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/alpha"
 )
 
-// Server implements the gRPC interface for CaPool.
+// CaPoolServer implements the gRPC interface for CaPool.
 type CaPoolServer struct{}
 
 // ProtoToCaPoolTierEnum converts a CaPoolTierEnum enum from its proto representation.

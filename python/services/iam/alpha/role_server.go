@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam/alpha"
 )
 
-// Server implements the gRPC interface for Role.
+// RoleServer implements the gRPC interface for Role.
 type RoleServer struct{}
 
 // ProtoToRoleStageEnum converts a RoleStageEnum enum from its proto representation.

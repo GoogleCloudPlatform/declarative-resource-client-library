@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/alpha"
 )
 
-// Server implements the gRPC interface for Mesh.
+// MeshServer implements the gRPC interface for Mesh.
 type MeshServer struct{}
 
 // ProtoToMesh converts a Mesh resource from its proto representation.

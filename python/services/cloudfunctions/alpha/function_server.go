@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudfunctions/alpha"
 )
 
-// Server implements the gRPC interface for Function.
+// FunctionServer implements the gRPC interface for Function.
 type FunctionServer struct{}
 
 // ProtoToFunctionHttpsTriggerSecurityLevelEnum converts a FunctionHttpsTriggerSecurityLevelEnum enum from its proto representation.

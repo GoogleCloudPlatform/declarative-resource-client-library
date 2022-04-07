@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apigee/alpha"
 )
 
-// Server implements the gRPC interface for Environment.
+// EnvironmentServer implements the gRPC interface for Environment.
 type EnvironmentServer struct{}
 
 // ProtoToEnvironmentStateEnum converts a EnvironmentStateEnum enum from its proto representation.

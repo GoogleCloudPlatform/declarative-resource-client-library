@@ -686,6 +686,7 @@ components:
                             x-dcl-go-name: CpuIdle
                             description: Determines whether CPU should be throttled
                               or not outside of requests.
+                            x-dcl-server-default: true
                           limits:
                             type: object
                             additionalProperties:

@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containerazure/beta"
 )
 
-// Server implements the gRPC interface for Client.
+// ClientServer implements the gRPC interface for Client.
 type ClientServer struct{}
 
 // ProtoToClient converts a Client resource from its proto representation.

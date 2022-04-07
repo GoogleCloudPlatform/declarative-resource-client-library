@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/alpha"
 )
 
-// Server implements the gRPC interface for Bucket.
+// BucketServer implements the gRPC interface for Bucket.
 type BucketServer struct{}
 
 // ProtoToBucketLifecycleRuleActionTypeEnum converts a BucketLifecycleRuleActionTypeEnum enum from its proto representation.

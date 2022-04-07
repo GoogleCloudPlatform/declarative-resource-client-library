@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dlp/alpha"
 )
 
-// Server implements the gRPC interface for StoredInfoType.
+// StoredInfoTypeServer implements the gRPC interface for StoredInfoType.
 type StoredInfoTypeServer struct{}
 
 // ProtoToStoredInfoTypeLargeCustomDictionary converts a StoredInfoTypeLargeCustomDictionary object from its proto representation.

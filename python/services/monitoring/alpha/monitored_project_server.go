@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/alpha"
 )
 
-// Server implements the gRPC interface for MonitoredProject.
+// MonitoredProjectServer implements the gRPC interface for MonitoredProject.
 type MonitoredProjectServer struct{}
 
 // ProtoToMonitoredProject converts a MonitoredProject resource from its proto representation.

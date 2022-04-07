@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networksecurity/alpha"
 )
 
-// Server implements the gRPC interface for AuthorizationPolicy.
+// AuthorizationPolicyServer implements the gRPC interface for AuthorizationPolicy.
 type AuthorizationPolicyServer struct{}
 
 // ProtoToAuthorizationPolicyActionEnum converts a AuthorizationPolicyActionEnum enum from its proto representation.

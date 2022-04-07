@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containerazure/beta"
 )
 
-// Server implements the gRPC interface for NodePool.
+// NodePoolServer implements the gRPC interface for NodePool.
 type NodePoolServer struct{}
 
 // ProtoToNodePoolStateEnum converts a NodePoolStateEnum enum from its proto representation.

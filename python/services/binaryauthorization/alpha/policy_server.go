@@ -22,7 +22,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization/alpha"
 )
 
-// Server implements the gRPC interface for Policy.
+// PolicyServer implements the gRPC interface for Policy.
 type PolicyServer struct{}
 
 // ProtoToPolicyClusterAdmissionRulesEvaluationModeEnum converts a PolicyClusterAdmissionRulesEvaluationModeEnum enum from its proto representation.

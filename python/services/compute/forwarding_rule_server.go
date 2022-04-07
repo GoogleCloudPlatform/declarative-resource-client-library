@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute"
 )
 
-// Server implements the gRPC interface for ForwardingRule.
+// ForwardingRuleServer implements the gRPC interface for ForwardingRule.
 type ForwardingRuleServer struct{}
 
 // ProtoToForwardingRuleIPProtocolEnum converts a ForwardingRuleIPProtocolEnum enum from its proto representation.

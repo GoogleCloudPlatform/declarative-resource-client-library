@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebaserules/alpha"
 )
 
-// Server implements the gRPC interface for Ruleset.
+// RulesetServer implements the gRPC interface for Ruleset.
 type RulesetServer struct{}
 
 // ProtoToRulesetSourceLanguageEnum converts a RulesetSourceLanguageEnum enum from its proto representation.

@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation/alpha"
 )
 
-// Server implements the gRPC interface for Assignment.
+// AssignmentServer implements the gRPC interface for Assignment.
 type AssignmentServer struct{}
 
 // ProtoToAssignmentJobTypeEnum converts a AssignmentJobTypeEnum enum from its proto representation.

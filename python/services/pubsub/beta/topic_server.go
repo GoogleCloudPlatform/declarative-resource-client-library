@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/beta"
 )
 
-// Server implements the gRPC interface for Topic.
+// TopicServer implements the gRPC interface for Topic.
 type TopicServer struct{}
 
 // ProtoToTopicMessageStoragePolicy converts a TopicMessageStoragePolicy object from its proto representation.

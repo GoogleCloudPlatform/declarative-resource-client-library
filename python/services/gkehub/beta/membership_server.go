@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/beta"
 )
 
-// Server implements the gRPC interface for Membership.
+// MembershipServer implements the gRPC interface for Membership.
 type MembershipServer struct{}
 
 // ProtoToMembershipStateCodeEnum converts a MembershipStateCodeEnum enum from its proto representation.

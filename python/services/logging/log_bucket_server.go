@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/logging"
 )
 
-// Server implements the gRPC interface for LogBucket.
+// LogBucketServer implements the gRPC interface for LogBucket.
 type LogBucketServer struct{}
 
 // ProtoToLogBucketLifecycleStateEnum converts a LogBucketLifecycleStateEnum enum from its proto representation.

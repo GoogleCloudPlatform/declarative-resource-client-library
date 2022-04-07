@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute/beta"
 )
 
-// Server implements the gRPC interface for Instance.
+// InstanceServer implements the gRPC interface for Instance.
 type InstanceServer struct{}
 
 // ProtoToInstanceDisksInterfaceEnum converts a InstanceDisksInterfaceEnum enum from its proto representation.

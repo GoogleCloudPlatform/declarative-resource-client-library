@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute"
 )
 
-// Server implements the gRPC interface for ServiceAttachment.
+// ServiceAttachmentServer implements the gRPC interface for ServiceAttachment.
 type ServiceAttachmentServer struct{}
 
 // ProtoToServiceAttachmentConnectionPreferenceEnum converts a ServiceAttachmentConnectionPreferenceEnum enum from its proto representation.

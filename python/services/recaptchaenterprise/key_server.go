@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/recaptchaenterprise"
 )
 
-// Server implements the gRPC interface for Key.
+// KeyServer implements the gRPC interface for Key.
 type KeyServer struct{}
 
 // ProtoToKeyWebSettingsIntegrationTypeEnum converts a KeyWebSettingsIntegrationTypeEnum enum from its proto representation.

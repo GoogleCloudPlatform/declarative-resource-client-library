@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/alpha"
 )
 
-// Server implements the gRPC interface for EndpointPolicy.
+// EndpointPolicyServer implements the gRPC interface for EndpointPolicy.
 type EndpointPolicyServer struct{}
 
 // ProtoToEndpointPolicyTypeEnum converts a EndpointPolicyTypeEnum enum from its proto representation.

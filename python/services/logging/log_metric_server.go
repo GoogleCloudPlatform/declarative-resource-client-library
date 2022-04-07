@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/logging"
 )
 
-// Server implements the gRPC interface for LogMetric.
+// LogMetricServer implements the gRPC interface for LogMetric.
 type LogMetricServer struct{}
 
 // ProtoToLogMetricMetricDescriptorLabelsValueTypeEnum converts a LogMetricMetricDescriptorLabelsValueTypeEnum enum from its proto representation.

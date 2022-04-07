@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/alpha"
 )
 
-// Server implements the gRPC interface for TcpRoute.
+// TcpRouteServer implements the gRPC interface for TcpRoute.
 type TcpRouteServer struct{}
 
 // ProtoToTcpRouteRules converts a TcpRouteRules object from its proto representation.

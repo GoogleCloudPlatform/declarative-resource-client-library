@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/binaryauthorization"
 )
 
-// Server implements the gRPC interface for Attestor.
+// AttestorServer implements the gRPC interface for Attestor.
 type AttestorServer struct{}
 
 // ProtoToAttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum converts a AttestorUserOwnedDrydockNotePublicKeysPkixPublicKeySignatureAlgorithmEnum enum from its proto representation.

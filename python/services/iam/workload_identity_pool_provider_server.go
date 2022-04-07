@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam"
 )
 
-// Server implements the gRPC interface for WorkloadIdentityPoolProvider.
+// WorkloadIdentityPoolProviderServer implements the gRPC interface for WorkloadIdentityPoolProvider.
 type WorkloadIdentityPoolProviderServer struct{}
 
 // ProtoToWorkloadIdentityPoolProviderStateEnum converts a WorkloadIdentityPoolProviderStateEnum enum from its proto representation.

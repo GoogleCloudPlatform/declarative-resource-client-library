@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/apigee/beta"
 )
 
-// Server implements the gRPC interface for Instance.
+// InstanceServer implements the gRPC interface for Instance.
 type InstanceServer struct{}
 
 // ProtoToInstancePeeringCidrRangeEnum converts a InstancePeeringCidrRangeEnum enum from its proto representation.

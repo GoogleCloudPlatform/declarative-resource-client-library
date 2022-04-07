@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/alpha"
 )
 
-// Server implements the gRPC interface for TlsRoute.
+// TlsRouteServer implements the gRPC interface for TlsRoute.
 type TlsRouteServer struct{}
 
 // ProtoToTlsRouteRules converts a TlsRouteRules object from its proto representation.

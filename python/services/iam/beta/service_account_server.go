@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam/beta"
 )
 
-// Server implements the gRPC interface for ServiceAccount.
+// ServiceAccountServer implements the gRPC interface for ServiceAccount.
 type ServiceAccountServer struct{}
 
 // ProtoToServiceAccountActasResources converts a ServiceAccountActasResources object from its proto representation.

@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudidentity/beta"
 )
 
-// Server implements the gRPC interface for Membership.
+// MembershipServer implements the gRPC interface for Membership.
 type MembershipServer struct{}
 
 // ProtoToMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnum converts a MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnum enum from its proto representation.

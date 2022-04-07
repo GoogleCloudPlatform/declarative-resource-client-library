@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute"
 )
 
-// Server implements the gRPC interface for PacketMirroring.
+// PacketMirroringServer implements the gRPC interface for PacketMirroring.
 type PacketMirroringServer struct{}
 
 // ProtoToPacketMirroringFilterDirectionEnum converts a PacketMirroringFilterDirectionEnum enum from its proto representation.

@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc/alpha"
 )
 
-// Server implements the gRPC interface for AutoscalingPolicy.
+// AutoscalingPolicyServer implements the gRPC interface for AutoscalingPolicy.
 type AutoscalingPolicyServer struct{}
 
 // ProtoToAutoscalingPolicyBasicAlgorithm converts a AutoscalingPolicyBasicAlgorithm object from its proto representation.

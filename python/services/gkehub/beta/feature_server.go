@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/beta"
 )
 
-// Server implements the gRPC interface for Feature.
+// FeatureServer implements the gRPC interface for Feature.
 type FeatureServer struct{}
 
 // ProtoToFeatureResourceStateStateEnum converts a FeatureResourceStateStateEnum enum from its proto representation.

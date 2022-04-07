@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/alpha"
 )
 
-// Server implements the gRPC interface for ServiceLevelObjective.
+// ServiceLevelObjectiveServer implements the gRPC interface for ServiceLevelObjective.
 type ServiceLevelObjectiveServer struct{}
 
 // ProtoToServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnum converts a ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyExperienceEnum enum from its proto representation.

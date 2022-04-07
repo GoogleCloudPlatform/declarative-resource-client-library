@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/servicemanagement/beta"
 )
 
-// Server implements the gRPC interface for ManagedService.
+// ManagedServiceServer implements the gRPC interface for ManagedService.
 type ManagedServiceServer struct{}
 
 // ProtoToManagedService converts a ManagedService resource from its proto representation.

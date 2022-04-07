@@ -22,7 +22,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms/beta"
 )
 
-// Server implements the gRPC interface for KeyRing.
+// KeyRingServer implements the gRPC interface for KeyRing.
 type KeyRingServer struct{}
 
 // ProtoToKeyRing converts a KeyRing resource from its proto representation.

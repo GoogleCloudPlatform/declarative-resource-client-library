@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute/alpha"
 )
 
-// Server implements the gRPC interface for FirewallPolicyRule.
+// FirewallPolicyRuleServer implements the gRPC interface for FirewallPolicyRule.
 type FirewallPolicyRuleServer struct{}
 
 // ProtoToFirewallPolicyRuleDirectionEnum converts a FirewallPolicyRuleDirectionEnum enum from its proto representation.

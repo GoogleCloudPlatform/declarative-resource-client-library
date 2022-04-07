@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkconnectivity"
 )
 
-// Server implements the gRPC interface for Spoke.
+// SpokeServer implements the gRPC interface for Spoke.
 type SpokeServer struct{}
 
 // ProtoToSpokeStateEnum converts a SpokeStateEnum enum from its proto representation.

@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild"
 )
 
-// Server implements the gRPC interface for WorkerPool.
+// WorkerPoolServer implements the gRPC interface for WorkerPool.
 type WorkerPoolServer struct{}
 
 // ProtoToWorkerPoolStateEnum converts a WorkerPoolStateEnum enum from its proto representation.

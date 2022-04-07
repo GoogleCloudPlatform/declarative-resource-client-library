@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/alpha"
 )
 
-// Server implements the gRPC interface for Gateway.
+// GatewayServer implements the gRPC interface for Gateway.
 type GatewayServer struct{}
 
 // ProtoToGatewayTypeEnum converts a GatewayTypeEnum enum from its proto representation.

@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca"
 )
 
-// Server implements the gRPC interface for CertificateAuthority.
+// CertificateAuthorityServer implements the gRPC interface for CertificateAuthority.
 type CertificateAuthorityServer struct{}
 
 // ProtoToCertificateAuthorityTypeEnum converts a CertificateAuthorityTypeEnum enum from its proto representation.

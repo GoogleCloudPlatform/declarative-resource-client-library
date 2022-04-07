@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/alpha"
 )
 
-// Server implements the gRPC interface for HttpRoute.
+// HttpRouteServer implements the gRPC interface for HttpRoute.
 type HttpRouteServer struct{}
 
 // ProtoToHttpRouteRulesActionRedirectResponseCodeEnum converts a HttpRouteRulesActionRedirectResponseCodeEnum enum from its proto representation.

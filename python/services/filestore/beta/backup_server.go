@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/filestore/beta"
 )
 
-// Server implements the gRPC interface for Backup.
+// BackupServer implements the gRPC interface for Backup.
 type BackupServer struct{}
 
 // ProtoToBackupStateEnum converts a BackupStateEnum enum from its proto representation.

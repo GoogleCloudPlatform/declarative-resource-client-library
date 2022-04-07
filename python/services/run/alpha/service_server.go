@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/run/alpha"
 )
 
-// Server implements the gRPC interface for Service.
+// ServiceServer implements the gRPC interface for Service.
 type ServiceServer struct{}
 
 // ProtoToServiceIngressEnum converts a ServiceIngressEnum enum from its proto representation.

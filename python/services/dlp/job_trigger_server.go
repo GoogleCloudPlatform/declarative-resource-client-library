@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dlp"
 )
 
-// Server implements the gRPC interface for JobTrigger.
+// JobTriggerServer implements the gRPC interface for JobTrigger.
 type JobTriggerServer struct{}
 
 // ProtoToJobTriggerInspectJobStorageConfigCloudStorageOptionsFileTypesEnum converts a JobTriggerInspectJobStorageConfigCloudStorageOptionsFileTypesEnum enum from its proto representation.

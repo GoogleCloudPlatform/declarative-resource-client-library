@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebaserules"
 )
 
-// Server implements the gRPC interface for Release.
+// ReleaseServer implements the gRPC interface for Release.
 type ReleaseServer struct{}
 
 // ProtoToRelease converts a Release resource from its proto representation.

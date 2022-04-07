@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/beta"
 )
 
-// Server implements the gRPC interface for NotificationChannel.
+// NotificationChannelServer implements the gRPC interface for NotificationChannel.
 type NotificationChannelServer struct{}
 
 // ProtoToNotificationChannelVerificationStatusEnum converts a NotificationChannelVerificationStatusEnum enum from its proto representation.

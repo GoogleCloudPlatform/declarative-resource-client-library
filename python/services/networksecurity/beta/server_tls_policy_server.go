@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networksecurity/beta"
 )
 
-// Server implements the gRPC interface for ServerTlsPolicy.
+// ServerTlsPolicyServer implements the gRPC interface for ServerTlsPolicy.
 type ServerTlsPolicyServer struct{}
 
 // ProtoToServerTlsPolicyServerCertificate converts a ServerTlsPolicyServerCertificate object from its proto representation.

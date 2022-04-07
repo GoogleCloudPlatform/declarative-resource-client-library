@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudscheduler/beta"
 )
 
-// Server implements the gRPC interface for Job.
+// JobServer implements the gRPC interface for Job.
 type JobServer struct{}
 
 // ProtoToJobAppEngineHttpTargetHttpMethodEnum converts a JobAppEngineHttpTargetHttpMethodEnum enum from its proto representation.

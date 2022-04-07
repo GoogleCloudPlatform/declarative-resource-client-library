@@ -22,7 +22,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/alpha"
 )
 
-// Server implements the gRPC interface for MetricsScope.
+// MetricsScopeServer implements the gRPC interface for MetricsScope.
 type MetricsScopeServer struct{}
 
 // ProtoToMetricsScopeMonitoredProjects converts a MetricsScopeMonitoredProjects object from its proto representation.

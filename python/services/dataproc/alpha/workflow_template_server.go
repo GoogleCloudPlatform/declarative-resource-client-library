@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc/alpha"
 )
 
-// Server implements the gRPC interface for WorkflowTemplate.
+// WorkflowTemplateServer implements the gRPC interface for WorkflowTemplate.
 type WorkflowTemplateServer struct{}
 
 // ProtoToWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum converts a WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum enum from its proto representation.

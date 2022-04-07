@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudresourcemanager/beta"
 )
 
-// Server implements the gRPC interface for Project.
+// ProjectServer implements the gRPC interface for Project.
 type ProjectServer struct{}
 
 // ProtoToProjectLifecycleStateEnum converts a ProjectLifecycleStateEnum enum from its proto representation.

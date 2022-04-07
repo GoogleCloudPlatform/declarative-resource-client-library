@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/beta"
 )
 
-// Server implements the gRPC interface for Group.
+// GroupServer implements the gRPC interface for Group.
 type GroupServer struct{}
 
 // ProtoToGroup converts a Group resource from its proto representation.

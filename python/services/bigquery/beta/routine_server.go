@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigquery/beta"
 )
 
-// Server implements the gRPC interface for Routine.
+// RoutineServer implements the gRPC interface for Routine.
 type RoutineServer struct{}
 
 // ProtoToRoutineRoutineTypeEnum converts a RoutineRoutineTypeEnum enum from its proto representation.

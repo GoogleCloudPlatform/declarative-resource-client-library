@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/run/alpha"
 )
 
-// Server implements the gRPC interface for Job.
+// JobServer implements the gRPC interface for Job.
 type JobServer struct{}
 
 // ProtoToJobLaunchStageEnum converts a JobLaunchStageEnum enum from its proto representation.

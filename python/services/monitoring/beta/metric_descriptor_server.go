@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/monitoring/beta"
 )
 
-// Server implements the gRPC interface for MetricDescriptor.
+// MetricDescriptorServer implements the gRPC interface for MetricDescriptor.
 type MetricDescriptorServer struct{}
 
 // ProtoToMetricDescriptorLabelsValueTypeEnum converts a MetricDescriptorLabelsValueTypeEnum enum from its proto representation.

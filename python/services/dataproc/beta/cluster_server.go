@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc/beta"
 )
 
-// Server implements the gRPC interface for Cluster.
+// ClusterServer implements the gRPC interface for Cluster.
 type ClusterServer struct{}
 
 // ProtoToClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum converts a ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum enum from its proto representation.

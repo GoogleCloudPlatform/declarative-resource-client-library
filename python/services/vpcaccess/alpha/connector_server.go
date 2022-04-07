@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vpcaccess/alpha"
 )
 
-// Server implements the gRPC interface for Connector.
+// ConnectorServer implements the gRPC interface for Connector.
 type ConnectorServer struct{}
 
 // ProtoToConnectorStateEnum converts a ConnectorStateEnum enum from its proto representation.

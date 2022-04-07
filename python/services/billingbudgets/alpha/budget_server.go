@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/billingbudgets/alpha"
 )
 
-// Server implements the gRPC interface for Budget.
+// BudgetServer implements the gRPC interface for Budget.
 type BudgetServer struct{}
 
 // ProtoToBudgetBudgetFilterCreditTypesTreatmentEnum converts a BudgetBudgetFilterCreditTypesTreatmentEnum enum from its proto representation.

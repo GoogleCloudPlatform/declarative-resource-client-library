@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/compute/beta"
 )
 
-// Server implements the gRPC interface for InstanceGroupManager.
+// InstanceGroupManagerServer implements the gRPC interface for InstanceGroupManager.
 type InstanceGroupManagerServer struct{}
 
 // ProtoToInstanceGroupManagerDistributionPolicyTargetShapeEnum converts a InstanceGroupManagerDistributionPolicyTargetShapeEnum enum from its proto representation.

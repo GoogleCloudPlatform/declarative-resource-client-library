@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudresourcemanager/alpha"
 )
 
-// Server implements the gRPC interface for TagKey.
+// TagKeyServer implements the gRPC interface for TagKey.
 type TagKeyServer struct{}
 
 // ProtoToTagKeyPurposeEnum converts a TagKeyPurposeEnum enum from its proto representation.

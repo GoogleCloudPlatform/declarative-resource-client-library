@@ -22,7 +22,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/identitytoolkit/alpha"
 )
 
-// Server implements the gRPC interface for Config.
+// ConfigServer implements the gRPC interface for Config.
 type ConfigServer struct{}
 
 // ProtoToConfigSignInEmailHashConfigAlgorithmEnum converts a ConfigSignInEmailHashConfigAlgorithmEnum enum from its proto representation.

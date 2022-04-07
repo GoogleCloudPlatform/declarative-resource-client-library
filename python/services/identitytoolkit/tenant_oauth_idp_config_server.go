@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/identitytoolkit"
 )
 
-// Server implements the gRPC interface for TenantOAuthIdpConfig.
+// TenantOAuthIdpConfigServer implements the gRPC interface for TenantOAuthIdpConfig.
 type TenantOAuthIdpConfigServer struct{}
 
 // ProtoToTenantOAuthIdpConfigResponseType converts a TenantOAuthIdpConfigResponseType object from its proto representation.

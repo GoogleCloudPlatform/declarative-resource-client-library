@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/logging/alpha"
 )
 
-// Server implements the gRPC interface for LogView.
+// LogViewServer implements the gRPC interface for LogView.
 type LogViewServer struct{}
 
 // ProtoToLogView converts a LogView resource from its proto representation.

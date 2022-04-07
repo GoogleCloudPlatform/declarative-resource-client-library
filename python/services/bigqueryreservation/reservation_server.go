@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/bigqueryreservation"
 )
 
-// Server implements the gRPC interface for Reservation.
+// ReservationServer implements the gRPC interface for Reservation.
 type ReservationServer struct{}
 
 // ProtoToReservation converts a Reservation resource from its proto representation.

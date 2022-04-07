@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containeranalysis/alpha"
 )
 
-// Server implements the gRPC interface for Note.
+// NoteServer implements the gRPC interface for Note.
 type NoteServer struct{}
 
 // ProtoToNotePackageDistributionArchitectureEnum converts a NotePackageDistributionArchitectureEnum enum from its proto representation.

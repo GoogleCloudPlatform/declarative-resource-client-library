@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudresourcemanager/alpha"
 )
 
-// Server implements the gRPC interface for Folder.
+// FolderServer implements the gRPC interface for Folder.
 type FolderServer struct{}
 
 // ProtoToFolderStateEnum converts a FolderStateEnum enum from its proto representation.
