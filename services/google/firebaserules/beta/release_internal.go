@@ -390,7 +390,8 @@ func canonicalizeReleaseDesiredState(rawDesired, rawInitial *Release, opts ...dc
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.NameToSelfLink(rawDesired.RulesetName, rawInitial.RulesetName) {
+	if dcl.IsZeroValue(rawDesired.RulesetName) || (dcl.IsEmptyValueIndirect(rawDesired.RulesetName) && dcl.IsEmptyValueIndirect(rawInitial.RulesetName)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.RulesetName = rawInitial.RulesetName
 	} else {
 		canonicalDesired.RulesetName = rawDesired.RulesetName
@@ -417,9 +418,6 @@ func canonicalizeReleaseNewState(c *Client, rawNew, rawDesired *Release) (*Relea
 	if dcl.IsNotReturnedByServer(rawNew.RulesetName) && dcl.IsNotReturnedByServer(rawDesired.RulesetName) {
 		rawNew.RulesetName = rawDesired.RulesetName
 	} else {
-		if dcl.NameToSelfLink(rawDesired.RulesetName, rawNew.RulesetName) {
-			rawNew.RulesetName = rawDesired.RulesetName
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {

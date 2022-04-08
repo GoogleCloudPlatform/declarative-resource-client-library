@@ -548,7 +548,8 @@ func canonicalizeTriggerDesiredState(rawDesired, rawInitial *Trigger, opts ...dc
 		canonicalDesired.Name = rawDesired.Name
 	}
 	canonicalDesired.MatchingCriteria = canonicalizeTriggerMatchingCriteriaSlice(rawDesired.MatchingCriteria, rawInitial.MatchingCriteria, opts...)
-	if dcl.NameToSelfLink(rawDesired.ServiceAccount, rawInitial.ServiceAccount) {
+	if dcl.IsZeroValue(rawDesired.ServiceAccount) || (dcl.IsEmptyValueIndirect(rawDesired.ServiceAccount) && dcl.IsEmptyValueIndirect(rawInitial.ServiceAccount)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.ServiceAccount = rawInitial.ServiceAccount
 	} else {
 		canonicalDesired.ServiceAccount = rawDesired.ServiceAccount
@@ -612,9 +613,6 @@ func canonicalizeTriggerNewState(c *Client, rawNew, rawDesired *Trigger) (*Trigg
 	if dcl.IsNotReturnedByServer(rawNew.ServiceAccount) && dcl.IsNotReturnedByServer(rawDesired.ServiceAccount) {
 		rawNew.ServiceAccount = rawDesired.ServiceAccount
 	} else {
-		if dcl.NameToSelfLink(rawDesired.ServiceAccount, rawNew.ServiceAccount) {
-			rawNew.ServiceAccount = rawDesired.ServiceAccount
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Destination) && dcl.IsNotReturnedByServer(rawDesired.Destination) {
@@ -961,7 +959,8 @@ func canonicalizeTriggerDestinationCloudRunService(des, initial *TriggerDestinat
 
 	cDes := &TriggerDestinationCloudRunService{}
 
-	if dcl.NameToSelfLink(des.Service, initial.Service) || dcl.IsZeroValue(des.Service) {
+	if dcl.IsZeroValue(des.Service) || (dcl.IsEmptyValueIndirect(des.Service) && dcl.IsEmptyValueIndirect(initial.Service)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Service = initial.Service
 	} else {
 		cDes.Service = des.Service
@@ -1022,9 +1021,6 @@ func canonicalizeNewTriggerDestinationCloudRunService(c *Client, des, nw *Trigge
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Service, nw.Service) {
-		nw.Service = des.Service
-	}
 	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
 	}
@@ -1092,7 +1088,8 @@ func canonicalizeTriggerDestinationGke(des, initial *TriggerDestinationGke, opts
 
 	cDes := &TriggerDestinationGke{}
 
-	if dcl.NameToSelfLink(des.Cluster, initial.Cluster) || dcl.IsZeroValue(des.Cluster) {
+	if dcl.IsZeroValue(des.Cluster) || (dcl.IsEmptyValueIndirect(des.Cluster) && dcl.IsEmptyValueIndirect(initial.Cluster)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Cluster = initial.Cluster
 	} else {
 		cDes.Cluster = des.Cluster
@@ -1163,9 +1160,6 @@ func canonicalizeNewTriggerDestinationGke(c *Client, des, nw *TriggerDestination
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Cluster, nw.Cluster) {
-		nw.Cluster = des.Cluster
-	}
 	if dcl.StringCanonicalize(des.Location, nw.Location) {
 		nw.Location = des.Location
 	}

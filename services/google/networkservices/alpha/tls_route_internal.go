@@ -961,7 +961,8 @@ func canonicalizeTlsRouteRulesActionDestinations(des, initial *TlsRouteRulesActi
 
 	cDes := &TlsRouteRulesActionDestinations{}
 
-	if dcl.NameToSelfLink(des.ServiceName, initial.ServiceName) || dcl.IsZeroValue(des.ServiceName) {
+	if dcl.IsZeroValue(des.ServiceName) || (dcl.IsEmptyValueIndirect(des.ServiceName) && dcl.IsEmptyValueIndirect(initial.ServiceName)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ServiceName = initial.ServiceName
 	} else {
 		cDes.ServiceName = des.ServiceName
@@ -1016,10 +1017,6 @@ func canonicalizeNewTlsRouteRulesActionDestinations(c *Client, des, nw *TlsRoute
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.ServiceName, nw.ServiceName) {
-		nw.ServiceName = des.ServiceName
 	}
 
 	return nw

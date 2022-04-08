@@ -1,5 +1,5 @@
 {
   "name": "servicenetworking.googleapis.com",
-  "project": "{{ref:basic.cloudresourcemanager.project.json:name}}",
+  "project": "{{ref:basic.cloudbilling.project_billing_info.json:name}}",
   "state": "ENABLED"
 }

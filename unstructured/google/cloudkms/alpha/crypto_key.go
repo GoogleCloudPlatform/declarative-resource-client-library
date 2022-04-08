@@ -18,7 +18,9 @@ import (
 	"fmt"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	dclService "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudkms/alpha"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured"
+	iamUnstruct "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/iam"
 )
 
 type CryptoKey struct{}
@@ -531,28 +533,125 @@ func (r *CryptoKey) STV() unstructured.ServiceTypeVersion {
 	}
 }
 
+func SetPolicyCryptoKey(ctx context.Context, config *dcl.Config, u *unstructured.Resource, p *unstructured.Resource) (*unstructured.Resource, error) {
+	r, err := UnstructuredToCryptoKey(u)
+	if err != nil {
+		return nil, err
+	}
+	policy, err := iamUnstruct.UnstructuredToPolicy(p)
+	if err != nil {
+		return nil, err
+	}
+	policy.Resource = r
+	iamClient := iam.NewClient(config)
+	newPolicy, err := iamClient.SetPolicy(ctx, policy)
+	if err != nil {
+		return nil, err
+	}
+	return iamUnstruct.PolicyToUnstructured(newPolicy), nil
+}
+
+func SetPolicyWithEtagCryptoKey(ctx context.Context, config *dcl.Config, u *unstructured.Resource, p *unstructured.Resource) (*unstructured.Resource, error) {
+	r, err := UnstructuredToCryptoKey(u)
+	if err != nil {
+		return nil, err
+	}
+	policy, err := iamUnstruct.UnstructuredToPolicy(p)
+	if err != nil {
+		return nil, err
+	}
+	policy.Resource = r
+	iamClient := iam.NewClient(config)
+	newPolicy, err := iamClient.SetPolicyWithEtag(ctx, policy)
+	if err != nil {
+		return nil, err
+	}
+	return iamUnstruct.PolicyToUnstructured(newPolicy), nil
+}
+
+func GetPolicyCryptoKey(ctx context.Context, config *dcl.Config, u *unstructured.Resource) (*unstructured.Resource, error) {
+	r, err := UnstructuredToCryptoKey(u)
+	if err != nil {
+		return nil, err
+	}
+	iamClient := iam.NewClient(config)
+	policy, err := iamClient.GetPolicy(ctx, r)
+	if err != nil {
+		return nil, err
+	}
+	return iamUnstruct.PolicyToUnstructured(policy), nil
+}
+
+func SetPolicyMemberCryptoKey(ctx context.Context, config *dcl.Config, u *unstructured.Resource, m *unstructured.Resource) (*unstructured.Resource, error) {
+	r, err := UnstructuredToCryptoKey(u)
+	if err != nil {
+		return nil, err
+	}
+	member, err := iamUnstruct.UnstructuredToMember(m)
+	if err != nil {
+		return nil, err
+	}
+	member.Resource = r
+	iamClient := iam.NewClient(config)
+	policy, err := iamClient.SetMember(ctx, member)
+	if err != nil {
+		return nil, err
+	}
+	return iamUnstruct.PolicyToUnstructured(policy), nil
+}
+
+func GetPolicyMemberCryptoKey(ctx context.Context, config *dcl.Config, u *unstructured.Resource, role, member string) (*unstructured.Resource, error) {
+	r, err := UnstructuredToCryptoKey(u)
+	if err != nil {
+		return nil, err
+	}
+	iamClient := iam.NewClient(config)
+	policyMember, err := iamClient.GetMember(ctx, r, role, member)
+	if err != nil {
+		return nil, err
+	}
+	return iamUnstruct.MemberToUnstructured(policyMember), nil
+}
+
+func DeletePolicyMemberCryptoKey(ctx context.Context, config *dcl.Config, u *unstructured.Resource, m *unstructured.Resource) error {
+	r, err := UnstructuredToCryptoKey(u)
+	if err != nil {
+		return err
+	}
+	member, err := iamUnstruct.UnstructuredToMember(m)
+	if err != nil {
+		return err
+	}
+	member.Resource = r
+	iamClient := iam.NewClient(config)
+	if err := iamClient.DeleteMember(ctx, member); err != nil {
+		return err
+	}
+	return nil
+}
+
 func (r *CryptoKey) SetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) (*unstructured.Resource, error) {
-	return nil, unstructured.ErrNoSuchMethod
+	return SetPolicyMemberCryptoKey(ctx, config, resource, member)
 }
 
 func (r *CryptoKey) GetPolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, role, member string) (*unstructured.Resource, error) {
-	return nil, unstructured.ErrNoSuchMethod
+	return GetPolicyMemberCryptoKey(ctx, config, resource, role, member)
 }
 
 func (r *CryptoKey) DeletePolicyMember(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, member *unstructured.Resource) error {
-	return unstructured.ErrNoSuchMethod
+	return DeletePolicyMemberCryptoKey(ctx, config, resource, member)
 }
 
 func (r *CryptoKey) SetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
-	return nil, unstructured.ErrNoSuchMethod
+	return SetPolicyCryptoKey(ctx, config, resource, policy)
 }
 
 func (r *CryptoKey) SetPolicyWithEtag(ctx context.Context, config *dcl.Config, resource *unstructured.Resource, policy *unstructured.Resource) (*unstructured.Resource, error) {
-	return nil, unstructured.ErrNoSuchMethod
+	return SetPolicyWithEtagCryptoKey(ctx, config, resource, policy)
 }
 
 func (r *CryptoKey) GetPolicy(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {
-	return nil, unstructured.ErrNoSuchMethod
+	return GetPolicyCryptoKey(ctx, config, resource)
 }
 
 func (r *CryptoKey) Get(ctx context.Context, config *dcl.Config, resource *unstructured.Resource) (*unstructured.Resource, error) {

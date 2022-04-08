@@ -492,7 +492,8 @@ func canonicalizeAttestorUserOwnedDrydockNote(des, initial *AttestorUserOwnedDry
 
 	cDes := &AttestorUserOwnedDrydockNote{}
 
-	if dcl.NameToSelfLink(des.NoteReference, initial.NoteReference) || dcl.IsZeroValue(des.NoteReference) {
+	if dcl.IsZeroValue(des.NoteReference) || (dcl.IsEmptyValueIndirect(des.NoteReference) && dcl.IsEmptyValueIndirect(initial.NoteReference)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NoteReference = initial.NoteReference
 	} else {
 		cDes.NoteReference = des.NoteReference
@@ -544,9 +545,6 @@ func canonicalizeNewAttestorUserOwnedDrydockNote(c *Client, des, nw *AttestorUse
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.NoteReference, nw.NoteReference) {
-		nw.NoteReference = des.NoteReference
-	}
 	nw.PublicKeys = canonicalizeNewAttestorUserOwnedDrydockNotePublicKeysSlice(c, des.PublicKeys, nw.PublicKeys)
 	if dcl.StringCanonicalize(des.DelegationServiceAccountEmail, nw.DelegationServiceAccountEmail) {
 		nw.DelegationServiceAccountEmail = des.DelegationServiceAccountEmail

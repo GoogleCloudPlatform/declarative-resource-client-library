@@ -18,17 +18,35 @@ versions:
 - ga
 resource: samples/basic.instance.json
 dependencies:
+- samples/crypto_key_encrypter_decrypter.iam.member.json
+- samples/minimal.cloudkms.crypto_key.json
+- samples/minimal.cloudkms.key_ring.json
 - samples/basic.environment.json
 - samples/basic.servicenetworking.connection.json
 - samples/internal.compute.address.json
+- samples/basic.organization.json
+- samples/apigee.serviceusage.service.json
+- samples/cloudkms.serviceusage.service.json
+- samples/compute.serviceusage.service.json
+- samples/servicenetworking.serviceusage.service.json
+- samples/basic.cloudbilling.project_billing_info.json
+- samples/basic.cloudresourcemanager.project.json
 variables:
 - name: address
   type: resource_name
+- name: billing_account
+  type: billing_account
 - name: environment
+  type: resource_name
+- name: id
   type: resource_name
 - name: instance
   type: resource_name
-- name: project
-  type: project
+- name: key
+  type: resource_name
+- name: org_id
+  type: org_id
 - name: region
   type: region
+- name: ring
+  type: resource_name

@@ -527,12 +527,14 @@ func canonicalizeRoutineDesiredState(rawDesired, rawInitial *Routine, opts ...dc
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
+	if dcl.IsZeroValue(rawDesired.Project) || (dcl.IsEmptyValueIndirect(rawDesired.Project) && dcl.IsEmptyValueIndirect(rawInitial.Project)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
 	}
-	if dcl.NameToSelfLink(rawDesired.Dataset, rawInitial.Dataset) {
+	if dcl.IsZeroValue(rawDesired.Dataset) || (dcl.IsEmptyValueIndirect(rawDesired.Dataset) && dcl.IsEmptyValueIndirect(rawInitial.Dataset)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Dataset = rawInitial.Dataset
 	} else {
 		canonicalDesired.Dataset = rawDesired.Dataset
@@ -602,17 +604,11 @@ func canonicalizeRoutineNewState(c *Client, rawNew, rawDesired *Routine) (*Routi
 	if dcl.IsNotReturnedByServer(rawNew.Project) && dcl.IsNotReturnedByServer(rawDesired.Project) {
 		rawNew.Project = rawDesired.Project
 	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Dataset) && dcl.IsNotReturnedByServer(rawDesired.Dataset) {
 		rawNew.Dataset = rawDesired.Dataset
 	} else {
-		if dcl.NameToSelfLink(rawDesired.Dataset, rawNew.Dataset) {
-			rawNew.Dataset = rawDesired.Dataset
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RoutineType) && dcl.IsNotReturnedByServer(rawDesired.RoutineType) {

@@ -2372,7 +2372,8 @@ func canonicalizeGuestPolicyRecipesArtifactsGcs(des, initial *GuestPolicyRecipes
 
 	cDes := &GuestPolicyRecipesArtifactsGcs{}
 
-	if dcl.NameToSelfLink(des.Bucket, initial.Bucket) || dcl.IsZeroValue(des.Bucket) {
+	if dcl.IsZeroValue(des.Bucket) || (dcl.IsEmptyValueIndirect(des.Bucket) && dcl.IsEmptyValueIndirect(initial.Bucket)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Bucket = initial.Bucket
 	} else {
 		cDes.Bucket = des.Bucket
@@ -2434,9 +2435,6 @@ func canonicalizeNewGuestPolicyRecipesArtifactsGcs(c *Client, des, nw *GuestPoli
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Bucket, nw.Bucket) {
-		nw.Bucket = des.Bucket
-	}
 	if dcl.StringCanonicalize(des.Object, nw.Object) {
 		nw.Object = des.Object
 	}

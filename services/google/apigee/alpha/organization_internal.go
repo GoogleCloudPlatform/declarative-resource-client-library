@@ -478,7 +478,8 @@ func canonicalizeOrganizationDesiredState(rawDesired, rawInitial *Organization, 
 	} else {
 		canonicalDesired.AnalyticsRegion = rawDesired.AnalyticsRegion
 	}
-	if dcl.NameToSelfLink(rawDesired.AuthorizedNetwork, rawInitial.AuthorizedNetwork) {
+	if dcl.IsZeroValue(rawDesired.AuthorizedNetwork) || (dcl.IsEmptyValueIndirect(rawDesired.AuthorizedNetwork) && dcl.IsEmptyValueIndirect(rawInitial.AuthorizedNetwork)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.AuthorizedNetwork = rawInitial.AuthorizedNetwork
 	} else {
 		canonicalDesired.AuthorizedNetwork = rawDesired.AuthorizedNetwork
@@ -490,7 +491,8 @@ func canonicalizeOrganizationDesiredState(rawDesired, rawInitial *Organization, 
 		canonicalDesired.RuntimeType = rawDesired.RuntimeType
 	}
 	canonicalDesired.AddonsConfig = canonicalizeOrganizationAddonsConfig(rawDesired.AddonsConfig, rawInitial.AddonsConfig, opts...)
-	if dcl.NameToSelfLink(rawDesired.RuntimeDatabaseEncryptionKeyName, rawInitial.RuntimeDatabaseEncryptionKeyName) {
+	if dcl.IsZeroValue(rawDesired.RuntimeDatabaseEncryptionKeyName) || (dcl.IsEmptyValueIndirect(rawDesired.RuntimeDatabaseEncryptionKeyName) && dcl.IsEmptyValueIndirect(rawInitial.RuntimeDatabaseEncryptionKeyName)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.RuntimeDatabaseEncryptionKeyName = rawInitial.RuntimeDatabaseEncryptionKeyName
 	} else {
 		canonicalDesired.RuntimeDatabaseEncryptionKeyName = rawDesired.RuntimeDatabaseEncryptionKeyName
@@ -566,9 +568,6 @@ func canonicalizeOrganizationNewState(c *Client, rawNew, rawDesired *Organizatio
 	if dcl.IsNotReturnedByServer(rawNew.AuthorizedNetwork) && dcl.IsNotReturnedByServer(rawDesired.AuthorizedNetwork) {
 		rawNew.AuthorizedNetwork = rawDesired.AuthorizedNetwork
 	} else {
-		if dcl.NameToSelfLink(rawDesired.AuthorizedNetwork, rawNew.AuthorizedNetwork) {
-			rawNew.AuthorizedNetwork = rawDesired.AuthorizedNetwork
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RuntimeType) && dcl.IsNotReturnedByServer(rawDesired.RuntimeType) {
@@ -603,9 +602,6 @@ func canonicalizeOrganizationNewState(c *Client, rawNew, rawDesired *Organizatio
 	if dcl.IsNotReturnedByServer(rawNew.RuntimeDatabaseEncryptionKeyName) && dcl.IsNotReturnedByServer(rawDesired.RuntimeDatabaseEncryptionKeyName) {
 		rawNew.RuntimeDatabaseEncryptionKeyName = rawDesired.RuntimeDatabaseEncryptionKeyName
 	} else {
-		if dcl.NameToSelfLink(rawDesired.RuntimeDatabaseEncryptionKeyName, rawNew.RuntimeDatabaseEncryptionKeyName) {
-			rawNew.RuntimeDatabaseEncryptionKeyName = rawDesired.RuntimeDatabaseEncryptionKeyName
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ProjectId) && dcl.IsNotReturnedByServer(rawDesired.ProjectId) {

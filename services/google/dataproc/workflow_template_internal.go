@@ -1128,12 +1128,14 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfig(des, initial *Wor
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfig{}
 
-	if dcl.NameToSelfLink(des.StagingBucket, initial.StagingBucket) || dcl.IsZeroValue(des.StagingBucket) {
+	if dcl.IsZeroValue(des.StagingBucket) || (dcl.IsEmptyValueIndirect(des.StagingBucket) && dcl.IsEmptyValueIndirect(initial.StagingBucket)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.StagingBucket = initial.StagingBucket
 	} else {
 		cDes.StagingBucket = des.StagingBucket
 	}
-	if dcl.NameToSelfLink(des.TempBucket, initial.TempBucket) || dcl.IsZeroValue(des.TempBucket) {
+	if dcl.IsZeroValue(des.TempBucket) || (dcl.IsEmptyValueIndirect(des.TempBucket) && dcl.IsEmptyValueIndirect(initial.TempBucket)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TempBucket = initial.TempBucket
 	} else {
 		cDes.TempBucket = des.TempBucket
@@ -1195,12 +1197,6 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfig(c *Client, des
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.StagingBucket, nw.StagingBucket) {
-		nw.StagingBucket = des.StagingBucket
-	}
-	if dcl.NameToSelfLink(des.TempBucket, nw.TempBucket) {
-		nw.TempBucket = des.TempBucket
-	}
 	nw.GceClusterConfig = canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(c, des.GceClusterConfig, nw.GceClusterConfig)
 	nw.MasterConfig = canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigMasterConfig(c, des.MasterConfig, nw.MasterConfig)
 	nw.WorkerConfig = canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigWorkerConfig(c, des.WorkerConfig, nw.WorkerConfig)
@@ -1278,12 +1274,14 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(d
 	} else {
 		cDes.Zone = des.Zone
 	}
-	if dcl.NameToSelfLink(des.Network, initial.Network) || dcl.IsZeroValue(des.Network) {
+	if dcl.IsZeroValue(des.Network) || (dcl.IsEmptyValueIndirect(des.Network) && dcl.IsEmptyValueIndirect(initial.Network)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Network = initial.Network
 	} else {
 		cDes.Network = des.Network
 	}
-	if dcl.NameToSelfLink(des.Subnetwork, initial.Subnetwork) || dcl.IsZeroValue(des.Subnetwork) {
+	if dcl.IsZeroValue(des.Subnetwork) || (dcl.IsEmptyValueIndirect(des.Subnetwork) && dcl.IsEmptyValueIndirect(initial.Subnetwork)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Subnetwork = initial.Subnetwork
 	} else {
 		cDes.Subnetwork = des.Subnetwork
@@ -1299,7 +1297,8 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(d
 	} else {
 		cDes.PrivateIPv6GoogleAccess = des.PrivateIPv6GoogleAccess
 	}
-	if dcl.NameToSelfLink(des.ServiceAccount, initial.ServiceAccount) || dcl.IsZeroValue(des.ServiceAccount) {
+	if dcl.IsZeroValue(des.ServiceAccount) || (dcl.IsEmptyValueIndirect(des.ServiceAccount) && dcl.IsEmptyValueIndirect(initial.ServiceAccount)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ServiceAccount = initial.ServiceAccount
 	} else {
 		cDes.ServiceAccount = des.ServiceAccount
@@ -1371,17 +1370,8 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigGceClusterConfi
 	if dcl.StringCanonicalize(des.Zone, nw.Zone) {
 		nw.Zone = des.Zone
 	}
-	if dcl.NameToSelfLink(des.Network, nw.Network) {
-		nw.Network = des.Network
-	}
-	if dcl.NameToSelfLink(des.Subnetwork, nw.Subnetwork) {
-		nw.Subnetwork = des.Subnetwork
-	}
 	if dcl.BoolCanonicalize(des.InternalIPOnly, nw.InternalIPOnly) {
 		nw.InternalIPOnly = des.InternalIPOnly
-	}
-	if dcl.NameToSelfLink(des.ServiceAccount, nw.ServiceAccount) {
-		nw.ServiceAccount = des.ServiceAccount
 	}
 	if dcl.StringArrayCanonicalize(des.ServiceAccountScopes, nw.ServiceAccountScopes) {
 		nw.ServiceAccountScopes = des.ServiceAccountScopes
@@ -1581,7 +1571,8 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNo
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity{}
 
-	if dcl.NameToSelfLink(des.NodeGroup, initial.NodeGroup) || dcl.IsZeroValue(des.NodeGroup) {
+	if dcl.IsZeroValue(des.NodeGroup) || (dcl.IsEmptyValueIndirect(des.NodeGroup) && dcl.IsEmptyValueIndirect(initial.NodeGroup)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NodeGroup = initial.NodeGroup
 	} else {
 		cDes.NodeGroup = des.NodeGroup
@@ -1630,10 +1621,6 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigGceClusterConfi
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.NodeGroup, nw.NodeGroup) {
-		nw.NodeGroup = des.NodeGroup
 	}
 
 	return nw
@@ -1702,7 +1689,8 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigMasterConfig(des, 
 	} else {
 		cDes.NumInstances = des.NumInstances
 	}
-	if dcl.NameToSelfLink(des.Image, initial.Image) || dcl.IsZeroValue(des.Image) {
+	if dcl.IsZeroValue(des.Image) || (dcl.IsEmptyValueIndirect(des.Image) && dcl.IsEmptyValueIndirect(initial.Image)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Image = initial.Image
 	} else {
 		cDes.Image = des.Image
@@ -1773,9 +1761,6 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigMasterConfig(c 
 
 	if dcl.StringArrayCanonicalize(des.InstanceNames, nw.InstanceNames) {
 		nw.InstanceNames = des.InstanceNames
-	}
-	if dcl.NameToSelfLink(des.Image, nw.Image) {
-		nw.Image = des.Image
 	}
 	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) {
 		nw.MachineType = des.MachineType
@@ -2216,7 +2201,8 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigWorkerConfig(des, 
 	} else {
 		cDes.NumInstances = des.NumInstances
 	}
-	if dcl.NameToSelfLink(des.Image, initial.Image) || dcl.IsZeroValue(des.Image) {
+	if dcl.IsZeroValue(des.Image) || (dcl.IsEmptyValueIndirect(des.Image) && dcl.IsEmptyValueIndirect(initial.Image)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Image = initial.Image
 	} else {
 		cDes.Image = des.Image
@@ -2287,9 +2273,6 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigWorkerConfig(c 
 
 	if dcl.StringArrayCanonicalize(des.InstanceNames, nw.InstanceNames) {
 		nw.InstanceNames = des.InstanceNames
-	}
-	if dcl.NameToSelfLink(des.Image, nw.Image) {
-		nw.Image = des.Image
 	}
 	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) {
 		nw.MachineType = des.MachineType
@@ -2730,7 +2713,8 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerCon
 	} else {
 		cDes.NumInstances = des.NumInstances
 	}
-	if dcl.NameToSelfLink(des.Image, initial.Image) || dcl.IsZeroValue(des.Image) {
+	if dcl.IsZeroValue(des.Image) || (dcl.IsEmptyValueIndirect(des.Image) && dcl.IsEmptyValueIndirect(initial.Image)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Image = initial.Image
 	} else {
 		cDes.Image = des.Image
@@ -2801,9 +2785,6 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigSecondaryWorker
 
 	if dcl.StringArrayCanonicalize(des.InstanceNames, nw.InstanceNames) {
 		nw.InstanceNames = des.InstanceNames
-	}
-	if dcl.NameToSelfLink(des.Image, nw.Image) {
-		nw.Image = des.Image
 	}
 	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) {
 		nw.MachineType = des.MachineType
@@ -3488,7 +3469,8 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig(d
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig{}
 
-	if dcl.NameToSelfLink(des.GcePdKmsKeyName, initial.GcePdKmsKeyName) || dcl.IsZeroValue(des.GcePdKmsKeyName) {
+	if dcl.IsZeroValue(des.GcePdKmsKeyName) || (dcl.IsEmptyValueIndirect(des.GcePdKmsKeyName) && dcl.IsEmptyValueIndirect(initial.GcePdKmsKeyName)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.GcePdKmsKeyName = initial.GcePdKmsKeyName
 	} else {
 		cDes.GcePdKmsKeyName = des.GcePdKmsKeyName
@@ -3537,10 +3519,6 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigEncryptionConfi
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.GcePdKmsKeyName, nw.GcePdKmsKeyName) {
-		nw.GcePdKmsKeyName = des.GcePdKmsKeyName
 	}
 
 	return nw
@@ -3603,7 +3581,8 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig(
 
 	cDes := &WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig{}
 
-	if dcl.NameToSelfLink(des.Policy, initial.Policy) || dcl.IsZeroValue(des.Policy) {
+	if dcl.IsZeroValue(des.Policy) || (dcl.IsEmptyValueIndirect(des.Policy) && dcl.IsEmptyValueIndirect(initial.Policy)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Policy = initial.Policy
 	} else {
 		cDes.Policy = des.Policy
@@ -3652,10 +3631,6 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigAutoscalingConf
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.Policy, nw.Policy) {
-		nw.Policy = des.Policy
 	}
 
 	return nw
@@ -3837,7 +3812,8 @@ func canonicalizeWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerb
 	} else {
 		cDes.RootPrincipalPassword = des.RootPrincipalPassword
 	}
-	if dcl.NameToSelfLink(des.KmsKey, initial.KmsKey) || dcl.IsZeroValue(des.KmsKey) {
+	if dcl.IsZeroValue(des.KmsKey) || (dcl.IsEmptyValueIndirect(des.KmsKey) && dcl.IsEmptyValueIndirect(initial.KmsKey)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.KmsKey = initial.KmsKey
 	} else {
 		cDes.KmsKey = des.KmsKey
@@ -3954,9 +3930,6 @@ func canonicalizeNewWorkflowTemplatePlacementManagedClusterConfigSecurityConfigK
 	}
 	if dcl.StringCanonicalize(des.RootPrincipalPassword, nw.RootPrincipalPassword) {
 		nw.RootPrincipalPassword = des.RootPrincipalPassword
-	}
-	if dcl.NameToSelfLink(des.KmsKey, nw.KmsKey) {
-		nw.KmsKey = des.KmsKey
 	}
 	if dcl.StringCanonicalize(des.Keystore, nw.Keystore) {
 		nw.Keystore = des.Keystore

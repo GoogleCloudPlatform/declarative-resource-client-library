@@ -377,7 +377,8 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	} else {
 		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
-	if dcl.NameToSelfLink(rawDesired.DiskEncryptionKeyName, rawInitial.DiskEncryptionKeyName) {
+	if dcl.IsZeroValue(rawDesired.DiskEncryptionKeyName) || (dcl.IsEmptyValueIndirect(rawDesired.DiskEncryptionKeyName) && dcl.IsEmptyValueIndirect(rawInitial.DiskEncryptionKeyName)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.DiskEncryptionKeyName = rawInitial.DiskEncryptionKeyName
 	} else {
 		canonicalDesired.DiskEncryptionKeyName = rawDesired.DiskEncryptionKeyName
@@ -459,9 +460,6 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsNotReturnedByServer(rawNew.DiskEncryptionKeyName) && dcl.IsNotReturnedByServer(rawDesired.DiskEncryptionKeyName) {
 		rawNew.DiskEncryptionKeyName = rawDesired.DiskEncryptionKeyName
 	} else {
-		if dcl.NameToSelfLink(rawDesired.DiskEncryptionKeyName, rawNew.DiskEncryptionKeyName) {
-			rawNew.DiskEncryptionKeyName = rawDesired.DiskEncryptionKeyName
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {

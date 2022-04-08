@@ -1,6 +1,6 @@
 {
   "name": "{{address}}",
-  "project": "{{project}}",
+  "project": "{{ref:compute.serviceusage.service.json:project}}",
   "network": "default",
   "purpose": "VPC_PEERING",
   "addressType": "INTERNAL",

@@ -391,7 +391,8 @@ func canonicalizeFirewallPolicyRuleDesiredState(rawDesired, rawInitial *Firewall
 	} else {
 		canonicalDesired.Disabled = rawDesired.Disabled
 	}
-	if dcl.NameToSelfLink(rawDesired.FirewallPolicy, rawInitial.FirewallPolicy) {
+	if dcl.IsZeroValue(rawDesired.FirewallPolicy) || (dcl.IsEmptyValueIndirect(rawDesired.FirewallPolicy) && dcl.IsEmptyValueIndirect(rawInitial.FirewallPolicy)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.FirewallPolicy = rawInitial.FirewallPolicy
 	} else {
 		canonicalDesired.FirewallPolicy = rawDesired.FirewallPolicy
@@ -482,9 +483,6 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 	if dcl.IsNotReturnedByServer(rawNew.FirewallPolicy) && dcl.IsNotReturnedByServer(rawDesired.FirewallPolicy) {
 		rawNew.FirewallPolicy = rawDesired.FirewallPolicy
 	} else {
-		if dcl.NameToSelfLink(rawDesired.FirewallPolicy, rawNew.FirewallPolicy) {
-			rawNew.FirewallPolicy = rawDesired.FirewallPolicy
-		}
 	}
 
 	return rawNew, nil

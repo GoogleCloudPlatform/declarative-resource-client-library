@@ -780,7 +780,8 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 		canonicalDesired.Description = rawDesired.Description
 	}
 	canonicalDesired.DistributionPolicy = canonicalizeInstanceGroupManagerDistributionPolicy(rawDesired.DistributionPolicy, rawInitial.DistributionPolicy, opts...)
-	if dcl.NameToSelfLink(rawDesired.InstanceTemplate, rawInitial.InstanceTemplate) {
+	if dcl.IsZeroValue(rawDesired.InstanceTemplate) || (dcl.IsEmptyValueIndirect(rawDesired.InstanceTemplate) && dcl.IsEmptyValueIndirect(rawInitial.InstanceTemplate)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.InstanceTemplate = rawInitial.InstanceTemplate
 	} else {
 		canonicalDesired.InstanceTemplate = rawDesired.InstanceTemplate
@@ -876,9 +877,6 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 	if dcl.IsNotReturnedByServer(rawNew.InstanceTemplate) && dcl.IsNotReturnedByServer(rawDesired.InstanceTemplate) {
 		rawNew.InstanceTemplate = rawDesired.InstanceTemplate
 	} else {
-		if dcl.NameToSelfLink(rawDesired.InstanceTemplate, rawNew.InstanceTemplate) {
-			rawNew.InstanceTemplate = rawDesired.InstanceTemplate
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Versions) && dcl.IsNotReturnedByServer(rawDesired.Versions) {
@@ -890,9 +888,6 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 	if dcl.IsNotReturnedByServer(rawNew.InstanceGroup) && dcl.IsNotReturnedByServer(rawDesired.InstanceGroup) {
 		rawNew.InstanceGroup = rawDesired.InstanceGroup
 	} else {
-		if dcl.NameToSelfLink(rawDesired.InstanceGroup, rawNew.InstanceGroup) {
-			rawNew.InstanceGroup = rawDesired.InstanceGroup
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.TargetPools) && dcl.IsNotReturnedByServer(rawDesired.TargetPools) {
@@ -1224,7 +1219,8 @@ func canonicalizeInstanceGroupManagerVersions(des, initial *InstanceGroupManager
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.NameToSelfLink(des.InstanceTemplate, initial.InstanceTemplate) || dcl.IsZeroValue(des.InstanceTemplate) {
+	if dcl.IsZeroValue(des.InstanceTemplate) || (dcl.IsEmptyValueIndirect(des.InstanceTemplate) && dcl.IsEmptyValueIndirect(initial.InstanceTemplate)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.InstanceTemplate = initial.InstanceTemplate
 	} else {
 		cDes.InstanceTemplate = des.InstanceTemplate
@@ -1278,9 +1274,6 @@ func canonicalizeNewInstanceGroupManagerVersions(c *Client, des, nw *InstanceGro
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
-	}
-	if dcl.NameToSelfLink(des.InstanceTemplate, nw.InstanceTemplate) {
-		nw.InstanceTemplate = des.InstanceTemplate
 	}
 	nw.TargetSize = canonicalizeNewInstanceGroupManagerVersionsTargetSize(c, des.TargetSize, nw.TargetSize)
 
@@ -2015,7 +2008,8 @@ func canonicalizeInstanceGroupManagerAutoHealingPolicies(des, initial *InstanceG
 
 	cDes := &InstanceGroupManagerAutoHealingPolicies{}
 
-	if dcl.NameToSelfLink(des.HealthCheck, initial.HealthCheck) || dcl.IsZeroValue(des.HealthCheck) {
+	if dcl.IsZeroValue(des.HealthCheck) || (dcl.IsEmptyValueIndirect(des.HealthCheck) && dcl.IsEmptyValueIndirect(initial.HealthCheck)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.HealthCheck = initial.HealthCheck
 	} else {
 		cDes.HealthCheck = des.HealthCheck
@@ -2070,10 +2064,6 @@ func canonicalizeNewInstanceGroupManagerAutoHealingPolicies(c *Client, des, nw *
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.HealthCheck, nw.HealthCheck) {
-		nw.HealthCheck = des.HealthCheck
 	}
 
 	return nw

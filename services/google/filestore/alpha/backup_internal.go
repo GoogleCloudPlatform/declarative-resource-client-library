@@ -459,7 +459,8 @@ func canonicalizeBackupDesiredState(rawDesired, rawInitial *Backup, opts ...dcl.
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
 	}
-	if dcl.NameToSelfLink(rawDesired.SourceInstance, rawInitial.SourceInstance) {
+	if dcl.IsZeroValue(rawDesired.SourceInstance) || (dcl.IsEmptyValueIndirect(rawDesired.SourceInstance) && dcl.IsEmptyValueIndirect(rawInitial.SourceInstance)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.SourceInstance = rawInitial.SourceInstance
 	} else {
 		canonicalDesired.SourceInstance = rawDesired.SourceInstance
@@ -523,9 +524,6 @@ func canonicalizeBackupNewState(c *Client, rawNew, rawDesired *Backup) (*Backup,
 	if dcl.IsNotReturnedByServer(rawNew.SourceInstance) && dcl.IsNotReturnedByServer(rawDesired.SourceInstance) {
 		rawNew.SourceInstance = rawDesired.SourceInstance
 	} else {
-		if dcl.NameToSelfLink(rawDesired.SourceInstance, rawNew.SourceInstance) {
-			rawNew.SourceInstance = rawDesired.SourceInstance
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SourceFileShare) && dcl.IsNotReturnedByServer(rawDesired.SourceFileShare) {

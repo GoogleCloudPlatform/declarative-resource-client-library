@@ -563,7 +563,8 @@ func canonicalizeInstanceFileShares(des, initial *InstanceFileShares, opts ...dc
 	} else {
 		cDes.CapacityGb = des.CapacityGb
 	}
-	if dcl.NameToSelfLink(des.SourceBackup, initial.SourceBackup) || dcl.IsZeroValue(des.SourceBackup) {
+	if dcl.IsZeroValue(des.SourceBackup) || (dcl.IsEmptyValueIndirect(des.SourceBackup) && dcl.IsEmptyValueIndirect(initial.SourceBackup)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.SourceBackup = initial.SourceBackup
 	} else {
 		cDes.SourceBackup = des.SourceBackup
@@ -617,9 +618,6 @@ func canonicalizeNewInstanceFileShares(c *Client, des, nw *InstanceFileShares) *
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
-	}
-	if dcl.NameToSelfLink(des.SourceBackup, nw.SourceBackup) {
-		nw.SourceBackup = des.SourceBackup
 	}
 	nw.NfsExportOptions = canonicalizeNewInstanceFileSharesNfsExportOptionsSlice(c, des.NfsExportOptions, nw.NfsExportOptions)
 
@@ -822,7 +820,8 @@ func canonicalizeInstanceNetworks(des, initial *InstanceNetworks, opts ...dcl.Ap
 
 	cDes := &InstanceNetworks{}
 
-	if dcl.NameToSelfLink(des.Network, initial.Network) || dcl.IsZeroValue(des.Network) {
+	if dcl.IsZeroValue(des.Network) || (dcl.IsEmptyValueIndirect(des.Network) && dcl.IsEmptyValueIndirect(initial.Network)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Network = initial.Network
 	} else {
 		cDes.Network = des.Network
@@ -884,9 +883,6 @@ func canonicalizeNewInstanceNetworks(c *Client, des, nw *InstanceNetworks) *Inst
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Network, nw.Network) {
-		nw.Network = des.Network
-	}
 	if dcl.StringCanonicalize(des.ReservedIPRange, nw.ReservedIPRange) {
 		nw.ReservedIPRange = des.ReservedIPRange
 	}

@@ -1473,7 +1473,8 @@ func canonicalizeJobTriggerInspectJobStorageConfigDatastoreOptionsPartitionId(de
 
 	cDes := &JobTriggerInspectJobStorageConfigDatastoreOptionsPartitionId{}
 
-	if dcl.NameToSelfLink(des.ProjectId, initial.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
+	if dcl.IsZeroValue(des.ProjectId) || (dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ProjectId = initial.ProjectId
 	} else {
 		cDes.ProjectId = des.ProjectId
@@ -1529,9 +1530,6 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigDatastoreOptionsPartitionId
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.ProjectId, nw.ProjectId) {
-		nw.ProjectId = des.ProjectId
-	}
 	if dcl.StringCanonicalize(des.NamespaceId, nw.NamespaceId) {
 		nw.NamespaceId = des.NamespaceId
 	}
@@ -2007,7 +2005,8 @@ func canonicalizeJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRege
 
 	cDes := &JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRegexFileSet{}
 
-	if dcl.NameToSelfLink(des.BucketName, initial.BucketName) || dcl.IsZeroValue(des.BucketName) {
+	if dcl.IsZeroValue(des.BucketName) || (dcl.IsEmptyValueIndirect(des.BucketName) && dcl.IsEmptyValueIndirect(initial.BucketName)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.BucketName = initial.BucketName
 	} else {
 		cDes.BucketName = des.BucketName
@@ -2068,9 +2067,6 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetR
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.BucketName, nw.BucketName) {
-		nw.BucketName = des.BucketName
-	}
 	if dcl.StringArrayCanonicalize(des.IncludeRegex, nw.IncludeRegex) {
 		nw.IncludeRegex = des.IncludeRegex
 	}
@@ -2311,17 +2307,20 @@ func canonicalizeJobTriggerInspectJobStorageConfigBigQueryOptionsTableReference(
 
 	cDes := &JobTriggerInspectJobStorageConfigBigQueryOptionsTableReference{}
 
-	if dcl.NameToSelfLink(des.ProjectId, initial.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
+	if dcl.IsZeroValue(des.ProjectId) || (dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ProjectId = initial.ProjectId
 	} else {
 		cDes.ProjectId = des.ProjectId
 	}
-	if dcl.NameToSelfLink(des.DatasetId, initial.DatasetId) || dcl.IsZeroValue(des.DatasetId) {
+	if dcl.IsZeroValue(des.DatasetId) || (dcl.IsEmptyValueIndirect(des.DatasetId) && dcl.IsEmptyValueIndirect(initial.DatasetId)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DatasetId = initial.DatasetId
 	} else {
 		cDes.DatasetId = des.DatasetId
 	}
-	if dcl.NameToSelfLink(des.TableId, initial.TableId) || dcl.IsZeroValue(des.TableId) {
+	if dcl.IsZeroValue(des.TableId) || (dcl.IsEmptyValueIndirect(des.TableId) && dcl.IsEmptyValueIndirect(initial.TableId)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TableId = initial.TableId
 	} else {
 		cDes.TableId = des.TableId
@@ -2370,16 +2369,6 @@ func canonicalizeNewJobTriggerInspectJobStorageConfigBigQueryOptionsTableReferen
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.ProjectId, nw.ProjectId) {
-		nw.ProjectId = des.ProjectId
-	}
-	if dcl.NameToSelfLink(des.DatasetId, nw.DatasetId) {
-		nw.DatasetId = des.DatasetId
-	}
-	if dcl.NameToSelfLink(des.TableId, nw.TableId) {
-		nw.TableId = des.TableId
 	}
 
 	return nw
@@ -7744,17 +7733,20 @@ func canonicalizeJobTriggerInspectJobActionsSaveFindingsOutputConfigTable(des, i
 
 	cDes := &JobTriggerInspectJobActionsSaveFindingsOutputConfigTable{}
 
-	if dcl.NameToSelfLink(des.ProjectId, initial.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
+	if dcl.IsZeroValue(des.ProjectId) || (dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ProjectId = initial.ProjectId
 	} else {
 		cDes.ProjectId = des.ProjectId
 	}
-	if dcl.NameToSelfLink(des.DatasetId, initial.DatasetId) || dcl.IsZeroValue(des.DatasetId) {
+	if dcl.IsZeroValue(des.DatasetId) || (dcl.IsEmptyValueIndirect(des.DatasetId) && dcl.IsEmptyValueIndirect(initial.DatasetId)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DatasetId = initial.DatasetId
 	} else {
 		cDes.DatasetId = des.DatasetId
 	}
-	if dcl.NameToSelfLink(des.TableId, initial.TableId) || dcl.IsZeroValue(des.TableId) {
+	if dcl.IsZeroValue(des.TableId) || (dcl.IsEmptyValueIndirect(des.TableId) && dcl.IsEmptyValueIndirect(initial.TableId)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TableId = initial.TableId
 	} else {
 		cDes.TableId = des.TableId
@@ -7803,16 +7795,6 @@ func canonicalizeNewJobTriggerInspectJobActionsSaveFindingsOutputConfigTable(c *
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.ProjectId, nw.ProjectId) {
-		nw.ProjectId = des.ProjectId
-	}
-	if dcl.NameToSelfLink(des.DatasetId, nw.DatasetId) {
-		nw.DatasetId = des.DatasetId
-	}
-	if dcl.NameToSelfLink(des.TableId, nw.TableId) {
-		nw.TableId = des.TableId
 	}
 
 	return nw

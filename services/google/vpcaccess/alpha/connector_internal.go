@@ -371,7 +371,8 @@ func canonicalizeConnectorDesiredState(rawDesired, rawInitial *Connector, opts .
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.NameToSelfLink(rawDesired.Network, rawInitial.Network) {
+	if dcl.IsZeroValue(rawDesired.Network) || (dcl.IsEmptyValueIndirect(rawDesired.Network) && dcl.IsEmptyValueIndirect(rawInitial.Network)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Network = rawInitial.Network
 	} else {
 		canonicalDesired.Network = rawDesired.Network
@@ -432,9 +433,6 @@ func canonicalizeConnectorNewState(c *Client, rawNew, rawDesired *Connector) (*C
 	if dcl.IsNotReturnedByServer(rawNew.Network) && dcl.IsNotReturnedByServer(rawDesired.Network) {
 		rawNew.Network = rawDesired.Network
 	} else {
-		if dcl.NameToSelfLink(rawDesired.Network, rawNew.Network) {
-			rawNew.Network = rawDesired.Network
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.IPCidrRange) && dcl.IsNotReturnedByServer(rawDesired.IPCidrRange) {
@@ -513,12 +511,14 @@ func canonicalizeConnectorSubnet(des, initial *ConnectorSubnet, opts ...dcl.Appl
 
 	cDes := &ConnectorSubnet{}
 
-	if dcl.NameToSelfLink(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.IsZeroValue(des.Name) || (dcl.IsEmptyValueIndirect(des.Name) && dcl.IsEmptyValueIndirect(initial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.NameToSelfLink(des.ProjectId, initial.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
+	if dcl.IsZeroValue(des.ProjectId) || (dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ProjectId = initial.ProjectId
 	} else {
 		cDes.ProjectId = des.ProjectId
@@ -567,13 +567,6 @@ func canonicalizeNewConnectorSubnet(c *Client, des, nw *ConnectorSubnet) *Connec
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.Name, nw.Name) {
-		nw.Name = des.Name
-	}
-	if dcl.NameToSelfLink(des.ProjectId, nw.ProjectId) {
-		nw.ProjectId = des.ProjectId
 	}
 
 	return nw

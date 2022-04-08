@@ -617,7 +617,8 @@ func canonicalizeFeatureMembershipConfigmanagementConfigSyncGit(des, initial *Fe
 	} else {
 		cDes.HttpsProxy = des.HttpsProxy
 	}
-	if dcl.NameToSelfLink(des.GcpServiceAccountEmail, initial.GcpServiceAccountEmail) || dcl.IsZeroValue(des.GcpServiceAccountEmail) {
+	if dcl.IsZeroValue(des.GcpServiceAccountEmail) || (dcl.IsEmptyValueIndirect(des.GcpServiceAccountEmail) && dcl.IsEmptyValueIndirect(initial.GcpServiceAccountEmail)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.GcpServiceAccountEmail = initial.GcpServiceAccountEmail
 	} else {
 		cDes.GcpServiceAccountEmail = des.GcpServiceAccountEmail
@@ -688,9 +689,6 @@ func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncGit(c *Client, de
 	}
 	if dcl.StringCanonicalize(des.HttpsProxy, nw.HttpsProxy) {
 		nw.HttpsProxy = des.HttpsProxy
-	}
-	if dcl.NameToSelfLink(des.GcpServiceAccountEmail, nw.GcpServiceAccountEmail) {
-		nw.GcpServiceAccountEmail = des.GcpServiceAccountEmail
 	}
 
 	return nw

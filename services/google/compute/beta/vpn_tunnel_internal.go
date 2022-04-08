@@ -453,12 +453,14 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 	} else {
 		canonicalDesired.Region = rawDesired.Region
 	}
-	if dcl.NameToSelfLink(rawDesired.TargetVpnGateway, rawInitial.TargetVpnGateway) {
+	if dcl.IsZeroValue(rawDesired.TargetVpnGateway) || (dcl.IsEmptyValueIndirect(rawDesired.TargetVpnGateway) && dcl.IsEmptyValueIndirect(rawInitial.TargetVpnGateway)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.TargetVpnGateway = rawInitial.TargetVpnGateway
 	} else {
 		canonicalDesired.TargetVpnGateway = rawDesired.TargetVpnGateway
 	}
-	if dcl.NameToSelfLink(rawDesired.VpnGateway, rawInitial.VpnGateway) {
+	if dcl.IsZeroValue(rawDesired.VpnGateway) || (dcl.IsEmptyValueIndirect(rawDesired.VpnGateway) && dcl.IsEmptyValueIndirect(rawInitial.VpnGateway)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.VpnGateway = rawInitial.VpnGateway
 	} else {
 		canonicalDesired.VpnGateway = rawDesired.VpnGateway
@@ -564,17 +566,11 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	if dcl.IsNotReturnedByServer(rawNew.TargetVpnGateway) && dcl.IsNotReturnedByServer(rawDesired.TargetVpnGateway) {
 		rawNew.TargetVpnGateway = rawDesired.TargetVpnGateway
 	} else {
-		if dcl.NameToSelfLink(rawDesired.TargetVpnGateway, rawNew.TargetVpnGateway) {
-			rawNew.TargetVpnGateway = rawDesired.TargetVpnGateway
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.VpnGateway) && dcl.IsNotReturnedByServer(rawDesired.VpnGateway) {
 		rawNew.VpnGateway = rawDesired.VpnGateway
 	} else {
-		if dcl.NameToSelfLink(rawDesired.VpnGateway, rawNew.VpnGateway) {
-			rawNew.VpnGateway = rawDesired.VpnGateway
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.VpnGatewayInterface) && dcl.IsNotReturnedByServer(rawDesired.VpnGatewayInterface) {

@@ -634,7 +634,8 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 	} else {
 		canonicalDesired.AvailableMemoryMb = rawDesired.AvailableMemoryMb
 	}
-	if dcl.NameToSelfLink(rawDesired.ServiceAccountEmail, rawInitial.ServiceAccountEmail) {
+	if dcl.IsZeroValue(rawDesired.ServiceAccountEmail) || (dcl.IsEmptyValueIndirect(rawDesired.ServiceAccountEmail) && dcl.IsEmptyValueIndirect(rawInitial.ServiceAccountEmail)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.ServiceAccountEmail = rawInitial.ServiceAccountEmail
 	} else {
 		canonicalDesired.ServiceAccountEmail = rawDesired.ServiceAccountEmail
@@ -657,7 +658,8 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 	} else {
 		canonicalDesired.MaxInstances = rawDesired.MaxInstances
 	}
-	if dcl.NameToSelfLink(rawDesired.VPCConnector, rawInitial.VPCConnector) {
+	if dcl.IsZeroValue(rawDesired.VPCConnector) || (dcl.IsEmptyValueIndirect(rawDesired.VPCConnector) && dcl.IsEmptyValueIndirect(rawInitial.VPCConnector)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.VPCConnector = rawInitial.VPCConnector
 	} else {
 		canonicalDesired.VPCConnector = rawDesired.VPCConnector
@@ -769,9 +771,6 @@ func canonicalizeFunctionNewState(c *Client, rawNew, rawDesired *Function) (*Fun
 	if dcl.IsNotReturnedByServer(rawNew.ServiceAccountEmail) && dcl.IsNotReturnedByServer(rawDesired.ServiceAccountEmail) {
 		rawNew.ServiceAccountEmail = rawDesired.ServiceAccountEmail
 	} else {
-		if dcl.NameToSelfLink(rawDesired.ServiceAccountEmail, rawNew.ServiceAccountEmail) {
-			rawNew.ServiceAccountEmail = rawDesired.ServiceAccountEmail
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
@@ -805,9 +804,6 @@ func canonicalizeFunctionNewState(c *Client, rawNew, rawDesired *Function) (*Fun
 	if dcl.IsNotReturnedByServer(rawNew.VPCConnector) && dcl.IsNotReturnedByServer(rawDesired.VPCConnector) {
 		rawNew.VPCConnector = rawDesired.VPCConnector
 	} else {
-		if dcl.NameToSelfLink(rawDesired.VPCConnector, rawNew.VPCConnector) {
-			rawNew.VPCConnector = rawDesired.VPCConnector
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.VPCConnectorEgressSettings) && dcl.IsNotReturnedByServer(rawDesired.VPCConnectorEgressSettings) {
@@ -1080,7 +1076,8 @@ func canonicalizeFunctionEventTrigger(des, initial *FunctionEventTrigger, opts .
 	} else {
 		cDes.EventType = des.EventType
 	}
-	if dcl.NameToSelfLink(des.Resource, initial.Resource) || dcl.IsZeroValue(des.Resource) {
+	if dcl.IsZeroValue(des.Resource) || (dcl.IsEmptyValueIndirect(des.Resource) && dcl.IsEmptyValueIndirect(initial.Resource)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Resource = initial.Resource
 	} else {
 		cDes.Resource = des.Resource
@@ -1143,9 +1140,6 @@ func canonicalizeNewFunctionEventTrigger(c *Client, des, nw *FunctionEventTrigge
 
 	if dcl.StringCanonicalize(des.EventType, nw.EventType) {
 		nw.EventType = des.EventType
-	}
-	if dcl.NameToSelfLink(des.Resource, nw.Resource) {
-		nw.Resource = des.Resource
 	}
 	if dcl.StringCanonicalize(des.Service, nw.Service) {
 		nw.Service = des.Service

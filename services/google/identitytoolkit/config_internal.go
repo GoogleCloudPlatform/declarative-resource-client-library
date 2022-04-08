@@ -3120,7 +3120,8 @@ func canonicalizeConfigMultiTenant(des, initial *ConfigMultiTenant, opts ...dcl.
 	} else {
 		cDes.AllowTenants = des.AllowTenants
 	}
-	if dcl.NameToSelfLink(des.DefaultTenantLocation, initial.DefaultTenantLocation) || dcl.IsZeroValue(des.DefaultTenantLocation) {
+	if dcl.IsZeroValue(des.DefaultTenantLocation) || (dcl.IsEmptyValueIndirect(des.DefaultTenantLocation) && dcl.IsEmptyValueIndirect(initial.DefaultTenantLocation)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DefaultTenantLocation = initial.DefaultTenantLocation
 	} else {
 		cDes.DefaultTenantLocation = des.DefaultTenantLocation
@@ -3173,9 +3174,6 @@ func canonicalizeNewConfigMultiTenant(c *Client, des, nw *ConfigMultiTenant) *Co
 
 	if dcl.BoolCanonicalize(des.AllowTenants, nw.AllowTenants) {
 		nw.AllowTenants = des.AllowTenants
-	}
-	if dcl.NameToSelfLink(des.DefaultTenantLocation, nw.DefaultTenantLocation) {
-		nw.DefaultTenantLocation = des.DefaultTenantLocation
 	}
 
 	return nw
@@ -3700,7 +3698,8 @@ func canonicalizeConfigBlockingFunctionsTriggers(des, initial *ConfigBlockingFun
 
 	cDes := &ConfigBlockingFunctionsTriggers{}
 
-	if dcl.NameToSelfLink(des.FunctionUri, initial.FunctionUri) || dcl.IsZeroValue(des.FunctionUri) {
+	if dcl.IsZeroValue(des.FunctionUri) || (dcl.IsEmptyValueIndirect(des.FunctionUri) && dcl.IsEmptyValueIndirect(initial.FunctionUri)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.FunctionUri = initial.FunctionUri
 	} else {
 		cDes.FunctionUri = des.FunctionUri
@@ -3749,10 +3748,6 @@ func canonicalizeNewConfigBlockingFunctionsTriggers(c *Client, des, nw *ConfigBl
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.FunctionUri, nw.FunctionUri) {
-		nw.FunctionUri = des.FunctionUri
 	}
 
 	return nw

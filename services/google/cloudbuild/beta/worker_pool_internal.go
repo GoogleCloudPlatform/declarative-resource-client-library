@@ -941,7 +941,8 @@ func canonicalizeWorkerPoolPrivatePoolV1ConfigNetworkConfig(des, initial *Worker
 
 	cDes := &WorkerPoolPrivatePoolV1ConfigNetworkConfig{}
 
-	if dcl.NameToSelfLink(des.PeeredNetwork, initial.PeeredNetwork) || dcl.IsZeroValue(des.PeeredNetwork) {
+	if dcl.IsZeroValue(des.PeeredNetwork) || (dcl.IsEmptyValueIndirect(des.PeeredNetwork) && dcl.IsEmptyValueIndirect(initial.PeeredNetwork)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PeeredNetwork = initial.PeeredNetwork
 	} else {
 		cDes.PeeredNetwork = des.PeeredNetwork
@@ -996,10 +997,6 @@ func canonicalizeNewWorkerPoolPrivatePoolV1ConfigNetworkConfig(c *Client, des, n
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.PeeredNetwork, nw.PeeredNetwork) {
-		nw.PeeredNetwork = des.PeeredNetwork
 	}
 
 	return nw
@@ -1191,7 +1188,8 @@ func canonicalizeWorkerPoolNetworkConfig(des, initial *WorkerPoolNetworkConfig, 
 
 	cDes := &WorkerPoolNetworkConfig{}
 
-	if dcl.NameToSelfLink(des.PeeredNetwork, initial.PeeredNetwork) || dcl.IsZeroValue(des.PeeredNetwork) {
+	if dcl.IsZeroValue(des.PeeredNetwork) || (dcl.IsEmptyValueIndirect(des.PeeredNetwork) && dcl.IsEmptyValueIndirect(initial.PeeredNetwork)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PeeredNetwork = initial.PeeredNetwork
 	} else {
 		cDes.PeeredNetwork = des.PeeredNetwork
@@ -1240,10 +1238,6 @@ func canonicalizeNewWorkerPoolNetworkConfig(c *Client, des, nw *WorkerPoolNetwor
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.PeeredNetwork, nw.PeeredNetwork) {
-		nw.PeeredNetwork = des.PeeredNetwork
 	}
 
 	return nw

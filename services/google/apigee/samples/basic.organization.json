@@ -7,7 +7,7 @@
     "features.hybrid.enabled": "true"
   },
   "analyticsRegion": "{{region}}",
-  "authorizedNetwork": "projects/{{ref:apigee.serviceusage.service.json:project}}/global/networks/{{ref:first.compute.network.json:name}}",
+  "authorizedNetwork": "projects/{{ref:apigee.serviceusage.service.json:project}}/global/networks/default",
   "runtimeType": "CLOUD",
   "addonsConfig": {
     "advancedApiOpsConfig": {

@@ -133,9 +133,7 @@ func newUpdateServiceAttachmentPatchRequest(ctx context.Context, f *ServiceAttac
 	if v := f.NatSubnets; v != nil {
 		req["natSubnets"] = v
 	}
-	if v, err := dcl.SelfLinkToNameArrayExpander(f.ConsumerRejectLists); err != nil {
-		return nil, fmt.Errorf("error expanding ConsumerRejectLists into consumerRejectLists: %w", err)
-	} else if v != nil {
+	if v := f.ConsumerRejectLists; v != nil {
 		req["consumerRejectLists"] = v
 	}
 	if v, err := expandServiceAttachmentConsumerAcceptListsSlice(c, f.ConsumerAcceptLists, res); err != nil {
@@ -500,7 +498,8 @@ func canonicalizeServiceAttachmentDesiredState(rawDesired, rawInitial *ServiceAt
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.NameToSelfLink(rawDesired.TargetService, rawInitial.TargetService) {
+	if dcl.IsZeroValue(rawDesired.TargetService) || (dcl.IsEmptyValueIndirect(rawDesired.TargetService) && dcl.IsEmptyValueIndirect(rawInitial.TargetService)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.TargetService = rawInitial.TargetService
 	} else {
 		canonicalDesired.TargetService = rawDesired.TargetService
@@ -583,9 +582,6 @@ func canonicalizeServiceAttachmentNewState(c *Client, rawNew, rawDesired *Servic
 	if dcl.IsNotReturnedByServer(rawNew.TargetService) && dcl.IsNotReturnedByServer(rawDesired.TargetService) {
 		rawNew.TargetService = rawDesired.TargetService
 	} else {
-		if dcl.NameToSelfLink(rawDesired.TargetService, rawNew.TargetService) {
-			rawNew.TargetService = rawDesired.TargetService
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ConnectionPreference) && dcl.IsNotReturnedByServer(rawDesired.ConnectionPreference) {
@@ -791,7 +787,8 @@ func canonicalizeServiceAttachmentConsumerAcceptLists(des, initial *ServiceAttac
 
 	cDes := &ServiceAttachmentConsumerAcceptLists{}
 
-	if dcl.NameToSelfLink(des.ProjectIdOrNum, initial.ProjectIdOrNum) || dcl.IsZeroValue(des.ProjectIdOrNum) {
+	if dcl.IsZeroValue(des.ProjectIdOrNum) || (dcl.IsEmptyValueIndirect(des.ProjectIdOrNum) && dcl.IsEmptyValueIndirect(initial.ProjectIdOrNum)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ProjectIdOrNum = initial.ProjectIdOrNum
 	} else {
 		cDes.ProjectIdOrNum = des.ProjectIdOrNum
@@ -846,10 +843,6 @@ func canonicalizeNewServiceAttachmentConsumerAcceptLists(c *Client, des, nw *Ser
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.ProjectIdOrNum, nw.ProjectIdOrNum) {
-		nw.ProjectIdOrNum = des.ProjectIdOrNum
 	}
 
 	return nw
@@ -1334,9 +1327,7 @@ func expandServiceAttachment(c *Client, f *ServiceAttachment) (map[string]interf
 	if v := f.EnableProxyProtocol; dcl.ValueShouldBeSent(v) {
 		m["enableProxyProtocol"] = v
 	}
-	if v, err := dcl.SelfLinkToNameArrayExpander(f.ConsumerRejectLists); err != nil {
-		return nil, fmt.Errorf("error expanding ConsumerRejectLists into consumerRejectLists: %w", err)
-	} else if v != nil {
+	if v := f.ConsumerRejectLists; v != nil {
 		m["consumerRejectLists"] = v
 	}
 	if v, err := expandServiceAttachmentConsumerAcceptListsSlice(c, f.ConsumerAcceptLists, res); err != nil {

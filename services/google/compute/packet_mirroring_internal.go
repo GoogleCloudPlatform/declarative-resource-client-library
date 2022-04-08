@@ -640,7 +640,8 @@ func canonicalizePacketMirroringNetwork(des, initial *PacketMirroringNetwork, op
 
 	cDes := &PacketMirroringNetwork{}
 
-	if dcl.NameToSelfLink(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.IsZeroValue(des.Url) || (dcl.IsEmptyValueIndirect(des.Url) && dcl.IsEmptyValueIndirect(initial.Url)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Url = initial.Url
 	} else {
 		cDes.Url = des.Url
@@ -691,9 +692,6 @@ func canonicalizeNewPacketMirroringNetwork(c *Client, des, nw *PacketMirroringNe
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Url, nw.Url) {
-		nw.Url = des.Url
-	}
 	if dcl.StringCanonicalize(des.CanonicalUrl, nw.CanonicalUrl) {
 		nw.CanonicalUrl = des.CanonicalUrl
 	}
@@ -758,7 +756,8 @@ func canonicalizePacketMirroringCollectorIlb(des, initial *PacketMirroringCollec
 
 	cDes := &PacketMirroringCollectorIlb{}
 
-	if dcl.NameToSelfLink(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.IsZeroValue(des.Url) || (dcl.IsEmptyValueIndirect(des.Url) && dcl.IsEmptyValueIndirect(initial.Url)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Url = initial.Url
 	} else {
 		cDes.Url = des.Url
@@ -809,9 +808,6 @@ func canonicalizeNewPacketMirroringCollectorIlb(c *Client, des, nw *PacketMirror
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Url, nw.Url) {
-		nw.Url = des.Url
-	}
 	if dcl.StringCanonicalize(des.CanonicalUrl, nw.CanonicalUrl) {
 		nw.CanonicalUrl = des.CanonicalUrl
 	}
@@ -995,7 +991,8 @@ func canonicalizePacketMirroringMirroredResourcesSubnetworks(des, initial *Packe
 
 	cDes := &PacketMirroringMirroredResourcesSubnetworks{}
 
-	if dcl.NameToSelfLink(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.IsZeroValue(des.Url) || (dcl.IsEmptyValueIndirect(des.Url) && dcl.IsEmptyValueIndirect(initial.Url)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Url = initial.Url
 	} else {
 		cDes.Url = des.Url
@@ -1046,9 +1043,6 @@ func canonicalizeNewPacketMirroringMirroredResourcesSubnetworks(c *Client, des, 
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Url, nw.Url) {
-		nw.Url = des.Url
-	}
 	if dcl.StringCanonicalize(des.CanonicalUrl, nw.CanonicalUrl) {
 		nw.CanonicalUrl = des.CanonicalUrl
 	}
@@ -1113,7 +1107,8 @@ func canonicalizePacketMirroringMirroredResourcesInstances(des, initial *PacketM
 
 	cDes := &PacketMirroringMirroredResourcesInstances{}
 
-	if dcl.NameToSelfLink(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
+	if dcl.IsZeroValue(des.Url) || (dcl.IsEmptyValueIndirect(des.Url) && dcl.IsEmptyValueIndirect(initial.Url)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Url = initial.Url
 	} else {
 		cDes.Url = des.Url
@@ -1164,9 +1159,6 @@ func canonicalizeNewPacketMirroringMirroredResourcesInstances(c *Client, des, nw
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Url, nw.Url) {
-		nw.Url = des.Url
-	}
 	if dcl.StringCanonicalize(des.CanonicalUrl, nw.CanonicalUrl) {
 		nw.CanonicalUrl = des.CanonicalUrl
 	}

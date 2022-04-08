@@ -372,7 +372,8 @@ func canonicalizeAssignmentDesiredState(rawDesired, rawInitial *Assignment, opts
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.NameToSelfLink(rawDesired.Assignee, rawInitial.Assignee) {
+	if dcl.IsZeroValue(rawDesired.Assignee) || (dcl.IsEmptyValueIndirect(rawDesired.Assignee) && dcl.IsEmptyValueIndirect(rawInitial.Assignee)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Assignee = rawInitial.Assignee
 	} else {
 		canonicalDesired.Assignee = rawDesired.Assignee
@@ -412,9 +413,6 @@ func canonicalizeAssignmentNewState(c *Client, rawNew, rawDesired *Assignment) (
 	if dcl.IsNotReturnedByServer(rawNew.Assignee) && dcl.IsNotReturnedByServer(rawDesired.Assignee) {
 		rawNew.Assignee = rawDesired.Assignee
 	} else {
-		if dcl.NameToSelfLink(rawDesired.Assignee, rawNew.Assignee) {
-			rawNew.Assignee = rawDesired.Assignee
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.JobType) && dcl.IsNotReturnedByServer(rawDesired.JobType) {

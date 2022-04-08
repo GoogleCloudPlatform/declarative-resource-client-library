@@ -512,7 +512,8 @@ func canonicalizeEndpointPolicyDesiredState(rawDesired, rawInitial *EndpointPoli
 	} else {
 		canonicalDesired.Type = rawDesired.Type
 	}
-	if dcl.NameToSelfLink(rawDesired.AuthorizationPolicy, rawInitial.AuthorizationPolicy) {
+	if dcl.IsZeroValue(rawDesired.AuthorizationPolicy) || (dcl.IsEmptyValueIndirect(rawDesired.AuthorizationPolicy) && dcl.IsEmptyValueIndirect(rawInitial.AuthorizationPolicy)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.AuthorizationPolicy = rawInitial.AuthorizationPolicy
 	} else {
 		canonicalDesired.AuthorizationPolicy = rawDesired.AuthorizationPolicy
@@ -524,12 +525,14 @@ func canonicalizeEndpointPolicyDesiredState(rawDesired, rawInitial *EndpointPoli
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.NameToSelfLink(rawDesired.ServerTlsPolicy, rawInitial.ServerTlsPolicy) {
+	if dcl.IsZeroValue(rawDesired.ServerTlsPolicy) || (dcl.IsEmptyValueIndirect(rawDesired.ServerTlsPolicy) && dcl.IsEmptyValueIndirect(rawInitial.ServerTlsPolicy)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.ServerTlsPolicy = rawInitial.ServerTlsPolicy
 	} else {
 		canonicalDesired.ServerTlsPolicy = rawDesired.ServerTlsPolicy
 	}
-	if dcl.NameToSelfLink(rawDesired.ClientTlsPolicy, rawInitial.ClientTlsPolicy) {
+	if dcl.IsZeroValue(rawDesired.ClientTlsPolicy) || (dcl.IsEmptyValueIndirect(rawDesired.ClientTlsPolicy) && dcl.IsEmptyValueIndirect(rawInitial.ClientTlsPolicy)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.ClientTlsPolicy = rawInitial.ClientTlsPolicy
 	} else {
 		canonicalDesired.ClientTlsPolicy = rawDesired.ClientTlsPolicy
@@ -581,9 +584,6 @@ func canonicalizeEndpointPolicyNewState(c *Client, rawNew, rawDesired *EndpointP
 	if dcl.IsNotReturnedByServer(rawNew.AuthorizationPolicy) && dcl.IsNotReturnedByServer(rawDesired.AuthorizationPolicy) {
 		rawNew.AuthorizationPolicy = rawDesired.AuthorizationPolicy
 	} else {
-		if dcl.NameToSelfLink(rawDesired.AuthorizationPolicy, rawNew.AuthorizationPolicy) {
-			rawNew.AuthorizationPolicy = rawDesired.AuthorizationPolicy
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.EndpointMatcher) && dcl.IsNotReturnedByServer(rawDesired.EndpointMatcher) {
@@ -609,17 +609,11 @@ func canonicalizeEndpointPolicyNewState(c *Client, rawNew, rawDesired *EndpointP
 	if dcl.IsNotReturnedByServer(rawNew.ServerTlsPolicy) && dcl.IsNotReturnedByServer(rawDesired.ServerTlsPolicy) {
 		rawNew.ServerTlsPolicy = rawDesired.ServerTlsPolicy
 	} else {
-		if dcl.NameToSelfLink(rawDesired.ServerTlsPolicy, rawNew.ServerTlsPolicy) {
-			rawNew.ServerTlsPolicy = rawDesired.ServerTlsPolicy
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ClientTlsPolicy) && dcl.IsNotReturnedByServer(rawDesired.ClientTlsPolicy) {
 		rawNew.ClientTlsPolicy = rawDesired.ClientTlsPolicy
 	} else {
-		if dcl.NameToSelfLink(rawDesired.ClientTlsPolicy, rawNew.ClientTlsPolicy) {
-			rawNew.ClientTlsPolicy = rawDesired.ClientTlsPolicy
-		}
 	}
 
 	rawNew.Project = rawDesired.Project

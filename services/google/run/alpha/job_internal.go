@@ -1167,7 +1167,8 @@ func canonicalizeJobTemplateTemplate(des, initial *JobTemplateTemplate, opts ...
 	} else {
 		cDes.ExecutionEnvironment = des.ExecutionEnvironment
 	}
-	if dcl.NameToSelfLink(des.EncryptionKey, initial.EncryptionKey) || dcl.IsZeroValue(des.EncryptionKey) {
+	if dcl.IsZeroValue(des.EncryptionKey) || (dcl.IsEmptyValueIndirect(des.EncryptionKey) && dcl.IsEmptyValueIndirect(initial.EncryptionKey)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.EncryptionKey = initial.EncryptionKey
 	} else {
 		cDes.EncryptionKey = des.EncryptionKey
@@ -1226,9 +1227,6 @@ func canonicalizeNewJobTemplateTemplate(c *Client, des, nw *JobTemplateTemplate)
 	}
 	if dcl.StringCanonicalize(des.ServiceAccount, nw.ServiceAccount) {
 		nw.ServiceAccount = des.ServiceAccount
-	}
-	if dcl.NameToSelfLink(des.EncryptionKey, nw.EncryptionKey) {
-		nw.EncryptionKey = des.EncryptionKey
 	}
 	nw.VPCAccess = canonicalizeNewJobTemplateTemplateVPCAccess(c, des.VPCAccess, nw.VPCAccess)
 
@@ -1693,12 +1691,14 @@ func canonicalizeJobTemplateTemplateContainersEnvValueSourceSecretKeyRef(des, in
 
 	cDes := &JobTemplateTemplateContainersEnvValueSourceSecretKeyRef{}
 
-	if dcl.NameToSelfLink(des.Secret, initial.Secret) || dcl.IsZeroValue(des.Secret) {
+	if dcl.IsZeroValue(des.Secret) || (dcl.IsEmptyValueIndirect(des.Secret) && dcl.IsEmptyValueIndirect(initial.Secret)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Secret = initial.Secret
 	} else {
 		cDes.Secret = des.Secret
 	}
-	if dcl.NameToSelfLink(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.IsZeroValue(des.Version) || (dcl.IsEmptyValueIndirect(des.Version) && dcl.IsEmptyValueIndirect(initial.Version)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -1747,13 +1747,6 @@ func canonicalizeNewJobTemplateTemplateContainersEnvValueSourceSecretKeyRef(c *C
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.Secret, nw.Secret) {
-		nw.Secret = des.Secret
-	}
-	if dcl.NameToSelfLink(des.Version, nw.Version) {
-		nw.Version = des.Version
 	}
 
 	return nw
@@ -2687,7 +2680,8 @@ func canonicalizeJobTemplateTemplateVPCAccess(des, initial *JobTemplateTemplateV
 
 	cDes := &JobTemplateTemplateVPCAccess{}
 
-	if dcl.NameToSelfLink(des.Connector, initial.Connector) || dcl.IsZeroValue(des.Connector) {
+	if dcl.IsZeroValue(des.Connector) || (dcl.IsEmptyValueIndirect(des.Connector) && dcl.IsEmptyValueIndirect(initial.Connector)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Connector = initial.Connector
 	} else {
 		cDes.Connector = des.Connector
@@ -2742,10 +2736,6 @@ func canonicalizeNewJobTemplateTemplateVPCAccess(c *Client, des, nw *JobTemplate
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.Connector, nw.Connector) {
-		nw.Connector = des.Connector
 	}
 
 	return nw
@@ -3250,7 +3240,8 @@ func canonicalizeJobLatestSucceededExecution(des, initial *JobLatestSucceededExe
 
 	cDes := &JobLatestSucceededExecution{}
 
-	if dcl.NameToSelfLink(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.IsZeroValue(des.Name) || (dcl.IsEmptyValueIndirect(des.Name) && dcl.IsEmptyValueIndirect(initial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -3305,10 +3296,6 @@ func canonicalizeNewJobLatestSucceededExecution(c *Client, des, nw *JobLatestSuc
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.Name, nw.Name) {
-		nw.Name = des.Name
 	}
 
 	return nw
@@ -3371,7 +3358,8 @@ func canonicalizeJobLatestCreatedExecution(des, initial *JobLatestCreatedExecuti
 
 	cDes := &JobLatestCreatedExecution{}
 
-	if dcl.NameToSelfLink(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.IsZeroValue(des.Name) || (dcl.IsEmptyValueIndirect(des.Name) && dcl.IsEmptyValueIndirect(initial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -3426,10 +3414,6 @@ func canonicalizeNewJobLatestCreatedExecution(c *Client, des, nw *JobLatestCreat
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.Name, nw.Name) {
-		nw.Name = des.Name
 	}
 
 	return nw

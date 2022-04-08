@@ -599,7 +599,8 @@ func canonicalizeSubnetworkDesiredState(rawDesired, rawInitial *Subnetwork, opts
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.NameToSelfLink(rawDesired.Network, rawInitial.Network) {
+	if dcl.IsZeroValue(rawDesired.Network) || (dcl.IsEmptyValueIndirect(rawDesired.Network) && dcl.IsEmptyValueIndirect(rawInitial.Network)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Network = rawInitial.Network
 	} else {
 		canonicalDesired.Network = rawDesired.Network
@@ -684,9 +685,6 @@ func canonicalizeSubnetworkNewState(c *Client, rawNew, rawDesired *Subnetwork) (
 	if dcl.IsNotReturnedByServer(rawNew.Network) && dcl.IsNotReturnedByServer(rawDesired.Network) {
 		rawNew.Network = rawDesired.Network
 	} else {
-		if dcl.NameToSelfLink(rawDesired.Network, rawNew.Network) {
-			rawNew.Network = rawDesired.Network
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Fingerprint) && dcl.IsNotReturnedByServer(rawDesired.Fingerprint) {

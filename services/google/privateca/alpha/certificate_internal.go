@@ -793,9 +793,6 @@ func canonicalizeCertificateNewState(c *Client, rawNew, rawDesired *Certificate)
 	if dcl.IsNotReturnedByServer(rawNew.IssuerCertificateAuthority) && dcl.IsNotReturnedByServer(rawDesired.IssuerCertificateAuthority) {
 		rawNew.IssuerCertificateAuthority = rawDesired.IssuerCertificateAuthority
 	} else {
-		if dcl.NameToSelfLink(rawDesired.IssuerCertificateAuthority, rawNew.IssuerCertificateAuthority) {
-			rawNew.IssuerCertificateAuthority = rawDesired.IssuerCertificateAuthority
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Lifetime) && dcl.IsNotReturnedByServer(rawDesired.Lifetime) {

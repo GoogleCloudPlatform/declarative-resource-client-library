@@ -554,7 +554,8 @@ func canonicalizeSpokeDesiredState(rawDesired, rawInitial *Spoke, opts ...dcl.Ap
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.NameToSelfLink(rawDesired.Hub, rawInitial.Hub) {
+	if dcl.IsZeroValue(rawDesired.Hub) || (dcl.IsEmptyValueIndirect(rawDesired.Hub) && dcl.IsEmptyValueIndirect(rawInitial.Hub)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Hub = rawInitial.Hub
 	} else {
 		canonicalDesired.Hub = rawDesired.Hub
@@ -612,9 +613,6 @@ func canonicalizeSpokeNewState(c *Client, rawNew, rawDesired *Spoke) (*Spoke, er
 	if dcl.IsNotReturnedByServer(rawNew.Hub) && dcl.IsNotReturnedByServer(rawDesired.Hub) {
 		rawNew.Hub = rawDesired.Hub
 	} else {
-		if dcl.NameToSelfLink(rawDesired.Hub, rawNew.Hub) {
-			rawNew.Hub = rawDesired.Hub
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LinkedVpnTunnels) && dcl.IsNotReturnedByServer(rawDesired.LinkedVpnTunnels) {
@@ -1032,7 +1030,8 @@ func canonicalizeSpokeLinkedRouterApplianceInstancesInstances(des, initial *Spok
 
 	cDes := &SpokeLinkedRouterApplianceInstancesInstances{}
 
-	if dcl.NameToSelfLink(des.VirtualMachine, initial.VirtualMachine) || dcl.IsZeroValue(des.VirtualMachine) {
+	if dcl.IsZeroValue(des.VirtualMachine) || (dcl.IsEmptyValueIndirect(des.VirtualMachine) && dcl.IsEmptyValueIndirect(initial.VirtualMachine)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.VirtualMachine = initial.VirtualMachine
 	} else {
 		cDes.VirtualMachine = des.VirtualMachine
@@ -1088,9 +1087,6 @@ func canonicalizeNewSpokeLinkedRouterApplianceInstancesInstances(c *Client, des,
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.VirtualMachine, nw.VirtualMachine) {
-		nw.VirtualMachine = des.VirtualMachine
-	}
 	if dcl.StringCanonicalize(des.IPAddress, nw.IPAddress) {
 		nw.IPAddress = des.IPAddress
 	}

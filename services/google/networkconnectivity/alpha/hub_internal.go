@@ -528,7 +528,8 @@ func canonicalizeHubRoutingVpcs(des, initial *HubRoutingVpcs, opts ...dcl.ApplyO
 
 	cDes := &HubRoutingVpcs{}
 
-	if dcl.NameToSelfLink(des.Uri, initial.Uri) || dcl.IsZeroValue(des.Uri) {
+	if dcl.IsZeroValue(des.Uri) || (dcl.IsEmptyValueIndirect(des.Uri) && dcl.IsEmptyValueIndirect(initial.Uri)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Uri = initial.Uri
 	} else {
 		cDes.Uri = des.Uri
@@ -577,10 +578,6 @@ func canonicalizeNewHubRoutingVpcs(c *Client, des, nw *HubRoutingVpcs) *HubRouti
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.Uri, nw.Uri) {
-		nw.Uri = des.Uri
 	}
 
 	return nw

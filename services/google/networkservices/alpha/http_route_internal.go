@@ -1709,7 +1709,8 @@ func canonicalizeHttpRouteRulesActionDestinations(des, initial *HttpRouteRulesAc
 	} else {
 		cDes.Weight = des.Weight
 	}
-	if dcl.NameToSelfLink(des.ServiceName, initial.ServiceName) || dcl.IsZeroValue(des.ServiceName) {
+	if dcl.IsZeroValue(des.ServiceName) || (dcl.IsEmptyValueIndirect(des.ServiceName) && dcl.IsEmptyValueIndirect(initial.ServiceName)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ServiceName = initial.ServiceName
 	} else {
 		cDes.ServiceName = des.ServiceName
@@ -1758,10 +1759,6 @@ func canonicalizeNewHttpRouteRulesActionDestinations(c *Client, des, nw *HttpRou
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.ServiceName, nw.ServiceName) {
-		nw.ServiceName = des.ServiceName
 	}
 
 	return nw
@@ -2954,7 +2951,8 @@ func canonicalizeHttpRouteRulesActionRequestMirrorPolicyDestination(des, initial
 	} else {
 		cDes.Weight = des.Weight
 	}
-	if dcl.NameToSelfLink(des.ServiceName, initial.ServiceName) || dcl.IsZeroValue(des.ServiceName) {
+	if dcl.IsZeroValue(des.ServiceName) || (dcl.IsEmptyValueIndirect(des.ServiceName) && dcl.IsEmptyValueIndirect(initial.ServiceName)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ServiceName = initial.ServiceName
 	} else {
 		cDes.ServiceName = des.ServiceName
@@ -3003,10 +3001,6 @@ func canonicalizeNewHttpRouteRulesActionRequestMirrorPolicyDestination(c *Client
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.ServiceName, nw.ServiceName) {
-		nw.ServiceName = des.ServiceName
 	}
 
 	return nw

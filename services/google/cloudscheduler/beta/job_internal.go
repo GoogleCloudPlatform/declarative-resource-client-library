@@ -671,7 +671,8 @@ func canonicalizeJobPubsubTarget(des, initial *JobPubsubTarget, opts ...dcl.Appl
 
 	cDes := &JobPubsubTarget{}
 
-	if dcl.NameToSelfLink(des.TopicName, initial.TopicName) || dcl.IsZeroValue(des.TopicName) {
+	if dcl.IsZeroValue(des.TopicName) || (dcl.IsEmptyValueIndirect(des.TopicName) && dcl.IsEmptyValueIndirect(initial.TopicName)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TopicName = initial.TopicName
 	} else {
 		cDes.TopicName = des.TopicName
@@ -733,9 +734,6 @@ func canonicalizeNewJobPubsubTarget(c *Client, des, nw *JobPubsubTarget) *JobPub
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.TopicName, nw.TopicName) {
-		nw.TopicName = des.TopicName
-	}
 	if dcl.StringCanonicalize(des.Data, nw.Data) {
 		nw.Data = des.Data
 	}
@@ -1210,7 +1208,8 @@ func canonicalizeJobHttpTargetOAuthToken(des, initial *JobHttpTargetOAuthToken, 
 
 	cDes := &JobHttpTargetOAuthToken{}
 
-	if dcl.NameToSelfLink(des.ServiceAccountEmail, initial.ServiceAccountEmail) || dcl.IsZeroValue(des.ServiceAccountEmail) {
+	if dcl.IsZeroValue(des.ServiceAccountEmail) || (dcl.IsEmptyValueIndirect(des.ServiceAccountEmail) && dcl.IsEmptyValueIndirect(initial.ServiceAccountEmail)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ServiceAccountEmail = initial.ServiceAccountEmail
 	} else {
 		cDes.ServiceAccountEmail = des.ServiceAccountEmail
@@ -1266,9 +1265,6 @@ func canonicalizeNewJobHttpTargetOAuthToken(c *Client, des, nw *JobHttpTargetOAu
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.ServiceAccountEmail, nw.ServiceAccountEmail) {
-		nw.ServiceAccountEmail = des.ServiceAccountEmail
-	}
 	if dcl.StringCanonicalize(des.Scope, nw.Scope) {
 		nw.Scope = des.Scope
 	}
@@ -1333,7 +1329,8 @@ func canonicalizeJobHttpTargetOidcToken(des, initial *JobHttpTargetOidcToken, op
 
 	cDes := &JobHttpTargetOidcToken{}
 
-	if dcl.NameToSelfLink(des.ServiceAccountEmail, initial.ServiceAccountEmail) || dcl.IsZeroValue(des.ServiceAccountEmail) {
+	if dcl.IsZeroValue(des.ServiceAccountEmail) || (dcl.IsEmptyValueIndirect(des.ServiceAccountEmail) && dcl.IsEmptyValueIndirect(initial.ServiceAccountEmail)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ServiceAccountEmail = initial.ServiceAccountEmail
 	} else {
 		cDes.ServiceAccountEmail = des.ServiceAccountEmail
@@ -1389,9 +1386,6 @@ func canonicalizeNewJobHttpTargetOidcToken(c *Client, des, nw *JobHttpTargetOidc
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.ServiceAccountEmail, nw.ServiceAccountEmail) {
-		nw.ServiceAccountEmail = des.ServiceAccountEmail
-	}
 	if dcl.StringCanonicalize(des.Audience, nw.Audience) {
 		nw.Audience = des.Audience
 	}

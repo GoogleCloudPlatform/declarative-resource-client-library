@@ -270,12 +270,14 @@ func canonicalizeFirewallPolicyAssociationDesiredState(rawDesired, rawInitial *F
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.NameToSelfLink(rawDesired.AttachmentTarget, rawInitial.AttachmentTarget) {
+	if dcl.IsZeroValue(rawDesired.AttachmentTarget) || (dcl.IsEmptyValueIndirect(rawDesired.AttachmentTarget) && dcl.IsEmptyValueIndirect(rawInitial.AttachmentTarget)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.AttachmentTarget = rawInitial.AttachmentTarget
 	} else {
 		canonicalDesired.AttachmentTarget = rawDesired.AttachmentTarget
 	}
-	if dcl.NameToSelfLink(rawDesired.FirewallPolicy, rawInitial.FirewallPolicy) {
+	if dcl.IsZeroValue(rawDesired.FirewallPolicy) || (dcl.IsEmptyValueIndirect(rawDesired.FirewallPolicy) && dcl.IsEmptyValueIndirect(rawInitial.FirewallPolicy)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.FirewallPolicy = rawInitial.FirewallPolicy
 	} else {
 		canonicalDesired.FirewallPolicy = rawDesired.FirewallPolicy
@@ -297,17 +299,11 @@ func canonicalizeFirewallPolicyAssociationNewState(c *Client, rawNew, rawDesired
 	if dcl.IsNotReturnedByServer(rawNew.AttachmentTarget) && dcl.IsNotReturnedByServer(rawDesired.AttachmentTarget) {
 		rawNew.AttachmentTarget = rawDesired.AttachmentTarget
 	} else {
-		if dcl.NameToSelfLink(rawDesired.AttachmentTarget, rawNew.AttachmentTarget) {
-			rawNew.AttachmentTarget = rawDesired.AttachmentTarget
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.FirewallPolicy) && dcl.IsNotReturnedByServer(rawDesired.FirewallPolicy) {
 		rawNew.FirewallPolicy = rawDesired.FirewallPolicy
 	} else {
-		if dcl.NameToSelfLink(rawDesired.FirewallPolicy, rawNew.FirewallPolicy) {
-			rawNew.FirewallPolicy = rawDesired.FirewallPolicy
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ShortName) && dcl.IsNotReturnedByServer(rawDesired.ShortName) {

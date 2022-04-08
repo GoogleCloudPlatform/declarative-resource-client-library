@@ -660,7 +660,8 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 	} else {
 		canonicalDesired.ResourceGroupId = rawDesired.ResourceGroupId
 	}
-	if dcl.NameToSelfLink(rawDesired.Client, rawInitial.Client) {
+	if dcl.IsZeroValue(rawDesired.Client) || (dcl.IsEmptyValueIndirect(rawDesired.Client) && dcl.IsEmptyValueIndirect(rawInitial.Client)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Client = rawInitial.Client
 	} else {
 		canonicalDesired.Client = rawDesired.Client
@@ -727,9 +728,6 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	if dcl.IsNotReturnedByServer(rawNew.Client) && dcl.IsNotReturnedByServer(rawDesired.Client) {
 		rawNew.Client = rawDesired.Client
 	} else {
-		if dcl.NameToSelfLink(rawDesired.Client, rawNew.Client) {
-			rawNew.Client = rawDesired.Client
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Networking) && dcl.IsNotReturnedByServer(rawDesired.Networking) {

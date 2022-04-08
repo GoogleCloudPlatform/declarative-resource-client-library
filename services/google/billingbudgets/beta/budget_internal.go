@@ -1687,7 +1687,8 @@ func canonicalizeBudgetAllUpdatesRule(des, initial *BudgetAllUpdatesRule, opts .
 
 	cDes := &BudgetAllUpdatesRule{}
 
-	if dcl.NameToSelfLink(des.PubsubTopic, initial.PubsubTopic) || dcl.IsZeroValue(des.PubsubTopic) {
+	if dcl.IsZeroValue(des.PubsubTopic) || (dcl.IsEmptyValueIndirect(des.PubsubTopic) && dcl.IsEmptyValueIndirect(initial.PubsubTopic)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.PubsubTopic = initial.PubsubTopic
 	} else {
 		cDes.PubsubTopic = des.PubsubTopic
@@ -1753,9 +1754,6 @@ func canonicalizeNewBudgetAllUpdatesRule(c *Client, des, nw *BudgetAllUpdatesRul
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.PubsubTopic, nw.PubsubTopic) {
-		nw.PubsubTopic = des.PubsubTopic
-	}
 	if dcl.StringCanonicalize(des.SchemaVersion, nw.SchemaVersion) {
 		nw.SchemaVersion = des.SchemaVersion
 	}

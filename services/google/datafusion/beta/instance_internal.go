@@ -520,7 +520,8 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	} else {
 		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
-	if dcl.NameToSelfLink(rawDesired.DataprocServiceAccount, rawInitial.DataprocServiceAccount) {
+	if dcl.IsZeroValue(rawDesired.DataprocServiceAccount) || (dcl.IsEmptyValueIndirect(rawDesired.DataprocServiceAccount) && dcl.IsEmptyValueIndirect(rawInitial.DataprocServiceAccount)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.DataprocServiceAccount = rawInitial.DataprocServiceAccount
 	} else {
 		canonicalDesired.DataprocServiceAccount = rawDesired.DataprocServiceAccount
@@ -684,17 +685,11 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsNotReturnedByServer(rawNew.TenantProjectId) && dcl.IsNotReturnedByServer(rawDesired.TenantProjectId) {
 		rawNew.TenantProjectId = rawDesired.TenantProjectId
 	} else {
-		if dcl.NameToSelfLink(rawDesired.TenantProjectId, rawNew.TenantProjectId) {
-			rawNew.TenantProjectId = rawDesired.TenantProjectId
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DataprocServiceAccount) && dcl.IsNotReturnedByServer(rawDesired.DataprocServiceAccount) {
 		rawNew.DataprocServiceAccount = rawDesired.DataprocServiceAccount
 	} else {
-		if dcl.NameToSelfLink(rawDesired.DataprocServiceAccount, rawNew.DataprocServiceAccount) {
-			rawNew.DataprocServiceAccount = rawDesired.DataprocServiceAccount
-		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -718,7 +713,8 @@ func canonicalizeInstanceNetworkConfig(des, initial *InstanceNetworkConfig, opts
 
 	cDes := &InstanceNetworkConfig{}
 
-	if dcl.NameToSelfLink(des.Network, initial.Network) || dcl.IsZeroValue(des.Network) {
+	if dcl.IsZeroValue(des.Network) || (dcl.IsEmptyValueIndirect(des.Network) && dcl.IsEmptyValueIndirect(initial.Network)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Network = initial.Network
 	} else {
 		cDes.Network = des.Network
@@ -774,9 +770,6 @@ func canonicalizeNewInstanceNetworkConfig(c *Client, des, nw *InstanceNetworkCon
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Network, nw.Network) {
-		nw.Network = des.Network
-	}
 	if dcl.StringCanonicalize(des.IPAllocation, nw.IPAllocation) {
 		nw.IPAllocation = des.IPAllocation
 	}

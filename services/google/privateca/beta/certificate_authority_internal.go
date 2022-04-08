@@ -813,7 +813,8 @@ func canonicalizeCertificateAuthorityDesiredState(rawDesired, rawInitial *Certif
 		canonicalDesired.Lifetime = rawDesired.Lifetime
 	}
 	canonicalDesired.KeySpec = canonicalizeCertificateAuthorityKeySpec(rawDesired.KeySpec, rawInitial.KeySpec, opts...)
-	if dcl.NameToSelfLink(rawDesired.GcsBucket, rawInitial.GcsBucket) {
+	if dcl.IsZeroValue(rawDesired.GcsBucket) || (dcl.IsEmptyValueIndirect(rawDesired.GcsBucket) && dcl.IsEmptyValueIndirect(rawInitial.GcsBucket)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.GcsBucket = rawInitial.GcsBucket
 	} else {
 		canonicalDesired.GcsBucket = rawDesired.GcsBucket
@@ -911,9 +912,6 @@ func canonicalizeCertificateAuthorityNewState(c *Client, rawNew, rawDesired *Cer
 	if dcl.IsNotReturnedByServer(rawNew.GcsBucket) && dcl.IsNotReturnedByServer(rawDesired.GcsBucket) {
 		rawNew.GcsBucket = rawDesired.GcsBucket
 	} else {
-		if dcl.NameToSelfLink(rawDesired.GcsBucket, rawNew.GcsBucket) {
-			rawNew.GcsBucket = rawDesired.GcsBucket
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AccessUrls) && dcl.IsNotReturnedByServer(rawDesired.AccessUrls) {
@@ -3030,7 +3028,8 @@ func canonicalizeCertificateAuthorityKeySpec(des, initial *CertificateAuthorityK
 
 	cDes := &CertificateAuthorityKeySpec{}
 
-	if dcl.NameToSelfLink(des.CloudKmsKeyVersion, initial.CloudKmsKeyVersion) || dcl.IsZeroValue(des.CloudKmsKeyVersion) {
+	if dcl.IsZeroValue(des.CloudKmsKeyVersion) || (dcl.IsEmptyValueIndirect(des.CloudKmsKeyVersion) && dcl.IsEmptyValueIndirect(initial.CloudKmsKeyVersion)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CloudKmsKeyVersion = initial.CloudKmsKeyVersion
 	} else {
 		cDes.CloudKmsKeyVersion = des.CloudKmsKeyVersion
@@ -3085,10 +3084,6 @@ func canonicalizeNewCertificateAuthorityKeySpec(c *Client, des, nw *CertificateA
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.CloudKmsKeyVersion, nw.CloudKmsKeyVersion) {
-		nw.CloudKmsKeyVersion = des.CloudKmsKeyVersion
 	}
 
 	return nw
@@ -3171,7 +3166,8 @@ func canonicalizeCertificateAuthoritySubordinateConfig(des, initial *Certificate
 
 	cDes := &CertificateAuthoritySubordinateConfig{}
 
-	if dcl.NameToSelfLink(des.CertificateAuthority, initial.CertificateAuthority) || dcl.IsZeroValue(des.CertificateAuthority) {
+	if dcl.IsZeroValue(des.CertificateAuthority) || (dcl.IsEmptyValueIndirect(des.CertificateAuthority) && dcl.IsEmptyValueIndirect(initial.CertificateAuthority)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.CertificateAuthority = initial.CertificateAuthority
 	} else {
 		cDes.CertificateAuthority = des.CertificateAuthority
@@ -3223,9 +3219,6 @@ func canonicalizeNewCertificateAuthoritySubordinateConfig(c *Client, des, nw *Ce
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.CertificateAuthority, nw.CertificateAuthority) {
-		nw.CertificateAuthority = des.CertificateAuthority
-	}
 	nw.PemIssuerChain = canonicalizeNewCertificateAuthoritySubordinateConfigPemIssuerChain(c, des.PemIssuerChain, nw.PemIssuerChain)
 
 	return nw

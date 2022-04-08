@@ -371,7 +371,8 @@ func canonicalizeEnvironmentGroupAttachmentDesiredState(rawDesired, rawInitial *
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.NameToSelfLink(rawDesired.Environment, rawInitial.Environment) {
+	if dcl.IsZeroValue(rawDesired.Environment) || (dcl.IsEmptyValueIndirect(rawDesired.Environment) && dcl.IsEmptyValueIndirect(rawInitial.Environment)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Environment = rawInitial.Environment
 	} else {
 		canonicalDesired.Environment = rawDesired.Environment
@@ -395,9 +396,6 @@ func canonicalizeEnvironmentGroupAttachmentNewState(c *Client, rawNew, rawDesire
 	if dcl.IsNotReturnedByServer(rawNew.Environment) && dcl.IsNotReturnedByServer(rawDesired.Environment) {
 		rawNew.Environment = rawDesired.Environment
 	} else {
-		if dcl.NameToSelfLink(rawDesired.Environment, rawNew.Environment) {
-			rawNew.Environment = rawDesired.Environment
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreatedAt) && dcl.IsNotReturnedByServer(rawDesired.CreatedAt) {

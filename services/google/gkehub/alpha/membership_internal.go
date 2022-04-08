@@ -796,7 +796,8 @@ func canonicalizeMembershipEndpointGkeCluster(des, initial *MembershipEndpointGk
 
 	cDes := &MembershipEndpointGkeCluster{}
 
-	if dcl.NameToSelfLink(des.ResourceLink, initial.ResourceLink) || dcl.IsZeroValue(des.ResourceLink) {
+	if dcl.IsZeroValue(des.ResourceLink) || (dcl.IsEmptyValueIndirect(des.ResourceLink) && dcl.IsEmptyValueIndirect(initial.ResourceLink)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ResourceLink = initial.ResourceLink
 	} else {
 		cDes.ResourceLink = des.ResourceLink
@@ -845,10 +846,6 @@ func canonicalizeNewMembershipEndpointGkeCluster(c *Client, des, nw *MembershipE
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.ResourceLink, nw.ResourceLink) {
-		nw.ResourceLink = des.ResourceLink
 	}
 
 	return nw

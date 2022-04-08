@@ -127,6 +127,36 @@ func (r *CryptoKey) createURL(userBasePath string) (string, error) {
 
 }
 
+func (r *CryptoKey) SetPolicyURL(userBasePath string) string {
+	nr := r.urlNormalized()
+	fields := map[string]interface{}{
+		"project":  *nr.Project,
+		"location": *nr.Location,
+		"keyRing":  *nr.KeyRing,
+		"name":     *nr.Name,
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/keyRings/{{keyRing}}/cryptoKeys/{{name}}:setIamPolicy", nr.basePath(), userBasePath, fields)
+}
+
+func (r *CryptoKey) SetPolicyVerb() string {
+	return "POST"
+}
+
+func (r *CryptoKey) getPolicyURL(userBasePath string) string {
+	nr := r.urlNormalized()
+	fields := map[string]interface{}{
+		"project":  *nr.Project,
+		"location": *nr.Location,
+		"keyRing":  *nr.KeyRing,
+		"name":     *nr.Name,
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/keyRings/{{keyRing}}/cryptoKeys/{{name}}:getIamPolicy", nr.basePath(), userBasePath, fields)
+}
+
+func (r *CryptoKey) IAMPolicyVersion() int {
+	return 3
+}
+
 // cryptoKeyApiOperation represents a mutable operation in the underlying REST
 // API such as Create, Update, or Delete.
 type cryptoKeyApiOperation interface {

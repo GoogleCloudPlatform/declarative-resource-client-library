@@ -731,7 +731,8 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.Target = rawDesired.Target
 	}
-	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
+	if dcl.IsZeroValue(rawDesired.Project) || (dcl.IsEmptyValueIndirect(rawDesired.Project) && dcl.IsEmptyValueIndirect(rawInitial.Project)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
@@ -926,9 +927,6 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	if dcl.IsNotReturnedByServer(rawNew.Project) && dcl.IsNotReturnedByServer(rawDesired.Project) {
 		rawNew.Project = rawDesired.Project
 	} else {
-		if dcl.NameToSelfLink(rawDesired.Project, rawNew.Project) {
-			rawNew.Project = rawDesired.Project
-		}
 	}
 
 	rawNew.Location = rawDesired.Location

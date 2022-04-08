@@ -1039,7 +1039,8 @@ func canonicalizeServiceTemplate(des, initial *ServiceTemplate, opts ...dcl.Appl
 	} else {
 		cDes.Timeout = des.Timeout
 	}
-	if dcl.NameToSelfLink(des.ServiceAccount, initial.ServiceAccount) || dcl.IsZeroValue(des.ServiceAccount) {
+	if dcl.IsZeroValue(des.ServiceAccount) || (dcl.IsEmptyValueIndirect(des.ServiceAccount) && dcl.IsEmptyValueIndirect(initial.ServiceAccount)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ServiceAccount = initial.ServiceAccount
 	} else {
 		cDes.ServiceAccount = des.ServiceAccount
@@ -1110,9 +1111,6 @@ func canonicalizeNewServiceTemplate(c *Client, des, nw *ServiceTemplate) *Servic
 	nw.VPCAccess = canonicalizeNewServiceTemplateVPCAccess(c, des.VPCAccess, nw.VPCAccess)
 	if dcl.StringCanonicalize(des.Timeout, nw.Timeout) {
 		nw.Timeout = des.Timeout
-	}
-	if dcl.NameToSelfLink(des.ServiceAccount, nw.ServiceAccount) {
-		nw.ServiceAccount = des.ServiceAccount
 	}
 	nw.Containers = canonicalizeNewServiceTemplateContainersSlice(c, des.Containers, nw.Containers)
 	nw.Volumes = canonicalizeNewServiceTemplateVolumesSlice(c, des.Volumes, nw.Volumes)
@@ -1298,7 +1296,8 @@ func canonicalizeServiceTemplateVPCAccess(des, initial *ServiceTemplateVPCAccess
 
 	cDes := &ServiceTemplateVPCAccess{}
 
-	if dcl.NameToSelfLink(des.Connector, initial.Connector) || dcl.IsZeroValue(des.Connector) {
+	if dcl.IsZeroValue(des.Connector) || (dcl.IsEmptyValueIndirect(des.Connector) && dcl.IsEmptyValueIndirect(initial.Connector)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Connector = initial.Connector
 	} else {
 		cDes.Connector = des.Connector
@@ -1353,10 +1352,6 @@ func canonicalizeNewServiceTemplateVPCAccess(c *Client, des, nw *ServiceTemplate
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.Connector, nw.Connector) {
-		nw.Connector = des.Connector
 	}
 
 	return nw
@@ -1820,12 +1815,14 @@ func canonicalizeServiceTemplateContainersEnvValueSourceSecretKeyRef(des, initia
 
 	cDes := &ServiceTemplateContainersEnvValueSourceSecretKeyRef{}
 
-	if dcl.NameToSelfLink(des.Secret, initial.Secret) || dcl.IsZeroValue(des.Secret) {
+	if dcl.IsZeroValue(des.Secret) || (dcl.IsEmptyValueIndirect(des.Secret) && dcl.IsEmptyValueIndirect(initial.Secret)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Secret = initial.Secret
 	} else {
 		cDes.Secret = des.Secret
 	}
-	if dcl.NameToSelfLink(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.IsZeroValue(des.Version) || (dcl.IsEmptyValueIndirect(des.Version) && dcl.IsEmptyValueIndirect(initial.Version)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -1874,13 +1871,6 @@ func canonicalizeNewServiceTemplateContainersEnvValueSourceSecretKeyRef(c *Clien
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.Secret, nw.Secret) {
-		nw.Secret = des.Secret
-	}
-	if dcl.NameToSelfLink(des.Version, nw.Version) {
-		nw.Version = des.Version
 	}
 
 	return nw
@@ -2447,7 +2437,8 @@ func canonicalizeServiceTemplateVolumesSecret(des, initial *ServiceTemplateVolum
 
 	cDes := &ServiceTemplateVolumesSecret{}
 
-	if dcl.NameToSelfLink(des.Secret, initial.Secret) || dcl.IsZeroValue(des.Secret) {
+	if dcl.IsZeroValue(des.Secret) || (dcl.IsEmptyValueIndirect(des.Secret) && dcl.IsEmptyValueIndirect(initial.Secret)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Secret = initial.Secret
 	} else {
 		cDes.Secret = des.Secret
@@ -2505,9 +2496,6 @@ func canonicalizeNewServiceTemplateVolumesSecret(c *Client, des, nw *ServiceTemp
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Secret, nw.Secret) {
-		nw.Secret = des.Secret
-	}
 	nw.Items = canonicalizeNewServiceTemplateVolumesSecretItemsSlice(c, des.Items, nw.Items)
 
 	return nw
@@ -2575,7 +2563,8 @@ func canonicalizeServiceTemplateVolumesSecretItems(des, initial *ServiceTemplate
 	} else {
 		cDes.Path = des.Path
 	}
-	if dcl.NameToSelfLink(des.Version, initial.Version) || dcl.IsZeroValue(des.Version) {
+	if dcl.IsZeroValue(des.Version) || (dcl.IsEmptyValueIndirect(des.Version) && dcl.IsEmptyValueIndirect(initial.Version)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Version = initial.Version
 	} else {
 		cDes.Version = des.Version
@@ -2634,9 +2623,6 @@ func canonicalizeNewServiceTemplateVolumesSecretItems(c *Client, des, nw *Servic
 
 	if dcl.StringCanonicalize(des.Path, nw.Path) {
 		nw.Path = des.Path
-	}
-	if dcl.NameToSelfLink(des.Version, nw.Version) {
-		nw.Version = des.Version
 	}
 
 	return nw

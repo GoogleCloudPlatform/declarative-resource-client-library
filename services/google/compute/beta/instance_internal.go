@@ -1229,7 +1229,8 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	} else {
 		canonicalDesired.Metadata = rawDesired.Metadata
 	}
-	if dcl.NameToSelfLink(rawDesired.MachineType, rawInitial.MachineType) {
+	if dcl.IsZeroValue(rawDesired.MachineType) || (dcl.IsEmptyValueIndirect(rawDesired.MachineType) && dcl.IsEmptyValueIndirect(rawInitial.MachineType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.MachineType = rawInitial.MachineType
 	} else {
 		canonicalDesired.MachineType = rawDesired.MachineType
@@ -1259,7 +1260,8 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 	} else {
 		canonicalDesired.Tags = rawDesired.Tags
 	}
-	if dcl.NameToSelfLink(rawDesired.Zone, rawInitial.Zone) {
+	if dcl.IsZeroValue(rawDesired.Zone) || (dcl.IsEmptyValueIndirect(rawDesired.Zone) && dcl.IsEmptyValueIndirect(rawInitial.Zone)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Zone = rawInitial.Zone
 	} else {
 		canonicalDesired.Zone = rawDesired.Zone
@@ -1352,9 +1354,6 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsNotReturnedByServer(rawNew.MachineType) && dcl.IsNotReturnedByServer(rawDesired.MachineType) {
 		rawNew.MachineType = rawDesired.MachineType
 	} else {
-		if dcl.NameToSelfLink(rawDesired.MachineType, rawNew.MachineType) {
-			rawNew.MachineType = rawDesired.MachineType
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MinCpuPlatform) && dcl.IsNotReturnedByServer(rawDesired.MinCpuPlatform) {
@@ -1421,9 +1420,6 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	if dcl.IsNotReturnedByServer(rawNew.Zone) && dcl.IsNotReturnedByServer(rawDesired.Zone) {
 		rawNew.Zone = rawDesired.Zone
 	} else {
-		if dcl.NameToSelfLink(rawDesired.Zone, rawNew.Zone) {
-			rawNew.Zone = rawDesired.Zone
-		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -1488,7 +1484,8 @@ func canonicalizeInstanceDisks(des, initial *InstanceDisks, opts ...dcl.ApplyOpt
 	} else {
 		cDes.Mode = des.Mode
 	}
-	if dcl.NameToSelfLink(des.Source, initial.Source) || dcl.IsZeroValue(des.Source) {
+	if dcl.IsZeroValue(des.Source) || (dcl.IsEmptyValueIndirect(des.Source) && dcl.IsEmptyValueIndirect(initial.Source)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Source = initial.Source
 	} else {
 		cDes.Source = des.Source
@@ -1556,9 +1553,6 @@ func canonicalizeNewInstanceDisks(c *Client, des, nw *InstanceDisks) *InstanceDi
 	}
 	nw.DiskEncryptionKey = canonicalizeNewInstanceDisksDiskEncryptionKey(c, des.DiskEncryptionKey, nw.DiskEncryptionKey)
 	nw.InitializeParams = des.InitializeParams
-	if dcl.NameToSelfLink(des.Source, nw.Source) {
-		nw.Source = des.Source
-	}
 
 	return nw
 }
@@ -1757,7 +1751,8 @@ func canonicalizeInstanceDisksInitializeParams(des, initial *InstanceDisksInitia
 	} else {
 		cDes.DiskSizeGb = des.DiskSizeGb
 	}
-	if dcl.NameToSelfLink(des.DiskType, initial.DiskType) || dcl.IsZeroValue(des.DiskType) {
+	if dcl.IsZeroValue(des.DiskType) || (dcl.IsEmptyValueIndirect(des.DiskType) && dcl.IsEmptyValueIndirect(initial.DiskType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DiskType = initial.DiskType
 	} else {
 		cDes.DiskType = des.DiskType
@@ -1816,9 +1811,6 @@ func canonicalizeNewInstanceDisksInitializeParams(c *Client, des, nw *InstanceDi
 
 	if dcl.StringCanonicalize(des.DiskName, nw.DiskName) {
 		nw.DiskName = des.DiskName
-	}
-	if dcl.NameToSelfLink(des.DiskType, nw.DiskType) {
-		nw.DiskType = des.DiskType
 	}
 	if dcl.StringCanonicalize(des.SourceImage, nw.SourceImage) {
 		nw.SourceImage = des.SourceImage
@@ -2127,7 +2119,8 @@ func canonicalizeInstanceNetworkInterfaces(des, initial *InstanceNetworkInterfac
 	cDes.AccessConfigs = canonicalizeInstanceNetworkInterfacesAccessConfigsSlice(des.AccessConfigs, initial.AccessConfigs, opts...)
 	cDes.IPv6AccessConfigs = canonicalizeInstanceNetworkInterfacesIPv6AccessConfigsSlice(des.IPv6AccessConfigs, initial.IPv6AccessConfigs, opts...)
 	cDes.AliasIPRanges = canonicalizeInstanceNetworkInterfacesAliasIPRangesSlice(des.AliasIPRanges, initial.AliasIPRanges, opts...)
-	if dcl.NameToSelfLink(des.Network, initial.Network) || dcl.IsZeroValue(des.Network) {
+	if dcl.IsZeroValue(des.Network) || (dcl.IsEmptyValueIndirect(des.Network) && dcl.IsEmptyValueIndirect(initial.Network)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Network = initial.Network
 	} else {
 		cDes.Network = des.Network
@@ -2137,7 +2130,8 @@ func canonicalizeInstanceNetworkInterfaces(des, initial *InstanceNetworkInterfac
 	} else {
 		cDes.NetworkIP = des.NetworkIP
 	}
-	if dcl.NameToSelfLink(des.Subnetwork, initial.Subnetwork) || dcl.IsZeroValue(des.Subnetwork) {
+	if dcl.IsZeroValue(des.Subnetwork) || (dcl.IsEmptyValueIndirect(des.Subnetwork) && dcl.IsEmptyValueIndirect(initial.Subnetwork)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Subnetwork = initial.Subnetwork
 	} else {
 		cDes.Subnetwork = des.Subnetwork
@@ -2194,14 +2188,8 @@ func canonicalizeNewInstanceNetworkInterfaces(c *Client, des, nw *InstanceNetwor
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
 	}
-	if dcl.NameToSelfLink(des.Network, nw.Network) {
-		nw.Network = des.Network
-	}
 	if dcl.StringCanonicalize(des.NetworkIP, nw.NetworkIP) {
 		nw.NetworkIP = des.NetworkIP
-	}
-	if dcl.NameToSelfLink(des.Subnetwork, nw.Subnetwork) {
-		nw.Subnetwork = des.Subnetwork
 	}
 
 	return nw
@@ -2269,7 +2257,8 @@ func canonicalizeInstanceNetworkInterfacesAccessConfigs(des, initial *InstanceNe
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.NameToSelfLink(des.NatIP, initial.NatIP) || dcl.IsZeroValue(des.NatIP) {
+	if dcl.IsZeroValue(des.NatIP) || (dcl.IsEmptyValueIndirect(des.NatIP) && dcl.IsEmptyValueIndirect(initial.NatIP)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NatIP = initial.NatIP
 	} else {
 		cDes.NatIP = des.NatIP
@@ -2344,9 +2333,6 @@ func canonicalizeNewInstanceNetworkInterfacesAccessConfigs(c *Client, des, nw *I
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
-	}
-	if dcl.NameToSelfLink(des.NatIP, nw.NatIP) {
-		nw.NatIP = des.NatIP
 	}
 	if dcl.StringCanonicalize(des.ExternalIPv6, nw.ExternalIPv6) {
 		nw.ExternalIPv6 = des.ExternalIPv6
@@ -2426,7 +2412,8 @@ func canonicalizeInstanceNetworkInterfacesIPv6AccessConfigs(des, initial *Instan
 	} else {
 		cDes.Name = des.Name
 	}
-	if dcl.NameToSelfLink(des.NatIP, initial.NatIP) || dcl.IsZeroValue(des.NatIP) {
+	if dcl.IsZeroValue(des.NatIP) || (dcl.IsEmptyValueIndirect(des.NatIP) && dcl.IsEmptyValueIndirect(initial.NatIP)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.NatIP = initial.NatIP
 	} else {
 		cDes.NatIP = des.NatIP
@@ -2501,9 +2488,6 @@ func canonicalizeNewInstanceNetworkInterfacesIPv6AccessConfigs(c *Client, des, n
 
 	if dcl.StringCanonicalize(des.Name, nw.Name) {
 		nw.Name = des.Name
-	}
-	if dcl.NameToSelfLink(des.NatIP, nw.NatIP) {
-		nw.NatIP = des.NatIP
 	}
 	if dcl.StringCanonicalize(des.ExternalIPv6, nw.ExternalIPv6) {
 		nw.ExternalIPv6 = des.ExternalIPv6

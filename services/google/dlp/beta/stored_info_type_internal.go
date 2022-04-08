@@ -1107,17 +1107,20 @@ func canonicalizeStoredInfoTypeLargeCustomDictionaryBigQueryFieldTable(des, init
 
 	cDes := &StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable{}
 
-	if dcl.NameToSelfLink(des.ProjectId, initial.ProjectId) || dcl.IsZeroValue(des.ProjectId) {
+	if dcl.IsZeroValue(des.ProjectId) || (dcl.IsEmptyValueIndirect(des.ProjectId) && dcl.IsEmptyValueIndirect(initial.ProjectId)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ProjectId = initial.ProjectId
 	} else {
 		cDes.ProjectId = des.ProjectId
 	}
-	if dcl.NameToSelfLink(des.DatasetId, initial.DatasetId) || dcl.IsZeroValue(des.DatasetId) {
+	if dcl.IsZeroValue(des.DatasetId) || (dcl.IsEmptyValueIndirect(des.DatasetId) && dcl.IsEmptyValueIndirect(initial.DatasetId)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.DatasetId = initial.DatasetId
 	} else {
 		cDes.DatasetId = des.DatasetId
 	}
-	if dcl.NameToSelfLink(des.TableId, initial.TableId) || dcl.IsZeroValue(des.TableId) {
+	if dcl.IsZeroValue(des.TableId) || (dcl.IsEmptyValueIndirect(des.TableId) && dcl.IsEmptyValueIndirect(initial.TableId)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.TableId = initial.TableId
 	} else {
 		cDes.TableId = des.TableId
@@ -1166,16 +1169,6 @@ func canonicalizeNewStoredInfoTypeLargeCustomDictionaryBigQueryFieldTable(c *Cli
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.ProjectId, nw.ProjectId) {
-		nw.ProjectId = des.ProjectId
-	}
-	if dcl.NameToSelfLink(des.DatasetId, nw.DatasetId) {
-		nw.DatasetId = des.DatasetId
-	}
-	if dcl.NameToSelfLink(des.TableId, nw.TableId) {
-		nw.TableId = des.TableId
 	}
 
 	return nw

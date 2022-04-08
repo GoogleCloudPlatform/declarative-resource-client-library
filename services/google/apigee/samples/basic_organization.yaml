@@ -18,8 +18,7 @@ versions:
 - ga
 resource: samples/basic.organization.json
 dependencies:
-- samples/first.compute.network.json
-- samples/second.compute.network.json
+- samples/basic.compute.network.json
 - samples/apigee.serviceusage.service.json
 - samples/compute.serviceusage.service.json
 - samples/basic.cloudbilling.project_billing_info.json
@@ -27,8 +26,7 @@ dependencies:
 updates:
 - resource: samples/update.organization.json
   dependencies:
-  - samples/first.compute.network.json
-  - samples/second.compute.network.json
+  - samples/basic.compute.network.json
   - samples/apigee.serviceusage.service.json
   - samples/compute.serviceusage.service.json
   - samples/basic.cloudbilling.project_billing_info.json
@@ -38,9 +36,7 @@ variables:
   type: billing_account
 - name: id
   type: resource_name
-- name: network1
-  type: resource_name
-- name: network2
+- name: network
   type: resource_name
 - name: org_id
   type: org_id

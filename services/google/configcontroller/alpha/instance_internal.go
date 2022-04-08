@@ -851,7 +851,8 @@ func canonicalizeInstanceManagementConfigStandardManagementConfig(des, initial *
 
 	cDes := &InstanceManagementConfigStandardManagementConfig{}
 
-	if dcl.NameToSelfLink(des.Network, initial.Network) || dcl.IsZeroValue(des.Network) {
+	if dcl.IsZeroValue(des.Network) || (dcl.IsEmptyValueIndirect(des.Network) && dcl.IsEmptyValueIndirect(initial.Network)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Network = initial.Network
 	} else {
 		cDes.Network = des.Network
@@ -932,9 +933,6 @@ func canonicalizeNewInstanceManagementConfigStandardManagementConfig(c *Client, 
 		return nil
 	}
 
-	if dcl.NameToSelfLink(des.Network, nw.Network) {
-		nw.Network = des.Network
-	}
 	if dcl.StringCanonicalize(des.MasterIPv4CidrBlock, nw.MasterIPv4CidrBlock) {
 		nw.MasterIPv4CidrBlock = des.MasterIPv4CidrBlock
 	}

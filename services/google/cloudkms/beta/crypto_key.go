@@ -14,6 +14,7 @@
 package beta
 
 import (
+	"bytes"
 	"context"
 	"crypto/sha256"
 	"encoding/json"
@@ -822,4 +823,14 @@ func applyCryptoKeyDiff(c *Client, ctx context.Context, desired *CryptoKey, rawD
 	}
 	c.Config.Logger.InfoWithContext(ctx, "Done Apply.")
 	return newState, nil
+}
+
+func (r *CryptoKey) GetPolicy(basePath string) (string, string, *bytes.Buffer, error) {
+	u := r.getPolicyURL(basePath)
+	body := &bytes.Buffer{}
+	u, err := dcl.AddQueryParams(u, map[string]string{"options.requestedPolicyVersion": fmt.Sprintf("%d", r.IAMPolicyVersion())})
+	if err != nil {
+		return "", "", nil, err
+	}
+	return u, "GET", body, nil
 }

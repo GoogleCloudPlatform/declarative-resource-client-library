@@ -9,7 +9,7 @@
     "features.mart.server.endpoint": "https://127.0.0.1"
   },
   "analyticsRegion": "{{region}}",
-  "authorizedNetwork": "projects/{{ref:apigee.serviceusage.service.json:project}}/global/networks/{{ref:second.compute.network.json:name}}",
+  "authorizedNetwork": "projects/{{ref:apigee.serviceusage.service.json:project}}/global/networks/{{ref:basic.compute.network.json:name}}",
   "runtimeType": "CLOUD",
   "addonsConfig": {
     "advancedApiOpsConfig": {

@@ -21,10 +21,23 @@ resource: samples/basic.environment_group_attachment.json
 dependencies:
 - samples/basic.environment.json
 - samples/basic.environment_group.json
+- samples/basic.organization.json
+- samples/apigee.serviceusage.service.json
+- samples/compute.serviceusage.service.json
+- samples/basic.cloudbilling.project_billing_info.json
+- samples/basic.cloudresourcemanager.project.json
 variables:
+- name: billing_account
+  type: billing_account
 - name: envgroup
   type: resource_name
 - name: environment
   type: resource_name
+- name: id
+  type: resource_name
+- name: org_id
+  type: org_id
 - name: project
   type: project
+- name: region
+  type: region

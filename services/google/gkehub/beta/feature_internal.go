@@ -710,7 +710,8 @@ func canonicalizeFeatureSpecMulticlusteringress(des, initial *FeatureSpecMulticl
 
 	cDes := &FeatureSpecMulticlusteringress{}
 
-	if dcl.NameToSelfLink(des.ConfigMembership, initial.ConfigMembership) || dcl.IsZeroValue(des.ConfigMembership) {
+	if dcl.IsZeroValue(des.ConfigMembership) || (dcl.IsEmptyValueIndirect(des.ConfigMembership) && dcl.IsEmptyValueIndirect(initial.ConfigMembership)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ConfigMembership = initial.ConfigMembership
 	} else {
 		cDes.ConfigMembership = des.ConfigMembership
@@ -759,10 +760,6 @@ func canonicalizeNewFeatureSpecMulticlusteringress(c *Client, des, nw *FeatureSp
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.ConfigMembership, nw.ConfigMembership) {
-		nw.ConfigMembership = des.ConfigMembership
 	}
 
 	return nw

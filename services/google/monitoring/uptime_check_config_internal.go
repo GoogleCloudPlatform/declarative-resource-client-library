@@ -832,7 +832,8 @@ func canonicalizeUptimeCheckConfigResourceGroup(des, initial *UptimeCheckConfigR
 
 	cDes := &UptimeCheckConfigResourceGroup{}
 
-	if dcl.NameToSelfLink(des.GroupId, initial.GroupId) || dcl.IsZeroValue(des.GroupId) {
+	if dcl.IsZeroValue(des.GroupId) || (dcl.IsEmptyValueIndirect(des.GroupId) && dcl.IsEmptyValueIndirect(initial.GroupId)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.GroupId = initial.GroupId
 	} else {
 		cDes.GroupId = des.GroupId
@@ -887,10 +888,6 @@ func canonicalizeNewUptimeCheckConfigResourceGroup(c *Client, des, nw *UptimeChe
 			return des
 		}
 		return nil
-	}
-
-	if dcl.NameToSelfLink(des.GroupId, nw.GroupId) {
-		nw.GroupId = des.GroupId
 	}
 
 	return nw
