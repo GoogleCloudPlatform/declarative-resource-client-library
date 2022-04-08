@@ -1,0 +1,5 @@
+{
+  "name": "{{envgroup}}",
+  "apigeeOrganization": "organizations/{{project}}",
+  "hostnames": ["abc.example-1.com", "abc.example-2.com"]
+}

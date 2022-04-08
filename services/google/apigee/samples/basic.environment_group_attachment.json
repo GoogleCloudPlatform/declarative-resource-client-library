@@ -1,0 +1,4 @@
+{
+  "environment": "{{ref:basic.environment.json:apigeeOrganization}}/environments/{{ref:basic.environment.json:name}}",
+  "envgroup": "{{ref:basic.environment_group.json:apigeeOrganization}}/envgroups/{{ref:basic.environment_group.json:name}}"
+}

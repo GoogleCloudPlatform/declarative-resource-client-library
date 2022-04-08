@@ -11,6 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-load("//:connector_rules.bzl", "proto_package")
-proto_package(name="apigee", resources=["environment_group_attachment","environment_group","environment","instance","organization"])
+name: basic_environment_group
+description: A basic example of an apigee environment group
+type: environment_group
+versions:
+- ga
+resource: samples/basic.environment_group.json
+updates:
+- resource: samples/update.environment_group.json
+  dependencies: []
+variables:
+- name: envgroup
+  type: resource_name
+- name: project
+  type: project
