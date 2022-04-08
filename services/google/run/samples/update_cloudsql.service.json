@@ -11,7 +11,7 @@
     "volumes": [ {
       "name": "cloudsql",
       "cloudSqlInstance": {
-        "connections": ["careful-yew-216722:us-central1:testing-v22"]
+        "instances": ["careful-yew-216722:us-central1:testing-v22"]
       }
     } ],
     "containers": [ {

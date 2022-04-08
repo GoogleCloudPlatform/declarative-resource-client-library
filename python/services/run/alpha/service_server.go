@@ -386,8 +386,8 @@ func ProtoToRunAlphaServiceTemplateVolumesCloudSqlInstance(p *alphapb.RunAlphaSe
 		return nil
 	}
 	obj := &alpha.ServiceTemplateVolumesCloudSqlInstance{}
-	for _, r := range p.GetConnections() {
-		obj.Connections = append(obj.Connections, r)
+	for _, r := range p.GetInstances() {
+		obj.Instances = append(obj.Instances, r)
 	}
 	return obj
 }
@@ -844,11 +844,11 @@ func RunAlphaServiceTemplateVolumesCloudSqlInstanceToProto(o *alpha.ServiceTempl
 		return nil
 	}
 	p := &alphapb.RunAlphaServiceTemplateVolumesCloudSqlInstance{}
-	sConnections := make([]string, len(o.Connections))
-	for i, r := range o.Connections {
-		sConnections[i] = r
+	sInstances := make([]string, len(o.Instances))
+	for i, r := range o.Instances {
+		sInstances[i] = r
 	}
-	p.SetConnections(sConnections)
+	p.SetInstances(sInstances)
 	return p
 }
 

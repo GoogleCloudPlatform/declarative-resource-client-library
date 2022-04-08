@@ -1155,8 +1155,8 @@ func (r *ServiceTemplateVolumesSecretItems) HashCode() string {
 }
 
 type ServiceTemplateVolumesCloudSqlInstance struct {
-	empty       bool     `json:"-"`
-	Connections []string `json:"connections"`
+	empty     bool     `json:"-"`
+	Instances []string `json:"instances"`
 }
 
 type jsonServiceTemplateVolumesCloudSqlInstance ServiceTemplateVolumesCloudSqlInstance
@@ -1174,7 +1174,7 @@ func (r *ServiceTemplateVolumesCloudSqlInstance) UnmarshalJSON(data []byte) erro
 		*r = *EmptyServiceTemplateVolumesCloudSqlInstance
 	} else {
 
-		r.Connections = res.Connections
+		r.Instances = res.Instances
 
 	}
 	return nil

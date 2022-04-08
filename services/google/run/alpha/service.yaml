@@ -558,9 +558,9 @@ components:
                     x-dcl-conflicts:
                     - secret
                     properties:
-                      connections:
+                      instances:
                         type: array
-                        x-dcl-go-name: Connections
+                        x-dcl-go-name: Instances
                         description: 'The Cloud SQL instance connection names, as
                           can be found in https://console.cloud.google.com/sql/instances.
                           Visit https://cloud.google.com/sql/docs/mysql/connect-run
@@ -573,7 +573,7 @@ components:
                           x-dcl-go-type: string
                           x-dcl-references:
                           - resource: Sql/Instance
-                            field: connectionName
+                            field: instanceName
                   name:
                     type: string
                     x-dcl-go-name: Name

@@ -247,11 +247,11 @@ func ServiceToUnstructured(r *dclService.Service) *unstructured.Resource {
 			rTemplateVolumesObject := make(map[string]interface{})
 			if rTemplateVolumesVal.CloudSqlInstance != nil && rTemplateVolumesVal.CloudSqlInstance != dclService.EmptyServiceTemplateVolumesCloudSqlInstance {
 				rTemplateVolumesValCloudSqlInstance := make(map[string]interface{})
-				var rTemplateVolumesValCloudSqlInstanceConnections []interface{}
-				for _, rTemplateVolumesValCloudSqlInstanceConnectionsVal := range rTemplateVolumesVal.CloudSqlInstance.Connections {
-					rTemplateVolumesValCloudSqlInstanceConnections = append(rTemplateVolumesValCloudSqlInstanceConnections, rTemplateVolumesValCloudSqlInstanceConnectionsVal)
+				var rTemplateVolumesValCloudSqlInstanceInstances []interface{}
+				for _, rTemplateVolumesValCloudSqlInstanceInstancesVal := range rTemplateVolumesVal.CloudSqlInstance.Instances {
+					rTemplateVolumesValCloudSqlInstanceInstances = append(rTemplateVolumesValCloudSqlInstanceInstances, rTemplateVolumesValCloudSqlInstanceInstancesVal)
 				}
-				rTemplateVolumesValCloudSqlInstance["connections"] = rTemplateVolumesValCloudSqlInstanceConnections
+				rTemplateVolumesValCloudSqlInstance["instances"] = rTemplateVolumesValCloudSqlInstanceInstances
 				rTemplateVolumesObject["cloudSqlInstance"] = rTemplateVolumesValCloudSqlInstance
 			}
 			if rTemplateVolumesVal.Name != nil {
@@ -838,15 +838,15 @@ func UnstructuredToService(u *unstructured.Resource) (*dclService.Service, error
 							if _, ok := objval["cloudSqlInstance"]; ok {
 								if rTemplateVolumesCloudSqlInstance, ok := objval["cloudSqlInstance"].(map[string]interface{}); ok {
 									rTemplateVolumes.CloudSqlInstance = &dclService.ServiceTemplateVolumesCloudSqlInstance{}
-									if _, ok := rTemplateVolumesCloudSqlInstance["connections"]; ok {
-										if s, ok := rTemplateVolumesCloudSqlInstance["connections"].([]interface{}); ok {
+									if _, ok := rTemplateVolumesCloudSqlInstance["instances"]; ok {
+										if s, ok := rTemplateVolumesCloudSqlInstance["instances"].([]interface{}); ok {
 											for _, ss := range s {
 												if strval, ok := ss.(string); ok {
-													rTemplateVolumes.CloudSqlInstance.Connections = append(rTemplateVolumes.CloudSqlInstance.Connections, strval)
+													rTemplateVolumes.CloudSqlInstance.Instances = append(rTemplateVolumes.CloudSqlInstance.Instances, strval)
 												}
 											}
 										} else {
-											return nil, fmt.Errorf("rTemplateVolumes.CloudSqlInstance.Connections: expected []interface{}")
+											return nil, fmt.Errorf("rTemplateVolumes.CloudSqlInstance.Instances: expected []interface{}")
 										}
 									}
 								} else {

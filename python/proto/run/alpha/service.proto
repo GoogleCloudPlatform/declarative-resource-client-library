@@ -271,7 +271,7 @@ message RunAlphaServiceTemplateVolumesSecretItems {
 }
 
 message RunAlphaServiceTemplateVolumesCloudSqlInstance {
-  repeated string connections = 1;
+  repeated string instances = 1;
 }
 
 message RunAlphaServiceTraffic {

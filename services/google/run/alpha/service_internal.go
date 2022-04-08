@@ -2699,10 +2699,10 @@ func canonicalizeServiceTemplateVolumesCloudSqlInstance(des, initial *ServiceTem
 
 	cDes := &ServiceTemplateVolumesCloudSqlInstance{}
 
-	if dcl.StringArrayCanonicalize(des.Connections, initial.Connections) {
-		cDes.Connections = initial.Connections
+	if dcl.StringArrayCanonicalize(des.Instances, initial.Instances) {
+		cDes.Instances = initial.Instances
 	} else {
-		cDes.Connections = des.Connections
+		cDes.Instances = des.Instances
 	}
 
 	return cDes
@@ -2750,8 +2750,8 @@ func canonicalizeNewServiceTemplateVolumesCloudSqlInstance(c *Client, des, nw *S
 		return nil
 	}
 
-	if dcl.StringArrayCanonicalize(des.Connections, nw.Connections) {
-		nw.Connections = des.Connections
+	if dcl.StringArrayCanonicalize(des.Instances, nw.Instances) {
+		nw.Instances = des.Instances
 	}
 
 	return nw
@@ -4172,7 +4172,7 @@ func compareServiceTemplateVolumesCloudSqlInstanceNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Connections, actual.Connections, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Connections")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Instances, actual.Instances, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Instances")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6397,8 +6397,8 @@ func expandServiceTemplateVolumesCloudSqlInstance(c *Client, f *ServiceTemplateV
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Connections; v != nil {
-		m["connections"] = v
+	if v := f.Instances; v != nil {
+		m["instances"] = v
 	}
 
 	return m, nil
@@ -6417,7 +6417,7 @@ func flattenServiceTemplateVolumesCloudSqlInstance(c *Client, i interface{}, res
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyServiceTemplateVolumesCloudSqlInstance
 	}
-	r.Connections = dcl.FlattenStringSlice(m["connections"])
+	r.Instances = dcl.FlattenStringSlice(m["instances"])
 
 	return r
 }

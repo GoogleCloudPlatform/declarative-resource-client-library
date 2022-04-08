@@ -979,8 +979,8 @@ class ServiceTemplateVolumesSecretItemsArray(object):
 
 
 class ServiceTemplateVolumesCloudSqlInstance(object):
-    def __init__(self, connections: list = None):
-        self.connections = connections
+    def __init__(self, instances: list = None):
+        self.instances = instances
 
     @classmethod
     def to_proto(self, resource):
@@ -988,8 +988,8 @@ class ServiceTemplateVolumesCloudSqlInstance(object):
             return None
 
         res = service_pb2.RunAlphaServiceTemplateVolumesCloudSqlInstance()
-        if Primitive.to_proto(resource.connections):
-            res.connections.extend(Primitive.to_proto(resource.connections))
+        if Primitive.to_proto(resource.instances):
+            res.instances.extend(Primitive.to_proto(resource.instances))
         return res
 
     @classmethod
@@ -998,7 +998,7 @@ class ServiceTemplateVolumesCloudSqlInstance(object):
             return None
 
         return ServiceTemplateVolumesCloudSqlInstance(
-            connections=Primitive.from_proto(resource.connections),
+            instances=Primitive.from_proto(resource.instances),
         )
 
 
