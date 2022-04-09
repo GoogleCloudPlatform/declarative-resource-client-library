@@ -3,13 +3,13 @@
   "project": "{{project}}",
   "location": "{{zone}}",
   "description": "Updated test instance",
-  "tier": "PREMIUM",
+  "tier": "STANDARD",
   "labels": {
     "label-one": "value-one"
   },
   "fileShares": [
     {
-      "capacityGb": 4800,
+      "capacityGb": 1025,
       "name": "my_share",
       "nfsExportOptions": [
         {

@@ -297,7 +297,7 @@ components:
           x-dcl-go-name: Tier
           x-dcl-go-type: InstanceTierEnum
           description: 'The service tier of the instance. Possible values: TIER_UNSPECIFIED,
-            STANDARD, PREMIUM, BASIC_HDD, BASIC_SSD, HIGH_SCALE_SSD'
+            STANDARD, PREMIUM, BASIC_HDD, BASIC_SSD, HIGH_SCALE_SSD, ENTERPRISE'
           x-kubernetes-immutable: true
           enum:
           - TIER_UNSPECIFIED
@@ -306,3 +306,4 @@ components:
           - BASIC_HDD
           - BASIC_SSD
           - HIGH_SCALE_SSD
+          - ENTERPRISE

@@ -39,6 +39,7 @@ enum FilestoreBetaInstanceTierEnum {
   FilestoreBetaInstanceTierEnumBASIC_HDD = 4;
   FilestoreBetaInstanceTierEnumBASIC_SSD = 5;
   FilestoreBetaInstanceTierEnumHIGH_SCALE_SSD = 6;
+  FilestoreBetaInstanceTierEnumENTERPRISE = 7;
 }
 
 enum FilestoreBetaInstanceFileSharesNfsExportOptionsAccessModeEnum {
