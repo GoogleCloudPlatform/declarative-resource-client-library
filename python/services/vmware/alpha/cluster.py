@@ -24,7 +24,6 @@ class Cluster(object):
         name: str = None,
         create_time: str = None,
         update_time: str = None,
-        labels: dict = None,
         state: str = None,
         management: bool = None,
         node_type_id: str = None,
@@ -37,7 +36,6 @@ class Cluster(object):
 
         channel.initialize()
         self.name = name
-        self.labels = labels
         self.node_type_id = node_type_id
         self.node_count = node_count
         self.project = project
@@ -50,9 +48,6 @@ class Cluster(object):
         request = cluster_pb2.ApplyVmwareAlphaClusterRequest()
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
 
         if Primitive.to_proto(self.node_type_id):
             request.resource.node_type_id = Primitive.to_proto(self.node_type_id)
@@ -75,7 +70,6 @@ class Cluster(object):
         self.name = Primitive.from_proto(response.name)
         self.create_time = Primitive.from_proto(response.create_time)
         self.update_time = Primitive.from_proto(response.update_time)
-        self.labels = Primitive.from_proto(response.labels)
         self.state = ClusterStateEnum.from_proto(response.state)
         self.management = Primitive.from_proto(response.management)
         self.node_type_id = Primitive.from_proto(response.node_type_id)
@@ -90,9 +84,6 @@ class Cluster(object):
         request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
 
         if Primitive.to_proto(self.node_type_id):
             request.resource.node_type_id = Primitive.to_proto(self.node_type_id)
@@ -128,8 +119,6 @@ class Cluster(object):
         resource = cluster_pb2.VmwareAlphaCluster()
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
-        if Primitive.to_proto(self.labels):
-            resource.labels = Primitive.to_proto(self.labels)
         if Primitive.to_proto(self.node_type_id):
             resource.node_type_id = Primitive.to_proto(self.node_type_id)
         if Primitive.to_proto(self.node_count):

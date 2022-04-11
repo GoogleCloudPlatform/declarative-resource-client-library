@@ -31,7 +31,6 @@ type PrivateCloud struct {
 	UpdateTime        *string                        `json:"updateTime"`
 	DeleteTime        *string                        `json:"deleteTime"`
 	ExpireTime        *string                        `json:"expireTime"`
-	Labels            map[string]string              `json:"labels"`
 	State             *PrivateCloudStateEnum         `json:"state"`
 	NetworkConfig     *PrivateCloudNetworkConfig     `json:"networkConfig"`
 	ManagementCluster *PrivateCloudManagementCluster `json:"managementCluster"`
@@ -414,7 +413,6 @@ func (r *PrivateCloud) ID() (string, error) {
 		"updateTime":        dcl.ValueOrEmptyString(nr.UpdateTime),
 		"deleteTime":        dcl.ValueOrEmptyString(nr.DeleteTime),
 		"expireTime":        dcl.ValueOrEmptyString(nr.ExpireTime),
-		"labels":            dcl.ValueOrEmptyString(nr.Labels),
 		"state":             dcl.ValueOrEmptyString(nr.State),
 		"networkConfig":     dcl.ValueOrEmptyString(nr.NetworkConfig),
 		"managementCluster": dcl.ValueOrEmptyString(nr.ManagementCluster),

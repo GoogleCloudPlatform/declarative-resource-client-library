@@ -35,14 +35,13 @@ message VmwareAlphaCluster {
   string name = 1;
   string create_time = 2;
   string update_time = 3;
-  map<string, string> labels = 4;
-  VmwareAlphaClusterStateEnum state = 5;
-  bool management = 6;
-  string node_type_id = 7;
-  int64 node_count = 8;
-  string project = 9;
-  string location = 10;
-  string private_cloud = 11;
+  VmwareAlphaClusterStateEnum state = 4;
+  bool management = 5;
+  string node_type_id = 6;
+  int64 node_count = 7;
+  string project = 8;
+  string location = 9;
+  string private_cloud = 10;
 }
 
 message ApplyVmwareAlphaClusterRequest {

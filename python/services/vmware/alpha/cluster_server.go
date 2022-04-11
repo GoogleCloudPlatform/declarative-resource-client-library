@@ -77,11 +77,6 @@ func ClusterToProto(resource *alpha.Cluster) *alphapb.VmwareAlphaCluster {
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetPrivateCloud(dcl.ValueOrEmptyString(resource.PrivateCloud))
-	mLabels := make(map[string]string, len(resource.Labels))
-	for k, r := range resource.Labels {
-		mLabels[k] = r
-	}
-	p.SetLabels(mLabels)
 
 	return p
 }

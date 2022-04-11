@@ -112,9 +112,6 @@ func newUpdateClusterUpdateClusterRequest(ctx context.Context, f *Cluster, c *Cl
 	res := f
 	_ = res
 
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
-		req["labels"] = v
-	}
 	if v := f.NodeTypeId; !dcl.IsEmptyValueIndirect(v) {
 		req["nodeTypeId"] = v
 	}
@@ -461,12 +458,6 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		canonicalDesired.Labels = rawInitial.Labels
-	} else {
-		canonicalDesired.Labels = rawDesired.Labels
-	}
 	if dcl.StringCanonicalize(rawDesired.NodeTypeId, rawInitial.NodeTypeId) {
 		canonicalDesired.NodeTypeId = rawInitial.NodeTypeId
 	} else {
@@ -514,11 +505,6 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
-	} else {
-	}
-
-	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
@@ -590,13 +576,6 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 	}
 
 	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateClusterUpdateClusterOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -724,9 +703,6 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v := f.Labels; dcl.ValueShouldBeSent(v) {
-		m["labels"] = v
-	}
 	if v := f.NodeTypeId; dcl.ValueShouldBeSent(v) {
 		m["nodeTypeId"] = v
 	}
@@ -767,7 +743,6 @@ func flattenCluster(c *Client, i interface{}, res *Cluster) *Cluster {
 	resultRes.Name = dcl.FlattenString(m["name"])
 	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
 	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
-	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	resultRes.State = flattenClusterStateEnum(m["state"])
 	resultRes.Management = dcl.FlattenBool(m["management"])
 	resultRes.NodeTypeId = dcl.FlattenString(m["nodeTypeId"])

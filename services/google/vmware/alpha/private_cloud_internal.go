@@ -270,9 +270,6 @@ func newUpdatePrivateCloudUpdatePrivateCloudRequest(ctx context.Context, f *Priv
 	res := f
 	_ = res
 
-	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
-		req["labels"] = v
-	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
@@ -596,12 +593,6 @@ func canonicalizePrivateCloudDesiredState(rawDesired, rawInitial *PrivateCloud, 
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		canonicalDesired.Labels = rawInitial.Labels
-	} else {
-		canonicalDesired.Labels = rawDesired.Labels
-	}
 	canonicalDesired.NetworkConfig = canonicalizePrivateCloudNetworkConfig(rawDesired.NetworkConfig, rawInitial.NetworkConfig, opts...)
 	canonicalDesired.ManagementCluster = canonicalizePrivateCloudManagementCluster(rawDesired.ManagementCluster, rawInitial.ManagementCluster, opts...)
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
@@ -650,11 +641,6 @@ func canonicalizePrivateCloudNewState(c *Client, rawNew, rawDesired *PrivateClou
 
 	if dcl.IsNotReturnedByServer(rawNew.ExpireTime) && dcl.IsNotReturnedByServer(rawDesired.ExpireTime) {
 		rawNew.ExpireTime = rawDesired.ExpireTime
-	} else {
-	}
-
-	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
@@ -1551,13 +1537,6 @@ func diffPrivateCloud(c *Client, desired, actual *PrivateCloud, opts ...dcl.Appl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updatePrivateCloudUpdatePrivateCloudOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -1979,9 +1958,6 @@ func expandPrivateCloud(c *Client, f *PrivateCloud) (map[string]interface{}, err
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v := f.Labels; dcl.ValueShouldBeSent(v) {
-		m["labels"] = v
-	}
 	if v, err := expandPrivateCloudNetworkConfig(c, f.NetworkConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding NetworkConfig into networkConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2026,7 +2002,6 @@ func flattenPrivateCloud(c *Client, i interface{}, res *PrivateCloud) *PrivateCl
 	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
 	resultRes.DeleteTime = dcl.FlattenString(m["deleteTime"])
 	resultRes.ExpireTime = dcl.FlattenString(m["expireTime"])
-	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	resultRes.State = flattenPrivateCloudStateEnum(m["state"])
 	resultRes.NetworkConfig = flattenPrivateCloudNetworkConfig(c, m["networkConfig"], res)
 	resultRes.ManagementCluster = flattenPrivateCloudManagementCluster(c, m["managementCluster"], res)

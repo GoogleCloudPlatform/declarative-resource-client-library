@@ -74,13 +74,6 @@ func PrivateCloudToUnstructured(r *dclService.PrivateCloud) *unstructured.Resour
 		}
 		u.Object["hcx"] = rHcx
 	}
-	if r.Labels != nil {
-		rLabels := make(map[string]interface{})
-		for k, v := range r.Labels {
-			rLabels[k] = v
-		}
-		u.Object["labels"] = rLabels
-	}
 	if r.Location != nil {
 		u.Object["location"] = *r.Location
 	}
@@ -246,19 +239,6 @@ func UnstructuredToPrivateCloud(u *unstructured.Resource) (*dclService.PrivateCl
 			}
 		} else {
 			return nil, fmt.Errorf("r.Hcx: expected map[string]interface{}")
-		}
-	}
-	if _, ok := u.Object["labels"]; ok {
-		if rLabels, ok := u.Object["labels"].(map[string]interface{}); ok {
-			m := make(map[string]string)
-			for k, v := range rLabels {
-				if s, ok := v.(string); ok {
-					m[k] = s
-				}
-			}
-			r.Labels = m
-		} else {
-			return nil, fmt.Errorf("r.Labels: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["location"]; ok {

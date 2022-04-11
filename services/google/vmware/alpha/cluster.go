@@ -26,7 +26,6 @@ type Cluster struct {
 	Name         *string           `json:"name"`
 	CreateTime   *string           `json:"createTime"`
 	UpdateTime   *string           `json:"updateTime"`
-	Labels       map[string]string `json:"labels"`
 	State        *ClusterStateEnum `json:"state"`
 	Management   *bool             `json:"management"`
 	NodeTypeId   *string           `json:"nodeTypeId"`
@@ -86,7 +85,6 @@ func (r *Cluster) ID() (string, error) {
 		"name":         dcl.ValueOrEmptyString(nr.Name),
 		"createTime":   dcl.ValueOrEmptyString(nr.CreateTime),
 		"updateTime":   dcl.ValueOrEmptyString(nr.UpdateTime),
-		"labels":       dcl.ValueOrEmptyString(nr.Labels),
 		"state":        dcl.ValueOrEmptyString(nr.State),
 		"management":   dcl.ValueOrEmptyString(nr.Management),
 		"nodeTypeId":   dcl.ValueOrEmptyString(nr.NodeTypeId),

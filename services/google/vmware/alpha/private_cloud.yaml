@@ -153,22 +153,6 @@ components:
               x-dcl-go-name: Version
               description: Version of the appliance.
               x-kubernetes-immutable: true
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          x-dcl-go-name: Labels
-          description: Labels are a way to attach lightweight metadata to resources
-            for filtering and querying resource data. No more than 64 user labels
-            can be associated with each resource. Label keys and values can be no
-            longer than 63 characters, can only contain lowercase letters, numeric
-            characters, underscores and dashes, where label keys must start with a
-            letter and international characters are allowed. The empty string is a
-            valid value. Labels are set on creation and updated like any other field.
-            Specifically, to add a new label, you would need to provide all of the
-            existing labels along with the new label. If you only provide a map with
-            the new label, all of the old labels will be removed (probably not what
-            is desired).
         location:
           type: string
           x-dcl-go-name: Location

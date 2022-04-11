@@ -35,13 +35,6 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 	if r.CreateTime != nil {
 		u.Object["createTime"] = *r.CreateTime
 	}
-	if r.Labels != nil {
-		rLabels := make(map[string]interface{})
-		for k, v := range r.Labels {
-			rLabels[k] = v
-		}
-		u.Object["labels"] = rLabels
-	}
 	if r.Location != nil {
 		u.Object["location"] = *r.Location
 	}
@@ -79,19 +72,6 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 			r.CreateTime = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.CreateTime: expected string")
-		}
-	}
-	if _, ok := u.Object["labels"]; ok {
-		if rLabels, ok := u.Object["labels"].(map[string]interface{}); ok {
-			m := make(map[string]string)
-			for k, v := range rLabels {
-				if s, ok := v.(string); ok {
-					m[k] = s
-				}
-			}
-			r.Labels = m
-		} else {
-			return nil, fmt.Errorf("r.Labels: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["location"]; ok {

@@ -242,11 +242,6 @@ func PrivateCloudToProto(resource *alpha.PrivateCloud) *alphapb.VmwareAlphaPriva
 	p.SetVcenter(VmwareAlphaPrivateCloudVcenterToProto(resource.Vcenter))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
-	mLabels := make(map[string]string, len(resource.Labels))
-	for k, r := range resource.Labels {
-		mLabels[k] = r
-	}
-	p.SetLabels(mLabels)
 	sConditions := make([]*alphapb.VmwareAlphaPrivateCloudConditions, len(resource.Conditions))
 	for i, r := range resource.Conditions {
 		sConditions[i] = VmwareAlphaPrivateCloudConditionsToProto(&r)

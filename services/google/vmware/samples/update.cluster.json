@@ -3,9 +3,6 @@
   "project": "{{project}}",
   "location": "{{zone}}",
   "privateCloud": "{{ref:basic.private_cloud.json:name}}",
-  "labels": {
-    "label-two": "value-two"
-  },
   "nodeTypeId": "standard-72",
   "nodeCount": 4
 }

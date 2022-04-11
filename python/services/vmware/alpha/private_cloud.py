@@ -26,7 +26,6 @@ class PrivateCloud(object):
         update_time: str = None,
         delete_time: str = None,
         expire_time: str = None,
-        labels: dict = None,
         state: str = None,
         network_config: dict = None,
         management_cluster: dict = None,
@@ -42,7 +41,6 @@ class PrivateCloud(object):
 
         channel.initialize()
         self.name = name
-        self.labels = labels
         self.network_config = network_config
         self.management_cluster = management_cluster
         self.description = description
@@ -57,9 +55,6 @@ class PrivateCloud(object):
         request = private_cloud_pb2.ApplyVmwareAlphaPrivateCloudRequest()
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
 
         if PrivateCloudNetworkConfig.to_proto(self.network_config):
             request.resource.network_config.CopyFrom(
@@ -90,7 +85,6 @@ class PrivateCloud(object):
         self.update_time = Primitive.from_proto(response.update_time)
         self.delete_time = Primitive.from_proto(response.delete_time)
         self.expire_time = Primitive.from_proto(response.expire_time)
-        self.labels = Primitive.from_proto(response.labels)
         self.state = PrivateCloudStateEnum.from_proto(response.state)
         self.network_config = PrivateCloudNetworkConfig.from_proto(
             response.network_config
@@ -114,9 +108,6 @@ class PrivateCloud(object):
         request.service_account_file = self.service_account_file
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.labels):
-            request.resource.labels = Primitive.to_proto(self.labels)
 
         if PrivateCloudNetworkConfig.to_proto(self.network_config):
             request.resource.network_config.CopyFrom(
@@ -158,8 +149,6 @@ class PrivateCloud(object):
         resource = private_cloud_pb2.VmwareAlphaPrivateCloud()
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
-        if Primitive.to_proto(self.labels):
-            resource.labels = Primitive.to_proto(self.labels)
         if PrivateCloudNetworkConfig.to_proto(self.network_config):
             resource.network_config.CopyFrom(
                 PrivateCloudNetworkConfig.to_proto(self.network_config)

@@ -36,17 +36,16 @@ message VmwareAlphaPrivateCloud {
   string update_time = 3;
   string delete_time = 4;
   string expire_time = 5;
-  map<string, string> labels = 6;
-  VmwareAlphaPrivateCloudStateEnum state = 7;
-  VmwareAlphaPrivateCloudNetworkConfig network_config = 8;
-  VmwareAlphaPrivateCloudManagementCluster management_cluster = 9;
-  string description = 10;
-  repeated VmwareAlphaPrivateCloudConditions conditions = 11;
-  VmwareAlphaPrivateCloudHcx hcx = 12;
-  VmwareAlphaPrivateCloudNsx nsx = 13;
-  VmwareAlphaPrivateCloudVcenter vcenter = 14;
-  string project = 15;
-  string location = 16;
+  VmwareAlphaPrivateCloudStateEnum state = 6;
+  VmwareAlphaPrivateCloudNetworkConfig network_config = 7;
+  VmwareAlphaPrivateCloudManagementCluster management_cluster = 8;
+  string description = 9;
+  repeated VmwareAlphaPrivateCloudConditions conditions = 10;
+  VmwareAlphaPrivateCloudHcx hcx = 11;
+  VmwareAlphaPrivateCloudNsx nsx = 12;
+  VmwareAlphaPrivateCloudVcenter vcenter = 13;
+  string project = 14;
+  string location = 15;
 }
 
 message VmwareAlphaPrivateCloudNetworkConfig {
