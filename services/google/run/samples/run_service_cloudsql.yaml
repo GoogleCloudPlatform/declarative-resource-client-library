@@ -12,7 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 name: run_service_cloudsql
-description: A Cloud Run Service using API v2 containing a CloudSql volume
+description: A Cloud Run Service using API v2 containing a CloudSql volume and an
+  EnvVar secret
 type: service
 versions:
 - alpha

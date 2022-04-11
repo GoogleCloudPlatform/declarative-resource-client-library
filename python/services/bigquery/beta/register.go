@@ -20,7 +20,7 @@ import (
 
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
-	sdkgrpc.RegisterBigqueryBetaRoutineServiceServer(s, &RoutineServer{})
 	sdkgrpc.RegisterBigqueryBetaDatasetServiceServer(s, &DatasetServer{})
+	sdkgrpc.RegisterBigqueryBetaRoutineServiceServer(s, &RoutineServer{})
 	sdkgrpc.RegisterBigqueryBetaTableServiceServer(s, &TableServer{})
 }

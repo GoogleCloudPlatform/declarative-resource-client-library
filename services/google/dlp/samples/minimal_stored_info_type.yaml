@@ -19,8 +19,6 @@ versions:
 - beta
 resource: samples/minimal.stored_info_type.json
 variables:
-- name: min_type
-  type: resource_name
 - name: project
   type: project
 - name: region

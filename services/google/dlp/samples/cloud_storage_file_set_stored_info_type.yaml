@@ -24,5 +24,3 @@ variables:
   type: project
 - name: region
   type: region
-- name: type
-  type: resource_name

@@ -1,5 +1,4 @@
 {
-  "name": "{{type}}",
   "parent": "projects/{{project}}/locations/{{region}}",
   "dictionary": {
     "cloudStoragePath": {

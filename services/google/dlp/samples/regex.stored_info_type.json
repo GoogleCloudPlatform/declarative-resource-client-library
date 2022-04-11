@@ -1,5 +1,4 @@
 {
-  "name": "{{type}}",
   "parent": "projects/{{project}}",
   "location": "{{region}}",
   "displayName": "sample-type",

@@ -67,7 +67,6 @@ components:
       x-dcl-has-iam: false
       type: object
       required:
-      - name
       - parent
       properties:
         description:
@@ -243,6 +242,7 @@ components:
           x-dcl-go-name: Name
           description: Resource name.
           x-kubernetes-immutable: true
+          x-dcl-server-generated-parameter: true
         parent:
           type: string
           x-dcl-go-name: Parent

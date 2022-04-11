@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 name: run_job
-description: A basic Cloud Run Job using API v2
+description: A basic Cloud Run Job using API v2 then updated with more fields
 type: job
 versions:
 - alpha
