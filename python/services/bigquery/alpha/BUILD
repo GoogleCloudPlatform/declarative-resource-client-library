@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="bigquery/alpha", resources=["dataset","routine","table"])
+connector(name="bigquery/alpha", resources=["dataset","routine"])

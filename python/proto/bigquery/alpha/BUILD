@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="bigquery/alpha", resources=["dataset","routine","table"])
+proto_package(name="bigquery/alpha", resources=["dataset","routine"])
