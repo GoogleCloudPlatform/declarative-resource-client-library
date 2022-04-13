@@ -42,8 +42,8 @@
     },
     "securityGroupIds": ["sg-1", "sg-2"],
     "proxyConfig": {
-      "secretArn": "arn:aws:secretsmanager:us-west-2:126285863215:secret:proxy_config20210824150329476300000001-ABCDEF",
-      "secretVersion": "12345678-ABCD-EFGH-IJKL-987654321098"
+      "secretArn": "arn:aws:secretsmanager:us-west-2:126285863215:secret:proxy_config20210824150329476300000001-ABCDEG",
+      "secretVersion": "12345678-ABCD-EFGH-IJKL-987654321099"
     }
   },
   "annotations": {

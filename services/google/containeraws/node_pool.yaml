@@ -179,7 +179,6 @@ components:
               x-dcl-go-name: ProxyConfig
               x-dcl-go-type: NodePoolConfigProxyConfig
               description: Proxy configuration for outbound HTTP(S) traffic.
-              x-kubernetes-immutable: true
               required:
               - secretArn
               - secretVersion
@@ -189,13 +188,11 @@ components:
                   x-dcl-go-name: SecretArn
                   description: The ARN of the AWS Secret Manager secret that contains
                     the HTTP(S) proxy configuration.
-                  x-kubernetes-immutable: true
                 secretVersion:
                   type: string
                   x-dcl-go-name: SecretVersion
                   description: The version string of the AWS Secret Manager secret
                     that contains the HTTP(S) proxy configuration.
-                  x-kubernetes-immutable: true
             rootVolume:
               type: object
               x-dcl-go-name: RootVolume

@@ -11,26 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-name: basic_fleet
-description: A basic example for a GKEHub Fleet
-type: fleet
+name: minimal_table
+description: A minimal example of a bigquery table
+type: table
 versions:
-- alpha
-resource: samples/basic.fleet.json
+- ga
+- beta
+resource: samples/minimal.table.json
 dependencies:
-- samples/gkehub.serviceusage.service.json
-- samples/basic.cloudbilling.project_billing_info.json
-- samples/basic.cloudresourcemanager.project.json
-updates:
-- resource: samples/update.fleet.json
-  dependencies:
-  - samples/gkehub.serviceusage.service.json
-  - samples/basic.cloudbilling.project_billing_info.json
-  - samples/basic.cloudresourcemanager.project.json
+- samples/minimal.dataset.json
 variables:
-- name: billing_account
-  type: billing_account
-- name: id
+- name: _dataset
   type: resource_name
-- name: org_id
-  type: org_id
+- name: _min_table
+  type: resource_name
+- name: project
+  type: project

@@ -44,7 +44,6 @@ components:
       x-dcl-has-iam: false
       type: object
       required:
-      - name
       - project
       - location
       properties:
@@ -75,10 +74,11 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          description: The full, unique resource name of this fleet in the format
-            of `projects/{project}/locations/{location}/fleets/{fleet}`. Each GCP
-            project can have at most one fleet resource, named "default".
+          description: Output only. The full, unique resource name of this fleet in
+            the format of `projects/{project}/locations/{location}/fleets/{fleet}`.
+            Each GCP project can have at most one fleet resource, named "default".
           x-kubernetes-immutable: true
+          x-dcl-server-generated-parameter: true
         project:
           type: string
           x-dcl-go-name: Project
