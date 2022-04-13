@@ -8,10 +8,10 @@
   "labels": {"label-key": "label-value"},
   "annotations": {"annotation-key": "annotation-value"},
   "template": {
-    "task_count": 3,
+    "taskCount": 3,
     "template": {
       "timeout": "1800s",
-      "max_retries": 5,
+      "maxRetries": 5,
       "containers": [ {
         "image": "gcr.io/run-intro/screenshot:latest",
         "args": ["www.google.com"],
