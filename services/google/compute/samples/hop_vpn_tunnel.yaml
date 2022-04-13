@@ -25,22 +25,29 @@ dependencies:
 - samples/esp.forwarding_rule.json
 - samples/udp500.forwarding_rule.json
 - samples/udp4500.forwarding_rule.json
-- samples/basic.router.json
-- samples/basic.address.json
-- samples/basic.network.json
+- samples/project.router.json
+- samples/project.address.json
+- samples/project.network.json
+- samples/compute.serviceusage.service.json
+- samples/first.cloudbilling.project_billing_info.json
+- samples/first.cloudresourcemanager.project.json
 variables:
 - name: address
   type: resource_name
+- name: billing_account
+  type: billing_account
 - name: compute_network
   type: resource_name
 - name: forwarding_rule
   type: resource_name
 - name: gateway
   type: resource_name
+- name: id1
+  type: resource_name
 - name: name
   type: resource_name
-- name: project
-  type: project
+- name: org_id
+  type: org_id
 - name: region
   type: region
 - name: router

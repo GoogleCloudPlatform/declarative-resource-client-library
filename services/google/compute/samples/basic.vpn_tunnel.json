@@ -1,11 +1,11 @@
 {
-  "project": "{{project}}",
+  "project": "{{ref:compute.serviceusage.service.json:project}}",
   "region": "{{region}}",
   "name": "{{tunnel}}",
-  "peerIp": "15.0.0.120",
+  "peerIp": "{{ref:basic.vpn_gateway.json:vpnInterfaces[0].ipAddress}}",
   "sharedSecret": "a secret",
   "targetVpnGateway": "{{ref:basic.target_vpn_gateway.json:selfLink}}",
-  "router": "{{ref:basic.router.json:selfLink}}",
+  "router": "{{ref:project.router.json:selfLink}}",
   "__dependsOn": [
     "udp4500.forwarding_rule.json",
     "udp500.forwarding_rule.json",

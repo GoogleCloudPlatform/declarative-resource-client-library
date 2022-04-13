@@ -143,3 +143,13 @@ type OperationNotDone struct {
 func (e OperationNotDone) Error() string {
 	return "operation not done."
 }
+
+// AttemptToIndexNilArray is returned when GetMapEntry is called with a path that includes an array
+// index and that array is unset in the map.
+type AttemptToIndexNilArray struct {
+	FieldName string
+}
+
+func (e AttemptToIndexNilArray) Error() string {
+	return fmt.Sprintf("field %s was nil, could not index array", e.FieldName)
+}

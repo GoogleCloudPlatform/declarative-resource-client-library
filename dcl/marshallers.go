@@ -116,9 +116,13 @@ func mapEntry(fetch map[string]interface{}, item string) (interface{}, error) {
 			return nil, fmt.Errorf("could not find %q in %v", item, fetch)
 		}
 
+		if f == nil {
+			return nil, &AttemptToIndexNilArray{FieldName: field}
+		}
+
 		fetch, ok := f.([]interface{})
 		if !ok {
-			return nil, fmt.Errorf("field %s is not an array", field)
+			return nil, fmt.Errorf("field %s is a %T, not an array", field, f)
 		}
 
 		if len(fetch) < index {

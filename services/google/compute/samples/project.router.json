@@ -1,6 +1,6 @@
 {
+  "name": "{{router}}",
   "project": "{{ref:compute.serviceusage.service.json:project}}",
-  "name": "{{gateway}}",
-  "region": "{{region}}",
+  "location": "{{region}}",
   "network": "{{ref:project.network.json:selfLink}}"
 }

@@ -1,10 +1,10 @@
 {
-  "project":     "{{project}}",
+  "project":     "{{ref:compute.serviceusage.service.json:project}}",
   "location":    "{{region}}",
   "name":        "{{forwarding_rule}}",
   "target":      "{{ref:basic.target_vpn_gateway.json:selfLink}}",
   "ipProtocol":  "ESP",
-  "ipAddress":   "{{ref:basic.address.json:address}}",
+  "ipAddress":   "{{ref:project.address.json:address}}",
   "networkTier": "PREMIUM",
   "description": "A test forwarding rule"
 }
