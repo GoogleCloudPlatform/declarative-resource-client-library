@@ -145,38 +145,6 @@ func BoolCanonicalize(l, r *bool) bool {
 	return left == right
 }
 
-// OptionalBoolCanonicalize checks cannonicalization for optional booleans.
-func OptionalBoolCanonicalize(l, r *OptionalBool) bool {
-	if l == nil && r == nil {
-		return true
-	}
-
-	left := *l
-	right := *r
-
-	if left.Unset != right.Unset {
-		return false
-	}
-
-	return BoolCanonicalize(l.Value, r.Value)
-}
-
-// OptionalStringCanonicalize checks cannonicalization for optional strings.
-func OptionalStringCanonicalize(l, r *OptionalString) bool {
-	if l == nil && r == nil {
-		return true
-	}
-
-	left := *l
-	right := *r
-
-	if left.Unset != right.Unset {
-		return false
-	}
-
-	return StringCanonicalize(l.Value, r.Value)
-}
-
 // NameToSelfLink returns true if left and right are equivalent for Names / SelfLinks.
 // It allows all the deviations that SelfLinkToSelfLink allows, plus it allows one
 // of the values to simply be the last element of the other value.
@@ -946,20 +914,5 @@ func ValueShouldBeSent(v interface{}) bool {
 		return false
 	}
 
-	b, ok := v.(Optional)
-	if ok {
-		if b.IsUnset() {
-			return false
-		}
-
-		_, ok := v.(*OptionalBool)
-		// If it's a bool and we're dealing with unsetness, we should always send.
-		// After all, unset != false for optional values.
-		if ok {
-			return true
-		}
-
-		return !IsEmptyValueIndirect(b.GetValue())
-	}
 	return !IsEmptyValueIndirect(v)
 }

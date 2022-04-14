@@ -255,71 +255,59 @@ func Diff(desired, actual interface{}, info Info, fn FieldName) ([]*FieldDiff, e
 		}
 
 	case "struct":
-		// Handle all optional types, which are represented as structs.
-		possibleDiffs, isOptional, err := optionalTypeDiffs(actual, desired, info, fn)
+		// If API returns nil (which means field is unset) && we have the empty-struct, no diff occurs.
+		if IsZeroValue(actual) && IsEmptyValueIndirect(desired) {
+			return nil, nil
+		}
+
+		// Want empty value, but non-empty value currrently exists.
+		// Only consider *explicitly* empty values, rather than "some combination
+		// of nils and falses" (as IEVI would do), because of the case comparing
+		// a non-explicitly empty struct with a struct containing only computed fields.
+		// See compute's `validate_test.go` for example.
+		if hasEmptyStructField(desired) && !IsEmptyValueIndirect(actual) {
+			diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual})
+			addOperationToDiffs(diffs, info)
+			return diffs, nil
+		}
+
+		if info.ObjectFunction == nil {
+			return nil, fmt.Errorf("struct %v given without an object function", desired)
+		}
+
+		if info.EmptyObject == nil {
+			return nil, fmt.Errorf("struct %v given without an empty object type", desired)
+		}
+
+		// If the API returns nil, we can't diff against a nil. We should use the empty object instead.
+		// This is because the user could write out a config that is functionally equivalent to the empty object (contains all 0s and ""),
+		// but is not technically the empty object.
+		if actual == nil || ValueType(actual) == "invalid" {
+			actual = info.EmptyObject
+		}
+
+		ds, err := info.ObjectFunction(desired, actual, fn)
 		if err != nil {
 			return nil, err
 		}
-
-		if isOptional {
-			if len(possibleDiffs) > 0 {
-				diffs = append(diffs, possibleDiffs...)
+		// Replace any nested diffs with a recreate operation with a diff in this field.
+		nonRecreateCount := 0
+		for _, d := range ds {
+			if len(d.ResultingOperation) == 0 {
+				return nil, fmt.Errorf("diff found in field %q with no operation", d.FieldName)
 			}
-		} else {
-			// If API returns nil (which means field is unset) && we have the empty-struct, no diff occurs.
-			if IsZeroValue(actual) && IsEmptyValueIndirect(desired) {
-				return nil, nil
-			}
-
-			// Want empty value, but non-empty value currrently exists.
-			// Only consider *explicitly* empty values, rather than "some combination
-			// of nils and falses" (as IEVI would do), because of the case comparing
-			// a non-explicitly empty struct with a struct containing only computed fields.
-			// See compute's `validate_test.go` for example.
-			if hasEmptyStructField(desired) && !IsEmptyValueIndirect(actual) {
-				diffs = append(diffs, &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual})
-				addOperationToDiffs(diffs, info)
-				return diffs, nil
-			}
-
-			if info.ObjectFunction == nil {
-				return nil, fmt.Errorf("struct %v given without an object function", desired)
-			}
-
-			if info.EmptyObject == nil {
-				return nil, fmt.Errorf("struct %v given without an empty object type", desired)
-			}
-
-			// If the API returns nil, we can't diff against a nil. We should use the empty object instead.
-			// This is because the user could write out a config that is functionally equivalent to the empty object (contains all 0s and ""),
-			// but is not technically the empty object.
-			if actual == nil || ValueType(actual) == "invalid" {
-				actual = info.EmptyObject
-			}
-
-			ds, err := info.ObjectFunction(desired, actual, fn)
-			if err != nil {
-				return nil, err
-			}
-			// Replace any nested diffs with a recreate operation with a diff in this field.
-			nonRecreateCount := 0
-			for _, d := range ds {
-				if len(d.ResultingOperation) == 0 {
-					return nil, fmt.Errorf("diff found in field %q with no operation", d.FieldName)
-				}
-				if d.ResultingOperation[0] != "Recreate" {
-					ds[nonRecreateCount] = d
-					nonRecreateCount++
-				}
-			}
-			if nonRecreateCount < len(ds) {
-				// At least one nested diff requires a recreate.
-				ds[nonRecreateCount] = &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual}
+			if d.ResultingOperation[0] != "Recreate" {
+				ds[nonRecreateCount] = d
 				nonRecreateCount++
 			}
-			ds = ds[:nonRecreateCount]
-			diffs = append(diffs, ds...)
 		}
+		if nonRecreateCount < len(ds) {
+			// At least one nested diff requires a recreate.
+			ds[nonRecreateCount] = &FieldDiff{FieldName: fn.FieldName, Desired: desired, Actual: actual}
+			nonRecreateCount++
+		}
+		ds = ds[:nonRecreateCount]
+		diffs = append(diffs, ds...)
 	default:
 		return nil, fmt.Errorf("no diffing logic exists for type: %q", desiredType)
 	}
@@ -586,22 +574,4 @@ func mapCompare(d, a map[string]interface{}, ignorePrefixes []string, info Info,
 	}
 
 	return diffs, nil
-}
-
-// optionalTypeDiffs returns a list of diffs, an error, and a bool representing if these types were optional.
-func optionalTypeDiffs(d, a interface{}, info Info, fn FieldName) ([]*FieldDiff, bool, error) {
-	dO, ok := d.(Optional)
-	if ok {
-		aO, _ := a.(Optional)
-		if dO.IsUnset() != aO.IsUnset() {
-			return []*FieldDiff{{FieldName: fn.FieldName, Message: fmt.Sprintf("desired unset %v, actual %v", dO.IsUnset(), aO.IsUnset())}}, true, nil
-		}
-		if !dO.IsUnset() {
-			diffs, err := Diff(dO.GetValue(), aO.GetValue(), info, fn)
-			return diffs, true, err
-		}
-		return nil, true, nil
-	}
-
-	return nil, false, nil
 }

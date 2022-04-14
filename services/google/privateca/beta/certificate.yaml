@@ -1081,10 +1081,6 @@ components:
           x-dcl-go-name: Name
           description: The resource name for this Certificate in the format `projects/*/locations/*/caPools/*/certificates/*`.
           x-kubernetes-immutable: true
-          x-dcl-references:
-          - resource: Privateca/Certificate
-            field: selfLink
-            parent: true
         pemCertificate:
           type: string
           x-dcl-go-name: PemCertificate
