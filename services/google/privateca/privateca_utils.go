@@ -17,6 +17,7 @@ package privateca
 import (
 	"bytes"
 	"context"
+	"fmt"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
@@ -92,4 +93,63 @@ func (r *Certificate) createURL(userBasePath string) (string, error) {
 		}
 	}
 	return basePath, nil
+}
+
+func flattenCertificateConfigX509ConfigCAOptions(i interface{}, _ *Certificate) *CertificateConfigX509ConfigCaOptions {
+	if i == nil {
+		return nil
+	}
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	result := &CertificateConfigX509ConfigCaOptions{}
+
+	isCA, ok := m["isCa"].(bool)
+	if ok {
+		result.IsCa = dcl.Bool(isCA)
+		if !isCA {
+			result.NonCa = dcl.Bool(true)
+		}
+	}
+
+	if _, ok := m["maxIssuerPathLength"]; ok {
+		pathLen := dcl.FlattenInteger(m["maxIssuerPathLength"])
+		result.MaxIssuerPathLength = pathLen
+		if dcl.ValueOrEmptyInt64(pathLen) == 0 {
+			result.ZeroMaxIssuerPathLength = dcl.Bool(true)
+		}
+	}
+
+	return result
+}
+
+func expandCertificateConfigX509ConfigCAOptions(_ *Client, caOptions *CertificateConfigX509ConfigCaOptions, _ *Certificate) (map[string]interface{}, error) {
+	if caOptions == nil {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	isCA := dcl.ValueOrEmptyBool(caOptions.IsCa)
+	nonCA := dcl.ValueOrEmptyBool(caOptions.NonCa)
+	zeroPathLength := dcl.ValueOrEmptyBool(caOptions.ZeroMaxIssuerPathLength)
+	maxIssuerPathLength := dcl.ValueOrEmptyInt64(caOptions.MaxIssuerPathLength)
+
+	if !isCA && !nonCA {
+		return nil, nil
+	} else if isCA && nonCA {
+		return nil, fmt.Errorf("is_ca and non_ca are mutually exclusive")
+	} else if isCA || nonCA {
+		m["isCa"] = isCA
+	}
+
+	if zeroPathLength && maxIssuerPathLength > 0 {
+		return nil, fmt.Errorf("max_issuer_path_length and zero_max_issuer_path_length are mutually exclusive")
+	}
+	if maxIssuerPathLength > 0 || zeroPathLength {
+		m["maxIssuerPathLength"] = maxIssuerPathLength
+	}
+
+	return m, nil
 }

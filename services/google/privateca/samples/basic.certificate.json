@@ -27,7 +27,7 @@
     },
     "x509Config": {
       "caOptions": {
-        "isCa": false
+        "nonCa": true
       },
       "keyUsage": {
         "baseKeyUsage": {

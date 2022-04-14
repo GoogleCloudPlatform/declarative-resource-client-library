@@ -144,7 +144,9 @@ message PrivatecaBetaCertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages
 
 message PrivatecaBetaCertificateConfigX509ConfigCaOptions {
   bool is_ca = 1;
-  int64 max_issuer_path_length = 2;
+  bool non_ca = 2;
+  int64 max_issuer_path_length = 3;
+  bool zero_max_issuer_path_length = 4;
 }
 
 message PrivatecaBetaCertificateConfigX509ConfigPolicyIds {
@@ -260,7 +262,7 @@ message PrivatecaBetaCertificateCertificateDescriptionX509DescriptionKeyUsageUnk
 }
 
 message PrivatecaBetaCertificateCertificateDescriptionX509DescriptionCaOptions {
-  optional bool is_ca = 1;
+  bool is_ca = 1;
   int64 max_issuer_path_length = 2;
 }
 

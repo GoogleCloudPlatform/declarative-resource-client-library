@@ -27,11 +27,14 @@
     },
     "x509Config": {
       "caOptions": {
-        "nonCa": true
+        "isCa": true,
+        "zeroMaxIssuerPathLength": true
       },
       "keyUsage": {
         "baseKeyUsage": {
-          "crlSign": true
+          "digitalSignature": true,
+          "crlSign": true,
+          "certSign": true
         }
       },
       "extendedKeyUsage": {
@@ -44,6 +47,6 @@
     }
   },
   "labels": {
-   "value": "key"
+   "key": "value"
   }
 }

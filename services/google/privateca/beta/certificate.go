@@ -668,9 +668,11 @@ func (r *CertificateConfigX509ConfigKeyUsageUnknownExtendedKeyUsages) HashCode()
 }
 
 type CertificateConfigX509ConfigCaOptions struct {
-	empty               bool   `json:"-"`
-	IsCa                *bool  `json:"isCa"`
-	MaxIssuerPathLength *int64 `json:"maxIssuerPathLength"`
+	empty                   bool   `json:"-"`
+	IsCa                    *bool  `json:"isCa"`
+	NonCa                   *bool  `json:"nonCa"`
+	MaxIssuerPathLength     *int64 `json:"maxIssuerPathLength"`
+	ZeroMaxIssuerPathLength *bool  `json:"zeroMaxIssuerPathLength"`
 }
 
 type jsonCertificateConfigX509ConfigCaOptions CertificateConfigX509ConfigCaOptions
@@ -690,7 +692,11 @@ func (r *CertificateConfigX509ConfigCaOptions) UnmarshalJSON(data []byte) error 
 
 		r.IsCa = res.IsCa
 
+		r.NonCa = res.NonCa
+
 		r.MaxIssuerPathLength = res.MaxIssuerPathLength
+
+		r.ZeroMaxIssuerPathLength = res.ZeroMaxIssuerPathLength
 
 	}
 	return nil
@@ -1597,9 +1603,9 @@ func (r *CertificateCertificateDescriptionX509DescriptionKeyUsageUnknownExtended
 }
 
 type CertificateCertificateDescriptionX509DescriptionCaOptions struct {
-	empty               bool              `json:"-"`
-	IsCa                *dcl.OptionalBool `json:"isCa"`
-	MaxIssuerPathLength *int64            `json:"maxIssuerPathLength"`
+	empty               bool   `json:"-"`
+	IsCa                *bool  `json:"isCa"`
+	MaxIssuerPathLength *int64 `json:"maxIssuerPathLength"`
 }
 
 type jsonCertificateCertificateDescriptionX509DescriptionCaOptions CertificateCertificateDescriptionX509DescriptionCaOptions
