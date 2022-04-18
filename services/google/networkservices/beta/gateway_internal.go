@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package alpha
+package beta
 
 import (
 	"bytes"
@@ -26,9 +26,15 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
-func (r *Mesh) validate() error {
+func (r *Gateway) validate() error {
 
 	if err := dcl.Required(r, "name"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "ports"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "scope"); err != nil {
 		return err
 	}
 	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
@@ -39,87 +45,87 @@ func (r *Mesh) validate() error {
 	}
 	return nil
 }
-func (r *Mesh) basePath() string {
+func (r *Gateway) basePath() string {
 	params := map[string]interface{}{}
 	return dcl.Nprintf("https://networkservices.googleapis.com/v1beta1/", params)
 }
 
-func (r *Mesh) getURL(userBasePath string) (string, error) {
+func (r *Gateway) getURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
 		"project":  dcl.ValueOrEmptyString(nr.Project),
 		"location": dcl.ValueOrEmptyString(nr.Location),
 		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/meshes/{{name}}", nr.basePath(), userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/gateways/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func (r *Mesh) listURL(userBasePath string) (string, error) {
+func (r *Gateway) listURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
 		"project":  dcl.ValueOrEmptyString(nr.Project),
 		"location": dcl.ValueOrEmptyString(nr.Location),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/meshes", nr.basePath(), userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/gateways", nr.basePath(), userBasePath, params), nil
 
 }
 
-func (r *Mesh) createURL(userBasePath string) (string, error) {
-	nr := r.urlNormalized()
-	params := map[string]interface{}{
-		"project":  dcl.ValueOrEmptyString(nr.Project),
-		"location": dcl.ValueOrEmptyString(nr.Location),
-		"name":     dcl.ValueOrEmptyString(nr.Name),
-	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/meshes?meshId={{name}}", nr.basePath(), userBasePath, params), nil
-
-}
-
-func (r *Mesh) deleteURL(userBasePath string) (string, error) {
+func (r *Gateway) createURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
 		"project":  dcl.ValueOrEmptyString(nr.Project),
 		"location": dcl.ValueOrEmptyString(nr.Location),
 		"name":     dcl.ValueOrEmptyString(nr.Name),
 	}
-	return dcl.URL("projects/{{project}}/locations/{{location}}/meshes/{{name}}", nr.basePath(), userBasePath, params), nil
+	return dcl.URL("projects/{{project}}/locations/{{location}}/gateways?gatewayId={{name}}", nr.basePath(), userBasePath, params), nil
+
 }
 
-func (r *Mesh) SetPolicyURL(userBasePath string) string {
+func (r *Gateway) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"name":     dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/gateways/{{name}}", nr.basePath(), userBasePath, params), nil
+}
+
+func (r *Gateway) SetPolicyURL(userBasePath string) string {
 	nr := r.urlNormalized()
 	fields := map[string]interface{}{}
 	return dcl.URL("", nr.basePath(), userBasePath, fields)
 }
 
-func (r *Mesh) SetPolicyVerb() string {
+func (r *Gateway) SetPolicyVerb() string {
 	return ""
 }
 
-func (r *Mesh) getPolicyURL(userBasePath string) string {
+func (r *Gateway) getPolicyURL(userBasePath string) string {
 	nr := r.urlNormalized()
 	fields := map[string]interface{}{}
 	return dcl.URL("", nr.basePath(), userBasePath, fields)
 }
 
-func (r *Mesh) IAMPolicyVersion() int {
+func (r *Gateway) IAMPolicyVersion() int {
 	return 3
 }
 
-// meshApiOperation represents a mutable operation in the underlying REST
+// gatewayApiOperation represents a mutable operation in the underlying REST
 // API such as Create, Update, or Delete.
-type meshApiOperation interface {
-	do(context.Context, *Mesh, *Client) error
+type gatewayApiOperation interface {
+	do(context.Context, *Gateway, *Client) error
 }
 
-// newUpdateMeshUpdateMeshRequest creates a request for an
-// Mesh resource's UpdateMesh update type by filling in the update
+// newUpdateGatewayUpdateGatewayRequest creates a request for an
+// Gateway resource's UpdateGateway update type by filling in the update
 // fields based on the intended state of the resource.
-func newUpdateMeshUpdateMeshRequest(ctx context.Context, f *Mesh, c *Client) (map[string]interface{}, error) {
+func newUpdateGatewayUpdateGatewayRequest(ctx context.Context, f *Gateway, c *Client) (map[string]interface{}, error) {
 	req := map[string]interface{}{}
 	res := f
 	_ = res
 
-	if v, err := dcl.DeriveField("projects/%s/locations/global/meshes/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/locations/global/gateways/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["name"] = v
@@ -130,22 +136,31 @@ func newUpdateMeshUpdateMeshRequest(ctx context.Context, f *Mesh, c *Client) (ma
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
-	if v := f.InterceptionPort; !dcl.IsEmptyValueIndirect(v) {
-		req["interceptionPort"] = v
+	if v := f.Addresses; v != nil {
+		req["addresses"] = v
 	}
-	req["name"] = fmt.Sprintf("projects/%s/locations/%s/meshes/%s", *f.Project, *f.Location, *f.Name)
+	if v := f.Ports; v != nil {
+		req["ports"] = v
+	}
+	if v := f.ServerTlsPolicy; !dcl.IsEmptyValueIndirect(v) {
+		req["serverTlsPolicy"] = v
+	}
+	if v := f.AuthorizationPolicy; !dcl.IsEmptyValueIndirect(v) {
+		req["authorizationPolicy"] = v
+	}
+	req["name"] = fmt.Sprintf("projects/%s/locations/%s/gateways/%s", *f.Project, *f.Location, *f.Name)
 
 	return req, nil
 }
 
-// marshalUpdateMeshUpdateMeshRequest converts the update into
+// marshalUpdateGatewayUpdateGatewayRequest converts the update into
 // the final JSON request body.
-func marshalUpdateMeshUpdateMeshRequest(c *Client, m map[string]interface{}) ([]byte, error) {
+func marshalUpdateGatewayUpdateGatewayRequest(c *Client, m map[string]interface{}) ([]byte, error) {
 
 	return json.Marshal(m)
 }
 
-type updateMeshUpdateMeshOperation struct {
+type updateGatewayUpdateGatewayOperation struct {
 	// If the update operation has the REQUIRES_APPLY_OPTIONS trait, this will be populated.
 	// Usually it will be nil - this is to prevent us from accidentally depending on apply
 	// options, which should usually be unnecessary.
@@ -157,13 +172,13 @@ type updateMeshUpdateMeshOperation struct {
 // do will transcribe a subset of the resource into a request object and send a
 // PUT request to a single URL.
 
-func (op *updateMeshUpdateMeshOperation) do(ctx context.Context, r *Mesh, c *Client) error {
-	_, err := c.GetMesh(ctx, r)
+func (op *updateGatewayUpdateGatewayOperation) do(ctx context.Context, r *Gateway, c *Client) error {
+	_, err := c.GetGateway(ctx, r)
 	if err != nil {
 		return err
 	}
 
-	u, err := r.updateURL(c.Config.BasePath, "UpdateMesh")
+	u, err := r.updateURL(c.Config.BasePath, "UpdateGateway")
 	if err != nil {
 		return err
 	}
@@ -173,13 +188,13 @@ func (op *updateMeshUpdateMeshOperation) do(ctx context.Context, r *Mesh, c *Cli
 		return err
 	}
 
-	req, err := newUpdateMeshUpdateMeshRequest(ctx, r, c)
+	req, err := newUpdateGatewayUpdateGatewayRequest(ctx, r, c)
 	if err != nil {
 		return err
 	}
 
 	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
-	body, err := marshalUpdateMeshUpdateMeshRequest(c, req)
+	body, err := marshalUpdateGatewayUpdateGatewayRequest(c, req)
 	if err != nil {
 		return err
 	}
@@ -201,7 +216,7 @@ func (op *updateMeshUpdateMeshOperation) do(ctx context.Context, r *Mesh, c *Cli
 	return nil
 }
 
-func (c *Client) listMeshRaw(ctx context.Context, r *Mesh, pageToken string, pageSize int32) ([]byte, error) {
+func (c *Client) listGatewayRaw(ctx context.Context, r *Gateway, pageToken string, pageSize int32) ([]byte, error) {
 	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
@@ -212,7 +227,7 @@ func (c *Client) listMeshRaw(ctx context.Context, r *Mesh, pageToken string, pag
 		m["pageToken"] = pageToken
 	}
 
-	if pageSize != MeshMaxPage {
+	if pageSize != GatewayMaxPage {
 		m["pageSize"] = fmt.Sprintf("%v", pageSize)
 	}
 
@@ -228,25 +243,25 @@ func (c *Client) listMeshRaw(ctx context.Context, r *Mesh, pageToken string, pag
 	return ioutil.ReadAll(resp.Response.Body)
 }
 
-type listMeshOperation struct {
-	Meshes []map[string]interface{} `json:"meshes"`
-	Token  string                   `json:"nextPageToken"`
+type listGatewayOperation struct {
+	Gateways []map[string]interface{} `json:"gateways"`
+	Token    string                   `json:"nextPageToken"`
 }
 
-func (c *Client) listMesh(ctx context.Context, r *Mesh, pageToken string, pageSize int32) ([]*Mesh, string, error) {
-	b, err := c.listMeshRaw(ctx, r, pageToken, pageSize)
+func (c *Client) listGateway(ctx context.Context, r *Gateway, pageToken string, pageSize int32) ([]*Gateway, string, error) {
+	b, err := c.listGatewayRaw(ctx, r, pageToken, pageSize)
 	if err != nil {
 		return nil, "", err
 	}
 
-	var m listMeshOperation
+	var m listGatewayOperation
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, "", err
 	}
 
-	var l []*Mesh
-	for _, v := range m.Meshes {
-		res, err := unmarshalMapMesh(v, c, r)
+	var l []*Gateway
+	for _, v := range m.Gateways {
+		res, err := unmarshalMapGateway(v, c, r)
 		if err != nil {
 			return nil, m.Token, err
 		}
@@ -258,12 +273,12 @@ func (c *Client) listMesh(ctx context.Context, r *Mesh, pageToken string, pageSi
 	return l, m.Token, nil
 }
 
-func (c *Client) deleteAllMesh(ctx context.Context, f func(*Mesh) bool, resources []*Mesh) error {
+func (c *Client) deleteAllGateway(ctx context.Context, f func(*Gateway) bool, resources []*Gateway) error {
 	var errors []string
 	for _, res := range resources {
 		if f(res) {
 			// We do not want deleteAll to fail on a deletion or else it will stop deleting other resources.
-			err := c.DeleteMesh(ctx, res)
+			err := c.DeleteGateway(ctx, res)
 			if err != nil {
 				errors = append(errors, err.Error())
 			}
@@ -276,16 +291,16 @@ func (c *Client) deleteAllMesh(ctx context.Context, f func(*Mesh) bool, resource
 	}
 }
 
-type deleteMeshOperation struct{}
+type deleteGatewayOperation struct{}
 
-func (op *deleteMeshOperation) do(ctx context.Context, r *Mesh, c *Client) error {
-	r, err := c.GetMesh(ctx, r)
+func (op *deleteGatewayOperation) do(ctx context.Context, r *Gateway, c *Client) error {
+	r, err := c.GetGateway(ctx, r)
 	if err != nil {
 		if dcl.IsNotFound(err) {
-			c.Config.Logger.InfoWithContextf(ctx, "Mesh not found, returning. Original error: %v", err)
+			c.Config.Logger.InfoWithContextf(ctx, "Gateway not found, returning. Original error: %v", err)
 			return nil
 		}
-		c.Config.Logger.WarningWithContextf(ctx, "GetMesh checking for existence. error: %v", err)
+		c.Config.Logger.WarningWithContextf(ctx, "GetGateway checking for existence. error: %v", err)
 		return err
 	}
 
@@ -314,7 +329,7 @@ func (op *deleteMeshOperation) do(ctx context.Context, r *Mesh, c *Client) error
 	// this is the reason we are adding retry to handle that case.
 	maxRetry := 10
 	for i := 1; i <= maxRetry; i++ {
-		_, err = c.GetMesh(ctx, r)
+		_, err = c.GetGateway(ctx, r)
 		if !dcl.IsNotFound(err) {
 			if i == maxRetry {
 				return dcl.NotDeletedError{ExistingResource: r}
@@ -330,15 +345,15 @@ func (op *deleteMeshOperation) do(ctx context.Context, r *Mesh, c *Client) error
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.
-type createMeshOperation struct {
+type createGatewayOperation struct {
 	response map[string]interface{}
 }
 
-func (op *createMeshOperation) FirstResponse() (map[string]interface{}, bool) {
+func (op *createGatewayOperation) FirstResponse() (map[string]interface{}, bool) {
 	return op.response, len(op.response) > 0
 }
 
-func (op *createMeshOperation) do(ctx context.Context, r *Mesh, c *Client) error {
+func (op *createGatewayOperation) do(ctx context.Context, r *Gateway, c *Client) error {
 	c.Config.Logger.InfoWithContextf(ctx, "Attempting to create %v", r)
 	u, err := r.createURL(c.Config.BasePath)
 	if err != nil {
@@ -365,7 +380,7 @@ func (op *createMeshOperation) do(ctx context.Context, r *Mesh, c *Client) error
 	c.Config.Logger.InfoWithContextf(ctx, "Successfully waited for operation")
 	op.response, _ = o.FirstResponse()
 
-	if _, err := c.GetMesh(ctx, r); err != nil {
+	if _, err := c.GetGateway(ctx, r); err != nil {
 		c.Config.Logger.WarningWithContextf(ctx, "get returned error: %v", err)
 		return err
 	}
@@ -373,7 +388,7 @@ func (op *createMeshOperation) do(ctx context.Context, r *Mesh, c *Client) error
 	return nil
 }
 
-func (c *Client) getMeshRaw(ctx context.Context, r *Mesh) ([]byte, error) {
+func (c *Client) getGatewayRaw(ctx context.Context, r *Gateway) ([]byte, error) {
 
 	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
@@ -392,13 +407,13 @@ func (c *Client) getMeshRaw(ctx context.Context, r *Mesh) ([]byte, error) {
 	return b, nil
 }
 
-func (c *Client) meshDiffsForRawDesired(ctx context.Context, rawDesired *Mesh, opts ...dcl.ApplyOption) (initial, desired *Mesh, diffs []*dcl.FieldDiff, err error) {
+func (c *Client) gatewayDiffsForRawDesired(ctx context.Context, rawDesired *Gateway, opts ...dcl.ApplyOption) (initial, desired *Gateway, diffs []*dcl.FieldDiff, err error) {
 	c.Config.Logger.InfoWithContext(ctx, "Fetching initial state...")
 	// First, let us see if the user provided a state hint.  If they did, we will start fetching based on that.
-	var fetchState *Mesh
+	var fetchState *Gateway
 	if sh := dcl.FetchStateHint(opts); sh != nil {
-		if r, ok := sh.(*Mesh); !ok {
-			c.Config.Logger.WarningWithContextf(ctx, "Initial state hint was of the wrong type; expected Mesh, got %T", sh)
+		if r, ok := sh.(*Gateway); !ok {
+			c.Config.Logger.WarningWithContextf(ctx, "Initial state hint was of the wrong type; expected Gateway, got %T", sh)
 		} else {
 			fetchState = r
 		}
@@ -408,45 +423,45 @@ func (c *Client) meshDiffsForRawDesired(ctx context.Context, rawDesired *Mesh, o
 	}
 
 	// 1.2: Retrieval of raw initial state from API
-	rawInitial, err := c.GetMesh(ctx, fetchState)
+	rawInitial, err := c.GetGateway(ctx, fetchState)
 	if rawInitial == nil {
 		if !dcl.IsNotFound(err) {
-			c.Config.Logger.WarningWithContextf(ctx, "Failed to retrieve whether a Mesh resource already exists: %s", err)
-			return nil, nil, nil, fmt.Errorf("failed to retrieve Mesh resource: %v", err)
+			c.Config.Logger.WarningWithContextf(ctx, "Failed to retrieve whether a Gateway resource already exists: %s", err)
+			return nil, nil, nil, fmt.Errorf("failed to retrieve Gateway resource: %v", err)
 		}
-		c.Config.Logger.InfoWithContext(ctx, "Found that Mesh resource did not exist.")
+		c.Config.Logger.InfoWithContext(ctx, "Found that Gateway resource did not exist.")
 		// Perform canonicalization to pick up defaults.
-		desired, err = canonicalizeMeshDesiredState(rawDesired, rawInitial)
+		desired, err = canonicalizeGatewayDesiredState(rawDesired, rawInitial)
 		return nil, desired, nil, err
 	}
-	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Mesh: %v", rawInitial)
-	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Mesh: %v", rawDesired)
+	c.Config.Logger.InfoWithContextf(ctx, "Found initial state for Gateway: %v", rawInitial)
+	c.Config.Logger.InfoWithContextf(ctx, "Initial desired state for Gateway: %v", rawDesired)
 
 	// The Get call applies postReadExtract and so the result may contain fields that are not part of API version.
-	if err := extractMeshFields(rawInitial); err != nil {
+	if err := extractGatewayFields(rawInitial); err != nil {
 		return nil, nil, nil, err
 	}
 
 	// 1.3: Canonicalize raw initial state into initial state.
-	initial, err = canonicalizeMeshInitialState(rawInitial, rawDesired)
+	initial, err = canonicalizeGatewayInitialState(rawInitial, rawDesired)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized initial state for Mesh: %v", initial)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized initial state for Gateway: %v", initial)
 
 	// 1.4: Canonicalize raw desired state into desired state.
-	desired, err = canonicalizeMeshDesiredState(rawDesired, rawInitial, opts...)
+	desired, err = canonicalizeGatewayDesiredState(rawDesired, rawInitial, opts...)
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized desired state for Mesh: %v", desired)
+	c.Config.Logger.InfoWithContextf(ctx, "Canonicalized desired state for Gateway: %v", desired)
 
 	// 2.1: Comparison of initial and desired state.
-	diffs, err = diffMesh(c, desired, initial, opts...)
+	diffs, err = diffGateway(c, desired, initial, opts...)
 	return initial, desired, diffs, err
 }
 
-func canonicalizeMeshInitialState(rawInitial, rawDesired *Mesh) (*Mesh, error) {
+func canonicalizeGatewayInitialState(rawInitial, rawDesired *Gateway) (*Gateway, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 	return rawInitial, nil
 }
@@ -458,7 +473,7 @@ func canonicalizeMeshInitialState(rawInitial, rawDesired *Mesh) (*Mesh, error) {
 * GCP API response to a standard format that can be used for difference checking.
 * */
 
-func canonicalizeMeshDesiredState(rawDesired, rawInitial *Mesh, opts ...dcl.ApplyOption) (*Mesh, error) {
+func canonicalizeGatewayDesiredState(rawDesired, rawInitial *Gateway, opts ...dcl.ApplyOption) (*Gateway, error) {
 
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
@@ -466,7 +481,7 @@ func canonicalizeMeshDesiredState(rawDesired, rawInitial *Mesh, opts ...dcl.Appl
 
 		return rawDesired, nil
 	}
-	canonicalDesired := &Mesh{}
+	canonicalDesired := &Gateway{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
@@ -483,11 +498,37 @@ func canonicalizeMeshDesiredState(rawDesired, rawInitial *Mesh, opts ...dcl.Appl
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.IsZeroValue(rawDesired.InterceptionPort) || (dcl.IsEmptyValueIndirect(rawDesired.InterceptionPort) && dcl.IsEmptyValueIndirect(rawInitial.InterceptionPort)) {
+	if dcl.IsZeroValue(rawDesired.Type) || (dcl.IsEmptyValueIndirect(rawDesired.Type) && dcl.IsEmptyValueIndirect(rawInitial.Type)) {
 		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		canonicalDesired.InterceptionPort = rawInitial.InterceptionPort
+		canonicalDesired.Type = rawInitial.Type
 	} else {
-		canonicalDesired.InterceptionPort = rawDesired.InterceptionPort
+		canonicalDesired.Type = rawDesired.Type
+	}
+	if dcl.StringArrayCanonicalize(rawDesired.Addresses, rawInitial.Addresses) {
+		canonicalDesired.Addresses = rawInitial.Addresses
+	} else {
+		canonicalDesired.Addresses = rawDesired.Addresses
+	}
+	if dcl.IsZeroValue(rawDesired.Ports) || (dcl.IsEmptyValueIndirect(rawDesired.Ports) && dcl.IsEmptyValueIndirect(rawInitial.Ports)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		canonicalDesired.Ports = rawInitial.Ports
+	} else {
+		canonicalDesired.Ports = rawDesired.Ports
+	}
+	if dcl.StringCanonicalize(rawDesired.Scope, rawInitial.Scope) {
+		canonicalDesired.Scope = rawInitial.Scope
+	} else {
+		canonicalDesired.Scope = rawDesired.Scope
+	}
+	if dcl.StringCanonicalize(rawDesired.ServerTlsPolicy, rawInitial.ServerTlsPolicy) {
+		canonicalDesired.ServerTlsPolicy = rawInitial.ServerTlsPolicy
+	} else {
+		canonicalDesired.ServerTlsPolicy = rawDesired.ServerTlsPolicy
+	}
+	if dcl.StringCanonicalize(rawDesired.AuthorizationPolicy, rawInitial.AuthorizationPolicy) {
+		canonicalDesired.AuthorizationPolicy = rawInitial.AuthorizationPolicy
+	} else {
+		canonicalDesired.AuthorizationPolicy = rawDesired.AuthorizationPolicy
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		canonicalDesired.Project = rawInitial.Project
@@ -503,7 +544,7 @@ func canonicalizeMeshDesiredState(rawDesired, rawInitial *Mesh, opts ...dcl.Appl
 	return canonicalDesired, nil
 }
 
-func canonicalizeMeshNewState(c *Client, rawNew, rawDesired *Mesh) (*Mesh, error) {
+func canonicalizeGatewayNewState(c *Client, rawNew, rawDesired *Gateway) (*Gateway, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
@@ -536,9 +577,46 @@ func canonicalizeMeshNewState(c *Client, rawNew, rawDesired *Mesh) (*Mesh, error
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.InterceptionPort) && dcl.IsNotReturnedByServer(rawDesired.InterceptionPort) {
-		rawNew.InterceptionPort = rawDesired.InterceptionPort
+	if dcl.IsNotReturnedByServer(rawNew.Type) && dcl.IsNotReturnedByServer(rawDesired.Type) {
+		rawNew.Type = rawDesired.Type
 	} else {
+	}
+
+	if dcl.IsNotReturnedByServer(rawNew.Addresses) && dcl.IsNotReturnedByServer(rawDesired.Addresses) {
+		rawNew.Addresses = rawDesired.Addresses
+	} else {
+		if dcl.StringArrayCanonicalize(rawDesired.Addresses, rawNew.Addresses) {
+			rawNew.Addresses = rawDesired.Addresses
+		}
+	}
+
+	if dcl.IsNotReturnedByServer(rawNew.Ports) && dcl.IsNotReturnedByServer(rawDesired.Ports) {
+		rawNew.Ports = rawDesired.Ports
+	} else {
+	}
+
+	if dcl.IsNotReturnedByServer(rawNew.Scope) && dcl.IsNotReturnedByServer(rawDesired.Scope) {
+		rawNew.Scope = rawDesired.Scope
+	} else {
+		if dcl.StringCanonicalize(rawDesired.Scope, rawNew.Scope) {
+			rawNew.Scope = rawDesired.Scope
+		}
+	}
+
+	if dcl.IsNotReturnedByServer(rawNew.ServerTlsPolicy) && dcl.IsNotReturnedByServer(rawDesired.ServerTlsPolicy) {
+		rawNew.ServerTlsPolicy = rawDesired.ServerTlsPolicy
+	} else {
+		if dcl.StringCanonicalize(rawDesired.ServerTlsPolicy, rawNew.ServerTlsPolicy) {
+			rawNew.ServerTlsPolicy = rawDesired.ServerTlsPolicy
+		}
+	}
+
+	if dcl.IsNotReturnedByServer(rawNew.AuthorizationPolicy) && dcl.IsNotReturnedByServer(rawDesired.AuthorizationPolicy) {
+		rawNew.AuthorizationPolicy = rawDesired.AuthorizationPolicy
+	} else {
+		if dcl.StringCanonicalize(rawDesired.AuthorizationPolicy, rawNew.AuthorizationPolicy) {
+			rawNew.AuthorizationPolicy = rawDesired.AuthorizationPolicy
+		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -563,7 +641,7 @@ func canonicalizeMeshNewState(c *Client, rawNew, rawDesired *Mesh) (*Mesh, error
 // value. This empty value indicates that the user does not care about the state for
 // the field. Empty fields on the actual object will cause diffs.
 // TODO(magic-modules-eng): for efficiency in some resources, add batching.
-func diffMesh(c *Client, desired, actual *Mesh, opts ...dcl.ApplyOption) ([]*dcl.FieldDiff, error) {
+func diffGateway(c *Client, desired, actual *Gateway, opts ...dcl.ApplyOption) ([]*dcl.FieldDiff, error) {
 	if desired == nil || actual == nil {
 		return nil, fmt.Errorf("nil resource passed to diff - always a programming error: %#v, %#v", desired, actual)
 	}
@@ -574,7 +652,7 @@ func diffMesh(c *Client, desired, actual *Mesh, opts ...dcl.ApplyOption) ([]*dcl
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateMeshUpdateMeshOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGatewayUpdateGatewayOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -595,21 +673,56 @@ func diffMesh(c *Client, desired, actual *Mesh, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateMeshUpdateMeshOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGatewayUpdateGatewayOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateMeshUpdateMeshOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGatewayUpdateGatewayOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InterceptionPort, actual.InterceptionPort, dcl.Info{OperationSelector: dcl.TriggersOperation("updateMeshUpdateMeshOperation")}, fn.AddNest("InterceptionPort")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Addresses, actual.Addresses, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGatewayUpdateGatewayOperation")}, fn.AddNest("Addresses")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Ports, actual.Ports, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGatewayUpdateGatewayOperation")}, fn.AddNest("Ports")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServerTlsPolicy, actual.ServerTlsPolicy, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGatewayUpdateGatewayOperation")}, fn.AddNest("ServerTlsPolicy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AuthorizationPolicy, actual.AuthorizationPolicy, dcl.Info{OperationSelector: dcl.TriggersOperation("updateGatewayUpdateGatewayOperation")}, fn.AddNest("AuthorizationPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -643,67 +756,70 @@ func diffMesh(c *Client, desired, actual *Mesh, opts ...dcl.ApplyOption) ([]*dcl
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
-func (r *Mesh) urlNormalized() *Mesh {
-	normalized := dcl.Copy(*r).(Mesh)
+func (r *Gateway) urlNormalized() *Gateway {
+	normalized := dcl.Copy(*r).(Gateway)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
+	normalized.Scope = dcl.SelfLinkToName(r.Scope)
+	normalized.ServerTlsPolicy = dcl.SelfLinkToName(r.ServerTlsPolicy)
+	normalized.AuthorizationPolicy = dcl.SelfLinkToName(r.AuthorizationPolicy)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	return &normalized
 }
 
-func (r *Mesh) updateURL(userBasePath, updateName string) (string, error) {
+func (r *Gateway) updateURL(userBasePath, updateName string) (string, error) {
 	nr := r.urlNormalized()
-	if updateName == "UpdateMesh" {
+	if updateName == "UpdateGateway" {
 		fields := map[string]interface{}{
 			"project":  dcl.ValueOrEmptyString(nr.Project),
 			"location": dcl.ValueOrEmptyString(nr.Location),
 			"name":     dcl.ValueOrEmptyString(nr.Name),
 		}
-		return dcl.URL("projects/{{project}}/locations/{{location}}/meshes/{{name}}", nr.basePath(), userBasePath, fields), nil
+		return dcl.URL("projects/{{project}}/locations/{{location}}/gateways/{{name}}", nr.basePath(), userBasePath, fields), nil
 
 	}
 
 	return "", fmt.Errorf("unknown update name: %s", updateName)
 }
 
-// marshal encodes the Mesh resource into JSON for a Create request, and
+// marshal encodes the Gateway resource into JSON for a Create request, and
 // performs transformations from the resource schema to the API schema if
 // necessary.
-func (r *Mesh) marshal(c *Client) ([]byte, error) {
-	m, err := expandMesh(c, r)
+func (r *Gateway) marshal(c *Client) ([]byte, error) {
+	m, err := expandGateway(c, r)
 	if err != nil {
-		return nil, fmt.Errorf("error marshalling Mesh: %w", err)
+		return nil, fmt.Errorf("error marshalling Gateway: %w", err)
 	}
 
 	return json.Marshal(m)
 }
 
-// unmarshalMesh decodes JSON responses into the Mesh resource schema.
-func unmarshalMesh(b []byte, c *Client, res *Mesh) (*Mesh, error) {
+// unmarshalGateway decodes JSON responses into the Gateway resource schema.
+func unmarshalGateway(b []byte, c *Client, res *Gateway) (*Gateway, error) {
 	var m map[string]interface{}
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	return unmarshalMapMesh(m, c, res)
+	return unmarshalMapGateway(m, c, res)
 }
 
-func unmarshalMapMesh(m map[string]interface{}, c *Client, res *Mesh) (*Mesh, error) {
+func unmarshalMapGateway(m map[string]interface{}, c *Client, res *Gateway) (*Gateway, error) {
 
-	flattened := flattenMesh(c, m, res)
+	flattened := flattenGateway(c, m, res)
 	if flattened == nil {
 		return nil, fmt.Errorf("attempted to flatten empty json object")
 	}
 	return flattened, nil
 }
 
-// expandMesh expands Mesh into a JSON request object.
-func expandMesh(c *Client, f *Mesh) (map[string]interface{}, error) {
+// expandGateway expands Gateway into a JSON request object.
+func expandGateway(c *Client, f *Gateway) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	res := f
 	_ = res
-	if v, err := dcl.DeriveField("projects/%s/locations/global/meshes/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
+	if v, err := dcl.DeriveField("projects/%s/locations/global/gateways/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Name)); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
@@ -714,8 +830,23 @@ func expandMesh(c *Client, f *Mesh) (map[string]interface{}, error) {
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
-	if v := f.InterceptionPort; dcl.ValueShouldBeSent(v) {
-		m["interceptionPort"] = v
+	if v := f.Type; dcl.ValueShouldBeSent(v) {
+		m["type"] = v
+	}
+	if v := f.Addresses; v != nil {
+		m["addresses"] = v
+	}
+	if v := f.Ports; v != nil {
+		m["ports"] = v
+	}
+	if v := f.Scope; dcl.ValueShouldBeSent(v) {
+		m["scope"] = v
+	}
+	if v := f.ServerTlsPolicy; dcl.ValueShouldBeSent(v) {
+		m["serverTlsPolicy"] = v
+	}
+	if v := f.AuthorizationPolicy; dcl.ValueShouldBeSent(v) {
+		m["authorizationPolicy"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
@@ -731,9 +862,9 @@ func expandMesh(c *Client, f *Mesh) (map[string]interface{}, error) {
 	return m, nil
 }
 
-// flattenMesh flattens Mesh from a JSON request object into the
-// Mesh type.
-func flattenMesh(c *Client, i interface{}, res *Mesh) *Mesh {
+// flattenGateway flattens Gateway from a JSON request object into the
+// Gateway type.
+func flattenGateway(c *Client, i interface{}, res *Gateway) *Gateway {
 	m, ok := i.(map[string]interface{})
 	if !ok {
 		return nil
@@ -742,13 +873,18 @@ func flattenMesh(c *Client, i interface{}, res *Mesh) *Mesh {
 		return nil
 	}
 
-	resultRes := &Mesh{}
+	resultRes := &Gateway{}
 	resultRes.Name = dcl.FlattenString(m["name"])
 	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
 	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
 	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	resultRes.Description = dcl.FlattenString(m["description"])
-	resultRes.InterceptionPort = dcl.FlattenInteger(m["interceptionPort"])
+	resultRes.Type = flattenGatewayTypeEnum(m["type"])
+	resultRes.Addresses = dcl.FlattenStringSlice(m["addresses"])
+	resultRes.Ports = dcl.FlattenIntSlice(m["ports"])
+	resultRes.Scope = dcl.FlattenString(m["scope"])
+	resultRes.ServerTlsPolicy = dcl.FlattenString(m["serverTlsPolicy"])
+	resultRes.AuthorizationPolicy = dcl.FlattenString(m["authorizationPolicy"])
 	resultRes.Project = dcl.FlattenString(m["project"])
 	resultRes.Location = dcl.FlattenString(m["location"])
 	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
@@ -756,12 +892,63 @@ func flattenMesh(c *Client, i interface{}, res *Mesh) *Mesh {
 	return resultRes
 }
 
+// flattenGatewayTypeEnumMap flattens the contents of GatewayTypeEnum from a JSON
+// response object.
+func flattenGatewayTypeEnumMap(c *Client, i interface{}, res *Gateway) map[string]GatewayTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]GatewayTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]GatewayTypeEnum{}
+	}
+
+	items := make(map[string]GatewayTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenGatewayTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenGatewayTypeEnumSlice flattens the contents of GatewayTypeEnum from a JSON
+// response object.
+func flattenGatewayTypeEnumSlice(c *Client, i interface{}, res *Gateway) []GatewayTypeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []GatewayTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []GatewayTypeEnum{}
+	}
+
+	items := make([]GatewayTypeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenGatewayTypeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenGatewayTypeEnum asserts that an interface is a string, and returns a
+// pointer to a *GatewayTypeEnum with the same value as that string.
+func flattenGatewayTypeEnum(i interface{}) *GatewayTypeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return GatewayTypeEnumRef(s)
+}
+
 // This function returns a matcher that checks whether a serialized resource matches this resource
 // in its parameters (as defined by the fields in a Get, which definitionally define resource
 // identity).  This is useful in extracting the element from a List call.
-func (r *Mesh) matcher(c *Client) func([]byte) bool {
+func (r *Gateway) matcher(c *Client) func([]byte) bool {
 	return func(b []byte) bool {
-		cr, err := unmarshalMesh(b, c, r)
+		cr, err := unmarshalGateway(b, c, r)
 		if err != nil {
 			c.Config.Logger.Warning("failed to unmarshal provided resource in matcher.")
 			return false
@@ -798,13 +985,13 @@ func (r *Mesh) matcher(c *Client) func([]byte) bool {
 	}
 }
 
-type meshDiff struct {
+type gatewayDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
-	UpdateOp         meshApiOperation
+	UpdateOp         gatewayApiOperation
 }
 
-func convertFieldDiffsToMeshDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]meshDiff, error) {
+func convertFieldDiffsToGatewayDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]gatewayDiff, error) {
 	opNamesToFieldDiffs := make(map[string][]*dcl.FieldDiff)
 	// Map each operation name to the field diffs associated with it.
 	for _, fd := range fds {
@@ -818,14 +1005,14 @@ func convertFieldDiffsToMeshDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts
 			}
 		}
 	}
-	var diffs []meshDiff
-	// For each operation name, create a meshDiff which contains the operation.
+	var diffs []gatewayDiff
+	// For each operation name, create a gatewayDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := meshDiff{}
+		diff := gatewayDiff{}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
-			apiOp, err := convertOpNameToMeshApiOperation(opName, fieldDiffs, opts...)
+			apiOp, err := convertOpNameToGatewayApiOperation(opName, fieldDiffs, opts...)
 			if err != nil {
 				return diffs, err
 			}
@@ -836,21 +1023,21 @@ func convertFieldDiffsToMeshDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts
 	return diffs, nil
 }
 
-func convertOpNameToMeshApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (meshApiOperation, error) {
+func convertOpNameToGatewayApiOperation(opName string, fieldDiffs []*dcl.FieldDiff, opts ...dcl.ApplyOption) (gatewayApiOperation, error) {
 	switch opName {
 
-	case "updateMeshUpdateMeshOperation":
-		return &updateMeshUpdateMeshOperation{FieldDiffs: fieldDiffs}, nil
+	case "updateGatewayUpdateGatewayOperation":
+		return &updateGatewayUpdateGatewayOperation{FieldDiffs: fieldDiffs}, nil
 
 	default:
 		return nil, fmt.Errorf("no such operation with name: %v", opName)
 	}
 }
 
-func extractMeshFields(r *Mesh) error {
+func extractGatewayFields(r *Gateway) error {
 	return nil
 }
 
-func postReadExtractMeshFields(r *Mesh) error {
+func postReadExtractGatewayFields(r *Gateway) error {
 	return nil
 }
