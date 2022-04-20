@@ -358,11 +358,6 @@ func (op *updateServiceUpdateServiceOperation) do(ctx context.Context, r *Servic
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.FieldDiffs)
-	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
-	if err != nil {
-		return err
-	}
 
 	req, err := newUpdateServiceUpdateServiceRequest(ctx, r, c)
 	if err != nil {

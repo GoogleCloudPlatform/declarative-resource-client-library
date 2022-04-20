@@ -379,11 +379,6 @@ func (op *updateJobUpdateJobOperation) do(ctx context.Context, r *Job, c *Client
 	if err != nil {
 		return err
 	}
-	mask := dcl.UpdateMask(op.FieldDiffs)
-	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
-	if err != nil {
-		return err
-	}
 
 	req, err := newUpdateJobUpdateJobRequest(ctx, r, c)
 	if err != nil {

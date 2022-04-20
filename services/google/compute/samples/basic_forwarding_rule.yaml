@@ -16,6 +16,7 @@ description: An example of a compute forwarding rule
 type: forwarding_rule
 versions:
 - ga
+- beta
 resource: samples/basic.forwarding_rule.json
 dependencies:
 - samples/first.target_pool.json

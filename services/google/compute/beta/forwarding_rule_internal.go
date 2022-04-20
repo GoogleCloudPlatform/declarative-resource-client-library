@@ -298,11 +298,6 @@ func newUpdateForwardingRuleUpdateRequest(ctx context.Context, f *ForwardingRule
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["allowGlobalAccess"] = v
 	}
-	if v, err := expandForwardingRuleServiceDirectoryRegistrationsSlice(c, f.ServiceDirectoryRegistrations, res); err != nil {
-		return nil, fmt.Errorf("error expanding ServiceDirectoryRegistrations into serviceDirectoryRegistrations: %w", err)
-	} else if v != nil {
-		req["serviceDirectoryRegistrations"] = v
-	}
 	return req, nil
 }
 
@@ -1501,7 +1496,7 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceDirectoryRegistrations, actual.ServiceDirectoryRegistrations, dcl.Info{ObjectFunction: compareForwardingRuleServiceDirectoryRegistrationsNewStyle, EmptyObject: EmptyForwardingRuleServiceDirectoryRegistrations, OperationSelector: dcl.TriggersOperation("updateForwardingRuleUpdateOperation")}, fn.AddNest("ServiceDirectoryRegistrations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceDirectoryRegistrations, actual.ServiceDirectoryRegistrations, dcl.Info{ObjectFunction: compareForwardingRuleServiceDirectoryRegistrationsNewStyle, EmptyObject: EmptyForwardingRuleServiceDirectoryRegistrations, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceDirectoryRegistrations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1602,14 +1597,14 @@ func compareForwardingRuleServiceDirectoryRegistrationsNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Namespace, actual.Namespace, dcl.Info{OperationSelector: dcl.TriggersOperation("updateForwardingRuleUpdateOperation")}, fn.AddNest("Namespace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Namespace, actual.Namespace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Namespace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.TriggersOperation("updateForwardingRuleUpdateOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

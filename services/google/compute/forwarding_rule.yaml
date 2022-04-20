@@ -380,6 +380,7 @@ components:
           x-dcl-go-name: ServiceDirectoryRegistrations
           description: Service Directory resources to register this forwarding rule
             with. Currently, only supports a single Service Directory resource.
+          x-kubernetes-immutable: true
           x-dcl-send-empty: true
           x-dcl-list-type: list
           items:
@@ -391,11 +392,13 @@ components:
                 x-dcl-go-name: Namespace
                 description: Service Directory namespace to register the forwarding
                   rule under.
+                x-kubernetes-immutable: true
               service:
                 type: string
                 x-dcl-go-name: Service
                 description: Service Directory service to register the forwarding
                   rule under.
+                x-kubernetes-immutable: true
         serviceLabel:
           type: string
           x-dcl-go-name: ServiceLabel
