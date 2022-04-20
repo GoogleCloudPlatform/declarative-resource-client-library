@@ -390,7 +390,7 @@ func (r *FeatureMembership) ID() (string, error) {
 		"feature":          dcl.ValueOrEmptyString(nr.Feature),
 		"membership":       dcl.ValueOrEmptyString(nr.Membership),
 	}
-	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/features/{{feature}}", params), nil
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/features/{{feature}}/memberships/{{membership}}", params), nil
 }
 
 const FeatureMembershipMaxPage = -1

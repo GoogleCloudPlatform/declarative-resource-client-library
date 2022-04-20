@@ -70,7 +70,7 @@ components:
   schemas:
     FeatureMembership:
       title: FeatureMembership
-      x-dcl-id: projects/{{project}}/locations/{{location}}/features/{{feature}}
+      x-dcl-id: projects/{{project}}/locations/{{location}}/features/{{feature}}/memberships/{{membership}}
       x-dcl-parent-container: project
       x-dcl-has-iam: false
       type: object
