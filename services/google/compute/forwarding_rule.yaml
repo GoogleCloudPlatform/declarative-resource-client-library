@@ -393,6 +393,7 @@ components:
                 description: Service Directory namespace to register the forwarding
                   rule under.
                 x-kubernetes-immutable: true
+                x-dcl-server-default: true
               service:
                 type: string
                 x-dcl-go-name: Service
