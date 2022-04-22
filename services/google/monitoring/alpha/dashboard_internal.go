@@ -65,7 +65,7 @@ func (r *DashboardGridLayout) validate() error {
 	return nil
 }
 func (r *DashboardGridLayoutWidgets) validate() error {
-	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"XyChart", "Scorecard", "Text", "Blank"}, r.XyChart, r.Scorecard, r.Text, r.Blank); err != nil {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"XyChart", "Scorecard", "Text", "Blank", "LogsPanel"}, r.XyChart, r.Scorecard, r.Text, r.Blank, r.LogsPanel); err != nil {
 		return err
 	}
 	if !dcl.IsEmptyValueIndirect(r.XyChart) {
@@ -85,6 +85,11 @@ func (r *DashboardGridLayoutWidgets) validate() error {
 	}
 	if !dcl.IsEmptyValueIndirect(r.Blank) {
 		if err := r.Blank.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.LogsPanel) {
+		if err := r.LogsPanel.validate(); err != nil {
 			return err
 		}
 	}
@@ -373,6 +378,9 @@ func (r *DashboardGridLayoutWidgetsText) validate() error {
 func (r *DashboardGridLayoutWidgetsBlank) validate() error {
 	return nil
 }
+func (r *DashboardGridLayoutWidgetsLogsPanel) validate() error {
+	return nil
+}
 func (r *DashboardMosaicLayout) validate() error {
 	return nil
 }
@@ -385,7 +393,7 @@ func (r *DashboardMosaicLayoutTiles) validate() error {
 	return nil
 }
 func (r *DashboardMosaicLayoutTilesWidget) validate() error {
-	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"XyChart", "Scorecard", "Text", "Blank"}, r.XyChart, r.Scorecard, r.Text, r.Blank); err != nil {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"XyChart", "Scorecard", "Text", "Blank", "LogsPanel"}, r.XyChart, r.Scorecard, r.Text, r.Blank, r.LogsPanel); err != nil {
 		return err
 	}
 	if !dcl.IsEmptyValueIndirect(r.XyChart) {
@@ -405,6 +413,11 @@ func (r *DashboardMosaicLayoutTilesWidget) validate() error {
 	}
 	if !dcl.IsEmptyValueIndirect(r.Blank) {
 		if err := r.Blank.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.LogsPanel) {
+		if err := r.LogsPanel.validate(); err != nil {
 			return err
 		}
 	}
@@ -693,6 +706,9 @@ func (r *DashboardMosaicLayoutTilesWidgetText) validate() error {
 func (r *DashboardMosaicLayoutTilesWidgetBlank) validate() error {
 	return nil
 }
+func (r *DashboardMosaicLayoutTilesWidgetLogsPanel) validate() error {
+	return nil
+}
 func (r *DashboardRowLayout) validate() error {
 	return nil
 }
@@ -700,7 +716,7 @@ func (r *DashboardRowLayoutRows) validate() error {
 	return nil
 }
 func (r *DashboardRowLayoutRowsWidgets) validate() error {
-	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"XyChart", "Scorecard", "Text", "Blank"}, r.XyChart, r.Scorecard, r.Text, r.Blank); err != nil {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"XyChart", "Scorecard", "Text", "Blank", "LogsPanel"}, r.XyChart, r.Scorecard, r.Text, r.Blank, r.LogsPanel); err != nil {
 		return err
 	}
 	if !dcl.IsEmptyValueIndirect(r.XyChart) {
@@ -720,6 +736,11 @@ func (r *DashboardRowLayoutRowsWidgets) validate() error {
 	}
 	if !dcl.IsEmptyValueIndirect(r.Blank) {
 		if err := r.Blank.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.LogsPanel) {
+		if err := r.LogsPanel.validate(); err != nil {
 			return err
 		}
 	}
@@ -1008,6 +1029,9 @@ func (r *DashboardRowLayoutRowsWidgetsText) validate() error {
 func (r *DashboardRowLayoutRowsWidgetsBlank) validate() error {
 	return nil
 }
+func (r *DashboardRowLayoutRowsWidgetsLogsPanel) validate() error {
+	return nil
+}
 func (r *DashboardColumnLayout) validate() error {
 	return nil
 }
@@ -1015,7 +1039,7 @@ func (r *DashboardColumnLayoutColumns) validate() error {
 	return nil
 }
 func (r *DashboardColumnLayoutColumnsWidgets) validate() error {
-	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"XyChart", "Scorecard", "Text", "Blank"}, r.XyChart, r.Scorecard, r.Text, r.Blank); err != nil {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"XyChart", "Scorecard", "Text", "Blank", "LogsPanel"}, r.XyChart, r.Scorecard, r.Text, r.Blank, r.LogsPanel); err != nil {
 		return err
 	}
 	if !dcl.IsEmptyValueIndirect(r.XyChart) {
@@ -1035,6 +1059,11 @@ func (r *DashboardColumnLayoutColumnsWidgets) validate() error {
 	}
 	if !dcl.IsEmptyValueIndirect(r.Blank) {
 		if err := r.Blank.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.LogsPanel) {
+		if err := r.LogsPanel.validate(); err != nil {
 			return err
 		}
 	}
@@ -1321,6 +1350,9 @@ func (r *DashboardColumnLayoutColumnsWidgetsText) validate() error {
 	return nil
 }
 func (r *DashboardColumnLayoutColumnsWidgetsBlank) validate() error {
+	return nil
+}
+func (r *DashboardColumnLayoutColumnsWidgetsLogsPanel) validate() error {
 	return nil
 }
 func (r *Dashboard) basePath() string {
@@ -1996,7 +2028,7 @@ func canonicalizeDashboardGridLayoutWidgets(des, initial *DashboardGridLayoutWid
 
 	if des.XyChart != nil || (initial != nil && initial.XyChart != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.Scorecard, des.Text, des.Blank) {
+		if dcl.AnySet(des.Scorecard, des.Text, des.Blank, des.LogsPanel) {
 			des.XyChart = nil
 			if initial != nil {
 				initial.XyChart = nil
@@ -2006,7 +2038,7 @@ func canonicalizeDashboardGridLayoutWidgets(des, initial *DashboardGridLayoutWid
 
 	if des.Scorecard != nil || (initial != nil && initial.Scorecard != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Text, des.Blank) {
+		if dcl.AnySet(des.XyChart, des.Text, des.Blank, des.LogsPanel) {
 			des.Scorecard = nil
 			if initial != nil {
 				initial.Scorecard = nil
@@ -2016,7 +2048,7 @@ func canonicalizeDashboardGridLayoutWidgets(des, initial *DashboardGridLayoutWid
 
 	if des.Text != nil || (initial != nil && initial.Text != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Blank) {
+		if dcl.AnySet(des.XyChart, des.Scorecard, des.Blank, des.LogsPanel) {
 			des.Text = nil
 			if initial != nil {
 				initial.Text = nil
@@ -2026,10 +2058,20 @@ func canonicalizeDashboardGridLayoutWidgets(des, initial *DashboardGridLayoutWid
 
 	if des.Blank != nil || (initial != nil && initial.Blank != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text) {
+		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text, des.LogsPanel) {
 			des.Blank = nil
 			if initial != nil {
 				initial.Blank = nil
+			}
+		}
+	}
+
+	if des.LogsPanel != nil || (initial != nil && initial.LogsPanel != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text, des.Blank) {
+			des.LogsPanel = nil
+			if initial != nil {
+				initial.LogsPanel = nil
 			}
 		}
 	}
@@ -2049,6 +2091,7 @@ func canonicalizeDashboardGridLayoutWidgets(des, initial *DashboardGridLayoutWid
 	cDes.Scorecard = canonicalizeDashboardGridLayoutWidgetsScorecard(des.Scorecard, initial.Scorecard, opts...)
 	cDes.Text = canonicalizeDashboardGridLayoutWidgetsText(des.Text, initial.Text, opts...)
 	cDes.Blank = canonicalizeDashboardGridLayoutWidgetsBlank(des.Blank, initial.Blank, opts...)
+	cDes.LogsPanel = canonicalizeDashboardGridLayoutWidgetsLogsPanel(des.LogsPanel, initial.LogsPanel, opts...)
 
 	return cDes
 }
@@ -2102,6 +2145,7 @@ func canonicalizeNewDashboardGridLayoutWidgets(c *Client, des, nw *DashboardGrid
 	nw.Scorecard = canonicalizeNewDashboardGridLayoutWidgetsScorecard(c, des.Scorecard, nw.Scorecard)
 	nw.Text = canonicalizeNewDashboardGridLayoutWidgetsText(c, des.Text, nw.Text)
 	nw.Blank = canonicalizeNewDashboardGridLayoutWidgetsBlank(c, des.Blank, nw.Blank)
+	nw.LogsPanel = canonicalizeNewDashboardGridLayoutWidgetsLogsPanel(c, des.LogsPanel, nw.LogsPanel)
 
 	return nw
 }
@@ -6644,6 +6688,129 @@ func canonicalizeNewDashboardGridLayoutWidgetsBlankSlice(c *Client, des, nw []Da
 	return items
 }
 
+func canonicalizeDashboardGridLayoutWidgetsLogsPanel(des, initial *DashboardGridLayoutWidgetsLogsPanel, opts ...dcl.ApplyOption) *DashboardGridLayoutWidgetsLogsPanel {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &DashboardGridLayoutWidgetsLogsPanel{}
+
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+		cDes.Filter = initial.Filter
+	} else {
+		cDes.Filter = des.Filter
+	}
+	if dcl.StringArrayCanonicalize(des.ResourceNames, initial.ResourceNames) {
+		cDes.ResourceNames = initial.ResourceNames
+	} else {
+		cDes.ResourceNames = des.ResourceNames
+	}
+
+	return cDes
+}
+
+func canonicalizeDashboardGridLayoutWidgetsLogsPanelSlice(des, initial []DashboardGridLayoutWidgetsLogsPanel, opts ...dcl.ApplyOption) []DashboardGridLayoutWidgetsLogsPanel {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardGridLayoutWidgetsLogsPanel, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardGridLayoutWidgetsLogsPanel(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardGridLayoutWidgetsLogsPanel, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardGridLayoutWidgetsLogsPanel(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewDashboardGridLayoutWidgetsLogsPanel(c *Client, des, nw *DashboardGridLayoutWidgetsLogsPanel) *DashboardGridLayoutWidgetsLogsPanel {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardGridLayoutWidgetsLogsPanel while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Filter, nw.Filter) {
+		nw.Filter = des.Filter
+	}
+	if dcl.StringArrayCanonicalize(des.ResourceNames, nw.ResourceNames) {
+		nw.ResourceNames = des.ResourceNames
+	}
+
+	return nw
+}
+
+func canonicalizeNewDashboardGridLayoutWidgetsLogsPanelSet(c *Client, des, nw []DashboardGridLayoutWidgetsLogsPanel) []DashboardGridLayoutWidgetsLogsPanel {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []DashboardGridLayoutWidgetsLogsPanel
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareDashboardGridLayoutWidgetsLogsPanelNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewDashboardGridLayoutWidgetsLogsPanelSlice(c *Client, des, nw []DashboardGridLayoutWidgetsLogsPanel) []DashboardGridLayoutWidgetsLogsPanel {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []DashboardGridLayoutWidgetsLogsPanel
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardGridLayoutWidgetsLogsPanel(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardMosaicLayout(des, initial *DashboardMosaicLayout, opts ...dcl.ApplyOption) *DashboardMosaicLayout {
 	if des == nil {
 		return initial
@@ -6902,7 +7069,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidget(des, initial *DashboardMosaicL
 
 	if des.XyChart != nil || (initial != nil && initial.XyChart != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.Scorecard, des.Text, des.Blank) {
+		if dcl.AnySet(des.Scorecard, des.Text, des.Blank, des.LogsPanel) {
 			des.XyChart = nil
 			if initial != nil {
 				initial.XyChart = nil
@@ -6912,7 +7079,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidget(des, initial *DashboardMosaicL
 
 	if des.Scorecard != nil || (initial != nil && initial.Scorecard != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Text, des.Blank) {
+		if dcl.AnySet(des.XyChart, des.Text, des.Blank, des.LogsPanel) {
 			des.Scorecard = nil
 			if initial != nil {
 				initial.Scorecard = nil
@@ -6922,7 +7089,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidget(des, initial *DashboardMosaicL
 
 	if des.Text != nil || (initial != nil && initial.Text != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Blank) {
+		if dcl.AnySet(des.XyChart, des.Scorecard, des.Blank, des.LogsPanel) {
 			des.Text = nil
 			if initial != nil {
 				initial.Text = nil
@@ -6932,10 +7099,20 @@ func canonicalizeDashboardMosaicLayoutTilesWidget(des, initial *DashboardMosaicL
 
 	if des.Blank != nil || (initial != nil && initial.Blank != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text) {
+		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text, des.LogsPanel) {
 			des.Blank = nil
 			if initial != nil {
 				initial.Blank = nil
+			}
+		}
+	}
+
+	if des.LogsPanel != nil || (initial != nil && initial.LogsPanel != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text, des.Blank) {
+			des.LogsPanel = nil
+			if initial != nil {
+				initial.LogsPanel = nil
 			}
 		}
 	}
@@ -6955,6 +7132,7 @@ func canonicalizeDashboardMosaicLayoutTilesWidget(des, initial *DashboardMosaicL
 	cDes.Scorecard = canonicalizeDashboardMosaicLayoutTilesWidgetScorecard(des.Scorecard, initial.Scorecard, opts...)
 	cDes.Text = canonicalizeDashboardMosaicLayoutTilesWidgetText(des.Text, initial.Text, opts...)
 	cDes.Blank = canonicalizeDashboardMosaicLayoutTilesWidgetBlank(des.Blank, initial.Blank, opts...)
+	cDes.LogsPanel = canonicalizeDashboardMosaicLayoutTilesWidgetLogsPanel(des.LogsPanel, initial.LogsPanel, opts...)
 
 	return cDes
 }
@@ -7008,6 +7186,7 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidget(c *Client, des, nw *Dashboa
 	nw.Scorecard = canonicalizeNewDashboardMosaicLayoutTilesWidgetScorecard(c, des.Scorecard, nw.Scorecard)
 	nw.Text = canonicalizeNewDashboardMosaicLayoutTilesWidgetText(c, des.Text, nw.Text)
 	nw.Blank = canonicalizeNewDashboardMosaicLayoutTilesWidgetBlank(c, des.Blank, nw.Blank)
+	nw.LogsPanel = canonicalizeNewDashboardMosaicLayoutTilesWidgetLogsPanel(c, des.LogsPanel, nw.LogsPanel)
 
 	return nw
 }
@@ -11550,6 +11729,129 @@ func canonicalizeNewDashboardMosaicLayoutTilesWidgetBlankSlice(c *Client, des, n
 	return items
 }
 
+func canonicalizeDashboardMosaicLayoutTilesWidgetLogsPanel(des, initial *DashboardMosaicLayoutTilesWidgetLogsPanel, opts ...dcl.ApplyOption) *DashboardMosaicLayoutTilesWidgetLogsPanel {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &DashboardMosaicLayoutTilesWidgetLogsPanel{}
+
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+		cDes.Filter = initial.Filter
+	} else {
+		cDes.Filter = des.Filter
+	}
+	if dcl.StringArrayCanonicalize(des.ResourceNames, initial.ResourceNames) {
+		cDes.ResourceNames = initial.ResourceNames
+	} else {
+		cDes.ResourceNames = des.ResourceNames
+	}
+
+	return cDes
+}
+
+func canonicalizeDashboardMosaicLayoutTilesWidgetLogsPanelSlice(des, initial []DashboardMosaicLayoutTilesWidgetLogsPanel, opts ...dcl.ApplyOption) []DashboardMosaicLayoutTilesWidgetLogsPanel {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardMosaicLayoutTilesWidgetLogsPanel, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardMosaicLayoutTilesWidgetLogsPanel(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardMosaicLayoutTilesWidgetLogsPanel, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardMosaicLayoutTilesWidgetLogsPanel(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewDashboardMosaicLayoutTilesWidgetLogsPanel(c *Client, des, nw *DashboardMosaicLayoutTilesWidgetLogsPanel) *DashboardMosaicLayoutTilesWidgetLogsPanel {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardMosaicLayoutTilesWidgetLogsPanel while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Filter, nw.Filter) {
+		nw.Filter = des.Filter
+	}
+	if dcl.StringArrayCanonicalize(des.ResourceNames, nw.ResourceNames) {
+		nw.ResourceNames = des.ResourceNames
+	}
+
+	return nw
+}
+
+func canonicalizeNewDashboardMosaicLayoutTilesWidgetLogsPanelSet(c *Client, des, nw []DashboardMosaicLayoutTilesWidgetLogsPanel) []DashboardMosaicLayoutTilesWidgetLogsPanel {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []DashboardMosaicLayoutTilesWidgetLogsPanel
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareDashboardMosaicLayoutTilesWidgetLogsPanelNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewDashboardMosaicLayoutTilesWidgetLogsPanelSlice(c *Client, des, nw []DashboardMosaicLayoutTilesWidgetLogsPanel) []DashboardMosaicLayoutTilesWidgetLogsPanel {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []DashboardMosaicLayoutTilesWidgetLogsPanel
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardMosaicLayoutTilesWidgetLogsPanel(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardRowLayout(des, initial *DashboardRowLayout, opts ...dcl.ApplyOption) *DashboardRowLayout {
 	if des == nil {
 		return initial
@@ -11784,7 +12086,7 @@ func canonicalizeDashboardRowLayoutRowsWidgets(des, initial *DashboardRowLayoutR
 
 	if des.XyChart != nil || (initial != nil && initial.XyChart != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.Scorecard, des.Text, des.Blank) {
+		if dcl.AnySet(des.Scorecard, des.Text, des.Blank, des.LogsPanel) {
 			des.XyChart = nil
 			if initial != nil {
 				initial.XyChart = nil
@@ -11794,7 +12096,7 @@ func canonicalizeDashboardRowLayoutRowsWidgets(des, initial *DashboardRowLayoutR
 
 	if des.Scorecard != nil || (initial != nil && initial.Scorecard != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Text, des.Blank) {
+		if dcl.AnySet(des.XyChart, des.Text, des.Blank, des.LogsPanel) {
 			des.Scorecard = nil
 			if initial != nil {
 				initial.Scorecard = nil
@@ -11804,7 +12106,7 @@ func canonicalizeDashboardRowLayoutRowsWidgets(des, initial *DashboardRowLayoutR
 
 	if des.Text != nil || (initial != nil && initial.Text != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Blank) {
+		if dcl.AnySet(des.XyChart, des.Scorecard, des.Blank, des.LogsPanel) {
 			des.Text = nil
 			if initial != nil {
 				initial.Text = nil
@@ -11814,10 +12116,20 @@ func canonicalizeDashboardRowLayoutRowsWidgets(des, initial *DashboardRowLayoutR
 
 	if des.Blank != nil || (initial != nil && initial.Blank != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text) {
+		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text, des.LogsPanel) {
 			des.Blank = nil
 			if initial != nil {
 				initial.Blank = nil
+			}
+		}
+	}
+
+	if des.LogsPanel != nil || (initial != nil && initial.LogsPanel != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text, des.Blank) {
+			des.LogsPanel = nil
+			if initial != nil {
+				initial.LogsPanel = nil
 			}
 		}
 	}
@@ -11837,6 +12149,7 @@ func canonicalizeDashboardRowLayoutRowsWidgets(des, initial *DashboardRowLayoutR
 	cDes.Scorecard = canonicalizeDashboardRowLayoutRowsWidgetsScorecard(des.Scorecard, initial.Scorecard, opts...)
 	cDes.Text = canonicalizeDashboardRowLayoutRowsWidgetsText(des.Text, initial.Text, opts...)
 	cDes.Blank = canonicalizeDashboardRowLayoutRowsWidgetsBlank(des.Blank, initial.Blank, opts...)
+	cDes.LogsPanel = canonicalizeDashboardRowLayoutRowsWidgetsLogsPanel(des.LogsPanel, initial.LogsPanel, opts...)
 
 	return cDes
 }
@@ -11890,6 +12203,7 @@ func canonicalizeNewDashboardRowLayoutRowsWidgets(c *Client, des, nw *DashboardR
 	nw.Scorecard = canonicalizeNewDashboardRowLayoutRowsWidgetsScorecard(c, des.Scorecard, nw.Scorecard)
 	nw.Text = canonicalizeNewDashboardRowLayoutRowsWidgetsText(c, des.Text, nw.Text)
 	nw.Blank = canonicalizeNewDashboardRowLayoutRowsWidgetsBlank(c, des.Blank, nw.Blank)
+	nw.LogsPanel = canonicalizeNewDashboardRowLayoutRowsWidgetsLogsPanel(c, des.LogsPanel, nw.LogsPanel)
 
 	return nw
 }
@@ -16432,6 +16746,129 @@ func canonicalizeNewDashboardRowLayoutRowsWidgetsBlankSlice(c *Client, des, nw [
 	return items
 }
 
+func canonicalizeDashboardRowLayoutRowsWidgetsLogsPanel(des, initial *DashboardRowLayoutRowsWidgetsLogsPanel, opts ...dcl.ApplyOption) *DashboardRowLayoutRowsWidgetsLogsPanel {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &DashboardRowLayoutRowsWidgetsLogsPanel{}
+
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+		cDes.Filter = initial.Filter
+	} else {
+		cDes.Filter = des.Filter
+	}
+	if dcl.StringArrayCanonicalize(des.ResourceNames, initial.ResourceNames) {
+		cDes.ResourceNames = initial.ResourceNames
+	} else {
+		cDes.ResourceNames = des.ResourceNames
+	}
+
+	return cDes
+}
+
+func canonicalizeDashboardRowLayoutRowsWidgetsLogsPanelSlice(des, initial []DashboardRowLayoutRowsWidgetsLogsPanel, opts ...dcl.ApplyOption) []DashboardRowLayoutRowsWidgetsLogsPanel {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardRowLayoutRowsWidgetsLogsPanel, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardRowLayoutRowsWidgetsLogsPanel(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardRowLayoutRowsWidgetsLogsPanel, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardRowLayoutRowsWidgetsLogsPanel(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewDashboardRowLayoutRowsWidgetsLogsPanel(c *Client, des, nw *DashboardRowLayoutRowsWidgetsLogsPanel) *DashboardRowLayoutRowsWidgetsLogsPanel {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardRowLayoutRowsWidgetsLogsPanel while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Filter, nw.Filter) {
+		nw.Filter = des.Filter
+	}
+	if dcl.StringArrayCanonicalize(des.ResourceNames, nw.ResourceNames) {
+		nw.ResourceNames = des.ResourceNames
+	}
+
+	return nw
+}
+
+func canonicalizeNewDashboardRowLayoutRowsWidgetsLogsPanelSet(c *Client, des, nw []DashboardRowLayoutRowsWidgetsLogsPanel) []DashboardRowLayoutRowsWidgetsLogsPanel {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []DashboardRowLayoutRowsWidgetsLogsPanel
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareDashboardRowLayoutRowsWidgetsLogsPanelNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewDashboardRowLayoutRowsWidgetsLogsPanelSlice(c *Client, des, nw []DashboardRowLayoutRowsWidgetsLogsPanel) []DashboardRowLayoutRowsWidgetsLogsPanel {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []DashboardRowLayoutRowsWidgetsLogsPanel
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardRowLayoutRowsWidgetsLogsPanel(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDashboardColumnLayout(des, initial *DashboardColumnLayout, opts ...dcl.ApplyOption) *DashboardColumnLayout {
 	if des == nil {
 		return initial
@@ -16666,7 +17103,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgets(des, initial *DashboardColu
 
 	if des.XyChart != nil || (initial != nil && initial.XyChart != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.Scorecard, des.Text, des.Blank) {
+		if dcl.AnySet(des.Scorecard, des.Text, des.Blank, des.LogsPanel) {
 			des.XyChart = nil
 			if initial != nil {
 				initial.XyChart = nil
@@ -16676,7 +17113,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgets(des, initial *DashboardColu
 
 	if des.Scorecard != nil || (initial != nil && initial.Scorecard != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Text, des.Blank) {
+		if dcl.AnySet(des.XyChart, des.Text, des.Blank, des.LogsPanel) {
 			des.Scorecard = nil
 			if initial != nil {
 				initial.Scorecard = nil
@@ -16686,7 +17123,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgets(des, initial *DashboardColu
 
 	if des.Text != nil || (initial != nil && initial.Text != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Blank) {
+		if dcl.AnySet(des.XyChart, des.Scorecard, des.Blank, des.LogsPanel) {
 			des.Text = nil
 			if initial != nil {
 				initial.Text = nil
@@ -16696,10 +17133,20 @@ func canonicalizeDashboardColumnLayoutColumnsWidgets(des, initial *DashboardColu
 
 	if des.Blank != nil || (initial != nil && initial.Blank != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text) {
+		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text, des.LogsPanel) {
 			des.Blank = nil
 			if initial != nil {
 				initial.Blank = nil
+			}
+		}
+	}
+
+	if des.LogsPanel != nil || (initial != nil && initial.LogsPanel != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.XyChart, des.Scorecard, des.Text, des.Blank) {
+			des.LogsPanel = nil
+			if initial != nil {
+				initial.LogsPanel = nil
 			}
 		}
 	}
@@ -16719,6 +17166,7 @@ func canonicalizeDashboardColumnLayoutColumnsWidgets(des, initial *DashboardColu
 	cDes.Scorecard = canonicalizeDashboardColumnLayoutColumnsWidgetsScorecard(des.Scorecard, initial.Scorecard, opts...)
 	cDes.Text = canonicalizeDashboardColumnLayoutColumnsWidgetsText(des.Text, initial.Text, opts...)
 	cDes.Blank = canonicalizeDashboardColumnLayoutColumnsWidgetsBlank(des.Blank, initial.Blank, opts...)
+	cDes.LogsPanel = canonicalizeDashboardColumnLayoutColumnsWidgetsLogsPanel(des.LogsPanel, initial.LogsPanel, opts...)
 
 	return cDes
 }
@@ -16772,6 +17220,7 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgets(c *Client, des, nw *Dash
 	nw.Scorecard = canonicalizeNewDashboardColumnLayoutColumnsWidgetsScorecard(c, des.Scorecard, nw.Scorecard)
 	nw.Text = canonicalizeNewDashboardColumnLayoutColumnsWidgetsText(c, des.Text, nw.Text)
 	nw.Blank = canonicalizeNewDashboardColumnLayoutColumnsWidgetsBlank(c, des.Blank, nw.Blank)
+	nw.LogsPanel = canonicalizeNewDashboardColumnLayoutColumnsWidgetsLogsPanel(c, des.LogsPanel, nw.LogsPanel)
 
 	return nw
 }
@@ -21314,6 +21763,129 @@ func canonicalizeNewDashboardColumnLayoutColumnsWidgetsBlankSlice(c *Client, des
 	return items
 }
 
+func canonicalizeDashboardColumnLayoutColumnsWidgetsLogsPanel(des, initial *DashboardColumnLayoutColumnsWidgetsLogsPanel, opts ...dcl.ApplyOption) *DashboardColumnLayoutColumnsWidgetsLogsPanel {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &DashboardColumnLayoutColumnsWidgetsLogsPanel{}
+
+	if dcl.StringCanonicalize(des.Filter, initial.Filter) || dcl.IsZeroValue(des.Filter) {
+		cDes.Filter = initial.Filter
+	} else {
+		cDes.Filter = des.Filter
+	}
+	if dcl.StringArrayCanonicalize(des.ResourceNames, initial.ResourceNames) {
+		cDes.ResourceNames = initial.ResourceNames
+	} else {
+		cDes.ResourceNames = des.ResourceNames
+	}
+
+	return cDes
+}
+
+func canonicalizeDashboardColumnLayoutColumnsWidgetsLogsPanelSlice(des, initial []DashboardColumnLayoutColumnsWidgetsLogsPanel, opts ...dcl.ApplyOption) []DashboardColumnLayoutColumnsWidgetsLogsPanel {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DashboardColumnLayoutColumnsWidgetsLogsPanel, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDashboardColumnLayoutColumnsWidgetsLogsPanel(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DashboardColumnLayoutColumnsWidgetsLogsPanel, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDashboardColumnLayoutColumnsWidgetsLogsPanel(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewDashboardColumnLayoutColumnsWidgetsLogsPanel(c *Client, des, nw *DashboardColumnLayoutColumnsWidgetsLogsPanel) *DashboardColumnLayoutColumnsWidgetsLogsPanel {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DashboardColumnLayoutColumnsWidgetsLogsPanel while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Filter, nw.Filter) {
+		nw.Filter = des.Filter
+	}
+	if dcl.StringArrayCanonicalize(des.ResourceNames, nw.ResourceNames) {
+		nw.ResourceNames = des.ResourceNames
+	}
+
+	return nw
+}
+
+func canonicalizeNewDashboardColumnLayoutColumnsWidgetsLogsPanelSet(c *Client, des, nw []DashboardColumnLayoutColumnsWidgetsLogsPanel) []DashboardColumnLayoutColumnsWidgetsLogsPanel {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []DashboardColumnLayoutColumnsWidgetsLogsPanel
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareDashboardColumnLayoutColumnsWidgetsLogsPanelNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewDashboardColumnLayoutColumnsWidgetsLogsPanelSlice(c *Client, des, nw []DashboardColumnLayoutColumnsWidgetsLogsPanel) []DashboardColumnLayoutColumnsWidgetsLogsPanel {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []DashboardColumnLayoutColumnsWidgetsLogsPanel
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDashboardColumnLayoutColumnsWidgetsLogsPanel(c, &d, &n))
+	}
+
+	return items
+}
+
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -21475,6 +22047,13 @@ func compareDashboardGridLayoutWidgetsNewStyle(d, a interface{}, fn dcl.FieldNam
 	}
 
 	if ds, err := dcl.Diff(desired.Blank, actual.Blank, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsBlankNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsBlank, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Blank")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LogsPanel, actual.LogsPanel, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsLogsPanelNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsLogsPanel, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LogsPanel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23078,6 +23657,42 @@ func compareDashboardGridLayoutWidgetsBlankNewStyle(d, a interface{}, fn dcl.Fie
 	return diffs, nil
 }
 
+func compareDashboardGridLayoutWidgetsLogsPanelNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardGridLayoutWidgetsLogsPanel)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardGridLayoutWidgetsLogsPanel)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardGridLayoutWidgetsLogsPanel or *DashboardGridLayoutWidgetsLogsPanel", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardGridLayoutWidgetsLogsPanel)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardGridLayoutWidgetsLogsPanel)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardGridLayoutWidgetsLogsPanel", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardMosaicLayoutNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
@@ -23220,6 +23835,13 @@ func compareDashboardMosaicLayoutTilesWidgetNewStyle(d, a interface{}, fn dcl.Fi
 	}
 
 	if ds, err := dcl.Diff(desired.Blank, actual.Blank, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetBlankNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetBlank, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Blank")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LogsPanel, actual.LogsPanel, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetLogsPanelNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetLogsPanel, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LogsPanel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24823,6 +25445,42 @@ func compareDashboardMosaicLayoutTilesWidgetBlankNewStyle(d, a interface{}, fn d
 	return diffs, nil
 }
 
+func compareDashboardMosaicLayoutTilesWidgetLogsPanelNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardMosaicLayoutTilesWidgetLogsPanel)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardMosaicLayoutTilesWidgetLogsPanel)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardMosaicLayoutTilesWidgetLogsPanel or *DashboardMosaicLayoutTilesWidgetLogsPanel", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardMosaicLayoutTilesWidgetLogsPanel)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardMosaicLayoutTilesWidgetLogsPanel)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardMosaicLayoutTilesWidgetLogsPanel", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardRowLayoutNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
@@ -24937,6 +25595,13 @@ func compareDashboardRowLayoutRowsWidgetsNewStyle(d, a interface{}, fn dcl.Field
 	}
 
 	if ds, err := dcl.Diff(desired.Blank, actual.Blank, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsBlankNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsBlank, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Blank")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LogsPanel, actual.LogsPanel, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsLogsPanelNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsLogsPanel, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LogsPanel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26540,6 +27205,42 @@ func compareDashboardRowLayoutRowsWidgetsBlankNewStyle(d, a interface{}, fn dcl.
 	return diffs, nil
 }
 
+func compareDashboardRowLayoutRowsWidgetsLogsPanelNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardRowLayoutRowsWidgetsLogsPanel)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardRowLayoutRowsWidgetsLogsPanel)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardRowLayoutRowsWidgetsLogsPanel or *DashboardRowLayoutRowsWidgetsLogsPanel", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardRowLayoutRowsWidgetsLogsPanel)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardRowLayoutRowsWidgetsLogsPanel)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardRowLayoutRowsWidgetsLogsPanel", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareDashboardColumnLayoutNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
@@ -26654,6 +27355,13 @@ func compareDashboardColumnLayoutColumnsWidgetsNewStyle(d, a interface{}, fn dcl
 	}
 
 	if ds, err := dcl.Diff(desired.Blank, actual.Blank, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsBlankNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsBlank, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Blank")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.LogsPanel, actual.LogsPanel, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsLogsPanelNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsLogsPanel, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LogsPanel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28257,6 +28965,42 @@ func compareDashboardColumnLayoutColumnsWidgetsBlankNewStyle(d, a interface{}, f
 	return diffs, nil
 }
 
+func compareDashboardColumnLayoutColumnsWidgetsLogsPanelNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DashboardColumnLayoutColumnsWidgetsLogsPanel)
+	if !ok {
+		desiredNotPointer, ok := d.(DashboardColumnLayoutColumnsWidgetsLogsPanel)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardColumnLayoutColumnsWidgetsLogsPanel or *DashboardColumnLayoutColumnsWidgetsLogsPanel", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DashboardColumnLayoutColumnsWidgetsLogsPanel)
+	if !ok {
+		actualNotPointer, ok := a.(DashboardColumnLayoutColumnsWidgetsLogsPanel)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DashboardColumnLayoutColumnsWidgetsLogsPanel", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
@@ -28611,6 +29355,11 @@ func expandDashboardGridLayoutWidgets(c *Client, f *DashboardGridLayoutWidgets, 
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["blank"] = v
 	}
+	if v, err := expandDashboardGridLayoutWidgetsLogsPanel(c, f.LogsPanel, res); err != nil {
+		return nil, fmt.Errorf("error expanding LogsPanel into logsPanel: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["logsPanel"] = v
+	}
 
 	return m, nil
 }
@@ -28633,6 +29382,7 @@ func flattenDashboardGridLayoutWidgets(c *Client, i interface{}, res *Dashboard)
 	r.Scorecard = flattenDashboardGridLayoutWidgetsScorecard(c, m["scorecard"], res)
 	r.Text = flattenDashboardGridLayoutWidgetsText(c, m["text"], res)
 	r.Blank = flattenDashboardGridLayoutWidgetsBlank(c, m["blank"], res)
+	r.LogsPanel = flattenDashboardGridLayoutWidgetsLogsPanel(c, m["logsPanel"], res)
 
 	return r
 }
@@ -33129,6 +33879,124 @@ func flattenDashboardGridLayoutWidgetsBlank(c *Client, i interface{}, res *Dashb
 	return r
 }
 
+// expandDashboardGridLayoutWidgetsLogsPanelMap expands the contents of DashboardGridLayoutWidgetsLogsPanel into a JSON
+// request object.
+func expandDashboardGridLayoutWidgetsLogsPanelMap(c *Client, f map[string]DashboardGridLayoutWidgetsLogsPanel, res *Dashboard) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandDashboardGridLayoutWidgetsLogsPanel(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandDashboardGridLayoutWidgetsLogsPanelSlice expands the contents of DashboardGridLayoutWidgetsLogsPanel into a JSON
+// request object.
+func expandDashboardGridLayoutWidgetsLogsPanelSlice(c *Client, f []DashboardGridLayoutWidgetsLogsPanel, res *Dashboard) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandDashboardGridLayoutWidgetsLogsPanel(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenDashboardGridLayoutWidgetsLogsPanelMap flattens the contents of DashboardGridLayoutWidgetsLogsPanel from a JSON
+// response object.
+func flattenDashboardGridLayoutWidgetsLogsPanelMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardGridLayoutWidgetsLogsPanel {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardGridLayoutWidgetsLogsPanel{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardGridLayoutWidgetsLogsPanel{}
+	}
+
+	items := make(map[string]DashboardGridLayoutWidgetsLogsPanel)
+	for k, item := range a {
+		items[k] = *flattenDashboardGridLayoutWidgetsLogsPanel(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenDashboardGridLayoutWidgetsLogsPanelSlice flattens the contents of DashboardGridLayoutWidgetsLogsPanel from a JSON
+// response object.
+func flattenDashboardGridLayoutWidgetsLogsPanelSlice(c *Client, i interface{}, res *Dashboard) []DashboardGridLayoutWidgetsLogsPanel {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []DashboardGridLayoutWidgetsLogsPanel{}
+	}
+
+	if len(a) == 0 {
+		return []DashboardGridLayoutWidgetsLogsPanel{}
+	}
+
+	items := make([]DashboardGridLayoutWidgetsLogsPanel, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenDashboardGridLayoutWidgetsLogsPanel(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandDashboardGridLayoutWidgetsLogsPanel expands an instance of DashboardGridLayoutWidgetsLogsPanel into a JSON
+// request object.
+func expandDashboardGridLayoutWidgetsLogsPanel(c *Client, f *DashboardGridLayoutWidgetsLogsPanel, res *Dashboard) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
+		m["filter"] = v
+	}
+	if v := f.ResourceNames; v != nil {
+		m["resourceNames"] = v
+	}
+
+	return m, nil
+}
+
+// flattenDashboardGridLayoutWidgetsLogsPanel flattens an instance of DashboardGridLayoutWidgetsLogsPanel from a JSON
+// response object.
+func flattenDashboardGridLayoutWidgetsLogsPanel(c *Client, i interface{}, res *Dashboard) *DashboardGridLayoutWidgetsLogsPanel {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &DashboardGridLayoutWidgetsLogsPanel{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardGridLayoutWidgetsLogsPanel
+	}
+	r.Filter = dcl.FlattenString(m["filter"])
+	r.ResourceNames = dcl.FlattenStringSlice(m["resourceNames"])
+
+	return r
+}
+
 // expandDashboardMosaicLayoutMap expands the contents of DashboardMosaicLayout into a JSON
 // request object.
 func expandDashboardMosaicLayoutMap(c *Client, f map[string]DashboardMosaicLayout, res *Dashboard) (map[string]interface{}, error) {
@@ -33493,6 +34361,11 @@ func expandDashboardMosaicLayoutTilesWidget(c *Client, f *DashboardMosaicLayoutT
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["blank"] = v
 	}
+	if v, err := expandDashboardMosaicLayoutTilesWidgetLogsPanel(c, f.LogsPanel, res); err != nil {
+		return nil, fmt.Errorf("error expanding LogsPanel into logsPanel: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["logsPanel"] = v
+	}
 
 	return m, nil
 }
@@ -33515,6 +34388,7 @@ func flattenDashboardMosaicLayoutTilesWidget(c *Client, i interface{}, res *Dash
 	r.Scorecard = flattenDashboardMosaicLayoutTilesWidgetScorecard(c, m["scorecard"], res)
 	r.Text = flattenDashboardMosaicLayoutTilesWidgetText(c, m["text"], res)
 	r.Blank = flattenDashboardMosaicLayoutTilesWidgetBlank(c, m["blank"], res)
+	r.LogsPanel = flattenDashboardMosaicLayoutTilesWidgetLogsPanel(c, m["logsPanel"], res)
 
 	return r
 }
@@ -38011,6 +38885,124 @@ func flattenDashboardMosaicLayoutTilesWidgetBlank(c *Client, i interface{}, res 
 	return r
 }
 
+// expandDashboardMosaicLayoutTilesWidgetLogsPanelMap expands the contents of DashboardMosaicLayoutTilesWidgetLogsPanel into a JSON
+// request object.
+func expandDashboardMosaicLayoutTilesWidgetLogsPanelMap(c *Client, f map[string]DashboardMosaicLayoutTilesWidgetLogsPanel, res *Dashboard) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandDashboardMosaicLayoutTilesWidgetLogsPanel(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandDashboardMosaicLayoutTilesWidgetLogsPanelSlice expands the contents of DashboardMosaicLayoutTilesWidgetLogsPanel into a JSON
+// request object.
+func expandDashboardMosaicLayoutTilesWidgetLogsPanelSlice(c *Client, f []DashboardMosaicLayoutTilesWidgetLogsPanel, res *Dashboard) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandDashboardMosaicLayoutTilesWidgetLogsPanel(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenDashboardMosaicLayoutTilesWidgetLogsPanelMap flattens the contents of DashboardMosaicLayoutTilesWidgetLogsPanel from a JSON
+// response object.
+func flattenDashboardMosaicLayoutTilesWidgetLogsPanelMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardMosaicLayoutTilesWidgetLogsPanel {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardMosaicLayoutTilesWidgetLogsPanel{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardMosaicLayoutTilesWidgetLogsPanel{}
+	}
+
+	items := make(map[string]DashboardMosaicLayoutTilesWidgetLogsPanel)
+	for k, item := range a {
+		items[k] = *flattenDashboardMosaicLayoutTilesWidgetLogsPanel(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenDashboardMosaicLayoutTilesWidgetLogsPanelSlice flattens the contents of DashboardMosaicLayoutTilesWidgetLogsPanel from a JSON
+// response object.
+func flattenDashboardMosaicLayoutTilesWidgetLogsPanelSlice(c *Client, i interface{}, res *Dashboard) []DashboardMosaicLayoutTilesWidgetLogsPanel {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []DashboardMosaicLayoutTilesWidgetLogsPanel{}
+	}
+
+	if len(a) == 0 {
+		return []DashboardMosaicLayoutTilesWidgetLogsPanel{}
+	}
+
+	items := make([]DashboardMosaicLayoutTilesWidgetLogsPanel, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenDashboardMosaicLayoutTilesWidgetLogsPanel(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandDashboardMosaicLayoutTilesWidgetLogsPanel expands an instance of DashboardMosaicLayoutTilesWidgetLogsPanel into a JSON
+// request object.
+func expandDashboardMosaicLayoutTilesWidgetLogsPanel(c *Client, f *DashboardMosaicLayoutTilesWidgetLogsPanel, res *Dashboard) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
+		m["filter"] = v
+	}
+	if v := f.ResourceNames; v != nil {
+		m["resourceNames"] = v
+	}
+
+	return m, nil
+}
+
+// flattenDashboardMosaicLayoutTilesWidgetLogsPanel flattens an instance of DashboardMosaicLayoutTilesWidgetLogsPanel from a JSON
+// response object.
+func flattenDashboardMosaicLayoutTilesWidgetLogsPanel(c *Client, i interface{}, res *Dashboard) *DashboardMosaicLayoutTilesWidgetLogsPanel {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &DashboardMosaicLayoutTilesWidgetLogsPanel{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardMosaicLayoutTilesWidgetLogsPanel
+	}
+	r.Filter = dcl.FlattenString(m["filter"])
+	r.ResourceNames = dcl.FlattenStringSlice(m["resourceNames"])
+
+	return r
+}
+
 // expandDashboardRowLayoutMap expands the contents of DashboardRowLayout into a JSON
 // request object.
 func expandDashboardRowLayoutMap(c *Client, f map[string]DashboardRowLayout, res *Dashboard) (map[string]interface{}, error) {
@@ -38359,6 +39351,11 @@ func expandDashboardRowLayoutRowsWidgets(c *Client, f *DashboardRowLayoutRowsWid
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["blank"] = v
 	}
+	if v, err := expandDashboardRowLayoutRowsWidgetsLogsPanel(c, f.LogsPanel, res); err != nil {
+		return nil, fmt.Errorf("error expanding LogsPanel into logsPanel: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["logsPanel"] = v
+	}
 
 	return m, nil
 }
@@ -38381,6 +39378,7 @@ func flattenDashboardRowLayoutRowsWidgets(c *Client, i interface{}, res *Dashboa
 	r.Scorecard = flattenDashboardRowLayoutRowsWidgetsScorecard(c, m["scorecard"], res)
 	r.Text = flattenDashboardRowLayoutRowsWidgetsText(c, m["text"], res)
 	r.Blank = flattenDashboardRowLayoutRowsWidgetsBlank(c, m["blank"], res)
+	r.LogsPanel = flattenDashboardRowLayoutRowsWidgetsLogsPanel(c, m["logsPanel"], res)
 
 	return r
 }
@@ -42877,6 +43875,124 @@ func flattenDashboardRowLayoutRowsWidgetsBlank(c *Client, i interface{}, res *Da
 	return r
 }
 
+// expandDashboardRowLayoutRowsWidgetsLogsPanelMap expands the contents of DashboardRowLayoutRowsWidgetsLogsPanel into a JSON
+// request object.
+func expandDashboardRowLayoutRowsWidgetsLogsPanelMap(c *Client, f map[string]DashboardRowLayoutRowsWidgetsLogsPanel, res *Dashboard) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandDashboardRowLayoutRowsWidgetsLogsPanel(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandDashboardRowLayoutRowsWidgetsLogsPanelSlice expands the contents of DashboardRowLayoutRowsWidgetsLogsPanel into a JSON
+// request object.
+func expandDashboardRowLayoutRowsWidgetsLogsPanelSlice(c *Client, f []DashboardRowLayoutRowsWidgetsLogsPanel, res *Dashboard) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandDashboardRowLayoutRowsWidgetsLogsPanel(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenDashboardRowLayoutRowsWidgetsLogsPanelMap flattens the contents of DashboardRowLayoutRowsWidgetsLogsPanel from a JSON
+// response object.
+func flattenDashboardRowLayoutRowsWidgetsLogsPanelMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardRowLayoutRowsWidgetsLogsPanel {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardRowLayoutRowsWidgetsLogsPanel{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardRowLayoutRowsWidgetsLogsPanel{}
+	}
+
+	items := make(map[string]DashboardRowLayoutRowsWidgetsLogsPanel)
+	for k, item := range a {
+		items[k] = *flattenDashboardRowLayoutRowsWidgetsLogsPanel(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenDashboardRowLayoutRowsWidgetsLogsPanelSlice flattens the contents of DashboardRowLayoutRowsWidgetsLogsPanel from a JSON
+// response object.
+func flattenDashboardRowLayoutRowsWidgetsLogsPanelSlice(c *Client, i interface{}, res *Dashboard) []DashboardRowLayoutRowsWidgetsLogsPanel {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []DashboardRowLayoutRowsWidgetsLogsPanel{}
+	}
+
+	if len(a) == 0 {
+		return []DashboardRowLayoutRowsWidgetsLogsPanel{}
+	}
+
+	items := make([]DashboardRowLayoutRowsWidgetsLogsPanel, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenDashboardRowLayoutRowsWidgetsLogsPanel(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandDashboardRowLayoutRowsWidgetsLogsPanel expands an instance of DashboardRowLayoutRowsWidgetsLogsPanel into a JSON
+// request object.
+func expandDashboardRowLayoutRowsWidgetsLogsPanel(c *Client, f *DashboardRowLayoutRowsWidgetsLogsPanel, res *Dashboard) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
+		m["filter"] = v
+	}
+	if v := f.ResourceNames; v != nil {
+		m["resourceNames"] = v
+	}
+
+	return m, nil
+}
+
+// flattenDashboardRowLayoutRowsWidgetsLogsPanel flattens an instance of DashboardRowLayoutRowsWidgetsLogsPanel from a JSON
+// response object.
+func flattenDashboardRowLayoutRowsWidgetsLogsPanel(c *Client, i interface{}, res *Dashboard) *DashboardRowLayoutRowsWidgetsLogsPanel {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &DashboardRowLayoutRowsWidgetsLogsPanel{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardRowLayoutRowsWidgetsLogsPanel
+	}
+	r.Filter = dcl.FlattenString(m["filter"])
+	r.ResourceNames = dcl.FlattenStringSlice(m["resourceNames"])
+
+	return r
+}
+
 // expandDashboardColumnLayoutMap expands the contents of DashboardColumnLayout into a JSON
 // request object.
 func expandDashboardColumnLayoutMap(c *Client, f map[string]DashboardColumnLayout, res *Dashboard) (map[string]interface{}, error) {
@@ -43225,6 +44341,11 @@ func expandDashboardColumnLayoutColumnsWidgets(c *Client, f *DashboardColumnLayo
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["blank"] = v
 	}
+	if v, err := expandDashboardColumnLayoutColumnsWidgetsLogsPanel(c, f.LogsPanel, res); err != nil {
+		return nil, fmt.Errorf("error expanding LogsPanel into logsPanel: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["logsPanel"] = v
+	}
 
 	return m, nil
 }
@@ -43247,6 +44368,7 @@ func flattenDashboardColumnLayoutColumnsWidgets(c *Client, i interface{}, res *D
 	r.Scorecard = flattenDashboardColumnLayoutColumnsWidgetsScorecard(c, m["scorecard"], res)
 	r.Text = flattenDashboardColumnLayoutColumnsWidgetsText(c, m["text"], res)
 	r.Blank = flattenDashboardColumnLayoutColumnsWidgetsBlank(c, m["blank"], res)
+	r.LogsPanel = flattenDashboardColumnLayoutColumnsWidgetsLogsPanel(c, m["logsPanel"], res)
 
 	return r
 }
@@ -47739,6 +48861,124 @@ func flattenDashboardColumnLayoutColumnsWidgetsBlank(c *Client, i interface{}, r
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyDashboardColumnLayoutColumnsWidgetsBlank
 	}
+
+	return r
+}
+
+// expandDashboardColumnLayoutColumnsWidgetsLogsPanelMap expands the contents of DashboardColumnLayoutColumnsWidgetsLogsPanel into a JSON
+// request object.
+func expandDashboardColumnLayoutColumnsWidgetsLogsPanelMap(c *Client, f map[string]DashboardColumnLayoutColumnsWidgetsLogsPanel, res *Dashboard) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandDashboardColumnLayoutColumnsWidgetsLogsPanel(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandDashboardColumnLayoutColumnsWidgetsLogsPanelSlice expands the contents of DashboardColumnLayoutColumnsWidgetsLogsPanel into a JSON
+// request object.
+func expandDashboardColumnLayoutColumnsWidgetsLogsPanelSlice(c *Client, f []DashboardColumnLayoutColumnsWidgetsLogsPanel, res *Dashboard) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandDashboardColumnLayoutColumnsWidgetsLogsPanel(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenDashboardColumnLayoutColumnsWidgetsLogsPanelMap flattens the contents of DashboardColumnLayoutColumnsWidgetsLogsPanel from a JSON
+// response object.
+func flattenDashboardColumnLayoutColumnsWidgetsLogsPanelMap(c *Client, i interface{}, res *Dashboard) map[string]DashboardColumnLayoutColumnsWidgetsLogsPanel {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DashboardColumnLayoutColumnsWidgetsLogsPanel{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DashboardColumnLayoutColumnsWidgetsLogsPanel{}
+	}
+
+	items := make(map[string]DashboardColumnLayoutColumnsWidgetsLogsPanel)
+	for k, item := range a {
+		items[k] = *flattenDashboardColumnLayoutColumnsWidgetsLogsPanel(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenDashboardColumnLayoutColumnsWidgetsLogsPanelSlice flattens the contents of DashboardColumnLayoutColumnsWidgetsLogsPanel from a JSON
+// response object.
+func flattenDashboardColumnLayoutColumnsWidgetsLogsPanelSlice(c *Client, i interface{}, res *Dashboard) []DashboardColumnLayoutColumnsWidgetsLogsPanel {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []DashboardColumnLayoutColumnsWidgetsLogsPanel{}
+	}
+
+	if len(a) == 0 {
+		return []DashboardColumnLayoutColumnsWidgetsLogsPanel{}
+	}
+
+	items := make([]DashboardColumnLayoutColumnsWidgetsLogsPanel, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenDashboardColumnLayoutColumnsWidgetsLogsPanel(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandDashboardColumnLayoutColumnsWidgetsLogsPanel expands an instance of DashboardColumnLayoutColumnsWidgetsLogsPanel into a JSON
+// request object.
+func expandDashboardColumnLayoutColumnsWidgetsLogsPanel(c *Client, f *DashboardColumnLayoutColumnsWidgetsLogsPanel, res *Dashboard) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Filter; !dcl.IsEmptyValueIndirect(v) {
+		m["filter"] = v
+	}
+	if v := f.ResourceNames; v != nil {
+		m["resourceNames"] = v
+	}
+
+	return m, nil
+}
+
+// flattenDashboardColumnLayoutColumnsWidgetsLogsPanel flattens an instance of DashboardColumnLayoutColumnsWidgetsLogsPanel from a JSON
+// response object.
+func flattenDashboardColumnLayoutColumnsWidgetsLogsPanel(c *Client, i interface{}, res *Dashboard) *DashboardColumnLayoutColumnsWidgetsLogsPanel {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &DashboardColumnLayoutColumnsWidgetsLogsPanel{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDashboardColumnLayoutColumnsWidgetsLogsPanel
+	}
+	r.Filter = dcl.FlattenString(m["filter"])
+	r.ResourceNames = dcl.FlattenStringSlice(m["resourceNames"])
 
 	return r
 }
@@ -55673,6 +56913,17 @@ func extractDashboardGridLayoutWidgetsFields(r *Dashboard, o *DashboardGridLayou
 	if !dcl.IsNotReturnedByServer(vBlank) {
 		o.Blank = vBlank
 	}
+	vLogsPanel := o.LogsPanel
+	if vLogsPanel == nil {
+		// note: explicitly not the empty object.
+		vLogsPanel = &DashboardGridLayoutWidgetsLogsPanel{}
+	}
+	if err := extractDashboardGridLayoutWidgetsLogsPanelFields(r, vLogsPanel); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLogsPanel) {
+		o.LogsPanel = vLogsPanel
+	}
 	return nil
 }
 func extractDashboardGridLayoutWidgetsXyChartFields(r *Dashboard, o *DashboardGridLayoutWidgetsXyChart) error {
@@ -56102,6 +57353,9 @@ func extractDashboardGridLayoutWidgetsTextFields(r *Dashboard, o *DashboardGridL
 func extractDashboardGridLayoutWidgetsBlankFields(r *Dashboard, o *DashboardGridLayoutWidgetsBlank) error {
 	return nil
 }
+func extractDashboardGridLayoutWidgetsLogsPanelFields(r *Dashboard, o *DashboardGridLayoutWidgetsLogsPanel) error {
+	return nil
+}
 func extractDashboardMosaicLayoutFields(r *Dashboard, o *DashboardMosaicLayout) error {
 	return nil
 }
@@ -56163,6 +57417,17 @@ func extractDashboardMosaicLayoutTilesWidgetFields(r *Dashboard, o *DashboardMos
 	}
 	if !dcl.IsNotReturnedByServer(vBlank) {
 		o.Blank = vBlank
+	}
+	vLogsPanel := o.LogsPanel
+	if vLogsPanel == nil {
+		// note: explicitly not the empty object.
+		vLogsPanel = &DashboardMosaicLayoutTilesWidgetLogsPanel{}
+	}
+	if err := extractDashboardMosaicLayoutTilesWidgetLogsPanelFields(r, vLogsPanel); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLogsPanel) {
+		o.LogsPanel = vLogsPanel
 	}
 	return nil
 }
@@ -56593,6 +57858,9 @@ func extractDashboardMosaicLayoutTilesWidgetTextFields(r *Dashboard, o *Dashboar
 func extractDashboardMosaicLayoutTilesWidgetBlankFields(r *Dashboard, o *DashboardMosaicLayoutTilesWidgetBlank) error {
 	return nil
 }
+func extractDashboardMosaicLayoutTilesWidgetLogsPanelFields(r *Dashboard, o *DashboardMosaicLayoutTilesWidgetLogsPanel) error {
+	return nil
+}
 func extractDashboardRowLayoutFields(r *Dashboard, o *DashboardRowLayout) error {
 	return nil
 }
@@ -56643,6 +57911,17 @@ func extractDashboardRowLayoutRowsWidgetsFields(r *Dashboard, o *DashboardRowLay
 	}
 	if !dcl.IsNotReturnedByServer(vBlank) {
 		o.Blank = vBlank
+	}
+	vLogsPanel := o.LogsPanel
+	if vLogsPanel == nil {
+		// note: explicitly not the empty object.
+		vLogsPanel = &DashboardRowLayoutRowsWidgetsLogsPanel{}
+	}
+	if err := extractDashboardRowLayoutRowsWidgetsLogsPanelFields(r, vLogsPanel); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLogsPanel) {
+		o.LogsPanel = vLogsPanel
 	}
 	return nil
 }
@@ -57073,6 +58352,9 @@ func extractDashboardRowLayoutRowsWidgetsTextFields(r *Dashboard, o *DashboardRo
 func extractDashboardRowLayoutRowsWidgetsBlankFields(r *Dashboard, o *DashboardRowLayoutRowsWidgetsBlank) error {
 	return nil
 }
+func extractDashboardRowLayoutRowsWidgetsLogsPanelFields(r *Dashboard, o *DashboardRowLayoutRowsWidgetsLogsPanel) error {
+	return nil
+}
 func extractDashboardColumnLayoutFields(r *Dashboard, o *DashboardColumnLayout) error {
 	return nil
 }
@@ -57123,6 +58405,17 @@ func extractDashboardColumnLayoutColumnsWidgetsFields(r *Dashboard, o *Dashboard
 	}
 	if !dcl.IsNotReturnedByServer(vBlank) {
 		o.Blank = vBlank
+	}
+	vLogsPanel := o.LogsPanel
+	if vLogsPanel == nil {
+		// note: explicitly not the empty object.
+		vLogsPanel = &DashboardColumnLayoutColumnsWidgetsLogsPanel{}
+	}
+	if err := extractDashboardColumnLayoutColumnsWidgetsLogsPanelFields(r, vLogsPanel); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLogsPanel) {
+		o.LogsPanel = vLogsPanel
 	}
 	return nil
 }
@@ -57553,6 +58846,9 @@ func extractDashboardColumnLayoutColumnsWidgetsTextFields(r *Dashboard, o *Dashb
 func extractDashboardColumnLayoutColumnsWidgetsBlankFields(r *Dashboard, o *DashboardColumnLayoutColumnsWidgetsBlank) error {
 	return nil
 }
+func extractDashboardColumnLayoutColumnsWidgetsLogsPanelFields(r *Dashboard, o *DashboardColumnLayoutColumnsWidgetsLogsPanel) error {
+	return nil
+}
 
 func postReadExtractDashboardFields(r *Dashboard) error {
 	vGridLayout := r.GridLayout
@@ -57648,6 +58944,17 @@ func postReadExtractDashboardGridLayoutWidgetsFields(r *Dashboard, o *DashboardG
 	}
 	if !dcl.IsNotReturnedByServer(vBlank) {
 		o.Blank = vBlank
+	}
+	vLogsPanel := o.LogsPanel
+	if vLogsPanel == nil {
+		// note: explicitly not the empty object.
+		vLogsPanel = &DashboardGridLayoutWidgetsLogsPanel{}
+	}
+	if err := extractDashboardGridLayoutWidgetsLogsPanelFields(r, vLogsPanel); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLogsPanel) {
+		o.LogsPanel = vLogsPanel
 	}
 	return nil
 }
@@ -58078,6 +59385,9 @@ func postReadExtractDashboardGridLayoutWidgetsTextFields(r *Dashboard, o *Dashbo
 func postReadExtractDashboardGridLayoutWidgetsBlankFields(r *Dashboard, o *DashboardGridLayoutWidgetsBlank) error {
 	return nil
 }
+func postReadExtractDashboardGridLayoutWidgetsLogsPanelFields(r *Dashboard, o *DashboardGridLayoutWidgetsLogsPanel) error {
+	return nil
+}
 func postReadExtractDashboardMosaicLayoutFields(r *Dashboard, o *DashboardMosaicLayout) error {
 	return nil
 }
@@ -58139,6 +59449,17 @@ func postReadExtractDashboardMosaicLayoutTilesWidgetFields(r *Dashboard, o *Dash
 	}
 	if !dcl.IsNotReturnedByServer(vBlank) {
 		o.Blank = vBlank
+	}
+	vLogsPanel := o.LogsPanel
+	if vLogsPanel == nil {
+		// note: explicitly not the empty object.
+		vLogsPanel = &DashboardMosaicLayoutTilesWidgetLogsPanel{}
+	}
+	if err := extractDashboardMosaicLayoutTilesWidgetLogsPanelFields(r, vLogsPanel); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLogsPanel) {
+		o.LogsPanel = vLogsPanel
 	}
 	return nil
 }
@@ -58569,6 +59890,9 @@ func postReadExtractDashboardMosaicLayoutTilesWidgetTextFields(r *Dashboard, o *
 func postReadExtractDashboardMosaicLayoutTilesWidgetBlankFields(r *Dashboard, o *DashboardMosaicLayoutTilesWidgetBlank) error {
 	return nil
 }
+func postReadExtractDashboardMosaicLayoutTilesWidgetLogsPanelFields(r *Dashboard, o *DashboardMosaicLayoutTilesWidgetLogsPanel) error {
+	return nil
+}
 func postReadExtractDashboardRowLayoutFields(r *Dashboard, o *DashboardRowLayout) error {
 	return nil
 }
@@ -58619,6 +59943,17 @@ func postReadExtractDashboardRowLayoutRowsWidgetsFields(r *Dashboard, o *Dashboa
 	}
 	if !dcl.IsNotReturnedByServer(vBlank) {
 		o.Blank = vBlank
+	}
+	vLogsPanel := o.LogsPanel
+	if vLogsPanel == nil {
+		// note: explicitly not the empty object.
+		vLogsPanel = &DashboardRowLayoutRowsWidgetsLogsPanel{}
+	}
+	if err := extractDashboardRowLayoutRowsWidgetsLogsPanelFields(r, vLogsPanel); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLogsPanel) {
+		o.LogsPanel = vLogsPanel
 	}
 	return nil
 }
@@ -59049,6 +60384,9 @@ func postReadExtractDashboardRowLayoutRowsWidgetsTextFields(r *Dashboard, o *Das
 func postReadExtractDashboardRowLayoutRowsWidgetsBlankFields(r *Dashboard, o *DashboardRowLayoutRowsWidgetsBlank) error {
 	return nil
 }
+func postReadExtractDashboardRowLayoutRowsWidgetsLogsPanelFields(r *Dashboard, o *DashboardRowLayoutRowsWidgetsLogsPanel) error {
+	return nil
+}
 func postReadExtractDashboardColumnLayoutFields(r *Dashboard, o *DashboardColumnLayout) error {
 	return nil
 }
@@ -59099,6 +60437,17 @@ func postReadExtractDashboardColumnLayoutColumnsWidgetsFields(r *Dashboard, o *D
 	}
 	if !dcl.IsNotReturnedByServer(vBlank) {
 		o.Blank = vBlank
+	}
+	vLogsPanel := o.LogsPanel
+	if vLogsPanel == nil {
+		// note: explicitly not the empty object.
+		vLogsPanel = &DashboardColumnLayoutColumnsWidgetsLogsPanel{}
+	}
+	if err := extractDashboardColumnLayoutColumnsWidgetsLogsPanelFields(r, vLogsPanel); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vLogsPanel) {
+		o.LogsPanel = vLogsPanel
 	}
 	return nil
 }
@@ -59527,5 +60876,8 @@ func postReadExtractDashboardColumnLayoutColumnsWidgetsTextFields(r *Dashboard, 
 	return nil
 }
 func postReadExtractDashboardColumnLayoutColumnsWidgetsBlankFields(r *Dashboard, o *DashboardColumnLayoutColumnsWidgetsBlank) error {
+	return nil
+}
+func postReadExtractDashboardColumnLayoutColumnsWidgetsLogsPanelFields(r *Dashboard, o *DashboardColumnLayoutColumnsWidgetsLogsPanel) error {
 	return nil
 }

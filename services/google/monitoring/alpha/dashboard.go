@@ -4199,6 +4199,7 @@ type DashboardGridLayoutWidgets struct {
 	Scorecard *DashboardGridLayoutWidgetsScorecard `json:"scorecard"`
 	Text      *DashboardGridLayoutWidgetsText      `json:"text"`
 	Blank     *DashboardGridLayoutWidgetsBlank     `json:"blank"`
+	LogsPanel *DashboardGridLayoutWidgetsLogsPanel `json:"logsPanel"`
 }
 
 type jsonDashboardGridLayoutWidgets DashboardGridLayoutWidgets
@@ -4225,6 +4226,8 @@ func (r *DashboardGridLayoutWidgets) UnmarshalJSON(data []byte) error {
 		r.Text = res.Text
 
 		r.Blank = res.Blank
+
+		r.LogsPanel = res.LogsPanel
 
 	}
 	return nil
@@ -6149,6 +6152,55 @@ func (r *DashboardGridLayoutWidgetsBlank) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
+type DashboardGridLayoutWidgetsLogsPanel struct {
+	empty         bool     `json:"-"`
+	Filter        *string  `json:"filter"`
+	ResourceNames []string `json:"resourcenames"`
+}
+
+type jsonDashboardGridLayoutWidgetsLogsPanel DashboardGridLayoutWidgetsLogsPanel
+
+func (r *DashboardGridLayoutWidgetsLogsPanel) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardGridLayoutWidgetsLogsPanel
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardGridLayoutWidgetsLogsPanel
+	} else {
+
+		r.Filter = res.Filter
+
+		r.ResourceNames = res.ResourceNames
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardGridLayoutWidgetsLogsPanel is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardGridLayoutWidgetsLogsPanel *DashboardGridLayoutWidgetsLogsPanel = &DashboardGridLayoutWidgetsLogsPanel{empty: true}
+
+func (r *DashboardGridLayoutWidgetsLogsPanel) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardGridLayoutWidgetsLogsPanel) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardGridLayoutWidgetsLogsPanel) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 type DashboardMosaicLayout struct {
 	empty   bool                         `json:"-"`
 	Columns *int64                       `json:"columns"`
@@ -6263,6 +6315,7 @@ type DashboardMosaicLayoutTilesWidget struct {
 	Scorecard *DashboardMosaicLayoutTilesWidgetScorecard `json:"scorecard"`
 	Text      *DashboardMosaicLayoutTilesWidgetText      `json:"text"`
 	Blank     *DashboardMosaicLayoutTilesWidgetBlank     `json:"blank"`
+	LogsPanel *DashboardMosaicLayoutTilesWidgetLogsPanel `json:"logsPanel"`
 }
 
 type jsonDashboardMosaicLayoutTilesWidget DashboardMosaicLayoutTilesWidget
@@ -6289,6 +6342,8 @@ func (r *DashboardMosaicLayoutTilesWidget) UnmarshalJSON(data []byte) error {
 		r.Text = res.Text
 
 		r.Blank = res.Blank
+
+		r.LogsPanel = res.LogsPanel
 
 	}
 	return nil
@@ -8213,6 +8268,55 @@ func (r *DashboardMosaicLayoutTilesWidgetBlank) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
+type DashboardMosaicLayoutTilesWidgetLogsPanel struct {
+	empty         bool     `json:"-"`
+	Filter        *string  `json:"filter"`
+	ResourceNames []string `json:"resourcenames"`
+}
+
+type jsonDashboardMosaicLayoutTilesWidgetLogsPanel DashboardMosaicLayoutTilesWidgetLogsPanel
+
+func (r *DashboardMosaicLayoutTilesWidgetLogsPanel) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardMosaicLayoutTilesWidgetLogsPanel
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardMosaicLayoutTilesWidgetLogsPanel
+	} else {
+
+		r.Filter = res.Filter
+
+		r.ResourceNames = res.ResourceNames
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardMosaicLayoutTilesWidgetLogsPanel is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardMosaicLayoutTilesWidgetLogsPanel *DashboardMosaicLayoutTilesWidgetLogsPanel = &DashboardMosaicLayoutTilesWidgetLogsPanel{empty: true}
+
+func (r *DashboardMosaicLayoutTilesWidgetLogsPanel) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetLogsPanel) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardMosaicLayoutTilesWidgetLogsPanel) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 type DashboardRowLayout struct {
 	empty bool                     `json:"-"`
 	Rows  []DashboardRowLayoutRows `json:"rows"`
@@ -8315,6 +8419,7 @@ type DashboardRowLayoutRowsWidgets struct {
 	Scorecard *DashboardRowLayoutRowsWidgetsScorecard `json:"scorecard"`
 	Text      *DashboardRowLayoutRowsWidgetsText      `json:"text"`
 	Blank     *DashboardRowLayoutRowsWidgetsBlank     `json:"blank"`
+	LogsPanel *DashboardRowLayoutRowsWidgetsLogsPanel `json:"logsPanel"`
 }
 
 type jsonDashboardRowLayoutRowsWidgets DashboardRowLayoutRowsWidgets
@@ -8341,6 +8446,8 @@ func (r *DashboardRowLayoutRowsWidgets) UnmarshalJSON(data []byte) error {
 		r.Text = res.Text
 
 		r.Blank = res.Blank
+
+		r.LogsPanel = res.LogsPanel
 
 	}
 	return nil
@@ -10265,6 +10372,55 @@ func (r *DashboardRowLayoutRowsWidgetsBlank) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
+type DashboardRowLayoutRowsWidgetsLogsPanel struct {
+	empty         bool     `json:"-"`
+	Filter        *string  `json:"filter"`
+	ResourceNames []string `json:"resourcenames"`
+}
+
+type jsonDashboardRowLayoutRowsWidgetsLogsPanel DashboardRowLayoutRowsWidgetsLogsPanel
+
+func (r *DashboardRowLayoutRowsWidgetsLogsPanel) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardRowLayoutRowsWidgetsLogsPanel
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardRowLayoutRowsWidgetsLogsPanel
+	} else {
+
+		r.Filter = res.Filter
+
+		r.ResourceNames = res.ResourceNames
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardRowLayoutRowsWidgetsLogsPanel is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardRowLayoutRowsWidgetsLogsPanel *DashboardRowLayoutRowsWidgetsLogsPanel = &DashboardRowLayoutRowsWidgetsLogsPanel{empty: true}
+
+func (r *DashboardRowLayoutRowsWidgetsLogsPanel) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardRowLayoutRowsWidgetsLogsPanel) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardRowLayoutRowsWidgetsLogsPanel) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 type DashboardColumnLayout struct {
 	empty   bool                           `json:"-"`
 	Columns []DashboardColumnLayoutColumns `json:"columns"`
@@ -10367,6 +10523,7 @@ type DashboardColumnLayoutColumnsWidgets struct {
 	Scorecard *DashboardColumnLayoutColumnsWidgetsScorecard `json:"scorecard"`
 	Text      *DashboardColumnLayoutColumnsWidgetsText      `json:"text"`
 	Blank     *DashboardColumnLayoutColumnsWidgetsBlank     `json:"blank"`
+	LogsPanel *DashboardColumnLayoutColumnsWidgetsLogsPanel `json:"logsPanel"`
 }
 
 type jsonDashboardColumnLayoutColumnsWidgets DashboardColumnLayoutColumnsWidgets
@@ -10393,6 +10550,8 @@ func (r *DashboardColumnLayoutColumnsWidgets) UnmarshalJSON(data []byte) error {
 		r.Text = res.Text
 
 		r.Blank = res.Blank
+
+		r.LogsPanel = res.LogsPanel
 
 	}
 	return nil
@@ -12311,6 +12470,55 @@ func (r *DashboardColumnLayoutColumnsWidgetsBlank) String() string {
 }
 
 func (r *DashboardColumnLayoutColumnsWidgetsBlank) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DashboardColumnLayoutColumnsWidgetsLogsPanel struct {
+	empty         bool     `json:"-"`
+	Filter        *string  `json:"filter"`
+	ResourceNames []string `json:"resourcenames"`
+}
+
+type jsonDashboardColumnLayoutColumnsWidgetsLogsPanel DashboardColumnLayoutColumnsWidgetsLogsPanel
+
+func (r *DashboardColumnLayoutColumnsWidgetsLogsPanel) UnmarshalJSON(data []byte) error {
+	var res jsonDashboardColumnLayoutColumnsWidgetsLogsPanel
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDashboardColumnLayoutColumnsWidgetsLogsPanel
+	} else {
+
+		r.Filter = res.Filter
+
+		r.ResourceNames = res.ResourceNames
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DashboardColumnLayoutColumnsWidgetsLogsPanel is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDashboardColumnLayoutColumnsWidgetsLogsPanel *DashboardColumnLayoutColumnsWidgetsLogsPanel = &DashboardColumnLayoutColumnsWidgetsLogsPanel{empty: true}
+
+func (r *DashboardColumnLayoutColumnsWidgetsLogsPanel) Empty() bool {
+	return r.empty
+}
+
+func (r *DashboardColumnLayoutColumnsWidgetsLogsPanel) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DashboardColumnLayoutColumnsWidgetsLogsPanel) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

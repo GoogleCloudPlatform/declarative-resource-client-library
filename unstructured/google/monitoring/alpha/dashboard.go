@@ -47,6 +47,18 @@ func DashboardToUnstructured(r *dclService.Dashboard) *unstructured.Resource {
 					rColumnLayoutColumnsValWidgetsValBlank := make(map[string]interface{})
 					rColumnLayoutColumnsValWidgetsObject["blank"] = rColumnLayoutColumnsValWidgetsValBlank
 				}
+				if rColumnLayoutColumnsValWidgetsVal.LogsPanel != nil && rColumnLayoutColumnsValWidgetsVal.LogsPanel != dclService.EmptyDashboardColumnLayoutColumnsWidgetsLogsPanel {
+					rColumnLayoutColumnsValWidgetsValLogsPanel := make(map[string]interface{})
+					if rColumnLayoutColumnsValWidgetsVal.LogsPanel.Filter != nil {
+						rColumnLayoutColumnsValWidgetsValLogsPanel["filter"] = *rColumnLayoutColumnsValWidgetsVal.LogsPanel.Filter
+					}
+					var rColumnLayoutColumnsValWidgetsValLogsPanelResourceNames []interface{}
+					for _, rColumnLayoutColumnsValWidgetsValLogsPanelResourceNamesVal := range rColumnLayoutColumnsValWidgetsVal.LogsPanel.ResourceNames {
+						rColumnLayoutColumnsValWidgetsValLogsPanelResourceNames = append(rColumnLayoutColumnsValWidgetsValLogsPanelResourceNames, rColumnLayoutColumnsValWidgetsValLogsPanelResourceNamesVal)
+					}
+					rColumnLayoutColumnsValWidgetsValLogsPanel["resourcenames"] = rColumnLayoutColumnsValWidgetsValLogsPanelResourceNames
+					rColumnLayoutColumnsValWidgetsObject["logsPanel"] = rColumnLayoutColumnsValWidgetsValLogsPanel
+				}
 				if rColumnLayoutColumnsValWidgetsVal.Scorecard != nil && rColumnLayoutColumnsValWidgetsVal.Scorecard != dclService.EmptyDashboardColumnLayoutColumnsWidgetsScorecard {
 					rColumnLayoutColumnsValWidgetsValScorecard := make(map[string]interface{})
 					if rColumnLayoutColumnsValWidgetsVal.Scorecard.GaugeView != nil && rColumnLayoutColumnsValWidgetsVal.Scorecard.GaugeView != dclService.EmptyDashboardColumnLayoutColumnsWidgetsScorecardGaugeView {
@@ -497,6 +509,18 @@ func DashboardToUnstructured(r *dclService.Dashboard) *unstructured.Resource {
 				rGridLayoutWidgetsValBlank := make(map[string]interface{})
 				rGridLayoutWidgetsObject["blank"] = rGridLayoutWidgetsValBlank
 			}
+			if rGridLayoutWidgetsVal.LogsPanel != nil && rGridLayoutWidgetsVal.LogsPanel != dclService.EmptyDashboardGridLayoutWidgetsLogsPanel {
+				rGridLayoutWidgetsValLogsPanel := make(map[string]interface{})
+				if rGridLayoutWidgetsVal.LogsPanel.Filter != nil {
+					rGridLayoutWidgetsValLogsPanel["filter"] = *rGridLayoutWidgetsVal.LogsPanel.Filter
+				}
+				var rGridLayoutWidgetsValLogsPanelResourceNames []interface{}
+				for _, rGridLayoutWidgetsValLogsPanelResourceNamesVal := range rGridLayoutWidgetsVal.LogsPanel.ResourceNames {
+					rGridLayoutWidgetsValLogsPanelResourceNames = append(rGridLayoutWidgetsValLogsPanelResourceNames, rGridLayoutWidgetsValLogsPanelResourceNamesVal)
+				}
+				rGridLayoutWidgetsValLogsPanel["resourcenames"] = rGridLayoutWidgetsValLogsPanelResourceNames
+				rGridLayoutWidgetsObject["logsPanel"] = rGridLayoutWidgetsValLogsPanel
+			}
 			if rGridLayoutWidgetsVal.Scorecard != nil && rGridLayoutWidgetsVal.Scorecard != dclService.EmptyDashboardGridLayoutWidgetsScorecard {
 				rGridLayoutWidgetsValScorecard := make(map[string]interface{})
 				if rGridLayoutWidgetsVal.Scorecard.GaugeView != nil && rGridLayoutWidgetsVal.Scorecard.GaugeView != dclService.EmptyDashboardGridLayoutWidgetsScorecardGaugeView {
@@ -942,6 +966,18 @@ func DashboardToUnstructured(r *dclService.Dashboard) *unstructured.Resource {
 				if rMosaicLayoutTilesVal.Widget.Blank != nil && rMosaicLayoutTilesVal.Widget.Blank != dclService.EmptyDashboardMosaicLayoutTilesWidgetBlank {
 					rMosaicLayoutTilesValWidgetBlank := make(map[string]interface{})
 					rMosaicLayoutTilesValWidget["blank"] = rMosaicLayoutTilesValWidgetBlank
+				}
+				if rMosaicLayoutTilesVal.Widget.LogsPanel != nil && rMosaicLayoutTilesVal.Widget.LogsPanel != dclService.EmptyDashboardMosaicLayoutTilesWidgetLogsPanel {
+					rMosaicLayoutTilesValWidgetLogsPanel := make(map[string]interface{})
+					if rMosaicLayoutTilesVal.Widget.LogsPanel.Filter != nil {
+						rMosaicLayoutTilesValWidgetLogsPanel["filter"] = *rMosaicLayoutTilesVal.Widget.LogsPanel.Filter
+					}
+					var rMosaicLayoutTilesValWidgetLogsPanelResourceNames []interface{}
+					for _, rMosaicLayoutTilesValWidgetLogsPanelResourceNamesVal := range rMosaicLayoutTilesVal.Widget.LogsPanel.ResourceNames {
+						rMosaicLayoutTilesValWidgetLogsPanelResourceNames = append(rMosaicLayoutTilesValWidgetLogsPanelResourceNames, rMosaicLayoutTilesValWidgetLogsPanelResourceNamesVal)
+					}
+					rMosaicLayoutTilesValWidgetLogsPanel["resourcenames"] = rMosaicLayoutTilesValWidgetLogsPanelResourceNames
+					rMosaicLayoutTilesValWidget["logsPanel"] = rMosaicLayoutTilesValWidgetLogsPanel
 				}
 				if rMosaicLayoutTilesVal.Widget.Scorecard != nil && rMosaicLayoutTilesVal.Widget.Scorecard != dclService.EmptyDashboardMosaicLayoutTilesWidgetScorecard {
 					rMosaicLayoutTilesValWidgetScorecard := make(map[string]interface{})
@@ -1403,6 +1439,18 @@ func DashboardToUnstructured(r *dclService.Dashboard) *unstructured.Resource {
 				if rRowLayoutRowsValWidgetsVal.Blank != nil && rRowLayoutRowsValWidgetsVal.Blank != dclService.EmptyDashboardRowLayoutRowsWidgetsBlank {
 					rRowLayoutRowsValWidgetsValBlank := make(map[string]interface{})
 					rRowLayoutRowsValWidgetsObject["blank"] = rRowLayoutRowsValWidgetsValBlank
+				}
+				if rRowLayoutRowsValWidgetsVal.LogsPanel != nil && rRowLayoutRowsValWidgetsVal.LogsPanel != dclService.EmptyDashboardRowLayoutRowsWidgetsLogsPanel {
+					rRowLayoutRowsValWidgetsValLogsPanel := make(map[string]interface{})
+					if rRowLayoutRowsValWidgetsVal.LogsPanel.Filter != nil {
+						rRowLayoutRowsValWidgetsValLogsPanel["filter"] = *rRowLayoutRowsValWidgetsVal.LogsPanel.Filter
+					}
+					var rRowLayoutRowsValWidgetsValLogsPanelResourceNames []interface{}
+					for _, rRowLayoutRowsValWidgetsValLogsPanelResourceNamesVal := range rRowLayoutRowsValWidgetsVal.LogsPanel.ResourceNames {
+						rRowLayoutRowsValWidgetsValLogsPanelResourceNames = append(rRowLayoutRowsValWidgetsValLogsPanelResourceNames, rRowLayoutRowsValWidgetsValLogsPanelResourceNamesVal)
+					}
+					rRowLayoutRowsValWidgetsValLogsPanel["resourcenames"] = rRowLayoutRowsValWidgetsValLogsPanelResourceNames
+					rRowLayoutRowsValWidgetsObject["logsPanel"] = rRowLayoutRowsValWidgetsValLogsPanel
 				}
 				if rRowLayoutRowsValWidgetsVal.Scorecard != nil && rRowLayoutRowsValWidgetsVal.Scorecard != dclService.EmptyDashboardRowLayoutRowsWidgetsScorecard {
 					rRowLayoutRowsValWidgetsValScorecard := make(map[string]interface{})
@@ -1866,6 +1914,31 @@ func UnstructuredToDashboard(u *unstructured.Resource) (*dclService.Dashboard, e
 													rColumnLayoutColumnsWidgets.Blank = &dclService.DashboardColumnLayoutColumnsWidgetsBlank{}
 												} else {
 													return nil, fmt.Errorf("rColumnLayoutColumnsWidgets.Blank: expected map[string]interface{}")
+												}
+											}
+											if _, ok := objval["logsPanel"]; ok {
+												if rColumnLayoutColumnsWidgetsLogsPanel, ok := objval["logsPanel"].(map[string]interface{}); ok {
+													rColumnLayoutColumnsWidgets.LogsPanel = &dclService.DashboardColumnLayoutColumnsWidgetsLogsPanel{}
+													if _, ok := rColumnLayoutColumnsWidgetsLogsPanel["filter"]; ok {
+														if s, ok := rColumnLayoutColumnsWidgetsLogsPanel["filter"].(string); ok {
+															rColumnLayoutColumnsWidgets.LogsPanel.Filter = dcl.String(s)
+														} else {
+															return nil, fmt.Errorf("rColumnLayoutColumnsWidgets.LogsPanel.Filter: expected string")
+														}
+													}
+													if _, ok := rColumnLayoutColumnsWidgetsLogsPanel["resourcenames"]; ok {
+														if s, ok := rColumnLayoutColumnsWidgetsLogsPanel["resourcenames"].([]interface{}); ok {
+															for _, ss := range s {
+																if strval, ok := ss.(string); ok {
+																	rColumnLayoutColumnsWidgets.LogsPanel.ResourceNames = append(rColumnLayoutColumnsWidgets.LogsPanel.ResourceNames, strval)
+																}
+															}
+														} else {
+															return nil, fmt.Errorf("rColumnLayoutColumnsWidgets.LogsPanel.ResourceNames: expected []interface{}")
+														}
+													}
+												} else {
+													return nil, fmt.Errorf("rColumnLayoutColumnsWidgets.LogsPanel: expected map[string]interface{}")
 												}
 											}
 											if _, ok := objval["scorecard"]; ok {
@@ -2824,6 +2897,31 @@ func UnstructuredToDashboard(u *unstructured.Resource) (*dclService.Dashboard, e
 									return nil, fmt.Errorf("rGridLayoutWidgets.Blank: expected map[string]interface{}")
 								}
 							}
+							if _, ok := objval["logsPanel"]; ok {
+								if rGridLayoutWidgetsLogsPanel, ok := objval["logsPanel"].(map[string]interface{}); ok {
+									rGridLayoutWidgets.LogsPanel = &dclService.DashboardGridLayoutWidgetsLogsPanel{}
+									if _, ok := rGridLayoutWidgetsLogsPanel["filter"]; ok {
+										if s, ok := rGridLayoutWidgetsLogsPanel["filter"].(string); ok {
+											rGridLayoutWidgets.LogsPanel.Filter = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("rGridLayoutWidgets.LogsPanel.Filter: expected string")
+										}
+									}
+									if _, ok := rGridLayoutWidgetsLogsPanel["resourcenames"]; ok {
+										if s, ok := rGridLayoutWidgetsLogsPanel["resourcenames"].([]interface{}); ok {
+											for _, ss := range s {
+												if strval, ok := ss.(string); ok {
+													rGridLayoutWidgets.LogsPanel.ResourceNames = append(rGridLayoutWidgets.LogsPanel.ResourceNames, strval)
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("rGridLayoutWidgets.LogsPanel.ResourceNames: expected []interface{}")
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("rGridLayoutWidgets.LogsPanel: expected map[string]interface{}")
+								}
+							}
 							if _, ok := objval["scorecard"]; ok {
 								if rGridLayoutWidgetsScorecard, ok := objval["scorecard"].(map[string]interface{}); ok {
 									rGridLayoutWidgets.Scorecard = &dclService.DashboardGridLayoutWidgetsScorecard{}
@@ -3767,6 +3865,31 @@ func UnstructuredToDashboard(u *unstructured.Resource) (*dclService.Dashboard, e
 											rMosaicLayoutTiles.Widget.Blank = &dclService.DashboardMosaicLayoutTilesWidgetBlank{}
 										} else {
 											return nil, fmt.Errorf("rMosaicLayoutTiles.Widget.Blank: expected map[string]interface{}")
+										}
+									}
+									if _, ok := rMosaicLayoutTilesWidget["logsPanel"]; ok {
+										if rMosaicLayoutTilesWidgetLogsPanel, ok := rMosaicLayoutTilesWidget["logsPanel"].(map[string]interface{}); ok {
+											rMosaicLayoutTiles.Widget.LogsPanel = &dclService.DashboardMosaicLayoutTilesWidgetLogsPanel{}
+											if _, ok := rMosaicLayoutTilesWidgetLogsPanel["filter"]; ok {
+												if s, ok := rMosaicLayoutTilesWidgetLogsPanel["filter"].(string); ok {
+													rMosaicLayoutTiles.Widget.LogsPanel.Filter = dcl.String(s)
+												} else {
+													return nil, fmt.Errorf("rMosaicLayoutTiles.Widget.LogsPanel.Filter: expected string")
+												}
+											}
+											if _, ok := rMosaicLayoutTilesWidgetLogsPanel["resourcenames"]; ok {
+												if s, ok := rMosaicLayoutTilesWidgetLogsPanel["resourcenames"].([]interface{}); ok {
+													for _, ss := range s {
+														if strval, ok := ss.(string); ok {
+															rMosaicLayoutTiles.Widget.LogsPanel.ResourceNames = append(rMosaicLayoutTiles.Widget.LogsPanel.ResourceNames, strval)
+														}
+													}
+												} else {
+													return nil, fmt.Errorf("rMosaicLayoutTiles.Widget.LogsPanel.ResourceNames: expected []interface{}")
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("rMosaicLayoutTiles.Widget.LogsPanel: expected map[string]interface{}")
 										}
 									}
 									if _, ok := rMosaicLayoutTilesWidget["scorecard"]; ok {
@@ -4746,6 +4869,31 @@ func UnstructuredToDashboard(u *unstructured.Resource) (*dclService.Dashboard, e
 													rRowLayoutRowsWidgets.Blank = &dclService.DashboardRowLayoutRowsWidgetsBlank{}
 												} else {
 													return nil, fmt.Errorf("rRowLayoutRowsWidgets.Blank: expected map[string]interface{}")
+												}
+											}
+											if _, ok := objval["logsPanel"]; ok {
+												if rRowLayoutRowsWidgetsLogsPanel, ok := objval["logsPanel"].(map[string]interface{}); ok {
+													rRowLayoutRowsWidgets.LogsPanel = &dclService.DashboardRowLayoutRowsWidgetsLogsPanel{}
+													if _, ok := rRowLayoutRowsWidgetsLogsPanel["filter"]; ok {
+														if s, ok := rRowLayoutRowsWidgetsLogsPanel["filter"].(string); ok {
+															rRowLayoutRowsWidgets.LogsPanel.Filter = dcl.String(s)
+														} else {
+															return nil, fmt.Errorf("rRowLayoutRowsWidgets.LogsPanel.Filter: expected string")
+														}
+													}
+													if _, ok := rRowLayoutRowsWidgetsLogsPanel["resourcenames"]; ok {
+														if s, ok := rRowLayoutRowsWidgetsLogsPanel["resourcenames"].([]interface{}); ok {
+															for _, ss := range s {
+																if strval, ok := ss.(string); ok {
+																	rRowLayoutRowsWidgets.LogsPanel.ResourceNames = append(rRowLayoutRowsWidgets.LogsPanel.ResourceNames, strval)
+																}
+															}
+														} else {
+															return nil, fmt.Errorf("rRowLayoutRowsWidgets.LogsPanel.ResourceNames: expected []interface{}")
+														}
+													}
+												} else {
+													return nil, fmt.Errorf("rRowLayoutRowsWidgets.LogsPanel: expected map[string]interface{}")
 												}
 											}
 											if _, ok := objval["scorecard"]; ok {

@@ -2399,6 +2399,7 @@ message MonitoringDashboardGridLayoutWidgets {
   MonitoringDashboardGridLayoutWidgetsScorecard scorecard = 3;
   MonitoringDashboardGridLayoutWidgetsText text = 4;
   MonitoringDashboardGridLayoutWidgetsBlank blank = 5;
+  MonitoringDashboardGridLayoutWidgetsLogsPanel logs_panel = 6;
 }
 
 message MonitoringDashboardGridLayoutWidgetsXyChart {
@@ -2626,6 +2627,11 @@ message MonitoringDashboardGridLayoutWidgetsText {
 message MonitoringDashboardGridLayoutWidgetsBlank {
 }
 
+message MonitoringDashboardGridLayoutWidgetsLogsPanel {
+  string filter = 1;
+  repeated string resourceNames = 2;
+}
+
 message MonitoringDashboardMosaicLayout {
   int64 columns = 1;
   repeated MonitoringDashboardMosaicLayoutTiles tiles = 2;
@@ -2645,6 +2651,7 @@ message MonitoringDashboardMosaicLayoutTilesWidget {
   MonitoringDashboardMosaicLayoutTilesWidgetScorecard scorecard = 3;
   MonitoringDashboardMosaicLayoutTilesWidgetText text = 4;
   MonitoringDashboardMosaicLayoutTilesWidgetBlank blank = 5;
+  MonitoringDashboardMosaicLayoutTilesWidgetLogsPanel logs_panel = 6;
 }
 
 message MonitoringDashboardMosaicLayoutTilesWidgetXyChart {
@@ -2872,6 +2879,11 @@ message MonitoringDashboardMosaicLayoutTilesWidgetText {
 message MonitoringDashboardMosaicLayoutTilesWidgetBlank {
 }
 
+message MonitoringDashboardMosaicLayoutTilesWidgetLogsPanel {
+  string filter = 1;
+  repeated string resourceNames = 2;
+}
+
 message MonitoringDashboardRowLayout {
   repeated MonitoringDashboardRowLayoutRows rows = 1;
 }
@@ -2887,6 +2899,7 @@ message MonitoringDashboardRowLayoutRowsWidgets {
   MonitoringDashboardRowLayoutRowsWidgetsScorecard scorecard = 3;
   MonitoringDashboardRowLayoutRowsWidgetsText text = 4;
   MonitoringDashboardRowLayoutRowsWidgetsBlank blank = 5;
+  MonitoringDashboardRowLayoutRowsWidgetsLogsPanel logs_panel = 6;
 }
 
 message MonitoringDashboardRowLayoutRowsWidgetsXyChart {
@@ -3114,6 +3127,11 @@ message MonitoringDashboardRowLayoutRowsWidgetsText {
 message MonitoringDashboardRowLayoutRowsWidgetsBlank {
 }
 
+message MonitoringDashboardRowLayoutRowsWidgetsLogsPanel {
+  string filter = 1;
+  repeated string resourceNames = 2;
+}
+
 message MonitoringDashboardColumnLayout {
   repeated MonitoringDashboardColumnLayoutColumns columns = 1;
 }
@@ -3129,6 +3147,7 @@ message MonitoringDashboardColumnLayoutColumnsWidgets {
   MonitoringDashboardColumnLayoutColumnsWidgetsScorecard scorecard = 3;
   MonitoringDashboardColumnLayoutColumnsWidgetsText text = 4;
   MonitoringDashboardColumnLayoutColumnsWidgetsBlank blank = 5;
+  MonitoringDashboardColumnLayoutColumnsWidgetsLogsPanel logs_panel = 6;
 }
 
 message MonitoringDashboardColumnLayoutColumnsWidgetsXyChart {
@@ -3354,6 +3373,11 @@ message MonitoringDashboardColumnLayoutColumnsWidgetsText {
 }
 
 message MonitoringDashboardColumnLayoutColumnsWidgetsBlank {
+}
+
+message MonitoringDashboardColumnLayoutColumnsWidgetsLogsPanel {
+  string filter = 1;
+  repeated string resourceNames = 2;
 }
 
 message ApplyMonitoringDashboardRequest {

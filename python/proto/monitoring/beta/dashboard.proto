@@ -2399,6 +2399,7 @@ message MonitoringBetaDashboardGridLayoutWidgets {
   MonitoringBetaDashboardGridLayoutWidgetsScorecard scorecard = 3;
   MonitoringBetaDashboardGridLayoutWidgetsText text = 4;
   MonitoringBetaDashboardGridLayoutWidgetsBlank blank = 5;
+  MonitoringBetaDashboardGridLayoutWidgetsLogsPanel logs_panel = 6;
 }
 
 message MonitoringBetaDashboardGridLayoutWidgetsXyChart {
@@ -2626,6 +2627,11 @@ message MonitoringBetaDashboardGridLayoutWidgetsText {
 message MonitoringBetaDashboardGridLayoutWidgetsBlank {
 }
 
+message MonitoringBetaDashboardGridLayoutWidgetsLogsPanel {
+  string filter = 1;
+  repeated string resourceNames = 2;
+}
+
 message MonitoringBetaDashboardMosaicLayout {
   int64 columns = 1;
   repeated MonitoringBetaDashboardMosaicLayoutTiles tiles = 2;
@@ -2645,6 +2651,7 @@ message MonitoringBetaDashboardMosaicLayoutTilesWidget {
   MonitoringBetaDashboardMosaicLayoutTilesWidgetScorecard scorecard = 3;
   MonitoringBetaDashboardMosaicLayoutTilesWidgetText text = 4;
   MonitoringBetaDashboardMosaicLayoutTilesWidgetBlank blank = 5;
+  MonitoringBetaDashboardMosaicLayoutTilesWidgetLogsPanel logs_panel = 6;
 }
 
 message MonitoringBetaDashboardMosaicLayoutTilesWidgetXyChart {
@@ -2872,6 +2879,11 @@ message MonitoringBetaDashboardMosaicLayoutTilesWidgetText {
 message MonitoringBetaDashboardMosaicLayoutTilesWidgetBlank {
 }
 
+message MonitoringBetaDashboardMosaicLayoutTilesWidgetLogsPanel {
+  string filter = 1;
+  repeated string resourceNames = 2;
+}
+
 message MonitoringBetaDashboardRowLayout {
   repeated MonitoringBetaDashboardRowLayoutRows rows = 1;
 }
@@ -2887,6 +2899,7 @@ message MonitoringBetaDashboardRowLayoutRowsWidgets {
   MonitoringBetaDashboardRowLayoutRowsWidgetsScorecard scorecard = 3;
   MonitoringBetaDashboardRowLayoutRowsWidgetsText text = 4;
   MonitoringBetaDashboardRowLayoutRowsWidgetsBlank blank = 5;
+  MonitoringBetaDashboardRowLayoutRowsWidgetsLogsPanel logs_panel = 6;
 }
 
 message MonitoringBetaDashboardRowLayoutRowsWidgetsXyChart {
@@ -3114,6 +3127,11 @@ message MonitoringBetaDashboardRowLayoutRowsWidgetsText {
 message MonitoringBetaDashboardRowLayoutRowsWidgetsBlank {
 }
 
+message MonitoringBetaDashboardRowLayoutRowsWidgetsLogsPanel {
+  string filter = 1;
+  repeated string resourceNames = 2;
+}
+
 message MonitoringBetaDashboardColumnLayout {
   repeated MonitoringBetaDashboardColumnLayoutColumns columns = 1;
 }
@@ -3129,6 +3147,7 @@ message MonitoringBetaDashboardColumnLayoutColumnsWidgets {
   MonitoringBetaDashboardColumnLayoutColumnsWidgetsScorecard scorecard = 3;
   MonitoringBetaDashboardColumnLayoutColumnsWidgetsText text = 4;
   MonitoringBetaDashboardColumnLayoutColumnsWidgetsBlank blank = 5;
+  MonitoringBetaDashboardColumnLayoutColumnsWidgetsLogsPanel logs_panel = 6;
 }
 
 message MonitoringBetaDashboardColumnLayoutColumnsWidgetsXyChart {
@@ -3354,6 +3373,11 @@ message MonitoringBetaDashboardColumnLayoutColumnsWidgetsText {
 }
 
 message MonitoringBetaDashboardColumnLayoutColumnsWidgetsBlank {
+}
+
+message MonitoringBetaDashboardColumnLayoutColumnsWidgetsLogsPanel {
+  string filter = 1;
+  repeated string resourceNames = 2;
 }
 
 message ApplyMonitoringBetaDashboardRequest {

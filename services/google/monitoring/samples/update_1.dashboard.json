@@ -47,6 +47,14 @@
                 }
               ]
             }
+          },
+          {
+            "logsPanel": {
+              "filter": "project = {{project}}\nmetric.type = \"some_metric_type\"",
+              "resourceNames":[
+               "projects/{{project}}"
+              ]
+            }
           }
         ]
       }

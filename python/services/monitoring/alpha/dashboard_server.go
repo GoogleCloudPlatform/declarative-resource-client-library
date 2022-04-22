@@ -1873,6 +1873,7 @@ func ProtoToMonitoringAlphaDashboardGridLayoutWidgets(p *alphapb.MonitoringAlpha
 		Scorecard: ProtoToMonitoringAlphaDashboardGridLayoutWidgetsScorecard(p.GetScorecard()),
 		Text:      ProtoToMonitoringAlphaDashboardGridLayoutWidgetsText(p.GetText()),
 		Blank:     ProtoToMonitoringAlphaDashboardGridLayoutWidgetsBlank(p.GetBlank()),
+		LogsPanel: ProtoToMonitoringAlphaDashboardGridLayoutWidgetsLogsPanel(p.GetLogsPanel()),
 	}
 	return obj
 }
@@ -2379,6 +2380,20 @@ func ProtoToMonitoringAlphaDashboardGridLayoutWidgetsBlank(p *alphapb.Monitoring
 	return obj
 }
 
+// ProtoToDashboardGridLayoutWidgetsLogsPanel converts a DashboardGridLayoutWidgetsLogsPanel object from its proto representation.
+func ProtoToMonitoringAlphaDashboardGridLayoutWidgetsLogsPanel(p *alphapb.MonitoringAlphaDashboardGridLayoutWidgetsLogsPanel) *alpha.DashboardGridLayoutWidgetsLogsPanel {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.DashboardGridLayoutWidgetsLogsPanel{
+		Filter: dcl.StringOrNil(p.GetFilter()),
+	}
+	for _, r := range p.GetResourceNames() {
+		obj.ResourceNames = append(obj.ResourceNames, r)
+	}
+	return obj
+}
+
 // ProtoToDashboardMosaicLayout converts a DashboardMosaicLayout object from its proto representation.
 func ProtoToMonitoringAlphaDashboardMosaicLayout(p *alphapb.MonitoringAlphaDashboardMosaicLayout) *alpha.DashboardMosaicLayout {
 	if p == nil {
@@ -2419,6 +2434,7 @@ func ProtoToMonitoringAlphaDashboardMosaicLayoutTilesWidget(p *alphapb.Monitorin
 		Scorecard: ProtoToMonitoringAlphaDashboardMosaicLayoutTilesWidgetScorecard(p.GetScorecard()),
 		Text:      ProtoToMonitoringAlphaDashboardMosaicLayoutTilesWidgetText(p.GetText()),
 		Blank:     ProtoToMonitoringAlphaDashboardMosaicLayoutTilesWidgetBlank(p.GetBlank()),
+		LogsPanel: ProtoToMonitoringAlphaDashboardMosaicLayoutTilesWidgetLogsPanel(p.GetLogsPanel()),
 	}
 	return obj
 }
@@ -2925,6 +2941,20 @@ func ProtoToMonitoringAlphaDashboardMosaicLayoutTilesWidgetBlank(p *alphapb.Moni
 	return obj
 }
 
+// ProtoToDashboardMosaicLayoutTilesWidgetLogsPanel converts a DashboardMosaicLayoutTilesWidgetLogsPanel object from its proto representation.
+func ProtoToMonitoringAlphaDashboardMosaicLayoutTilesWidgetLogsPanel(p *alphapb.MonitoringAlphaDashboardMosaicLayoutTilesWidgetLogsPanel) *alpha.DashboardMosaicLayoutTilesWidgetLogsPanel {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.DashboardMosaicLayoutTilesWidgetLogsPanel{
+		Filter: dcl.StringOrNil(p.GetFilter()),
+	}
+	for _, r := range p.GetResourceNames() {
+		obj.ResourceNames = append(obj.ResourceNames, r)
+	}
+	return obj
+}
+
 // ProtoToDashboardRowLayout converts a DashboardRowLayout object from its proto representation.
 func ProtoToMonitoringAlphaDashboardRowLayout(p *alphapb.MonitoringAlphaDashboardRowLayout) *alpha.DashboardRowLayout {
 	if p == nil {
@@ -2962,6 +2992,7 @@ func ProtoToMonitoringAlphaDashboardRowLayoutRowsWidgets(p *alphapb.MonitoringAl
 		Scorecard: ProtoToMonitoringAlphaDashboardRowLayoutRowsWidgetsScorecard(p.GetScorecard()),
 		Text:      ProtoToMonitoringAlphaDashboardRowLayoutRowsWidgetsText(p.GetText()),
 		Blank:     ProtoToMonitoringAlphaDashboardRowLayoutRowsWidgetsBlank(p.GetBlank()),
+		LogsPanel: ProtoToMonitoringAlphaDashboardRowLayoutRowsWidgetsLogsPanel(p.GetLogsPanel()),
 	}
 	return obj
 }
@@ -3468,6 +3499,20 @@ func ProtoToMonitoringAlphaDashboardRowLayoutRowsWidgetsBlank(p *alphapb.Monitor
 	return obj
 }
 
+// ProtoToDashboardRowLayoutRowsWidgetsLogsPanel converts a DashboardRowLayoutRowsWidgetsLogsPanel object from its proto representation.
+func ProtoToMonitoringAlphaDashboardRowLayoutRowsWidgetsLogsPanel(p *alphapb.MonitoringAlphaDashboardRowLayoutRowsWidgetsLogsPanel) *alpha.DashboardRowLayoutRowsWidgetsLogsPanel {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.DashboardRowLayoutRowsWidgetsLogsPanel{
+		Filter: dcl.StringOrNil(p.GetFilter()),
+	}
+	for _, r := range p.GetResourceNames() {
+		obj.ResourceNames = append(obj.ResourceNames, r)
+	}
+	return obj
+}
+
 // ProtoToDashboardColumnLayout converts a DashboardColumnLayout object from its proto representation.
 func ProtoToMonitoringAlphaDashboardColumnLayout(p *alphapb.MonitoringAlphaDashboardColumnLayout) *alpha.DashboardColumnLayout {
 	if p == nil {
@@ -3505,6 +3550,7 @@ func ProtoToMonitoringAlphaDashboardColumnLayoutColumnsWidgets(p *alphapb.Monito
 		Scorecard: ProtoToMonitoringAlphaDashboardColumnLayoutColumnsWidgetsScorecard(p.GetScorecard()),
 		Text:      ProtoToMonitoringAlphaDashboardColumnLayoutColumnsWidgetsText(p.GetText()),
 		Blank:     ProtoToMonitoringAlphaDashboardColumnLayoutColumnsWidgetsBlank(p.GetBlank()),
+		LogsPanel: ProtoToMonitoringAlphaDashboardColumnLayoutColumnsWidgetsLogsPanel(p.GetLogsPanel()),
 	}
 	return obj
 }
@@ -4008,6 +4054,20 @@ func ProtoToMonitoringAlphaDashboardColumnLayoutColumnsWidgetsBlank(p *alphapb.M
 		return nil
 	}
 	obj := &alpha.DashboardColumnLayoutColumnsWidgetsBlank{}
+	return obj
+}
+
+// ProtoToDashboardColumnLayoutColumnsWidgetsLogsPanel converts a DashboardColumnLayoutColumnsWidgetsLogsPanel object from its proto representation.
+func ProtoToMonitoringAlphaDashboardColumnLayoutColumnsWidgetsLogsPanel(p *alphapb.MonitoringAlphaDashboardColumnLayoutColumnsWidgetsLogsPanel) *alpha.DashboardColumnLayoutColumnsWidgetsLogsPanel {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.DashboardColumnLayoutColumnsWidgetsLogsPanel{
+		Filter: dcl.StringOrNil(p.GetFilter()),
+	}
+	for _, r := range p.GetResourceNames() {
+		obj.ResourceNames = append(obj.ResourceNames, r)
+	}
 	return obj
 }
 
@@ -5724,6 +5784,7 @@ func MonitoringAlphaDashboardGridLayoutWidgetsToProto(o *alpha.DashboardGridLayo
 	p.SetScorecard(MonitoringAlphaDashboardGridLayoutWidgetsScorecardToProto(o.Scorecard))
 	p.SetText(MonitoringAlphaDashboardGridLayoutWidgetsTextToProto(o.Text))
 	p.SetBlank(MonitoringAlphaDashboardGridLayoutWidgetsBlankToProto(o.Blank))
+	p.SetLogsPanel(MonitoringAlphaDashboardGridLayoutWidgetsLogsPanelToProto(o.LogsPanel))
 	return p
 }
 
@@ -6220,6 +6281,21 @@ func MonitoringAlphaDashboardGridLayoutWidgetsBlankToProto(o *alpha.DashboardGri
 	return p
 }
 
+// DashboardGridLayoutWidgetsLogsPanelToProto converts a DashboardGridLayoutWidgetsLogsPanel object to its proto representation.
+func MonitoringAlphaDashboardGridLayoutWidgetsLogsPanelToProto(o *alpha.DashboardGridLayoutWidgetsLogsPanel) *alphapb.MonitoringAlphaDashboardGridLayoutWidgetsLogsPanel {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.MonitoringAlphaDashboardGridLayoutWidgetsLogsPanel{}
+	p.SetFilter(dcl.ValueOrEmptyString(o.Filter))
+	sResourceNames := make([]string, len(o.ResourceNames))
+	for i, r := range o.ResourceNames {
+		sResourceNames[i] = r
+	}
+	p.SetResourceNames(sResourceNames)
+	return p
+}
+
 // DashboardMosaicLayoutToProto converts a DashboardMosaicLayout object to its proto representation.
 func MonitoringAlphaDashboardMosaicLayoutToProto(o *alpha.DashboardMosaicLayout) *alphapb.MonitoringAlphaDashboardMosaicLayout {
 	if o == nil {
@@ -6260,6 +6336,7 @@ func MonitoringAlphaDashboardMosaicLayoutTilesWidgetToProto(o *alpha.DashboardMo
 	p.SetScorecard(MonitoringAlphaDashboardMosaicLayoutTilesWidgetScorecardToProto(o.Scorecard))
 	p.SetText(MonitoringAlphaDashboardMosaicLayoutTilesWidgetTextToProto(o.Text))
 	p.SetBlank(MonitoringAlphaDashboardMosaicLayoutTilesWidgetBlankToProto(o.Blank))
+	p.SetLogsPanel(MonitoringAlphaDashboardMosaicLayoutTilesWidgetLogsPanelToProto(o.LogsPanel))
 	return p
 }
 
@@ -6756,6 +6833,21 @@ func MonitoringAlphaDashboardMosaicLayoutTilesWidgetBlankToProto(o *alpha.Dashbo
 	return p
 }
 
+// DashboardMosaicLayoutTilesWidgetLogsPanelToProto converts a DashboardMosaicLayoutTilesWidgetLogsPanel object to its proto representation.
+func MonitoringAlphaDashboardMosaicLayoutTilesWidgetLogsPanelToProto(o *alpha.DashboardMosaicLayoutTilesWidgetLogsPanel) *alphapb.MonitoringAlphaDashboardMosaicLayoutTilesWidgetLogsPanel {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.MonitoringAlphaDashboardMosaicLayoutTilesWidgetLogsPanel{}
+	p.SetFilter(dcl.ValueOrEmptyString(o.Filter))
+	sResourceNames := make([]string, len(o.ResourceNames))
+	for i, r := range o.ResourceNames {
+		sResourceNames[i] = r
+	}
+	p.SetResourceNames(sResourceNames)
+	return p
+}
+
 // DashboardRowLayoutToProto converts a DashboardRowLayout object to its proto representation.
 func MonitoringAlphaDashboardRowLayoutToProto(o *alpha.DashboardRowLayout) *alphapb.MonitoringAlphaDashboardRowLayout {
 	if o == nil {
@@ -6796,6 +6888,7 @@ func MonitoringAlphaDashboardRowLayoutRowsWidgetsToProto(o *alpha.DashboardRowLa
 	p.SetScorecard(MonitoringAlphaDashboardRowLayoutRowsWidgetsScorecardToProto(o.Scorecard))
 	p.SetText(MonitoringAlphaDashboardRowLayoutRowsWidgetsTextToProto(o.Text))
 	p.SetBlank(MonitoringAlphaDashboardRowLayoutRowsWidgetsBlankToProto(o.Blank))
+	p.SetLogsPanel(MonitoringAlphaDashboardRowLayoutRowsWidgetsLogsPanelToProto(o.LogsPanel))
 	return p
 }
 
@@ -7292,6 +7385,21 @@ func MonitoringAlphaDashboardRowLayoutRowsWidgetsBlankToProto(o *alpha.Dashboard
 	return p
 }
 
+// DashboardRowLayoutRowsWidgetsLogsPanelToProto converts a DashboardRowLayoutRowsWidgetsLogsPanel object to its proto representation.
+func MonitoringAlphaDashboardRowLayoutRowsWidgetsLogsPanelToProto(o *alpha.DashboardRowLayoutRowsWidgetsLogsPanel) *alphapb.MonitoringAlphaDashboardRowLayoutRowsWidgetsLogsPanel {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.MonitoringAlphaDashboardRowLayoutRowsWidgetsLogsPanel{}
+	p.SetFilter(dcl.ValueOrEmptyString(o.Filter))
+	sResourceNames := make([]string, len(o.ResourceNames))
+	for i, r := range o.ResourceNames {
+		sResourceNames[i] = r
+	}
+	p.SetResourceNames(sResourceNames)
+	return p
+}
+
 // DashboardColumnLayoutToProto converts a DashboardColumnLayout object to its proto representation.
 func MonitoringAlphaDashboardColumnLayoutToProto(o *alpha.DashboardColumnLayout) *alphapb.MonitoringAlphaDashboardColumnLayout {
 	if o == nil {
@@ -7332,6 +7440,7 @@ func MonitoringAlphaDashboardColumnLayoutColumnsWidgetsToProto(o *alpha.Dashboar
 	p.SetScorecard(MonitoringAlphaDashboardColumnLayoutColumnsWidgetsScorecardToProto(o.Scorecard))
 	p.SetText(MonitoringAlphaDashboardColumnLayoutColumnsWidgetsTextToProto(o.Text))
 	p.SetBlank(MonitoringAlphaDashboardColumnLayoutColumnsWidgetsBlankToProto(o.Blank))
+	p.SetLogsPanel(MonitoringAlphaDashboardColumnLayoutColumnsWidgetsLogsPanelToProto(o.LogsPanel))
 	return p
 }
 
@@ -7825,6 +7934,21 @@ func MonitoringAlphaDashboardColumnLayoutColumnsWidgetsBlankToProto(o *alpha.Das
 		return nil
 	}
 	p := &alphapb.MonitoringAlphaDashboardColumnLayoutColumnsWidgetsBlank{}
+	return p
+}
+
+// DashboardColumnLayoutColumnsWidgetsLogsPanelToProto converts a DashboardColumnLayoutColumnsWidgetsLogsPanel object to its proto representation.
+func MonitoringAlphaDashboardColumnLayoutColumnsWidgetsLogsPanelToProto(o *alpha.DashboardColumnLayoutColumnsWidgetsLogsPanel) *alphapb.MonitoringAlphaDashboardColumnLayoutColumnsWidgetsLogsPanel {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.MonitoringAlphaDashboardColumnLayoutColumnsWidgetsLogsPanel{}
+	p.SetFilter(dcl.ValueOrEmptyString(o.Filter))
+	sResourceNames := make([]string, len(o.ResourceNames))
+	for i, r := range o.ResourceNames {
+		sResourceNames[i] = r
+	}
+	p.SetResourceNames(sResourceNames)
 	return p
 }
 

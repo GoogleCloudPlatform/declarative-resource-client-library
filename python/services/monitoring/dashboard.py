@@ -221,12 +221,14 @@ class DashboardGridLayoutWidgets(object):
         scorecard: dict = None,
         text: dict = None,
         blank: dict = None,
+        logs_panel: dict = None,
     ):
         self.title = title
         self.xy_chart = xy_chart
         self.scorecard = scorecard
         self.text = text
         self.blank = blank
+        self.logs_panel = logs_panel
 
     @classmethod
     def to_proto(self, resource):
@@ -256,6 +258,12 @@ class DashboardGridLayoutWidgets(object):
             res.blank.CopyFrom(DashboardGridLayoutWidgetsBlank.to_proto(resource.blank))
         else:
             res.ClearField("blank")
+        if DashboardGridLayoutWidgetsLogsPanel.to_proto(resource.logs_panel):
+            res.logs_panel.CopyFrom(
+                DashboardGridLayoutWidgetsLogsPanel.to_proto(resource.logs_panel)
+            )
+        else:
+            res.ClearField("logs_panel")
         return res
 
     @classmethod
@@ -271,6 +279,9 @@ class DashboardGridLayoutWidgets(object):
             ),
             text=DashboardGridLayoutWidgetsText.from_proto(resource.text),
             blank=DashboardGridLayoutWidgetsBlank.from_proto(resource.blank),
+            logs_panel=DashboardGridLayoutWidgetsLogsPanel.from_proto(
+                resource.logs_panel
+            ),
         )
 
 
@@ -2968,6 +2979,46 @@ class DashboardGridLayoutWidgetsBlankArray(object):
         return [DashboardGridLayoutWidgetsBlank.from_proto(i) for i in resources]
 
 
+class DashboardGridLayoutWidgetsLogsPanel(object):
+    def __init__(self, filter: str = None, resourceNames: list = None):
+        self.filter = filter
+        self.resourceNames = resourceNames
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = dashboard_pb2.MonitoringDashboardGridLayoutWidgetsLogsPanel()
+        if Primitive.to_proto(resource.filter):
+            res.filter = Primitive.to_proto(resource.filter)
+        if Primitive.to_proto(resource.resourceNames):
+            res.resourceNames.extend(Primitive.to_proto(resource.resourceNames))
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DashboardGridLayoutWidgetsLogsPanel(
+            filter=Primitive.from_proto(resource.filter),
+            resourceNames=Primitive.from_proto(resource.resourceNames),
+        )
+
+
+class DashboardGridLayoutWidgetsLogsPanelArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [DashboardGridLayoutWidgetsLogsPanel.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [DashboardGridLayoutWidgetsLogsPanel.from_proto(i) for i in resources]
+
+
 class DashboardMosaicLayout(object):
     def __init__(self, columns: int = None, tiles: list = None):
         self.columns = columns
@@ -3079,12 +3130,14 @@ class DashboardMosaicLayoutTilesWidget(object):
         scorecard: dict = None,
         text: dict = None,
         blank: dict = None,
+        logs_panel: dict = None,
     ):
         self.title = title
         self.xy_chart = xy_chart
         self.scorecard = scorecard
         self.text = text
         self.blank = blank
+        self.logs_panel = logs_panel
 
     @classmethod
     def to_proto(self, resource):
@@ -3118,6 +3171,12 @@ class DashboardMosaicLayoutTilesWidget(object):
             )
         else:
             res.ClearField("blank")
+        if DashboardMosaicLayoutTilesWidgetLogsPanel.to_proto(resource.logs_panel):
+            res.logs_panel.CopyFrom(
+                DashboardMosaicLayoutTilesWidgetLogsPanel.to_proto(resource.logs_panel)
+            )
+        else:
+            res.ClearField("logs_panel")
         return res
 
     @classmethod
@@ -3135,6 +3194,9 @@ class DashboardMosaicLayoutTilesWidget(object):
             ),
             text=DashboardMosaicLayoutTilesWidgetText.from_proto(resource.text),
             blank=DashboardMosaicLayoutTilesWidgetBlank.from_proto(resource.blank),
+            logs_panel=DashboardMosaicLayoutTilesWidgetLogsPanel.from_proto(
+                resource.logs_panel
+            ),
         )
 
 
@@ -5883,6 +5945,50 @@ class DashboardMosaicLayoutTilesWidgetBlankArray(object):
         return [DashboardMosaicLayoutTilesWidgetBlank.from_proto(i) for i in resources]
 
 
+class DashboardMosaicLayoutTilesWidgetLogsPanel(object):
+    def __init__(self, filter: str = None, resourceNames: list = None):
+        self.filter = filter
+        self.resourceNames = resourceNames
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = dashboard_pb2.MonitoringDashboardMosaicLayoutTilesWidgetLogsPanel()
+        if Primitive.to_proto(resource.filter):
+            res.filter = Primitive.to_proto(resource.filter)
+        if Primitive.to_proto(resource.resourceNames):
+            res.resourceNames.extend(Primitive.to_proto(resource.resourceNames))
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DashboardMosaicLayoutTilesWidgetLogsPanel(
+            filter=Primitive.from_proto(resource.filter),
+            resourceNames=Primitive.from_proto(resource.resourceNames),
+        )
+
+
+class DashboardMosaicLayoutTilesWidgetLogsPanelArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            DashboardMosaicLayoutTilesWidgetLogsPanel.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            DashboardMosaicLayoutTilesWidgetLogsPanel.from_proto(i) for i in resources
+        ]
+
+
 class DashboardRowLayout(object):
     def __init__(self, rows: list = None):
         self.rows = rows
@@ -5969,12 +6075,14 @@ class DashboardRowLayoutRowsWidgets(object):
         scorecard: dict = None,
         text: dict = None,
         blank: dict = None,
+        logs_panel: dict = None,
     ):
         self.title = title
         self.xy_chart = xy_chart
         self.scorecard = scorecard
         self.text = text
         self.blank = blank
+        self.logs_panel = logs_panel
 
     @classmethod
     def to_proto(self, resource):
@@ -6006,6 +6114,12 @@ class DashboardRowLayoutRowsWidgets(object):
             )
         else:
             res.ClearField("blank")
+        if DashboardRowLayoutRowsWidgetsLogsPanel.to_proto(resource.logs_panel):
+            res.logs_panel.CopyFrom(
+                DashboardRowLayoutRowsWidgetsLogsPanel.to_proto(resource.logs_panel)
+            )
+        else:
+            res.ClearField("logs_panel")
         return res
 
     @classmethod
@@ -6021,6 +6135,9 @@ class DashboardRowLayoutRowsWidgets(object):
             ),
             text=DashboardRowLayoutRowsWidgetsText.from_proto(resource.text),
             blank=DashboardRowLayoutRowsWidgetsBlank.from_proto(resource.blank),
+            logs_panel=DashboardRowLayoutRowsWidgetsLogsPanel.from_proto(
+                resource.logs_panel
+            ),
         )
 
 
@@ -8748,6 +8865,46 @@ class DashboardRowLayoutRowsWidgetsBlankArray(object):
         return [DashboardRowLayoutRowsWidgetsBlank.from_proto(i) for i in resources]
 
 
+class DashboardRowLayoutRowsWidgetsLogsPanel(object):
+    def __init__(self, filter: str = None, resourceNames: list = None):
+        self.filter = filter
+        self.resourceNames = resourceNames
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = dashboard_pb2.MonitoringDashboardRowLayoutRowsWidgetsLogsPanel()
+        if Primitive.to_proto(resource.filter):
+            res.filter = Primitive.to_proto(resource.filter)
+        if Primitive.to_proto(resource.resourceNames):
+            res.resourceNames.extend(Primitive.to_proto(resource.resourceNames))
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DashboardRowLayoutRowsWidgetsLogsPanel(
+            filter=Primitive.from_proto(resource.filter),
+            resourceNames=Primitive.from_proto(resource.resourceNames),
+        )
+
+
+class DashboardRowLayoutRowsWidgetsLogsPanelArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [DashboardRowLayoutRowsWidgetsLogsPanel.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [DashboardRowLayoutRowsWidgetsLogsPanel.from_proto(i) for i in resources]
+
+
 class DashboardColumnLayout(object):
     def __init__(self, columns: list = None):
         self.columns = columns
@@ -8838,12 +8995,14 @@ class DashboardColumnLayoutColumnsWidgets(object):
         scorecard: dict = None,
         text: dict = None,
         blank: dict = None,
+        logs_panel: dict = None,
     ):
         self.title = title
         self.xy_chart = xy_chart
         self.scorecard = scorecard
         self.text = text
         self.blank = blank
+        self.logs_panel = logs_panel
 
     @classmethod
     def to_proto(self, resource):
@@ -8879,6 +9038,14 @@ class DashboardColumnLayoutColumnsWidgets(object):
             )
         else:
             res.ClearField("blank")
+        if DashboardColumnLayoutColumnsWidgetsLogsPanel.to_proto(resource.logs_panel):
+            res.logs_panel.CopyFrom(
+                DashboardColumnLayoutColumnsWidgetsLogsPanel.to_proto(
+                    resource.logs_panel
+                )
+            )
+        else:
+            res.ClearField("logs_panel")
         return res
 
     @classmethod
@@ -8896,6 +9063,9 @@ class DashboardColumnLayoutColumnsWidgets(object):
             ),
             text=DashboardColumnLayoutColumnsWidgetsText.from_proto(resource.text),
             blank=DashboardColumnLayoutColumnsWidgetsBlank.from_proto(resource.blank),
+            logs_panel=DashboardColumnLayoutColumnsWidgetsLogsPanel.from_proto(
+                resource.logs_panel
+            ),
         )
 
 
@@ -11662,6 +11832,51 @@ class DashboardColumnLayoutColumnsWidgetsBlankArray(object):
     def from_proto(self, resources):
         return [
             DashboardColumnLayoutColumnsWidgetsBlank.from_proto(i) for i in resources
+        ]
+
+
+class DashboardColumnLayoutColumnsWidgetsLogsPanel(object):
+    def __init__(self, filter: str = None, resourceNames: list = None):
+        self.filter = filter
+        self.resourceNames = resourceNames
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = dashboard_pb2.MonitoringDashboardColumnLayoutColumnsWidgetsLogsPanel()
+        if Primitive.to_proto(resource.filter):
+            res.filter = Primitive.to_proto(resource.filter)
+        if Primitive.to_proto(resource.resourceNames):
+            res.resourceNames.extend(Primitive.to_proto(resource.resourceNames))
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DashboardColumnLayoutColumnsWidgetsLogsPanel(
+            filter=Primitive.from_proto(resource.filter),
+            resourceNames=Primitive.from_proto(resource.resourceNames),
+        )
+
+
+class DashboardColumnLayoutColumnsWidgetsLogsPanelArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            DashboardColumnLayoutColumnsWidgetsLogsPanel.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            DashboardColumnLayoutColumnsWidgetsLogsPanel.from_proto(i)
+            for i in resources
         ]
 
 

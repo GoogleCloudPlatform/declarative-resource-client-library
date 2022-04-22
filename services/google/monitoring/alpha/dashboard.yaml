@@ -110,6 +110,35 @@ components:
                           - xyChart
                           - scorecard
                           - text
+                          - logsPanel
+                        logsPanel:
+                          type: object
+                          x-dcl-go-name: LogsPanel
+                          x-dcl-go-type: DashboardColumnLayoutColumnsWidgetsLogsPanel
+                          x-dcl-conflicts:
+                          - xyChart
+                          - scorecard
+                          - text
+                          - blank
+                          properties:
+                            filter:
+                              type: string
+                              x-dcl-go-name: Filter
+                              description: A filter that chooses which log entries
+                                to return. See [Advanced Logs Queries](https://cloud.google.com/logging/docs/view/advanced-queries).
+                                Only log entries that match the filter are returned.
+                                An empty filter matches all log entries.
+                            resourcenames:
+                              type: array
+                              x-dcl-go-name: ResourceNames
+                              description: The names of logging resources to collect
+                                logs for. Currently only projects are supported. If
+                                empty, the widget will default to the host project.
+                              x-dcl-send-empty: true
+                              x-dcl-list-type: list
+                              items:
+                                type: string
+                                x-dcl-go-type: string
                         scorecard:
                           type: object
                           x-dcl-go-name: Scorecard
@@ -119,6 +148,7 @@ components:
                           - xyChart
                           - text
                           - blank
+                          - logsPanel
                           required:
                           - timeSeriesQuery
                           properties:
@@ -1141,6 +1171,7 @@ components:
                           - xyChart
                           - scorecard
                           - blank
+                          - logsPanel
                           properties:
                             content:
                               type: string
@@ -1169,6 +1200,7 @@ components:
                           - scorecard
                           - text
                           - blank
+                          - logsPanel
                           required:
                           - dataSets
                           properties:
@@ -2355,6 +2387,35 @@ components:
                     - xyChart
                     - scorecard
                     - text
+                    - logsPanel
+                  logsPanel:
+                    type: object
+                    x-dcl-go-name: LogsPanel
+                    x-dcl-go-type: DashboardGridLayoutWidgetsLogsPanel
+                    x-dcl-conflicts:
+                    - xyChart
+                    - scorecard
+                    - text
+                    - blank
+                    properties:
+                      filter:
+                        type: string
+                        x-dcl-go-name: Filter
+                        description: A filter that chooses which log entries to return.
+                          See [Advanced Logs Queries](https://cloud.google.com/logging/docs/view/advanced-queries).
+                          Only log entries that match the filter are returned. An
+                          empty filter matches all log entries.
+                      resourcenames:
+                        type: array
+                        x-dcl-go-name: ResourceNames
+                        description: The names of logging resources to collect logs
+                          for. Currently only projects are supported. If empty, the
+                          widget will default to the host project.
+                        x-dcl-send-empty: true
+                        x-dcl-list-type: list
+                        items:
+                          type: string
+                          x-dcl-go-type: string
                   scorecard:
                     type: object
                     x-dcl-go-name: Scorecard
@@ -2364,6 +2425,7 @@ components:
                     - xyChart
                     - text
                     - blank
+                    - logsPanel
                     required:
                     - timeSeriesQuery
                     properties:
@@ -3320,6 +3382,7 @@ components:
                     - xyChart
                     - scorecard
                     - blank
+                    - logsPanel
                     properties:
                       content:
                         type: string
@@ -3348,6 +3411,7 @@ components:
                     - scorecard
                     - text
                     - blank
+                    - logsPanel
                     required:
                     - dataSets
                     properties:
@@ -4443,6 +4507,35 @@ components:
                         - xyChart
                         - scorecard
                         - text
+                        - logsPanel
+                      logsPanel:
+                        type: object
+                        x-dcl-go-name: LogsPanel
+                        x-dcl-go-type: DashboardMosaicLayoutTilesWidgetLogsPanel
+                        x-dcl-conflicts:
+                        - xyChart
+                        - scorecard
+                        - text
+                        - blank
+                        properties:
+                          filter:
+                            type: string
+                            x-dcl-go-name: Filter
+                            description: A filter that chooses which log entries to
+                              return. See [Advanced Logs Queries](https://cloud.google.com/logging/docs/view/advanced-queries).
+                              Only log entries that match the filter are returned.
+                              An empty filter matches all log entries.
+                          resourcenames:
+                            type: array
+                            x-dcl-go-name: ResourceNames
+                            description: The names of logging resources to collect
+                              logs for. Currently only projects are supported. If
+                              empty, the widget will default to the host project.
+                            x-dcl-send-empty: true
+                            x-dcl-list-type: list
+                            items:
+                              type: string
+                              x-dcl-go-type: string
                       scorecard:
                         type: object
                         x-dcl-go-name: Scorecard
@@ -4452,6 +4545,7 @@ components:
                         - xyChart
                         - text
                         - blank
+                        - logsPanel
                         required:
                         - timeSeriesQuery
                         properties:
@@ -5451,6 +5545,7 @@ components:
                         - xyChart
                         - scorecard
                         - blank
+                        - logsPanel
                         properties:
                           content:
                             type: string
@@ -5479,6 +5574,7 @@ components:
                         - scorecard
                         - text
                         - blank
+                        - logsPanel
                         required:
                         - dataSets
                         properties:
@@ -6654,6 +6750,35 @@ components:
                           - xyChart
                           - scorecard
                           - text
+                          - logsPanel
+                        logsPanel:
+                          type: object
+                          x-dcl-go-name: LogsPanel
+                          x-dcl-go-type: DashboardRowLayoutRowsWidgetsLogsPanel
+                          x-dcl-conflicts:
+                          - xyChart
+                          - scorecard
+                          - text
+                          - blank
+                          properties:
+                            filter:
+                              type: string
+                              x-dcl-go-name: Filter
+                              description: A filter that chooses which log entries
+                                to return. See [Advanced Logs Queries](https://cloud.google.com/logging/docs/view/advanced-queries).
+                                Only log entries that match the filter are returned.
+                                An empty filter matches all log entries.
+                            resourcenames:
+                              type: array
+                              x-dcl-go-name: ResourceNames
+                              description: The names of logging resources to collect
+                                logs for. Currently only projects are supported. If
+                                empty, the widget will default to the host project.
+                              x-dcl-send-empty: true
+                              x-dcl-list-type: list
+                              items:
+                                type: string
+                                x-dcl-go-type: string
                         scorecard:
                           type: object
                           x-dcl-go-name: Scorecard
@@ -6663,6 +6788,7 @@ components:
                           - xyChart
                           - text
                           - blank
+                          - logsPanel
                           required:
                           - timeSeriesQuery
                           properties:
@@ -7685,6 +7811,7 @@ components:
                           - xyChart
                           - scorecard
                           - blank
+                          - logsPanel
                           properties:
                             content:
                               type: string
@@ -7713,6 +7840,7 @@ components:
                           - scorecard
                           - text
                           - blank
+                          - logsPanel
                           required:
                           - dataSets
                           properties:
