@@ -472,7 +472,6 @@ type ServiceTemplate struct {
 	ServiceAccount       *string                                  `json:"serviceAccount"`
 	Containers           []ServiceTemplateContainers              `json:"containers"`
 	Volumes              []ServiceTemplateVolumes                 `json:"volumes"`
-	Confidential         *bool                                    `json:"confidential"`
 	ExecutionEnvironment *ServiceTemplateExecutionEnvironmentEnum `json:"executionEnvironment"`
 }
 
@@ -510,8 +509,6 @@ func (r *ServiceTemplate) UnmarshalJSON(data []byte) error {
 		r.Containers = res.Containers
 
 		r.Volumes = res.Volumes
-
-		r.Confidential = res.Confidential
 
 		r.ExecutionEnvironment = res.ExecutionEnvironment
 

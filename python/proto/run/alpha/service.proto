@@ -197,8 +197,7 @@ message RunAlphaServiceTemplate {
   string service_account = 8;
   repeated RunAlphaServiceTemplateContainers containers = 9;
   repeated RunAlphaServiceTemplateVolumes volumes = 10;
-  bool confidential = 11;
-  RunAlphaServiceTemplateExecutionEnvironmentEnum execution_environment = 12;
+  RunAlphaServiceTemplateExecutionEnvironmentEnum execution_environment = 11;
 }
 
 message RunAlphaServiceTemplateScaling {

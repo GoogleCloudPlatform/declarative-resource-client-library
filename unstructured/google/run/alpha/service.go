@@ -121,9 +121,6 @@ func ServiceToUnstructured(r *dclService.Service) *unstructured.Resource {
 			}
 			rTemplate["annotations"] = rTemplateAnnotations
 		}
-		if r.Template.Confidential != nil {
-			rTemplate["confidential"] = *r.Template.Confidential
-		}
 		if r.Template.ContainerConcurrency != nil {
 			rTemplate["containerConcurrency"] = *r.Template.ContainerConcurrency
 		}
@@ -571,13 +568,6 @@ func UnstructuredToService(u *unstructured.Resource) (*dclService.Service, error
 					r.Template.Annotations = m
 				} else {
 					return nil, fmt.Errorf("r.Template.Annotations: expected map[string]interface{}")
-				}
-			}
-			if _, ok := rTemplate["confidential"]; ok {
-				if b, ok := rTemplate["confidential"].(bool); ok {
-					r.Template.Confidential = dcl.Bool(b)
-				} else {
-					return nil, fmt.Errorf("r.Template.Confidential: expected bool")
 				}
 			}
 			if _, ok := rTemplate["containerConcurrency"]; ok {

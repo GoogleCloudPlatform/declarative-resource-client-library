@@ -204,7 +204,6 @@ func ProtoToRunAlphaServiceTemplate(p *alphapb.RunAlphaServiceTemplate) *alpha.S
 		ContainerConcurrency: dcl.Int64OrNil(p.GetContainerConcurrency()),
 		Timeout:              dcl.StringOrNil(p.GetTimeout()),
 		ServiceAccount:       dcl.StringOrNil(p.GetServiceAccount()),
-		Confidential:         dcl.Bool(p.GetConfidential()),
 		ExecutionEnvironment: ProtoToRunAlphaServiceTemplateExecutionEnvironmentEnum(p.GetExecutionEnvironment()),
 	}
 	for _, r := range p.GetContainers() {
@@ -644,7 +643,6 @@ func RunAlphaServiceTemplateToProto(o *alpha.ServiceTemplate) *alphapb.RunAlphaS
 	p.SetContainerConcurrency(dcl.ValueOrEmptyInt64(o.ContainerConcurrency))
 	p.SetTimeout(dcl.ValueOrEmptyString(o.Timeout))
 	p.SetServiceAccount(dcl.ValueOrEmptyString(o.ServiceAccount))
-	p.SetConfidential(dcl.ValueOrEmptyBool(o.Confidential))
 	p.SetExecutionEnvironment(RunAlphaServiceTemplateExecutionEnvironmentEnumToProto(o.ExecutionEnvironment))
 	mLabels := make(map[string]string, len(o.Labels))
 	for k, r := range o.Labels {

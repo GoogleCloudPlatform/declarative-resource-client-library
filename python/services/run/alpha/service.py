@@ -303,7 +303,6 @@ class ServiceTemplate(object):
         service_account: str = None,
         containers: list = None,
         volumes: list = None,
-        confidential: bool = None,
         execution_environment: str = None,
     ):
         self.revision = revision
@@ -316,7 +315,6 @@ class ServiceTemplate(object):
         self.service_account = service_account
         self.containers = containers
         self.volumes = volumes
-        self.confidential = confidential
         self.execution_environment = execution_environment
 
     @classmethod
@@ -355,8 +353,6 @@ class ServiceTemplate(object):
             )
         if ServiceTemplateVolumesArray.to_proto(resource.volumes):
             res.volumes.extend(ServiceTemplateVolumesArray.to_proto(resource.volumes))
-        if Primitive.to_proto(resource.confidential):
-            res.confidential = Primitive.to_proto(resource.confidential)
         if ServiceTemplateExecutionEnvironmentEnum.to_proto(
             resource.execution_environment
         ):
@@ -381,7 +377,6 @@ class ServiceTemplate(object):
             service_account=Primitive.from_proto(resource.service_account),
             containers=ServiceTemplateContainersArray.from_proto(resource.containers),
             volumes=ServiceTemplateVolumesArray.from_proto(resource.volumes),
-            confidential=Primitive.from_proto(resource.confidential),
             execution_environment=ServiceTemplateExecutionEnvironmentEnum.from_proto(
                 resource.execution_environment
             ),

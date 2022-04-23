@@ -381,6 +381,7 @@ components:
           description: Service Directory resources to register this forwarding rule
             with. Currently, only supports a single Service Directory resource.
           x-kubernetes-immutable: true
+          x-dcl-server-default: true
           x-dcl-send-empty: true
           x-dcl-list-type: list
           items:

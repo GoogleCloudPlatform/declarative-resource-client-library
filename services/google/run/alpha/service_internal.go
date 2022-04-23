@@ -1042,11 +1042,6 @@ func canonicalizeServiceTemplate(des, initial *ServiceTemplate, opts ...dcl.Appl
 	}
 	cDes.Containers = canonicalizeServiceTemplateContainersSlice(des.Containers, initial.Containers, opts...)
 	cDes.Volumes = canonicalizeServiceTemplateVolumesSlice(des.Volumes, initial.Volumes, opts...)
-	if dcl.BoolCanonicalize(des.Confidential, initial.Confidential) || dcl.IsZeroValue(des.Confidential) {
-		cDes.Confidential = initial.Confidential
-	} else {
-		cDes.Confidential = des.Confidential
-	}
 	if dcl.IsZeroValue(des.ExecutionEnvironment) || (dcl.IsEmptyValueIndirect(des.ExecutionEnvironment) && dcl.IsEmptyValueIndirect(initial.ExecutionEnvironment)) {
 		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.ExecutionEnvironment = initial.ExecutionEnvironment
@@ -1109,9 +1104,6 @@ func canonicalizeNewServiceTemplate(c *Client, des, nw *ServiceTemplate) *Servic
 	}
 	nw.Containers = canonicalizeNewServiceTemplateContainersSlice(c, des.Containers, nw.Containers)
 	nw.Volumes = canonicalizeNewServiceTemplateVolumesSlice(c, des.Volumes, nw.Volumes)
-	if dcl.BoolCanonicalize(des.Confidential, nw.Confidential) {
-		nw.Confidential = des.Confidential
-	}
 
 	return nw
 }
@@ -3622,13 +3614,6 @@ func compareServiceTemplateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Confidential, actual.Confidential, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Confidential")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.ExecutionEnvironment, actual.ExecutionEnvironment, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("ExecutionEnvironment")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -4774,9 +4759,6 @@ func expandServiceTemplate(c *Client, f *ServiceTemplate, res *Service) (map[str
 	} else if v != nil {
 		m["volumes"] = v
 	}
-	if v := f.Confidential; !dcl.IsEmptyValueIndirect(v) {
-		m["confidential"] = v
-	}
 	if v := f.ExecutionEnvironment; !dcl.IsEmptyValueIndirect(v) {
 		m["executionEnvironment"] = v
 	}
@@ -4807,7 +4789,6 @@ func flattenServiceTemplate(c *Client, i interface{}, res *Service) *ServiceTemp
 	r.ServiceAccount = dcl.FlattenString(m["serviceAccount"])
 	r.Containers = flattenServiceTemplateContainersSlice(c, m["containers"], res)
 	r.Volumes = flattenServiceTemplateVolumesSlice(c, m["volumes"], res)
-	r.Confidential = dcl.FlattenBool(m["confidential"])
 	r.ExecutionEnvironment = flattenServiceTemplateExecutionEnvironmentEnum(m["executionEnvironment"])
 
 	return r

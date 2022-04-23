@@ -274,11 +274,6 @@ components:
                 type: string
               x-dcl-go-name: Annotations
               description: KRM-style annotations for the resource.
-            confidential:
-              type: boolean
-              x-dcl-go-name: Confidential
-              description: Enables Confidential Cloud Run in Revisions created using
-                this template.
             containerConcurrency:
               type: integer
               format: int64
