@@ -1072,7 +1072,6 @@ class ServiceTerminalCondition(object):
         last_transition_time: str = None,
         severity: str = None,
         reason: str = None,
-        internal_reason: str = None,
         domain_mapping_reason: str = None,
         revision_reason: str = None,
         job_reason: str = None,
@@ -1083,7 +1082,6 @@ class ServiceTerminalCondition(object):
         self.last_transition_time = last_transition_time
         self.severity = severity
         self.reason = reason
-        self.internal_reason = internal_reason
         self.domain_mapping_reason = domain_mapping_reason
         self.revision_reason = revision_reason
         self.job_reason = job_reason
@@ -1108,12 +1106,6 @@ class ServiceTerminalCondition(object):
             )
         if ServiceTerminalConditionReasonEnum.to_proto(resource.reason):
             res.reason = ServiceTerminalConditionReasonEnum.to_proto(resource.reason)
-        if ServiceTerminalConditionInternalReasonEnum.to_proto(
-            resource.internal_reason
-        ):
-            res.internal_reason = ServiceTerminalConditionInternalReasonEnum.to_proto(
-                resource.internal_reason
-            )
         if ServiceTerminalConditionDomainMappingReasonEnum.to_proto(
             resource.domain_mapping_reason
         ):
@@ -1144,9 +1136,6 @@ class ServiceTerminalCondition(object):
             last_transition_time=Primitive.from_proto(resource.last_transition_time),
             severity=ServiceTerminalConditionSeverityEnum.from_proto(resource.severity),
             reason=ServiceTerminalConditionReasonEnum.from_proto(resource.reason),
-            internal_reason=ServiceTerminalConditionInternalReasonEnum.from_proto(
-                resource.internal_reason
-            ),
             domain_mapping_reason=ServiceTerminalConditionDomainMappingReasonEnum.from_proto(
                 resource.domain_mapping_reason
             ),
@@ -1372,24 +1361,6 @@ class ServiceTerminalConditionReasonEnum(object):
         return service_pb2.RunAlphaServiceTerminalConditionReasonEnum.Name(resource)[
             len("RunAlphaServiceTerminalConditionReasonEnum") :
         ]
-
-
-class ServiceTerminalConditionInternalReasonEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return service_pb2.RunAlphaServiceTerminalConditionInternalReasonEnum.Value(
-            "RunAlphaServiceTerminalConditionInternalReasonEnum%s" % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return service_pb2.RunAlphaServiceTerminalConditionInternalReasonEnum.Name(
-            resource
-        )[len("RunAlphaServiceTerminalConditionInternalReasonEnum") :]
 
 
 class ServiceTerminalConditionDomainMappingReasonEnum(object):

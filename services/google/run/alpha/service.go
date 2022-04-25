@@ -264,40 +264,13 @@ func (v ServiceTerminalConditionReasonEnum) Validate() error {
 		// Empty enum is okay.
 		return nil
 	}
-	for _, s := range []string{"COMMON_REASON_UNDEFINED", "UNKNOWN", "ROUTE_MISSING", "REVISION_FAILED", "PROGRESS_DEADLINE_EXCEEDED", "BUILD_STEP_FAILED", "CONTAINER_MISSING", "CONTAINER_PERMISSION_DENIED", "CONTAINER_IMAGE_UNAUTHORIZED", "CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED", "ENCRYPTION_KEY_PERMISSION_DENIED", "ENCRYPTION_KEY_CHECK_FAILED", "SECRETS_ACCESS_CHECK_FAILED", "WAITING_FOR_OPERATION", "IMMEDIATE_RETRY", "POSTPONED_RETRY"} {
+	for _, s := range []string{"COMMON_REASON_UNDEFINED", "UNKNOWN", "REVISION_FAILED", "PROGRESS_DEADLINE_EXCEEDED", "BUILD_STEP_FAILED", "CONTAINER_MISSING", "CONTAINER_PERMISSION_DENIED", "CONTAINER_IMAGE_UNAUTHORIZED", "CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED", "ENCRYPTION_KEY_PERMISSION_DENIED", "ENCRYPTION_KEY_CHECK_FAILED", "SECRETS_ACCESS_CHECK_FAILED", "WAITING_FOR_OPERATION", "IMMEDIATE_RETRY", "POSTPONED_RETRY", "INTERNAL"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "ServiceTerminalConditionReasonEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum ServiceTerminalConditionInternalReasonEnum.
-type ServiceTerminalConditionInternalReasonEnum string
-
-// ServiceTerminalConditionInternalReasonEnumRef returns a *ServiceTerminalConditionInternalReasonEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func ServiceTerminalConditionInternalReasonEnumRef(s string) *ServiceTerminalConditionInternalReasonEnum {
-	v := ServiceTerminalConditionInternalReasonEnum(s)
-	return &v
-}
-
-func (v ServiceTerminalConditionInternalReasonEnum) Validate() error {
-	if string(v) == "" {
-		// Empty enum is okay.
-		return nil
-	}
-	for _, s := range []string{"INTERNAL_REASON_UNDEFINED", "CONFLICTING_REVISION_NAME", "REVISION_MISSING", "CONFIGURATION_MISSING", "ASSIGNING_TRAFFIC", "UPDATING_INGRESS_TRAFFIC_ALLOWED", "REVISION_ORG_POLICY_VIOLATION", "ENABLING_GCFV2_URI_SUPPORT"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "ServiceTerminalConditionInternalReasonEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -1260,7 +1233,6 @@ type ServiceTerminalCondition struct {
 	LastTransitionTime  *string                                          `json:"lastTransitionTime"`
 	Severity            *ServiceTerminalConditionSeverityEnum            `json:"severity"`
 	Reason              *ServiceTerminalConditionReasonEnum              `json:"reason"`
-	InternalReason      *ServiceTerminalConditionInternalReasonEnum      `json:"internalReason"`
 	DomainMappingReason *ServiceTerminalConditionDomainMappingReasonEnum `json:"domainMappingReason"`
 	RevisionReason      *ServiceTerminalConditionRevisionReasonEnum      `json:"revisionReason"`
 	JobReason           *ServiceTerminalConditionJobReasonEnum           `json:"jobReason"`
@@ -1292,8 +1264,6 @@ func (r *ServiceTerminalCondition) UnmarshalJSON(data []byte) error {
 		r.Severity = res.Severity
 
 		r.Reason = res.Reason
-
-		r.InternalReason = res.InternalReason
 
 		r.DomainMappingReason = res.DomainMappingReason
 

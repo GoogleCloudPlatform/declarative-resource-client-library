@@ -299,9 +299,6 @@ func ServiceToUnstructured(r *dclService.Service) *unstructured.Resource {
 		if r.TerminalCondition.DomainMappingReason != nil {
 			rTerminalCondition["domainMappingReason"] = string(*r.TerminalCondition.DomainMappingReason)
 		}
-		if r.TerminalCondition.InternalReason != nil {
-			rTerminalCondition["internalReason"] = string(*r.TerminalCondition.InternalReason)
-		}
 		if r.TerminalCondition.JobReason != nil {
 			rTerminalCondition["jobReason"] = string(*r.TerminalCondition.JobReason)
 		}
@@ -944,13 +941,6 @@ func UnstructuredToService(u *unstructured.Resource) (*dclService.Service, error
 					r.TerminalCondition.DomainMappingReason = dclService.ServiceTerminalConditionDomainMappingReasonEnumRef(s)
 				} else {
 					return nil, fmt.Errorf("r.TerminalCondition.DomainMappingReason: expected string")
-				}
-			}
-			if _, ok := rTerminalCondition["internalReason"]; ok {
-				if s, ok := rTerminalCondition["internalReason"].(string); ok {
-					r.TerminalCondition.InternalReason = dclService.ServiceTerminalConditionInternalReasonEnumRef(s)
-				} else {
-					return nil, fmt.Errorf("r.TerminalCondition.InternalReason: expected string")
 				}
 			}
 			if _, ok := rTerminalCondition["jobReason"]; ok {

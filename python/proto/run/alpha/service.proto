@@ -83,32 +83,20 @@ enum RunAlphaServiceTerminalConditionReasonEnum {
   RunAlphaServiceTerminalConditionReasonEnumNO_VALUE_DO_NOT_USE = 0;
   RunAlphaServiceTerminalConditionReasonEnumCOMMON_REASON_UNDEFINED = 1;
   RunAlphaServiceTerminalConditionReasonEnumUNKNOWN = 2;
-  RunAlphaServiceTerminalConditionReasonEnumROUTE_MISSING = 3;
-  RunAlphaServiceTerminalConditionReasonEnumREVISION_FAILED = 4;
-  RunAlphaServiceTerminalConditionReasonEnumPROGRESS_DEADLINE_EXCEEDED = 5;
-  RunAlphaServiceTerminalConditionReasonEnumBUILD_STEP_FAILED = 6;
-  RunAlphaServiceTerminalConditionReasonEnumCONTAINER_MISSING = 7;
-  RunAlphaServiceTerminalConditionReasonEnumCONTAINER_PERMISSION_DENIED = 8;
-  RunAlphaServiceTerminalConditionReasonEnumCONTAINER_IMAGE_UNAUTHORIZED = 9;
-  RunAlphaServiceTerminalConditionReasonEnumCONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED = 10;
-  RunAlphaServiceTerminalConditionReasonEnumENCRYPTION_KEY_PERMISSION_DENIED = 11;
-  RunAlphaServiceTerminalConditionReasonEnumENCRYPTION_KEY_CHECK_FAILED = 12;
-  RunAlphaServiceTerminalConditionReasonEnumSECRETS_ACCESS_CHECK_FAILED = 13;
-  RunAlphaServiceTerminalConditionReasonEnumWAITING_FOR_OPERATION = 14;
-  RunAlphaServiceTerminalConditionReasonEnumIMMEDIATE_RETRY = 15;
-  RunAlphaServiceTerminalConditionReasonEnumPOSTPONED_RETRY = 16;
-}
-
-enum RunAlphaServiceTerminalConditionInternalReasonEnum {
-  RunAlphaServiceTerminalConditionInternalReasonEnumNO_VALUE_DO_NOT_USE = 0;
-  RunAlphaServiceTerminalConditionInternalReasonEnumINTERNAL_REASON_UNDEFINED = 1;
-  RunAlphaServiceTerminalConditionInternalReasonEnumCONFLICTING_REVISION_NAME = 2;
-  RunAlphaServiceTerminalConditionInternalReasonEnumREVISION_MISSING = 3;
-  RunAlphaServiceTerminalConditionInternalReasonEnumCONFIGURATION_MISSING = 4;
-  RunAlphaServiceTerminalConditionInternalReasonEnumASSIGNING_TRAFFIC = 5;
-  RunAlphaServiceTerminalConditionInternalReasonEnumUPDATING_INGRESS_TRAFFIC_ALLOWED = 6;
-  RunAlphaServiceTerminalConditionInternalReasonEnumREVISION_ORG_POLICY_VIOLATION = 7;
-  RunAlphaServiceTerminalConditionInternalReasonEnumENABLING_GCFV2_URI_SUPPORT = 8;
+  RunAlphaServiceTerminalConditionReasonEnumREVISION_FAILED = 3;
+  RunAlphaServiceTerminalConditionReasonEnumPROGRESS_DEADLINE_EXCEEDED = 4;
+  RunAlphaServiceTerminalConditionReasonEnumBUILD_STEP_FAILED = 5;
+  RunAlphaServiceTerminalConditionReasonEnumCONTAINER_MISSING = 6;
+  RunAlphaServiceTerminalConditionReasonEnumCONTAINER_PERMISSION_DENIED = 7;
+  RunAlphaServiceTerminalConditionReasonEnumCONTAINER_IMAGE_UNAUTHORIZED = 8;
+  RunAlphaServiceTerminalConditionReasonEnumCONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED = 9;
+  RunAlphaServiceTerminalConditionReasonEnumENCRYPTION_KEY_PERMISSION_DENIED = 10;
+  RunAlphaServiceTerminalConditionReasonEnumENCRYPTION_KEY_CHECK_FAILED = 11;
+  RunAlphaServiceTerminalConditionReasonEnumSECRETS_ACCESS_CHECK_FAILED = 12;
+  RunAlphaServiceTerminalConditionReasonEnumWAITING_FOR_OPERATION = 13;
+  RunAlphaServiceTerminalConditionReasonEnumIMMEDIATE_RETRY = 14;
+  RunAlphaServiceTerminalConditionReasonEnumPOSTPONED_RETRY = 15;
+  RunAlphaServiceTerminalConditionReasonEnumINTERNAL = 16;
 }
 
 enum RunAlphaServiceTerminalConditionDomainMappingReasonEnum {
@@ -287,10 +275,9 @@ message RunAlphaServiceTerminalCondition {
   string last_transition_time = 4;
   RunAlphaServiceTerminalConditionSeverityEnum severity = 5;
   RunAlphaServiceTerminalConditionReasonEnum reason = 6;
-  RunAlphaServiceTerminalConditionInternalReasonEnum internal_reason = 7;
-  RunAlphaServiceTerminalConditionDomainMappingReasonEnum domain_mapping_reason = 8;
-  RunAlphaServiceTerminalConditionRevisionReasonEnum revision_reason = 9;
-  RunAlphaServiceTerminalConditionJobReasonEnum job_reason = 10;
+  RunAlphaServiceTerminalConditionDomainMappingReasonEnum domain_mapping_reason = 7;
+  RunAlphaServiceTerminalConditionRevisionReasonEnum revision_reason = 8;
+  RunAlphaServiceTerminalConditionJobReasonEnum job_reason = 9;
 }
 
 message RunAlphaServiceTrafficStatuses {

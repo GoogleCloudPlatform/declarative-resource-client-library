@@ -170,7 +170,7 @@ func (r *ServiceTraffic) validate() error {
 	return nil
 }
 func (r *ServiceTerminalCondition) validate() error {
-	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Reason", "InternalReason", "DomainMappingReason", "RevisionReason", "JobReason"}, r.Reason, r.InternalReason, r.DomainMappingReason, r.RevisionReason, r.JobReason); err != nil {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Reason", "DomainMappingReason", "RevisionReason", "JobReason"}, r.Reason, r.DomainMappingReason, r.RevisionReason, r.JobReason); err != nil {
 		return err
 	}
 	return nil
@@ -2918,7 +2918,7 @@ func canonicalizeServiceTerminalCondition(des, initial *ServiceTerminalCondition
 
 	if des.Reason != nil || (initial != nil && initial.Reason != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.InternalReason, des.DomainMappingReason, des.RevisionReason, des.JobReason) {
+		if dcl.AnySet(des.DomainMappingReason, des.RevisionReason, des.JobReason) {
 			des.Reason = nil
 			if initial != nil {
 				initial.Reason = nil
@@ -2926,19 +2926,9 @@ func canonicalizeServiceTerminalCondition(des, initial *ServiceTerminalCondition
 		}
 	}
 
-	if des.InternalReason != nil || (initial != nil && initial.InternalReason != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Reason, des.DomainMappingReason, des.RevisionReason, des.JobReason) {
-			des.InternalReason = nil
-			if initial != nil {
-				initial.InternalReason = nil
-			}
-		}
-	}
-
 	if des.DomainMappingReason != nil || (initial != nil && initial.DomainMappingReason != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.Reason, des.InternalReason, des.RevisionReason, des.JobReason) {
+		if dcl.AnySet(des.Reason, des.RevisionReason, des.JobReason) {
 			des.DomainMappingReason = nil
 			if initial != nil {
 				initial.DomainMappingReason = nil
@@ -2948,7 +2938,7 @@ func canonicalizeServiceTerminalCondition(des, initial *ServiceTerminalCondition
 
 	if des.RevisionReason != nil || (initial != nil && initial.RevisionReason != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.Reason, des.InternalReason, des.DomainMappingReason, des.JobReason) {
+		if dcl.AnySet(des.Reason, des.DomainMappingReason, des.JobReason) {
 			des.RevisionReason = nil
 			if initial != nil {
 				initial.RevisionReason = nil
@@ -2958,7 +2948,7 @@ func canonicalizeServiceTerminalCondition(des, initial *ServiceTerminalCondition
 
 	if des.JobReason != nil || (initial != nil && initial.JobReason != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.Reason, des.InternalReason, des.DomainMappingReason, des.RevisionReason) {
+		if dcl.AnySet(des.Reason, des.DomainMappingReason, des.RevisionReason) {
 			des.JobReason = nil
 			if initial != nil {
 				initial.JobReason = nil
@@ -3005,12 +2995,6 @@ func canonicalizeServiceTerminalCondition(des, initial *ServiceTerminalCondition
 		cDes.Reason = initial.Reason
 	} else {
 		cDes.Reason = des.Reason
-	}
-	if dcl.IsZeroValue(des.InternalReason) || (dcl.IsEmptyValueIndirect(des.InternalReason) && dcl.IsEmptyValueIndirect(initial.InternalReason)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		cDes.InternalReason = initial.InternalReason
-	} else {
-		cDes.InternalReason = des.InternalReason
 	}
 	if dcl.IsZeroValue(des.DomainMappingReason) || (dcl.IsEmptyValueIndirect(des.DomainMappingReason) && dcl.IsEmptyValueIndirect(initial.DomainMappingReason)) {
 		// Desired and initial values are equivalent, so set canonical desired value to initial value.
@@ -4253,13 +4237,6 @@ func compareServiceTerminalConditionNewStyle(d, a interface{}, fn dcl.FieldName)
 	}
 
 	if ds, err := dcl.Diff(desired.Reason, actual.Reason, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("Reason")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.InternalReason, actual.InternalReason, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("InternalReason")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6617,9 +6594,6 @@ func expandServiceTerminalCondition(c *Client, f *ServiceTerminalCondition, res 
 	if v := f.Reason; !dcl.IsEmptyValueIndirect(v) {
 		m["reason"] = v
 	}
-	if v := f.InternalReason; !dcl.IsEmptyValueIndirect(v) {
-		m["internalReason"] = v
-	}
 	if v := f.DomainMappingReason; !dcl.IsEmptyValueIndirect(v) {
 		m["domainMappingReason"] = v
 	}
@@ -6652,7 +6626,6 @@ func flattenServiceTerminalCondition(c *Client, i interface{}, res *Service) *Se
 	r.LastTransitionTime = dcl.FlattenString(m["lastTransitionTime"])
 	r.Severity = flattenServiceTerminalConditionSeverityEnum(m["severity"])
 	r.Reason = flattenServiceTerminalConditionReasonEnum(m["reason"])
-	r.InternalReason = flattenServiceTerminalConditionInternalReasonEnum(m["internalReason"])
 	r.DomainMappingReason = flattenServiceTerminalConditionDomainMappingReasonEnum(m["domainMappingReason"])
 	r.RevisionReason = flattenServiceTerminalConditionRevisionReasonEnum(m["revisionReason"])
 	r.JobReason = flattenServiceTerminalConditionJobReasonEnum(m["jobReason"])
@@ -7196,57 +7169,6 @@ func flattenServiceTerminalConditionReasonEnum(i interface{}) *ServiceTerminalCo
 	}
 
 	return ServiceTerminalConditionReasonEnumRef(s)
-}
-
-// flattenServiceTerminalConditionInternalReasonEnumMap flattens the contents of ServiceTerminalConditionInternalReasonEnum from a JSON
-// response object.
-func flattenServiceTerminalConditionInternalReasonEnumMap(c *Client, i interface{}, res *Service) map[string]ServiceTerminalConditionInternalReasonEnum {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]ServiceTerminalConditionInternalReasonEnum{}
-	}
-
-	if len(a) == 0 {
-		return map[string]ServiceTerminalConditionInternalReasonEnum{}
-	}
-
-	items := make(map[string]ServiceTerminalConditionInternalReasonEnum)
-	for k, item := range a {
-		items[k] = *flattenServiceTerminalConditionInternalReasonEnum(item.(interface{}))
-	}
-
-	return items
-}
-
-// flattenServiceTerminalConditionInternalReasonEnumSlice flattens the contents of ServiceTerminalConditionInternalReasonEnum from a JSON
-// response object.
-func flattenServiceTerminalConditionInternalReasonEnumSlice(c *Client, i interface{}, res *Service) []ServiceTerminalConditionInternalReasonEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []ServiceTerminalConditionInternalReasonEnum{}
-	}
-
-	if len(a) == 0 {
-		return []ServiceTerminalConditionInternalReasonEnum{}
-	}
-
-	items := make([]ServiceTerminalConditionInternalReasonEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenServiceTerminalConditionInternalReasonEnum(item.(interface{})))
-	}
-
-	return items
-}
-
-// flattenServiceTerminalConditionInternalReasonEnum asserts that an interface is a string, and returns a
-// pointer to a *ServiceTerminalConditionInternalReasonEnum with the same value as that string.
-func flattenServiceTerminalConditionInternalReasonEnum(i interface{}) *ServiceTerminalConditionInternalReasonEnum {
-	s, ok := i.(string)
-	if !ok {
-		return nil
-	}
-
-	return ServiceTerminalConditionInternalReasonEnumRef(s)
 }
 
 // flattenServiceTerminalConditionDomainMappingReasonEnumMap flattens the contents of ServiceTerminalConditionDomainMappingReasonEnum from a JSON
