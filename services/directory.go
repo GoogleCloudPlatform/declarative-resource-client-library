@@ -41,6 +41,9 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild"
 	cloudbuild_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/alpha"
 	cloudbuild_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/clouddeploy"
+	clouddeploy_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/clouddeploy/alpha"
+	clouddeploy_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/clouddeploy/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudfunctions"
 	cloudfunctions_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudfunctions/alpha"
 	cloudfunctions_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudfunctions/beta"
@@ -227,6 +230,10 @@ func Services() *Directory {
 	d.AddResource("ga", "binaryauthorization", "Policy", binaryauthorization.YAML_policy)
 	d.AddResource("ga", "cloudbuild", dcl.TitleToSnakeCase("WorkerPool"), cloudbuild.YAML_worker_pool)
 	d.AddResource("ga", "cloudbuild", "WorkerPool", cloudbuild.YAML_worker_pool)
+	d.AddResource("ga", "clouddeploy", dcl.TitleToSnakeCase("DeliveryPipeline"), clouddeploy.YAML_delivery_pipeline)
+	d.AddResource("ga", "clouddeploy", "DeliveryPipeline", clouddeploy.YAML_delivery_pipeline)
+	d.AddResource("ga", "clouddeploy", dcl.TitleToSnakeCase("Target"), clouddeploy.YAML_target)
+	d.AddResource("ga", "clouddeploy", "Target", clouddeploy.YAML_target)
 	d.AddResource("ga", "cloudfunctions", dcl.TitleToSnakeCase("Function"), cloudfunctions.YAML_function)
 	d.AddResource("ga", "cloudfunctions", "Function", cloudfunctions.YAML_function)
 	d.AddResource("ga", "cloudidentity", dcl.TitleToSnakeCase("Group"), cloudidentity.YAML_group)
@@ -413,6 +420,10 @@ func Services() *Directory {
 	d.AddResource("beta", "binaryauthorization", "Policy", binaryauthorization_beta.YAML_policy)
 	d.AddResource("beta", "cloudbuild", dcl.TitleToSnakeCase("WorkerPool"), cloudbuild_beta.YAML_worker_pool)
 	d.AddResource("beta", "cloudbuild", "WorkerPool", cloudbuild_beta.YAML_worker_pool)
+	d.AddResource("beta", "clouddeploy", dcl.TitleToSnakeCase("DeliveryPipeline"), clouddeploy_beta.YAML_delivery_pipeline)
+	d.AddResource("beta", "clouddeploy", "DeliveryPipeline", clouddeploy_beta.YAML_delivery_pipeline)
+	d.AddResource("beta", "clouddeploy", dcl.TitleToSnakeCase("Target"), clouddeploy_beta.YAML_target)
+	d.AddResource("beta", "clouddeploy", "Target", clouddeploy_beta.YAML_target)
 	d.AddResource("beta", "cloudfunctions", dcl.TitleToSnakeCase("Function"), cloudfunctions_beta.YAML_function)
 	d.AddResource("beta", "cloudfunctions", "Function", cloudfunctions_beta.YAML_function)
 	d.AddResource("beta", "cloudidentity", dcl.TitleToSnakeCase("Group"), cloudidentity_beta.YAML_group)
@@ -631,6 +642,10 @@ func Services() *Directory {
 	d.AddResource("alpha", "binaryauthorization", "Policy", binaryauthorization_alpha.YAML_policy)
 	d.AddResource("alpha", "cloudbuild", dcl.TitleToSnakeCase("WorkerPool"), cloudbuild_alpha.YAML_worker_pool)
 	d.AddResource("alpha", "cloudbuild", "WorkerPool", cloudbuild_alpha.YAML_worker_pool)
+	d.AddResource("alpha", "clouddeploy", dcl.TitleToSnakeCase("DeliveryPipeline"), clouddeploy_alpha.YAML_delivery_pipeline)
+	d.AddResource("alpha", "clouddeploy", "DeliveryPipeline", clouddeploy_alpha.YAML_delivery_pipeline)
+	d.AddResource("alpha", "clouddeploy", dcl.TitleToSnakeCase("Target"), clouddeploy_alpha.YAML_target)
+	d.AddResource("alpha", "clouddeploy", "Target", clouddeploy_alpha.YAML_target)
 	d.AddResource("alpha", "cloudfunctions", dcl.TitleToSnakeCase("Function"), cloudfunctions_alpha.YAML_function)
 	d.AddResource("alpha", "cloudfunctions", "Function", cloudfunctions_alpha.YAML_function)
 	d.AddResource("alpha", "cloudidentity", dcl.TitleToSnakeCase("Group"), cloudidentity_alpha.YAML_group)
