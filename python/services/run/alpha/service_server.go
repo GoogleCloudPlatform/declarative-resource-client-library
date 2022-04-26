@@ -120,18 +120,6 @@ func ProtoToRunAlphaServiceTerminalConditionReasonEnum(e alphapb.RunAlphaService
 	return nil
 }
 
-// ProtoToServiceTerminalConditionDomainMappingReasonEnum converts a ServiceTerminalConditionDomainMappingReasonEnum enum from its proto representation.
-func ProtoToRunAlphaServiceTerminalConditionDomainMappingReasonEnum(e alphapb.RunAlphaServiceTerminalConditionDomainMappingReasonEnum) *alpha.ServiceTerminalConditionDomainMappingReasonEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := alphapb.RunAlphaServiceTerminalConditionDomainMappingReasonEnum_name[int32(e)]; ok {
-		e := alpha.ServiceTerminalConditionDomainMappingReasonEnum(n[len("RunAlphaServiceTerminalConditionDomainMappingReasonEnum"):])
-		return &e
-	}
-	return nil
-}
-
 // ProtoToServiceTerminalConditionRevisionReasonEnum converts a ServiceTerminalConditionRevisionReasonEnum enum from its proto representation.
 func ProtoToRunAlphaServiceTerminalConditionRevisionReasonEnum(e alphapb.RunAlphaServiceTerminalConditionRevisionReasonEnum) *alpha.ServiceTerminalConditionRevisionReasonEnum {
 	if e == 0 {
@@ -399,15 +387,14 @@ func ProtoToRunAlphaServiceTerminalCondition(p *alphapb.RunAlphaServiceTerminalC
 		return nil
 	}
 	obj := &alpha.ServiceTerminalCondition{
-		Type:                dcl.StringOrNil(p.GetType()),
-		State:               ProtoToRunAlphaServiceTerminalConditionStateEnum(p.GetState()),
-		Message:             dcl.StringOrNil(p.GetMessage()),
-		LastTransitionTime:  dcl.StringOrNil(p.GetLastTransitionTime()),
-		Severity:            ProtoToRunAlphaServiceTerminalConditionSeverityEnum(p.GetSeverity()),
-		Reason:              ProtoToRunAlphaServiceTerminalConditionReasonEnum(p.GetReason()),
-		DomainMappingReason: ProtoToRunAlphaServiceTerminalConditionDomainMappingReasonEnum(p.GetDomainMappingReason()),
-		RevisionReason:      ProtoToRunAlphaServiceTerminalConditionRevisionReasonEnum(p.GetRevisionReason()),
-		JobReason:           ProtoToRunAlphaServiceTerminalConditionJobReasonEnum(p.GetJobReason()),
+		Type:               dcl.StringOrNil(p.GetType()),
+		State:              ProtoToRunAlphaServiceTerminalConditionStateEnum(p.GetState()),
+		Message:            dcl.StringOrNil(p.GetMessage()),
+		LastTransitionTime: dcl.StringOrNil(p.GetLastTransitionTime()),
+		Severity:           ProtoToRunAlphaServiceTerminalConditionSeverityEnum(p.GetSeverity()),
+		Reason:             ProtoToRunAlphaServiceTerminalConditionReasonEnum(p.GetReason()),
+		RevisionReason:     ProtoToRunAlphaServiceTerminalConditionRevisionReasonEnum(p.GetRevisionReason()),
+		JobReason:          ProtoToRunAlphaServiceTerminalConditionJobReasonEnum(p.GetJobReason()),
 	}
 	return obj
 }
@@ -550,17 +537,6 @@ func RunAlphaServiceTerminalConditionReasonEnumToProto(e *alpha.ServiceTerminalC
 		return alphapb.RunAlphaServiceTerminalConditionReasonEnum(v)
 	}
 	return alphapb.RunAlphaServiceTerminalConditionReasonEnum(0)
-}
-
-// ServiceTerminalConditionDomainMappingReasonEnumToProto converts a ServiceTerminalConditionDomainMappingReasonEnum enum to its proto representation.
-func RunAlphaServiceTerminalConditionDomainMappingReasonEnumToProto(e *alpha.ServiceTerminalConditionDomainMappingReasonEnum) alphapb.RunAlphaServiceTerminalConditionDomainMappingReasonEnum {
-	if e == nil {
-		return alphapb.RunAlphaServiceTerminalConditionDomainMappingReasonEnum(0)
-	}
-	if v, ok := alphapb.RunAlphaServiceTerminalConditionDomainMappingReasonEnum_value["ServiceTerminalConditionDomainMappingReasonEnum"+string(*e)]; ok {
-		return alphapb.RunAlphaServiceTerminalConditionDomainMappingReasonEnum(v)
-	}
-	return alphapb.RunAlphaServiceTerminalConditionDomainMappingReasonEnum(0)
 }
 
 // ServiceTerminalConditionRevisionReasonEnumToProto converts a ServiceTerminalConditionRevisionReasonEnum enum to its proto representation.
@@ -851,7 +827,6 @@ func RunAlphaServiceTerminalConditionToProto(o *alpha.ServiceTerminalCondition) 
 	p.SetLastTransitionTime(dcl.ValueOrEmptyString(o.LastTransitionTime))
 	p.SetSeverity(RunAlphaServiceTerminalConditionSeverityEnumToProto(o.Severity))
 	p.SetReason(RunAlphaServiceTerminalConditionReasonEnumToProto(o.Reason))
-	p.SetDomainMappingReason(RunAlphaServiceTerminalConditionDomainMappingReasonEnumToProto(o.DomainMappingReason))
 	p.SetRevisionReason(RunAlphaServiceTerminalConditionRevisionReasonEnumToProto(o.RevisionReason))
 	p.SetJobReason(RunAlphaServiceTerminalConditionJobReasonEnumToProto(o.JobReason))
 	return p

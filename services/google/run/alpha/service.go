@@ -264,40 +264,13 @@ func (v ServiceTerminalConditionReasonEnum) Validate() error {
 		// Empty enum is okay.
 		return nil
 	}
-	for _, s := range []string{"COMMON_REASON_UNDEFINED", "UNKNOWN", "REVISION_FAILED", "PROGRESS_DEADLINE_EXCEEDED", "BUILD_STEP_FAILED", "CONTAINER_MISSING", "CONTAINER_PERMISSION_DENIED", "CONTAINER_IMAGE_UNAUTHORIZED", "CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED", "ENCRYPTION_KEY_PERMISSION_DENIED", "ENCRYPTION_KEY_CHECK_FAILED", "SECRETS_ACCESS_CHECK_FAILED", "WAITING_FOR_OPERATION", "IMMEDIATE_RETRY", "POSTPONED_RETRY", "INTERNAL"} {
+	for _, s := range []string{"COMMON_REASON_UNDEFINED", "UNKNOWN", "REVISION_FAILED", "PROGRESS_DEADLINE_EXCEEDED", "CONTAINER_MISSING", "CONTAINER_PERMISSION_DENIED", "CONTAINER_IMAGE_UNAUTHORIZED", "CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED", "ENCRYPTION_KEY_PERMISSION_DENIED", "ENCRYPTION_KEY_CHECK_FAILED", "SECRETS_ACCESS_CHECK_FAILED", "WAITING_FOR_OPERATION", "IMMEDIATE_RETRY", "POSTPONED_RETRY", "INTERNAL"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "ServiceTerminalConditionReasonEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum ServiceTerminalConditionDomainMappingReasonEnum.
-type ServiceTerminalConditionDomainMappingReasonEnum string
-
-// ServiceTerminalConditionDomainMappingReasonEnumRef returns a *ServiceTerminalConditionDomainMappingReasonEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func ServiceTerminalConditionDomainMappingReasonEnumRef(s string) *ServiceTerminalConditionDomainMappingReasonEnum {
-	v := ServiceTerminalConditionDomainMappingReasonEnum(s)
-	return &v
-}
-
-func (v ServiceTerminalConditionDomainMappingReasonEnum) Validate() error {
-	if string(v) == "" {
-		// Empty enum is okay.
-		return nil
-	}
-	for _, s := range []string{"DOMAIN_MAPPING_REASON_UNDEFINED", "ROUTE_NOT_READY", "PERMISSION_DENIED", "CERTIFICATE_ALREADY_EXISTS", "MAPPING_ALREADY_EXISTS", "CERTIFICATE_PENDING", "CERTIFICATE_FAILED"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "ServiceTerminalConditionDomainMappingReasonEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -1226,16 +1199,15 @@ func (r *ServiceTraffic) HashCode() string {
 }
 
 type ServiceTerminalCondition struct {
-	empty               bool                                             `json:"-"`
-	Type                *string                                          `json:"type"`
-	State               *ServiceTerminalConditionStateEnum               `json:"state"`
-	Message             *string                                          `json:"message"`
-	LastTransitionTime  *string                                          `json:"lastTransitionTime"`
-	Severity            *ServiceTerminalConditionSeverityEnum            `json:"severity"`
-	Reason              *ServiceTerminalConditionReasonEnum              `json:"reason"`
-	DomainMappingReason *ServiceTerminalConditionDomainMappingReasonEnum `json:"domainMappingReason"`
-	RevisionReason      *ServiceTerminalConditionRevisionReasonEnum      `json:"revisionReason"`
-	JobReason           *ServiceTerminalConditionJobReasonEnum           `json:"jobReason"`
+	empty              bool                                        `json:"-"`
+	Type               *string                                     `json:"type"`
+	State              *ServiceTerminalConditionStateEnum          `json:"state"`
+	Message            *string                                     `json:"message"`
+	LastTransitionTime *string                                     `json:"lastTransitionTime"`
+	Severity           *ServiceTerminalConditionSeverityEnum       `json:"severity"`
+	Reason             *ServiceTerminalConditionReasonEnum         `json:"reason"`
+	RevisionReason     *ServiceTerminalConditionRevisionReasonEnum `json:"revisionReason"`
+	JobReason          *ServiceTerminalConditionJobReasonEnum      `json:"jobReason"`
 }
 
 type jsonServiceTerminalCondition ServiceTerminalCondition
@@ -1264,8 +1236,6 @@ func (r *ServiceTerminalCondition) UnmarshalJSON(data []byte) error {
 		r.Severity = res.Severity
 
 		r.Reason = res.Reason
-
-		r.DomainMappingReason = res.DomainMappingReason
 
 		r.RevisionReason = res.RevisionReason
 

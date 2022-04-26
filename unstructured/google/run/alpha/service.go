@@ -296,9 +296,6 @@ func ServiceToUnstructured(r *dclService.Service) *unstructured.Resource {
 	}
 	if r.TerminalCondition != nil && r.TerminalCondition != dclService.EmptyServiceTerminalCondition {
 		rTerminalCondition := make(map[string]interface{})
-		if r.TerminalCondition.DomainMappingReason != nil {
-			rTerminalCondition["domainMappingReason"] = string(*r.TerminalCondition.DomainMappingReason)
-		}
 		if r.TerminalCondition.JobReason != nil {
 			rTerminalCondition["jobReason"] = string(*r.TerminalCondition.JobReason)
 		}
@@ -936,13 +933,6 @@ func UnstructuredToService(u *unstructured.Resource) (*dclService.Service, error
 	if _, ok := u.Object["terminalCondition"]; ok {
 		if rTerminalCondition, ok := u.Object["terminalCondition"].(map[string]interface{}); ok {
 			r.TerminalCondition = &dclService.ServiceTerminalCondition{}
-			if _, ok := rTerminalCondition["domainMappingReason"]; ok {
-				if s, ok := rTerminalCondition["domainMappingReason"].(string); ok {
-					r.TerminalCondition.DomainMappingReason = dclService.ServiceTerminalConditionDomainMappingReasonEnumRef(s)
-				} else {
-					return nil, fmt.Errorf("r.TerminalCondition.DomainMappingReason: expected string")
-				}
-			}
 			if _, ok := rTerminalCondition["jobReason"]; ok {
 				if s, ok := rTerminalCondition["jobReason"].(string); ok {
 					r.TerminalCondition.JobReason = dclService.ServiceTerminalConditionJobReasonEnumRef(s)

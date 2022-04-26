@@ -697,26 +697,6 @@ components:
             a serving state. See comments in `reconciling` for additional information
             on reconciliation process in Cloud Run.
           properties:
-            domainMappingReason:
-              type: string
-              x-dcl-go-name: DomainMappingReason
-              x-dcl-go-type: ServiceTerminalConditionDomainMappingReasonEnum
-              description: 'A reason for the domain mapping condition. Possible values:
-                DOMAIN_MAPPING_REASON_UNDEFINED, ROUTE_NOT_READY, PERMISSION_DENIED,
-                CERTIFICATE_ALREADY_EXISTS, MAPPING_ALREADY_EXISTS, CERTIFICATE_PENDING,
-                CERTIFICATE_FAILED'
-              x-dcl-conflicts:
-              - reason
-              - revisionReason
-              - jobReason
-              enum:
-              - DOMAIN_MAPPING_REASON_UNDEFINED
-              - ROUTE_NOT_READY
-              - PERMISSION_DENIED
-              - CERTIFICATE_ALREADY_EXISTS
-              - MAPPING_ALREADY_EXISTS
-              - CERTIFICATE_PENDING
-              - CERTIFICATE_FAILED
             jobReason:
               type: string
               x-dcl-go-name: JobReason
@@ -725,7 +705,6 @@ components:
                 JOB_STATUS_SERVICE_POLLING_ERROR'
               x-dcl-conflicts:
               - reason
-              - domainMappingReason
               - revisionReason
               enum:
               - JOB_REASON_UNDEFINED
@@ -747,12 +726,11 @@ components:
               x-dcl-go-type: ServiceTerminalConditionReasonEnum
               description: 'A common (service-level) reason for this condition. Possible
                 values: COMMON_REASON_UNDEFINED, UNKNOWN, REVISION_FAILED, PROGRESS_DEADLINE_EXCEEDED,
-                BUILD_STEP_FAILED, CONTAINER_MISSING, CONTAINER_PERMISSION_DENIED,
-                CONTAINER_IMAGE_UNAUTHORIZED, CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED,
-                ENCRYPTION_KEY_PERMISSION_DENIED, ENCRYPTION_KEY_CHECK_FAILED, SECRETS_ACCESS_CHECK_FAILED,
-                WAITING_FOR_OPERATION, IMMEDIATE_RETRY, POSTPONED_RETRY, INTERNAL'
+                CONTAINER_MISSING, CONTAINER_PERMISSION_DENIED, CONTAINER_IMAGE_UNAUTHORIZED,
+                CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED, ENCRYPTION_KEY_PERMISSION_DENIED,
+                ENCRYPTION_KEY_CHECK_FAILED, SECRETS_ACCESS_CHECK_FAILED, WAITING_FOR_OPERATION,
+                IMMEDIATE_RETRY, POSTPONED_RETRY, INTERNAL'
               x-dcl-conflicts:
-              - domainMappingReason
               - revisionReason
               - jobReason
               enum:
@@ -760,7 +738,6 @@ components:
               - UNKNOWN
               - REVISION_FAILED
               - PROGRESS_DEADLINE_EXCEEDED
-              - BUILD_STEP_FAILED
               - CONTAINER_MISSING
               - CONTAINER_PERMISSION_DENIED
               - CONTAINER_IMAGE_UNAUTHORIZED
@@ -782,7 +759,6 @@ components:
                 ACTIVE_REVISION_LIMIT_REACHED, NO_DEPLOYMENT'
               x-dcl-conflicts:
               - reason
-              - domainMappingReason
               - jobReason
               enum:
               - REVISION_REASON_UNDEFINED
