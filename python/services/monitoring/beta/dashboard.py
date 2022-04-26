@@ -2984,9 +2984,9 @@ class DashboardGridLayoutWidgetsBlankArray(object):
 
 
 class DashboardGridLayoutWidgetsLogsPanel(object):
-    def __init__(self, filter: str = None, resourceNames: list = None):
+    def __init__(self, filter: str = None, resource_names: list = None):
         self.filter = filter
-        self.resourceNames = resourceNames
+        self.resource_names = resource_names
 
     @classmethod
     def to_proto(self, resource):
@@ -2996,8 +2996,8 @@ class DashboardGridLayoutWidgetsLogsPanel(object):
         res = dashboard_pb2.MonitoringBetaDashboardGridLayoutWidgetsLogsPanel()
         if Primitive.to_proto(resource.filter):
             res.filter = Primitive.to_proto(resource.filter)
-        if Primitive.to_proto(resource.resourceNames):
-            res.resourceNames.extend(Primitive.to_proto(resource.resourceNames))
+        if Primitive.to_proto(resource.resource_names):
+            res.resource_names.extend(Primitive.to_proto(resource.resource_names))
         return res
 
     @classmethod
@@ -3007,7 +3007,7 @@ class DashboardGridLayoutWidgetsLogsPanel(object):
 
         return DashboardGridLayoutWidgetsLogsPanel(
             filter=Primitive.from_proto(resource.filter),
-            resourceNames=Primitive.from_proto(resource.resourceNames),
+            resource_names=Primitive.from_proto(resource.resource_names),
         )
 
 
@@ -5952,9 +5952,9 @@ class DashboardMosaicLayoutTilesWidgetBlankArray(object):
 
 
 class DashboardMosaicLayoutTilesWidgetLogsPanel(object):
-    def __init__(self, filter: str = None, resourceNames: list = None):
+    def __init__(self, filter: str = None, resource_names: list = None):
         self.filter = filter
-        self.resourceNames = resourceNames
+        self.resource_names = resource_names
 
     @classmethod
     def to_proto(self, resource):
@@ -5964,8 +5964,8 @@ class DashboardMosaicLayoutTilesWidgetLogsPanel(object):
         res = dashboard_pb2.MonitoringBetaDashboardMosaicLayoutTilesWidgetLogsPanel()
         if Primitive.to_proto(resource.filter):
             res.filter = Primitive.to_proto(resource.filter)
-        if Primitive.to_proto(resource.resourceNames):
-            res.resourceNames.extend(Primitive.to_proto(resource.resourceNames))
+        if Primitive.to_proto(resource.resource_names):
+            res.resource_names.extend(Primitive.to_proto(resource.resource_names))
         return res
 
     @classmethod
@@ -5975,7 +5975,7 @@ class DashboardMosaicLayoutTilesWidgetLogsPanel(object):
 
         return DashboardMosaicLayoutTilesWidgetLogsPanel(
             filter=Primitive.from_proto(resource.filter),
-            resourceNames=Primitive.from_proto(resource.resourceNames),
+            resource_names=Primitive.from_proto(resource.resource_names),
         )
 
 
@@ -8880,9 +8880,9 @@ class DashboardRowLayoutRowsWidgetsBlankArray(object):
 
 
 class DashboardRowLayoutRowsWidgetsLogsPanel(object):
-    def __init__(self, filter: str = None, resourceNames: list = None):
+    def __init__(self, filter: str = None, resource_names: list = None):
         self.filter = filter
-        self.resourceNames = resourceNames
+        self.resource_names = resource_names
 
     @classmethod
     def to_proto(self, resource):
@@ -8892,8 +8892,8 @@ class DashboardRowLayoutRowsWidgetsLogsPanel(object):
         res = dashboard_pb2.MonitoringBetaDashboardRowLayoutRowsWidgetsLogsPanel()
         if Primitive.to_proto(resource.filter):
             res.filter = Primitive.to_proto(resource.filter)
-        if Primitive.to_proto(resource.resourceNames):
-            res.resourceNames.extend(Primitive.to_proto(resource.resourceNames))
+        if Primitive.to_proto(resource.resource_names):
+            res.resource_names.extend(Primitive.to_proto(resource.resource_names))
         return res
 
     @classmethod
@@ -8903,7 +8903,7 @@ class DashboardRowLayoutRowsWidgetsLogsPanel(object):
 
         return DashboardRowLayoutRowsWidgetsLogsPanel(
             filter=Primitive.from_proto(resource.filter),
-            resourceNames=Primitive.from_proto(resource.resourceNames),
+            resource_names=Primitive.from_proto(resource.resource_names),
         )
 
 
@@ -11854,9 +11854,9 @@ class DashboardColumnLayoutColumnsWidgetsBlankArray(object):
 
 
 class DashboardColumnLayoutColumnsWidgetsLogsPanel(object):
-    def __init__(self, filter: str = None, resourceNames: list = None):
+    def __init__(self, filter: str = None, resource_names: list = None):
         self.filter = filter
-        self.resourceNames = resourceNames
+        self.resource_names = resource_names
 
     @classmethod
     def to_proto(self, resource):
@@ -11866,8 +11866,8 @@ class DashboardColumnLayoutColumnsWidgetsLogsPanel(object):
         res = dashboard_pb2.MonitoringBetaDashboardColumnLayoutColumnsWidgetsLogsPanel()
         if Primitive.to_proto(resource.filter):
             res.filter = Primitive.to_proto(resource.filter)
-        if Primitive.to_proto(resource.resourceNames):
-            res.resourceNames.extend(Primitive.to_proto(resource.resourceNames))
+        if Primitive.to_proto(resource.resource_names):
+            res.resource_names.extend(Primitive.to_proto(resource.resource_names))
         return res
 
     @classmethod
@@ -11877,7 +11877,7 @@ class DashboardColumnLayoutColumnsWidgetsLogsPanel(object):
 
         return DashboardColumnLayoutColumnsWidgetsLogsPanel(
             filter=Primitive.from_proto(resource.filter),
-            resourceNames=Primitive.from_proto(resource.resourceNames),
+            resource_names=Primitive.from_proto(resource.resource_names),
         )
 
 

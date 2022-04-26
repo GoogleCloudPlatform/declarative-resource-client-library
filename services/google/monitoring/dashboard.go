@@ -6155,7 +6155,7 @@ func (r *DashboardGridLayoutWidgetsBlank) HashCode() string {
 type DashboardGridLayoutWidgetsLogsPanel struct {
 	empty         bool     `json:"-"`
 	Filter        *string  `json:"filter"`
-	ResourceNames []string `json:"resourcenames"`
+	ResourceNames []string `json:"resourceNames"`
 }
 
 type jsonDashboardGridLayoutWidgetsLogsPanel DashboardGridLayoutWidgetsLogsPanel
@@ -8271,7 +8271,7 @@ func (r *DashboardMosaicLayoutTilesWidgetBlank) HashCode() string {
 type DashboardMosaicLayoutTilesWidgetLogsPanel struct {
 	empty         bool     `json:"-"`
 	Filter        *string  `json:"filter"`
-	ResourceNames []string `json:"resourcenames"`
+	ResourceNames []string `json:"resourceNames"`
 }
 
 type jsonDashboardMosaicLayoutTilesWidgetLogsPanel DashboardMosaicLayoutTilesWidgetLogsPanel
@@ -10375,7 +10375,7 @@ func (r *DashboardRowLayoutRowsWidgetsBlank) HashCode() string {
 type DashboardRowLayoutRowsWidgetsLogsPanel struct {
 	empty         bool     `json:"-"`
 	Filter        *string  `json:"filter"`
-	ResourceNames []string `json:"resourcenames"`
+	ResourceNames []string `json:"resourceNames"`
 }
 
 type jsonDashboardRowLayoutRowsWidgetsLogsPanel DashboardRowLayoutRowsWidgetsLogsPanel
@@ -12479,7 +12479,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsBlank) HashCode() string {
 type DashboardColumnLayoutColumnsWidgetsLogsPanel struct {
 	empty         bool     `json:"-"`
 	Filter        *string  `json:"filter"`
-	ResourceNames []string `json:"resourcenames"`
+	ResourceNames []string `json:"resourceNames"`
 }
 
 type jsonDashboardColumnLayoutColumnsWidgetsLogsPanel DashboardColumnLayoutColumnsWidgetsLogsPanel

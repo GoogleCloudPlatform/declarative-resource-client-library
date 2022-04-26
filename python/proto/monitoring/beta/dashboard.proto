@@ -2629,7 +2629,7 @@ message MonitoringBetaDashboardGridLayoutWidgetsBlank {
 
 message MonitoringBetaDashboardGridLayoutWidgetsLogsPanel {
   string filter = 1;
-  repeated string resourceNames = 2;
+  repeated string resource_names = 2;
 }
 
 message MonitoringBetaDashboardMosaicLayout {
@@ -2881,7 +2881,7 @@ message MonitoringBetaDashboardMosaicLayoutTilesWidgetBlank {
 
 message MonitoringBetaDashboardMosaicLayoutTilesWidgetLogsPanel {
   string filter = 1;
-  repeated string resourceNames = 2;
+  repeated string resource_names = 2;
 }
 
 message MonitoringBetaDashboardRowLayout {
@@ -3129,7 +3129,7 @@ message MonitoringBetaDashboardRowLayoutRowsWidgetsBlank {
 
 message MonitoringBetaDashboardRowLayoutRowsWidgetsLogsPanel {
   string filter = 1;
-  repeated string resourceNames = 2;
+  repeated string resource_names = 2;
 }
 
 message MonitoringBetaDashboardColumnLayout {
@@ -3377,7 +3377,7 @@ message MonitoringBetaDashboardColumnLayoutColumnsWidgetsBlank {
 
 message MonitoringBetaDashboardColumnLayoutColumnsWidgetsLogsPanel {
   string filter = 1;
-  repeated string resourceNames = 2;
+  repeated string resource_names = 2;
 }
 
 message ApplyMonitoringBetaDashboardRequest {

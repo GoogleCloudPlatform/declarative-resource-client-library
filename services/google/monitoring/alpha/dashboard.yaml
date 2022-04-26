@@ -128,7 +128,7 @@ components:
                                 to return. See [Advanced Logs Queries](https://cloud.google.com/logging/docs/view/advanced-queries).
                                 Only log entries that match the filter are returned.
                                 An empty filter matches all log entries.
-                            resourcenames:
+                            resourceNames:
                               type: array
                               x-dcl-go-name: ResourceNames
                               description: The names of logging resources to collect
@@ -2405,7 +2405,7 @@ components:
                           See [Advanced Logs Queries](https://cloud.google.com/logging/docs/view/advanced-queries).
                           Only log entries that match the filter are returned. An
                           empty filter matches all log entries.
-                      resourcenames:
+                      resourceNames:
                         type: array
                         x-dcl-go-name: ResourceNames
                         description: The names of logging resources to collect logs
@@ -4525,7 +4525,7 @@ components:
                               return. See [Advanced Logs Queries](https://cloud.google.com/logging/docs/view/advanced-queries).
                               Only log entries that match the filter are returned.
                               An empty filter matches all log entries.
-                          resourcenames:
+                          resourceNames:
                             type: array
                             x-dcl-go-name: ResourceNames
                             description: The names of logging resources to collect
@@ -6768,7 +6768,7 @@ components:
                                 to return. See [Advanced Logs Queries](https://cloud.google.com/logging/docs/view/advanced-queries).
                                 Only log entries that match the filter are returned.
                                 An empty filter matches all log entries.
-                            resourcenames:
+                            resourceNames:
                               type: array
                               x-dcl-go-name: ResourceNames
                               description: The names of logging resources to collect
