@@ -171,8 +171,7 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          description: Optional. Name of the `DeliveryPipeline`. Format is projects/{project}/
-            locations/{location}/deliveryPipelines/a-z{0,62}.
+          description: Name of the `DeliveryPipeline`. Format is [a-z][a-z0-9\-]{0,62}.
         project:
           type: string
           x-dcl-go-name: Project

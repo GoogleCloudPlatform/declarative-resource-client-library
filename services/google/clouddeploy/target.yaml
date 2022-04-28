@@ -211,7 +211,7 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          description: Optional. Name of the `Target`. Format is projects/{project}/locations/{location}/targets/a-z{0,62}.
+          description: Name of the `Target`. Format is [a-z][a-z0-9\-]{0,62}.
         project:
           type: string
           x-dcl-go-name: Project
