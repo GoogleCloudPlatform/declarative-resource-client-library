@@ -581,7 +581,9 @@ class NoteDeployment(object):
         if not resource:
             return None
 
-        return NoteDeployment(resource_uri=Primitive.from_proto(resource.resource_uri),)
+        return NoteDeployment(
+            resource_uri=Primitive.from_proto(resource.resource_uri),
+        )
 
 
 class NoteDeploymentArray(object):
@@ -617,7 +619,9 @@ class NoteAttestation(object):
         if not resource:
             return None
 
-        return NoteAttestation(hint=NoteAttestationHint.from_proto(resource.hint),)
+        return NoteAttestation(
+            hint=NoteAttestationHint.from_proto(resource.hint),
+        )
 
 
 class NoteAttestationArray(object):
@@ -681,11 +685,11 @@ class NotePackageDistributionArchitectureEnum(object):
     def from_proto(self, resource):
         if not resource:
             return resource
-        return note_pb2.ContaineranalysisAlphaNotePackageDistributionArchitectureEnum.Name(
-            resource
-        )[
-            len("ContaineranalysisAlphaNotePackageDistributionArchitectureEnum") :
-        ]
+        return (
+            note_pb2.ContaineranalysisAlphaNotePackageDistributionArchitectureEnum.Name(
+                resource
+            )[len("ContaineranalysisAlphaNotePackageDistributionArchitectureEnum") :]
+        )
 
 
 class NotePackageDistributionLatestVersionKindEnum(object):

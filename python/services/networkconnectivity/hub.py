@@ -129,7 +129,9 @@ class HubRoutingVpcs(object):
         if not resource:
             return None
 
-        return HubRoutingVpcs(uri=Primitive.from_proto(resource.uri),)
+        return HubRoutingVpcs(
+            uri=Primitive.from_proto(resource.uri),
+        )
 
 
 class HubRoutingVpcsArray(object):

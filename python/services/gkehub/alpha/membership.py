@@ -79,8 +79,8 @@ class Membership(object):
         else:
             request.resource.ClearField("authority")
         if MembershipInfrastructureTypeEnum.to_proto(self.infrastructure_type):
-            request.resource.infrastructure_type = MembershipInfrastructureTypeEnum.to_proto(
-                self.infrastructure_type
+            request.resource.infrastructure_type = (
+                MembershipInfrastructureTypeEnum.to_proto(self.infrastructure_type)
             )
 
         if Primitive.to_proto(self.project):
@@ -139,8 +139,8 @@ class Membership(object):
         else:
             request.resource.ClearField("authority")
         if MembershipInfrastructureTypeEnum.to_proto(self.infrastructure_type):
-            request.resource.infrastructure_type = MembershipInfrastructureTypeEnum.to_proto(
-                self.infrastructure_type
+            request.resource.infrastructure_type = (
+                MembershipInfrastructureTypeEnum.to_proto(self.infrastructure_type)
             )
 
         if Primitive.to_proto(self.project):
@@ -611,7 +611,9 @@ class MembershipState(object):
         if not resource:
             return None
 
-        return MembershipState(code=MembershipStateCodeEnum.from_proto(resource.code),)
+        return MembershipState(
+            code=MembershipStateCodeEnum.from_proto(resource.code),
+        )
 
 
 class MembershipStateArray(object):

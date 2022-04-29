@@ -336,8 +336,10 @@ class ClusterConfigGceClusterConfig(object):
         if ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.to_proto(
             resource.private_ipv6_google_access
         ):
-            res.private_ipv6_google_access = ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.to_proto(
-                resource.private_ipv6_google_access
+            res.private_ipv6_google_access = (
+                ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.to_proto(
+                    resource.private_ipv6_google_access
+                )
             )
         if Primitive.to_proto(resource.service_account):
             res.service_account = Primitive.to_proto(resource.service_account)
@@ -1077,8 +1079,10 @@ class ClusterConfigSecondaryWorkerConfig(object):
         if ClusterConfigSecondaryWorkerConfigPreemptibilityEnum.to_proto(
             resource.preemptibility
         ):
-            res.preemptibility = ClusterConfigSecondaryWorkerConfigPreemptibilityEnum.to_proto(
-                resource.preemptibility
+            res.preemptibility = (
+                ClusterConfigSecondaryWorkerConfigPreemptibilityEnum.to_proto(
+                    resource.preemptibility
+                )
             )
         if ClusterConfigSecondaryWorkerConfigManagedGroupConfig.to_proto(
             resource.managed_group_config
@@ -1996,19 +2000,21 @@ class ClusterConfigSoftwareConfigOptionalComponentsEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return cluster_pb2.DataprocClusterConfigSoftwareConfigOptionalComponentsEnum.Value(
-            "DataprocClusterConfigSoftwareConfigOptionalComponentsEnum%s" % resource
+        return (
+            cluster_pb2.DataprocClusterConfigSoftwareConfigOptionalComponentsEnum.Value(
+                "DataprocClusterConfigSoftwareConfigOptionalComponentsEnum%s" % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return cluster_pb2.DataprocClusterConfigSoftwareConfigOptionalComponentsEnum.Name(
-            resource
-        )[
-            len("DataprocClusterConfigSoftwareConfigOptionalComponentsEnum") :
-        ]
+        return (
+            cluster_pb2.DataprocClusterConfigSoftwareConfigOptionalComponentsEnum.Name(
+                resource
+            )[len("DataprocClusterConfigSoftwareConfigOptionalComponentsEnum") :]
+        )
 
 
 class ClusterStatusStateEnum(object):

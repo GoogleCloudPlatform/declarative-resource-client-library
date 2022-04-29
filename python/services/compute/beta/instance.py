@@ -755,8 +755,10 @@ class InstanceNetworkInterfacesAccessConfigs(object):
         if InstanceNetworkInterfacesAccessConfigsNetworkTierEnum.to_proto(
             resource.network_tier
         ):
-            res.network_tier = InstanceNetworkInterfacesAccessConfigsNetworkTierEnum.to_proto(
-                resource.network_tier
+            res.network_tier = (
+                InstanceNetworkInterfacesAccessConfigsNetworkTierEnum.to_proto(
+                    resource.network_tier
+                )
             )
         if InstanceNetworkInterfacesAccessConfigsTypeEnum.to_proto(resource.type):
             res.type = InstanceNetworkInterfacesAccessConfigsTypeEnum.to_proto(
@@ -847,8 +849,10 @@ class InstanceNetworkInterfacesIPv6AccessConfigs(object):
         if InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum.to_proto(
             resource.network_tier
         ):
-            res.network_tier = InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum.to_proto(
-                resource.network_tier
+            res.network_tier = (
+                InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum.to_proto(
+                    resource.network_tier
+                )
             )
         if InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum.to_proto(resource.type):
             res.type = InstanceNetworkInterfacesIPv6AccessConfigsTypeEnum.to_proto(
@@ -1169,11 +1173,11 @@ class InstanceNetworkInterfacesAccessConfigsTypeEnum(object):
     def from_proto(self, resource):
         if not resource:
             return resource
-        return instance_pb2.ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum.Name(
-            resource
-        )[
-            len("ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum") :
-        ]
+        return (
+            instance_pb2.ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum.Name(
+                resource
+            )[len("ComputeBetaInstanceNetworkInterfacesAccessConfigsTypeEnum") :]
+        )
 
 
 class InstanceNetworkInterfacesIPv6AccessConfigsNetworkTierEnum(object):

@@ -282,8 +282,10 @@ class SubnetworkLogConfig(object):
         if SubnetworkLogConfigAggregationIntervalEnum.to_proto(
             resource.aggregation_interval
         ):
-            res.aggregation_interval = SubnetworkLogConfigAggregationIntervalEnum.to_proto(
-                resource.aggregation_interval
+            res.aggregation_interval = (
+                SubnetworkLogConfigAggregationIntervalEnum.to_proto(
+                    resource.aggregation_interval
+                )
             )
         if Primitive.to_proto(resource.flow_sampling):
             res.flow_sampling = Primitive.to_proto(resource.flow_sampling)
@@ -358,19 +360,21 @@ class SubnetworkLogConfigAggregationIntervalEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return subnetwork_pb2.ComputeBetaSubnetworkLogConfigAggregationIntervalEnum.Value(
-            "ComputeBetaSubnetworkLogConfigAggregationIntervalEnum%s" % resource
+        return (
+            subnetwork_pb2.ComputeBetaSubnetworkLogConfigAggregationIntervalEnum.Value(
+                "ComputeBetaSubnetworkLogConfigAggregationIntervalEnum%s" % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return subnetwork_pb2.ComputeBetaSubnetworkLogConfigAggregationIntervalEnum.Name(
-            resource
-        )[
-            len("ComputeBetaSubnetworkLogConfigAggregationIntervalEnum") :
-        ]
+        return (
+            subnetwork_pb2.ComputeBetaSubnetworkLogConfigAggregationIntervalEnum.Name(
+                resource
+            )[len("ComputeBetaSubnetworkLogConfigAggregationIntervalEnum") :]
+        )
 
 
 class SubnetworkLogConfigMetadataEnum(object):

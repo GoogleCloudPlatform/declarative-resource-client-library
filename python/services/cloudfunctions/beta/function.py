@@ -140,8 +140,10 @@ class Function(object):
         if FunctionVPCConnectorEgressSettingsEnum.to_proto(
             self.vpc_connector_egress_settings
         ):
-            request.resource.vpc_connector_egress_settings = FunctionVPCConnectorEgressSettingsEnum.to_proto(
-                self.vpc_connector_egress_settings
+            request.resource.vpc_connector_egress_settings = (
+                FunctionVPCConnectorEgressSettingsEnum.to_proto(
+                    self.vpc_connector_egress_settings
+                )
             )
 
         if FunctionIngressSettingsEnum.to_proto(self.ingress_settings):
@@ -182,8 +184,10 @@ class Function(object):
         )
         self.max_instances = Primitive.from_proto(response.max_instances)
         self.vpc_connector = Primitive.from_proto(response.vpc_connector)
-        self.vpc_connector_egress_settings = FunctionVPCConnectorEgressSettingsEnum.from_proto(
-            response.vpc_connector_egress_settings
+        self.vpc_connector_egress_settings = (
+            FunctionVPCConnectorEgressSettingsEnum.from_proto(
+                response.vpc_connector_egress_settings
+            )
         )
         self.ingress_settings = FunctionIngressSettingsEnum.from_proto(
             response.ingress_settings
@@ -262,8 +266,10 @@ class Function(object):
         if FunctionVPCConnectorEgressSettingsEnum.to_proto(
             self.vpc_connector_egress_settings
         ):
-            request.resource.vpc_connector_egress_settings = FunctionVPCConnectorEgressSettingsEnum.to_proto(
-                self.vpc_connector_egress_settings
+            request.resource.vpc_connector_egress_settings = (
+                FunctionVPCConnectorEgressSettingsEnum.to_proto(
+                    self.vpc_connector_egress_settings
+                )
             )
 
         if FunctionIngressSettingsEnum.to_proto(self.ingress_settings):
@@ -343,8 +349,10 @@ class Function(object):
         if FunctionVPCConnectorEgressSettingsEnum.to_proto(
             self.vpc_connector_egress_settings
         ):
-            resource.vpc_connector_egress_settings = FunctionVPCConnectorEgressSettingsEnum.to_proto(
-                self.vpc_connector_egress_settings
+            resource.vpc_connector_egress_settings = (
+                FunctionVPCConnectorEgressSettingsEnum.to_proto(
+                    self.vpc_connector_egress_settings
+                )
             )
         if FunctionIngressSettingsEnum.to_proto(self.ingress_settings):
             resource.ingress_settings = FunctionIngressSettingsEnum.to_proto(
@@ -500,19 +508,21 @@ class FunctionHttpsTriggerSecurityLevelEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return function_pb2.CloudfunctionsBetaFunctionHttpsTriggerSecurityLevelEnum.Value(
-            "CloudfunctionsBetaFunctionHttpsTriggerSecurityLevelEnum%s" % resource
+        return (
+            function_pb2.CloudfunctionsBetaFunctionHttpsTriggerSecurityLevelEnum.Value(
+                "CloudfunctionsBetaFunctionHttpsTriggerSecurityLevelEnum%s" % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return function_pb2.CloudfunctionsBetaFunctionHttpsTriggerSecurityLevelEnum.Name(
-            resource
-        )[
-            len("CloudfunctionsBetaFunctionHttpsTriggerSecurityLevelEnum") :
-        ]
+        return (
+            function_pb2.CloudfunctionsBetaFunctionHttpsTriggerSecurityLevelEnum.Name(
+                resource
+            )[len("CloudfunctionsBetaFunctionHttpsTriggerSecurityLevelEnum") :]
+        )
 
 
 class FunctionStatusEnum(object):
@@ -538,19 +548,21 @@ class FunctionVPCConnectorEgressSettingsEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return function_pb2.CloudfunctionsBetaFunctionVPCConnectorEgressSettingsEnum.Value(
-            "CloudfunctionsBetaFunctionVPCConnectorEgressSettingsEnum%s" % resource
+        return (
+            function_pb2.CloudfunctionsBetaFunctionVPCConnectorEgressSettingsEnum.Value(
+                "CloudfunctionsBetaFunctionVPCConnectorEgressSettingsEnum%s" % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return function_pb2.CloudfunctionsBetaFunctionVPCConnectorEgressSettingsEnum.Name(
-            resource
-        )[
-            len("CloudfunctionsBetaFunctionVPCConnectorEgressSettingsEnum") :
-        ]
+        return (
+            function_pb2.CloudfunctionsBetaFunctionVPCConnectorEgressSettingsEnum.Name(
+                resource
+            )[len("CloudfunctionsBetaFunctionVPCConnectorEgressSettingsEnum") :]
+        )
 
 
 class FunctionIngressSettingsEnum(object):

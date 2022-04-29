@@ -633,11 +633,11 @@ class CryptoKeyVersionTemplateProtectionLevelEnum(object):
     def from_proto(self, resource):
         if not resource:
             return resource
-        return crypto_key_pb2.CloudkmsBetaCryptoKeyVersionTemplateProtectionLevelEnum.Name(
-            resource
-        )[
-            len("CloudkmsBetaCryptoKeyVersionTemplateProtectionLevelEnum") :
-        ]
+        return (
+            crypto_key_pb2.CloudkmsBetaCryptoKeyVersionTemplateProtectionLevelEnum.Name(
+                resource
+            )[len("CloudkmsBetaCryptoKeyVersionTemplateProtectionLevelEnum") :]
+        )
 
 
 class CryptoKeyVersionTemplateAlgorithmEnum(object):

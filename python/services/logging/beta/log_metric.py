@@ -603,11 +603,11 @@ class LogMetricMetricDescriptorLabelsValueTypeEnum(object):
     def from_proto(self, resource):
         if not resource:
             return resource
-        return log_metric_pb2.LoggingBetaLogMetricMetricDescriptorLabelsValueTypeEnum.Name(
-            resource
-        )[
-            len("LoggingBetaLogMetricMetricDescriptorLabelsValueTypeEnum") :
-        ]
+        return (
+            log_metric_pb2.LoggingBetaLogMetricMetricDescriptorLabelsValueTypeEnum.Name(
+                resource
+            )[len("LoggingBetaLogMetricMetricDescriptorLabelsValueTypeEnum") :]
+        )
 
 
 class LogMetricMetricDescriptorMetricKindEnum(object):

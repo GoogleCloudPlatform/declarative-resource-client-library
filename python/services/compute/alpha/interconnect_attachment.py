@@ -121,8 +121,10 @@ class InterconnectAttachment(object):
         if InterconnectAttachmentEdgeAvailabilityDomainEnum.to_proto(
             self.edge_availability_domain
         ):
-            request.resource.edge_availability_domain = InterconnectAttachmentEdgeAvailabilityDomainEnum.to_proto(
-                self.edge_availability_domain
+            request.resource.edge_availability_domain = (
+                InterconnectAttachmentEdgeAvailabilityDomainEnum.to_proto(
+                    self.edge_availability_domain
+                )
             )
 
         if Primitive.to_proto(self.candidate_subnets):
@@ -179,11 +181,15 @@ class InterconnectAttachment(object):
         self.router = Primitive.from_proto(response.router)
         self.region = Primitive.from_proto(response.region)
         self.mtu = Primitive.from_proto(response.mtu)
-        self.private_interconnect_info = InterconnectAttachmentPrivateInterconnectInfo.from_proto(
-            response.private_interconnect_info
+        self.private_interconnect_info = (
+            InterconnectAttachmentPrivateInterconnectInfo.from_proto(
+                response.private_interconnect_info
+            )
         )
-        self.operational_status = InterconnectAttachmentOperationalStatusEnum.from_proto(
-            response.operational_status
+        self.operational_status = (
+            InterconnectAttachmentOperationalStatusEnum.from_proto(
+                response.operational_status
+            )
         )
         self.cloud_router_ip_address = Primitive.from_proto(
             response.cloud_router_ip_address
@@ -195,8 +201,10 @@ class InterconnectAttachment(object):
         self.pairing_key = Primitive.from_proto(response.pairing_key)
         self.admin_enabled = Primitive.from_proto(response.admin_enabled)
         self.vlan_tag8021q = Primitive.from_proto(response.vlan_tag8021q)
-        self.edge_availability_domain = InterconnectAttachmentEdgeAvailabilityDomainEnum.from_proto(
-            response.edge_availability_domain
+        self.edge_availability_domain = (
+            InterconnectAttachmentEdgeAvailabilityDomainEnum.from_proto(
+                response.edge_availability_domain
+            )
         )
         self.candidate_subnets = Primitive.from_proto(response.candidate_subnets)
         self.bandwidth = InterconnectAttachmentBandwidthEnum.from_proto(
@@ -260,8 +268,10 @@ class InterconnectAttachment(object):
         if InterconnectAttachmentEdgeAvailabilityDomainEnum.to_proto(
             self.edge_availability_domain
         ):
-            request.resource.edge_availability_domain = InterconnectAttachmentEdgeAvailabilityDomainEnum.to_proto(
-                self.edge_availability_domain
+            request.resource.edge_availability_domain = (
+                InterconnectAttachmentEdgeAvailabilityDomainEnum.to_proto(
+                    self.edge_availability_domain
+                )
             )
 
         if Primitive.to_proto(self.candidate_subnets):
@@ -349,8 +359,10 @@ class InterconnectAttachment(object):
         if InterconnectAttachmentEdgeAvailabilityDomainEnum.to_proto(
             self.edge_availability_domain
         ):
-            resource.edge_availability_domain = InterconnectAttachmentEdgeAvailabilityDomainEnum.to_proto(
-                self.edge_availability_domain
+            resource.edge_availability_domain = (
+                InterconnectAttachmentEdgeAvailabilityDomainEnum.to_proto(
+                    self.edge_availability_domain
+                )
             )
         if Primitive.to_proto(self.candidate_subnets):
             resource.candidate_subnets.extend(
@@ -514,11 +526,11 @@ class InterconnectAttachmentTypeEnum(object):
     def from_proto(self, resource):
         if not resource:
             return resource
-        return interconnect_attachment_pb2.ComputeAlphaInterconnectAttachmentTypeEnum.Name(
-            resource
-        )[
-            len("ComputeAlphaInterconnectAttachmentTypeEnum") :
-        ]
+        return (
+            interconnect_attachment_pb2.ComputeAlphaInterconnectAttachmentTypeEnum.Name(
+                resource
+            )[len("ComputeAlphaInterconnectAttachmentTypeEnum") :]
+        )
 
 
 class InterconnectAttachmentEdgeAvailabilityDomainEnum(object):

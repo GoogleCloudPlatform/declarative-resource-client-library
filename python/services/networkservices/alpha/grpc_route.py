@@ -671,11 +671,11 @@ class GrpcRouteRulesMatchesMethodTypeEnum(object):
     def from_proto(self, resource):
         if not resource:
             return resource
-        return grpc_route_pb2.NetworkservicesAlphaGrpcRouteRulesMatchesMethodTypeEnum.Name(
-            resource
-        )[
-            len("NetworkservicesAlphaGrpcRouteRulesMatchesMethodTypeEnum") :
-        ]
+        return (
+            grpc_route_pb2.NetworkservicesAlphaGrpcRouteRulesMatchesMethodTypeEnum.Name(
+                resource
+            )[len("NetworkservicesAlphaGrpcRouteRulesMatchesMethodTypeEnum") :]
+        )
 
 
 class GrpcRouteRulesMatchesHeadersTypeEnum(object):

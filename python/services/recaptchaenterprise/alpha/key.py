@@ -216,8 +216,10 @@ class KeyWebSettings(object):
         if KeyWebSettingsChallengeSecurityPreferenceEnum.to_proto(
             resource.challenge_security_preference
         ):
-            res.challenge_security_preference = KeyWebSettingsChallengeSecurityPreferenceEnum.to_proto(
-                resource.challenge_security_preference
+            res.challenge_security_preference = (
+                KeyWebSettingsChallengeSecurityPreferenceEnum.to_proto(
+                    resource.challenge_security_preference
+                )
             )
         return res
 
@@ -433,19 +435,22 @@ class KeyTestingOptionsTestingChallengeEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return key_pb2.RecaptchaenterpriseAlphaKeyTestingOptionsTestingChallengeEnum.Value(
-            "RecaptchaenterpriseAlphaKeyTestingOptionsTestingChallengeEnum%s" % resource
+        return (
+            key_pb2.RecaptchaenterpriseAlphaKeyTestingOptionsTestingChallengeEnum.Value(
+                "RecaptchaenterpriseAlphaKeyTestingOptionsTestingChallengeEnum%s"
+                % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return key_pb2.RecaptchaenterpriseAlphaKeyTestingOptionsTestingChallengeEnum.Name(
-            resource
-        )[
-            len("RecaptchaenterpriseAlphaKeyTestingOptionsTestingChallengeEnum") :
-        ]
+        return (
+            key_pb2.RecaptchaenterpriseAlphaKeyTestingOptionsTestingChallengeEnum.Name(
+                resource
+            )[len("RecaptchaenterpriseAlphaKeyTestingOptionsTestingChallengeEnum") :]
+        )
 
 
 class Primitive(object):

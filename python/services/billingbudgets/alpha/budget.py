@@ -199,8 +199,10 @@ class BudgetBudgetFilter(object):
         if BudgetBudgetFilterCreditTypesTreatmentEnum.to_proto(
             resource.credit_types_treatment
         ):
-            res.credit_types_treatment = BudgetBudgetFilterCreditTypesTreatmentEnum.to_proto(
-                resource.credit_types_treatment
+            res.credit_types_treatment = (
+                BudgetBudgetFilterCreditTypesTreatmentEnum.to_proto(
+                    resource.credit_types_treatment
+                )
             )
         if Primitive.to_proto(resource.services):
             res.services.extend(Primitive.to_proto(resource.services))
@@ -274,7 +276,9 @@ class BudgetBudgetFilterLabels(object):
         if not resource:
             return None
 
-        return BudgetBudgetFilterLabels(values=Primitive.from_proto(resource.values),)
+        return BudgetBudgetFilterLabels(
+            values=Primitive.from_proto(resource.values),
+        )
 
 
 class BudgetBudgetFilterLabelsArray(object):

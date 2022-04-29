@@ -122,8 +122,10 @@ class Dataset(object):
         self.last_modified_time = Primitive.from_proto(response.last_modified_time)
         self.location = Primitive.from_proto(response.location)
         self.published = Primitive.from_proto(response.published)
-        self.default_encryption_configuration = DatasetDefaultEncryptionConfiguration.from_proto(
-            response.default_encryption_configuration
+        self.default_encryption_configuration = (
+            DatasetDefaultEncryptionConfiguration.from_proto(
+                response.default_encryption_configuration
+            )
         )
 
     def delete(self):

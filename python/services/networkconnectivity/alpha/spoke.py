@@ -112,11 +112,15 @@ class Spoke(object):
         self.linked_vpn_tunnels = SpokeLinkedVpnTunnels.from_proto(
             response.linked_vpn_tunnels
         )
-        self.linked_interconnect_attachments = SpokeLinkedInterconnectAttachments.from_proto(
-            response.linked_interconnect_attachments
+        self.linked_interconnect_attachments = (
+            SpokeLinkedInterconnectAttachments.from_proto(
+                response.linked_interconnect_attachments
+            )
         )
-        self.linked_router_appliance_instances = SpokeLinkedRouterApplianceInstances.from_proto(
-            response.linked_router_appliance_instances
+        self.linked_router_appliance_instances = (
+            SpokeLinkedRouterApplianceInstances.from_proto(
+                response.linked_router_appliance_instances
+            )
         )
         self.unique_id = Primitive.from_proto(response.unique_id)
         self.state = SpokeStateEnum.from_proto(response.state)

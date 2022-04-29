@@ -1106,8 +1106,10 @@ class CertificateRevocationDetails(object):
         if CertificateRevocationDetailsRevocationStateEnum.to_proto(
             resource.revocation_state
         ):
-            res.revocation_state = CertificateRevocationDetailsRevocationStateEnum.to_proto(
-                resource.revocation_state
+            res.revocation_state = (
+                CertificateRevocationDetailsRevocationStateEnum.to_proto(
+                    resource.revocation_state
+                )
             )
         if Primitive.to_proto(resource.revocation_time):
             res.revocation_time = Primitive.to_proto(resource.revocation_time)

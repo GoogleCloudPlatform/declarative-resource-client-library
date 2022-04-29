@@ -526,8 +526,10 @@ class FeatureStateServicemeshAnalysisMessagesMessageBase(object):
         if FeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum.to_proto(
             resource.level
         ):
-            res.level = FeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum.to_proto(
-                resource.level
+            res.level = (
+                FeatureStateServicemeshAnalysisMessagesMessageBaseLevelEnum.to_proto(
+                    resource.level
+                )
             )
         if Primitive.to_proto(resource.documentation_url):
             res.documentation_url = Primitive.to_proto(resource.documentation_url)

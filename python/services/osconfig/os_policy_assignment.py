@@ -2181,9 +2181,11 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(
         if not resource:
             return None
 
-        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(
-            uri=Primitive.from_proto(resource.uri),
-            sha256_checksum=Primitive.from_proto(resource.sha256_checksum),
+        return (
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(
+                uri=Primitive.from_proto(resource.uri),
+                sha256_checksum=Primitive.from_proto(resource.sha256_checksum),
+            )
         )
 
 
@@ -3132,19 +3134,21 @@ class OSPolicyAssignmentOSPoliciesModeEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigOSPolicyAssignmentOSPoliciesModeEnum.Value(
-            "OsconfigOSPolicyAssignmentOSPoliciesModeEnum%s" % resource
+        return (
+            os_policy_assignment_pb2.OsconfigOSPolicyAssignmentOSPoliciesModeEnum.Value(
+                "OsconfigOSPolicyAssignmentOSPoliciesModeEnum%s" % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigOSPolicyAssignmentOSPoliciesModeEnum.Name(
-            resource
-        )[
-            len("OsconfigOSPolicyAssignmentOSPoliciesModeEnum") :
-        ]
+        return (
+            os_policy_assignment_pb2.OsconfigOSPolicyAssignmentOSPoliciesModeEnum.Name(
+                resource
+            )[len("OsconfigOSPolicyAssignmentOSPoliciesModeEnum") :]
+        )
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDesiredStateEnum(object):
@@ -3273,8 +3277,10 @@ class OSPolicyAssignmentRolloutStateEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return os_policy_assignment_pb2.OsconfigOSPolicyAssignmentRolloutStateEnum.Value(
-            "OsconfigOSPolicyAssignmentRolloutStateEnum%s" % resource
+        return (
+            os_policy_assignment_pb2.OsconfigOSPolicyAssignmentRolloutStateEnum.Value(
+                "OsconfigOSPolicyAssignmentRolloutStateEnum%s" % resource
+            )
         )
 
     @classmethod

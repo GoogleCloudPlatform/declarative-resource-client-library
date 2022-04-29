@@ -298,8 +298,10 @@ class FirewallPolicyRuleDirectionEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return firewall_policy_rule_pb2.ComputeBetaFirewallPolicyRuleDirectionEnum.Value(
-            "ComputeBetaFirewallPolicyRuleDirectionEnum%s" % resource
+        return (
+            firewall_policy_rule_pb2.ComputeBetaFirewallPolicyRuleDirectionEnum.Value(
+                "ComputeBetaFirewallPolicyRuleDirectionEnum%s" % resource
+            )
         )
 
     @classmethod

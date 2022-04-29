@@ -116,8 +116,10 @@ class CertificateAuthority(object):
         self.tier = CertificateAuthorityTierEnum.from_proto(response.tier)
         self.state = CertificateAuthorityStateEnum.from_proto(response.state)
         self.pem_ca_certificates = Primitive.from_proto(response.pem_ca_certificates)
-        self.ca_certificate_descriptions = CertificateAuthorityCaCertificateDescriptionsArray.from_proto(
-            response.ca_certificate_descriptions
+        self.ca_certificate_descriptions = (
+            CertificateAuthorityCaCertificateDescriptionsArray.from_proto(
+                response.ca_certificate_descriptions
+            )
         )
         self.gcs_bucket = Primitive.from_proto(response.gcs_bucket)
         self.access_urls = CertificateAuthorityAccessUrls.from_proto(

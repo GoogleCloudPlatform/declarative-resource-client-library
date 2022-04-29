@@ -495,8 +495,10 @@ class InspectTemplateInspectConfigCustomInfoTypes(object):
         if InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum.to_proto(
             resource.likelihood
         ):
-            res.likelihood = InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum.to_proto(
-                resource.likelihood
+            res.likelihood = (
+                InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum.to_proto(
+                    resource.likelihood
+                )
             )
         if InspectTemplateInspectConfigCustomInfoTypesDictionary.to_proto(
             resource.dictionary
@@ -539,8 +541,10 @@ class InspectTemplateInspectConfigCustomInfoTypes(object):
         if InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum.to_proto(
             resource.exclusion_type
         ):
-            res.exclusion_type = InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum.to_proto(
-                resource.exclusion_type
+            res.exclusion_type = (
+                InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum.to_proto(
+                    resource.exclusion_type
+                )
             )
         return res
 
@@ -1760,19 +1764,21 @@ class InspectTemplateInspectConfigMinLikelihoodEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return inspect_template_pb2.DlpInspectTemplateInspectConfigMinLikelihoodEnum.Value(
-            "DlpInspectTemplateInspectConfigMinLikelihoodEnum%s" % resource
+        return (
+            inspect_template_pb2.DlpInspectTemplateInspectConfigMinLikelihoodEnum.Value(
+                "DlpInspectTemplateInspectConfigMinLikelihoodEnum%s" % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return inspect_template_pb2.DlpInspectTemplateInspectConfigMinLikelihoodEnum.Name(
-            resource
-        )[
-            len("DlpInspectTemplateInspectConfigMinLikelihoodEnum") :
-        ]
+        return (
+            inspect_template_pb2.DlpInspectTemplateInspectConfigMinLikelihoodEnum.Name(
+                resource
+            )[len("DlpInspectTemplateInspectConfigMinLikelihoodEnum") :]
+        )
 
 
 class InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum(object):
@@ -1829,11 +1835,11 @@ class InspectTemplateInspectConfigContentOptionsEnum(object):
     def from_proto(self, resource):
         if not resource:
             return resource
-        return inspect_template_pb2.DlpInspectTemplateInspectConfigContentOptionsEnum.Name(
-            resource
-        )[
-            len("DlpInspectTemplateInspectConfigContentOptionsEnum") :
-        ]
+        return (
+            inspect_template_pb2.DlpInspectTemplateInspectConfigContentOptionsEnum.Name(
+                resource
+            )[len("DlpInspectTemplateInspectConfigContentOptionsEnum") :]
+        )
 
 
 class InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentFixedLikelihoodEnum(

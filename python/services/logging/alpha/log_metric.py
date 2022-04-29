@@ -651,8 +651,10 @@ class LogMetricMetricDescriptorLaunchStageEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return log_metric_pb2.LoggingAlphaLogMetricMetricDescriptorLaunchStageEnum.Value(
-            "LoggingAlphaLogMetricMetricDescriptorLaunchStageEnum%s" % resource
+        return (
+            log_metric_pb2.LoggingAlphaLogMetricMetricDescriptorLaunchStageEnum.Value(
+                "LoggingAlphaLogMetricMetricDescriptorLaunchStageEnum%s" % resource
+            )
         )
 
     @classmethod

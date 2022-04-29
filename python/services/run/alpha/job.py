@@ -368,8 +368,10 @@ class JobTemplateTemplate(object):
         if JobTemplateTemplateExecutionEnvironmentEnum.to_proto(
             resource.execution_environment
         ):
-            res.execution_environment = JobTemplateTemplateExecutionEnvironmentEnum.to_proto(
-                resource.execution_environment
+            res.execution_environment = (
+                JobTemplateTemplateExecutionEnvironmentEnum.to_proto(
+                    resource.execution_environment
+                )
             )
         if Primitive.to_proto(resource.encryption_key):
             res.encryption_key = Primitive.to_proto(resource.encryption_key)
@@ -1060,8 +1062,10 @@ class JobTerminalCondition(object):
         if JobTerminalConditionDomainMappingReasonEnum.to_proto(
             resource.domain_mapping_reason
         ):
-            res.domain_mapping_reason = JobTerminalConditionDomainMappingReasonEnum.to_proto(
-                resource.domain_mapping_reason
+            res.domain_mapping_reason = (
+                JobTerminalConditionDomainMappingReasonEnum.to_proto(
+                    resource.domain_mapping_reason
+                )
             )
         if JobTerminalConditionRevisionReasonEnum.to_proto(resource.revision_reason):
             res.revision_reason = JobTerminalConditionRevisionReasonEnum.to_proto(

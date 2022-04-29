@@ -2183,9 +2183,11 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(
         if not resource:
             return None
 
-        return OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(
-            uri=Primitive.from_proto(resource.uri),
-            sha256_checksum=Primitive.from_proto(resource.sha256_checksum),
+        return (
+            OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(
+                uri=Primitive.from_proto(resource.uri),
+                sha256_checksum=Primitive.from_proto(resource.sha256_checksum),
+            )
         )
 
 

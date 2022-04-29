@@ -343,8 +343,10 @@ class WorkloadResourcesResourceTypeEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return workload_pb2.AssuredworkloadsAlphaWorkloadResourcesResourceTypeEnum.Value(
-            "AssuredworkloadsAlphaWorkloadResourcesResourceTypeEnum%s" % resource
+        return (
+            workload_pb2.AssuredworkloadsAlphaWorkloadResourcesResourceTypeEnum.Value(
+                "AssuredworkloadsAlphaWorkloadResourcesResourceTypeEnum%s" % resource
+            )
         )
 
     @classmethod

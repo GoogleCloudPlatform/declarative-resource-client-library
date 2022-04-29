@@ -87,8 +87,10 @@ class AutoscalingPolicy(object):
         self.worker_config = AutoscalingPolicyWorkerConfig.from_proto(
             response.worker_config
         )
-        self.secondary_worker_config = AutoscalingPolicySecondaryWorkerConfig.from_proto(
-            response.secondary_worker_config
+        self.secondary_worker_config = (
+            AutoscalingPolicySecondaryWorkerConfig.from_proto(
+                response.secondary_worker_config
+            )
         )
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)

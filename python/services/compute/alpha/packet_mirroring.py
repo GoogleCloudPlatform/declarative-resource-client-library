@@ -505,8 +505,10 @@ class PacketMirroringFilterDirectionEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return packet_mirroring_pb2.ComputeAlphaPacketMirroringFilterDirectionEnum.Value(
-            "ComputeAlphaPacketMirroringFilterDirectionEnum%s" % resource
+        return (
+            packet_mirroring_pb2.ComputeAlphaPacketMirroringFilterDirectionEnum.Value(
+                "ComputeAlphaPacketMirroringFilterDirectionEnum%s" % resource
+            )
         )
 
     @classmethod

@@ -486,7 +486,9 @@ class UptimeCheckConfigTcpCheck(object):
         if not resource:
             return None
 
-        return UptimeCheckConfigTcpCheck(port=Primitive.from_proto(resource.port),)
+        return UptimeCheckConfigTcpCheck(
+            port=Primitive.from_proto(resource.port),
+        )
 
 
 class UptimeCheckConfigTcpCheckArray(object):

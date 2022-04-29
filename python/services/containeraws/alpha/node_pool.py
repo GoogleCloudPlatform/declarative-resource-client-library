@@ -618,19 +618,21 @@ class NodePoolConfigRootVolumeVolumeTypeEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return node_pool_pb2.ContainerawsAlphaNodePoolConfigRootVolumeVolumeTypeEnum.Value(
-            "ContainerawsAlphaNodePoolConfigRootVolumeVolumeTypeEnum%s" % resource
+        return (
+            node_pool_pb2.ContainerawsAlphaNodePoolConfigRootVolumeVolumeTypeEnum.Value(
+                "ContainerawsAlphaNodePoolConfigRootVolumeVolumeTypeEnum%s" % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return node_pool_pb2.ContainerawsAlphaNodePoolConfigRootVolumeVolumeTypeEnum.Name(
-            resource
-        )[
-            len("ContainerawsAlphaNodePoolConfigRootVolumeVolumeTypeEnum") :
-        ]
+        return (
+            node_pool_pb2.ContainerawsAlphaNodePoolConfigRootVolumeVolumeTypeEnum.Name(
+                resource
+            )[len("ContainerawsAlphaNodePoolConfigRootVolumeVolumeTypeEnum") :]
+        )
 
 
 class NodePoolConfigTaintsEffectEnum(object):

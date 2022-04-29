@@ -86,8 +86,8 @@ class Group(object):
                 GroupPosixGroupsArray.to_proto(self.posix_groups)
             )
         if GroupInitialGroupConfigEnum.to_proto(self.initial_group_config):
-            request.resource.initial_group_config = GroupInitialGroupConfigEnum.to_proto(
-                self.initial_group_config
+            request.resource.initial_group_config = (
+                GroupInitialGroupConfigEnum.to_proto(self.initial_group_config)
             )
 
         request.service_account_file = self.service_account_file
@@ -150,8 +150,8 @@ class Group(object):
                 GroupPosixGroupsArray.to_proto(self.posix_groups)
             )
         if GroupInitialGroupConfigEnum.to_proto(self.initial_group_config):
-            request.resource.initial_group_config = GroupInitialGroupConfigEnum.to_proto(
-                self.initial_group_config
+            request.resource.initial_group_config = (
+                GroupInitialGroupConfigEnum.to_proto(self.initial_group_config)
             )
 
         response = stub.DeleteCloudidentityBetaGroup(request)
@@ -342,8 +342,10 @@ class GroupDynamicGroupMetadataQueries(object):
         if GroupDynamicGroupMetadataQueriesResourceTypeEnum.to_proto(
             resource.resource_type
         ):
-            res.resource_type = GroupDynamicGroupMetadataQueriesResourceTypeEnum.to_proto(
-                resource.resource_type
+            res.resource_type = (
+                GroupDynamicGroupMetadataQueriesResourceTypeEnum.to_proto(
+                    resource.resource_type
+                )
             )
         if Primitive.to_proto(resource.query):
             res.query = Primitive.to_proto(resource.query)
@@ -488,19 +490,22 @@ class GroupDynamicGroupMetadataStatusStatusEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return group_pb2.CloudidentityBetaGroupDynamicGroupMetadataStatusStatusEnum.Value(
-            "CloudidentityBetaGroupDynamicGroupMetadataStatusStatusEnum%s" % resource
+        return (
+            group_pb2.CloudidentityBetaGroupDynamicGroupMetadataStatusStatusEnum.Value(
+                "CloudidentityBetaGroupDynamicGroupMetadataStatusStatusEnum%s"
+                % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return group_pb2.CloudidentityBetaGroupDynamicGroupMetadataStatusStatusEnum.Name(
-            resource
-        )[
-            len("CloudidentityBetaGroupDynamicGroupMetadataStatusStatusEnum") :
-        ]
+        return (
+            group_pb2.CloudidentityBetaGroupDynamicGroupMetadataStatusStatusEnum.Name(
+                resource
+            )[len("CloudidentityBetaGroupDynamicGroupMetadataStatusStatusEnum") :]
+        )
 
 
 class GroupInitialGroupConfigEnum(object):

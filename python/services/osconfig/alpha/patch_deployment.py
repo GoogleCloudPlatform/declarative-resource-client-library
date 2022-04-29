@@ -1669,8 +1669,10 @@ class PatchDeploymentRecurringScheduleWeekly(object):
         if PatchDeploymentRecurringScheduleWeeklyDayOfWeekEnum.to_proto(
             resource.day_of_week
         ):
-            res.day_of_week = PatchDeploymentRecurringScheduleWeeklyDayOfWeekEnum.to_proto(
-                resource.day_of_week
+            res.day_of_week = (
+                PatchDeploymentRecurringScheduleWeeklyDayOfWeekEnum.to_proto(
+                    resource.day_of_week
+                )
             )
         return res
 

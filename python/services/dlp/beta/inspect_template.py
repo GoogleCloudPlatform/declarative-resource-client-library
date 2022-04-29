@@ -495,8 +495,10 @@ class InspectTemplateInspectConfigCustomInfoTypes(object):
         if InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum.to_proto(
             resource.likelihood
         ):
-            res.likelihood = InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum.to_proto(
-                resource.likelihood
+            res.likelihood = (
+                InspectTemplateInspectConfigCustomInfoTypesLikelihoodEnum.to_proto(
+                    resource.likelihood
+                )
             )
         if InspectTemplateInspectConfigCustomInfoTypesDictionary.to_proto(
             resource.dictionary
@@ -539,8 +541,10 @@ class InspectTemplateInspectConfigCustomInfoTypes(object):
         if InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum.to_proto(
             resource.exclusion_type
         ):
-            res.exclusion_type = InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum.to_proto(
-                resource.exclusion_type
+            res.exclusion_type = (
+                InspectTemplateInspectConfigCustomInfoTypesExclusionTypeEnum.to_proto(
+                    resource.exclusion_type
+                )
             )
         return res
 

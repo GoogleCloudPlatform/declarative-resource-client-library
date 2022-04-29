@@ -160,8 +160,10 @@ class InstanceGroupManager(object):
         self.status = InstanceGroupManagerStatus.from_proto(response.status)
         self.target_size = Primitive.from_proto(response.target_size)
         self.self_link = Primitive.from_proto(response.self_link)
-        self.auto_healing_policies = InstanceGroupManagerAutoHealingPoliciesArray.from_proto(
-            response.auto_healing_policies
+        self.auto_healing_policies = (
+            InstanceGroupManagerAutoHealingPoliciesArray.from_proto(
+                response.auto_healing_policies
+            )
         )
         self.update_policy = InstanceGroupManagerUpdatePolicy.from_proto(
             response.update_policy
@@ -336,8 +338,10 @@ class InstanceGroupManagerDistributionPolicy(object):
         if InstanceGroupManagerDistributionPolicyTargetShapeEnum.to_proto(
             resource.target_shape
         ):
-            res.target_shape = InstanceGroupManagerDistributionPolicyTargetShapeEnum.to_proto(
-                resource.target_shape
+            res.target_shape = (
+                InstanceGroupManagerDistributionPolicyTargetShapeEnum.to_proto(
+                    resource.target_shape
+                )
             )
         return res
 
@@ -863,14 +867,18 @@ class InstanceGroupManagerUpdatePolicy(object):
         if InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum.to_proto(
             resource.instance_redistribution_type
         ):
-            res.instance_redistribution_type = InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum.to_proto(
-                resource.instance_redistribution_type
+            res.instance_redistribution_type = (
+                InstanceGroupManagerUpdatePolicyInstanceRedistributionTypeEnum.to_proto(
+                    resource.instance_redistribution_type
+                )
             )
         if InstanceGroupManagerUpdatePolicyMinimalActionEnum.to_proto(
             resource.minimal_action
         ):
-            res.minimal_action = InstanceGroupManagerUpdatePolicyMinimalActionEnum.to_proto(
-                resource.minimal_action
+            res.minimal_action = (
+                InstanceGroupManagerUpdatePolicyMinimalActionEnum.to_proto(
+                    resource.minimal_action
+                )
             )
         if InstanceGroupManagerUpdatePolicyMaxSurge.to_proto(resource.max_surge):
             res.max_surge.CopyFrom(
@@ -891,8 +899,10 @@ class InstanceGroupManagerUpdatePolicy(object):
         if InstanceGroupManagerUpdatePolicyReplacementMethodEnum.to_proto(
             resource.replacement_method
         ):
-            res.replacement_method = InstanceGroupManagerUpdatePolicyReplacementMethodEnum.to_proto(
-                resource.replacement_method
+            res.replacement_method = (
+                InstanceGroupManagerUpdatePolicyReplacementMethodEnum.to_proto(
+                    resource.replacement_method
+                )
             )
         return res
 

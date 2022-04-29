@@ -358,8 +358,10 @@ class ClusterConfigGceClusterConfig(object):
         if ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.to_proto(
             resource.private_ipv6_google_access
         ):
-            res.private_ipv6_google_access = ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.to_proto(
-                resource.private_ipv6_google_access
+            res.private_ipv6_google_access = (
+                ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum.to_proto(
+                    resource.private_ipv6_google_access
+                )
             )
         if Primitive.to_proto(resource.service_account):
             res.service_account = Primitive.to_proto(resource.service_account)
@@ -1101,8 +1103,10 @@ class ClusterConfigSecondaryWorkerConfig(object):
         if ClusterConfigSecondaryWorkerConfigPreemptibilityEnum.to_proto(
             resource.preemptibility
         ):
-            res.preemptibility = ClusterConfigSecondaryWorkerConfigPreemptibilityEnum.to_proto(
-                resource.preemptibility
+            res.preemptibility = (
+                ClusterConfigSecondaryWorkerConfigPreemptibilityEnum.to_proto(
+                    resource.preemptibility
+                )
             )
         if ClusterConfigSecondaryWorkerConfigManagedGroupConfig.to_proto(
             resource.managed_group_config
@@ -2102,19 +2106,21 @@ class ClusterConfigMasterConfigPreemptibilityEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return cluster_pb2.DataprocAlphaClusterConfigMasterConfigPreemptibilityEnum.Value(
-            "DataprocAlphaClusterConfigMasterConfigPreemptibilityEnum%s" % resource
+        return (
+            cluster_pb2.DataprocAlphaClusterConfigMasterConfigPreemptibilityEnum.Value(
+                "DataprocAlphaClusterConfigMasterConfigPreemptibilityEnum%s" % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return cluster_pb2.DataprocAlphaClusterConfigMasterConfigPreemptibilityEnum.Name(
-            resource
-        )[
-            len("DataprocAlphaClusterConfigMasterConfigPreemptibilityEnum") :
-        ]
+        return (
+            cluster_pb2.DataprocAlphaClusterConfigMasterConfigPreemptibilityEnum.Name(
+                resource
+            )[len("DataprocAlphaClusterConfigMasterConfigPreemptibilityEnum") :]
+        )
 
 
 class ClusterConfigWorkerConfigPreemptibilityEnum(object):
@@ -2122,19 +2128,21 @@ class ClusterConfigWorkerConfigPreemptibilityEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return cluster_pb2.DataprocAlphaClusterConfigWorkerConfigPreemptibilityEnum.Value(
-            "DataprocAlphaClusterConfigWorkerConfigPreemptibilityEnum%s" % resource
+        return (
+            cluster_pb2.DataprocAlphaClusterConfigWorkerConfigPreemptibilityEnum.Value(
+                "DataprocAlphaClusterConfigWorkerConfigPreemptibilityEnum%s" % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return cluster_pb2.DataprocAlphaClusterConfigWorkerConfigPreemptibilityEnum.Name(
-            resource
-        )[
-            len("DataprocAlphaClusterConfigWorkerConfigPreemptibilityEnum") :
-        ]
+        return (
+            cluster_pb2.DataprocAlphaClusterConfigWorkerConfigPreemptibilityEnum.Name(
+                resource
+            )[len("DataprocAlphaClusterConfigWorkerConfigPreemptibilityEnum") :]
+        )
 
 
 class ClusterConfigSecondaryWorkerConfigPreemptibilityEnum(object):

@@ -62,8 +62,10 @@ class CertificateAuthority(object):
         self.service_account_file = service_account_file
 
     def apply(self):
-        stub = certificate_authority_pb2_grpc.PrivatecaBetaCertificateAuthorityServiceStub(
-            channel.Channel()
+        stub = (
+            certificate_authority_pb2_grpc.PrivatecaBetaCertificateAuthorityServiceStub(
+                channel.Channel()
+            )
         )
         request = (
             certificate_authority_pb2.ApplyPrivatecaBetaCertificateAuthorityRequest()
@@ -118,8 +120,10 @@ class CertificateAuthority(object):
         self.tier = CertificateAuthorityTierEnum.from_proto(response.tier)
         self.state = CertificateAuthorityStateEnum.from_proto(response.state)
         self.pem_ca_certificates = Primitive.from_proto(response.pem_ca_certificates)
-        self.ca_certificate_descriptions = CertificateAuthorityCaCertificateDescriptionsArray.from_proto(
-            response.ca_certificate_descriptions
+        self.ca_certificate_descriptions = (
+            CertificateAuthorityCaCertificateDescriptionsArray.from_proto(
+                response.ca_certificate_descriptions
+            )
         )
         self.gcs_bucket = Primitive.from_proto(response.gcs_bucket)
         self.access_urls = CertificateAuthorityAccessUrls.from_proto(
@@ -135,8 +139,10 @@ class CertificateAuthority(object):
         self.ca_pool = Primitive.from_proto(response.ca_pool)
 
     def delete(self):
-        stub = certificate_authority_pb2_grpc.PrivatecaBetaCertificateAuthorityServiceStub(
-            channel.Channel()
+        stub = (
+            certificate_authority_pb2_grpc.PrivatecaBetaCertificateAuthorityServiceStub(
+                channel.Channel()
+            )
         )
         request = (
             certificate_authority_pb2.DeletePrivatecaBetaCertificateAuthorityRequest()
@@ -182,8 +188,10 @@ class CertificateAuthority(object):
 
     @classmethod
     def list(self, project, location, caPool, service_account_file=""):
-        stub = certificate_authority_pb2_grpc.PrivatecaBetaCertificateAuthorityServiceStub(
-            channel.Channel()
+        stub = (
+            certificate_authority_pb2_grpc.PrivatecaBetaCertificateAuthorityServiceStub(
+                channel.Channel()
+            )
         )
         request = (
             certificate_authority_pb2.ListPrivatecaBetaCertificateAuthorityRequest()
@@ -2838,8 +2846,10 @@ class CertificateAuthorityTypeEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return certificate_authority_pb2.PrivatecaBetaCertificateAuthorityTypeEnum.Value(
-            "PrivatecaBetaCertificateAuthorityTypeEnum%s" % resource
+        return (
+            certificate_authority_pb2.PrivatecaBetaCertificateAuthorityTypeEnum.Value(
+                "PrivatecaBetaCertificateAuthorityTypeEnum%s" % resource
+            )
         )
 
     @classmethod
@@ -2896,8 +2906,10 @@ class CertificateAuthorityTierEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return certificate_authority_pb2.PrivatecaBetaCertificateAuthorityTierEnum.Value(
-            "PrivatecaBetaCertificateAuthorityTierEnum%s" % resource
+        return (
+            certificate_authority_pb2.PrivatecaBetaCertificateAuthorityTierEnum.Value(
+                "PrivatecaBetaCertificateAuthorityTierEnum%s" % resource
+            )
         )
 
     @classmethod
@@ -2914,19 +2926,21 @@ class CertificateAuthorityStateEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return certificate_authority_pb2.PrivatecaBetaCertificateAuthorityStateEnum.Value(
-            "PrivatecaBetaCertificateAuthorityStateEnum%s" % resource
+        return (
+            certificate_authority_pb2.PrivatecaBetaCertificateAuthorityStateEnum.Value(
+                "PrivatecaBetaCertificateAuthorityStateEnum%s" % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return certificate_authority_pb2.PrivatecaBetaCertificateAuthorityStateEnum.Name(
-            resource
-        )[
-            len("PrivatecaBetaCertificateAuthorityStateEnum") :
-        ]
+        return (
+            certificate_authority_pb2.PrivatecaBetaCertificateAuthorityStateEnum.Name(
+                resource
+            )[len("PrivatecaBetaCertificateAuthorityStateEnum") :]
+        )
 
 
 class CertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum(object):

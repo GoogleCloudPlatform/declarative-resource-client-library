@@ -72,8 +72,10 @@ class ServiceAttachment(object):
         if ServiceAttachmentConnectionPreferenceEnum.to_proto(
             self.connection_preference
         ):
-            request.resource.connection_preference = ServiceAttachmentConnectionPreferenceEnum.to_proto(
-                self.connection_preference
+            request.resource.connection_preference = (
+                ServiceAttachmentConnectionPreferenceEnum.to_proto(
+                    self.connection_preference
+                )
             )
 
         if Primitive.to_proto(self.nat_subnets):
@@ -110,8 +112,10 @@ class ServiceAttachment(object):
         self.self_link = Primitive.from_proto(response.self_link)
         self.region = Primitive.from_proto(response.region)
         self.target_service = Primitive.from_proto(response.target_service)
-        self.connection_preference = ServiceAttachmentConnectionPreferenceEnum.from_proto(
-            response.connection_preference
+        self.connection_preference = (
+            ServiceAttachmentConnectionPreferenceEnum.from_proto(
+                response.connection_preference
+            )
         )
         self.connected_endpoints = ServiceAttachmentConnectedEndpointsArray.from_proto(
             response.connected_endpoints
@@ -123,11 +127,15 @@ class ServiceAttachment(object):
         self.consumer_reject_lists = Primitive.from_proto(
             response.consumer_reject_lists
         )
-        self.consumer_accept_lists = ServiceAttachmentConsumerAcceptListsArray.from_proto(
-            response.consumer_accept_lists
+        self.consumer_accept_lists = (
+            ServiceAttachmentConsumerAcceptListsArray.from_proto(
+                response.consumer_accept_lists
+            )
         )
-        self.psc_service_attachment_id = ServiceAttachmentPscServiceAttachmentId.from_proto(
-            response.psc_service_attachment_id
+        self.psc_service_attachment_id = (
+            ServiceAttachmentPscServiceAttachmentId.from_proto(
+                response.psc_service_attachment_id
+            )
         )
         self.fingerprint = Primitive.from_proto(response.fingerprint)
         self.project = Primitive.from_proto(response.project)
@@ -151,8 +159,10 @@ class ServiceAttachment(object):
         if ServiceAttachmentConnectionPreferenceEnum.to_proto(
             self.connection_preference
         ):
-            request.resource.connection_preference = ServiceAttachmentConnectionPreferenceEnum.to_proto(
-                self.connection_preference
+            request.resource.connection_preference = (
+                ServiceAttachmentConnectionPreferenceEnum.to_proto(
+                    self.connection_preference
+                )
             )
 
         if Primitive.to_proto(self.nat_subnets):
@@ -206,8 +216,10 @@ class ServiceAttachment(object):
         if ServiceAttachmentConnectionPreferenceEnum.to_proto(
             self.connection_preference
         ):
-            resource.connection_preference = ServiceAttachmentConnectionPreferenceEnum.to_proto(
-                self.connection_preference
+            resource.connection_preference = (
+                ServiceAttachmentConnectionPreferenceEnum.to_proto(
+                    self.connection_preference
+                )
             )
         if Primitive.to_proto(self.nat_subnets):
             resource.nat_subnets.extend(Primitive.to_proto(self.nat_subnets))

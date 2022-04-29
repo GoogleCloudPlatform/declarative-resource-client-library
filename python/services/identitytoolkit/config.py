@@ -474,7 +474,9 @@ class ConfigSignInAnonymous(object):
         if not resource:
             return None
 
-        return ConfigSignInAnonymous(enabled=Primitive.from_proto(resource.enabled),)
+        return ConfigSignInAnonymous(
+            enabled=Primitive.from_proto(resource.enabled),
+        )
 
 
 class ConfigSignInAnonymousArray(object):
@@ -762,8 +764,10 @@ class ConfigNotificationSendEmailSmtp(object):
         if ConfigNotificationSendEmailSmtpSecurityModeEnum.to_proto(
             resource.security_mode
         ):
-            res.security_mode = ConfigNotificationSendEmailSmtpSecurityModeEnum.to_proto(
-                resource.security_mode
+            res.security_mode = (
+                ConfigNotificationSendEmailSmtpSecurityModeEnum.to_proto(
+                    resource.security_mode
+                )
             )
         return res
 
@@ -834,8 +838,10 @@ class ConfigNotificationSendEmailResetPasswordTemplate(object):
         if ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum.to_proto(
             resource.body_format
         ):
-            res.body_format = ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum.to_proto(
-                resource.body_format
+            res.body_format = (
+                ConfigNotificationSendEmailResetPasswordTemplateBodyFormatEnum.to_proto(
+                    resource.body_format
+                )
             )
         if Primitive.to_proto(resource.reply_to):
             res.reply_to = Primitive.to_proto(resource.reply_to)
@@ -915,8 +921,10 @@ class ConfigNotificationSendEmailVerifyEmailTemplate(object):
         if ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum.to_proto(
             resource.body_format
         ):
-            res.body_format = ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum.to_proto(
-                resource.body_format
+            res.body_format = (
+                ConfigNotificationSendEmailVerifyEmailTemplateBodyFormatEnum.to_proto(
+                    resource.body_format
+                )
             )
         if Primitive.to_proto(resource.reply_to):
             res.reply_to = Primitive.to_proto(resource.reply_to)
@@ -996,8 +1004,10 @@ class ConfigNotificationSendEmailChangeEmailTemplate(object):
         if ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum.to_proto(
             resource.body_format
         ):
-            res.body_format = ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum.to_proto(
-                resource.body_format
+            res.body_format = (
+                ConfigNotificationSendEmailChangeEmailTemplateBodyFormatEnum.to_proto(
+                    resource.body_format
+                )
             )
         if Primitive.to_proto(resource.reply_to):
             res.reply_to = Primitive.to_proto(resource.reply_to)
@@ -1073,8 +1083,10 @@ class ConfigNotificationSendEmailDnsInfo(object):
         if ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum.to_proto(
             resource.custom_domain_state
         ):
-            res.custom_domain_state = ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum.to_proto(
-                resource.custom_domain_state
+            res.custom_domain_state = (
+                ConfigNotificationSendEmailDnsInfoCustomDomainStateEnum.to_proto(
+                    resource.custom_domain_state
+                )
             )
         if Primitive.to_proto(resource.domain_verification_request_time):
             res.domain_verification_request_time = Primitive.to_proto(
@@ -1605,7 +1617,9 @@ class ConfigMfa(object):
         if not resource:
             return None
 
-        return ConfigMfa(state=ConfigMfaStateEnum.from_proto(resource.state),)
+        return ConfigMfa(
+            state=ConfigMfaStateEnum.from_proto(resource.state),
+        )
 
 
 class ConfigMfaArray(object):

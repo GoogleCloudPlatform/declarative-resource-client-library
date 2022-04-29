@@ -255,19 +255,21 @@ class CapacityCommitmentPlanEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return capacity_commitment_pb2.BigqueryreservationCapacityCommitmentPlanEnum.Value(
-            "BigqueryreservationCapacityCommitmentPlanEnum%s" % resource
+        return (
+            capacity_commitment_pb2.BigqueryreservationCapacityCommitmentPlanEnum.Value(
+                "BigqueryreservationCapacityCommitmentPlanEnum%s" % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return capacity_commitment_pb2.BigqueryreservationCapacityCommitmentPlanEnum.Name(
-            resource
-        )[
-            len("BigqueryreservationCapacityCommitmentPlanEnum") :
-        ]
+        return (
+            capacity_commitment_pb2.BigqueryreservationCapacityCommitmentPlanEnum.Name(
+                resource
+            )[len("BigqueryreservationCapacityCommitmentPlanEnum") :]
+        )
 
 
 class CapacityCommitmentStateEnum(object):
@@ -283,11 +285,11 @@ class CapacityCommitmentStateEnum(object):
     def from_proto(self, resource):
         if not resource:
             return resource
-        return capacity_commitment_pb2.BigqueryreservationCapacityCommitmentStateEnum.Name(
-            resource
-        )[
-            len("BigqueryreservationCapacityCommitmentStateEnum") :
-        ]
+        return (
+            capacity_commitment_pb2.BigqueryreservationCapacityCommitmentStateEnum.Name(
+                resource
+            )[len("BigqueryreservationCapacityCommitmentStateEnum") :]
+        )
 
 
 class CapacityCommitmentRenewalPlanEnum(object):

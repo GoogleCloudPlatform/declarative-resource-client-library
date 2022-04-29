@@ -300,19 +300,21 @@ class FirewallPolicyRuleDirectionEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return firewall_policy_rule_pb2.ComputeAlphaFirewallPolicyRuleDirectionEnum.Value(
-            "ComputeAlphaFirewallPolicyRuleDirectionEnum%s" % resource
+        return (
+            firewall_policy_rule_pb2.ComputeAlphaFirewallPolicyRuleDirectionEnum.Value(
+                "ComputeAlphaFirewallPolicyRuleDirectionEnum%s" % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return firewall_policy_rule_pb2.ComputeAlphaFirewallPolicyRuleDirectionEnum.Name(
-            resource
-        )[
-            len("ComputeAlphaFirewallPolicyRuleDirectionEnum") :
-        ]
+        return (
+            firewall_policy_rule_pb2.ComputeAlphaFirewallPolicyRuleDirectionEnum.Name(
+                resource
+            )[len("ComputeAlphaFirewallPolicyRuleDirectionEnum") :]
+        )
 
 
 class Primitive(object):

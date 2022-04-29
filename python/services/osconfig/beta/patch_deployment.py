@@ -1614,8 +1614,10 @@ class PatchDeploymentRecurringScheduleWeekly(object):
         if PatchDeploymentRecurringScheduleWeeklyDayOfWeekEnum.to_proto(
             resource.day_of_week
         ):
-            res.day_of_week = PatchDeploymentRecurringScheduleWeeklyDayOfWeekEnum.to_proto(
-                resource.day_of_week
+            res.day_of_week = (
+                PatchDeploymentRecurringScheduleWeeklyDayOfWeekEnum.to_proto(
+                    resource.day_of_week
+                )
             )
         return res
 
@@ -1870,11 +1872,11 @@ class PatchDeploymentPatchConfigAptTypeEnum(object):
     def from_proto(self, resource):
         if not resource:
             return resource
-        return patch_deployment_pb2.OsconfigBetaPatchDeploymentPatchConfigAptTypeEnum.Name(
-            resource
-        )[
-            len("OsconfigBetaPatchDeploymentPatchConfigAptTypeEnum") :
-        ]
+        return (
+            patch_deployment_pb2.OsconfigBetaPatchDeploymentPatchConfigAptTypeEnum.Name(
+                resource
+            )[len("OsconfigBetaPatchDeploymentPatchConfigAptTypeEnum") :]
+        )
 
 
 class PatchDeploymentPatchConfigWindowsUpdateClassificationsEnum(object):

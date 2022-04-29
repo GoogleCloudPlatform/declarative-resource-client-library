@@ -742,14 +742,18 @@ class NoteVulnerabilityCvssV3(object):
         if NoteVulnerabilityCvssV3AttackComplexityEnum.to_proto(
             resource.attack_complexity
         ):
-            res.attack_complexity = NoteVulnerabilityCvssV3AttackComplexityEnum.to_proto(
-                resource.attack_complexity
+            res.attack_complexity = (
+                NoteVulnerabilityCvssV3AttackComplexityEnum.to_proto(
+                    resource.attack_complexity
+                )
             )
         if NoteVulnerabilityCvssV3PrivilegesRequiredEnum.to_proto(
             resource.privileges_required
         ):
-            res.privileges_required = NoteVulnerabilityCvssV3PrivilegesRequiredEnum.to_proto(
-                resource.privileges_required
+            res.privileges_required = (
+                NoteVulnerabilityCvssV3PrivilegesRequiredEnum.to_proto(
+                    resource.privileges_required
+                )
             )
         if NoteVulnerabilityCvssV3UserInteractionEnum.to_proto(
             resource.user_interaction
@@ -762,8 +766,10 @@ class NoteVulnerabilityCvssV3(object):
         if NoteVulnerabilityCvssV3ConfidentialityImpactEnum.to_proto(
             resource.confidentiality_impact
         ):
-            res.confidentiality_impact = NoteVulnerabilityCvssV3ConfidentialityImpactEnum.to_proto(
-                resource.confidentiality_impact
+            res.confidentiality_impact = (
+                NoteVulnerabilityCvssV3ConfidentialityImpactEnum.to_proto(
+                    resource.confidentiality_impact
+                )
             )
         if NoteVulnerabilityCvssV3IntegrityImpactEnum.to_proto(
             resource.integrity_impact
@@ -774,8 +780,10 @@ class NoteVulnerabilityCvssV3(object):
         if NoteVulnerabilityCvssV3AvailabilityImpactEnum.to_proto(
             resource.availability_impact
         ):
-            res.availability_impact = NoteVulnerabilityCvssV3AvailabilityImpactEnum.to_proto(
-                resource.availability_impact
+            res.availability_impact = (
+                NoteVulnerabilityCvssV3AvailabilityImpactEnum.to_proto(
+                    resource.availability_impact
+                )
             )
         return res
 
@@ -1347,7 +1355,9 @@ class NoteDeployment(object):
         if not resource:
             return None
 
-        return NoteDeployment(resource_uri=Primitive.from_proto(resource.resource_uri),)
+        return NoteDeployment(
+            resource_uri=Primitive.from_proto(resource.resource_uri),
+        )
 
 
 class NoteDeploymentArray(object):
@@ -1383,7 +1393,9 @@ class NoteAttestation(object):
         if not resource:
             return None
 
-        return NoteAttestation(hint=NoteAttestationHint.from_proto(resource.hint),)
+        return NoteAttestation(
+            hint=NoteAttestationHint.from_proto(resource.hint),
+        )
 
 
 class NoteAttestationArray(object):
@@ -1524,19 +1536,22 @@ class NoteVulnerabilityCvssV3AttackVectorEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return note_pb2.ContaineranalysisBetaNoteVulnerabilityCvssV3AttackVectorEnum.Value(
-            "ContaineranalysisBetaNoteVulnerabilityCvssV3AttackVectorEnum%s" % resource
+        return (
+            note_pb2.ContaineranalysisBetaNoteVulnerabilityCvssV3AttackVectorEnum.Value(
+                "ContaineranalysisBetaNoteVulnerabilityCvssV3AttackVectorEnum%s"
+                % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return note_pb2.ContaineranalysisBetaNoteVulnerabilityCvssV3AttackVectorEnum.Name(
-            resource
-        )[
-            len("ContaineranalysisBetaNoteVulnerabilityCvssV3AttackVectorEnum") :
-        ]
+        return (
+            note_pb2.ContaineranalysisBetaNoteVulnerabilityCvssV3AttackVectorEnum.Name(
+                resource
+            )[len("ContaineranalysisBetaNoteVulnerabilityCvssV3AttackVectorEnum") :]
+        )
 
 
 class NoteVulnerabilityCvssV3AttackComplexityEnum(object):
@@ -1708,19 +1723,22 @@ class NotePackageDistributionArchitectureEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return note_pb2.ContaineranalysisBetaNotePackageDistributionArchitectureEnum.Value(
-            "ContaineranalysisBetaNotePackageDistributionArchitectureEnum%s" % resource
+        return (
+            note_pb2.ContaineranalysisBetaNotePackageDistributionArchitectureEnum.Value(
+                "ContaineranalysisBetaNotePackageDistributionArchitectureEnum%s"
+                % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return note_pb2.ContaineranalysisBetaNotePackageDistributionArchitectureEnum.Name(
-            resource
-        )[
-            len("ContaineranalysisBetaNotePackageDistributionArchitectureEnum") :
-        ]
+        return (
+            note_pb2.ContaineranalysisBetaNotePackageDistributionArchitectureEnum.Name(
+                resource
+            )[len("ContaineranalysisBetaNotePackageDistributionArchitectureEnum") :]
+        )
 
 
 class NotePackageDistributionLatestVersionKindEnum(object):

@@ -103,8 +103,10 @@ class CertificateTemplate(object):
         self.identity_constraints = CertificateTemplateIdentityConstraints.from_proto(
             response.identity_constraints
         )
-        self.passthrough_extensions = CertificateTemplatePassthroughExtensions.from_proto(
-            response.passthrough_extensions
+        self.passthrough_extensions = (
+            CertificateTemplatePassthroughExtensions.from_proto(
+                response.passthrough_extensions
+            )
         )
         self.description = Primitive.from_proto(response.description)
         self.create_time = Primitive.from_proto(response.create_time)

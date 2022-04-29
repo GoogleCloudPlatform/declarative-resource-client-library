@@ -996,13 +996,15 @@ class WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfi
         if not resource:
             return None
 
-        return WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig(
-            instance_template_name=Primitive.from_proto(
-                resource.instance_template_name
-            ),
-            instance_group_manager_name=Primitive.from_proto(
-                resource.instance_group_manager_name
-            ),
+        return (
+            WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig(
+                instance_template_name=Primitive.from_proto(
+                    resource.instance_template_name
+                ),
+                instance_group_manager_name=Primitive.from_proto(
+                    resource.instance_group_manager_name
+                ),
+            )
         )
 
 
@@ -1305,13 +1307,15 @@ class WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfi
         if not resource:
             return None
 
-        return WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig(
-            instance_template_name=Primitive.from_proto(
-                resource.instance_template_name
-            ),
-            instance_group_manager_name=Primitive.from_proto(
-                resource.instance_group_manager_name
-            ),
+        return (
+            WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig(
+                instance_template_name=Primitive.from_proto(
+                    resource.instance_template_name
+                ),
+                instance_group_manager_name=Primitive.from_proto(
+                    resource.instance_group_manager_name
+                ),
+            )
         )
 
 
@@ -2061,30 +2065,34 @@ class WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig(
         if not resource:
             return None
 
-        return WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig(
-            enable_kerberos=Primitive.from_proto(resource.enable_kerberos),
-            root_principal_password=Primitive.from_proto(
-                resource.root_principal_password
-            ),
-            kms_key=Primitive.from_proto(resource.kms_key),
-            keystore=Primitive.from_proto(resource.keystore),
-            truststore=Primitive.from_proto(resource.truststore),
-            keystore_password=Primitive.from_proto(resource.keystore_password),
-            key_password=Primitive.from_proto(resource.key_password),
-            truststore_password=Primitive.from_proto(resource.truststore_password),
-            cross_realm_trust_realm=Primitive.from_proto(
-                resource.cross_realm_trust_realm
-            ),
-            cross_realm_trust_kdc=Primitive.from_proto(resource.cross_realm_trust_kdc),
-            cross_realm_trust_admin_server=Primitive.from_proto(
-                resource.cross_realm_trust_admin_server
-            ),
-            cross_realm_trust_shared_password=Primitive.from_proto(
-                resource.cross_realm_trust_shared_password
-            ),
-            kdc_db_key=Primitive.from_proto(resource.kdc_db_key),
-            tgt_lifetime_hours=Primitive.from_proto(resource.tgt_lifetime_hours),
-            realm=Primitive.from_proto(resource.realm),
+        return (
+            WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig(
+                enable_kerberos=Primitive.from_proto(resource.enable_kerberos),
+                root_principal_password=Primitive.from_proto(
+                    resource.root_principal_password
+                ),
+                kms_key=Primitive.from_proto(resource.kms_key),
+                keystore=Primitive.from_proto(resource.keystore),
+                truststore=Primitive.from_proto(resource.truststore),
+                keystore_password=Primitive.from_proto(resource.keystore_password),
+                key_password=Primitive.from_proto(resource.key_password),
+                truststore_password=Primitive.from_proto(resource.truststore_password),
+                cross_realm_trust_realm=Primitive.from_proto(
+                    resource.cross_realm_trust_realm
+                ),
+                cross_realm_trust_kdc=Primitive.from_proto(
+                    resource.cross_realm_trust_kdc
+                ),
+                cross_realm_trust_admin_server=Primitive.from_proto(
+                    resource.cross_realm_trust_admin_server
+                ),
+                cross_realm_trust_shared_password=Primitive.from_proto(
+                    resource.cross_realm_trust_shared_password
+                ),
+                kdc_db_key=Primitive.from_proto(resource.kdc_db_key),
+                tgt_lifetime_hours=Primitive.from_proto(resource.tgt_lifetime_hours),
+                realm=Primitive.from_proto(resource.realm),
+            )
         )
 
 

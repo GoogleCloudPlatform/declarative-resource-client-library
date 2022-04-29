@@ -356,8 +356,10 @@ class ServiceTemplate(object):
         if ServiceTemplateExecutionEnvironmentEnum.to_proto(
             resource.execution_environment
         ):
-            res.execution_environment = ServiceTemplateExecutionEnvironmentEnum.to_proto(
-                resource.execution_environment
+            res.execution_environment = (
+                ServiceTemplateExecutionEnvironmentEnum.to_proto(
+                    resource.execution_environment
+                )
             )
         return res
 

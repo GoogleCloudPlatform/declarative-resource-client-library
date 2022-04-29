@@ -663,19 +663,21 @@ class GrpcRouteRulesMatchesMethodTypeEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return grpc_route_pb2.NetworkservicesBetaGrpcRouteRulesMatchesMethodTypeEnum.Value(
-            "NetworkservicesBetaGrpcRouteRulesMatchesMethodTypeEnum%s" % resource
+        return (
+            grpc_route_pb2.NetworkservicesBetaGrpcRouteRulesMatchesMethodTypeEnum.Value(
+                "NetworkservicesBetaGrpcRouteRulesMatchesMethodTypeEnum%s" % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return grpc_route_pb2.NetworkservicesBetaGrpcRouteRulesMatchesMethodTypeEnum.Name(
-            resource
-        )[
-            len("NetworkservicesBetaGrpcRouteRulesMatchesMethodTypeEnum") :
-        ]
+        return (
+            grpc_route_pb2.NetworkservicesBetaGrpcRouteRulesMatchesMethodTypeEnum.Name(
+                resource
+            )[len("NetworkservicesBetaGrpcRouteRulesMatchesMethodTypeEnum") :]
+        )
 
 
 class GrpcRouteRulesMatchesHeadersTypeEnum(object):
@@ -691,11 +693,11 @@ class GrpcRouteRulesMatchesHeadersTypeEnum(object):
     def from_proto(self, resource):
         if not resource:
             return resource
-        return grpc_route_pb2.NetworkservicesBetaGrpcRouteRulesMatchesHeadersTypeEnum.Name(
-            resource
-        )[
-            len("NetworkservicesBetaGrpcRouteRulesMatchesHeadersTypeEnum") :
-        ]
+        return (
+            grpc_route_pb2.NetworkservicesBetaGrpcRouteRulesMatchesHeadersTypeEnum.Name(
+                resource
+            )[len("NetworkservicesBetaGrpcRouteRulesMatchesHeadersTypeEnum") :]
+        )
 
 
 class Primitive(object):

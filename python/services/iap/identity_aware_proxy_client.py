@@ -41,8 +41,10 @@ class IdentityAwareProxyClient(object):
         self.service_account_file = service_account_file
 
     def apply(self):
-        stub = identity_aware_proxy_client_pb2_grpc.IapIdentityAwareProxyClientServiceStub(
-            channel.Channel()
+        stub = (
+            identity_aware_proxy_client_pb2_grpc.IapIdentityAwareProxyClientServiceStub(
+                channel.Channel()
+            )
         )
         request = (
             identity_aware_proxy_client_pb2.ApplyIapIdentityAwareProxyClientRequest()
@@ -69,8 +71,10 @@ class IdentityAwareProxyClient(object):
         self.brand = Primitive.from_proto(response.brand)
 
     def delete(self):
-        stub = identity_aware_proxy_client_pb2_grpc.IapIdentityAwareProxyClientServiceStub(
-            channel.Channel()
+        stub = (
+            identity_aware_proxy_client_pb2_grpc.IapIdentityAwareProxyClientServiceStub(
+                channel.Channel()
+            )
         )
         request = (
             identity_aware_proxy_client_pb2.DeleteIapIdentityAwareProxyClientRequest()
@@ -92,8 +96,10 @@ class IdentityAwareProxyClient(object):
 
     @classmethod
     def list(self, project, brand, service_account_file=""):
-        stub = identity_aware_proxy_client_pb2_grpc.IapIdentityAwareProxyClientServiceStub(
-            channel.Channel()
+        stub = (
+            identity_aware_proxy_client_pb2_grpc.IapIdentityAwareProxyClientServiceStub(
+                channel.Channel()
+            )
         )
         request = (
             identity_aware_proxy_client_pb2.ListIapIdentityAwareProxyClientRequest()

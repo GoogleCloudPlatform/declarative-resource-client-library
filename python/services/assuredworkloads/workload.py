@@ -373,19 +373,21 @@ class WorkloadResourceSettingsResourceTypeEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return workload_pb2.AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum.Value(
-            "AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum%s" % resource
+        return (
+            workload_pb2.AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum.Value(
+                "AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum%s" % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return workload_pb2.AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum.Name(
-            resource
-        )[
-            len("AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum") :
-        ]
+        return (
+            workload_pb2.AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum.Name(
+                resource
+            )[len("AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum") :]
+        )
 
 
 class Primitive(object):

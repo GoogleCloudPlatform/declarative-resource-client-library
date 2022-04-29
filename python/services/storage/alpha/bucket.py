@@ -252,7 +252,9 @@ class BucketLifecycle(object):
         if not resource:
             return None
 
-        return BucketLifecycle(rule=BucketLifecycleRuleArray.from_proto(resource.rule),)
+        return BucketLifecycle(
+            rule=BucketLifecycleRuleArray.from_proto(resource.rule),
+        )
 
 
 class BucketLifecycleArray(object):
@@ -477,7 +479,9 @@ class BucketVersioning(object):
         if not resource:
             return None
 
-        return BucketVersioning(enabled=Primitive.from_proto(resource.enabled),)
+        return BucketVersioning(
+            enabled=Primitive.from_proto(resource.enabled),
+        )
 
 
 class BucketVersioningArray(object):

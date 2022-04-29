@@ -83,8 +83,8 @@ class Group(object):
         else:
             request.resource.ClearField("dynamic_group_metadata")
         if GroupInitialGroupConfigEnum.to_proto(self.initial_group_config):
-            request.resource.initial_group_config = GroupInitialGroupConfigEnum.to_proto(
-                self.initial_group_config
+            request.resource.initial_group_config = (
+                GroupInitialGroupConfigEnum.to_proto(self.initial_group_config)
             )
 
         request.service_account_file = self.service_account_file
@@ -149,8 +149,8 @@ class Group(object):
         else:
             request.resource.ClearField("dynamic_group_metadata")
         if GroupInitialGroupConfigEnum.to_proto(self.initial_group_config):
-            request.resource.initial_group_config = GroupInitialGroupConfigEnum.to_proto(
-                self.initial_group_config
+            request.resource.initial_group_config = (
+                GroupInitialGroupConfigEnum.to_proto(self.initial_group_config)
             )
 
         response = stub.DeleteCloudidentityGroup(request)
@@ -417,8 +417,10 @@ class GroupDynamicGroupMetadataQueries(object):
         if GroupDynamicGroupMetadataQueriesResourceTypeEnum.to_proto(
             resource.resource_type
         ):
-            res.resource_type = GroupDynamicGroupMetadataQueriesResourceTypeEnum.to_proto(
-                resource.resource_type
+            res.resource_type = (
+                GroupDynamicGroupMetadataQueriesResourceTypeEnum.to_proto(
+                    resource.resource_type
+                )
             )
         if Primitive.to_proto(resource.query):
             res.query = Primitive.to_proto(resource.query)

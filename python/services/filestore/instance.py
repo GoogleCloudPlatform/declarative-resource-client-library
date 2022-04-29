@@ -394,11 +394,11 @@ class InstanceFileSharesNfsExportOptionsAccessModeEnum(object):
     def from_proto(self, resource):
         if not resource:
             return resource
-        return instance_pb2.FilestoreInstanceFileSharesNfsExportOptionsAccessModeEnum.Name(
-            resource
-        )[
-            len("FilestoreInstanceFileSharesNfsExportOptionsAccessModeEnum") :
-        ]
+        return (
+            instance_pb2.FilestoreInstanceFileSharesNfsExportOptionsAccessModeEnum.Name(
+                resource
+            )[len("FilestoreInstanceFileSharesNfsExportOptionsAccessModeEnum") :]
+        )
 
 
 class InstanceFileSharesNfsExportOptionsSquashModeEnum(object):
@@ -414,11 +414,11 @@ class InstanceFileSharesNfsExportOptionsSquashModeEnum(object):
     def from_proto(self, resource):
         if not resource:
             return resource
-        return instance_pb2.FilestoreInstanceFileSharesNfsExportOptionsSquashModeEnum.Name(
-            resource
-        )[
-            len("FilestoreInstanceFileSharesNfsExportOptionsSquashModeEnum") :
-        ]
+        return (
+            instance_pb2.FilestoreInstanceFileSharesNfsExportOptionsSquashModeEnum.Name(
+                resource
+            )[len("FilestoreInstanceFileSharesNfsExportOptionsSquashModeEnum") :]
+        )
 
 
 class InstanceNetworksModesEnum(object):

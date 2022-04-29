@@ -118,8 +118,10 @@ class CertificateAuthority(object):
         self.tier = CertificateAuthorityTierEnum.from_proto(response.tier)
         self.state = CertificateAuthorityStateEnum.from_proto(response.state)
         self.pem_ca_certificates = Primitive.from_proto(response.pem_ca_certificates)
-        self.ca_certificate_descriptions = CertificateAuthorityCaCertificateDescriptionsArray.from_proto(
-            response.ca_certificate_descriptions
+        self.ca_certificate_descriptions = (
+            CertificateAuthorityCaCertificateDescriptionsArray.from_proto(
+                response.ca_certificate_descriptions
+            )
         )
         self.gcs_bucket = Primitive.from_proto(response.gcs_bucket)
         self.access_urls = CertificateAuthorityAccessUrls.from_proto(
@@ -2838,19 +2840,21 @@ class CertificateAuthorityTypeEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return certificate_authority_pb2.PrivatecaAlphaCertificateAuthorityTypeEnum.Value(
-            "PrivatecaAlphaCertificateAuthorityTypeEnum%s" % resource
+        return (
+            certificate_authority_pb2.PrivatecaAlphaCertificateAuthorityTypeEnum.Value(
+                "PrivatecaAlphaCertificateAuthorityTypeEnum%s" % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return certificate_authority_pb2.PrivatecaAlphaCertificateAuthorityTypeEnum.Name(
-            resource
-        )[
-            len("PrivatecaAlphaCertificateAuthorityTypeEnum") :
-        ]
+        return (
+            certificate_authority_pb2.PrivatecaAlphaCertificateAuthorityTypeEnum.Name(
+                resource
+            )[len("PrivatecaAlphaCertificateAuthorityTypeEnum") :]
+        )
 
 
 class CertificateAuthorityConfigPublicKeyFormatEnum(object):
@@ -2898,19 +2902,21 @@ class CertificateAuthorityTierEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return certificate_authority_pb2.PrivatecaAlphaCertificateAuthorityTierEnum.Value(
-            "PrivatecaAlphaCertificateAuthorityTierEnum%s" % resource
+        return (
+            certificate_authority_pb2.PrivatecaAlphaCertificateAuthorityTierEnum.Value(
+                "PrivatecaAlphaCertificateAuthorityTierEnum%s" % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return certificate_authority_pb2.PrivatecaAlphaCertificateAuthorityTierEnum.Name(
-            resource
-        )[
-            len("PrivatecaAlphaCertificateAuthorityTierEnum") :
-        ]
+        return (
+            certificate_authority_pb2.PrivatecaAlphaCertificateAuthorityTierEnum.Name(
+                resource
+            )[len("PrivatecaAlphaCertificateAuthorityTierEnum") :]
+        )
 
 
 class CertificateAuthorityStateEnum(object):
@@ -2918,19 +2924,21 @@ class CertificateAuthorityStateEnum(object):
     def to_proto(self, resource):
         if not resource:
             return resource
-        return certificate_authority_pb2.PrivatecaAlphaCertificateAuthorityStateEnum.Value(
-            "PrivatecaAlphaCertificateAuthorityStateEnum%s" % resource
+        return (
+            certificate_authority_pb2.PrivatecaAlphaCertificateAuthorityStateEnum.Value(
+                "PrivatecaAlphaCertificateAuthorityStateEnum%s" % resource
+            )
         )
 
     @classmethod
     def from_proto(self, resource):
         if not resource:
             return resource
-        return certificate_authority_pb2.PrivatecaAlphaCertificateAuthorityStateEnum.Name(
-            resource
-        )[
-            len("PrivatecaAlphaCertificateAuthorityStateEnum") :
-        ]
+        return (
+            certificate_authority_pb2.PrivatecaAlphaCertificateAuthorityStateEnum.Name(
+                resource
+            )[len("PrivatecaAlphaCertificateAuthorityStateEnum") :]
+        )
 
 
 class CertificateAuthorityCaCertificateDescriptionsPublicKeyFormatEnum(object):

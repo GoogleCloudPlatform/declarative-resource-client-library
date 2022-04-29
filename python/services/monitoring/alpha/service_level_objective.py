@@ -82,8 +82,8 @@ class ServiceLevelObjective(object):
             request.resource.rolling_period = Primitive.to_proto(self.rolling_period)
 
         if ServiceLevelObjectiveCalendarPeriodEnum.to_proto(self.calendar_period):
-            request.resource.calendar_period = ServiceLevelObjectiveCalendarPeriodEnum.to_proto(
-                self.calendar_period
+            request.resource.calendar_period = (
+                ServiceLevelObjectiveCalendarPeriodEnum.to_proto(self.calendar_period)
             )
 
         if Primitive.to_proto(self.user_labels):
@@ -100,8 +100,10 @@ class ServiceLevelObjective(object):
         response = stub.ApplyMonitoringAlphaServiceLevelObjective(request)
         self.name = Primitive.from_proto(response.name)
         self.display_name = Primitive.from_proto(response.display_name)
-        self.service_level_indicator = ServiceLevelObjectiveServiceLevelIndicator.from_proto(
-            response.service_level_indicator
+        self.service_level_indicator = (
+            ServiceLevelObjectiveServiceLevelIndicator.from_proto(
+                response.service_level_indicator
+            )
         )
         self.goal = Primitive.from_proto(response.goal)
         self.rolling_period = Primitive.from_proto(response.rolling_period)
@@ -148,8 +150,8 @@ class ServiceLevelObjective(object):
             request.resource.rolling_period = Primitive.to_proto(self.rolling_period)
 
         if ServiceLevelObjectiveCalendarPeriodEnum.to_proto(self.calendar_period):
-            request.resource.calendar_period = ServiceLevelObjectiveCalendarPeriodEnum.to_proto(
-                self.calendar_period
+            request.resource.calendar_period = (
+                ServiceLevelObjectiveCalendarPeriodEnum.to_proto(self.calendar_period)
             )
 
         if Primitive.to_proto(self.user_labels):
@@ -824,9 +826,11 @@ class ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange
         if not resource:
             return None
 
-        return ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(
-            min=Primitive.from_proto(resource.min),
-            max=Primitive.from_proto(resource.max),
+        return (
+            ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(
+                min=Primitive.from_proto(resource.min),
+                max=Primitive.from_proto(resource.max),
+            )
         )
 
 
@@ -1856,9 +1860,11 @@ class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRang
         if not resource:
             return None
 
-        return ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(
-            min=Primitive.from_proto(resource.min),
-            max=Primitive.from_proto(resource.max),
+        return (
+            ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(
+                min=Primitive.from_proto(resource.min),
+                max=Primitive.from_proto(resource.max),
+            )
         )
 
 
