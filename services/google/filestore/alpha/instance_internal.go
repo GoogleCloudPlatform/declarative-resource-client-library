@@ -1674,9 +1674,7 @@ func expandInstanceNetworks(c *Client, f *InstanceNetworks, res *Instance) (map[
 	}
 
 	m := make(map[string]interface{})
-	if v, err := dcl.SelfLinkToNameExpander(f.Network); err != nil {
-		return nil, fmt.Errorf("error expanding Network into network: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Network; !dcl.IsEmptyValueIndirect(v) {
 		m["network"] = v
 	}
 	if v := f.Modes; v != nil {

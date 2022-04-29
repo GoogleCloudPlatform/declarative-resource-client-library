@@ -24,7 +24,7 @@
   ],
   "networks": [
     {
-      "network": "default",
+      "network": "projects/{{project}}/global/networks/default",
       "modes": ["MODE_IPV4"],
       "reservedIPRange": "10.{{random_int}}.{{random_int}}.0/29"
     }
