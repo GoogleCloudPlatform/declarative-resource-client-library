@@ -133,7 +133,9 @@ func newUpdateServiceAttachmentPatchRequest(ctx context.Context, f *ServiceAttac
 	if v := f.NatSubnets; v != nil {
 		req["natSubnets"] = v
 	}
-	if v := f.ConsumerRejectLists; v != nil {
+	if v, err := dcl.SelfLinkToNameArrayExpander(f.ConsumerRejectLists); err != nil {
+		return nil, fmt.Errorf("error expanding ConsumerRejectLists into consumerRejectLists: %w", err)
+	} else if v != nil {
 		req["consumerRejectLists"] = v
 	}
 	if v, err := expandServiceAttachmentConsumerAcceptListsSlice(c, f.ConsumerAcceptLists, res); err != nil {
@@ -1327,7 +1329,9 @@ func expandServiceAttachment(c *Client, f *ServiceAttachment) (map[string]interf
 	if v := f.EnableProxyProtocol; dcl.ValueShouldBeSent(v) {
 		m["enableProxyProtocol"] = v
 	}
-	if v := f.ConsumerRejectLists; v != nil {
+	if v, err := dcl.SelfLinkToNameArrayExpander(f.ConsumerRejectLists); err != nil {
+		return nil, fmt.Errorf("error expanding ConsumerRejectLists into consumerRejectLists: %w", err)
+	} else if v != nil {
 		m["consumerRejectLists"] = v
 	}
 	if v, err := expandServiceAttachmentConsumerAcceptListsSlice(c, f.ConsumerAcceptLists, res); err != nil {

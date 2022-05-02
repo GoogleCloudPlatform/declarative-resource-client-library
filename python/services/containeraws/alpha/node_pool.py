@@ -224,6 +224,7 @@ class NodePoolConfig(object):
         config_encryption: dict = None,
         ssh_config: dict = None,
         security_group_ids: list = None,
+        proxy_config: dict = None,
         instance_placement: dict = None,
         image_type: str = None,
     ):
@@ -236,6 +237,7 @@ class NodePoolConfig(object):
         self.config_encryption = config_encryption
         self.ssh_config = ssh_config
         self.security_group_ids = security_group_ids
+        self.proxy_config = proxy_config
         self.instance_placement = instance_placement
         self.image_type = image_type
 
@@ -277,6 +279,12 @@ class NodePoolConfig(object):
             res.security_group_ids.extend(
                 Primitive.to_proto(resource.security_group_ids)
             )
+        if NodePoolConfigProxyConfig.to_proto(resource.proxy_config):
+            res.proxy_config.CopyFrom(
+                NodePoolConfigProxyConfig.to_proto(resource.proxy_config)
+            )
+        else:
+            res.ClearField("proxy_config")
         if NodePoolConfigInstancePlacement.to_proto(resource.instance_placement):
             res.instance_placement.CopyFrom(
                 NodePoolConfigInstancePlacement.to_proto(resource.instance_placement)
@@ -304,6 +312,7 @@ class NodePoolConfig(object):
             ),
             ssh_config=NodePoolConfigSshConfig.from_proto(resource.ssh_config),
             security_group_ids=Primitive.from_proto(resource.security_group_ids),
+            proxy_config=NodePoolConfigProxyConfig.from_proto(resource.proxy_config),
             instance_placement=NodePoolConfigInstancePlacement.from_proto(
                 resource.instance_placement
             ),
@@ -495,6 +504,46 @@ class NodePoolConfigSshConfigArray(object):
     @classmethod
     def from_proto(self, resources):
         return [NodePoolConfigSshConfig.from_proto(i) for i in resources]
+
+
+class NodePoolConfigProxyConfig(object):
+    def __init__(self, secret_arn: str = None, secret_version: str = None):
+        self.secret_arn = secret_arn
+        self.secret_version = secret_version
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = node_pool_pb2.ContainerawsAlphaNodePoolConfigProxyConfig()
+        if Primitive.to_proto(resource.secret_arn):
+            res.secret_arn = Primitive.to_proto(resource.secret_arn)
+        if Primitive.to_proto(resource.secret_version):
+            res.secret_version = Primitive.to_proto(resource.secret_version)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return NodePoolConfigProxyConfig(
+            secret_arn=Primitive.from_proto(resource.secret_arn),
+            secret_version=Primitive.from_proto(resource.secret_version),
+        )
+
+
+class NodePoolConfigProxyConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [NodePoolConfigProxyConfig.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [NodePoolConfigProxyConfig.from_proto(i) for i in resources]
 
 
 class NodePoolConfigInstancePlacement(object):

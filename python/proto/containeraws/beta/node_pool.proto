@@ -84,8 +84,9 @@ message ContainerawsBetaNodePoolConfig {
   ContainerawsBetaNodePoolConfigConfigEncryption config_encryption = 7;
   ContainerawsBetaNodePoolConfigSshConfig ssh_config = 8;
   repeated string security_group_ids = 9;
-  ContainerawsBetaNodePoolConfigInstancePlacement instance_placement = 10;
-  string image_type = 11;
+  ContainerawsBetaNodePoolConfigProxyConfig proxy_config = 10;
+  ContainerawsBetaNodePoolConfigInstancePlacement instance_placement = 11;
+  string image_type = 12;
 }
 
 message ContainerawsBetaNodePoolConfigRootVolume {
@@ -107,6 +108,11 @@ message ContainerawsBetaNodePoolConfigConfigEncryption {
 
 message ContainerawsBetaNodePoolConfigSshConfig {
   string ec2_key_pair = 1;
+}
+
+message ContainerawsBetaNodePoolConfigProxyConfig {
+  string secret_arn = 1;
+  string secret_version = 2;
 }
 
 message ContainerawsBetaNodePoolConfigInstancePlacement {

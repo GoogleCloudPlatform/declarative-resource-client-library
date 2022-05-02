@@ -201,6 +201,25 @@ components:
                 node pool. An object containing a list of "key": value pairs. Example:
                 { "name": "wrench", "mass": "1.3kg", "count": "3" }.'
               x-kubernetes-immutable: true
+            proxyConfig:
+              type: object
+              x-dcl-go-name: ProxyConfig
+              x-dcl-go-type: NodePoolConfigProxyConfig
+              description: Proxy configuration for outbound HTTP(S) traffic.
+              required:
+              - secretArn
+              - secretVersion
+              properties:
+                secretArn:
+                  type: string
+                  x-dcl-go-name: SecretArn
+                  description: The ARN of the AWS Secret Manager secret that contains
+                    the HTTP(S) proxy configuration.
+                secretVersion:
+                  type: string
+                  x-dcl-go-name: SecretVersion
+                  description: The version string of the AWS Secret Manager secret
+                    that contains the HTTP(S) proxy configuration.
             rootVolume:
               type: object
               x-dcl-go-name: RootVolume
