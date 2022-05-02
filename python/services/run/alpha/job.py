@@ -44,7 +44,6 @@ class Job(object):
         latest_succeeded_execution: dict = None,
         latest_created_execution: dict = None,
         reconciling: bool = None,
-        container_statuses: list = None,
         etag: str = None,
         project: str = None,
         location: str = None,
@@ -133,9 +132,6 @@ class Job(object):
             response.latest_created_execution
         )
         self.reconciling = Primitive.from_proto(response.reconciling)
-        self.container_statuses = JobContainerStatusesArray.from_proto(
-            response.container_statuses
-        )
         self.etag = Primitive.from_proto(response.etag)
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
@@ -1125,8 +1121,6 @@ class JobConditions(object):
         last_transition_time: str = None,
         severity: str = None,
         reason: str = None,
-        internal_reason: str = None,
-        domain_mapping_reason: str = None,
         revision_reason: str = None,
         execution_reason: str = None,
     ):
@@ -1136,8 +1130,6 @@ class JobConditions(object):
         self.last_transition_time = last_transition_time
         self.severity = severity
         self.reason = reason
-        self.internal_reason = internal_reason
-        self.domain_mapping_reason = domain_mapping_reason
         self.revision_reason = revision_reason
         self.execution_reason = execution_reason
 
@@ -1159,16 +1151,6 @@ class JobConditions(object):
             res.severity = JobConditionsSeverityEnum.to_proto(resource.severity)
         if JobConditionsReasonEnum.to_proto(resource.reason):
             res.reason = JobConditionsReasonEnum.to_proto(resource.reason)
-        if JobConditionsInternalReasonEnum.to_proto(resource.internal_reason):
-            res.internal_reason = JobConditionsInternalReasonEnum.to_proto(
-                resource.internal_reason
-            )
-        if JobConditionsDomainMappingReasonEnum.to_proto(
-            resource.domain_mapping_reason
-        ):
-            res.domain_mapping_reason = JobConditionsDomainMappingReasonEnum.to_proto(
-                resource.domain_mapping_reason
-            )
         if JobConditionsRevisionReasonEnum.to_proto(resource.revision_reason):
             res.revision_reason = JobConditionsRevisionReasonEnum.to_proto(
                 resource.revision_reason
@@ -1191,12 +1173,6 @@ class JobConditions(object):
             last_transition_time=Primitive.from_proto(resource.last_transition_time),
             severity=JobConditionsSeverityEnum.from_proto(resource.severity),
             reason=JobConditionsReasonEnum.from_proto(resource.reason),
-            internal_reason=JobConditionsInternalReasonEnum.from_proto(
-                resource.internal_reason
-            ),
-            domain_mapping_reason=JobConditionsDomainMappingReasonEnum.from_proto(
-                resource.domain_mapping_reason
-            ),
             revision_reason=JobConditionsRevisionReasonEnum.from_proto(
                 resource.revision_reason
             ),
@@ -1296,46 +1272,6 @@ class JobLatestCreatedExecutionArray(object):
     @classmethod
     def from_proto(self, resources):
         return [JobLatestCreatedExecution.from_proto(i) for i in resources]
-
-
-class JobContainerStatuses(object):
-    def __init__(self, name: str = None, image_digest: str = None):
-        self.name = name
-        self.image_digest = image_digest
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = job_pb2.RunAlphaJobContainerStatuses()
-        if Primitive.to_proto(resource.name):
-            res.name = Primitive.to_proto(resource.name)
-        if Primitive.to_proto(resource.image_digest):
-            res.image_digest = Primitive.to_proto(resource.image_digest)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return JobContainerStatuses(
-            name=Primitive.from_proto(resource.name),
-            image_digest=Primitive.from_proto(resource.image_digest),
-        )
-
-
-class JobContainerStatusesArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [JobContainerStatuses.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [JobContainerStatuses.from_proto(i) for i in resources]
 
 
 class JobLaunchStageEnum(object):
@@ -1569,42 +1505,6 @@ class JobConditionsReasonEnum(object):
             return resource
         return job_pb2.RunAlphaJobConditionsReasonEnum.Name(resource)[
             len("RunAlphaJobConditionsReasonEnum") :
-        ]
-
-
-class JobConditionsInternalReasonEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return job_pb2.RunAlphaJobConditionsInternalReasonEnum.Value(
-            "RunAlphaJobConditionsInternalReasonEnum%s" % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return job_pb2.RunAlphaJobConditionsInternalReasonEnum.Name(resource)[
-            len("RunAlphaJobConditionsInternalReasonEnum") :
-        ]
-
-
-class JobConditionsDomainMappingReasonEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return job_pb2.RunAlphaJobConditionsDomainMappingReasonEnum.Value(
-            "RunAlphaJobConditionsDomainMappingReasonEnum%s" % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return job_pb2.RunAlphaJobConditionsDomainMappingReasonEnum.Name(resource)[
-            len("RunAlphaJobConditionsDomainMappingReasonEnum") :
         ]
 
 

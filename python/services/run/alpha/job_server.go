@@ -180,30 +180,6 @@ func ProtoToRunAlphaJobConditionsReasonEnum(e alphapb.RunAlphaJobConditionsReaso
 	return nil
 }
 
-// ProtoToJobConditionsInternalReasonEnum converts a JobConditionsInternalReasonEnum enum from its proto representation.
-func ProtoToRunAlphaJobConditionsInternalReasonEnum(e alphapb.RunAlphaJobConditionsInternalReasonEnum) *alpha.JobConditionsInternalReasonEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := alphapb.RunAlphaJobConditionsInternalReasonEnum_name[int32(e)]; ok {
-		e := alpha.JobConditionsInternalReasonEnum(n[len("RunAlphaJobConditionsInternalReasonEnum"):])
-		return &e
-	}
-	return nil
-}
-
-// ProtoToJobConditionsDomainMappingReasonEnum converts a JobConditionsDomainMappingReasonEnum enum from its proto representation.
-func ProtoToRunAlphaJobConditionsDomainMappingReasonEnum(e alphapb.RunAlphaJobConditionsDomainMappingReasonEnum) *alpha.JobConditionsDomainMappingReasonEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := alphapb.RunAlphaJobConditionsDomainMappingReasonEnum_name[int32(e)]; ok {
-		e := alpha.JobConditionsDomainMappingReasonEnum(n[len("RunAlphaJobConditionsDomainMappingReasonEnum"):])
-		return &e
-	}
-	return nil
-}
-
 // ProtoToJobConditionsRevisionReasonEnum converts a JobConditionsRevisionReasonEnum enum from its proto representation.
 func ProtoToRunAlphaJobConditionsRevisionReasonEnum(e alphapb.RunAlphaJobConditionsRevisionReasonEnum) *alpha.JobConditionsRevisionReasonEnum {
 	if e == 0 {
@@ -465,16 +441,14 @@ func ProtoToRunAlphaJobConditions(p *alphapb.RunAlphaJobConditions) *alpha.JobCo
 		return nil
 	}
 	obj := &alpha.JobConditions{
-		Type:                dcl.StringOrNil(p.GetType()),
-		State:               ProtoToRunAlphaJobConditionsStateEnum(p.GetState()),
-		Message:             dcl.StringOrNil(p.GetMessage()),
-		LastTransitionTime:  dcl.StringOrNil(p.GetLastTransitionTime()),
-		Severity:            ProtoToRunAlphaJobConditionsSeverityEnum(p.GetSeverity()),
-		Reason:              ProtoToRunAlphaJobConditionsReasonEnum(p.GetReason()),
-		InternalReason:      ProtoToRunAlphaJobConditionsInternalReasonEnum(p.GetInternalReason()),
-		DomainMappingReason: ProtoToRunAlphaJobConditionsDomainMappingReasonEnum(p.GetDomainMappingReason()),
-		RevisionReason:      ProtoToRunAlphaJobConditionsRevisionReasonEnum(p.GetRevisionReason()),
-		ExecutionReason:     ProtoToRunAlphaJobConditionsExecutionReasonEnum(p.GetExecutionReason()),
+		Type:               dcl.StringOrNil(p.GetType()),
+		State:              ProtoToRunAlphaJobConditionsStateEnum(p.GetState()),
+		Message:            dcl.StringOrNil(p.GetMessage()),
+		LastTransitionTime: dcl.StringOrNil(p.GetLastTransitionTime()),
+		Severity:           ProtoToRunAlphaJobConditionsSeverityEnum(p.GetSeverity()),
+		Reason:             ProtoToRunAlphaJobConditionsReasonEnum(p.GetReason()),
+		RevisionReason:     ProtoToRunAlphaJobConditionsRevisionReasonEnum(p.GetRevisionReason()),
+		ExecutionReason:    ProtoToRunAlphaJobConditionsExecutionReasonEnum(p.GetExecutionReason()),
 	}
 	return obj
 }
@@ -499,18 +473,6 @@ func ProtoToRunAlphaJobLatestCreatedExecution(p *alphapb.RunAlphaJobLatestCreate
 	obj := &alpha.JobLatestCreatedExecution{
 		Name:       dcl.StringOrNil(p.GetName()),
 		CreateTime: dcl.StringOrNil(p.GetCreateTime()),
-	}
-	return obj
-}
-
-// ProtoToJobContainerStatuses converts a JobContainerStatuses object from its proto representation.
-func ProtoToRunAlphaJobContainerStatuses(p *alphapb.RunAlphaJobContainerStatuses) *alpha.JobContainerStatuses {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.JobContainerStatuses{
-		Name:        dcl.StringOrNil(p.GetName()),
-		ImageDigest: dcl.StringOrNil(p.GetImageDigest()),
 	}
 	return obj
 }
@@ -544,9 +506,6 @@ func ProtoToJob(p *alphapb.RunAlphaJob) *alpha.Job {
 	}
 	for _, r := range p.GetConditions() {
 		obj.Conditions = append(obj.Conditions, *ProtoToRunAlphaJobConditions(r))
-	}
-	for _, r := range p.GetContainerStatuses() {
-		obj.ContainerStatuses = append(obj.ContainerStatuses, *ProtoToRunAlphaJobContainerStatuses(r))
 	}
 	return obj
 }
@@ -692,28 +651,6 @@ func RunAlphaJobConditionsReasonEnumToProto(e *alpha.JobConditionsReasonEnum) al
 		return alphapb.RunAlphaJobConditionsReasonEnum(v)
 	}
 	return alphapb.RunAlphaJobConditionsReasonEnum(0)
-}
-
-// JobConditionsInternalReasonEnumToProto converts a JobConditionsInternalReasonEnum enum to its proto representation.
-func RunAlphaJobConditionsInternalReasonEnumToProto(e *alpha.JobConditionsInternalReasonEnum) alphapb.RunAlphaJobConditionsInternalReasonEnum {
-	if e == nil {
-		return alphapb.RunAlphaJobConditionsInternalReasonEnum(0)
-	}
-	if v, ok := alphapb.RunAlphaJobConditionsInternalReasonEnum_value["JobConditionsInternalReasonEnum"+string(*e)]; ok {
-		return alphapb.RunAlphaJobConditionsInternalReasonEnum(v)
-	}
-	return alphapb.RunAlphaJobConditionsInternalReasonEnum(0)
-}
-
-// JobConditionsDomainMappingReasonEnumToProto converts a JobConditionsDomainMappingReasonEnum enum to its proto representation.
-func RunAlphaJobConditionsDomainMappingReasonEnumToProto(e *alpha.JobConditionsDomainMappingReasonEnum) alphapb.RunAlphaJobConditionsDomainMappingReasonEnum {
-	if e == nil {
-		return alphapb.RunAlphaJobConditionsDomainMappingReasonEnum(0)
-	}
-	if v, ok := alphapb.RunAlphaJobConditionsDomainMappingReasonEnum_value["JobConditionsDomainMappingReasonEnum"+string(*e)]; ok {
-		return alphapb.RunAlphaJobConditionsDomainMappingReasonEnum(v)
-	}
-	return alphapb.RunAlphaJobConditionsDomainMappingReasonEnum(0)
 }
 
 // JobConditionsRevisionReasonEnumToProto converts a JobConditionsRevisionReasonEnum enum to its proto representation.
@@ -999,8 +936,6 @@ func RunAlphaJobConditionsToProto(o *alpha.JobConditions) *alphapb.RunAlphaJobCo
 	p.SetLastTransitionTime(dcl.ValueOrEmptyString(o.LastTransitionTime))
 	p.SetSeverity(RunAlphaJobConditionsSeverityEnumToProto(o.Severity))
 	p.SetReason(RunAlphaJobConditionsReasonEnumToProto(o.Reason))
-	p.SetInternalReason(RunAlphaJobConditionsInternalReasonEnumToProto(o.InternalReason))
-	p.SetDomainMappingReason(RunAlphaJobConditionsDomainMappingReasonEnumToProto(o.DomainMappingReason))
 	p.SetRevisionReason(RunAlphaJobConditionsRevisionReasonEnumToProto(o.RevisionReason))
 	p.SetExecutionReason(RunAlphaJobConditionsExecutionReasonEnumToProto(o.ExecutionReason))
 	return p
@@ -1025,17 +960,6 @@ func RunAlphaJobLatestCreatedExecutionToProto(o *alpha.JobLatestCreatedExecution
 	p := &alphapb.RunAlphaJobLatestCreatedExecution{}
 	p.SetName(dcl.ValueOrEmptyString(o.Name))
 	p.SetCreateTime(dcl.ValueOrEmptyString(o.CreateTime))
-	return p
-}
-
-// JobContainerStatusesToProto converts a JobContainerStatuses object to its proto representation.
-func RunAlphaJobContainerStatusesToProto(o *alpha.JobContainerStatuses) *alphapb.RunAlphaJobContainerStatuses {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.RunAlphaJobContainerStatuses{}
-	p.SetName(dcl.ValueOrEmptyString(o.Name))
-	p.SetImageDigest(dcl.ValueOrEmptyString(o.ImageDigest))
 	return p
 }
 
@@ -1080,11 +1004,6 @@ func JobToProto(resource *alpha.Job) *alphapb.RunAlphaJob {
 		sConditions[i] = RunAlphaJobConditionsToProto(&r)
 	}
 	p.SetConditions(sConditions)
-	sContainerStatuses := make([]*alphapb.RunAlphaJobContainerStatuses, len(resource.ContainerStatuses))
-	for i, r := range resource.ContainerStatuses {
-		sContainerStatuses[i] = RunAlphaJobContainerStatusesToProto(&r)
-	}
-	p.SetContainerStatuses(sContainerStatuses)
 
 	return p
 }

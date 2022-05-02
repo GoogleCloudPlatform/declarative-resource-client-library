@@ -49,7 +49,6 @@ type Job struct {
 	LatestSucceededExecution *JobLatestSucceededExecution `json:"latestSucceededExecution"`
 	LatestCreatedExecution   *JobLatestCreatedExecution   `json:"latestCreatedExecution"`
 	Reconciling              *bool                        `json:"reconciling"`
-	ContainerStatuses        []JobContainerStatuses       `json:"containerStatuses"`
 	Etag                     *string                      `json:"etag"`
 	Project                  *string                      `json:"project"`
 	Location                 *string                      `json:"location"`
@@ -209,7 +208,7 @@ func (v JobTerminalConditionReasonEnum) Validate() error {
 		// Empty enum is okay.
 		return nil
 	}
-	for _, s := range []string{"COMMON_REASON_UNDEFINED", "UNKNOWN", "ROUTE_MISSING", "REVISION_FAILED", "PROGRESS_DEADLINE_EXCEEDED", "BUILD_STEP_FAILED", "CONTAINER_MISSING", "CONTAINER_PERMISSION_DENIED", "CONTAINER_IMAGE_UNAUTHORIZED", "CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED", "ENCRYPTION_KEY_PERMISSION_DENIED", "ENCRYPTION_KEY_CHECK_FAILED", "SECRETS_ACCESS_CHECK_FAILED", "WAITING_FOR_OPERATION", "IMMEDIATE_RETRY", "POSTPONED_RETRY"} {
+	for _, s := range []string{"COMMON_REASON_UNDEFINED", "UNKNOWN", "ROUTE_MISSING", "REVISION_FAILED", "PROGRESS_DEADLINE_EXCEEDED", "CONTAINER_MISSING", "CONTAINER_PERMISSION_DENIED", "CONTAINER_IMAGE_UNAUTHORIZED", "CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED", "ENCRYPTION_KEY_PERMISSION_DENIED", "ENCRYPTION_KEY_CHECK_FAILED", "SECRETS_ACCESS_CHECK_FAILED", "WAITING_FOR_OPERATION", "IMMEDIATE_RETRY", "POSTPONED_RETRY"} {
 		if string(v) == s {
 			return nil
 		}
@@ -398,67 +397,13 @@ func (v JobConditionsReasonEnum) Validate() error {
 		// Empty enum is okay.
 		return nil
 	}
-	for _, s := range []string{"COMMON_REASON_UNDEFINED", "UNKNOWN", "ROUTE_MISSING", "REVISION_FAILED", "PROGRESS_DEADLINE_EXCEEDED", "BUILD_STEP_FAILED", "CONTAINER_MISSING", "CONTAINER_PERMISSION_DENIED", "CONTAINER_IMAGE_UNAUTHORIZED", "CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED", "ENCRYPTION_KEY_PERMISSION_DENIED", "ENCRYPTION_KEY_CHECK_FAILED", "SECRETS_ACCESS_CHECK_FAILED", "WAITING_FOR_OPERATION", "IMMEDIATE_RETRY", "POSTPONED_RETRY"} {
+	for _, s := range []string{"COMMON_REASON_UNDEFINED", "UNKNOWN", "REVISION_FAILED", "PROGRESS_DEADLINE_EXCEEDED", "BUILD_STEP_FAILED", "CONTAINER_MISSING", "CONTAINER_PERMISSION_DENIED", "CONTAINER_IMAGE_UNAUTHORIZED", "CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED", "ENCRYPTION_KEY_PERMISSION_DENIED", "ENCRYPTION_KEY_CHECK_FAILED", "SECRETS_ACCESS_CHECK_FAILED", "WAITING_FOR_OPERATION", "IMMEDIATE_RETRY", "POSTPONED_RETRY"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "JobConditionsReasonEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum JobConditionsInternalReasonEnum.
-type JobConditionsInternalReasonEnum string
-
-// JobConditionsInternalReasonEnumRef returns a *JobConditionsInternalReasonEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func JobConditionsInternalReasonEnumRef(s string) *JobConditionsInternalReasonEnum {
-	v := JobConditionsInternalReasonEnum(s)
-	return &v
-}
-
-func (v JobConditionsInternalReasonEnum) Validate() error {
-	if string(v) == "" {
-		// Empty enum is okay.
-		return nil
-	}
-	for _, s := range []string{"INTERNAL_REASON_UNDEFINED", "CONFLICTING_REVISION_NAME", "REVISION_MISSING", "CONFIGURATION_MISSING", "ASSIGNING_TRAFFIC", "UPDATING_INGRESS_TRAFFIC_ALLOWED", "REVISION_ORG_POLICY_VIOLATION", "ENABLING_GCFV2_URI_SUPPORT"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "JobConditionsInternalReasonEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum JobConditionsDomainMappingReasonEnum.
-type JobConditionsDomainMappingReasonEnum string
-
-// JobConditionsDomainMappingReasonEnumRef returns a *JobConditionsDomainMappingReasonEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func JobConditionsDomainMappingReasonEnumRef(s string) *JobConditionsDomainMappingReasonEnum {
-	v := JobConditionsDomainMappingReasonEnum(s)
-	return &v
-}
-
-func (v JobConditionsDomainMappingReasonEnum) Validate() error {
-	if string(v) == "" {
-		// Empty enum is okay.
-		return nil
-	}
-	for _, s := range []string{"DOMAIN_MAPPING_REASON_UNDEFINED", "ROUTE_NOT_READY", "PERMISSION_DENIED", "CERTIFICATE_ALREADY_EXISTS", "MAPPING_ALREADY_EXISTS", "CERTIFICATE_PENDING", "CERTIFICATE_FAILED"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "JobConditionsDomainMappingReasonEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -1378,17 +1323,15 @@ func (r *JobTerminalCondition) HashCode() string {
 }
 
 type JobConditions struct {
-	empty               bool                                  `json:"-"`
-	Type                *string                               `json:"type"`
-	State               *JobConditionsStateEnum               `json:"state"`
-	Message             *string                               `json:"message"`
-	LastTransitionTime  *string                               `json:"lastTransitionTime"`
-	Severity            *JobConditionsSeverityEnum            `json:"severity"`
-	Reason              *JobConditionsReasonEnum              `json:"reason"`
-	InternalReason      *JobConditionsInternalReasonEnum      `json:"internalReason"`
-	DomainMappingReason *JobConditionsDomainMappingReasonEnum `json:"domainMappingReason"`
-	RevisionReason      *JobConditionsRevisionReasonEnum      `json:"revisionReason"`
-	ExecutionReason     *JobConditionsExecutionReasonEnum     `json:"executionReason"`
+	empty              bool                              `json:"-"`
+	Type               *string                           `json:"type"`
+	State              *JobConditionsStateEnum           `json:"state"`
+	Message            *string                           `json:"message"`
+	LastTransitionTime *string                           `json:"lastTransitionTime"`
+	Severity           *JobConditionsSeverityEnum        `json:"severity"`
+	Reason             *JobConditionsReasonEnum          `json:"reason"`
+	RevisionReason     *JobConditionsRevisionReasonEnum  `json:"revisionReason"`
+	ExecutionReason    *JobConditionsExecutionReasonEnum `json:"executionReason"`
 }
 
 type jsonJobConditions JobConditions
@@ -1417,10 +1360,6 @@ func (r *JobConditions) UnmarshalJSON(data []byte) error {
 		r.Severity = res.Severity
 
 		r.Reason = res.Reason
-
-		r.InternalReason = res.InternalReason
-
-		r.DomainMappingReason = res.DomainMappingReason
 
 		r.RevisionReason = res.RevisionReason
 
@@ -1548,55 +1487,6 @@ func (r *JobLatestCreatedExecution) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type JobContainerStatuses struct {
-	empty       bool    `json:"-"`
-	Name        *string `json:"name"`
-	ImageDigest *string `json:"imageDigest"`
-}
-
-type jsonJobContainerStatuses JobContainerStatuses
-
-func (r *JobContainerStatuses) UnmarshalJSON(data []byte) error {
-	var res jsonJobContainerStatuses
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyJobContainerStatuses
-	} else {
-
-		r.Name = res.Name
-
-		r.ImageDigest = res.ImageDigest
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this JobContainerStatuses is
-// empty. Go lacks global const objects, but this object should be treated
-// as one. Modifying this object will have undesirable results.
-var EmptyJobContainerStatuses *JobContainerStatuses = &JobContainerStatuses{empty: true}
-
-func (r *JobContainerStatuses) Empty() bool {
-	return r.empty
-}
-
-func (r *JobContainerStatuses) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *JobContainerStatuses) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
 // Describe returns a simple description of this resource to ensure that automated tools
 // can identify it.
 func (r *Job) Describe() dcl.ServiceTypeVersion {
@@ -1636,7 +1526,6 @@ func (r *Job) ID() (string, error) {
 		"latestSucceededExecution": dcl.ValueOrEmptyString(nr.LatestSucceededExecution),
 		"latestCreatedExecution":   dcl.ValueOrEmptyString(nr.LatestCreatedExecution),
 		"reconciling":              dcl.ValueOrEmptyString(nr.Reconciling),
-		"containerStatuses":        dcl.ValueOrEmptyString(nr.ContainerStatuses),
 		"etag":                     dcl.ValueOrEmptyString(nr.Etag),
 		"project":                  dcl.ValueOrEmptyString(nr.Project),
 		"location":                 dcl.ValueOrEmptyString(nr.Location),

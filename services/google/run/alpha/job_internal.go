@@ -186,7 +186,7 @@ func (r *JobTerminalCondition) validate() error {
 	return nil
 }
 func (r *JobConditions) validate() error {
-	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Reason", "InternalReason", "DomainMappingReason", "RevisionReason", "ExecutionReason"}, r.Reason, r.InternalReason, r.DomainMappingReason, r.RevisionReason, r.ExecutionReason); err != nil {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Reason", "RevisionReason", "ExecutionReason"}, r.Reason, r.RevisionReason, r.ExecutionReason); err != nil {
 		return err
 	}
 	return nil
@@ -195,9 +195,6 @@ func (r *JobLatestSucceededExecution) validate() error {
 	return nil
 }
 func (r *JobLatestCreatedExecution) validate() error {
-	return nil
-}
-func (r *JobContainerStatuses) validate() error {
 	return nil
 }
 func (r *Job) basePath() string {
@@ -845,12 +842,6 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 		if dcl.BoolCanonicalize(rawDesired.Reconciling, rawNew.Reconciling) {
 			rawNew.Reconciling = rawDesired.Reconciling
 		}
-	}
-
-	if dcl.IsNotReturnedByServer(rawNew.ContainerStatuses) && dcl.IsNotReturnedByServer(rawDesired.ContainerStatuses) {
-		rawNew.ContainerStatuses = rawDesired.ContainerStatuses
-	} else {
-		rawNew.ContainerStatuses = canonicalizeNewJobContainerStatusesSlice(c, rawDesired.ContainerStatuses, rawNew.ContainerStatuses)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
@@ -3010,7 +3001,7 @@ func canonicalizeJobConditions(des, initial *JobConditions, opts ...dcl.ApplyOpt
 
 	if des.Reason != nil || (initial != nil && initial.Reason != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.InternalReason, des.DomainMappingReason, des.RevisionReason, des.ExecutionReason) {
+		if dcl.AnySet(des.RevisionReason, des.ExecutionReason) {
 			des.Reason = nil
 			if initial != nil {
 				initial.Reason = nil
@@ -3018,29 +3009,9 @@ func canonicalizeJobConditions(des, initial *JobConditions, opts ...dcl.ApplyOpt
 		}
 	}
 
-	if des.InternalReason != nil || (initial != nil && initial.InternalReason != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Reason, des.DomainMappingReason, des.RevisionReason, des.ExecutionReason) {
-			des.InternalReason = nil
-			if initial != nil {
-				initial.InternalReason = nil
-			}
-		}
-	}
-
-	if des.DomainMappingReason != nil || (initial != nil && initial.DomainMappingReason != nil) {
-		// Check if anything else is set.
-		if dcl.AnySet(des.Reason, des.InternalReason, des.RevisionReason, des.ExecutionReason) {
-			des.DomainMappingReason = nil
-			if initial != nil {
-				initial.DomainMappingReason = nil
-			}
-		}
-	}
-
 	if des.RevisionReason != nil || (initial != nil && initial.RevisionReason != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.Reason, des.InternalReason, des.DomainMappingReason, des.ExecutionReason) {
+		if dcl.AnySet(des.Reason, des.ExecutionReason) {
 			des.RevisionReason = nil
 			if initial != nil {
 				initial.RevisionReason = nil
@@ -3050,7 +3021,7 @@ func canonicalizeJobConditions(des, initial *JobConditions, opts ...dcl.ApplyOpt
 
 	if des.ExecutionReason != nil || (initial != nil && initial.ExecutionReason != nil) {
 		// Check if anything else is set.
-		if dcl.AnySet(des.Reason, des.InternalReason, des.DomainMappingReason, des.RevisionReason) {
+		if dcl.AnySet(des.Reason, des.RevisionReason) {
 			des.ExecutionReason = nil
 			if initial != nil {
 				initial.ExecutionReason = nil
@@ -3097,18 +3068,6 @@ func canonicalizeJobConditions(des, initial *JobConditions, opts ...dcl.ApplyOpt
 		cDes.Reason = initial.Reason
 	} else {
 		cDes.Reason = des.Reason
-	}
-	if dcl.IsZeroValue(des.InternalReason) || (dcl.IsEmptyValueIndirect(des.InternalReason) && dcl.IsEmptyValueIndirect(initial.InternalReason)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		cDes.InternalReason = initial.InternalReason
-	} else {
-		cDes.InternalReason = des.InternalReason
-	}
-	if dcl.IsZeroValue(des.DomainMappingReason) || (dcl.IsEmptyValueIndirect(des.DomainMappingReason) && dcl.IsEmptyValueIndirect(initial.DomainMappingReason)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		cDes.DomainMappingReason = initial.DomainMappingReason
-	} else {
-		cDes.DomainMappingReason = des.DomainMappingReason
 	}
 	if dcl.IsZeroValue(des.RevisionReason) || (dcl.IsEmptyValueIndirect(des.RevisionReason) && dcl.IsEmptyValueIndirect(initial.RevisionReason)) {
 		// Desired and initial values are equivalent, so set canonical desired value to initial value.
@@ -3457,129 +3416,6 @@ func canonicalizeNewJobLatestCreatedExecutionSlice(c *Client, des, nw []JobLates
 	return items
 }
 
-func canonicalizeJobContainerStatuses(des, initial *JobContainerStatuses, opts ...dcl.ApplyOption) *JobContainerStatuses {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	cDes := &JobContainerStatuses{}
-
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
-		cDes.Name = initial.Name
-	} else {
-		cDes.Name = des.Name
-	}
-	if dcl.StringCanonicalize(des.ImageDigest, initial.ImageDigest) || dcl.IsZeroValue(des.ImageDigest) {
-		cDes.ImageDigest = initial.ImageDigest
-	} else {
-		cDes.ImageDigest = des.ImageDigest
-	}
-
-	return cDes
-}
-
-func canonicalizeJobContainerStatusesSlice(des, initial []JobContainerStatuses, opts ...dcl.ApplyOption) []JobContainerStatuses {
-	if dcl.IsEmptyValueIndirect(des) {
-		return initial
-	}
-
-	if len(des) != len(initial) {
-
-		items := make([]JobContainerStatuses, 0, len(des))
-		for _, d := range des {
-			cd := canonicalizeJobContainerStatuses(&d, nil, opts...)
-			if cd != nil {
-				items = append(items, *cd)
-			}
-		}
-		return items
-	}
-
-	items := make([]JobContainerStatuses, 0, len(des))
-	for i, d := range des {
-		cd := canonicalizeJobContainerStatuses(&d, &initial[i], opts...)
-		if cd != nil {
-			items = append(items, *cd)
-		}
-	}
-	return items
-
-}
-
-func canonicalizeNewJobContainerStatuses(c *Client, des, nw *JobContainerStatuses) *JobContainerStatuses {
-
-	if des == nil {
-		return nw
-	}
-
-	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
-			c.Config.Logger.Info("Found explicitly empty value for JobContainerStatuses while comparing non-nil desired to nil actual.  Returning desired object.")
-			return des
-		}
-		return nil
-	}
-
-	if dcl.StringCanonicalize(des.Name, nw.Name) {
-		nw.Name = des.Name
-	}
-	if dcl.StringCanonicalize(des.ImageDigest, nw.ImageDigest) {
-		nw.ImageDigest = des.ImageDigest
-	}
-
-	return nw
-}
-
-func canonicalizeNewJobContainerStatusesSet(c *Client, des, nw []JobContainerStatuses) []JobContainerStatuses {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []JobContainerStatuses
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareJobContainerStatusesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewJobContainerStatusesSlice(c *Client, des, nw []JobContainerStatuses) []JobContainerStatuses {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []JobContainerStatuses
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewJobContainerStatuses(c, &d, &n))
-	}
-
-	return items
-}
-
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -3753,13 +3589,6 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]*dcl.F
 	}
 
 	if ds, err := dcl.Diff(desired.Reconciling, actual.Reconciling, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Reconciling")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.ContainerStatuses, actual.ContainerStatuses, dcl.Info{OutputOnly: true, ObjectFunction: compareJobContainerStatusesNewStyle, EmptyObject: EmptyJobContainerStatuses, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ContainerStatuses")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4602,20 +4431,6 @@ func compareJobConditionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InternalReason, actual.InternalReason, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobUpdateJobOperation")}, fn.AddNest("InternalReason")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.DomainMappingReason, actual.DomainMappingReason, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobUpdateJobOperation")}, fn.AddNest("DomainMappingReason")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.RevisionReason, actual.RevisionReason, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobUpdateJobOperation")}, fn.AddNest("RevisionReason")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -4696,42 +4511,6 @@ func compareJobLatestCreatedExecutionNewStyle(d, a interface{}, fn dcl.FieldName
 	}
 
 	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobUpdateJobOperation")}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareJobContainerStatusesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*JobContainerStatuses)
-	if !ok {
-		desiredNotPointer, ok := d.(JobContainerStatuses)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a JobContainerStatuses or *JobContainerStatuses", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*JobContainerStatuses)
-	if !ok {
-		actualNotPointer, ok := a.(JobContainerStatuses)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a JobContainerStatuses", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobUpdateJobOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.ImageDigest, actual.ImageDigest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobUpdateJobOperation")}, fn.AddNest("ImageDigest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4883,7 +4662,6 @@ func flattenJob(c *Client, i interface{}, res *Job) *Job {
 	resultRes.LatestSucceededExecution = flattenJobLatestSucceededExecution(c, m["latestSucceededExecution"], res)
 	resultRes.LatestCreatedExecution = flattenJobLatestCreatedExecution(c, m["latestCreatedExecution"], res)
 	resultRes.Reconciling = dcl.FlattenBool(m["reconciling"])
-	resultRes.ContainerStatuses = flattenJobContainerStatusesSlice(c, m["containerStatuses"], res)
 	resultRes.Etag = dcl.FlattenString(m["etag"])
 	resultRes.Project = dcl.FlattenString(m["project"])
 	resultRes.Location = dcl.FlattenString(m["location"])
@@ -7012,12 +6790,6 @@ func expandJobConditions(c *Client, f *JobConditions, res *Job) (map[string]inte
 	if v := f.Reason; !dcl.IsEmptyValueIndirect(v) {
 		m["reason"] = v
 	}
-	if v := f.InternalReason; !dcl.IsEmptyValueIndirect(v) {
-		m["internalReason"] = v
-	}
-	if v := f.DomainMappingReason; !dcl.IsEmptyValueIndirect(v) {
-		m["domainMappingReason"] = v
-	}
 	if v := f.RevisionReason; !dcl.IsEmptyValueIndirect(v) {
 		m["revisionReason"] = v
 	}
@@ -7047,8 +6819,6 @@ func flattenJobConditions(c *Client, i interface{}, res *Job) *JobConditions {
 	r.LastTransitionTime = dcl.FlattenString(m["lastTransitionTime"])
 	r.Severity = flattenJobConditionsSeverityEnum(m["severity"])
 	r.Reason = flattenJobConditionsReasonEnum(m["reason"])
-	r.InternalReason = flattenJobConditionsInternalReasonEnum(m["internalReason"])
-	r.DomainMappingReason = flattenJobConditionsDomainMappingReasonEnum(m["domainMappingReason"])
 	r.RevisionReason = flattenJobConditionsRevisionReasonEnum(m["revisionReason"])
 	r.ExecutionReason = flattenJobConditionsExecutionReasonEnum(m["executionReason"])
 
@@ -7287,124 +7057,6 @@ func flattenJobLatestCreatedExecution(c *Client, i interface{}, res *Job) *JobLa
 	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.CreateTime = dcl.FlattenString(m["createTime"])
-
-	return r
-}
-
-// expandJobContainerStatusesMap expands the contents of JobContainerStatuses into a JSON
-// request object.
-func expandJobContainerStatusesMap(c *Client, f map[string]JobContainerStatuses, res *Job) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandJobContainerStatuses(c, &item, res)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandJobContainerStatusesSlice expands the contents of JobContainerStatuses into a JSON
-// request object.
-func expandJobContainerStatusesSlice(c *Client, f []JobContainerStatuses, res *Job) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandJobContainerStatuses(c, &item, res)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenJobContainerStatusesMap flattens the contents of JobContainerStatuses from a JSON
-// response object.
-func flattenJobContainerStatusesMap(c *Client, i interface{}, res *Job) map[string]JobContainerStatuses {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]JobContainerStatuses{}
-	}
-
-	if len(a) == 0 {
-		return map[string]JobContainerStatuses{}
-	}
-
-	items := make(map[string]JobContainerStatuses)
-	for k, item := range a {
-		items[k] = *flattenJobContainerStatuses(c, item.(map[string]interface{}), res)
-	}
-
-	return items
-}
-
-// flattenJobContainerStatusesSlice flattens the contents of JobContainerStatuses from a JSON
-// response object.
-func flattenJobContainerStatusesSlice(c *Client, i interface{}, res *Job) []JobContainerStatuses {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []JobContainerStatuses{}
-	}
-
-	if len(a) == 0 {
-		return []JobContainerStatuses{}
-	}
-
-	items := make([]JobContainerStatuses, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenJobContainerStatuses(c, item.(map[string]interface{}), res))
-	}
-
-	return items
-}
-
-// expandJobContainerStatuses expands an instance of JobContainerStatuses into a JSON
-// request object.
-func expandJobContainerStatuses(c *Client, f *JobContainerStatuses, res *Job) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
-		m["name"] = v
-	}
-	if v := f.ImageDigest; !dcl.IsEmptyValueIndirect(v) {
-		m["imageDigest"] = v
-	}
-
-	return m, nil
-}
-
-// flattenJobContainerStatuses flattens an instance of JobContainerStatuses from a JSON
-// response object.
-func flattenJobContainerStatuses(c *Client, i interface{}, res *Job) *JobContainerStatuses {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &JobContainerStatuses{}
-
-	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyJobContainerStatuses
-	}
-	r.Name = dcl.FlattenString(m["name"])
-	r.ImageDigest = dcl.FlattenString(m["imageDigest"])
 
 	return r
 }
@@ -8072,108 +7724,6 @@ func flattenJobConditionsReasonEnum(i interface{}) *JobConditionsReasonEnum {
 	return JobConditionsReasonEnumRef(s)
 }
 
-// flattenJobConditionsInternalReasonEnumMap flattens the contents of JobConditionsInternalReasonEnum from a JSON
-// response object.
-func flattenJobConditionsInternalReasonEnumMap(c *Client, i interface{}, res *Job) map[string]JobConditionsInternalReasonEnum {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]JobConditionsInternalReasonEnum{}
-	}
-
-	if len(a) == 0 {
-		return map[string]JobConditionsInternalReasonEnum{}
-	}
-
-	items := make(map[string]JobConditionsInternalReasonEnum)
-	for k, item := range a {
-		items[k] = *flattenJobConditionsInternalReasonEnum(item.(interface{}))
-	}
-
-	return items
-}
-
-// flattenJobConditionsInternalReasonEnumSlice flattens the contents of JobConditionsInternalReasonEnum from a JSON
-// response object.
-func flattenJobConditionsInternalReasonEnumSlice(c *Client, i interface{}, res *Job) []JobConditionsInternalReasonEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []JobConditionsInternalReasonEnum{}
-	}
-
-	if len(a) == 0 {
-		return []JobConditionsInternalReasonEnum{}
-	}
-
-	items := make([]JobConditionsInternalReasonEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenJobConditionsInternalReasonEnum(item.(interface{})))
-	}
-
-	return items
-}
-
-// flattenJobConditionsInternalReasonEnum asserts that an interface is a string, and returns a
-// pointer to a *JobConditionsInternalReasonEnum with the same value as that string.
-func flattenJobConditionsInternalReasonEnum(i interface{}) *JobConditionsInternalReasonEnum {
-	s, ok := i.(string)
-	if !ok {
-		return nil
-	}
-
-	return JobConditionsInternalReasonEnumRef(s)
-}
-
-// flattenJobConditionsDomainMappingReasonEnumMap flattens the contents of JobConditionsDomainMappingReasonEnum from a JSON
-// response object.
-func flattenJobConditionsDomainMappingReasonEnumMap(c *Client, i interface{}, res *Job) map[string]JobConditionsDomainMappingReasonEnum {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]JobConditionsDomainMappingReasonEnum{}
-	}
-
-	if len(a) == 0 {
-		return map[string]JobConditionsDomainMappingReasonEnum{}
-	}
-
-	items := make(map[string]JobConditionsDomainMappingReasonEnum)
-	for k, item := range a {
-		items[k] = *flattenJobConditionsDomainMappingReasonEnum(item.(interface{}))
-	}
-
-	return items
-}
-
-// flattenJobConditionsDomainMappingReasonEnumSlice flattens the contents of JobConditionsDomainMappingReasonEnum from a JSON
-// response object.
-func flattenJobConditionsDomainMappingReasonEnumSlice(c *Client, i interface{}, res *Job) []JobConditionsDomainMappingReasonEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []JobConditionsDomainMappingReasonEnum{}
-	}
-
-	if len(a) == 0 {
-		return []JobConditionsDomainMappingReasonEnum{}
-	}
-
-	items := make([]JobConditionsDomainMappingReasonEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenJobConditionsDomainMappingReasonEnum(item.(interface{})))
-	}
-
-	return items
-}
-
-// flattenJobConditionsDomainMappingReasonEnum asserts that an interface is a string, and returns a
-// pointer to a *JobConditionsDomainMappingReasonEnum with the same value as that string.
-func flattenJobConditionsDomainMappingReasonEnum(i interface{}) *JobConditionsDomainMappingReasonEnum {
-	s, ok := i.(string)
-	if !ok {
-		return nil
-	}
-
-	return JobConditionsDomainMappingReasonEnumRef(s)
-}
-
 // flattenJobConditionsRevisionReasonEnumMap flattens the contents of JobConditionsRevisionReasonEnum from a JSON
 // response object.
 func flattenJobConditionsRevisionReasonEnumMap(c *Client, i interface{}, res *Job) map[string]JobConditionsRevisionReasonEnum {
@@ -8559,9 +8109,6 @@ func extractJobLatestSucceededExecutionFields(r *Job, o *JobLatestSucceededExecu
 func extractJobLatestCreatedExecutionFields(r *Job, o *JobLatestCreatedExecution) error {
 	return nil
 }
-func extractJobContainerStatusesFields(r *Job, o *JobContainerStatuses) error {
-	return nil
-}
 
 func postReadExtractJobFields(r *Job) error {
 	vBinaryAuthorization := r.BinaryAuthorization
@@ -8753,8 +8300,5 @@ func postReadExtractJobLatestSucceededExecutionFields(r *Job, o *JobLatestSuccee
 	return nil
 }
 func postReadExtractJobLatestCreatedExecutionFields(r *Job, o *JobLatestCreatedExecution) error {
-	return nil
-}
-func postReadExtractJobContainerStatusesFields(r *Job, o *JobContainerStatuses) error {
 	return nil
 }

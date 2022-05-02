@@ -60,14 +60,8 @@ func JobToUnstructured(r *dclService.Job) *unstructured.Resource {
 	var rConditions []interface{}
 	for _, rConditionsVal := range r.Conditions {
 		rConditionsObject := make(map[string]interface{})
-		if rConditionsVal.DomainMappingReason != nil {
-			rConditionsObject["domainMappingReason"] = string(*rConditionsVal.DomainMappingReason)
-		}
 		if rConditionsVal.ExecutionReason != nil {
 			rConditionsObject["executionReason"] = string(*rConditionsVal.ExecutionReason)
-		}
-		if rConditionsVal.InternalReason != nil {
-			rConditionsObject["internalReason"] = string(*rConditionsVal.InternalReason)
 		}
 		if rConditionsVal.LastTransitionTime != nil {
 			rConditionsObject["lastTransitionTime"] = *rConditionsVal.LastTransitionTime
@@ -93,18 +87,6 @@ func JobToUnstructured(r *dclService.Job) *unstructured.Resource {
 		rConditions = append(rConditions, rConditionsObject)
 	}
 	u.Object["conditions"] = rConditions
-	var rContainerStatuses []interface{}
-	for _, rContainerStatusesVal := range r.ContainerStatuses {
-		rContainerStatusesObject := make(map[string]interface{})
-		if rContainerStatusesVal.ImageDigest != nil {
-			rContainerStatusesObject["imageDigest"] = *rContainerStatusesVal.ImageDigest
-		}
-		if rContainerStatusesVal.Name != nil {
-			rContainerStatusesObject["name"] = *rContainerStatusesVal.Name
-		}
-		rContainerStatuses = append(rContainerStatuses, rContainerStatusesObject)
-	}
-	u.Object["containerStatuses"] = rContainerStatuses
 	if r.CreateTime != nil {
 		u.Object["createTime"] = *r.CreateTime
 	}
@@ -454,25 +436,11 @@ func UnstructuredToJob(u *unstructured.Resource) (*dclService.Job, error) {
 			for _, o := range s {
 				if objval, ok := o.(map[string]interface{}); ok {
 					var rConditions dclService.JobConditions
-					if _, ok := objval["domainMappingReason"]; ok {
-						if s, ok := objval["domainMappingReason"].(string); ok {
-							rConditions.DomainMappingReason = dclService.JobConditionsDomainMappingReasonEnumRef(s)
-						} else {
-							return nil, fmt.Errorf("rConditions.DomainMappingReason: expected string")
-						}
-					}
 					if _, ok := objval["executionReason"]; ok {
 						if s, ok := objval["executionReason"].(string); ok {
 							rConditions.ExecutionReason = dclService.JobConditionsExecutionReasonEnumRef(s)
 						} else {
 							return nil, fmt.Errorf("rConditions.ExecutionReason: expected string")
-						}
-					}
-					if _, ok := objval["internalReason"]; ok {
-						if s, ok := objval["internalReason"].(string); ok {
-							rConditions.InternalReason = dclService.JobConditionsInternalReasonEnumRef(s)
-						} else {
-							return nil, fmt.Errorf("rConditions.InternalReason: expected string")
 						}
 					}
 					if _, ok := objval["lastTransitionTime"]; ok {
@@ -529,32 +497,6 @@ func UnstructuredToJob(u *unstructured.Resource) (*dclService.Job, error) {
 			}
 		} else {
 			return nil, fmt.Errorf("r.Conditions: expected []interface{}")
-		}
-	}
-	if _, ok := u.Object["containerStatuses"]; ok {
-		if s, ok := u.Object["containerStatuses"].([]interface{}); ok {
-			for _, o := range s {
-				if objval, ok := o.(map[string]interface{}); ok {
-					var rContainerStatuses dclService.JobContainerStatuses
-					if _, ok := objval["imageDigest"]; ok {
-						if s, ok := objval["imageDigest"].(string); ok {
-							rContainerStatuses.ImageDigest = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("rContainerStatuses.ImageDigest: expected string")
-						}
-					}
-					if _, ok := objval["name"]; ok {
-						if s, ok := objval["name"].(string); ok {
-							rContainerStatuses.Name = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("rContainerStatuses.Name: expected string")
-						}
-					}
-					r.ContainerStatuses = append(r.ContainerStatuses, rContainerStatuses)
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.ContainerStatuses: expected []interface{}")
 		}
 	}
 	if _, ok := u.Object["createTime"]; ok {

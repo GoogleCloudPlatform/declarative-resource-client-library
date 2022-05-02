@@ -121,27 +121,6 @@ components:
             type: object
             x-dcl-go-type: JobConditions
             properties:
-              domainMappingReason:
-                type: string
-                x-dcl-go-name: DomainMappingReason
-                x-dcl-go-type: JobConditionsDomainMappingReasonEnum
-                description: 'A reason for the domain mapping condition. Possible
-                  values: DOMAIN_MAPPING_REASON_UNDEFINED, ROUTE_NOT_READY, PERMISSION_DENIED,
-                  CERTIFICATE_ALREADY_EXISTS, MAPPING_ALREADY_EXISTS, CERTIFICATE_PENDING,
-                  CERTIFICATE_FAILED'
-                x-dcl-conflicts:
-                - reason
-                - internalReason
-                - revisionReason
-                - executionReason
-                enum:
-                - DOMAIN_MAPPING_REASON_UNDEFINED
-                - ROUTE_NOT_READY
-                - PERMISSION_DENIED
-                - CERTIFICATE_ALREADY_EXISTS
-                - MAPPING_ALREADY_EXISTS
-                - CERTIFICATE_PENDING
-                - CERTIFICATE_FAILED
               executionReason:
                 type: string
                 x-dcl-go-name: ExecutionReason
@@ -150,35 +129,11 @@ components:
                   EXECUTION_REASON_UNDEFINED, JOB_STATUS_SERVICE_POLLING_ERROR, NON_ZERO_EXIT_CODE'
                 x-dcl-conflicts:
                 - reason
-                - internalReason
-                - domainMappingReason
                 - revisionReason
                 enum:
                 - EXECUTION_REASON_UNDEFINED
                 - JOB_STATUS_SERVICE_POLLING_ERROR
                 - NON_ZERO_EXIT_CODE
-              internalReason:
-                type: string
-                x-dcl-go-name: InternalReason
-                x-dcl-go-type: JobConditionsInternalReasonEnum
-                description: 'A reason for the internal condition. Possible values:
-                  INTERNAL_REASON_UNDEFINED, CONFLICTING_REVISION_NAME, REVISION_MISSING,
-                  CONFIGURATION_MISSING, ASSIGNING_TRAFFIC, UPDATING_INGRESS_TRAFFIC_ALLOWED,
-                  REVISION_ORG_POLICY_VIOLATION, ENABLING_GCFV2_URI_SUPPORT'
-                x-dcl-conflicts:
-                - reason
-                - domainMappingReason
-                - revisionReason
-                - executionReason
-                enum:
-                - INTERNAL_REASON_UNDEFINED
-                - CONFLICTING_REVISION_NAME
-                - REVISION_MISSING
-                - CONFIGURATION_MISSING
-                - ASSIGNING_TRAFFIC
-                - UPDATING_INGRESS_TRAFFIC_ALLOWED
-                - REVISION_ORG_POLICY_VIOLATION
-                - ENABLING_GCFV2_URI_SUPPORT
               lastTransitionTime:
                 type: string
                 format: date-time
@@ -195,21 +150,17 @@ components:
                 x-dcl-go-name: Reason
                 x-dcl-go-type: JobConditionsReasonEnum
                 description: 'A common (service-level) reason for this condition.
-                  Possible values: COMMON_REASON_UNDEFINED, UNKNOWN, ROUTE_MISSING,
-                  REVISION_FAILED, PROGRESS_DEADLINE_EXCEEDED, BUILD_STEP_FAILED,
-                  CONTAINER_MISSING, CONTAINER_PERMISSION_DENIED, CONTAINER_IMAGE_UNAUTHORIZED,
-                  CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED, ENCRYPTION_KEY_PERMISSION_DENIED,
-                  ENCRYPTION_KEY_CHECK_FAILED, SECRETS_ACCESS_CHECK_FAILED, WAITING_FOR_OPERATION,
-                  IMMEDIATE_RETRY, POSTPONED_RETRY'
+                  Possible values: COMMON_REASON_UNDEFINED, UNKNOWN, REVISION_FAILED,
+                  PROGRESS_DEADLINE_EXCEEDED, BUILD_STEP_FAILED, CONTAINER_MISSING,
+                  CONTAINER_PERMISSION_DENIED, CONTAINER_IMAGE_UNAUTHORIZED, CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED,
+                  ENCRYPTION_KEY_PERMISSION_DENIED, ENCRYPTION_KEY_CHECK_FAILED, SECRETS_ACCESS_CHECK_FAILED,
+                  WAITING_FOR_OPERATION, IMMEDIATE_RETRY, POSTPONED_RETRY'
                 x-dcl-conflicts:
-                - internalReason
-                - domainMappingReason
                 - revisionReason
                 - executionReason
                 enum:
                 - COMMON_REASON_UNDEFINED
                 - UNKNOWN
-                - ROUTE_MISSING
                 - REVISION_FAILED
                 - PROGRESS_DEADLINE_EXCEEDED
                 - BUILD_STEP_FAILED
@@ -234,8 +185,6 @@ components:
                   HEALTH_CHECK_SKIPPED'
                 x-dcl-conflicts:
                 - reason
-                - internalReason
-                - domainMappingReason
                 - executionReason
                 enum:
                 - REVISION_REASON_UNDEFINED
@@ -281,28 +230,6 @@ components:
                   process. See also: https://github.com/knative/serving/blob/main/docs/spec/errors.md#error-conditions-and-reporting
                   Types common to all resources include: * "Ready": True when the
                   Resource is ready.'
-        containerStatuses:
-          type: array
-          x-dcl-go-name: ContainerStatuses
-          readOnly: true
-          description: Output only. Status information for each of the containers
-            specified.
-          x-kubernetes-immutable: true
-          x-dcl-list-type: list
-          items:
-            type: object
-            x-dcl-go-type: JobContainerStatuses
-            properties:
-              imageDigest:
-                type: string
-                x-dcl-go-name: ImageDigest
-                description: ImageDigest holds the resolved digest for the image specified,
-                  regardless of whether a tag or digest was originally specified in
-                  the Container object.
-              name:
-                type: string
-                x-dcl-go-name: Name
-                description: The name of the container, if specified.
         createTime:
           type: string
           format: date-time
@@ -1002,8 +929,8 @@ components:
               x-dcl-go-type: JobTerminalConditionReasonEnum
               description: 'A common (service-level) reason for this condition. Possible
                 values: COMMON_REASON_UNDEFINED, UNKNOWN, ROUTE_MISSING, REVISION_FAILED,
-                PROGRESS_DEADLINE_EXCEEDED, BUILD_STEP_FAILED, CONTAINER_MISSING,
-                CONTAINER_PERMISSION_DENIED, CONTAINER_IMAGE_UNAUTHORIZED, CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED,
+                PROGRESS_DEADLINE_EXCEEDED, CONTAINER_MISSING, CONTAINER_PERMISSION_DENIED,
+                CONTAINER_IMAGE_UNAUTHORIZED, CONTAINER_IMAGE_AUTHORIZATION_CHECK_FAILED,
                 ENCRYPTION_KEY_PERMISSION_DENIED, ENCRYPTION_KEY_CHECK_FAILED, SECRETS_ACCESS_CHECK_FAILED,
                 WAITING_FOR_OPERATION, IMMEDIATE_RETRY, POSTPONED_RETRY'
               x-dcl-conflicts:
@@ -1017,7 +944,6 @@ components:
               - ROUTE_MISSING
               - REVISION_FAILED
               - PROGRESS_DEADLINE_EXCEEDED
-              - BUILD_STEP_FAILED
               - CONTAINER_MISSING
               - CONTAINER_PERMISSION_DENIED
               - CONTAINER_IMAGE_UNAUTHORIZED
