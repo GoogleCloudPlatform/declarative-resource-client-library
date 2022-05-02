@@ -172,6 +172,7 @@ components:
           type: string
           x-dcl-go-name: Name
           description: Name of the `DeliveryPipeline`. Format is [a-z][a-z0-9\-]{0,62}.
+          x-kubernetes-immutable: true
         project:
           type: string
           x-dcl-go-name: Project
