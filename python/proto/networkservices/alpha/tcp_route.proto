@@ -29,11 +29,10 @@ message NetworkservicesAlphaTcpRoute {
   repeated NetworkservicesAlphaTcpRouteRules rules = 5;
   repeated string routers = 6;
   repeated string meshes = 7;
-  repeated string gateways = 8;
-  map<string, string> labels = 9;
-  string project = 10;
-  string location = 11;
-  string self_link = 12;
+  map<string, string> labels = 8;
+  string project = 9;
+  string location = 10;
+  string self_link = 11;
 }
 
 message NetworkservicesAlphaTcpRouteRules {

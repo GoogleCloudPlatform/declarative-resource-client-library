@@ -96,9 +96,6 @@ func ProtoToTcpRoute(p *alphapb.NetworkservicesAlphaTcpRoute) *alpha.TcpRoute {
 	for _, r := range p.GetMeshes() {
 		obj.Meshes = append(obj.Meshes, r)
 	}
-	for _, r := range p.GetGateways() {
-		obj.Gateways = append(obj.Gateways, r)
-	}
 	return obj
 }
 
@@ -179,11 +176,6 @@ func TcpRouteToProto(resource *alpha.TcpRoute) *alphapb.NetworkservicesAlphaTcpR
 		sMeshes[i] = r
 	}
 	p.SetMeshes(sMeshes)
-	sGateways := make([]string, len(resource.Gateways))
-	for i, r := range resource.Gateways {
-		sGateways[i] = r
-	}
-	p.SetGateways(sGateways)
 	mLabels := make(map[string]string, len(resource.Labels))
 	for k, r := range resource.Labels {
 		mLabels[k] = r
