@@ -139,6 +139,9 @@ components:
                               items:
                                 type: string
                                 x-dcl-go-type: string
+                                x-dcl-references:
+                                - resource: Cloudresourcemanager/Project
+                                  field: name
                         scorecard:
                           type: object
                           x-dcl-go-name: Scorecard
@@ -2416,6 +2419,9 @@ components:
                         items:
                           type: string
                           x-dcl-go-type: string
+                          x-dcl-references:
+                          - resource: Cloudresourcemanager/Project
+                            field: name
                   scorecard:
                     type: object
                     x-dcl-go-name: Scorecard
@@ -4536,6 +4542,9 @@ components:
                             items:
                               type: string
                               x-dcl-go-type: string
+                              x-dcl-references:
+                              - resource: Cloudresourcemanager/Project
+                                field: name
                       scorecard:
                         type: object
                         x-dcl-go-name: Scorecard
@@ -6779,6 +6788,9 @@ components:
                               items:
                                 type: string
                                 x-dcl-go-type: string
+                                x-dcl-references:
+                                - resource: Cloudresourcemanager/Project
+                                  field: name
                         scorecard:
                           type: object
                           x-dcl-go-name: Scorecard

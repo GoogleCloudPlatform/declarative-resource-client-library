@@ -23684,7 +23684,7 @@ func compareDashboardGridLayoutWidgetsLogsPanelNewStyle(d, a interface{}, fn dcl
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25472,7 +25472,7 @@ func compareDashboardMosaicLayoutTilesWidgetLogsPanelNewStyle(d, a interface{}, 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27232,7 +27232,7 @@ func compareDashboardRowLayoutRowsWidgetsLogsPanelNewStyle(d, a interface{}, fn 
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28992,7 +28992,7 @@ func compareDashboardColumnLayoutColumnsWidgetsLogsPanelNewStyle(d, a interface{
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
