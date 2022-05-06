@@ -276,7 +276,8 @@ func canonicalizeFirewallPolicyAssociationDesiredState(rawDesired, rawInitial *F
 	} else {
 		canonicalDesired.AttachmentTarget = rawDesired.AttachmentTarget
 	}
-	if dcl.PartialSelfLinkToSelfLink(rawDesired.FirewallPolicy, rawInitial.FirewallPolicy) {
+	if dcl.IsZeroValue(rawDesired.FirewallPolicy) || (dcl.IsEmptyValueIndirect(rawDesired.FirewallPolicy) && dcl.IsEmptyValueIndirect(rawInitial.FirewallPolicy)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.FirewallPolicy = rawInitial.FirewallPolicy
 	} else {
 		canonicalDesired.FirewallPolicy = rawDesired.FirewallPolicy
@@ -303,9 +304,6 @@ func canonicalizeFirewallPolicyAssociationNewState(c *Client, rawNew, rawDesired
 	if dcl.IsNotReturnedByServer(rawNew.FirewallPolicy) && dcl.IsNotReturnedByServer(rawDesired.FirewallPolicy) {
 		rawNew.FirewallPolicy = rawDesired.FirewallPolicy
 	} else {
-		if dcl.PartialSelfLinkToSelfLink(rawDesired.FirewallPolicy, rawNew.FirewallPolicy) {
-			rawNew.FirewallPolicy = rawDesired.FirewallPolicy
-		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ShortName) && dcl.IsNotReturnedByServer(rawDesired.ShortName) {
@@ -425,9 +423,7 @@ func expandFirewallPolicyAssociation(c *Client, f *FirewallPolicyAssociation) (m
 	if v := f.AttachmentTarget; dcl.ValueShouldBeSent(v) {
 		m["attachmentTarget"] = v
 	}
-	if v, err := dcl.DeriveField("locations/global/firewallPolicies/%s", f.FirewallPolicy, dcl.SelfLinkToName(f.FirewallPolicy)); err != nil {
-		return nil, fmt.Errorf("error expanding FirewallPolicy into firewallPolicyId: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	if v := f.FirewallPolicy; dcl.ValueShouldBeSent(v) {
 		m["firewallPolicyId"] = v
 	}
 

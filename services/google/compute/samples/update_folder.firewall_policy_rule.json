@@ -1,6 +1,6 @@
 {
   "priority": 9000,
-  "firewallPolicy": "locations/global/firewallPolicies/{{ref:folder.firewall_policy.json:name}}",
+  "firewallPolicy": "{{ref:folder.firewall_policy.json:name}}",
   "description": "allow-scan-probe-update",
   "match": {
     "layer4Configs": [

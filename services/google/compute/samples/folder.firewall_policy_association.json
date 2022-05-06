@@ -1,5 +1,5 @@
 {
   "name": "{{association}}",
   "attachmentTarget": "{{ref:folder.firewall_policy.json:parent}}",
-  "firewallPolicy": "locations/global/firewallPolicies/{{ref:folder.firewall_policy.json:name}}"
+  "firewallPolicy": "{{ref:folder.firewall_policy.json:name}}"
 }
