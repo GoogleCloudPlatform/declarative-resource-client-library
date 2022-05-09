@@ -17,13 +17,8 @@ type: job
 versions:
 - alpha
 resource: samples/create_bin_auth.job.json
-updates:
-- resource: samples/update_bin_auth.job.json
-  dependencies: []
 variables:
 - name: name
   type: resource_name
-- name: project
-  type: project
 - name: region
   type: region

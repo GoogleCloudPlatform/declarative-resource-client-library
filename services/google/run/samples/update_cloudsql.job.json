@@ -2,13 +2,13 @@
   "name": "{{name}}",
   "project": "run-v2-deploy-e2e",
   "location": "{{region}}",
-  "launchStage": "ALPHA",
+  "launchStage": "BETA",
   "template": {
     "template": {
       "volumes": [ {
         "name": "cloudsql",
         "cloudSqlInstance": {
-          "connections": ["careful-yew-216722:us-central1:testing-v22"]
+          "instances": ["careful-yew-216722:us-central1:testing-v22"]
         }
       } ],
       "containers": [ {

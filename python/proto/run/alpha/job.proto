@@ -301,7 +301,7 @@ message RunAlphaJobTemplateTemplateVolumesSecretItems {
 }
 
 message RunAlphaJobTemplateTemplateVolumesCloudSqlInstance {
-  repeated string connections = 1;
+  repeated string instances = 1;
 }
 
 message RunAlphaJobTemplateTemplateVPCAccess {

@@ -2,7 +2,7 @@
   "name": "{{name}}",
   "project": "run-v2-deploy-e2e",
   "location": "{{region}}",
-  "launchStage": "ALPHA",
+  "launchStage": "BETA",
   "client": "DCL",
   "clientVersion": "v1",
   "labels": {"label-key": "label-value"},

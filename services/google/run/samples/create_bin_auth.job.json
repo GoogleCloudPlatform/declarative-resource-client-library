@@ -2,10 +2,9 @@
   "name": "{{name}}",
   "project": "run-v2-deploy-e2e",
   "location": "{{region}}",
-  "launchStage": "ALPHA",
+  "launchStage": "BETA",
   "binaryAuthorization": {
     "useDefault": true,
-    "policy": "projects/{{project}}/platforms/cloudRun/foo",
     "breakglassJustification": "Some justification"
   },
   "template": {
