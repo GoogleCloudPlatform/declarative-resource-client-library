@@ -38,7 +38,7 @@
     },
     "iamInstanceProfile": "{{byo_multicloud_prefix}}-1p-dev-nodepool",
     "sshConfig": {
-      "ec2KeyPair": "{{byo_multicloud_prefix}}-1p-dev-ssh"
+      "ec2KeyPair": "updated-ec2-key-pair"
     },
     "securityGroupIds": ["sg-1", "sg-2"],
     "proxyConfig": {
