@@ -6174,7 +6174,7 @@ func flattenGuestPolicyAssignment(c *Client, i interface{}, res *GuestPolicy) *G
 	}
 	r.GroupLabels = flattenGuestPolicyAssignmentGroupLabelsSlice(c, m["groupLabels"], res)
 	r.Zones = dcl.FlattenStringSlice(m["zones"])
-	r.Instances = flattenGuestPolicyInstances(m["instances"], res)
+	r.Instances = flattenGuestPolicyInstances(c, m["instances"], res)
 	r.InstanceNamePrefixes = dcl.FlattenStringSlice(m["instanceNamePrefixes"])
 	r.OSTypes = flattenGuestPolicyAssignmentOSTypesSlice(c, m["osTypes"], res)
 

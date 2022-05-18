@@ -836,7 +836,7 @@ func flattenNetwork(c *Client, i interface{}, res *Network) *Network {
 	resultRes.Mtu = dcl.FlattenInteger(m["mtu"])
 	resultRes.Project = dcl.FlattenString(m["project"])
 	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
-	resultRes.SelfLinkWithId = flattenNetworkSelfLinkWithID(m, m["selfLinkWithId"], res)
+	resultRes.SelfLinkWithId = flattenNetworkSelfLinkWithID(c, m["selfLinkWithId"], res, m)
 
 	return resultRes
 }

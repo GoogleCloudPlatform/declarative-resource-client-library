@@ -2697,7 +2697,7 @@ func flattenBucketLifecycleRuleCondition(c *Client, i interface{}, res *Bucket) 
 	}
 	r.Age = dcl.FlattenInteger(m["age"])
 	r.CreatedBefore = dcl.FlattenString(m["createdBefore"])
-	r.WithState = flattenStorageBucketLifecycleWithState(m["isLive"], res)
+	r.WithState = flattenStorageBucketLifecycleWithState(c, m["isLive"], res)
 	r.MatchesStorageClass = dcl.FlattenStringSlice(m["matchesStorageClass"])
 	r.NumNewerVersions = dcl.FlattenInteger(m["numNewerVersions"])
 

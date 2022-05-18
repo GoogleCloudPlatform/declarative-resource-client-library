@@ -2547,7 +2547,7 @@ func flattenBudgetBudgetFilter(c *Client, i interface{}, res *Budget) *BudgetBud
 	r.CreditTypesTreatment = flattenBudgetBudgetFilterCreditTypesTreatmentEnum(m["creditTypesTreatment"])
 	r.Services = dcl.FlattenStringSlice(m["services"])
 	r.Subaccounts = dcl.FlattenStringSlice(m["subaccounts"])
-	r.Labels = flattenBudgetFilterLabels(m["labels"], res)
+	r.Labels = flattenBudgetFilterLabels(c, m["labels"], res)
 	r.CalendarPeriod = flattenBudgetBudgetFilterCalendarPeriodEnum(m["calendarPeriod"])
 	r.CustomPeriod = flattenBudgetBudgetFilterCustomPeriod(c, m["customPeriod"], res)
 
