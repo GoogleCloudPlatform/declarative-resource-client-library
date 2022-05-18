@@ -27,5 +27,6 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterNetworkservicesAlphaTcpRouteServiceServer(s, &TcpRouteServer{})
 	sdkgrpc.RegisterNetworkservicesAlphaGatewayServiceServer(s, &GatewayServer{})
 	sdkgrpc.RegisterNetworkservicesAlphaTlsRouteServiceServer(s, &TlsRouteServer{})
+	sdkgrpc.RegisterNetworkservicesAlphaServiceBindingServiceServer(s, &ServiceBindingServer{})
 	sdkgrpc.RegisterNetworkservicesAlphaHttpFilterServiceServer(s, &HttpFilterServer{})
 }

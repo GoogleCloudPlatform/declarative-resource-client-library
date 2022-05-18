@@ -130,6 +130,12 @@ import (
 
 	datafusion_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/datafusion/beta_connector"
 
+	dataplex_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataplex/connector"
+
+	dataplex_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataplex/beta_connector"
+
+	dataplex_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataplex/alpha_connector"
+
 	dataproc_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc/connector"
 
 	dataproc_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc/beta_connector"
@@ -388,6 +394,12 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	datafusion_alpha_connector.RegisterServers(grpcServer)
 
 	datafusion_beta_connector.RegisterServers(grpcServer)
+
+	dataplex_connector.RegisterServers(grpcServer)
+
+	dataplex_beta_connector.RegisterServers(grpcServer)
+
+	dataplex_alpha_connector.RegisterServers(grpcServer)
 
 	dataproc_connector.RegisterServers(grpcServer)
 

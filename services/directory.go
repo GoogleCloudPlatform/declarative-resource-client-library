@@ -74,6 +74,9 @@ import (
 	containerazure_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/containerazure/beta"
 	datafusion_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/datafusion/alpha"
 	datafusion_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/datafusion/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataplex"
+	dataplex_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataplex/alpha"
+	dataplex_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataplex/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc"
 	dataproc_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc/alpha"
 	dataproc_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dataproc/beta"
@@ -290,6 +293,12 @@ func Services() *Directory {
 	d.AddResource("ga", "containerazure", "Cluster", containerazure.YAML_cluster)
 	d.AddResource("ga", "containerazure", dcl.TitleToSnakeCase("NodePool"), containerazure.YAML_node_pool)
 	d.AddResource("ga", "containerazure", "NodePool", containerazure.YAML_node_pool)
+	d.AddResource("ga", "dataplex", dcl.TitleToSnakeCase("Lake"), dataplex.YAML_lake)
+	d.AddResource("ga", "dataplex", "Lake", dataplex.YAML_lake)
+	d.AddResource("ga", "dataplex", dcl.TitleToSnakeCase("Zone"), dataplex.YAML_zone)
+	d.AddResource("ga", "dataplex", "Zone", dataplex.YAML_zone)
+	d.AddResource("ga", "dataplex", dcl.TitleToSnakeCase("Asset"), dataplex.YAML_asset)
+	d.AddResource("ga", "dataplex", "Asset", dataplex.YAML_asset)
 	d.AddResource("ga", "dataproc", dcl.TitleToSnakeCase("AutoscalingPolicy"), dataproc.YAML_autoscaling_policy)
 	d.AddResource("ga", "dataproc", "AutoscalingPolicy", dataproc.YAML_autoscaling_policy)
 	d.AddResource("ga", "dataproc", dcl.TitleToSnakeCase("Cluster"), dataproc.YAML_cluster)
@@ -482,6 +491,12 @@ func Services() *Directory {
 	d.AddResource("beta", "containerazure", "NodePool", containerazure_beta.YAML_node_pool)
 	d.AddResource("beta", "datafusion", dcl.TitleToSnakeCase("Instance"), datafusion_beta.YAML_instance)
 	d.AddResource("beta", "datafusion", "Instance", datafusion_beta.YAML_instance)
+	d.AddResource("beta", "dataplex", dcl.TitleToSnakeCase("Lake"), dataplex_beta.YAML_lake)
+	d.AddResource("beta", "dataplex", "Lake", dataplex_beta.YAML_lake)
+	d.AddResource("beta", "dataplex", dcl.TitleToSnakeCase("Zone"), dataplex_beta.YAML_zone)
+	d.AddResource("beta", "dataplex", "Zone", dataplex_beta.YAML_zone)
+	d.AddResource("beta", "dataplex", dcl.TitleToSnakeCase("Asset"), dataplex_beta.YAML_asset)
+	d.AddResource("beta", "dataplex", "Asset", dataplex_beta.YAML_asset)
 	d.AddResource("beta", "dataproc", dcl.TitleToSnakeCase("AutoscalingPolicy"), dataproc_beta.YAML_autoscaling_policy)
 	d.AddResource("beta", "dataproc", "AutoscalingPolicy", dataproc_beta.YAML_autoscaling_policy)
 	d.AddResource("beta", "dataproc", dcl.TitleToSnakeCase("Cluster"), dataproc_beta.YAML_cluster)
@@ -584,6 +599,8 @@ func Services() *Directory {
 	d.AddResource("beta", "networkservices", "Gateway", networkservices_beta.YAML_gateway)
 	d.AddResource("beta", "networkservices", dcl.TitleToSnakeCase("TlsRoute"), networkservices_beta.YAML_tls_route)
 	d.AddResource("beta", "networkservices", "TlsRoute", networkservices_beta.YAML_tls_route)
+	d.AddResource("beta", "networkservices", dcl.TitleToSnakeCase("ServiceBinding"), networkservices_beta.YAML_service_binding)
+	d.AddResource("beta", "networkservices", "ServiceBinding", networkservices_beta.YAML_service_binding)
 	d.AddResource("beta", "orgpolicy", dcl.TitleToSnakeCase("Policy"), orgpolicy_beta.YAML_policy)
 	d.AddResource("beta", "orgpolicy", "Policy", orgpolicy_beta.YAML_policy)
 	d.AddResource("beta", "osconfig", dcl.TitleToSnakeCase("OSPolicyAssignment"), osconfig_beta.YAML_os_policy_assignment)
@@ -706,6 +723,12 @@ func Services() *Directory {
 	d.AddResource("alpha", "containerazure", "NodePool", containerazure_alpha.YAML_node_pool)
 	d.AddResource("alpha", "datafusion", dcl.TitleToSnakeCase("Instance"), datafusion_alpha.YAML_instance)
 	d.AddResource("alpha", "datafusion", "Instance", datafusion_alpha.YAML_instance)
+	d.AddResource("alpha", "dataplex", dcl.TitleToSnakeCase("Lake"), dataplex_alpha.YAML_lake)
+	d.AddResource("alpha", "dataplex", "Lake", dataplex_alpha.YAML_lake)
+	d.AddResource("alpha", "dataplex", dcl.TitleToSnakeCase("Zone"), dataplex_alpha.YAML_zone)
+	d.AddResource("alpha", "dataplex", "Zone", dataplex_alpha.YAML_zone)
+	d.AddResource("alpha", "dataplex", dcl.TitleToSnakeCase("Asset"), dataplex_alpha.YAML_asset)
+	d.AddResource("alpha", "dataplex", "Asset", dataplex_alpha.YAML_asset)
 	d.AddResource("alpha", "dataproc", dcl.TitleToSnakeCase("AutoscalingPolicy"), dataproc_alpha.YAML_autoscaling_policy)
 	d.AddResource("alpha", "dataproc", "AutoscalingPolicy", dataproc_alpha.YAML_autoscaling_policy)
 	d.AddResource("alpha", "dataproc", dcl.TitleToSnakeCase("Cluster"), dataproc_alpha.YAML_cluster)
@@ -810,6 +833,8 @@ func Services() *Directory {
 	d.AddResource("alpha", "networkservices", "Gateway", networkservices_alpha.YAML_gateway)
 	d.AddResource("alpha", "networkservices", dcl.TitleToSnakeCase("TlsRoute"), networkservices_alpha.YAML_tls_route)
 	d.AddResource("alpha", "networkservices", "TlsRoute", networkservices_alpha.YAML_tls_route)
+	d.AddResource("alpha", "networkservices", dcl.TitleToSnakeCase("ServiceBinding"), networkservices_alpha.YAML_service_binding)
+	d.AddResource("alpha", "networkservices", "ServiceBinding", networkservices_alpha.YAML_service_binding)
 	d.AddResource("alpha", "networkservices", dcl.TitleToSnakeCase("HttpFilter"), networkservices_alpha.YAML_http_filter)
 	d.AddResource("alpha", "networkservices", "HttpFilter", networkservices_alpha.YAML_http_filter)
 	d.AddResource("alpha", "orgpolicy", dcl.TitleToSnakeCase("Policy"), orgpolicy_alpha.YAML_policy)

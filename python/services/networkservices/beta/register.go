@@ -27,4 +27,5 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterNetworkservicesBetaTcpRouteServiceServer(s, &TcpRouteServer{})
 	sdkgrpc.RegisterNetworkservicesBetaGatewayServiceServer(s, &GatewayServer{})
 	sdkgrpc.RegisterNetworkservicesBetaTlsRouteServiceServer(s, &TlsRouteServer{})
+	sdkgrpc.RegisterNetworkservicesBetaServiceBindingServiceServer(s, &ServiceBindingServer{})
 }
