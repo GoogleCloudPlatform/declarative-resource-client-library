@@ -42,7 +42,6 @@ var errFailedToMarshal = func() []byte {
 }()
 
 // Initialize exposes the C interface for the InitializeServer() method.
-//
 //export Initialize
 func Initialize(request []byte) (unsafe.Pointer, int) {
 	protoRequest := &connectorpb.InitializeRequest{}
@@ -74,7 +73,6 @@ func initializeError(err error) (unsafe.Pointer, int) {
 }
 
 // Call exposes the C interface for the UnaryCall() method.
-//
 //export Call
 func Call(request []byte) (unsafe.Pointer, int) {
 	protoRequest := &connectorpb.UnaryCallRequest{}
