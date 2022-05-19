@@ -29,6 +29,8 @@ class Membership(object):
         update_time: str = None,
         roles: list = None,
         type: str = None,
+        delivery_setting: str = None,
+        display_name: dict = None,
         member_key: dict = None,
         group: str = None,
         service_account_file: str = "",
@@ -78,6 +80,10 @@ class Membership(object):
         self.update_time = Primitive.from_proto(response.update_time)
         self.roles = MembershipRolesArray.from_proto(response.roles)
         self.type = MembershipTypeEnum.from_proto(response.type)
+        self.delivery_setting = MembershipDeliverySettingEnum.from_proto(
+            response.delivery_setting
+        )
+        self.display_name = MembershipDisplayName.from_proto(response.display_name)
         self.member_key = MembershipMemberKey.from_proto(response.member_key)
         self.group = Primitive.from_proto(response.group)
 
@@ -380,6 +386,52 @@ class MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationArray(obje
         ]
 
 
+class MembershipDisplayName(object):
+    def __init__(
+        self, given_name: str = None, family_name: str = None, full_name: str = None
+    ):
+        self.given_name = given_name
+        self.family_name = family_name
+        self.full_name = full_name
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = membership_pb2.CloudidentityBetaMembershipDisplayName()
+        if Primitive.to_proto(resource.given_name):
+            res.given_name = Primitive.to_proto(resource.given_name)
+        if Primitive.to_proto(resource.family_name):
+            res.family_name = Primitive.to_proto(resource.family_name)
+        if Primitive.to_proto(resource.full_name):
+            res.full_name = Primitive.to_proto(resource.full_name)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return MembershipDisplayName(
+            given_name=Primitive.from_proto(resource.given_name),
+            family_name=Primitive.from_proto(resource.family_name),
+            full_name=Primitive.from_proto(resource.full_name),
+        )
+
+
+class MembershipDisplayNameArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [MembershipDisplayName.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [MembershipDisplayName.from_proto(i) for i in resources]
+
+
 class MembershipMemberKey(object):
     def __init__(self, id: str = None, namespace: str = None):
         self.id = id
@@ -459,6 +511,24 @@ class MembershipTypeEnum(object):
         return membership_pb2.CloudidentityBetaMembershipTypeEnum.Name(resource)[
             len("CloudidentityBetaMembershipTypeEnum") :
         ]
+
+
+class MembershipDeliverySettingEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return membership_pb2.CloudidentityBetaMembershipDeliverySettingEnum.Value(
+            "CloudidentityBetaMembershipDeliverySettingEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return membership_pb2.CloudidentityBetaMembershipDeliverySettingEnum.Name(
+            resource
+        )[len("CloudidentityBetaMembershipDeliverySettingEnum") :]
 
 
 class Primitive(object):

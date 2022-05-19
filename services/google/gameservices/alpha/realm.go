@@ -25,6 +25,7 @@ import (
 type Realm struct {
 	Name        *string           `json:"name"`
 	CreateTime  *string           `json:"createTime"`
+	UpdateTime  *string           `json:"updateTime"`
 	Labels      map[string]string `json:"labels"`
 	TimeZone    *string           `json:"timeZone"`
 	Description *string           `json:"description"`
@@ -54,6 +55,7 @@ func (r *Realm) ID() (string, error) {
 	params := map[string]interface{}{
 		"name":        dcl.ValueOrEmptyString(nr.Name),
 		"createTime":  dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":  dcl.ValueOrEmptyString(nr.UpdateTime),
 		"labels":      dcl.ValueOrEmptyString(nr.Labels),
 		"timeZone":    dcl.ValueOrEmptyString(nr.TimeZone),
 		"description": dcl.ValueOrEmptyString(nr.Description),

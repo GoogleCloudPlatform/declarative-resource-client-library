@@ -25,23 +25,377 @@ import (
 )
 
 type Note struct {
-	Name             *string          `json:"name"`
-	ShortDescription *string          `json:"shortDescription"`
-	LongDescription  *string          `json:"longDescription"`
-	RelatedUrl       []NoteRelatedUrl `json:"relatedUrl"`
-	ExpirationTime   *string          `json:"expirationTime"`
-	CreateTime       *string          `json:"createTime"`
-	UpdateTime       *string          `json:"updateTime"`
-	Image            *NoteImage       `json:"image"`
-	Package          *NotePackage     `json:"package"`
-	Discovery        *NoteDiscovery   `json:"discovery"`
-	Deployment       *NoteDeployment  `json:"deployment"`
-	Attestation      *NoteAttestation `json:"attestation"`
-	Project          *string          `json:"project"`
+	Name             *string            `json:"name"`
+	ShortDescription *string            `json:"shortDescription"`
+	LongDescription  *string            `json:"longDescription"`
+	RelatedUrl       []NoteRelatedUrl   `json:"relatedUrl"`
+	ExpirationTime   *string            `json:"expirationTime"`
+	CreateTime       *string            `json:"createTime"`
+	UpdateTime       *string            `json:"updateTime"`
+	RelatedNoteNames []string           `json:"relatedNoteNames"`
+	Vulnerability    *NoteVulnerability `json:"vulnerability"`
+	Build            *NoteBuild         `json:"build"`
+	Image            *NoteImage         `json:"image"`
+	Package          *NotePackage       `json:"package"`
+	Discovery        *NoteDiscovery     `json:"discovery"`
+	Deployment       *NoteDeployment    `json:"deployment"`
+	Attestation      *NoteAttestation   `json:"attestation"`
+	Project          *string            `json:"project"`
 }
 
 func (r *Note) String() string {
 	return dcl.SprintResource(r)
+}
+
+// The enum NoteVulnerabilitySeverityEnum.
+type NoteVulnerabilitySeverityEnum string
+
+// NoteVulnerabilitySeverityEnumRef returns a *NoteVulnerabilitySeverityEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func NoteVulnerabilitySeverityEnumRef(s string) *NoteVulnerabilitySeverityEnum {
+	v := NoteVulnerabilitySeverityEnum(s)
+	return &v
+}
+
+func (v NoteVulnerabilitySeverityEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"SEVERITY_UNSPECIFIED", "MINIMAL", "LOW", "MEDIUM", "HIGH", "CRITICAL"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "NoteVulnerabilitySeverityEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum NoteVulnerabilityDetailsAffectedVersionStartKindEnum.
+type NoteVulnerabilityDetailsAffectedVersionStartKindEnum string
+
+// NoteVulnerabilityDetailsAffectedVersionStartKindEnumRef returns a *NoteVulnerabilityDetailsAffectedVersionStartKindEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func NoteVulnerabilityDetailsAffectedVersionStartKindEnumRef(s string) *NoteVulnerabilityDetailsAffectedVersionStartKindEnum {
+	v := NoteVulnerabilityDetailsAffectedVersionStartKindEnum(s)
+	return &v
+}
+
+func (v NoteVulnerabilityDetailsAffectedVersionStartKindEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"NOTE_KIND_UNSPECIFIED", "VULNERABILITY", "BUILD", "IMAGE", "PACKAGE", "DEPLOYMENT", "DISCOVERY", "ATTESTATION", "UPGRADE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "NoteVulnerabilityDetailsAffectedVersionStartKindEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum NoteVulnerabilityDetailsAffectedVersionEndKindEnum.
+type NoteVulnerabilityDetailsAffectedVersionEndKindEnum string
+
+// NoteVulnerabilityDetailsAffectedVersionEndKindEnumRef returns a *NoteVulnerabilityDetailsAffectedVersionEndKindEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func NoteVulnerabilityDetailsAffectedVersionEndKindEnumRef(s string) *NoteVulnerabilityDetailsAffectedVersionEndKindEnum {
+	v := NoteVulnerabilityDetailsAffectedVersionEndKindEnum(s)
+	return &v
+}
+
+func (v NoteVulnerabilityDetailsAffectedVersionEndKindEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"NOTE_KIND_UNSPECIFIED", "VULNERABILITY", "BUILD", "IMAGE", "PACKAGE", "DEPLOYMENT", "DISCOVERY", "ATTESTATION", "UPGRADE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "NoteVulnerabilityDetailsAffectedVersionEndKindEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum NoteVulnerabilityDetailsFixedVersionKindEnum.
+type NoteVulnerabilityDetailsFixedVersionKindEnum string
+
+// NoteVulnerabilityDetailsFixedVersionKindEnumRef returns a *NoteVulnerabilityDetailsFixedVersionKindEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func NoteVulnerabilityDetailsFixedVersionKindEnumRef(s string) *NoteVulnerabilityDetailsFixedVersionKindEnum {
+	v := NoteVulnerabilityDetailsFixedVersionKindEnum(s)
+	return &v
+}
+
+func (v NoteVulnerabilityDetailsFixedVersionKindEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"NOTE_KIND_UNSPECIFIED", "VULNERABILITY", "BUILD", "IMAGE", "PACKAGE", "DEPLOYMENT", "DISCOVERY", "ATTESTATION", "UPGRADE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "NoteVulnerabilityDetailsFixedVersionKindEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum NoteVulnerabilityCvssV3AttackVectorEnum.
+type NoteVulnerabilityCvssV3AttackVectorEnum string
+
+// NoteVulnerabilityCvssV3AttackVectorEnumRef returns a *NoteVulnerabilityCvssV3AttackVectorEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func NoteVulnerabilityCvssV3AttackVectorEnumRef(s string) *NoteVulnerabilityCvssV3AttackVectorEnum {
+	v := NoteVulnerabilityCvssV3AttackVectorEnum(s)
+	return &v
+}
+
+func (v NoteVulnerabilityCvssV3AttackVectorEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ATTACK_VECTOR_UNSPECIFIED", "ATTACK_VECTOR_NETWORK", "ATTACK_VECTOR_ADJACENT", "ATTACK_VECTOR_LOCAL", "ATTACK_VECTOR_PHYSICAL"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "NoteVulnerabilityCvssV3AttackVectorEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum NoteVulnerabilityCvssV3AttackComplexityEnum.
+type NoteVulnerabilityCvssV3AttackComplexityEnum string
+
+// NoteVulnerabilityCvssV3AttackComplexityEnumRef returns a *NoteVulnerabilityCvssV3AttackComplexityEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func NoteVulnerabilityCvssV3AttackComplexityEnumRef(s string) *NoteVulnerabilityCvssV3AttackComplexityEnum {
+	v := NoteVulnerabilityCvssV3AttackComplexityEnum(s)
+	return &v
+}
+
+func (v NoteVulnerabilityCvssV3AttackComplexityEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"ATTACK_COMPLEXITY_UNSPECIFIED", "ATTACK_COMPLEXITY_LOW", "ATTACK_COMPLEXITY_HIGH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "NoteVulnerabilityCvssV3AttackComplexityEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum NoteVulnerabilityCvssV3PrivilegesRequiredEnum.
+type NoteVulnerabilityCvssV3PrivilegesRequiredEnum string
+
+// NoteVulnerabilityCvssV3PrivilegesRequiredEnumRef returns a *NoteVulnerabilityCvssV3PrivilegesRequiredEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func NoteVulnerabilityCvssV3PrivilegesRequiredEnumRef(s string) *NoteVulnerabilityCvssV3PrivilegesRequiredEnum {
+	v := NoteVulnerabilityCvssV3PrivilegesRequiredEnum(s)
+	return &v
+}
+
+func (v NoteVulnerabilityCvssV3PrivilegesRequiredEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"PRIVILEGES_REQUIRED_UNSPECIFIED", "PRIVILEGES_REQUIRED_NONE", "PRIVILEGES_REQUIRED_LOW", "PRIVILEGES_REQUIRED_HIGH"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "NoteVulnerabilityCvssV3PrivilegesRequiredEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum NoteVulnerabilityCvssV3UserInteractionEnum.
+type NoteVulnerabilityCvssV3UserInteractionEnum string
+
+// NoteVulnerabilityCvssV3UserInteractionEnumRef returns a *NoteVulnerabilityCvssV3UserInteractionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func NoteVulnerabilityCvssV3UserInteractionEnumRef(s string) *NoteVulnerabilityCvssV3UserInteractionEnum {
+	v := NoteVulnerabilityCvssV3UserInteractionEnum(s)
+	return &v
+}
+
+func (v NoteVulnerabilityCvssV3UserInteractionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"USER_INTERACTION_UNSPECIFIED", "USER_INTERACTION_NONE", "USER_INTERACTION_REQUIRED"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "NoteVulnerabilityCvssV3UserInteractionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum NoteVulnerabilityCvssV3ScopeEnum.
+type NoteVulnerabilityCvssV3ScopeEnum string
+
+// NoteVulnerabilityCvssV3ScopeEnumRef returns a *NoteVulnerabilityCvssV3ScopeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func NoteVulnerabilityCvssV3ScopeEnumRef(s string) *NoteVulnerabilityCvssV3ScopeEnum {
+	v := NoteVulnerabilityCvssV3ScopeEnum(s)
+	return &v
+}
+
+func (v NoteVulnerabilityCvssV3ScopeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"SCOPE_UNSPECIFIED", "SCOPE_UNCHANGED", "SCOPE_CHANGED"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "NoteVulnerabilityCvssV3ScopeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum NoteVulnerabilityCvssV3ConfidentialityImpactEnum.
+type NoteVulnerabilityCvssV3ConfidentialityImpactEnum string
+
+// NoteVulnerabilityCvssV3ConfidentialityImpactEnumRef returns a *NoteVulnerabilityCvssV3ConfidentialityImpactEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func NoteVulnerabilityCvssV3ConfidentialityImpactEnumRef(s string) *NoteVulnerabilityCvssV3ConfidentialityImpactEnum {
+	v := NoteVulnerabilityCvssV3ConfidentialityImpactEnum(s)
+	return &v
+}
+
+func (v NoteVulnerabilityCvssV3ConfidentialityImpactEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"IMPACT_UNSPECIFIED", "IMPACT_HIGH", "IMPACT_LOW", "IMPACT_NONE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "NoteVulnerabilityCvssV3ConfidentialityImpactEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum NoteVulnerabilityCvssV3IntegrityImpactEnum.
+type NoteVulnerabilityCvssV3IntegrityImpactEnum string
+
+// NoteVulnerabilityCvssV3IntegrityImpactEnumRef returns a *NoteVulnerabilityCvssV3IntegrityImpactEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func NoteVulnerabilityCvssV3IntegrityImpactEnumRef(s string) *NoteVulnerabilityCvssV3IntegrityImpactEnum {
+	v := NoteVulnerabilityCvssV3IntegrityImpactEnum(s)
+	return &v
+}
+
+func (v NoteVulnerabilityCvssV3IntegrityImpactEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"IMPACT_UNSPECIFIED", "IMPACT_HIGH", "IMPACT_LOW", "IMPACT_NONE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "NoteVulnerabilityCvssV3IntegrityImpactEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum NoteVulnerabilityCvssV3AvailabilityImpactEnum.
+type NoteVulnerabilityCvssV3AvailabilityImpactEnum string
+
+// NoteVulnerabilityCvssV3AvailabilityImpactEnumRef returns a *NoteVulnerabilityCvssV3AvailabilityImpactEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func NoteVulnerabilityCvssV3AvailabilityImpactEnumRef(s string) *NoteVulnerabilityCvssV3AvailabilityImpactEnum {
+	v := NoteVulnerabilityCvssV3AvailabilityImpactEnum(s)
+	return &v
+}
+
+func (v NoteVulnerabilityCvssV3AvailabilityImpactEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"IMPACT_UNSPECIFIED", "IMPACT_HIGH", "IMPACT_LOW", "IMPACT_NONE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "NoteVulnerabilityCvssV3AvailabilityImpactEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum NoteBuildSignatureKeyTypeEnum.
+type NoteBuildSignatureKeyTypeEnum string
+
+// NoteBuildSignatureKeyTypeEnumRef returns a *NoteBuildSignatureKeyTypeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func NoteBuildSignatureKeyTypeEnumRef(s string) *NoteBuildSignatureKeyTypeEnum {
+	v := NoteBuildSignatureKeyTypeEnum(s)
+	return &v
+}
+
+func (v NoteBuildSignatureKeyTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"KEY_TYPE_UNSPECIFIED", "PGP_ASCII_ARMORED", "PKIX_PEM"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "NoteBuildSignatureKeyTypeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
 }
 
 // The enum NotePackageDistributionArchitectureEnum.
@@ -168,6 +522,604 @@ func (r *NoteRelatedUrl) String() string {
 }
 
 func (r *NoteRelatedUrl) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type NoteVulnerability struct {
+	empty            bool                              `json:"-"`
+	CvssScore        *float64                          `json:"cvssScore"`
+	Severity         *NoteVulnerabilitySeverityEnum    `json:"severity"`
+	Details          []NoteVulnerabilityDetails        `json:"details"`
+	CvssV3           *NoteVulnerabilityCvssV3          `json:"cvssV3"`
+	WindowsDetails   []NoteVulnerabilityWindowsDetails `json:"windowsDetails"`
+	SourceUpdateTime *string                           `json:"sourceUpdateTime"`
+}
+
+type jsonNoteVulnerability NoteVulnerability
+
+func (r *NoteVulnerability) UnmarshalJSON(data []byte) error {
+	var res jsonNoteVulnerability
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteVulnerability
+	} else {
+
+		r.CvssScore = res.CvssScore
+
+		r.Severity = res.Severity
+
+		r.Details = res.Details
+
+		r.CvssV3 = res.CvssV3
+
+		r.WindowsDetails = res.WindowsDetails
+
+		r.SourceUpdateTime = res.SourceUpdateTime
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this NoteVulnerability is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyNoteVulnerability *NoteVulnerability = &NoteVulnerability{empty: true}
+
+func (r *NoteVulnerability) Empty() bool {
+	return r.empty
+}
+
+func (r *NoteVulnerability) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NoteVulnerability) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type NoteVulnerabilityDetails struct {
+	empty                bool                                          `json:"-"`
+	SeverityName         *string                                       `json:"severityName"`
+	Description          *string                                       `json:"description"`
+	PackageType          *string                                       `json:"packageType"`
+	AffectedCpeUri       *string                                       `json:"affectedCpeUri"`
+	AffectedPackage      *string                                       `json:"affectedPackage"`
+	AffectedVersionStart *NoteVulnerabilityDetailsAffectedVersionStart `json:"affectedVersionStart"`
+	AffectedVersionEnd   *NoteVulnerabilityDetailsAffectedVersionEnd   `json:"affectedVersionEnd"`
+	FixedCpeUri          *string                                       `json:"fixedCpeUri"`
+	FixedPackage         *string                                       `json:"fixedPackage"`
+	FixedVersion         *NoteVulnerabilityDetailsFixedVersion         `json:"fixedVersion"`
+	IsObsolete           *bool                                         `json:"isObsolete"`
+	SourceUpdateTime     *string                                       `json:"sourceUpdateTime"`
+}
+
+type jsonNoteVulnerabilityDetails NoteVulnerabilityDetails
+
+func (r *NoteVulnerabilityDetails) UnmarshalJSON(data []byte) error {
+	var res jsonNoteVulnerabilityDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteVulnerabilityDetails
+	} else {
+
+		r.SeverityName = res.SeverityName
+
+		r.Description = res.Description
+
+		r.PackageType = res.PackageType
+
+		r.AffectedCpeUri = res.AffectedCpeUri
+
+		r.AffectedPackage = res.AffectedPackage
+
+		r.AffectedVersionStart = res.AffectedVersionStart
+
+		r.AffectedVersionEnd = res.AffectedVersionEnd
+
+		r.FixedCpeUri = res.FixedCpeUri
+
+		r.FixedPackage = res.FixedPackage
+
+		r.FixedVersion = res.FixedVersion
+
+		r.IsObsolete = res.IsObsolete
+
+		r.SourceUpdateTime = res.SourceUpdateTime
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this NoteVulnerabilityDetails is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyNoteVulnerabilityDetails *NoteVulnerabilityDetails = &NoteVulnerabilityDetails{empty: true}
+
+func (r *NoteVulnerabilityDetails) Empty() bool {
+	return r.empty
+}
+
+func (r *NoteVulnerabilityDetails) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NoteVulnerabilityDetails) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type NoteVulnerabilityDetailsAffectedVersionStart struct {
+	empty    bool                                                  `json:"-"`
+	Epoch    *int64                                                `json:"epoch"`
+	Name     *string                                               `json:"name"`
+	Revision *string                                               `json:"revision"`
+	Kind     *NoteVulnerabilityDetailsAffectedVersionStartKindEnum `json:"kind"`
+	FullName *string                                               `json:"fullName"`
+}
+
+type jsonNoteVulnerabilityDetailsAffectedVersionStart NoteVulnerabilityDetailsAffectedVersionStart
+
+func (r *NoteVulnerabilityDetailsAffectedVersionStart) UnmarshalJSON(data []byte) error {
+	var res jsonNoteVulnerabilityDetailsAffectedVersionStart
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteVulnerabilityDetailsAffectedVersionStart
+	} else {
+
+		r.Epoch = res.Epoch
+
+		r.Name = res.Name
+
+		r.Revision = res.Revision
+
+		r.Kind = res.Kind
+
+		r.FullName = res.FullName
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this NoteVulnerabilityDetailsAffectedVersionStart is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyNoteVulnerabilityDetailsAffectedVersionStart *NoteVulnerabilityDetailsAffectedVersionStart = &NoteVulnerabilityDetailsAffectedVersionStart{empty: true}
+
+func (r *NoteVulnerabilityDetailsAffectedVersionStart) Empty() bool {
+	return r.empty
+}
+
+func (r *NoteVulnerabilityDetailsAffectedVersionStart) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NoteVulnerabilityDetailsAffectedVersionStart) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type NoteVulnerabilityDetailsAffectedVersionEnd struct {
+	empty    bool                                                `json:"-"`
+	Epoch    *int64                                              `json:"epoch"`
+	Name     *string                                             `json:"name"`
+	Revision *string                                             `json:"revision"`
+	Kind     *NoteVulnerabilityDetailsAffectedVersionEndKindEnum `json:"kind"`
+	FullName *string                                             `json:"fullName"`
+}
+
+type jsonNoteVulnerabilityDetailsAffectedVersionEnd NoteVulnerabilityDetailsAffectedVersionEnd
+
+func (r *NoteVulnerabilityDetailsAffectedVersionEnd) UnmarshalJSON(data []byte) error {
+	var res jsonNoteVulnerabilityDetailsAffectedVersionEnd
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteVulnerabilityDetailsAffectedVersionEnd
+	} else {
+
+		r.Epoch = res.Epoch
+
+		r.Name = res.Name
+
+		r.Revision = res.Revision
+
+		r.Kind = res.Kind
+
+		r.FullName = res.FullName
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this NoteVulnerabilityDetailsAffectedVersionEnd is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyNoteVulnerabilityDetailsAffectedVersionEnd *NoteVulnerabilityDetailsAffectedVersionEnd = &NoteVulnerabilityDetailsAffectedVersionEnd{empty: true}
+
+func (r *NoteVulnerabilityDetailsAffectedVersionEnd) Empty() bool {
+	return r.empty
+}
+
+func (r *NoteVulnerabilityDetailsAffectedVersionEnd) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NoteVulnerabilityDetailsAffectedVersionEnd) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type NoteVulnerabilityDetailsFixedVersion struct {
+	empty    bool                                          `json:"-"`
+	Epoch    *int64                                        `json:"epoch"`
+	Name     *string                                       `json:"name"`
+	Revision *string                                       `json:"revision"`
+	Kind     *NoteVulnerabilityDetailsFixedVersionKindEnum `json:"kind"`
+	FullName *string                                       `json:"fullName"`
+}
+
+type jsonNoteVulnerabilityDetailsFixedVersion NoteVulnerabilityDetailsFixedVersion
+
+func (r *NoteVulnerabilityDetailsFixedVersion) UnmarshalJSON(data []byte) error {
+	var res jsonNoteVulnerabilityDetailsFixedVersion
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteVulnerabilityDetailsFixedVersion
+	} else {
+
+		r.Epoch = res.Epoch
+
+		r.Name = res.Name
+
+		r.Revision = res.Revision
+
+		r.Kind = res.Kind
+
+		r.FullName = res.FullName
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this NoteVulnerabilityDetailsFixedVersion is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyNoteVulnerabilityDetailsFixedVersion *NoteVulnerabilityDetailsFixedVersion = &NoteVulnerabilityDetailsFixedVersion{empty: true}
+
+func (r *NoteVulnerabilityDetailsFixedVersion) Empty() bool {
+	return r.empty
+}
+
+func (r *NoteVulnerabilityDetailsFixedVersion) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NoteVulnerabilityDetailsFixedVersion) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type NoteVulnerabilityCvssV3 struct {
+	empty                 bool                                              `json:"-"`
+	BaseScore             *float64                                          `json:"baseScore"`
+	ExploitabilityScore   *float64                                          `json:"exploitabilityScore"`
+	ImpactScore           *float64                                          `json:"impactScore"`
+	AttackVector          *NoteVulnerabilityCvssV3AttackVectorEnum          `json:"attackVector"`
+	AttackComplexity      *NoteVulnerabilityCvssV3AttackComplexityEnum      `json:"attackComplexity"`
+	PrivilegesRequired    *NoteVulnerabilityCvssV3PrivilegesRequiredEnum    `json:"privilegesRequired"`
+	UserInteraction       *NoteVulnerabilityCvssV3UserInteractionEnum       `json:"userInteraction"`
+	Scope                 *NoteVulnerabilityCvssV3ScopeEnum                 `json:"scope"`
+	ConfidentialityImpact *NoteVulnerabilityCvssV3ConfidentialityImpactEnum `json:"confidentialityImpact"`
+	IntegrityImpact       *NoteVulnerabilityCvssV3IntegrityImpactEnum       `json:"integrityImpact"`
+	AvailabilityImpact    *NoteVulnerabilityCvssV3AvailabilityImpactEnum    `json:"availabilityImpact"`
+}
+
+type jsonNoteVulnerabilityCvssV3 NoteVulnerabilityCvssV3
+
+func (r *NoteVulnerabilityCvssV3) UnmarshalJSON(data []byte) error {
+	var res jsonNoteVulnerabilityCvssV3
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteVulnerabilityCvssV3
+	} else {
+
+		r.BaseScore = res.BaseScore
+
+		r.ExploitabilityScore = res.ExploitabilityScore
+
+		r.ImpactScore = res.ImpactScore
+
+		r.AttackVector = res.AttackVector
+
+		r.AttackComplexity = res.AttackComplexity
+
+		r.PrivilegesRequired = res.PrivilegesRequired
+
+		r.UserInteraction = res.UserInteraction
+
+		r.Scope = res.Scope
+
+		r.ConfidentialityImpact = res.ConfidentialityImpact
+
+		r.IntegrityImpact = res.IntegrityImpact
+
+		r.AvailabilityImpact = res.AvailabilityImpact
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this NoteVulnerabilityCvssV3 is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyNoteVulnerabilityCvssV3 *NoteVulnerabilityCvssV3 = &NoteVulnerabilityCvssV3{empty: true}
+
+func (r *NoteVulnerabilityCvssV3) Empty() bool {
+	return r.empty
+}
+
+func (r *NoteVulnerabilityCvssV3) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NoteVulnerabilityCvssV3) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type NoteVulnerabilityWindowsDetails struct {
+	empty       bool                                       `json:"-"`
+	CpeUri      *string                                    `json:"cpeUri"`
+	Name        *string                                    `json:"name"`
+	Description *string                                    `json:"description"`
+	FixingKbs   []NoteVulnerabilityWindowsDetailsFixingKbs `json:"fixingKbs"`
+}
+
+type jsonNoteVulnerabilityWindowsDetails NoteVulnerabilityWindowsDetails
+
+func (r *NoteVulnerabilityWindowsDetails) UnmarshalJSON(data []byte) error {
+	var res jsonNoteVulnerabilityWindowsDetails
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteVulnerabilityWindowsDetails
+	} else {
+
+		r.CpeUri = res.CpeUri
+
+		r.Name = res.Name
+
+		r.Description = res.Description
+
+		r.FixingKbs = res.FixingKbs
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this NoteVulnerabilityWindowsDetails is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyNoteVulnerabilityWindowsDetails *NoteVulnerabilityWindowsDetails = &NoteVulnerabilityWindowsDetails{empty: true}
+
+func (r *NoteVulnerabilityWindowsDetails) Empty() bool {
+	return r.empty
+}
+
+func (r *NoteVulnerabilityWindowsDetails) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NoteVulnerabilityWindowsDetails) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type NoteVulnerabilityWindowsDetailsFixingKbs struct {
+	empty bool    `json:"-"`
+	Name  *string `json:"name"`
+	Url   *string `json:"url"`
+}
+
+type jsonNoteVulnerabilityWindowsDetailsFixingKbs NoteVulnerabilityWindowsDetailsFixingKbs
+
+func (r *NoteVulnerabilityWindowsDetailsFixingKbs) UnmarshalJSON(data []byte) error {
+	var res jsonNoteVulnerabilityWindowsDetailsFixingKbs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteVulnerabilityWindowsDetailsFixingKbs
+	} else {
+
+		r.Name = res.Name
+
+		r.Url = res.Url
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this NoteVulnerabilityWindowsDetailsFixingKbs is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyNoteVulnerabilityWindowsDetailsFixingKbs *NoteVulnerabilityWindowsDetailsFixingKbs = &NoteVulnerabilityWindowsDetailsFixingKbs{empty: true}
+
+func (r *NoteVulnerabilityWindowsDetailsFixingKbs) Empty() bool {
+	return r.empty
+}
+
+func (r *NoteVulnerabilityWindowsDetailsFixingKbs) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NoteVulnerabilityWindowsDetailsFixingKbs) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type NoteBuild struct {
+	empty          bool                `json:"-"`
+	BuilderVersion *string             `json:"builderVersion"`
+	Signature      *NoteBuildSignature `json:"signature"`
+}
+
+type jsonNoteBuild NoteBuild
+
+func (r *NoteBuild) UnmarshalJSON(data []byte) error {
+	var res jsonNoteBuild
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteBuild
+	} else {
+
+		r.BuilderVersion = res.BuilderVersion
+
+		r.Signature = res.Signature
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this NoteBuild is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyNoteBuild *NoteBuild = &NoteBuild{empty: true}
+
+func (r *NoteBuild) Empty() bool {
+	return r.empty
+}
+
+func (r *NoteBuild) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NoteBuild) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type NoteBuildSignature struct {
+	empty     bool                           `json:"-"`
+	PublicKey *string                        `json:"publicKey"`
+	Signature *string                        `json:"signature"`
+	KeyId     *string                        `json:"keyId"`
+	KeyType   *NoteBuildSignatureKeyTypeEnum `json:"keyType"`
+}
+
+type jsonNoteBuildSignature NoteBuildSignature
+
+func (r *NoteBuildSignature) UnmarshalJSON(data []byte) error {
+	var res jsonNoteBuildSignature
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNoteBuildSignature
+	} else {
+
+		r.PublicKey = res.PublicKey
+
+		r.Signature = res.Signature
+
+		r.KeyId = res.KeyId
+
+		r.KeyType = res.KeyType
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this NoteBuildSignature is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyNoteBuildSignature *NoteBuildSignature = &NoteBuildSignature{empty: true}
+
+func (r *NoteBuildSignature) Empty() bool {
+	return r.empty
+}
+
+func (r *NoteBuildSignature) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NoteBuildSignature) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -650,6 +1602,9 @@ func (r *Note) ID() (string, error) {
 		"expirationTime":   dcl.ValueOrEmptyString(nr.ExpirationTime),
 		"createTime":       dcl.ValueOrEmptyString(nr.CreateTime),
 		"updateTime":       dcl.ValueOrEmptyString(nr.UpdateTime),
+		"relatedNoteNames": dcl.ValueOrEmptyString(nr.RelatedNoteNames),
+		"vulnerability":    dcl.ValueOrEmptyString(nr.Vulnerability),
+		"build":            dcl.ValueOrEmptyString(nr.Build),
 		"image":            dcl.ValueOrEmptyString(nr.Image),
 		"package":          dcl.ValueOrEmptyString(nr.Package),
 		"discovery":        dcl.ValueOrEmptyString(nr.Discovery),

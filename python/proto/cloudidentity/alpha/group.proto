@@ -52,9 +52,12 @@ message CloudidentityAlphaGroup {
   string create_time = 7;
   string update_time = 8;
   map<string, string> labels = 9;
-  CloudidentityAlphaGroupDynamicGroupMetadata dynamic_group_metadata = 10;
-  repeated CloudidentityAlphaGroupPosixGroups posix_groups = 11;
-  CloudidentityAlphaGroupInitialGroupConfigEnum initial_group_config = 12;
+  int64 direct_member_count = 10;
+  CloudidentityAlphaGroupDirectMemberCountPerType direct_member_count_per_type = 11;
+  repeated CloudidentityAlphaGroupDerivedAliases derived_aliases = 12;
+  CloudidentityAlphaGroupDynamicGroupMetadata dynamic_group_metadata = 13;
+  repeated CloudidentityAlphaGroupPosixGroups posix_groups = 14;
+  CloudidentityAlphaGroupInitialGroupConfigEnum initial_group_config = 15;
 }
 
 message CloudidentityAlphaGroupGroupKey {
@@ -63,6 +66,16 @@ message CloudidentityAlphaGroupGroupKey {
 }
 
 message CloudidentityAlphaGroupAdditionalGroupKeys {
+  string id = 1;
+  string namespace = 2;
+}
+
+message CloudidentityAlphaGroupDirectMemberCountPerType {
+  int64 user_count = 1;
+  int64 group_count = 2;
+}
+
+message CloudidentityAlphaGroupDerivedAliases {
   string id = 1;
   string namespace = 2;
 }

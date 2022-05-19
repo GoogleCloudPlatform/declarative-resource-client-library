@@ -489,6 +489,11 @@ func canonicalizeRealmNewState(c *Client, rawNew, rawDesired *Realm) (*Realm, er
 	} else {
 	}
 
+	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
+		rawNew.UpdateTime = rawDesired.UpdateTime
+	} else {
+	}
+
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
 		rawNew.Labels = rawDesired.Labels
 	} else {
@@ -543,6 +548,13 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]*d
 	}
 
 	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -690,6 +702,7 @@ func flattenRealm(c *Client, i interface{}, res *Realm) *Realm {
 	resultRes := &Realm{}
 	resultRes.Name = dcl.FlattenString(m["name"])
 	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
+	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
 	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	resultRes.TimeZone = dcl.FlattenString(m["timeZone"])
 	resultRes.Description = dcl.FlattenString(m["description"])

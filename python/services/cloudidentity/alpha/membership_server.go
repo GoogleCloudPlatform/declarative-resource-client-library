@@ -48,6 +48,18 @@ func ProtoToCloudidentityAlphaMembershipTypeEnum(e alphapb.CloudidentityAlphaMem
 	return nil
 }
 
+// ProtoToMembershipDeliverySettingEnum converts a MembershipDeliverySettingEnum enum from its proto representation.
+func ProtoToCloudidentityAlphaMembershipDeliverySettingEnum(e alphapb.CloudidentityAlphaMembershipDeliverySettingEnum) *alpha.MembershipDeliverySettingEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.CloudidentityAlphaMembershipDeliverySettingEnum_name[int32(e)]; ok {
+		e := alpha.MembershipDeliverySettingEnum(n[len("CloudidentityAlphaMembershipDeliverySettingEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToMembershipPreferredMemberKey converts a MembershipPreferredMemberKey object from its proto representation.
 func ProtoToCloudidentityAlphaMembershipPreferredMemberKey(p *alphapb.CloudidentityAlphaMembershipPreferredMemberKey) *alpha.MembershipPreferredMemberKey {
 	if p == nil {
@@ -106,6 +118,19 @@ func ProtoToCloudidentityAlphaMembershipRolesRestrictionEvaluationsMemberRestric
 	return obj
 }
 
+// ProtoToMembershipDisplayName converts a MembershipDisplayName object from its proto representation.
+func ProtoToCloudidentityAlphaMembershipDisplayName(p *alphapb.CloudidentityAlphaMembershipDisplayName) *alpha.MembershipDisplayName {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.MembershipDisplayName{
+		GivenName:  dcl.StringOrNil(p.GetGivenName()),
+		FamilyName: dcl.StringOrNil(p.GetFamilyName()),
+		FullName:   dcl.StringOrNil(p.GetFullName()),
+	}
+	return obj
+}
+
 // ProtoToMembershipMemberKey converts a MembershipMemberKey object from its proto representation.
 func ProtoToCloudidentityAlphaMembershipMemberKey(p *alphapb.CloudidentityAlphaMembershipMemberKey) *alpha.MembershipMemberKey {
 	if p == nil {
@@ -126,6 +151,8 @@ func ProtoToMembership(p *alphapb.CloudidentityAlphaMembership) *alpha.Membershi
 		CreateTime:         dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:         dcl.StringOrNil(p.GetUpdateTime()),
 		Type:               ProtoToCloudidentityAlphaMembershipTypeEnum(p.GetType()),
+		DeliverySetting:    ProtoToCloudidentityAlphaMembershipDeliverySettingEnum(p.GetDeliverySetting()),
+		DisplayName:        ProtoToCloudidentityAlphaMembershipDisplayName(p.GetDisplayName()),
 		MemberKey:          ProtoToCloudidentityAlphaMembershipMemberKey(p.GetMemberKey()),
 		Group:              dcl.StringOrNil(p.GetGroup()),
 	}
@@ -155,6 +182,17 @@ func CloudidentityAlphaMembershipTypeEnumToProto(e *alpha.MembershipTypeEnum) al
 		return alphapb.CloudidentityAlphaMembershipTypeEnum(v)
 	}
 	return alphapb.CloudidentityAlphaMembershipTypeEnum(0)
+}
+
+// MembershipDeliverySettingEnumToProto converts a MembershipDeliverySettingEnum enum to its proto representation.
+func CloudidentityAlphaMembershipDeliverySettingEnumToProto(e *alpha.MembershipDeliverySettingEnum) alphapb.CloudidentityAlphaMembershipDeliverySettingEnum {
+	if e == nil {
+		return alphapb.CloudidentityAlphaMembershipDeliverySettingEnum(0)
+	}
+	if v, ok := alphapb.CloudidentityAlphaMembershipDeliverySettingEnum_value["MembershipDeliverySettingEnum"+string(*e)]; ok {
+		return alphapb.CloudidentityAlphaMembershipDeliverySettingEnum(v)
+	}
+	return alphapb.CloudidentityAlphaMembershipDeliverySettingEnum(0)
 }
 
 // MembershipPreferredMemberKeyToProto converts a MembershipPreferredMemberKey object to its proto representation.
@@ -210,6 +248,18 @@ func CloudidentityAlphaMembershipRolesRestrictionEvaluationsMemberRestrictionEva
 	return p
 }
 
+// MembershipDisplayNameToProto converts a MembershipDisplayName object to its proto representation.
+func CloudidentityAlphaMembershipDisplayNameToProto(o *alpha.MembershipDisplayName) *alphapb.CloudidentityAlphaMembershipDisplayName {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.CloudidentityAlphaMembershipDisplayName{}
+	p.SetGivenName(dcl.ValueOrEmptyString(o.GivenName))
+	p.SetFamilyName(dcl.ValueOrEmptyString(o.FamilyName))
+	p.SetFullName(dcl.ValueOrEmptyString(o.FullName))
+	return p
+}
+
 // MembershipMemberKeyToProto converts a MembershipMemberKey object to its proto representation.
 func CloudidentityAlphaMembershipMemberKeyToProto(o *alpha.MembershipMemberKey) *alphapb.CloudidentityAlphaMembershipMemberKey {
 	if o == nil {
@@ -229,6 +279,8 @@ func MembershipToProto(resource *alpha.Membership) *alphapb.CloudidentityAlphaMe
 	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
 	p.SetType(CloudidentityAlphaMembershipTypeEnumToProto(resource.Type))
+	p.SetDeliverySetting(CloudidentityAlphaMembershipDeliverySettingEnumToProto(resource.DeliverySetting))
+	p.SetDisplayName(CloudidentityAlphaMembershipDisplayNameToProto(resource.DisplayName))
 	p.SetMemberKey(CloudidentityAlphaMembershipMemberKeyToProto(resource.MemberKey))
 	p.SetGroup(dcl.ValueOrEmptyString(resource.Group))
 	sRoles := make([]*alphapb.CloudidentityAlphaMembershipRoles, len(resource.Roles))

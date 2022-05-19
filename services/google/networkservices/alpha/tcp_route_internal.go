@@ -72,7 +72,7 @@ func (r *TcpRouteRulesActionDestinations) validate() error {
 }
 func (r *TcpRoute) basePath() string {
 	params := map[string]interface{}{}
-	return dcl.Nprintf("https://networkservices.googleapis.com/v1beta1/", params)
+	return dcl.Nprintf("https://networkservices.googleapis.com/v1alpha1/", params)
 }
 
 func (r *TcpRoute) getURL(userBasePath string) (string, error) {

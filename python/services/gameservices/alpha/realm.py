@@ -23,6 +23,7 @@ class Realm(object):
         self,
         name: str = None,
         create_time: str = None,
+        update_time: str = None,
         labels: dict = None,
         time_zone: str = None,
         description: str = None,
@@ -66,6 +67,7 @@ class Realm(object):
         response = stub.ApplyGameservicesAlphaRealm(request)
         self.name = Primitive.from_proto(response.name)
         self.create_time = Primitive.from_proto(response.create_time)
+        self.update_time = Primitive.from_proto(response.update_time)
         self.labels = Primitive.from_proto(response.labels)
         self.time_zone = Primitive.from_proto(response.time_zone)
         self.description = Primitive.from_proto(response.description)

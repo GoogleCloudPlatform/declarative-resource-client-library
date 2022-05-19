@@ -91,7 +91,7 @@ func (r *FeatureMembershipConfigmanagementHierarchyController) validate() error 
 }
 func (r *FeatureMembership) basePath() string {
 	params := map[string]interface{}{}
-	return dcl.Nprintf("https://gkehub.googleapis.com/v1beta1/", params)
+	return dcl.Nprintf("https://gkehub.googleapis.com/v1alpha/", params)
 }
 
 func (r *FeatureMembership) getURL(userBasePath string) (string, error) {

@@ -29,6 +29,7 @@ func ProtoToRealm(p *alphapb.GameservicesAlphaRealm) *alpha.Realm {
 	obj := &alpha.Realm{
 		Name:        dcl.StringOrNil(p.GetName()),
 		CreateTime:  dcl.StringOrNil(p.GetCreateTime()),
+		UpdateTime:  dcl.StringOrNil(p.GetUpdateTime()),
 		TimeZone:    dcl.StringOrNil(p.GetTimeZone()),
 		Description: dcl.StringOrNil(p.GetDescription()),
 		Location:    dcl.StringOrNil(p.GetLocation()),
@@ -42,6 +43,7 @@ func RealmToProto(resource *alpha.Realm) *alphapb.GameservicesAlphaRealm {
 	p := &alphapb.GameservicesAlphaRealm{}
 	p.SetName(dcl.ValueOrEmptyString(resource.Name))
 	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
 	p.SetTimeZone(dcl.ValueOrEmptyString(resource.TimeZone))
 	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))

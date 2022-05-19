@@ -84,6 +84,30 @@ func ProtoToCloudidentityBetaGroupAdditionalGroupKeys(p *betapb.CloudidentityBet
 	return obj
 }
 
+// ProtoToGroupDirectMemberCountPerType converts a GroupDirectMemberCountPerType object from its proto representation.
+func ProtoToCloudidentityBetaGroupDirectMemberCountPerType(p *betapb.CloudidentityBetaGroupDirectMemberCountPerType) *beta.GroupDirectMemberCountPerType {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.GroupDirectMemberCountPerType{
+		UserCount:  dcl.Int64OrNil(p.GetUserCount()),
+		GroupCount: dcl.Int64OrNil(p.GetGroupCount()),
+	}
+	return obj
+}
+
+// ProtoToGroupDerivedAliases converts a GroupDerivedAliases object from its proto representation.
+func ProtoToCloudidentityBetaGroupDerivedAliases(p *betapb.CloudidentityBetaGroupDerivedAliases) *beta.GroupDerivedAliases {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.GroupDerivedAliases{
+		Id:        dcl.StringOrNil(p.GetId()),
+		Namespace: dcl.StringOrNil(p.GetNamespace()),
+	}
+	return obj
+}
+
 // ProtoToGroupDynamicGroupMetadata converts a GroupDynamicGroupMetadata object from its proto representation.
 func ProtoToCloudidentityBetaGroupDynamicGroupMetadata(p *betapb.CloudidentityBetaGroupDynamicGroupMetadata) *beta.GroupDynamicGroupMetadata {
 	if p == nil {
@@ -138,18 +162,23 @@ func ProtoToCloudidentityBetaGroupPosixGroups(p *betapb.CloudidentityBetaGroupPo
 // ProtoToGroup converts a Group resource from its proto representation.
 func ProtoToGroup(p *betapb.CloudidentityBetaGroup) *beta.Group {
 	obj := &beta.Group{
-		Name:                 dcl.StringOrNil(p.GetName()),
-		GroupKey:             ProtoToCloudidentityBetaGroupGroupKey(p.GetGroupKey()),
-		Parent:               dcl.StringOrNil(p.GetParent()),
-		DisplayName:          dcl.StringOrNil(p.GetDisplayName()),
-		Description:          dcl.StringOrNil(p.GetDescription()),
-		CreateTime:           dcl.StringOrNil(p.GetCreateTime()),
-		UpdateTime:           dcl.StringOrNil(p.GetUpdateTime()),
-		DynamicGroupMetadata: ProtoToCloudidentityBetaGroupDynamicGroupMetadata(p.GetDynamicGroupMetadata()),
-		InitialGroupConfig:   ProtoToCloudidentityBetaGroupInitialGroupConfigEnum(p.GetInitialGroupConfig()),
+		Name:                     dcl.StringOrNil(p.GetName()),
+		GroupKey:                 ProtoToCloudidentityBetaGroupGroupKey(p.GetGroupKey()),
+		Parent:                   dcl.StringOrNil(p.GetParent()),
+		DisplayName:              dcl.StringOrNil(p.GetDisplayName()),
+		Description:              dcl.StringOrNil(p.GetDescription()),
+		CreateTime:               dcl.StringOrNil(p.GetCreateTime()),
+		UpdateTime:               dcl.StringOrNil(p.GetUpdateTime()),
+		DirectMemberCount:        dcl.Int64OrNil(p.GetDirectMemberCount()),
+		DirectMemberCountPerType: ProtoToCloudidentityBetaGroupDirectMemberCountPerType(p.GetDirectMemberCountPerType()),
+		DynamicGroupMetadata:     ProtoToCloudidentityBetaGroupDynamicGroupMetadata(p.GetDynamicGroupMetadata()),
+		InitialGroupConfig:       ProtoToCloudidentityBetaGroupInitialGroupConfigEnum(p.GetInitialGroupConfig()),
 	}
 	for _, r := range p.GetAdditionalGroupKeys() {
 		obj.AdditionalGroupKeys = append(obj.AdditionalGroupKeys, *ProtoToCloudidentityBetaGroupAdditionalGroupKeys(r))
+	}
+	for _, r := range p.GetDerivedAliases() {
+		obj.DerivedAliases = append(obj.DerivedAliases, *ProtoToCloudidentityBetaGroupDerivedAliases(r))
 	}
 	for _, r := range p.GetPosixGroups() {
 		obj.PosixGroups = append(obj.PosixGroups, *ProtoToCloudidentityBetaGroupPosixGroups(r))
@@ -207,6 +236,28 @@ func CloudidentityBetaGroupAdditionalGroupKeysToProto(o *beta.GroupAdditionalGro
 		return nil
 	}
 	p := &betapb.CloudidentityBetaGroupAdditionalGroupKeys{}
+	p.SetId(dcl.ValueOrEmptyString(o.Id))
+	p.SetNamespace(dcl.ValueOrEmptyString(o.Namespace))
+	return p
+}
+
+// GroupDirectMemberCountPerTypeToProto converts a GroupDirectMemberCountPerType object to its proto representation.
+func CloudidentityBetaGroupDirectMemberCountPerTypeToProto(o *beta.GroupDirectMemberCountPerType) *betapb.CloudidentityBetaGroupDirectMemberCountPerType {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.CloudidentityBetaGroupDirectMemberCountPerType{}
+	p.SetUserCount(dcl.ValueOrEmptyInt64(o.UserCount))
+	p.SetGroupCount(dcl.ValueOrEmptyInt64(o.GroupCount))
+	return p
+}
+
+// GroupDerivedAliasesToProto converts a GroupDerivedAliases object to its proto representation.
+func CloudidentityBetaGroupDerivedAliasesToProto(o *beta.GroupDerivedAliases) *betapb.CloudidentityBetaGroupDerivedAliases {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.CloudidentityBetaGroupDerivedAliases{}
 	p.SetId(dcl.ValueOrEmptyString(o.Id))
 	p.SetNamespace(dcl.ValueOrEmptyString(o.Namespace))
 	return p
@@ -271,6 +322,8 @@ func GroupToProto(resource *beta.Group) *betapb.CloudidentityBetaGroup {
 	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
 	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetDirectMemberCount(dcl.ValueOrEmptyInt64(resource.DirectMemberCount))
+	p.SetDirectMemberCountPerType(CloudidentityBetaGroupDirectMemberCountPerTypeToProto(resource.DirectMemberCountPerType))
 	p.SetDynamicGroupMetadata(CloudidentityBetaGroupDynamicGroupMetadataToProto(resource.DynamicGroupMetadata))
 	p.SetInitialGroupConfig(CloudidentityBetaGroupInitialGroupConfigEnumToProto(resource.InitialGroupConfig))
 	sAdditionalGroupKeys := make([]*betapb.CloudidentityBetaGroupAdditionalGroupKeys, len(resource.AdditionalGroupKeys))
@@ -283,6 +336,11 @@ func GroupToProto(resource *beta.Group) *betapb.CloudidentityBetaGroup {
 		mLabels[k] = r
 	}
 	p.SetLabels(mLabels)
+	sDerivedAliases := make([]*betapb.CloudidentityBetaGroupDerivedAliases, len(resource.DerivedAliases))
+	for i, r := range resource.DerivedAliases {
+		sDerivedAliases[i] = CloudidentityBetaGroupDerivedAliasesToProto(&r)
+	}
+	p.SetDerivedAliases(sDerivedAliases)
 	sPosixGroups := make([]*betapb.CloudidentityBetaGroupPosixGroups, len(resource.PosixGroups))
 	for i, r := range resource.PosixGroups {
 		sPosixGroups[i] = CloudidentityBetaGroupPosixGroupsToProto(&r)

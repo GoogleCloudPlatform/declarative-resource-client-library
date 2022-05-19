@@ -24,11 +24,12 @@ import "proto/empty.proto";
 message GameservicesBetaRealm {
   string name = 1;
   string create_time = 2;
-  map<string, string> labels = 3;
-  string time_zone = 4;
-  string description = 5;
-  string location = 6;
-  string project = 7;
+  string update_time = 3;
+  map<string, string> labels = 4;
+  string time_zone = 5;
+  string description = 6;
+  string location = 7;
+  string project = 8;
 }
 
 message ApplyGameservicesBetaRealmRequest {

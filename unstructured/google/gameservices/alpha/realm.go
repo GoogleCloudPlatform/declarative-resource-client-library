@@ -57,6 +57,9 @@ func RealmToUnstructured(r *dclService.Realm) *unstructured.Resource {
 	if r.TimeZone != nil {
 		u.Object["timeZone"] = *r.TimeZone
 	}
+	if r.UpdateTime != nil {
+		u.Object["updateTime"] = *r.UpdateTime
+	}
 	return u
 }
 
@@ -115,6 +118,13 @@ func UnstructuredToRealm(u *unstructured.Resource) (*dclService.Realm, error) {
 			r.TimeZone = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.TimeZone: expected string")
+		}
+	}
+	if _, ok := u.Object["updateTime"]; ok {
+		if s, ok := u.Object["updateTime"].(string); ok {
+			r.UpdateTime = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.UpdateTime: expected string")
 		}
 	}
 	return r, nil

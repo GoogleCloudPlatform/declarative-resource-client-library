@@ -26,7 +26,7 @@ import (
 
 func (r *Note) validate() error {
 
-	if err := dcl.ValidateExactlyOneOfFieldsSet([]string{"Image", "Package", "Deployment", "Discovery", "Attestation"}, r.Image, r.Package, r.Deployment, r.Discovery, r.Attestation); err != nil {
+	if err := dcl.ValidateExactlyOneOfFieldsSet([]string{"Vulnerability", "Build", "Image", "Package", "Deployment", "Discovery", "Attestation"}, r.Vulnerability, r.Build, r.Image, r.Package, r.Deployment, r.Discovery, r.Attestation); err != nil {
 		return err
 	}
 	if err := dcl.Required(r, "name"); err != nil {
@@ -34,6 +34,16 @@ func (r *Note) validate() error {
 	}
 	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
 		return err
+	}
+	if !dcl.IsEmptyValueIndirect(r.Vulnerability) {
+		if err := r.Vulnerability.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.Build) {
+		if err := r.Build.validate(); err != nil {
+			return err
+		}
 	}
 	if !dcl.IsEmptyValueIndirect(r.Image) {
 		if err := r.Image.validate(); err != nil {
@@ -63,6 +73,91 @@ func (r *Note) validate() error {
 	return nil
 }
 func (r *NoteRelatedUrl) validate() error {
+	return nil
+}
+func (r *NoteVulnerability) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.CvssV3) {
+		if err := r.CvssV3.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *NoteVulnerabilityDetails) validate() error {
+	if err := dcl.Required(r, "affectedCpeUri"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "affectedPackage"); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(r.AffectedVersionStart) {
+		if err := r.AffectedVersionStart.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.AffectedVersionEnd) {
+		if err := r.AffectedVersionEnd.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.FixedVersion) {
+		if err := r.FixedVersion.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *NoteVulnerabilityDetailsAffectedVersionStart) validate() error {
+	if err := dcl.Required(r, "kind"); err != nil {
+		return err
+	}
+	return nil
+}
+func (r *NoteVulnerabilityDetailsAffectedVersionEnd) validate() error {
+	if err := dcl.Required(r, "kind"); err != nil {
+		return err
+	}
+	return nil
+}
+func (r *NoteVulnerabilityDetailsFixedVersion) validate() error {
+	if err := dcl.Required(r, "kind"); err != nil {
+		return err
+	}
+	return nil
+}
+func (r *NoteVulnerabilityCvssV3) validate() error {
+	return nil
+}
+func (r *NoteVulnerabilityWindowsDetails) validate() error {
+	if err := dcl.Required(r, "cpeUri"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "name"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "fixingKbs"); err != nil {
+		return err
+	}
+	return nil
+}
+func (r *NoteVulnerabilityWindowsDetailsFixingKbs) validate() error {
+	return nil
+}
+func (r *NoteBuild) validate() error {
+	if err := dcl.Required(r, "builderVersion"); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(r.Signature) {
+		if err := r.Signature.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *NoteBuildSignature) validate() error {
+	if err := dcl.Required(r, "signature"); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *NoteImage) validate() error {
@@ -206,6 +301,19 @@ func newUpdateNoteUpdateNoteRequest(ctx context.Context, f *Note, c *Client) (ma
 	}
 	if v := f.ExpirationTime; !dcl.IsEmptyValueIndirect(v) {
 		req["expirationTime"] = v
+	}
+	if v := f.RelatedNoteNames; v != nil {
+		req["relatedNoteNames"] = v
+	}
+	if v, err := expandNoteVulnerability(c, f.Vulnerability, res); err != nil {
+		return nil, fmt.Errorf("error expanding Vulnerability into vulnerability: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["vulnerability"] = v
+	}
+	if v, err := expandNoteBuild(c, f.Build, res); err != nil {
+		return nil, fmt.Errorf("error expanding Build into build: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["build"] = v
 	}
 	if v, err := expandNoteImage(c, f.Image, res); err != nil {
 		return nil, fmt.Errorf("error expanding Image into image: %w", err)
@@ -516,37 +624,51 @@ func (c *Client) noteDiffsForRawDesired(ctx context.Context, rawDesired *Note, o
 func canonicalizeNoteInitialState(rawInitial, rawDesired *Note) (*Note, error) {
 	// TODO(magic-modules-eng): write canonicalizer once relevant traits are added.
 
+	if !dcl.IsZeroValue(rawInitial.Vulnerability) {
+		// Check if anything else is set.
+		if dcl.AnySet(rawInitial.Build, rawInitial.Image, rawInitial.Package, rawInitial.Deployment, rawInitial.Discovery, rawInitial.Attestation) {
+			rawInitial.Vulnerability = EmptyNoteVulnerability
+		}
+	}
+
+	if !dcl.IsZeroValue(rawInitial.Build) {
+		// Check if anything else is set.
+		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Image, rawInitial.Package, rawInitial.Deployment, rawInitial.Discovery, rawInitial.Attestation) {
+			rawInitial.Build = EmptyNoteBuild
+		}
+	}
+
 	if !dcl.IsZeroValue(rawInitial.Image) {
 		// Check if anything else is set.
-		if dcl.AnySet(rawInitial.Package, rawInitial.Deployment, rawInitial.Discovery, rawInitial.Attestation) {
+		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Package, rawInitial.Deployment, rawInitial.Discovery, rawInitial.Attestation) {
 			rawInitial.Image = EmptyNoteImage
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.Package) {
 		// Check if anything else is set.
-		if dcl.AnySet(rawInitial.Image, rawInitial.Deployment, rawInitial.Discovery, rawInitial.Attestation) {
+		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Image, rawInitial.Deployment, rawInitial.Discovery, rawInitial.Attestation) {
 			rawInitial.Package = EmptyNotePackage
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.Deployment) {
 		// Check if anything else is set.
-		if dcl.AnySet(rawInitial.Image, rawInitial.Package, rawInitial.Discovery, rawInitial.Attestation) {
+		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Image, rawInitial.Package, rawInitial.Discovery, rawInitial.Attestation) {
 			rawInitial.Deployment = EmptyNoteDeployment
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.Discovery) {
 		// Check if anything else is set.
-		if dcl.AnySet(rawInitial.Image, rawInitial.Package, rawInitial.Deployment, rawInitial.Attestation) {
+		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Image, rawInitial.Package, rawInitial.Deployment, rawInitial.Attestation) {
 			rawInitial.Discovery = EmptyNoteDiscovery
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.Attestation) {
 		// Check if anything else is set.
-		if dcl.AnySet(rawInitial.Image, rawInitial.Package, rawInitial.Deployment, rawInitial.Discovery) {
+		if dcl.AnySet(rawInitial.Vulnerability, rawInitial.Build, rawInitial.Image, rawInitial.Package, rawInitial.Deployment, rawInitial.Discovery) {
 			rawInitial.Attestation = EmptyNoteAttestation
 		}
 	}
@@ -566,6 +688,8 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
+		rawDesired.Vulnerability = canonicalizeNoteVulnerability(rawDesired.Vulnerability, nil, opts...)
+		rawDesired.Build = canonicalizeNoteBuild(rawDesired.Build, nil, opts...)
 		rawDesired.Image = canonicalizeNoteImage(rawDesired.Image, nil, opts...)
 		rawDesired.Package = canonicalizeNotePackage(rawDesired.Package, nil, opts...)
 		rawDesired.Discovery = canonicalizeNoteDiscovery(rawDesired.Discovery, nil, opts...)
@@ -575,9 +699,25 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 		return rawDesired, nil
 	}
 
+	if rawDesired.Vulnerability != nil || rawInitial.Vulnerability != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.Build, rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
+			rawDesired.Vulnerability = nil
+			rawInitial.Vulnerability = nil
+		}
+	}
+
+	if rawDesired.Build != nil || rawInitial.Build != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
+			rawDesired.Build = nil
+			rawInitial.Build = nil
+		}
+	}
+
 	if rawDesired.Image != nil || rawInitial.Image != nil {
 		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
+		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
 			rawDesired.Image = nil
 			rawInitial.Image = nil
 		}
@@ -585,7 +725,7 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 
 	if rawDesired.Package != nil || rawInitial.Package != nil {
 		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Image, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
+		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Image, rawDesired.Deployment, rawDesired.Discovery, rawDesired.Attestation) {
 			rawDesired.Package = nil
 			rawInitial.Package = nil
 		}
@@ -593,7 +733,7 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 
 	if rawDesired.Deployment != nil || rawInitial.Deployment != nil {
 		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Image, rawDesired.Package, rawDesired.Discovery, rawDesired.Attestation) {
+		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Image, rawDesired.Package, rawDesired.Discovery, rawDesired.Attestation) {
 			rawDesired.Deployment = nil
 			rawInitial.Deployment = nil
 		}
@@ -601,7 +741,7 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 
 	if rawDesired.Discovery != nil || rawInitial.Discovery != nil {
 		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Attestation) {
+		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Attestation) {
 			rawDesired.Discovery = nil
 			rawInitial.Discovery = nil
 		}
@@ -609,7 +749,7 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 
 	if rawDesired.Attestation != nil || rawInitial.Attestation != nil {
 		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery) {
+		if dcl.AnySet(rawDesired.Vulnerability, rawDesired.Build, rawDesired.Image, rawDesired.Package, rawDesired.Deployment, rawDesired.Discovery) {
 			rawDesired.Attestation = nil
 			rawInitial.Attestation = nil
 		}
@@ -638,6 +778,13 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 	} else {
 		canonicalDesired.ExpirationTime = rawDesired.ExpirationTime
 	}
+	if dcl.StringArrayCanonicalize(rawDesired.RelatedNoteNames, rawInitial.RelatedNoteNames) {
+		canonicalDesired.RelatedNoteNames = rawInitial.RelatedNoteNames
+	} else {
+		canonicalDesired.RelatedNoteNames = rawDesired.RelatedNoteNames
+	}
+	canonicalDesired.Vulnerability = canonicalizeNoteVulnerability(rawDesired.Vulnerability, rawInitial.Vulnerability, opts...)
+	canonicalDesired.Build = canonicalizeNoteBuild(rawDesired.Build, rawInitial.Build, opts...)
 	canonicalDesired.Image = canonicalizeNoteImage(rawDesired.Image, rawInitial.Image, opts...)
 	canonicalDesired.Package = canonicalizeNotePackage(rawDesired.Package, rawInitial.Package, opts...)
 	canonicalDesired.Discovery = canonicalizeNoteDiscovery(rawDesired.Discovery, rawInitial.Discovery, opts...)
@@ -697,6 +844,26 @@ func canonicalizeNoteNewState(c *Client, rawNew, rawDesired *Note) (*Note, error
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
+	}
+
+	if dcl.IsNotReturnedByServer(rawNew.RelatedNoteNames) && dcl.IsNotReturnedByServer(rawDesired.RelatedNoteNames) {
+		rawNew.RelatedNoteNames = rawDesired.RelatedNoteNames
+	} else {
+		if dcl.StringArrayCanonicalize(rawDesired.RelatedNoteNames, rawNew.RelatedNoteNames) {
+			rawNew.RelatedNoteNames = rawDesired.RelatedNoteNames
+		}
+	}
+
+	if dcl.IsNotReturnedByServer(rawNew.Vulnerability) && dcl.IsNotReturnedByServer(rawDesired.Vulnerability) {
+		rawNew.Vulnerability = rawDesired.Vulnerability
+	} else {
+		rawNew.Vulnerability = canonicalizeNewNoteVulnerability(c, rawDesired.Vulnerability, rawNew.Vulnerability)
+	}
+
+	if dcl.IsNotReturnedByServer(rawNew.Build) && dcl.IsNotReturnedByServer(rawDesired.Build) {
+		rawNew.Build = rawDesired.Build
+	} else {
+		rawNew.Build = canonicalizeNewNoteBuild(c, rawDesired.Build, rawNew.Build)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Image) && dcl.IsNotReturnedByServer(rawDesired.Image) {
@@ -852,6 +1019,1431 @@ func canonicalizeNewNoteRelatedUrlSlice(c *Client, des, nw []NoteRelatedUrl) []N
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewNoteRelatedUrl(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeNoteVulnerability(des, initial *NoteVulnerability, opts ...dcl.ApplyOption) *NoteVulnerability {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &NoteVulnerability{}
+
+	if dcl.IsZeroValue(des.CvssScore) || (dcl.IsEmptyValueIndirect(des.CvssScore) && dcl.IsEmptyValueIndirect(initial.CvssScore)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.CvssScore = initial.CvssScore
+	} else {
+		cDes.CvssScore = des.CvssScore
+	}
+	if dcl.IsZeroValue(des.Severity) || (dcl.IsEmptyValueIndirect(des.Severity) && dcl.IsEmptyValueIndirect(initial.Severity)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.Severity = initial.Severity
+	} else {
+		cDes.Severity = des.Severity
+	}
+	cDes.Details = canonicalizeNoteVulnerabilityDetailsSlice(des.Details, initial.Details, opts...)
+	cDes.CvssV3 = canonicalizeNoteVulnerabilityCvssV3(des.CvssV3, initial.CvssV3, opts...)
+	cDes.WindowsDetails = canonicalizeNoteVulnerabilityWindowsDetailsSlice(des.WindowsDetails, initial.WindowsDetails, opts...)
+	if dcl.IsZeroValue(des.SourceUpdateTime) || (dcl.IsEmptyValueIndirect(des.SourceUpdateTime) && dcl.IsEmptyValueIndirect(initial.SourceUpdateTime)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.SourceUpdateTime = initial.SourceUpdateTime
+	} else {
+		cDes.SourceUpdateTime = des.SourceUpdateTime
+	}
+
+	return cDes
+}
+
+func canonicalizeNoteVulnerabilitySlice(des, initial []NoteVulnerability, opts ...dcl.ApplyOption) []NoteVulnerability {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteVulnerability, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteVulnerability(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteVulnerability, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteVulnerability(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewNoteVulnerability(c *Client, des, nw *NoteVulnerability) *NoteVulnerability {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteVulnerability while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	nw.Details = canonicalizeNewNoteVulnerabilityDetailsSlice(c, des.Details, nw.Details)
+	nw.CvssV3 = canonicalizeNewNoteVulnerabilityCvssV3(c, des.CvssV3, nw.CvssV3)
+	nw.WindowsDetails = canonicalizeNewNoteVulnerabilityWindowsDetailsSlice(c, des.WindowsDetails, nw.WindowsDetails)
+
+	return nw
+}
+
+func canonicalizeNewNoteVulnerabilitySet(c *Client, des, nw []NoteVulnerability) []NoteVulnerability {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []NoteVulnerability
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareNoteVulnerabilityNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewNoteVulnerabilitySlice(c *Client, des, nw []NoteVulnerability) []NoteVulnerability {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []NoteVulnerability
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteVulnerability(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeNoteVulnerabilityDetails(des, initial *NoteVulnerabilityDetails, opts ...dcl.ApplyOption) *NoteVulnerabilityDetails {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &NoteVulnerabilityDetails{}
+
+	if dcl.StringCanonicalize(des.SeverityName, initial.SeverityName) || dcl.IsZeroValue(des.SeverityName) {
+		cDes.SeverityName = initial.SeverityName
+	} else {
+		cDes.SeverityName = des.SeverityName
+	}
+	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
+	}
+	if dcl.StringCanonicalize(des.PackageType, initial.PackageType) || dcl.IsZeroValue(des.PackageType) {
+		cDes.PackageType = initial.PackageType
+	} else {
+		cDes.PackageType = des.PackageType
+	}
+	if dcl.StringCanonicalize(des.AffectedCpeUri, initial.AffectedCpeUri) || dcl.IsZeroValue(des.AffectedCpeUri) {
+		cDes.AffectedCpeUri = initial.AffectedCpeUri
+	} else {
+		cDes.AffectedCpeUri = des.AffectedCpeUri
+	}
+	if dcl.StringCanonicalize(des.AffectedPackage, initial.AffectedPackage) || dcl.IsZeroValue(des.AffectedPackage) {
+		cDes.AffectedPackage = initial.AffectedPackage
+	} else {
+		cDes.AffectedPackage = des.AffectedPackage
+	}
+	cDes.AffectedVersionStart = canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des.AffectedVersionStart, initial.AffectedVersionStart, opts...)
+	cDes.AffectedVersionEnd = canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des.AffectedVersionEnd, initial.AffectedVersionEnd, opts...)
+	if dcl.StringCanonicalize(des.FixedCpeUri, initial.FixedCpeUri) || dcl.IsZeroValue(des.FixedCpeUri) {
+		cDes.FixedCpeUri = initial.FixedCpeUri
+	} else {
+		cDes.FixedCpeUri = des.FixedCpeUri
+	}
+	if dcl.StringCanonicalize(des.FixedPackage, initial.FixedPackage) || dcl.IsZeroValue(des.FixedPackage) {
+		cDes.FixedPackage = initial.FixedPackage
+	} else {
+		cDes.FixedPackage = des.FixedPackage
+	}
+	cDes.FixedVersion = canonicalizeNoteVulnerabilityDetailsFixedVersion(des.FixedVersion, initial.FixedVersion, opts...)
+	if dcl.BoolCanonicalize(des.IsObsolete, initial.IsObsolete) || dcl.IsZeroValue(des.IsObsolete) {
+		cDes.IsObsolete = initial.IsObsolete
+	} else {
+		cDes.IsObsolete = des.IsObsolete
+	}
+	if dcl.IsZeroValue(des.SourceUpdateTime) || (dcl.IsEmptyValueIndirect(des.SourceUpdateTime) && dcl.IsEmptyValueIndirect(initial.SourceUpdateTime)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.SourceUpdateTime = initial.SourceUpdateTime
+	} else {
+		cDes.SourceUpdateTime = des.SourceUpdateTime
+	}
+
+	return cDes
+}
+
+func canonicalizeNoteVulnerabilityDetailsSlice(des, initial []NoteVulnerabilityDetails, opts ...dcl.ApplyOption) []NoteVulnerabilityDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteVulnerabilityDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteVulnerabilityDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteVulnerabilityDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteVulnerabilityDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewNoteVulnerabilityDetails(c *Client, des, nw *NoteVulnerabilityDetails) *NoteVulnerabilityDetails {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteVulnerabilityDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.SeverityName, nw.SeverityName) {
+		nw.SeverityName = des.SeverityName
+	}
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
+		nw.Description = des.Description
+	}
+	if dcl.StringCanonicalize(des.PackageType, nw.PackageType) {
+		nw.PackageType = des.PackageType
+	}
+	if dcl.StringCanonicalize(des.AffectedCpeUri, nw.AffectedCpeUri) {
+		nw.AffectedCpeUri = des.AffectedCpeUri
+	}
+	if dcl.StringCanonicalize(des.AffectedPackage, nw.AffectedPackage) {
+		nw.AffectedPackage = des.AffectedPackage
+	}
+	nw.AffectedVersionStart = canonicalizeNewNoteVulnerabilityDetailsAffectedVersionStart(c, des.AffectedVersionStart, nw.AffectedVersionStart)
+	nw.AffectedVersionEnd = canonicalizeNewNoteVulnerabilityDetailsAffectedVersionEnd(c, des.AffectedVersionEnd, nw.AffectedVersionEnd)
+	if dcl.StringCanonicalize(des.FixedCpeUri, nw.FixedCpeUri) {
+		nw.FixedCpeUri = des.FixedCpeUri
+	}
+	if dcl.StringCanonicalize(des.FixedPackage, nw.FixedPackage) {
+		nw.FixedPackage = des.FixedPackage
+	}
+	nw.FixedVersion = canonicalizeNewNoteVulnerabilityDetailsFixedVersion(c, des.FixedVersion, nw.FixedVersion)
+	if dcl.BoolCanonicalize(des.IsObsolete, nw.IsObsolete) {
+		nw.IsObsolete = des.IsObsolete
+	}
+
+	return nw
+}
+
+func canonicalizeNewNoteVulnerabilityDetailsSet(c *Client, des, nw []NoteVulnerabilityDetails) []NoteVulnerabilityDetails {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []NoteVulnerabilityDetails
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareNoteVulnerabilityDetailsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewNoteVulnerabilityDetailsSlice(c *Client, des, nw []NoteVulnerabilityDetails) []NoteVulnerabilityDetails {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []NoteVulnerabilityDetails
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteVulnerabilityDetails(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(des, initial *NoteVulnerabilityDetailsAffectedVersionStart, opts ...dcl.ApplyOption) *NoteVulnerabilityDetailsAffectedVersionStart {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &NoteVulnerabilityDetailsAffectedVersionStart{}
+
+	if dcl.IsZeroValue(des.Epoch) || (dcl.IsEmptyValueIndirect(des.Epoch) && dcl.IsEmptyValueIndirect(initial.Epoch)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.Epoch = initial.Epoch
+	} else {
+		cDes.Epoch = des.Epoch
+	}
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
+		cDes.Revision = initial.Revision
+	} else {
+		cDes.Revision = des.Revision
+	}
+	if dcl.IsZeroValue(des.Kind) || (dcl.IsEmptyValueIndirect(des.Kind) && dcl.IsEmptyValueIndirect(initial.Kind)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.Kind = initial.Kind
+	} else {
+		cDes.Kind = des.Kind
+	}
+	if dcl.StringCanonicalize(des.FullName, initial.FullName) || dcl.IsZeroValue(des.FullName) {
+		cDes.FullName = initial.FullName
+	} else {
+		cDes.FullName = des.FullName
+	}
+
+	return cDes
+}
+
+func canonicalizeNoteVulnerabilityDetailsAffectedVersionStartSlice(des, initial []NoteVulnerabilityDetailsAffectedVersionStart, opts ...dcl.ApplyOption) []NoteVulnerabilityDetailsAffectedVersionStart {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteVulnerabilityDetailsAffectedVersionStart, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteVulnerabilityDetailsAffectedVersionStart, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteVulnerabilityDetailsAffectedVersionStart(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionStart(c *Client, des, nw *NoteVulnerabilityDetailsAffectedVersionStart) *NoteVulnerabilityDetailsAffectedVersionStart {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteVulnerabilityDetailsAffectedVersionStart while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Revision, nw.Revision) {
+		nw.Revision = des.Revision
+	}
+	if dcl.StringCanonicalize(des.FullName, nw.FullName) {
+		nw.FullName = des.FullName
+	}
+
+	return nw
+}
+
+func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionStartSet(c *Client, des, nw []NoteVulnerabilityDetailsAffectedVersionStart) []NoteVulnerabilityDetailsAffectedVersionStart {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []NoteVulnerabilityDetailsAffectedVersionStart
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareNoteVulnerabilityDetailsAffectedVersionStartNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionStartSlice(c *Client, des, nw []NoteVulnerabilityDetailsAffectedVersionStart) []NoteVulnerabilityDetailsAffectedVersionStart {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []NoteVulnerabilityDetailsAffectedVersionStart
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteVulnerabilityDetailsAffectedVersionStart(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(des, initial *NoteVulnerabilityDetailsAffectedVersionEnd, opts ...dcl.ApplyOption) *NoteVulnerabilityDetailsAffectedVersionEnd {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &NoteVulnerabilityDetailsAffectedVersionEnd{}
+
+	if dcl.IsZeroValue(des.Epoch) || (dcl.IsEmptyValueIndirect(des.Epoch) && dcl.IsEmptyValueIndirect(initial.Epoch)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.Epoch = initial.Epoch
+	} else {
+		cDes.Epoch = des.Epoch
+	}
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
+		cDes.Revision = initial.Revision
+	} else {
+		cDes.Revision = des.Revision
+	}
+	if dcl.IsZeroValue(des.Kind) || (dcl.IsEmptyValueIndirect(des.Kind) && dcl.IsEmptyValueIndirect(initial.Kind)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.Kind = initial.Kind
+	} else {
+		cDes.Kind = des.Kind
+	}
+	if dcl.StringCanonicalize(des.FullName, initial.FullName) || dcl.IsZeroValue(des.FullName) {
+		cDes.FullName = initial.FullName
+	} else {
+		cDes.FullName = des.FullName
+	}
+
+	return cDes
+}
+
+func canonicalizeNoteVulnerabilityDetailsAffectedVersionEndSlice(des, initial []NoteVulnerabilityDetailsAffectedVersionEnd, opts ...dcl.ApplyOption) []NoteVulnerabilityDetailsAffectedVersionEnd {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteVulnerabilityDetailsAffectedVersionEnd, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteVulnerabilityDetailsAffectedVersionEnd, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteVulnerabilityDetailsAffectedVersionEnd(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, des, nw *NoteVulnerabilityDetailsAffectedVersionEnd) *NoteVulnerabilityDetailsAffectedVersionEnd {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteVulnerabilityDetailsAffectedVersionEnd while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Revision, nw.Revision) {
+		nw.Revision = des.Revision
+	}
+	if dcl.StringCanonicalize(des.FullName, nw.FullName) {
+		nw.FullName = des.FullName
+	}
+
+	return nw
+}
+
+func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionEndSet(c *Client, des, nw []NoteVulnerabilityDetailsAffectedVersionEnd) []NoteVulnerabilityDetailsAffectedVersionEnd {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []NoteVulnerabilityDetailsAffectedVersionEnd
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareNoteVulnerabilityDetailsAffectedVersionEndNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewNoteVulnerabilityDetailsAffectedVersionEndSlice(c *Client, des, nw []NoteVulnerabilityDetailsAffectedVersionEnd) []NoteVulnerabilityDetailsAffectedVersionEnd {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []NoteVulnerabilityDetailsAffectedVersionEnd
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteVulnerabilityDetailsAffectedVersionEnd(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeNoteVulnerabilityDetailsFixedVersion(des, initial *NoteVulnerabilityDetailsFixedVersion, opts ...dcl.ApplyOption) *NoteVulnerabilityDetailsFixedVersion {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &NoteVulnerabilityDetailsFixedVersion{}
+
+	if dcl.IsZeroValue(des.Epoch) || (dcl.IsEmptyValueIndirect(des.Epoch) && dcl.IsEmptyValueIndirect(initial.Epoch)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.Epoch = initial.Epoch
+	} else {
+		cDes.Epoch = des.Epoch
+	}
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Revision, initial.Revision) || dcl.IsZeroValue(des.Revision) {
+		cDes.Revision = initial.Revision
+	} else {
+		cDes.Revision = des.Revision
+	}
+	if dcl.IsZeroValue(des.Kind) || (dcl.IsEmptyValueIndirect(des.Kind) && dcl.IsEmptyValueIndirect(initial.Kind)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.Kind = initial.Kind
+	} else {
+		cDes.Kind = des.Kind
+	}
+	if dcl.StringCanonicalize(des.FullName, initial.FullName) || dcl.IsZeroValue(des.FullName) {
+		cDes.FullName = initial.FullName
+	} else {
+		cDes.FullName = des.FullName
+	}
+
+	return cDes
+}
+
+func canonicalizeNoteVulnerabilityDetailsFixedVersionSlice(des, initial []NoteVulnerabilityDetailsFixedVersion, opts ...dcl.ApplyOption) []NoteVulnerabilityDetailsFixedVersion {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteVulnerabilityDetailsFixedVersion, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteVulnerabilityDetailsFixedVersion(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteVulnerabilityDetailsFixedVersion, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteVulnerabilityDetailsFixedVersion(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewNoteVulnerabilityDetailsFixedVersion(c *Client, des, nw *NoteVulnerabilityDetailsFixedVersion) *NoteVulnerabilityDetailsFixedVersion {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteVulnerabilityDetailsFixedVersion while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Revision, nw.Revision) {
+		nw.Revision = des.Revision
+	}
+	if dcl.StringCanonicalize(des.FullName, nw.FullName) {
+		nw.FullName = des.FullName
+	}
+
+	return nw
+}
+
+func canonicalizeNewNoteVulnerabilityDetailsFixedVersionSet(c *Client, des, nw []NoteVulnerabilityDetailsFixedVersion) []NoteVulnerabilityDetailsFixedVersion {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []NoteVulnerabilityDetailsFixedVersion
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareNoteVulnerabilityDetailsFixedVersionNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewNoteVulnerabilityDetailsFixedVersionSlice(c *Client, des, nw []NoteVulnerabilityDetailsFixedVersion) []NoteVulnerabilityDetailsFixedVersion {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []NoteVulnerabilityDetailsFixedVersion
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteVulnerabilityDetailsFixedVersion(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeNoteVulnerabilityCvssV3(des, initial *NoteVulnerabilityCvssV3, opts ...dcl.ApplyOption) *NoteVulnerabilityCvssV3 {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &NoteVulnerabilityCvssV3{}
+
+	if dcl.IsZeroValue(des.BaseScore) || (dcl.IsEmptyValueIndirect(des.BaseScore) && dcl.IsEmptyValueIndirect(initial.BaseScore)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.BaseScore = initial.BaseScore
+	} else {
+		cDes.BaseScore = des.BaseScore
+	}
+	if dcl.IsZeroValue(des.ExploitabilityScore) || (dcl.IsEmptyValueIndirect(des.ExploitabilityScore) && dcl.IsEmptyValueIndirect(initial.ExploitabilityScore)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.ExploitabilityScore = initial.ExploitabilityScore
+	} else {
+		cDes.ExploitabilityScore = des.ExploitabilityScore
+	}
+	if dcl.IsZeroValue(des.ImpactScore) || (dcl.IsEmptyValueIndirect(des.ImpactScore) && dcl.IsEmptyValueIndirect(initial.ImpactScore)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.ImpactScore = initial.ImpactScore
+	} else {
+		cDes.ImpactScore = des.ImpactScore
+	}
+	if dcl.IsZeroValue(des.AttackVector) || (dcl.IsEmptyValueIndirect(des.AttackVector) && dcl.IsEmptyValueIndirect(initial.AttackVector)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.AttackVector = initial.AttackVector
+	} else {
+		cDes.AttackVector = des.AttackVector
+	}
+	if dcl.IsZeroValue(des.AttackComplexity) || (dcl.IsEmptyValueIndirect(des.AttackComplexity) && dcl.IsEmptyValueIndirect(initial.AttackComplexity)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.AttackComplexity = initial.AttackComplexity
+	} else {
+		cDes.AttackComplexity = des.AttackComplexity
+	}
+	if dcl.IsZeroValue(des.PrivilegesRequired) || (dcl.IsEmptyValueIndirect(des.PrivilegesRequired) && dcl.IsEmptyValueIndirect(initial.PrivilegesRequired)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.PrivilegesRequired = initial.PrivilegesRequired
+	} else {
+		cDes.PrivilegesRequired = des.PrivilegesRequired
+	}
+	if dcl.IsZeroValue(des.UserInteraction) || (dcl.IsEmptyValueIndirect(des.UserInteraction) && dcl.IsEmptyValueIndirect(initial.UserInteraction)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.UserInteraction = initial.UserInteraction
+	} else {
+		cDes.UserInteraction = des.UserInteraction
+	}
+	if dcl.IsZeroValue(des.Scope) || (dcl.IsEmptyValueIndirect(des.Scope) && dcl.IsEmptyValueIndirect(initial.Scope)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.Scope = initial.Scope
+	} else {
+		cDes.Scope = des.Scope
+	}
+	if dcl.IsZeroValue(des.ConfidentialityImpact) || (dcl.IsEmptyValueIndirect(des.ConfidentialityImpact) && dcl.IsEmptyValueIndirect(initial.ConfidentialityImpact)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.ConfidentialityImpact = initial.ConfidentialityImpact
+	} else {
+		cDes.ConfidentialityImpact = des.ConfidentialityImpact
+	}
+	if dcl.IsZeroValue(des.IntegrityImpact) || (dcl.IsEmptyValueIndirect(des.IntegrityImpact) && dcl.IsEmptyValueIndirect(initial.IntegrityImpact)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.IntegrityImpact = initial.IntegrityImpact
+	} else {
+		cDes.IntegrityImpact = des.IntegrityImpact
+	}
+	if dcl.IsZeroValue(des.AvailabilityImpact) || (dcl.IsEmptyValueIndirect(des.AvailabilityImpact) && dcl.IsEmptyValueIndirect(initial.AvailabilityImpact)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.AvailabilityImpact = initial.AvailabilityImpact
+	} else {
+		cDes.AvailabilityImpact = des.AvailabilityImpact
+	}
+
+	return cDes
+}
+
+func canonicalizeNoteVulnerabilityCvssV3Slice(des, initial []NoteVulnerabilityCvssV3, opts ...dcl.ApplyOption) []NoteVulnerabilityCvssV3 {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteVulnerabilityCvssV3, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteVulnerabilityCvssV3(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteVulnerabilityCvssV3, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteVulnerabilityCvssV3(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewNoteVulnerabilityCvssV3(c *Client, des, nw *NoteVulnerabilityCvssV3) *NoteVulnerabilityCvssV3 {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteVulnerabilityCvssV3 while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	return nw
+}
+
+func canonicalizeNewNoteVulnerabilityCvssV3Set(c *Client, des, nw []NoteVulnerabilityCvssV3) []NoteVulnerabilityCvssV3 {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []NoteVulnerabilityCvssV3
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareNoteVulnerabilityCvssV3NewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewNoteVulnerabilityCvssV3Slice(c *Client, des, nw []NoteVulnerabilityCvssV3) []NoteVulnerabilityCvssV3 {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []NoteVulnerabilityCvssV3
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteVulnerabilityCvssV3(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeNoteVulnerabilityWindowsDetails(des, initial *NoteVulnerabilityWindowsDetails, opts ...dcl.ApplyOption) *NoteVulnerabilityWindowsDetails {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &NoteVulnerabilityWindowsDetails{}
+
+	if dcl.StringCanonicalize(des.CpeUri, initial.CpeUri) || dcl.IsZeroValue(des.CpeUri) {
+		cDes.CpeUri = initial.CpeUri
+	} else {
+		cDes.CpeUri = des.CpeUri
+	}
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
+	}
+	cDes.FixingKbs = canonicalizeNoteVulnerabilityWindowsDetailsFixingKbsSlice(des.FixingKbs, initial.FixingKbs, opts...)
+
+	return cDes
+}
+
+func canonicalizeNoteVulnerabilityWindowsDetailsSlice(des, initial []NoteVulnerabilityWindowsDetails, opts ...dcl.ApplyOption) []NoteVulnerabilityWindowsDetails {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteVulnerabilityWindowsDetails, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteVulnerabilityWindowsDetails(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteVulnerabilityWindowsDetails, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteVulnerabilityWindowsDetails(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewNoteVulnerabilityWindowsDetails(c *Client, des, nw *NoteVulnerabilityWindowsDetails) *NoteVulnerabilityWindowsDetails {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteVulnerabilityWindowsDetails while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.CpeUri, nw.CpeUri) {
+		nw.CpeUri = des.CpeUri
+	}
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
+		nw.Description = des.Description
+	}
+	nw.FixingKbs = canonicalizeNewNoteVulnerabilityWindowsDetailsFixingKbsSlice(c, des.FixingKbs, nw.FixingKbs)
+
+	return nw
+}
+
+func canonicalizeNewNoteVulnerabilityWindowsDetailsSet(c *Client, des, nw []NoteVulnerabilityWindowsDetails) []NoteVulnerabilityWindowsDetails {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []NoteVulnerabilityWindowsDetails
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareNoteVulnerabilityWindowsDetailsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewNoteVulnerabilityWindowsDetailsSlice(c *Client, des, nw []NoteVulnerabilityWindowsDetails) []NoteVulnerabilityWindowsDetails {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []NoteVulnerabilityWindowsDetails
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteVulnerabilityWindowsDetails(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeNoteVulnerabilityWindowsDetailsFixingKbs(des, initial *NoteVulnerabilityWindowsDetailsFixingKbs, opts ...dcl.ApplyOption) *NoteVulnerabilityWindowsDetailsFixingKbs {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &NoteVulnerabilityWindowsDetailsFixingKbs{}
+
+	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+		cDes.Name = initial.Name
+	} else {
+		cDes.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Url, initial.Url) || dcl.IsZeroValue(des.Url) {
+		cDes.Url = initial.Url
+	} else {
+		cDes.Url = des.Url
+	}
+
+	return cDes
+}
+
+func canonicalizeNoteVulnerabilityWindowsDetailsFixingKbsSlice(des, initial []NoteVulnerabilityWindowsDetailsFixingKbs, opts ...dcl.ApplyOption) []NoteVulnerabilityWindowsDetailsFixingKbs {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteVulnerabilityWindowsDetailsFixingKbs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteVulnerabilityWindowsDetailsFixingKbs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteVulnerabilityWindowsDetailsFixingKbs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteVulnerabilityWindowsDetailsFixingKbs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewNoteVulnerabilityWindowsDetailsFixingKbs(c *Client, des, nw *NoteVulnerabilityWindowsDetailsFixingKbs) *NoteVulnerabilityWindowsDetailsFixingKbs {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteVulnerabilityWindowsDetailsFixingKbs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Name, nw.Name) {
+		nw.Name = des.Name
+	}
+	if dcl.StringCanonicalize(des.Url, nw.Url) {
+		nw.Url = des.Url
+	}
+
+	return nw
+}
+
+func canonicalizeNewNoteVulnerabilityWindowsDetailsFixingKbsSet(c *Client, des, nw []NoteVulnerabilityWindowsDetailsFixingKbs) []NoteVulnerabilityWindowsDetailsFixingKbs {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []NoteVulnerabilityWindowsDetailsFixingKbs
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareNoteVulnerabilityWindowsDetailsFixingKbsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewNoteVulnerabilityWindowsDetailsFixingKbsSlice(c *Client, des, nw []NoteVulnerabilityWindowsDetailsFixingKbs) []NoteVulnerabilityWindowsDetailsFixingKbs {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []NoteVulnerabilityWindowsDetailsFixingKbs
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteVulnerabilityWindowsDetailsFixingKbs(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeNoteBuild(des, initial *NoteBuild, opts ...dcl.ApplyOption) *NoteBuild {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &NoteBuild{}
+
+	if dcl.StringCanonicalize(des.BuilderVersion, initial.BuilderVersion) || dcl.IsZeroValue(des.BuilderVersion) {
+		cDes.BuilderVersion = initial.BuilderVersion
+	} else {
+		cDes.BuilderVersion = des.BuilderVersion
+	}
+	cDes.Signature = canonicalizeNoteBuildSignature(des.Signature, initial.Signature, opts...)
+
+	return cDes
+}
+
+func canonicalizeNoteBuildSlice(des, initial []NoteBuild, opts ...dcl.ApplyOption) []NoteBuild {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteBuild, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteBuild(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteBuild, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteBuild(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewNoteBuild(c *Client, des, nw *NoteBuild) *NoteBuild {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteBuild while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.BuilderVersion, nw.BuilderVersion) {
+		nw.BuilderVersion = des.BuilderVersion
+	}
+	nw.Signature = canonicalizeNewNoteBuildSignature(c, des.Signature, nw.Signature)
+
+	return nw
+}
+
+func canonicalizeNewNoteBuildSet(c *Client, des, nw []NoteBuild) []NoteBuild {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []NoteBuild
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareNoteBuildNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewNoteBuildSlice(c *Client, des, nw []NoteBuild) []NoteBuild {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []NoteBuild
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteBuild(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeNoteBuildSignature(des, initial *NoteBuildSignature, opts ...dcl.ApplyOption) *NoteBuildSignature {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &NoteBuildSignature{}
+
+	if dcl.StringCanonicalize(des.PublicKey, initial.PublicKey) || dcl.IsZeroValue(des.PublicKey) {
+		cDes.PublicKey = initial.PublicKey
+	} else {
+		cDes.PublicKey = des.PublicKey
+	}
+	if dcl.StringCanonicalize(des.Signature, initial.Signature) || dcl.IsZeroValue(des.Signature) {
+		cDes.Signature = initial.Signature
+	} else {
+		cDes.Signature = des.Signature
+	}
+	if dcl.StringCanonicalize(des.KeyId, initial.KeyId) || dcl.IsZeroValue(des.KeyId) {
+		cDes.KeyId = initial.KeyId
+	} else {
+		cDes.KeyId = des.KeyId
+	}
+	if dcl.IsZeroValue(des.KeyType) || (dcl.IsEmptyValueIndirect(des.KeyType) && dcl.IsEmptyValueIndirect(initial.KeyType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.KeyType = initial.KeyType
+	} else {
+		cDes.KeyType = des.KeyType
+	}
+
+	return cDes
+}
+
+func canonicalizeNoteBuildSignatureSlice(des, initial []NoteBuildSignature, opts ...dcl.ApplyOption) []NoteBuildSignature {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]NoteBuildSignature, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeNoteBuildSignature(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]NoteBuildSignature, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeNoteBuildSignature(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewNoteBuildSignature(c *Client, des, nw *NoteBuildSignature) *NoteBuildSignature {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for NoteBuildSignature while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.PublicKey, nw.PublicKey) {
+		nw.PublicKey = des.PublicKey
+	}
+	if dcl.StringCanonicalize(des.Signature, nw.Signature) {
+		nw.Signature = des.Signature
+	}
+	if dcl.StringCanonicalize(des.KeyId, nw.KeyId) {
+		nw.KeyId = des.KeyId
+	}
+
+	return nw
+}
+
+func canonicalizeNewNoteBuildSignatureSet(c *Client, des, nw []NoteBuildSignature) []NoteBuildSignature {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []NoteBuildSignature
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareNoteBuildSignatureNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewNoteBuildSignatureSlice(c *Client, des, nw []NoteBuildSignature) []NoteBuildSignature {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []NoteBuildSignature
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewNoteBuildSignature(c, &d, &n))
 	}
 
 	return items
@@ -2025,6 +3617,27 @@ func diffNote(c *Client, desired, actual *Note, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.RelatedNoteNames, actual.RelatedNoteNames, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("RelatedNoteNames")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Vulnerability, actual.Vulnerability, dcl.Info{ObjectFunction: compareNoteVulnerabilityNewStyle, EmptyObject: EmptyNoteVulnerability, OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("Vulnerability")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Build, actual.Build, dcl.Info{ObjectFunction: compareNoteBuildNewStyle, EmptyObject: EmptyNoteBuild, OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("Build")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Image, actual.Image, dcl.Info{ObjectFunction: compareNoteImageNewStyle, EmptyObject: EmptyNoteImage, OperationSelector: dcl.TriggersOperation("updateNoteUpdateNoteOperation")}, fn.AddNest("Image")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -2098,6 +3711,618 @@ func compareNoteRelatedUrlNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 	}
 
 	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareNoteVulnerabilityNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteVulnerability)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteVulnerability)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerability or *NoteVulnerability", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteVulnerability)
+	if !ok {
+		actualNotPointer, ok := a.(NoteVulnerability)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerability", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.CvssScore, actual.CvssScore, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CvssScore")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Severity, actual.Severity, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Severity")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareNoteVulnerabilityDetailsNewStyle, EmptyObject: EmptyNoteVulnerabilityDetails, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CvssV3, actual.CvssV3, dcl.Info{ObjectFunction: compareNoteVulnerabilityCvssV3NewStyle, EmptyObject: EmptyNoteVulnerabilityCvssV3, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CvssV3")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.WindowsDetails, actual.WindowsDetails, dcl.Info{ObjectFunction: compareNoteVulnerabilityWindowsDetailsNewStyle, EmptyObject: EmptyNoteVulnerabilityWindowsDetails, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WindowsDetails")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SourceUpdateTime, actual.SourceUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareNoteVulnerabilityDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteVulnerabilityDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteVulnerabilityDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityDetails or *NoteVulnerabilityDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteVulnerabilityDetails)
+	if !ok {
+		actualNotPointer, ok := a.(NoteVulnerabilityDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.SeverityName, actual.SeverityName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SeverityName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PackageType, actual.PackageType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PackageType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AffectedCpeUri, actual.AffectedCpeUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AffectedCpeUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AffectedPackage, actual.AffectedPackage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AffectedPackage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AffectedVersionStart, actual.AffectedVersionStart, dcl.Info{ObjectFunction: compareNoteVulnerabilityDetailsAffectedVersionStartNewStyle, EmptyObject: EmptyNoteVulnerabilityDetailsAffectedVersionStart, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AffectedVersionStart")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AffectedVersionEnd, actual.AffectedVersionEnd, dcl.Info{ObjectFunction: compareNoteVulnerabilityDetailsAffectedVersionEndNewStyle, EmptyObject: EmptyNoteVulnerabilityDetailsAffectedVersionEnd, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AffectedVersionEnd")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FixedCpeUri, actual.FixedCpeUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FixedCpeUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FixedPackage, actual.FixedPackage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FixedPackage")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FixedVersion, actual.FixedVersion, dcl.Info{ObjectFunction: compareNoteVulnerabilityDetailsFixedVersionNewStyle, EmptyObject: EmptyNoteVulnerabilityDetailsFixedVersion, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FixedVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IsObsolete, actual.IsObsolete, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsObsolete")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SourceUpdateTime, actual.SourceUpdateTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SourceUpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareNoteVulnerabilityDetailsAffectedVersionStartNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteVulnerabilityDetailsAffectedVersionStart)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteVulnerabilityDetailsAffectedVersionStart)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityDetailsAffectedVersionStart or *NoteVulnerabilityDetailsAffectedVersionStart", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteVulnerabilityDetailsAffectedVersionStart)
+	if !ok {
+		actualNotPointer, ok := a.(NoteVulnerabilityDetailsAffectedVersionStart)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityDetailsAffectedVersionStart", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Epoch, actual.Epoch, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Epoch")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Revision, actual.Revision, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Revision")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FullName, actual.FullName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FullName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareNoteVulnerabilityDetailsAffectedVersionEndNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteVulnerabilityDetailsAffectedVersionEnd)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteVulnerabilityDetailsAffectedVersionEnd)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityDetailsAffectedVersionEnd or *NoteVulnerabilityDetailsAffectedVersionEnd", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteVulnerabilityDetailsAffectedVersionEnd)
+	if !ok {
+		actualNotPointer, ok := a.(NoteVulnerabilityDetailsAffectedVersionEnd)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityDetailsAffectedVersionEnd", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Epoch, actual.Epoch, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Epoch")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Revision, actual.Revision, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Revision")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FullName, actual.FullName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FullName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareNoteVulnerabilityDetailsFixedVersionNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteVulnerabilityDetailsFixedVersion)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteVulnerabilityDetailsFixedVersion)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityDetailsFixedVersion or *NoteVulnerabilityDetailsFixedVersion", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteVulnerabilityDetailsFixedVersion)
+	if !ok {
+		actualNotPointer, ok := a.(NoteVulnerabilityDetailsFixedVersion)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityDetailsFixedVersion", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Epoch, actual.Epoch, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Epoch")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Revision, actual.Revision, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Revision")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FullName, actual.FullName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FullName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareNoteVulnerabilityCvssV3NewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteVulnerabilityCvssV3)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteVulnerabilityCvssV3)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityCvssV3 or *NoteVulnerabilityCvssV3", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteVulnerabilityCvssV3)
+	if !ok {
+		actualNotPointer, ok := a.(NoteVulnerabilityCvssV3)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityCvssV3", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BaseScore, actual.BaseScore, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BaseScore")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExploitabilityScore, actual.ExploitabilityScore, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExploitabilityScore")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ImpactScore, actual.ImpactScore, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ImpactScore")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AttackVector, actual.AttackVector, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AttackVector")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AttackComplexity, actual.AttackComplexity, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AttackComplexity")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PrivilegesRequired, actual.PrivilegesRequired, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrivilegesRequired")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UserInteraction, actual.UserInteraction, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UserInteraction")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Scope, actual.Scope, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scope")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ConfidentialityImpact, actual.ConfidentialityImpact, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfidentialityImpact")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IntegrityImpact, actual.IntegrityImpact, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IntegrityImpact")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AvailabilityImpact, actual.AvailabilityImpact, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AvailabilityImpact")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareNoteVulnerabilityWindowsDetailsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteVulnerabilityWindowsDetails)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteVulnerabilityWindowsDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityWindowsDetails or *NoteVulnerabilityWindowsDetails", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteVulnerabilityWindowsDetails)
+	if !ok {
+		actualNotPointer, ok := a.(NoteVulnerabilityWindowsDetails)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityWindowsDetails", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.CpeUri, actual.CpeUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CpeUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.FixingKbs, actual.FixingKbs, dcl.Info{ObjectFunction: compareNoteVulnerabilityWindowsDetailsFixingKbsNewStyle, EmptyObject: EmptyNoteVulnerabilityWindowsDetailsFixingKbs, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FixingKbs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareNoteVulnerabilityWindowsDetailsFixingKbsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteVulnerabilityWindowsDetailsFixingKbs)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteVulnerabilityWindowsDetailsFixingKbs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityWindowsDetailsFixingKbs or *NoteVulnerabilityWindowsDetailsFixingKbs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteVulnerabilityWindowsDetailsFixingKbs)
+	if !ok {
+		actualNotPointer, ok := a.(NoteVulnerabilityWindowsDetailsFixingKbs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteVulnerabilityWindowsDetailsFixingKbs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareNoteBuildNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteBuild)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteBuild)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteBuild or *NoteBuild", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteBuild)
+	if !ok {
+		actualNotPointer, ok := a.(NoteBuild)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteBuild", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.BuilderVersion, actual.BuilderVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BuilderVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Signature, actual.Signature, dcl.Info{ObjectFunction: compareNoteBuildSignatureNewStyle, EmptyObject: EmptyNoteBuildSignature, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Signature")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareNoteBuildSignatureNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*NoteBuildSignature)
+	if !ok {
+		desiredNotPointer, ok := d.(NoteBuildSignature)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteBuildSignature or *NoteBuildSignature", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*NoteBuildSignature)
+	if !ok {
+		actualNotPointer, ok := a.(NoteBuildSignature)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a NoteBuildSignature", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PublicKey, actual.PublicKey, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PublicKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Signature, actual.Signature, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Signature")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyId, actual.KeyId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.KeyType, actual.KeyType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2538,6 +4763,19 @@ func expandNote(c *Client, f *Note) (map[string]interface{}, error) {
 	if v := f.ExpirationTime; dcl.ValueShouldBeSent(v) {
 		m["expirationTime"] = v
 	}
+	if v := f.RelatedNoteNames; v != nil {
+		m["relatedNoteNames"] = v
+	}
+	if v, err := expandNoteVulnerability(c, f.Vulnerability, res); err != nil {
+		return nil, fmt.Errorf("error expanding Vulnerability into vulnerability: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["vulnerability"] = v
+	}
+	if v, err := expandNoteBuild(c, f.Build, res); err != nil {
+		return nil, fmt.Errorf("error expanding Build into build: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["build"] = v
+	}
 	if v, err := expandNoteImage(c, f.Image, res); err != nil {
 		return nil, fmt.Errorf("error expanding Image into image: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2591,6 +4829,9 @@ func flattenNote(c *Client, i interface{}, res *Note) *Note {
 	resultRes.ExpirationTime = dcl.FlattenString(m["expirationTime"])
 	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
 	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
+	resultRes.RelatedNoteNames = dcl.FlattenStringSlice(m["relatedNoteNames"])
+	resultRes.Vulnerability = flattenNoteVulnerability(c, m["vulnerability"], res)
+	resultRes.Build = flattenNoteBuild(c, m["build"], res)
 	resultRes.Image = flattenNoteImage(c, m["image"], res)
 	resultRes.Package = flattenNotePackage(c, m["package"], res)
 	resultRes.Discovery = flattenNoteDiscovery(c, m["discovery"], res)
@@ -2715,6 +4956,1346 @@ func flattenNoteRelatedUrl(c *Client, i interface{}, res *Note) *NoteRelatedUrl 
 	}
 	r.Url = dcl.FlattenString(m["url"])
 	r.Label = dcl.FlattenString(m["label"])
+
+	return r
+}
+
+// expandNoteVulnerabilityMap expands the contents of NoteVulnerability into a JSON
+// request object.
+func expandNoteVulnerabilityMap(c *Client, f map[string]NoteVulnerability, res *Note) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandNoteVulnerability(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandNoteVulnerabilitySlice expands the contents of NoteVulnerability into a JSON
+// request object.
+func expandNoteVulnerabilitySlice(c *Client, f []NoteVulnerability, res *Note) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandNoteVulnerability(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenNoteVulnerabilityMap flattens the contents of NoteVulnerability from a JSON
+// response object.
+func flattenNoteVulnerabilityMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerability {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerability{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerability{}
+	}
+
+	items := make(map[string]NoteVulnerability)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerability(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilitySlice flattens the contents of NoteVulnerability from a JSON
+// response object.
+func flattenNoteVulnerabilitySlice(c *Client, i interface{}, res *Note) []NoteVulnerability {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerability{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerability{}
+	}
+
+	items := make([]NoteVulnerability, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerability(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandNoteVulnerability expands an instance of NoteVulnerability into a JSON
+// request object.
+func expandNoteVulnerability(c *Client, f *NoteVulnerability, res *Note) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.CvssScore; !dcl.IsEmptyValueIndirect(v) {
+		m["cvssScore"] = v
+	}
+	if v := f.Severity; !dcl.IsEmptyValueIndirect(v) {
+		m["severity"] = v
+	}
+	if v, err := expandNoteVulnerabilityDetailsSlice(c, f.Details, res); err != nil {
+		return nil, fmt.Errorf("error expanding Details into details: %w", err)
+	} else if v != nil {
+		m["details"] = v
+	}
+	if v, err := expandNoteVulnerabilityCvssV3(c, f.CvssV3, res); err != nil {
+		return nil, fmt.Errorf("error expanding CvssV3 into cvssV3: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["cvssV3"] = v
+	}
+	if v, err := expandNoteVulnerabilityWindowsDetailsSlice(c, f.WindowsDetails, res); err != nil {
+		return nil, fmt.Errorf("error expanding WindowsDetails into windowsDetails: %w", err)
+	} else if v != nil {
+		m["windowsDetails"] = v
+	}
+	if v := f.SourceUpdateTime; !dcl.IsEmptyValueIndirect(v) {
+		m["sourceUpdateTime"] = v
+	}
+
+	return m, nil
+}
+
+// flattenNoteVulnerability flattens an instance of NoteVulnerability from a JSON
+// response object.
+func flattenNoteVulnerability(c *Client, i interface{}, res *Note) *NoteVulnerability {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &NoteVulnerability{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteVulnerability
+	}
+	r.CvssScore = dcl.FlattenDouble(m["cvssScore"])
+	r.Severity = flattenNoteVulnerabilitySeverityEnum(m["severity"])
+	r.Details = flattenNoteVulnerabilityDetailsSlice(c, m["details"], res)
+	r.CvssV3 = flattenNoteVulnerabilityCvssV3(c, m["cvssV3"], res)
+	r.WindowsDetails = flattenNoteVulnerabilityWindowsDetailsSlice(c, m["windowsDetails"], res)
+	r.SourceUpdateTime = dcl.FlattenString(m["sourceUpdateTime"])
+
+	return r
+}
+
+// expandNoteVulnerabilityDetailsMap expands the contents of NoteVulnerabilityDetails into a JSON
+// request object.
+func expandNoteVulnerabilityDetailsMap(c *Client, f map[string]NoteVulnerabilityDetails, res *Note) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandNoteVulnerabilityDetails(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandNoteVulnerabilityDetailsSlice expands the contents of NoteVulnerabilityDetails into a JSON
+// request object.
+func expandNoteVulnerabilityDetailsSlice(c *Client, f []NoteVulnerabilityDetails, res *Note) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandNoteVulnerabilityDetails(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenNoteVulnerabilityDetailsMap flattens the contents of NoteVulnerabilityDetails from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityDetails {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityDetails{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityDetails{}
+	}
+
+	items := make(map[string]NoteVulnerabilityDetails)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityDetails(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityDetailsSlice flattens the contents of NoteVulnerabilityDetails from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityDetails {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilityDetails{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilityDetails{}
+	}
+
+	items := make([]NoteVulnerabilityDetails, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilityDetails(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandNoteVulnerabilityDetails expands an instance of NoteVulnerabilityDetails into a JSON
+// request object.
+func expandNoteVulnerabilityDetails(c *Client, f *NoteVulnerabilityDetails, res *Note) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.SeverityName; !dcl.IsEmptyValueIndirect(v) {
+		m["severityName"] = v
+	}
+	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+		m["description"] = v
+	}
+	if v := f.PackageType; !dcl.IsEmptyValueIndirect(v) {
+		m["packageType"] = v
+	}
+	if v := f.AffectedCpeUri; !dcl.IsEmptyValueIndirect(v) {
+		m["affectedCpeUri"] = v
+	}
+	if v := f.AffectedPackage; !dcl.IsEmptyValueIndirect(v) {
+		m["affectedPackage"] = v
+	}
+	if v, err := expandNoteVulnerabilityDetailsAffectedVersionStart(c, f.AffectedVersionStart, res); err != nil {
+		return nil, fmt.Errorf("error expanding AffectedVersionStart into affectedVersionStart: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["affectedVersionStart"] = v
+	}
+	if v, err := expandNoteVulnerabilityDetailsAffectedVersionEnd(c, f.AffectedVersionEnd, res); err != nil {
+		return nil, fmt.Errorf("error expanding AffectedVersionEnd into affectedVersionEnd: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["affectedVersionEnd"] = v
+	}
+	if v := f.FixedCpeUri; !dcl.IsEmptyValueIndirect(v) {
+		m["fixedCpeUri"] = v
+	}
+	if v := f.FixedPackage; !dcl.IsEmptyValueIndirect(v) {
+		m["fixedPackage"] = v
+	}
+	if v, err := expandNoteVulnerabilityDetailsFixedVersion(c, f.FixedVersion, res); err != nil {
+		return nil, fmt.Errorf("error expanding FixedVersion into fixedVersion: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["fixedVersion"] = v
+	}
+	if v := f.IsObsolete; !dcl.IsEmptyValueIndirect(v) {
+		m["isObsolete"] = v
+	}
+	if v := f.SourceUpdateTime; !dcl.IsEmptyValueIndirect(v) {
+		m["sourceUpdateTime"] = v
+	}
+
+	return m, nil
+}
+
+// flattenNoteVulnerabilityDetails flattens an instance of NoteVulnerabilityDetails from a JSON
+// response object.
+func flattenNoteVulnerabilityDetails(c *Client, i interface{}, res *Note) *NoteVulnerabilityDetails {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &NoteVulnerabilityDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteVulnerabilityDetails
+	}
+	r.SeverityName = dcl.FlattenString(m["severityName"])
+	r.Description = dcl.FlattenString(m["description"])
+	r.PackageType = dcl.FlattenString(m["packageType"])
+	r.AffectedCpeUri = dcl.FlattenString(m["affectedCpeUri"])
+	r.AffectedPackage = dcl.FlattenString(m["affectedPackage"])
+	r.AffectedVersionStart = flattenNoteVulnerabilityDetailsAffectedVersionStart(c, m["affectedVersionStart"], res)
+	r.AffectedVersionEnd = flattenNoteVulnerabilityDetailsAffectedVersionEnd(c, m["affectedVersionEnd"], res)
+	r.FixedCpeUri = dcl.FlattenString(m["fixedCpeUri"])
+	r.FixedPackage = dcl.FlattenString(m["fixedPackage"])
+	r.FixedVersion = flattenNoteVulnerabilityDetailsFixedVersion(c, m["fixedVersion"], res)
+	r.IsObsolete = dcl.FlattenBool(m["isObsolete"])
+	r.SourceUpdateTime = dcl.FlattenString(m["sourceUpdateTime"])
+
+	return r
+}
+
+// expandNoteVulnerabilityDetailsAffectedVersionStartMap expands the contents of NoteVulnerabilityDetailsAffectedVersionStart into a JSON
+// request object.
+func expandNoteVulnerabilityDetailsAffectedVersionStartMap(c *Client, f map[string]NoteVulnerabilityDetailsAffectedVersionStart, res *Note) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandNoteVulnerabilityDetailsAffectedVersionStart(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandNoteVulnerabilityDetailsAffectedVersionStartSlice expands the contents of NoteVulnerabilityDetailsAffectedVersionStart into a JSON
+// request object.
+func expandNoteVulnerabilityDetailsAffectedVersionStartSlice(c *Client, f []NoteVulnerabilityDetailsAffectedVersionStart, res *Note) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandNoteVulnerabilityDetailsAffectedVersionStart(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenNoteVulnerabilityDetailsAffectedVersionStartMap flattens the contents of NoteVulnerabilityDetailsAffectedVersionStart from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsAffectedVersionStartMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityDetailsAffectedVersionStart {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityDetailsAffectedVersionStart{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityDetailsAffectedVersionStart{}
+	}
+
+	items := make(map[string]NoteVulnerabilityDetailsAffectedVersionStart)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityDetailsAffectedVersionStart(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityDetailsAffectedVersionStartSlice flattens the contents of NoteVulnerabilityDetailsAffectedVersionStart from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsAffectedVersionStartSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityDetailsAffectedVersionStart {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilityDetailsAffectedVersionStart{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilityDetailsAffectedVersionStart{}
+	}
+
+	items := make([]NoteVulnerabilityDetailsAffectedVersionStart, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilityDetailsAffectedVersionStart(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandNoteVulnerabilityDetailsAffectedVersionStart expands an instance of NoteVulnerabilityDetailsAffectedVersionStart into a JSON
+// request object.
+func expandNoteVulnerabilityDetailsAffectedVersionStart(c *Client, f *NoteVulnerabilityDetailsAffectedVersionStart, res *Note) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Epoch; !dcl.IsEmptyValueIndirect(v) {
+		m["epoch"] = v
+	}
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Revision; !dcl.IsEmptyValueIndirect(v) {
+		m["revision"] = v
+	}
+	if v := f.Kind; !dcl.IsEmptyValueIndirect(v) {
+		m["kind"] = v
+	}
+	if v := f.FullName; !dcl.IsEmptyValueIndirect(v) {
+		m["fullName"] = v
+	}
+
+	return m, nil
+}
+
+// flattenNoteVulnerabilityDetailsAffectedVersionStart flattens an instance of NoteVulnerabilityDetailsAffectedVersionStart from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsAffectedVersionStart(c *Client, i interface{}, res *Note) *NoteVulnerabilityDetailsAffectedVersionStart {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &NoteVulnerabilityDetailsAffectedVersionStart{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteVulnerabilityDetailsAffectedVersionStart
+	}
+	r.Epoch = dcl.FlattenInteger(m["epoch"])
+	r.Name = dcl.FlattenString(m["name"])
+	r.Revision = dcl.FlattenString(m["revision"])
+	r.Kind = flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnum(m["kind"])
+	r.FullName = dcl.FlattenString(m["fullName"])
+
+	return r
+}
+
+// expandNoteVulnerabilityDetailsAffectedVersionEndMap expands the contents of NoteVulnerabilityDetailsAffectedVersionEnd into a JSON
+// request object.
+func expandNoteVulnerabilityDetailsAffectedVersionEndMap(c *Client, f map[string]NoteVulnerabilityDetailsAffectedVersionEnd, res *Note) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandNoteVulnerabilityDetailsAffectedVersionEnd(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandNoteVulnerabilityDetailsAffectedVersionEndSlice expands the contents of NoteVulnerabilityDetailsAffectedVersionEnd into a JSON
+// request object.
+func expandNoteVulnerabilityDetailsAffectedVersionEndSlice(c *Client, f []NoteVulnerabilityDetailsAffectedVersionEnd, res *Note) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandNoteVulnerabilityDetailsAffectedVersionEnd(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenNoteVulnerabilityDetailsAffectedVersionEndMap flattens the contents of NoteVulnerabilityDetailsAffectedVersionEnd from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsAffectedVersionEndMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityDetailsAffectedVersionEnd {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityDetailsAffectedVersionEnd{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityDetailsAffectedVersionEnd{}
+	}
+
+	items := make(map[string]NoteVulnerabilityDetailsAffectedVersionEnd)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityDetailsAffectedVersionEnd(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityDetailsAffectedVersionEndSlice flattens the contents of NoteVulnerabilityDetailsAffectedVersionEnd from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsAffectedVersionEndSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityDetailsAffectedVersionEnd {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilityDetailsAffectedVersionEnd{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilityDetailsAffectedVersionEnd{}
+	}
+
+	items := make([]NoteVulnerabilityDetailsAffectedVersionEnd, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilityDetailsAffectedVersionEnd(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandNoteVulnerabilityDetailsAffectedVersionEnd expands an instance of NoteVulnerabilityDetailsAffectedVersionEnd into a JSON
+// request object.
+func expandNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, f *NoteVulnerabilityDetailsAffectedVersionEnd, res *Note) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Epoch; !dcl.IsEmptyValueIndirect(v) {
+		m["epoch"] = v
+	}
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Revision; !dcl.IsEmptyValueIndirect(v) {
+		m["revision"] = v
+	}
+	if v := f.Kind; !dcl.IsEmptyValueIndirect(v) {
+		m["kind"] = v
+	}
+	if v := f.FullName; !dcl.IsEmptyValueIndirect(v) {
+		m["fullName"] = v
+	}
+
+	return m, nil
+}
+
+// flattenNoteVulnerabilityDetailsAffectedVersionEnd flattens an instance of NoteVulnerabilityDetailsAffectedVersionEnd from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsAffectedVersionEnd(c *Client, i interface{}, res *Note) *NoteVulnerabilityDetailsAffectedVersionEnd {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &NoteVulnerabilityDetailsAffectedVersionEnd{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteVulnerabilityDetailsAffectedVersionEnd
+	}
+	r.Epoch = dcl.FlattenInteger(m["epoch"])
+	r.Name = dcl.FlattenString(m["name"])
+	r.Revision = dcl.FlattenString(m["revision"])
+	r.Kind = flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnum(m["kind"])
+	r.FullName = dcl.FlattenString(m["fullName"])
+
+	return r
+}
+
+// expandNoteVulnerabilityDetailsFixedVersionMap expands the contents of NoteVulnerabilityDetailsFixedVersion into a JSON
+// request object.
+func expandNoteVulnerabilityDetailsFixedVersionMap(c *Client, f map[string]NoteVulnerabilityDetailsFixedVersion, res *Note) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandNoteVulnerabilityDetailsFixedVersion(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandNoteVulnerabilityDetailsFixedVersionSlice expands the contents of NoteVulnerabilityDetailsFixedVersion into a JSON
+// request object.
+func expandNoteVulnerabilityDetailsFixedVersionSlice(c *Client, f []NoteVulnerabilityDetailsFixedVersion, res *Note) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandNoteVulnerabilityDetailsFixedVersion(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenNoteVulnerabilityDetailsFixedVersionMap flattens the contents of NoteVulnerabilityDetailsFixedVersion from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsFixedVersionMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityDetailsFixedVersion {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityDetailsFixedVersion{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityDetailsFixedVersion{}
+	}
+
+	items := make(map[string]NoteVulnerabilityDetailsFixedVersion)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityDetailsFixedVersion(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityDetailsFixedVersionSlice flattens the contents of NoteVulnerabilityDetailsFixedVersion from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsFixedVersionSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityDetailsFixedVersion {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilityDetailsFixedVersion{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilityDetailsFixedVersion{}
+	}
+
+	items := make([]NoteVulnerabilityDetailsFixedVersion, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilityDetailsFixedVersion(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandNoteVulnerabilityDetailsFixedVersion expands an instance of NoteVulnerabilityDetailsFixedVersion into a JSON
+// request object.
+func expandNoteVulnerabilityDetailsFixedVersion(c *Client, f *NoteVulnerabilityDetailsFixedVersion, res *Note) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Epoch; !dcl.IsEmptyValueIndirect(v) {
+		m["epoch"] = v
+	}
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Revision; !dcl.IsEmptyValueIndirect(v) {
+		m["revision"] = v
+	}
+	if v := f.Kind; !dcl.IsEmptyValueIndirect(v) {
+		m["kind"] = v
+	}
+	if v := f.FullName; !dcl.IsEmptyValueIndirect(v) {
+		m["fullName"] = v
+	}
+
+	return m, nil
+}
+
+// flattenNoteVulnerabilityDetailsFixedVersion flattens an instance of NoteVulnerabilityDetailsFixedVersion from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsFixedVersion(c *Client, i interface{}, res *Note) *NoteVulnerabilityDetailsFixedVersion {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &NoteVulnerabilityDetailsFixedVersion{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteVulnerabilityDetailsFixedVersion
+	}
+	r.Epoch = dcl.FlattenInteger(m["epoch"])
+	r.Name = dcl.FlattenString(m["name"])
+	r.Revision = dcl.FlattenString(m["revision"])
+	r.Kind = flattenNoteVulnerabilityDetailsFixedVersionKindEnum(m["kind"])
+	r.FullName = dcl.FlattenString(m["fullName"])
+
+	return r
+}
+
+// expandNoteVulnerabilityCvssV3Map expands the contents of NoteVulnerabilityCvssV3 into a JSON
+// request object.
+func expandNoteVulnerabilityCvssV3Map(c *Client, f map[string]NoteVulnerabilityCvssV3, res *Note) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandNoteVulnerabilityCvssV3(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandNoteVulnerabilityCvssV3Slice expands the contents of NoteVulnerabilityCvssV3 into a JSON
+// request object.
+func expandNoteVulnerabilityCvssV3Slice(c *Client, f []NoteVulnerabilityCvssV3, res *Note) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandNoteVulnerabilityCvssV3(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenNoteVulnerabilityCvssV3Map flattens the contents of NoteVulnerabilityCvssV3 from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3Map(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityCvssV3 {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityCvssV3{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityCvssV3{}
+	}
+
+	items := make(map[string]NoteVulnerabilityCvssV3)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityCvssV3(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityCvssV3Slice flattens the contents of NoteVulnerabilityCvssV3 from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3Slice(c *Client, i interface{}, res *Note) []NoteVulnerabilityCvssV3 {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilityCvssV3{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilityCvssV3{}
+	}
+
+	items := make([]NoteVulnerabilityCvssV3, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilityCvssV3(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandNoteVulnerabilityCvssV3 expands an instance of NoteVulnerabilityCvssV3 into a JSON
+// request object.
+func expandNoteVulnerabilityCvssV3(c *Client, f *NoteVulnerabilityCvssV3, res *Note) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.BaseScore; !dcl.IsEmptyValueIndirect(v) {
+		m["baseScore"] = v
+	}
+	if v := f.ExploitabilityScore; !dcl.IsEmptyValueIndirect(v) {
+		m["exploitabilityScore"] = v
+	}
+	if v := f.ImpactScore; !dcl.IsEmptyValueIndirect(v) {
+		m["impactScore"] = v
+	}
+	if v := f.AttackVector; !dcl.IsEmptyValueIndirect(v) {
+		m["attackVector"] = v
+	}
+	if v := f.AttackComplexity; !dcl.IsEmptyValueIndirect(v) {
+		m["attackComplexity"] = v
+	}
+	if v := f.PrivilegesRequired; !dcl.IsEmptyValueIndirect(v) {
+		m["privilegesRequired"] = v
+	}
+	if v := f.UserInteraction; !dcl.IsEmptyValueIndirect(v) {
+		m["userInteraction"] = v
+	}
+	if v := f.Scope; !dcl.IsEmptyValueIndirect(v) {
+		m["scope"] = v
+	}
+	if v := f.ConfidentialityImpact; !dcl.IsEmptyValueIndirect(v) {
+		m["confidentialityImpact"] = v
+	}
+	if v := f.IntegrityImpact; !dcl.IsEmptyValueIndirect(v) {
+		m["integrityImpact"] = v
+	}
+	if v := f.AvailabilityImpact; !dcl.IsEmptyValueIndirect(v) {
+		m["availabilityImpact"] = v
+	}
+
+	return m, nil
+}
+
+// flattenNoteVulnerabilityCvssV3 flattens an instance of NoteVulnerabilityCvssV3 from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3(c *Client, i interface{}, res *Note) *NoteVulnerabilityCvssV3 {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &NoteVulnerabilityCvssV3{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteVulnerabilityCvssV3
+	}
+	r.BaseScore = dcl.FlattenDouble(m["baseScore"])
+	r.ExploitabilityScore = dcl.FlattenDouble(m["exploitabilityScore"])
+	r.ImpactScore = dcl.FlattenDouble(m["impactScore"])
+	r.AttackVector = flattenNoteVulnerabilityCvssV3AttackVectorEnum(m["attackVector"])
+	r.AttackComplexity = flattenNoteVulnerabilityCvssV3AttackComplexityEnum(m["attackComplexity"])
+	r.PrivilegesRequired = flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnum(m["privilegesRequired"])
+	r.UserInteraction = flattenNoteVulnerabilityCvssV3UserInteractionEnum(m["userInteraction"])
+	r.Scope = flattenNoteVulnerabilityCvssV3ScopeEnum(m["scope"])
+	r.ConfidentialityImpact = flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnum(m["confidentialityImpact"])
+	r.IntegrityImpact = flattenNoteVulnerabilityCvssV3IntegrityImpactEnum(m["integrityImpact"])
+	r.AvailabilityImpact = flattenNoteVulnerabilityCvssV3AvailabilityImpactEnum(m["availabilityImpact"])
+
+	return r
+}
+
+// expandNoteVulnerabilityWindowsDetailsMap expands the contents of NoteVulnerabilityWindowsDetails into a JSON
+// request object.
+func expandNoteVulnerabilityWindowsDetailsMap(c *Client, f map[string]NoteVulnerabilityWindowsDetails, res *Note) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandNoteVulnerabilityWindowsDetails(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandNoteVulnerabilityWindowsDetailsSlice expands the contents of NoteVulnerabilityWindowsDetails into a JSON
+// request object.
+func expandNoteVulnerabilityWindowsDetailsSlice(c *Client, f []NoteVulnerabilityWindowsDetails, res *Note) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandNoteVulnerabilityWindowsDetails(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenNoteVulnerabilityWindowsDetailsMap flattens the contents of NoteVulnerabilityWindowsDetails from a JSON
+// response object.
+func flattenNoteVulnerabilityWindowsDetailsMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityWindowsDetails {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityWindowsDetails{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityWindowsDetails{}
+	}
+
+	items := make(map[string]NoteVulnerabilityWindowsDetails)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityWindowsDetails(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityWindowsDetailsSlice flattens the contents of NoteVulnerabilityWindowsDetails from a JSON
+// response object.
+func flattenNoteVulnerabilityWindowsDetailsSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityWindowsDetails {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilityWindowsDetails{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilityWindowsDetails{}
+	}
+
+	items := make([]NoteVulnerabilityWindowsDetails, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilityWindowsDetails(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandNoteVulnerabilityWindowsDetails expands an instance of NoteVulnerabilityWindowsDetails into a JSON
+// request object.
+func expandNoteVulnerabilityWindowsDetails(c *Client, f *NoteVulnerabilityWindowsDetails, res *Note) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.CpeUri; !dcl.IsEmptyValueIndirect(v) {
+		m["cpeUri"] = v
+	}
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+		m["description"] = v
+	}
+	if v, err := expandNoteVulnerabilityWindowsDetailsFixingKbsSlice(c, f.FixingKbs, res); err != nil {
+		return nil, fmt.Errorf("error expanding FixingKbs into fixingKbs: %w", err)
+	} else if v != nil {
+		m["fixingKbs"] = v
+	}
+
+	return m, nil
+}
+
+// flattenNoteVulnerabilityWindowsDetails flattens an instance of NoteVulnerabilityWindowsDetails from a JSON
+// response object.
+func flattenNoteVulnerabilityWindowsDetails(c *Client, i interface{}, res *Note) *NoteVulnerabilityWindowsDetails {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &NoteVulnerabilityWindowsDetails{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteVulnerabilityWindowsDetails
+	}
+	r.CpeUri = dcl.FlattenString(m["cpeUri"])
+	r.Name = dcl.FlattenString(m["name"])
+	r.Description = dcl.FlattenString(m["description"])
+	r.FixingKbs = flattenNoteVulnerabilityWindowsDetailsFixingKbsSlice(c, m["fixingKbs"], res)
+
+	return r
+}
+
+// expandNoteVulnerabilityWindowsDetailsFixingKbsMap expands the contents of NoteVulnerabilityWindowsDetailsFixingKbs into a JSON
+// request object.
+func expandNoteVulnerabilityWindowsDetailsFixingKbsMap(c *Client, f map[string]NoteVulnerabilityWindowsDetailsFixingKbs, res *Note) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandNoteVulnerabilityWindowsDetailsFixingKbs(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandNoteVulnerabilityWindowsDetailsFixingKbsSlice expands the contents of NoteVulnerabilityWindowsDetailsFixingKbs into a JSON
+// request object.
+func expandNoteVulnerabilityWindowsDetailsFixingKbsSlice(c *Client, f []NoteVulnerabilityWindowsDetailsFixingKbs, res *Note) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandNoteVulnerabilityWindowsDetailsFixingKbs(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenNoteVulnerabilityWindowsDetailsFixingKbsMap flattens the contents of NoteVulnerabilityWindowsDetailsFixingKbs from a JSON
+// response object.
+func flattenNoteVulnerabilityWindowsDetailsFixingKbsMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityWindowsDetailsFixingKbs {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityWindowsDetailsFixingKbs{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityWindowsDetailsFixingKbs{}
+	}
+
+	items := make(map[string]NoteVulnerabilityWindowsDetailsFixingKbs)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityWindowsDetailsFixingKbs(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityWindowsDetailsFixingKbsSlice flattens the contents of NoteVulnerabilityWindowsDetailsFixingKbs from a JSON
+// response object.
+func flattenNoteVulnerabilityWindowsDetailsFixingKbsSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityWindowsDetailsFixingKbs {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilityWindowsDetailsFixingKbs{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilityWindowsDetailsFixingKbs{}
+	}
+
+	items := make([]NoteVulnerabilityWindowsDetailsFixingKbs, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilityWindowsDetailsFixingKbs(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandNoteVulnerabilityWindowsDetailsFixingKbs expands an instance of NoteVulnerabilityWindowsDetailsFixingKbs into a JSON
+// request object.
+func expandNoteVulnerabilityWindowsDetailsFixingKbs(c *Client, f *NoteVulnerabilityWindowsDetailsFixingKbs, res *Note) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Name; !dcl.IsEmptyValueIndirect(v) {
+		m["name"] = v
+	}
+	if v := f.Url; !dcl.IsEmptyValueIndirect(v) {
+		m["url"] = v
+	}
+
+	return m, nil
+}
+
+// flattenNoteVulnerabilityWindowsDetailsFixingKbs flattens an instance of NoteVulnerabilityWindowsDetailsFixingKbs from a JSON
+// response object.
+func flattenNoteVulnerabilityWindowsDetailsFixingKbs(c *Client, i interface{}, res *Note) *NoteVulnerabilityWindowsDetailsFixingKbs {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &NoteVulnerabilityWindowsDetailsFixingKbs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteVulnerabilityWindowsDetailsFixingKbs
+	}
+	r.Name = dcl.FlattenString(m["name"])
+	r.Url = dcl.FlattenString(m["url"])
+
+	return r
+}
+
+// expandNoteBuildMap expands the contents of NoteBuild into a JSON
+// request object.
+func expandNoteBuildMap(c *Client, f map[string]NoteBuild, res *Note) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandNoteBuild(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandNoteBuildSlice expands the contents of NoteBuild into a JSON
+// request object.
+func expandNoteBuildSlice(c *Client, f []NoteBuild, res *Note) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandNoteBuild(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenNoteBuildMap flattens the contents of NoteBuild from a JSON
+// response object.
+func flattenNoteBuildMap(c *Client, i interface{}, res *Note) map[string]NoteBuild {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteBuild{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteBuild{}
+	}
+
+	items := make(map[string]NoteBuild)
+	for k, item := range a {
+		items[k] = *flattenNoteBuild(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenNoteBuildSlice flattens the contents of NoteBuild from a JSON
+// response object.
+func flattenNoteBuildSlice(c *Client, i interface{}, res *Note) []NoteBuild {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteBuild{}
+	}
+
+	if len(a) == 0 {
+		return []NoteBuild{}
+	}
+
+	items := make([]NoteBuild, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteBuild(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandNoteBuild expands an instance of NoteBuild into a JSON
+// request object.
+func expandNoteBuild(c *Client, f *NoteBuild, res *Note) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.BuilderVersion; !dcl.IsEmptyValueIndirect(v) {
+		m["builderVersion"] = v
+	}
+	if v, err := expandNoteBuildSignature(c, f.Signature, res); err != nil {
+		return nil, fmt.Errorf("error expanding Signature into signature: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["signature"] = v
+	}
+
+	return m, nil
+}
+
+// flattenNoteBuild flattens an instance of NoteBuild from a JSON
+// response object.
+func flattenNoteBuild(c *Client, i interface{}, res *Note) *NoteBuild {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &NoteBuild{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteBuild
+	}
+	r.BuilderVersion = dcl.FlattenString(m["builderVersion"])
+	r.Signature = flattenNoteBuildSignature(c, m["signature"], res)
+
+	return r
+}
+
+// expandNoteBuildSignatureMap expands the contents of NoteBuildSignature into a JSON
+// request object.
+func expandNoteBuildSignatureMap(c *Client, f map[string]NoteBuildSignature, res *Note) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandNoteBuildSignature(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandNoteBuildSignatureSlice expands the contents of NoteBuildSignature into a JSON
+// request object.
+func expandNoteBuildSignatureSlice(c *Client, f []NoteBuildSignature, res *Note) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandNoteBuildSignature(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenNoteBuildSignatureMap flattens the contents of NoteBuildSignature from a JSON
+// response object.
+func flattenNoteBuildSignatureMap(c *Client, i interface{}, res *Note) map[string]NoteBuildSignature {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteBuildSignature{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteBuildSignature{}
+	}
+
+	items := make(map[string]NoteBuildSignature)
+	for k, item := range a {
+		items[k] = *flattenNoteBuildSignature(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenNoteBuildSignatureSlice flattens the contents of NoteBuildSignature from a JSON
+// response object.
+func flattenNoteBuildSignatureSlice(c *Client, i interface{}, res *Note) []NoteBuildSignature {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteBuildSignature{}
+	}
+
+	if len(a) == 0 {
+		return []NoteBuildSignature{}
+	}
+
+	items := make([]NoteBuildSignature, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteBuildSignature(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandNoteBuildSignature expands an instance of NoteBuildSignature into a JSON
+// request object.
+func expandNoteBuildSignature(c *Client, f *NoteBuildSignature, res *Note) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.PublicKey; !dcl.IsEmptyValueIndirect(v) {
+		m["publicKey"] = v
+	}
+	if v := f.Signature; !dcl.IsEmptyValueIndirect(v) {
+		m["signature"] = v
+	}
+	if v := f.KeyId; !dcl.IsEmptyValueIndirect(v) {
+		m["keyId"] = v
+	}
+	if v := f.KeyType; !dcl.IsEmptyValueIndirect(v) {
+		m["keyType"] = v
+	}
+
+	return m, nil
+}
+
+// flattenNoteBuildSignature flattens an instance of NoteBuildSignature from a JSON
+// response object.
+func flattenNoteBuildSignature(c *Client, i interface{}, res *Note) *NoteBuildSignature {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &NoteBuildSignature{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyNoteBuildSignature
+	}
+	r.PublicKey = dcl.FlattenString(m["publicKey"])
+	r.Signature = dcl.FlattenString(m["signature"])
+	r.KeyId = dcl.FlattenString(m["keyId"])
+	r.KeyType = flattenNoteBuildSignatureKeyTypeEnum(m["keyType"])
 
 	return r
 }
@@ -3802,6 +7383,669 @@ func flattenNoteAttestationHint(c *Client, i interface{}, res *Note) *NoteAttest
 	return r
 }
 
+// flattenNoteVulnerabilitySeverityEnumMap flattens the contents of NoteVulnerabilitySeverityEnum from a JSON
+// response object.
+func flattenNoteVulnerabilitySeverityEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilitySeverityEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilitySeverityEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilitySeverityEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilitySeverityEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilitySeverityEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilitySeverityEnumSlice flattens the contents of NoteVulnerabilitySeverityEnum from a JSON
+// response object.
+func flattenNoteVulnerabilitySeverityEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilitySeverityEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilitySeverityEnum{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilitySeverityEnum{}
+	}
+
+	items := make([]NoteVulnerabilitySeverityEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilitySeverityEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilitySeverityEnum asserts that an interface is a string, and returns a
+// pointer to a *NoteVulnerabilitySeverityEnum with the same value as that string.
+func flattenNoteVulnerabilitySeverityEnum(i interface{}) *NoteVulnerabilitySeverityEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return NoteVulnerabilitySeverityEnumRef(s)
+}
+
+// flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnumMap flattens the contents of NoteVulnerabilityDetailsAffectedVersionStartKindEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityDetailsAffectedVersionStartKindEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityDetailsAffectedVersionStartKindEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityDetailsAffectedVersionStartKindEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityDetailsAffectedVersionStartKindEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnumSlice flattens the contents of NoteVulnerabilityDetailsAffectedVersionStartKindEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityDetailsAffectedVersionStartKindEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilityDetailsAffectedVersionStartKindEnum{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilityDetailsAffectedVersionStartKindEnum{}
+	}
+
+	items := make([]NoteVulnerabilityDetailsAffectedVersionStartKindEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnum asserts that an interface is a string, and returns a
+// pointer to a *NoteVulnerabilityDetailsAffectedVersionStartKindEnum with the same value as that string.
+func flattenNoteVulnerabilityDetailsAffectedVersionStartKindEnum(i interface{}) *NoteVulnerabilityDetailsAffectedVersionStartKindEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return NoteVulnerabilityDetailsAffectedVersionStartKindEnumRef(s)
+}
+
+// flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnumMap flattens the contents of NoteVulnerabilityDetailsAffectedVersionEndKindEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityDetailsAffectedVersionEndKindEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityDetailsAffectedVersionEndKindEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityDetailsAffectedVersionEndKindEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityDetailsAffectedVersionEndKindEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnumSlice flattens the contents of NoteVulnerabilityDetailsAffectedVersionEndKindEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityDetailsAffectedVersionEndKindEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilityDetailsAffectedVersionEndKindEnum{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilityDetailsAffectedVersionEndKindEnum{}
+	}
+
+	items := make([]NoteVulnerabilityDetailsAffectedVersionEndKindEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnum asserts that an interface is a string, and returns a
+// pointer to a *NoteVulnerabilityDetailsAffectedVersionEndKindEnum with the same value as that string.
+func flattenNoteVulnerabilityDetailsAffectedVersionEndKindEnum(i interface{}) *NoteVulnerabilityDetailsAffectedVersionEndKindEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return NoteVulnerabilityDetailsAffectedVersionEndKindEnumRef(s)
+}
+
+// flattenNoteVulnerabilityDetailsFixedVersionKindEnumMap flattens the contents of NoteVulnerabilityDetailsFixedVersionKindEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsFixedVersionKindEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityDetailsFixedVersionKindEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityDetailsFixedVersionKindEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityDetailsFixedVersionKindEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityDetailsFixedVersionKindEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityDetailsFixedVersionKindEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityDetailsFixedVersionKindEnumSlice flattens the contents of NoteVulnerabilityDetailsFixedVersionKindEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityDetailsFixedVersionKindEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityDetailsFixedVersionKindEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilityDetailsFixedVersionKindEnum{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilityDetailsFixedVersionKindEnum{}
+	}
+
+	items := make([]NoteVulnerabilityDetailsFixedVersionKindEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilityDetailsFixedVersionKindEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityDetailsFixedVersionKindEnum asserts that an interface is a string, and returns a
+// pointer to a *NoteVulnerabilityDetailsFixedVersionKindEnum with the same value as that string.
+func flattenNoteVulnerabilityDetailsFixedVersionKindEnum(i interface{}) *NoteVulnerabilityDetailsFixedVersionKindEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return NoteVulnerabilityDetailsFixedVersionKindEnumRef(s)
+}
+
+// flattenNoteVulnerabilityCvssV3AttackVectorEnumMap flattens the contents of NoteVulnerabilityCvssV3AttackVectorEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3AttackVectorEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityCvssV3AttackVectorEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityCvssV3AttackVectorEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityCvssV3AttackVectorEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityCvssV3AttackVectorEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityCvssV3AttackVectorEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityCvssV3AttackVectorEnumSlice flattens the contents of NoteVulnerabilityCvssV3AttackVectorEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3AttackVectorEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityCvssV3AttackVectorEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilityCvssV3AttackVectorEnum{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilityCvssV3AttackVectorEnum{}
+	}
+
+	items := make([]NoteVulnerabilityCvssV3AttackVectorEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilityCvssV3AttackVectorEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityCvssV3AttackVectorEnum asserts that an interface is a string, and returns a
+// pointer to a *NoteVulnerabilityCvssV3AttackVectorEnum with the same value as that string.
+func flattenNoteVulnerabilityCvssV3AttackVectorEnum(i interface{}) *NoteVulnerabilityCvssV3AttackVectorEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return NoteVulnerabilityCvssV3AttackVectorEnumRef(s)
+}
+
+// flattenNoteVulnerabilityCvssV3AttackComplexityEnumMap flattens the contents of NoteVulnerabilityCvssV3AttackComplexityEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3AttackComplexityEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityCvssV3AttackComplexityEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityCvssV3AttackComplexityEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityCvssV3AttackComplexityEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityCvssV3AttackComplexityEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityCvssV3AttackComplexityEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityCvssV3AttackComplexityEnumSlice flattens the contents of NoteVulnerabilityCvssV3AttackComplexityEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3AttackComplexityEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityCvssV3AttackComplexityEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilityCvssV3AttackComplexityEnum{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilityCvssV3AttackComplexityEnum{}
+	}
+
+	items := make([]NoteVulnerabilityCvssV3AttackComplexityEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilityCvssV3AttackComplexityEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityCvssV3AttackComplexityEnum asserts that an interface is a string, and returns a
+// pointer to a *NoteVulnerabilityCvssV3AttackComplexityEnum with the same value as that string.
+func flattenNoteVulnerabilityCvssV3AttackComplexityEnum(i interface{}) *NoteVulnerabilityCvssV3AttackComplexityEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return NoteVulnerabilityCvssV3AttackComplexityEnumRef(s)
+}
+
+// flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnumMap flattens the contents of NoteVulnerabilityCvssV3PrivilegesRequiredEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityCvssV3PrivilegesRequiredEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityCvssV3PrivilegesRequiredEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityCvssV3PrivilegesRequiredEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityCvssV3PrivilegesRequiredEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnumSlice flattens the contents of NoteVulnerabilityCvssV3PrivilegesRequiredEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityCvssV3PrivilegesRequiredEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilityCvssV3PrivilegesRequiredEnum{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilityCvssV3PrivilegesRequiredEnum{}
+	}
+
+	items := make([]NoteVulnerabilityCvssV3PrivilegesRequiredEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnum asserts that an interface is a string, and returns a
+// pointer to a *NoteVulnerabilityCvssV3PrivilegesRequiredEnum with the same value as that string.
+func flattenNoteVulnerabilityCvssV3PrivilegesRequiredEnum(i interface{}) *NoteVulnerabilityCvssV3PrivilegesRequiredEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return NoteVulnerabilityCvssV3PrivilegesRequiredEnumRef(s)
+}
+
+// flattenNoteVulnerabilityCvssV3UserInteractionEnumMap flattens the contents of NoteVulnerabilityCvssV3UserInteractionEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3UserInteractionEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityCvssV3UserInteractionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityCvssV3UserInteractionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityCvssV3UserInteractionEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityCvssV3UserInteractionEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityCvssV3UserInteractionEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityCvssV3UserInteractionEnumSlice flattens the contents of NoteVulnerabilityCvssV3UserInteractionEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3UserInteractionEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityCvssV3UserInteractionEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilityCvssV3UserInteractionEnum{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilityCvssV3UserInteractionEnum{}
+	}
+
+	items := make([]NoteVulnerabilityCvssV3UserInteractionEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilityCvssV3UserInteractionEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityCvssV3UserInteractionEnum asserts that an interface is a string, and returns a
+// pointer to a *NoteVulnerabilityCvssV3UserInteractionEnum with the same value as that string.
+func flattenNoteVulnerabilityCvssV3UserInteractionEnum(i interface{}) *NoteVulnerabilityCvssV3UserInteractionEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return NoteVulnerabilityCvssV3UserInteractionEnumRef(s)
+}
+
+// flattenNoteVulnerabilityCvssV3ScopeEnumMap flattens the contents of NoteVulnerabilityCvssV3ScopeEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3ScopeEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityCvssV3ScopeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityCvssV3ScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityCvssV3ScopeEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityCvssV3ScopeEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityCvssV3ScopeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityCvssV3ScopeEnumSlice flattens the contents of NoteVulnerabilityCvssV3ScopeEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3ScopeEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityCvssV3ScopeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilityCvssV3ScopeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilityCvssV3ScopeEnum{}
+	}
+
+	items := make([]NoteVulnerabilityCvssV3ScopeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilityCvssV3ScopeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityCvssV3ScopeEnum asserts that an interface is a string, and returns a
+// pointer to a *NoteVulnerabilityCvssV3ScopeEnum with the same value as that string.
+func flattenNoteVulnerabilityCvssV3ScopeEnum(i interface{}) *NoteVulnerabilityCvssV3ScopeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return NoteVulnerabilityCvssV3ScopeEnumRef(s)
+}
+
+// flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnumMap flattens the contents of NoteVulnerabilityCvssV3ConfidentialityImpactEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityCvssV3ConfidentialityImpactEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityCvssV3ConfidentialityImpactEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityCvssV3ConfidentialityImpactEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityCvssV3ConfidentialityImpactEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnumSlice flattens the contents of NoteVulnerabilityCvssV3ConfidentialityImpactEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityCvssV3ConfidentialityImpactEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilityCvssV3ConfidentialityImpactEnum{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilityCvssV3ConfidentialityImpactEnum{}
+	}
+
+	items := make([]NoteVulnerabilityCvssV3ConfidentialityImpactEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnum asserts that an interface is a string, and returns a
+// pointer to a *NoteVulnerabilityCvssV3ConfidentialityImpactEnum with the same value as that string.
+func flattenNoteVulnerabilityCvssV3ConfidentialityImpactEnum(i interface{}) *NoteVulnerabilityCvssV3ConfidentialityImpactEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return NoteVulnerabilityCvssV3ConfidentialityImpactEnumRef(s)
+}
+
+// flattenNoteVulnerabilityCvssV3IntegrityImpactEnumMap flattens the contents of NoteVulnerabilityCvssV3IntegrityImpactEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3IntegrityImpactEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityCvssV3IntegrityImpactEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityCvssV3IntegrityImpactEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityCvssV3IntegrityImpactEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityCvssV3IntegrityImpactEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityCvssV3IntegrityImpactEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityCvssV3IntegrityImpactEnumSlice flattens the contents of NoteVulnerabilityCvssV3IntegrityImpactEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3IntegrityImpactEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityCvssV3IntegrityImpactEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilityCvssV3IntegrityImpactEnum{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilityCvssV3IntegrityImpactEnum{}
+	}
+
+	items := make([]NoteVulnerabilityCvssV3IntegrityImpactEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilityCvssV3IntegrityImpactEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityCvssV3IntegrityImpactEnum asserts that an interface is a string, and returns a
+// pointer to a *NoteVulnerabilityCvssV3IntegrityImpactEnum with the same value as that string.
+func flattenNoteVulnerabilityCvssV3IntegrityImpactEnum(i interface{}) *NoteVulnerabilityCvssV3IntegrityImpactEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return NoteVulnerabilityCvssV3IntegrityImpactEnumRef(s)
+}
+
+// flattenNoteVulnerabilityCvssV3AvailabilityImpactEnumMap flattens the contents of NoteVulnerabilityCvssV3AvailabilityImpactEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3AvailabilityImpactEnumMap(c *Client, i interface{}, res *Note) map[string]NoteVulnerabilityCvssV3AvailabilityImpactEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteVulnerabilityCvssV3AvailabilityImpactEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteVulnerabilityCvssV3AvailabilityImpactEnum{}
+	}
+
+	items := make(map[string]NoteVulnerabilityCvssV3AvailabilityImpactEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteVulnerabilityCvssV3AvailabilityImpactEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityCvssV3AvailabilityImpactEnumSlice flattens the contents of NoteVulnerabilityCvssV3AvailabilityImpactEnum from a JSON
+// response object.
+func flattenNoteVulnerabilityCvssV3AvailabilityImpactEnumSlice(c *Client, i interface{}, res *Note) []NoteVulnerabilityCvssV3AvailabilityImpactEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteVulnerabilityCvssV3AvailabilityImpactEnum{}
+	}
+
+	if len(a) == 0 {
+		return []NoteVulnerabilityCvssV3AvailabilityImpactEnum{}
+	}
+
+	items := make([]NoteVulnerabilityCvssV3AvailabilityImpactEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteVulnerabilityCvssV3AvailabilityImpactEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenNoteVulnerabilityCvssV3AvailabilityImpactEnum asserts that an interface is a string, and returns a
+// pointer to a *NoteVulnerabilityCvssV3AvailabilityImpactEnum with the same value as that string.
+func flattenNoteVulnerabilityCvssV3AvailabilityImpactEnum(i interface{}) *NoteVulnerabilityCvssV3AvailabilityImpactEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return NoteVulnerabilityCvssV3AvailabilityImpactEnumRef(s)
+}
+
+// flattenNoteBuildSignatureKeyTypeEnumMap flattens the contents of NoteBuildSignatureKeyTypeEnum from a JSON
+// response object.
+func flattenNoteBuildSignatureKeyTypeEnumMap(c *Client, i interface{}, res *Note) map[string]NoteBuildSignatureKeyTypeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]NoteBuildSignatureKeyTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]NoteBuildSignatureKeyTypeEnum{}
+	}
+
+	items := make(map[string]NoteBuildSignatureKeyTypeEnum)
+	for k, item := range a {
+		items[k] = *flattenNoteBuildSignatureKeyTypeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenNoteBuildSignatureKeyTypeEnumSlice flattens the contents of NoteBuildSignatureKeyTypeEnum from a JSON
+// response object.
+func flattenNoteBuildSignatureKeyTypeEnumSlice(c *Client, i interface{}, res *Note) []NoteBuildSignatureKeyTypeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []NoteBuildSignatureKeyTypeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []NoteBuildSignatureKeyTypeEnum{}
+	}
+
+	items := make([]NoteBuildSignatureKeyTypeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenNoteBuildSignatureKeyTypeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenNoteBuildSignatureKeyTypeEnum asserts that an interface is a string, and returns a
+// pointer to a *NoteBuildSignatureKeyTypeEnum with the same value as that string.
+func flattenNoteBuildSignatureKeyTypeEnum(i interface{}) *NoteBuildSignatureKeyTypeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return NoteBuildSignatureKeyTypeEnumRef(s)
+}
+
 // flattenNotePackageDistributionArchitectureEnumMap flattens the contents of NotePackageDistributionArchitectureEnum from a JSON
 // response object.
 func flattenNotePackageDistributionArchitectureEnumMap(c *Client, i interface{}, res *Note) map[string]NotePackageDistributionArchitectureEnum {
@@ -4039,6 +8283,28 @@ func convertOpNameToNoteApiOperation(opName string, fieldDiffs []*dcl.FieldDiff,
 }
 
 func extractNoteFields(r *Note) error {
+	vVulnerability := r.Vulnerability
+	if vVulnerability == nil {
+		// note: explicitly not the empty object.
+		vVulnerability = &NoteVulnerability{}
+	}
+	if err := extractNoteVulnerabilityFields(r, vVulnerability); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vVulnerability) {
+		r.Vulnerability = vVulnerability
+	}
+	vBuild := r.Build
+	if vBuild == nil {
+		// note: explicitly not the empty object.
+		vBuild = &NoteBuild{}
+	}
+	if err := extractNoteBuildFields(r, vBuild); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vBuild) {
+		r.Build = vBuild
+	}
 	vImage := r.Image
 	if vImage == nil {
 		// note: explicitly not the empty object.
@@ -4097,6 +8363,91 @@ func extractNoteFields(r *Note) error {
 	return nil
 }
 func extractNoteRelatedUrlFields(r *Note, o *NoteRelatedUrl) error {
+	return nil
+}
+func extractNoteVulnerabilityFields(r *Note, o *NoteVulnerability) error {
+	vCvssV3 := o.CvssV3
+	if vCvssV3 == nil {
+		// note: explicitly not the empty object.
+		vCvssV3 = &NoteVulnerabilityCvssV3{}
+	}
+	if err := extractNoteVulnerabilityCvssV3Fields(r, vCvssV3); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCvssV3) {
+		o.CvssV3 = vCvssV3
+	}
+	return nil
+}
+func extractNoteVulnerabilityDetailsFields(r *Note, o *NoteVulnerabilityDetails) error {
+	vAffectedVersionStart := o.AffectedVersionStart
+	if vAffectedVersionStart == nil {
+		// note: explicitly not the empty object.
+		vAffectedVersionStart = &NoteVulnerabilityDetailsAffectedVersionStart{}
+	}
+	if err := extractNoteVulnerabilityDetailsAffectedVersionStartFields(r, vAffectedVersionStart); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAffectedVersionStart) {
+		o.AffectedVersionStart = vAffectedVersionStart
+	}
+	vAffectedVersionEnd := o.AffectedVersionEnd
+	if vAffectedVersionEnd == nil {
+		// note: explicitly not the empty object.
+		vAffectedVersionEnd = &NoteVulnerabilityDetailsAffectedVersionEnd{}
+	}
+	if err := extractNoteVulnerabilityDetailsAffectedVersionEndFields(r, vAffectedVersionEnd); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAffectedVersionEnd) {
+		o.AffectedVersionEnd = vAffectedVersionEnd
+	}
+	vFixedVersion := o.FixedVersion
+	if vFixedVersion == nil {
+		// note: explicitly not the empty object.
+		vFixedVersion = &NoteVulnerabilityDetailsFixedVersion{}
+	}
+	if err := extractNoteVulnerabilityDetailsFixedVersionFields(r, vFixedVersion); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFixedVersion) {
+		o.FixedVersion = vFixedVersion
+	}
+	return nil
+}
+func extractNoteVulnerabilityDetailsAffectedVersionStartFields(r *Note, o *NoteVulnerabilityDetailsAffectedVersionStart) error {
+	return nil
+}
+func extractNoteVulnerabilityDetailsAffectedVersionEndFields(r *Note, o *NoteVulnerabilityDetailsAffectedVersionEnd) error {
+	return nil
+}
+func extractNoteVulnerabilityDetailsFixedVersionFields(r *Note, o *NoteVulnerabilityDetailsFixedVersion) error {
+	return nil
+}
+func extractNoteVulnerabilityCvssV3Fields(r *Note, o *NoteVulnerabilityCvssV3) error {
+	return nil
+}
+func extractNoteVulnerabilityWindowsDetailsFields(r *Note, o *NoteVulnerabilityWindowsDetails) error {
+	return nil
+}
+func extractNoteVulnerabilityWindowsDetailsFixingKbsFields(r *Note, o *NoteVulnerabilityWindowsDetailsFixingKbs) error {
+	return nil
+}
+func extractNoteBuildFields(r *Note, o *NoteBuild) error {
+	vSignature := o.Signature
+	if vSignature == nil {
+		// note: explicitly not the empty object.
+		vSignature = &NoteBuildSignature{}
+	}
+	if err := extractNoteBuildSignatureFields(r, vSignature); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSignature) {
+		o.Signature = vSignature
+	}
+	return nil
+}
+func extractNoteBuildSignatureFields(r *Note, o *NoteBuildSignature) error {
 	return nil
 }
 func extractNoteImageFields(r *Note, o *NoteImage) error {
@@ -4161,6 +8512,28 @@ func extractNoteAttestationHintFields(r *Note, o *NoteAttestationHint) error {
 }
 
 func postReadExtractNoteFields(r *Note) error {
+	vVulnerability := r.Vulnerability
+	if vVulnerability == nil {
+		// note: explicitly not the empty object.
+		vVulnerability = &NoteVulnerability{}
+	}
+	if err := postReadExtractNoteVulnerabilityFields(r, vVulnerability); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vVulnerability) {
+		r.Vulnerability = vVulnerability
+	}
+	vBuild := r.Build
+	if vBuild == nil {
+		// note: explicitly not the empty object.
+		vBuild = &NoteBuild{}
+	}
+	if err := postReadExtractNoteBuildFields(r, vBuild); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vBuild) {
+		r.Build = vBuild
+	}
 	vImage := r.Image
 	if vImage == nil {
 		// note: explicitly not the empty object.
@@ -4219,6 +8592,91 @@ func postReadExtractNoteFields(r *Note) error {
 	return nil
 }
 func postReadExtractNoteRelatedUrlFields(r *Note, o *NoteRelatedUrl) error {
+	return nil
+}
+func postReadExtractNoteVulnerabilityFields(r *Note, o *NoteVulnerability) error {
+	vCvssV3 := o.CvssV3
+	if vCvssV3 == nil {
+		// note: explicitly not the empty object.
+		vCvssV3 = &NoteVulnerabilityCvssV3{}
+	}
+	if err := extractNoteVulnerabilityCvssV3Fields(r, vCvssV3); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vCvssV3) {
+		o.CvssV3 = vCvssV3
+	}
+	return nil
+}
+func postReadExtractNoteVulnerabilityDetailsFields(r *Note, o *NoteVulnerabilityDetails) error {
+	vAffectedVersionStart := o.AffectedVersionStart
+	if vAffectedVersionStart == nil {
+		// note: explicitly not the empty object.
+		vAffectedVersionStart = &NoteVulnerabilityDetailsAffectedVersionStart{}
+	}
+	if err := extractNoteVulnerabilityDetailsAffectedVersionStartFields(r, vAffectedVersionStart); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAffectedVersionStart) {
+		o.AffectedVersionStart = vAffectedVersionStart
+	}
+	vAffectedVersionEnd := o.AffectedVersionEnd
+	if vAffectedVersionEnd == nil {
+		// note: explicitly not the empty object.
+		vAffectedVersionEnd = &NoteVulnerabilityDetailsAffectedVersionEnd{}
+	}
+	if err := extractNoteVulnerabilityDetailsAffectedVersionEndFields(r, vAffectedVersionEnd); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vAffectedVersionEnd) {
+		o.AffectedVersionEnd = vAffectedVersionEnd
+	}
+	vFixedVersion := o.FixedVersion
+	if vFixedVersion == nil {
+		// note: explicitly not the empty object.
+		vFixedVersion = &NoteVulnerabilityDetailsFixedVersion{}
+	}
+	if err := extractNoteVulnerabilityDetailsFixedVersionFields(r, vFixedVersion); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vFixedVersion) {
+		o.FixedVersion = vFixedVersion
+	}
+	return nil
+}
+func postReadExtractNoteVulnerabilityDetailsAffectedVersionStartFields(r *Note, o *NoteVulnerabilityDetailsAffectedVersionStart) error {
+	return nil
+}
+func postReadExtractNoteVulnerabilityDetailsAffectedVersionEndFields(r *Note, o *NoteVulnerabilityDetailsAffectedVersionEnd) error {
+	return nil
+}
+func postReadExtractNoteVulnerabilityDetailsFixedVersionFields(r *Note, o *NoteVulnerabilityDetailsFixedVersion) error {
+	return nil
+}
+func postReadExtractNoteVulnerabilityCvssV3Fields(r *Note, o *NoteVulnerabilityCvssV3) error {
+	return nil
+}
+func postReadExtractNoteVulnerabilityWindowsDetailsFields(r *Note, o *NoteVulnerabilityWindowsDetails) error {
+	return nil
+}
+func postReadExtractNoteVulnerabilityWindowsDetailsFixingKbsFields(r *Note, o *NoteVulnerabilityWindowsDetailsFixingKbs) error {
+	return nil
+}
+func postReadExtractNoteBuildFields(r *Note, o *NoteBuild) error {
+	vSignature := o.Signature
+	if vSignature == nil {
+		// note: explicitly not the empty object.
+		vSignature = &NoteBuildSignature{}
+	}
+	if err := extractNoteBuildSignatureFields(r, vSignature); err != nil {
+		return err
+	}
+	if !dcl.IsNotReturnedByServer(vSignature) {
+		o.Signature = vSignature
+	}
+	return nil
+}
+func postReadExtractNoteBuildSignatureFields(r *Note, o *NoteBuildSignature) error {
 	return nil
 }
 func postReadExtractNoteImageFields(r *Note, o *NoteImage) error {

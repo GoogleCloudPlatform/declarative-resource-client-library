@@ -84,6 +84,30 @@ func ProtoToCloudidentityAlphaGroupAdditionalGroupKeys(p *alphapb.CloudidentityA
 	return obj
 }
 
+// ProtoToGroupDirectMemberCountPerType converts a GroupDirectMemberCountPerType object from its proto representation.
+func ProtoToCloudidentityAlphaGroupDirectMemberCountPerType(p *alphapb.CloudidentityAlphaGroupDirectMemberCountPerType) *alpha.GroupDirectMemberCountPerType {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.GroupDirectMemberCountPerType{
+		UserCount:  dcl.Int64OrNil(p.GetUserCount()),
+		GroupCount: dcl.Int64OrNil(p.GetGroupCount()),
+	}
+	return obj
+}
+
+// ProtoToGroupDerivedAliases converts a GroupDerivedAliases object from its proto representation.
+func ProtoToCloudidentityAlphaGroupDerivedAliases(p *alphapb.CloudidentityAlphaGroupDerivedAliases) *alpha.GroupDerivedAliases {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.GroupDerivedAliases{
+		Id:        dcl.StringOrNil(p.GetId()),
+		Namespace: dcl.StringOrNil(p.GetNamespace()),
+	}
+	return obj
+}
+
 // ProtoToGroupDynamicGroupMetadata converts a GroupDynamicGroupMetadata object from its proto representation.
 func ProtoToCloudidentityAlphaGroupDynamicGroupMetadata(p *alphapb.CloudidentityAlphaGroupDynamicGroupMetadata) *alpha.GroupDynamicGroupMetadata {
 	if p == nil {
@@ -138,18 +162,23 @@ func ProtoToCloudidentityAlphaGroupPosixGroups(p *alphapb.CloudidentityAlphaGrou
 // ProtoToGroup converts a Group resource from its proto representation.
 func ProtoToGroup(p *alphapb.CloudidentityAlphaGroup) *alpha.Group {
 	obj := &alpha.Group{
-		Name:                 dcl.StringOrNil(p.GetName()),
-		GroupKey:             ProtoToCloudidentityAlphaGroupGroupKey(p.GetGroupKey()),
-		Parent:               dcl.StringOrNil(p.GetParent()),
-		DisplayName:          dcl.StringOrNil(p.GetDisplayName()),
-		Description:          dcl.StringOrNil(p.GetDescription()),
-		CreateTime:           dcl.StringOrNil(p.GetCreateTime()),
-		UpdateTime:           dcl.StringOrNil(p.GetUpdateTime()),
-		DynamicGroupMetadata: ProtoToCloudidentityAlphaGroupDynamicGroupMetadata(p.GetDynamicGroupMetadata()),
-		InitialGroupConfig:   ProtoToCloudidentityAlphaGroupInitialGroupConfigEnum(p.GetInitialGroupConfig()),
+		Name:                     dcl.StringOrNil(p.GetName()),
+		GroupKey:                 ProtoToCloudidentityAlphaGroupGroupKey(p.GetGroupKey()),
+		Parent:                   dcl.StringOrNil(p.GetParent()),
+		DisplayName:              dcl.StringOrNil(p.GetDisplayName()),
+		Description:              dcl.StringOrNil(p.GetDescription()),
+		CreateTime:               dcl.StringOrNil(p.GetCreateTime()),
+		UpdateTime:               dcl.StringOrNil(p.GetUpdateTime()),
+		DirectMemberCount:        dcl.Int64OrNil(p.GetDirectMemberCount()),
+		DirectMemberCountPerType: ProtoToCloudidentityAlphaGroupDirectMemberCountPerType(p.GetDirectMemberCountPerType()),
+		DynamicGroupMetadata:     ProtoToCloudidentityAlphaGroupDynamicGroupMetadata(p.GetDynamicGroupMetadata()),
+		InitialGroupConfig:       ProtoToCloudidentityAlphaGroupInitialGroupConfigEnum(p.GetInitialGroupConfig()),
 	}
 	for _, r := range p.GetAdditionalGroupKeys() {
 		obj.AdditionalGroupKeys = append(obj.AdditionalGroupKeys, *ProtoToCloudidentityAlphaGroupAdditionalGroupKeys(r))
+	}
+	for _, r := range p.GetDerivedAliases() {
+		obj.DerivedAliases = append(obj.DerivedAliases, *ProtoToCloudidentityAlphaGroupDerivedAliases(r))
 	}
 	for _, r := range p.GetPosixGroups() {
 		obj.PosixGroups = append(obj.PosixGroups, *ProtoToCloudidentityAlphaGroupPosixGroups(r))
@@ -207,6 +236,28 @@ func CloudidentityAlphaGroupAdditionalGroupKeysToProto(o *alpha.GroupAdditionalG
 		return nil
 	}
 	p := &alphapb.CloudidentityAlphaGroupAdditionalGroupKeys{}
+	p.SetId(dcl.ValueOrEmptyString(o.Id))
+	p.SetNamespace(dcl.ValueOrEmptyString(o.Namespace))
+	return p
+}
+
+// GroupDirectMemberCountPerTypeToProto converts a GroupDirectMemberCountPerType object to its proto representation.
+func CloudidentityAlphaGroupDirectMemberCountPerTypeToProto(o *alpha.GroupDirectMemberCountPerType) *alphapb.CloudidentityAlphaGroupDirectMemberCountPerType {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.CloudidentityAlphaGroupDirectMemberCountPerType{}
+	p.SetUserCount(dcl.ValueOrEmptyInt64(o.UserCount))
+	p.SetGroupCount(dcl.ValueOrEmptyInt64(o.GroupCount))
+	return p
+}
+
+// GroupDerivedAliasesToProto converts a GroupDerivedAliases object to its proto representation.
+func CloudidentityAlphaGroupDerivedAliasesToProto(o *alpha.GroupDerivedAliases) *alphapb.CloudidentityAlphaGroupDerivedAliases {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.CloudidentityAlphaGroupDerivedAliases{}
 	p.SetId(dcl.ValueOrEmptyString(o.Id))
 	p.SetNamespace(dcl.ValueOrEmptyString(o.Namespace))
 	return p
@@ -271,6 +322,8 @@ func GroupToProto(resource *alpha.Group) *alphapb.CloudidentityAlphaGroup {
 	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
 	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetDirectMemberCount(dcl.ValueOrEmptyInt64(resource.DirectMemberCount))
+	p.SetDirectMemberCountPerType(CloudidentityAlphaGroupDirectMemberCountPerTypeToProto(resource.DirectMemberCountPerType))
 	p.SetDynamicGroupMetadata(CloudidentityAlphaGroupDynamicGroupMetadataToProto(resource.DynamicGroupMetadata))
 	p.SetInitialGroupConfig(CloudidentityAlphaGroupInitialGroupConfigEnumToProto(resource.InitialGroupConfig))
 	sAdditionalGroupKeys := make([]*alphapb.CloudidentityAlphaGroupAdditionalGroupKeys, len(resource.AdditionalGroupKeys))
@@ -283,6 +336,11 @@ func GroupToProto(resource *alpha.Group) *alphapb.CloudidentityAlphaGroup {
 		mLabels[k] = r
 	}
 	p.SetLabels(mLabels)
+	sDerivedAliases := make([]*alphapb.CloudidentityAlphaGroupDerivedAliases, len(resource.DerivedAliases))
+	for i, r := range resource.DerivedAliases {
+		sDerivedAliases[i] = CloudidentityAlphaGroupDerivedAliasesToProto(&r)
+	}
+	p.SetDerivedAliases(sDerivedAliases)
 	sPosixGroups := make([]*alphapb.CloudidentityAlphaGroupPosixGroups, len(resource.PosixGroups))
 	for i, r := range resource.PosixGroups {
 		sPosixGroups[i] = CloudidentityAlphaGroupPosixGroupsToProto(&r)

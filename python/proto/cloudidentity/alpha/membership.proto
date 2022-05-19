@@ -36,6 +36,16 @@ enum CloudidentityAlphaMembershipTypeEnum {
   CloudidentityAlphaMembershipTypeEnumOWNER_TYPE_PARTNER = 3;
 }
 
+enum CloudidentityAlphaMembershipDeliverySettingEnum {
+  CloudidentityAlphaMembershipDeliverySettingEnumNO_VALUE_DO_NOT_USE = 0;
+  CloudidentityAlphaMembershipDeliverySettingEnumDELIVERY_SETTING_UNSPECIFIED = 1;
+  CloudidentityAlphaMembershipDeliverySettingEnumALL_MAIL = 2;
+  CloudidentityAlphaMembershipDeliverySettingEnumDIGEST = 3;
+  CloudidentityAlphaMembershipDeliverySettingEnumDAILY = 4;
+  CloudidentityAlphaMembershipDeliverySettingEnumNONE = 5;
+  CloudidentityAlphaMembershipDeliverySettingEnumDISABLED = 6;
+}
+
 message CloudidentityAlphaMembership {
   string name = 1;
   CloudidentityAlphaMembershipPreferredMemberKey preferred_member_key = 2;
@@ -43,8 +53,10 @@ message CloudidentityAlphaMembership {
   string update_time = 4;
   repeated CloudidentityAlphaMembershipRoles roles = 5;
   CloudidentityAlphaMembershipTypeEnum type = 6;
-  CloudidentityAlphaMembershipMemberKey member_key = 7;
-  string group = 8;
+  CloudidentityAlphaMembershipDeliverySettingEnum delivery_setting = 7;
+  CloudidentityAlphaMembershipDisplayName display_name = 8;
+  CloudidentityAlphaMembershipMemberKey member_key = 9;
+  string group = 10;
 }
 
 message CloudidentityAlphaMembershipPreferredMemberKey {
@@ -68,6 +80,12 @@ message CloudidentityAlphaMembershipRolesRestrictionEvaluations {
 
 message CloudidentityAlphaMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation {
   CloudidentityAlphaMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationStateEnum state = 1;
+}
+
+message CloudidentityAlphaMembershipDisplayName {
+  string given_name = 1;
+  string family_name = 2;
+  string full_name = 3;
 }
 
 message CloudidentityAlphaMembershipMemberKey {

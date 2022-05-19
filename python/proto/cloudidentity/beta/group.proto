@@ -52,9 +52,12 @@ message CloudidentityBetaGroup {
   string create_time = 7;
   string update_time = 8;
   map<string, string> labels = 9;
-  CloudidentityBetaGroupDynamicGroupMetadata dynamic_group_metadata = 10;
-  repeated CloudidentityBetaGroupPosixGroups posix_groups = 11;
-  CloudidentityBetaGroupInitialGroupConfigEnum initial_group_config = 12;
+  int64 direct_member_count = 10;
+  CloudidentityBetaGroupDirectMemberCountPerType direct_member_count_per_type = 11;
+  repeated CloudidentityBetaGroupDerivedAliases derived_aliases = 12;
+  CloudidentityBetaGroupDynamicGroupMetadata dynamic_group_metadata = 13;
+  repeated CloudidentityBetaGroupPosixGroups posix_groups = 14;
+  CloudidentityBetaGroupInitialGroupConfigEnum initial_group_config = 15;
 }
 
 message CloudidentityBetaGroupGroupKey {
@@ -63,6 +66,16 @@ message CloudidentityBetaGroupGroupKey {
 }
 
 message CloudidentityBetaGroupAdditionalGroupKeys {
+  string id = 1;
+  string namespace = 2;
+}
+
+message CloudidentityBetaGroupDirectMemberCountPerType {
+  int64 user_count = 1;
+  int64 group_count = 2;
+}
+
+message CloudidentityBetaGroupDerivedAliases {
   string id = 1;
   string namespace = 2;
 }
