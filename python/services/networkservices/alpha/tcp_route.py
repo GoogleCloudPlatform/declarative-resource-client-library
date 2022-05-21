@@ -30,6 +30,7 @@ class TcpRoute(object):
         rules: list = None,
         routers: list = None,
         meshes: list = None,
+        gateways: list = None,
         labels: dict = None,
         project: str = None,
         location: str = None,
@@ -43,6 +44,7 @@ class TcpRoute(object):
         self.rules = rules
         self.routers = routers
         self.meshes = meshes
+        self.gateways = gateways
         self.labels = labels
         self.project = project
         self.location = location
@@ -65,6 +67,8 @@ class TcpRoute(object):
             request.resource.routers.extend(Primitive.to_proto(self.routers))
         if Primitive.to_proto(self.meshes):
             request.resource.meshes.extend(Primitive.to_proto(self.meshes))
+        if Primitive.to_proto(self.gateways):
+            request.resource.gateways.extend(Primitive.to_proto(self.gateways))
         if Primitive.to_proto(self.labels):
             request.resource.labels = Primitive.to_proto(self.labels)
 
@@ -84,6 +88,7 @@ class TcpRoute(object):
         self.rules = TcpRouteRulesArray.from_proto(response.rules)
         self.routers = Primitive.from_proto(response.routers)
         self.meshes = Primitive.from_proto(response.meshes)
+        self.gateways = Primitive.from_proto(response.gateways)
         self.labels = Primitive.from_proto(response.labels)
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
@@ -107,6 +112,8 @@ class TcpRoute(object):
             request.resource.routers.extend(Primitive.to_proto(self.routers))
         if Primitive.to_proto(self.meshes):
             request.resource.meshes.extend(Primitive.to_proto(self.meshes))
+        if Primitive.to_proto(self.gateways):
+            request.resource.gateways.extend(Primitive.to_proto(self.gateways))
         if Primitive.to_proto(self.labels):
             request.resource.labels = Primitive.to_proto(self.labels)
 
@@ -143,6 +150,8 @@ class TcpRoute(object):
             resource.routers.extend(Primitive.to_proto(self.routers))
         if Primitive.to_proto(self.meshes):
             resource.meshes.extend(Primitive.to_proto(self.meshes))
+        if Primitive.to_proto(self.gateways):
+            resource.gateways.extend(Primitive.to_proto(self.gateways))
         if Primitive.to_proto(self.labels):
             resource.labels = Primitive.to_proto(self.labels)
         if Primitive.to_proto(self.project):
