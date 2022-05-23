@@ -168,8 +168,7 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          description: 'Output only. The relative resource name of the lake, of the
-            form: `projects/{project_number}/locations/{location_id}/lakes/{lake_id}`.'
+          description: The name of the lake.
           x-dcl-references:
           - resource: Dataplex/Lake
             field: selfLink

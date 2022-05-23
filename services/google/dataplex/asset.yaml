@@ -284,8 +284,7 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          description: 'Output only. The relative resource name of the asset, of the
-            form: `projects/{project_number}/locations/{location_id}/lakes/{lake_id}/zones/{zone_id}/assets/{asset_id}`.'
+          description: The name of the asset.
           x-dcl-references:
           - resource: Dataplex/Asset
             field: selfLink
