@@ -68,7 +68,7 @@ components:
       type: object
       required:
       - name
-      - matchingCriteria
+      - eventFilters
       - destination
       - project
       - location
@@ -92,23 +92,15 @@ components:
               x-dcl-go-name: CloudFunction
               description: '[WARNING] Configuring a Cloud Function in Trigger is not
                 supported as of today. The Cloud Function resource name. Format: projects/{project}/locations/{location}/functions/{function}'
-              x-dcl-conflicts:
-              - cloudRunService
-              - gke
-              - workflow
               x-dcl-references:
               - resource: Cloudfunctions/Function
                 field: name
-            cloudRunService:
+            cloudRun:
               type: object
-              x-dcl-go-name: CloudRunService
-              x-dcl-go-type: TriggerDestinationCloudRunService
+              x-dcl-go-name: CloudRun
+              x-dcl-go-type: TriggerDestinationCloudRun
               description: Cloud Run fully-managed service that receives the events.
                 The service should be running in the same project of the trigger.
-              x-dcl-conflicts:
-              - cloudFunction
-              - gke
-              - workflow
               required:
               - service
               - region
@@ -141,10 +133,6 @@ components:
               x-dcl-go-type: TriggerDestinationGke
               description: A GKE service capable of receiving events. The service
                 should be running in the same project as the trigger.
-              x-dcl-conflicts:
-              - cloudRunService
-              - cloudFunction
-              - workflow
               required:
               - cluster
               - location
@@ -189,10 +177,6 @@ components:
               description: 'The resource name of the Workflow whose Executions are
                 triggered by the events. The Workflow resource should be deployed
                 in the same project as the trigger. Format: `projects/{project}/locations/{location}/workflows/{workflow}`'
-              x-dcl-conflicts:
-              - cloudRunService
-              - cloudFunction
-              - gke
               x-dcl-references:
               - resource: Workflows/Workflow
                 field: name
@@ -204,28 +188,16 @@ components:
             on the value of other fields, and may be sent only on create requests
             to ensure the client has an up-to-date value before proceeding.
           x-kubernetes-immutable: true
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          x-dcl-go-name: Labels
-          description: Optional. User labels attached to the triggers that can be
-            used to group resources.
-        location:
-          type: string
-          x-dcl-go-name: Location
-          description: The location for the resource
-          x-kubernetes-immutable: true
-        matchingCriteria:
+        eventFilters:
           type: array
-          x-dcl-go-name: MatchingCriteria
+          x-dcl-go-name: EventFilters
           description: Required. null The list of filters that applies to event attributes.
             Only events that match all the provided filters will be sent to the destination.
           x-dcl-send-empty: true
           x-dcl-list-type: set
           items:
             type: object
-            x-dcl-go-type: TriggerMatchingCriteria
+            x-dcl-go-type: TriggerEventFilters
             required:
             - attribute
             - value
@@ -248,6 +220,18 @@ components:
                 x-dcl-go-name: Value
                 description: Required. The value for the attribute. See https://cloud.google.com/eventarc/docs/creating-triggers#trigger-gcloud
                   for available values.
+        labels:
+          type: object
+          additionalProperties:
+            type: string
+          x-dcl-go-name: Labels
+          description: Optional. User labels attached to the triggers that can be
+            used to group resources.
+        location:
+          type: string
+          x-dcl-go-name: Location
+          description: The location for the resource
+          x-kubernetes-immutable: true
         name:
           type: string
           x-dcl-go-name: Name

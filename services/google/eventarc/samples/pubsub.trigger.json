@@ -4,7 +4,7 @@
   "name": "{{name}}",
   "labels": {},
   "destination": {
-    "cloudRunService": {
+    "cloudRun": {
       "service": "projects/{{project}}/locations/{{region}}/services/{{ref:basicservice.run1.service.json:name}}",
       "region": "{{region}}",
       "path": "/route"
@@ -15,7 +15,7 @@
      "topic": "projects/{{project}}/topics/{{ref:basic.pubsub.topic.json:name}}"
     }
   },
-  "matchingCriteria": [
+  "eventFilters": [
     {
       "attribute": "type",
       "value": "google.cloud.pubsub.topic.v1.messagePublished"
