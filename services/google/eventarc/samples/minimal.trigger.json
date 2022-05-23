@@ -3,12 +3,12 @@
   "location": "{{region}}",
   "name": "{{name}}",
   "destination": {
-    "cloudRunService": {
+    "cloudRun": {
       "service": "projects/{{project}}/locations/{{region}}/services/{{ref:basicservice.run1.service.json:name}}",
       "region": "{{region}}"
     }
   },
-  "matchingCriteria": [
+  "eventFilters": [
     {
       "attribute": "type",
       "value": "google.cloud.pubsub.topic.v1.messagePublished"

@@ -9,7 +9,7 @@
     "workflow": "projects/{{project}}/locations/{{region}}/workflows/eventarc-trigger-workflow"
   },
   "serviceAccount": "{{service_account}}",
-  "matchingCriteria": [
+  "eventFilters": [
     {
       "attribute": "type",
       "value": "google.cloud.pubsub.topic.v1.messagePublished"

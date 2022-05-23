@@ -26,7 +26,7 @@ message EventarcBetaTrigger {
   string uid = 2;
   string create_time = 3;
   string update_time = 4;
-  repeated EventarcBetaTriggerMatchingCriteria matching_criteria = 5;
+  repeated EventarcBetaTriggerEventFilters event_filters = 5;
   string service_account = 6;
   EventarcBetaTriggerDestination destination = 7;
   EventarcBetaTriggerTransport transport = 8;
@@ -36,20 +36,20 @@ message EventarcBetaTrigger {
   string location = 12;
 }
 
-message EventarcBetaTriggerMatchingCriteria {
+message EventarcBetaTriggerEventFilters {
   string attribute = 1;
   string value = 2;
   string operator = 3;
 }
 
 message EventarcBetaTriggerDestination {
-  EventarcBetaTriggerDestinationCloudRunService cloud_run_service = 1;
+  EventarcBetaTriggerDestinationCloudRun cloud_run = 1;
   string cloud_function = 2;
   EventarcBetaTriggerDestinationGke gke = 3;
   string workflow = 4;
 }
 
-message EventarcBetaTriggerDestinationCloudRunService {
+message EventarcBetaTriggerDestinationCloudRun {
   string service = 1;
   string path = 2;
   string region = 3;

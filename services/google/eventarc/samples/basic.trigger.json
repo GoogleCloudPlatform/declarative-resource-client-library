@@ -6,13 +6,13 @@
     "foo1": "bar1"
   },
   "destination": {
-    "cloudRunService": {
+    "cloudRun": {
       "service": "projects/{{project}}/locations/{{region}}/services/{{ref:basicservice.run1.service.json:name}}",
       "region": "{{region}}"
     }
   },
   "serviceAccount": "{{service_account}}",
-  "matchingCriteria": [
+  "eventFilters": [
     {
       "attribute": "type",
       "value": "google.cloud.audit.log.v1.written"

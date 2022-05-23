@@ -25,35 +25,35 @@ import (
 )
 
 type Trigger struct {
-	Name             *string                   `json:"name"`
-	Uid              *string                   `json:"uid"`
-	CreateTime       *string                   `json:"createTime"`
-	UpdateTime       *string                   `json:"updateTime"`
-	MatchingCriteria []TriggerMatchingCriteria `json:"matchingCriteria"`
-	ServiceAccount   *string                   `json:"serviceAccount"`
-	Destination      *TriggerDestination       `json:"destination"`
-	Transport        *TriggerTransport         `json:"transport"`
-	Labels           map[string]string         `json:"labels"`
-	Etag             *string                   `json:"etag"`
-	Project          *string                   `json:"project"`
-	Location         *string                   `json:"location"`
+	Name           *string               `json:"name"`
+	Uid            *string               `json:"uid"`
+	CreateTime     *string               `json:"createTime"`
+	UpdateTime     *string               `json:"updateTime"`
+	EventFilters   []TriggerEventFilters `json:"eventFilters"`
+	ServiceAccount *string               `json:"serviceAccount"`
+	Destination    *TriggerDestination   `json:"destination"`
+	Transport      *TriggerTransport     `json:"transport"`
+	Labels         map[string]string     `json:"labels"`
+	Etag           *string               `json:"etag"`
+	Project        *string               `json:"project"`
+	Location       *string               `json:"location"`
 }
 
 func (r *Trigger) String() string {
 	return dcl.SprintResource(r)
 }
 
-type TriggerMatchingCriteria struct {
+type TriggerEventFilters struct {
 	empty     bool    `json:"-"`
 	Attribute *string `json:"attribute"`
 	Value     *string `json:"value"`
 	Operator  *string `json:"operator"`
 }
 
-type jsonTriggerMatchingCriteria TriggerMatchingCriteria
+type jsonTriggerEventFilters TriggerEventFilters
 
-func (r *TriggerMatchingCriteria) UnmarshalJSON(data []byte) error {
-	var res jsonTriggerMatchingCriteria
+func (r *TriggerEventFilters) UnmarshalJSON(data []byte) error {
+	var res jsonTriggerEventFilters
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -62,7 +62,7 @@ func (r *TriggerMatchingCriteria) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyTriggerMatchingCriteria
+		*r = *EmptyTriggerEventFilters
 	} else {
 
 		r.Attribute = res.Attribute
@@ -75,20 +75,20 @@ func (r *TriggerMatchingCriteria) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this TriggerMatchingCriteria is
+// This object is used to assert a desired state where this TriggerEventFilters is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyTriggerMatchingCriteria *TriggerMatchingCriteria = &TriggerMatchingCriteria{empty: true}
+var EmptyTriggerEventFilters *TriggerEventFilters = &TriggerEventFilters{empty: true}
 
-func (r *TriggerMatchingCriteria) Empty() bool {
+func (r *TriggerEventFilters) Empty() bool {
 	return r.empty
 }
 
-func (r *TriggerMatchingCriteria) String() string {
+func (r *TriggerEventFilters) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *TriggerMatchingCriteria) HashCode() string {
+func (r *TriggerEventFilters) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -96,11 +96,11 @@ func (r *TriggerMatchingCriteria) HashCode() string {
 }
 
 type TriggerDestination struct {
-	empty           bool                               `json:"-"`
-	CloudRunService *TriggerDestinationCloudRunService `json:"cloudRunService"`
-	CloudFunction   *string                            `json:"cloudFunction"`
-	Gke             *TriggerDestinationGke             `json:"gke"`
-	Workflow        *string                            `json:"workflow"`
+	empty         bool                        `json:"-"`
+	CloudRun      *TriggerDestinationCloudRun `json:"cloudRun"`
+	CloudFunction *string                     `json:"cloudFunction"`
+	Gke           *TriggerDestinationGke      `json:"gke"`
+	Workflow      *string                     `json:"workflow"`
 }
 
 type jsonTriggerDestination TriggerDestination
@@ -118,7 +118,7 @@ func (r *TriggerDestination) UnmarshalJSON(data []byte) error {
 		*r = *EmptyTriggerDestination
 	} else {
 
-		r.CloudRunService = res.CloudRunService
+		r.CloudRun = res.CloudRun
 
 		r.CloudFunction = res.CloudFunction
 
@@ -150,17 +150,17 @@ func (r *TriggerDestination) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type TriggerDestinationCloudRunService struct {
+type TriggerDestinationCloudRun struct {
 	empty   bool    `json:"-"`
 	Service *string `json:"service"`
 	Path    *string `json:"path"`
 	Region  *string `json:"region"`
 }
 
-type jsonTriggerDestinationCloudRunService TriggerDestinationCloudRunService
+type jsonTriggerDestinationCloudRun TriggerDestinationCloudRun
 
-func (r *TriggerDestinationCloudRunService) UnmarshalJSON(data []byte) error {
-	var res jsonTriggerDestinationCloudRunService
+func (r *TriggerDestinationCloudRun) UnmarshalJSON(data []byte) error {
+	var res jsonTriggerDestinationCloudRun
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -169,7 +169,7 @@ func (r *TriggerDestinationCloudRunService) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyTriggerDestinationCloudRunService
+		*r = *EmptyTriggerDestinationCloudRun
 	} else {
 
 		r.Service = res.Service
@@ -182,20 +182,20 @@ func (r *TriggerDestinationCloudRunService) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// This object is used to assert a desired state where this TriggerDestinationCloudRunService is
+// This object is used to assert a desired state where this TriggerDestinationCloudRun is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyTriggerDestinationCloudRunService *TriggerDestinationCloudRunService = &TriggerDestinationCloudRunService{empty: true}
+var EmptyTriggerDestinationCloudRun *TriggerDestinationCloudRun = &TriggerDestinationCloudRun{empty: true}
 
-func (r *TriggerDestinationCloudRunService) Empty() bool {
+func (r *TriggerDestinationCloudRun) Empty() bool {
 	return r.empty
 }
 
-func (r *TriggerDestinationCloudRunService) String() string {
+func (r *TriggerDestinationCloudRun) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *TriggerDestinationCloudRunService) HashCode() string {
+func (r *TriggerDestinationCloudRun) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -371,18 +371,18 @@ func (r *Trigger) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":             dcl.ValueOrEmptyString(nr.Name),
-		"uid":              dcl.ValueOrEmptyString(nr.Uid),
-		"createTime":       dcl.ValueOrEmptyString(nr.CreateTime),
-		"updateTime":       dcl.ValueOrEmptyString(nr.UpdateTime),
-		"matchingCriteria": dcl.ValueOrEmptyString(nr.MatchingCriteria),
-		"serviceAccount":   dcl.ValueOrEmptyString(nr.ServiceAccount),
-		"destination":      dcl.ValueOrEmptyString(nr.Destination),
-		"transport":        dcl.ValueOrEmptyString(nr.Transport),
-		"labels":           dcl.ValueOrEmptyString(nr.Labels),
-		"etag":             dcl.ValueOrEmptyString(nr.Etag),
-		"project":          dcl.ValueOrEmptyString(nr.Project),
-		"location":         dcl.ValueOrEmptyString(nr.Location),
+		"name":           dcl.ValueOrEmptyString(nr.Name),
+		"uid":            dcl.ValueOrEmptyString(nr.Uid),
+		"createTime":     dcl.ValueOrEmptyString(nr.CreateTime),
+		"updateTime":     dcl.ValueOrEmptyString(nr.UpdateTime),
+		"eventFilters":   dcl.ValueOrEmptyString(nr.EventFilters),
+		"serviceAccount": dcl.ValueOrEmptyString(nr.ServiceAccount),
+		"destination":    dcl.ValueOrEmptyString(nr.Destination),
+		"transport":      dcl.ValueOrEmptyString(nr.Transport),
+		"labels":         dcl.ValueOrEmptyString(nr.Labels),
+		"etag":           dcl.ValueOrEmptyString(nr.Etag),
+		"project":        dcl.ValueOrEmptyString(nr.Project),
+		"location":       dcl.ValueOrEmptyString(nr.Location),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/triggers/{{name}}", params), nil
 }

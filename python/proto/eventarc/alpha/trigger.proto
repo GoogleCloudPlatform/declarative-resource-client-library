@@ -26,7 +26,7 @@ message EventarcAlphaTrigger {
   string uid = 2;
   string create_time = 3;
   string update_time = 4;
-  repeated EventarcAlphaTriggerMatchingCriteria matching_criteria = 5;
+  repeated EventarcAlphaTriggerEventFilters event_filters = 5;
   string service_account = 6;
   EventarcAlphaTriggerDestination destination = 7;
   EventarcAlphaTriggerTransport transport = 8;
@@ -36,20 +36,20 @@ message EventarcAlphaTrigger {
   string location = 12;
 }
 
-message EventarcAlphaTriggerMatchingCriteria {
+message EventarcAlphaTriggerEventFilters {
   string attribute = 1;
   string value = 2;
   string operator = 3;
 }
 
 message EventarcAlphaTriggerDestination {
-  EventarcAlphaTriggerDestinationCloudRunService cloud_run_service = 1;
+  EventarcAlphaTriggerDestinationCloudRun cloud_run = 1;
   string cloud_function = 2;
   EventarcAlphaTriggerDestinationGke gke = 3;
   string workflow = 4;
 }
 
-message EventarcAlphaTriggerDestinationCloudRunService {
+message EventarcAlphaTriggerDestinationCloudRun {
   string service = 1;
   string path = 2;
   string region = 3;
