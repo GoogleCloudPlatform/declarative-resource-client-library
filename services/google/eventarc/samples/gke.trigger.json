@@ -15,7 +15,7 @@
     }
   },
   "serviceAccount": "{{service_account}}",
-  "eventFilters": [
+  "matchingCriteria": [
     {
       "attribute": "type",
       "value": "google.cloud.audit.log.v1.written"

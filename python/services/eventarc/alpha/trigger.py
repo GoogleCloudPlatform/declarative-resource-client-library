@@ -25,7 +25,7 @@ class Trigger(object):
         uid: str = None,
         create_time: str = None,
         update_time: str = None,
-        event_filters: list = None,
+        matching_criteria: list = None,
         service_account: str = None,
         destination: dict = None,
         transport: dict = None,
@@ -38,7 +38,7 @@ class Trigger(object):
 
         channel.initialize()
         self.name = name
-        self.event_filters = event_filters
+        self.matching_criteria = matching_criteria
         self.service_account = service_account
         self.destination = destination
         self.transport = transport
@@ -53,9 +53,9 @@ class Trigger(object):
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
-        if TriggerEventFiltersArray.to_proto(self.event_filters):
-            request.resource.event_filters.extend(
-                TriggerEventFiltersArray.to_proto(self.event_filters)
+        if TriggerMatchingCriteriaArray.to_proto(self.matching_criteria):
+            request.resource.matching_criteria.extend(
+                TriggerMatchingCriteriaArray.to_proto(self.matching_criteria)
             )
         if Primitive.to_proto(self.service_account):
             request.resource.service_account = Primitive.to_proto(self.service_account)
@@ -88,7 +88,9 @@ class Trigger(object):
         self.uid = Primitive.from_proto(response.uid)
         self.create_time = Primitive.from_proto(response.create_time)
         self.update_time = Primitive.from_proto(response.update_time)
-        self.event_filters = TriggerEventFiltersArray.from_proto(response.event_filters)
+        self.matching_criteria = TriggerMatchingCriteriaArray.from_proto(
+            response.matching_criteria
+        )
         self.service_account = Primitive.from_proto(response.service_account)
         self.destination = TriggerDestination.from_proto(response.destination)
         self.transport = TriggerTransport.from_proto(response.transport)
@@ -104,9 +106,9 @@ class Trigger(object):
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
-        if TriggerEventFiltersArray.to_proto(self.event_filters):
-            request.resource.event_filters.extend(
-                TriggerEventFiltersArray.to_proto(self.event_filters)
+        if TriggerMatchingCriteriaArray.to_proto(self.matching_criteria):
+            request.resource.matching_criteria.extend(
+                TriggerMatchingCriteriaArray.to_proto(self.matching_criteria)
             )
         if Primitive.to_proto(self.service_account):
             request.resource.service_account = Primitive.to_proto(self.service_account)
@@ -149,9 +151,9 @@ class Trigger(object):
         resource = trigger_pb2.EventarcAlphaTrigger()
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
-        if TriggerEventFiltersArray.to_proto(self.event_filters):
-            resource.event_filters.extend(
-                TriggerEventFiltersArray.to_proto(self.event_filters)
+        if TriggerMatchingCriteriaArray.to_proto(self.matching_criteria):
+            resource.matching_criteria.extend(
+                TriggerMatchingCriteriaArray.to_proto(self.matching_criteria)
             )
         if Primitive.to_proto(self.service_account):
             resource.service_account = Primitive.to_proto(self.service_account)
@@ -172,7 +174,7 @@ class Trigger(object):
         return resource
 
 
-class TriggerEventFilters(object):
+class TriggerMatchingCriteria(object):
     def __init__(self, attribute: str = None, value: str = None, operator: str = None):
         self.attribute = attribute
         self.value = value
@@ -183,7 +185,7 @@ class TriggerEventFilters(object):
         if not resource:
             return None
 
-        res = trigger_pb2.EventarcAlphaTriggerEventFilters()
+        res = trigger_pb2.EventarcAlphaTriggerMatchingCriteria()
         if Primitive.to_proto(resource.attribute):
             res.attribute = Primitive.to_proto(resource.attribute)
         if Primitive.to_proto(resource.value):
@@ -197,34 +199,34 @@ class TriggerEventFilters(object):
         if not resource:
             return None
 
-        return TriggerEventFilters(
+        return TriggerMatchingCriteria(
             attribute=Primitive.from_proto(resource.attribute),
             value=Primitive.from_proto(resource.value),
             operator=Primitive.from_proto(resource.operator),
         )
 
 
-class TriggerEventFiltersArray(object):
+class TriggerMatchingCriteriaArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [TriggerEventFilters.to_proto(i) for i in resources]
+        return [TriggerMatchingCriteria.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [TriggerEventFilters.from_proto(i) for i in resources]
+        return [TriggerMatchingCriteria.from_proto(i) for i in resources]
 
 
 class TriggerDestination(object):
     def __init__(
         self,
-        cloud_run: dict = None,
+        cloud_run_service: dict = None,
         cloud_function: str = None,
         gke: dict = None,
         workflow: str = None,
     ):
-        self.cloud_run = cloud_run
+        self.cloud_run_service = cloud_run_service
         self.cloud_function = cloud_function
         self.gke = gke
         self.workflow = workflow
@@ -235,12 +237,12 @@ class TriggerDestination(object):
             return None
 
         res = trigger_pb2.EventarcAlphaTriggerDestination()
-        if TriggerDestinationCloudRun.to_proto(resource.cloud_run):
-            res.cloud_run.CopyFrom(
-                TriggerDestinationCloudRun.to_proto(resource.cloud_run)
+        if TriggerDestinationCloudRunService.to_proto(resource.cloud_run_service):
+            res.cloud_run_service.CopyFrom(
+                TriggerDestinationCloudRunService.to_proto(resource.cloud_run_service)
             )
         else:
-            res.ClearField("cloud_run")
+            res.ClearField("cloud_run_service")
         if Primitive.to_proto(resource.cloud_function):
             res.cloud_function = Primitive.to_proto(resource.cloud_function)
         if TriggerDestinationGke.to_proto(resource.gke):
@@ -257,7 +259,9 @@ class TriggerDestination(object):
             return None
 
         return TriggerDestination(
-            cloud_run=TriggerDestinationCloudRun.from_proto(resource.cloud_run),
+            cloud_run_service=TriggerDestinationCloudRunService.from_proto(
+                resource.cloud_run_service
+            ),
             cloud_function=Primitive.from_proto(resource.cloud_function),
             gke=TriggerDestinationGke.from_proto(resource.gke),
             workflow=Primitive.from_proto(resource.workflow),
@@ -276,7 +280,7 @@ class TriggerDestinationArray(object):
         return [TriggerDestination.from_proto(i) for i in resources]
 
 
-class TriggerDestinationCloudRun(object):
+class TriggerDestinationCloudRunService(object):
     def __init__(self, service: str = None, path: str = None, region: str = None):
         self.service = service
         self.path = path
@@ -287,7 +291,7 @@ class TriggerDestinationCloudRun(object):
         if not resource:
             return None
 
-        res = trigger_pb2.EventarcAlphaTriggerDestinationCloudRun()
+        res = trigger_pb2.EventarcAlphaTriggerDestinationCloudRunService()
         if Primitive.to_proto(resource.service):
             res.service = Primitive.to_proto(resource.service)
         if Primitive.to_proto(resource.path):
@@ -301,23 +305,23 @@ class TriggerDestinationCloudRun(object):
         if not resource:
             return None
 
-        return TriggerDestinationCloudRun(
+        return TriggerDestinationCloudRunService(
             service=Primitive.from_proto(resource.service),
             path=Primitive.from_proto(resource.path),
             region=Primitive.from_proto(resource.region),
         )
 
 
-class TriggerDestinationCloudRunArray(object):
+class TriggerDestinationCloudRunServiceArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [TriggerDestinationCloudRun.to_proto(i) for i in resources]
+        return [TriggerDestinationCloudRunService.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [TriggerDestinationCloudRun.from_proto(i) for i in resources]
+        return [TriggerDestinationCloudRunService.from_proto(i) for i in resources]
 
 
 class TriggerDestinationGke(object):

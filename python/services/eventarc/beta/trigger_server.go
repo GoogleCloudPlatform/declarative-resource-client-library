@@ -24,12 +24,12 @@ import (
 // TriggerServer implements the gRPC interface for Trigger.
 type TriggerServer struct{}
 
-// ProtoToTriggerEventFilters converts a TriggerEventFilters object from its proto representation.
-func ProtoToEventarcBetaTriggerEventFilters(p *betapb.EventarcBetaTriggerEventFilters) *beta.TriggerEventFilters {
+// ProtoToTriggerMatchingCriteria converts a TriggerMatchingCriteria object from its proto representation.
+func ProtoToEventarcBetaTriggerMatchingCriteria(p *betapb.EventarcBetaTriggerMatchingCriteria) *beta.TriggerMatchingCriteria {
 	if p == nil {
 		return nil
 	}
-	obj := &beta.TriggerEventFilters{
+	obj := &beta.TriggerMatchingCriteria{
 		Attribute: dcl.StringOrNil(p.GetAttribute()),
 		Value:     dcl.StringOrNil(p.GetValue()),
 		Operator:  dcl.StringOrNil(p.GetOperator()),
@@ -43,20 +43,20 @@ func ProtoToEventarcBetaTriggerDestination(p *betapb.EventarcBetaTriggerDestinat
 		return nil
 	}
 	obj := &beta.TriggerDestination{
-		CloudRun:      ProtoToEventarcBetaTriggerDestinationCloudRun(p.GetCloudRun()),
-		CloudFunction: dcl.StringOrNil(p.GetCloudFunction()),
-		Gke:           ProtoToEventarcBetaTriggerDestinationGke(p.GetGke()),
-		Workflow:      dcl.StringOrNil(p.GetWorkflow()),
+		CloudRunService: ProtoToEventarcBetaTriggerDestinationCloudRunService(p.GetCloudRunService()),
+		CloudFunction:   dcl.StringOrNil(p.GetCloudFunction()),
+		Gke:             ProtoToEventarcBetaTriggerDestinationGke(p.GetGke()),
+		Workflow:        dcl.StringOrNil(p.GetWorkflow()),
 	}
 	return obj
 }
 
-// ProtoToTriggerDestinationCloudRun converts a TriggerDestinationCloudRun object from its proto representation.
-func ProtoToEventarcBetaTriggerDestinationCloudRun(p *betapb.EventarcBetaTriggerDestinationCloudRun) *beta.TriggerDestinationCloudRun {
+// ProtoToTriggerDestinationCloudRunService converts a TriggerDestinationCloudRunService object from its proto representation.
+func ProtoToEventarcBetaTriggerDestinationCloudRunService(p *betapb.EventarcBetaTriggerDestinationCloudRunService) *beta.TriggerDestinationCloudRunService {
 	if p == nil {
 		return nil
 	}
-	obj := &beta.TriggerDestinationCloudRun{
+	obj := &beta.TriggerDestinationCloudRunService{
 		Service: dcl.StringOrNil(p.GetService()),
 		Path:    dcl.StringOrNil(p.GetPath()),
 		Region:  dcl.StringOrNil(p.GetRegion()),
@@ -116,18 +116,18 @@ func ProtoToTrigger(p *betapb.EventarcBetaTrigger) *beta.Trigger {
 		Project:        dcl.StringOrNil(p.GetProject()),
 		Location:       dcl.StringOrNil(p.GetLocation()),
 	}
-	for _, r := range p.GetEventFilters() {
-		obj.EventFilters = append(obj.EventFilters, *ProtoToEventarcBetaTriggerEventFilters(r))
+	for _, r := range p.GetMatchingCriteria() {
+		obj.MatchingCriteria = append(obj.MatchingCriteria, *ProtoToEventarcBetaTriggerMatchingCriteria(r))
 	}
 	return obj
 }
 
-// TriggerEventFiltersToProto converts a TriggerEventFilters object to its proto representation.
-func EventarcBetaTriggerEventFiltersToProto(o *beta.TriggerEventFilters) *betapb.EventarcBetaTriggerEventFilters {
+// TriggerMatchingCriteriaToProto converts a TriggerMatchingCriteria object to its proto representation.
+func EventarcBetaTriggerMatchingCriteriaToProto(o *beta.TriggerMatchingCriteria) *betapb.EventarcBetaTriggerMatchingCriteria {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.EventarcBetaTriggerEventFilters{}
+	p := &betapb.EventarcBetaTriggerMatchingCriteria{}
 	p.SetAttribute(dcl.ValueOrEmptyString(o.Attribute))
 	p.SetValue(dcl.ValueOrEmptyString(o.Value))
 	p.SetOperator(dcl.ValueOrEmptyString(o.Operator))
@@ -140,19 +140,19 @@ func EventarcBetaTriggerDestinationToProto(o *beta.TriggerDestination) *betapb.E
 		return nil
 	}
 	p := &betapb.EventarcBetaTriggerDestination{}
-	p.SetCloudRun(EventarcBetaTriggerDestinationCloudRunToProto(o.CloudRun))
+	p.SetCloudRunService(EventarcBetaTriggerDestinationCloudRunServiceToProto(o.CloudRunService))
 	p.SetCloudFunction(dcl.ValueOrEmptyString(o.CloudFunction))
 	p.SetGke(EventarcBetaTriggerDestinationGkeToProto(o.Gke))
 	p.SetWorkflow(dcl.ValueOrEmptyString(o.Workflow))
 	return p
 }
 
-// TriggerDestinationCloudRunToProto converts a TriggerDestinationCloudRun object to its proto representation.
-func EventarcBetaTriggerDestinationCloudRunToProto(o *beta.TriggerDestinationCloudRun) *betapb.EventarcBetaTriggerDestinationCloudRun {
+// TriggerDestinationCloudRunServiceToProto converts a TriggerDestinationCloudRunService object to its proto representation.
+func EventarcBetaTriggerDestinationCloudRunServiceToProto(o *beta.TriggerDestinationCloudRunService) *betapb.EventarcBetaTriggerDestinationCloudRunService {
 	if o == nil {
 		return nil
 	}
-	p := &betapb.EventarcBetaTriggerDestinationCloudRun{}
+	p := &betapb.EventarcBetaTriggerDestinationCloudRunService{}
 	p.SetService(dcl.ValueOrEmptyString(o.Service))
 	p.SetPath(dcl.ValueOrEmptyString(o.Path))
 	p.SetRegion(dcl.ValueOrEmptyString(o.Region))
@@ -207,11 +207,11 @@ func TriggerToProto(resource *beta.Trigger) *betapb.EventarcBetaTrigger {
 	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
-	sEventFilters := make([]*betapb.EventarcBetaTriggerEventFilters, len(resource.EventFilters))
-	for i, r := range resource.EventFilters {
-		sEventFilters[i] = EventarcBetaTriggerEventFiltersToProto(&r)
+	sMatchingCriteria := make([]*betapb.EventarcBetaTriggerMatchingCriteria, len(resource.MatchingCriteria))
+	for i, r := range resource.MatchingCriteria {
+		sMatchingCriteria[i] = EventarcBetaTriggerMatchingCriteriaToProto(&r)
 	}
-	p.SetEventFilters(sEventFilters)
+	p.SetMatchingCriteria(sMatchingCriteria)
 	mLabels := make(map[string]string, len(resource.Labels))
 	for k, r := range resource.Labels {
 		mLabels[k] = r
