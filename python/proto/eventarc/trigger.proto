@@ -26,7 +26,7 @@ message EventarcTrigger {
   string uid = 2;
   string create_time = 3;
   string update_time = 4;
-  repeated EventarcTriggerEventFilters event_filters = 5;
+  repeated EventarcTriggerMatchingCriteria matching_criteria = 5;
   string service_account = 6;
   EventarcTriggerDestination destination = 7;
   EventarcTriggerTransport transport = 8;
@@ -36,20 +36,20 @@ message EventarcTrigger {
   string location = 12;
 }
 
-message EventarcTriggerEventFilters {
+message EventarcTriggerMatchingCriteria {
   string attribute = 1;
   string value = 2;
   string operator = 3;
 }
 
 message EventarcTriggerDestination {
-  EventarcTriggerDestinationCloudRun cloud_run = 1;
+  EventarcTriggerDestinationCloudRunService cloud_run_service = 1;
   string cloud_function = 2;
   EventarcTriggerDestinationGke gke = 3;
   string workflow = 4;
 }
 
-message EventarcTriggerDestinationCloudRun {
+message EventarcTriggerDestinationCloudRunService {
   string service = 1;
   string path = 2;
   string region = 3;
