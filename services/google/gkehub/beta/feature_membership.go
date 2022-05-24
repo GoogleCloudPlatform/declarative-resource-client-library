@@ -97,6 +97,7 @@ type FeatureMembershipConfigmanagementConfigSync struct {
 	empty        bool                                            `json:"-"`
 	Git          *FeatureMembershipConfigmanagementConfigSyncGit `json:"git"`
 	SourceFormat *string                                         `json:"sourceFormat"`
+	PreventDrift *bool                                           `json:"preventDrift"`
 }
 
 type jsonFeatureMembershipConfigmanagementConfigSync FeatureMembershipConfigmanagementConfigSync
@@ -117,6 +118,8 @@ func (r *FeatureMembershipConfigmanagementConfigSync) UnmarshalJSON(data []byte)
 		r.Git = res.Git
 
 		r.SourceFormat = res.SourceFormat
+
+		r.PreventDrift = res.PreventDrift
 
 	}
 	return nil

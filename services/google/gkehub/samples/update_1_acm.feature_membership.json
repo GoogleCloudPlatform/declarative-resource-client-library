@@ -15,7 +15,8 @@
         "httpsProxy": "https://new-sample-proxy.com",
         "gcpServiceAccountEmail": "{{ref:second.iam.service_account.json:email}}"
       },
-      "sourceFormat": "unstructured"
+      "sourceFormat": "unstructured",
+      "preventDrift": true
     },
     "policyController": {
       "enabled": false,
@@ -32,7 +33,6 @@
       "enabled": false,
       "enablePodTreeLabels": false,
       "enableHierarchicalResourceQuota": false
-    },
-    "version": "1.10.1"
+    }
   }
 }

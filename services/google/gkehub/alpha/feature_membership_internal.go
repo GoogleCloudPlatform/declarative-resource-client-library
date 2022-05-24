@@ -471,6 +471,11 @@ func canonicalizeFeatureMembershipConfigmanagementConfigSync(des, initial *Featu
 	} else {
 		cDes.SourceFormat = des.SourceFormat
 	}
+	if dcl.BoolCanonicalize(des.PreventDrift, initial.PreventDrift) || dcl.IsZeroValue(des.PreventDrift) {
+		cDes.PreventDrift = initial.PreventDrift
+	} else {
+		cDes.PreventDrift = des.PreventDrift
+	}
 
 	return cDes
 }
@@ -520,6 +525,9 @@ func canonicalizeNewFeatureMembershipConfigmanagementConfigSync(c *Client, des, 
 	nw.Git = canonicalizeNewFeatureMembershipConfigmanagementConfigSyncGit(c, des.Git, nw.Git)
 	if dcl.StringCanonicalize(des.SourceFormat, nw.SourceFormat) {
 		nw.SourceFormat = des.SourceFormat
+	}
+	if dcl.BoolCanonicalize(des.PreventDrift, nw.PreventDrift) {
+		nw.PreventDrift = des.PreventDrift
 	}
 
 	return nw
@@ -1283,6 +1291,13 @@ func compareFeatureMembershipConfigmanagementConfigSyncNewStyle(d, a interface{}
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.PreventDrift, actual.PreventDrift, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreventDrift")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -1847,6 +1862,9 @@ func expandFeatureMembershipConfigmanagementConfigSync(c *Client, f *FeatureMemb
 	if v := f.SourceFormat; !dcl.IsEmptyValueIndirect(v) {
 		m["sourceFormat"] = v
 	}
+	if v := f.PreventDrift; !dcl.IsEmptyValueIndirect(v) {
+		m["preventDrift"] = v
+	}
 
 	return m, nil
 }
@@ -1866,6 +1884,7 @@ func flattenFeatureMembershipConfigmanagementConfigSync(c *Client, i interface{}
 	}
 	r.Git = flattenFeatureMembershipConfigmanagementConfigSyncGit(c, m["git"], res)
 	r.SourceFormat = dcl.FlattenString(m["sourceFormat"])
+	r.PreventDrift = dcl.FlattenBool(m["preventDrift"])
 
 	return r
 }

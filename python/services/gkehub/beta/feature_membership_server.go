@@ -47,6 +47,7 @@ func ProtoToGkehubBetaFeatureMembershipConfigmanagementConfigSync(p *betapb.Gkeh
 	obj := &beta.FeatureMembershipConfigmanagementConfigSync{
 		Git:          ProtoToGkehubBetaFeatureMembershipConfigmanagementConfigSyncGit(p.GetGit()),
 		SourceFormat: dcl.StringOrNil(p.GetSourceFormat()),
+		PreventDrift: dcl.Bool(p.GetPreventDrift()),
 	}
 	return obj
 }
@@ -145,6 +146,7 @@ func GkehubBetaFeatureMembershipConfigmanagementConfigSyncToProto(o *beta.Featur
 	p := &betapb.GkehubBetaFeatureMembershipConfigmanagementConfigSync{}
 	p.SetGit(GkehubBetaFeatureMembershipConfigmanagementConfigSyncGitToProto(o.Git))
 	p.SetSourceFormat(dcl.ValueOrEmptyString(o.SourceFormat))
+	p.SetPreventDrift(dcl.ValueOrEmptyBool(o.PreventDrift))
 	return p
 }
 

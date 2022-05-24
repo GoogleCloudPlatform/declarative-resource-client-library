@@ -227,9 +227,12 @@ class FeatureMembershipConfigmanagementArray(object):
 
 
 class FeatureMembershipConfigmanagementConfigSync(object):
-    def __init__(self, git: dict = None, source_format: str = None):
+    def __init__(
+        self, git: dict = None, source_format: str = None, prevent_drift: bool = None
+    ):
         self.git = git
         self.source_format = source_format
+        self.prevent_drift = prevent_drift
 
     @classmethod
     def to_proto(self, resource):
@@ -247,6 +250,8 @@ class FeatureMembershipConfigmanagementConfigSync(object):
             res.ClearField("git")
         if Primitive.to_proto(resource.source_format):
             res.source_format = Primitive.to_proto(resource.source_format)
+        if Primitive.to_proto(resource.prevent_drift):
+            res.prevent_drift = Primitive.to_proto(resource.prevent_drift)
         return res
 
     @classmethod
@@ -257,6 +262,7 @@ class FeatureMembershipConfigmanagementConfigSync(object):
         return FeatureMembershipConfigmanagementConfigSync(
             git=FeatureMembershipConfigmanagementConfigSyncGit.from_proto(resource.git),
             source_format=Primitive.from_proto(resource.source_format),
+            prevent_drift=Primitive.from_proto(resource.prevent_drift),
         )
 
 

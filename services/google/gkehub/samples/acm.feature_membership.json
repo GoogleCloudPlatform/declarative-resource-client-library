@@ -15,7 +15,8 @@
         "httpsProxy": "https://sample-proxy.com",
         "gcpServiceAccountEmail": "{{ref:first.iam.service_account.json:email}}"
       },
-      "sourceFormat": "hierarchy"
+      "sourceFormat": "hierarchy",
+      "preventDrift": true
     },
     "policyController": {
       "enabled": true,
@@ -33,6 +34,6 @@
       "enablePodTreeLabels": true,
       "enableHierarchicalResourceQuota": true
     },
-    "version": "1.9.1"
+    "version": "1.10.1"
   }
 }
