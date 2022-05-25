@@ -705,6 +705,11 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.Ports = rawDesired.Ports
 	}
+	if dcl.StringCanonicalize(rawDesired.PscConnectionId, rawInitial.PscConnectionId) {
+		canonicalDesired.PscConnectionId = rawInitial.PscConnectionId
+	} else {
+		canonicalDesired.PscConnectionId = rawDesired.PscConnectionId
+	}
 	if dcl.StringCanonicalize(rawDesired.Region, rawInitial.Region) {
 		canonicalDesired.Region = rawInitial.Region
 	} else {
@@ -867,6 +872,14 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.Ports, rawNew.Ports) {
 			rawNew.Ports = rawDesired.Ports
+		}
+	}
+
+	if dcl.IsNotReturnedByServer(rawNew.PscConnectionId) && dcl.IsNotReturnedByServer(rawDesired.PscConnectionId) {
+		rawNew.PscConnectionId = rawDesired.PscConnectionId
+	} else {
+		if dcl.StringCanonicalize(rawDesired.PscConnectionId, rawNew.PscConnectionId) {
+			rawNew.PscConnectionId = rawDesired.PscConnectionId
 		}
 	}
 
@@ -1439,6 +1452,13 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.PscConnectionId, actual.PscConnectionId, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PscConnectionId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -1625,6 +1645,7 @@ func (r *ForwardingRule) urlNormalized() *ForwardingRule {
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Network = dcl.SelfLinkToName(r.Network)
 	normalized.PortRange = dcl.SelfLinkToName(r.PortRange)
+	normalized.PscConnectionId = dcl.SelfLinkToName(r.PscConnectionId)
 	normalized.Region = dcl.SelfLinkToName(r.Region)
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)
 	normalized.ServiceLabel = dcl.SelfLinkToName(r.ServiceLabel)
@@ -1835,6 +1856,7 @@ func flattenForwardingRule(c *Client, i interface{}, res *ForwardingRule) *Forwa
 	resultRes.NetworkTier = flattenForwardingRuleNetworkTierEnum(m["networkTier"])
 	resultRes.PortRange = dcl.FlattenString(m["portRange"])
 	resultRes.Ports = dcl.FlattenStringSlice(m["ports"])
+	resultRes.PscConnectionId = dcl.FlattenString(m["pscConnectionId"])
 	resultRes.Region = dcl.FlattenString(m["region"])
 	resultRes.SelfLink = dcl.FlattenString(m["selfLink"])
 	resultRes.ServiceLabel = dcl.FlattenString(m["serviceLabel"])

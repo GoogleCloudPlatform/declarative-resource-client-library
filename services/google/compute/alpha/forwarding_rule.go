@@ -43,6 +43,7 @@ type ForwardingRule struct {
 	NetworkTier                   *ForwardingRuleNetworkTierEnum                `json:"networkTier"`
 	PortRange                     *string                                       `json:"portRange"`
 	Ports                         []string                                      `json:"ports"`
+	PscConnectionId               *string                                       `json:"pscConnectionId"`
 	Region                        *string                                       `json:"region"`
 	SelfLink                      *string                                       `json:"selfLink"`
 	ServiceLabel                  *string                                       `json:"serviceLabel"`
@@ -374,6 +375,7 @@ func (r *ForwardingRule) ID() (string, error) {
 		"networkTier":                   dcl.ValueOrEmptyString(nr.NetworkTier),
 		"portRange":                     dcl.ValueOrEmptyString(nr.PortRange),
 		"ports":                         dcl.ValueOrEmptyString(nr.Ports),
+		"pscConnectionId":               dcl.ValueOrEmptyString(nr.PscConnectionId),
 		"region":                        dcl.ValueOrEmptyString(nr.Region),
 		"selfLink":                      dcl.ValueOrEmptyString(nr.SelfLink),
 		"serviceLabel":                  dcl.ValueOrEmptyString(nr.ServiceLabel),
