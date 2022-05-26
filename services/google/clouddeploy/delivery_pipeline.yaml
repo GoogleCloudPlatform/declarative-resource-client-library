@@ -12,10 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 info:
-  title: Clouddeploy/DeliveryPipeline
-  description: The Clouddeploy DeliveryPipeline resource
+  title: CloudDeploy/DeliveryPipeline
+  description: The Cloud Deploy `DeliveryPipeline` resource
   x-dcl-struct-name: DeliveryPipeline
   x-dcl-has-iam: false
+  x-dcl-ref:
+    text: REST API
+    url: https://cloud.google.com/deploy/docs/api/reference/rest/v1/projects.locations.deliveryPipelines
 paths:
   get:
     description: The function used to get information about a DeliveryPipeline
