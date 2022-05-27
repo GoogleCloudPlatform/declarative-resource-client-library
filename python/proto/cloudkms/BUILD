@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="cloudkms", resources=["crypto_key","key_ring"])
+proto_package(name="cloudkms", resources=["crypto_key","ekm_connection","key_ring"])

@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="cloudkms/beta", resources=["crypto_key","key_ring"])
+connector(name="cloudkms/beta", resources=["crypto_key","ekm_connection","key_ring"])

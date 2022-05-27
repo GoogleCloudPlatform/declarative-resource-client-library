@@ -11,6 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-load("//:connector_rules.bzl", "connector")
-connector(name="cloudkms/alpha", resources=["crypto_key","ekm_connection","key_ring"])
+name: iam_ekm_connection
+description: An example of a minimal ekm connection with an iam policy member
+type: iam.member
+versions:
+- ga
+resource: samples/cloudkms_admin_ekm_connection.iam.member.json
+dependencies:
+- samples/minimal.ekm_connection.json
+variables:
+- name: connection
+  type: resource_name
+- name: project
+  type: project
+- name: test_service_account
+  type: test_service_account

@@ -21,6 +21,7 @@ import (
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterCloudkmsCryptoKeyServiceServer(s, &CryptoKeyServer{})
+	sdkgrpc.RegisterCloudkmsEkmConnectionServiceServer(s, &EkmConnectionServer{})
 	sdkgrpc.RegisterCloudkmsKeyRingServiceServer(s, &KeyRingServer{})
 	sdkgrpc.RegisterCloudkmsCryptoKeyVersionServiceServer(s, &CryptoKeyVersionServer{})
 }
