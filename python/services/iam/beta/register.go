@@ -24,4 +24,6 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterIamBetaServiceAccountServiceServer(s, &ServiceAccountServer{})
 	sdkgrpc.RegisterIamBetaWorkloadIdentityPoolServiceServer(s, &WorkloadIdentityPoolServer{})
 	sdkgrpc.RegisterIamBetaWorkloadIdentityPoolProviderServiceServer(s, &WorkloadIdentityPoolProviderServer{})
+	sdkgrpc.RegisterIamBetaWorkforcePoolServiceServer(s, &WorkforcePoolServer{})
+	sdkgrpc.RegisterIamBetaWorkforcePoolProviderServiceServer(s, &WorkforcePoolProviderServer{})
 }
