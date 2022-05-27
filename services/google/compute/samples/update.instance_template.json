@@ -24,15 +24,26 @@
         }
       }
     ],
+    "internalIPs": [
+      {
+        "nic0": {
+          "autoDelete": true
+        }
+      }                       
+    ],
+    "externalIPs": [
+      {
+        "nic0": {
+          "autoDelete": true
+        }
+      }
+    ],
     "labels": {
       "foo": "bar"
     },
     "metadata": {
       "baz": "qux"
     },
-    "tags": [
-      "bar",
-      "foo"
-    ]
+    "tags": ["bar", "foo"]
   }
 }

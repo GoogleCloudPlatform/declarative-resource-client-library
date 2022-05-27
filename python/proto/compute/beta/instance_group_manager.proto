@@ -69,6 +69,18 @@ enum ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteE
   ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumON_PERMANENT_INSTANCE_DELETION = 2;
 }
 
+enum ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum {
+  ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnumNEVER = 1;
+  ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnumON_PERMANENT_INSTANCE_DELETION = 2;
+}
+
+enum ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum {
+  ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnumNEVER = 1;
+  ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnumON_PERMANENT_INSTANCE_DELETION = 2;
+}
+
 enum ComputeBetaInstanceGroupManagerFailoverActionEnum {
   ComputeBetaInstanceGroupManagerFailoverActionEnumNO_VALUE_DO_NOT_USE = 0;
   ComputeBetaInstanceGroupManagerFailoverActionEnumUNKNOWN = 1;
@@ -196,10 +208,20 @@ message ComputeBetaInstanceGroupManagerStatefulPolicy {
 
 message ComputeBetaInstanceGroupManagerStatefulPolicyPreservedState {
   map<string, ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisks> disks = 1;
+  map<string, ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIps> internal_ips = 2;
+  map<string, ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIps> external_ips = 3;
 }
 
 message ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisks {
   ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum auto_delete = 1;
+}
+
+message ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIps {
+  ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum auto_delete = 1;
+}
+
+message ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIps {
+  ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum auto_delete = 1;
 }
 
 message ApplyComputeBetaInstanceGroupManagerRequest {

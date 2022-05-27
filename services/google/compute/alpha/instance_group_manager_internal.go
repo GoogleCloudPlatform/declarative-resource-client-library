@@ -152,6 +152,12 @@ func (r *InstanceGroupManagerStatefulPolicyPreservedState) validate() error {
 func (r *InstanceGroupManagerStatefulPolicyPreservedStateDisks) validate() error {
 	return nil
 }
+func (r *InstanceGroupManagerStatefulPolicyPreservedStateInternalIps) validate() error {
+	return nil
+}
+func (r *InstanceGroupManagerStatefulPolicyPreservedStateExternalIps) validate() error {
+	return nil
+}
 func (r *InstanceGroupManager) basePath() string {
 	params := map[string]interface{}{}
 	return dcl.Nprintf("https://www.googleapis.com/compute/beta/", params)
@@ -2813,6 +2819,18 @@ func canonicalizeInstanceGroupManagerStatefulPolicyPreservedState(des, initial *
 	} else {
 		cDes.Disks = des.Disks
 	}
+	if dcl.IsZeroValue(des.InternalIps) || (dcl.IsEmptyValueIndirect(des.InternalIps) && dcl.IsEmptyValueIndirect(initial.InternalIps)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.InternalIps = initial.InternalIps
+	} else {
+		cDes.InternalIps = des.InternalIps
+	}
+	if dcl.IsZeroValue(des.ExternalIps) || (dcl.IsEmptyValueIndirect(des.ExternalIps) && dcl.IsEmptyValueIndirect(initial.ExternalIps)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.ExternalIps = initial.ExternalIps
+	} else {
+		cDes.ExternalIps = des.ExternalIps
+	}
 
 	return cDes
 }
@@ -3012,6 +3030,230 @@ func canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateDisksSlice(c
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateDisks(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateInternalIps(des, initial *InstanceGroupManagerStatefulPolicyPreservedStateInternalIps, opts ...dcl.ApplyOption) *InstanceGroupManagerStatefulPolicyPreservedStateInternalIps {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceGroupManagerStatefulPolicyPreservedStateInternalIps{}
+
+	if dcl.IsZeroValue(des.AutoDelete) || (dcl.IsEmptyValueIndirect(des.AutoDelete) && dcl.IsEmptyValueIndirect(initial.AutoDelete)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.AutoDelete = initial.AutoDelete
+	} else {
+		cDes.AutoDelete = des.AutoDelete
+	}
+
+	return cDes
+}
+
+func canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsSlice(des, initial []InstanceGroupManagerStatefulPolicyPreservedStateInternalIps, opts ...dcl.ApplyOption) []InstanceGroupManagerStatefulPolicyPreservedStateInternalIps {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerStatefulPolicyPreservedStateInternalIps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateInternalIps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerStatefulPolicyPreservedStateInternalIps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateInternalIps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateInternalIps(c *Client, des, nw *InstanceGroupManagerStatefulPolicyPreservedStateInternalIps) *InstanceGroupManagerStatefulPolicyPreservedStateInternalIps {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceGroupManagerStatefulPolicyPreservedStateInternalIps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsSet(c *Client, des, nw []InstanceGroupManagerStatefulPolicyPreservedStateInternalIps) []InstanceGroupManagerStatefulPolicyPreservedStateInternalIps {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceGroupManagerStatefulPolicyPreservedStateInternalIps
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsSlice(c *Client, des, nw []InstanceGroupManagerStatefulPolicyPreservedStateInternalIps) []InstanceGroupManagerStatefulPolicyPreservedStateInternalIps {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceGroupManagerStatefulPolicyPreservedStateInternalIps
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateInternalIps(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateExternalIps(des, initial *InstanceGroupManagerStatefulPolicyPreservedStateExternalIps, opts ...dcl.ApplyOption) *InstanceGroupManagerStatefulPolicyPreservedStateExternalIps {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &InstanceGroupManagerStatefulPolicyPreservedStateExternalIps{}
+
+	if dcl.IsZeroValue(des.AutoDelete) || (dcl.IsEmptyValueIndirect(des.AutoDelete) && dcl.IsEmptyValueIndirect(initial.AutoDelete)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.AutoDelete = initial.AutoDelete
+	} else {
+		cDes.AutoDelete = des.AutoDelete
+	}
+
+	return cDes
+}
+
+func canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsSlice(des, initial []InstanceGroupManagerStatefulPolicyPreservedStateExternalIps, opts ...dcl.ApplyOption) []InstanceGroupManagerStatefulPolicyPreservedStateExternalIps {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]InstanceGroupManagerStatefulPolicyPreservedStateExternalIps, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateExternalIps(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]InstanceGroupManagerStatefulPolicyPreservedStateExternalIps, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeInstanceGroupManagerStatefulPolicyPreservedStateExternalIps(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateExternalIps(c *Client, des, nw *InstanceGroupManagerStatefulPolicyPreservedStateExternalIps) *InstanceGroupManagerStatefulPolicyPreservedStateExternalIps {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsNotReturnedByServer(des) {
+			c.Config.Logger.Info("Found explicitly empty value for InstanceGroupManagerStatefulPolicyPreservedStateExternalIps while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	return nw
+}
+
+func canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsSet(c *Client, des, nw []InstanceGroupManagerStatefulPolicyPreservedStateExternalIps) []InstanceGroupManagerStatefulPolicyPreservedStateExternalIps {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []InstanceGroupManagerStatefulPolicyPreservedStateExternalIps
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsSlice(c *Client, des, nw []InstanceGroupManagerStatefulPolicyPreservedStateExternalIps) []InstanceGroupManagerStatefulPolicyPreservedStateExternalIps {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []InstanceGroupManagerStatefulPolicyPreservedStateExternalIps
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewInstanceGroupManagerStatefulPolicyPreservedStateExternalIps(c, &d, &n))
 	}
 
 	return items
@@ -3890,6 +4132,20 @@ func compareInstanceGroupManagerStatefulPolicyPreservedStateNewStyle(d, a interf
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.InternalIps, actual.InternalIps, dcl.Info{ObjectFunction: compareInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsNewStyle, EmptyObject: EmptyInstanceGroupManagerStatefulPolicyPreservedStateInternalIps, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InternalIPs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ExternalIps, actual.ExternalIps, dcl.Info{ObjectFunction: compareInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsNewStyle, EmptyObject: EmptyInstanceGroupManagerStatefulPolicyPreservedStateExternalIps, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("ExternalIPs")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -3909,6 +4165,64 @@ func compareInstanceGroupManagerStatefulPolicyPreservedStateDisksNewStyle(d, a i
 		actualNotPointer, ok := a.(InstanceGroupManagerStatefulPolicyPreservedStateDisks)
 		if !ok {
 			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatefulPolicyPreservedStateDisks", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AutoDelete, actual.AutoDelete, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("AutoDelete")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerStatefulPolicyPreservedStateInternalIps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerStatefulPolicyPreservedStateInternalIps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatefulPolicyPreservedStateInternalIps or *InstanceGroupManagerStatefulPolicyPreservedStateInternalIps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerStatefulPolicyPreservedStateInternalIps)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerStatefulPolicyPreservedStateInternalIps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatefulPolicyPreservedStateInternalIps", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AutoDelete, actual.AutoDelete, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("AutoDelete")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*InstanceGroupManagerStatefulPolicyPreservedStateExternalIps)
+	if !ok {
+		desiredNotPointer, ok := d.(InstanceGroupManagerStatefulPolicyPreservedStateExternalIps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatefulPolicyPreservedStateExternalIps or *InstanceGroupManagerStatefulPolicyPreservedStateExternalIps", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*InstanceGroupManagerStatefulPolicyPreservedStateExternalIps)
+	if !ok {
+		actualNotPointer, ok := a.(InstanceGroupManagerStatefulPolicyPreservedStateExternalIps)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a InstanceGroupManagerStatefulPolicyPreservedStateExternalIps", a)
 		}
 		actual = &actualNotPointer
 	}
@@ -6022,6 +6336,16 @@ func expandInstanceGroupManagerStatefulPolicyPreservedState(c *Client, f *Instan
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["disks"] = v
 	}
+	if v, err := expandInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsMap(c, f.InternalIps, res); err != nil {
+		return nil, fmt.Errorf("error expanding InternalIps into internalIPs: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["internalIPs"] = v
+	}
+	if v, err := expandInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsMap(c, f.ExternalIps, res); err != nil {
+		return nil, fmt.Errorf("error expanding ExternalIps into externalIPs: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["externalIPs"] = v
+	}
 
 	return m, nil
 }
@@ -6040,6 +6364,8 @@ func flattenInstanceGroupManagerStatefulPolicyPreservedState(c *Client, i interf
 		return EmptyInstanceGroupManagerStatefulPolicyPreservedState
 	}
 	r.Disks = flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksMap(c, m["disks"], res)
+	r.InternalIps = flattenInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsMap(c, m["internalIPs"], res)
+	r.ExternalIps = flattenInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsMap(c, m["externalIPs"], res)
 
 	return r
 }
@@ -6154,6 +6480,234 @@ func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisks(c *Client, i i
 		return EmptyInstanceGroupManagerStatefulPolicyPreservedStateDisks
 	}
 	r.AutoDelete = flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum(m["autoDelete"])
+
+	return r
+}
+
+// expandInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsMap expands the contents of InstanceGroupManagerStatefulPolicyPreservedStateInternalIps into a JSON
+// request object.
+func expandInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsMap(c *Client, f map[string]InstanceGroupManagerStatefulPolicyPreservedStateInternalIps, res *InstanceGroupManager) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceGroupManagerStatefulPolicyPreservedStateInternalIps(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsSlice expands the contents of InstanceGroupManagerStatefulPolicyPreservedStateInternalIps into a JSON
+// request object.
+func expandInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsSlice(c *Client, f []InstanceGroupManagerStatefulPolicyPreservedStateInternalIps, res *InstanceGroupManager) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceGroupManagerStatefulPolicyPreservedStateInternalIps(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsMap flattens the contents of InstanceGroupManagerStatefulPolicyPreservedStateInternalIps from a JSON
+// response object.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerStatefulPolicyPreservedStateInternalIps {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceGroupManagerStatefulPolicyPreservedStateInternalIps{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceGroupManagerStatefulPolicyPreservedStateInternalIps{}
+	}
+
+	items := make(map[string]InstanceGroupManagerStatefulPolicyPreservedStateInternalIps)
+	for k, item := range a {
+		items[k] = *flattenInstanceGroupManagerStatefulPolicyPreservedStateInternalIps(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsSlice flattens the contents of InstanceGroupManagerStatefulPolicyPreservedStateInternalIps from a JSON
+// response object.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerStatefulPolicyPreservedStateInternalIps {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceGroupManagerStatefulPolicyPreservedStateInternalIps{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceGroupManagerStatefulPolicyPreservedStateInternalIps{}
+	}
+
+	items := make([]InstanceGroupManagerStatefulPolicyPreservedStateInternalIps, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceGroupManagerStatefulPolicyPreservedStateInternalIps(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandInstanceGroupManagerStatefulPolicyPreservedStateInternalIps expands an instance of InstanceGroupManagerStatefulPolicyPreservedStateInternalIps into a JSON
+// request object.
+func expandInstanceGroupManagerStatefulPolicyPreservedStateInternalIps(c *Client, f *InstanceGroupManagerStatefulPolicyPreservedStateInternalIps, res *InstanceGroupManager) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.AutoDelete; !dcl.IsEmptyValueIndirect(v) {
+		m["autoDelete"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateInternalIps flattens an instance of InstanceGroupManagerStatefulPolicyPreservedStateInternalIps from a JSON
+// response object.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateInternalIps(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerStatefulPolicyPreservedStateInternalIps {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceGroupManagerStatefulPolicyPreservedStateInternalIps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerStatefulPolicyPreservedStateInternalIps
+	}
+	r.AutoDelete = flattenInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum(m["autoDelete"])
+
+	return r
+}
+
+// expandInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsMap expands the contents of InstanceGroupManagerStatefulPolicyPreservedStateExternalIps into a JSON
+// request object.
+func expandInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsMap(c *Client, f map[string]InstanceGroupManagerStatefulPolicyPreservedStateExternalIps, res *InstanceGroupManager) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandInstanceGroupManagerStatefulPolicyPreservedStateExternalIps(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsSlice expands the contents of InstanceGroupManagerStatefulPolicyPreservedStateExternalIps into a JSON
+// request object.
+func expandInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsSlice(c *Client, f []InstanceGroupManagerStatefulPolicyPreservedStateExternalIps, res *InstanceGroupManager) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandInstanceGroupManagerStatefulPolicyPreservedStateExternalIps(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsMap flattens the contents of InstanceGroupManagerStatefulPolicyPreservedStateExternalIps from a JSON
+// response object.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerStatefulPolicyPreservedStateExternalIps {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceGroupManagerStatefulPolicyPreservedStateExternalIps{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceGroupManagerStatefulPolicyPreservedStateExternalIps{}
+	}
+
+	items := make(map[string]InstanceGroupManagerStatefulPolicyPreservedStateExternalIps)
+	for k, item := range a {
+		items[k] = *flattenInstanceGroupManagerStatefulPolicyPreservedStateExternalIps(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsSlice flattens the contents of InstanceGroupManagerStatefulPolicyPreservedStateExternalIps from a JSON
+// response object.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerStatefulPolicyPreservedStateExternalIps {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceGroupManagerStatefulPolicyPreservedStateExternalIps{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceGroupManagerStatefulPolicyPreservedStateExternalIps{}
+	}
+
+	items := make([]InstanceGroupManagerStatefulPolicyPreservedStateExternalIps, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceGroupManagerStatefulPolicyPreservedStateExternalIps(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandInstanceGroupManagerStatefulPolicyPreservedStateExternalIps expands an instance of InstanceGroupManagerStatefulPolicyPreservedStateExternalIps into a JSON
+// request object.
+func expandInstanceGroupManagerStatefulPolicyPreservedStateExternalIps(c *Client, f *InstanceGroupManagerStatefulPolicyPreservedStateExternalIps, res *InstanceGroupManager) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.AutoDelete; !dcl.IsEmptyValueIndirect(v) {
+		m["autoDelete"] = v
+	}
+
+	return m, nil
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateExternalIps flattens an instance of InstanceGroupManagerStatefulPolicyPreservedStateExternalIps from a JSON
+// response object.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateExternalIps(c *Client, i interface{}, res *InstanceGroupManager) *InstanceGroupManagerStatefulPolicyPreservedStateExternalIps {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &InstanceGroupManagerStatefulPolicyPreservedStateExternalIps{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyInstanceGroupManagerStatefulPolicyPreservedStateExternalIps
+	}
+	r.AutoDelete = flattenInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum(m["autoDelete"])
 
 	return r
 }
@@ -6515,6 +7069,108 @@ func flattenInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum(
 	return InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumRef(s)
 }
 
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnumMap flattens the contents of InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum from a JSON
+// response object.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnumMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum{}
+	}
+
+	items := make(map[string]InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnumSlice flattens the contents of InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum from a JSON
+// response object.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnumSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum{}
+	}
+
+	items := make([]InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum with the same value as that string.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum(i interface{}) *InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnumRef(s)
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnumMap flattens the contents of InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum from a JSON
+// response object.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnumMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum{}
+	}
+
+	items := make(map[string]InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum)
+	for k, item := range a {
+		items[k] = *flattenInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnumSlice flattens the contents of InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum from a JSON
+// response object.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnumSlice(c *Client, i interface{}, res *InstanceGroupManager) []InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum{}
+	}
+
+	if len(a) == 0 {
+		return []InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum{}
+	}
+
+	items := make([]InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum asserts that an interface is a string, and returns a
+// pointer to a *InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum with the same value as that string.
+func flattenInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum(i interface{}) *InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnumRef(s)
+}
+
 // flattenInstanceGroupManagerFailoverActionEnumMap flattens the contents of InstanceGroupManagerFailoverActionEnum from a JSON
 // response object.
 func flattenInstanceGroupManagerFailoverActionEnumMap(c *Client, i interface{}, res *InstanceGroupManager) map[string]InstanceGroupManagerFailoverActionEnum {
@@ -6849,6 +7505,12 @@ func extractInstanceGroupManagerStatefulPolicyPreservedStateFields(r *InstanceGr
 func extractInstanceGroupManagerStatefulPolicyPreservedStateDisksFields(r *InstanceGroupManager, o *InstanceGroupManagerStatefulPolicyPreservedStateDisks) error {
 	return nil
 }
+func extractInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsFields(r *InstanceGroupManager, o *InstanceGroupManagerStatefulPolicyPreservedStateInternalIps) error {
+	return nil
+}
+func extractInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsFields(r *InstanceGroupManager, o *InstanceGroupManagerStatefulPolicyPreservedStateExternalIps) error {
+	return nil
+}
 
 func postReadExtractInstanceGroupManagerFields(r *InstanceGroupManager) error {
 	vDistributionPolicy := r.DistributionPolicy
@@ -7034,5 +7696,11 @@ func postReadExtractInstanceGroupManagerStatefulPolicyPreservedStateFields(r *In
 	return nil
 }
 func postReadExtractInstanceGroupManagerStatefulPolicyPreservedStateDisksFields(r *InstanceGroupManager, o *InstanceGroupManagerStatefulPolicyPreservedStateDisks) error {
+	return nil
+}
+func postReadExtractInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsFields(r *InstanceGroupManager, o *InstanceGroupManagerStatefulPolicyPreservedStateInternalIps) error {
+	return nil
+}
+func postReadExtractInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsFields(r *InstanceGroupManager, o *InstanceGroupManagerStatefulPolicyPreservedStateExternalIps) error {
 	return nil
 }

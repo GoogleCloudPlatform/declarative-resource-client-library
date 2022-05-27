@@ -1205,8 +1205,12 @@ class InstanceGroupManagerStatefulPolicyArray(object):
 
 
 class InstanceGroupManagerStatefulPolicyPreservedState(object):
-    def __init__(self, disks: dict = None):
+    def __init__(
+        self, disks: dict = None, internal_ips: dict = None, external_ips: dict = None
+    ):
         self.disks = disks
+        self.internal_ips = internal_ips
+        self.external_ips = external_ips
 
     @classmethod
     def to_proto(self, resource):
@@ -1218,6 +1222,10 @@ class InstanceGroupManagerStatefulPolicyPreservedState(object):
         )
         if Primitive.to_proto(resource.disks):
             res.disks = Primitive.to_proto(resource.disks)
+        if Primitive.to_proto(resource.internal_ips):
+            res.internal_ips = Primitive.to_proto(resource.internal_ips)
+        if Primitive.to_proto(resource.external_ips):
+            res.external_ips = Primitive.to_proto(resource.external_ips)
         return res
 
     @classmethod
@@ -1227,6 +1235,8 @@ class InstanceGroupManagerStatefulPolicyPreservedState(object):
 
         return InstanceGroupManagerStatefulPolicyPreservedState(
             disks=Primitive.from_proto(resource.disks),
+            internal_ips=Primitive.from_proto(resource.internal_ips),
+            external_ips=Primitive.from_proto(resource.external_ips),
         )
 
 
@@ -1294,6 +1304,106 @@ class InstanceGroupManagerStatefulPolicyPreservedStateDisksArray(object):
     def from_proto(self, resources):
         return [
             InstanceGroupManagerStatefulPolicyPreservedStateDisks.from_proto(i)
+            for i in resources
+        ]
+
+
+class InstanceGroupManagerStatefulPolicyPreservedStateInternalIps(object):
+    def __init__(self, auto_delete: str = None):
+        self.auto_delete = auto_delete
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_group_manager_pb2.ComputeAlphaInstanceGroupManagerStatefulPolicyPreservedStateInternalIps()
+        )
+        if InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum.to_proto(
+            resource.auto_delete
+        ):
+            res.auto_delete = InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum.to_proto(
+                resource.auto_delete
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceGroupManagerStatefulPolicyPreservedStateInternalIps(
+            auto_delete=InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum.from_proto(
+                resource.auto_delete
+            ),
+        )
+
+
+class InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstanceGroupManagerStatefulPolicyPreservedStateInternalIps.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceGroupManagerStatefulPolicyPreservedStateInternalIps.from_proto(i)
+            for i in resources
+        ]
+
+
+class InstanceGroupManagerStatefulPolicyPreservedStateExternalIps(object):
+    def __init__(self, auto_delete: str = None):
+        self.auto_delete = auto_delete
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_group_manager_pb2.ComputeAlphaInstanceGroupManagerStatefulPolicyPreservedStateExternalIps()
+        )
+        if InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum.to_proto(
+            resource.auto_delete
+        ):
+            res.auto_delete = InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum.to_proto(
+                resource.auto_delete
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceGroupManagerStatefulPolicyPreservedStateExternalIps(
+            auto_delete=InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum.from_proto(
+                resource.auto_delete
+            ),
+        )
+
+
+class InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstanceGroupManagerStatefulPolicyPreservedStateExternalIps.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceGroupManagerStatefulPolicyPreservedStateExternalIps.from_proto(i)
             for i in resources
         ]
 
@@ -1445,6 +1555,52 @@ class InstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum(object
         )[
             len(
                 "ComputeAlphaInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum"
+            ) :
+        ]
+
+
+class InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_group_manager_pb2.ComputeAlphaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum.Value(
+            "ComputeAlphaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_group_manager_pb2.ComputeAlphaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum.Name(
+            resource
+        )[
+            len(
+                "ComputeAlphaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum"
+            ) :
+        ]
+
+
+class InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_group_manager_pb2.ComputeAlphaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum.Value(
+            "ComputeAlphaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return instance_group_manager_pb2.ComputeAlphaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum.Name(
+            resource
+        )[
+            len(
+                "ComputeAlphaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum"
             ) :
         ]
 

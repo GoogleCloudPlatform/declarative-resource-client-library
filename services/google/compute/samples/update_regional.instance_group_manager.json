@@ -46,6 +46,16 @@
         "sample-disk": {
           "autoDelete": "NEVER"
         }
+      },
+      "internalIPs": {
+        "nic0": {
+          "autoDelete": "NEVER"
+        }
+      },
+      "externalIPs": {
+        "nic0": {
+          "autoDelete": "NEVER"
+        }
       }
     }
   }

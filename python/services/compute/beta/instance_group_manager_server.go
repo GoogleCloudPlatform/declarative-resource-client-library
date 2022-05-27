@@ -108,6 +108,30 @@ func ProtoToComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisksAuto
 	return nil
 }
 
+// ProtoToInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum converts a InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum enum from its proto representation.
+func ProtoToComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum(e betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum) *beta.InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum_name[int32(e)]; ok {
+		e := beta.InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum(n[len("ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum converts a InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum enum from its proto representation.
+func ProtoToComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum(e betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum) *beta.InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum_name[int32(e)]; ok {
+		e := beta.InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum(n[len("ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToInstanceGroupManagerFailoverActionEnum converts a InstanceGroupManagerFailoverActionEnum enum from its proto representation.
 func ProtoToComputeBetaInstanceGroupManagerFailoverActionEnum(e betapb.ComputeBetaInstanceGroupManagerFailoverActionEnum) *beta.InstanceGroupManagerFailoverActionEnum {
 	if e == 0 {
@@ -338,6 +362,28 @@ func ProtoToComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisks(p *
 	return obj
 }
 
+// ProtoToInstanceGroupManagerStatefulPolicyPreservedStateInternalIps converts a InstanceGroupManagerStatefulPolicyPreservedStateInternalIps object from its proto representation.
+func ProtoToComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIps(p *betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIps) *beta.InstanceGroupManagerStatefulPolicyPreservedStateInternalIps {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.InstanceGroupManagerStatefulPolicyPreservedStateInternalIps{
+		AutoDelete: ProtoToComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum(p.GetAutoDelete()),
+	}
+	return obj
+}
+
+// ProtoToInstanceGroupManagerStatefulPolicyPreservedStateExternalIps converts a InstanceGroupManagerStatefulPolicyPreservedStateExternalIps object from its proto representation.
+func ProtoToComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIps(p *betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIps) *beta.InstanceGroupManagerStatefulPolicyPreservedStateExternalIps {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.InstanceGroupManagerStatefulPolicyPreservedStateExternalIps{
+		AutoDelete: ProtoToComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum(p.GetAutoDelete()),
+	}
+	return obj
+}
+
 // ProtoToInstanceGroupManager converts a InstanceGroupManager resource from its proto representation.
 func ProtoToInstanceGroupManager(p *betapb.ComputeBetaInstanceGroupManager) *beta.InstanceGroupManager {
 	obj := &beta.InstanceGroupManager{
@@ -453,6 +499,28 @@ func ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteE
 		return betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum(v)
 	}
 	return betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnum(0)
+}
+
+// InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnumToProto converts a InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum enum to its proto representation.
+func ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnumToProto(e *beta.InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum) betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum {
+	if e == nil {
+		return betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum(0)
+	}
+	if v, ok := betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum_value["InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum"+string(*e)]; ok {
+		return betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum(v)
+	}
+	return betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnum(0)
+}
+
+// InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnumToProto converts a InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum enum to its proto representation.
+func ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnumToProto(e *beta.InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum) betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum {
+	if e == nil {
+		return betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum(0)
+	}
+	if v, ok := betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum_value["InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum"+string(*e)]; ok {
+		return betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum(v)
+	}
+	return betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnum(0)
 }
 
 // InstanceGroupManagerFailoverActionEnumToProto converts a InstanceGroupManagerFailoverActionEnum enum to its proto representation.
@@ -662,6 +730,16 @@ func ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateToProto(o *beta.
 		mDisks[k] = ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisksToProto(&r)
 	}
 	p.SetDisks(mDisks)
+	mInternalIps := make(map[string]*betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIps, len(o.InternalIps))
+	for k, r := range o.InternalIps {
+		mInternalIps[k] = ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsToProto(&r)
+	}
+	p.SetInternalIps(mInternalIps)
+	mExternalIps := make(map[string]*betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIps, len(o.ExternalIps))
+	for k, r := range o.ExternalIps {
+		mExternalIps[k] = ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsToProto(&r)
+	}
+	p.SetExternalIps(mExternalIps)
 	return p
 }
 
@@ -672,6 +750,26 @@ func ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisksToProto(o *
 	}
 	p := &betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisks{}
 	p.SetAutoDelete(ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateDisksAutoDeleteEnumToProto(o.AutoDelete))
+	return p
+}
+
+// InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsToProto converts a InstanceGroupManagerStatefulPolicyPreservedStateInternalIps object to its proto representation.
+func ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsToProto(o *beta.InstanceGroupManagerStatefulPolicyPreservedStateInternalIps) *betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIps {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIps{}
+	p.SetAutoDelete(ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsAutoDeleteEnumToProto(o.AutoDelete))
+	return p
+}
+
+// InstanceGroupManagerStatefulPolicyPreservedStateExternalIpsToProto converts a InstanceGroupManagerStatefulPolicyPreservedStateExternalIps object to its proto representation.
+func ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsToProto(o *beta.InstanceGroupManagerStatefulPolicyPreservedStateExternalIps) *betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIps {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIps{}
+	p.SetAutoDelete(ComputeBetaInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsAutoDeleteEnumToProto(o.AutoDelete))
 	return p
 }
 
