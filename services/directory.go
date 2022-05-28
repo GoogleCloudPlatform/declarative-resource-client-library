@@ -141,6 +141,9 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage"
 	storage_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/alpha"
 	storage_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vertex"
+	vertex_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vertex/alpha"
+	vertex_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vertex/beta"
 	vmware_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vmware/alpha"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vpcaccess"
 	vpcaccess_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vpcaccess/alpha"
@@ -395,6 +398,18 @@ func Services() *Directory {
 	d.AddResource("ga", "privateca", "Certificate", privateca.YAML_certificate)
 	d.AddResource("ga", "privateca", dcl.TitleToSnakeCase("CertificateAuthority"), privateca.YAML_certificate_authority)
 	d.AddResource("ga", "privateca", "CertificateAuthority", privateca.YAML_certificate_authority)
+	d.AddResource("ga", "vertex", dcl.TitleToSnakeCase("Endpoint"), vertex.YAML_endpoint)
+	d.AddResource("ga", "vertex", "Endpoint", vertex.YAML_endpoint)
+	d.AddResource("ga", "vertex", dcl.TitleToSnakeCase("EndpointTrafficSplit"), vertex.YAML_endpoint_traffic_split)
+	d.AddResource("ga", "vertex", "EndpointTrafficSplit", vertex.YAML_endpoint_traffic_split)
+	d.AddResource("ga", "vertex", dcl.TitleToSnakeCase("MetadataSchema"), vertex.YAML_metadata_schema)
+	d.AddResource("ga", "vertex", "MetadataSchema", vertex.YAML_metadata_schema)
+	d.AddResource("ga", "vertex", dcl.TitleToSnakeCase("MetadataStore"), vertex.YAML_metadata_store)
+	d.AddResource("ga", "vertex", "MetadataStore", vertex.YAML_metadata_store)
+	d.AddResource("ga", "vertex", dcl.TitleToSnakeCase("Model"), vertex.YAML_model)
+	d.AddResource("ga", "vertex", "Model", vertex.YAML_model)
+	d.AddResource("ga", "vertex", dcl.TitleToSnakeCase("ModelDeployment"), vertex.YAML_model_deployment)
+	d.AddResource("ga", "vertex", "ModelDeployment", vertex.YAML_model_deployment)
 	d.AddResource("ga", "vpcaccess", dcl.TitleToSnakeCase("Connector"), vpcaccess.YAML_connector)
 	d.AddResource("ga", "vpcaccess", "Connector", vpcaccess.YAML_connector)
 	d.AddResource("ga", "recaptchaenterprise", dcl.TitleToSnakeCase("Key"), recaptchaenterprise.YAML_key)
@@ -627,6 +642,18 @@ func Services() *Directory {
 	d.AddResource("beta", "privateca", "Certificate", privateca_beta.YAML_certificate)
 	d.AddResource("beta", "privateca", dcl.TitleToSnakeCase("CertificateAuthority"), privateca_beta.YAML_certificate_authority)
 	d.AddResource("beta", "privateca", "CertificateAuthority", privateca_beta.YAML_certificate_authority)
+	d.AddResource("beta", "vertex", dcl.TitleToSnakeCase("Endpoint"), vertex_beta.YAML_endpoint)
+	d.AddResource("beta", "vertex", "Endpoint", vertex_beta.YAML_endpoint)
+	d.AddResource("beta", "vertex", dcl.TitleToSnakeCase("EndpointTrafficSplit"), vertex_beta.YAML_endpoint_traffic_split)
+	d.AddResource("beta", "vertex", "EndpointTrafficSplit", vertex_beta.YAML_endpoint_traffic_split)
+	d.AddResource("beta", "vertex", dcl.TitleToSnakeCase("MetadataSchema"), vertex_beta.YAML_metadata_schema)
+	d.AddResource("beta", "vertex", "MetadataSchema", vertex_beta.YAML_metadata_schema)
+	d.AddResource("beta", "vertex", dcl.TitleToSnakeCase("MetadataStore"), vertex_beta.YAML_metadata_store)
+	d.AddResource("beta", "vertex", "MetadataStore", vertex_beta.YAML_metadata_store)
+	d.AddResource("beta", "vertex", dcl.TitleToSnakeCase("Model"), vertex_beta.YAML_model)
+	d.AddResource("beta", "vertex", "Model", vertex_beta.YAML_model)
+	d.AddResource("beta", "vertex", dcl.TitleToSnakeCase("ModelDeployment"), vertex_beta.YAML_model_deployment)
+	d.AddResource("beta", "vertex", "ModelDeployment", vertex_beta.YAML_model_deployment)
 	d.AddResource("beta", "vpcaccess", dcl.TitleToSnakeCase("Connector"), vpcaccess_beta.YAML_connector)
 	d.AddResource("beta", "vpcaccess", "Connector", vpcaccess_beta.YAML_connector)
 	d.AddResource("beta", "recaptchaenterprise", dcl.TitleToSnakeCase("Key"), recaptchaenterprise_beta.YAML_key)
@@ -869,6 +896,18 @@ func Services() *Directory {
 	d.AddResource("alpha", "privateca", "Certificate", privateca_alpha.YAML_certificate)
 	d.AddResource("alpha", "privateca", dcl.TitleToSnakeCase("CertificateAuthority"), privateca_alpha.YAML_certificate_authority)
 	d.AddResource("alpha", "privateca", "CertificateAuthority", privateca_alpha.YAML_certificate_authority)
+	d.AddResource("alpha", "vertex", dcl.TitleToSnakeCase("Endpoint"), vertex_alpha.YAML_endpoint)
+	d.AddResource("alpha", "vertex", "Endpoint", vertex_alpha.YAML_endpoint)
+	d.AddResource("alpha", "vertex", dcl.TitleToSnakeCase("EndpointTrafficSplit"), vertex_alpha.YAML_endpoint_traffic_split)
+	d.AddResource("alpha", "vertex", "EndpointTrafficSplit", vertex_alpha.YAML_endpoint_traffic_split)
+	d.AddResource("alpha", "vertex", dcl.TitleToSnakeCase("MetadataSchema"), vertex_alpha.YAML_metadata_schema)
+	d.AddResource("alpha", "vertex", "MetadataSchema", vertex_alpha.YAML_metadata_schema)
+	d.AddResource("alpha", "vertex", dcl.TitleToSnakeCase("MetadataStore"), vertex_alpha.YAML_metadata_store)
+	d.AddResource("alpha", "vertex", "MetadataStore", vertex_alpha.YAML_metadata_store)
+	d.AddResource("alpha", "vertex", dcl.TitleToSnakeCase("Model"), vertex_alpha.YAML_model)
+	d.AddResource("alpha", "vertex", "Model", vertex_alpha.YAML_model)
+	d.AddResource("alpha", "vertex", dcl.TitleToSnakeCase("ModelDeployment"), vertex_alpha.YAML_model_deployment)
+	d.AddResource("alpha", "vertex", "ModelDeployment", vertex_alpha.YAML_model_deployment)
 	d.AddResource("alpha", "vmware", dcl.TitleToSnakeCase("PrivateCloud"), vmware_alpha.YAML_private_cloud)
 	d.AddResource("alpha", "vmware", "PrivateCloud", vmware_alpha.YAML_private_cloud)
 	d.AddResource("alpha", "vmware", dcl.TitleToSnakeCase("Cluster"), vmware_alpha.YAML_cluster)
