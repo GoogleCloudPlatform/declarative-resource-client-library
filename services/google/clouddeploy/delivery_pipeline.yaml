@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 info:
-  title: CloudDeploy/DeliveryPipeline
+  title: Clouddeploy/DeliveryPipeline
   description: The Cloud Deploy `DeliveryPipeline` resource
   x-dcl-struct-name: DeliveryPipeline
   x-dcl-has-iam: false

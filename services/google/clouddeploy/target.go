@@ -228,7 +228,7 @@ func (r *TargetExecutionConfigs) HashCode() string {
 // can identify it.
 func (r *Target) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "cloud_deploy",
+		Service: "clouddeploy",
 		Type:    "Target",
 		Version: "clouddeploy",
 	}

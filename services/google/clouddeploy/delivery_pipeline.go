@@ -293,7 +293,7 @@ func (r *DeliveryPipelineConditionTargetsPresentCondition) HashCode() string {
 // can identify it.
 func (r *DeliveryPipeline) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
-		Service: "cloud_deploy",
+		Service: "clouddeploy",
 		Type:    "DeliveryPipeline",
 		Version: "clouddeploy",
 	}

@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 info:
-  title: CloudDeploy/Target
+  title: Clouddeploy/Target
   description: The Cloud Deploy `Target` resource
   x-dcl-struct-name: Target
   x-dcl-has-iam: false

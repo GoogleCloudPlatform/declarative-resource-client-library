@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 from connector import channel
-from google3.cloud.graphite.mmv2.services.google.cloud_deploy import (
+from google3.cloud.graphite.mmv2.services.google.clouddeploy import (
     delivery_pipeline_pb2,
 )
-from google3.cloud.graphite.mmv2.services.google.cloud_deploy import (
+from google3.cloud.graphite.mmv2.services.google.clouddeploy import (
     delivery_pipeline_pb2_grpc,
 )
 
