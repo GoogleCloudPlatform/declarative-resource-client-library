@@ -1,5 +1,0 @@
-{
-  "project": "{{project}}",
-  "network": "projects/{{project}}/global/networks/{{ref:basic.compute.network.json:name}}",
-  "reservedPeeringRanges": ["{{ref:basic.compute.address.json:name}}"]
-}

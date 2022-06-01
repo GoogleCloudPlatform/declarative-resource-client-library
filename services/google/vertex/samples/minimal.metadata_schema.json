@@ -1,9 +1,0 @@
-{
-  "name": "{{schema}}",
-  "project": "{{project}}",
-  "location": "{{region}}",
-  "metadataStore": "{{ref:minimal.metadata_store.json:name}}",
-  "schemaVersion": "1.0.0",
-  "schema": "title: sample.Schema\ntype: object",
-  "schemaType": "ARTIFACT_TYPE"
-}

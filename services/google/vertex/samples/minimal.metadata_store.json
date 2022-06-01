@@ -1,5 +1,0 @@
-{
-  "name": "{{store}}",
-  "project": "projects/{{project}}",
-  "location": "{{region}}"
-}
