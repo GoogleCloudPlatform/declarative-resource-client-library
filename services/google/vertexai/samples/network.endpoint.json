@@ -1,0 +1,13 @@
+{
+  "project": "{{project}}",
+  "location": "{{region}}",
+  "displayName": "sample-endpoint",
+  "description": "A sample vertex endpoint",
+  "labels": {
+    "label-one": "value-one"
+  },
+  "encryptionSpec": {
+    "kmsKeyName": "projects/{{project}}/locations/{{region}}/keyRings/{{ref:minimal.cloudkms.key_ring.json:name}}/cryptoKeys/{{ref:basic.cloudkms.crypto_key.json:name}}"
+  },
+  "network": "{{ref:basic.servicenetworking.connection.json:network}}"
+}

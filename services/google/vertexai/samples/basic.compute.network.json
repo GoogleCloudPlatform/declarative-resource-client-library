@@ -1,0 +1,5 @@
+{
+  "name": "{{vertex_network}}",
+  "project": "{{project}}",
+  "autoCreateSubnetworks": false
+}
