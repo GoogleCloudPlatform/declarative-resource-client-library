@@ -210,6 +210,7 @@ components:
                 TZ=${IANA_TIME_ZONE}". The ${IANA_TIME_ZONE} may only be a valid string
                 from IANA time zone database. For example, "CRON_TZ=America/New_York
                 1 * * * *", or "TZ=America/New_York 1 * * * *".'
+              x-dcl-server-default: true
         displayName:
           type: string
           x-dcl-go-name: DisplayName
