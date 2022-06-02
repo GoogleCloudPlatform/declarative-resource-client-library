@@ -163,7 +163,6 @@ components:
               x-dcl-go-name: InstanceType
               description: Optional. The AWS instance type. When unspecified, it defaults
                 to `m5.large`.
-              x-kubernetes-immutable: true
               x-dcl-server-default: true
             labels:
               type: object
