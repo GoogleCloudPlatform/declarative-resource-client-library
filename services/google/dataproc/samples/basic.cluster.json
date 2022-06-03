@@ -1,7 +1,7 @@
 {
   "name": "{{cluster_name}}",
   "location": "{{region}}",
-  "project": "projects/{{project}}",
+  "project": "projects/{{ref:dataproc.serviceusage.service.json:project}}",
   "labels": {
    "my-cluster": "exists"
   },

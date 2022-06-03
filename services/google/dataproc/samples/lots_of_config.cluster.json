@@ -1,7 +1,7 @@
 {
   "name": "{{cluster_name}}",
   "location": "{{region}}",
-  "project": "{{project}}",
+  "project": "{{ref:dataproc.serviceusage.service.json:project}}",
   "config": {
     "gceClusterConfig": {
       "zone": "{{zone}}",

@@ -1,5 +1,5 @@
 {
-  "project": "{{project}}",
+  "project": "{{ref:dataproc.serviceusage.service.json:project}}",
   "region": "{{region}}",
   "placement": {
     "clusterName": "{{ref:basic.cluster.json:name}}"

@@ -1,13 +1,13 @@
 {
   "name": "{{cluster_name}}",
   "location": "{{region}}",
-  "project": "{{project}}",
+  "project": "{{ref:dataproc.serviceusage.service.json:project}}",
   "labels": {
    "label-one": "new-value"
   },
   "config": {
    "autoscalingConfig": {
-     "policy": "projects/{{project}}/locations/{{region}}/autoscalingPolicies/{{ref:basic.autoscaling_policy.json:name}}"
+     "policy": "projects/{{ref:dataproc.serviceusage.service.json:project}}/locations/{{region}}/autoscalingPolicies/{{ref:basic.autoscaling_policy.json:name}}"
    },
    "masterConfig": {
     "diskConfig": {

@@ -1,5 +1,5 @@
 {
-  "project": "{{project}}",
+  "project": "{{ref:dataproc.serviceusage.service.json:project}}",
   "name": "{{template_name}}",
   "location": "{{region}}",
   "labels": {
@@ -10,7 +10,7 @@
       "clusterName": "test-cluster",
       "config": {
         "autoscalingConfig": {
-          "policy": "projects/{{project}}/locations/{{region}}/autoscalingPolicies/{{ref:basic.autoscaling_policy.json:name}}"
+          "policy": "projects/{{ref:dataproc.serviceusage.service.json:project}}/locations/{{region}}/autoscalingPolicies/{{ref:basic.autoscaling_policy.json:name}}"
         },
         "gceClusterConfig": {
           "tags": ["foo", "bar"]

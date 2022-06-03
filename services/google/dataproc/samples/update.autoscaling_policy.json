@@ -1,6 +1,6 @@
 {
   "name": "{{name}}",
-  "project": "{{project}}",
+  "project": "{{ref:dataproc.serviceusage.service.json:project}}",
   "location": "us-central1",
   "workerConfig": {
     "maxInstances": 9
