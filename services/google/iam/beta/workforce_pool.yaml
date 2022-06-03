@@ -104,6 +104,10 @@ components:
           description: 'Immutable. The resource name of the parent. Format: `organizations/{org-id}`.'
           x-kubernetes-immutable: true
           x-dcl-forward-slash-allowed: true
+          x-dcl-references:
+          - resource: Cloudresourcemanager/Organization
+            field: name
+            parent: true
         selfLink:
           type: string
           x-dcl-go-name: SelfLink

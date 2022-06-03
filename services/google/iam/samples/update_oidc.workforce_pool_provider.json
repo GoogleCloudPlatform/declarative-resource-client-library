@@ -2,15 +2,11 @@
   "name": "{{provider}}",
   "location": "global",
   "workforcePool": "{{ref:basic.workforce_pool.json:name}}",
-  "displayName": "New display name",
-  "description": "A sample OIDC workforce pool provider with updated description.",
-  "state": "ACTIVE",
-  "disabled": true,
   "attributeMapping": {
-    "google.subject": "assertion.sub"
+    "google.subject": "false"
   },
   "oidc": {
-    "issuerUri": "https://accounts.google.com",
-    "clientId": "client-id"
+    "issuerUri": "https://test.google.com",
+    "clientId": "new-client-id"
   }
 }

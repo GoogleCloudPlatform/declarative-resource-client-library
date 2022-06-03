@@ -2,10 +2,6 @@
   "name": "{{provider}}",
   "location": "global",
   "workforcePool": "{{ref:basic.workforce_pool.json:name}}",
-  "displayName": "Display name",
-  "description": "A sample OIDC workforce pool provider.",
-  "state": "ACTIVE",
-  "disabled": false,
   "attributeMapping": {
     "google.subject": "assertion.sub"
   },

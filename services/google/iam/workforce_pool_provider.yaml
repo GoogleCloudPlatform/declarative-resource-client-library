@@ -15,7 +15,7 @@ info:
   title: Iam/WorkforcePoolProvider
   description: The Iam WorkforcePoolProvider resource
   x-dcl-struct-name: WorkforcePoolProvider
-  x-dcl-has-iam: true
+  x-dcl-has-iam: false
 paths:
   get:
     description: The function used to get information about a WorkforcePoolProvider
@@ -62,7 +62,7 @@ components:
     WorkforcePoolProvider:
       title: WorkforcePoolProvider
       x-dcl-id: locations/{{location}}/workforcePools/{{workforce_pool}}/providers/{{name}}
-      x-dcl-has-iam: true
+      x-dcl-has-iam: false
       type: object
       required:
       - name
