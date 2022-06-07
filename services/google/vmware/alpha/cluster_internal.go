@@ -490,7 +490,9 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Cluster, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -498,22 +500,30 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		rawNew.State = rawDesired.State
+		if rawDesired.State != nil {
+			rawNew.State = rawDesired.State
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Management) && dcl.IsNotReturnedByServer(rawDesired.Management) {
-		rawNew.Management = rawDesired.Management
+		if rawDesired.Management != nil {
+			rawNew.Management = rawDesired.Management
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Management, rawNew.Management) {
 			rawNew.Management = rawDesired.Management
@@ -521,7 +531,9 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.NodeTypeId) && dcl.IsNotReturnedByServer(rawDesired.NodeTypeId) {
-		rawNew.NodeTypeId = rawDesired.NodeTypeId
+		if rawDesired.NodeTypeId != nil {
+			rawNew.NodeTypeId = rawDesired.NodeTypeId
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.NodeTypeId, rawNew.NodeTypeId) {
 			rawNew.NodeTypeId = rawDesired.NodeTypeId
@@ -529,7 +541,9 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.NodeCount) && dcl.IsNotReturnedByServer(rawDesired.NodeCount) {
-		rawNew.NodeCount = rawDesired.NodeCount
+		if rawDesired.NodeCount != nil {
+			rawNew.NodeCount = rawDesired.NodeCount
+		}
 	} else {
 	}
 

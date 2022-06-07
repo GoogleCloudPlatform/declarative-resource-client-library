@@ -144,9 +144,10 @@ func (c *Client) GetEndpointTrafficSplit(ctx context.Context, r *EndpointTraffic
 	if err != nil {
 		return nil, err
 	}
-	result.Project = r.Project
-	result.Location = r.Location
-	result.Endpoint = r.Endpoint
+	nr := r.urlNormalized()
+	result.Project = nr.Project
+	result.Location = nr.Location
+	result.Endpoint = nr.Endpoint
 
 	c.Config.Logger.InfoWithContextf(ctx, "Retrieved raw result state: %v", result)
 	c.Config.Logger.InfoWithContextf(ctx, "Canonicalizing with specified state: %v", r)
@@ -246,7 +247,7 @@ func applyEndpointTrafficSplitHelper(c *Client, ctx context.Context, rawDesired 
 func applyEndpointTrafficSplitDiff(c *Client, ctx context.Context, desired *EndpointTrafficSplit, rawDesired *EndpointTrafficSplit, ops []endpointTrafficSplitApiOperation, opts ...dcl.ApplyOption) (*EndpointTrafficSplit, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
-	rawNew, err := c.GetEndpointTrafficSplit(ctx, desired.urlNormalized())
+	rawNew, err := c.GetEndpointTrafficSplit(ctx, desired)
 	if err != nil {
 		return nil, err
 	}

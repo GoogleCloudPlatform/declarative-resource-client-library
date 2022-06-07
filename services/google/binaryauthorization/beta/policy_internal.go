@@ -440,28 +440,38 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 func canonicalizePolicyNewState(c *Client, rawNew, rawDesired *Policy) (*Policy, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.AdmissionWhitelistPatterns) && dcl.IsNotReturnedByServer(rawDesired.AdmissionWhitelistPatterns) {
-		rawNew.AdmissionWhitelistPatterns = rawDesired.AdmissionWhitelistPatterns
+		if rawDesired.AdmissionWhitelistPatterns != nil {
+			rawNew.AdmissionWhitelistPatterns = rawDesired.AdmissionWhitelistPatterns
+		}
 	} else {
 		rawNew.AdmissionWhitelistPatterns = canonicalizeNewPolicyAdmissionWhitelistPatternsSlice(c, rawDesired.AdmissionWhitelistPatterns, rawNew.AdmissionWhitelistPatterns)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ClusterAdmissionRules) && dcl.IsNotReturnedByServer(rawDesired.ClusterAdmissionRules) {
-		rawNew.ClusterAdmissionRules = rawDesired.ClusterAdmissionRules
+		if rawDesired.ClusterAdmissionRules != nil {
+			rawNew.ClusterAdmissionRules = rawDesired.ClusterAdmissionRules
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.KubernetesNamespaceAdmissionRules) && dcl.IsNotReturnedByServer(rawDesired.KubernetesNamespaceAdmissionRules) {
-		rawNew.KubernetesNamespaceAdmissionRules = rawDesired.KubernetesNamespaceAdmissionRules
+		if rawDesired.KubernetesNamespaceAdmissionRules != nil {
+			rawNew.KubernetesNamespaceAdmissionRules = rawDesired.KubernetesNamespaceAdmissionRules
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.KubernetesServiceAccountAdmissionRules) && dcl.IsNotReturnedByServer(rawDesired.KubernetesServiceAccountAdmissionRules) {
-		rawNew.KubernetesServiceAccountAdmissionRules = rawDesired.KubernetesServiceAccountAdmissionRules
+		if rawDesired.KubernetesServiceAccountAdmissionRules != nil {
+			rawNew.KubernetesServiceAccountAdmissionRules = rawDesired.KubernetesServiceAccountAdmissionRules
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.IstioServiceIdentityAdmissionRules) && dcl.IsNotReturnedByServer(rawDesired.IstioServiceIdentityAdmissionRules) {
-		rawNew.IstioServiceIdentityAdmissionRules = rawDesired.IstioServiceIdentityAdmissionRules
+		if rawDesired.IstioServiceIdentityAdmissionRules != nil {
+			rawNew.IstioServiceIdentityAdmissionRules = rawDesired.IstioServiceIdentityAdmissionRules
+		}
 	} else {
 		if canonicalizePolicyISIAR(rawDesired.IstioServiceIdentityAdmissionRules, rawNew.IstioServiceIdentityAdmissionRules) {
 			rawNew.IstioServiceIdentityAdmissionRules = rawDesired.IstioServiceIdentityAdmissionRules
@@ -469,13 +479,17 @@ func canonicalizePolicyNewState(c *Client, rawNew, rawDesired *Policy) (*Policy,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DefaultAdmissionRule) && dcl.IsNotReturnedByServer(rawDesired.DefaultAdmissionRule) {
-		rawNew.DefaultAdmissionRule = rawDesired.DefaultAdmissionRule
+		if rawDesired.DefaultAdmissionRule != nil && !rawDesired.DefaultAdmissionRule.empty {
+			rawNew.DefaultAdmissionRule = rawDesired.DefaultAdmissionRule
+		}
 	} else {
 		rawNew.DefaultAdmissionRule = canonicalizeNewPolicyDefaultAdmissionRule(c, rawDesired.DefaultAdmissionRule, rawNew.DefaultAdmissionRule)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -483,12 +497,16 @@ func canonicalizePolicyNewState(c *Client, rawNew, rawDesired *Policy) (*Policy,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.GlobalPolicyEvaluationMode) && dcl.IsNotReturnedByServer(rawDesired.GlobalPolicyEvaluationMode) {
-		rawNew.GlobalPolicyEvaluationMode = rawDesired.GlobalPolicyEvaluationMode
+		if rawDesired.GlobalPolicyEvaluationMode != nil {
+			rawNew.GlobalPolicyEvaluationMode = rawDesired.GlobalPolicyEvaluationMode
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
-		rawNew.SelfLink = rawDesired.SelfLink
+		if rawDesired.SelfLink != nil {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.SelfLink, rawNew.SelfLink) {
 			rawNew.SelfLink = rawDesired.SelfLink
@@ -498,7 +516,9 @@ func canonicalizePolicyNewState(c *Client, rawNew, rawDesired *Policy) (*Policy,
 	rawNew.Project = rawDesired.Project
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 

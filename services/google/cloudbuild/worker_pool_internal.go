@@ -613,7 +613,9 @@ func canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial *WorkerPool, opts
 func canonicalizeWorkerPoolNewState(c *Client, rawNew, rawDesired *WorkerPool) (*WorkerPool, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -621,7 +623,9 @@ func canonicalizeWorkerPoolNewState(c *Client, rawNew, rawDesired *WorkerPool) (
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		rawNew.DisplayName = rawDesired.DisplayName
+		if rawDesired.DisplayName != nil {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -629,7 +633,9 @@ func canonicalizeWorkerPoolNewState(c *Client, rawNew, rawDesired *WorkerPool) (
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
-		rawNew.Uid = rawDesired.Uid
+		if rawDesired.Uid != nil {
+			rawNew.Uid = rawDesired.Uid
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
 			rawNew.Uid = rawDesired.Uid
@@ -637,38 +643,52 @@ func canonicalizeWorkerPoolNewState(c *Client, rawNew, rawDesired *WorkerPool) (
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Annotations) && dcl.IsNotReturnedByServer(rawDesired.Annotations) {
-		rawNew.Annotations = rawDesired.Annotations
+		if rawDesired.Annotations != nil {
+			rawNew.Annotations = rawDesired.Annotations
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DeleteTime) && dcl.IsNotReturnedByServer(rawDesired.DeleteTime) {
-		rawNew.DeleteTime = rawDesired.DeleteTime
+		if rawDesired.DeleteTime != nil {
+			rawNew.DeleteTime = rawDesired.DeleteTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		rawNew.State = rawDesired.State
+		if rawDesired.State != nil {
+			rawNew.State = rawDesired.State
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PrivatePoolV1Config) && dcl.IsNotReturnedByServer(rawDesired.PrivatePoolV1Config) {
-		rawNew.PrivatePoolV1Config = rawDesired.PrivatePoolV1Config
+		if rawDesired.PrivatePoolV1Config != nil && !rawDesired.PrivatePoolV1Config.empty {
+			rawNew.PrivatePoolV1Config = rawDesired.PrivatePoolV1Config
+		}
 	} else {
 		rawNew.PrivatePoolV1Config = canonicalizeNewWorkerPoolPrivatePoolV1Config(c, rawDesired.PrivatePoolV1Config, rawNew.PrivatePoolV1Config)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		rawNew.Etag = rawDesired.Etag
+		if rawDesired.Etag != nil {
+			rawNew.Etag = rawDesired.Etag
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
 			rawNew.Etag = rawDesired.Etag
@@ -676,13 +696,17 @@ func canonicalizeWorkerPoolNewState(c *Client, rawNew, rawDesired *WorkerPool) (
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.WorkerConfig) && dcl.IsNotReturnedByServer(rawDesired.WorkerConfig) {
-		rawNew.WorkerConfig = rawDesired.WorkerConfig
+		if rawDesired.WorkerConfig != nil && !rawDesired.WorkerConfig.empty {
+			rawNew.WorkerConfig = rawDesired.WorkerConfig
+		}
 	} else {
 		rawNew.WorkerConfig = canonicalizeNewWorkerPoolWorkerConfig(c, rawDesired.WorkerConfig, rawNew.WorkerConfig)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.NetworkConfig) && dcl.IsNotReturnedByServer(rawDesired.NetworkConfig) {
-		rawNew.NetworkConfig = rawDesired.NetworkConfig
+		if rawDesired.NetworkConfig != nil && !rawDesired.NetworkConfig.empty {
+			rawNew.NetworkConfig = rawDesired.NetworkConfig
+		}
 	} else {
 		rawNew.NetworkConfig = canonicalizeNewWorkerPoolNetworkConfig(c, rawDesired.NetworkConfig, rawNew.NetworkConfig)
 	}

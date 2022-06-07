@@ -543,7 +543,7 @@ func applyFeatureMembershipHelper(c *Client, ctx context.Context, rawDesired *Fe
 func applyFeatureMembershipDiff(c *Client, ctx context.Context, desired *FeatureMembership, rawDesired *FeatureMembership, ops []featureMembershipApiOperation, opts ...dcl.ApplyOption) (*FeatureMembership, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
-	rawNew, err := c.GetFeatureMembership(ctx, desired.urlNormalized())
+	rawNew, err := c.GetFeatureMembership(ctx, desired)
 	if err != nil {
 		return nil, err
 	}

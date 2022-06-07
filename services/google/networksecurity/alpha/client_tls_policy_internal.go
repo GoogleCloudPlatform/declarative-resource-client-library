@@ -588,7 +588,9 @@ func canonicalizeClientTlsPolicyDesiredState(rawDesired, rawInitial *ClientTlsPo
 func canonicalizeClientTlsPolicyNewState(c *Client, rawNew, rawDesired *ClientTlsPolicy) (*ClientTlsPolicy, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -596,7 +598,9 @@ func canonicalizeClientTlsPolicyNewState(c *Client, rawNew, rawDesired *ClientTl
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -604,22 +608,30 @@ func canonicalizeClientTlsPolicyNewState(c *Client, rawNew, rawDesired *ClientTl
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Sni) && dcl.IsNotReturnedByServer(rawDesired.Sni) {
-		rawNew.Sni = rawDesired.Sni
+		if rawDesired.Sni != nil {
+			rawNew.Sni = rawDesired.Sni
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Sni, rawNew.Sni) {
 			rawNew.Sni = rawDesired.Sni
@@ -627,13 +639,17 @@ func canonicalizeClientTlsPolicyNewState(c *Client, rawNew, rawDesired *ClientTl
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ClientCertificate) && dcl.IsNotReturnedByServer(rawDesired.ClientCertificate) {
-		rawNew.ClientCertificate = rawDesired.ClientCertificate
+		if rawDesired.ClientCertificate != nil && !rawDesired.ClientCertificate.empty {
+			rawNew.ClientCertificate = rawDesired.ClientCertificate
+		}
 	} else {
 		rawNew.ClientCertificate = canonicalizeNewClientTlsPolicyClientCertificate(c, rawDesired.ClientCertificate, rawNew.ClientCertificate)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ServerValidationCa) && dcl.IsNotReturnedByServer(rawDesired.ServerValidationCa) {
-		rawNew.ServerValidationCa = rawDesired.ServerValidationCa
+		if rawDesired.ServerValidationCa != nil {
+			rawNew.ServerValidationCa = rawDesired.ServerValidationCa
+		}
 	} else {
 		rawNew.ServerValidationCa = canonicalizeNewClientTlsPolicyServerValidationCaSlice(c, rawDesired.ServerValidationCa, rawNew.ServerValidationCa)
 	}

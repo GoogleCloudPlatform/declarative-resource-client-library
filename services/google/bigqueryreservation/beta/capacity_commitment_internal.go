@@ -493,43 +493,59 @@ func canonicalizeCapacityCommitmentDesiredState(rawDesired, rawInitial *Capacity
 func canonicalizeCapacityCommitmentNewState(c *Client, rawNew, rawDesired *CapacityCommitment) (*CapacityCommitment, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SlotCount) && dcl.IsNotReturnedByServer(rawDesired.SlotCount) {
-		rawNew.SlotCount = rawDesired.SlotCount
+		if rawDesired.SlotCount != nil {
+			rawNew.SlotCount = rawDesired.SlotCount
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Plan) && dcl.IsNotReturnedByServer(rawDesired.Plan) {
-		rawNew.Plan = rawDesired.Plan
+		if rawDesired.Plan != nil {
+			rawNew.Plan = rawDesired.Plan
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		rawNew.State = rawDesired.State
+		if rawDesired.State != nil {
+			rawNew.State = rawDesired.State
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CommitmentStartTime) && dcl.IsNotReturnedByServer(rawDesired.CommitmentStartTime) {
-		rawNew.CommitmentStartTime = rawDesired.CommitmentStartTime
+		if rawDesired.CommitmentStartTime != nil {
+			rawNew.CommitmentStartTime = rawDesired.CommitmentStartTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CommitmentEndTime) && dcl.IsNotReturnedByServer(rawDesired.CommitmentEndTime) {
-		rawNew.CommitmentEndTime = rawDesired.CommitmentEndTime
+		if rawDesired.CommitmentEndTime != nil {
+			rawNew.CommitmentEndTime = rawDesired.CommitmentEndTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.FailureStatus) && dcl.IsNotReturnedByServer(rawDesired.FailureStatus) {
-		rawNew.FailureStatus = rawDesired.FailureStatus
+		if rawDesired.FailureStatus != nil && !rawDesired.FailureStatus.empty {
+			rawNew.FailureStatus = rawDesired.FailureStatus
+		}
 	} else {
 		rawNew.FailureStatus = canonicalizeNewCapacityCommitmentFailureStatus(c, rawDesired.FailureStatus, rawNew.FailureStatus)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RenewalPlan) && dcl.IsNotReturnedByServer(rawDesired.RenewalPlan) {
-		rawNew.RenewalPlan = rawDesired.RenewalPlan
+		if rawDesired.RenewalPlan != nil {
+			rawNew.RenewalPlan = rawDesired.RenewalPlan
+		}
 	} else {
 	}
 

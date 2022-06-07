@@ -382,12 +382,16 @@ func canonicalizeIdentityAwareProxyClientDesiredState(rawDesired, rawInitial *Id
 func canonicalizeIdentityAwareProxyClientNewState(c *Client, rawNew, rawDesired *IdentityAwareProxyClient) (*IdentityAwareProxyClient, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Secret) && dcl.IsNotReturnedByServer(rawDesired.Secret) {
-		rawNew.Secret = rawDesired.Secret
+		if rawDesired.Secret != nil {
+			rawNew.Secret = rawDesired.Secret
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Secret, rawNew.Secret) {
 			rawNew.Secret = rawDesired.Secret
@@ -395,7 +399,9 @@ func canonicalizeIdentityAwareProxyClientNewState(c *Client, rawNew, rawDesired 
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		rawNew.DisplayName = rawDesired.DisplayName
+		if rawDesired.DisplayName != nil {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName

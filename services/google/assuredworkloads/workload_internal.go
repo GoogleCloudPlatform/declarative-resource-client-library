@@ -535,12 +535,16 @@ func canonicalizeWorkloadDesiredState(rawDesired, rawInitial *Workload, opts ...
 func canonicalizeWorkloadNewState(c *Client, rawNew, rawDesired *Workload) (*Workload, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		rawNew.DisplayName = rawDesired.DisplayName
+		if rawDesired.DisplayName != nil {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -548,29 +552,39 @@ func canonicalizeWorkloadNewState(c *Client, rawNew, rawDesired *Workload) (*Wor
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Resources) && dcl.IsNotReturnedByServer(rawDesired.Resources) {
-		rawNew.Resources = rawDesired.Resources
+		if rawDesired.Resources != nil {
+			rawNew.Resources = rawDesired.Resources
+		}
 	} else {
 		rawNew.Resources = canonicalizeNewWorkloadResourcesSlice(c, rawDesired.Resources, rawNew.Resources)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ComplianceRegime) && dcl.IsNotReturnedByServer(rawDesired.ComplianceRegime) {
-		rawNew.ComplianceRegime = rawDesired.ComplianceRegime
+		if rawDesired.ComplianceRegime != nil {
+			rawNew.ComplianceRegime = rawDesired.ComplianceRegime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.BillingAccount) && dcl.IsNotReturnedByServer(rawDesired.BillingAccount) {
-		rawNew.BillingAccount = rawDesired.BillingAccount
+		if rawDesired.BillingAccount != nil {
+			rawNew.BillingAccount = rawDesired.BillingAccount
+		}
 	} else {
 		rawNew.BillingAccount = rawDesired.BillingAccount
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 	}
 

@@ -539,7 +539,9 @@ func canonicalizeBucketNewState(c *Client, rawNew, rawDesired *Bucket) (*Bucket,
 	rawNew.Project = rawDesired.Project
 
 	if dcl.IsNotReturnedByServer(rawNew.Location) && dcl.IsNotReturnedByServer(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
+		if rawDesired.Location != nil {
+			rawNew.Location = rawDesired.Location
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Location, rawNew.Location) {
 			rawNew.Location = rawDesired.Location
@@ -547,7 +549,9 @@ func canonicalizeBucketNewState(c *Client, rawNew, rawDesired *Bucket) (*Bucket,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -555,36 +559,48 @@ func canonicalizeBucketNewState(c *Client, rawNew, rawDesired *Bucket) (*Bucket,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Cors) && dcl.IsNotReturnedByServer(rawDesired.Cors) {
-		rawNew.Cors = rawDesired.Cors
+		if rawDesired.Cors != nil {
+			rawNew.Cors = rawDesired.Cors
+		}
 	} else {
 		rawNew.Cors = canonicalizeNewBucketCorsSlice(c, rawDesired.Cors, rawNew.Cors)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Lifecycle) && dcl.IsNotReturnedByServer(rawDesired.Lifecycle) {
-		rawNew.Lifecycle = rawDesired.Lifecycle
+		if rawDesired.Lifecycle != nil && !rawDesired.Lifecycle.empty {
+			rawNew.Lifecycle = rawDesired.Lifecycle
+		}
 	} else {
 		rawNew.Lifecycle = canonicalizeNewBucketLifecycle(c, rawDesired.Lifecycle, rawNew.Lifecycle)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Logging) && dcl.IsNotReturnedByServer(rawDesired.Logging) {
-		rawNew.Logging = rawDesired.Logging
+		if rawDesired.Logging != nil && !rawDesired.Logging.empty {
+			rawNew.Logging = rawDesired.Logging
+		}
 	} else {
 		rawNew.Logging = canonicalizeNewBucketLogging(c, rawDesired.Logging, rawNew.Logging)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.StorageClass) && dcl.IsNotReturnedByServer(rawDesired.StorageClass) {
-		rawNew.StorageClass = rawDesired.StorageClass
+		if rawDesired.StorageClass != nil {
+			rawNew.StorageClass = rawDesired.StorageClass
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Versioning) && dcl.IsNotReturnedByServer(rawDesired.Versioning) {
-		rawNew.Versioning = rawDesired.Versioning
+		if rawDesired.Versioning != nil && !rawDesired.Versioning.empty {
+			rawNew.Versioning = rawDesired.Versioning
+		}
 	} else {
 		rawNew.Versioning = canonicalizeNewBucketVersioning(c, rawDesired.Versioning, rawNew.Versioning)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Website) && dcl.IsNotReturnedByServer(rawDesired.Website) {
-		rawNew.Website = rawDesired.Website
+		if rawDesired.Website != nil && !rawDesired.Website.empty {
+			rawNew.Website = rawDesired.Website
+		}
 	} else {
 		rawNew.Website = canonicalizeNewBucketWebsite(c, rawDesired.Website, rawNew.Website)
 	}

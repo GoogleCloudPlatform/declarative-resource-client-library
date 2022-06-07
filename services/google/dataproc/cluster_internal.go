@@ -690,12 +690,16 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Cluster, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Project) && dcl.IsNotReturnedByServer(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
+		if rawDesired.Project != nil {
+			rawNew.Project = rawDesired.Project
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -703,30 +707,40 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Config) && dcl.IsNotReturnedByServer(rawDesired.Config) {
-		rawNew.Config = rawDesired.Config
+		if rawDesired.Config != nil && !rawDesired.Config.empty {
+			rawNew.Config = rawDesired.Config
+		}
 	} else {
 		rawNew.Config = canonicalizeNewClusterConfig(c, rawDesired.Config, rawNew.Config)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Status) && dcl.IsNotReturnedByServer(rawDesired.Status) {
-		rawNew.Status = rawDesired.Status
+		if rawDesired.Status != nil && !rawDesired.Status.empty {
+			rawNew.Status = rawDesired.Status
+		}
 	} else {
 		rawNew.Status = canonicalizeNewClusterStatus(c, rawDesired.Status, rawNew.Status)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.StatusHistory) && dcl.IsNotReturnedByServer(rawDesired.StatusHistory) {
-		rawNew.StatusHistory = rawDesired.StatusHistory
+		if rawDesired.StatusHistory != nil {
+			rawNew.StatusHistory = rawDesired.StatusHistory
+		}
 	} else {
 		rawNew.StatusHistory = canonicalizeNewClusterStatusHistorySlice(c, rawDesired.StatusHistory, rawNew.StatusHistory)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ClusterUuid) && dcl.IsNotReturnedByServer(rawDesired.ClusterUuid) {
-		rawNew.ClusterUuid = rawDesired.ClusterUuid
+		if rawDesired.ClusterUuid != nil {
+			rawNew.ClusterUuid = rawDesired.ClusterUuid
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ClusterUuid, rawNew.ClusterUuid) {
 			rawNew.ClusterUuid = rawDesired.ClusterUuid
@@ -734,7 +748,9 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Metrics) && dcl.IsNotReturnedByServer(rawDesired.Metrics) {
-		rawNew.Metrics = rawDesired.Metrics
+		if rawDesired.Metrics != nil && !rawDesired.Metrics.empty {
+			rawNew.Metrics = rawDesired.Metrics
+		}
 	} else {
 		rawNew.Metrics = canonicalizeNewClusterMetrics(c, rawDesired.Metrics, rawNew.Metrics)
 	}

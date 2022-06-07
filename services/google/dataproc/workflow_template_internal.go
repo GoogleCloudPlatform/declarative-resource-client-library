@@ -827,45 +827,61 @@ func canonicalizeWorkflowTemplateNewState(c *Client, rawNew, rawDesired *Workflo
 	rawNew.Name = rawDesired.Name
 
 	if dcl.IsNotReturnedByServer(rawNew.Version) && dcl.IsNotReturnedByServer(rawDesired.Version) {
-		rawNew.Version = rawDesired.Version
+		if rawDesired.Version != nil {
+			rawNew.Version = rawDesired.Version
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Placement) && dcl.IsNotReturnedByServer(rawDesired.Placement) {
-		rawNew.Placement = rawDesired.Placement
+		if rawDesired.Placement != nil && !rawDesired.Placement.empty {
+			rawNew.Placement = rawDesired.Placement
+		}
 	} else {
 		rawNew.Placement = canonicalizeNewWorkflowTemplatePlacement(c, rawDesired.Placement, rawNew.Placement)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Jobs) && dcl.IsNotReturnedByServer(rawDesired.Jobs) {
-		rawNew.Jobs = rawDesired.Jobs
+		if rawDesired.Jobs != nil {
+			rawNew.Jobs = rawDesired.Jobs
+		}
 	} else {
 		rawNew.Jobs = canonicalizeNewWorkflowTemplateJobsSlice(c, rawDesired.Jobs, rawNew.Jobs)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Parameters) && dcl.IsNotReturnedByServer(rawDesired.Parameters) {
-		rawNew.Parameters = rawDesired.Parameters
+		if rawDesired.Parameters != nil {
+			rawNew.Parameters = rawDesired.Parameters
+		}
 	} else {
 		rawNew.Parameters = canonicalizeNewWorkflowTemplateParametersSlice(c, rawDesired.Parameters, rawNew.Parameters)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DagTimeout) && dcl.IsNotReturnedByServer(rawDesired.DagTimeout) {
-		rawNew.DagTimeout = rawDesired.DagTimeout
+		if rawDesired.DagTimeout != nil {
+			rawNew.DagTimeout = rawDesired.DagTimeout
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DagTimeout, rawNew.DagTimeout) {
 			rawNew.DagTimeout = rawDesired.DagTimeout

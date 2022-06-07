@@ -586,7 +586,9 @@ func canonicalizeServerTlsPolicyDesiredState(rawDesired, rawInitial *ServerTlsPo
 func canonicalizeServerTlsPolicyNewState(c *Client, rawNew, rawDesired *ServerTlsPolicy) (*ServerTlsPolicy, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -594,7 +596,9 @@ func canonicalizeServerTlsPolicyNewState(c *Client, rawNew, rawDesired *ServerTl
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -602,22 +606,30 @@ func canonicalizeServerTlsPolicyNewState(c *Client, rawNew, rawDesired *ServerTl
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AllowOpen) && dcl.IsNotReturnedByServer(rawDesired.AllowOpen) {
-		rawNew.AllowOpen = rawDesired.AllowOpen
+		if rawDesired.AllowOpen != nil {
+			rawNew.AllowOpen = rawDesired.AllowOpen
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.AllowOpen, rawNew.AllowOpen) {
 			rawNew.AllowOpen = rawDesired.AllowOpen
@@ -625,13 +637,17 @@ func canonicalizeServerTlsPolicyNewState(c *Client, rawNew, rawDesired *ServerTl
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ServerCertificate) && dcl.IsNotReturnedByServer(rawDesired.ServerCertificate) {
-		rawNew.ServerCertificate = rawDesired.ServerCertificate
+		if rawDesired.ServerCertificate != nil && !rawDesired.ServerCertificate.empty {
+			rawNew.ServerCertificate = rawDesired.ServerCertificate
+		}
 	} else {
 		rawNew.ServerCertificate = canonicalizeNewServerTlsPolicyServerCertificate(c, rawDesired.ServerCertificate, rawNew.ServerCertificate)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MtlsPolicy) && dcl.IsNotReturnedByServer(rawDesired.MtlsPolicy) {
-		rawNew.MtlsPolicy = rawDesired.MtlsPolicy
+		if rawDesired.MtlsPolicy != nil && !rawDesired.MtlsPolicy.empty {
+			rawNew.MtlsPolicy = rawDesired.MtlsPolicy
+		}
 	} else {
 		rawNew.MtlsPolicy = canonicalizeNewServerTlsPolicyMtlsPolicy(c, rawDesired.MtlsPolicy, rawNew.MtlsPolicy)
 	}

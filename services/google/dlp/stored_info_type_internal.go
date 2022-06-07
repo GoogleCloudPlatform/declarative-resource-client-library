@@ -586,12 +586,16 @@ func canonicalizeStoredInfoTypeDesiredState(rawDesired, rawInitial *StoredInfoTy
 func canonicalizeStoredInfoTypeNewState(c *Client, rawNew, rawDesired *StoredInfoType) (*StoredInfoType, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		rawNew.DisplayName = rawDesired.DisplayName
+		if rawDesired.DisplayName != nil {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -599,7 +603,9 @@ func canonicalizeStoredInfoTypeNewState(c *Client, rawNew, rawDesired *StoredInf
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -607,19 +613,25 @@ func canonicalizeStoredInfoTypeNewState(c *Client, rawNew, rawDesired *StoredInf
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LargeCustomDictionary) && dcl.IsNotReturnedByServer(rawDesired.LargeCustomDictionary) {
-		rawNew.LargeCustomDictionary = rawDesired.LargeCustomDictionary
+		if rawDesired.LargeCustomDictionary != nil && !rawDesired.LargeCustomDictionary.empty {
+			rawNew.LargeCustomDictionary = rawDesired.LargeCustomDictionary
+		}
 	} else {
 		rawNew.LargeCustomDictionary = canonicalizeNewStoredInfoTypeLargeCustomDictionary(c, rawDesired.LargeCustomDictionary, rawNew.LargeCustomDictionary)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Dictionary) && dcl.IsNotReturnedByServer(rawDesired.Dictionary) {
-		rawNew.Dictionary = rawDesired.Dictionary
+		if rawDesired.Dictionary != nil && !rawDesired.Dictionary.empty {
+			rawNew.Dictionary = rawDesired.Dictionary
+		}
 	} else {
 		rawNew.Dictionary = canonicalizeNewStoredInfoTypeDictionary(c, rawDesired.Dictionary, rawNew.Dictionary)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Regex) && dcl.IsNotReturnedByServer(rawDesired.Regex) {
-		rawNew.Regex = rawDesired.Regex
+		if rawDesired.Regex != nil && !rawDesired.Regex.empty {
+			rawNew.Regex = rawDesired.Regex
+		}
 	} else {
 		rawNew.Regex = canonicalizeNewStoredInfoTypeRegex(c, rawDesired.Regex, rawNew.Regex)
 	}

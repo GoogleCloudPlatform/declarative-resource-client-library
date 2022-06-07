@@ -531,9 +531,10 @@ func (c *Client) GetRoutine(ctx context.Context, r *Routine) (*Routine, error) {
 	if err != nil {
 		return nil, err
 	}
-	result.Project = r.Project
-	result.Dataset = r.Dataset
-	result.Name = r.Name
+	nr := r.urlNormalized()
+	result.Project = nr.Project
+	result.Dataset = nr.Dataset
+	result.Name = nr.Name
 
 	c.Config.Logger.InfoWithContextf(ctx, "Retrieved raw result state: %v", result)
 	c.Config.Logger.InfoWithContextf(ctx, "Canonicalizing with specified state: %v", r)
@@ -684,7 +685,7 @@ func applyRoutineHelper(c *Client, ctx context.Context, rawDesired *Routine, opt
 func applyRoutineDiff(c *Client, ctx context.Context, desired *Routine, rawDesired *Routine, ops []routineApiOperation, opts ...dcl.ApplyOption) (*Routine, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
-	rawNew, err := c.GetRoutine(ctx, desired.urlNormalized())
+	rawNew, err := c.GetRoutine(ctx, desired)
 	if err != nil {
 		return nil, err
 	}

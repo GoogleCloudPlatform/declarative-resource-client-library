@@ -957,12 +957,16 @@ func canonicalizeJobTriggerDesiredState(rawDesired, rawInitial *JobTrigger, opts
 func canonicalizeJobTriggerNewState(c *Client, rawNew, rawDesired *JobTrigger) (*JobTrigger, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		rawNew.DisplayName = rawDesired.DisplayName
+		if rawDesired.DisplayName != nil {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -970,7 +974,9 @@ func canonicalizeJobTriggerNewState(c *Client, rawNew, rawDesired *JobTrigger) (
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -978,45 +984,61 @@ func canonicalizeJobTriggerNewState(c *Client, rawNew, rawDesired *JobTrigger) (
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.InspectJob) && dcl.IsNotReturnedByServer(rawDesired.InspectJob) {
-		rawNew.InspectJob = rawDesired.InspectJob
+		if rawDesired.InspectJob != nil && !rawDesired.InspectJob.empty {
+			rawNew.InspectJob = rawDesired.InspectJob
+		}
 	} else {
 		rawNew.InspectJob = canonicalizeNewJobTriggerInspectJob(c, rawDesired.InspectJob, rawNew.InspectJob)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Triggers) && dcl.IsNotReturnedByServer(rawDesired.Triggers) {
-		rawNew.Triggers = rawDesired.Triggers
+		if rawDesired.Triggers != nil {
+			rawNew.Triggers = rawDesired.Triggers
+		}
 	} else {
 		rawNew.Triggers = canonicalizeNewJobTriggerTriggersSlice(c, rawDesired.Triggers, rawNew.Triggers)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Errors) && dcl.IsNotReturnedByServer(rawDesired.Errors) {
-		rawNew.Errors = rawDesired.Errors
+		if rawDesired.Errors != nil {
+			rawNew.Errors = rawDesired.Errors
+		}
 	} else {
 		rawNew.Errors = canonicalizeNewJobTriggerErrorsSlice(c, rawDesired.Errors, rawNew.Errors)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LastRunTime) && dcl.IsNotReturnedByServer(rawDesired.LastRunTime) {
-		rawNew.LastRunTime = rawDesired.LastRunTime
+		if rawDesired.LastRunTime != nil {
+			rawNew.LastRunTime = rawDesired.LastRunTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Status) && dcl.IsNotReturnedByServer(rawDesired.Status) {
-		rawNew.Status = rawDesired.Status
+		if rawDesired.Status != nil {
+			rawNew.Status = rawDesired.Status
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LocationId) && dcl.IsNotReturnedByServer(rawDesired.LocationId) {
-		rawNew.LocationId = rawDesired.LocationId
+		if rawDesired.LocationId != nil {
+			rawNew.LocationId = rawDesired.LocationId
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.LocationId, rawNew.LocationId) {
 			rawNew.LocationId = rawDesired.LocationId

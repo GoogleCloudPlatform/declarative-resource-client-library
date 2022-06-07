@@ -506,7 +506,9 @@ func canonicalizeServiceAccountDesiredState(rawDesired, rawInitial *ServiceAccou
 func canonicalizeServiceAccountNewState(c *Client, rawNew, rawDesired *ServiceAccount) (*ServiceAccount, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -514,12 +516,16 @@ func canonicalizeServiceAccountNewState(c *Client, rawNew, rawDesired *ServiceAc
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Project) && dcl.IsNotReturnedByServer(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
+		if rawDesired.Project != nil {
+			rawNew.Project = rawDesired.Project
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UniqueId) && dcl.IsNotReturnedByServer(rawDesired.UniqueId) {
-		rawNew.UniqueId = rawDesired.UniqueId
+		if rawDesired.UniqueId != nil {
+			rawNew.UniqueId = rawDesired.UniqueId
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.UniqueId, rawNew.UniqueId) {
 			rawNew.UniqueId = rawDesired.UniqueId
@@ -527,7 +533,9 @@ func canonicalizeServiceAccountNewState(c *Client, rawNew, rawDesired *ServiceAc
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Email) && dcl.IsNotReturnedByServer(rawDesired.Email) {
-		rawNew.Email = rawDesired.Email
+		if rawDesired.Email != nil {
+			rawNew.Email = rawDesired.Email
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Email, rawNew.Email) {
 			rawNew.Email = rawDesired.Email
@@ -535,7 +543,9 @@ func canonicalizeServiceAccountNewState(c *Client, rawNew, rawDesired *ServiceAc
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		rawNew.DisplayName = rawDesired.DisplayName
+		if rawDesired.DisplayName != nil {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -543,7 +553,9 @@ func canonicalizeServiceAccountNewState(c *Client, rawNew, rawDesired *ServiceAc
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -551,7 +563,9 @@ func canonicalizeServiceAccountNewState(c *Client, rawNew, rawDesired *ServiceAc
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.OAuth2ClientId) && dcl.IsNotReturnedByServer(rawDesired.OAuth2ClientId) {
-		rawNew.OAuth2ClientId = rawDesired.OAuth2ClientId
+		if rawDesired.OAuth2ClientId != nil {
+			rawNew.OAuth2ClientId = rawDesired.OAuth2ClientId
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.OAuth2ClientId, rawNew.OAuth2ClientId) {
 			rawNew.OAuth2ClientId = rawDesired.OAuth2ClientId
@@ -559,13 +573,17 @@ func canonicalizeServiceAccountNewState(c *Client, rawNew, rawDesired *ServiceAc
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ActasResources) && dcl.IsNotReturnedByServer(rawDesired.ActasResources) {
-		rawNew.ActasResources = rawDesired.ActasResources
+		if rawDesired.ActasResources != nil && !rawDesired.ActasResources.empty {
+			rawNew.ActasResources = rawDesired.ActasResources
+		}
 	} else {
 		rawNew.ActasResources = canonicalizeNewServiceAccountActasResources(c, rawDesired.ActasResources, rawNew.ActasResources)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Disabled) && dcl.IsNotReturnedByServer(rawDesired.Disabled) {
-		rawNew.Disabled = rawDesired.Disabled
+		if rawDesired.Disabled != nil {
+			rawNew.Disabled = rawDesired.Disabled
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Disabled, rawNew.Disabled) {
 			rawNew.Disabled = rawDesired.Disabled

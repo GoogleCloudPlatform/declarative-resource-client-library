@@ -412,7 +412,9 @@ func canonicalizeLogBucketDesiredState(rawDesired, rawInitial *LogBucket, opts .
 func canonicalizeLogBucketNewState(c *Client, rawNew, rawDesired *LogBucket) (*LogBucket, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -420,7 +422,9 @@ func canonicalizeLogBucketNewState(c *Client, rawNew, rawDesired *LogBucket) (*L
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -428,22 +432,30 @@ func canonicalizeLogBucketNewState(c *Client, rawNew, rawDesired *LogBucket) (*L
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RetentionDays) && dcl.IsNotReturnedByServer(rawDesired.RetentionDays) {
-		rawNew.RetentionDays = rawDesired.RetentionDays
+		if rawDesired.RetentionDays != nil {
+			rawNew.RetentionDays = rawDesired.RetentionDays
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Locked) && dcl.IsNotReturnedByServer(rawDesired.Locked) {
-		rawNew.Locked = rawDesired.Locked
+		if rawDesired.Locked != nil {
+			rawNew.Locked = rawDesired.Locked
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Locked, rawNew.Locked) {
 			rawNew.Locked = rawDesired.Locked
@@ -451,7 +463,9 @@ func canonicalizeLogBucketNewState(c *Client, rawNew, rawDesired *LogBucket) (*L
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LifecycleState) && dcl.IsNotReturnedByServer(rawDesired.LifecycleState) {
-		rawNew.LifecycleState = rawDesired.LifecycleState
+		if rawDesired.LifecycleState != nil {
+			rawNew.LifecycleState = rawDesired.LifecycleState
+		}
 	} else {
 	}
 

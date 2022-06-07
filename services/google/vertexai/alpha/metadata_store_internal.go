@@ -412,7 +412,9 @@ func canonicalizeMetadataStoreDesiredState(rawDesired, rawInitial *MetadataStore
 func canonicalizeMetadataStoreNewState(c *Client, rawNew, rawDesired *MetadataStore) (*MetadataStore, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -420,23 +422,31 @@ func canonicalizeMetadataStoreNewState(c *Client, rawNew, rawDesired *MetadataSt
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.EncryptionSpec) && dcl.IsNotReturnedByServer(rawDesired.EncryptionSpec) {
-		rawNew.EncryptionSpec = rawDesired.EncryptionSpec
+		if rawDesired.EncryptionSpec != nil && !rawDesired.EncryptionSpec.empty {
+			rawNew.EncryptionSpec = rawDesired.EncryptionSpec
+		}
 	} else {
 		rawNew.EncryptionSpec = canonicalizeNewMetadataStoreEncryptionSpec(c, rawDesired.EncryptionSpec, rawNew.EncryptionSpec)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -444,7 +454,9 @@ func canonicalizeMetadataStoreNewState(c *Client, rawNew, rawDesired *MetadataSt
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		rawNew.State = rawDesired.State
+		if rawDesired.State != nil && !rawDesired.State.empty {
+			rawNew.State = rawDesired.State
+		}
 	} else {
 		rawNew.State = canonicalizeNewMetadataStoreState(c, rawDesired.State, rawNew.State)
 	}

@@ -428,7 +428,9 @@ func canonicalizeMetricDescriptorDesiredState(rawDesired, rawInitial *MetricDesc
 func canonicalizeMetricDescriptorNewState(c *Client, rawNew, rawDesired *MetricDescriptor) (*MetricDescriptor, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
-		rawNew.SelfLink = rawDesired.SelfLink
+		if rawDesired.SelfLink != nil {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
 			rawNew.SelfLink = rawDesired.SelfLink
@@ -436,7 +438,9 @@ func canonicalizeMetricDescriptorNewState(c *Client, rawNew, rawDesired *MetricD
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Type) && dcl.IsNotReturnedByServer(rawDesired.Type) {
-		rawNew.Type = rawDesired.Type
+		if rawDesired.Type != nil {
+			rawNew.Type = rawDesired.Type
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Type, rawNew.Type) {
 			rawNew.Type = rawDesired.Type
@@ -444,18 +448,24 @@ func canonicalizeMetricDescriptorNewState(c *Client, rawNew, rawDesired *MetricD
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 		rawNew.Labels = canonicalizeNewMetricDescriptorLabelsSet(c, rawDesired.Labels, rawNew.Labels)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MetricKind) && dcl.IsNotReturnedByServer(rawDesired.MetricKind) {
-		rawNew.MetricKind = rawDesired.MetricKind
+		if rawDesired.MetricKind != nil {
+			rawNew.MetricKind = rawDesired.MetricKind
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ValueType) && dcl.IsNotReturnedByServer(rawDesired.ValueType) {
-		rawNew.ValueType = rawDesired.ValueType
+		if rawDesired.ValueType != nil {
+			rawNew.ValueType = rawDesired.ValueType
+		}
 	} else {
 		if canonicalizeMetricDescriptorValueType(rawDesired.ValueType, rawNew.ValueType) {
 			rawNew.ValueType = rawDesired.ValueType
@@ -463,7 +473,9 @@ func canonicalizeMetricDescriptorNewState(c *Client, rawNew, rawDesired *MetricD
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Unit) && dcl.IsNotReturnedByServer(rawDesired.Unit) {
-		rawNew.Unit = rawDesired.Unit
+		if rawDesired.Unit != nil {
+			rawNew.Unit = rawDesired.Unit
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Unit, rawNew.Unit) {
 			rawNew.Unit = rawDesired.Unit
@@ -471,7 +483,9 @@ func canonicalizeMetricDescriptorNewState(c *Client, rawNew, rawDesired *MetricD
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -479,7 +493,9 @@ func canonicalizeMetricDescriptorNewState(c *Client, rawNew, rawDesired *MetricD
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		rawNew.DisplayName = rawDesired.DisplayName
+		if rawDesired.DisplayName != nil {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -491,7 +507,9 @@ func canonicalizeMetricDescriptorNewState(c *Client, rawNew, rawDesired *MetricD
 	rawNew.LaunchStage = rawDesired.LaunchStage
 
 	if dcl.IsNotReturnedByServer(rawNew.MonitoredResourceTypes) && dcl.IsNotReturnedByServer(rawDesired.MonitoredResourceTypes) {
-		rawNew.MonitoredResourceTypes = rawDesired.MonitoredResourceTypes
+		if rawDesired.MonitoredResourceTypes != nil {
+			rawNew.MonitoredResourceTypes = rawDesired.MonitoredResourceTypes
+		}
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.MonitoredResourceTypes, rawNew.MonitoredResourceTypes) {
 			rawNew.MonitoredResourceTypes = rawDesired.MonitoredResourceTypes

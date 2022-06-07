@@ -435,7 +435,9 @@ func canonicalizeNetworkDesiredState(rawDesired, rawInitial *Network, opts ...dc
 func canonicalizeNetworkNewState(c *Client, rawNew, rawDesired *Network) (*Network, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -443,7 +445,9 @@ func canonicalizeNetworkNewState(c *Client, rawNew, rawDesired *Network) (*Netwo
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.GatewayIPv4) && dcl.IsNotReturnedByServer(rawDesired.GatewayIPv4) {
-		rawNew.GatewayIPv4 = rawDesired.GatewayIPv4
+		if rawDesired.GatewayIPv4 != nil {
+			rawNew.GatewayIPv4 = rawDesired.GatewayIPv4
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.GatewayIPv4, rawNew.GatewayIPv4) {
 			rawNew.GatewayIPv4 = rawDesired.GatewayIPv4
@@ -451,7 +455,9 @@ func canonicalizeNetworkNewState(c *Client, rawNew, rawDesired *Network) (*Netwo
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -459,7 +465,9 @@ func canonicalizeNetworkNewState(c *Client, rawNew, rawDesired *Network) (*Netwo
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AutoCreateSubnetworks) && dcl.IsNotReturnedByServer(rawDesired.AutoCreateSubnetworks) {
-		rawNew.AutoCreateSubnetworks = rawDesired.AutoCreateSubnetworks
+		if rawDesired.AutoCreateSubnetworks != nil {
+			rawNew.AutoCreateSubnetworks = rawDesired.AutoCreateSubnetworks
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.AutoCreateSubnetworks, rawNew.AutoCreateSubnetworks) {
 			rawNew.AutoCreateSubnetworks = rawDesired.AutoCreateSubnetworks
@@ -467,20 +475,26 @@ func canonicalizeNetworkNewState(c *Client, rawNew, rawDesired *Network) (*Netwo
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RoutingConfig) && dcl.IsNotReturnedByServer(rawDesired.RoutingConfig) {
-		rawNew.RoutingConfig = rawDesired.RoutingConfig
+		if rawDesired.RoutingConfig != nil && !rawDesired.RoutingConfig.empty {
+			rawNew.RoutingConfig = rawDesired.RoutingConfig
+		}
 	} else {
 		rawNew.RoutingConfig = canonicalizeNewNetworkRoutingConfig(c, rawDesired.RoutingConfig, rawNew.RoutingConfig)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Mtu) && dcl.IsNotReturnedByServer(rawDesired.Mtu) {
-		rawNew.Mtu = rawDesired.Mtu
+		if rawDesired.Mtu != nil {
+			rawNew.Mtu = rawDesired.Mtu
+		}
 	} else {
 	}
 
 	rawNew.Project = rawDesired.Project
 
 	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
-		rawNew.SelfLink = rawDesired.SelfLink
+		if rawDesired.SelfLink != nil {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
 			rawNew.SelfLink = rawDesired.SelfLink
@@ -488,7 +502,9 @@ func canonicalizeNetworkNewState(c *Client, rawNew, rawDesired *Network) (*Netwo
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SelfLinkWithId) && dcl.IsNotReturnedByServer(rawDesired.SelfLinkWithId) {
-		rawNew.SelfLinkWithId = rawDesired.SelfLinkWithId
+		if rawDesired.SelfLinkWithId != nil {
+			rawNew.SelfLinkWithId = rawDesired.SelfLinkWithId
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SelfLinkWithId, rawNew.SelfLinkWithId) {
 			rawNew.SelfLinkWithId = rawDesired.SelfLinkWithId

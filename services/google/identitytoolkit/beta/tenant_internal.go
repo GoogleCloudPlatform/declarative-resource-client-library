@@ -487,12 +487,16 @@ func canonicalizeTenantDesiredState(rawDesired, rawInitial *Tenant, opts ...dcl.
 func canonicalizeTenantNewState(c *Client, rawNew, rawDesired *Tenant) (*Tenant, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		rawNew.DisplayName = rawDesired.DisplayName
+		if rawDesired.DisplayName != nil {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -500,7 +504,9 @@ func canonicalizeTenantNewState(c *Client, rawNew, rawDesired *Tenant) (*Tenant,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AllowPasswordSignup) && dcl.IsNotReturnedByServer(rawDesired.AllowPasswordSignup) {
-		rawNew.AllowPasswordSignup = rawDesired.AllowPasswordSignup
+		if rawDesired.AllowPasswordSignup != nil {
+			rawNew.AllowPasswordSignup = rawDesired.AllowPasswordSignup
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.AllowPasswordSignup, rawNew.AllowPasswordSignup) {
 			rawNew.AllowPasswordSignup = rawDesired.AllowPasswordSignup
@@ -508,7 +514,9 @@ func canonicalizeTenantNewState(c *Client, rawNew, rawDesired *Tenant) (*Tenant,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.EnableEmailLinkSignin) && dcl.IsNotReturnedByServer(rawDesired.EnableEmailLinkSignin) {
-		rawNew.EnableEmailLinkSignin = rawDesired.EnableEmailLinkSignin
+		if rawDesired.EnableEmailLinkSignin != nil {
+			rawNew.EnableEmailLinkSignin = rawDesired.EnableEmailLinkSignin
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.EnableEmailLinkSignin, rawNew.EnableEmailLinkSignin) {
 			rawNew.EnableEmailLinkSignin = rawDesired.EnableEmailLinkSignin
@@ -516,7 +524,9 @@ func canonicalizeTenantNewState(c *Client, rawNew, rawDesired *Tenant) (*Tenant,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisableAuth) && dcl.IsNotReturnedByServer(rawDesired.DisableAuth) {
-		rawNew.DisableAuth = rawDesired.DisableAuth
+		if rawDesired.DisableAuth != nil {
+			rawNew.DisableAuth = rawDesired.DisableAuth
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.DisableAuth, rawNew.DisableAuth) {
 			rawNew.DisableAuth = rawDesired.DisableAuth
@@ -524,7 +534,9 @@ func canonicalizeTenantNewState(c *Client, rawNew, rawDesired *Tenant) (*Tenant,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.EnableAnonymousUser) && dcl.IsNotReturnedByServer(rawDesired.EnableAnonymousUser) {
-		rawNew.EnableAnonymousUser = rawDesired.EnableAnonymousUser
+		if rawDesired.EnableAnonymousUser != nil {
+			rawNew.EnableAnonymousUser = rawDesired.EnableAnonymousUser
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.EnableAnonymousUser, rawNew.EnableAnonymousUser) {
 			rawNew.EnableAnonymousUser = rawDesired.EnableAnonymousUser
@@ -532,13 +544,17 @@ func canonicalizeTenantNewState(c *Client, rawNew, rawDesired *Tenant) (*Tenant,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MfaConfig) && dcl.IsNotReturnedByServer(rawDesired.MfaConfig) {
-		rawNew.MfaConfig = rawDesired.MfaConfig
+		if rawDesired.MfaConfig != nil && !rawDesired.MfaConfig.empty {
+			rawNew.MfaConfig = rawDesired.MfaConfig
+		}
 	} else {
 		rawNew.MfaConfig = canonicalizeNewTenantMfaConfig(c, rawDesired.MfaConfig, rawNew.MfaConfig)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.TestPhoneNumbers) && dcl.IsNotReturnedByServer(rawDesired.TestPhoneNumbers) {
-		rawNew.TestPhoneNumbers = rawDesired.TestPhoneNumbers
+		if rawDesired.TestPhoneNumbers != nil {
+			rawNew.TestPhoneNumbers = rawDesired.TestPhoneNumbers
+		}
 	} else {
 	}
 

@@ -370,7 +370,9 @@ func canonicalizeModelDeploymentDesiredState(rawDesired, rawInitial *ModelDeploy
 func canonicalizeModelDeploymentNewState(c *Client, rawNew, rawDesired *ModelDeployment) (*ModelDeployment, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Model) && dcl.IsNotReturnedByServer(rawDesired.Model) {
-		rawNew.Model = rawDesired.Model
+		if rawDesired.Model != nil {
+			rawNew.Model = rawDesired.Model
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Model, rawNew.Model) {
 			rawNew.Model = rawDesired.Model
@@ -378,7 +380,9 @@ func canonicalizeModelDeploymentNewState(c *Client, rawNew, rawDesired *ModelDep
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Id) && dcl.IsNotReturnedByServer(rawDesired.Id) {
-		rawNew.Id = rawDesired.Id
+		if rawDesired.Id != nil {
+			rawNew.Id = rawDesired.Id
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Id, rawNew.Id) {
 			rawNew.Id = rawDesired.Id
@@ -386,7 +390,9 @@ func canonicalizeModelDeploymentNewState(c *Client, rawNew, rawDesired *ModelDep
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DedicatedResources) && dcl.IsNotReturnedByServer(rawDesired.DedicatedResources) {
-		rawNew.DedicatedResources = rawDesired.DedicatedResources
+		if rawDesired.DedicatedResources != nil && !rawDesired.DedicatedResources.empty {
+			rawNew.DedicatedResources = rawDesired.DedicatedResources
+		}
 	} else {
 		rawNew.DedicatedResources = canonicalizeNewModelDeploymentDedicatedResources(c, rawDesired.DedicatedResources, rawNew.DedicatedResources)
 	}

@@ -802,7 +802,9 @@ func canonicalizeNoteDesiredState(rawDesired, rawInitial *Note, opts ...dcl.Appl
 func canonicalizeNoteNewState(c *Client, rawNew, rawDesired *Note) (*Note, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -810,7 +812,9 @@ func canonicalizeNoteNewState(c *Client, rawNew, rawDesired *Note) (*Note, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ShortDescription) && dcl.IsNotReturnedByServer(rawDesired.ShortDescription) {
-		rawNew.ShortDescription = rawDesired.ShortDescription
+		if rawDesired.ShortDescription != nil {
+			rawNew.ShortDescription = rawDesired.ShortDescription
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ShortDescription, rawNew.ShortDescription) {
 			rawNew.ShortDescription = rawDesired.ShortDescription
@@ -818,7 +822,9 @@ func canonicalizeNoteNewState(c *Client, rawNew, rawDesired *Note) (*Note, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LongDescription) && dcl.IsNotReturnedByServer(rawDesired.LongDescription) {
-		rawNew.LongDescription = rawDesired.LongDescription
+		if rawDesired.LongDescription != nil {
+			rawNew.LongDescription = rawDesired.LongDescription
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.LongDescription, rawNew.LongDescription) {
 			rawNew.LongDescription = rawDesired.LongDescription
@@ -826,28 +832,38 @@ func canonicalizeNoteNewState(c *Client, rawNew, rawDesired *Note) (*Note, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RelatedUrl) && dcl.IsNotReturnedByServer(rawDesired.RelatedUrl) {
-		rawNew.RelatedUrl = rawDesired.RelatedUrl
+		if rawDesired.RelatedUrl != nil {
+			rawNew.RelatedUrl = rawDesired.RelatedUrl
+		}
 	} else {
 		rawNew.RelatedUrl = canonicalizeNewNoteRelatedUrlSlice(c, rawDesired.RelatedUrl, rawNew.RelatedUrl)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ExpirationTime) && dcl.IsNotReturnedByServer(rawDesired.ExpirationTime) {
-		rawNew.ExpirationTime = rawDesired.ExpirationTime
+		if rawDesired.ExpirationTime != nil {
+			rawNew.ExpirationTime = rawDesired.ExpirationTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RelatedNoteNames) && dcl.IsNotReturnedByServer(rawDesired.RelatedNoteNames) {
-		rawNew.RelatedNoteNames = rawDesired.RelatedNoteNames
+		if rawDesired.RelatedNoteNames != nil {
+			rawNew.RelatedNoteNames = rawDesired.RelatedNoteNames
+		}
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.RelatedNoteNames, rawNew.RelatedNoteNames) {
 			rawNew.RelatedNoteNames = rawDesired.RelatedNoteNames
@@ -855,43 +871,57 @@ func canonicalizeNoteNewState(c *Client, rawNew, rawDesired *Note) (*Note, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Vulnerability) && dcl.IsNotReturnedByServer(rawDesired.Vulnerability) {
-		rawNew.Vulnerability = rawDesired.Vulnerability
+		if rawDesired.Vulnerability != nil && !rawDesired.Vulnerability.empty {
+			rawNew.Vulnerability = rawDesired.Vulnerability
+		}
 	} else {
 		rawNew.Vulnerability = canonicalizeNewNoteVulnerability(c, rawDesired.Vulnerability, rawNew.Vulnerability)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Build) && dcl.IsNotReturnedByServer(rawDesired.Build) {
-		rawNew.Build = rawDesired.Build
+		if rawDesired.Build != nil && !rawDesired.Build.empty {
+			rawNew.Build = rawDesired.Build
+		}
 	} else {
 		rawNew.Build = canonicalizeNewNoteBuild(c, rawDesired.Build, rawNew.Build)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Image) && dcl.IsNotReturnedByServer(rawDesired.Image) {
-		rawNew.Image = rawDesired.Image
+		if rawDesired.Image != nil && !rawDesired.Image.empty {
+			rawNew.Image = rawDesired.Image
+		}
 	} else {
 		rawNew.Image = canonicalizeNewNoteImage(c, rawDesired.Image, rawNew.Image)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Package) && dcl.IsNotReturnedByServer(rawDesired.Package) {
-		rawNew.Package = rawDesired.Package
+		if rawDesired.Package != nil && !rawDesired.Package.empty {
+			rawNew.Package = rawDesired.Package
+		}
 	} else {
 		rawNew.Package = canonicalizeNewNotePackage(c, rawDesired.Package, rawNew.Package)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Discovery) && dcl.IsNotReturnedByServer(rawDesired.Discovery) {
-		rawNew.Discovery = rawDesired.Discovery
+		if rawDesired.Discovery != nil && !rawDesired.Discovery.empty {
+			rawNew.Discovery = rawDesired.Discovery
+		}
 	} else {
 		rawNew.Discovery = canonicalizeNewNoteDiscovery(c, rawDesired.Discovery, rawNew.Discovery)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Deployment) && dcl.IsNotReturnedByServer(rawDesired.Deployment) {
-		rawNew.Deployment = rawDesired.Deployment
+		if rawDesired.Deployment != nil && !rawDesired.Deployment.empty {
+			rawNew.Deployment = rawDesired.Deployment
+		}
 	} else {
 		rawNew.Deployment = canonicalizeNewNoteDeployment(c, rawDesired.Deployment, rawNew.Deployment)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Attestation) && dcl.IsNotReturnedByServer(rawDesired.Attestation) {
-		rawNew.Attestation = rawDesired.Attestation
+		if rawDesired.Attestation != nil && !rawDesired.Attestation.empty {
+			rawNew.Attestation = rawDesired.Attestation
+		}
 	} else {
 		rawNew.Attestation = canonicalizeNewNoteAttestation(c, rawDesired.Attestation, rawNew.Attestation)
 	}

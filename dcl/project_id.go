@@ -21,10 +21,10 @@ import (
 )
 
 // This matches either the entire string if it contains no forward slashes or just projects/{project_number}/ if it does.
-var projectNumberRegex = regexp.MustCompile(`(^\d+$|projects/\d+/)`)
+var projectNumberRegex = regexp.MustCompile(`(^\d+$|projects/\d+)`)
 
 // This matches either the entire string if it contains no forward slashes or just projects/{project_id}/ if it does.
-var projectIDRegex = regexp.MustCompile(`(^[^/]+$|projects/[^/]+/)`)
+var projectIDRegex = regexp.MustCompile(`(^[^/]+$|projects/[^/]+)`)
 
 // ProjectResponse is the response from Cloud Resource Manager.
 type ProjectResponse struct {
@@ -49,9 +49,6 @@ func FlattenProjectNumbersToIDs(config *Config, fromServer *string) *string {
 
 		if strings.HasPrefix(number, "projects/") {
 			p.ProjectID = "projects/" + p.ProjectID
-		}
-		if strings.HasSuffix(number, "/") {
-			p.ProjectID = p.ProjectID + "/"
 		}
 		return p.ProjectID
 	})
@@ -78,9 +75,6 @@ func ExpandProjectIDsToNumbers(config *Config, fromConfig *string) (*string, err
 
 		if strings.HasPrefix(id, "projects/") {
 			p.ProjectNumber = "projects/" + p.ProjectNumber
-		}
-		if strings.HasSuffix(id, "/") {
-			p.ProjectNumber = p.ProjectNumber + "/"
 		}
 		return p.ProjectNumber
 	})

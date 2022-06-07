@@ -578,7 +578,9 @@ func canonicalizeTriggerDesiredState(rawDesired, rawInitial *Trigger, opts ...dc
 func canonicalizeTriggerNewState(c *Client, rawNew, rawDesired *Trigger) (*Trigger, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -586,7 +588,9 @@ func canonicalizeTriggerNewState(c *Client, rawNew, rawDesired *Trigger) (*Trigg
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
-		rawNew.Uid = rawDesired.Uid
+		if rawDesired.Uid != nil {
+			rawNew.Uid = rawDesired.Uid
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
 			rawNew.Uid = rawDesired.Uid
@@ -594,45 +598,61 @@ func canonicalizeTriggerNewState(c *Client, rawNew, rawDesired *Trigger) (*Trigg
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MatchingCriteria) && dcl.IsNotReturnedByServer(rawDesired.MatchingCriteria) {
-		rawNew.MatchingCriteria = rawDesired.MatchingCriteria
+		if rawDesired.MatchingCriteria != nil {
+			rawNew.MatchingCriteria = rawDesired.MatchingCriteria
+		}
 	} else {
 		rawNew.MatchingCriteria = canonicalizeNewTriggerMatchingCriteriaSet(c, rawDesired.MatchingCriteria, rawNew.MatchingCriteria)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ServiceAccount) && dcl.IsNotReturnedByServer(rawDesired.ServiceAccount) {
-		rawNew.ServiceAccount = rawDesired.ServiceAccount
+		if rawDesired.ServiceAccount != nil {
+			rawNew.ServiceAccount = rawDesired.ServiceAccount
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Destination) && dcl.IsNotReturnedByServer(rawDesired.Destination) {
-		rawNew.Destination = rawDesired.Destination
+		if rawDesired.Destination != nil && !rawDesired.Destination.empty {
+			rawNew.Destination = rawDesired.Destination
+		}
 	} else {
 		rawNew.Destination = canonicalizeNewTriggerDestination(c, rawDesired.Destination, rawNew.Destination)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Transport) && dcl.IsNotReturnedByServer(rawDesired.Transport) {
-		rawNew.Transport = rawDesired.Transport
+		if rawDesired.Transport != nil && !rawDesired.Transport.empty {
+			rawNew.Transport = rawDesired.Transport
+		}
 	} else {
 		rawNew.Transport = canonicalizeNewTriggerTransport(c, rawDesired.Transport, rawNew.Transport)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		rawNew.Etag = rawDesired.Etag
+		if rawDesired.Etag != nil {
+			rawNew.Etag = rawDesired.Etag
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
 			rawNew.Etag = rawDesired.Etag

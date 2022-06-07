@@ -583,13 +583,17 @@ func canonicalizeMembershipDesiredState(rawDesired, rawInitial *Membership, opts
 func canonicalizeMembershipNewState(c *Client, rawNew, rawDesired *Membership) (*Membership, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Endpoint) && dcl.IsNotReturnedByServer(rawDesired.Endpoint) {
-		rawNew.Endpoint = rawDesired.Endpoint
+		if rawDesired.Endpoint != nil && !rawDesired.Endpoint.empty {
+			rawNew.Endpoint = rawDesired.Endpoint
+		}
 	} else {
 		rawNew.Endpoint = canonicalizeNewMembershipEndpoint(c, rawDesired.Endpoint, rawNew.Endpoint)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -597,12 +601,16 @@ func canonicalizeMembershipNewState(c *Client, rawNew, rawDesired *Membership) (
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -610,28 +618,38 @@ func canonicalizeMembershipNewState(c *Client, rawNew, rawDesired *Membership) (
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		rawNew.State = rawDesired.State
+		if rawDesired.State != nil && !rawDesired.State.empty {
+			rawNew.State = rawDesired.State
+		}
 	} else {
 		rawNew.State = canonicalizeNewMembershipState(c, rawDesired.State, rawNew.State)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DeleteTime) && dcl.IsNotReturnedByServer(rawDesired.DeleteTime) {
-		rawNew.DeleteTime = rawDesired.DeleteTime
+		if rawDesired.DeleteTime != nil {
+			rawNew.DeleteTime = rawDesired.DeleteTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ExternalId) && dcl.IsNotReturnedByServer(rawDesired.ExternalId) {
-		rawNew.ExternalId = rawDesired.ExternalId
+		if rawDesired.ExternalId != nil {
+			rawNew.ExternalId = rawDesired.ExternalId
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ExternalId, rawNew.ExternalId) {
 			rawNew.ExternalId = rawDesired.ExternalId
@@ -639,12 +657,16 @@ func canonicalizeMembershipNewState(c *Client, rawNew, rawDesired *Membership) (
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LastConnectionTime) && dcl.IsNotReturnedByServer(rawDesired.LastConnectionTime) {
-		rawNew.LastConnectionTime = rawDesired.LastConnectionTime
+		if rawDesired.LastConnectionTime != nil {
+			rawNew.LastConnectionTime = rawDesired.LastConnectionTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UniqueId) && dcl.IsNotReturnedByServer(rawDesired.UniqueId) {
-		rawNew.UniqueId = rawDesired.UniqueId
+		if rawDesired.UniqueId != nil {
+			rawNew.UniqueId = rawDesired.UniqueId
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.UniqueId, rawNew.UniqueId) {
 			rawNew.UniqueId = rawDesired.UniqueId
@@ -652,13 +674,17 @@ func canonicalizeMembershipNewState(c *Client, rawNew, rawDesired *Membership) (
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Authority) && dcl.IsNotReturnedByServer(rawDesired.Authority) {
-		rawNew.Authority = rawDesired.Authority
+		if rawDesired.Authority != nil && !rawDesired.Authority.empty {
+			rawNew.Authority = rawDesired.Authority
+		}
 	} else {
 		rawNew.Authority = canonicalizeNewMembershipAuthority(c, rawDesired.Authority, rawNew.Authority)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.InfrastructureType) && dcl.IsNotReturnedByServer(rawDesired.InfrastructureType) {
-		rawNew.InfrastructureType = rawDesired.InfrastructureType
+		if rawDesired.InfrastructureType != nil {
+			rawNew.InfrastructureType = rawDesired.InfrastructureType
+		}
 	} else {
 	}
 

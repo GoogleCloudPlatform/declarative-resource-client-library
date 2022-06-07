@@ -430,12 +430,16 @@ func canonicalizeConnectorNewState(c *Client, rawNew, rawDesired *Connector) (*C
 	rawNew.Name = rawDesired.Name
 
 	if dcl.IsNotReturnedByServer(rawNew.Network) && dcl.IsNotReturnedByServer(rawDesired.Network) {
-		rawNew.Network = rawDesired.Network
+		if rawDesired.Network != nil {
+			rawNew.Network = rawDesired.Network
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.IPCidrRange) && dcl.IsNotReturnedByServer(rawDesired.IPCidrRange) {
-		rawNew.IPCidrRange = rawDesired.IPCidrRange
+		if rawDesired.IPCidrRange != nil {
+			rawNew.IPCidrRange = rawDesired.IPCidrRange
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.IPCidrRange, rawNew.IPCidrRange) {
 			rawNew.IPCidrRange = rawDesired.IPCidrRange
@@ -443,22 +447,30 @@ func canonicalizeConnectorNewState(c *Client, rawNew, rawDesired *Connector) (*C
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		rawNew.State = rawDesired.State
+		if rawDesired.State != nil {
+			rawNew.State = rawDesired.State
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MinThroughput) && dcl.IsNotReturnedByServer(rawDesired.MinThroughput) {
-		rawNew.MinThroughput = rawDesired.MinThroughput
+		if rawDesired.MinThroughput != nil {
+			rawNew.MinThroughput = rawDesired.MinThroughput
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MaxThroughput) && dcl.IsNotReturnedByServer(rawDesired.MaxThroughput) {
-		rawNew.MaxThroughput = rawDesired.MaxThroughput
+		if rawDesired.MaxThroughput != nil {
+			rawNew.MaxThroughput = rawDesired.MaxThroughput
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ConnectedProjects) && dcl.IsNotReturnedByServer(rawDesired.ConnectedProjects) {
-		rawNew.ConnectedProjects = rawDesired.ConnectedProjects
+		if rawDesired.ConnectedProjects != nil {
+			rawNew.ConnectedProjects = rawDesired.ConnectedProjects
+		}
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.ConnectedProjects, rawNew.ConnectedProjects) {
 			rawNew.ConnectedProjects = rawDesired.ConnectedProjects
@@ -466,13 +478,17 @@ func canonicalizeConnectorNewState(c *Client, rawNew, rawDesired *Connector) (*C
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Subnet) && dcl.IsNotReturnedByServer(rawDesired.Subnet) {
-		rawNew.Subnet = rawDesired.Subnet
+		if rawDesired.Subnet != nil && !rawDesired.Subnet.empty {
+			rawNew.Subnet = rawDesired.Subnet
+		}
 	} else {
 		rawNew.Subnet = canonicalizeNewConnectorSubnet(c, rawDesired.Subnet, rawNew.Subnet)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MachineType) && dcl.IsNotReturnedByServer(rawDesired.MachineType) {
-		rawNew.MachineType = rawDesired.MachineType
+		if rawDesired.MachineType != nil {
+			rawNew.MachineType = rawDesired.MachineType
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.MachineType, rawNew.MachineType) {
 			rawNew.MachineType = rawDesired.MachineType
@@ -480,12 +496,16 @@ func canonicalizeConnectorNewState(c *Client, rawNew, rawDesired *Connector) (*C
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MinInstances) && dcl.IsNotReturnedByServer(rawDesired.MinInstances) {
-		rawNew.MinInstances = rawDesired.MinInstances
+		if rawDesired.MinInstances != nil {
+			rawNew.MinInstances = rawDesired.MinInstances
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MaxInstances) && dcl.IsNotReturnedByServer(rawDesired.MaxInstances) {
-		rawNew.MaxInstances = rawDesired.MaxInstances
+		if rawDesired.MaxInstances != nil {
+			rawNew.MaxInstances = rawDesired.MaxInstances
+		}
 	} else {
 	}
 

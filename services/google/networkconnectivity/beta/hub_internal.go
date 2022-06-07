@@ -459,7 +459,9 @@ func canonicalizeHubDesiredState(rawDesired, rawInitial *Hub, opts ...dcl.ApplyO
 func canonicalizeHubNewState(c *Client, rawNew, rawDesired *Hub) (*Hub, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -467,22 +469,30 @@ func canonicalizeHubNewState(c *Client, rawNew, rawDesired *Hub) (*Hub, error) {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -490,7 +500,9 @@ func canonicalizeHubNewState(c *Client, rawNew, rawDesired *Hub) (*Hub, error) {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UniqueId) && dcl.IsNotReturnedByServer(rawDesired.UniqueId) {
-		rawNew.UniqueId = rawDesired.UniqueId
+		if rawDesired.UniqueId != nil {
+			rawNew.UniqueId = rawDesired.UniqueId
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.UniqueId, rawNew.UniqueId) {
 			rawNew.UniqueId = rawDesired.UniqueId
@@ -498,14 +510,18 @@ func canonicalizeHubNewState(c *Client, rawNew, rawDesired *Hub) (*Hub, error) {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		rawNew.State = rawDesired.State
+		if rawDesired.State != nil {
+			rawNew.State = rawDesired.State
+		}
 	} else {
 	}
 
 	rawNew.Project = rawDesired.Project
 
 	if dcl.IsNotReturnedByServer(rawNew.RoutingVpcs) && dcl.IsNotReturnedByServer(rawDesired.RoutingVpcs) {
-		rawNew.RoutingVpcs = rawDesired.RoutingVpcs
+		if rawDesired.RoutingVpcs != nil {
+			rawNew.RoutingVpcs = rawDesired.RoutingVpcs
+		}
 	} else {
 		rawNew.RoutingVpcs = canonicalizeNewHubRoutingVpcsSlice(c, rawDesired.RoutingVpcs, rawNew.RoutingVpcs)
 	}

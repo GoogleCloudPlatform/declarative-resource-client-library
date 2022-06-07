@@ -291,7 +291,9 @@ func canonicalizeEndpointTrafficSplitNewState(c *Client, rawNew, rawDesired *End
 	rawNew.Location = rawDesired.Location
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		rawNew.Etag = rawDesired.Etag
+		if rawDesired.Etag != nil {
+			rawNew.Etag = rawDesired.Etag
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
 			rawNew.Etag = rawDesired.Etag
@@ -299,7 +301,9 @@ func canonicalizeEndpointTrafficSplitNewState(c *Client, rawNew, rawDesired *End
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.TrafficSplit) && dcl.IsNotReturnedByServer(rawDesired.TrafficSplit) {
-		rawNew.TrafficSplit = rawDesired.TrafficSplit
+		if rawDesired.TrafficSplit != nil {
+			rawNew.TrafficSplit = rawDesired.TrafficSplit
+		}
 	} else {
 		rawNew.TrafficSplit = canonicalizeNewEndpointTrafficSplitTrafficSplitSlice(c, rawDesired.TrafficSplit, rawNew.TrafficSplit)
 	}

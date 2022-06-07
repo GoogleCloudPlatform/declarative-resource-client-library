@@ -439,7 +439,9 @@ func canonicalizeLogExclusionDesiredState(rawDesired, rawInitial *LogExclusion, 
 func canonicalizeLogExclusionNewState(c *Client, rawNew, rawDesired *LogExclusion) (*LogExclusion, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -447,7 +449,9 @@ func canonicalizeLogExclusionNewState(c *Client, rawNew, rawDesired *LogExclusio
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -455,7 +459,9 @@ func canonicalizeLogExclusionNewState(c *Client, rawNew, rawDesired *LogExclusio
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Filter) && dcl.IsNotReturnedByServer(rawDesired.Filter) {
-		rawNew.Filter = rawDesired.Filter
+		if rawDesired.Filter != nil {
+			rawNew.Filter = rawDesired.Filter
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Filter, rawNew.Filter) {
 			rawNew.Filter = rawDesired.Filter
@@ -463,7 +469,9 @@ func canonicalizeLogExclusionNewState(c *Client, rawNew, rawDesired *LogExclusio
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Disabled) && dcl.IsNotReturnedByServer(rawDesired.Disabled) {
-		rawNew.Disabled = rawDesired.Disabled
+		if rawDesired.Disabled != nil {
+			rawNew.Disabled = rawDesired.Disabled
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Disabled, rawNew.Disabled) {
 			rawNew.Disabled = rawDesired.Disabled
@@ -471,12 +479,16 @@ func canonicalizeLogExclusionNewState(c *Client, rawNew, rawDesired *LogExclusio
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 

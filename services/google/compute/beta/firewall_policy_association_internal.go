@@ -288,7 +288,9 @@ func canonicalizeFirewallPolicyAssociationDesiredState(rawDesired, rawInitial *F
 func canonicalizeFirewallPolicyAssociationNewState(c *Client, rawNew, rawDesired *FirewallPolicyAssociation) (*FirewallPolicyAssociation, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -296,12 +298,16 @@ func canonicalizeFirewallPolicyAssociationNewState(c *Client, rawNew, rawDesired
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AttachmentTarget) && dcl.IsNotReturnedByServer(rawDesired.AttachmentTarget) {
-		rawNew.AttachmentTarget = rawDesired.AttachmentTarget
+		if rawDesired.AttachmentTarget != nil {
+			rawNew.AttachmentTarget = rawDesired.AttachmentTarget
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.FirewallPolicy) && dcl.IsNotReturnedByServer(rawDesired.FirewallPolicy) {
-		rawNew.FirewallPolicy = rawDesired.FirewallPolicy
+		if rawDesired.FirewallPolicy != nil {
+			rawNew.FirewallPolicy = rawDesired.FirewallPolicy
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.FirewallPolicy, rawNew.FirewallPolicy) {
 			rawNew.FirewallPolicy = rawDesired.FirewallPolicy
@@ -309,7 +315,9 @@ func canonicalizeFirewallPolicyAssociationNewState(c *Client, rawNew, rawDesired
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ShortName) && dcl.IsNotReturnedByServer(rawDesired.ShortName) {
-		rawNew.ShortName = rawDesired.ShortName
+		if rawDesired.ShortName != nil {
+			rawNew.ShortName = rawDesired.ShortName
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ShortName, rawNew.ShortName) {
 			rawNew.ShortName = rawDesired.ShortName

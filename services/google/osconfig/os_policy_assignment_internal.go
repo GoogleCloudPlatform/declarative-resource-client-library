@@ -1024,7 +1024,9 @@ func canonicalizeOSPolicyAssignmentDesiredState(rawDesired, rawInitial *OSPolicy
 func canonicalizeOSPolicyAssignmentNewState(c *Client, rawNew, rawDesired *OSPolicyAssignment) (*OSPolicyAssignment, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -1032,7 +1034,9 @@ func canonicalizeOSPolicyAssignmentNewState(c *Client, rawNew, rawDesired *OSPol
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -1040,25 +1044,33 @@ func canonicalizeOSPolicyAssignmentNewState(c *Client, rawNew, rawDesired *OSPol
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.OSPolicies) && dcl.IsNotReturnedByServer(rawDesired.OSPolicies) {
-		rawNew.OSPolicies = rawDesired.OSPolicies
+		if rawDesired.OSPolicies != nil {
+			rawNew.OSPolicies = rawDesired.OSPolicies
+		}
 	} else {
 		rawNew.OSPolicies = canonicalizeNewOSPolicyAssignmentOSPoliciesSlice(c, rawDesired.OSPolicies, rawNew.OSPolicies)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.InstanceFilter) && dcl.IsNotReturnedByServer(rawDesired.InstanceFilter) {
-		rawNew.InstanceFilter = rawDesired.InstanceFilter
+		if rawDesired.InstanceFilter != nil && !rawDesired.InstanceFilter.empty {
+			rawNew.InstanceFilter = rawDesired.InstanceFilter
+		}
 	} else {
 		rawNew.InstanceFilter = canonicalizeNewOSPolicyAssignmentInstanceFilter(c, rawDesired.InstanceFilter, rawNew.InstanceFilter)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Rollout) && dcl.IsNotReturnedByServer(rawDesired.Rollout) {
-		rawNew.Rollout = rawDesired.Rollout
+		if rawDesired.Rollout != nil && !rawDesired.Rollout.empty {
+			rawNew.Rollout = rawDesired.Rollout
+		}
 	} else {
 		rawNew.Rollout = canonicalizeNewOSPolicyAssignmentRollout(c, rawDesired.Rollout, rawNew.Rollout)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RevisionId) && dcl.IsNotReturnedByServer(rawDesired.RevisionId) {
-		rawNew.RevisionId = rawDesired.RevisionId
+		if rawDesired.RevisionId != nil {
+			rawNew.RevisionId = rawDesired.RevisionId
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.RevisionId, rawNew.RevisionId) {
 			rawNew.RevisionId = rawDesired.RevisionId
@@ -1066,12 +1078,16 @@ func canonicalizeOSPolicyAssignmentNewState(c *Client, rawNew, rawDesired *OSPol
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RevisionCreateTime) && dcl.IsNotReturnedByServer(rawDesired.RevisionCreateTime) {
-		rawNew.RevisionCreateTime = rawDesired.RevisionCreateTime
+		if rawDesired.RevisionCreateTime != nil {
+			rawNew.RevisionCreateTime = rawDesired.RevisionCreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		rawNew.Etag = rawDesired.Etag
+		if rawDesired.Etag != nil {
+			rawNew.Etag = rawDesired.Etag
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
 			rawNew.Etag = rawDesired.Etag
@@ -1079,12 +1095,16 @@ func canonicalizeOSPolicyAssignmentNewState(c *Client, rawNew, rawDesired *OSPol
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RolloutState) && dcl.IsNotReturnedByServer(rawDesired.RolloutState) {
-		rawNew.RolloutState = rawDesired.RolloutState
+		if rawDesired.RolloutState != nil {
+			rawNew.RolloutState = rawDesired.RolloutState
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Baseline) && dcl.IsNotReturnedByServer(rawDesired.Baseline) {
-		rawNew.Baseline = rawDesired.Baseline
+		if rawDesired.Baseline != nil {
+			rawNew.Baseline = rawDesired.Baseline
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Baseline, rawNew.Baseline) {
 			rawNew.Baseline = rawDesired.Baseline
@@ -1092,7 +1112,9 @@ func canonicalizeOSPolicyAssignmentNewState(c *Client, rawNew, rawDesired *OSPol
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Deleted) && dcl.IsNotReturnedByServer(rawDesired.Deleted) {
-		rawNew.Deleted = rawDesired.Deleted
+		if rawDesired.Deleted != nil {
+			rawNew.Deleted = rawDesired.Deleted
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Deleted, rawNew.Deleted) {
 			rawNew.Deleted = rawDesired.Deleted
@@ -1100,7 +1122,9 @@ func canonicalizeOSPolicyAssignmentNewState(c *Client, rawNew, rawDesired *OSPol
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Reconciling) && dcl.IsNotReturnedByServer(rawDesired.Reconciling) {
-		rawNew.Reconciling = rawDesired.Reconciling
+		if rawDesired.Reconciling != nil {
+			rawNew.Reconciling = rawDesired.Reconciling
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Reconciling, rawNew.Reconciling) {
 			rawNew.Reconciling = rawDesired.Reconciling
@@ -1108,7 +1132,9 @@ func canonicalizeOSPolicyAssignmentNewState(c *Client, rawNew, rawDesired *OSPol
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
-		rawNew.Uid = rawDesired.Uid
+		if rawDesired.Uid != nil {
+			rawNew.Uid = rawDesired.Uid
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
 			rawNew.Uid = rawDesired.Uid

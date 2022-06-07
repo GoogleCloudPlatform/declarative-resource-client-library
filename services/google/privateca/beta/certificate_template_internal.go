@@ -600,7 +600,9 @@ func canonicalizeCertificateTemplateDesiredState(rawDesired, rawInitial *Certifi
 func canonicalizeCertificateTemplateNewState(c *Client, rawNew, rawDesired *CertificateTemplate) (*CertificateTemplate, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -608,25 +610,33 @@ func canonicalizeCertificateTemplateNewState(c *Client, rawNew, rawDesired *Cert
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PredefinedValues) && dcl.IsNotReturnedByServer(rawDesired.PredefinedValues) {
-		rawNew.PredefinedValues = rawDesired.PredefinedValues
+		if rawDesired.PredefinedValues != nil && !rawDesired.PredefinedValues.empty {
+			rawNew.PredefinedValues = rawDesired.PredefinedValues
+		}
 	} else {
 		rawNew.PredefinedValues = canonicalizeNewCertificateTemplatePredefinedValues(c, rawDesired.PredefinedValues, rawNew.PredefinedValues)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.IdentityConstraints) && dcl.IsNotReturnedByServer(rawDesired.IdentityConstraints) {
-		rawNew.IdentityConstraints = rawDesired.IdentityConstraints
+		if rawDesired.IdentityConstraints != nil && !rawDesired.IdentityConstraints.empty {
+			rawNew.IdentityConstraints = rawDesired.IdentityConstraints
+		}
 	} else {
 		rawNew.IdentityConstraints = canonicalizeNewCertificateTemplateIdentityConstraints(c, rawDesired.IdentityConstraints, rawNew.IdentityConstraints)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PassthroughExtensions) && dcl.IsNotReturnedByServer(rawDesired.PassthroughExtensions) {
-		rawNew.PassthroughExtensions = rawDesired.PassthroughExtensions
+		if rawDesired.PassthroughExtensions != nil && !rawDesired.PassthroughExtensions.empty {
+			rawNew.PassthroughExtensions = rawDesired.PassthroughExtensions
+		}
 	} else {
 		rawNew.PassthroughExtensions = canonicalizeNewCertificateTemplatePassthroughExtensions(c, rawDesired.PassthroughExtensions, rawNew.PassthroughExtensions)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -634,17 +644,23 @@ func canonicalizeCertificateTemplateNewState(c *Client, rawNew, rawDesired *Cert
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 	}
 

@@ -640,7 +640,9 @@ func canonicalizeCaPoolDesiredState(rawDesired, rawInitial *CaPool, opts ...dcl.
 func canonicalizeCaPoolNewState(c *Client, rawNew, rawDesired *CaPool) (*CaPool, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -648,24 +650,32 @@ func canonicalizeCaPoolNewState(c *Client, rawNew, rawDesired *CaPool) (*CaPool,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Tier) && dcl.IsNotReturnedByServer(rawDesired.Tier) {
-		rawNew.Tier = rawDesired.Tier
+		if rawDesired.Tier != nil {
+			rawNew.Tier = rawDesired.Tier
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.IssuancePolicy) && dcl.IsNotReturnedByServer(rawDesired.IssuancePolicy) {
-		rawNew.IssuancePolicy = rawDesired.IssuancePolicy
+		if rawDesired.IssuancePolicy != nil && !rawDesired.IssuancePolicy.empty {
+			rawNew.IssuancePolicy = rawDesired.IssuancePolicy
+		}
 	} else {
 		rawNew.IssuancePolicy = canonicalizeNewCaPoolIssuancePolicy(c, rawDesired.IssuancePolicy, rawNew.IssuancePolicy)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PublishingOptions) && dcl.IsNotReturnedByServer(rawDesired.PublishingOptions) {
-		rawNew.PublishingOptions = rawDesired.PublishingOptions
+		if rawDesired.PublishingOptions != nil && !rawDesired.PublishingOptions.empty {
+			rawNew.PublishingOptions = rawDesired.PublishingOptions
+		}
 	} else {
 		rawNew.PublishingOptions = canonicalizeNewCaPoolPublishingOptions(c, rawDesired.PublishingOptions, rawNew.PublishingOptions)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 	}
 

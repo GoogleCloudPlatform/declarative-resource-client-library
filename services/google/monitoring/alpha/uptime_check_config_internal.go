@@ -625,12 +625,16 @@ func canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial *UptimeChe
 func canonicalizeUptimeCheckConfigNewState(c *Client, rawNew, rawDesired *UptimeCheckConfig) (*UptimeCheckConfig, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		rawNew.DisplayName = rawDesired.DisplayName
+		if rawDesired.DisplayName != nil {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -638,31 +642,41 @@ func canonicalizeUptimeCheckConfigNewState(c *Client, rawNew, rawDesired *Uptime
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MonitoredResource) && dcl.IsNotReturnedByServer(rawDesired.MonitoredResource) {
-		rawNew.MonitoredResource = rawDesired.MonitoredResource
+		if rawDesired.MonitoredResource != nil && !rawDesired.MonitoredResource.empty {
+			rawNew.MonitoredResource = rawDesired.MonitoredResource
+		}
 	} else {
 		rawNew.MonitoredResource = canonicalizeNewUptimeCheckConfigMonitoredResource(c, rawDesired.MonitoredResource, rawNew.MonitoredResource)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ResourceGroup) && dcl.IsNotReturnedByServer(rawDesired.ResourceGroup) {
-		rawNew.ResourceGroup = rawDesired.ResourceGroup
+		if rawDesired.ResourceGroup != nil && !rawDesired.ResourceGroup.empty {
+			rawNew.ResourceGroup = rawDesired.ResourceGroup
+		}
 	} else {
 		rawNew.ResourceGroup = canonicalizeNewUptimeCheckConfigResourceGroup(c, rawDesired.ResourceGroup, rawNew.ResourceGroup)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.HttpCheck) && dcl.IsNotReturnedByServer(rawDesired.HttpCheck) {
-		rawNew.HttpCheck = rawDesired.HttpCheck
+		if rawDesired.HttpCheck != nil && !rawDesired.HttpCheck.empty {
+			rawNew.HttpCheck = rawDesired.HttpCheck
+		}
 	} else {
 		rawNew.HttpCheck = canonicalizeNewUptimeCheckConfigHttpCheck(c, rawDesired.HttpCheck, rawNew.HttpCheck)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.TcpCheck) && dcl.IsNotReturnedByServer(rawDesired.TcpCheck) {
-		rawNew.TcpCheck = rawDesired.TcpCheck
+		if rawDesired.TcpCheck != nil && !rawDesired.TcpCheck.empty {
+			rawNew.TcpCheck = rawDesired.TcpCheck
+		}
 	} else {
 		rawNew.TcpCheck = canonicalizeNewUptimeCheckConfigTcpCheck(c, rawDesired.TcpCheck, rawNew.TcpCheck)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Period) && dcl.IsNotReturnedByServer(rawDesired.Period) {
-		rawNew.Period = rawDesired.Period
+		if rawDesired.Period != nil {
+			rawNew.Period = rawDesired.Period
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Period, rawNew.Period) {
 			rawNew.Period = rawDesired.Period
@@ -670,7 +684,9 @@ func canonicalizeUptimeCheckConfigNewState(c *Client, rawNew, rawDesired *Uptime
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Timeout) && dcl.IsNotReturnedByServer(rawDesired.Timeout) {
-		rawNew.Timeout = rawDesired.Timeout
+		if rawDesired.Timeout != nil {
+			rawNew.Timeout = rawDesired.Timeout
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Timeout, rawNew.Timeout) {
 			rawNew.Timeout = rawDesired.Timeout
@@ -678,13 +694,17 @@ func canonicalizeUptimeCheckConfigNewState(c *Client, rawNew, rawDesired *Uptime
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ContentMatchers) && dcl.IsNotReturnedByServer(rawDesired.ContentMatchers) {
-		rawNew.ContentMatchers = rawDesired.ContentMatchers
+		if rawDesired.ContentMatchers != nil {
+			rawNew.ContentMatchers = rawDesired.ContentMatchers
+		}
 	} else {
 		rawNew.ContentMatchers = canonicalizeNewUptimeCheckConfigContentMatchersSlice(c, rawDesired.ContentMatchers, rawNew.ContentMatchers)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SelectedRegions) && dcl.IsNotReturnedByServer(rawDesired.SelectedRegions) {
-		rawNew.SelectedRegions = rawDesired.SelectedRegions
+		if rawDesired.SelectedRegions != nil {
+			rawNew.SelectedRegions = rawDesired.SelectedRegions
+		}
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.SelectedRegions, rawNew.SelectedRegions) {
 			rawNew.SelectedRegions = rawDesired.SelectedRegions

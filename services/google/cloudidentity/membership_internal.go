@@ -507,44 +507,60 @@ func canonicalizeMembershipDesiredState(rawDesired, rawInitial *Membership, opts
 func canonicalizeMembershipNewState(c *Client, rawNew, rawDesired *Membership) (*Membership, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PreferredMemberKey) && dcl.IsNotReturnedByServer(rawDesired.PreferredMemberKey) {
-		rawNew.PreferredMemberKey = rawDesired.PreferredMemberKey
+		if rawDesired.PreferredMemberKey != nil && !rawDesired.PreferredMemberKey.empty {
+			rawNew.PreferredMemberKey = rawDesired.PreferredMemberKey
+		}
 	} else {
 		rawNew.PreferredMemberKey = canonicalizeNewMembershipPreferredMemberKey(c, rawDesired.PreferredMemberKey, rawNew.PreferredMemberKey)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Roles) && dcl.IsNotReturnedByServer(rawDesired.Roles) {
-		rawNew.Roles = rawDesired.Roles
+		if rawDesired.Roles != nil {
+			rawNew.Roles = rawDesired.Roles
+		}
 	} else {
 		rawNew.Roles = canonicalizeNewMembershipRolesSet(c, rawDesired.Roles, rawNew.Roles)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Type) && dcl.IsNotReturnedByServer(rawDesired.Type) {
-		rawNew.Type = rawDesired.Type
+		if rawDesired.Type != nil {
+			rawNew.Type = rawDesired.Type
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DeliverySetting) && dcl.IsNotReturnedByServer(rawDesired.DeliverySetting) {
-		rawNew.DeliverySetting = rawDesired.DeliverySetting
+		if rawDesired.DeliverySetting != nil {
+			rawNew.DeliverySetting = rawDesired.DeliverySetting
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		rawNew.DisplayName = rawDesired.DisplayName
+		if rawDesired.DisplayName != nil && !rawDesired.DisplayName.empty {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	} else {
 		rawNew.DisplayName = canonicalizeNewMembershipDisplayName(c, rawDesired.DisplayName, rawNew.DisplayName)
 	}

@@ -482,7 +482,9 @@ func canonicalizeTenantOAuthIdpConfigDesiredState(rawDesired, rawInitial *Tenant
 func canonicalizeTenantOAuthIdpConfigNewState(c *Client, rawNew, rawDesired *TenantOAuthIdpConfig) (*TenantOAuthIdpConfig, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -490,7 +492,9 @@ func canonicalizeTenantOAuthIdpConfigNewState(c *Client, rawNew, rawDesired *Ten
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ClientId) && dcl.IsNotReturnedByServer(rawDesired.ClientId) {
-		rawNew.ClientId = rawDesired.ClientId
+		if rawDesired.ClientId != nil {
+			rawNew.ClientId = rawDesired.ClientId
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ClientId, rawNew.ClientId) {
 			rawNew.ClientId = rawDesired.ClientId
@@ -498,7 +502,9 @@ func canonicalizeTenantOAuthIdpConfigNewState(c *Client, rawNew, rawDesired *Ten
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Issuer) && dcl.IsNotReturnedByServer(rawDesired.Issuer) {
-		rawNew.Issuer = rawDesired.Issuer
+		if rawDesired.Issuer != nil {
+			rawNew.Issuer = rawDesired.Issuer
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Issuer, rawNew.Issuer) {
 			rawNew.Issuer = rawDesired.Issuer
@@ -506,7 +512,9 @@ func canonicalizeTenantOAuthIdpConfigNewState(c *Client, rawNew, rawDesired *Ten
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		rawNew.DisplayName = rawDesired.DisplayName
+		if rawDesired.DisplayName != nil {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -514,7 +522,9 @@ func canonicalizeTenantOAuthIdpConfigNewState(c *Client, rawNew, rawDesired *Ten
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Enabled) && dcl.IsNotReturnedByServer(rawDesired.Enabled) {
-		rawNew.Enabled = rawDesired.Enabled
+		if rawDesired.Enabled != nil {
+			rawNew.Enabled = rawDesired.Enabled
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Enabled, rawNew.Enabled) {
 			rawNew.Enabled = rawDesired.Enabled
@@ -522,7 +532,9 @@ func canonicalizeTenantOAuthIdpConfigNewState(c *Client, rawNew, rawDesired *Ten
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ClientSecret) && dcl.IsNotReturnedByServer(rawDesired.ClientSecret) {
-		rawNew.ClientSecret = rawDesired.ClientSecret
+		if rawDesired.ClientSecret != nil {
+			rawNew.ClientSecret = rawDesired.ClientSecret
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ClientSecret, rawNew.ClientSecret) {
 			rawNew.ClientSecret = rawDesired.ClientSecret
@@ -530,7 +542,9 @@ func canonicalizeTenantOAuthIdpConfigNewState(c *Client, rawNew, rawDesired *Ten
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ResponseType) && dcl.IsNotReturnedByServer(rawDesired.ResponseType) {
-		rawNew.ResponseType = rawDesired.ResponseType
+		if rawDesired.ResponseType != nil && !rawDesired.ResponseType.empty {
+			rawNew.ResponseType = rawDesired.ResponseType
+		}
 	} else {
 		rawNew.ResponseType = canonicalizeNewTenantOAuthIdpConfigResponseType(c, rawDesired.ResponseType, rawNew.ResponseType)
 	}

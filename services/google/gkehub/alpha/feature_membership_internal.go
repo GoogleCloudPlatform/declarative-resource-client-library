@@ -312,7 +312,9 @@ func canonicalizeFeatureMembershipDesiredState(rawDesired, rawInitial *FeatureMe
 func canonicalizeFeatureMembershipNewState(c *Client, rawNew, rawDesired *FeatureMembership) (*FeatureMembership, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Configmanagement) && dcl.IsNotReturnedByServer(rawDesired.Configmanagement) {
-		rawNew.Configmanagement = rawDesired.Configmanagement
+		if rawDesired.Configmanagement != nil && !rawDesired.Configmanagement.empty {
+			rawNew.Configmanagement = rawDesired.Configmanagement
+		}
 	} else {
 		rawNew.Configmanagement = canonicalizeNewFeatureMembershipConfigmanagement(c, rawDesired.Configmanagement, rawNew.Configmanagement)
 	}

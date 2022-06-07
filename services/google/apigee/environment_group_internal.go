@@ -449,7 +449,9 @@ func canonicalizeEnvironmentGroupDesiredState(rawDesired, rawInitial *Environmen
 func canonicalizeEnvironmentGroupNewState(c *Client, rawNew, rawDesired *EnvironmentGroup) (*EnvironmentGroup, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -457,7 +459,9 @@ func canonicalizeEnvironmentGroupNewState(c *Client, rawNew, rawDesired *Environ
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Hostnames) && dcl.IsNotReturnedByServer(rawDesired.Hostnames) {
-		rawNew.Hostnames = rawDesired.Hostnames
+		if rawDesired.Hostnames != nil {
+			rawNew.Hostnames = rawDesired.Hostnames
+		}
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.Hostnames, rawNew.Hostnames) {
 			rawNew.Hostnames = rawDesired.Hostnames
@@ -465,17 +469,23 @@ func canonicalizeEnvironmentGroupNewState(c *Client, rawNew, rawDesired *Environ
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreatedAt) && dcl.IsNotReturnedByServer(rawDesired.CreatedAt) {
-		rawNew.CreatedAt = rawDesired.CreatedAt
+		if rawDesired.CreatedAt != nil {
+			rawNew.CreatedAt = rawDesired.CreatedAt
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LastModifiedAt) && dcl.IsNotReturnedByServer(rawDesired.LastModifiedAt) {
-		rawNew.LastModifiedAt = rawDesired.LastModifiedAt
+		if rawDesired.LastModifiedAt != nil {
+			rawNew.LastModifiedAt = rawDesired.LastModifiedAt
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		rawNew.State = rawDesired.State
+		if rawDesired.State != nil {
+			rawNew.State = rawDesired.State
+		}
 	} else {
 	}
 

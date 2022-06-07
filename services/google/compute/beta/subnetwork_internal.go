@@ -645,12 +645,16 @@ func canonicalizeSubnetworkDesiredState(rawDesired, rawInitial *Subnetwork, opts
 func canonicalizeSubnetworkNewState(c *Client, rawNew, rawDesired *Subnetwork) (*Subnetwork, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.CreationTimestamp) && dcl.IsNotReturnedByServer(rawDesired.CreationTimestamp) {
-		rawNew.CreationTimestamp = rawDesired.CreationTimestamp
+		if rawDesired.CreationTimestamp != nil {
+			rawNew.CreationTimestamp = rawDesired.CreationTimestamp
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -658,7 +662,9 @@ func canonicalizeSubnetworkNewState(c *Client, rawNew, rawDesired *Subnetwork) (
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.GatewayAddress) && dcl.IsNotReturnedByServer(rawDesired.GatewayAddress) {
-		rawNew.GatewayAddress = rawDesired.GatewayAddress
+		if rawDesired.GatewayAddress != nil {
+			rawNew.GatewayAddress = rawDesired.GatewayAddress
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.GatewayAddress, rawNew.GatewayAddress) {
 			rawNew.GatewayAddress = rawDesired.GatewayAddress
@@ -666,7 +672,9 @@ func canonicalizeSubnetworkNewState(c *Client, rawNew, rawDesired *Subnetwork) (
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.IPCidrRange) && dcl.IsNotReturnedByServer(rawDesired.IPCidrRange) {
-		rawNew.IPCidrRange = rawDesired.IPCidrRange
+		if rawDesired.IPCidrRange != nil {
+			rawNew.IPCidrRange = rawDesired.IPCidrRange
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.IPCidrRange, rawNew.IPCidrRange) {
 			rawNew.IPCidrRange = rawDesired.IPCidrRange
@@ -674,7 +682,9 @@ func canonicalizeSubnetworkNewState(c *Client, rawNew, rawDesired *Subnetwork) (
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -682,12 +692,16 @@ func canonicalizeSubnetworkNewState(c *Client, rawNew, rawDesired *Subnetwork) (
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Network) && dcl.IsNotReturnedByServer(rawDesired.Network) {
-		rawNew.Network = rawDesired.Network
+		if rawDesired.Network != nil {
+			rawNew.Network = rawDesired.Network
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Fingerprint) && dcl.IsNotReturnedByServer(rawDesired.Fingerprint) {
-		rawNew.Fingerprint = rawDesired.Fingerprint
+		if rawDesired.Fingerprint != nil {
+			rawNew.Fingerprint = rawDesired.Fingerprint
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Fingerprint, rawNew.Fingerprint) {
 			rawNew.Fingerprint = rawDesired.Fingerprint
@@ -695,23 +709,31 @@ func canonicalizeSubnetworkNewState(c *Client, rawNew, rawDesired *Subnetwork) (
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Purpose) && dcl.IsNotReturnedByServer(rawDesired.Purpose) {
-		rawNew.Purpose = rawDesired.Purpose
+		if rawDesired.Purpose != nil {
+			rawNew.Purpose = rawDesired.Purpose
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Role) && dcl.IsNotReturnedByServer(rawDesired.Role) {
-		rawNew.Role = rawDesired.Role
+		if rawDesired.Role != nil {
+			rawNew.Role = rawDesired.Role
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SecondaryIPRanges) && dcl.IsNotReturnedByServer(rawDesired.SecondaryIPRanges) {
-		rawNew.SecondaryIPRanges = rawDesired.SecondaryIPRanges
+		if rawDesired.SecondaryIPRanges != nil {
+			rawNew.SecondaryIPRanges = rawDesired.SecondaryIPRanges
+		}
 	} else {
 		rawNew.SecondaryIPRanges = canonicalizeNewSubnetworkSecondaryIPRangesSlice(c, rawDesired.SecondaryIPRanges, rawNew.SecondaryIPRanges)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PrivateIPGoogleAccess) && dcl.IsNotReturnedByServer(rawDesired.PrivateIPGoogleAccess) {
-		rawNew.PrivateIPGoogleAccess = rawDesired.PrivateIPGoogleAccess
+		if rawDesired.PrivateIPGoogleAccess != nil {
+			rawNew.PrivateIPGoogleAccess = rawDesired.PrivateIPGoogleAccess
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.PrivateIPGoogleAccess, rawNew.PrivateIPGoogleAccess) {
 			rawNew.PrivateIPGoogleAccess = rawDesired.PrivateIPGoogleAccess
@@ -721,7 +743,9 @@ func canonicalizeSubnetworkNewState(c *Client, rawNew, rawDesired *Subnetwork) (
 	rawNew.Region = rawDesired.Region
 
 	if dcl.IsNotReturnedByServer(rawNew.LogConfig) && dcl.IsNotReturnedByServer(rawDesired.LogConfig) {
-		rawNew.LogConfig = rawDesired.LogConfig
+		if rawDesired.LogConfig != nil && !rawDesired.LogConfig.empty {
+			rawNew.LogConfig = rawDesired.LogConfig
+		}
 	} else {
 		rawNew.LogConfig = canonicalizeNewSubnetworkLogConfig(c, rawDesired.LogConfig, rawNew.LogConfig)
 	}
@@ -729,7 +753,9 @@ func canonicalizeSubnetworkNewState(c *Client, rawNew, rawDesired *Subnetwork) (
 	rawNew.Project = rawDesired.Project
 
 	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
-		rawNew.SelfLink = rawDesired.SelfLink
+		if rawDesired.SelfLink != nil {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
 			rawNew.SelfLink = rawDesired.SelfLink
@@ -737,7 +763,9 @@ func canonicalizeSubnetworkNewState(c *Client, rawNew, rawDesired *Subnetwork) (
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.EnableFlowLogs) && dcl.IsNotReturnedByServer(rawDesired.EnableFlowLogs) {
-		rawNew.EnableFlowLogs = rawDesired.EnableFlowLogs
+		if rawDesired.EnableFlowLogs != nil {
+			rawNew.EnableFlowLogs = rawDesired.EnableFlowLogs
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.EnableFlowLogs, rawNew.EnableFlowLogs) {
 			rawNew.EnableFlowLogs = rawDesired.EnableFlowLogs

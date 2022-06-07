@@ -706,7 +706,9 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Cluster, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -714,7 +716,9 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -722,13 +726,17 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Networking) && dcl.IsNotReturnedByServer(rawDesired.Networking) {
-		rawNew.Networking = rawDesired.Networking
+		if rawDesired.Networking != nil && !rawDesired.Networking.empty {
+			rawNew.Networking = rawDesired.Networking
+		}
 	} else {
 		rawNew.Networking = canonicalizeNewClusterNetworking(c, rawDesired.Networking, rawNew.Networking)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AwsRegion) && dcl.IsNotReturnedByServer(rawDesired.AwsRegion) {
-		rawNew.AwsRegion = rawDesired.AwsRegion
+		if rawDesired.AwsRegion != nil {
+			rawNew.AwsRegion = rawDesired.AwsRegion
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.AwsRegion, rawNew.AwsRegion) {
 			rawNew.AwsRegion = rawDesired.AwsRegion
@@ -736,24 +744,32 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ControlPlane) && dcl.IsNotReturnedByServer(rawDesired.ControlPlane) {
-		rawNew.ControlPlane = rawDesired.ControlPlane
+		if rawDesired.ControlPlane != nil && !rawDesired.ControlPlane.empty {
+			rawNew.ControlPlane = rawDesired.ControlPlane
+		}
 	} else {
 		rawNew.ControlPlane = canonicalizeNewClusterControlPlane(c, rawDesired.ControlPlane, rawNew.ControlPlane)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Authorization) && dcl.IsNotReturnedByServer(rawDesired.Authorization) {
-		rawNew.Authorization = rawDesired.Authorization
+		if rawDesired.Authorization != nil && !rawDesired.Authorization.empty {
+			rawNew.Authorization = rawDesired.Authorization
+		}
 	} else {
 		rawNew.Authorization = canonicalizeNewClusterAuthorization(c, rawDesired.Authorization, rawNew.Authorization)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		rawNew.State = rawDesired.State
+		if rawDesired.State != nil {
+			rawNew.State = rawDesired.State
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Endpoint) && dcl.IsNotReturnedByServer(rawDesired.Endpoint) {
-		rawNew.Endpoint = rawDesired.Endpoint
+		if rawDesired.Endpoint != nil {
+			rawNew.Endpoint = rawDesired.Endpoint
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Endpoint, rawNew.Endpoint) {
 			rawNew.Endpoint = rawDesired.Endpoint
@@ -761,7 +777,9 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
-		rawNew.Uid = rawDesired.Uid
+		if rawDesired.Uid != nil {
+			rawNew.Uid = rawDesired.Uid
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
 			rawNew.Uid = rawDesired.Uid
@@ -769,7 +787,9 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Reconciling) && dcl.IsNotReturnedByServer(rawDesired.Reconciling) {
-		rawNew.Reconciling = rawDesired.Reconciling
+		if rawDesired.Reconciling != nil {
+			rawNew.Reconciling = rawDesired.Reconciling
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Reconciling, rawNew.Reconciling) {
 			rawNew.Reconciling = rawDesired.Reconciling
@@ -777,17 +797,23 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		rawNew.Etag = rawDesired.Etag
+		if rawDesired.Etag != nil {
+			rawNew.Etag = rawDesired.Etag
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
 			rawNew.Etag = rawDesired.Etag
@@ -795,12 +821,16 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Annotations) && dcl.IsNotReturnedByServer(rawDesired.Annotations) {
-		rawNew.Annotations = rawDesired.Annotations
+		if rawDesired.Annotations != nil {
+			rawNew.Annotations = rawDesired.Annotations
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.WorkloadIdentityConfig) && dcl.IsNotReturnedByServer(rawDesired.WorkloadIdentityConfig) {
-		rawNew.WorkloadIdentityConfig = rawDesired.WorkloadIdentityConfig
+		if rawDesired.WorkloadIdentityConfig != nil && !rawDesired.WorkloadIdentityConfig.empty {
+			rawNew.WorkloadIdentityConfig = rawDesired.WorkloadIdentityConfig
+		}
 	} else {
 		rawNew.WorkloadIdentityConfig = canonicalizeNewClusterWorkloadIdentityConfig(c, rawDesired.WorkloadIdentityConfig, rawNew.WorkloadIdentityConfig)
 	}
@@ -810,13 +840,17 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	rawNew.Location = rawDesired.Location
 
 	if dcl.IsNotReturnedByServer(rawNew.Fleet) && dcl.IsNotReturnedByServer(rawDesired.Fleet) {
-		rawNew.Fleet = rawDesired.Fleet
+		if rawDesired.Fleet != nil && !rawDesired.Fleet.empty {
+			rawNew.Fleet = rawDesired.Fleet
+		}
 	} else {
 		rawNew.Fleet = canonicalizeNewClusterFleet(c, rawDesired.Fleet, rawNew.Fleet)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LoggingConfig) && dcl.IsNotReturnedByServer(rawDesired.LoggingConfig) {
-		rawNew.LoggingConfig = rawDesired.LoggingConfig
+		if rawDesired.LoggingConfig != nil && !rawDesired.LoggingConfig.empty {
+			rawNew.LoggingConfig = rawDesired.LoggingConfig
+		}
 	} else {
 		rawNew.LoggingConfig = canonicalizeNewClusterLoggingConfig(c, rawDesired.LoggingConfig, rawNew.LoggingConfig)
 	}

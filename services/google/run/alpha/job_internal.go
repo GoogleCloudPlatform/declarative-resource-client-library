@@ -703,7 +703,9 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -711,7 +713,9 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
-		rawNew.Uid = rawDesired.Uid
+		if rawDesired.Uid != nil {
+			rawNew.Uid = rawDesired.Uid
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
 			rawNew.Uid = rawDesired.Uid
@@ -719,42 +723,58 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Generation) && dcl.IsNotReturnedByServer(rawDesired.Generation) {
-		rawNew.Generation = rawDesired.Generation
+		if rawDesired.Generation != nil {
+			rawNew.Generation = rawDesired.Generation
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Annotations) && dcl.IsNotReturnedByServer(rawDesired.Annotations) {
-		rawNew.Annotations = rawDesired.Annotations
+		if rawDesired.Annotations != nil {
+			rawNew.Annotations = rawDesired.Annotations
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DeleteTime) && dcl.IsNotReturnedByServer(rawDesired.DeleteTime) {
-		rawNew.DeleteTime = rawDesired.DeleteTime
+		if rawDesired.DeleteTime != nil {
+			rawNew.DeleteTime = rawDesired.DeleteTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ExpireTime) && dcl.IsNotReturnedByServer(rawDesired.ExpireTime) {
-		rawNew.ExpireTime = rawDesired.ExpireTime
+		if rawDesired.ExpireTime != nil {
+			rawNew.ExpireTime = rawDesired.ExpireTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Creator) && dcl.IsNotReturnedByServer(rawDesired.Creator) {
-		rawNew.Creator = rawDesired.Creator
+		if rawDesired.Creator != nil {
+			rawNew.Creator = rawDesired.Creator
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Creator, rawNew.Creator) {
 			rawNew.Creator = rawDesired.Creator
@@ -762,7 +782,9 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LastModifier) && dcl.IsNotReturnedByServer(rawDesired.LastModifier) {
-		rawNew.LastModifier = rawDesired.LastModifier
+		if rawDesired.LastModifier != nil {
+			rawNew.LastModifier = rawDesired.LastModifier
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.LastModifier, rawNew.LastModifier) {
 			rawNew.LastModifier = rawDesired.LastModifier
@@ -770,7 +792,9 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Client) && dcl.IsNotReturnedByServer(rawDesired.Client) {
-		rawNew.Client = rawDesired.Client
+		if rawDesired.Client != nil {
+			rawNew.Client = rawDesired.Client
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Client, rawNew.Client) {
 			rawNew.Client = rawDesired.Client
@@ -778,7 +802,9 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ClientVersion) && dcl.IsNotReturnedByServer(rawDesired.ClientVersion) {
-		rawNew.ClientVersion = rawDesired.ClientVersion
+		if rawDesired.ClientVersion != nil {
+			rawNew.ClientVersion = rawDesired.ClientVersion
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ClientVersion, rawNew.ClientVersion) {
 			rawNew.ClientVersion = rawDesired.ClientVersion
@@ -786,58 +812,78 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LaunchStage) && dcl.IsNotReturnedByServer(rawDesired.LaunchStage) {
-		rawNew.LaunchStage = rawDesired.LaunchStage
+		if rawDesired.LaunchStage != nil {
+			rawNew.LaunchStage = rawDesired.LaunchStage
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.BinaryAuthorization) && dcl.IsNotReturnedByServer(rawDesired.BinaryAuthorization) {
-		rawNew.BinaryAuthorization = rawDesired.BinaryAuthorization
+		if rawDesired.BinaryAuthorization != nil && !rawDesired.BinaryAuthorization.empty {
+			rawNew.BinaryAuthorization = rawDesired.BinaryAuthorization
+		}
 	} else {
 		rawNew.BinaryAuthorization = canonicalizeNewJobBinaryAuthorization(c, rawDesired.BinaryAuthorization, rawNew.BinaryAuthorization)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Template) && dcl.IsNotReturnedByServer(rawDesired.Template) {
-		rawNew.Template = rawDesired.Template
+		if rawDesired.Template != nil && !rawDesired.Template.empty {
+			rawNew.Template = rawDesired.Template
+		}
 	} else {
 		rawNew.Template = canonicalizeNewJobTemplate(c, rawDesired.Template, rawNew.Template)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ObservedGeneration) && dcl.IsNotReturnedByServer(rawDesired.ObservedGeneration) {
-		rawNew.ObservedGeneration = rawDesired.ObservedGeneration
+		if rawDesired.ObservedGeneration != nil {
+			rawNew.ObservedGeneration = rawDesired.ObservedGeneration
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.TerminalCondition) && dcl.IsNotReturnedByServer(rawDesired.TerminalCondition) {
-		rawNew.TerminalCondition = rawDesired.TerminalCondition
+		if rawDesired.TerminalCondition != nil && !rawDesired.TerminalCondition.empty {
+			rawNew.TerminalCondition = rawDesired.TerminalCondition
+		}
 	} else {
 		rawNew.TerminalCondition = canonicalizeNewJobTerminalCondition(c, rawDesired.TerminalCondition, rawNew.TerminalCondition)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Conditions) && dcl.IsNotReturnedByServer(rawDesired.Conditions) {
-		rawNew.Conditions = rawDesired.Conditions
+		if rawDesired.Conditions != nil {
+			rawNew.Conditions = rawDesired.Conditions
+		}
 	} else {
 		rawNew.Conditions = canonicalizeNewJobConditionsSlice(c, rawDesired.Conditions, rawNew.Conditions)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ExecutionCount) && dcl.IsNotReturnedByServer(rawDesired.ExecutionCount) {
-		rawNew.ExecutionCount = rawDesired.ExecutionCount
+		if rawDesired.ExecutionCount != nil {
+			rawNew.ExecutionCount = rawDesired.ExecutionCount
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LatestSucceededExecution) && dcl.IsNotReturnedByServer(rawDesired.LatestSucceededExecution) {
-		rawNew.LatestSucceededExecution = rawDesired.LatestSucceededExecution
+		if rawDesired.LatestSucceededExecution != nil && !rawDesired.LatestSucceededExecution.empty {
+			rawNew.LatestSucceededExecution = rawDesired.LatestSucceededExecution
+		}
 	} else {
 		rawNew.LatestSucceededExecution = canonicalizeNewJobLatestSucceededExecution(c, rawDesired.LatestSucceededExecution, rawNew.LatestSucceededExecution)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LatestCreatedExecution) && dcl.IsNotReturnedByServer(rawDesired.LatestCreatedExecution) {
-		rawNew.LatestCreatedExecution = rawDesired.LatestCreatedExecution
+		if rawDesired.LatestCreatedExecution != nil && !rawDesired.LatestCreatedExecution.empty {
+			rawNew.LatestCreatedExecution = rawDesired.LatestCreatedExecution
+		}
 	} else {
 		rawNew.LatestCreatedExecution = canonicalizeNewJobLatestCreatedExecution(c, rawDesired.LatestCreatedExecution, rawNew.LatestCreatedExecution)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Reconciling) && dcl.IsNotReturnedByServer(rawDesired.Reconciling) {
-		rawNew.Reconciling = rawDesired.Reconciling
+		if rawDesired.Reconciling != nil {
+			rawNew.Reconciling = rawDesired.Reconciling
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Reconciling, rawNew.Reconciling) {
 			rawNew.Reconciling = rawDesired.Reconciling
@@ -845,7 +891,9 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		rawNew.Etag = rawDesired.Etag
+		if rawDesired.Etag != nil {
+			rawNew.Etag = rawDesired.Etag
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
 			rawNew.Etag = rawDesired.Etag

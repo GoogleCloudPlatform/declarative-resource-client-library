@@ -394,7 +394,9 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Instance, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -402,7 +404,9 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Location) && dcl.IsNotReturnedByServer(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
+		if rawDesired.Location != nil {
+			rawNew.Location = rawDesired.Location
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Location, rawNew.Location) {
 			rawNew.Location = rawDesired.Location
@@ -410,12 +414,16 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PeeringCidrRange) && dcl.IsNotReturnedByServer(rawDesired.PeeringCidrRange) {
-		rawNew.PeeringCidrRange = rawDesired.PeeringCidrRange
+		if rawDesired.PeeringCidrRange != nil {
+			rawNew.PeeringCidrRange = rawDesired.PeeringCidrRange
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Host) && dcl.IsNotReturnedByServer(rawDesired.Host) {
-		rawNew.Host = rawDesired.Host
+		if rawDesired.Host != nil {
+			rawNew.Host = rawDesired.Host
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Host, rawNew.Host) {
 			rawNew.Host = rawDesired.Host
@@ -423,7 +431,9 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Port) && dcl.IsNotReturnedByServer(rawDesired.Port) {
-		rawNew.Port = rawDesired.Port
+		if rawDesired.Port != nil {
+			rawNew.Port = rawDesired.Port
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Port, rawNew.Port) {
 			rawNew.Port = rawDesired.Port
@@ -431,7 +441,9 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -439,7 +451,9 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		rawNew.DisplayName = rawDesired.DisplayName
+		if rawDesired.DisplayName != nil {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -447,22 +461,30 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreatedAt) && dcl.IsNotReturnedByServer(rawDesired.CreatedAt) {
-		rawNew.CreatedAt = rawDesired.CreatedAt
+		if rawDesired.CreatedAt != nil {
+			rawNew.CreatedAt = rawDesired.CreatedAt
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LastModifiedAt) && dcl.IsNotReturnedByServer(rawDesired.LastModifiedAt) {
-		rawNew.LastModifiedAt = rawDesired.LastModifiedAt
+		if rawDesired.LastModifiedAt != nil {
+			rawNew.LastModifiedAt = rawDesired.LastModifiedAt
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DiskEncryptionKeyName) && dcl.IsNotReturnedByServer(rawDesired.DiskEncryptionKeyName) {
-		rawNew.DiskEncryptionKeyName = rawDesired.DiskEncryptionKeyName
+		if rawDesired.DiskEncryptionKeyName != nil {
+			rawNew.DiskEncryptionKeyName = rawDesired.DiskEncryptionKeyName
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		rawNew.State = rawDesired.State
+		if rawDesired.State != nil {
+			rawNew.State = rawDesired.State
+		}
 	} else {
 	}
 

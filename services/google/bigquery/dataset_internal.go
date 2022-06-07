@@ -546,7 +546,9 @@ func canonicalizeDatasetDesiredState(rawDesired, rawInitial *Dataset, opts ...dc
 func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Dataset, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		rawNew.Etag = rawDesired.Etag
+		if rawDesired.Etag != nil {
+			rawNew.Etag = rawDesired.Etag
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
 			rawNew.Etag = rawDesired.Etag
@@ -554,7 +556,9 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Id) && dcl.IsNotReturnedByServer(rawDesired.Id) {
-		rawNew.Id = rawDesired.Id
+		if rawDesired.Id != nil {
+			rawNew.Id = rawDesired.Id
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Id, rawNew.Id) {
 			rawNew.Id = rawDesired.Id
@@ -562,7 +566,9 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
-		rawNew.SelfLink = rawDesired.SelfLink
+		if rawDesired.SelfLink != nil {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
 			rawNew.SelfLink = rawDesired.SelfLink
@@ -570,7 +576,9 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -578,12 +586,16 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Project) && dcl.IsNotReturnedByServer(rawDesired.Project) {
-		rawNew.Project = rawDesired.Project
+		if rawDesired.Project != nil {
+			rawNew.Project = rawDesired.Project
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.FriendlyName) && dcl.IsNotReturnedByServer(rawDesired.FriendlyName) {
-		rawNew.FriendlyName = rawDesired.FriendlyName
+		if rawDesired.FriendlyName != nil {
+			rawNew.FriendlyName = rawDesired.FriendlyName
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.FriendlyName, rawNew.FriendlyName) {
 			rawNew.FriendlyName = rawDesired.FriendlyName
@@ -591,7 +603,9 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -599,7 +613,9 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DefaultTableExpirationMs) && dcl.IsNotReturnedByServer(rawDesired.DefaultTableExpirationMs) {
-		rawNew.DefaultTableExpirationMs = rawDesired.DefaultTableExpirationMs
+		if rawDesired.DefaultTableExpirationMs != nil {
+			rawNew.DefaultTableExpirationMs = rawDesired.DefaultTableExpirationMs
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DefaultTableExpirationMs, rawNew.DefaultTableExpirationMs) {
 			rawNew.DefaultTableExpirationMs = rawDesired.DefaultTableExpirationMs
@@ -607,7 +623,9 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DefaultPartitionExpirationMs) && dcl.IsNotReturnedByServer(rawDesired.DefaultPartitionExpirationMs) {
-		rawNew.DefaultPartitionExpirationMs = rawDesired.DefaultPartitionExpirationMs
+		if rawDesired.DefaultPartitionExpirationMs != nil {
+			rawNew.DefaultPartitionExpirationMs = rawDesired.DefaultPartitionExpirationMs
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DefaultPartitionExpirationMs, rawNew.DefaultPartitionExpirationMs) {
 			rawNew.DefaultPartitionExpirationMs = rawDesired.DefaultPartitionExpirationMs
@@ -615,28 +633,38 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Access) && dcl.IsNotReturnedByServer(rawDesired.Access) {
-		rawNew.Access = rawDesired.Access
+		if rawDesired.Access != nil {
+			rawNew.Access = rawDesired.Access
+		}
 	} else {
 		rawNew.Access = canonicalizeNewDatasetAccessSet(c, rawDesired.Access, rawNew.Access)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreationTime) && dcl.IsNotReturnedByServer(rawDesired.CreationTime) {
-		rawNew.CreationTime = rawDesired.CreationTime
+		if rawDesired.CreationTime != nil {
+			rawNew.CreationTime = rawDesired.CreationTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LastModifiedTime) && dcl.IsNotReturnedByServer(rawDesired.LastModifiedTime) {
-		rawNew.LastModifiedTime = rawDesired.LastModifiedTime
+		if rawDesired.LastModifiedTime != nil {
+			rawNew.LastModifiedTime = rawDesired.LastModifiedTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Location) && dcl.IsNotReturnedByServer(rawDesired.Location) {
-		rawNew.Location = rawDesired.Location
+		if rawDesired.Location != nil {
+			rawNew.Location = rawDesired.Location
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Location, rawNew.Location) {
 			rawNew.Location = rawDesired.Location
@@ -644,7 +672,9 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Published) && dcl.IsNotReturnedByServer(rawDesired.Published) {
-		rawNew.Published = rawDesired.Published
+		if rawDesired.Published != nil {
+			rawNew.Published = rawDesired.Published
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Published, rawNew.Published) {
 			rawNew.Published = rawDesired.Published
@@ -652,7 +682,9 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DefaultEncryptionConfiguration) && dcl.IsNotReturnedByServer(rawDesired.DefaultEncryptionConfiguration) {
-		rawNew.DefaultEncryptionConfiguration = rawDesired.DefaultEncryptionConfiguration
+		if rawDesired.DefaultEncryptionConfiguration != nil && !rawDesired.DefaultEncryptionConfiguration.empty {
+			rawNew.DefaultEncryptionConfiguration = rawDesired.DefaultEncryptionConfiguration
+		}
 	} else {
 		rawNew.DefaultEncryptionConfiguration = canonicalizeNewDatasetDefaultEncryptionConfiguration(c, rawDesired.DefaultEncryptionConfiguration, rawNew.DefaultEncryptionConfiguration)
 	}

@@ -520,7 +520,9 @@ func canonicalizeLogMetricDesiredState(rawDesired, rawInitial *LogMetric, opts .
 func canonicalizeLogMetricNewState(c *Client, rawNew, rawDesired *LogMetric) (*LogMetric, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -528,7 +530,9 @@ func canonicalizeLogMetricNewState(c *Client, rawNew, rawDesired *LogMetric) (*L
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -536,7 +540,9 @@ func canonicalizeLogMetricNewState(c *Client, rawNew, rawDesired *LogMetric) (*L
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Filter) && dcl.IsNotReturnedByServer(rawDesired.Filter) {
-		rawNew.Filter = rawDesired.Filter
+		if rawDesired.Filter != nil {
+			rawNew.Filter = rawDesired.Filter
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Filter, rawNew.Filter) {
 			rawNew.Filter = rawDesired.Filter
@@ -544,7 +550,9 @@ func canonicalizeLogMetricNewState(c *Client, rawNew, rawDesired *LogMetric) (*L
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Disabled) && dcl.IsNotReturnedByServer(rawDesired.Disabled) {
-		rawNew.Disabled = rawDesired.Disabled
+		if rawDesired.Disabled != nil {
+			rawNew.Disabled = rawDesired.Disabled
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Disabled, rawNew.Disabled) {
 			rawNew.Disabled = rawDesired.Disabled
@@ -552,13 +560,17 @@ func canonicalizeLogMetricNewState(c *Client, rawNew, rawDesired *LogMetric) (*L
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MetricDescriptor) && dcl.IsNotReturnedByServer(rawDesired.MetricDescriptor) {
-		rawNew.MetricDescriptor = rawDesired.MetricDescriptor
+		if rawDesired.MetricDescriptor != nil && !rawDesired.MetricDescriptor.empty {
+			rawNew.MetricDescriptor = rawDesired.MetricDescriptor
+		}
 	} else {
 		rawNew.MetricDescriptor = canonicalizeNewLogMetricMetricDescriptor(c, rawDesired.MetricDescriptor, rawNew.MetricDescriptor)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ValueExtractor) && dcl.IsNotReturnedByServer(rawDesired.ValueExtractor) {
-		rawNew.ValueExtractor = rawDesired.ValueExtractor
+		if rawDesired.ValueExtractor != nil {
+			rawNew.ValueExtractor = rawDesired.ValueExtractor
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ValueExtractor, rawNew.ValueExtractor) {
 			rawNew.ValueExtractor = rawDesired.ValueExtractor
@@ -566,23 +578,31 @@ func canonicalizeLogMetricNewState(c *Client, rawNew, rawDesired *LogMetric) (*L
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LabelExtractors) && dcl.IsNotReturnedByServer(rawDesired.LabelExtractors) {
-		rawNew.LabelExtractors = rawDesired.LabelExtractors
+		if rawDesired.LabelExtractors != nil {
+			rawNew.LabelExtractors = rawDesired.LabelExtractors
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.BucketOptions) && dcl.IsNotReturnedByServer(rawDesired.BucketOptions) {
-		rawNew.BucketOptions = rawDesired.BucketOptions
+		if rawDesired.BucketOptions != nil && !rawDesired.BucketOptions.empty {
+			rawNew.BucketOptions = rawDesired.BucketOptions
+		}
 	} else {
 		rawNew.BucketOptions = canonicalizeNewLogMetricBucketOptions(c, rawDesired.BucketOptions, rawNew.BucketOptions)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 

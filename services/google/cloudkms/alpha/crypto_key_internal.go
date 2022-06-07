@@ -507,7 +507,9 @@ func canonicalizeCryptoKeyDesiredState(rawDesired, rawInitial *CryptoKey, opts .
 func canonicalizeCryptoKeyNewState(c *Client, rawNew, rawDesired *CryptoKey) (*CryptoKey, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -515,28 +517,38 @@ func canonicalizeCryptoKeyNewState(c *Client, rawNew, rawDesired *CryptoKey) (*C
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Primary) && dcl.IsNotReturnedByServer(rawDesired.Primary) {
-		rawNew.Primary = rawDesired.Primary
+		if rawDesired.Primary != nil && !rawDesired.Primary.empty {
+			rawNew.Primary = rawDesired.Primary
+		}
 	} else {
 		rawNew.Primary = canonicalizeNewCryptoKeyPrimary(c, rawDesired.Primary, rawNew.Primary)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Purpose) && dcl.IsNotReturnedByServer(rawDesired.Purpose) {
-		rawNew.Purpose = rawDesired.Purpose
+		if rawDesired.Purpose != nil {
+			rawNew.Purpose = rawDesired.Purpose
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.NextRotationTime) && dcl.IsNotReturnedByServer(rawDesired.NextRotationTime) {
-		rawNew.NextRotationTime = rawDesired.NextRotationTime
+		if rawDesired.NextRotationTime != nil {
+			rawNew.NextRotationTime = rawDesired.NextRotationTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RotationPeriod) && dcl.IsNotReturnedByServer(rawDesired.RotationPeriod) {
-		rawNew.RotationPeriod = rawDesired.RotationPeriod
+		if rawDesired.RotationPeriod != nil {
+			rawNew.RotationPeriod = rawDesired.RotationPeriod
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.RotationPeriod, rawNew.RotationPeriod) {
 			rawNew.RotationPeriod = rawDesired.RotationPeriod
@@ -544,18 +556,24 @@ func canonicalizeCryptoKeyNewState(c *Client, rawNew, rawDesired *CryptoKey) (*C
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.VersionTemplate) && dcl.IsNotReturnedByServer(rawDesired.VersionTemplate) {
-		rawNew.VersionTemplate = rawDesired.VersionTemplate
+		if rawDesired.VersionTemplate != nil && !rawDesired.VersionTemplate.empty {
+			rawNew.VersionTemplate = rawDesired.VersionTemplate
+		}
 	} else {
 		rawNew.VersionTemplate = canonicalizeNewCryptoKeyVersionTemplate(c, rawDesired.VersionTemplate, rawNew.VersionTemplate)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ImportOnly) && dcl.IsNotReturnedByServer(rawDesired.ImportOnly) {
-		rawNew.ImportOnly = rawDesired.ImportOnly
+		if rawDesired.ImportOnly != nil {
+			rawNew.ImportOnly = rawDesired.ImportOnly
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.ImportOnly, rawNew.ImportOnly) {
 			rawNew.ImportOnly = rawDesired.ImportOnly
@@ -563,7 +581,9 @@ func canonicalizeCryptoKeyNewState(c *Client, rawNew, rawDesired *CryptoKey) (*C
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DestroyScheduledDuration) && dcl.IsNotReturnedByServer(rawDesired.DestroyScheduledDuration) {
-		rawNew.DestroyScheduledDuration = rawDesired.DestroyScheduledDuration
+		if rawDesired.DestroyScheduledDuration != nil {
+			rawNew.DestroyScheduledDuration = rawDesired.DestroyScheduledDuration
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DestroyScheduledDuration, rawNew.DestroyScheduledDuration) {
 			rawNew.DestroyScheduledDuration = rawDesired.DestroyScheduledDuration

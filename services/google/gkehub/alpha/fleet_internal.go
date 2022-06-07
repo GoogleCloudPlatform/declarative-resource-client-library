@@ -375,12 +375,16 @@ func canonicalizeFleetDesiredState(rawDesired, rawInitial *Fleet, opts ...dcl.Ap
 func canonicalizeFleetNewState(c *Client, rawNew, rawDesired *Fleet) (*Fleet, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		rawNew.DisplayName = rawDesired.DisplayName
+		if rawDesired.DisplayName != nil {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -388,17 +392,23 @@ func canonicalizeFleetNewState(c *Client, rawNew, rawDesired *Fleet) (*Fleet, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
-		rawNew.Uid = rawDesired.Uid
+		if rawDesired.Uid != nil {
+			rawNew.Uid = rawDesired.Uid
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
 			rawNew.Uid = rawDesired.Uid
@@ -406,7 +416,9 @@ func canonicalizeFleetNewState(c *Client, rawNew, rawDesired *Fleet) (*Fleet, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ManagedNamespaces) && dcl.IsNotReturnedByServer(rawDesired.ManagedNamespaces) {
-		rawNew.ManagedNamespaces = rawDesired.ManagedNamespaces
+		if rawDesired.ManagedNamespaces != nil {
+			rawNew.ManagedNamespaces = rawDesired.ManagedNamespaces
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.ManagedNamespaces, rawNew.ManagedNamespaces) {
 			rawNew.ManagedNamespaces = rawDesired.ManagedNamespaces

@@ -425,7 +425,9 @@ func canonicalizeFeatureDesiredState(rawDesired, rawInitial *Feature, opts ...dc
 func canonicalizeFeatureNewState(c *Client, rawNew, rawDesired *Feature) (*Feature, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -433,40 +435,54 @@ func canonicalizeFeatureNewState(c *Client, rawNew, rawDesired *Feature) (*Featu
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ResourceState) && dcl.IsNotReturnedByServer(rawDesired.ResourceState) {
-		rawNew.ResourceState = rawDesired.ResourceState
+		if rawDesired.ResourceState != nil && !rawDesired.ResourceState.empty {
+			rawNew.ResourceState = rawDesired.ResourceState
+		}
 	} else {
 		rawNew.ResourceState = canonicalizeNewFeatureResourceState(c, rawDesired.ResourceState, rawNew.ResourceState)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Spec) && dcl.IsNotReturnedByServer(rawDesired.Spec) {
-		rawNew.Spec = rawDesired.Spec
+		if rawDesired.Spec != nil && !rawDesired.Spec.empty {
+			rawNew.Spec = rawDesired.Spec
+		}
 	} else {
 		rawNew.Spec = canonicalizeNewFeatureSpec(c, rawDesired.Spec, rawNew.Spec)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		rawNew.State = rawDesired.State
+		if rawDesired.State != nil && !rawDesired.State.empty {
+			rawNew.State = rawDesired.State
+		}
 	} else {
 		rawNew.State = canonicalizeNewFeatureState(c, rawDesired.State, rawNew.State)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DeleteTime) && dcl.IsNotReturnedByServer(rawDesired.DeleteTime) {
-		rawNew.DeleteTime = rawDesired.DeleteTime
+		if rawDesired.DeleteTime != nil {
+			rawNew.DeleteTime = rawDesired.DeleteTime
+		}
 	} else {
 	}
 

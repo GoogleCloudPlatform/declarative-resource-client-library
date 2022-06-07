@@ -138,7 +138,8 @@ func (c *Client) GetManagedService(ctx context.Context, r *ManagedService) (*Man
 	if err != nil {
 		return nil, err
 	}
-	result.Name = r.Name
+	nr := r.urlNormalized()
+	result.Name = nr.Name
 
 	c.Config.Logger.InfoWithContextf(ctx, "Retrieved raw result state: %v", result)
 	c.Config.Logger.InfoWithContextf(ctx, "Canonicalizing with specified state: %v", r)
@@ -289,7 +290,7 @@ func applyManagedServiceHelper(c *Client, ctx context.Context, rawDesired *Manag
 func applyManagedServiceDiff(c *Client, ctx context.Context, desired *ManagedService, rawDesired *ManagedService, ops []managedServiceApiOperation, opts ...dcl.ApplyOption) (*ManagedService, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
-	rawNew, err := c.GetManagedService(ctx, desired.urlNormalized())
+	rawNew, err := c.GetManagedService(ctx, desired)
 	if err != nil {
 		return nil, err
 	}

@@ -668,7 +668,9 @@ func canonicalizeHttpRouteDesiredState(rawDesired, rawInitial *HttpRoute, opts .
 func canonicalizeHttpRouteNewState(c *Client, rawNew, rawDesired *HttpRoute) (*HttpRoute, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -676,7 +678,9 @@ func canonicalizeHttpRouteNewState(c *Client, rawNew, rawDesired *HttpRoute) (*H
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -684,17 +688,23 @@ func canonicalizeHttpRouteNewState(c *Client, rawNew, rawDesired *HttpRoute) (*H
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Hostnames) && dcl.IsNotReturnedByServer(rawDesired.Hostnames) {
-		rawNew.Hostnames = rawDesired.Hostnames
+		if rawDesired.Hostnames != nil {
+			rawNew.Hostnames = rawDesired.Hostnames
+		}
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.Hostnames, rawNew.Hostnames) {
 			rawNew.Hostnames = rawDesired.Hostnames
@@ -702,7 +712,9 @@ func canonicalizeHttpRouteNewState(c *Client, rawNew, rawDesired *HttpRoute) (*H
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Routers) && dcl.IsNotReturnedByServer(rawDesired.Routers) {
-		rawNew.Routers = rawDesired.Routers
+		if rawDesired.Routers != nil {
+			rawNew.Routers = rawDesired.Routers
+		}
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.Routers, rawNew.Routers) {
 			rawNew.Routers = rawDesired.Routers
@@ -710,7 +722,9 @@ func canonicalizeHttpRouteNewState(c *Client, rawNew, rawDesired *HttpRoute) (*H
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Meshes) && dcl.IsNotReturnedByServer(rawDesired.Meshes) {
-		rawNew.Meshes = rawDesired.Meshes
+		if rawDesired.Meshes != nil {
+			rawNew.Meshes = rawDesired.Meshes
+		}
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.Meshes, rawNew.Meshes) {
 			rawNew.Meshes = rawDesired.Meshes
@@ -718,7 +732,9 @@ func canonicalizeHttpRouteNewState(c *Client, rawNew, rawDesired *HttpRoute) (*H
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Gateways) && dcl.IsNotReturnedByServer(rawDesired.Gateways) {
-		rawNew.Gateways = rawDesired.Gateways
+		if rawDesired.Gateways != nil {
+			rawNew.Gateways = rawDesired.Gateways
+		}
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.Gateways, rawNew.Gateways) {
 			rawNew.Gateways = rawDesired.Gateways
@@ -726,12 +742,16 @@ func canonicalizeHttpRouteNewState(c *Client, rawNew, rawDesired *HttpRoute) (*H
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Rules) && dcl.IsNotReturnedByServer(rawDesired.Rules) {
-		rawNew.Rules = rawDesired.Rules
+		if rawDesired.Rules != nil {
+			rawNew.Rules = rawDesired.Rules
+		}
 	} else {
 		rawNew.Rules = canonicalizeNewHttpRouteRulesSlice(c, rawDesired.Rules, rawNew.Rules)
 	}
@@ -741,7 +761,9 @@ func canonicalizeHttpRouteNewState(c *Client, rawNew, rawDesired *HttpRoute) (*H
 	rawNew.Location = rawDesired.Location
 
 	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
-		rawNew.SelfLink = rawDesired.SelfLink
+		if rawDesired.SelfLink != nil {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
 			rawNew.SelfLink = rawDesired.SelfLink

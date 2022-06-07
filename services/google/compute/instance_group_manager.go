@@ -1225,9 +1225,10 @@ func (c *Client) GetInstanceGroupManager(ctx context.Context, r *InstanceGroupMa
 	if err != nil {
 		return nil, err
 	}
-	result.Project = r.Project
-	result.Location = r.Location
-	result.Name = r.Name
+	nr := r.urlNormalized()
+	result.Project = nr.Project
+	result.Location = nr.Location
+	result.Name = nr.Name
 
 	c.Config.Logger.InfoWithContextf(ctx, "Retrieved raw result state: %v", result)
 	c.Config.Logger.InfoWithContextf(ctx, "Canonicalizing with specified state: %v", r)
@@ -1392,7 +1393,7 @@ func applyInstanceGroupManagerHelper(c *Client, ctx context.Context, rawDesired 
 func applyInstanceGroupManagerDiff(c *Client, ctx context.Context, desired *InstanceGroupManager, rawDesired *InstanceGroupManager, ops []instanceGroupManagerApiOperation, opts ...dcl.ApplyOption) (*InstanceGroupManager, error) {
 	// 3.1, 3.2a Retrieval of raw new state & canonicalization with desired state
 	c.Config.Logger.InfoWithContext(ctx, "Retrieving raw new state...")
-	rawNew, err := c.GetInstanceGroupManager(ctx, desired.urlNormalized())
+	rawNew, err := c.GetInstanceGroupManager(ctx, desired)
 	if err != nil {
 		return nil, err
 	}

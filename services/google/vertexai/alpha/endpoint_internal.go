@@ -563,12 +563,16 @@ func canonicalizeEndpointDesiredState(rawDesired, rawInitial *Endpoint, opts ...
 func canonicalizeEndpointNewState(c *Client, rawNew, rawDesired *Endpoint) (*Endpoint, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		rawNew.DisplayName = rawDesired.DisplayName
+		if rawDesired.DisplayName != nil {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -576,7 +580,9 @@ func canonicalizeEndpointNewState(c *Client, rawNew, rawDesired *Endpoint) (*End
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -584,13 +590,17 @@ func canonicalizeEndpointNewState(c *Client, rawNew, rawDesired *Endpoint) (*End
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DeployedModels) && dcl.IsNotReturnedByServer(rawDesired.DeployedModels) {
-		rawNew.DeployedModels = rawDesired.DeployedModels
+		if rawDesired.DeployedModels != nil {
+			rawNew.DeployedModels = rawDesired.DeployedModels
+		}
 	} else {
 		rawNew.DeployedModels = canonicalizeNewEndpointDeployedModelsSlice(c, rawDesired.DeployedModels, rawNew.DeployedModels)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		rawNew.Etag = rawDesired.Etag
+		if rawDesired.Etag != nil {
+			rawNew.Etag = rawDesired.Etag
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
 			rawNew.Etag = rawDesired.Etag
@@ -598,33 +608,45 @@ func canonicalizeEndpointNewState(c *Client, rawNew, rawDesired *Endpoint) (*End
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.EncryptionSpec) && dcl.IsNotReturnedByServer(rawDesired.EncryptionSpec) {
-		rawNew.EncryptionSpec = rawDesired.EncryptionSpec
+		if rawDesired.EncryptionSpec != nil && !rawDesired.EncryptionSpec.empty {
+			rawNew.EncryptionSpec = rawDesired.EncryptionSpec
+		}
 	} else {
 		rawNew.EncryptionSpec = canonicalizeNewEndpointEncryptionSpec(c, rawDesired.EncryptionSpec, rawNew.EncryptionSpec)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Network) && dcl.IsNotReturnedByServer(rawDesired.Network) {
-		rawNew.Network = rawDesired.Network
+		if rawDesired.Network != nil {
+			rawNew.Network = rawDesired.Network
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ModelDeploymentMonitoringJob) && dcl.IsNotReturnedByServer(rawDesired.ModelDeploymentMonitoringJob) {
-		rawNew.ModelDeploymentMonitoringJob = rawDesired.ModelDeploymentMonitoringJob
+		if rawDesired.ModelDeploymentMonitoringJob != nil {
+			rawNew.ModelDeploymentMonitoringJob = rawDesired.ModelDeploymentMonitoringJob
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ModelDeploymentMonitoringJob, rawNew.ModelDeploymentMonitoringJob) {
 			rawNew.ModelDeploymentMonitoringJob = rawDesired.ModelDeploymentMonitoringJob
@@ -2105,7 +2127,9 @@ func expandEndpoint(c *Client, f *Endpoint) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["encryptionSpec"] = v
 	}
-	if v := f.Network; dcl.ValueShouldBeSent(v) {
+	if v, err := dcl.ExpandProjectIDsToNumbers(c.Config, f.Network); err != nil {
+		return nil, fmt.Errorf("error expanding Network into network: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["network"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
@@ -2143,7 +2167,7 @@ func flattenEndpoint(c *Client, i interface{}, res *Endpoint) *Endpoint {
 	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
 	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
 	resultRes.EncryptionSpec = flattenEndpointEncryptionSpec(c, m["encryptionSpec"], res)
-	resultRes.Network = dcl.FlattenString(m["network"])
+	resultRes.Network = dcl.FlattenProjectNumbersToIDs(c.Config, dcl.FlattenString(m["network"]))
 	resultRes.ModelDeploymentMonitoringJob = dcl.FlattenString(m["modelDeploymentMonitoringJob"])
 	resultRes.Project = dcl.FlattenString(m["project"])
 	resultRes.Location = dcl.FlattenString(m["location"])

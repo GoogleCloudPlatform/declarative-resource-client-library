@@ -463,7 +463,9 @@ func canonicalizeGroupDesiredState(rawDesired, rawInitial *Group, opts ...dcl.Ap
 func canonicalizeGroupNewState(c *Client, rawNew, rawDesired *Group) (*Group, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		rawNew.DisplayName = rawDesired.DisplayName
+		if rawDesired.DisplayName != nil {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -471,7 +473,9 @@ func canonicalizeGroupNewState(c *Client, rawNew, rawDesired *Group) (*Group, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Filter) && dcl.IsNotReturnedByServer(rawDesired.Filter) {
-		rawNew.Filter = rawDesired.Filter
+		if rawDesired.Filter != nil {
+			rawNew.Filter = rawDesired.Filter
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Filter, rawNew.Filter) {
 			rawNew.Filter = rawDesired.Filter
@@ -479,7 +483,9 @@ func canonicalizeGroupNewState(c *Client, rawNew, rawDesired *Group) (*Group, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.IsCluster) && dcl.IsNotReturnedByServer(rawDesired.IsCluster) {
-		rawNew.IsCluster = rawDesired.IsCluster
+		if rawDesired.IsCluster != nil {
+			rawNew.IsCluster = rawDesired.IsCluster
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.IsCluster, rawNew.IsCluster) {
 			rawNew.IsCluster = rawDesired.IsCluster
@@ -487,12 +493,16 @@ func canonicalizeGroupNewState(c *Client, rawNew, rawDesired *Group) (*Group, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ParentName) && dcl.IsNotReturnedByServer(rawDesired.ParentName) {
-		rawNew.ParentName = rawDesired.ParentName
+		if rawDesired.ParentName != nil {
+			rawNew.ParentName = rawDesired.ParentName
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.ParentName, rawNew.ParentName) {
 			rawNew.ParentName = rawDesired.ParentName

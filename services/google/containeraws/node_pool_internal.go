@@ -632,7 +632,9 @@ func canonicalizeNodePoolDesiredState(rawDesired, rawInitial *NodePool, opts ...
 func canonicalizeNodePoolNewState(c *Client, rawNew, rawDesired *NodePool) (*NodePool, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -640,7 +642,9 @@ func canonicalizeNodePoolNewState(c *Client, rawNew, rawDesired *NodePool) (*Nod
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Version) && dcl.IsNotReturnedByServer(rawDesired.Version) {
-		rawNew.Version = rawDesired.Version
+		if rawDesired.Version != nil {
+			rawNew.Version = rawDesired.Version
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Version, rawNew.Version) {
 			rawNew.Version = rawDesired.Version
@@ -648,19 +652,25 @@ func canonicalizeNodePoolNewState(c *Client, rawNew, rawDesired *NodePool) (*Nod
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Config) && dcl.IsNotReturnedByServer(rawDesired.Config) {
-		rawNew.Config = rawDesired.Config
+		if rawDesired.Config != nil && !rawDesired.Config.empty {
+			rawNew.Config = rawDesired.Config
+		}
 	} else {
 		rawNew.Config = canonicalizeNewNodePoolConfig(c, rawDesired.Config, rawNew.Config)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Autoscaling) && dcl.IsNotReturnedByServer(rawDesired.Autoscaling) {
-		rawNew.Autoscaling = rawDesired.Autoscaling
+		if rawDesired.Autoscaling != nil && !rawDesired.Autoscaling.empty {
+			rawNew.Autoscaling = rawDesired.Autoscaling
+		}
 	} else {
 		rawNew.Autoscaling = canonicalizeNewNodePoolAutoscaling(c, rawDesired.Autoscaling, rawNew.Autoscaling)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SubnetId) && dcl.IsNotReturnedByServer(rawDesired.SubnetId) {
-		rawNew.SubnetId = rawDesired.SubnetId
+		if rawDesired.SubnetId != nil {
+			rawNew.SubnetId = rawDesired.SubnetId
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SubnetId, rawNew.SubnetId) {
 			rawNew.SubnetId = rawDesired.SubnetId
@@ -668,12 +678,16 @@ func canonicalizeNodePoolNewState(c *Client, rawNew, rawDesired *NodePool) (*Nod
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		rawNew.State = rawDesired.State
+		if rawDesired.State != nil {
+			rawNew.State = rawDesired.State
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
-		rawNew.Uid = rawDesired.Uid
+		if rawDesired.Uid != nil {
+			rawNew.Uid = rawDesired.Uid
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
 			rawNew.Uid = rawDesired.Uid
@@ -681,7 +695,9 @@ func canonicalizeNodePoolNewState(c *Client, rawNew, rawDesired *NodePool) (*Nod
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Reconciling) && dcl.IsNotReturnedByServer(rawDesired.Reconciling) {
-		rawNew.Reconciling = rawDesired.Reconciling
+		if rawDesired.Reconciling != nil {
+			rawNew.Reconciling = rawDesired.Reconciling
+		}
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Reconciling, rawNew.Reconciling) {
 			rawNew.Reconciling = rawDesired.Reconciling
@@ -689,17 +705,23 @@ func canonicalizeNodePoolNewState(c *Client, rawNew, rawDesired *NodePool) (*Nod
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		rawNew.Etag = rawDesired.Etag
+		if rawDesired.Etag != nil {
+			rawNew.Etag = rawDesired.Etag
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
 			rawNew.Etag = rawDesired.Etag
@@ -707,12 +729,16 @@ func canonicalizeNodePoolNewState(c *Client, rawNew, rawDesired *NodePool) (*Nod
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Annotations) && dcl.IsNotReturnedByServer(rawDesired.Annotations) {
-		rawNew.Annotations = rawDesired.Annotations
+		if rawDesired.Annotations != nil {
+			rawNew.Annotations = rawDesired.Annotations
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MaxPodsConstraint) && dcl.IsNotReturnedByServer(rawDesired.MaxPodsConstraint) {
-		rawNew.MaxPodsConstraint = rawDesired.MaxPodsConstraint
+		if rawDesired.MaxPodsConstraint != nil && !rawDesired.MaxPodsConstraint.empty {
+			rawNew.MaxPodsConstraint = rawDesired.MaxPodsConstraint
+		}
 	} else {
 		rawNew.MaxPodsConstraint = canonicalizeNewNodePoolMaxPodsConstraint(c, rawDesired.MaxPodsConstraint, rawNew.MaxPodsConstraint)
 	}

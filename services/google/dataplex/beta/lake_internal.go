@@ -547,7 +547,9 @@ func canonicalizeLakeDesiredState(rawDesired, rawInitial *Lake, opts ...dcl.Appl
 func canonicalizeLakeNewState(c *Client, rawNew, rawDesired *Lake) (*Lake, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -555,7 +557,9 @@ func canonicalizeLakeNewState(c *Client, rawNew, rawDesired *Lake) (*Lake, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		rawNew.DisplayName = rawDesired.DisplayName
+		if rawDesired.DisplayName != nil {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -563,7 +567,9 @@ func canonicalizeLakeNewState(c *Client, rawNew, rawDesired *Lake) (*Lake, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
-		rawNew.Uid = rawDesired.Uid
+		if rawDesired.Uid != nil {
+			rawNew.Uid = rawDesired.Uid
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
 			rawNew.Uid = rawDesired.Uid
@@ -571,22 +577,30 @@ func canonicalizeLakeNewState(c *Client, rawNew, rawDesired *Lake) (*Lake, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -594,12 +608,16 @@ func canonicalizeLakeNewState(c *Client, rawNew, rawDesired *Lake) (*Lake, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		rawNew.State = rawDesired.State
+		if rawDesired.State != nil {
+			rawNew.State = rawDesired.State
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ServiceAccount) && dcl.IsNotReturnedByServer(rawDesired.ServiceAccount) {
-		rawNew.ServiceAccount = rawDesired.ServiceAccount
+		if rawDesired.ServiceAccount != nil {
+			rawNew.ServiceAccount = rawDesired.ServiceAccount
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ServiceAccount, rawNew.ServiceAccount) {
 			rawNew.ServiceAccount = rawDesired.ServiceAccount
@@ -607,19 +625,25 @@ func canonicalizeLakeNewState(c *Client, rawNew, rawDesired *Lake) (*Lake, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Metastore) && dcl.IsNotReturnedByServer(rawDesired.Metastore) {
-		rawNew.Metastore = rawDesired.Metastore
+		if rawDesired.Metastore != nil && !rawDesired.Metastore.empty {
+			rawNew.Metastore = rawDesired.Metastore
+		}
 	} else {
 		rawNew.Metastore = canonicalizeNewLakeMetastore(c, rawDesired.Metastore, rawNew.Metastore)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AssetStatus) && dcl.IsNotReturnedByServer(rawDesired.AssetStatus) {
-		rawNew.AssetStatus = rawDesired.AssetStatus
+		if rawDesired.AssetStatus != nil && !rawDesired.AssetStatus.empty {
+			rawNew.AssetStatus = rawDesired.AssetStatus
+		}
 	} else {
 		rawNew.AssetStatus = canonicalizeNewLakeAssetStatus(c, rawDesired.AssetStatus, rawNew.AssetStatus)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MetastoreStatus) && dcl.IsNotReturnedByServer(rawDesired.MetastoreStatus) {
-		rawNew.MetastoreStatus = rawDesired.MetastoreStatus
+		if rawDesired.MetastoreStatus != nil && !rawDesired.MetastoreStatus.empty {
+			rawNew.MetastoreStatus = rawDesired.MetastoreStatus
+		}
 	} else {
 		rawNew.MetastoreStatus = canonicalizeNewLakeMetastoreStatus(c, rawDesired.MetastoreStatus, rawNew.MetastoreStatus)
 	}

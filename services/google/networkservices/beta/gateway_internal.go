@@ -546,7 +546,9 @@ func canonicalizeGatewayDesiredState(rawDesired, rawInitial *Gateway, opts ...dc
 func canonicalizeGatewayNewState(c *Client, rawNew, rawDesired *Gateway) (*Gateway, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
+		if rawDesired.Name != nil {
+			rawNew.Name = rawDesired.Name
+		}
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -554,22 +556,30 @@ func canonicalizeGatewayNewState(c *Client, rawNew, rawDesired *Gateway) (*Gatew
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		rawNew.CreateTime = rawDesired.CreateTime
+		if rawDesired.CreateTime != nil {
+			rawNew.CreateTime = rawDesired.CreateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		rawNew.UpdateTime = rawDesired.UpdateTime
+		if rawDesired.UpdateTime != nil {
+			rawNew.UpdateTime = rawDesired.UpdateTime
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
+		if rawDesired.Labels != nil {
+			rawNew.Labels = rawDesired.Labels
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		rawNew.Description = rawDesired.Description
+		if rawDesired.Description != nil {
+			rawNew.Description = rawDesired.Description
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -577,12 +587,16 @@ func canonicalizeGatewayNewState(c *Client, rawNew, rawDesired *Gateway) (*Gatew
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Type) && dcl.IsNotReturnedByServer(rawDesired.Type) {
-		rawNew.Type = rawDesired.Type
+		if rawDesired.Type != nil {
+			rawNew.Type = rawDesired.Type
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Addresses) && dcl.IsNotReturnedByServer(rawDesired.Addresses) {
-		rawNew.Addresses = rawDesired.Addresses
+		if rawDesired.Addresses != nil {
+			rawNew.Addresses = rawDesired.Addresses
+		}
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.Addresses, rawNew.Addresses) {
 			rawNew.Addresses = rawDesired.Addresses
@@ -590,12 +604,16 @@ func canonicalizeGatewayNewState(c *Client, rawNew, rawDesired *Gateway) (*Gatew
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Ports) && dcl.IsNotReturnedByServer(rawDesired.Ports) {
-		rawNew.Ports = rawDesired.Ports
+		if rawDesired.Ports != nil {
+			rawNew.Ports = rawDesired.Ports
+		}
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Scope) && dcl.IsNotReturnedByServer(rawDesired.Scope) {
-		rawNew.Scope = rawDesired.Scope
+		if rawDesired.Scope != nil {
+			rawNew.Scope = rawDesired.Scope
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Scope, rawNew.Scope) {
 			rawNew.Scope = rawDesired.Scope
@@ -603,7 +621,9 @@ func canonicalizeGatewayNewState(c *Client, rawNew, rawDesired *Gateway) (*Gatew
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ServerTlsPolicy) && dcl.IsNotReturnedByServer(rawDesired.ServerTlsPolicy) {
-		rawNew.ServerTlsPolicy = rawDesired.ServerTlsPolicy
+		if rawDesired.ServerTlsPolicy != nil {
+			rawNew.ServerTlsPolicy = rawDesired.ServerTlsPolicy
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ServerTlsPolicy, rawNew.ServerTlsPolicy) {
 			rawNew.ServerTlsPolicy = rawDesired.ServerTlsPolicy
@@ -611,7 +631,9 @@ func canonicalizeGatewayNewState(c *Client, rawNew, rawDesired *Gateway) (*Gatew
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AuthorizationPolicy) && dcl.IsNotReturnedByServer(rawDesired.AuthorizationPolicy) {
-		rawNew.AuthorizationPolicy = rawDesired.AuthorizationPolicy
+		if rawDesired.AuthorizationPolicy != nil {
+			rawNew.AuthorizationPolicy = rawDesired.AuthorizationPolicy
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.AuthorizationPolicy, rawNew.AuthorizationPolicy) {
 			rawNew.AuthorizationPolicy = rawDesired.AuthorizationPolicy
@@ -623,7 +645,9 @@ func canonicalizeGatewayNewState(c *Client, rawNew, rawDesired *Gateway) (*Gatew
 	rawNew.Location = rawDesired.Location
 
 	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
-		rawNew.SelfLink = rawDesired.SelfLink
+		if rawDesired.SelfLink != nil {
+			rawNew.SelfLink = rawDesired.SelfLink
+		}
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
 			rawNew.SelfLink = rawDesired.SelfLink
