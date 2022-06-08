@@ -983,6 +983,23 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 		rawNew.ServiceDirectoryRegistrations = canonicalizeNewForwardingRuleServiceDirectoryRegistrationsSlice(c, rawDesired.ServiceDirectoryRegistrations, rawNew.ServiceDirectoryRegistrations)
 	}
 
+	if dcl.IsNotReturnedByServer(rawNew.PscConnectionId) && dcl.IsNotReturnedByServer(rawDesired.PscConnectionId) {
+		if rawDesired.PscConnectionId != nil {
+			rawNew.PscConnectionId = rawDesired.PscConnectionId
+		}
+	} else {
+		if dcl.StringCanonicalize(rawDesired.PscConnectionId, rawNew.PscConnectionId) {
+			rawNew.PscConnectionId = rawDesired.PscConnectionId
+		}
+	}
+
+	if dcl.IsNotReturnedByServer(rawNew.PscConnectionStatus) && dcl.IsNotReturnedByServer(rawDesired.PscConnectionStatus) {
+		if rawDesired.PscConnectionStatus != nil {
+			rawNew.PscConnectionStatus = rawDesired.PscConnectionStatus
+		}
+	} else {
+	}
+
 	return rawNew, nil
 }
 
@@ -1554,6 +1571,20 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.PscConnectionId, actual.PscConnectionId, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PscConnectionId")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PscConnectionStatus, actual.PscConnectionStatus, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PscConnectionStatus")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	return newDiffs, nil
 }
 func compareForwardingRuleMetadataFilterNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1685,6 +1716,7 @@ func (r *ForwardingRule) urlNormalized() *ForwardingRule {
 	normalized.Target = dcl.SelfLinkToName(r.Target)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.PscConnectionId = dcl.SelfLinkToName(r.PscConnectionId)
 	return &normalized
 }
 
@@ -1896,6 +1928,8 @@ func flattenForwardingRule(c *Client, i interface{}, res *ForwardingRule) *Forwa
 	resultRes.Project = dcl.FlattenString(m["project"])
 	resultRes.Location = dcl.FlattenString(m["location"])
 	resultRes.ServiceDirectoryRegistrations = flattenForwardingRuleServiceDirectoryRegistrationsSlice(c, m["serviceDirectoryRegistrations"], res)
+	resultRes.PscConnectionId = dcl.FlattenString(m["pscConnectionId"])
+	resultRes.PscConnectionStatus = flattenForwardingRulePscConnectionStatusEnum(m["pscConnectionStatus"])
 
 	return resultRes
 }
@@ -2509,6 +2543,57 @@ func flattenForwardingRuleNetworkTierEnum(i interface{}) *ForwardingRuleNetworkT
 	}
 
 	return ForwardingRuleNetworkTierEnumRef(s)
+}
+
+// flattenForwardingRulePscConnectionStatusEnumMap flattens the contents of ForwardingRulePscConnectionStatusEnum from a JSON
+// response object.
+func flattenForwardingRulePscConnectionStatusEnumMap(c *Client, i interface{}, res *ForwardingRule) map[string]ForwardingRulePscConnectionStatusEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ForwardingRulePscConnectionStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ForwardingRulePscConnectionStatusEnum{}
+	}
+
+	items := make(map[string]ForwardingRulePscConnectionStatusEnum)
+	for k, item := range a {
+		items[k] = *flattenForwardingRulePscConnectionStatusEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenForwardingRulePscConnectionStatusEnumSlice flattens the contents of ForwardingRulePscConnectionStatusEnum from a JSON
+// response object.
+func flattenForwardingRulePscConnectionStatusEnumSlice(c *Client, i interface{}, res *ForwardingRule) []ForwardingRulePscConnectionStatusEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ForwardingRulePscConnectionStatusEnum{}
+	}
+
+	if len(a) == 0 {
+		return []ForwardingRulePscConnectionStatusEnum{}
+	}
+
+	items := make([]ForwardingRulePscConnectionStatusEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenForwardingRulePscConnectionStatusEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenForwardingRulePscConnectionStatusEnum asserts that an interface is a string, and returns a
+// pointer to a *ForwardingRulePscConnectionStatusEnum with the same value as that string.
+func flattenForwardingRulePscConnectionStatusEnum(i interface{}) *ForwardingRulePscConnectionStatusEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return ForwardingRulePscConnectionStatusEnumRef(s)
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource

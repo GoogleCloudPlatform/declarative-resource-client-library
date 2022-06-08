@@ -84,6 +84,18 @@ func ProtoToComputeForwardingRuleNetworkTierEnum(e computepb.ComputeForwardingRu
 	return nil
 }
 
+// ProtoToForwardingRulePscConnectionStatusEnum converts a ForwardingRulePscConnectionStatusEnum enum from its proto representation.
+func ProtoToComputeForwardingRulePscConnectionStatusEnum(e computepb.ComputeForwardingRulePscConnectionStatusEnum) *compute.ForwardingRulePscConnectionStatusEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := computepb.ComputeForwardingRulePscConnectionStatusEnum_name[int32(e)]; ok {
+		e := compute.ForwardingRulePscConnectionStatusEnum(n[len("ComputeForwardingRulePscConnectionStatusEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToForwardingRuleMetadataFilter converts a ForwardingRuleMetadataFilter object from its proto representation.
 func ProtoToComputeForwardingRuleMetadataFilter(p *computepb.ComputeForwardingRuleMetadataFilter) *compute.ForwardingRuleMetadataFilter {
 	if p == nil {
@@ -148,6 +160,8 @@ func ProtoToForwardingRule(p *computepb.ComputeForwardingRule) *compute.Forwardi
 		Target:               dcl.StringOrNil(p.GetTarget()),
 		Project:              dcl.StringOrNil(p.GetProject()),
 		Location:             dcl.StringOrNil(p.GetLocation()),
+		PscConnectionId:      dcl.StringOrNil(p.GetPscConnectionId()),
+		PscConnectionStatus:  ProtoToComputeForwardingRulePscConnectionStatusEnum(p.GetPscConnectionStatus()),
 	}
 	for _, r := range p.GetMetadataFilter() {
 		obj.MetadataFilter = append(obj.MetadataFilter, *ProtoToComputeForwardingRuleMetadataFilter(r))
@@ -216,6 +230,17 @@ func ComputeForwardingRuleNetworkTierEnumToProto(e *compute.ForwardingRuleNetwor
 	return computepb.ComputeForwardingRuleNetworkTierEnum(0)
 }
 
+// ForwardingRulePscConnectionStatusEnumToProto converts a ForwardingRulePscConnectionStatusEnum enum to its proto representation.
+func ComputeForwardingRulePscConnectionStatusEnumToProto(e *compute.ForwardingRulePscConnectionStatusEnum) computepb.ComputeForwardingRulePscConnectionStatusEnum {
+	if e == nil {
+		return computepb.ComputeForwardingRulePscConnectionStatusEnum(0)
+	}
+	if v, ok := computepb.ComputeForwardingRulePscConnectionStatusEnum_value["ForwardingRulePscConnectionStatusEnum"+string(*e)]; ok {
+		return computepb.ComputeForwardingRulePscConnectionStatusEnum(v)
+	}
+	return computepb.ComputeForwardingRulePscConnectionStatusEnum(0)
+}
+
 // ForwardingRuleMetadataFilterToProto converts a ForwardingRuleMetadataFilter object to its proto representation.
 func ComputeForwardingRuleMetadataFilterToProto(o *compute.ForwardingRuleMetadataFilter) *computepb.ComputeForwardingRuleMetadataFilter {
 	if o == nil {
@@ -279,6 +304,8 @@ func ForwardingRuleToProto(resource *compute.ForwardingRule) *computepb.ComputeF
 	p.SetTarget(dcl.ValueOrEmptyString(resource.Target))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetPscConnectionId(dcl.ValueOrEmptyString(resource.PscConnectionId))
+	p.SetPscConnectionStatus(ComputeForwardingRulePscConnectionStatusEnumToProto(resource.PscConnectionStatus))
 	mLabels := make(map[string]string, len(resource.Labels))
 	for k, r := range resource.Labels {
 		mLabels[k] = r

@@ -62,6 +62,15 @@ enum ComputeForwardingRuleNetworkTierEnum {
   ComputeForwardingRuleNetworkTierEnumSTANDARD = 2;
 }
 
+enum ComputeForwardingRulePscConnectionStatusEnum {
+  ComputeForwardingRulePscConnectionStatusEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeForwardingRulePscConnectionStatusEnumSTATUS_UNSPECIFIED = 1;
+  ComputeForwardingRulePscConnectionStatusEnumPENDING = 2;
+  ComputeForwardingRulePscConnectionStatusEnumACCEPTED = 3;
+  ComputeForwardingRulePscConnectionStatusEnumREJECTED = 4;
+  ComputeForwardingRulePscConnectionStatusEnumCLOSED = 5;
+}
+
 message ComputeForwardingRule {
   map<string, string> labels = 1;
   bool all_ports = 2;
@@ -90,6 +99,8 @@ message ComputeForwardingRule {
   string project = 25;
   string location = 26;
   repeated ComputeForwardingRuleServiceDirectoryRegistrations service_directory_registrations = 27;
+  string psc_connection_id = 28;
+  ComputeForwardingRulePscConnectionStatusEnum psc_connection_status = 29;
 }
 
 message ComputeForwardingRuleMetadataFilter {

@@ -52,6 +52,8 @@ type ForwardingRule struct {
 	Project                       *string                                       `json:"project"`
 	Location                      *string                                       `json:"location"`
 	ServiceDirectoryRegistrations []ForwardingRuleServiceDirectoryRegistrations `json:"serviceDirectoryRegistrations"`
+	PscConnectionId               *string                                       `json:"pscConnectionId"`
+	PscConnectionStatus           *ForwardingRulePscConnectionStatusEnum        `json:"pscConnectionStatus"`
 }
 
 func (r *ForwardingRule) String() string {
@@ -188,6 +190,33 @@ func (v ForwardingRuleNetworkTierEnum) Validate() error {
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "ForwardingRuleNetworkTierEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum ForwardingRulePscConnectionStatusEnum.
+type ForwardingRulePscConnectionStatusEnum string
+
+// ForwardingRulePscConnectionStatusEnumRef returns a *ForwardingRulePscConnectionStatusEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func ForwardingRulePscConnectionStatusEnumRef(s string) *ForwardingRulePscConnectionStatusEnum {
+	v := ForwardingRulePscConnectionStatusEnum(s)
+	return &v
+}
+
+func (v ForwardingRulePscConnectionStatusEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"STATUS_UNSPECIFIED", "PENDING", "ACCEPTED", "REJECTED", "CLOSED"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "ForwardingRulePscConnectionStatusEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -383,6 +412,8 @@ func (r *ForwardingRule) ID() (string, error) {
 		"project":                       dcl.ValueOrEmptyString(nr.Project),
 		"location":                      dcl.ValueOrEmptyString(nr.Location),
 		"serviceDirectoryRegistrations": dcl.ValueOrEmptyString(nr.ServiceDirectoryRegistrations),
+		"pscConnectionId":               dcl.ValueOrEmptyString(nr.PscConnectionId),
+		"pscConnectionStatus":           dcl.ValueOrEmptyString(nr.PscConnectionStatus),
 	}
 	return dcl.Nprintf("projects/{{project}}/global/forwardingRules/{{name}}", params), nil
 }

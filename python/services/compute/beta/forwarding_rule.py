@@ -48,6 +48,8 @@ class ForwardingRule(object):
         project: str = None,
         location: str = None,
         service_directory_registrations: list = None,
+        psc_connection_id: str = None,
+        psc_connection_status: str = None,
         service_account_file: str = "",
     ):
 
@@ -211,6 +213,10 @@ class ForwardingRule(object):
             ForwardingRuleServiceDirectoryRegistrationsArray.from_proto(
                 response.service_directory_registrations
             )
+        )
+        self.psc_connection_id = Primitive.from_proto(response.psc_connection_id)
+        self.psc_connection_status = ForwardingRulePscConnectionStatusEnum.from_proto(
+            response.psc_connection_status
         )
 
     def delete(self):
@@ -628,6 +634,28 @@ class ForwardingRuleNetworkTierEnum(object):
         return forwarding_rule_pb2.ComputeBetaForwardingRuleNetworkTierEnum.Name(
             resource
         )[len("ComputeBetaForwardingRuleNetworkTierEnum") :]
+
+
+class ForwardingRulePscConnectionStatusEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return (
+            forwarding_rule_pb2.ComputeBetaForwardingRulePscConnectionStatusEnum.Value(
+                "ComputeBetaForwardingRulePscConnectionStatusEnum%s" % resource
+            )
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return (
+            forwarding_rule_pb2.ComputeBetaForwardingRulePscConnectionStatusEnum.Name(
+                resource
+            )[len("ComputeBetaForwardingRulePscConnectionStatusEnum") :]
+        )
 
 
 class Primitive(object):

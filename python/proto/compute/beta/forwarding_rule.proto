@@ -62,6 +62,15 @@ enum ComputeBetaForwardingRuleNetworkTierEnum {
   ComputeBetaForwardingRuleNetworkTierEnumSTANDARD = 2;
 }
 
+enum ComputeBetaForwardingRulePscConnectionStatusEnum {
+  ComputeBetaForwardingRulePscConnectionStatusEnumNO_VALUE_DO_NOT_USE = 0;
+  ComputeBetaForwardingRulePscConnectionStatusEnumSTATUS_UNSPECIFIED = 1;
+  ComputeBetaForwardingRulePscConnectionStatusEnumPENDING = 2;
+  ComputeBetaForwardingRulePscConnectionStatusEnumACCEPTED = 3;
+  ComputeBetaForwardingRulePscConnectionStatusEnumREJECTED = 4;
+  ComputeBetaForwardingRulePscConnectionStatusEnumCLOSED = 5;
+}
+
 message ComputeBetaForwardingRule {
   map<string, string> labels = 1;
   bool all_ports = 2;
@@ -90,6 +99,8 @@ message ComputeBetaForwardingRule {
   string project = 25;
   string location = 26;
   repeated ComputeBetaForwardingRuleServiceDirectoryRegistrations service_directory_registrations = 27;
+  string psc_connection_id = 28;
+  ComputeBetaForwardingRulePscConnectionStatusEnum psc_connection_status = 29;
 }
 
 message ComputeBetaForwardingRuleMetadataFilter {
