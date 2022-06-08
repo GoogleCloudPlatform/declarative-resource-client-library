@@ -11,15 +11,15 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// Package run contains all of the utils for Cloud Run.
-package run
+// Package dataplex contains support code for the Dataplex service.
+package alpha
 
-// EncodeServiceCreateRequest properly encodes the create request for a Cloud Run Service.
-func EncodeServiceCreateRequest(m map[string]interface{}) map[string]interface{} {
-	// Create requests involving a master version have to be sent under the "initialMasterVersion" key.
-	if _, ok := m["name"]; ok {
-		delete(m, "name")
+// flattenZoneDiscoverySpecEnable flattens an instance of discovery spec from a JSON
+// response object.
+func flattenZoneDiscoverySpecEnable(c *Client, i interface{}, _ *Zone) *bool {
+	v, ok := i.(bool)
+	if !ok {
+		v = false
 	}
-
-	return m
+	return &v
 }

@@ -11,22 +11,15 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-// Package beta defines operations in the declarative SDK.
-package beta
+// Package dataplex contains support code for the Dataplex service.
+package dataplex
 
-import (
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
-)
-
-// The Client is the base struct of all operations.  This will receive the
-// Get, Delete, List, and Apply operations on all resources.
-type Client struct {
-	Config *dcl.Config
-}
-
-// NewClient creates a client that retries all operations a few times each.
-func NewClient(c *dcl.Config) *Client {
-	return &Client{
-		Config: c,
+// flattenZoneDiscoverySpecEnable flattens an instance of discovery spec from a JSON
+// response object.
+func flattenZoneDiscoverySpecEnable(c *Client, i interface{}, _ *Zone) *bool {
+	v, ok := i.(bool)
+	if !ok {
+		v = false
 	}
+	return &v
 }

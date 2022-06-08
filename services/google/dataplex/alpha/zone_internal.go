@@ -1959,7 +1959,7 @@ func flattenZoneDiscoverySpec(c *Client, i interface{}, res *Zone) *ZoneDiscover
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyZoneDiscoverySpec
 	}
-	r.Enabled = dcl.FlattenBool(m["enabled"])
+	r.Enabled = flattenZoneDiscoverySpecEnable(c, m["enabled"], res)
 	r.IncludePatterns = dcl.FlattenStringSlice(m["includePatterns"])
 	r.ExcludePatterns = dcl.FlattenStringSlice(m["excludePatterns"])
 	r.CsvOptions = flattenZoneDiscoverySpecCsvOptions(c, m["csvOptions"], res)

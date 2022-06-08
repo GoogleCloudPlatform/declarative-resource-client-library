@@ -1,5 +1,0 @@
-{
-  "name": "{{configcontroller_network}}",
-  "project": "{{project}}",
-  "autoCreateSubnetworks": true
-}
