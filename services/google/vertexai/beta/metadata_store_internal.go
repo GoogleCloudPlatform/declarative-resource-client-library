@@ -710,56 +710,56 @@ func diffMetadataStore(c *Client, desired, actual *MetadataStore, opts ...dcl.Ap
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EncryptionSpec, actual.EncryptionSpec, dcl.Info{ObjectFunction: compareMetadataStoreEncryptionSpecNewStyle, EmptyObject: EmptyMetadataStoreEncryptionSpec, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EncryptionSpec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EncryptionSpec, actual.EncryptionSpec, dcl.DiffInfo{ObjectFunction: compareMetadataStoreEncryptionSpecNewStyle, EmptyObject: EmptyMetadataStoreEncryptionSpec, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EncryptionSpec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, ObjectFunction: compareMetadataStoreStateNewStyle, EmptyObject: EmptyMetadataStoreState, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.DiffInfo{OutputOnly: true, ObjectFunction: compareMetadataStoreStateNewStyle, EmptyObject: EmptyMetadataStoreState, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -788,7 +788,7 @@ func compareMetadataStoreEncryptionSpecNewStyle(d, a interface{}, fn dcl.FieldNa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KmsKeyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KmsKeyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -817,7 +817,7 @@ func compareMetadataStoreStateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DiskUtilizationBytes, actual.DiskUtilizationBytes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskUtilizationBytes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskUtilizationBytes, actual.DiskUtilizationBytes, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskUtilizationBytes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

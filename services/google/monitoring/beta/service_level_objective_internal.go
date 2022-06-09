@@ -3999,84 +3999,84 @@ func diffServiceLevelObjective(c *Client, desired, actual *ServiceLevelObjective
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceLevelIndicator, actual.ServiceLevelIndicator, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicator, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("ServiceLevelIndicator")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceLevelIndicator, actual.ServiceLevelIndicator, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicator, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("ServiceLevelIndicator")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Goal, actual.Goal, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Goal")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Goal, actual.Goal, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Goal")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RollingPeriod, actual.RollingPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("RollingPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RollingPeriod, actual.RollingPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("RollingPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CalendarPeriod, actual.CalendarPeriod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("CalendarPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CalendarPeriod, actual.CalendarPeriod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("CalendarPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceManagementOwned, actual.ServiceManagementOwned, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceManagementOwned")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceManagementOwned, actual.ServiceManagementOwned, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceManagementOwned")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UserLabels, actual.UserLabels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("UserLabels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UserLabels, actual.UserLabels, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("UserLabels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4105,21 +4105,21 @@ func compareServiceLevelObjectiveServiceLevelIndicatorNewStyle(d, a interface{},
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.BasicSli, actual.BasicSli, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorBasicSliNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorBasicSli, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("BasicSli")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BasicSli, actual.BasicSli, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorBasicSliNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorBasicSli, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("BasicSli")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequestBased, actual.RequestBased, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorRequestBasedNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorRequestBased, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("RequestBased")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequestBased, actual.RequestBased, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorRequestBasedNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorRequestBased, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("RequestBased")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WindowsBased, actual.WindowsBased, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBased, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("WindowsBased")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WindowsBased, actual.WindowsBased, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBased, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("WindowsBased")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4148,49 +4148,49 @@ func compareServiceLevelObjectiveServiceLevelIndicatorBasicSliNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Method, actual.Method, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Method")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Method, actual.Method, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Method")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Availability, actual.Availability, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilityNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Availability")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Availability, actual.Availability, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilityNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Availability")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Latency, actual.Latency, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Latency")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Latency, actual.Latency, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Latency")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OperationAvailability, actual.OperationAvailability, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilityNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("OperationAvailability")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OperationAvailability, actual.OperationAvailability, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilityNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("OperationAvailability")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OperationLatency, actual.OperationLatency, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("OperationLatency")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OperationLatency, actual.OperationLatency, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("OperationLatency")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4225,14 +4225,14 @@ func compareServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Experience, actual.Experience, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Experience")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Experience, actual.Experience, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Experience")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4267,14 +4267,14 @@ func compareServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyNe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Experience, actual.Experience, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Experience")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Experience, actual.Experience, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Experience")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4303,14 +4303,14 @@ func compareServiceLevelObjectiveServiceLevelIndicatorRequestBasedNewStyle(d, a 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.GoodTotalRatio, actual.GoodTotalRatio, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("GoodTotalRatio")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GoodTotalRatio, actual.GoodTotalRatio, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("GoodTotalRatio")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DistributionCut, actual.DistributionCut, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("DistributionCut")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DistributionCut, actual.DistributionCut, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("DistributionCut")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4339,21 +4339,21 @@ func compareServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.GoodServiceFilter, actual.GoodServiceFilter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("GoodServiceFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GoodServiceFilter, actual.GoodServiceFilter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("GoodServiceFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BadServiceFilter, actual.BadServiceFilter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("BadServiceFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BadServiceFilter, actual.BadServiceFilter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("BadServiceFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TotalServiceFilter, actual.TotalServiceFilter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("TotalServiceFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TotalServiceFilter, actual.TotalServiceFilter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("TotalServiceFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4382,14 +4382,14 @@ func compareServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCu
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DistributionFilter, actual.DistributionFilter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("DistributionFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DistributionFilter, actual.DistributionFilter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("DistributionFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Range, actual.Range, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Range")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Range, actual.Range, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRangeNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Range")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4418,14 +4418,14 @@ func compareServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCu
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Min, actual.Min, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Min")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Min, actual.Min, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Min")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Max, actual.Max, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Max")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Max, actual.Max, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Max")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4454,35 +4454,35 @@ func compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedNewStyle(d, a 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.GoodBadMetricFilter, actual.GoodBadMetricFilter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("GoodBadMetricFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GoodBadMetricFilter, actual.GoodBadMetricFilter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("GoodBadMetricFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GoodTotalRatioThreshold, actual.GoodTotalRatioThreshold, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("GoodTotalRatioThreshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GoodTotalRatioThreshold, actual.GoodTotalRatioThreshold, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("GoodTotalRatioThreshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MetricMeanInRange, actual.MetricMeanInRange, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("MetricMeanInRange")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricMeanInRange, actual.MetricMeanInRange, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("MetricMeanInRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MetricSumInRange, actual.MetricSumInRange, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("MetricSumInRange")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricSumInRange, actual.MetricSumInRange, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("MetricSumInRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WindowPeriod, actual.WindowPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("WindowPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WindowPeriod, actual.WindowPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("WindowPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4511,21 +4511,21 @@ func compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Performance, actual.Performance, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Performance")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Performance, actual.Performance, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Performance")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BasicSliPerformance, actual.BasicSliPerformance, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("BasicSliPerformance")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BasicSliPerformance, actual.BasicSliPerformance, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("BasicSliPerformance")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4554,14 +4554,14 @@ func compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.GoodTotalRatio, actual.GoodTotalRatio, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("GoodTotalRatio")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GoodTotalRatio, actual.GoodTotalRatio, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatioNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("GoodTotalRatio")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DistributionCut, actual.DistributionCut, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("DistributionCut")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DistributionCut, actual.DistributionCut, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("DistributionCut")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4590,21 +4590,21 @@ func compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.GoodServiceFilter, actual.GoodServiceFilter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("GoodServiceFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GoodServiceFilter, actual.GoodServiceFilter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("GoodServiceFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BadServiceFilter, actual.BadServiceFilter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("BadServiceFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BadServiceFilter, actual.BadServiceFilter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("BadServiceFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TotalServiceFilter, actual.TotalServiceFilter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("TotalServiceFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TotalServiceFilter, actual.TotalServiceFilter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("TotalServiceFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4633,14 +4633,14 @@ func compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DistributionFilter, actual.DistributionFilter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("DistributionFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DistributionFilter, actual.DistributionFilter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("DistributionFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Range, actual.Range, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Range")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Range, actual.Range, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRangeNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Range")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4669,14 +4669,14 @@ func compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Min, actual.Min, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Min")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Min, actual.Min, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Min")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Max, actual.Max, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Max")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Max, actual.Max, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Max")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4705,49 +4705,49 @@ func compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Method, actual.Method, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Method")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Method, actual.Method, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Method")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Availability, actual.Availability, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilityNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Availability")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Availability, actual.Availability, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailabilityNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Availability")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Latency, actual.Latency, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Latency")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Latency, actual.Latency, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatencyNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Latency")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OperationAvailability, actual.OperationAvailability, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilityNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("OperationAvailability")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OperationAvailability, actual.OperationAvailability, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailabilityNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("OperationAvailability")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OperationLatency, actual.OperationLatency, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("OperationLatency")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OperationLatency, actual.OperationLatency, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatencyNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("OperationLatency")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4782,14 +4782,14 @@ func compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Experience, actual.Experience, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Experience")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Experience, actual.Experience, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Experience")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4824,14 +4824,14 @@ func compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatio
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Threshold, actual.Threshold, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Threshold")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Experience, actual.Experience, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Experience")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Experience, actual.Experience, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Experience")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4860,14 +4860,14 @@ func compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeries, actual.TimeSeries, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("TimeSeries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeries, actual.TimeSeries, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("TimeSeries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Range, actual.Range, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Range")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Range, actual.Range, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRangeNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Range")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4896,14 +4896,14 @@ func compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Min, actual.Min, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Min")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Min, actual.Min, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Min")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Max, actual.Max, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Max")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Max, actual.Max, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Max")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4932,14 +4932,14 @@ func compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRan
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeries, actual.TimeSeries, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("TimeSeries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeries, actual.TimeSeries, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("TimeSeries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Range, actual.Range, dcl.Info{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Range")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Range, actual.Range, dcl.DiffInfo{ObjectFunction: compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRangeNewStyle, EmptyObject: EmptyServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange, OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Range")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4968,14 +4968,14 @@ func compareServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRan
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Min, actual.Min, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Min")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Min, actual.Min, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Min")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Max, actual.Max, dcl.Info{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Max")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Max, actual.Max, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceLevelObjectiveUpdateServiceLevelObjectiveOperation")}, fn.AddNest("Max")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

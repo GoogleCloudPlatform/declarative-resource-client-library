@@ -447,35 +447,35 @@ func diffEndpointTrafficSplit(c *Client, desired, actual *EndpointTrafficSplit, 
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Endpoint, actual.Endpoint, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Endpoint")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Endpoint, actual.Endpoint, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Endpoint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TrafficSplit, actual.TrafficSplit, dcl.Info{ObjectFunction: compareEndpointTrafficSplitTrafficSplitNewStyle, EmptyObject: EmptyEndpointTrafficSplitTrafficSplit, OperationSelector: dcl.TriggersOperation("updateEndpointTrafficSplitUpdateEndpointTrafficSplitOperation")}, fn.AddNest("TrafficSplit")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TrafficSplit, actual.TrafficSplit, dcl.DiffInfo{ObjectFunction: compareEndpointTrafficSplitTrafficSplitNewStyle, EmptyObject: EmptyEndpointTrafficSplitTrafficSplit, OperationSelector: dcl.TriggersOperation("updateEndpointTrafficSplitUpdateEndpointTrafficSplitOperation")}, fn.AddNest("TrafficSplit")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -504,14 +504,14 @@ func compareEndpointTrafficSplitTrafficSplitNewStyle(d, a interface{}, fn dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DeployedModelId, actual.DeployedModelId, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeployedModelId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeployedModelId, actual.DeployedModelId, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeployedModelId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TrafficPercentage, actual.TrafficPercentage, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TrafficPercentage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TrafficPercentage, actual.TrafficPercentage, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TrafficPercentage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

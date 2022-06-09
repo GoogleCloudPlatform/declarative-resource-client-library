@@ -1271,84 +1271,84 @@ func diffDeliveryPipeline(c *Client, desired, actual *DeliveryPipeline, opts ...
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Annotations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Annotations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SerialPipeline, actual.SerialPipeline, dcl.Info{ObjectFunction: compareDeliveryPipelineSerialPipelineNewStyle, EmptyObject: EmptyDeliveryPipelineSerialPipeline, OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("SerialPipeline")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SerialPipeline, actual.SerialPipeline, dcl.DiffInfo{ObjectFunction: compareDeliveryPipelineSerialPipelineNewStyle, EmptyObject: EmptyDeliveryPipelineSerialPipeline, OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("SerialPipeline")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Condition, actual.Condition, dcl.Info{OutputOnly: true, ObjectFunction: compareDeliveryPipelineConditionNewStyle, EmptyObject: EmptyDeliveryPipelineCondition, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Condition")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Condition, actual.Condition, dcl.DiffInfo{OutputOnly: true, ObjectFunction: compareDeliveryPipelineConditionNewStyle, EmptyObject: EmptyDeliveryPipelineCondition, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Condition")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1377,7 +1377,7 @@ func compareDeliveryPipelineSerialPipelineNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Stages, actual.Stages, dcl.Info{ObjectFunction: compareDeliveryPipelineSerialPipelineStagesNewStyle, EmptyObject: EmptyDeliveryPipelineSerialPipelineStages, OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Stages")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Stages, actual.Stages, dcl.DiffInfo{ObjectFunction: compareDeliveryPipelineSerialPipelineStagesNewStyle, EmptyObject: EmptyDeliveryPipelineSerialPipelineStages, OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Stages")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1406,14 +1406,14 @@ func compareDeliveryPipelineSerialPipelineStagesNewStyle(d, a interface{}, fn dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TargetId, actual.TargetId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("TargetId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetId, actual.TargetId, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("TargetId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Profiles, actual.Profiles, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Profiles")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Profiles, actual.Profiles, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Profiles")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1442,14 +1442,14 @@ func compareDeliveryPipelineConditionNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PipelineReadyCondition, actual.PipelineReadyCondition, dcl.Info{ObjectFunction: compareDeliveryPipelineConditionPipelineReadyConditionNewStyle, EmptyObject: EmptyDeliveryPipelineConditionPipelineReadyCondition, OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("PipelineReadyCondition")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PipelineReadyCondition, actual.PipelineReadyCondition, dcl.DiffInfo{ObjectFunction: compareDeliveryPipelineConditionPipelineReadyConditionNewStyle, EmptyObject: EmptyDeliveryPipelineConditionPipelineReadyCondition, OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("PipelineReadyCondition")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetsPresentCondition, actual.TargetsPresentCondition, dcl.Info{ObjectFunction: compareDeliveryPipelineConditionTargetsPresentConditionNewStyle, EmptyObject: EmptyDeliveryPipelineConditionTargetsPresentCondition, OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("TargetsPresentCondition")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetsPresentCondition, actual.TargetsPresentCondition, dcl.DiffInfo{ObjectFunction: compareDeliveryPipelineConditionTargetsPresentConditionNewStyle, EmptyObject: EmptyDeliveryPipelineConditionTargetsPresentCondition, OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("TargetsPresentCondition")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1478,14 +1478,14 @@ func compareDeliveryPipelineConditionPipelineReadyConditionNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1514,21 +1514,21 @@ func compareDeliveryPipelineConditionTargetsPresentConditionNewStyle(d, a interf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MissingTargets, actual.MissingTargets, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("MissingTargets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MissingTargets, actual.MissingTargets, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("MissingTargets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

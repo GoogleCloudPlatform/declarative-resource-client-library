@@ -9226,91 +9226,91 @@ func diffJobTrigger(c *Client, desired, actual *JobTrigger, opts ...dcl.ApplyOpt
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InspectJob, actual.InspectJob, dcl.Info{ObjectFunction: compareJobTriggerInspectJobNewStyle, EmptyObject: EmptyJobTriggerInspectJob, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("InspectJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InspectJob, actual.InspectJob, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobNewStyle, EmptyObject: EmptyJobTriggerInspectJob, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("InspectJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Triggers, actual.Triggers, dcl.Info{ObjectFunction: compareJobTriggerTriggersNewStyle, EmptyObject: EmptyJobTriggerTriggers, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Triggers")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Triggers, actual.Triggers, dcl.DiffInfo{ObjectFunction: compareJobTriggerTriggersNewStyle, EmptyObject: EmptyJobTriggerTriggers, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Triggers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Errors, actual.Errors, dcl.Info{OutputOnly: true, ObjectFunction: compareJobTriggerErrorsNewStyle, EmptyObject: EmptyJobTriggerErrors, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Errors")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Errors, actual.Errors, dcl.DiffInfo{OutputOnly: true, ObjectFunction: compareJobTriggerErrorsNewStyle, EmptyObject: EmptyJobTriggerErrors, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Errors")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LastRunTime, actual.LastRunTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LastRunTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LastRunTime, actual.LastRunTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LastRunTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LocationId, actual.LocationId, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocationId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LocationId, actual.LocationId, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LocationId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Parent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Parent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9339,28 +9339,28 @@ func compareJobTriggerInspectJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.StorageConfig, actual.StorageConfig, dcl.Info{ObjectFunction: compareJobTriggerInspectJobStorageConfigNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfig, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("StorageConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StorageConfig, actual.StorageConfig, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobStorageConfigNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfig, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("StorageConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InspectConfig, actual.InspectConfig, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfig, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("InspectConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InspectConfig, actual.InspectConfig, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfig, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("InspectConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InspectTemplateName, actual.InspectTemplateName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("InspectTemplateName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InspectTemplateName, actual.InspectTemplateName, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("InspectTemplateName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Actions, actual.Actions, dcl.Info{ObjectFunction: compareJobTriggerInspectJobActionsNewStyle, EmptyObject: EmptyJobTriggerInspectJobActions, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Actions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Actions, actual.Actions, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobActionsNewStyle, EmptyObject: EmptyJobTriggerInspectJobActions, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Actions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9389,35 +9389,35 @@ func compareJobTriggerInspectJobStorageConfigNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DatastoreOptions, actual.DatastoreOptions, dcl.Info{ObjectFunction: compareJobTriggerInspectJobStorageConfigDatastoreOptionsNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigDatastoreOptions, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("DatastoreOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DatastoreOptions, actual.DatastoreOptions, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobStorageConfigDatastoreOptionsNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigDatastoreOptions, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("DatastoreOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CloudStorageOptions, actual.CloudStorageOptions, dcl.Info{ObjectFunction: compareJobTriggerInspectJobStorageConfigCloudStorageOptionsNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigCloudStorageOptions, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("CloudStorageOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CloudStorageOptions, actual.CloudStorageOptions, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobStorageConfigCloudStorageOptionsNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigCloudStorageOptions, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("CloudStorageOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BigQueryOptions, actual.BigQueryOptions, dcl.Info{ObjectFunction: compareJobTriggerInspectJobStorageConfigBigQueryOptionsNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigBigQueryOptions, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("BigQueryOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BigQueryOptions, actual.BigQueryOptions, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobStorageConfigBigQueryOptionsNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigBigQueryOptions, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("BigQueryOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HybridOptions, actual.HybridOptions, dcl.Info{ObjectFunction: compareJobTriggerInspectJobStorageConfigHybridOptionsNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigHybridOptions, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("HybridOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HybridOptions, actual.HybridOptions, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobStorageConfigHybridOptionsNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigHybridOptions, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("HybridOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimespanConfig, actual.TimespanConfig, dcl.Info{ObjectFunction: compareJobTriggerInspectJobStorageConfigTimespanConfigNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigTimespanConfig, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("TimespanConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimespanConfig, actual.TimespanConfig, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobStorageConfigTimespanConfigNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigTimespanConfig, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("TimespanConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9446,14 +9446,14 @@ func compareJobTriggerInspectJobStorageConfigDatastoreOptionsNewStyle(d, a inter
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PartitionId, actual.PartitionId, dcl.Info{ObjectFunction: compareJobTriggerInspectJobStorageConfigDatastoreOptionsPartitionIdNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigDatastoreOptionsPartitionId, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("PartitionId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PartitionId, actual.PartitionId, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobStorageConfigDatastoreOptionsPartitionIdNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigDatastoreOptionsPartitionId, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("PartitionId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.Info{ObjectFunction: compareJobTriggerInspectJobStorageConfigDatastoreOptionsKindNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigDatastoreOptionsKind, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Kind, actual.Kind, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobStorageConfigDatastoreOptionsKindNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigDatastoreOptionsKind, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Kind")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9482,14 +9482,14 @@ func compareJobTriggerInspectJobStorageConfigDatastoreOptionsPartitionIdNewStyle
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NamespaceId, actual.NamespaceId, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("NamespaceId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NamespaceId, actual.NamespaceId, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("NamespaceId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9518,7 +9518,7 @@ func compareJobTriggerInspectJobStorageConfigDatastoreOptionsKindNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9547,42 +9547,42 @@ func compareJobTriggerInspectJobStorageConfigCloudStorageOptionsNewStyle(d, a in
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.FileSet, actual.FileSet, dcl.Info{ObjectFunction: compareJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSet, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("FileSet")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FileSet, actual.FileSet, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSet, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("FileSet")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BytesLimitPerFile, actual.BytesLimitPerFile, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("BytesLimitPerFile")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BytesLimitPerFile, actual.BytesLimitPerFile, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("BytesLimitPerFile")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BytesLimitPerFilePercent, actual.BytesLimitPerFilePercent, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("BytesLimitPerFilePercent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BytesLimitPerFilePercent, actual.BytesLimitPerFilePercent, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("BytesLimitPerFilePercent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FileTypes, actual.FileTypes, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("FileTypes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FileTypes, actual.FileTypes, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("FileTypes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SampleMethod, actual.SampleMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("SampleMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SampleMethod, actual.SampleMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("SampleMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FilesLimitPercent, actual.FilesLimitPercent, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("FilesLimitPercent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FilesLimitPercent, actual.FilesLimitPercent, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("FilesLimitPercent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9611,14 +9611,14 @@ func compareJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetNewStyle(
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Url, actual.Url, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Url")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RegexFileSet, actual.RegexFileSet, dcl.Info{ObjectFunction: compareJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRegexFileSetNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRegexFileSet, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("RegexFileSet")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RegexFileSet, actual.RegexFileSet, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRegexFileSetNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRegexFileSet, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("RegexFileSet")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9647,21 +9647,21 @@ func compareJobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRegexFile
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.BucketName, actual.BucketName, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("BucketName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BucketName, actual.BucketName, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("BucketName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IncludeRegex, actual.IncludeRegex, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("IncludeRegex")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IncludeRegex, actual.IncludeRegex, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("IncludeRegex")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExcludeRegex, actual.ExcludeRegex, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("ExcludeRegex")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExcludeRegex, actual.ExcludeRegex, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("ExcludeRegex")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9690,49 +9690,49 @@ func compareJobTriggerInspectJobStorageConfigBigQueryOptionsNewStyle(d, a interf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TableReference, actual.TableReference, dcl.Info{ObjectFunction: compareJobTriggerInspectJobStorageConfigBigQueryOptionsTableReferenceNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigBigQueryOptionsTableReference, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("TableReference")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TableReference, actual.TableReference, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobStorageConfigBigQueryOptionsTableReferenceNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigBigQueryOptionsTableReference, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("TableReference")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IdentifyingFields, actual.IdentifyingFields, dcl.Info{ObjectFunction: compareJobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFieldsNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFields, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("IdentifyingFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IdentifyingFields, actual.IdentifyingFields, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFieldsNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFields, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("IdentifyingFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RowsLimit, actual.RowsLimit, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("RowsLimit")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RowsLimit, actual.RowsLimit, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("RowsLimit")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RowsLimitPercent, actual.RowsLimitPercent, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("RowsLimitPercent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RowsLimitPercent, actual.RowsLimitPercent, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("RowsLimitPercent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SampleMethod, actual.SampleMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("SampleMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SampleMethod, actual.SampleMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("SampleMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExcludedFields, actual.ExcludedFields, dcl.Info{ObjectFunction: compareJobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFieldsNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFields, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("ExcludedFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExcludedFields, actual.ExcludedFields, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFieldsNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFields, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("ExcludedFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IncludedFields, actual.IncludedFields, dcl.Info{ObjectFunction: compareJobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFieldsNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFields, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("IncludedFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IncludedFields, actual.IncludedFields, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFieldsNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFields, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("IncludedFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9761,21 +9761,21 @@ func compareJobTriggerInspectJobStorageConfigBigQueryOptionsTableReferenceNewSty
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DatasetId, actual.DatasetId, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("DatasetId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DatasetId, actual.DatasetId, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("DatasetId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TableId, actual.TableId, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("TableId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TableId, actual.TableId, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("TableId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9804,7 +9804,7 @@ func compareJobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFieldsNew
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9833,7 +9833,7 @@ func compareJobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFieldsNewSty
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9862,7 +9862,7 @@ func compareJobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFieldsNewSty
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9891,28 +9891,28 @@ func compareJobTriggerInspectJobStorageConfigHybridOptionsNewStyle(d, a interfac
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RequiredFindingLabelKeys, actual.RequiredFindingLabelKeys, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("RequiredFindingLabelKeys")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RequiredFindingLabelKeys, actual.RequiredFindingLabelKeys, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("RequiredFindingLabelKeys")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TableOptions, actual.TableOptions, dcl.Info{ObjectFunction: compareJobTriggerInspectJobStorageConfigHybridOptionsTableOptionsNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigHybridOptionsTableOptions, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("TableOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TableOptions, actual.TableOptions, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobStorageConfigHybridOptionsTableOptionsNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigHybridOptionsTableOptions, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("TableOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9941,7 +9941,7 @@ func compareJobTriggerInspectJobStorageConfigHybridOptionsTableOptionsNewStyle(d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.IdentifyingFields, actual.IdentifyingFields, dcl.Info{ObjectFunction: compareJobTriggerInspectJobStorageConfigHybridOptionsTableOptionsIdentifyingFieldsNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigHybridOptionsTableOptionsIdentifyingFields, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("IdentifyingFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IdentifyingFields, actual.IdentifyingFields, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobStorageConfigHybridOptionsTableOptionsIdentifyingFieldsNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigHybridOptionsTableOptionsIdentifyingFields, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("IdentifyingFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9970,7 +9970,7 @@ func compareJobTriggerInspectJobStorageConfigHybridOptionsTableOptionsIdentifyin
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9999,28 +9999,28 @@ func compareJobTriggerInspectJobStorageConfigTimespanConfigNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.StartTime, actual.StartTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("StartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StartTime, actual.StartTime, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("StartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EndTime, actual.EndTime, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("EndTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EndTime, actual.EndTime, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("EndTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimestampField, actual.TimestampField, dcl.Info{ObjectFunction: compareJobTriggerInspectJobStorageConfigTimespanConfigTimestampFieldNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigTimespanConfigTimestampField, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("TimestampField")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimestampField, actual.TimestampField, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobStorageConfigTimespanConfigTimestampFieldNewStyle, EmptyObject: EmptyJobTriggerInspectJobStorageConfigTimespanConfigTimestampField, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("TimestampField")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnableAutoPopulationOfTimespanConfig, actual.EnableAutoPopulationOfTimespanConfig, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("EnableAutoPopulationOfTimespanConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnableAutoPopulationOfTimespanConfig, actual.EnableAutoPopulationOfTimespanConfig, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("EnableAutoPopulationOfTimespanConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10049,7 +10049,7 @@ func compareJobTriggerInspectJobStorageConfigTimespanConfigTimestampFieldNewStyl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10078,49 +10078,49 @@ func compareJobTriggerInspectJobInspectConfigNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.InfoTypes, actual.InfoTypes, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigInfoTypesNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigInfoTypes, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("InfoTypes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InfoTypes, actual.InfoTypes, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigInfoTypesNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigInfoTypes, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("InfoTypes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinLikelihood, actual.MinLikelihood, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("MinLikelihood")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinLikelihood, actual.MinLikelihood, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("MinLikelihood")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Limits, actual.Limits, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigLimitsNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigLimits, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Limits")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Limits, actual.Limits, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigLimitsNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigLimits, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Limits")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IncludeQuote, actual.IncludeQuote, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("IncludeQuote")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IncludeQuote, actual.IncludeQuote, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("IncludeQuote")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExcludeInfoTypes, actual.ExcludeInfoTypes, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("ExcludeInfoTypes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExcludeInfoTypes, actual.ExcludeInfoTypes, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("ExcludeInfoTypes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CustomInfoTypes, actual.CustomInfoTypes, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypes, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("CustomInfoTypes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CustomInfoTypes, actual.CustomInfoTypes, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypes, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("CustomInfoTypes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RuleSet, actual.RuleSet, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSet, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("RuleSet")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RuleSet, actual.RuleSet, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSet, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("RuleSet")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10149,7 +10149,7 @@ func compareJobTriggerInspectJobInspectConfigInfoTypesNewStyle(d, a interface{},
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10178,21 +10178,21 @@ func compareJobTriggerInspectJobInspectConfigLimitsNewStyle(d, a interface{}, fn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MaxFindingsPerItem, actual.MaxFindingsPerItem, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("MaxFindingsPerItem")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxFindingsPerItem, actual.MaxFindingsPerItem, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("MaxFindingsPerItem")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxFindingsPerRequest, actual.MaxFindingsPerRequest, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("MaxFindingsPerRequest")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxFindingsPerRequest, actual.MaxFindingsPerRequest, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("MaxFindingsPerRequest")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxFindingsPerInfoType, actual.MaxFindingsPerInfoType, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoType, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("MaxFindingsPerInfoType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxFindingsPerInfoType, actual.MaxFindingsPerInfoType, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoType, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("MaxFindingsPerInfoType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10221,14 +10221,14 @@ func compareJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeNewStyl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.InfoType, actual.InfoType, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeInfoType, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("InfoType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InfoType, actual.InfoType, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeInfoType, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("InfoType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxFindings, actual.MaxFindings, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("MaxFindings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxFindings, actual.MaxFindings, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("MaxFindings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10257,14 +10257,14 @@ func compareJobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeInfoTyp
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10293,56 +10293,56 @@ func compareJobTriggerInspectJobInspectConfigCustomInfoTypesNewStyle(d, a interf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.InfoType, actual.InfoType, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesInfoTypeNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesInfoType, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("InfoType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InfoType, actual.InfoType, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesInfoTypeNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesInfoType, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("InfoType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Likelihood, actual.Likelihood, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Likelihood")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Likelihood, actual.Likelihood, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Likelihood")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Dictionary, actual.Dictionary, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesDictionary, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Dictionary")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Dictionary, actual.Dictionary, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesDictionary, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Dictionary")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Regex, actual.Regex, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesRegexNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesRegex, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Regex")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Regex, actual.Regex, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesRegexNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesRegex, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Regex")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SurrogateType, actual.SurrogateType, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesSurrogateTypeNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesSurrogateType, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("SurrogateType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SurrogateType, actual.SurrogateType, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesSurrogateTypeNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesSurrogateType, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("SurrogateType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StoredType, actual.StoredType, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesStoredTypeNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesStoredType, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("StoredType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StoredType, actual.StoredType, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesStoredTypeNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesStoredType, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("StoredType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DetectionRules, actual.DetectionRules, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRules, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("DetectionRules")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DetectionRules, actual.DetectionRules, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRules, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("DetectionRules")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExclusionType, actual.ExclusionType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("ExclusionType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExclusionType, actual.ExclusionType, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("ExclusionType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10371,14 +10371,14 @@ func compareJobTriggerInspectJobInspectConfigCustomInfoTypesInfoTypeNewStyle(d, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10407,14 +10407,14 @@ func compareJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryNewStyle(d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.WordList, actual.WordList, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryWordListNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryWordList, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("WordList")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WordList, actual.WordList, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryWordListNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryWordList, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("WordList")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CloudStoragePath, actual.CloudStoragePath, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloudStoragePathNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloudStoragePath, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("CloudStoragePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CloudStoragePath, actual.CloudStoragePath, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloudStoragePathNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloudStoragePath, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("CloudStoragePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10443,7 +10443,7 @@ func compareJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryWordListNe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Words, actual.Words, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Words")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Words, actual.Words, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Words")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10472,7 +10472,7 @@ func compareJobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloudStora
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10501,14 +10501,14 @@ func compareJobTriggerInspectJobInspectConfigCustomInfoTypesRegexNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Pattern, actual.Pattern, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Pattern")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Pattern, actual.Pattern, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Pattern")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupIndexes, actual.GroupIndexes, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("GroupIndexes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupIndexes, actual.GroupIndexes, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("GroupIndexes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10543,14 +10543,14 @@ func compareJobTriggerInspectJobInspectConfigCustomInfoTypesStoredTypeNewStyle(d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10579,7 +10579,7 @@ func compareJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesNewSty
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.HotwordRule, actual.HotwordRule, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRule, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("HotwordRule")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HotwordRule, actual.HotwordRule, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRule, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("HotwordRule")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10608,21 +10608,21 @@ func compareJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwor
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.HotwordRegex, actual.HotwordRegex, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("HotwordRegex")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HotwordRegex, actual.HotwordRegex, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegexNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("HotwordRegex")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Proximity, actual.Proximity, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Proximity")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Proximity, actual.Proximity, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximityNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Proximity")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LikelihoodAdjustment, actual.LikelihoodAdjustment, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("LikelihoodAdjustment")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LikelihoodAdjustment, actual.LikelihoodAdjustment, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustmentNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("LikelihoodAdjustment")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10651,14 +10651,14 @@ func compareJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwor
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Pattern, actual.Pattern, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Pattern")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Pattern, actual.Pattern, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Pattern")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupIndexes, actual.GroupIndexes, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("GroupIndexes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupIndexes, actual.GroupIndexes, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("GroupIndexes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10687,14 +10687,14 @@ func compareJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwor
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.WindowBefore, actual.WindowBefore, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("WindowBefore")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WindowBefore, actual.WindowBefore, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("WindowBefore")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WindowAfter, actual.WindowAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("WindowAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WindowAfter, actual.WindowAfter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("WindowAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10723,14 +10723,14 @@ func compareJobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwor
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.FixedLikelihood, actual.FixedLikelihood, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("FixedLikelihood")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FixedLikelihood, actual.FixedLikelihood, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("FixedLikelihood")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeLikelihood, actual.RelativeLikelihood, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("RelativeLikelihood")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeLikelihood, actual.RelativeLikelihood, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("RelativeLikelihood")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10759,14 +10759,14 @@ func compareJobTriggerInspectJobInspectConfigRuleSetNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.InfoTypes, actual.InfoTypes, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetInfoTypesNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetInfoTypes, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("InfoTypes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InfoTypes, actual.InfoTypes, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetInfoTypesNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetInfoTypes, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("InfoTypes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Rules, actual.Rules, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRules, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Rules")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Rules, actual.Rules, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRules, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Rules")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10795,14 +10795,14 @@ func compareJobTriggerInspectJobInspectConfigRuleSetInfoTypesNewStyle(d, a inter
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10831,14 +10831,14 @@ func compareJobTriggerInspectJobInspectConfigRuleSetRulesNewStyle(d, a interface
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.HotwordRule, actual.HotwordRule, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRule, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("HotwordRule")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HotwordRule, actual.HotwordRule, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRule, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("HotwordRule")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExclusionRule, actual.ExclusionRule, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRule, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("ExclusionRule")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExclusionRule, actual.ExclusionRule, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRule, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("ExclusionRule")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10867,21 +10867,21 @@ func compareJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleNewStyle(d, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.HotwordRegex, actual.HotwordRegex, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotwordRegexNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotwordRegex, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("HotwordRegex")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HotwordRegex, actual.HotwordRegex, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotwordRegexNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotwordRegex, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("HotwordRegex")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Proximity, actual.Proximity, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProximityNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProximity, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Proximity")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Proximity, actual.Proximity, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProximityNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProximity, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Proximity")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LikelihoodAdjustment, actual.LikelihoodAdjustment, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("LikelihoodAdjustment")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LikelihoodAdjustment, actual.LikelihoodAdjustment, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("LikelihoodAdjustment")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10910,14 +10910,14 @@ func compareJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotwordRegex
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Pattern, actual.Pattern, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Pattern")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Pattern, actual.Pattern, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Pattern")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupIndexes, actual.GroupIndexes, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("GroupIndexes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupIndexes, actual.GroupIndexes, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("GroupIndexes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10946,14 +10946,14 @@ func compareJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProximityNew
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.WindowBefore, actual.WindowBefore, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("WindowBefore")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WindowBefore, actual.WindowBefore, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("WindowBefore")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WindowAfter, actual.WindowAfter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("WindowAfter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WindowAfter, actual.WindowAfter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("WindowAfter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10982,14 +10982,14 @@ func compareJobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleLikelihoodAd
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.FixedLikelihood, actual.FixedLikelihood, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("FixedLikelihood")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FixedLikelihood, actual.FixedLikelihood, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("FixedLikelihood")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RelativeLikelihood, actual.RelativeLikelihood, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("RelativeLikelihood")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RelativeLikelihood, actual.RelativeLikelihood, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("RelativeLikelihood")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11018,28 +11018,28 @@ func compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleNewStyle(d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Dictionary, actual.Dictionary, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionary, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Dictionary")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Dictionary, actual.Dictionary, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionary, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Dictionary")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Regex, actual.Regex, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegexNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegex, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Regex")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Regex, actual.Regex, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegexNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegex, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Regex")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExcludeInfoTypes, actual.ExcludeInfoTypes, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("ExcludeInfoTypes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExcludeInfoTypes, actual.ExcludeInfoTypes, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("ExcludeInfoTypes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MatchingType, actual.MatchingType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("MatchingType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MatchingType, actual.MatchingType, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("MatchingType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11068,14 +11068,14 @@ func compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionary
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.WordList, actual.WordList, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryWordListNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryWordList, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("WordList")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WordList, actual.WordList, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryWordListNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryWordList, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("WordList")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CloudStoragePath, actual.CloudStoragePath, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePathNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("CloudStoragePath")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CloudStoragePath, actual.CloudStoragePath, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePathNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("CloudStoragePath")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11104,7 +11104,7 @@ func compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionary
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Words, actual.Words, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Words")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Words, actual.Words, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Words")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11133,7 +11133,7 @@ func compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionary
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Path, actual.Path, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Path")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11162,14 +11162,14 @@ func compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegexNewSt
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Pattern, actual.Pattern, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Pattern")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Pattern, actual.Pattern, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Pattern")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupIndexes, actual.GroupIndexes, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("GroupIndexes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupIndexes, actual.GroupIndexes, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("GroupIndexes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11198,7 +11198,7 @@ func compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.InfoTypes, actual.InfoTypes, dcl.Info{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("InfoTypes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InfoTypes, actual.InfoTypes, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypesNewStyle, EmptyObject: EmptyJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("InfoTypes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11227,14 +11227,14 @@ func compareJobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11263,42 +11263,42 @@ func compareJobTriggerInspectJobActionsNewStyle(d, a interface{}, fn dcl.FieldNa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SaveFindings, actual.SaveFindings, dcl.Info{ObjectFunction: compareJobTriggerInspectJobActionsSaveFindingsNewStyle, EmptyObject: EmptyJobTriggerInspectJobActionsSaveFindings, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("SaveFindings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SaveFindings, actual.SaveFindings, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobActionsSaveFindingsNewStyle, EmptyObject: EmptyJobTriggerInspectJobActionsSaveFindings, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("SaveFindings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PubSub, actual.PubSub, dcl.Info{ObjectFunction: compareJobTriggerInspectJobActionsPubSubNewStyle, EmptyObject: EmptyJobTriggerInspectJobActionsPubSub, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("PubSub")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PubSub, actual.PubSub, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobActionsPubSubNewStyle, EmptyObject: EmptyJobTriggerInspectJobActionsPubSub, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("PubSub")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublishSummaryToCscc, actual.PublishSummaryToCscc, dcl.Info{ObjectFunction: compareJobTriggerInspectJobActionsPublishSummaryToCsccNewStyle, EmptyObject: EmptyJobTriggerInspectJobActionsPublishSummaryToCscc, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("PublishSummaryToCscc")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublishSummaryToCscc, actual.PublishSummaryToCscc, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobActionsPublishSummaryToCsccNewStyle, EmptyObject: EmptyJobTriggerInspectJobActionsPublishSummaryToCscc, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("PublishSummaryToCscc")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublishFindingsToCloudDataCatalog, actual.PublishFindingsToCloudDataCatalog, dcl.Info{ObjectFunction: compareJobTriggerInspectJobActionsPublishFindingsToCloudDataCatalogNewStyle, EmptyObject: EmptyJobTriggerInspectJobActionsPublishFindingsToCloudDataCatalog, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("PublishFindingsToCloudDataCatalog")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublishFindingsToCloudDataCatalog, actual.PublishFindingsToCloudDataCatalog, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobActionsPublishFindingsToCloudDataCatalogNewStyle, EmptyObject: EmptyJobTriggerInspectJobActionsPublishFindingsToCloudDataCatalog, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("PublishFindingsToCloudDataCatalog")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.JobNotificationEmails, actual.JobNotificationEmails, dcl.Info{ObjectFunction: compareJobTriggerInspectJobActionsJobNotificationEmailsNewStyle, EmptyObject: EmptyJobTriggerInspectJobActionsJobNotificationEmails, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("JobNotificationEmails")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.JobNotificationEmails, actual.JobNotificationEmails, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobActionsJobNotificationEmailsNewStyle, EmptyObject: EmptyJobTriggerInspectJobActionsJobNotificationEmails, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("JobNotificationEmails")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PublishToStackdriver, actual.PublishToStackdriver, dcl.Info{ObjectFunction: compareJobTriggerInspectJobActionsPublishToStackdriverNewStyle, EmptyObject: EmptyJobTriggerInspectJobActionsPublishToStackdriver, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("PublishToStackdriver")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PublishToStackdriver, actual.PublishToStackdriver, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobActionsPublishToStackdriverNewStyle, EmptyObject: EmptyJobTriggerInspectJobActionsPublishToStackdriver, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("PublishToStackdriver")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11327,7 +11327,7 @@ func compareJobTriggerInspectJobActionsSaveFindingsNewStyle(d, a interface{}, fn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.OutputConfig, actual.OutputConfig, dcl.Info{ObjectFunction: compareJobTriggerInspectJobActionsSaveFindingsOutputConfigNewStyle, EmptyObject: EmptyJobTriggerInspectJobActionsSaveFindingsOutputConfig, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("OutputConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OutputConfig, actual.OutputConfig, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobActionsSaveFindingsOutputConfigNewStyle, EmptyObject: EmptyJobTriggerInspectJobActionsSaveFindingsOutputConfig, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("OutputConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11356,21 +11356,21 @@ func compareJobTriggerInspectJobActionsSaveFindingsOutputConfigNewStyle(d, a int
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Table, actual.Table, dcl.Info{ObjectFunction: compareJobTriggerInspectJobActionsSaveFindingsOutputConfigTableNewStyle, EmptyObject: EmptyJobTriggerInspectJobActionsSaveFindingsOutputConfigTable, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Table")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Table, actual.Table, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobActionsSaveFindingsOutputConfigTableNewStyle, EmptyObject: EmptyJobTriggerInspectJobActionsSaveFindingsOutputConfigTable, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Table")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DlpStorage, actual.DlpStorage, dcl.Info{ObjectFunction: compareJobTriggerInspectJobActionsSaveFindingsOutputConfigDlpStorageNewStyle, EmptyObject: EmptyJobTriggerInspectJobActionsSaveFindingsOutputConfigDlpStorage, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("DlpStorage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DlpStorage, actual.DlpStorage, dcl.DiffInfo{ObjectFunction: compareJobTriggerInspectJobActionsSaveFindingsOutputConfigDlpStorageNewStyle, EmptyObject: EmptyJobTriggerInspectJobActionsSaveFindingsOutputConfigDlpStorage, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("DlpStorage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OutputSchema, actual.OutputSchema, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("OutputSchema")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OutputSchema, actual.OutputSchema, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("OutputSchema")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11399,21 +11399,21 @@ func compareJobTriggerInspectJobActionsSaveFindingsOutputConfigTableNewStyle(d, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DatasetId, actual.DatasetId, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("DatasetId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DatasetId, actual.DatasetId, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("DatasetId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TableId, actual.TableId, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("TableId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TableId, actual.TableId, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("TableId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11448,7 +11448,7 @@ func compareJobTriggerInspectJobActionsPubSubNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Topic, actual.Topic, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Topic")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Topic, actual.Topic, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Topic")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11501,14 +11501,14 @@ func compareJobTriggerTriggersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Schedule, actual.Schedule, dcl.Info{ObjectFunction: compareJobTriggerTriggersScheduleNewStyle, EmptyObject: EmptyJobTriggerTriggersSchedule, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Schedule")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Schedule, actual.Schedule, dcl.DiffInfo{ObjectFunction: compareJobTriggerTriggersScheduleNewStyle, EmptyObject: EmptyJobTriggerTriggersSchedule, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Schedule")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Manual, actual.Manual, dcl.Info{ObjectFunction: compareJobTriggerTriggersManualNewStyle, EmptyObject: EmptyJobTriggerTriggersManual, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Manual")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Manual, actual.Manual, dcl.DiffInfo{ObjectFunction: compareJobTriggerTriggersManualNewStyle, EmptyObject: EmptyJobTriggerTriggersManual, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Manual")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11537,7 +11537,7 @@ func compareJobTriggerTriggersScheduleNewStyle(d, a interface{}, fn dcl.FieldNam
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RecurrencePeriodDuration, actual.RecurrencePeriodDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("RecurrencePeriodDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RecurrencePeriodDuration, actual.RecurrencePeriodDuration, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("RecurrencePeriodDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11572,14 +11572,14 @@ func compareJobTriggerErrorsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareJobTriggerErrorsDetailsNewStyle, EmptyObject: EmptyJobTriggerErrorsDetails, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.DiffInfo{ObjectFunction: compareJobTriggerErrorsDetailsNewStyle, EmptyObject: EmptyJobTriggerErrorsDetails, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Timestamps, actual.Timestamps, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Timestamps")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Timestamps, actual.Timestamps, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Timestamps")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11608,21 +11608,21 @@ func compareJobTriggerErrorsDetailsNewStyle(d, a interface{}, fn dcl.FieldName) 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.Info{ObjectFunction: compareJobTriggerErrorsDetailsDetailsNewStyle, EmptyObject: EmptyJobTriggerErrorsDetailsDetails, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Details, actual.Details, dcl.DiffInfo{ObjectFunction: compareJobTriggerErrorsDetailsDetailsNewStyle, EmptyObject: EmptyJobTriggerErrorsDetailsDetails, OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Details")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -11651,14 +11651,14 @@ func compareJobTriggerErrorsDetailsDetailsNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeUrl, actual.TypeUrl, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("TypeUrl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

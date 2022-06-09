@@ -1578,91 +1578,91 @@ func diffEndpoint(c *Client, desired, actual *Endpoint, opts ...dcl.ApplyOption)
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateEndpointUpdateEndpointOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateEndpointUpdateEndpointOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateEndpointUpdateEndpointOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateEndpointUpdateEndpointOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DeployedModels, actual.DeployedModels, dcl.Info{OutputOnly: true, ObjectFunction: compareEndpointDeployedModelsNewStyle, EmptyObject: EmptyEndpointDeployedModels, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeployedModels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeployedModels, actual.DeployedModels, dcl.DiffInfo{OutputOnly: true, ObjectFunction: compareEndpointDeployedModelsNewStyle, EmptyObject: EmptyEndpointDeployedModels, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeployedModels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateEndpointUpdateEndpointOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateEndpointUpdateEndpointOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EncryptionSpec, actual.EncryptionSpec, dcl.Info{ObjectFunction: compareEndpointEncryptionSpecNewStyle, EmptyObject: EmptyEndpointEncryptionSpec, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EncryptionSpec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EncryptionSpec, actual.EncryptionSpec, dcl.DiffInfo{ObjectFunction: compareEndpointEncryptionSpecNewStyle, EmptyObject: EmptyEndpointEncryptionSpec, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EncryptionSpec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ModelDeploymentMonitoringJob, actual.ModelDeploymentMonitoringJob, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ModelDeploymentMonitoringJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ModelDeploymentMonitoringJob, actual.ModelDeploymentMonitoringJob, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ModelDeploymentMonitoringJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1691,77 +1691,77 @@ func compareEndpointDeployedModelsNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DedicatedResources, actual.DedicatedResources, dcl.Info{ObjectFunction: compareEndpointDeployedModelsDedicatedResourcesNewStyle, EmptyObject: EmptyEndpointDeployedModelsDedicatedResources, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DedicatedResources")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DedicatedResources, actual.DedicatedResources, dcl.DiffInfo{ObjectFunction: compareEndpointDeployedModelsDedicatedResourcesNewStyle, EmptyObject: EmptyEndpointDeployedModelsDedicatedResources, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DedicatedResources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AutomaticResources, actual.AutomaticResources, dcl.Info{ObjectFunction: compareEndpointDeployedModelsAutomaticResourcesNewStyle, EmptyObject: EmptyEndpointDeployedModelsAutomaticResources, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutomaticResources")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutomaticResources, actual.AutomaticResources, dcl.DiffInfo{ObjectFunction: compareEndpointDeployedModelsAutomaticResourcesNewStyle, EmptyObject: EmptyEndpointDeployedModelsAutomaticResources, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutomaticResources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Model, actual.Model, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Model")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Model, actual.Model, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Model")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ModelVersionId, actual.ModelVersionId, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ModelVersionId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ModelVersionId, actual.ModelVersionId, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ModelVersionId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisableContainerLogging, actual.DisableContainerLogging, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DisableContainerLogging")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisableContainerLogging, actual.DisableContainerLogging, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DisableContainerLogging")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnableAccessLogging, actual.EnableAccessLogging, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnableAccessLogging")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnableAccessLogging, actual.EnableAccessLogging, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnableAccessLogging")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PrivateEndpoints, actual.PrivateEndpoints, dcl.Info{OutputOnly: true, ObjectFunction: compareEndpointDeployedModelsPrivateEndpointsNewStyle, EmptyObject: EmptyEndpointDeployedModelsPrivateEndpoints, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrivateEndpoints")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PrivateEndpoints, actual.PrivateEndpoints, dcl.DiffInfo{OutputOnly: true, ObjectFunction: compareEndpointDeployedModelsPrivateEndpointsNewStyle, EmptyObject: EmptyEndpointDeployedModelsPrivateEndpoints, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrivateEndpoints")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1790,28 +1790,28 @@ func compareEndpointDeployedModelsDedicatedResourcesNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MachineSpec, actual.MachineSpec, dcl.Info{ObjectFunction: compareEndpointDeployedModelsDedicatedResourcesMachineSpecNewStyle, EmptyObject: EmptyEndpointDeployedModelsDedicatedResourcesMachineSpec, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineSpec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MachineSpec, actual.MachineSpec, dcl.DiffInfo{ObjectFunction: compareEndpointDeployedModelsDedicatedResourcesMachineSpecNewStyle, EmptyObject: EmptyEndpointDeployedModelsDedicatedResourcesMachineSpec, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineSpec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinReplicaCount, actual.MinReplicaCount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinReplicaCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinReplicaCount, actual.MinReplicaCount, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinReplicaCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxReplicaCount, actual.MaxReplicaCount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxReplicaCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxReplicaCount, actual.MaxReplicaCount, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxReplicaCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AutoscalingMetricSpecs, actual.AutoscalingMetricSpecs, dcl.Info{ObjectFunction: compareEndpointDeployedModelsDedicatedResourcesAutoscalingMetricSpecsNewStyle, EmptyObject: EmptyEndpointDeployedModelsDedicatedResourcesAutoscalingMetricSpecs, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutoscalingMetricSpecs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoscalingMetricSpecs, actual.AutoscalingMetricSpecs, dcl.DiffInfo{ObjectFunction: compareEndpointDeployedModelsDedicatedResourcesAutoscalingMetricSpecsNewStyle, EmptyObject: EmptyEndpointDeployedModelsDedicatedResourcesAutoscalingMetricSpecs, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutoscalingMetricSpecs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1840,21 +1840,21 @@ func compareEndpointDeployedModelsDedicatedResourcesMachineSpecNewStyle(d, a int
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AcceleratorCount, actual.AcceleratorCount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AcceleratorCount, actual.AcceleratorCount, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1883,14 +1883,14 @@ func compareEndpointDeployedModelsDedicatedResourcesAutoscalingMetricSpecsNewSty
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetricName, actual.MetricName, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Target")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Target")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1919,14 +1919,14 @@ func compareEndpointDeployedModelsAutomaticResourcesNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MinReplicaCount, actual.MinReplicaCount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinReplicaCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinReplicaCount, actual.MinReplicaCount, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinReplicaCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxReplicaCount, actual.MaxReplicaCount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxReplicaCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxReplicaCount, actual.MaxReplicaCount, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxReplicaCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1955,28 +1955,28 @@ func compareEndpointDeployedModelsPrivateEndpointsNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PredictHttpUri, actual.PredictHttpUri, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PredictHttpUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PredictHttpUri, actual.PredictHttpUri, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PredictHttpUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExplainHttpUri, actual.ExplainHttpUri, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExplainHttpUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExplainHttpUri, actual.ExplainHttpUri, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExplainHttpUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HealthHttpUri, actual.HealthHttpUri, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HealthHttpUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HealthHttpUri, actual.HealthHttpUri, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HealthHttpUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceAttachment, actual.ServiceAttachment, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceAttachment")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceAttachment, actual.ServiceAttachment, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceAttachment")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2005,7 +2005,7 @@ func compareEndpointEncryptionSpecNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KmsKeyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KmsKeyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

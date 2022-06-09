@@ -660,42 +660,42 @@ func diffModelDeployment(c *Client, desired, actual *ModelDeployment, opts ...dc
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Model, actual.Model, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Model")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Model, actual.Model, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Model")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DedicatedResources, actual.DedicatedResources, dcl.Info{ObjectFunction: compareModelDeploymentDedicatedResourcesNewStyle, EmptyObject: EmptyModelDeploymentDedicatedResources, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DedicatedResources")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DedicatedResources, actual.DedicatedResources, dcl.DiffInfo{ObjectFunction: compareModelDeploymentDedicatedResourcesNewStyle, EmptyObject: EmptyModelDeploymentDedicatedResources, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DedicatedResources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Endpoint, actual.Endpoint, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Endpoint")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Endpoint, actual.Endpoint, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Endpoint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -724,21 +724,21 @@ func compareModelDeploymentDedicatedResourcesNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MachineSpec, actual.MachineSpec, dcl.Info{ObjectFunction: compareModelDeploymentDedicatedResourcesMachineSpecNewStyle, EmptyObject: EmptyModelDeploymentDedicatedResourcesMachineSpec, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineSpec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MachineSpec, actual.MachineSpec, dcl.DiffInfo{ObjectFunction: compareModelDeploymentDedicatedResourcesMachineSpecNewStyle, EmptyObject: EmptyModelDeploymentDedicatedResourcesMachineSpec, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineSpec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinReplicaCount, actual.MinReplicaCount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinReplicaCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinReplicaCount, actual.MinReplicaCount, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinReplicaCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxReplicaCount, actual.MaxReplicaCount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxReplicaCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxReplicaCount, actual.MaxReplicaCount, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxReplicaCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -767,7 +767,7 @@ func compareModelDeploymentDedicatedResourcesMachineSpecNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -1528,105 +1528,105 @@ func diffPrivateCloud(c *Client, desired, actual *PrivateCloud, opts ...dcl.Appl
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeleteTime, actual.DeleteTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeleteTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExpireTime, actual.ExpireTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExpireTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExpireTime, actual.ExpireTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExpireTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.State, actual.State, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.DiffInfo{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NetworkConfig, actual.NetworkConfig, dcl.Info{ObjectFunction: comparePrivateCloudNetworkConfigNewStyle, EmptyObject: EmptyPrivateCloudNetworkConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkConfig, actual.NetworkConfig, dcl.DiffInfo{ObjectFunction: comparePrivateCloudNetworkConfigNewStyle, EmptyObject: EmptyPrivateCloudNetworkConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ManagementCluster, actual.ManagementCluster, dcl.Info{ObjectFunction: comparePrivateCloudManagementClusterNewStyle, EmptyObject: EmptyPrivateCloudManagementCluster, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ManagementCluster")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ManagementCluster, actual.ManagementCluster, dcl.DiffInfo{ObjectFunction: comparePrivateCloudManagementClusterNewStyle, EmptyObject: EmptyPrivateCloudManagementCluster, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ManagementCluster")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updatePrivateCloudUpdatePrivateCloudOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updatePrivateCloudUpdatePrivateCloudOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.Info{OutputOnly: true, ObjectFunction: comparePrivateCloudConditionsNewStyle, EmptyObject: EmptyPrivateCloudConditions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Conditions, actual.Conditions, dcl.DiffInfo{OutputOnly: true, ObjectFunction: comparePrivateCloudConditionsNewStyle, EmptyObject: EmptyPrivateCloudConditions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Conditions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Hcx, actual.Hcx, dcl.Info{OutputOnly: true, ObjectFunction: comparePrivateCloudHcxNewStyle, EmptyObject: EmptyPrivateCloudHcx, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Hcx")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Hcx, actual.Hcx, dcl.DiffInfo{OutputOnly: true, ObjectFunction: comparePrivateCloudHcxNewStyle, EmptyObject: EmptyPrivateCloudHcx, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Hcx")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Nsx, actual.Nsx, dcl.Info{OutputOnly: true, ObjectFunction: comparePrivateCloudNsxNewStyle, EmptyObject: EmptyPrivateCloudNsx, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Nsx")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Nsx, actual.Nsx, dcl.DiffInfo{OutputOnly: true, ObjectFunction: comparePrivateCloudNsxNewStyle, EmptyObject: EmptyPrivateCloudNsx, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Nsx")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Vcenter, actual.Vcenter, dcl.Info{OutputOnly: true, ObjectFunction: comparePrivateCloudVcenterNewStyle, EmptyObject: EmptyPrivateCloudVcenter, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Vcenter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Vcenter, actual.Vcenter, dcl.DiffInfo{OutputOnly: true, ObjectFunction: comparePrivateCloudVcenterNewStyle, EmptyObject: EmptyPrivateCloudVcenter, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Vcenter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1655,21 +1655,21 @@ func comparePrivateCloudNetworkConfigNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType", CustomDiff: canonicalizePrivateCloudNetwork, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.DiffInfo{Type: "ReferenceType", CustomDiff: canonicalizePrivateCloudNetwork, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceNetwork, actual.ServiceNetwork, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceNetwork")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceNetwork, actual.ServiceNetwork, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceNetwork")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ManagementCidr, actual.ManagementCidr, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ManagementCidr")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ManagementCidr, actual.ManagementCidr, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ManagementCidr")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1698,21 +1698,21 @@ func comparePrivateCloudManagementClusterNewStyle(d, a interface{}, fn dcl.Field
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterId, actual.ClusterId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterId, actual.ClusterId, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodeTypeId, actual.NodeTypeId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeTypeId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeTypeId, actual.NodeTypeId, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeTypeId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodeCount, actual.NodeCount, dcl.Info{OperationSelector: dcl.TriggersOperation("updatePrivateCloudUpdateClusterOperation")}, fn.AddNest("NodeCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeCount, actual.NodeCount, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updatePrivateCloudUpdateClusterOperation")}, fn.AddNest("NodeCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1741,14 +1741,14 @@ func comparePrivateCloudConditionsNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Code, actual.Code, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Code")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Message, actual.Message, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Message")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1777,28 +1777,28 @@ func comparePrivateCloudHcxNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Fdqn, actual.Fdqn, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fdqn")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Fdqn, actual.Fdqn, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fdqn")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InternalIP, actual.InternalIP, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InternalIp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InternalIP, actual.InternalIP, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InternalIp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExternalIP, actual.ExternalIP, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExternalIp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExternalIP, actual.ExternalIP, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExternalIp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1827,28 +1827,28 @@ func comparePrivateCloudNsxNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Fdqn, actual.Fdqn, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fdqn")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Fdqn, actual.Fdqn, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fdqn")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InternalIP, actual.InternalIP, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InternalIp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InternalIP, actual.InternalIP, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InternalIp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExternalIP, actual.ExternalIP, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExternalIp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExternalIP, actual.ExternalIP, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExternalIp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1877,28 +1877,28 @@ func comparePrivateCloudVcenterNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Fdqn, actual.Fdqn, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fdqn")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Fdqn, actual.Fdqn, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fdqn")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InternalIP, actual.InternalIP, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InternalIp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InternalIP, actual.InternalIP, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InternalIp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExternalIP, actual.ExternalIP, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExternalIp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExternalIP, actual.ExternalIP, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExternalIp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

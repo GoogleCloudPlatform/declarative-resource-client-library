@@ -1299,112 +1299,112 @@ func diffDataset(c *Client, desired, actual *Dataset, opts ...dcl.ApplyOption) (
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FriendlyName, actual.FriendlyName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDatasetPatchDatasetOperation")}, fn.AddNest("FriendlyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FriendlyName, actual.FriendlyName, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDatasetPatchDatasetOperation")}, fn.AddNest("FriendlyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDatasetPatchDatasetOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDatasetPatchDatasetOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DefaultTableExpirationMs, actual.DefaultTableExpirationMs, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDatasetPatchDatasetOperation")}, fn.AddNest("DefaultTableExpirationMs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DefaultTableExpirationMs, actual.DefaultTableExpirationMs, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDatasetPatchDatasetOperation")}, fn.AddNest("DefaultTableExpirationMs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DefaultPartitionExpirationMs, actual.DefaultPartitionExpirationMs, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDatasetPatchDatasetOperation")}, fn.AddNest("DefaultPartitionExpirationMs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DefaultPartitionExpirationMs, actual.DefaultPartitionExpirationMs, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDatasetPatchDatasetOperation")}, fn.AddNest("DefaultPartitionExpirationMs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDatasetPatchDatasetOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDatasetPatchDatasetOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Access, actual.Access, dcl.Info{Type: "Set", ObjectFunction: compareDatasetAccessNewStyle, EmptyObject: EmptyDatasetAccess, OperationSelector: dcl.TriggersOperation("updateDatasetPatchDatasetOperation")}, fn.AddNest("Access")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Access, actual.Access, dcl.DiffInfo{Type: "Set", ObjectFunction: compareDatasetAccessNewStyle, EmptyObject: EmptyDatasetAccess, OperationSelector: dcl.TriggersOperation("updateDatasetPatchDatasetOperation")}, fn.AddNest("Access")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreationTime, actual.CreationTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTime, actual.CreationTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LastModifiedTime, actual.LastModifiedTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LastModifiedTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LastModifiedTime, actual.LastModifiedTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LastModifiedTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Published, actual.Published, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Published")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Published, actual.Published, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Published")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DefaultEncryptionConfiguration, actual.DefaultEncryptionConfiguration, dcl.Info{ObjectFunction: compareDatasetDefaultEncryptionConfigurationNewStyle, EmptyObject: EmptyDatasetDefaultEncryptionConfiguration, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultEncryptionConfiguration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DefaultEncryptionConfiguration, actual.DefaultEncryptionConfiguration, dcl.DiffInfo{ObjectFunction: compareDatasetDefaultEncryptionConfigurationNewStyle, EmptyObject: EmptyDatasetDefaultEncryptionConfiguration, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DefaultEncryptionConfiguration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1433,56 +1433,56 @@ func compareDatasetAccessNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Role, actual.Role, dcl.Info{CustomDiff: canonicalizeDatasetAccessRole, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Role")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Role, actual.Role, dcl.DiffInfo{CustomDiff: canonicalizeDatasetAccessRole, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Role")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UserByEmail, actual.UserByEmail, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UserByEmail")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UserByEmail, actual.UserByEmail, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UserByEmail")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByEmail, actual.GroupByEmail, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GroupByEmail")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByEmail, actual.GroupByEmail, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GroupByEmail")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Domain, actual.Domain, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Domain")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Domain, actual.Domain, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Domain")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SpecialGroup, actual.SpecialGroup, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SpecialGroup")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SpecialGroup, actual.SpecialGroup, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SpecialGroup")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamMember, actual.IamMember, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamMember")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamMember, actual.IamMember, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamMember")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.View, actual.View, dcl.Info{ObjectFunction: compareDatasetAccessViewNewStyle, EmptyObject: EmptyDatasetAccessView, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("View")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.View, actual.View, dcl.DiffInfo{ObjectFunction: compareDatasetAccessViewNewStyle, EmptyObject: EmptyDatasetAccessView, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("View")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Routine, actual.Routine, dcl.Info{ObjectFunction: compareDatasetAccessRoutineNewStyle, EmptyObject: EmptyDatasetAccessRoutine, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Routine")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Routine, actual.Routine, dcl.DiffInfo{ObjectFunction: compareDatasetAccessRoutineNewStyle, EmptyObject: EmptyDatasetAccessRoutine, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Routine")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1511,21 +1511,21 @@ func compareDatasetAccessViewNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DatasetId, actual.DatasetId, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DatasetId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DatasetId, actual.DatasetId, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DatasetId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TableId, actual.TableId, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TableId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TableId, actual.TableId, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TableId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1554,21 +1554,21 @@ func compareDatasetAccessRoutineNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ProjectId, actual.ProjectId, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ProjectId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DatasetId, actual.DatasetId, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DatasetId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DatasetId, actual.DatasetId, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DatasetId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RoutineId, actual.RoutineId, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RoutineId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RoutineId, actual.RoutineId, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RoutineId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1597,7 +1597,7 @@ func compareDatasetDefaultEncryptionConfigurationNewStyle(d, a interface{}, fn d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KmsKeyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KmsKeyName, actual.KmsKeyName, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KmsKeyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

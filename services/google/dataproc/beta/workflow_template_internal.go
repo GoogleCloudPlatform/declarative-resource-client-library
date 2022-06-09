@@ -7981,77 +7981,77 @@ func diffWorkflowTemplate(c *Client, desired, actual *WorkflowTemplate, opts ...
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Placement, actual.Placement, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementNewStyle, EmptyObject: EmptyWorkflowTemplatePlacement, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Placement")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Placement, actual.Placement, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementNewStyle, EmptyObject: EmptyWorkflowTemplatePlacement, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Placement")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Jobs, actual.Jobs, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsNewStyle, EmptyObject: EmptyWorkflowTemplateJobs, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Jobs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Jobs, actual.Jobs, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsNewStyle, EmptyObject: EmptyWorkflowTemplateJobs, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Jobs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Parameters, actual.Parameters, dcl.Info{ObjectFunction: compareWorkflowTemplateParametersNewStyle, EmptyObject: EmptyWorkflowTemplateParameters, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Parameters")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Parameters, actual.Parameters, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateParametersNewStyle, EmptyObject: EmptyWorkflowTemplateParameters, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Parameters")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DagTimeout, actual.DagTimeout, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DagTimeout")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DagTimeout, actual.DagTimeout, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DagTimeout")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8080,14 +8080,14 @@ func compareWorkflowTemplatePlacementNewStyle(d, a interface{}, fn dcl.FieldName
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ManagedCluster, actual.ManagedCluster, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedCluster, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ManagedCluster")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ManagedCluster, actual.ManagedCluster, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedCluster, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ManagedCluster")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterSelector, actual.ClusterSelector, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementClusterSelectorNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementClusterSelector, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterSelector")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterSelector, actual.ClusterSelector, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementClusterSelectorNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementClusterSelector, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterSelector")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8116,21 +8116,21 @@ func compareWorkflowTemplatePlacementManagedClusterNewStyle(d, a interface{}, fn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterName, actual.ClusterName, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterName, actual.ClusterName, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Config, actual.Config, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Config")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Config, actual.Config, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Config")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8159,105 +8159,105 @@ func compareWorkflowTemplatePlacementManagedClusterConfigNewStyle(d, a interface
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.StagingBucket, actual.StagingBucket, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigBucket")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StagingBucket, actual.StagingBucket, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigBucket")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TempBucket, actual.TempBucket, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TempBucket")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TempBucket, actual.TempBucket, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TempBucket")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GceClusterConfig, actual.GceClusterConfig, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GceClusterConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GceClusterConfig, actual.GceClusterConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GceClusterConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MasterConfig, actual.MasterConfig, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigMasterConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigMasterConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MasterConfig, actual.MasterConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigMasterConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigMasterConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MasterConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.WorkerConfig, actual.WorkerConfig, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigWorkerConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigWorkerConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WorkerConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.WorkerConfig, actual.WorkerConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigWorkerConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigWorkerConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WorkerConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryWorkerConfig, actual.SecondaryWorkerConfig, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecondaryWorkerConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryWorkerConfig, actual.SecondaryWorkerConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecondaryWorkerConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SoftwareConfig, actual.SoftwareConfig, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SoftwareConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SoftwareConfig, actual.SoftwareConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigSoftwareConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SoftwareConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InitializationActions, actual.InitializationActions, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigInitializationActionsNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigInitializationActions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InitializationActions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InitializationActions, actual.InitializationActions, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigInitializationActionsNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigInitializationActions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InitializationActions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EncryptionConfig, actual.EncryptionConfig, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigEncryptionConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EncryptionConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EncryptionConfig, actual.EncryptionConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigEncryptionConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigEncryptionConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EncryptionConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AutoscalingConfig, actual.AutoscalingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutoscalingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoscalingConfig, actual.AutoscalingConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutoscalingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecurityConfig, actual.SecurityConfig, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigSecurityConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigSecurityConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecurityConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecurityConfig, actual.SecurityConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigSecurityConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigSecurityConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SecurityConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LifecycleConfig, actual.LifecycleConfig, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigLifecycleConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LifecycleConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LifecycleConfig, actual.LifecycleConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigLifecycleConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigLifecycleConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LifecycleConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EndpointConfig, actual.EndpointConfig, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigEndpointConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigEndpointConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EndpointConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EndpointConfig, actual.EndpointConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigEndpointConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigEndpointConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EndpointConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GkeClusterConfig, actual.GkeClusterConfig, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GkeClusterConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GkeClusterConfig, actual.GkeClusterConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GkeClusterConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MetastoreConfig, actual.MetastoreConfig, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigMetastoreConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetastoreConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetastoreConfig, actual.MetastoreConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigMetastoreConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigMetastoreConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetastoreConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8286,77 +8286,77 @@ func compareWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNewStyl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ZoneUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ZoneUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SubnetworkUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SubnetworkUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InternalIPOnly, actual.InternalIPOnly, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InternalIpOnly")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InternalIPOnly, actual.InternalIPOnly, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InternalIpOnly")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PrivateIPv6GoogleAccess, actual.PrivateIPv6GoogleAccess, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrivateIpv6GoogleAccess")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PrivateIPv6GoogleAccess, actual.PrivateIPv6GoogleAccess, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrivateIpv6GoogleAccess")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceAccountScopes, actual.ServiceAccountScopes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceAccountScopes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceAccountScopes, actual.ServiceAccountScopes, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceAccountScopes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Tags, actual.Tags, dcl.Info{Type: "Set", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tags")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tags, actual.Tags, dcl.DiffInfo{Type: "Set", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Tags")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Metadata, actual.Metadata, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Metadata")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReservationAffinity, actual.ReservationAffinity, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReservationAffinity")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReservationAffinity, actual.ReservationAffinity, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReservationAffinity")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodeGroupAffinity, actual.NodeGroupAffinity, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinityNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeGroupAffinity")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeGroupAffinity, actual.NodeGroupAffinity, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinityNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeGroupAffinity")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8385,21 +8385,21 @@ func compareWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReserva
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ConsumeReservationType, actual.ConsumeReservationType, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConsumeReservationType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConsumeReservationType, actual.ConsumeReservationType, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConsumeReservationType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Key, actual.Key, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Key")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Values, actual.Values, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Values")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Values, actual.Values, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Values")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8428,7 +8428,7 @@ func compareWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGro
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.NodeGroup, actual.NodeGroup, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeGroupUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeGroup, actual.NodeGroup, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeGroupUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8457,70 +8457,70 @@ func compareWorkflowTemplatePlacementManagedClusterConfigMasterConfigNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.NumInstances, actual.NumInstances, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumInstances")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumInstances, actual.NumInstances, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumInstances")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceNames, actual.InstanceNames, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceNames")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceNames, actual.InstanceNames, dcl.DiffInfo{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceNames")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Image, actual.Image, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ImageUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Image, actual.Image, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ImageUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineTypeUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineTypeUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DiskConfig, actual.DiskConfig, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskConfig, actual.DiskConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IsPreemptible, actual.IsPreemptible, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsPreemptible")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IsPreemptible, actual.IsPreemptible, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsPreemptible")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Preemptibility, actual.Preemptibility, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Preemptibility")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Preemptibility, actual.Preemptibility, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Preemptibility")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ManagedGroupConfig, actual.ManagedGroupConfig, dcl.Info{OutputOnly: true, ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ManagedGroupConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ManagedGroupConfig, actual.ManagedGroupConfig, dcl.DiffInfo{OutputOnly: true, ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ManagedGroupConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Accelerators, actual.Accelerators, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Accelerators")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Accelerators, actual.Accelerators, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Accelerators")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinCpuPlatform, actual.MinCpuPlatform, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinCpuPlatform")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinCpuPlatform, actual.MinCpuPlatform, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinCpuPlatform")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8549,21 +8549,21 @@ func compareWorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.BootDiskType, actual.BootDiskType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BootDiskType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BootDiskType, actual.BootDiskType, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BootDiskType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BootDiskSizeGb, actual.BootDiskSizeGb, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BootDiskSizeGb")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BootDiskSizeGb, actual.BootDiskSizeGb, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BootDiskSizeGb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumLocalSsds, actual.NumLocalSsds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumLocalSsds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumLocalSsds, actual.NumLocalSsds, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumLocalSsds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8592,14 +8592,14 @@ func compareWorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGrou
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceTemplateName, actual.InstanceTemplateName, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceTemplateName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceTemplateName, actual.InstanceTemplateName, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceTemplateName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceGroupManagerName, actual.InstanceGroupManagerName, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceGroupManagerName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceGroupManagerName, actual.InstanceGroupManagerName, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceGroupManagerName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8628,14 +8628,14 @@ func compareWorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerator
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorTypeUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorTypeUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AcceleratorCount, actual.AcceleratorCount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AcceleratorCount, actual.AcceleratorCount, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8664,70 +8664,70 @@ func compareWorkflowTemplatePlacementManagedClusterConfigWorkerConfigNewStyle(d,
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.NumInstances, actual.NumInstances, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumInstances")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumInstances, actual.NumInstances, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumInstances")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceNames, actual.InstanceNames, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceNames")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceNames, actual.InstanceNames, dcl.DiffInfo{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceNames")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Image, actual.Image, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ImageUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Image, actual.Image, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ImageUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineTypeUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineTypeUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DiskConfig, actual.DiskConfig, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskConfig, actual.DiskConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IsPreemptible, actual.IsPreemptible, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsPreemptible")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IsPreemptible, actual.IsPreemptible, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsPreemptible")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Preemptibility, actual.Preemptibility, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Preemptibility")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Preemptibility, actual.Preemptibility, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Preemptibility")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ManagedGroupConfig, actual.ManagedGroupConfig, dcl.Info{OutputOnly: true, ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ManagedGroupConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ManagedGroupConfig, actual.ManagedGroupConfig, dcl.DiffInfo{OutputOnly: true, ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ManagedGroupConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Accelerators, actual.Accelerators, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Accelerators")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Accelerators, actual.Accelerators, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Accelerators")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinCpuPlatform, actual.MinCpuPlatform, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinCpuPlatform")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinCpuPlatform, actual.MinCpuPlatform, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinCpuPlatform")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8756,21 +8756,21 @@ func compareWorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.BootDiskType, actual.BootDiskType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BootDiskType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BootDiskType, actual.BootDiskType, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BootDiskType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BootDiskSizeGb, actual.BootDiskSizeGb, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BootDiskSizeGb")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BootDiskSizeGb, actual.BootDiskSizeGb, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BootDiskSizeGb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumLocalSsds, actual.NumLocalSsds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumLocalSsds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumLocalSsds, actual.NumLocalSsds, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumLocalSsds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8799,14 +8799,14 @@ func compareWorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGrou
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceTemplateName, actual.InstanceTemplateName, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceTemplateName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceTemplateName, actual.InstanceTemplateName, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceTemplateName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceGroupManagerName, actual.InstanceGroupManagerName, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceGroupManagerName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceGroupManagerName, actual.InstanceGroupManagerName, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceGroupManagerName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8835,14 +8835,14 @@ func compareWorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerator
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorTypeUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorTypeUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AcceleratorCount, actual.AcceleratorCount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AcceleratorCount, actual.AcceleratorCount, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8871,70 +8871,70 @@ func compareWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigNe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.NumInstances, actual.NumInstances, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumInstances")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumInstances, actual.NumInstances, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumInstances")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceNames, actual.InstanceNames, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceNames")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceNames, actual.InstanceNames, dcl.DiffInfo{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceNames")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Image, actual.Image, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ImageUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Image, actual.Image, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ImageUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineTypeUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MachineType, actual.MachineType, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MachineTypeUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DiskConfig, actual.DiskConfig, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DiskConfig, actual.DiskConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DiskConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IsPreemptible, actual.IsPreemptible, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsPreemptible")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IsPreemptible, actual.IsPreemptible, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsPreemptible")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Preemptibility, actual.Preemptibility, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Preemptibility")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Preemptibility, actual.Preemptibility, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Preemptibility")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ManagedGroupConfig, actual.ManagedGroupConfig, dcl.Info{OutputOnly: true, ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ManagedGroupConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ManagedGroupConfig, actual.ManagedGroupConfig, dcl.DiffInfo{OutputOnly: true, ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ManagedGroupConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Accelerators, actual.Accelerators, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Accelerators")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Accelerators, actual.Accelerators, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAcceleratorsNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Accelerators")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinCpuPlatform, actual.MinCpuPlatform, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinCpuPlatform")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinCpuPlatform, actual.MinCpuPlatform, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinCpuPlatform")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -8963,21 +8963,21 @@ func compareWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.BootDiskType, actual.BootDiskType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BootDiskType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BootDiskType, actual.BootDiskType, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BootDiskType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BootDiskSizeGb, actual.BootDiskSizeGb, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BootDiskSizeGb")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BootDiskSizeGb, actual.BootDiskSizeGb, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BootDiskSizeGb")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumLocalSsds, actual.NumLocalSsds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumLocalSsds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumLocalSsds, actual.NumLocalSsds, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NumLocalSsds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9006,14 +9006,14 @@ func compareWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigMa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceTemplateName, actual.InstanceTemplateName, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceTemplateName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceTemplateName, actual.InstanceTemplateName, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceTemplateName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceGroupManagerName, actual.InstanceGroupManagerName, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceGroupManagerName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceGroupManagerName, actual.InstanceGroupManagerName, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceGroupManagerName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9042,14 +9042,14 @@ func compareWorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorTypeUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AcceleratorType, actual.AcceleratorType, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorTypeUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AcceleratorCount, actual.AcceleratorCount, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AcceleratorCount, actual.AcceleratorCount, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9078,21 +9078,21 @@ func compareWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigNewStyle(
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ImageVersion, actual.ImageVersion, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ImageVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ImageVersion, actual.ImageVersion, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ImageVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OptionalComponents, actual.OptionalComponents, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OptionalComponents")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OptionalComponents, actual.OptionalComponents, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OptionalComponents")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9121,14 +9121,14 @@ func compareWorkflowTemplatePlacementManagedClusterConfigInitializationActionsNe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ExecutableFile, actual.ExecutableFile, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExecutableFile")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExecutableFile, actual.ExecutableFile, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExecutableFile")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExecutionTimeout, actual.ExecutionTimeout, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExecutionTimeout")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExecutionTimeout, actual.ExecutionTimeout, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ExecutionTimeout")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9157,7 +9157,7 @@ func compareWorkflowTemplatePlacementManagedClusterConfigEncryptionConfigNewStyl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.GcePdKmsKeyName, actual.GcePdKmsKeyName, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GcePdKmsKeyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GcePdKmsKeyName, actual.GcePdKmsKeyName, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("GcePdKmsKeyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9186,7 +9186,7 @@ func compareWorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigNewSty
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Policy, actual.Policy, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Policy, actual.Policy, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PolicyUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9215,7 +9215,7 @@ func compareWorkflowTemplatePlacementManagedClusterConfigSecurityConfigNewStyle(
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.KerberosConfig, actual.KerberosConfig, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KerberosConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KerberosConfig, actual.KerberosConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfigNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KerberosConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9244,105 +9244,105 @@ func compareWorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosC
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.EnableKerberos, actual.EnableKerberos, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnableKerberos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnableKerberos, actual.EnableKerberos, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnableKerberos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RootPrincipalPassword, actual.RootPrincipalPassword, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RootPrincipalPasswordUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RootPrincipalPassword, actual.RootPrincipalPassword, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RootPrincipalPasswordUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KmsKey, actual.KmsKey, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KmsKeyUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KmsKey, actual.KmsKey, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KmsKeyUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Keystore, actual.Keystore, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeystoreUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Keystore, actual.Keystore, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeystoreUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Truststore, actual.Truststore, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TruststoreUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Truststore, actual.Truststore, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TruststoreUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeystorePassword, actual.KeystorePassword, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeystorePasswordUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeystorePassword, actual.KeystorePassword, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeystorePasswordUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KeyPassword, actual.KeyPassword, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyPasswordUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KeyPassword, actual.KeyPassword, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KeyPasswordUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TruststorePassword, actual.TruststorePassword, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TruststorePasswordUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TruststorePassword, actual.TruststorePassword, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TruststorePasswordUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossRealmTrustRealm, actual.CrossRealmTrustRealm, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CrossRealmTrustRealm")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossRealmTrustRealm, actual.CrossRealmTrustRealm, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CrossRealmTrustRealm")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossRealmTrustKdc, actual.CrossRealmTrustKdc, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CrossRealmTrustKdc")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossRealmTrustKdc, actual.CrossRealmTrustKdc, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CrossRealmTrustKdc")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossRealmTrustAdminServer, actual.CrossRealmTrustAdminServer, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CrossRealmTrustAdminServer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossRealmTrustAdminServer, actual.CrossRealmTrustAdminServer, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CrossRealmTrustAdminServer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossRealmTrustSharedPassword, actual.CrossRealmTrustSharedPassword, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CrossRealmTrustSharedPasswordUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossRealmTrustSharedPassword, actual.CrossRealmTrustSharedPassword, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CrossRealmTrustSharedPasswordUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KdcDbKey, actual.KdcDbKey, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KdcDbKeyUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KdcDbKey, actual.KdcDbKey, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KdcDbKeyUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TgtLifetimeHours, actual.TgtLifetimeHours, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TgtLifetimeHours")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TgtLifetimeHours, actual.TgtLifetimeHours, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TgtLifetimeHours")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Realm, actual.Realm, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Realm")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Realm, actual.Realm, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Realm")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9371,28 +9371,28 @@ func compareWorkflowTemplatePlacementManagedClusterConfigLifecycleConfigNewStyle
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.IdleDeleteTtl, actual.IdleDeleteTtl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IdleDeleteTtl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IdleDeleteTtl, actual.IdleDeleteTtl, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IdleDeleteTtl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AutoDeleteTime, actual.AutoDeleteTime, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutoDeleteTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoDeleteTime, actual.AutoDeleteTime, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutoDeleteTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AutoDeleteTtl, actual.AutoDeleteTtl, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutoDeleteTtl")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoDeleteTtl, actual.AutoDeleteTtl, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AutoDeleteTtl")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IdleStartTime, actual.IdleStartTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IdleStartTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IdleStartTime, actual.IdleStartTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IdleStartTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9421,14 +9421,14 @@ func compareWorkflowTemplatePlacementManagedClusterConfigEndpointConfigNewStyle(
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.HttpPorts, actual.HttpPorts, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HttpPorts")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HttpPorts, actual.HttpPorts, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HttpPorts")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EnableHttpPortAccess, actual.EnableHttpPortAccess, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnableHttpPortAccess")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnableHttpPortAccess, actual.EnableHttpPortAccess, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnableHttpPortAccess")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9457,7 +9457,7 @@ func compareWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNewStyl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.NamespacedGkeDeploymentTarget, actual.NamespacedGkeDeploymentTarget, dcl.Info{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NamespacedGkeDeploymentTarget")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NamespacedGkeDeploymentTarget, actual.NamespacedGkeDeploymentTarget, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetNewStyle, EmptyObject: EmptyWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NamespacedGkeDeploymentTarget")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9486,14 +9486,14 @@ func compareWorkflowTemplatePlacementManagedClusterConfigGkeClusterConfigNamespa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TargetGkeCluster, actual.TargetGkeCluster, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetGkeCluster")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetGkeCluster, actual.TargetGkeCluster, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TargetGkeCluster")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterNamespace, actual.ClusterNamespace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterNamespace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterNamespace, actual.ClusterNamespace, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterNamespace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9522,7 +9522,7 @@ func compareWorkflowTemplatePlacementManagedClusterConfigMetastoreConfigNewStyle
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataprocMetastoreService, actual.DataprocMetastoreService, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataprocMetastoreService")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataprocMetastoreService, actual.DataprocMetastoreService, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataprocMetastoreService")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9551,14 +9551,14 @@ func compareWorkflowTemplatePlacementClusterSelectorNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClusterLabels, actual.ClusterLabels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterLabels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClusterLabels, actual.ClusterLabels, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClusterLabels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9587,84 +9587,84 @@ func compareWorkflowTemplateJobsNewStyle(d, a interface{}, fn dcl.FieldName) ([]
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.StepId, actual.StepId, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StepId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StepId, actual.StepId, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StepId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HadoopJob, actual.HadoopJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsHadoopJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsHadoopJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HadoopJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HadoopJob, actual.HadoopJob, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsHadoopJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsHadoopJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HadoopJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SparkJob, actual.SparkJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SparkJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkJob, actual.SparkJob, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsSparkJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SparkJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PysparkJob, actual.PysparkJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPysparkJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPysparkJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PysparkJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PysparkJob, actual.PysparkJob, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsPysparkJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPysparkJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PysparkJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HiveJob, actual.HiveJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsHiveJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsHiveJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HiveJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HiveJob, actual.HiveJob, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsHiveJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsHiveJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HiveJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PigJob, actual.PigJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPigJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPigJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PigJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PigJob, actual.PigJob, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsPigJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPigJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PigJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SparkRJob, actual.SparkRJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkRJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkRJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SparkRJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkRJob, actual.SparkRJob, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsSparkRJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkRJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SparkRJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SparkSqlJob, actual.SparkSqlJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkSqlJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkSqlJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SparkSqlJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkSqlJob, actual.SparkSqlJob, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsSparkSqlJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkSqlJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SparkSqlJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PrestoJob, actual.PrestoJob, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPrestoJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPrestoJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrestoJob")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PrestoJob, actual.PrestoJob, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsPrestoJobNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPrestoJob, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrestoJob")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scheduling, actual.Scheduling, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSchedulingNewStyle, EmptyObject: EmptyWorkflowTemplateJobsScheduling, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scheduling")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scheduling, actual.Scheduling, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsSchedulingNewStyle, EmptyObject: EmptyWorkflowTemplateJobsScheduling, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Scheduling")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PrerequisiteStepIds, actual.PrerequisiteStepIds, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrerequisiteStepIds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PrerequisiteStepIds, actual.PrerequisiteStepIds, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PrerequisiteStepIds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9693,56 +9693,56 @@ func compareWorkflowTemplateJobsHadoopJobNewStyle(d, a interface{}, fn dcl.Field
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MainJarFileUri, actual.MainJarFileUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainJarFileUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MainJarFileUri, actual.MainJarFileUri, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainJarFileUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MainClass, actual.MainClass, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainClass")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MainClass, actual.MainClass, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainClass")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsHadoopJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsHadoopJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsHadoopJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsHadoopJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9771,7 +9771,7 @@ func compareWorkflowTemplateJobsHadoopJobLoggingConfigNewStyle(d, a interface{},
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9800,56 +9800,56 @@ func compareWorkflowTemplateJobsSparkJobNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MainJarFileUri, actual.MainJarFileUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainJarFileUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MainJarFileUri, actual.MainJarFileUri, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainJarFileUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MainClass, actual.MainClass, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainClass")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MainClass, actual.MainClass, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainClass")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsSparkJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9878,7 +9878,7 @@ func compareWorkflowTemplateJobsSparkJobLoggingConfigNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9907,56 +9907,56 @@ func compareWorkflowTemplateJobsPysparkJobNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MainPythonFileUri, actual.MainPythonFileUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainPythonFileUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MainPythonFileUri, actual.MainPythonFileUri, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainPythonFileUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PythonFileUris, actual.PythonFileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PythonFileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PythonFileUris, actual.PythonFileUris, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PythonFileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPysparkJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPysparkJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsPysparkJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPysparkJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -9985,7 +9985,7 @@ func compareWorkflowTemplateJobsPysparkJobLoggingConfigNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10014,42 +10014,42 @@ func compareWorkflowTemplateJobsHiveJobNewStyle(d, a interface{}, fn dcl.FieldNa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsHiveJobQueryListNewStyle, EmptyObject: EmptyWorkflowTemplateJobsHiveJobQueryList, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsHiveJobQueryListNewStyle, EmptyObject: EmptyWorkflowTemplateJobsHiveJobQueryList, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ContinueOnFailure, actual.ContinueOnFailure, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ContinueOnFailure")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ContinueOnFailure, actual.ContinueOnFailure, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ContinueOnFailure")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ScriptVariables, actual.ScriptVariables, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ScriptVariables")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ScriptVariables, actual.ScriptVariables, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ScriptVariables")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10078,7 +10078,7 @@ func compareWorkflowTemplateJobsHiveJobQueryListNewStyle(d, a interface{}, fn dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10107,49 +10107,49 @@ func compareWorkflowTemplateJobsPigJobNewStyle(d, a interface{}, fn dcl.FieldNam
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPigJobQueryListNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPigJobQueryList, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsPigJobQueryListNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPigJobQueryList, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ContinueOnFailure, actual.ContinueOnFailure, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ContinueOnFailure")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ContinueOnFailure, actual.ContinueOnFailure, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ContinueOnFailure")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ScriptVariables, actual.ScriptVariables, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ScriptVariables")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ScriptVariables, actual.ScriptVariables, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ScriptVariables")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPigJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPigJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsPigJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPigJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10178,7 +10178,7 @@ func compareWorkflowTemplateJobsPigJobQueryListNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10207,7 +10207,7 @@ func compareWorkflowTemplateJobsPigJobLoggingConfigNewStyle(d, a interface{}, fn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10236,42 +10236,42 @@ func compareWorkflowTemplateJobsSparkRJobNewStyle(d, a interface{}, fn dcl.Field
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MainRFileUri, actual.MainRFileUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainRFileUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MainRFileUri, actual.MainRFileUri, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainRFileUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Args, actual.Args, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Args")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FileUris, actual.FileUris, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArchiveUris, actual.ArchiveUris, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArchiveUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkRJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkRJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsSparkRJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkRJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10300,7 +10300,7 @@ func compareWorkflowTemplateJobsSparkRJobLoggingConfigNewStyle(d, a interface{},
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10329,42 +10329,42 @@ func compareWorkflowTemplateJobsSparkSqlJobNewStyle(d, a interface{}, fn dcl.Fie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkSqlJobQueryListNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkSqlJobQueryList, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsSparkSqlJobQueryListNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkSqlJobQueryList, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ScriptVariables, actual.ScriptVariables, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ScriptVariables")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ScriptVariables, actual.ScriptVariables, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ScriptVariables")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.JarFileUris, actual.JarFileUris, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("JarFileUris")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsSparkSqlJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkSqlJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsSparkSqlJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsSparkSqlJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10393,7 +10393,7 @@ func compareWorkflowTemplateJobsSparkSqlJobQueryListNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10422,7 +10422,7 @@ func compareWorkflowTemplateJobsSparkSqlJobLoggingConfigNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10451,49 +10451,49 @@ func compareWorkflowTemplateJobsPrestoJobNewStyle(d, a interface{}, fn dcl.Field
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryFileUri, actual.QueryFileUri, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryFileUri")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPrestoJobQueryListNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPrestoJobQueryList, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.QueryList, actual.QueryList, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsPrestoJobQueryListNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPrestoJobQueryList, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("QueryList")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ContinueOnFailure, actual.ContinueOnFailure, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ContinueOnFailure")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ContinueOnFailure, actual.ContinueOnFailure, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ContinueOnFailure")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OutputFormat, actual.OutputFormat, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OutputFormat")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.OutputFormat, actual.OutputFormat, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("OutputFormat")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ClientTags, actual.ClientTags, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClientTags")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ClientTags, actual.ClientTags, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ClientTags")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Properties, actual.Properties, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Properties")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.Info{ObjectFunction: compareWorkflowTemplateJobsPrestoJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPrestoJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoggingConfig, actual.LoggingConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateJobsPrestoJobLoggingConfigNewStyle, EmptyObject: EmptyWorkflowTemplateJobsPrestoJobLoggingConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoggingConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10522,7 +10522,7 @@ func compareWorkflowTemplateJobsPrestoJobQueryListNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Queries, actual.Queries, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Queries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10551,7 +10551,7 @@ func compareWorkflowTemplateJobsPrestoJobLoggingConfigNewStyle(d, a interface{},
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DriverLogLevels, actual.DriverLogLevels, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DriverLogLevels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10580,14 +10580,14 @@ func compareWorkflowTemplateJobsSchedulingNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MaxFailuresPerHour, actual.MaxFailuresPerHour, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxFailuresPerHour")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxFailuresPerHour, actual.MaxFailuresPerHour, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxFailuresPerHour")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxFailuresTotal, actual.MaxFailuresTotal, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxFailuresTotal")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxFailuresTotal, actual.MaxFailuresTotal, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxFailuresTotal")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10616,28 +10616,28 @@ func compareWorkflowTemplateParametersNewStyle(d, a interface{}, fn dcl.FieldNam
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Fields, actual.Fields, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Fields, actual.Fields, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Validation, actual.Validation, dcl.Info{ObjectFunction: compareWorkflowTemplateParametersValidationNewStyle, EmptyObject: EmptyWorkflowTemplateParametersValidation, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Validation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Validation, actual.Validation, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateParametersValidationNewStyle, EmptyObject: EmptyWorkflowTemplateParametersValidation, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Validation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10666,14 +10666,14 @@ func compareWorkflowTemplateParametersValidationNewStyle(d, a interface{}, fn dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Regex, actual.Regex, dcl.Info{ObjectFunction: compareWorkflowTemplateParametersValidationRegexNewStyle, EmptyObject: EmptyWorkflowTemplateParametersValidationRegex, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Regex")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Regex, actual.Regex, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateParametersValidationRegexNewStyle, EmptyObject: EmptyWorkflowTemplateParametersValidationRegex, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Regex")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Values, actual.Values, dcl.Info{ObjectFunction: compareWorkflowTemplateParametersValidationValuesNewStyle, EmptyObject: EmptyWorkflowTemplateParametersValidationValues, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Values")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Values, actual.Values, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateParametersValidationValuesNewStyle, EmptyObject: EmptyWorkflowTemplateParametersValidationValues, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Values")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10702,7 +10702,7 @@ func compareWorkflowTemplateParametersValidationRegexNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Regexes, actual.Regexes, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Regexes")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Regexes, actual.Regexes, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Regexes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -10731,7 +10731,7 @@ func compareWorkflowTemplateParametersValidationValuesNewStyle(d, a interface{},
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Values, actual.Values, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Values")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Values, actual.Values, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Values")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

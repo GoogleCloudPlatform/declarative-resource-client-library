@@ -758,42 +758,42 @@ func diffEkmConnection(c *Client, desired, actual *EkmConnection, opts ...dcl.Ap
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateEkmConnectionUpdateEkmConnectionOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateEkmConnectionUpdateEkmConnectionOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreateTime, actual.CreateTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreateTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceResolvers, actual.ServiceResolvers, dcl.Info{ObjectFunction: compareEkmConnectionServiceResolversNewStyle, EmptyObject: EmptyEkmConnectionServiceResolvers, OperationSelector: dcl.TriggersOperation("updateEkmConnectionUpdateEkmConnectionOperation")}, fn.AddNest("ServiceResolvers")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceResolvers, actual.ServiceResolvers, dcl.DiffInfo{ObjectFunction: compareEkmConnectionServiceResolversNewStyle, EmptyObject: EmptyEkmConnectionServiceResolvers, OperationSelector: dcl.TriggersOperation("updateEkmConnectionUpdateEkmConnectionOperation")}, fn.AddNest("ServiceResolvers")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -822,28 +822,28 @@ func compareEkmConnectionServiceResolversNewStyle(d, a interface{}, fn dcl.Field
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceDirectoryService, actual.ServiceDirectoryService, dcl.Info{OperationSelector: dcl.TriggersOperation("updateEkmConnectionUpdateEkmConnectionOperation")}, fn.AddNest("ServiceDirectoryService")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceDirectoryService, actual.ServiceDirectoryService, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateEkmConnectionUpdateEkmConnectionOperation")}, fn.AddNest("ServiceDirectoryService")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EndpointFilter, actual.EndpointFilter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateEkmConnectionUpdateEkmConnectionOperation")}, fn.AddNest("EndpointFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EndpointFilter, actual.EndpointFilter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateEkmConnectionUpdateEkmConnectionOperation")}, fn.AddNest("EndpointFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Hostname, actual.Hostname, dcl.Info{OperationSelector: dcl.TriggersOperation("updateEkmConnectionUpdateEkmConnectionOperation")}, fn.AddNest("Hostname")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Hostname, actual.Hostname, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateEkmConnectionUpdateEkmConnectionOperation")}, fn.AddNest("Hostname")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServerCertificates, actual.ServerCertificates, dcl.Info{ObjectFunction: compareEkmConnectionServiceResolversServerCertificatesNewStyle, EmptyObject: EmptyEkmConnectionServiceResolversServerCertificates, OperationSelector: dcl.TriggersOperation("updateEkmConnectionUpdateEkmConnectionOperation")}, fn.AddNest("ServerCertificates")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServerCertificates, actual.ServerCertificates, dcl.DiffInfo{ObjectFunction: compareEkmConnectionServiceResolversServerCertificatesNewStyle, EmptyObject: EmptyEkmConnectionServiceResolversServerCertificates, OperationSelector: dcl.TriggersOperation("updateEkmConnectionUpdateEkmConnectionOperation")}, fn.AddNest("ServerCertificates")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -872,63 +872,63 @@ func compareEkmConnectionServiceResolversServerCertificatesNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RawDer, actual.RawDer, dcl.Info{OperationSelector: dcl.TriggersOperation("updateEkmConnectionUpdateEkmConnectionOperation")}, fn.AddNest("RawDer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RawDer, actual.RawDer, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateEkmConnectionUpdateEkmConnectionOperation")}, fn.AddNest("RawDer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Parsed, actual.Parsed, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Parsed")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Parsed, actual.Parsed, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Parsed")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Issuer, actual.Issuer, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Issuer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Issuer, actual.Issuer, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Issuer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Subject, actual.Subject, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Subject")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Subject, actual.Subject, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Subject")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SubjectAlternativeDnsNames, actual.SubjectAlternativeDnsNames, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SubjectAlternativeDnsNames")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SubjectAlternativeDnsNames, actual.SubjectAlternativeDnsNames, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SubjectAlternativeDnsNames")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NotBeforeTime, actual.NotBeforeTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NotBeforeTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NotBeforeTime, actual.NotBeforeTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NotBeforeTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NotAfterTime, actual.NotAfterTime, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NotAfterTime")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NotAfterTime, actual.NotAfterTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NotAfterTime")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SerialNumber, actual.SerialNumber, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SerialNumber")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SerialNumber, actual.SerialNumber, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SerialNumber")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Sha256Fingerprint, actual.Sha256Fingerprint, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Sha256Fingerprint")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Sha256Fingerprint, actual.Sha256Fingerprint, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Sha256Fingerprint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -3323,175 +3323,175 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DistributionPolicy, actual.DistributionPolicy, dcl.Info{ObjectFunction: compareInstanceGroupManagerDistributionPolicyNewStyle, EmptyObject: EmptyInstanceGroupManagerDistributionPolicy, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DistributionPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DistributionPolicy, actual.DistributionPolicy, dcl.DiffInfo{ObjectFunction: compareInstanceGroupManagerDistributionPolicyNewStyle, EmptyObject: EmptyInstanceGroupManagerDistributionPolicy, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DistributionPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceTemplate, actual.InstanceTemplate, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("InstanceTemplate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceTemplate, actual.InstanceTemplate, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("InstanceTemplate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Versions, actual.Versions, dcl.Info{ObjectFunction: compareInstanceGroupManagerVersionsNewStyle, EmptyObject: EmptyInstanceGroupManagerVersions, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Versions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Versions, actual.Versions, dcl.DiffInfo{ObjectFunction: compareInstanceGroupManagerVersionsNewStyle, EmptyObject: EmptyInstanceGroupManagerVersions, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Versions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceGroup, actual.InstanceGroup, dcl.Info{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceGroup")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceGroup, actual.InstanceGroup, dcl.DiffInfo{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceGroup")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetPools, actual.TargetPools, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("TargetPools")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetPools, actual.TargetPools, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("TargetPools")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BaseInstanceName, actual.BaseInstanceName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("BaseInstanceName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BaseInstanceName, actual.BaseInstanceName, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("BaseInstanceName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Fingerprint, actual.Fingerprint, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fingerprint")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Fingerprint, actual.Fingerprint, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fingerprint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CurrentActions, actual.CurrentActions, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerCurrentActionsNewStyle, EmptyObject: EmptyInstanceGroupManagerCurrentActions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CurrentActions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CurrentActions, actual.CurrentActions, dcl.DiffInfo{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerCurrentActionsNewStyle, EmptyObject: EmptyInstanceGroupManagerCurrentActions, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CurrentActions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerStatusNewStyle, EmptyObject: EmptyInstanceGroupManagerStatus, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.DiffInfo{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerStatusNewStyle, EmptyObject: EmptyInstanceGroupManagerStatus, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetSize, actual.TargetSize, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("TargetSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetSize, actual.TargetSize, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("TargetSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AutoHealingPolicies, actual.AutoHealingPolicies, dcl.Info{ObjectFunction: compareInstanceGroupManagerAutoHealingPoliciesNewStyle, EmptyObject: EmptyInstanceGroupManagerAutoHealingPolicies, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("AutoHealingPolicies")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoHealingPolicies, actual.AutoHealingPolicies, dcl.DiffInfo{ObjectFunction: compareInstanceGroupManagerAutoHealingPoliciesNewStyle, EmptyObject: EmptyInstanceGroupManagerAutoHealingPolicies, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("AutoHealingPolicies")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdatePolicy, actual.UpdatePolicy, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyNewStyle, EmptyObject: EmptyInstanceGroupManagerUpdatePolicy, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("UpdatePolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdatePolicy, actual.UpdatePolicy, dcl.DiffInfo{ObjectFunction: compareInstanceGroupManagerUpdatePolicyNewStyle, EmptyObject: EmptyInstanceGroupManagerUpdatePolicy, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("UpdatePolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NamedPorts, actual.NamedPorts, dcl.Info{ObjectFunction: compareInstanceGroupManagerNamedPortsNewStyle, EmptyObject: EmptyInstanceGroupManagerNamedPorts, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NamedPorts")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NamedPorts, actual.NamedPorts, dcl.DiffInfo{ObjectFunction: compareInstanceGroupManagerNamedPortsNewStyle, EmptyObject: EmptyInstanceGroupManagerNamedPorts, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NamedPorts")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StatefulPolicy, actual.StatefulPolicy, dcl.Info{ObjectFunction: compareInstanceGroupManagerStatefulPolicyNewStyle, EmptyObject: EmptyInstanceGroupManagerStatefulPolicy, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("StatefulPolicy")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StatefulPolicy, actual.StatefulPolicy, dcl.DiffInfo{ObjectFunction: compareInstanceGroupManagerStatefulPolicyNewStyle, EmptyObject: EmptyInstanceGroupManagerStatefulPolicy, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("StatefulPolicy")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("ServiceAccount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceAccount, actual.ServiceAccount, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("ServiceAccount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FailoverAction, actual.FailoverAction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("FailoverAction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FailoverAction, actual.FailoverAction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("FailoverAction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3520,14 +3520,14 @@ func compareInstanceGroupManagerDistributionPolicyNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Zones, actual.Zones, dcl.Info{ObjectFunction: compareInstanceGroupManagerDistributionPolicyZonesNewStyle, EmptyObject: EmptyInstanceGroupManagerDistributionPolicyZones, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zones")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zones, actual.Zones, dcl.DiffInfo{ObjectFunction: compareInstanceGroupManagerDistributionPolicyZonesNewStyle, EmptyObject: EmptyInstanceGroupManagerDistributionPolicyZones, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zones")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetShape, actual.TargetShape, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("TargetShape")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetShape, actual.TargetShape, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("TargetShape")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3556,7 +3556,7 @@ func compareInstanceGroupManagerDistributionPolicyZonesNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Zone, actual.Zone, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Zone")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3585,21 +3585,21 @@ func compareInstanceGroupManagerVersionsNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceTemplate, actual.InstanceTemplate, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("InstanceTemplate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceTemplate, actual.InstanceTemplate, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("InstanceTemplate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TargetSize, actual.TargetSize, dcl.Info{ObjectFunction: compareInstanceGroupManagerVersionsTargetSizeNewStyle, EmptyObject: EmptyInstanceGroupManagerVersionsTargetSize, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("TargetSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TargetSize, actual.TargetSize, dcl.DiffInfo{ObjectFunction: compareInstanceGroupManagerVersionsTargetSizeNewStyle, EmptyObject: EmptyInstanceGroupManagerVersionsTargetSize, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("TargetSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3628,21 +3628,21 @@ func compareInstanceGroupManagerVersionsTargetSizeNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Fixed, actual.Fixed, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Fixed")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Fixed, actual.Fixed, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Fixed")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Calculated, actual.Calculated, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Calculated")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Calculated, actual.Calculated, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Calculated")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3671,63 +3671,63 @@ func compareInstanceGroupManagerCurrentActionsNewStyle(d, a interface{}, fn dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.None, actual.None, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("None")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.None, actual.None, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("None")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Creating, actual.Creating, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Creating")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Creating, actual.Creating, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Creating")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreatingWithoutRetries, actual.CreatingWithoutRetries, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreatingWithoutRetries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreatingWithoutRetries, actual.CreatingWithoutRetries, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreatingWithoutRetries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Verifying, actual.Verifying, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Verifying")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Verifying, actual.Verifying, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Verifying")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Recreating, actual.Recreating, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Recreating")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Recreating, actual.Recreating, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Recreating")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Deleting, actual.Deleting, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Deleting")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Deleting, actual.Deleting, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Deleting")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Abandoning, actual.Abandoning, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Abandoning")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Abandoning, actual.Abandoning, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Abandoning")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Restarting, actual.Restarting, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Restarting")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Restarting, actual.Restarting, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Restarting")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Refreshing, actual.Refreshing, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Refreshing")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Refreshing, actual.Refreshing, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Refreshing")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3756,28 +3756,28 @@ func compareInstanceGroupManagerStatusNewStyle(d, a interface{}, fn dcl.FieldNam
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.IsStable, actual.IsStable, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsStable")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IsStable, actual.IsStable, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsStable")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VersionTarget, actual.VersionTarget, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerStatusVersionTargetNewStyle, EmptyObject: EmptyInstanceGroupManagerStatusVersionTarget, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VersionTarget")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VersionTarget, actual.VersionTarget, dcl.DiffInfo{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerStatusVersionTargetNewStyle, EmptyObject: EmptyInstanceGroupManagerStatusVersionTarget, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VersionTarget")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Stateful, actual.Stateful, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerStatusStatefulNewStyle, EmptyObject: EmptyInstanceGroupManagerStatusStateful, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Stateful")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Stateful, actual.Stateful, dcl.DiffInfo{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerStatusStatefulNewStyle, EmptyObject: EmptyInstanceGroupManagerStatusStateful, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Stateful")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Autoscaler, actual.Autoscaler, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Autoscaler")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Autoscaler, actual.Autoscaler, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Autoscaler")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3806,7 +3806,7 @@ func compareInstanceGroupManagerStatusVersionTargetNewStyle(d, a interface{}, fn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.IsReached, actual.IsReached, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsReached")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IsReached, actual.IsReached, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsReached")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3835,21 +3835,21 @@ func compareInstanceGroupManagerStatusStatefulNewStyle(d, a interface{}, fn dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.HasStatefulConfig, actual.HasStatefulConfig, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HasStatefulConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HasStatefulConfig, actual.HasStatefulConfig, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HasStatefulConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerInstanceConfigs, actual.PerInstanceConfigs, dcl.Info{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerStatusStatefulPerInstanceConfigsNewStyle, EmptyObject: EmptyInstanceGroupManagerStatusStatefulPerInstanceConfigs, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PerInstanceConfigs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerInstanceConfigs, actual.PerInstanceConfigs, dcl.DiffInfo{OutputOnly: true, ObjectFunction: compareInstanceGroupManagerStatusStatefulPerInstanceConfigsNewStyle, EmptyObject: EmptyInstanceGroupManagerStatusStatefulPerInstanceConfigs, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PerInstanceConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IsStateful, actual.IsStateful, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsStateful")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IsStateful, actual.IsStateful, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsStateful")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3878,7 +3878,7 @@ func compareInstanceGroupManagerStatusStatefulPerInstanceConfigsNewStyle(d, a in
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AllEffective, actual.AllEffective, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("AllEffective")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllEffective, actual.AllEffective, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("AllEffective")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3907,14 +3907,14 @@ func compareInstanceGroupManagerAutoHealingPoliciesNewStyle(d, a interface{}, fn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.HealthCheck, actual.HealthCheck, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("HealthCheck")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HealthCheck, actual.HealthCheck, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("HealthCheck")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InitialDelaySec, actual.InitialDelaySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("InitialDelaySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InitialDelaySec, actual.InitialDelaySec, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("InitialDelaySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3943,56 +3943,56 @@ func compareInstanceGroupManagerUpdatePolicyNewStyle(d, a interface{}, fn dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceRedistributionType, actual.InstanceRedistributionType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("InstanceRedistributionType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceRedistributionType, actual.InstanceRedistributionType, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("InstanceRedistributionType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinimalAction, actual.MinimalAction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MinimalAction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinimalAction, actual.MinimalAction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MinimalAction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxSurge, actual.MaxSurge, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyMaxSurgeNewStyle, EmptyObject: EmptyInstanceGroupManagerUpdatePolicyMaxSurge, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MaxSurge")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxSurge, actual.MaxSurge, dcl.DiffInfo{ObjectFunction: compareInstanceGroupManagerUpdatePolicyMaxSurgeNewStyle, EmptyObject: EmptyInstanceGroupManagerUpdatePolicyMaxSurge, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MaxSurge")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxUnavailable, actual.MaxUnavailable, dcl.Info{ObjectFunction: compareInstanceGroupManagerUpdatePolicyMaxUnavailableNewStyle, EmptyObject: EmptyInstanceGroupManagerUpdatePolicyMaxUnavailable, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MaxUnavailable")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxUnavailable, actual.MaxUnavailable, dcl.DiffInfo{ObjectFunction: compareInstanceGroupManagerUpdatePolicyMaxUnavailableNewStyle, EmptyObject: EmptyInstanceGroupManagerUpdatePolicyMaxUnavailable, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MaxUnavailable")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReplacementMethod, actual.ReplacementMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("ReplacementMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReplacementMethod, actual.ReplacementMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("ReplacementMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MostDisruptiveAllowedAction, actual.MostDisruptiveAllowedAction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MostDisruptiveAllowedAction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MostDisruptiveAllowedAction, actual.MostDisruptiveAllowedAction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MostDisruptiveAllowedAction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinReadySec, actual.MinReadySec, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MinReadySec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinReadySec, actual.MinReadySec, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("MinReadySec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4021,21 +4021,21 @@ func compareInstanceGroupManagerUpdatePolicyMaxSurgeNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Fixed, actual.Fixed, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Fixed")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Fixed, actual.Fixed, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Fixed")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Calculated, actual.Calculated, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Calculated")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Calculated, actual.Calculated, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Calculated")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4064,21 +4064,21 @@ func compareInstanceGroupManagerUpdatePolicyMaxUnavailableNewStyle(d, a interfac
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Fixed, actual.Fixed, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Fixed")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Fixed, actual.Fixed, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Fixed")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.Info{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Percent, actual.Percent, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Percent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Calculated, actual.Calculated, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Calculated")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Calculated, actual.Calculated, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Calculated")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4107,14 +4107,14 @@ func compareInstanceGroupManagerNamedPortsNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Port, actual.Port, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Port")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4143,7 +4143,7 @@ func compareInstanceGroupManagerStatefulPolicyNewStyle(d, a interface{}, fn dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.PreservedState, actual.PreservedState, dcl.Info{ObjectFunction: compareInstanceGroupManagerStatefulPolicyPreservedStateNewStyle, EmptyObject: EmptyInstanceGroupManagerStatefulPolicyPreservedState, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("PreservedState")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PreservedState, actual.PreservedState, dcl.DiffInfo{ObjectFunction: compareInstanceGroupManagerStatefulPolicyPreservedStateNewStyle, EmptyObject: EmptyInstanceGroupManagerStatefulPolicyPreservedState, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("PreservedState")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4172,21 +4172,21 @@ func compareInstanceGroupManagerStatefulPolicyPreservedStateNewStyle(d, a interf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Disks, actual.Disks, dcl.Info{ObjectFunction: compareInstanceGroupManagerStatefulPolicyPreservedStateDisksNewStyle, EmptyObject: EmptyInstanceGroupManagerStatefulPolicyPreservedStateDisks, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Disks")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Disks, actual.Disks, dcl.DiffInfo{ObjectFunction: compareInstanceGroupManagerStatefulPolicyPreservedStateDisksNewStyle, EmptyObject: EmptyInstanceGroupManagerStatefulPolicyPreservedStateDisks, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("Disks")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InternalIps, actual.InternalIps, dcl.Info{ObjectFunction: compareInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsNewStyle, EmptyObject: EmptyInstanceGroupManagerStatefulPolicyPreservedStateInternalIps, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InternalIPs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InternalIps, actual.InternalIps, dcl.DiffInfo{ObjectFunction: compareInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsNewStyle, EmptyObject: EmptyInstanceGroupManagerStatefulPolicyPreservedStateInternalIps, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InternalIPs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ExternalIps, actual.ExternalIps, dcl.Info{ObjectFunction: compareInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsNewStyle, EmptyObject: EmptyInstanceGroupManagerStatefulPolicyPreservedStateExternalIps, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("ExternalIPs")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ExternalIps, actual.ExternalIps, dcl.DiffInfo{ObjectFunction: compareInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsNewStyle, EmptyObject: EmptyInstanceGroupManagerStatefulPolicyPreservedStateExternalIps, OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("ExternalIPs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4215,7 +4215,7 @@ func compareInstanceGroupManagerStatefulPolicyPreservedStateDisksNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AutoDelete, actual.AutoDelete, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("AutoDelete")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoDelete, actual.AutoDelete, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("AutoDelete")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4244,7 +4244,7 @@ func compareInstanceGroupManagerStatefulPolicyPreservedStateInternalIpsNewStyle(
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AutoDelete, actual.AutoDelete, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("AutoDelete")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoDelete, actual.AutoDelete, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("AutoDelete")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4273,7 +4273,7 @@ func compareInstanceGroupManagerStatefulPolicyPreservedStateExternalIpsNewStyle(
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AutoDelete, actual.AutoDelete, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("AutoDelete")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AutoDelete, actual.AutoDelete, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateInstanceGroupManagerPatchOperation")}, fn.AddNest("AutoDelete")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

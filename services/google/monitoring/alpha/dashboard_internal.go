@@ -21915,56 +21915,56 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GridLayout, actual.GridLayout, dcl.Info{ObjectFunction: compareDashboardGridLayoutNewStyle, EmptyObject: EmptyDashboardGridLayout, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GridLayout")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GridLayout, actual.GridLayout, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutNewStyle, EmptyObject: EmptyDashboardGridLayout, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GridLayout")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MosaicLayout, actual.MosaicLayout, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutNewStyle, EmptyObject: EmptyDashboardMosaicLayout, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MosaicLayout")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MosaicLayout, actual.MosaicLayout, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutNewStyle, EmptyObject: EmptyDashboardMosaicLayout, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MosaicLayout")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RowLayout, actual.RowLayout, dcl.Info{ObjectFunction: compareDashboardRowLayoutNewStyle, EmptyObject: EmptyDashboardRowLayout, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RowLayout")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RowLayout, actual.RowLayout, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutNewStyle, EmptyObject: EmptyDashboardRowLayout, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RowLayout")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ColumnLayout, actual.ColumnLayout, dcl.Info{ObjectFunction: compareDashboardColumnLayoutNewStyle, EmptyObject: EmptyDashboardColumnLayout, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ColumnLayout")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ColumnLayout, actual.ColumnLayout, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutNewStyle, EmptyObject: EmptyDashboardColumnLayout, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ColumnLayout")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -21993,14 +21993,14 @@ func compareDashboardGridLayoutNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Columns, actual.Columns, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Columns")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Columns, actual.Columns, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Columns")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Widgets, actual.Widgets, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgets, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Widgets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Widgets, actual.Widgets, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgets, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Widgets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22029,42 +22029,42 @@ func compareDashboardGridLayoutWidgetsNewStyle(d, a interface{}, fn dcl.FieldNam
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Title, actual.Title, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Title")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Title, actual.Title, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Title")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.XyChart, actual.XyChart, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChart, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("XyChart")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.XyChart, actual.XyChart, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChart, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("XyChart")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scorecard, actual.Scorecard, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecard, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scorecard")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scorecard, actual.Scorecard, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecard, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scorecard")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Text, actual.Text, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsTextNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsText, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Text")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Text, actual.Text, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsTextNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsText, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Text")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Blank, actual.Blank, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsBlankNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsBlank, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Blank")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Blank, actual.Blank, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsBlankNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsBlank, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Blank")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LogsPanel, actual.LogsPanel, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsLogsPanelNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsLogsPanel, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LogsPanel")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LogsPanel, actual.LogsPanel, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsLogsPanelNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsLogsPanel, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LogsPanel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22093,42 +22093,42 @@ func compareDashboardGridLayoutWidgetsXyChartNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataSets, actual.DataSets, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSets, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("DataSets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataSets, actual.DataSets, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSets, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("DataSets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeshiftDuration, actual.TimeshiftDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeshiftDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeshiftDuration, actual.TimeshiftDuration, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeshiftDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Thresholds, actual.Thresholds, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartThresholdsNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartThresholds, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Thresholds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Thresholds, actual.Thresholds, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartThresholdsNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartThresholds, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Thresholds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.XAxis, actual.XAxis, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartXAxisNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartXAxis, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("XAxis")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.XAxis, actual.XAxis, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartXAxisNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartXAxis, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("XAxis")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.YAxis, actual.YAxis, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartYAxisNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartYAxis, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("YAxis")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.YAxis, actual.YAxis, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartYAxisNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartYAxis, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("YAxis")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ChartOptions, actual.ChartOptions, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartChartOptionsNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartChartOptions, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ChartOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ChartOptions, actual.ChartOptions, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartChartOptionsNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartChartOptions, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ChartOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22157,28 +22157,28 @@ func compareDashboardGridLayoutWidgetsXyChartDataSetsNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesQuery, actual.TimeSeriesQuery, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQuery")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesQuery, actual.TimeSeriesQuery, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQuery")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PlotType, actual.PlotType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PlotType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PlotType, actual.PlotType, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PlotType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LegendTemplate, actual.LegendTemplate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("LegendTemplate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LegendTemplate, actual.LegendTemplate, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("LegendTemplate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MinAlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MinAlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22207,28 +22207,28 @@ func compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryNewStyle(d, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesFilter, actual.TimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesFilter, actual.TimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilterRatio")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilterRatio")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UnitOverride, actual.UnitOverride, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UnitOverride")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UnitOverride, actual.UnitOverride, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UnitOverride")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22257,28 +22257,28 @@ func compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22307,28 +22307,28 @@ func compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22357,28 +22357,28 @@ func compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22407,21 +22407,21 @@ func compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22450,28 +22450,28 @@ func compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Numerator, actual.Numerator, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Numerator")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Numerator, actual.Numerator, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Numerator")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Denominator, actual.Denominator, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Denominator")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Denominator, actual.Denominator, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Denominator")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22500,14 +22500,14 @@ func compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22536,28 +22536,28 @@ func compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22586,14 +22586,14 @@ func compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22622,28 +22622,28 @@ func compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22672,28 +22672,28 @@ func compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22722,21 +22722,21 @@ func compareDashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22765,28 +22765,28 @@ func compareDashboardGridLayoutWidgetsXyChartThresholdsNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Color, actual.Color, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Color")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Color, actual.Color, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Color")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22815,14 +22815,14 @@ func compareDashboardGridLayoutWidgetsXyChartXAxisNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22851,14 +22851,14 @@ func compareDashboardGridLayoutWidgetsXyChartYAxisNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22887,7 +22887,7 @@ func compareDashboardGridLayoutWidgetsXyChartChartOptionsNewStyle(d, a interface
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22916,28 +22916,28 @@ func compareDashboardGridLayoutWidgetsScorecardNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesQuery, actual.TimeSeriesQuery, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQuery, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQuery")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesQuery, actual.TimeSeriesQuery, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQuery, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQuery")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GaugeView, actual.GaugeView, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardGaugeViewNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardGaugeView, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GaugeView")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GaugeView, actual.GaugeView, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardGaugeViewNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardGaugeView, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GaugeView")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SparkChartView, actual.SparkChartView, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardSparkChartViewNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardSparkChartView, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SparkChartView")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkChartView, actual.SparkChartView, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardSparkChartViewNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardSparkChartView, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SparkChartView")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Thresholds, actual.Thresholds, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardThresholdsNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardThresholds, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Thresholds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Thresholds, actual.Thresholds, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardThresholdsNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardThresholds, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Thresholds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -22966,28 +22966,28 @@ func compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesFilter, actual.TimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesFilter, actual.TimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilterRatio")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilterRatio")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UnitOverride, actual.UnitOverride, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UnitOverride")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UnitOverride, actual.UnitOverride, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UnitOverride")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23016,28 +23016,28 @@ func compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterNe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23066,28 +23066,28 @@ func compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAg
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23116,28 +23116,28 @@ func compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23166,21 +23166,21 @@ func compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23209,28 +23209,28 @@ func compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Numerator, actual.Numerator, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Numerator")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Numerator, actual.Numerator, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Numerator")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Denominator, actual.Denominator, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Denominator")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Denominator, actual.Denominator, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Denominator")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23259,14 +23259,14 @@ func compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23295,28 +23295,28 @@ func compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23345,14 +23345,14 @@ func compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle, EmptyObject: EmptyDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23381,28 +23381,28 @@ func compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23431,28 +23431,28 @@ func compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23481,21 +23481,21 @@ func compareDashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23524,14 +23524,14 @@ func compareDashboardGridLayoutWidgetsScorecardGaugeViewNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LowerBound, actual.LowerBound, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("LowerBound")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LowerBound, actual.LowerBound, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("LowerBound")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpperBound, actual.UpperBound, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UpperBound")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpperBound, actual.UpperBound, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UpperBound")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23560,14 +23560,14 @@ func compareDashboardGridLayoutWidgetsScorecardSparkChartViewNewStyle(d, a inter
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SparkChartType, actual.SparkChartType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SparkChartType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkChartType, actual.SparkChartType, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SparkChartType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MinAlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MinAlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23596,28 +23596,28 @@ func compareDashboardGridLayoutWidgetsScorecardThresholdsNewStyle(d, a interface
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Color, actual.Color, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Color")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Color, actual.Color, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Color")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23646,14 +23646,14 @@ func compareDashboardGridLayoutWidgetsTextNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Content, actual.Content, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Content")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Content, actual.Content, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Content")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Format, actual.Format, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Format")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Format, actual.Format, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Format")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23688,14 +23688,14 @@ func compareDashboardGridLayoutWidgetsLogsPanelNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23724,14 +23724,14 @@ func compareDashboardMosaicLayoutNewStyle(d, a interface{}, fn dcl.FieldName) ([
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Columns, actual.Columns, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Columns")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Columns, actual.Columns, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Columns")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Tiles, actual.Tiles, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTiles, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Tiles")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Tiles, actual.Tiles, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTiles, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Tiles")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23760,35 +23760,35 @@ func compareDashboardMosaicLayoutTilesNewStyle(d, a interface{}, fn dcl.FieldNam
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.XPos, actual.XPos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("XPos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.XPos, actual.XPos, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("XPos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.YPos, actual.YPos, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("YPos")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.YPos, actual.YPos, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("YPos")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Width, actual.Width, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Width")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Height, actual.Height, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Height")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Height, actual.Height, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Height")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Widget, actual.Widget, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidget, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Widget")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Widget, actual.Widget, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidget, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Widget")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23817,42 +23817,42 @@ func compareDashboardMosaicLayoutTilesWidgetNewStyle(d, a interface{}, fn dcl.Fi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Title, actual.Title, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Title")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Title, actual.Title, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Title")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.XyChart, actual.XyChart, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChart, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("XyChart")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.XyChart, actual.XyChart, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChart, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("XyChart")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scorecard, actual.Scorecard, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecard, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scorecard")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scorecard, actual.Scorecard, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecard, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scorecard")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Text, actual.Text, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetTextNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetText, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Text")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Text, actual.Text, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetTextNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetText, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Text")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Blank, actual.Blank, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetBlankNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetBlank, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Blank")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Blank, actual.Blank, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetBlankNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetBlank, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Blank")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LogsPanel, actual.LogsPanel, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetLogsPanelNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetLogsPanel, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LogsPanel")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LogsPanel, actual.LogsPanel, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetLogsPanelNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetLogsPanel, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LogsPanel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23881,42 +23881,42 @@ func compareDashboardMosaicLayoutTilesWidgetXyChartNewStyle(d, a interface{}, fn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataSets, actual.DataSets, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSets, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("DataSets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataSets, actual.DataSets, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSets, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("DataSets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeshiftDuration, actual.TimeshiftDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeshiftDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeshiftDuration, actual.TimeshiftDuration, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeshiftDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Thresholds, actual.Thresholds, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartThresholdsNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartThresholds, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Thresholds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Thresholds, actual.Thresholds, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartThresholdsNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartThresholds, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Thresholds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.XAxis, actual.XAxis, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartXAxisNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartXAxis, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("XAxis")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.XAxis, actual.XAxis, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartXAxisNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartXAxis, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("XAxis")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.YAxis, actual.YAxis, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartYAxisNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartYAxis, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("YAxis")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.YAxis, actual.YAxis, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartYAxisNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartYAxis, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("YAxis")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ChartOptions, actual.ChartOptions, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartChartOptionsNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartChartOptions, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ChartOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ChartOptions, actual.ChartOptions, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartChartOptionsNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartChartOptions, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ChartOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23945,28 +23945,28 @@ func compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesQuery, actual.TimeSeriesQuery, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQuery")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesQuery, actual.TimeSeriesQuery, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQuery")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PlotType, actual.PlotType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PlotType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PlotType, actual.PlotType, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PlotType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LegendTemplate, actual.LegendTemplate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("LegendTemplate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LegendTemplate, actual.LegendTemplate, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("LegendTemplate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MinAlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MinAlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -23995,28 +23995,28 @@ func compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryNewSty
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesFilter, actual.TimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesFilter, actual.TimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilterRatio")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilterRatio")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UnitOverride, actual.UnitOverride, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UnitOverride")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UnitOverride, actual.UnitOverride, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UnitOverride")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24045,28 +24045,28 @@ func compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24095,28 +24095,28 @@ func compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24145,28 +24145,28 @@ func compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24195,21 +24195,21 @@ func compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24238,28 +24238,28 @@ func compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Numerator, actual.Numerator, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Numerator")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Numerator, actual.Numerator, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Numerator")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Denominator, actual.Denominator, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Denominator")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Denominator, actual.Denominator, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Denominator")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24288,14 +24288,14 @@ func compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24324,28 +24324,28 @@ func compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24374,14 +24374,14 @@ func compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24410,28 +24410,28 @@ func compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24460,28 +24460,28 @@ func compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24510,21 +24510,21 @@ func compareDashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSe
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24553,28 +24553,28 @@ func compareDashboardMosaicLayoutTilesWidgetXyChartThresholdsNewStyle(d, a inter
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Color, actual.Color, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Color")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Color, actual.Color, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Color")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24603,14 +24603,14 @@ func compareDashboardMosaicLayoutTilesWidgetXyChartXAxisNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24639,14 +24639,14 @@ func compareDashboardMosaicLayoutTilesWidgetXyChartYAxisNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24675,7 +24675,7 @@ func compareDashboardMosaicLayoutTilesWidgetXyChartChartOptionsNewStyle(d, a int
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24704,28 +24704,28 @@ func compareDashboardMosaicLayoutTilesWidgetScorecardNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesQuery, actual.TimeSeriesQuery, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQuery")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesQuery, actual.TimeSeriesQuery, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQuery")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GaugeView, actual.GaugeView, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardGaugeViewNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardGaugeView, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GaugeView")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GaugeView, actual.GaugeView, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardGaugeViewNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardGaugeView, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GaugeView")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SparkChartView, actual.SparkChartView, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardSparkChartViewNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardSparkChartView, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SparkChartView")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkChartView, actual.SparkChartView, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardSparkChartViewNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardSparkChartView, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SparkChartView")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Thresholds, actual.Thresholds, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardThresholdsNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardThresholds, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Thresholds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Thresholds, actual.Thresholds, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardThresholdsNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardThresholds, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Thresholds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24754,28 +24754,28 @@ func compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryNewStyle(d, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesFilter, actual.TimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesFilter, actual.TimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilterRatio")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilterRatio")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UnitOverride, actual.UnitOverride, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UnitOverride")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UnitOverride, actual.UnitOverride, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UnitOverride")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24804,28 +24804,28 @@ func compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24854,28 +24854,28 @@ func compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24904,28 +24904,28 @@ func compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24954,21 +24954,21 @@ func compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -24997,28 +24997,28 @@ func compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Numerator, actual.Numerator, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Numerator")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Numerator, actual.Numerator, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Numerator")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Denominator, actual.Denominator, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Denominator")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Denominator, actual.Denominator, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Denominator")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25047,14 +25047,14 @@ func compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25083,28 +25083,28 @@ func compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25133,14 +25133,14 @@ func compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle, EmptyObject: EmptyDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25169,28 +25169,28 @@ func compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25219,28 +25219,28 @@ func compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25269,21 +25269,21 @@ func compareDashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFi
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25312,14 +25312,14 @@ func compareDashboardMosaicLayoutTilesWidgetScorecardGaugeViewNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LowerBound, actual.LowerBound, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("LowerBound")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LowerBound, actual.LowerBound, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("LowerBound")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpperBound, actual.UpperBound, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UpperBound")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpperBound, actual.UpperBound, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UpperBound")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25348,14 +25348,14 @@ func compareDashboardMosaicLayoutTilesWidgetScorecardSparkChartViewNewStyle(d, a
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SparkChartType, actual.SparkChartType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SparkChartType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkChartType, actual.SparkChartType, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SparkChartType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MinAlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MinAlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25384,28 +25384,28 @@ func compareDashboardMosaicLayoutTilesWidgetScorecardThresholdsNewStyle(d, a int
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Color, actual.Color, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Color")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Color, actual.Color, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Color")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25434,14 +25434,14 @@ func compareDashboardMosaicLayoutTilesWidgetTextNewStyle(d, a interface{}, fn dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Content, actual.Content, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Content")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Content, actual.Content, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Content")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Format, actual.Format, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Format")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Format, actual.Format, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Format")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25476,14 +25476,14 @@ func compareDashboardMosaicLayoutTilesWidgetLogsPanelNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25512,7 +25512,7 @@ func compareDashboardRowLayoutNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Rows, actual.Rows, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsNewStyle, EmptyObject: EmptyDashboardRowLayoutRows, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Rows")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Rows, actual.Rows, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsNewStyle, EmptyObject: EmptyDashboardRowLayoutRows, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Rows")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25541,14 +25541,14 @@ func compareDashboardRowLayoutRowsNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Weight, actual.Weight, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Weight")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Weight, actual.Weight, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Weight")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Widgets, actual.Widgets, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgets, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Widgets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Widgets, actual.Widgets, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgets, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Widgets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25577,42 +25577,42 @@ func compareDashboardRowLayoutRowsWidgetsNewStyle(d, a interface{}, fn dcl.Field
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Title, actual.Title, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Title")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Title, actual.Title, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Title")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.XyChart, actual.XyChart, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChart, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("XyChart")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.XyChart, actual.XyChart, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChart, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("XyChart")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scorecard, actual.Scorecard, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecard, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scorecard")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scorecard, actual.Scorecard, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecard, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scorecard")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Text, actual.Text, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsTextNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsText, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Text")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Text, actual.Text, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsTextNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsText, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Text")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Blank, actual.Blank, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsBlankNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsBlank, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Blank")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Blank, actual.Blank, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsBlankNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsBlank, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Blank")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LogsPanel, actual.LogsPanel, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsLogsPanelNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsLogsPanel, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LogsPanel")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LogsPanel, actual.LogsPanel, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsLogsPanelNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsLogsPanel, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LogsPanel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25641,42 +25641,42 @@ func compareDashboardRowLayoutRowsWidgetsXyChartNewStyle(d, a interface{}, fn dc
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataSets, actual.DataSets, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSets, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("DataSets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataSets, actual.DataSets, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSets, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("DataSets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeshiftDuration, actual.TimeshiftDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeshiftDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeshiftDuration, actual.TimeshiftDuration, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeshiftDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Thresholds, actual.Thresholds, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartThresholdsNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartThresholds, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Thresholds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Thresholds, actual.Thresholds, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartThresholdsNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartThresholds, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Thresholds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.XAxis, actual.XAxis, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartXAxisNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartXAxis, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("XAxis")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.XAxis, actual.XAxis, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartXAxisNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartXAxis, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("XAxis")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.YAxis, actual.YAxis, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartYAxisNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartYAxis, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("YAxis")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.YAxis, actual.YAxis, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartYAxisNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartYAxis, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("YAxis")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ChartOptions, actual.ChartOptions, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartChartOptionsNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartChartOptions, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ChartOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ChartOptions, actual.ChartOptions, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartChartOptionsNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartChartOptions, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ChartOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25705,28 +25705,28 @@ func compareDashboardRowLayoutRowsWidgetsXyChartDataSetsNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesQuery, actual.TimeSeriesQuery, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQuery")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesQuery, actual.TimeSeriesQuery, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQuery")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PlotType, actual.PlotType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PlotType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PlotType, actual.PlotType, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PlotType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LegendTemplate, actual.LegendTemplate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("LegendTemplate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LegendTemplate, actual.LegendTemplate, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("LegendTemplate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MinAlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MinAlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25755,28 +25755,28 @@ func compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryNewStyle(
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesFilter, actual.TimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesFilter, actual.TimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilterRatio")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilterRatio")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UnitOverride, actual.UnitOverride, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UnitOverride")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UnitOverride, actual.UnitOverride, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UnitOverride")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25805,28 +25805,28 @@ func compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25855,28 +25855,28 @@ func compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25905,28 +25905,28 @@ func compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25955,21 +25955,21 @@ func compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -25998,28 +25998,28 @@ func compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Numerator, actual.Numerator, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Numerator")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Numerator, actual.Numerator, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Numerator")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Denominator, actual.Denominator, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Denominator")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Denominator, actual.Denominator, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Denominator")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26048,14 +26048,14 @@ func compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26084,28 +26084,28 @@ func compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26134,14 +26134,14 @@ func compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26170,28 +26170,28 @@ func compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26220,28 +26220,28 @@ func compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26270,21 +26270,21 @@ func compareDashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26313,28 +26313,28 @@ func compareDashboardRowLayoutRowsWidgetsXyChartThresholdsNewStyle(d, a interfac
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Color, actual.Color, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Color")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Color, actual.Color, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Color")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26363,14 +26363,14 @@ func compareDashboardRowLayoutRowsWidgetsXyChartXAxisNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26399,14 +26399,14 @@ func compareDashboardRowLayoutRowsWidgetsXyChartYAxisNewStyle(d, a interface{}, 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26435,7 +26435,7 @@ func compareDashboardRowLayoutRowsWidgetsXyChartChartOptionsNewStyle(d, a interf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26464,28 +26464,28 @@ func compareDashboardRowLayoutRowsWidgetsScorecardNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesQuery, actual.TimeSeriesQuery, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQuery")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesQuery, actual.TimeSeriesQuery, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQuery")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GaugeView, actual.GaugeView, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardGaugeViewNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardGaugeView, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GaugeView")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GaugeView, actual.GaugeView, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardGaugeViewNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardGaugeView, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GaugeView")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SparkChartView, actual.SparkChartView, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardSparkChartViewNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardSparkChartView, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SparkChartView")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkChartView, actual.SparkChartView, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardSparkChartViewNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardSparkChartView, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SparkChartView")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Thresholds, actual.Thresholds, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardThresholdsNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardThresholds, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Thresholds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Thresholds, actual.Thresholds, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardThresholdsNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardThresholds, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Thresholds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26514,28 +26514,28 @@ func compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesFilter, actual.TimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesFilter, actual.TimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilterRatio")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilterRatio")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UnitOverride, actual.UnitOverride, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UnitOverride")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UnitOverride, actual.UnitOverride, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UnitOverride")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26564,28 +26564,28 @@ func compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26614,28 +26614,28 @@ func compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26664,28 +26664,28 @@ func compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26714,21 +26714,21 @@ func compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26757,28 +26757,28 @@ func compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Numerator, actual.Numerator, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Numerator")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Numerator, actual.Numerator, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Numerator")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Denominator, actual.Denominator, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Denominator")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Denominator, actual.Denominator, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Denominator")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26807,14 +26807,14 @@ func compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26843,28 +26843,28 @@ func compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26893,14 +26893,14 @@ func compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle, EmptyObject: EmptyDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26929,28 +26929,28 @@ func compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -26979,28 +26979,28 @@ func compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27029,21 +27029,21 @@ func compareDashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27072,14 +27072,14 @@ func compareDashboardRowLayoutRowsWidgetsScorecardGaugeViewNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LowerBound, actual.LowerBound, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("LowerBound")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LowerBound, actual.LowerBound, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("LowerBound")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpperBound, actual.UpperBound, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UpperBound")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpperBound, actual.UpperBound, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UpperBound")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27108,14 +27108,14 @@ func compareDashboardRowLayoutRowsWidgetsScorecardSparkChartViewNewStyle(d, a in
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SparkChartType, actual.SparkChartType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SparkChartType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkChartType, actual.SparkChartType, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SparkChartType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MinAlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MinAlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27144,28 +27144,28 @@ func compareDashboardRowLayoutRowsWidgetsScorecardThresholdsNewStyle(d, a interf
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Color, actual.Color, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Color")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Color, actual.Color, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Color")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27194,14 +27194,14 @@ func compareDashboardRowLayoutRowsWidgetsTextNewStyle(d, a interface{}, fn dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Content, actual.Content, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Content")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Content, actual.Content, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Content")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Format, actual.Format, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Format")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Format, actual.Format, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Format")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27236,14 +27236,14 @@ func compareDashboardRowLayoutRowsWidgetsLogsPanelNewStyle(d, a interface{}, fn 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27272,7 +27272,7 @@ func compareDashboardColumnLayoutNewStyle(d, a interface{}, fn dcl.FieldName) ([
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Columns, actual.Columns, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumns, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Columns")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Columns, actual.Columns, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumns, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Columns")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27301,14 +27301,14 @@ func compareDashboardColumnLayoutColumnsNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Weight, actual.Weight, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Weight")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Weight, actual.Weight, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Weight")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Widgets, actual.Widgets, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgets, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Widgets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Widgets, actual.Widgets, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgets, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Widgets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27337,42 +27337,42 @@ func compareDashboardColumnLayoutColumnsWidgetsNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Title, actual.Title, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Title")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Title, actual.Title, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Title")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.XyChart, actual.XyChart, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChart, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("XyChart")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.XyChart, actual.XyChart, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChart, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("XyChart")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scorecard, actual.Scorecard, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecard, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scorecard")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scorecard, actual.Scorecard, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecard, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scorecard")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Text, actual.Text, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsTextNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsText, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Text")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Text, actual.Text, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsTextNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsText, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Text")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Blank, actual.Blank, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsBlankNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsBlank, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Blank")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Blank, actual.Blank, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsBlankNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsBlank, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Blank")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LogsPanel, actual.LogsPanel, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsLogsPanelNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsLogsPanel, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LogsPanel")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LogsPanel, actual.LogsPanel, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsLogsPanelNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsLogsPanel, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LogsPanel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27401,42 +27401,42 @@ func compareDashboardColumnLayoutColumnsWidgetsXyChartNewStyle(d, a interface{},
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.DataSets, actual.DataSets, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSets, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("DataSets")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataSets, actual.DataSets, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSets, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("DataSets")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeshiftDuration, actual.TimeshiftDuration, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeshiftDuration")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeshiftDuration, actual.TimeshiftDuration, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeshiftDuration")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Thresholds, actual.Thresholds, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartThresholdsNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartThresholds, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Thresholds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Thresholds, actual.Thresholds, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartThresholdsNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartThresholds, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Thresholds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.XAxis, actual.XAxis, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartXAxisNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartXAxis, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("XAxis")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.XAxis, actual.XAxis, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartXAxisNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartXAxis, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("XAxis")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.YAxis, actual.YAxis, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartYAxisNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartYAxis, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("YAxis")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.YAxis, actual.YAxis, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartYAxisNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartYAxis, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("YAxis")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ChartOptions, actual.ChartOptions, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartChartOptionsNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartChartOptions, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ChartOptions")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ChartOptions, actual.ChartOptions, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartChartOptionsNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartChartOptions, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ChartOptions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27465,28 +27465,28 @@ func compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsNewStyle(d, a inte
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesQuery, actual.TimeSeriesQuery, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQuery")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesQuery, actual.TimeSeriesQuery, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQuery")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PlotType, actual.PlotType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PlotType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PlotType, actual.PlotType, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PlotType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LegendTemplate, actual.LegendTemplate, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("LegendTemplate")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LegendTemplate, actual.LegendTemplate, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("LegendTemplate")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MinAlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MinAlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27515,28 +27515,28 @@ func compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryNew
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesFilter, actual.TimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesFilter, actual.TimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilterRatio")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilterRatio")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UnitOverride, actual.UnitOverride, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UnitOverride")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UnitOverride, actual.UnitOverride, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UnitOverride")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27565,28 +27565,28 @@ func compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTim
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27615,28 +27615,28 @@ func compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTim
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27665,28 +27665,28 @@ func compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTim
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27715,21 +27715,21 @@ func compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTim
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27758,28 +27758,28 @@ func compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTim
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Numerator, actual.Numerator, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Numerator")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Numerator, actual.Numerator, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Numerator")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Denominator, actual.Denominator, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Denominator")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Denominator, actual.Denominator, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Denominator")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27808,14 +27808,14 @@ func compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTim
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27844,28 +27844,28 @@ func compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTim
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27894,14 +27894,14 @@ func compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTim
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27930,28 +27930,28 @@ func compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTim
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -27980,28 +27980,28 @@ func compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTim
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28030,21 +28030,21 @@ func compareDashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTim
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28073,28 +28073,28 @@ func compareDashboardColumnLayoutColumnsWidgetsXyChartThresholdsNewStyle(d, a in
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Color, actual.Color, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Color")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Color, actual.Color, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Color")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28123,14 +28123,14 @@ func compareDashboardColumnLayoutColumnsWidgetsXyChartXAxisNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28159,14 +28159,14 @@ func compareDashboardColumnLayoutColumnsWidgetsXyChartYAxisNewStyle(d, a interfa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Scale, actual.Scale, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Scale")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28195,7 +28195,7 @@ func compareDashboardColumnLayoutColumnsWidgetsXyChartChartOptionsNewStyle(d, a 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28224,28 +28224,28 @@ func compareDashboardColumnLayoutColumnsWidgetsScorecardNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesQuery, actual.TimeSeriesQuery, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQuery")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesQuery, actual.TimeSeriesQuery, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQuery")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GaugeView, actual.GaugeView, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardGaugeViewNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardGaugeView, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GaugeView")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GaugeView, actual.GaugeView, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardGaugeViewNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardGaugeView, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GaugeView")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SparkChartView, actual.SparkChartView, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardSparkChartViewNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardSparkChartView, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SparkChartView")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkChartView, actual.SparkChartView, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardSparkChartViewNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardSparkChartView, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SparkChartView")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Thresholds, actual.Thresholds, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardThresholdsNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardThresholds, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Thresholds")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Thresholds, actual.Thresholds, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardThresholdsNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardThresholds, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Thresholds")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28274,28 +28274,28 @@ func compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryNewStyle(
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesFilter, actual.TimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesFilter, actual.TimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilterRatio")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesFilterRatio, actual.TimeSeriesFilterRatio, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesFilterRatio")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TimeSeriesQueryLanguage, actual.TimeSeriesQueryLanguage, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("TimeSeriesQueryLanguage")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UnitOverride, actual.UnitOverride, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UnitOverride")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UnitOverride, actual.UnitOverride, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UnitOverride")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28324,28 +28324,28 @@ func compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28374,28 +28374,28 @@ func compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28424,28 +28424,28 @@ func compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28474,21 +28474,21 @@ func compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28517,28 +28517,28 @@ func compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Numerator, actual.Numerator, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Numerator")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Numerator, actual.Numerator, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Numerator")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Denominator, actual.Denominator, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Denominator")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Denominator, actual.Denominator, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Denominator")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SecondaryAggregation, actual.SecondaryAggregation, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SecondaryAggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PickTimeSeriesFilter, actual.PickTimeSeriesFilter, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilterNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PickTimeSeriesFilter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28567,14 +28567,14 @@ func compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28603,28 +28603,28 @@ func compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28653,14 +28653,14 @@ func compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.Info{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Aggregation, actual.Aggregation, dcl.DiffInfo{ObjectFunction: compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregationNewStyle, EmptyObject: EmptyDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation, OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Aggregation")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28689,28 +28689,28 @@ func compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28739,28 +28739,28 @@ func compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AlignmentPeriod, actual.AlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("AlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PerSeriesAligner, actual.PerSeriesAligner, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("PerSeriesAligner")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CrossSeriesReducer, actual.CrossSeriesReducer, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("CrossSeriesReducer")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.GroupByFields, actual.GroupByFields, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("GroupByFields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28789,21 +28789,21 @@ func compareDashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSerie
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RankingMethod, actual.RankingMethod, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("RankingMethod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NumTimeSeries, actual.NumTimeSeries, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("NumTimeSeries")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28832,14 +28832,14 @@ func compareDashboardColumnLayoutColumnsWidgetsScorecardGaugeViewNewStyle(d, a i
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.LowerBound, actual.LowerBound, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("LowerBound")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LowerBound, actual.LowerBound, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("LowerBound")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpperBound, actual.UpperBound, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UpperBound")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpperBound, actual.UpperBound, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("UpperBound")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28868,14 +28868,14 @@ func compareDashboardColumnLayoutColumnsWidgetsScorecardSparkChartViewNewStyle(d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SparkChartType, actual.SparkChartType, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SparkChartType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SparkChartType, actual.SparkChartType, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("SparkChartType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MinAlignmentPeriod")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinAlignmentPeriod, actual.MinAlignmentPeriod, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("MinAlignmentPeriod")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28904,28 +28904,28 @@ func compareDashboardColumnLayoutColumnsWidgetsScorecardThresholdsNewStyle(d, a 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Label, actual.Label, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Label")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Color, actual.Color, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Color")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Color, actual.Color, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Color")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Direction, actual.Direction, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Direction")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28954,14 +28954,14 @@ func compareDashboardColumnLayoutColumnsWidgetsTextNewStyle(d, a interface{}, fn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Content, actual.Content, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Content")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Content, actual.Content, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Content")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Format, actual.Format, dcl.Info{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Format")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Format, actual.Format, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Format")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -28996,14 +28996,14 @@ func compareDashboardColumnLayoutColumnsWidgetsLogsPanelNewStyle(d, a interface{
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.Info{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Filter, actual.Filter, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("Filter")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceNames, actual.ResourceNames, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateDashboardUpdateDashboardOperation")}, fn.AddNest("ResourceNames")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -1382,203 +1382,203 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.Info{OperationSelector: dcl.TriggersOperation("updateForwardingRuleSetLabelsOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateForwardingRuleSetLabelsOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllPorts, actual.AllPorts, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllPorts")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllPorts, actual.AllPorts, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllPorts")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.AllowGlobalAccess, actual.AllowGlobalAccess, dcl.Info{OperationSelector: dcl.TriggersOperation("updateForwardingRuleUpdateOperation")}, fn.AddNest("AllowGlobalAccess")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowGlobalAccess, actual.AllowGlobalAccess, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateForwardingRuleUpdateOperation")}, fn.AddNest("AllowGlobalAccess")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LabelFingerprint, actual.LabelFingerprint, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LabelFingerprint")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LabelFingerprint, actual.LabelFingerprint, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LabelFingerprint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.BackendService, actual.BackendService, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BackendService")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.BackendService, actual.BackendService, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BackendService")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CreationTimestamp, actual.CreationTimestamp, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CreationTimestamp")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.Info{CustomDiff: canonicalizeIPAddressToReference, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPAddress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPAddress, actual.IPAddress, dcl.DiffInfo{CustomDiff: canonicalizeIPAddressToReference, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPAddress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPProtocol, actual.IPProtocol, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPProtocol")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPProtocol, actual.IPProtocol, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IPProtocol")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IPVersion, actual.IPVersion, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpVersion")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IPVersion, actual.IPVersion, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IsMirroringCollector, actual.IsMirroringCollector, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsMirroringCollector")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IsMirroringCollector, actual.IsMirroringCollector, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IsMirroringCollector")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.LoadBalancingScheme, actual.LoadBalancingScheme, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoadBalancingScheme")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.LoadBalancingScheme, actual.LoadBalancingScheme, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("LoadBalancingScheme")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MetadataFilter, actual.MetadataFilter, dcl.Info{ObjectFunction: compareForwardingRuleMetadataFilterNewStyle, EmptyObject: EmptyForwardingRuleMetadataFilter, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetadataFilters")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MetadataFilter, actual.MetadataFilter, dcl.DiffInfo{ObjectFunction: compareForwardingRuleMetadataFilterNewStyle, EmptyObject: EmptyForwardingRuleMetadataFilter, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetadataFilters")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Network, actual.Network, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Network")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NetworkTier, actual.NetworkTier, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkTier")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NetworkTier, actual.NetworkTier, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NetworkTier")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PortRange, actual.PortRange, dcl.Info{CustomDiff: canonicalizePortRange, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PortRange")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PortRange, actual.PortRange, dcl.DiffInfo{CustomDiff: canonicalizePortRange, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PortRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Ports, actual.Ports, dcl.Info{Type: "Set", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Ports")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Ports, actual.Ports, dcl.DiffInfo{Type: "Set", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Ports")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Region, actual.Region, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Region")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SelfLink")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceLabel, actual.ServiceLabel, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceLabel")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceLabel, actual.ServiceLabel, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceLabel")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceName, actual.ServiceName, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceName, actual.ServiceName, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Subnetwork")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Subnetwork, actual.Subnetwork, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Subnetwork")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.Info{OperationSelector: dcl.TriggersOperation("updateForwardingRuleSetTargetOperation")}, fn.AddNest("Target")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Target, actual.Target, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateForwardingRuleSetTargetOperation")}, fn.AddNest("Target")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.Info{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Project, actual.Project, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Project")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ServiceDirectoryRegistrations, actual.ServiceDirectoryRegistrations, dcl.Info{ObjectFunction: compareForwardingRuleServiceDirectoryRegistrationsNewStyle, EmptyObject: EmptyForwardingRuleServiceDirectoryRegistrations, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceDirectoryRegistrations")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ServiceDirectoryRegistrations, actual.ServiceDirectoryRegistrations, dcl.DiffInfo{ObjectFunction: compareForwardingRuleServiceDirectoryRegistrationsNewStyle, EmptyObject: EmptyForwardingRuleServiceDirectoryRegistrations, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceDirectoryRegistrations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PscConnectionId, actual.PscConnectionId, dcl.Info{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PscConnectionId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PscConnectionId, actual.PscConnectionId, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PscConnectionId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.PscConnectionStatus, actual.PscConnectionStatus, dcl.Info{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PscConnectionStatus")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.PscConnectionStatus, actual.PscConnectionStatus, dcl.DiffInfo{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PscConnectionStatus")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1607,14 +1607,14 @@ func compareForwardingRuleMetadataFilterNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.FilterMatchCriteria, actual.FilterMatchCriteria, dcl.Info{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FilterMatchCriteria")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FilterMatchCriteria, actual.FilterMatchCriteria, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FilterMatchCriteria")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.FilterLabel, actual.FilterLabel, dcl.Info{ObjectFunction: compareForwardingRuleMetadataFilterFilterLabelNewStyle, EmptyObject: EmptyForwardingRuleMetadataFilterFilterLabel, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FilterLabels")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.FilterLabel, actual.FilterLabel, dcl.DiffInfo{ObjectFunction: compareForwardingRuleMetadataFilterFilterLabelNewStyle, EmptyObject: EmptyForwardingRuleMetadataFilterFilterLabel, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("FilterLabels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1643,14 +1643,14 @@ func compareForwardingRuleMetadataFilterFilterLabelNewStyle(d, a interface{}, fn
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1679,14 +1679,14 @@ func compareForwardingRuleServiceDirectoryRegistrationsNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Namespace, actual.Namespace, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Namespace")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Namespace, actual.Namespace, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Namespace")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.Info{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
