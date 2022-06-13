@@ -102,6 +102,7 @@ func ProtoToDeliveryPipeline(p *betapb.ClouddeployBetaDeliveryPipeline) *beta.De
 		Etag:           dcl.StringOrNil(p.GetEtag()),
 		Project:        dcl.StringOrNil(p.GetProject()),
 		Location:       dcl.StringOrNil(p.GetLocation()),
+		Suspended:      dcl.Bool(p.GetSuspended()),
 	}
 	return obj
 }
@@ -186,6 +187,7 @@ func DeliveryPipelineToProto(resource *beta.DeliveryPipeline) *betapb.Clouddeplo
 	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetSuspended(dcl.ValueOrEmptyBool(resource.Suspended))
 	mAnnotations := make(map[string]string, len(resource.Annotations))
 	for k, r := range resource.Annotations {
 		mAnnotations[k] = r

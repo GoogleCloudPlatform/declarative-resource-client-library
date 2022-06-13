@@ -38,6 +38,7 @@ type DeliveryPipeline struct {
 	Etag           *string                         `json:"etag"`
 	Project        *string                         `json:"project"`
 	Location       *string                         `json:"location"`
+	Suspended      *bool                           `json:"suspended"`
 }
 
 func (r *DeliveryPipeline) String() string {
@@ -317,6 +318,7 @@ func (r *DeliveryPipeline) ID() (string, error) {
 		"etag":           dcl.ValueOrEmptyString(nr.Etag),
 		"project":        dcl.ValueOrEmptyString(nr.Project),
 		"location":       dcl.ValueOrEmptyString(nr.Location),
+		"suspended":      dcl.ValueOrEmptyString(nr.Suspended),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/deliveryPipelines/{{name}}", params), nil
 }

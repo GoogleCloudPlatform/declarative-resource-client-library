@@ -37,6 +37,7 @@ class DeliveryPipeline(object):
         etag: str = None,
         project: str = None,
         location: str = None,
+        suspended: bool = None,
         service_account_file: str = "",
     ):
 
@@ -48,6 +49,7 @@ class DeliveryPipeline(object):
         self.serial_pipeline = serial_pipeline
         self.project = project
         self.location = location
+        self.suspended = suspended
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -79,6 +81,9 @@ class DeliveryPipeline(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
+        if Primitive.to_proto(self.suspended):
+            request.resource.suspended = Primitive.to_proto(self.suspended)
+
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyClouddeployAlphaDeliveryPipeline(request)
@@ -96,6 +101,7 @@ class DeliveryPipeline(object):
         self.etag = Primitive.from_proto(response.etag)
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
+        self.suspended = Primitive.from_proto(response.suspended)
 
     def delete(self):
         stub = delivery_pipeline_pb2_grpc.ClouddeployAlphaDeliveryPipelineServiceStub(
@@ -126,6 +132,9 @@ class DeliveryPipeline(object):
 
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
+
+        if Primitive.to_proto(self.suspended):
+            request.resource.suspended = Primitive.to_proto(self.suspended)
 
         response = stub.DeleteClouddeployAlphaDeliveryPipeline(request)
 
@@ -162,6 +171,8 @@ class DeliveryPipeline(object):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):
             resource.location = Primitive.to_proto(self.location)
+        if Primitive.to_proto(self.suspended):
+            resource.suspended = Primitive.to_proto(self.suspended)
         return resource
 
 

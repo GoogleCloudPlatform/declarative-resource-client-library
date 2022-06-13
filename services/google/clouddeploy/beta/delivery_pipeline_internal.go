@@ -172,6 +172,9 @@ func newUpdateDeliveryPipelineUpdateDeliveryPipelineRequest(ctx context.Context,
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["condition"] = v
 	}
+	if v := f.Suspended; !dcl.IsEmptyValueIndirect(v) {
+		req["suspended"] = v
+	}
 	b, err := c.getDeliveryPipelineRaw(ctx, f)
 	if err != nil {
 		return nil, err
@@ -563,6 +566,11 @@ func canonicalizeDeliveryPipelineDesiredState(rawDesired, rawInitial *DeliveryPi
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
+	if dcl.BoolCanonicalize(rawDesired.Suspended, rawInitial.Suspended) {
+		canonicalDesired.Suspended = rawInitial.Suspended
+	} else {
+		canonicalDesired.Suspended = rawDesired.Suspended
+	}
 
 	return canonicalDesired, nil
 }
@@ -656,6 +664,16 @@ func canonicalizeDeliveryPipelineNewState(c *Client, rawNew, rawDesired *Deliver
 	rawNew.Project = rawDesired.Project
 
 	rawNew.Location = rawDesired.Location
+
+	if dcl.IsNotReturnedByServer(rawNew.Suspended) && dcl.IsNotReturnedByServer(rawDesired.Suspended) {
+		if rawDesired.Suspended != nil {
+			rawNew.Suspended = rawDesired.Suspended
+		}
+	} else {
+		if dcl.BoolCanonicalize(rawDesired.Suspended, rawNew.Suspended) {
+			rawNew.Suspended = rawDesired.Suspended
+		}
+	}
 
 	return rawNew, nil
 }
@@ -1355,6 +1373,13 @@ func diffDeliveryPipeline(c *Client, desired, actual *DeliveryPipeline, opts ...
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.Suspended, actual.Suspended, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Suspended")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	return newDiffs, nil
 }
 func compareDeliveryPipelineSerialPipelineNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1630,6 +1655,9 @@ func expandDeliveryPipeline(c *Client, f *DeliveryPipeline) (map[string]interfac
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
+	if v := f.Suspended; dcl.ValueShouldBeSent(v) {
+		m["suspended"] = v
+	}
 
 	return m, nil
 }
@@ -1658,6 +1686,7 @@ func flattenDeliveryPipeline(c *Client, i interface{}, res *DeliveryPipeline) *D
 	resultRes.Etag = dcl.FlattenString(m["etag"])
 	resultRes.Project = dcl.FlattenString(m["project"])
 	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.Suspended = dcl.FlattenBool(m["suspended"])
 
 	return resultRes
 }

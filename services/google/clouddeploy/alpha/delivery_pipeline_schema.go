@@ -274,6 +274,11 @@ func DCLDeliveryPipelineSchema() *dcl.Schema {
 									},
 								},
 							},
+							"suspended": &dcl.Property{
+								Type:        "boolean",
+								GoName:      "Suspended",
+								Description: "When suspended, no new releases or rollouts can be created, but in-progress ones will complete.",
+							},
 							"uid": &dcl.Property{
 								Type:        "string",
 								GoName:      "Uid",

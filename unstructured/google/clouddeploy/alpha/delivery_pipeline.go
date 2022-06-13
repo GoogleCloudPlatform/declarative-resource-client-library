@@ -111,6 +111,9 @@ func DeliveryPipelineToUnstructured(r *dclService.DeliveryPipeline) *unstructure
 		rSerialPipeline["stages"] = rSerialPipelineStages
 		u.Object["serialPipeline"] = rSerialPipeline
 	}
+	if r.Suspended != nil {
+		u.Object["suspended"] = *r.Suspended
+	}
 	if r.Uid != nil {
 		u.Object["uid"] = *r.Uid
 	}
@@ -285,6 +288,13 @@ func UnstructuredToDeliveryPipeline(u *unstructured.Resource) (*dclService.Deliv
 			}
 		} else {
 			return nil, fmt.Errorf("r.SerialPipeline: expected map[string]interface{}")
+		}
+	}
+	if _, ok := u.Object["suspended"]; ok {
+		if b, ok := u.Object["suspended"].(bool); ok {
+			r.Suspended = dcl.Bool(b)
+		} else {
+			return nil, fmt.Errorf("r.Suspended: expected bool")
 		}
 	}
 	if _, ok := u.Object["uid"]; ok {

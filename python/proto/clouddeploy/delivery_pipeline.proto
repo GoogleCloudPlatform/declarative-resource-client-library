@@ -34,6 +34,7 @@ message ClouddeployDeliveryPipeline {
   string etag = 10;
   string project = 11;
   string location = 12;
+  bool suspended = 13;
 }
 
 message ClouddeployDeliveryPipelineSerialPipeline {
