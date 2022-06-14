@@ -15,6 +15,7 @@ info:
   title: VertexAI/Endpoint
   description: The VertexAI Endpoint resource
   x-dcl-struct-name: Endpoint
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

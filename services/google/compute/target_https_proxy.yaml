@@ -15,6 +15,7 @@ info:
   title: Compute/TargetHttpsProxy
   description: The Compute TargetHttpsProxy resource
   x-dcl-struct-name: TargetHttpsProxy
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

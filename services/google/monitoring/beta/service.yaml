@@ -15,6 +15,7 @@ info:
   title: Monitoring/Service
   description: The Monitoring Service resource
   x-dcl-struct-name: Service
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

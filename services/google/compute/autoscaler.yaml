@@ -15,6 +15,7 @@ info:
   title: Compute/Autoscaler
   description: The Compute Autoscaler resource
   x-dcl-struct-name: Autoscaler
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

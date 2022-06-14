@@ -23,6 +23,7 @@ func DCLGatewaySchema() *dcl.Schema {
 			Title:       "NetworkServices/Gateway",
 			Description: "The NetworkServices Gateway resource",
 			StructName:  "Gateway",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

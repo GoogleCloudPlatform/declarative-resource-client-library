@@ -15,6 +15,7 @@ info:
   title: VertexAI/Model
   description: The VertexAI Model resource
   x-dcl-struct-name: Model
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

@@ -15,6 +15,7 @@ info:
   title: Cloudkms/KeyRing
   description: The Cloudkms KeyRing resource
   x-dcl-struct-name: KeyRing
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

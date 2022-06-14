@@ -15,6 +15,7 @@ info:
   title: Dlp/DeidentifyTemplate
   description: The Dlp DeidentifyTemplate resource
   x-dcl-struct-name: DeidentifyTemplate
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

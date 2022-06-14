@@ -23,6 +23,7 @@ func DCLEndpointPolicySchema() *dcl.Schema {
 			Title:       "NetworkServices/EndpointPolicy",
 			Description: "The NetworkServices EndpointPolicy resource",
 			StructName:  "EndpointPolicy",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

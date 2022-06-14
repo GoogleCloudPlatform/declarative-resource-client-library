@@ -15,6 +15,7 @@ info:
   title: NetworkServices/GrpcRoute
   description: The NetworkServices GrpcRoute resource
   x-dcl-struct-name: GrpcRoute
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

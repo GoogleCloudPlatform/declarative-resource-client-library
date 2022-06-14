@@ -17,6 +17,7 @@ info:
     to complete a patch. These configurations include instance filter, package repository
     settings, and a schedule.
   x-dcl-struct-name: PatchDeployment
+  x-dcl-has-create: true
   x-dcl-has-iam: false
   x-dcl-ref:
     text: API documentation

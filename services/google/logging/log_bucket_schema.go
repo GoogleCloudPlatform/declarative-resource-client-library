@@ -23,6 +23,7 @@ func DCLLogBucketSchema() *dcl.Schema {
 			Title:       "Logging/LogBucket",
 			Description: "The Logging LogBucket resource",
 			StructName:  "LogBucket",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

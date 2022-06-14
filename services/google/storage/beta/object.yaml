@@ -15,6 +15,7 @@ info:
   title: Storage/Object
   description: The Storage Object resource
   x-dcl-struct-name: Object
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

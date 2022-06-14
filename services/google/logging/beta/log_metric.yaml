@@ -15,6 +15,7 @@ info:
   title: Logging/LogMetric
   description: The Logging LogMetric resource
   x-dcl-struct-name: LogMetric
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

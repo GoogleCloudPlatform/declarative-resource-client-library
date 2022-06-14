@@ -15,6 +15,7 @@ info:
   title: Iam/WorkloadIdentityPool
   description: The Iam WorkloadIdentityPool resource
   x-dcl-struct-name: WorkloadIdentityPool
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

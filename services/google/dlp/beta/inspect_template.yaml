@@ -15,6 +15,7 @@ info:
   title: Dlp/InspectTemplate
   description: The Dlp InspectTemplate resource
   x-dcl-struct-name: InspectTemplate
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

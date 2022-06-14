@@ -83,6 +83,7 @@ type Info struct {
 	Title       string  `yaml:"title"`
 	Description string  `yaml:"description"`
 	StructName  string  `yaml:"x-dcl-struct-name,omitempty"`
+	HasCreate   bool    `yaml:"x-dcl-has-create"`
 	HasIAM      bool    `yaml:"x-dcl-has-iam"`
 	Mutex       string  `yaml:"x-dcl-mutex,omitempty"`
 	Note        string  `yaml:"x-dcl-note,omitempty"`

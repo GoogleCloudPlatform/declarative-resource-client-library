@@ -15,6 +15,7 @@ info:
   title: NetworkServices/ServiceBinding
   description: The NetworkServices ServiceBinding resource
   x-dcl-struct-name: ServiceBinding
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

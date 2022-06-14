@@ -23,6 +23,7 @@ func DCLReleaseSchema() *dcl.Schema {
 			Title:       "Firebaserules/Release",
 			Description: "The Firebaserules Release resource",
 			StructName:  "Release",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

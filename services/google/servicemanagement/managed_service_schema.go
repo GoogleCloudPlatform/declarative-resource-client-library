@@ -23,6 +23,7 @@ func DCLManagedServiceSchema() *dcl.Schema {
 			Title:       "Servicemanagement/ManagedService",
 			Description: "The Servicemanagement ManagedService resource",
 			StructName:  "ManagedService",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

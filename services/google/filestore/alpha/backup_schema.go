@@ -23,6 +23,7 @@ func DCLBackupSchema() *dcl.Schema {
 			Title:       "Filestore/Backup",
 			Description: "The Filestore Backup resource",
 			StructName:  "Backup",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

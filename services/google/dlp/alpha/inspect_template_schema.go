@@ -23,6 +23,7 @@ func DCLInspectTemplateSchema() *dcl.Schema {
 			Title:       "Dlp/InspectTemplate",
 			Description: "The Dlp InspectTemplate resource",
 			StructName:  "InspectTemplate",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

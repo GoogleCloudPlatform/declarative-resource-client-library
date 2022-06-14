@@ -15,6 +15,7 @@ info:
   title: BinaryAuthorization/Policy
   description: The BinaryAuthorization Policy resource
   x-dcl-struct-name: Policy
+  x-dcl-has-create: false
   x-dcl-has-iam: true
 paths:
   get:

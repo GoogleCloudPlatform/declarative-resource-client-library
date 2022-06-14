@@ -15,6 +15,7 @@ info:
   title: GkeHub/Fleet
   description: The GkeHub Fleet resource
   x-dcl-struct-name: Fleet
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

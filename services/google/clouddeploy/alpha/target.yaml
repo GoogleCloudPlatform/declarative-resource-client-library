@@ -15,6 +15,7 @@ info:
   title: Clouddeploy/Target
   description: The Cloud Deploy `Target` resource
   x-dcl-struct-name: Target
+  x-dcl-has-create: true
   x-dcl-has-iam: false
   x-dcl-ref:
     text: REST API

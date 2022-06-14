@@ -23,6 +23,7 @@ func DCLMonitoredProjectSchema() *dcl.Schema {
 			Title:       "Monitoring/MonitoredProject",
 			Description: "Monitored Project allows you to set a project as monitored by a _metrics scope_, which is a term for a project used to group the metrics of multiple projects, potentially across multiple organizations.  This enables you to view these groups in the Monitoring page of the cloud console.",
 			StructName:  "MonitoredProject",
+			HasCreate:   true,
 			Reference: &dcl.Link{
 				Text: "REST API",
 				URL:  "https://cloud.google.com/monitoring/api/ref_v3/rest/v1/locations.global.metricsScopes",

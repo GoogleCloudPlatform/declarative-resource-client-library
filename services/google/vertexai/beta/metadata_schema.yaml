@@ -15,6 +15,7 @@ info:
   title: VertexAI/MetadataSchema
   description: The VertexAI MetadataSchema resource
   x-dcl-struct-name: MetadataSchema
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

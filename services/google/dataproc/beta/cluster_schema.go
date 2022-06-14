@@ -23,6 +23,7 @@ func DCLClusterSchema() *dcl.Schema {
 			Title:       "Dataproc/Cluster",
 			Description: "The Dataproc Cluster resource",
 			StructName:  "Cluster",
+			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{

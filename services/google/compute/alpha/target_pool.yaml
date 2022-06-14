@@ -15,6 +15,7 @@ info:
   title: Compute/TargetPool
   description: The Compute TargetPool resource
   x-dcl-struct-name: TargetPool
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

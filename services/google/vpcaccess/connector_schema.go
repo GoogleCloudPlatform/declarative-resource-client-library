@@ -23,6 +23,7 @@ func DCLConnectorSchema() *dcl.Schema {
 			Title:       "VPCAccess/Connector",
 			Description: "The VPCAccess Connector resource",
 			StructName:  "Connector",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

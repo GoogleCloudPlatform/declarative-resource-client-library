@@ -23,6 +23,7 @@ func DCLJobSchema() *dcl.Schema {
 			Title:       "CloudScheduler/Job",
 			Description: "The CloudScheduler Job resource",
 			StructName:  "Job",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

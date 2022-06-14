@@ -15,6 +15,7 @@ info:
   title: VertexAI/EndpointTrafficSplit
   description: The VertexAI EndpointTrafficSplit resource
   x-dcl-struct-name: EndpointTrafficSplit
+  x-dcl-has-create: false
   x-dcl-has-iam: false
 paths:
   get:

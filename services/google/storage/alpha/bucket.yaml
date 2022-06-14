@@ -15,6 +15,7 @@ info:
   title: Storage/Bucket
   description: The Storage Bucket resource
   x-dcl-struct-name: Bucket
+  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:

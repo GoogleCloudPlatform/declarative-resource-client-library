@@ -15,6 +15,7 @@ info:
   title: Storage/ObjectAccessControl
   description: The Storage ObjectAccessControl resource
   x-dcl-struct-name: ObjectAccessControl
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

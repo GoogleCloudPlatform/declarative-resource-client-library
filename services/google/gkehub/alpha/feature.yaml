@@ -15,6 +15,7 @@ info:
   title: GkeHub/Feature
   description: The GkeHub Feature resource
   x-dcl-struct-name: Feature
+  x-dcl-has-create: true
   x-dcl-has-iam: false
   x-dcl-mutex: '{{project}}/{{location}}/{{feature}}'
 paths:

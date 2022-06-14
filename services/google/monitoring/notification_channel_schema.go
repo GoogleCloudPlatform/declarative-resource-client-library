@@ -23,6 +23,7 @@ func DCLNotificationChannelSchema() *dcl.Schema {
 			Title:       "Monitoring/NotificationChannel",
 			Description: "The Monitoring NotificationChannel resource",
 			StructName:  "NotificationChannel",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

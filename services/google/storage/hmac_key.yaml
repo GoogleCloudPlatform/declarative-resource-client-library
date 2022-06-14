@@ -15,6 +15,7 @@ info:
   title: Storage/HmacKey
   description: The Storage HmacKey resource
   x-dcl-struct-name: HmacKey
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

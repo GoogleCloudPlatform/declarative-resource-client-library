@@ -15,6 +15,7 @@ info:
   title: Container/Cluster
   description: The Container Cluster resource
   x-dcl-struct-name: Cluster
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

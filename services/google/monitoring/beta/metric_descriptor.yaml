@@ -15,6 +15,7 @@ info:
   title: Monitoring/MetricDescriptor
   description: The Monitoring MetricDescriptor resource
   x-dcl-struct-name: MetricDescriptor
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

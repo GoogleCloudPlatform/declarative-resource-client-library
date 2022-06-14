@@ -15,6 +15,7 @@ info:
   title: ConfigController/Instance
   description: The ConfigController Instance resource
   x-dcl-struct-name: Instance
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

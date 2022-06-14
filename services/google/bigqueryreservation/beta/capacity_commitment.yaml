@@ -15,6 +15,7 @@ info:
   title: BigqueryReservation/CapacityCommitment
   description: The BigqueryReservation CapacityCommitment resource
   x-dcl-struct-name: CapacityCommitment
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

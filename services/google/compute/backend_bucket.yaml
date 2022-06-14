@@ -15,6 +15,7 @@ info:
   title: Compute/BackendBucket
   description: The Compute BackendBucket resource
   x-dcl-struct-name: BackendBucket
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

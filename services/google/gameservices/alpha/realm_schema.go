@@ -23,6 +23,7 @@ func DCLRealmSchema() *dcl.Schema {
 			Title:       "GameServices/Realm",
 			Description: "The GameServices Realm resource",
 			StructName:  "Realm",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

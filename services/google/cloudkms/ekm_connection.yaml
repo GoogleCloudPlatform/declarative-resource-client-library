@@ -15,6 +15,7 @@ info:
   title: Cloudkms/EkmConnection
   description: The Cloudkms EkmConnection resource
   x-dcl-struct-name: EkmConnection
+  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:

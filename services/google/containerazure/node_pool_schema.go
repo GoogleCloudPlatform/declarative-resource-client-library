@@ -23,6 +23,7 @@ func DCLNodePoolSchema() *dcl.Schema {
 			Title:       "ContainerAzure/NodePool",
 			Description: "An Anthos node pool running on Azure.",
 			StructName:  "NodePool",
+			HasCreate:   true,
 			Reference: &dcl.Link{
 				Text: "API reference",
 				URL:  "https://cloud.google.com/anthos/clusters/docs/multi-cloud/reference/rest/v1/projects.locations.azureClusters.azureNodePools",

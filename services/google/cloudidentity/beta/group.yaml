@@ -15,6 +15,7 @@ info:
   title: Cloudidentity/Group
   description: The Cloudidentity Group resource
   x-dcl-struct-name: Group
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

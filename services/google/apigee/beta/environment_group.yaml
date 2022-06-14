@@ -15,6 +15,7 @@ info:
   title: Apigee/EnvironmentGroup
   description: The Apigee EnvironmentGroup resource
   x-dcl-struct-name: EnvironmentGroup
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

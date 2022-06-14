@@ -15,6 +15,7 @@ info:
   title: NetworkConnectivity/Spoke
   description: The NetworkConnectivity Spoke resource
   x-dcl-struct-name: Spoke
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

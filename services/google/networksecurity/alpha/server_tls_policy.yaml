@@ -15,6 +15,7 @@ info:
   title: NetworkSecurity/ServerTlsPolicy
   description: The NetworkSecurity ServerTlsPolicy resource
   x-dcl-struct-name: ServerTlsPolicy
+  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:

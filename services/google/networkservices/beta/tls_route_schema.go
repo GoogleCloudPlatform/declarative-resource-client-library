@@ -23,6 +23,7 @@ func DCLTlsRouteSchema() *dcl.Schema {
 			Title:       "NetworkServices/TlsRoute",
 			Description: "The NetworkServices TlsRoute resource",
 			StructName:  "TlsRoute",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

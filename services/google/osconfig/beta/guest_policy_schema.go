@@ -23,6 +23,7 @@ func DCLGuestPolicySchema() *dcl.Schema {
 			Title:       "OSConfig/GuestPolicy",
 			Description: "The OSConfig GuestPolicy resource",
 			StructName:  "GuestPolicy",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

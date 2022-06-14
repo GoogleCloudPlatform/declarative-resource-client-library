@@ -23,6 +23,7 @@ func DCLKeySchema() *dcl.Schema {
 			Title:       "RecaptchaEnterprise/Key",
 			Description: "The RecaptchaEnterprise Key resource",
 			StructName:  "Key",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

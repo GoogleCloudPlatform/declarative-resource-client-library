@@ -23,6 +23,7 @@ func DCLForwardingRuleSchema() *dcl.Schema {
 			Title:       "Compute/ForwardingRule",
 			Description: "The Compute ForwardingRule resource",
 			StructName:  "ForwardingRule",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

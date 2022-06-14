@@ -23,6 +23,7 @@ func DCLSpokeSchema() *dcl.Schema {
 			Title:       "NetworkConnectivity/Spoke",
 			Description: "The NetworkConnectivity Spoke resource",
 			StructName:  "Spoke",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

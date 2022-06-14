@@ -23,6 +23,7 @@ func DCLInstanceSchema() *dcl.Schema {
 			Title:       "DataFusion/Instance",
 			Description: "The DataFusion Instance resource",
 			StructName:  "Instance",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

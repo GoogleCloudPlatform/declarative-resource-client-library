@@ -15,6 +15,7 @@ info:
   title: Compute/Image
   description: The Compute Image resource
   x-dcl-struct-name: Image
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

@@ -23,6 +23,7 @@ func DCLAzureClientSchema() *dcl.Schema {
 			Title:       "ContainerAzure/Client",
 			Description: "AzureClient resources hold client authentication information needed by the Anthos Multi-Cloud API to manage Azure resources on your Azure subscription.When an AzureCluster is created, an AzureClient resource needs to be provided and all operations on Azure resources associated to that cluster will authenticate to Azure services using the given client.AzureClient resources are immutable and cannot be modified upon creation.Each AzureClient resource is bound to a single Azure Active Directory Application and tenant.",
 			StructName:  "AzureClient",
+			HasCreate:   true,
 			Reference: &dcl.Link{
 				Text: "API reference",
 				URL:  "https://cloud.google.com/anthos/clusters/docs/multi-cloud/reference/rest/v1/projects.locations.azureClients",

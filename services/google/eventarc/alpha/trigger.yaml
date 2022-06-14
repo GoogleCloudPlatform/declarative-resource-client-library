@@ -15,6 +15,7 @@ info:
   title: Eventarc/Trigger
   description: The Eventarc Trigger resource
   x-dcl-struct-name: Trigger
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

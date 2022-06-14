@@ -23,6 +23,7 @@ func DCLMembershipSchema() *dcl.Schema {
 			Title:       "Cloudidentity/Membership",
 			Description: "The Cloudidentity Membership resource",
 			StructName:  "Membership",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

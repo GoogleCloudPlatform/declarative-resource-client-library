@@ -23,6 +23,7 @@ func DCLHttpRouteSchema() *dcl.Schema {
 			Title:       "NetworkServices/HttpRoute",
 			Description: "The NetworkServices HttpRoute resource",
 			StructName:  "HttpRoute",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

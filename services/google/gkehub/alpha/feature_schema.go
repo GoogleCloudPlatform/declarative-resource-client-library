@@ -23,6 +23,7 @@ func DCLFeatureSchema() *dcl.Schema {
 			Title:       "GkeHub/Feature",
 			Description: "The GkeHub Feature resource",
 			StructName:  "Feature",
+			HasCreate:   true,
 			Mutex:       "{{project}}/{{location}}/{{feature}}",
 		},
 		Paths: &dcl.Paths{

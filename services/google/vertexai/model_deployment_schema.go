@@ -23,6 +23,7 @@ func DCLModelDeploymentSchema() *dcl.Schema {
 			Title:       "VertexAI/ModelDeployment",
 			Description: "The VertexAI ModelDeployment resource",
 			StructName:  "ModelDeployment",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

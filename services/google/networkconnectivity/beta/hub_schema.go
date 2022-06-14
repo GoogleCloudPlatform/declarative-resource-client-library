@@ -23,6 +23,7 @@ func DCLHubSchema() *dcl.Schema {
 			Title:       "NetworkConnectivity/Hub",
 			Description: "The NetworkConnectivity Hub resource",
 			StructName:  "Hub",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

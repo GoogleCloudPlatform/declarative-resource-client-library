@@ -23,6 +23,7 @@ func DCLInstanceSchema() *dcl.Schema {
 			Title:       "Compute/Instance",
 			Description: "The Compute Instance resource",
 			StructName:  "Instance",
+			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{

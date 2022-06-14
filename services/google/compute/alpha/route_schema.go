@@ -23,6 +23,7 @@ func DCLRouteSchema() *dcl.Schema {
 			Title:       "Compute/Route",
 			Description: "The Compute Route resource",
 			StructName:  "Route",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

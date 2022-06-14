@@ -23,6 +23,7 @@ func DCLFolderSchema() *dcl.Schema {
 			Title:       "CloudResourceManager/Folder",
 			Description: "The CloudResourceManager Folder resource",
 			StructName:  "Folder",
+			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{

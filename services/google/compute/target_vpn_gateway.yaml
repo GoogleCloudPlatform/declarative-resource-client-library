@@ -15,6 +15,7 @@ info:
   title: Compute/TargetVpnGateway
   description: The Compute TargetVpnGateway resource
   x-dcl-struct-name: TargetVpnGateway
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

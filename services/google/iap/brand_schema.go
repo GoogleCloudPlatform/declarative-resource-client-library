@@ -23,6 +23,7 @@ func DCLBrandSchema() *dcl.Schema {
 			Title:       "Iap/Brand",
 			Description: "The Iap Brand resource",
 			StructName:  "Brand",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

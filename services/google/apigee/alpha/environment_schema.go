@@ -23,6 +23,7 @@ func DCLEnvironmentSchema() *dcl.Schema {
 			Title:       "Apigee/Environment",
 			Description: "The Apigee Environment resource",
 			StructName:  "Environment",
+			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{

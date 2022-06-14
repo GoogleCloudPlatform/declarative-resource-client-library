@@ -15,6 +15,7 @@ info:
   title: ContainerAzure/NodePool
   description: An Anthos node pool running on Azure.
   x-dcl-struct-name: NodePool
+  x-dcl-has-create: true
   x-dcl-has-iam: false
   x-dcl-ref:
     text: API reference

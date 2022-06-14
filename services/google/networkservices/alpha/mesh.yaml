@@ -15,6 +15,7 @@ info:
   title: NetworkServices/Mesh
   description: The NetworkServices Mesh resource
   x-dcl-struct-name: Mesh
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

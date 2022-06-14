@@ -23,6 +23,7 @@ func DCLIdentityAwareProxyClientSchema() *dcl.Schema {
 			Title:       "Iap/IdentityAwareProxyClient",
 			Description: "The Iap IdentityAwareProxyClient resource",
 			StructName:  "IdentityAwareProxyClient",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

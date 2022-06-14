@@ -15,6 +15,7 @@ info:
   title: Container/NodePool
   description: The Container NodePool resource
   x-dcl-struct-name: NodePool
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

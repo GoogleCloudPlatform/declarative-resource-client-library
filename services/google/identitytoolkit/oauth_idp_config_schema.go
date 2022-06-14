@@ -23,6 +23,7 @@ func DCLOAuthIdpConfigSchema() *dcl.Schema {
 			Title:       "IdentityToolkit/OAuthIdpConfig",
 			Description: "The IdentityToolkit OAuthIdpConfig resource",
 			StructName:  "OAuthIdpConfig",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

@@ -15,6 +15,7 @@ info:
   title: BigqueryReservation/Assignment
   description: The BigqueryReservation Assignment resource
   x-dcl-struct-name: Assignment
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

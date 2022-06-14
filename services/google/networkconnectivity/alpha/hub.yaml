@@ -15,6 +15,7 @@ info:
   title: NetworkConnectivity/Hub
   description: The NetworkConnectivity Hub resource
   x-dcl-struct-name: Hub
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

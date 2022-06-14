@@ -15,6 +15,7 @@ info:
   title: Dataplex/Zone
   description: The Dataplex Zone resource
   x-dcl-struct-name: Zone
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

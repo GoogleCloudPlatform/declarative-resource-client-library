@@ -23,6 +23,7 @@ func DCLLogMetricSchema() *dcl.Schema {
 			Title:       "Logging/LogMetric",
 			Description: "The Logging LogMetric resource",
 			StructName:  "LogMetric",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

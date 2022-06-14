@@ -15,6 +15,7 @@ info:
   title: Firebaserules/Release
   description: The Firebaserules Release resource
   x-dcl-struct-name: Release
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

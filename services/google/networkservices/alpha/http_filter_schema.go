@@ -23,6 +23,7 @@ func DCLHttpFilterSchema() *dcl.Schema {
 			Title:       "NetworkServices/HttpFilter",
 			Description: "The NetworkServices HttpFilter resource",
 			StructName:  "HttpFilter",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

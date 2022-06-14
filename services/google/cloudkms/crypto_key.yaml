@@ -15,6 +15,7 @@ info:
   title: Cloudkms/CryptoKey
   description: The Cloudkms CryptoKey resource
   x-dcl-struct-name: CryptoKey
+  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:

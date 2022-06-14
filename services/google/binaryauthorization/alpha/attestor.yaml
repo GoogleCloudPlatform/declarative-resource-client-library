@@ -15,6 +15,7 @@ info:
   title: BinaryAuthorization/Attestor
   description: The BinaryAuthorization Attestor resource
   x-dcl-struct-name: Attestor
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

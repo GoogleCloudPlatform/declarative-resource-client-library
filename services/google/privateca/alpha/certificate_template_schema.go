@@ -23,6 +23,7 @@ func DCLCertificateTemplateSchema() *dcl.Schema {
 			Title:       "Privateca/CertificateTemplate",
 			Description: "Certificate Authority Service provides reusable and parameterized templates that you can use for common certificate issuance scenarios. A certificate template represents a relatively static and well-defined certificate issuance schema within an organization.  A certificate template can essentially become a full-fledged vertical certificate issuance framework.",
 			StructName:  "CertificateTemplate",
+			HasCreate:   true,
 			Reference: &dcl.Link{
 				Text: "REST API",
 				URL:  "https://cloud.google.com/certificate-authority-service/docs/reference/rest/v1/projects.locations.certificateTemplates",

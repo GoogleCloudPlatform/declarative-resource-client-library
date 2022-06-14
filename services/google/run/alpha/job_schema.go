@@ -23,6 +23,7 @@ func DCLJobSchema() *dcl.Schema {
 			Title:       "Run/Job",
 			Description: "The Run Job resource",
 			StructName:  "Job",
+			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{

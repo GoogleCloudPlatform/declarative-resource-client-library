@@ -15,6 +15,7 @@ info:
   title: Compute/HealthCheck
   description: The Compute HealthCheck resource
   x-dcl-struct-name: HealthCheck
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

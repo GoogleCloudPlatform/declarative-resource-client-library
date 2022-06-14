@@ -23,6 +23,7 @@ func DCLLogExclusionSchema() *dcl.Schema {
 			Title:       "Logging/LogExclusion",
 			Description: "The Logging LogExclusion resource",
 			StructName:  "LogExclusion",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

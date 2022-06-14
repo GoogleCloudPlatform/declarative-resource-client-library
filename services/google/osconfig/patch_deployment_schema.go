@@ -23,6 +23,7 @@ func DCLPatchDeploymentSchema() *dcl.Schema {
 			Title:       "OSConfig/PatchDeployment",
 			Description: "Patch deployments are configurations that individual patch jobs use to complete a patch. These configurations include instance filter, package repository settings, and a schedule.",
 			StructName:  "PatchDeployment",
+			HasCreate:   true,
 			Reference: &dcl.Link{
 				Text: "API documentation",
 				URL:  "https://cloud.google.com/compute/docs/osconfig/rest",

@@ -23,6 +23,7 @@ func DCLZoneSchema() *dcl.Schema {
 			Title:       "Dataplex/Zone",
 			Description: "The Dataplex Zone resource",
 			StructName:  "Zone",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

@@ -15,6 +15,7 @@ info:
   title: Bigquery/Dataset
   description: The Bigquery Dataset resource
   x-dcl-struct-name: Dataset
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

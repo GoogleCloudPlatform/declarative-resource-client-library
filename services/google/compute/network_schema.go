@@ -23,6 +23,7 @@ func DCLNetworkSchema() *dcl.Schema {
 			Title:       "Compute/Network",
 			Description: "The Compute Network resource",
 			StructName:  "Network",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

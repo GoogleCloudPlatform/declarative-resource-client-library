@@ -15,6 +15,7 @@ info:
   title: Apigee/EnvironmentGroupAttachment
   description: The Apigee EnvironmentGroupAttachment resource
   x-dcl-struct-name: EnvironmentGroupAttachment
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

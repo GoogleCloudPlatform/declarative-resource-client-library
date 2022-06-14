@@ -23,6 +23,7 @@ func DCLReservationSchema() *dcl.Schema {
 			Title:       "BigqueryReservation/Reservation",
 			Description: "The BigqueryReservation Reservation resource",
 			StructName:  "Reservation",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

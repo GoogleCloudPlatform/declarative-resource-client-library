@@ -23,6 +23,7 @@ func DCLPacketMirroringSchema() *dcl.Schema {
 			Title:       "Compute/PacketMirroring",
 			Description: "Packet Mirroring mirrors traffic to and from particular VM instances. You can use the collected traffic to help you detect security threats and monitor application performance.",
 			StructName:  "PacketMirroring",
+			HasCreate:   true,
 			Reference: &dcl.Link{
 				Text: "API documentation",
 				URL:  "https://cloud.google.com/compute/docs/reference/rest/beta/packetMirrorings",

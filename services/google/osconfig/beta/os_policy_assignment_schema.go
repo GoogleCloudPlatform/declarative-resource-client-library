@@ -23,6 +23,7 @@ func DCLOSPolicyAssignmentSchema() *dcl.Schema {
 			Title:       "OSConfig/OSPolicyAssignment",
 			Description: "Represents an OSPolicyAssignment resource.",
 			StructName:  "OSPolicyAssignment",
+			HasCreate:   true,
 			Reference: &dcl.Link{
 				Text: "API documentation",
 				URL:  "https://cloud.google.com/compute/docs/osconfig/rest/v1/projects.locations.osPolicyAssignments",

@@ -15,6 +15,7 @@ info:
   title: Bigquery/Routine
   description: The Bigquery Routine resource
   x-dcl-struct-name: Routine
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

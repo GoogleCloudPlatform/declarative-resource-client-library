@@ -23,6 +23,7 @@ func DCLMetadataStoreSchema() *dcl.Schema {
 			Title:       "VertexAI/MetadataStore",
 			Description: "The VertexAI MetadataStore resource",
 			StructName:  "MetadataStore",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

@@ -15,6 +15,7 @@ info:
   title: BigqueryReservation/Reservation
   description: The BigqueryReservation Reservation resource
   x-dcl-struct-name: Reservation
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

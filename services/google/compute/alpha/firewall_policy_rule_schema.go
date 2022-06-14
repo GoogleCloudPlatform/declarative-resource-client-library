@@ -23,6 +23,7 @@ func DCLFirewallPolicyRuleSchema() *dcl.Schema {
 			Title:       "Compute/FirewallPolicyRule",
 			Description: "The Compute FirewallPolicyRule resource",
 			StructName:  "FirewallPolicyRule",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

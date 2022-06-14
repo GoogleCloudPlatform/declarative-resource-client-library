@@ -23,6 +23,7 @@ func DCLInstanceSchema() *dcl.Schema {
 			Title:       "ConfigController/Instance",
 			Description: "The ConfigController Instance resource",
 			StructName:  "Instance",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

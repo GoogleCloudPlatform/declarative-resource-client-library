@@ -23,6 +23,7 @@ func DCLEndpointSchema() *dcl.Schema {
 			Title:       "VertexAI/Endpoint",
 			Description: "The VertexAI Endpoint resource",
 			StructName:  "Endpoint",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

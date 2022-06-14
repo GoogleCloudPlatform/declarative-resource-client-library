@@ -23,6 +23,7 @@ func DCLEkmConnectionSchema() *dcl.Schema {
 			Title:       "Cloudkms/EkmConnection",
 			Description: "The Cloudkms EkmConnection resource",
 			StructName:  "EkmConnection",
+			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{

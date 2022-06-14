@@ -21,6 +21,7 @@ info:
     cannot be modified upon creation.Each AzureClient resource is bound to a single
     Azure Active Directory Application and tenant.
   x-dcl-struct-name: AzureClient
+  x-dcl-has-create: true
   x-dcl-has-iam: false
   x-dcl-ref:
     text: API reference

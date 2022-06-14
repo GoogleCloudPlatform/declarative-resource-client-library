@@ -23,6 +23,7 @@ func DCLAssetSchema() *dcl.Schema {
 			Title:       "Dataplex/Asset",
 			Description: "The Dataplex Asset resource",
 			StructName:  "Asset",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

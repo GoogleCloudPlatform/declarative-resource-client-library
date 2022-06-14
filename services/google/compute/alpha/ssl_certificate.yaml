@@ -15,6 +15,7 @@ info:
   title: Compute/SslCertificate
   description: The Compute SslCertificate resource
   x-dcl-struct-name: SslCertificate
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

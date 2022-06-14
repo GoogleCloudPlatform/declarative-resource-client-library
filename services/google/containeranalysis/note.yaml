@@ -15,6 +15,7 @@ info:
   title: ContainerAnalysis/Note
   description: The ContainerAnalysis Note resource
   x-dcl-struct-name: Note
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

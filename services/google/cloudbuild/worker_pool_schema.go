@@ -23,6 +23,7 @@ func DCLWorkerPoolSchema() *dcl.Schema {
 			Title:       "CloudBuild/WorkerPool",
 			Description: "The CloudBuild WorkerPool resource",
 			StructName:  "WorkerPool",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

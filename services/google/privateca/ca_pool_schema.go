@@ -23,6 +23,7 @@ func DCLCaPoolSchema() *dcl.Schema {
 			Title:       "Privateca/CaPool",
 			Description: "The Privateca CaPool resource",
 			StructName:  "CaPool",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

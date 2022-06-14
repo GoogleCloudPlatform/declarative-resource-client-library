@@ -15,6 +15,7 @@ info:
   title: GameServices/Realm
   description: The GameServices Realm resource
   x-dcl-struct-name: Realm
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

@@ -15,6 +15,7 @@ info:
   title: NetworkServices/Gateway
   description: The NetworkServices Gateway resource
   x-dcl-struct-name: Gateway
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

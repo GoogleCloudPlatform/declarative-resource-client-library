@@ -15,6 +15,7 @@ info:
   title: Compute/Firewall
   description: The Compute Firewall resource
   x-dcl-struct-name: Firewall
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

@@ -23,6 +23,7 @@ func DCLInstanceSchema() *dcl.Schema {
 			Title:       "Apigee/Instance",
 			Description: "The Apigee Instance resource",
 			StructName:  "Instance",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

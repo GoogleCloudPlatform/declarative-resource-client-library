@@ -23,6 +23,7 @@ func DCLKeyRingSchema() *dcl.Schema {
 			Title:       "Cloudkms/KeyRing",
 			Description: "The Cloudkms KeyRing resource",
 			StructName:  "KeyRing",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

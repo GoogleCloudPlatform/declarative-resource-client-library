@@ -15,6 +15,7 @@ info:
   title: Dlp/JobTrigger
   description: The Dlp JobTrigger resource
   x-dcl-struct-name: JobTrigger
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

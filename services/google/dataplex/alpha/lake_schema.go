@@ -23,6 +23,7 @@ func DCLLakeSchema() *dcl.Schema {
 			Title:       "Dataplex/Lake",
 			Description: "The Dataplex Lake resource",
 			StructName:  "Lake",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

@@ -15,6 +15,7 @@ info:
   title: Compute/FirewallPolicy
   description: The Compute FirewallPolicy resource
   x-dcl-struct-name: FirewallPolicy
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

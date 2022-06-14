@@ -15,6 +15,7 @@ info:
   title: Compute/Instance
   description: The Compute Instance resource
   x-dcl-struct-name: Instance
+  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:

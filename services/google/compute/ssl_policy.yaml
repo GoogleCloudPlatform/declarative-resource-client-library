@@ -15,6 +15,7 @@ info:
   title: Compute/SslPolicy
   description: The Compute SslPolicy resource
   x-dcl-struct-name: SslPolicy
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

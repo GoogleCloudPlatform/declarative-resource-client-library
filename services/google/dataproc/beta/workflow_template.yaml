@@ -15,6 +15,7 @@ info:
   title: Dataproc/WorkflowTemplate
   description: The Dataproc WorkflowTemplate resource
   x-dcl-struct-name: WorkflowTemplate
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

@@ -15,6 +15,7 @@ info:
   title: VPCAccess/Connector
   description: The VPCAccess Connector resource
   x-dcl-struct-name: Connector
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

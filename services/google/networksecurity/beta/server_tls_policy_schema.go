@@ -23,6 +23,7 @@ func DCLServerTlsPolicySchema() *dcl.Schema {
 			Title:       "NetworkSecurity/ServerTlsPolicy",
 			Description: "The NetworkSecurity ServerTlsPolicy resource",
 			StructName:  "ServerTlsPolicy",
+			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{

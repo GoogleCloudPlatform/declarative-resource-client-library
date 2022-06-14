@@ -15,6 +15,7 @@ info:
   title: Pubsub/Topic
   description: The Pubsub Topic resource
   x-dcl-struct-name: Topic
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

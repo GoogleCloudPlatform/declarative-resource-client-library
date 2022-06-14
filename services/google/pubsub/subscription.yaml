@@ -15,6 +15,7 @@ info:
   title: Pubsub/Subscription
   description: The Pubsub Subscription resource
   x-dcl-struct-name: Subscription
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

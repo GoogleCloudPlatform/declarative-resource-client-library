@@ -15,6 +15,7 @@ info:
   title: Iap/IdentityAwareProxyClient
   description: The Iap IdentityAwareProxyClient resource
   x-dcl-struct-name: IdentityAwareProxyClient
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

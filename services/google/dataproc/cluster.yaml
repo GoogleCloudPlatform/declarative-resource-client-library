@@ -15,6 +15,7 @@ info:
   title: Dataproc/Cluster
   description: The Dataproc Cluster resource
   x-dcl-struct-name: Cluster
+  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:

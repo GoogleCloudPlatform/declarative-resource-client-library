@@ -15,6 +15,7 @@ info:
   title: Dataproc/AutoscalingPolicy
   description: The Dataproc AutoscalingPolicy resource
   x-dcl-struct-name: AutoscalingPolicy
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

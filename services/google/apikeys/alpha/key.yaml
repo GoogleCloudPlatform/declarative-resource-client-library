@@ -15,6 +15,7 @@ info:
   title: Apikeys/Key
   description: The Apikeys Key resource
   x-dcl-struct-name: Key
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

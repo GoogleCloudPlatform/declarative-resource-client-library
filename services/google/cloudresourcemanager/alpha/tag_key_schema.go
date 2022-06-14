@@ -23,6 +23,7 @@ func DCLTagKeySchema() *dcl.Schema {
 			Title:       "CloudResourceManager/TagKey",
 			Description: "The CloudResourceManager TagKey resource",
 			StructName:  "TagKey",
+			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{

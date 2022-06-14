@@ -15,6 +15,7 @@ info:
   title: Apigee/Environment
   description: The Apigee Environment resource
   x-dcl-struct-name: Environment
+  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:

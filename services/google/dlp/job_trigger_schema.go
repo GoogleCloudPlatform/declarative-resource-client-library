@@ -23,6 +23,7 @@ func DCLJobTriggerSchema() *dcl.Schema {
 			Title:       "Dlp/JobTrigger",
 			Description: "The Dlp JobTrigger resource",
 			StructName:  "JobTrigger",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

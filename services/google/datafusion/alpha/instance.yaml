@@ -15,6 +15,7 @@ info:
   title: DataFusion/Instance
   description: The DataFusion Instance resource
   x-dcl-struct-name: Instance
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

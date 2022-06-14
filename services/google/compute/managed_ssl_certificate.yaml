@@ -15,6 +15,7 @@ info:
   title: Compute/ManagedSslCertificate
   description: The Compute ManagedSslCertificate resource
   x-dcl-struct-name: ManagedSslCertificate
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

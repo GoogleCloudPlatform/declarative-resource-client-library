@@ -19,6 +19,7 @@ info:
     an organization.  A certificate template can essentially become a full-fledged
     vertical certificate issuance framework.
   x-dcl-struct-name: CertificateTemplate
+  x-dcl-has-create: true
   x-dcl-has-iam: false
   x-dcl-ref:
     text: REST API

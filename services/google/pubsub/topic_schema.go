@@ -23,6 +23,7 @@ func DCLTopicSchema() *dcl.Schema {
 			Title:       "Pubsub/Topic",
 			Description: "The Pubsub Topic resource",
 			StructName:  "Topic",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

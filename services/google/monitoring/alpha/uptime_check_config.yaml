@@ -15,6 +15,7 @@ info:
   title: Monitoring/UptimeCheckConfig
   description: The Monitoring UptimeCheckConfig resource
   x-dcl-struct-name: UptimeCheckConfig
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

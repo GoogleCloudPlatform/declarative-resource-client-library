@@ -15,6 +15,7 @@ info:
   title: Privateca/CertificateAuthority
   description: The Privateca CertificateAuthority resource
   x-dcl-struct-name: CertificateAuthority
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

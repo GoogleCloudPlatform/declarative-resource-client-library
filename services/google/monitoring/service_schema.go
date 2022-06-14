@@ -23,6 +23,7 @@ func DCLServiceSchema() *dcl.Schema {
 			Title:       "Monitoring/Service",
 			Description: "The Monitoring Service resource",
 			StructName:  "Service",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

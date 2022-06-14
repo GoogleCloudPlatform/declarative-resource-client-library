@@ -15,6 +15,7 @@ info:
   title: CloudResourceManager/Project
   description: The CloudResourceManager Project resource
   x-dcl-struct-name: Project
+  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:

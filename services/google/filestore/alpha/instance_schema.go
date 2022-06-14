@@ -23,6 +23,7 @@ func DCLInstanceSchema() *dcl.Schema {
 			Title:       "Filestore/Instance",
 			Description: "The Filestore Instance resource",
 			StructName:  "Instance",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

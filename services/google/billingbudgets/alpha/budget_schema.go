@@ -23,6 +23,7 @@ func DCLBudgetSchema() *dcl.Schema {
 			Title:       "BillingBudgets/Budget",
 			Description: "The BillingBudgets Budget resource",
 			StructName:  "Budget",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

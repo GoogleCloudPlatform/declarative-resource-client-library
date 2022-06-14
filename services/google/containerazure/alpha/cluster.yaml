@@ -15,6 +15,7 @@ info:
   title: ContainerAzure/Cluster
   description: An Anthos cluster running on Azure.
   x-dcl-struct-name: Cluster
+  x-dcl-has-create: true
   x-dcl-has-iam: false
   x-dcl-ref:
     text: API reference

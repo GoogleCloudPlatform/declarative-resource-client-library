@@ -15,6 +15,7 @@ info:
   title: OSConfig/GuestPolicy
   description: The OSConfig GuestPolicy resource
   x-dcl-struct-name: GuestPolicy
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

@@ -15,6 +15,7 @@ info:
   title: Monitoring/ServiceLevelObjective
   description: The Monitoring ServiceLevelObjective resource
   x-dcl-struct-name: ServiceLevelObjective
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

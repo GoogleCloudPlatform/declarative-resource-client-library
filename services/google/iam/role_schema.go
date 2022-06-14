@@ -23,6 +23,7 @@ func DCLRoleSchema() *dcl.Schema {
 			Title:       "Iam/Role",
 			Description: "The Iam Role resource",
 			StructName:  "Role",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

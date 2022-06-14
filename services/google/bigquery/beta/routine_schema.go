@@ -23,6 +23,7 @@ func DCLRoutineSchema() *dcl.Schema {
 			Title:       "Bigquery/Routine",
 			Description: "The Bigquery Routine resource",
 			StructName:  "Routine",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

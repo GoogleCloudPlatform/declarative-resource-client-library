@@ -15,6 +15,7 @@ info:
   title: Clouddeploy/DeliveryPipeline
   description: The Cloud Deploy `DeliveryPipeline` resource
   x-dcl-struct-name: DeliveryPipeline
+  x-dcl-has-create: true
   x-dcl-has-iam: false
   x-dcl-ref:
     text: REST API

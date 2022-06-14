@@ -15,6 +15,7 @@ info:
   title: Compute/RouterPeer
   description: The Compute RouterPeer resource
   x-dcl-struct-name: RouterPeer
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

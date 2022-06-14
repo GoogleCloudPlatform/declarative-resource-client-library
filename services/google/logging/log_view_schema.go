@@ -23,6 +23,7 @@ func DCLLogViewSchema() *dcl.Schema {
 			Title:       "Logging/LogView",
 			Description: "The Logging LogView resource",
 			StructName:  "LogView",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

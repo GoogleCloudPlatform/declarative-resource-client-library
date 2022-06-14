@@ -23,6 +23,7 @@ func DCLTargetSchema() *dcl.Schema {
 			Title:       "Clouddeploy/Target",
 			Description: "The Cloud Deploy `Target` resource",
 			StructName:  "Target",
+			HasCreate:   true,
 			Reference: &dcl.Link{
 				Text: "REST API",
 				URL:  "https://cloud.google.com/deploy/docs/api/reference/rest/v1/projects.locations.targets",

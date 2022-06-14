@@ -23,6 +23,7 @@ func DCLMetricDescriptorSchema() *dcl.Schema {
 			Title:       "Monitoring/MetricDescriptor",
 			Description: "The Monitoring MetricDescriptor resource",
 			StructName:  "MetricDescriptor",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

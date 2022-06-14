@@ -23,6 +23,7 @@ func DCLInterconnectAttachmentSchema() *dcl.Schema {
 			Title:       "Compute/InterconnectAttachment",
 			Description: "The Compute InterconnectAttachment resource",
 			StructName:  "InterconnectAttachment",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

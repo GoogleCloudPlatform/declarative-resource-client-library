@@ -23,6 +23,7 @@ func DCLUptimeCheckConfigSchema() *dcl.Schema {
 			Title:       "Monitoring/UptimeCheckConfig",
 			Description: "The Monitoring UptimeCheckConfig resource",
 			StructName:  "UptimeCheckConfig",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

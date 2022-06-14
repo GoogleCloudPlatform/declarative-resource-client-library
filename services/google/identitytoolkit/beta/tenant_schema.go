@@ -23,6 +23,7 @@ func DCLTenantSchema() *dcl.Schema {
 			Title:       "IdentityToolkit/Tenant",
 			Description: "The IdentityToolkit Tenant resource",
 			StructName:  "Tenant",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

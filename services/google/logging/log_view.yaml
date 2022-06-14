@@ -15,6 +15,7 @@ info:
   title: Logging/LogView
   description: The Logging LogView resource
   x-dcl-struct-name: LogView
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

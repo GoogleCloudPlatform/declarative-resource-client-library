@@ -23,6 +23,7 @@ func DCLServiceAccountSchema() *dcl.Schema {
 			Title:       "Iam/ServiceAccount",
 			Description: "The Iam ServiceAccount resource",
 			StructName:  "ServiceAccount",
+			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{

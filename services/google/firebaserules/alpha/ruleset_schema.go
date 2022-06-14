@@ -23,6 +23,7 @@ func DCLRulesetSchema() *dcl.Schema {
 			Title:       "Firebaserules/Ruleset",
 			Description: "The Firebaserules Ruleset resource",
 			StructName:  "Ruleset",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

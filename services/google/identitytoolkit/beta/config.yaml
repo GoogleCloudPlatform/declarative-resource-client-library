@@ -15,6 +15,7 @@ info:
   title: IdentityToolkit/Config
   description: The IdentityToolkit Config resource
   x-dcl-struct-name: Config
+  x-dcl-has-create: false
   x-dcl-has-iam: false
 paths:
   get:

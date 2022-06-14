@@ -15,6 +15,7 @@ info:
   title: Compute/Router
   description: The Compute Router resource
   x-dcl-struct-name: Router
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

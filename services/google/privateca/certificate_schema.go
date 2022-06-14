@@ -23,6 +23,7 @@ func DCLCertificateSchema() *dcl.Schema {
 			Title:       "Privateca/Certificate",
 			Description: "The Privateca Certificate resource",
 			StructName:  "Certificate",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

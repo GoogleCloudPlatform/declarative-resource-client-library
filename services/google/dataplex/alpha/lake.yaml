@@ -15,6 +15,7 @@ info:
   title: Dataplex/Lake
   description: The Dataplex Lake resource
   x-dcl-struct-name: Lake
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

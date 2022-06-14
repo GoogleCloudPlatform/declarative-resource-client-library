@@ -15,6 +15,7 @@ info:
   title: Compute/NetworkEndpointGroup
   description: The Compute NetworkEndpointGroup resource
   x-dcl-struct-name: NetworkEndpointGroup
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

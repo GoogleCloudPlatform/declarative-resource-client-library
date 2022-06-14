@@ -23,6 +23,7 @@ func DCLFunctionSchema() *dcl.Schema {
 			Title:       "CloudFunctions/Function",
 			Description: "The CloudFunctions Function resource",
 			StructName:  "Function",
+			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{

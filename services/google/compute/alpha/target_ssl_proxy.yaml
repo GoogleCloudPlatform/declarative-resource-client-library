@@ -15,6 +15,7 @@ info:
   title: Compute/TargetSslProxy
   description: The Compute TargetSslProxy resource
   x-dcl-struct-name: TargetSslProxy
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

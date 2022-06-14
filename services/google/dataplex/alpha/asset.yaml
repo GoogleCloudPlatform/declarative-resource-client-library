@@ -15,6 +15,7 @@ info:
   title: Dataplex/Asset
   description: The Dataplex Asset resource
   x-dcl-struct-name: Asset
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

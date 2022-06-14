@@ -15,6 +15,7 @@ info:
   title: IdentityToolkit/OAuthIdpConfig
   description: The IdentityToolkit OAuthIdpConfig resource
   x-dcl-struct-name: OAuthIdpConfig
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

@@ -23,6 +23,7 @@ func DCLWorkloadSchema() *dcl.Schema {
 			Title:       "AssuredWorkloads/Workload",
 			Description: "The AssuredWorkloads Workload resource",
 			StructName:  "Workload",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

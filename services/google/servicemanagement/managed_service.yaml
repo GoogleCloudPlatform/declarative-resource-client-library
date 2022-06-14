@@ -15,6 +15,7 @@ info:
   title: Servicemanagement/ManagedService
   description: The Servicemanagement ManagedService resource
   x-dcl-struct-name: ManagedService
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

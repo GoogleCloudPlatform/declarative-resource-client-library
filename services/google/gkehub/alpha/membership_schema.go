@@ -23,6 +23,7 @@ func DCLMembershipSchema() *dcl.Schema {
 			Title:       "GkeHub/Membership",
 			Description: "The GkeHub Membership resource",
 			StructName:  "Membership",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

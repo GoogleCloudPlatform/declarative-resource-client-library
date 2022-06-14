@@ -15,6 +15,7 @@ info:
   title: Compute/HttpHealthCheck
   description: The Compute HttpHealthCheck resource
   x-dcl-struct-name: HttpHealthCheck
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

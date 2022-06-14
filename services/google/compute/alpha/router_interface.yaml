@@ -15,6 +15,7 @@ info:
   title: Compute/RouterInterface
   description: The Compute RouterInterface resource
   x-dcl-struct-name: RouterInterface
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

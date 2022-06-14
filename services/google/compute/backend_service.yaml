@@ -15,6 +15,7 @@ info:
   title: Compute/BackendService
   description: The Compute BackendService resource
   x-dcl-struct-name: BackendService
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

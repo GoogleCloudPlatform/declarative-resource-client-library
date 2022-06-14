@@ -23,6 +23,7 @@ func DCLServiceSchema() *dcl.Schema {
 			Title:       "Run/Service",
 			Description: "The Run Service resource",
 			StructName:  "Service",
+			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{

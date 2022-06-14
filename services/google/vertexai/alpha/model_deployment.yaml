@@ -15,6 +15,7 @@ info:
   title: VertexAI/ModelDeployment
   description: The VertexAI ModelDeployment resource
   x-dcl-struct-name: ModelDeployment
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

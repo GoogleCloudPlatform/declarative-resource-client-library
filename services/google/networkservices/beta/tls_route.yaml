@@ -15,6 +15,7 @@ info:
   title: NetworkServices/TlsRoute
   description: The NetworkServices TlsRoute resource
   x-dcl-struct-name: TlsRoute
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

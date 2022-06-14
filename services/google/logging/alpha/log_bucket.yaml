@@ -15,6 +15,7 @@ info:
   title: Logging/LogBucket
   description: The Logging LogBucket resource
   x-dcl-struct-name: LogBucket
+  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:

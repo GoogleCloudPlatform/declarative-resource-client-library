@@ -23,6 +23,7 @@ func DCLAttestorSchema() *dcl.Schema {
 			Title:       "BinaryAuthorization/Attestor",
 			Description: "The BinaryAuthorization Attestor resource",
 			StructName:  "Attestor",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

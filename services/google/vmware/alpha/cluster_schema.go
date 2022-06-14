@@ -23,6 +23,7 @@ func DCLClusterSchema() *dcl.Schema {
 			Title:       "Vmware/Cluster",
 			Description: "The Vmware Cluster resource",
 			StructName:  "Cluster",
+			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
