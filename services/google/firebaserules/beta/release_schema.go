@@ -20,10 +20,19 @@ import (
 func DCLReleaseSchema() *dcl.Schema {
 	return &dcl.Schema{
 		Info: &dcl.Info{
-			Title:       "Firebaserules/Release",
-			Description: "The Firebaserules Release resource",
-			StructName:  "Release",
-			HasCreate:   true,
+			Title:      "Firebaserules/Release",
+			StructName: "Release",
+			HasCreate:  true,
+			Reference: &dcl.Link{
+				Text: "Firebase Rules API Documentation",
+				URL:  "https://firebase.google.com/docs/reference/rules/rest#rest-resource:-v1.projects.releases",
+			},
+			Guides: []*dcl.Link{
+				&dcl.Link{
+					Text: "Get started with Firebase Security Rules",
+					URL:  "https://firebase.google.com/docs/rules/get-started",
+				},
+			},
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -113,7 +122,7 @@ func DCLReleaseSchema() *dcl.Schema {
 							"name": &dcl.Property{
 								Type:                "string",
 								GoName:              "Name",
-								Description:         "Format: `projects/{project_id}/releases/{release_id}`",
+								Description:         "Format: `projects/{project_id}/releases/{release_id}`\\Firestore Rules Releases will **always** have the name 'cloud.firestore'",
 								Immutable:           true,
 								ForwardSlashAllowed: true,
 							},
@@ -133,7 +142,7 @@ func DCLReleaseSchema() *dcl.Schema {
 							"rulesetName": &dcl.Property{
 								Type:        "string",
 								GoName:      "RulesetName",
-								Description: "Name of the `Ruleset` referred to by this `Release`. The `Ruleset` must exist the `Release` to be created.",
+								Description: "Name of the `Ruleset` referred to by this `Release`. The `Ruleset` must exist for the `Release` to be created.",
 								ResourceReferences: []*dcl.PropertyResourceReference{
 									&dcl.PropertyResourceReference{
 										Resource: "Firebaserules/Ruleset",

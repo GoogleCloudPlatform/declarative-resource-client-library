@@ -20,10 +20,19 @@ import (
 func DCLRulesetSchema() *dcl.Schema {
 	return &dcl.Schema{
 		Info: &dcl.Info{
-			Title:       "Firebaserules/Ruleset",
-			Description: "The Firebaserules Ruleset resource",
-			StructName:  "Ruleset",
-			HasCreate:   true,
+			Title:      "Firebaserules/Ruleset",
+			StructName: "Ruleset",
+			HasCreate:  true,
+			Reference: &dcl.Link{
+				Text: "Firebase Ruleset API Documentation",
+				URL:  "https://firebase.google.com/docs/reference/rules/rest#rest-resource:-v1.projects.rulesets",
+			},
+			Guides: []*dcl.Link{
+				&dcl.Link{
+					Text: "Get started with Firebase Security Rules",
+					URL:  "https://firebase.google.com/docs/rules/get-started",
+				},
+			},
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

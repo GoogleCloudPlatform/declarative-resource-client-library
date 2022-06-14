@@ -92,7 +92,9 @@ func newUpdateReleaseUpdateReleaseRequest(ctx context.Context, f *Release, c *Cl
 	res := f
 	_ = res
 
-	if v := f.RulesetName; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.DeriveField("projects/%s/rulesets/%s", f.RulesetName, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.RulesetName)); err != nil {
+		return nil, fmt.Errorf("error expanding RulesetName into rulesetName: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["rulesetName"] = v
 	}
 	req["name"] = fmt.Sprintf("projects/%s/releases/%s", *f.Project, *f.Name)
@@ -390,8 +392,7 @@ func canonicalizeReleaseDesiredState(rawDesired, rawInitial *Release, opts ...dc
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.IsZeroValue(rawDesired.RulesetName) || (dcl.IsEmptyValueIndirect(rawDesired.RulesetName) && dcl.IsEmptyValueIndirect(rawInitial.RulesetName)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.PartialSelfLinkToSelfLink(rawDesired.RulesetName, rawInitial.RulesetName) {
 		canonicalDesired.RulesetName = rawInitial.RulesetName
 	} else {
 		canonicalDesired.RulesetName = rawDesired.RulesetName
@@ -422,6 +423,9 @@ func canonicalizeReleaseNewState(c *Client, rawNew, rawDesired *Release) (*Relea
 			rawNew.RulesetName = rawDesired.RulesetName
 		}
 	} else {
+		if dcl.PartialSelfLinkToSelfLink(rawDesired.RulesetName, rawNew.RulesetName) {
+			rawNew.RulesetName = rawDesired.RulesetName
+		}
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
@@ -581,7 +585,9 @@ func expandRelease(c *Client, f *Release) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v := f.RulesetName; dcl.ValueShouldBeSent(v) {
+	if v, err := dcl.DeriveField("projects/%s/rulesets/%s", f.RulesetName, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.RulesetName)); err != nil {
+		return nil, fmt.Errorf("error expanding RulesetName into rulesetName: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["rulesetName"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
