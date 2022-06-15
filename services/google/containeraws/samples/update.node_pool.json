@@ -13,7 +13,7 @@
     "maxPodsPerNode": 110
   },
   "config": {
-    "instanceType": "t3.large",
+    "instanceType": "m5.large",
     "configEncryption": {
       "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/updated-config-encryption-kms-key-arn"
     },
