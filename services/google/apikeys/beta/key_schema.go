@@ -113,7 +113,7 @@ func DCLKeySchema() *dcl.Schema {
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
-								Description: "The resource name of the key. The name must be unique within the project, must conform with RFC-1034, is restricted to lower-cased letters, and has a maximum length of 63 characters. In another word, the name must match the regular expression: [a-z]([a-z0-9-]{0,61}[a-z0-9])?.",
+								Description: "The resource name of the key. The name must be unique within the project, must conform with RFC-1034, is restricted to lower-cased letters, and has a maximum length of 63 characters. In another word, the name must match the regular expression: `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`.",
 								Immutable:   true,
 							},
 							"project": &dcl.Property{
