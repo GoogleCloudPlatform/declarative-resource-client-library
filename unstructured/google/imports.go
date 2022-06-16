@@ -86,6 +86,8 @@ import (
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/filestore"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/filestore/alpha"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/filestore/beta"
+	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/firebase/alpha"
+	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/firebase/beta"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/firebaserules"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/firebaserules/alpha"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/firebaserules/beta"

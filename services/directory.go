@@ -89,6 +89,8 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/filestore"
 	filestore_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/filestore/alpha"
 	filestore_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/filestore/beta"
+	firebase_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebase/alpha"
+	firebase_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebase/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebaserules"
 	firebaserules_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebaserules/alpha"
 	firebaserules_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebaserules/beta"
@@ -536,6 +538,8 @@ func Services() *Directory {
 	d.AddResource("beta", "filestore", "Instance", filestore_beta.YAML_instance)
 	d.AddResource("beta", "filestore", dcl.TitleToSnakeCase("Backup"), filestore_beta.YAML_backup)
 	d.AddResource("beta", "filestore", "Backup", filestore_beta.YAML_backup)
+	d.AddResource("beta", "firebase", dcl.TitleToSnakeCase("WebApp"), firebase_beta.YAML_web_app)
+	d.AddResource("beta", "firebase", "WebApp", firebase_beta.YAML_web_app)
 	d.AddResource("beta", "firebaserules", dcl.TitleToSnakeCase("Ruleset"), firebaserules_beta.YAML_ruleset)
 	d.AddResource("beta", "firebaserules", "Ruleset", firebaserules_beta.YAML_ruleset)
 	d.AddResource("beta", "firebaserules", dcl.TitleToSnakeCase("Release"), firebaserules_beta.YAML_release)
@@ -782,6 +786,8 @@ func Services() *Directory {
 	d.AddResource("alpha", "filestore", "Instance", filestore_alpha.YAML_instance)
 	d.AddResource("alpha", "filestore", dcl.TitleToSnakeCase("Backup"), filestore_alpha.YAML_backup)
 	d.AddResource("alpha", "filestore", "Backup", filestore_alpha.YAML_backup)
+	d.AddResource("alpha", "firebase", dcl.TitleToSnakeCase("WebApp"), firebase_alpha.YAML_web_app)
+	d.AddResource("alpha", "firebase", "WebApp", firebase_alpha.YAML_web_app)
 	d.AddResource("alpha", "firebaserules", dcl.TitleToSnakeCase("Ruleset"), firebaserules_alpha.YAML_ruleset)
 	d.AddResource("alpha", "firebaserules", "Ruleset", firebaserules_alpha.YAML_ruleset)
 	d.AddResource("alpha", "firebaserules", dcl.TitleToSnakeCase("Release"), firebaserules_alpha.YAML_release)

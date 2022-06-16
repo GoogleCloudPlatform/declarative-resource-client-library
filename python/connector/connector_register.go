@@ -160,6 +160,10 @@ import (
 
 	filestore_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/filestore/alpha_connector"
 
+	firebase_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebase/alpha_connector"
+
+	firebase_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebase/beta_connector"
+
 	firebaserules_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebaserules/connector"
 
 	firebaserules_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebaserules/beta_connector"
@@ -430,6 +434,10 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	filestore_beta_connector.RegisterServers(grpcServer)
 
 	filestore_alpha_connector.RegisterServers(grpcServer)
+
+	firebase_alpha_connector.RegisterServers(grpcServer)
+
+	firebase_beta_connector.RegisterServers(grpcServer)
 
 	firebaserules_connector.RegisterServers(grpcServer)
 
