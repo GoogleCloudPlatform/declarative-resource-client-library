@@ -217,6 +217,33 @@ components:
                   type: boolean
                   x-dcl-go-name: LogDeniesEnabled
                   description: Logs all denies and dry run failures.
+                mutationEnabled:
+                  type: boolean
+                  x-dcl-go-name: MutationEnabled
+                  description: Enable or disable mutation in policy controller. If
+                    true, mutation CRDs, webhook and controller deployment will be
+                    deployed to the cluster.
+                policyControllerMonitoring:
+                  type: object
+                  x-dcl-go-name: PolicyControllerMonitoring
+                  x-dcl-go-type: FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoring
+                  description: 'PolicyControllerMonitoring specifies the backends
+                    Policy Controller should export metrics to. For example, to specify
+                    metrics should be exported to Cloud Monitoring and Prometheus,
+                    specify backends: ["cloudmonitoring", "prometheus"]'
+                  properties:
+                    backends:
+                      type: array
+                      x-dcl-go-name: Backends
+                      x-dcl-send-empty: true
+                      x-dcl-list-type: list
+                      items:
+                        type: string
+                        x-dcl-go-type: FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum
+                        enum:
+                        - MONITORING_BACKEND_UNSPECIFIED
+                        - PROMETHEUS
+                        - CLOUD_MONITORING
                 referentialRulesEnabled:
                   type: boolean
                   x-dcl-go-name: ReferentialRulesEnabled

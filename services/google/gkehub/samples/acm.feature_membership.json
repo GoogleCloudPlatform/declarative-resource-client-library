@@ -23,6 +23,10 @@
       "exemptableNamespaces": ["sample-namespace"],
       "referentialRulesEnabled": true,
       "logDeniesEnabled": true,
+      "mutationEnabled": true,
+      "policyControllerMonitoring": {
+        "backends": ["PROMETHEUS", "CLOUD_MONITORING"]
+      },
       "templateLibraryInstalled": true,
       "auditIntervalSeconds": "10"
     },

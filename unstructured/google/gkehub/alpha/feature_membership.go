@@ -108,6 +108,18 @@ func FeatureMembershipToUnstructured(r *dclService.FeatureMembership) *unstructu
 			if r.Configmanagement.PolicyController.LogDeniesEnabled != nil {
 				rConfigmanagementPolicyController["logDeniesEnabled"] = *r.Configmanagement.PolicyController.LogDeniesEnabled
 			}
+			if r.Configmanagement.PolicyController.MutationEnabled != nil {
+				rConfigmanagementPolicyController["mutationEnabled"] = *r.Configmanagement.PolicyController.MutationEnabled
+			}
+			if r.Configmanagement.PolicyController.PolicyControllerMonitoring != nil && r.Configmanagement.PolicyController.PolicyControllerMonitoring != dclService.EmptyFeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoring {
+				rConfigmanagementPolicyControllerPolicyControllerMonitoring := make(map[string]interface{})
+				var rConfigmanagementPolicyControllerPolicyControllerMonitoringBackends []interface{}
+				for _, rConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsVal := range r.Configmanagement.PolicyController.PolicyControllerMonitoring.Backends {
+					rConfigmanagementPolicyControllerPolicyControllerMonitoringBackends = append(rConfigmanagementPolicyControllerPolicyControllerMonitoringBackends, string(rConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsVal))
+				}
+				rConfigmanagementPolicyControllerPolicyControllerMonitoring["backends"] = rConfigmanagementPolicyControllerPolicyControllerMonitoringBackends
+				rConfigmanagementPolicyController["policyControllerMonitoring"] = rConfigmanagementPolicyControllerPolicyControllerMonitoring
+			}
 			if r.Configmanagement.PolicyController.ReferentialRulesEnabled != nil {
 				rConfigmanagementPolicyController["referentialRulesEnabled"] = *r.Configmanagement.PolicyController.ReferentialRulesEnabled
 			}
@@ -300,6 +312,31 @@ func UnstructuredToFeatureMembership(u *unstructured.Resource) (*dclService.Feat
 							r.Configmanagement.PolicyController.LogDeniesEnabled = dcl.Bool(b)
 						} else {
 							return nil, fmt.Errorf("r.Configmanagement.PolicyController.LogDeniesEnabled: expected bool")
+						}
+					}
+					if _, ok := rConfigmanagementPolicyController["mutationEnabled"]; ok {
+						if b, ok := rConfigmanagementPolicyController["mutationEnabled"].(bool); ok {
+							r.Configmanagement.PolicyController.MutationEnabled = dcl.Bool(b)
+						} else {
+							return nil, fmt.Errorf("r.Configmanagement.PolicyController.MutationEnabled: expected bool")
+						}
+					}
+					if _, ok := rConfigmanagementPolicyController["policyControllerMonitoring"]; ok {
+						if rConfigmanagementPolicyControllerPolicyControllerMonitoring, ok := rConfigmanagementPolicyController["policyControllerMonitoring"].(map[string]interface{}); ok {
+							r.Configmanagement.PolicyController.PolicyControllerMonitoring = &dclService.FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoring{}
+							if _, ok := rConfigmanagementPolicyControllerPolicyControllerMonitoring["backends"]; ok {
+								if s, ok := rConfigmanagementPolicyControllerPolicyControllerMonitoring["backends"].([]interface{}); ok {
+									for _, ss := range s {
+										if strval, ok := ss.(string); ok {
+											r.Configmanagement.PolicyController.PolicyControllerMonitoring.Backends = append(r.Configmanagement.PolicyController.PolicyControllerMonitoring.Backends, dclService.FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum(strval))
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("r.Configmanagement.PolicyController.PolicyControllerMonitoring.Backends: expected []interface{}")
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Configmanagement.PolicyController.PolicyControllerMonitoring: expected map[string]interface{}")
 						}
 					}
 					if _, ok := rConfigmanagementPolicyController["referentialRulesEnabled"]; ok {
