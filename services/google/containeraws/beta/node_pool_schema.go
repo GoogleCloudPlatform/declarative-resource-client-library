@@ -214,7 +214,6 @@ func DCLNodePoolSchema() *dcl.Schema {
 										Type:        "string",
 										GoName:      "IamInstanceProfile",
 										Description: "The name of the AWS IAM role assigned to nodes in the pool.",
-										Immutable:   true,
 									},
 									"imageType": &dcl.Property{
 										Type:          "string",

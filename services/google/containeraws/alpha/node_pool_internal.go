@@ -2067,7 +2067,7 @@ func compareNodePoolConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.IamInstanceProfile, actual.IamInstanceProfile, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IamInstanceProfile")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.IamInstanceProfile, actual.IamInstanceProfile, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateNodePoolUpdateAwsNodePoolOperation")}, fn.AddNest("IamInstanceProfile")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

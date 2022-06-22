@@ -244,7 +244,6 @@ func DCLClusterSchema() *dcl.Schema {
 										Type:        "string",
 										GoName:      "IamInstanceProfile",
 										Description: "The name of the AWS IAM instance pofile to assign to each control plane replica.",
-										Immutable:   true,
 									},
 									"instancePlacement": &dcl.Property{
 										Type:          "object",

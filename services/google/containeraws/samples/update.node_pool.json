@@ -36,7 +36,7 @@
     "tags": {
       "tag-one": "value-one"
     },
-    "iamInstanceProfile": "{{byo_multicloud_prefix}}-1p-dev-nodepool",
+    "iamInstanceProfile": "{{byo_multicloud_prefix}}-updated-1p-dev-nodepool",
     "sshConfig": {
       "ec2KeyPair": "updated-ec2-key-pair"
     },

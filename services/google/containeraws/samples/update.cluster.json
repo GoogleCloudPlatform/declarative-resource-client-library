@@ -18,7 +18,7 @@
     },
     "subnetIds": ["{{aws_subnet}}"],
     "securityGroupIds": ["sg-1", "sg-2"],
-    "iamInstanceProfile": "{{byo_multicloud_prefix}}-1p-dev-controlplane",
+    "iamInstanceProfile": "{{byo_multicloud_prefix}}-updated-1p-dev-controlplane",
     "rootVolume": {
       "sizeGib": 12,
       "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/updated-volume-encryption-kms-key-arn",

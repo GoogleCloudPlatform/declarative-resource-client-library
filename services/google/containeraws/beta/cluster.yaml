@@ -193,7 +193,6 @@ components:
               x-dcl-go-name: IamInstanceProfile
               description: The name of the AWS IAM instance pofile to assign to each
                 control plane replica.
-              x-kubernetes-immutable: true
             instancePlacement:
               type: object
               x-dcl-go-name: InstancePlacement
