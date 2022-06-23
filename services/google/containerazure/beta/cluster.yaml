@@ -366,7 +366,6 @@ components:
           x-dcl-go-name: LoggingConfig
           x-dcl-go-type: ClusterLoggingConfig
           description: Logging configuration.
-          x-kubernetes-immutable: true
           x-dcl-server-default: true
           properties:
             componentConfig:
@@ -374,14 +373,12 @@ components:
               x-dcl-go-name: ComponentConfig
               x-dcl-go-type: ClusterLoggingConfigComponentConfig
               description: Configuration of the logging components.
-              x-kubernetes-immutable: true
               x-dcl-server-default: true
               properties:
                 enableComponents:
                   type: array
                   x-dcl-go-name: EnableComponents
                   description: Components of the logging configuration to be enabled.
-                  x-kubernetes-immutable: true
                   x-dcl-server-default: true
                   x-dcl-send-empty: true
                   x-dcl-list-type: list

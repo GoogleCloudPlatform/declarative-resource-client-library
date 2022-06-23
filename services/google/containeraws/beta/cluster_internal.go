@@ -308,6 +308,11 @@ func newUpdateClusterUpdateAwsClusterRequest(ctx context.Context, f *Cluster, c 
 	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
 		req["annotations"] = v
 	}
+	if v, err := expandClusterLoggingConfig(c, f.LoggingConfig, res); err != nil {
+		return nil, fmt.Errorf("error expanding LoggingConfig into loggingConfig: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["loggingConfig"] = v
+	}
 	b, err := c.getClusterRaw(ctx, f)
 	if err != nil {
 		return nil, err
@@ -3611,7 +3616,7 @@ func compareClusterLoggingConfigComponentConfigNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.EnableComponents, actual.EnableComponents, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnableComponents")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EnableComponents, actual.EnableComponents, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("EnableComponents")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

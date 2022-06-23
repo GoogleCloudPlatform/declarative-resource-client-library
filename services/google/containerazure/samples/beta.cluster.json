@@ -58,7 +58,7 @@
   },
   "loggingConfig": {
     "componentConfig": {
-      "enableComponents": ["SYSTEM_COMPONENTS", "WORKLOADS"]
+      "enableComponents": ["SYSTEM_COMPONENTS"]
     }
   }
 }

@@ -507,7 +507,6 @@ func DCLClusterSchema() *dcl.Schema {
 								GoName:        "LoggingConfig",
 								GoType:        "ClusterLoggingConfig",
 								Description:   "Logging configuration.",
-								Immutable:     true,
 								ServerDefault: true,
 								Properties: map[string]*dcl.Property{
 									"componentConfig": &dcl.Property{
@@ -515,14 +514,12 @@ func DCLClusterSchema() *dcl.Schema {
 										GoName:        "ComponentConfig",
 										GoType:        "ClusterLoggingConfigComponentConfig",
 										Description:   "Configuration of the logging components.",
-										Immutable:     true,
 										ServerDefault: true,
 										Properties: map[string]*dcl.Property{
 											"enableComponents": &dcl.Property{
 												Type:          "array",
 												GoName:        "EnableComponents",
 												Description:   "Components of the logging configuration to be enabled.",
-												Immutable:     true,
 												ServerDefault: true,
 												SendEmpty:     true,
 												ListType:      "list",
