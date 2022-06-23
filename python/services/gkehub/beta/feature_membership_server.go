@@ -24,6 +24,18 @@ import (
 // FeatureMembershipServer implements the gRPC interface for FeatureMembership.
 type FeatureMembershipServer struct{}
 
+// ProtoToFeatureMembershipMeshControlPlaneEnum converts a FeatureMembershipMeshControlPlaneEnum enum from its proto representation.
+func ProtoToGkehubBetaFeatureMembershipMeshControlPlaneEnum(e betapb.GkehubBetaFeatureMembershipMeshControlPlaneEnum) *beta.FeatureMembershipMeshControlPlaneEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.GkehubBetaFeatureMembershipMeshControlPlaneEnum_name[int32(e)]; ok {
+		e := beta.FeatureMembershipMeshControlPlaneEnum(n[len("GkehubBetaFeatureMembershipMeshControlPlaneEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToFeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum converts a FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum enum from its proto representation.
 func ProtoToGkehubBetaFeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum(e betapb.GkehubBetaFeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum) *beta.FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum {
 	if e == 0 {
@@ -34,6 +46,17 @@ func ProtoToGkehubBetaFeatureMembershipConfigmanagementPolicyControllerPolicyCon
 		return &e
 	}
 	return nil
+}
+
+// ProtoToFeatureMembershipMesh converts a FeatureMembershipMesh object from its proto representation.
+func ProtoToGkehubBetaFeatureMembershipMesh(p *betapb.GkehubBetaFeatureMembershipMesh) *beta.FeatureMembershipMesh {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.FeatureMembershipMesh{
+		ControlPlane: ProtoToGkehubBetaFeatureMembershipMeshControlPlaneEnum(p.GetControlPlane()),
+	}
+	return obj
 }
 
 // ProtoToFeatureMembershipConfigmanagement converts a FeatureMembershipConfigmanagement object from its proto representation.
@@ -141,6 +164,7 @@ func ProtoToGkehubBetaFeatureMembershipConfigmanagementHierarchyController(p *be
 // ProtoToFeatureMembership converts a FeatureMembership resource from its proto representation.
 func ProtoToFeatureMembership(p *betapb.GkehubBetaFeatureMembership) *beta.FeatureMembership {
 	obj := &beta.FeatureMembership{
+		Mesh:             ProtoToGkehubBetaFeatureMembershipMesh(p.GetMesh()),
 		Configmanagement: ProtoToGkehubBetaFeatureMembershipConfigmanagement(p.GetConfigmanagement()),
 		Project:          dcl.StringOrNil(p.GetProject()),
 		Location:         dcl.StringOrNil(p.GetLocation()),
@@ -148,6 +172,17 @@ func ProtoToFeatureMembership(p *betapb.GkehubBetaFeatureMembership) *beta.Featu
 		Membership:       dcl.StringOrNil(p.GetMembership()),
 	}
 	return obj
+}
+
+// FeatureMembershipMeshControlPlaneEnumToProto converts a FeatureMembershipMeshControlPlaneEnum enum to its proto representation.
+func GkehubBetaFeatureMembershipMeshControlPlaneEnumToProto(e *beta.FeatureMembershipMeshControlPlaneEnum) betapb.GkehubBetaFeatureMembershipMeshControlPlaneEnum {
+	if e == nil {
+		return betapb.GkehubBetaFeatureMembershipMeshControlPlaneEnum(0)
+	}
+	if v, ok := betapb.GkehubBetaFeatureMembershipMeshControlPlaneEnum_value["FeatureMembershipMeshControlPlaneEnum"+string(*e)]; ok {
+		return betapb.GkehubBetaFeatureMembershipMeshControlPlaneEnum(v)
+	}
+	return betapb.GkehubBetaFeatureMembershipMeshControlPlaneEnum(0)
 }
 
 // FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnumToProto converts a FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum enum to its proto representation.
@@ -159,6 +194,16 @@ func GkehubBetaFeatureMembershipConfigmanagementPolicyControllerPolicyController
 		return betapb.GkehubBetaFeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum(v)
 	}
 	return betapb.GkehubBetaFeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum(0)
+}
+
+// FeatureMembershipMeshToProto converts a FeatureMembershipMesh object to its proto representation.
+func GkehubBetaFeatureMembershipMeshToProto(o *beta.FeatureMembershipMesh) *betapb.GkehubBetaFeatureMembershipMesh {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.GkehubBetaFeatureMembershipMesh{}
+	p.SetControlPlane(GkehubBetaFeatureMembershipMeshControlPlaneEnumToProto(o.ControlPlane))
+	return p
 }
 
 // FeatureMembershipConfigmanagementToProto converts a FeatureMembershipConfigmanagement object to its proto representation.
@@ -264,6 +309,7 @@ func GkehubBetaFeatureMembershipConfigmanagementHierarchyControllerToProto(o *be
 // FeatureMembershipToProto converts a FeatureMembership resource to its proto representation.
 func FeatureMembershipToProto(resource *beta.FeatureMembership) *betapb.GkehubBetaFeatureMembership {
 	p := &betapb.GkehubBetaFeatureMembership{}
+	p.SetMesh(GkehubBetaFeatureMembershipMeshToProto(resource.Mesh))
 	p.SetConfigmanagement(GkehubBetaFeatureMembershipConfigmanagementToProto(resource.Configmanagement))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))

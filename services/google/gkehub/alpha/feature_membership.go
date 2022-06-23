@@ -24,6 +24,7 @@ import (
 )
 
 type FeatureMembership struct {
+	Mesh             *FeatureMembershipMesh             `json:"mesh"`
 	Configmanagement *FeatureMembershipConfigmanagement `json:"configmanagement"`
 	Project          *string                            `json:"project"`
 	Location         *string                            `json:"location"`
@@ -33,6 +34,33 @@ type FeatureMembership struct {
 
 func (r *FeatureMembership) String() string {
 	return dcl.SprintResource(r)
+}
+
+// The enum FeatureMembershipMeshControlPlaneEnum.
+type FeatureMembershipMeshControlPlaneEnum string
+
+// FeatureMembershipMeshControlPlaneEnumRef returns a *FeatureMembershipMeshControlPlaneEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func FeatureMembershipMeshControlPlaneEnumRef(s string) *FeatureMembershipMeshControlPlaneEnum {
+	v := FeatureMembershipMeshControlPlaneEnum(s)
+	return &v
+}
+
+func (v FeatureMembershipMeshControlPlaneEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"CONTROL_PLANE_MANAGEMENT_UNSPECIFIED", "AUTOMATIC", "MANUAL"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "FeatureMembershipMeshControlPlaneEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
 }
 
 // The enum FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum.
@@ -60,6 +88,52 @@ func (v FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitor
 		Value: string(v),
 		Valid: []string{},
 	}
+}
+
+type FeatureMembershipMesh struct {
+	empty        bool                                   `json:"-"`
+	ControlPlane *FeatureMembershipMeshControlPlaneEnum `json:"controlPlane"`
+}
+
+type jsonFeatureMembershipMesh FeatureMembershipMesh
+
+func (r *FeatureMembershipMesh) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureMembershipMesh
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureMembershipMesh
+	} else {
+
+		r.ControlPlane = res.ControlPlane
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this FeatureMembershipMesh is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyFeatureMembershipMesh *FeatureMembershipMesh = &FeatureMembershipMesh{empty: true}
+
+func (r *FeatureMembershipMesh) Empty() bool {
+	return r.empty
+}
+
+func (r *FeatureMembershipMesh) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureMembershipMesh) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
 }
 
 type FeatureMembershipConfigmanagement struct {
@@ -466,6 +540,7 @@ func (r *FeatureMembership) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
+		"mesh":             dcl.ValueOrEmptyString(nr.Mesh),
 		"configmanagement": dcl.ValueOrEmptyString(nr.Configmanagement),
 		"project":          dcl.ValueOrEmptyString(nr.Project),
 		"location":         dcl.ValueOrEmptyString(nr.Location),
