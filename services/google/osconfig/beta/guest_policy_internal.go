@@ -684,9 +684,7 @@ func canonicalizeGuestPolicyDesiredState(rawDesired, rawInitial *GuestPolicy, op
 func canonicalizeGuestPolicyNewState(c *Client, rawNew, rawDesired *GuestPolicy) (*GuestPolicy, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -694,9 +692,7 @@ func canonicalizeGuestPolicyNewState(c *Client, rawNew, rawDesired *GuestPolicy)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -704,55 +700,41 @@ func canonicalizeGuestPolicyNewState(c *Client, rawNew, rawDesired *GuestPolicy)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		if rawDesired.CreateTime != nil {
-			rawNew.CreateTime = rawDesired.CreateTime
-		}
+		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		if rawDesired.UpdateTime != nil {
-			rawNew.UpdateTime = rawDesired.UpdateTime
-		}
+		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Assignment) && dcl.IsNotReturnedByServer(rawDesired.Assignment) {
-		if rawDesired.Assignment != nil && !rawDesired.Assignment.empty {
-			rawNew.Assignment = rawDesired.Assignment
-		}
+		rawNew.Assignment = rawDesired.Assignment
 	} else {
 		rawNew.Assignment = canonicalizeNewGuestPolicyAssignment(c, rawDesired.Assignment, rawNew.Assignment)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Packages) && dcl.IsNotReturnedByServer(rawDesired.Packages) {
-		if rawDesired.Packages != nil {
-			rawNew.Packages = rawDesired.Packages
-		}
+		rawNew.Packages = rawDesired.Packages
 	} else {
 		rawNew.Packages = canonicalizeNewGuestPolicyPackagesSlice(c, rawDesired.Packages, rawNew.Packages)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PackageRepositories) && dcl.IsNotReturnedByServer(rawDesired.PackageRepositories) {
-		if rawDesired.PackageRepositories != nil {
-			rawNew.PackageRepositories = rawDesired.PackageRepositories
-		}
+		rawNew.PackageRepositories = rawDesired.PackageRepositories
 	} else {
 		rawNew.PackageRepositories = canonicalizeNewGuestPolicyPackageRepositoriesSlice(c, rawDesired.PackageRepositories, rawNew.PackageRepositories)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Recipes) && dcl.IsNotReturnedByServer(rawDesired.Recipes) {
-		if rawDesired.Recipes != nil {
-			rawNew.Recipes = rawDesired.Recipes
-		}
+		rawNew.Recipes = rawDesired.Recipes
 	} else {
 		rawNew.Recipes = canonicalizeNewGuestPolicyRecipesSlice(c, rawDesired.Recipes, rawNew.Recipes)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		if rawDesired.Etag != nil {
-			rawNew.Etag = rawDesired.Etag
-		}
+		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
 			rawNew.Etag = rawDesired.Etag

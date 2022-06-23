@@ -690,9 +690,7 @@ func canonicalizeServiceDesiredState(rawDesired, rawInitial *Service, opts ...dc
 func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Service, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -700,9 +698,7 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -710,9 +706,7 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
-		if rawDesired.Uid != nil {
-			rawNew.Uid = rawDesired.Uid
-		}
+		rawNew.Uid = rawDesired.Uid
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
 			rawNew.Uid = rawDesired.Uid
@@ -720,58 +714,42 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Generation) && dcl.IsNotReturnedByServer(rawDesired.Generation) {
-		if rawDesired.Generation != nil {
-			rawNew.Generation = rawDesired.Generation
-		}
+		rawNew.Generation = rawDesired.Generation
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		if rawDesired.Labels != nil {
-			rawNew.Labels = rawDesired.Labels
-		}
+		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Annotations) && dcl.IsNotReturnedByServer(rawDesired.Annotations) {
-		if rawDesired.Annotations != nil {
-			rawNew.Annotations = rawDesired.Annotations
-		}
+		rawNew.Annotations = rawDesired.Annotations
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		if rawDesired.CreateTime != nil {
-			rawNew.CreateTime = rawDesired.CreateTime
-		}
+		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		if rawDesired.UpdateTime != nil {
-			rawNew.UpdateTime = rawDesired.UpdateTime
-		}
+		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DeleteTime) && dcl.IsNotReturnedByServer(rawDesired.DeleteTime) {
-		if rawDesired.DeleteTime != nil {
-			rawNew.DeleteTime = rawDesired.DeleteTime
-		}
+		rawNew.DeleteTime = rawDesired.DeleteTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ExpireTime) && dcl.IsNotReturnedByServer(rawDesired.ExpireTime) {
-		if rawDesired.ExpireTime != nil {
-			rawNew.ExpireTime = rawDesired.ExpireTime
-		}
+		rawNew.ExpireTime = rawDesired.ExpireTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Creator) && dcl.IsNotReturnedByServer(rawDesired.Creator) {
-		if rawDesired.Creator != nil {
-			rawNew.Creator = rawDesired.Creator
-		}
+		rawNew.Creator = rawDesired.Creator
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Creator, rawNew.Creator) {
 			rawNew.Creator = rawDesired.Creator
@@ -779,9 +757,7 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LastModifier) && dcl.IsNotReturnedByServer(rawDesired.LastModifier) {
-		if rawDesired.LastModifier != nil {
-			rawNew.LastModifier = rawDesired.LastModifier
-		}
+		rawNew.LastModifier = rawDesired.LastModifier
 	} else {
 		if dcl.StringCanonicalize(rawDesired.LastModifier, rawNew.LastModifier) {
 			rawNew.LastModifier = rawDesired.LastModifier
@@ -789,9 +765,7 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Client) && dcl.IsNotReturnedByServer(rawDesired.Client) {
-		if rawDesired.Client != nil {
-			rawNew.Client = rawDesired.Client
-		}
+		rawNew.Client = rawDesired.Client
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Client, rawNew.Client) {
 			rawNew.Client = rawDesired.Client
@@ -799,9 +773,7 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ClientVersion) && dcl.IsNotReturnedByServer(rawDesired.ClientVersion) {
-		if rawDesired.ClientVersion != nil {
-			rawNew.ClientVersion = rawDesired.ClientVersion
-		}
+		rawNew.ClientVersion = rawDesired.ClientVersion
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ClientVersion, rawNew.ClientVersion) {
 			rawNew.ClientVersion = rawDesired.ClientVersion
@@ -809,55 +781,41 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Ingress) && dcl.IsNotReturnedByServer(rawDesired.Ingress) {
-		if rawDesired.Ingress != nil {
-			rawNew.Ingress = rawDesired.Ingress
-		}
+		rawNew.Ingress = rawDesired.Ingress
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LaunchStage) && dcl.IsNotReturnedByServer(rawDesired.LaunchStage) {
-		if rawDesired.LaunchStage != nil {
-			rawNew.LaunchStage = rawDesired.LaunchStage
-		}
+		rawNew.LaunchStage = rawDesired.LaunchStage
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.BinaryAuthorization) && dcl.IsNotReturnedByServer(rawDesired.BinaryAuthorization) {
-		if rawDesired.BinaryAuthorization != nil && !rawDesired.BinaryAuthorization.empty {
-			rawNew.BinaryAuthorization = rawDesired.BinaryAuthorization
-		}
+		rawNew.BinaryAuthorization = rawDesired.BinaryAuthorization
 	} else {
 		rawNew.BinaryAuthorization = canonicalizeNewServiceBinaryAuthorization(c, rawDesired.BinaryAuthorization, rawNew.BinaryAuthorization)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Template) && dcl.IsNotReturnedByServer(rawDesired.Template) {
-		if rawDesired.Template != nil && !rawDesired.Template.empty {
-			rawNew.Template = rawDesired.Template
-		}
+		rawNew.Template = rawDesired.Template
 	} else {
 		rawNew.Template = canonicalizeNewServiceTemplate(c, rawDesired.Template, rawNew.Template)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Traffic) && dcl.IsNotReturnedByServer(rawDesired.Traffic) {
-		if rawDesired.Traffic != nil {
-			rawNew.Traffic = rawDesired.Traffic
-		}
+		rawNew.Traffic = rawDesired.Traffic
 	} else {
 		rawNew.Traffic = canonicalizeNewServiceTrafficSlice(c, rawDesired.Traffic, rawNew.Traffic)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.TerminalCondition) && dcl.IsNotReturnedByServer(rawDesired.TerminalCondition) {
-		if rawDesired.TerminalCondition != nil && !rawDesired.TerminalCondition.empty {
-			rawNew.TerminalCondition = rawDesired.TerminalCondition
-		}
+		rawNew.TerminalCondition = rawDesired.TerminalCondition
 	} else {
 		rawNew.TerminalCondition = canonicalizeNewServiceTerminalCondition(c, rawDesired.TerminalCondition, rawNew.TerminalCondition)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LatestReadyRevision) && dcl.IsNotReturnedByServer(rawDesired.LatestReadyRevision) {
-		if rawDesired.LatestReadyRevision != nil {
-			rawNew.LatestReadyRevision = rawDesired.LatestReadyRevision
-		}
+		rawNew.LatestReadyRevision = rawDesired.LatestReadyRevision
 	} else {
 		if dcl.StringCanonicalize(rawDesired.LatestReadyRevision, rawNew.LatestReadyRevision) {
 			rawNew.LatestReadyRevision = rawDesired.LatestReadyRevision
@@ -865,9 +823,7 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LatestCreatedRevision) && dcl.IsNotReturnedByServer(rawDesired.LatestCreatedRevision) {
-		if rawDesired.LatestCreatedRevision != nil {
-			rawNew.LatestCreatedRevision = rawDesired.LatestCreatedRevision
-		}
+		rawNew.LatestCreatedRevision = rawDesired.LatestCreatedRevision
 	} else {
 		if dcl.StringCanonicalize(rawDesired.LatestCreatedRevision, rawNew.LatestCreatedRevision) {
 			rawNew.LatestCreatedRevision = rawDesired.LatestCreatedRevision
@@ -875,17 +831,13 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.TrafficStatuses) && dcl.IsNotReturnedByServer(rawDesired.TrafficStatuses) {
-		if rawDesired.TrafficStatuses != nil {
-			rawNew.TrafficStatuses = rawDesired.TrafficStatuses
-		}
+		rawNew.TrafficStatuses = rawDesired.TrafficStatuses
 	} else {
 		rawNew.TrafficStatuses = canonicalizeNewServiceTrafficStatusesSlice(c, rawDesired.TrafficStatuses, rawNew.TrafficStatuses)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Uri) && dcl.IsNotReturnedByServer(rawDesired.Uri) {
-		if rawDesired.Uri != nil {
-			rawNew.Uri = rawDesired.Uri
-		}
+		rawNew.Uri = rawDesired.Uri
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uri, rawNew.Uri) {
 			rawNew.Uri = rawDesired.Uri
@@ -893,9 +845,7 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Reconciling) && dcl.IsNotReturnedByServer(rawDesired.Reconciling) {
-		if rawDesired.Reconciling != nil {
-			rawNew.Reconciling = rawDesired.Reconciling
-		}
+		rawNew.Reconciling = rawDesired.Reconciling
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Reconciling, rawNew.Reconciling) {
 			rawNew.Reconciling = rawDesired.Reconciling
@@ -903,9 +853,7 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		if rawDesired.Etag != nil {
-			rawNew.Etag = rawDesired.Etag
-		}
+		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
 			rawNew.Etag = rawDesired.Etag

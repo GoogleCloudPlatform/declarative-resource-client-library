@@ -560,9 +560,7 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -570,9 +568,7 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -580,33 +576,25 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PubsubTarget) && dcl.IsNotReturnedByServer(rawDesired.PubsubTarget) {
-		if rawDesired.PubsubTarget != nil && !rawDesired.PubsubTarget.empty {
-			rawNew.PubsubTarget = rawDesired.PubsubTarget
-		}
+		rawNew.PubsubTarget = rawDesired.PubsubTarget
 	} else {
 		rawNew.PubsubTarget = canonicalizeNewJobPubsubTarget(c, rawDesired.PubsubTarget, rawNew.PubsubTarget)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AppEngineHttpTarget) && dcl.IsNotReturnedByServer(rawDesired.AppEngineHttpTarget) {
-		if rawDesired.AppEngineHttpTarget != nil && !rawDesired.AppEngineHttpTarget.empty {
-			rawNew.AppEngineHttpTarget = rawDesired.AppEngineHttpTarget
-		}
+		rawNew.AppEngineHttpTarget = rawDesired.AppEngineHttpTarget
 	} else {
 		rawNew.AppEngineHttpTarget = canonicalizeNewJobAppEngineHttpTarget(c, rawDesired.AppEngineHttpTarget, rawNew.AppEngineHttpTarget)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.HttpTarget) && dcl.IsNotReturnedByServer(rawDesired.HttpTarget) {
-		if rawDesired.HttpTarget != nil && !rawDesired.HttpTarget.empty {
-			rawNew.HttpTarget = rawDesired.HttpTarget
-		}
+		rawNew.HttpTarget = rawDesired.HttpTarget
 	} else {
 		rawNew.HttpTarget = canonicalizeNewJobHttpTarget(c, rawDesired.HttpTarget, rawNew.HttpTarget)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Schedule) && dcl.IsNotReturnedByServer(rawDesired.Schedule) {
-		if rawDesired.Schedule != nil {
-			rawNew.Schedule = rawDesired.Schedule
-		}
+		rawNew.Schedule = rawDesired.Schedule
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Schedule, rawNew.Schedule) {
 			rawNew.Schedule = rawDesired.Schedule
@@ -614,9 +602,7 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.TimeZone) && dcl.IsNotReturnedByServer(rawDesired.TimeZone) {
-		if rawDesired.TimeZone != nil {
-			rawNew.TimeZone = rawDesired.TimeZone
-		}
+		rawNew.TimeZone = rawDesired.TimeZone
 	} else {
 		if dcl.StringCanonicalize(rawDesired.TimeZone, rawNew.TimeZone) {
 			rawNew.TimeZone = rawDesired.TimeZone
@@ -624,53 +610,39 @@ func canonicalizeJobNewState(c *Client, rawNew, rawDesired *Job) (*Job, error) {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UserUpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UserUpdateTime) {
-		if rawDesired.UserUpdateTime != nil {
-			rawNew.UserUpdateTime = rawDesired.UserUpdateTime
-		}
+		rawNew.UserUpdateTime = rawDesired.UserUpdateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		if rawDesired.State != nil {
-			rawNew.State = rawDesired.State
-		}
+		rawNew.State = rawDesired.State
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Status) && dcl.IsNotReturnedByServer(rawDesired.Status) {
-		if rawDesired.Status != nil && !rawDesired.Status.empty {
-			rawNew.Status = rawDesired.Status
-		}
+		rawNew.Status = rawDesired.Status
 	} else {
 		rawNew.Status = canonicalizeNewJobStatus(c, rawDesired.Status, rawNew.Status)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ScheduleTime) && dcl.IsNotReturnedByServer(rawDesired.ScheduleTime) {
-		if rawDesired.ScheduleTime != nil {
-			rawNew.ScheduleTime = rawDesired.ScheduleTime
-		}
+		rawNew.ScheduleTime = rawDesired.ScheduleTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LastAttemptTime) && dcl.IsNotReturnedByServer(rawDesired.LastAttemptTime) {
-		if rawDesired.LastAttemptTime != nil {
-			rawNew.LastAttemptTime = rawDesired.LastAttemptTime
-		}
+		rawNew.LastAttemptTime = rawDesired.LastAttemptTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RetryConfig) && dcl.IsNotReturnedByServer(rawDesired.RetryConfig) {
-		if rawDesired.RetryConfig != nil && !rawDesired.RetryConfig.empty {
-			rawNew.RetryConfig = rawDesired.RetryConfig
-		}
+		rawNew.RetryConfig = rawDesired.RetryConfig
 	} else {
 		rawNew.RetryConfig = canonicalizeNewJobRetryConfig(c, rawDesired.RetryConfig, rawNew.RetryConfig)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AttemptDeadline) && dcl.IsNotReturnedByServer(rawDesired.AttemptDeadline) {
-		if rawDesired.AttemptDeadline != nil {
-			rawNew.AttemptDeadline = rawDesired.AttemptDeadline
-		}
+		rawNew.AttemptDeadline = rawDesired.AttemptDeadline
 	} else {
 		if dcl.StringCanonicalize(rawDesired.AttemptDeadline, rawNew.AttemptDeadline) {
 			rawNew.AttemptDeadline = rawDesired.AttemptDeadline

@@ -523,16 +523,12 @@ func canonicalizeModelDesiredState(rawDesired, rawInitial *Model, opts ...dcl.Ap
 func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.VersionId) && dcl.IsNotReturnedByServer(rawDesired.VersionId) {
-		if rawDesired.VersionId != nil {
-			rawNew.VersionId = rawDesired.VersionId
-		}
+		rawNew.VersionId = rawDesired.VersionId
 	} else {
 		if dcl.StringCanonicalize(rawDesired.VersionId, rawNew.VersionId) {
 			rawNew.VersionId = rawDesired.VersionId
@@ -540,23 +536,17 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.VersionCreateTime) && dcl.IsNotReturnedByServer(rawDesired.VersionCreateTime) {
-		if rawDesired.VersionCreateTime != nil {
-			rawNew.VersionCreateTime = rawDesired.VersionCreateTime
-		}
+		rawNew.VersionCreateTime = rawDesired.VersionCreateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.VersionUpdateTime) && dcl.IsNotReturnedByServer(rawDesired.VersionUpdateTime) {
-		if rawDesired.VersionUpdateTime != nil {
-			rawNew.VersionUpdateTime = rawDesired.VersionUpdateTime
-		}
+		rawNew.VersionUpdateTime = rawDesired.VersionUpdateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		if rawDesired.DisplayName != nil {
-			rawNew.DisplayName = rawDesired.DisplayName
-		}
+		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -564,9 +554,7 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -574,9 +562,7 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.VersionDescription) && dcl.IsNotReturnedByServer(rawDesired.VersionDescription) {
-		if rawDesired.VersionDescription != nil {
-			rawNew.VersionDescription = rawDesired.VersionDescription
-		}
+		rawNew.VersionDescription = rawDesired.VersionDescription
 	} else {
 		if dcl.StringCanonicalize(rawDesired.VersionDescription, rawNew.VersionDescription) {
 			rawNew.VersionDescription = rawDesired.VersionDescription
@@ -584,17 +570,13 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SupportedExportFormats) && dcl.IsNotReturnedByServer(rawDesired.SupportedExportFormats) {
-		if rawDesired.SupportedExportFormats != nil {
-			rawNew.SupportedExportFormats = rawDesired.SupportedExportFormats
-		}
+		rawNew.SupportedExportFormats = rawDesired.SupportedExportFormats
 	} else {
 		rawNew.SupportedExportFormats = canonicalizeNewModelSupportedExportFormatsSlice(c, rawDesired.SupportedExportFormats, rawNew.SupportedExportFormats)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.TrainingPipeline) && dcl.IsNotReturnedByServer(rawDesired.TrainingPipeline) {
-		if rawDesired.TrainingPipeline != nil {
-			rawNew.TrainingPipeline = rawDesired.TrainingPipeline
-		}
+		rawNew.TrainingPipeline = rawDesired.TrainingPipeline
 	} else {
 		if dcl.StringCanonicalize(rawDesired.TrainingPipeline, rawNew.TrainingPipeline) {
 			rawNew.TrainingPipeline = rawDesired.TrainingPipeline
@@ -602,25 +584,19 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.OriginalModelInfo) && dcl.IsNotReturnedByServer(rawDesired.OriginalModelInfo) {
-		if rawDesired.OriginalModelInfo != nil && !rawDesired.OriginalModelInfo.empty {
-			rawNew.OriginalModelInfo = rawDesired.OriginalModelInfo
-		}
+		rawNew.OriginalModelInfo = rawDesired.OriginalModelInfo
 	} else {
 		rawNew.OriginalModelInfo = canonicalizeNewModelOriginalModelInfo(c, rawDesired.OriginalModelInfo, rawNew.OriginalModelInfo)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ContainerSpec) && dcl.IsNotReturnedByServer(rawDesired.ContainerSpec) {
-		if rawDesired.ContainerSpec != nil && !rawDesired.ContainerSpec.empty {
-			rawNew.ContainerSpec = rawDesired.ContainerSpec
-		}
+		rawNew.ContainerSpec = rawDesired.ContainerSpec
 	} else {
 		rawNew.ContainerSpec = rawDesired.ContainerSpec
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ArtifactUri) && dcl.IsNotReturnedByServer(rawDesired.ArtifactUri) {
-		if rawDesired.ArtifactUri != nil {
-			rawNew.ArtifactUri = rawDesired.ArtifactUri
-		}
+		rawNew.ArtifactUri = rawDesired.ArtifactUri
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ArtifactUri, rawNew.ArtifactUri) {
 			rawNew.ArtifactUri = rawDesired.ArtifactUri
@@ -628,16 +604,12 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SupportedDeploymentResourcesTypes) && dcl.IsNotReturnedByServer(rawDesired.SupportedDeploymentResourcesTypes) {
-		if rawDesired.SupportedDeploymentResourcesTypes != nil {
-			rawNew.SupportedDeploymentResourcesTypes = rawDesired.SupportedDeploymentResourcesTypes
-		}
+		rawNew.SupportedDeploymentResourcesTypes = rawDesired.SupportedDeploymentResourcesTypes
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SupportedInputStorageFormats) && dcl.IsNotReturnedByServer(rawDesired.SupportedInputStorageFormats) {
-		if rawDesired.SupportedInputStorageFormats != nil {
-			rawNew.SupportedInputStorageFormats = rawDesired.SupportedInputStorageFormats
-		}
+		rawNew.SupportedInputStorageFormats = rawDesired.SupportedInputStorageFormats
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.SupportedInputStorageFormats, rawNew.SupportedInputStorageFormats) {
 			rawNew.SupportedInputStorageFormats = rawDesired.SupportedInputStorageFormats
@@ -645,9 +617,7 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SupportedOutputStorageFormats) && dcl.IsNotReturnedByServer(rawDesired.SupportedOutputStorageFormats) {
-		if rawDesired.SupportedOutputStorageFormats != nil {
-			rawNew.SupportedOutputStorageFormats = rawDesired.SupportedOutputStorageFormats
-		}
+		rawNew.SupportedOutputStorageFormats = rawDesired.SupportedOutputStorageFormats
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.SupportedOutputStorageFormats, rawNew.SupportedOutputStorageFormats) {
 			rawNew.SupportedOutputStorageFormats = rawDesired.SupportedOutputStorageFormats
@@ -655,31 +625,23 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		if rawDesired.CreateTime != nil {
-			rawNew.CreateTime = rawDesired.CreateTime
-		}
+		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		if rawDesired.UpdateTime != nil {
-			rawNew.UpdateTime = rawDesired.UpdateTime
-		}
+		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DeployedModels) && dcl.IsNotReturnedByServer(rawDesired.DeployedModels) {
-		if rawDesired.DeployedModels != nil {
-			rawNew.DeployedModels = rawDesired.DeployedModels
-		}
+		rawNew.DeployedModels = rawDesired.DeployedModels
 	} else {
 		rawNew.DeployedModels = canonicalizeNewModelDeployedModelsSlice(c, rawDesired.DeployedModels, rawNew.DeployedModels)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		if rawDesired.Etag != nil {
-			rawNew.Etag = rawDesired.Etag
-		}
+		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
 			rawNew.Etag = rawDesired.Etag
@@ -687,16 +649,12 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		if rawDesired.Labels != nil {
-			rawNew.Labels = rawDesired.Labels
-		}
+		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.EncryptionSpec) && dcl.IsNotReturnedByServer(rawDesired.EncryptionSpec) {
-		if rawDesired.EncryptionSpec != nil && !rawDesired.EncryptionSpec.empty {
-			rawNew.EncryptionSpec = rawDesired.EncryptionSpec
-		}
+		rawNew.EncryptionSpec = rawDesired.EncryptionSpec
 	} else {
 		rawNew.EncryptionSpec = canonicalizeNewModelEncryptionSpec(c, rawDesired.EncryptionSpec, rawNew.EncryptionSpec)
 	}

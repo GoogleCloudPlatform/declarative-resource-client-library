@@ -541,16 +541,12 @@ func canonicalizeKeyDesiredState(rawDesired, rawInitial *Key, opts ...dcl.ApplyO
 func canonicalizeKeyNewState(c *Client, rawNew, rawDesired *Key) (*Key, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		if rawDesired.DisplayName != nil {
-			rawNew.DisplayName = rawDesired.DisplayName
-		}
+		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -558,47 +554,35 @@ func canonicalizeKeyNewState(c *Client, rawNew, rawDesired *Key) (*Key, error) {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.WebSettings) && dcl.IsNotReturnedByServer(rawDesired.WebSettings) {
-		if rawDesired.WebSettings != nil && !rawDesired.WebSettings.empty {
-			rawNew.WebSettings = rawDesired.WebSettings
-		}
+		rawNew.WebSettings = rawDesired.WebSettings
 	} else {
 		rawNew.WebSettings = canonicalizeNewKeyWebSettings(c, rawDesired.WebSettings, rawNew.WebSettings)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AndroidSettings) && dcl.IsNotReturnedByServer(rawDesired.AndroidSettings) {
-		if rawDesired.AndroidSettings != nil && !rawDesired.AndroidSettings.empty {
-			rawNew.AndroidSettings = rawDesired.AndroidSettings
-		}
+		rawNew.AndroidSettings = rawDesired.AndroidSettings
 	} else {
 		rawNew.AndroidSettings = canonicalizeNewKeyAndroidSettings(c, rawDesired.AndroidSettings, rawNew.AndroidSettings)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.IosSettings) && dcl.IsNotReturnedByServer(rawDesired.IosSettings) {
-		if rawDesired.IosSettings != nil && !rawDesired.IosSettings.empty {
-			rawNew.IosSettings = rawDesired.IosSettings
-		}
+		rawNew.IosSettings = rawDesired.IosSettings
 	} else {
 		rawNew.IosSettings = canonicalizeNewKeyIosSettings(c, rawDesired.IosSettings, rawNew.IosSettings)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		if rawDesired.Labels != nil {
-			rawNew.Labels = rawDesired.Labels
-		}
+		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		if rawDesired.CreateTime != nil {
-			rawNew.CreateTime = rawDesired.CreateTime
-		}
+		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.TestingOptions) && dcl.IsNotReturnedByServer(rawDesired.TestingOptions) {
-		if rawDesired.TestingOptions != nil && !rawDesired.TestingOptions.empty {
-			rawNew.TestingOptions = rawDesired.TestingOptions
-		}
+		rawNew.TestingOptions = rawDesired.TestingOptions
 	} else {
 		rawNew.TestingOptions = canonicalizeNewKeyTestingOptions(c, rawDesired.TestingOptions, rawNew.TestingOptions)
 	}

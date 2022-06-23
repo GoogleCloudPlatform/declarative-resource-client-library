@@ -508,16 +508,12 @@ func canonicalizeOrganizationDesiredState(rawDesired, rawInitial *Organization, 
 func canonicalizeOrganizationNewState(c *Client, rawNew, rawDesired *Organization) (*Organization, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		if rawDesired.DisplayName != nil {
-			rawNew.DisplayName = rawDesired.DisplayName
-		}
+		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -525,9 +521,7 @@ func canonicalizeOrganizationNewState(c *Client, rawNew, rawDesired *Organizatio
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -535,30 +529,22 @@ func canonicalizeOrganizationNewState(c *Client, rawNew, rawDesired *Organizatio
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreatedAt) && dcl.IsNotReturnedByServer(rawDesired.CreatedAt) {
-		if rawDesired.CreatedAt != nil {
-			rawNew.CreatedAt = rawDesired.CreatedAt
-		}
+		rawNew.CreatedAt = rawDesired.CreatedAt
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LastModifiedAt) && dcl.IsNotReturnedByServer(rawDesired.LastModifiedAt) {
-		if rawDesired.LastModifiedAt != nil {
-			rawNew.LastModifiedAt = rawDesired.LastModifiedAt
-		}
+		rawNew.LastModifiedAt = rawDesired.LastModifiedAt
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ExpiresAt) && dcl.IsNotReturnedByServer(rawDesired.ExpiresAt) {
-		if rawDesired.ExpiresAt != nil {
-			rawNew.ExpiresAt = rawDesired.ExpiresAt
-		}
+		rawNew.ExpiresAt = rawDesired.ExpiresAt
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Environments) && dcl.IsNotReturnedByServer(rawDesired.Environments) {
-		if rawDesired.Environments != nil {
-			rawNew.Environments = rawDesired.Environments
-		}
+		rawNew.Environments = rawDesired.Environments
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.Environments, rawNew.Environments) {
 			rawNew.Environments = rawDesired.Environments
@@ -566,16 +552,12 @@ func canonicalizeOrganizationNewState(c *Client, rawNew, rawDesired *Organizatio
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Properties) && dcl.IsNotReturnedByServer(rawDesired.Properties) {
-		if rawDesired.Properties != nil {
-			rawNew.Properties = rawDesired.Properties
-		}
+		rawNew.Properties = rawDesired.Properties
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AnalyticsRegion) && dcl.IsNotReturnedByServer(rawDesired.AnalyticsRegion) {
-		if rawDesired.AnalyticsRegion != nil {
-			rawNew.AnalyticsRegion = rawDesired.AnalyticsRegion
-		}
+		rawNew.AnalyticsRegion = rawDesired.AnalyticsRegion
 	} else {
 		if dcl.StringCanonicalize(rawDesired.AnalyticsRegion, rawNew.AnalyticsRegion) {
 			rawNew.AnalyticsRegion = rawDesired.AnalyticsRegion
@@ -583,45 +565,33 @@ func canonicalizeOrganizationNewState(c *Client, rawNew, rawDesired *Organizatio
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AuthorizedNetwork) && dcl.IsNotReturnedByServer(rawDesired.AuthorizedNetwork) {
-		if rawDesired.AuthorizedNetwork != nil {
-			rawNew.AuthorizedNetwork = rawDesired.AuthorizedNetwork
-		}
+		rawNew.AuthorizedNetwork = rawDesired.AuthorizedNetwork
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RuntimeType) && dcl.IsNotReturnedByServer(rawDesired.RuntimeType) {
-		if rawDesired.RuntimeType != nil {
-			rawNew.RuntimeType = rawDesired.RuntimeType
-		}
+		rawNew.RuntimeType = rawDesired.RuntimeType
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SubscriptionType) && dcl.IsNotReturnedByServer(rawDesired.SubscriptionType) {
-		if rawDesired.SubscriptionType != nil {
-			rawNew.SubscriptionType = rawDesired.SubscriptionType
-		}
+		rawNew.SubscriptionType = rawDesired.SubscriptionType
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.BillingType) && dcl.IsNotReturnedByServer(rawDesired.BillingType) {
-		if rawDesired.BillingType != nil {
-			rawNew.BillingType = rawDesired.BillingType
-		}
+		rawNew.BillingType = rawDesired.BillingType
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AddonsConfig) && dcl.IsNotReturnedByServer(rawDesired.AddonsConfig) {
-		if rawDesired.AddonsConfig != nil && !rawDesired.AddonsConfig.empty {
-			rawNew.AddonsConfig = rawDesired.AddonsConfig
-		}
+		rawNew.AddonsConfig = rawDesired.AddonsConfig
 	} else {
 		rawNew.AddonsConfig = canonicalizeNewOrganizationAddonsConfig(c, rawDesired.AddonsConfig, rawNew.AddonsConfig)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CaCertificate) && dcl.IsNotReturnedByServer(rawDesired.CaCertificate) {
-		if rawDesired.CaCertificate != nil {
-			rawNew.CaCertificate = rawDesired.CaCertificate
-		}
+		rawNew.CaCertificate = rawDesired.CaCertificate
 	} else {
 		if dcl.StringCanonicalize(rawDesired.CaCertificate, rawNew.CaCertificate) {
 			rawNew.CaCertificate = rawDesired.CaCertificate
@@ -629,16 +599,12 @@ func canonicalizeOrganizationNewState(c *Client, rawNew, rawDesired *Organizatio
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RuntimeDatabaseEncryptionKeyName) && dcl.IsNotReturnedByServer(rawDesired.RuntimeDatabaseEncryptionKeyName) {
-		if rawDesired.RuntimeDatabaseEncryptionKeyName != nil {
-			rawNew.RuntimeDatabaseEncryptionKeyName = rawDesired.RuntimeDatabaseEncryptionKeyName
-		}
+		rawNew.RuntimeDatabaseEncryptionKeyName = rawDesired.RuntimeDatabaseEncryptionKeyName
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ProjectId) && dcl.IsNotReturnedByServer(rawDesired.ProjectId) {
-		if rawDesired.ProjectId != nil {
-			rawNew.ProjectId = rawDesired.ProjectId
-		}
+		rawNew.ProjectId = rawDesired.ProjectId
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ProjectId, rawNew.ProjectId) {
 			rawNew.ProjectId = rawDesired.ProjectId
@@ -646,9 +612,7 @@ func canonicalizeOrganizationNewState(c *Client, rawNew, rawDesired *Organizatio
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		if rawDesired.State != nil {
-			rawNew.State = rawDesired.State
-		}
+		rawNew.State = rawDesired.State
 	} else {
 	}
 

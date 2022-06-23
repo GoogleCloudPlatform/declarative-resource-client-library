@@ -484,9 +484,7 @@ func canonicalizeNotificationChannelDesiredState(rawDesired, rawInitial *Notific
 func canonicalizeNotificationChannelNewState(c *Client, rawNew, rawDesired *NotificationChannel) (*NotificationChannel, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -494,9 +492,7 @@ func canonicalizeNotificationChannelNewState(c *Client, rawNew, rawDesired *Noti
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		if rawDesired.DisplayName != nil {
-			rawNew.DisplayName = rawDesired.DisplayName
-		}
+		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -504,9 +500,7 @@ func canonicalizeNotificationChannelNewState(c *Client, rawNew, rawDesired *Noti
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Enabled) && dcl.IsNotReturnedByServer(rawDesired.Enabled) {
-		if rawDesired.Enabled != nil {
-			rawNew.Enabled = rawDesired.Enabled
-		}
+		rawNew.Enabled = rawDesired.Enabled
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Enabled, rawNew.Enabled) {
 			rawNew.Enabled = rawDesired.Enabled
@@ -514,23 +508,17 @@ func canonicalizeNotificationChannelNewState(c *Client, rawNew, rawDesired *Noti
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		if rawDesired.Labels != nil {
-			rawNew.Labels = rawDesired.Labels
-		}
+		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Type) && dcl.IsNotReturnedByServer(rawDesired.Type) {
-		if rawDesired.Type != nil {
-			rawNew.Type = rawDesired.Type
-		}
+		rawNew.Type = rawDesired.Type
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Type, rawNew.Type) {
 			rawNew.Type = rawDesired.Type
@@ -538,16 +526,12 @@ func canonicalizeNotificationChannelNewState(c *Client, rawNew, rawDesired *Noti
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UserLabels) && dcl.IsNotReturnedByServer(rawDesired.UserLabels) {
-		if rawDesired.UserLabels != nil {
-			rawNew.UserLabels = rawDesired.UserLabels
-		}
+		rawNew.UserLabels = rawDesired.UserLabels
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.VerificationStatus) && dcl.IsNotReturnedByServer(rawDesired.VerificationStatus) {
-		if rawDesired.VerificationStatus != nil {
-			rawNew.VerificationStatus = rawDesired.VerificationStatus
-		}
+		rawNew.VerificationStatus = rawDesired.VerificationStatus
 	} else {
 	}
 

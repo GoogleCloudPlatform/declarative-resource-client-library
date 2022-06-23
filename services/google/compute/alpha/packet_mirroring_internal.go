@@ -548,16 +548,12 @@ func canonicalizePacketMirroringDesiredState(rawDesired, rawInitial *PacketMirro
 func canonicalizePacketMirroringNewState(c *Client, rawNew, rawDesired *PacketMirroring) (*PacketMirroring, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Id) && dcl.IsNotReturnedByServer(rawDesired.Id) {
-		if rawDesired.Id != nil {
-			rawNew.Id = rawDesired.Id
-		}
+		rawNew.Id = rawDesired.Id
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
-		if rawDesired.SelfLink != nil {
-			rawNew.SelfLink = rawDesired.SelfLink
-		}
+		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
 			rawNew.SelfLink = rawDesired.SelfLink
@@ -565,9 +561,7 @@ func canonicalizePacketMirroringNewState(c *Client, rawNew, rawDesired *PacketMi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -575,9 +569,7 @@ func canonicalizePacketMirroringNewState(c *Client, rawNew, rawDesired *PacketMi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -585,9 +577,7 @@ func canonicalizePacketMirroringNewState(c *Client, rawNew, rawDesired *PacketMi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Region) && dcl.IsNotReturnedByServer(rawDesired.Region) {
-		if rawDesired.Region != nil {
-			rawNew.Region = rawDesired.Region
-		}
+		rawNew.Region = rawDesired.Region
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Region, rawNew.Region) {
 			rawNew.Region = rawDesired.Region
@@ -595,48 +585,36 @@ func canonicalizePacketMirroringNewState(c *Client, rawNew, rawDesired *PacketMi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Network) && dcl.IsNotReturnedByServer(rawDesired.Network) {
-		if rawDesired.Network != nil && !rawDesired.Network.empty {
-			rawNew.Network = rawDesired.Network
-		}
+		rawNew.Network = rawDesired.Network
 	} else {
 		rawNew.Network = canonicalizeNewPacketMirroringNetwork(c, rawDesired.Network, rawNew.Network)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Priority) && dcl.IsNotReturnedByServer(rawDesired.Priority) {
-		if rawDesired.Priority != nil {
-			rawNew.Priority = rawDesired.Priority
-		}
+		rawNew.Priority = rawDesired.Priority
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CollectorIlb) && dcl.IsNotReturnedByServer(rawDesired.CollectorIlb) {
-		if rawDesired.CollectorIlb != nil && !rawDesired.CollectorIlb.empty {
-			rawNew.CollectorIlb = rawDesired.CollectorIlb
-		}
+		rawNew.CollectorIlb = rawDesired.CollectorIlb
 	} else {
 		rawNew.CollectorIlb = canonicalizeNewPacketMirroringCollectorIlb(c, rawDesired.CollectorIlb, rawNew.CollectorIlb)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MirroredResources) && dcl.IsNotReturnedByServer(rawDesired.MirroredResources) {
-		if rawDesired.MirroredResources != nil && !rawDesired.MirroredResources.empty {
-			rawNew.MirroredResources = rawDesired.MirroredResources
-		}
+		rawNew.MirroredResources = rawDesired.MirroredResources
 	} else {
 		rawNew.MirroredResources = canonicalizeNewPacketMirroringMirroredResources(c, rawDesired.MirroredResources, rawNew.MirroredResources)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Filter) && dcl.IsNotReturnedByServer(rawDesired.Filter) {
-		if rawDesired.Filter != nil && !rawDesired.Filter.empty {
-			rawNew.Filter = rawDesired.Filter
-		}
+		rawNew.Filter = rawDesired.Filter
 	} else {
 		rawNew.Filter = canonicalizeNewPacketMirroringFilter(c, rawDesired.Filter, rawNew.Filter)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Enable) && dcl.IsNotReturnedByServer(rawDesired.Enable) {
-		if rawDesired.Enable != nil {
-			rawNew.Enable = rawDesired.Enable
-		}
+		rawNew.Enable = rawDesired.Enable
 	} else {
 	}
 

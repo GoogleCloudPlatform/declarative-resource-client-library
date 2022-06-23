@@ -451,9 +451,7 @@ func canonicalizeInstanceDesiredState(rawDesired, rawInitial *Instance, opts ...
 func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Instance, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -461,24 +459,18 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		if rawDesired.Labels != nil {
-			rawNew.Labels = rawDesired.Labels
-		}
+		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.BundlesConfig) && dcl.IsNotReturnedByServer(rawDesired.BundlesConfig) {
-		if rawDesired.BundlesConfig != nil && !rawDesired.BundlesConfig.empty {
-			rawNew.BundlesConfig = rawDesired.BundlesConfig
-		}
+		rawNew.BundlesConfig = rawDesired.BundlesConfig
 	} else {
 		rawNew.BundlesConfig = canonicalizeNewInstanceBundlesConfig(c, rawDesired.BundlesConfig, rawNew.BundlesConfig)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UsePrivateEndpoint) && dcl.IsNotReturnedByServer(rawDesired.UsePrivateEndpoint) {
-		if rawDesired.UsePrivateEndpoint != nil {
-			rawNew.UsePrivateEndpoint = rawDesired.UsePrivateEndpoint
-		}
+		rawNew.UsePrivateEndpoint = rawDesired.UsePrivateEndpoint
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.UsePrivateEndpoint, rawNew.UsePrivateEndpoint) {
 			rawNew.UsePrivateEndpoint = rawDesired.UsePrivateEndpoint
@@ -486,9 +478,7 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.GkeResourceLink) && dcl.IsNotReturnedByServer(rawDesired.GkeResourceLink) {
-		if rawDesired.GkeResourceLink != nil {
-			rawNew.GkeResourceLink = rawDesired.GkeResourceLink
-		}
+		rawNew.GkeResourceLink = rawDesired.GkeResourceLink
 	} else {
 		if dcl.StringCanonicalize(rawDesired.GkeResourceLink, rawNew.GkeResourceLink) {
 			rawNew.GkeResourceLink = rawDesired.GkeResourceLink
@@ -496,16 +486,12 @@ func canonicalizeInstanceNewState(c *Client, rawNew, rawDesired *Instance) (*Ins
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		if rawDesired.State != nil {
-			rawNew.State = rawDesired.State
-		}
+		rawNew.State = rawDesired.State
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ManagementConfig) && dcl.IsNotReturnedByServer(rawDesired.ManagementConfig) {
-		if rawDesired.ManagementConfig != nil && !rawDesired.ManagementConfig.empty {
-			rawNew.ManagementConfig = rawDesired.ManagementConfig
-		}
+		rawNew.ManagementConfig = rawDesired.ManagementConfig
 	} else {
 		rawNew.ManagementConfig = canonicalizeNewInstanceManagementConfig(c, rawDesired.ManagementConfig, rawNew.ManagementConfig)
 	}

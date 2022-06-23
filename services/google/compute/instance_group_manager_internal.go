@@ -861,16 +861,12 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *InstanceGroupManager) (*InstanceGroupManager, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Id) && dcl.IsNotReturnedByServer(rawDesired.Id) {
-		if rawDesired.Id != nil {
-			rawNew.Id = rawDesired.Id
-		}
+		rawNew.Id = rawDesired.Id
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreationTimestamp) && dcl.IsNotReturnedByServer(rawDesired.CreationTimestamp) {
-		if rawDesired.CreationTimestamp != nil {
-			rawNew.CreationTimestamp = rawDesired.CreationTimestamp
-		}
+		rawNew.CreationTimestamp = rawDesired.CreationTimestamp
 	} else {
 		if dcl.StringCanonicalize(rawDesired.CreationTimestamp, rawNew.CreationTimestamp) {
 			rawNew.CreationTimestamp = rawDesired.CreationTimestamp
@@ -878,9 +874,7 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -888,9 +882,7 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -898,9 +890,7 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Zone) && dcl.IsNotReturnedByServer(rawDesired.Zone) {
-		if rawDesired.Zone != nil {
-			rawNew.Zone = rawDesired.Zone
-		}
+		rawNew.Zone = rawDesired.Zone
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Zone, rawNew.Zone) {
 			rawNew.Zone = rawDesired.Zone
@@ -908,9 +898,7 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Region) && dcl.IsNotReturnedByServer(rawDesired.Region) {
-		if rawDesired.Region != nil {
-			rawNew.Region = rawDesired.Region
-		}
+		rawNew.Region = rawDesired.Region
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Region, rawNew.Region) {
 			rawNew.Region = rawDesired.Region
@@ -918,39 +906,29 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DistributionPolicy) && dcl.IsNotReturnedByServer(rawDesired.DistributionPolicy) {
-		if rawDesired.DistributionPolicy != nil && !rawDesired.DistributionPolicy.empty {
-			rawNew.DistributionPolicy = rawDesired.DistributionPolicy
-		}
+		rawNew.DistributionPolicy = rawDesired.DistributionPolicy
 	} else {
 		rawNew.DistributionPolicy = canonicalizeNewInstanceGroupManagerDistributionPolicy(c, rawDesired.DistributionPolicy, rawNew.DistributionPolicy)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.InstanceTemplate) && dcl.IsNotReturnedByServer(rawDesired.InstanceTemplate) {
-		if rawDesired.InstanceTemplate != nil {
-			rawNew.InstanceTemplate = rawDesired.InstanceTemplate
-		}
+		rawNew.InstanceTemplate = rawDesired.InstanceTemplate
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Versions) && dcl.IsNotReturnedByServer(rawDesired.Versions) {
-		if rawDesired.Versions != nil {
-			rawNew.Versions = rawDesired.Versions
-		}
+		rawNew.Versions = rawDesired.Versions
 	} else {
 		rawNew.Versions = canonicalizeNewInstanceGroupManagerVersionsSlice(c, rawDesired.Versions, rawNew.Versions)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.InstanceGroup) && dcl.IsNotReturnedByServer(rawDesired.InstanceGroup) {
-		if rawDesired.InstanceGroup != nil {
-			rawNew.InstanceGroup = rawDesired.InstanceGroup
-		}
+		rawNew.InstanceGroup = rawDesired.InstanceGroup
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.TargetPools) && dcl.IsNotReturnedByServer(rawDesired.TargetPools) {
-		if rawDesired.TargetPools != nil {
-			rawNew.TargetPools = rawDesired.TargetPools
-		}
+		rawNew.TargetPools = rawDesired.TargetPools
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.TargetPools, rawNew.TargetPools) {
 			rawNew.TargetPools = rawDesired.TargetPools
@@ -958,9 +936,7 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.BaseInstanceName) && dcl.IsNotReturnedByServer(rawDesired.BaseInstanceName) {
-		if rawDesired.BaseInstanceName != nil {
-			rawNew.BaseInstanceName = rawDesired.BaseInstanceName
-		}
+		rawNew.BaseInstanceName = rawDesired.BaseInstanceName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.BaseInstanceName, rawNew.BaseInstanceName) {
 			rawNew.BaseInstanceName = rawDesired.BaseInstanceName
@@ -968,9 +944,7 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Fingerprint) && dcl.IsNotReturnedByServer(rawDesired.Fingerprint) {
-		if rawDesired.Fingerprint != nil {
-			rawNew.Fingerprint = rawDesired.Fingerprint
-		}
+		rawNew.Fingerprint = rawDesired.Fingerprint
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Fingerprint, rawNew.Fingerprint) {
 			rawNew.Fingerprint = rawDesired.Fingerprint
@@ -978,32 +952,24 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CurrentActions) && dcl.IsNotReturnedByServer(rawDesired.CurrentActions) {
-		if rawDesired.CurrentActions != nil && !rawDesired.CurrentActions.empty {
-			rawNew.CurrentActions = rawDesired.CurrentActions
-		}
+		rawNew.CurrentActions = rawDesired.CurrentActions
 	} else {
 		rawNew.CurrentActions = canonicalizeNewInstanceGroupManagerCurrentActions(c, rawDesired.CurrentActions, rawNew.CurrentActions)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Status) && dcl.IsNotReturnedByServer(rawDesired.Status) {
-		if rawDesired.Status != nil && !rawDesired.Status.empty {
-			rawNew.Status = rawDesired.Status
-		}
+		rawNew.Status = rawDesired.Status
 	} else {
 		rawNew.Status = canonicalizeNewInstanceGroupManagerStatus(c, rawDesired.Status, rawNew.Status)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.TargetSize) && dcl.IsNotReturnedByServer(rawDesired.TargetSize) {
-		if rawDesired.TargetSize != nil {
-			rawNew.TargetSize = rawDesired.TargetSize
-		}
+		rawNew.TargetSize = rawDesired.TargetSize
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
-		if rawDesired.SelfLink != nil {
-			rawNew.SelfLink = rawDesired.SelfLink
-		}
+		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
 			rawNew.SelfLink = rawDesired.SelfLink
@@ -1011,33 +977,25 @@ func canonicalizeInstanceGroupManagerNewState(c *Client, rawNew, rawDesired *Ins
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AutoHealingPolicies) && dcl.IsNotReturnedByServer(rawDesired.AutoHealingPolicies) {
-		if rawDesired.AutoHealingPolicies != nil {
-			rawNew.AutoHealingPolicies = rawDesired.AutoHealingPolicies
-		}
+		rawNew.AutoHealingPolicies = rawDesired.AutoHealingPolicies
 	} else {
 		rawNew.AutoHealingPolicies = canonicalizeNewInstanceGroupManagerAutoHealingPoliciesSlice(c, rawDesired.AutoHealingPolicies, rawNew.AutoHealingPolicies)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdatePolicy) && dcl.IsNotReturnedByServer(rawDesired.UpdatePolicy) {
-		if rawDesired.UpdatePolicy != nil && !rawDesired.UpdatePolicy.empty {
-			rawNew.UpdatePolicy = rawDesired.UpdatePolicy
-		}
+		rawNew.UpdatePolicy = rawDesired.UpdatePolicy
 	} else {
 		rawNew.UpdatePolicy = canonicalizeNewInstanceGroupManagerUpdatePolicy(c, rawDesired.UpdatePolicy, rawNew.UpdatePolicy)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.NamedPorts) && dcl.IsNotReturnedByServer(rawDesired.NamedPorts) {
-		if rawDesired.NamedPorts != nil {
-			rawNew.NamedPorts = rawDesired.NamedPorts
-		}
+		rawNew.NamedPorts = rawDesired.NamedPorts
 	} else {
 		rawNew.NamedPorts = canonicalizeNewInstanceGroupManagerNamedPortsSlice(c, rawDesired.NamedPorts, rawNew.NamedPorts)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.StatefulPolicy) && dcl.IsNotReturnedByServer(rawDesired.StatefulPolicy) {
-		if rawDesired.StatefulPolicy != nil && !rawDesired.StatefulPolicy.empty {
-			rawNew.StatefulPolicy = rawDesired.StatefulPolicy
-		}
+		rawNew.StatefulPolicy = rawDesired.StatefulPolicy
 	} else {
 		rawNew.StatefulPolicy = canonicalizeNewInstanceGroupManagerStatefulPolicy(c, rawDesired.StatefulPolicy, rawNew.StatefulPolicy)
 	}

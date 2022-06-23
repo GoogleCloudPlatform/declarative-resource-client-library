@@ -453,9 +453,7 @@ func canonicalizeServiceDesiredState(rawDesired, rawInitial *Service, opts ...dc
 func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Service, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -463,9 +461,7 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		if rawDesired.DisplayName != nil {
-			rawNew.DisplayName = rawDesired.DisplayName
-		}
+		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -473,25 +469,19 @@ func canonicalizeServiceNewState(c *Client, rawNew, rawDesired *Service) (*Servi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Custom) && dcl.IsNotReturnedByServer(rawDesired.Custom) {
-		if rawDesired.Custom != nil && !rawDesired.Custom.empty {
-			rawNew.Custom = rawDesired.Custom
-		}
+		rawNew.Custom = rawDesired.Custom
 	} else {
 		rawNew.Custom = canonicalizeNewServiceCustom(c, rawDesired.Custom, rawNew.Custom)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Telemetry) && dcl.IsNotReturnedByServer(rawDesired.Telemetry) {
-		if rawDesired.Telemetry != nil && !rawDesired.Telemetry.empty {
-			rawNew.Telemetry = rawDesired.Telemetry
-		}
+		rawNew.Telemetry = rawDesired.Telemetry
 	} else {
 		rawNew.Telemetry = canonicalizeNewServiceTelemetry(c, rawDesired.Telemetry, rawNew.Telemetry)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UserLabels) && dcl.IsNotReturnedByServer(rawDesired.UserLabels) {
-		if rawDesired.UserLabels != nil {
-			rawNew.UserLabels = rawDesired.UserLabels
-		}
+		rawNew.UserLabels = rawDesired.UserLabels
 	} else {
 	}
 

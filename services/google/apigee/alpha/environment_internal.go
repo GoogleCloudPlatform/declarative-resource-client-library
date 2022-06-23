@@ -420,9 +420,7 @@ func canonicalizeEnvironmentDesiredState(rawDesired, rawInitial *Environment, op
 func canonicalizeEnvironmentNewState(c *Client, rawNew, rawDesired *Environment) (*Environment, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -430,9 +428,7 @@ func canonicalizeEnvironmentNewState(c *Client, rawNew, rawDesired *Environment)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -440,30 +436,22 @@ func canonicalizeEnvironmentNewState(c *Client, rawNew, rawDesired *Environment)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreatedAt) && dcl.IsNotReturnedByServer(rawDesired.CreatedAt) {
-		if rawDesired.CreatedAt != nil {
-			rawNew.CreatedAt = rawDesired.CreatedAt
-		}
+		rawNew.CreatedAt = rawDesired.CreatedAt
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LastModifiedAt) && dcl.IsNotReturnedByServer(rawDesired.LastModifiedAt) {
-		if rawDesired.LastModifiedAt != nil {
-			rawNew.LastModifiedAt = rawDesired.LastModifiedAt
-		}
+		rawNew.LastModifiedAt = rawDesired.LastModifiedAt
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Properties) && dcl.IsNotReturnedByServer(rawDesired.Properties) {
-		if rawDesired.Properties != nil {
-			rawNew.Properties = rawDesired.Properties
-		}
+		rawNew.Properties = rawDesired.Properties
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		if rawDesired.DisplayName != nil {
-			rawNew.DisplayName = rawDesired.DisplayName
-		}
+		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -471,9 +459,7 @@ func canonicalizeEnvironmentNewState(c *Client, rawNew, rawDesired *Environment)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		if rawDesired.State != nil {
-			rawNew.State = rawDesired.State
-		}
+		rawNew.State = rawDesired.State
 	} else {
 	}
 

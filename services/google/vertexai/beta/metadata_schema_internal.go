@@ -331,9 +331,7 @@ func canonicalizeMetadataSchemaDesiredState(rawDesired, rawInitial *MetadataSche
 func canonicalizeMetadataSchemaNewState(c *Client, rawNew, rawDesired *MetadataSchema) (*MetadataSchema, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -341,9 +339,7 @@ func canonicalizeMetadataSchemaNewState(c *Client, rawNew, rawDesired *MetadataS
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SchemaVersion) && dcl.IsNotReturnedByServer(rawDesired.SchemaVersion) {
-		if rawDesired.SchemaVersion != nil {
-			rawNew.SchemaVersion = rawDesired.SchemaVersion
-		}
+		rawNew.SchemaVersion = rawDesired.SchemaVersion
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SchemaVersion, rawNew.SchemaVersion) {
 			rawNew.SchemaVersion = rawDesired.SchemaVersion
@@ -351,9 +347,7 @@ func canonicalizeMetadataSchemaNewState(c *Client, rawNew, rawDesired *MetadataS
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Schema) && dcl.IsNotReturnedByServer(rawDesired.Schema) {
-		if rawDesired.Schema != nil {
-			rawNew.Schema = rawDesired.Schema
-		}
+		rawNew.Schema = rawDesired.Schema
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Schema, rawNew.Schema) {
 			rawNew.Schema = rawDesired.Schema
@@ -361,16 +355,12 @@ func canonicalizeMetadataSchemaNewState(c *Client, rawNew, rawDesired *MetadataS
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SchemaType) && dcl.IsNotReturnedByServer(rawDesired.SchemaType) {
-		if rawDesired.SchemaType != nil {
-			rawNew.SchemaType = rawDesired.SchemaType
-		}
+		rawNew.SchemaType = rawDesired.SchemaType
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		if rawDesired.CreateTime != nil {
-			rawNew.CreateTime = rawDesired.CreateTime
-		}
+		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 

@@ -617,9 +617,7 @@ func canonicalizePrivateCloudDesiredState(rawDesired, rawInitial *PrivateCloud, 
 func canonicalizePrivateCloudNewState(c *Client, rawNew, rawDesired *PrivateCloud) (*PrivateCloud, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -627,60 +625,44 @@ func canonicalizePrivateCloudNewState(c *Client, rawNew, rawDesired *PrivateClou
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		if rawDesired.CreateTime != nil {
-			rawNew.CreateTime = rawDesired.CreateTime
-		}
+		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		if rawDesired.UpdateTime != nil {
-			rawNew.UpdateTime = rawDesired.UpdateTime
-		}
+		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DeleteTime) && dcl.IsNotReturnedByServer(rawDesired.DeleteTime) {
-		if rawDesired.DeleteTime != nil {
-			rawNew.DeleteTime = rawDesired.DeleteTime
-		}
+		rawNew.DeleteTime = rawDesired.DeleteTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ExpireTime) && dcl.IsNotReturnedByServer(rawDesired.ExpireTime) {
-		if rawDesired.ExpireTime != nil {
-			rawNew.ExpireTime = rawDesired.ExpireTime
-		}
+		rawNew.ExpireTime = rawDesired.ExpireTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		if rawDesired.State != nil {
-			rawNew.State = rawDesired.State
-		}
+		rawNew.State = rawDesired.State
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.NetworkConfig) && dcl.IsNotReturnedByServer(rawDesired.NetworkConfig) {
-		if rawDesired.NetworkConfig != nil && !rawDesired.NetworkConfig.empty {
-			rawNew.NetworkConfig = rawDesired.NetworkConfig
-		}
+		rawNew.NetworkConfig = rawDesired.NetworkConfig
 	} else {
 		rawNew.NetworkConfig = canonicalizeNewPrivateCloudNetworkConfig(c, rawDesired.NetworkConfig, rawNew.NetworkConfig)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ManagementCluster) && dcl.IsNotReturnedByServer(rawDesired.ManagementCluster) {
-		if rawDesired.ManagementCluster != nil && !rawDesired.ManagementCluster.empty {
-			rawNew.ManagementCluster = rawDesired.ManagementCluster
-		}
+		rawNew.ManagementCluster = rawDesired.ManagementCluster
 	} else {
 		rawNew.ManagementCluster = rawDesired.ManagementCluster
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -688,33 +670,25 @@ func canonicalizePrivateCloudNewState(c *Client, rawNew, rawDesired *PrivateClou
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Conditions) && dcl.IsNotReturnedByServer(rawDesired.Conditions) {
-		if rawDesired.Conditions != nil {
-			rawNew.Conditions = rawDesired.Conditions
-		}
+		rawNew.Conditions = rawDesired.Conditions
 	} else {
 		rawNew.Conditions = canonicalizeNewPrivateCloudConditionsSlice(c, rawDesired.Conditions, rawNew.Conditions)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Hcx) && dcl.IsNotReturnedByServer(rawDesired.Hcx) {
-		if rawDesired.Hcx != nil && !rawDesired.Hcx.empty {
-			rawNew.Hcx = rawDesired.Hcx
-		}
+		rawNew.Hcx = rawDesired.Hcx
 	} else {
 		rawNew.Hcx = canonicalizeNewPrivateCloudHcx(c, rawDesired.Hcx, rawNew.Hcx)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Nsx) && dcl.IsNotReturnedByServer(rawDesired.Nsx) {
-		if rawDesired.Nsx != nil && !rawDesired.Nsx.empty {
-			rawNew.Nsx = rawDesired.Nsx
-		}
+		rawNew.Nsx = rawDesired.Nsx
 	} else {
 		rawNew.Nsx = canonicalizeNewPrivateCloudNsx(c, rawDesired.Nsx, rawNew.Nsx)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Vcenter) && dcl.IsNotReturnedByServer(rawDesired.Vcenter) {
-		if rawDesired.Vcenter != nil && !rawDesired.Vcenter.empty {
-			rawNew.Vcenter = rawDesired.Vcenter
-		}
+		rawNew.Vcenter = rawDesired.Vcenter
 	} else {
 		rawNew.Vcenter = canonicalizeNewPrivateCloudVcenter(c, rawDesired.Vcenter, rawNew.Vcenter)
 	}

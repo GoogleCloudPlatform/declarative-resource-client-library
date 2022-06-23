@@ -721,9 +721,7 @@ func canonicalizeServiceLevelObjectiveDesiredState(rawDesired, rawInitial *Servi
 func canonicalizeServiceLevelObjectiveNewState(c *Client, rawNew, rawDesired *ServiceLevelObjective) (*ServiceLevelObjective, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -731,9 +729,7 @@ func canonicalizeServiceLevelObjectiveNewState(c *Client, rawNew, rawDesired *Se
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		if rawDesired.DisplayName != nil {
-			rawNew.DisplayName = rawDesired.DisplayName
-		}
+		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -741,24 +737,18 @@ func canonicalizeServiceLevelObjectiveNewState(c *Client, rawNew, rawDesired *Se
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ServiceLevelIndicator) && dcl.IsNotReturnedByServer(rawDesired.ServiceLevelIndicator) {
-		if rawDesired.ServiceLevelIndicator != nil && !rawDesired.ServiceLevelIndicator.empty {
-			rawNew.ServiceLevelIndicator = rawDesired.ServiceLevelIndicator
-		}
+		rawNew.ServiceLevelIndicator = rawDesired.ServiceLevelIndicator
 	} else {
 		rawNew.ServiceLevelIndicator = canonicalizeNewServiceLevelObjectiveServiceLevelIndicator(c, rawDesired.ServiceLevelIndicator, rawNew.ServiceLevelIndicator)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Goal) && dcl.IsNotReturnedByServer(rawDesired.Goal) {
-		if rawDesired.Goal != nil {
-			rawNew.Goal = rawDesired.Goal
-		}
+		rawNew.Goal = rawDesired.Goal
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RollingPeriod) && dcl.IsNotReturnedByServer(rawDesired.RollingPeriod) {
-		if rawDesired.RollingPeriod != nil {
-			rawNew.RollingPeriod = rawDesired.RollingPeriod
-		}
+		rawNew.RollingPeriod = rawDesired.RollingPeriod
 	} else {
 		if dcl.StringCanonicalize(rawDesired.RollingPeriod, rawNew.RollingPeriod) {
 			rawNew.RollingPeriod = rawDesired.RollingPeriod
@@ -766,30 +756,22 @@ func canonicalizeServiceLevelObjectiveNewState(c *Client, rawNew, rawDesired *Se
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CalendarPeriod) && dcl.IsNotReturnedByServer(rawDesired.CalendarPeriod) {
-		if rawDesired.CalendarPeriod != nil {
-			rawNew.CalendarPeriod = rawDesired.CalendarPeriod
-		}
+		rawNew.CalendarPeriod = rawDesired.CalendarPeriod
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		if rawDesired.CreateTime != nil {
-			rawNew.CreateTime = rawDesired.CreateTime
-		}
+		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DeleteTime) && dcl.IsNotReturnedByServer(rawDesired.DeleteTime) {
-		if rawDesired.DeleteTime != nil {
-			rawNew.DeleteTime = rawDesired.DeleteTime
-		}
+		rawNew.DeleteTime = rawDesired.DeleteTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ServiceManagementOwned) && dcl.IsNotReturnedByServer(rawDesired.ServiceManagementOwned) {
-		if rawDesired.ServiceManagementOwned != nil {
-			rawNew.ServiceManagementOwned = rawDesired.ServiceManagementOwned
-		}
+		rawNew.ServiceManagementOwned = rawDesired.ServiceManagementOwned
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.ServiceManagementOwned, rawNew.ServiceManagementOwned) {
 			rawNew.ServiceManagementOwned = rawDesired.ServiceManagementOwned
@@ -797,9 +779,7 @@ func canonicalizeServiceLevelObjectiveNewState(c *Client, rawNew, rawDesired *Se
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UserLabels) && dcl.IsNotReturnedByServer(rawDesired.UserLabels) {
-		if rawDesired.UserLabels != nil {
-			rawNew.UserLabels = rawDesired.UserLabels
-		}
+		rawNew.UserLabels = rawDesired.UserLabels
 	} else {
 	}
 

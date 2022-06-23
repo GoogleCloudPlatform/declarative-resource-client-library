@@ -553,9 +553,7 @@ func canonicalizeEndpointPolicyDesiredState(rawDesired, rawInitial *EndpointPoli
 func canonicalizeEndpointPolicyNewState(c *Client, rawNew, rawDesired *EndpointPolicy) (*EndpointPolicy, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -563,60 +561,44 @@ func canonicalizeEndpointPolicyNewState(c *Client, rawNew, rawDesired *EndpointP
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		if rawDesired.CreateTime != nil {
-			rawNew.CreateTime = rawDesired.CreateTime
-		}
+		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		if rawDesired.UpdateTime != nil {
-			rawNew.UpdateTime = rawDesired.UpdateTime
-		}
+		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		if rawDesired.Labels != nil {
-			rawNew.Labels = rawDesired.Labels
-		}
+		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Type) && dcl.IsNotReturnedByServer(rawDesired.Type) {
-		if rawDesired.Type != nil {
-			rawNew.Type = rawDesired.Type
-		}
+		rawNew.Type = rawDesired.Type
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AuthorizationPolicy) && dcl.IsNotReturnedByServer(rawDesired.AuthorizationPolicy) {
-		if rawDesired.AuthorizationPolicy != nil {
-			rawNew.AuthorizationPolicy = rawDesired.AuthorizationPolicy
-		}
+		rawNew.AuthorizationPolicy = rawDesired.AuthorizationPolicy
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.EndpointMatcher) && dcl.IsNotReturnedByServer(rawDesired.EndpointMatcher) {
-		if rawDesired.EndpointMatcher != nil && !rawDesired.EndpointMatcher.empty {
-			rawNew.EndpointMatcher = rawDesired.EndpointMatcher
-		}
+		rawNew.EndpointMatcher = rawDesired.EndpointMatcher
 	} else {
 		rawNew.EndpointMatcher = canonicalizeNewEndpointPolicyEndpointMatcher(c, rawDesired.EndpointMatcher, rawNew.EndpointMatcher)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.TrafficPortSelector) && dcl.IsNotReturnedByServer(rawDesired.TrafficPortSelector) {
-		if rawDesired.TrafficPortSelector != nil && !rawDesired.TrafficPortSelector.empty {
-			rawNew.TrafficPortSelector = rawDesired.TrafficPortSelector
-		}
+		rawNew.TrafficPortSelector = rawDesired.TrafficPortSelector
 	} else {
 		rawNew.TrafficPortSelector = canonicalizeNewEndpointPolicyTrafficPortSelector(c, rawDesired.TrafficPortSelector, rawNew.TrafficPortSelector)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -624,16 +606,12 @@ func canonicalizeEndpointPolicyNewState(c *Client, rawNew, rawDesired *EndpointP
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ServerTlsPolicy) && dcl.IsNotReturnedByServer(rawDesired.ServerTlsPolicy) {
-		if rawDesired.ServerTlsPolicy != nil {
-			rawNew.ServerTlsPolicy = rawDesired.ServerTlsPolicy
-		}
+		rawNew.ServerTlsPolicy = rawDesired.ServerTlsPolicy
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ClientTlsPolicy) && dcl.IsNotReturnedByServer(rawDesired.ClientTlsPolicy) {
-		if rawDesired.ClientTlsPolicy != nil {
-			rawNew.ClientTlsPolicy = rawDesired.ClientTlsPolicy
-		}
+		rawNew.ClientTlsPolicy = rawDesired.ClientTlsPolicy
 	} else {
 	}
 

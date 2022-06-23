@@ -578,9 +578,7 @@ func canonicalizeDeliveryPipelineDesiredState(rawDesired, rawInitial *DeliveryPi
 func canonicalizeDeliveryPipelineNewState(c *Client, rawNew, rawDesired *DeliveryPipeline) (*DeliveryPipeline, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -588,9 +586,7 @@ func canonicalizeDeliveryPipelineNewState(c *Client, rawNew, rawDesired *Deliver
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
-		if rawDesired.Uid != nil {
-			rawNew.Uid = rawDesired.Uid
-		}
+		rawNew.Uid = rawDesired.Uid
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
 			rawNew.Uid = rawDesired.Uid
@@ -598,9 +594,7 @@ func canonicalizeDeliveryPipelineNewState(c *Client, rawNew, rawDesired *Deliver
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -608,53 +602,39 @@ func canonicalizeDeliveryPipelineNewState(c *Client, rawNew, rawDesired *Deliver
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Annotations) && dcl.IsNotReturnedByServer(rawDesired.Annotations) {
-		if rawDesired.Annotations != nil {
-			rawNew.Annotations = rawDesired.Annotations
-		}
+		rawNew.Annotations = rawDesired.Annotations
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		if rawDesired.Labels != nil {
-			rawNew.Labels = rawDesired.Labels
-		}
+		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		if rawDesired.CreateTime != nil {
-			rawNew.CreateTime = rawDesired.CreateTime
-		}
+		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		if rawDesired.UpdateTime != nil {
-			rawNew.UpdateTime = rawDesired.UpdateTime
-		}
+		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SerialPipeline) && dcl.IsNotReturnedByServer(rawDesired.SerialPipeline) {
-		if rawDesired.SerialPipeline != nil && !rawDesired.SerialPipeline.empty {
-			rawNew.SerialPipeline = rawDesired.SerialPipeline
-		}
+		rawNew.SerialPipeline = rawDesired.SerialPipeline
 	} else {
 		rawNew.SerialPipeline = canonicalizeNewDeliveryPipelineSerialPipeline(c, rawDesired.SerialPipeline, rawNew.SerialPipeline)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Condition) && dcl.IsNotReturnedByServer(rawDesired.Condition) {
-		if rawDesired.Condition != nil && !rawDesired.Condition.empty {
-			rawNew.Condition = rawDesired.Condition
-		}
+		rawNew.Condition = rawDesired.Condition
 	} else {
 		rawNew.Condition = canonicalizeNewDeliveryPipelineCondition(c, rawDesired.Condition, rawNew.Condition)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		if rawDesired.Etag != nil {
-			rawNew.Etag = rawDesired.Etag
-		}
+		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
 			rawNew.Etag = rawDesired.Etag
@@ -666,9 +646,7 @@ func canonicalizeDeliveryPipelineNewState(c *Client, rawNew, rawDesired *Deliver
 	rawNew.Location = rawDesired.Location
 
 	if dcl.IsNotReturnedByServer(rawNew.Suspended) && dcl.IsNotReturnedByServer(rawDesired.Suspended) {
-		if rawDesired.Suspended != nil {
-			rawNew.Suspended = rawDesired.Suspended
-		}
+		rawNew.Suspended = rawDesired.Suspended
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Suspended, rawNew.Suspended) {
 			rawNew.Suspended = rawDesired.Suspended

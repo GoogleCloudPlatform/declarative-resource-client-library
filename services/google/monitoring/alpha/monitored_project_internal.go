@@ -344,9 +344,7 @@ func canonicalizeMonitoredProjectDesiredState(rawDesired, rawInitial *MonitoredP
 func canonicalizeMonitoredProjectNewState(c *Client, rawNew, rawDesired *MonitoredProject) (*MonitoredProject, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -354,9 +352,7 @@ func canonicalizeMonitoredProjectNewState(c *Client, rawNew, rawDesired *Monitor
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		if rawDesired.CreateTime != nil {
-			rawNew.CreateTime = rawDesired.CreateTime
-		}
+		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 

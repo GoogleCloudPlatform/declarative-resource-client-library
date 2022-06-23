@@ -492,9 +492,7 @@ func canonicalizeKeyNewState(c *Client, rawNew, rawDesired *Key) (*Key, error) {
 	rawNew.Name = rawDesired.Name
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		if rawDesired.DisplayName != nil {
-			rawNew.DisplayName = rawDesired.DisplayName
-		}
+		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -502,9 +500,7 @@ func canonicalizeKeyNewState(c *Client, rawNew, rawDesired *Key) (*Key, error) {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.KeyString) && dcl.IsNotReturnedByServer(rawDesired.KeyString) {
-		if rawDesired.KeyString != nil {
-			rawNew.KeyString = rawDesired.KeyString
-		}
+		rawNew.KeyString = rawDesired.KeyString
 	} else {
 		if dcl.StringCanonicalize(rawDesired.KeyString, rawNew.KeyString) {
 			rawNew.KeyString = rawDesired.KeyString
@@ -512,9 +508,7 @@ func canonicalizeKeyNewState(c *Client, rawNew, rawDesired *Key) (*Key, error) {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Restrictions) && dcl.IsNotReturnedByServer(rawDesired.Restrictions) {
-		if rawDesired.Restrictions != nil && !rawDesired.Restrictions.empty {
-			rawNew.Restrictions = rawDesired.Restrictions
-		}
+		rawNew.Restrictions = rawDesired.Restrictions
 	} else {
 		rawNew.Restrictions = canonicalizeNewKeyRestrictions(c, rawDesired.Restrictions, rawNew.Restrictions)
 	}

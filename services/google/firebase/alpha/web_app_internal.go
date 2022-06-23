@@ -469,16 +469,12 @@ func canonicalizeWebAppDesiredState(rawDesired, rawInitial *WebApp, opts ...dcl.
 func canonicalizeWebAppNewState(c *Client, rawNew, rawDesired *WebApp) (*WebApp, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AppId) && dcl.IsNotReturnedByServer(rawDesired.AppId) {
-		if rawDesired.AppId != nil {
-			rawNew.AppId = rawDesired.AppId
-		}
+		rawNew.AppId = rawDesired.AppId
 	} else {
 		if dcl.StringCanonicalize(rawDesired.AppId, rawNew.AppId) {
 			rawNew.AppId = rawDesired.AppId
@@ -486,9 +482,7 @@ func canonicalizeWebAppNewState(c *Client, rawNew, rawDesired *WebApp) (*WebApp,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		if rawDesired.DisplayName != nil {
-			rawNew.DisplayName = rawDesired.DisplayName
-		}
+		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -496,9 +490,7 @@ func canonicalizeWebAppNewState(c *Client, rawNew, rawDesired *WebApp) (*WebApp,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ProjectId) && dcl.IsNotReturnedByServer(rawDesired.ProjectId) {
-		if rawDesired.ProjectId != nil {
-			rawNew.ProjectId = rawDesired.ProjectId
-		}
+		rawNew.ProjectId = rawDesired.ProjectId
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ProjectId, rawNew.ProjectId) {
 			rawNew.ProjectId = rawDesired.ProjectId
@@ -506,9 +498,7 @@ func canonicalizeWebAppNewState(c *Client, rawNew, rawDesired *WebApp) (*WebApp,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AppUrls) && dcl.IsNotReturnedByServer(rawDesired.AppUrls) {
-		if rawDesired.AppUrls != nil {
-			rawNew.AppUrls = rawDesired.AppUrls
-		}
+		rawNew.AppUrls = rawDesired.AppUrls
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.AppUrls, rawNew.AppUrls) {
 			rawNew.AppUrls = rawDesired.AppUrls
@@ -516,9 +506,7 @@ func canonicalizeWebAppNewState(c *Client, rawNew, rawDesired *WebApp) (*WebApp,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.WebId) && dcl.IsNotReturnedByServer(rawDesired.WebId) {
-		if rawDesired.WebId != nil {
-			rawNew.WebId = rawDesired.WebId
-		}
+		rawNew.WebId = rawDesired.WebId
 	} else {
 		if dcl.StringCanonicalize(rawDesired.WebId, rawNew.WebId) {
 			rawNew.WebId = rawDesired.WebId
@@ -526,9 +514,7 @@ func canonicalizeWebAppNewState(c *Client, rawNew, rawDesired *WebApp) (*WebApp,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ApiKeyId) && dcl.IsNotReturnedByServer(rawDesired.ApiKeyId) {
-		if rawDesired.ApiKeyId != nil {
-			rawNew.ApiKeyId = rawDesired.ApiKeyId
-		}
+		rawNew.ApiKeyId = rawDesired.ApiKeyId
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ApiKeyId, rawNew.ApiKeyId) {
 			rawNew.ApiKeyId = rawDesired.ApiKeyId

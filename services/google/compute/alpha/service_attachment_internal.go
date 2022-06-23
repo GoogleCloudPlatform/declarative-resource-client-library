@@ -544,16 +544,12 @@ func canonicalizeServiceAttachmentDesiredState(rawDesired, rawInitial *ServiceAt
 func canonicalizeServiceAttachmentNewState(c *Client, rawNew, rawDesired *ServiceAttachment) (*ServiceAttachment, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Id) && dcl.IsNotReturnedByServer(rawDesired.Id) {
-		if rawDesired.Id != nil {
-			rawNew.Id = rawDesired.Id
-		}
+		rawNew.Id = rawDesired.Id
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -561,9 +557,7 @@ func canonicalizeServiceAttachmentNewState(c *Client, rawNew, rawDesired *Servic
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -571,9 +565,7 @@ func canonicalizeServiceAttachmentNewState(c *Client, rawNew, rawDesired *Servic
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
-		if rawDesired.SelfLink != nil {
-			rawNew.SelfLink = rawDesired.SelfLink
-		}
+		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
 			rawNew.SelfLink = rawDesired.SelfLink
@@ -581,9 +573,7 @@ func canonicalizeServiceAttachmentNewState(c *Client, rawNew, rawDesired *Servic
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Region) && dcl.IsNotReturnedByServer(rawDesired.Region) {
-		if rawDesired.Region != nil {
-			rawNew.Region = rawDesired.Region
-		}
+		rawNew.Region = rawDesired.Region
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Region, rawNew.Region) {
 			rawNew.Region = rawDesired.Region
@@ -591,31 +581,23 @@ func canonicalizeServiceAttachmentNewState(c *Client, rawNew, rawDesired *Servic
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.TargetService) && dcl.IsNotReturnedByServer(rawDesired.TargetService) {
-		if rawDesired.TargetService != nil {
-			rawNew.TargetService = rawDesired.TargetService
-		}
+		rawNew.TargetService = rawDesired.TargetService
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ConnectionPreference) && dcl.IsNotReturnedByServer(rawDesired.ConnectionPreference) {
-		if rawDesired.ConnectionPreference != nil {
-			rawNew.ConnectionPreference = rawDesired.ConnectionPreference
-		}
+		rawNew.ConnectionPreference = rawDesired.ConnectionPreference
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ConnectedEndpoints) && dcl.IsNotReturnedByServer(rawDesired.ConnectedEndpoints) {
-		if rawDesired.ConnectedEndpoints != nil {
-			rawNew.ConnectedEndpoints = rawDesired.ConnectedEndpoints
-		}
+		rawNew.ConnectedEndpoints = rawDesired.ConnectedEndpoints
 	} else {
 		rawNew.ConnectedEndpoints = canonicalizeNewServiceAttachmentConnectedEndpointsSlice(c, rawDesired.ConnectedEndpoints, rawNew.ConnectedEndpoints)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.NatSubnets) && dcl.IsNotReturnedByServer(rawDesired.NatSubnets) {
-		if rawDesired.NatSubnets != nil {
-			rawNew.NatSubnets = rawDesired.NatSubnets
-		}
+		rawNew.NatSubnets = rawDesired.NatSubnets
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.NatSubnets, rawNew.NatSubnets) {
 			rawNew.NatSubnets = rawDesired.NatSubnets
@@ -623,9 +605,7 @@ func canonicalizeServiceAttachmentNewState(c *Client, rawNew, rawDesired *Servic
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.EnableProxyProtocol) && dcl.IsNotReturnedByServer(rawDesired.EnableProxyProtocol) {
-		if rawDesired.EnableProxyProtocol != nil {
-			rawNew.EnableProxyProtocol = rawDesired.EnableProxyProtocol
-		}
+		rawNew.EnableProxyProtocol = rawDesired.EnableProxyProtocol
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.EnableProxyProtocol, rawNew.EnableProxyProtocol) {
 			rawNew.EnableProxyProtocol = rawDesired.EnableProxyProtocol
@@ -633,9 +613,7 @@ func canonicalizeServiceAttachmentNewState(c *Client, rawNew, rawDesired *Servic
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ConsumerRejectLists) && dcl.IsNotReturnedByServer(rawDesired.ConsumerRejectLists) {
-		if rawDesired.ConsumerRejectLists != nil {
-			rawNew.ConsumerRejectLists = rawDesired.ConsumerRejectLists
-		}
+		rawNew.ConsumerRejectLists = rawDesired.ConsumerRejectLists
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.ConsumerRejectLists, rawNew.ConsumerRejectLists) {
 			rawNew.ConsumerRejectLists = rawDesired.ConsumerRejectLists
@@ -643,25 +621,19 @@ func canonicalizeServiceAttachmentNewState(c *Client, rawNew, rawDesired *Servic
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ConsumerAcceptLists) && dcl.IsNotReturnedByServer(rawDesired.ConsumerAcceptLists) {
-		if rawDesired.ConsumerAcceptLists != nil {
-			rawNew.ConsumerAcceptLists = rawDesired.ConsumerAcceptLists
-		}
+		rawNew.ConsumerAcceptLists = rawDesired.ConsumerAcceptLists
 	} else {
 		rawNew.ConsumerAcceptLists = canonicalizeNewServiceAttachmentConsumerAcceptListsSlice(c, rawDesired.ConsumerAcceptLists, rawNew.ConsumerAcceptLists)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PscServiceAttachmentId) && dcl.IsNotReturnedByServer(rawDesired.PscServiceAttachmentId) {
-		if rawDesired.PscServiceAttachmentId != nil && !rawDesired.PscServiceAttachmentId.empty {
-			rawNew.PscServiceAttachmentId = rawDesired.PscServiceAttachmentId
-		}
+		rawNew.PscServiceAttachmentId = rawDesired.PscServiceAttachmentId
 	} else {
 		rawNew.PscServiceAttachmentId = canonicalizeNewServiceAttachmentPscServiceAttachmentId(c, rawDesired.PscServiceAttachmentId, rawNew.PscServiceAttachmentId)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Fingerprint) && dcl.IsNotReturnedByServer(rawDesired.Fingerprint) {
-		if rawDesired.Fingerprint != nil {
-			rawNew.Fingerprint = rawDesired.Fingerprint
-		}
+		rawNew.Fingerprint = rawDesired.Fingerprint
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Fingerprint, rawNew.Fingerprint) {
 			rawNew.Fingerprint = rawDesired.Fingerprint

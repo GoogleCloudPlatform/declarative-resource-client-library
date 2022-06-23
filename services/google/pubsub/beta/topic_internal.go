@@ -476,9 +476,7 @@ func canonicalizeTopicNewState(c *Client, rawNew, rawDesired *Topic) (*Topic, er
 	rawNew.Name = rawDesired.Name
 
 	if dcl.IsNotReturnedByServer(rawNew.KmsKeyName) && dcl.IsNotReturnedByServer(rawDesired.KmsKeyName) {
-		if rawDesired.KmsKeyName != nil {
-			rawNew.KmsKeyName = rawDesired.KmsKeyName
-		}
+		rawNew.KmsKeyName = rawDesired.KmsKeyName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.KmsKeyName, rawNew.KmsKeyName) {
 			rawNew.KmsKeyName = rawDesired.KmsKeyName
@@ -486,16 +484,12 @@ func canonicalizeTopicNewState(c *Client, rawNew, rawDesired *Topic) (*Topic, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		if rawDesired.Labels != nil {
-			rawNew.Labels = rawDesired.Labels
-		}
+		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MessageStoragePolicy) && dcl.IsNotReturnedByServer(rawDesired.MessageStoragePolicy) {
-		if rawDesired.MessageStoragePolicy != nil && !rawDesired.MessageStoragePolicy.empty {
-			rawNew.MessageStoragePolicy = rawDesired.MessageStoragePolicy
-		}
+		rawNew.MessageStoragePolicy = rawDesired.MessageStoragePolicy
 	} else {
 		rawNew.MessageStoragePolicy = canonicalizeNewTopicMessageStoragePolicy(c, rawDesired.MessageStoragePolicy, rawNew.MessageStoragePolicy)
 	}

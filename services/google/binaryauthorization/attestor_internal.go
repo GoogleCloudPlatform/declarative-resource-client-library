@@ -446,9 +446,7 @@ func canonicalizeAttestorDesiredState(rawDesired, rawInitial *Attestor, opts ...
 func canonicalizeAttestorNewState(c *Client, rawNew, rawDesired *Attestor) (*Attestor, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -456,9 +454,7 @@ func canonicalizeAttestorNewState(c *Client, rawNew, rawDesired *Attestor) (*Att
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -466,17 +462,13 @@ func canonicalizeAttestorNewState(c *Client, rawNew, rawDesired *Attestor) (*Att
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UserOwnedDrydockNote) && dcl.IsNotReturnedByServer(rawDesired.UserOwnedDrydockNote) {
-		if rawDesired.UserOwnedDrydockNote != nil && !rawDesired.UserOwnedDrydockNote.empty {
-			rawNew.UserOwnedDrydockNote = rawDesired.UserOwnedDrydockNote
-		}
+		rawNew.UserOwnedDrydockNote = rawDesired.UserOwnedDrydockNote
 	} else {
 		rawNew.UserOwnedDrydockNote = canonicalizeNewAttestorUserOwnedDrydockNote(c, rawDesired.UserOwnedDrydockNote, rawNew.UserOwnedDrydockNote)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		if rawDesired.UpdateTime != nil {
-			rawNew.UpdateTime = rawDesired.UpdateTime
-		}
+		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 

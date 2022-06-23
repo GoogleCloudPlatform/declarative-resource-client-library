@@ -585,9 +585,7 @@ func canonicalizeRoutineDesiredState(rawDesired, rawInitial *Routine, opts ...dc
 func canonicalizeRoutineNewState(c *Client, rawNew, rawDesired *Routine) (*Routine, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		if rawDesired.Etag != nil {
-			rawNew.Etag = rawDesired.Etag
-		}
+		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
 			rawNew.Etag = rawDesired.Etag
@@ -595,9 +593,7 @@ func canonicalizeRoutineNewState(c *Client, rawNew, rawDesired *Routine) (*Routi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -605,67 +601,49 @@ func canonicalizeRoutineNewState(c *Client, rawNew, rawDesired *Routine) (*Routi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Project) && dcl.IsNotReturnedByServer(rawDesired.Project) {
-		if rawDesired.Project != nil {
-			rawNew.Project = rawDesired.Project
-		}
+		rawNew.Project = rawDesired.Project
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Dataset) && dcl.IsNotReturnedByServer(rawDesired.Dataset) {
-		if rawDesired.Dataset != nil {
-			rawNew.Dataset = rawDesired.Dataset
-		}
+		rawNew.Dataset = rawDesired.Dataset
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RoutineType) && dcl.IsNotReturnedByServer(rawDesired.RoutineType) {
-		if rawDesired.RoutineType != nil {
-			rawNew.RoutineType = rawDesired.RoutineType
-		}
+		rawNew.RoutineType = rawDesired.RoutineType
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreationTime) && dcl.IsNotReturnedByServer(rawDesired.CreationTime) {
-		if rawDesired.CreationTime != nil {
-			rawNew.CreationTime = rawDesired.CreationTime
-		}
+		rawNew.CreationTime = rawDesired.CreationTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LastModifiedTime) && dcl.IsNotReturnedByServer(rawDesired.LastModifiedTime) {
-		if rawDesired.LastModifiedTime != nil {
-			rawNew.LastModifiedTime = rawDesired.LastModifiedTime
-		}
+		rawNew.LastModifiedTime = rawDesired.LastModifiedTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Language) && dcl.IsNotReturnedByServer(rawDesired.Language) {
-		if rawDesired.Language != nil {
-			rawNew.Language = rawDesired.Language
-		}
+		rawNew.Language = rawDesired.Language
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Arguments) && dcl.IsNotReturnedByServer(rawDesired.Arguments) {
-		if rawDesired.Arguments != nil {
-			rawNew.Arguments = rawDesired.Arguments
-		}
+		rawNew.Arguments = rawDesired.Arguments
 	} else {
 		rawNew.Arguments = canonicalizeNewRoutineArgumentsSlice(c, rawDesired.Arguments, rawNew.Arguments)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ReturnType) && dcl.IsNotReturnedByServer(rawDesired.ReturnType) {
-		if rawDesired.ReturnType != nil && !rawDesired.ReturnType.empty {
-			rawNew.ReturnType = rawDesired.ReturnType
-		}
+		rawNew.ReturnType = rawDesired.ReturnType
 	} else {
 		rawNew.ReturnType = canonicalizeNewRoutineArgumentsDataType(c, rawDesired.ReturnType, rawNew.ReturnType)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ImportedLibraries) && dcl.IsNotReturnedByServer(rawDesired.ImportedLibraries) {
-		if rawDesired.ImportedLibraries != nil {
-			rawNew.ImportedLibraries = rawDesired.ImportedLibraries
-		}
+		rawNew.ImportedLibraries = rawDesired.ImportedLibraries
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.ImportedLibraries, rawNew.ImportedLibraries) {
 			rawNew.ImportedLibraries = rawDesired.ImportedLibraries
@@ -673,9 +651,7 @@ func canonicalizeRoutineNewState(c *Client, rawNew, rawDesired *Routine) (*Routi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DefinitionBody) && dcl.IsNotReturnedByServer(rawDesired.DefinitionBody) {
-		if rawDesired.DefinitionBody != nil {
-			rawNew.DefinitionBody = rawDesired.DefinitionBody
-		}
+		rawNew.DefinitionBody = rawDesired.DefinitionBody
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DefinitionBody, rawNew.DefinitionBody) {
 			rawNew.DefinitionBody = rawDesired.DefinitionBody
@@ -683,9 +659,7 @@ func canonicalizeRoutineNewState(c *Client, rawNew, rawDesired *Routine) (*Routi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -693,16 +667,12 @@ func canonicalizeRoutineNewState(c *Client, rawNew, rawDesired *Routine) (*Routi
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DeterminismLevel) && dcl.IsNotReturnedByServer(rawDesired.DeterminismLevel) {
-		if rawDesired.DeterminismLevel != nil {
-			rawNew.DeterminismLevel = rawDesired.DeterminismLevel
-		}
+		rawNew.DeterminismLevel = rawDesired.DeterminismLevel
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.StrictMode) && dcl.IsNotReturnedByServer(rawDesired.StrictMode) {
-		if rawDesired.StrictMode != nil {
-			rawNew.StrictMode = rawDesired.StrictMode
-		}
+		rawNew.StrictMode = rawDesired.StrictMode
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.StrictMode, rawNew.StrictMode) {
 			rawNew.StrictMode = rawDesired.StrictMode

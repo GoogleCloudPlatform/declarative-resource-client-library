@@ -330,17 +330,13 @@ func canonicalizeFeatureMembershipDesiredState(rawDesired, rawInitial *FeatureMe
 func canonicalizeFeatureMembershipNewState(c *Client, rawNew, rawDesired *FeatureMembership) (*FeatureMembership, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Mesh) && dcl.IsNotReturnedByServer(rawDesired.Mesh) {
-		if rawDesired.Mesh != nil && !rawDesired.Mesh.empty {
-			rawNew.Mesh = rawDesired.Mesh
-		}
+		rawNew.Mesh = rawDesired.Mesh
 	} else {
 		rawNew.Mesh = canonicalizeNewFeatureMembershipMesh(c, rawDesired.Mesh, rawNew.Mesh)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Configmanagement) && dcl.IsNotReturnedByServer(rawDesired.Configmanagement) {
-		if rawDesired.Configmanagement != nil && !rawDesired.Configmanagement.empty {
-			rawNew.Configmanagement = rawDesired.Configmanagement
-		}
+		rawNew.Configmanagement = rawDesired.Configmanagement
 	} else {
 		rawNew.Configmanagement = canonicalizeNewFeatureMembershipConfigmanagement(c, rawDesired.Configmanagement, rawNew.Configmanagement)
 	}

@@ -847,9 +847,7 @@ func canonicalizeCertificateAuthorityDesiredState(rawDesired, rawInitial *Certif
 func canonicalizeCertificateAuthorityNewState(c *Client, rawNew, rawDesired *CertificateAuthority) (*CertificateAuthority, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -857,24 +855,18 @@ func canonicalizeCertificateAuthorityNewState(c *Client, rawNew, rawDesired *Cer
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Type) && dcl.IsNotReturnedByServer(rawDesired.Type) {
-		if rawDesired.Type != nil {
-			rawNew.Type = rawDesired.Type
-		}
+		rawNew.Type = rawDesired.Type
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Config) && dcl.IsNotReturnedByServer(rawDesired.Config) {
-		if rawDesired.Config != nil && !rawDesired.Config.empty {
-			rawNew.Config = rawDesired.Config
-		}
+		rawNew.Config = rawDesired.Config
 	} else {
 		rawNew.Config = canonicalizeNewCertificateAuthorityConfig(c, rawDesired.Config, rawNew.Config)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Lifetime) && dcl.IsNotReturnedByServer(rawDesired.Lifetime) {
-		if rawDesired.Lifetime != nil {
-			rawNew.Lifetime = rawDesired.Lifetime
-		}
+		rawNew.Lifetime = rawDesired.Lifetime
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Lifetime, rawNew.Lifetime) {
 			rawNew.Lifetime = rawDesired.Lifetime
@@ -882,39 +874,29 @@ func canonicalizeCertificateAuthorityNewState(c *Client, rawNew, rawDesired *Cer
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.KeySpec) && dcl.IsNotReturnedByServer(rawDesired.KeySpec) {
-		if rawDesired.KeySpec != nil && !rawDesired.KeySpec.empty {
-			rawNew.KeySpec = rawDesired.KeySpec
-		}
+		rawNew.KeySpec = rawDesired.KeySpec
 	} else {
 		rawNew.KeySpec = canonicalizeNewCertificateAuthorityKeySpec(c, rawDesired.KeySpec, rawNew.KeySpec)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SubordinateConfig) && dcl.IsNotReturnedByServer(rawDesired.SubordinateConfig) {
-		if rawDesired.SubordinateConfig != nil && !rawDesired.SubordinateConfig.empty {
-			rawNew.SubordinateConfig = rawDesired.SubordinateConfig
-		}
+		rawNew.SubordinateConfig = rawDesired.SubordinateConfig
 	} else {
 		rawNew.SubordinateConfig = canonicalizeNewCertificateAuthoritySubordinateConfig(c, rawDesired.SubordinateConfig, rawNew.SubordinateConfig)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Tier) && dcl.IsNotReturnedByServer(rawDesired.Tier) {
-		if rawDesired.Tier != nil {
-			rawNew.Tier = rawDesired.Tier
-		}
+		rawNew.Tier = rawDesired.Tier
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		if rawDesired.State != nil {
-			rawNew.State = rawDesired.State
-		}
+		rawNew.State = rawDesired.State
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PemCaCertificates) && dcl.IsNotReturnedByServer(rawDesired.PemCaCertificates) {
-		if rawDesired.PemCaCertificates != nil {
-			rawNew.PemCaCertificates = rawDesired.PemCaCertificates
-		}
+		rawNew.PemCaCertificates = rawDesired.PemCaCertificates
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.PemCaCertificates, rawNew.PemCaCertificates) {
 			rawNew.PemCaCertificates = rawDesired.PemCaCertificates
@@ -922,60 +904,44 @@ func canonicalizeCertificateAuthorityNewState(c *Client, rawNew, rawDesired *Cer
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CaCertificateDescriptions) && dcl.IsNotReturnedByServer(rawDesired.CaCertificateDescriptions) {
-		if rawDesired.CaCertificateDescriptions != nil {
-			rawNew.CaCertificateDescriptions = rawDesired.CaCertificateDescriptions
-		}
+		rawNew.CaCertificateDescriptions = rawDesired.CaCertificateDescriptions
 	} else {
 		rawNew.CaCertificateDescriptions = canonicalizeNewCertificateAuthorityCaCertificateDescriptionsSlice(c, rawDesired.CaCertificateDescriptions, rawNew.CaCertificateDescriptions)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.GcsBucket) && dcl.IsNotReturnedByServer(rawDesired.GcsBucket) {
-		if rawDesired.GcsBucket != nil {
-			rawNew.GcsBucket = rawDesired.GcsBucket
-		}
+		rawNew.GcsBucket = rawDesired.GcsBucket
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AccessUrls) && dcl.IsNotReturnedByServer(rawDesired.AccessUrls) {
-		if rawDesired.AccessUrls != nil && !rawDesired.AccessUrls.empty {
-			rawNew.AccessUrls = rawDesired.AccessUrls
-		}
+		rawNew.AccessUrls = rawDesired.AccessUrls
 	} else {
 		rawNew.AccessUrls = canonicalizeNewCertificateAuthorityAccessUrls(c, rawDesired.AccessUrls, rawNew.AccessUrls)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		if rawDesired.CreateTime != nil {
-			rawNew.CreateTime = rawDesired.CreateTime
-		}
+		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		if rawDesired.UpdateTime != nil {
-			rawNew.UpdateTime = rawDesired.UpdateTime
-		}
+		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DeleteTime) && dcl.IsNotReturnedByServer(rawDesired.DeleteTime) {
-		if rawDesired.DeleteTime != nil {
-			rawNew.DeleteTime = rawDesired.DeleteTime
-		}
+		rawNew.DeleteTime = rawDesired.DeleteTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ExpireTime) && dcl.IsNotReturnedByServer(rawDesired.ExpireTime) {
-		if rawDesired.ExpireTime != nil {
-			rawNew.ExpireTime = rawDesired.ExpireTime
-		}
+		rawNew.ExpireTime = rawDesired.ExpireTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		if rawDesired.Labels != nil {
-			rawNew.Labels = rawDesired.Labels
-		}
+		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 

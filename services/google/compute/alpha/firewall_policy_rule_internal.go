@@ -403,9 +403,7 @@ func canonicalizeFirewallPolicyRuleDesiredState(rawDesired, rawInitial *Firewall
 func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *FirewallPolicyRule) (*FirewallPolicyRule, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -413,24 +411,18 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Priority) && dcl.IsNotReturnedByServer(rawDesired.Priority) {
-		if rawDesired.Priority != nil {
-			rawNew.Priority = rawDesired.Priority
-		}
+		rawNew.Priority = rawDesired.Priority
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Match) && dcl.IsNotReturnedByServer(rawDesired.Match) {
-		if rawDesired.Match != nil && !rawDesired.Match.empty {
-			rawNew.Match = rawDesired.Match
-		}
+		rawNew.Match = rawDesired.Match
 	} else {
 		rawNew.Match = canonicalizeNewFirewallPolicyRuleMatch(c, rawDesired.Match, rawNew.Match)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Action) && dcl.IsNotReturnedByServer(rawDesired.Action) {
-		if rawDesired.Action != nil {
-			rawNew.Action = rawDesired.Action
-		}
+		rawNew.Action = rawDesired.Action
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Action, rawNew.Action) {
 			rawNew.Action = rawDesired.Action
@@ -438,16 +430,12 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Direction) && dcl.IsNotReturnedByServer(rawDesired.Direction) {
-		if rawDesired.Direction != nil {
-			rawNew.Direction = rawDesired.Direction
-		}
+		rawNew.Direction = rawDesired.Direction
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.TargetResources) && dcl.IsNotReturnedByServer(rawDesired.TargetResources) {
-		if rawDesired.TargetResources != nil {
-			rawNew.TargetResources = rawDesired.TargetResources
-		}
+		rawNew.TargetResources = rawDesired.TargetResources
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.TargetResources, rawNew.TargetResources) {
 			rawNew.TargetResources = rawDesired.TargetResources
@@ -455,9 +443,7 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.EnableLogging) && dcl.IsNotReturnedByServer(rawDesired.EnableLogging) {
-		if rawDesired.EnableLogging != nil {
-			rawNew.EnableLogging = rawDesired.EnableLogging
-		}
+		rawNew.EnableLogging = rawDesired.EnableLogging
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.EnableLogging, rawNew.EnableLogging) {
 			rawNew.EnableLogging = rawDesired.EnableLogging
@@ -465,16 +451,12 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RuleTupleCount) && dcl.IsNotReturnedByServer(rawDesired.RuleTupleCount) {
-		if rawDesired.RuleTupleCount != nil {
-			rawNew.RuleTupleCount = rawDesired.RuleTupleCount
-		}
+		rawNew.RuleTupleCount = rawDesired.RuleTupleCount
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.TargetServiceAccounts) && dcl.IsNotReturnedByServer(rawDesired.TargetServiceAccounts) {
-		if rawDesired.TargetServiceAccounts != nil {
-			rawNew.TargetServiceAccounts = rawDesired.TargetServiceAccounts
-		}
+		rawNew.TargetServiceAccounts = rawDesired.TargetServiceAccounts
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.TargetServiceAccounts, rawNew.TargetServiceAccounts) {
 			rawNew.TargetServiceAccounts = rawDesired.TargetServiceAccounts
@@ -482,9 +464,7 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Disabled) && dcl.IsNotReturnedByServer(rawDesired.Disabled) {
-		if rawDesired.Disabled != nil {
-			rawNew.Disabled = rawDesired.Disabled
-		}
+		rawNew.Disabled = rawDesired.Disabled
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Disabled, rawNew.Disabled) {
 			rawNew.Disabled = rawDesired.Disabled
@@ -492,9 +472,7 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Kind) && dcl.IsNotReturnedByServer(rawDesired.Kind) {
-		if rawDesired.Kind != nil {
-			rawNew.Kind = rawDesired.Kind
-		}
+		rawNew.Kind = rawDesired.Kind
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Kind, rawNew.Kind) {
 			rawNew.Kind = rawDesired.Kind
@@ -502,9 +480,7 @@ func canonicalizeFirewallPolicyRuleNewState(c *Client, rawNew, rawDesired *Firew
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.FirewallPolicy) && dcl.IsNotReturnedByServer(rawDesired.FirewallPolicy) {
-		if rawDesired.FirewallPolicy != nil {
-			rawNew.FirewallPolicy = rawDesired.FirewallPolicy
-		}
+		rawNew.FirewallPolicy = rawDesired.FirewallPolicy
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.FirewallPolicy, rawNew.FirewallPolicy) {
 			rawNew.FirewallPolicy = rawDesired.FirewallPolicy

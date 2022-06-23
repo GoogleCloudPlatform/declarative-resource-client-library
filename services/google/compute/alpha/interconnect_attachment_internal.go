@@ -593,9 +593,7 @@ func canonicalizeInterconnectAttachmentDesiredState(rawDesired, rawInitial *Inte
 func canonicalizeInterconnectAttachmentNewState(c *Client, rawNew, rawDesired *InterconnectAttachment) (*InterconnectAttachment, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -603,9 +601,7 @@ func canonicalizeInterconnectAttachmentNewState(c *Client, rawNew, rawDesired *I
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
-		if rawDesired.SelfLink != nil {
-			rawNew.SelfLink = rawDesired.SelfLink
-		}
+		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
 			rawNew.SelfLink = rawDesired.SelfLink
@@ -613,16 +609,12 @@ func canonicalizeInterconnectAttachmentNewState(c *Client, rawNew, rawDesired *I
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Id) && dcl.IsNotReturnedByServer(rawDesired.Id) {
-		if rawDesired.Id != nil {
-			rawNew.Id = rawDesired.Id
-		}
+		rawNew.Id = rawDesired.Id
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -630,9 +622,7 @@ func canonicalizeInterconnectAttachmentNewState(c *Client, rawNew, rawDesired *I
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Interconnect) && dcl.IsNotReturnedByServer(rawDesired.Interconnect) {
-		if rawDesired.Interconnect != nil {
-			rawNew.Interconnect = rawDesired.Interconnect
-		}
+		rawNew.Interconnect = rawDesired.Interconnect
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Interconnect, rawNew.Interconnect) {
 			rawNew.Interconnect = rawDesired.Interconnect
@@ -640,9 +630,7 @@ func canonicalizeInterconnectAttachmentNewState(c *Client, rawNew, rawDesired *I
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Router) && dcl.IsNotReturnedByServer(rawDesired.Router) {
-		if rawDesired.Router != nil {
-			rawNew.Router = rawDesired.Router
-		}
+		rawNew.Router = rawDesired.Router
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Router, rawNew.Router) {
 			rawNew.Router = rawDesired.Router
@@ -650,9 +638,7 @@ func canonicalizeInterconnectAttachmentNewState(c *Client, rawNew, rawDesired *I
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Region) && dcl.IsNotReturnedByServer(rawDesired.Region) {
-		if rawDesired.Region != nil {
-			rawNew.Region = rawDesired.Region
-		}
+		rawNew.Region = rawDesired.Region
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Region, rawNew.Region) {
 			rawNew.Region = rawDesired.Region
@@ -660,31 +646,23 @@ func canonicalizeInterconnectAttachmentNewState(c *Client, rawNew, rawDesired *I
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Mtu) && dcl.IsNotReturnedByServer(rawDesired.Mtu) {
-		if rawDesired.Mtu != nil {
-			rawNew.Mtu = rawDesired.Mtu
-		}
+		rawNew.Mtu = rawDesired.Mtu
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PrivateInterconnectInfo) && dcl.IsNotReturnedByServer(rawDesired.PrivateInterconnectInfo) {
-		if rawDesired.PrivateInterconnectInfo != nil && !rawDesired.PrivateInterconnectInfo.empty {
-			rawNew.PrivateInterconnectInfo = rawDesired.PrivateInterconnectInfo
-		}
+		rawNew.PrivateInterconnectInfo = rawDesired.PrivateInterconnectInfo
 	} else {
 		rawNew.PrivateInterconnectInfo = canonicalizeNewInterconnectAttachmentPrivateInterconnectInfo(c, rawDesired.PrivateInterconnectInfo, rawNew.PrivateInterconnectInfo)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.OperationalStatus) && dcl.IsNotReturnedByServer(rawDesired.OperationalStatus) {
-		if rawDesired.OperationalStatus != nil {
-			rawNew.OperationalStatus = rawDesired.OperationalStatus
-		}
+		rawNew.OperationalStatus = rawDesired.OperationalStatus
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CloudRouterIPAddress) && dcl.IsNotReturnedByServer(rawDesired.CloudRouterIPAddress) {
-		if rawDesired.CloudRouterIPAddress != nil {
-			rawNew.CloudRouterIPAddress = rawDesired.CloudRouterIPAddress
-		}
+		rawNew.CloudRouterIPAddress = rawDesired.CloudRouterIPAddress
 	} else {
 		if dcl.StringCanonicalize(rawDesired.CloudRouterIPAddress, rawNew.CloudRouterIPAddress) {
 			rawNew.CloudRouterIPAddress = rawDesired.CloudRouterIPAddress
@@ -692,9 +670,7 @@ func canonicalizeInterconnectAttachmentNewState(c *Client, rawNew, rawDesired *I
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CustomerRouterIPAddress) && dcl.IsNotReturnedByServer(rawDesired.CustomerRouterIPAddress) {
-		if rawDesired.CustomerRouterIPAddress != nil {
-			rawNew.CustomerRouterIPAddress = rawDesired.CustomerRouterIPAddress
-		}
+		rawNew.CustomerRouterIPAddress = rawDesired.CustomerRouterIPAddress
 	} else {
 		if dcl.StringCanonicalize(rawDesired.CustomerRouterIPAddress, rawNew.CustomerRouterIPAddress) {
 			rawNew.CustomerRouterIPAddress = rawDesired.CustomerRouterIPAddress
@@ -702,16 +678,12 @@ func canonicalizeInterconnectAttachmentNewState(c *Client, rawNew, rawDesired *I
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Type) && dcl.IsNotReturnedByServer(rawDesired.Type) {
-		if rawDesired.Type != nil {
-			rawNew.Type = rawDesired.Type
-		}
+		rawNew.Type = rawDesired.Type
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PairingKey) && dcl.IsNotReturnedByServer(rawDesired.PairingKey) {
-		if rawDesired.PairingKey != nil {
-			rawNew.PairingKey = rawDesired.PairingKey
-		}
+		rawNew.PairingKey = rawDesired.PairingKey
 	} else {
 		if dcl.StringCanonicalize(rawDesired.PairingKey, rawNew.PairingKey) {
 			rawNew.PairingKey = rawDesired.PairingKey
@@ -719,9 +691,7 @@ func canonicalizeInterconnectAttachmentNewState(c *Client, rawNew, rawDesired *I
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AdminEnabled) && dcl.IsNotReturnedByServer(rawDesired.AdminEnabled) {
-		if rawDesired.AdminEnabled != nil {
-			rawNew.AdminEnabled = rawDesired.AdminEnabled
-		}
+		rawNew.AdminEnabled = rawDesired.AdminEnabled
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.AdminEnabled, rawNew.AdminEnabled) {
 			rawNew.AdminEnabled = rawDesired.AdminEnabled
@@ -729,23 +699,17 @@ func canonicalizeInterconnectAttachmentNewState(c *Client, rawNew, rawDesired *I
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.VlanTag8021q) && dcl.IsNotReturnedByServer(rawDesired.VlanTag8021q) {
-		if rawDesired.VlanTag8021q != nil {
-			rawNew.VlanTag8021q = rawDesired.VlanTag8021q
-		}
+		rawNew.VlanTag8021q = rawDesired.VlanTag8021q
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.EdgeAvailabilityDomain) && dcl.IsNotReturnedByServer(rawDesired.EdgeAvailabilityDomain) {
-		if rawDesired.EdgeAvailabilityDomain != nil {
-			rawNew.EdgeAvailabilityDomain = rawDesired.EdgeAvailabilityDomain
-		}
+		rawNew.EdgeAvailabilityDomain = rawDesired.EdgeAvailabilityDomain
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CandidateSubnets) && dcl.IsNotReturnedByServer(rawDesired.CandidateSubnets) {
-		if rawDesired.CandidateSubnets != nil {
-			rawNew.CandidateSubnets = rawDesired.CandidateSubnets
-		}
+		rawNew.CandidateSubnets = rawDesired.CandidateSubnets
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.CandidateSubnets, rawNew.CandidateSubnets) {
 			rawNew.CandidateSubnets = rawDesired.CandidateSubnets
@@ -753,45 +717,33 @@ func canonicalizeInterconnectAttachmentNewState(c *Client, rawNew, rawDesired *I
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Bandwidth) && dcl.IsNotReturnedByServer(rawDesired.Bandwidth) {
-		if rawDesired.Bandwidth != nil {
-			rawNew.Bandwidth = rawDesired.Bandwidth
-		}
+		rawNew.Bandwidth = rawDesired.Bandwidth
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PartnerMetadata) && dcl.IsNotReturnedByServer(rawDesired.PartnerMetadata) {
-		if rawDesired.PartnerMetadata != nil && !rawDesired.PartnerMetadata.empty {
-			rawNew.PartnerMetadata = rawDesired.PartnerMetadata
-		}
+		rawNew.PartnerMetadata = rawDesired.PartnerMetadata
 	} else {
 		rawNew.PartnerMetadata = canonicalizeNewInterconnectAttachmentPartnerMetadata(c, rawDesired.PartnerMetadata, rawNew.PartnerMetadata)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		if rawDesired.State != nil {
-			rawNew.State = rawDesired.State
-		}
+		rawNew.State = rawDesired.State
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PartnerAsn) && dcl.IsNotReturnedByServer(rawDesired.PartnerAsn) {
-		if rawDesired.PartnerAsn != nil {
-			rawNew.PartnerAsn = rawDesired.PartnerAsn
-		}
+		rawNew.PartnerAsn = rawDesired.PartnerAsn
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Encryption) && dcl.IsNotReturnedByServer(rawDesired.Encryption) {
-		if rawDesired.Encryption != nil {
-			rawNew.Encryption = rawDesired.Encryption
-		}
+		rawNew.Encryption = rawDesired.Encryption
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.IpsecInternalAddresses) && dcl.IsNotReturnedByServer(rawDesired.IpsecInternalAddresses) {
-		if rawDesired.IpsecInternalAddresses != nil {
-			rawNew.IpsecInternalAddresses = rawDesired.IpsecInternalAddresses
-		}
+		rawNew.IpsecInternalAddresses = rawDesired.IpsecInternalAddresses
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.IpsecInternalAddresses, rawNew.IpsecInternalAddresses) {
 			rawNew.IpsecInternalAddresses = rawDesired.IpsecInternalAddresses
@@ -799,16 +751,12 @@ func canonicalizeInterconnectAttachmentNewState(c *Client, rawNew, rawDesired *I
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DataplaneVersion) && dcl.IsNotReturnedByServer(rawDesired.DataplaneVersion) {
-		if rawDesired.DataplaneVersion != nil {
-			rawNew.DataplaneVersion = rawDesired.DataplaneVersion
-		}
+		rawNew.DataplaneVersion = rawDesired.DataplaneVersion
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SatisfiesPzs) && dcl.IsNotReturnedByServer(rawDesired.SatisfiesPzs) {
-		if rawDesired.SatisfiesPzs != nil {
-			rawNew.SatisfiesPzs = rawDesired.SatisfiesPzs
-		}
+		rawNew.SatisfiesPzs = rawDesired.SatisfiesPzs
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.SatisfiesPzs, rawNew.SatisfiesPzs) {
 			rawNew.SatisfiesPzs = rawDesired.SatisfiesPzs
@@ -816,16 +764,12 @@ func canonicalizeInterconnectAttachmentNewState(c *Client, rawNew, rawDesired *I
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		if rawDesired.Labels != nil {
-			rawNew.Labels = rawDesired.Labels
-		}
+		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LabelFingerprint) && dcl.IsNotReturnedByServer(rawDesired.LabelFingerprint) {
-		if rawDesired.LabelFingerprint != nil {
-			rawNew.LabelFingerprint = rawDesired.LabelFingerprint
-		}
+		rawNew.LabelFingerprint = rawDesired.LabelFingerprint
 	} else {
 		if dcl.StringCanonicalize(rawDesired.LabelFingerprint, rawNew.LabelFingerprint) {
 			rawNew.LabelFingerprint = rawDesired.LabelFingerprint

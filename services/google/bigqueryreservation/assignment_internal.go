@@ -405,30 +405,22 @@ func canonicalizeAssignmentDesiredState(rawDesired, rawInitial *Assignment, opts
 func canonicalizeAssignmentNewState(c *Client, rawNew, rawDesired *Assignment) (*Assignment, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Assignee) && dcl.IsNotReturnedByServer(rawDesired.Assignee) {
-		if rawDesired.Assignee != nil {
-			rawNew.Assignee = rawDesired.Assignee
-		}
+		rawNew.Assignee = rawDesired.Assignee
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.JobType) && dcl.IsNotReturnedByServer(rawDesired.JobType) {
-		if rawDesired.JobType != nil {
-			rawNew.JobType = rawDesired.JobType
-		}
+		rawNew.JobType = rawDesired.JobType
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		if rawDesired.State != nil {
-			rawNew.State = rawDesired.State
-		}
+		rawNew.State = rawDesired.State
 	} else {
 	}
 

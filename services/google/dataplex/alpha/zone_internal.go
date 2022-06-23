@@ -595,9 +595,7 @@ func canonicalizeZoneDesiredState(rawDesired, rawInitial *Zone, opts ...dcl.Appl
 func canonicalizeZoneNewState(c *Client, rawNew, rawDesired *Zone) (*Zone, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -605,9 +603,7 @@ func canonicalizeZoneNewState(c *Client, rawNew, rawDesired *Zone) (*Zone, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		if rawDesired.DisplayName != nil {
-			rawNew.DisplayName = rawDesired.DisplayName
-		}
+		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -615,9 +611,7 @@ func canonicalizeZoneNewState(c *Client, rawNew, rawDesired *Zone) (*Zone, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
-		if rawDesired.Uid != nil {
-			rawNew.Uid = rawDesired.Uid
-		}
+		rawNew.Uid = rawDesired.Uid
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
 			rawNew.Uid = rawDesired.Uid
@@ -625,30 +619,22 @@ func canonicalizeZoneNewState(c *Client, rawNew, rawDesired *Zone) (*Zone, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		if rawDesired.CreateTime != nil {
-			rawNew.CreateTime = rawDesired.CreateTime
-		}
+		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		if rawDesired.UpdateTime != nil {
-			rawNew.UpdateTime = rawDesired.UpdateTime
-		}
+		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		if rawDesired.Labels != nil {
-			rawNew.Labels = rawDesired.Labels
-		}
+		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -656,39 +642,29 @@ func canonicalizeZoneNewState(c *Client, rawNew, rawDesired *Zone) (*Zone, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		if rawDesired.State != nil {
-			rawNew.State = rawDesired.State
-		}
+		rawNew.State = rawDesired.State
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Type) && dcl.IsNotReturnedByServer(rawDesired.Type) {
-		if rawDesired.Type != nil {
-			rawNew.Type = rawDesired.Type
-		}
+		rawNew.Type = rawDesired.Type
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DiscoverySpec) && dcl.IsNotReturnedByServer(rawDesired.DiscoverySpec) {
-		if rawDesired.DiscoverySpec != nil && !rawDesired.DiscoverySpec.empty {
-			rawNew.DiscoverySpec = rawDesired.DiscoverySpec
-		}
+		rawNew.DiscoverySpec = rawDesired.DiscoverySpec
 	} else {
 		rawNew.DiscoverySpec = canonicalizeNewZoneDiscoverySpec(c, rawDesired.DiscoverySpec, rawNew.DiscoverySpec)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ResourceSpec) && dcl.IsNotReturnedByServer(rawDesired.ResourceSpec) {
-		if rawDesired.ResourceSpec != nil && !rawDesired.ResourceSpec.empty {
-			rawNew.ResourceSpec = rawDesired.ResourceSpec
-		}
+		rawNew.ResourceSpec = rawDesired.ResourceSpec
 	} else {
 		rawNew.ResourceSpec = canonicalizeNewZoneResourceSpec(c, rawDesired.ResourceSpec, rawNew.ResourceSpec)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AssetStatus) && dcl.IsNotReturnedByServer(rawDesired.AssetStatus) {
-		if rawDesired.AssetStatus != nil && !rawDesired.AssetStatus.empty {
-			rawNew.AssetStatus = rawDesired.AssetStatus
-		}
+		rawNew.AssetStatus = rawDesired.AssetStatus
 	} else {
 		rawNew.AssetStatus = canonicalizeNewZoneAssetStatus(c, rawDesired.AssetStatus, rawNew.AssetStatus)
 	}

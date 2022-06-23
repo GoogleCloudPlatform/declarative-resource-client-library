@@ -497,49 +497,37 @@ func canonicalizeConfigDesiredState(rawDesired, rawInitial *Config, opts ...dcl.
 func canonicalizeConfigNewState(c *Client, rawNew, rawDesired *Config) (*Config, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.SignIn) && dcl.IsNotReturnedByServer(rawDesired.SignIn) {
-		if rawDesired.SignIn != nil && !rawDesired.SignIn.empty {
-			rawNew.SignIn = rawDesired.SignIn
-		}
+		rawNew.SignIn = rawDesired.SignIn
 	} else {
 		rawNew.SignIn = canonicalizeNewConfigSignIn(c, rawDesired.SignIn, rawNew.SignIn)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Notification) && dcl.IsNotReturnedByServer(rawDesired.Notification) {
-		if rawDesired.Notification != nil && !rawDesired.Notification.empty {
-			rawNew.Notification = rawDesired.Notification
-		}
+		rawNew.Notification = rawDesired.Notification
 	} else {
 		rawNew.Notification = canonicalizeNewConfigNotification(c, rawDesired.Notification, rawNew.Notification)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Quota) && dcl.IsNotReturnedByServer(rawDesired.Quota) {
-		if rawDesired.Quota != nil && !rawDesired.Quota.empty {
-			rawNew.Quota = rawDesired.Quota
-		}
+		rawNew.Quota = rawDesired.Quota
 	} else {
 		rawNew.Quota = canonicalizeNewConfigQuota(c, rawDesired.Quota, rawNew.Quota)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Monitoring) && dcl.IsNotReturnedByServer(rawDesired.Monitoring) {
-		if rawDesired.Monitoring != nil && !rawDesired.Monitoring.empty {
-			rawNew.Monitoring = rawDesired.Monitoring
-		}
+		rawNew.Monitoring = rawDesired.Monitoring
 	} else {
 		rawNew.Monitoring = canonicalizeNewConfigMonitoring(c, rawDesired.Monitoring, rawNew.Monitoring)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MultiTenant) && dcl.IsNotReturnedByServer(rawDesired.MultiTenant) {
-		if rawDesired.MultiTenant != nil && !rawDesired.MultiTenant.empty {
-			rawNew.MultiTenant = rawDesired.MultiTenant
-		}
+		rawNew.MultiTenant = rawDesired.MultiTenant
 	} else {
 		rawNew.MultiTenant = canonicalizeNewConfigMultiTenant(c, rawDesired.MultiTenant, rawNew.MultiTenant)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AuthorizedDomains) && dcl.IsNotReturnedByServer(rawDesired.AuthorizedDomains) {
-		if rawDesired.AuthorizedDomains != nil {
-			rawNew.AuthorizedDomains = rawDesired.AuthorizedDomains
-		}
+		rawNew.AuthorizedDomains = rawDesired.AuthorizedDomains
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.AuthorizedDomains, rawNew.AuthorizedDomains) {
 			rawNew.AuthorizedDomains = rawDesired.AuthorizedDomains
@@ -547,32 +535,24 @@ func canonicalizeConfigNewState(c *Client, rawNew, rawDesired *Config) (*Config,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Subtype) && dcl.IsNotReturnedByServer(rawDesired.Subtype) {
-		if rawDesired.Subtype != nil {
-			rawNew.Subtype = rawDesired.Subtype
-		}
+		rawNew.Subtype = rawDesired.Subtype
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Client) && dcl.IsNotReturnedByServer(rawDesired.Client) {
-		if rawDesired.Client != nil && !rawDesired.Client.empty {
-			rawNew.Client = rawDesired.Client
-		}
+		rawNew.Client = rawDesired.Client
 	} else {
 		rawNew.Client = canonicalizeNewConfigClient(c, rawDesired.Client, rawNew.Client)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Mfa) && dcl.IsNotReturnedByServer(rawDesired.Mfa) {
-		if rawDesired.Mfa != nil && !rawDesired.Mfa.empty {
-			rawNew.Mfa = rawDesired.Mfa
-		}
+		rawNew.Mfa = rawDesired.Mfa
 	} else {
 		rawNew.Mfa = canonicalizeNewConfigMfa(c, rawDesired.Mfa, rawNew.Mfa)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.BlockingFunctions) && dcl.IsNotReturnedByServer(rawDesired.BlockingFunctions) {
-		if rawDesired.BlockingFunctions != nil && !rawDesired.BlockingFunctions.empty {
-			rawNew.BlockingFunctions = rawDesired.BlockingFunctions
-		}
+		rawNew.BlockingFunctions = rawDesired.BlockingFunctions
 	} else {
 		rawNew.BlockingFunctions = canonicalizeNewConfigBlockingFunctions(c, rawDesired.BlockingFunctions, rawNew.BlockingFunctions)
 	}

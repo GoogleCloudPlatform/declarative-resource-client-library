@@ -632,9 +632,7 @@ func canonicalizeAssetDesiredState(rawDesired, rawInitial *Asset, opts ...dcl.Ap
 func canonicalizeAssetNewState(c *Client, rawNew, rawDesired *Asset) (*Asset, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -642,9 +640,7 @@ func canonicalizeAssetNewState(c *Client, rawNew, rawDesired *Asset) (*Asset, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		if rawDesired.DisplayName != nil {
-			rawNew.DisplayName = rawDesired.DisplayName
-		}
+		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -652,9 +648,7 @@ func canonicalizeAssetNewState(c *Client, rawNew, rawDesired *Asset) (*Asset, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
-		if rawDesired.Uid != nil {
-			rawNew.Uid = rawDesired.Uid
-		}
+		rawNew.Uid = rawDesired.Uid
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
 			rawNew.Uid = rawDesired.Uid
@@ -662,30 +656,22 @@ func canonicalizeAssetNewState(c *Client, rawNew, rawDesired *Asset) (*Asset, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		if rawDesired.CreateTime != nil {
-			rawNew.CreateTime = rawDesired.CreateTime
-		}
+		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		if rawDesired.UpdateTime != nil {
-			rawNew.UpdateTime = rawDesired.UpdateTime
-		}
+		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		if rawDesired.Labels != nil {
-			rawNew.Labels = rawDesired.Labels
-		}
+		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -693,48 +679,36 @@ func canonicalizeAssetNewState(c *Client, rawNew, rawDesired *Asset) (*Asset, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
-		if rawDesired.State != nil {
-			rawNew.State = rawDesired.State
-		}
+		rawNew.State = rawDesired.State
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ResourceSpec) && dcl.IsNotReturnedByServer(rawDesired.ResourceSpec) {
-		if rawDesired.ResourceSpec != nil && !rawDesired.ResourceSpec.empty {
-			rawNew.ResourceSpec = rawDesired.ResourceSpec
-		}
+		rawNew.ResourceSpec = rawDesired.ResourceSpec
 	} else {
 		rawNew.ResourceSpec = canonicalizeNewAssetResourceSpec(c, rawDesired.ResourceSpec, rawNew.ResourceSpec)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ResourceStatus) && dcl.IsNotReturnedByServer(rawDesired.ResourceStatus) {
-		if rawDesired.ResourceStatus != nil && !rawDesired.ResourceStatus.empty {
-			rawNew.ResourceStatus = rawDesired.ResourceStatus
-		}
+		rawNew.ResourceStatus = rawDesired.ResourceStatus
 	} else {
 		rawNew.ResourceStatus = canonicalizeNewAssetResourceStatus(c, rawDesired.ResourceStatus, rawNew.ResourceStatus)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SecurityStatus) && dcl.IsNotReturnedByServer(rawDesired.SecurityStatus) {
-		if rawDesired.SecurityStatus != nil && !rawDesired.SecurityStatus.empty {
-			rawNew.SecurityStatus = rawDesired.SecurityStatus
-		}
+		rawNew.SecurityStatus = rawDesired.SecurityStatus
 	} else {
 		rawNew.SecurityStatus = canonicalizeNewAssetSecurityStatus(c, rawDesired.SecurityStatus, rawNew.SecurityStatus)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DiscoverySpec) && dcl.IsNotReturnedByServer(rawDesired.DiscoverySpec) {
-		if rawDesired.DiscoverySpec != nil && !rawDesired.DiscoverySpec.empty {
-			rawNew.DiscoverySpec = rawDesired.DiscoverySpec
-		}
+		rawNew.DiscoverySpec = rawDesired.DiscoverySpec
 	} else {
 		rawNew.DiscoverySpec = canonicalizeNewAssetDiscoverySpec(c, rawDesired.DiscoverySpec, rawNew.DiscoverySpec)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DiscoveryStatus) && dcl.IsNotReturnedByServer(rawDesired.DiscoveryStatus) {
-		if rawDesired.DiscoveryStatus != nil && !rawDesired.DiscoveryStatus.empty {
-			rawNew.DiscoveryStatus = rawDesired.DiscoveryStatus
-		}
+		rawNew.DiscoveryStatus = rawDesired.DiscoveryStatus
 	} else {
 		rawNew.DiscoveryStatus = canonicalizeNewAssetDiscoveryStatus(c, rawDesired.DiscoveryStatus, rawNew.DiscoveryStatus)
 	}

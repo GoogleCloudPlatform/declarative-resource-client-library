@@ -554,32 +554,24 @@ func canonicalizeGroupDesiredState(rawDesired, rawInitial *Group, opts ...dcl.Ap
 func canonicalizeGroupNewState(c *Client, rawNew, rawDesired *Group) (*Group, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.GroupKey) && dcl.IsNotReturnedByServer(rawDesired.GroupKey) {
-		if rawDesired.GroupKey != nil && !rawDesired.GroupKey.empty {
-			rawNew.GroupKey = rawDesired.GroupKey
-		}
+		rawNew.GroupKey = rawDesired.GroupKey
 	} else {
 		rawNew.GroupKey = canonicalizeNewGroupGroupKey(c, rawDesired.GroupKey, rawNew.GroupKey)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AdditionalGroupKeys) && dcl.IsNotReturnedByServer(rawDesired.AdditionalGroupKeys) {
-		if rawDesired.AdditionalGroupKeys != nil {
-			rawNew.AdditionalGroupKeys = rawDesired.AdditionalGroupKeys
-		}
+		rawNew.AdditionalGroupKeys = rawDesired.AdditionalGroupKeys
 	} else {
 		rawNew.AdditionalGroupKeys = rawDesired.AdditionalGroupKeys
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Parent) && dcl.IsNotReturnedByServer(rawDesired.Parent) {
-		if rawDesired.Parent != nil {
-			rawNew.Parent = rawDesired.Parent
-		}
+		rawNew.Parent = rawDesired.Parent
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Parent, rawNew.Parent) {
 			rawNew.Parent = rawDesired.Parent
@@ -587,9 +579,7 @@ func canonicalizeGroupNewState(c *Client, rawNew, rawDesired *Group) (*Group, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		if rawDesired.DisplayName != nil {
-			rawNew.DisplayName = rawDesired.DisplayName
-		}
+		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -597,9 +587,7 @@ func canonicalizeGroupNewState(c *Client, rawNew, rawDesired *Group) (*Group, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -607,53 +595,39 @@ func canonicalizeGroupNewState(c *Client, rawNew, rawDesired *Group) (*Group, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		if rawDesired.CreateTime != nil {
-			rawNew.CreateTime = rawDesired.CreateTime
-		}
+		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		if rawDesired.UpdateTime != nil {
-			rawNew.UpdateTime = rawDesired.UpdateTime
-		}
+		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		if rawDesired.Labels != nil {
-			rawNew.Labels = rawDesired.Labels
-		}
+		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DirectMemberCount) && dcl.IsNotReturnedByServer(rawDesired.DirectMemberCount) {
-		if rawDesired.DirectMemberCount != nil {
-			rawNew.DirectMemberCount = rawDesired.DirectMemberCount
-		}
+		rawNew.DirectMemberCount = rawDesired.DirectMemberCount
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DirectMemberCountPerType) && dcl.IsNotReturnedByServer(rawDesired.DirectMemberCountPerType) {
-		if rawDesired.DirectMemberCountPerType != nil && !rawDesired.DirectMemberCountPerType.empty {
-			rawNew.DirectMemberCountPerType = rawDesired.DirectMemberCountPerType
-		}
+		rawNew.DirectMemberCountPerType = rawDesired.DirectMemberCountPerType
 	} else {
 		rawNew.DirectMemberCountPerType = canonicalizeNewGroupDirectMemberCountPerType(c, rawDesired.DirectMemberCountPerType, rawNew.DirectMemberCountPerType)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DerivedAliases) && dcl.IsNotReturnedByServer(rawDesired.DerivedAliases) {
-		if rawDesired.DerivedAliases != nil {
-			rawNew.DerivedAliases = rawDesired.DerivedAliases
-		}
+		rawNew.DerivedAliases = rawDesired.DerivedAliases
 	} else {
 		rawNew.DerivedAliases = canonicalizeNewGroupDerivedAliasesSlice(c, rawDesired.DerivedAliases, rawNew.DerivedAliases)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DynamicGroupMetadata) && dcl.IsNotReturnedByServer(rawDesired.DynamicGroupMetadata) {
-		if rawDesired.DynamicGroupMetadata != nil && !rawDesired.DynamicGroupMetadata.empty {
-			rawNew.DynamicGroupMetadata = rawDesired.DynamicGroupMetadata
-		}
+		rawNew.DynamicGroupMetadata = rawDesired.DynamicGroupMetadata
 	} else {
 		rawNew.DynamicGroupMetadata = canonicalizeNewGroupDynamicGroupMetadata(c, rawDesired.DynamicGroupMetadata, rawNew.DynamicGroupMetadata)
 	}

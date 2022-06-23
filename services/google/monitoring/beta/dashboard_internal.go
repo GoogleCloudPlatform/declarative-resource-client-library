@@ -1858,9 +1858,7 @@ func canonicalizeDashboardNewState(c *Client, rawNew, rawDesired *Dashboard) (*D
 	rawNew.Name = rawDesired.Name
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		if rawDesired.DisplayName != nil {
-			rawNew.DisplayName = rawDesired.DisplayName
-		}
+		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -1868,33 +1866,25 @@ func canonicalizeDashboardNewState(c *Client, rawNew, rawDesired *Dashboard) (*D
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.GridLayout) && dcl.IsNotReturnedByServer(rawDesired.GridLayout) {
-		if rawDesired.GridLayout != nil && !rawDesired.GridLayout.empty {
-			rawNew.GridLayout = rawDesired.GridLayout
-		}
+		rawNew.GridLayout = rawDesired.GridLayout
 	} else {
 		rawNew.GridLayout = canonicalizeNewDashboardGridLayout(c, rawDesired.GridLayout, rawNew.GridLayout)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MosaicLayout) && dcl.IsNotReturnedByServer(rawDesired.MosaicLayout) {
-		if rawDesired.MosaicLayout != nil && !rawDesired.MosaicLayout.empty {
-			rawNew.MosaicLayout = rawDesired.MosaicLayout
-		}
+		rawNew.MosaicLayout = rawDesired.MosaicLayout
 	} else {
 		rawNew.MosaicLayout = canonicalizeNewDashboardMosaicLayout(c, rawDesired.MosaicLayout, rawNew.MosaicLayout)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RowLayout) && dcl.IsNotReturnedByServer(rawDesired.RowLayout) {
-		if rawDesired.RowLayout != nil && !rawDesired.RowLayout.empty {
-			rawNew.RowLayout = rawDesired.RowLayout
-		}
+		rawNew.RowLayout = rawDesired.RowLayout
 	} else {
 		rawNew.RowLayout = canonicalizeNewDashboardRowLayout(c, rawDesired.RowLayout, rawNew.RowLayout)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ColumnLayout) && dcl.IsNotReturnedByServer(rawDesired.ColumnLayout) {
-		if rawDesired.ColumnLayout != nil && !rawDesired.ColumnLayout.empty {
-			rawNew.ColumnLayout = rawDesired.ColumnLayout
-		}
+		rawNew.ColumnLayout = rawDesired.ColumnLayout
 	} else {
 		rawNew.ColumnLayout = canonicalizeNewDashboardColumnLayout(c, rawDesired.ColumnLayout, rawNew.ColumnLayout)
 	}
@@ -1902,9 +1892,7 @@ func canonicalizeDashboardNewState(c *Client, rawNew, rawDesired *Dashboard) (*D
 	rawNew.Project = rawDesired.Project
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		if rawDesired.Etag != nil {
-			rawNew.Etag = rawDesired.Etag
-		}
+		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
 			rawNew.Etag = rawDesired.Etag

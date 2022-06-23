@@ -605,9 +605,7 @@ func canonicalizeTargetDesiredState(rawDesired, rawInitial *Target, opts ...dcl.
 func canonicalizeTargetNewState(c *Client, rawNew, rawDesired *Target) (*Target, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -615,9 +613,7 @@ func canonicalizeTargetNewState(c *Client, rawNew, rawDesired *Target) (*Target,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.TargetId) && dcl.IsNotReturnedByServer(rawDesired.TargetId) {
-		if rawDesired.TargetId != nil {
-			rawNew.TargetId = rawDesired.TargetId
-		}
+		rawNew.TargetId = rawDesired.TargetId
 	} else {
 		if dcl.StringCanonicalize(rawDesired.TargetId, rawNew.TargetId) {
 			rawNew.TargetId = rawDesired.TargetId
@@ -625,9 +621,7 @@ func canonicalizeTargetNewState(c *Client, rawNew, rawDesired *Target) (*Target,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
-		if rawDesired.Uid != nil {
-			rawNew.Uid = rawDesired.Uid
-		}
+		rawNew.Uid = rawDesired.Uid
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
 			rawNew.Uid = rawDesired.Uid
@@ -635,9 +629,7 @@ func canonicalizeTargetNewState(c *Client, rawNew, rawDesired *Target) (*Target,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -645,23 +637,17 @@ func canonicalizeTargetNewState(c *Client, rawNew, rawDesired *Target) (*Target,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Annotations) && dcl.IsNotReturnedByServer(rawDesired.Annotations) {
-		if rawDesired.Annotations != nil {
-			rawNew.Annotations = rawDesired.Annotations
-		}
+		rawNew.Annotations = rawDesired.Annotations
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		if rawDesired.Labels != nil {
-			rawNew.Labels = rawDesired.Labels
-		}
+		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RequireApproval) && dcl.IsNotReturnedByServer(rawDesired.RequireApproval) {
-		if rawDesired.RequireApproval != nil {
-			rawNew.RequireApproval = rawDesired.RequireApproval
-		}
+		rawNew.RequireApproval = rawDesired.RequireApproval
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.RequireApproval, rawNew.RequireApproval) {
 			rawNew.RequireApproval = rawDesired.RequireApproval
@@ -669,39 +655,29 @@ func canonicalizeTargetNewState(c *Client, rawNew, rawDesired *Target) (*Target,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		if rawDesired.CreateTime != nil {
-			rawNew.CreateTime = rawDesired.CreateTime
-		}
+		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		if rawDesired.UpdateTime != nil {
-			rawNew.UpdateTime = rawDesired.UpdateTime
-		}
+		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Gke) && dcl.IsNotReturnedByServer(rawDesired.Gke) {
-		if rawDesired.Gke != nil && !rawDesired.Gke.empty {
-			rawNew.Gke = rawDesired.Gke
-		}
+		rawNew.Gke = rawDesired.Gke
 	} else {
 		rawNew.Gke = canonicalizeNewTargetGke(c, rawDesired.Gke, rawNew.Gke)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AnthosCluster) && dcl.IsNotReturnedByServer(rawDesired.AnthosCluster) {
-		if rawDesired.AnthosCluster != nil && !rawDesired.AnthosCluster.empty {
-			rawNew.AnthosCluster = rawDesired.AnthosCluster
-		}
+		rawNew.AnthosCluster = rawDesired.AnthosCluster
 	} else {
 		rawNew.AnthosCluster = canonicalizeNewTargetAnthosCluster(c, rawDesired.AnthosCluster, rawNew.AnthosCluster)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		if rawDesired.Etag != nil {
-			rawNew.Etag = rawDesired.Etag
-		}
+		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
 			rawNew.Etag = rawDesired.Etag
@@ -709,9 +685,7 @@ func canonicalizeTargetNewState(c *Client, rawNew, rawDesired *Target) (*Target,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ExecutionConfigs) && dcl.IsNotReturnedByServer(rawDesired.ExecutionConfigs) {
-		if rawDesired.ExecutionConfigs != nil {
-			rawNew.ExecutionConfigs = rawDesired.ExecutionConfigs
-		}
+		rawNew.ExecutionConfigs = rawDesired.ExecutionConfigs
 	} else {
 		rawNew.ExecutionConfigs = canonicalizeNewTargetExecutionConfigsSlice(c, rawDesired.ExecutionConfigs, rawNew.ExecutionConfigs)
 	}

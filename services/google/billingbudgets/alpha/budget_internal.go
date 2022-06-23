@@ -490,16 +490,12 @@ func canonicalizeBudgetDesiredState(rawDesired, rawInitial *Budget, opts ...dcl.
 func canonicalizeBudgetNewState(c *Client, rawNew, rawDesired *Budget) (*Budget, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		if rawDesired.DisplayName != nil {
-			rawNew.DisplayName = rawDesired.DisplayName
-		}
+		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -507,33 +503,25 @@ func canonicalizeBudgetNewState(c *Client, rawNew, rawDesired *Budget) (*Budget,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.BudgetFilter) && dcl.IsNotReturnedByServer(rawDesired.BudgetFilter) {
-		if rawDesired.BudgetFilter != nil && !rawDesired.BudgetFilter.empty {
-			rawNew.BudgetFilter = rawDesired.BudgetFilter
-		}
+		rawNew.BudgetFilter = rawDesired.BudgetFilter
 	} else {
 		rawNew.BudgetFilter = canonicalizeNewBudgetBudgetFilter(c, rawDesired.BudgetFilter, rawNew.BudgetFilter)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Amount) && dcl.IsNotReturnedByServer(rawDesired.Amount) {
-		if rawDesired.Amount != nil && !rawDesired.Amount.empty {
-			rawNew.Amount = rawDesired.Amount
-		}
+		rawNew.Amount = rawDesired.Amount
 	} else {
 		rawNew.Amount = canonicalizeNewBudgetAmount(c, rawDesired.Amount, rawNew.Amount)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ThresholdRules) && dcl.IsNotReturnedByServer(rawDesired.ThresholdRules) {
-		if rawDesired.ThresholdRules != nil {
-			rawNew.ThresholdRules = rawDesired.ThresholdRules
-		}
+		rawNew.ThresholdRules = rawDesired.ThresholdRules
 	} else {
 		rawNew.ThresholdRules = canonicalizeNewBudgetThresholdRulesSlice(c, rawDesired.ThresholdRules, rawNew.ThresholdRules)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		if rawDesired.Etag != nil {
-			rawNew.Etag = rawDesired.Etag
-		}
+		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
 			rawNew.Etag = rawDesired.Etag
@@ -541,9 +529,7 @@ func canonicalizeBudgetNewState(c *Client, rawNew, rawDesired *Budget) (*Budget,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AllUpdatesRule) && dcl.IsNotReturnedByServer(rawDesired.AllUpdatesRule) {
-		if rawDesired.AllUpdatesRule != nil && !rawDesired.AllUpdatesRule.empty {
-			rawNew.AllUpdatesRule = rawDesired.AllUpdatesRule
-		}
+		rawNew.AllUpdatesRule = rawDesired.AllUpdatesRule
 	} else {
 		rawNew.AllUpdatesRule = canonicalizeNewBudgetAllUpdatesRule(c, rawDesired.AllUpdatesRule, rawNew.AllUpdatesRule)
 	}

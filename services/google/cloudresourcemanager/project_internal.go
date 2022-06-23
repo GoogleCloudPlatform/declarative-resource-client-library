@@ -438,23 +438,17 @@ func canonicalizeProjectDesiredState(rawDesired, rawInitial *Project, opts ...dc
 func canonicalizeProjectNewState(c *Client, rawNew, rawDesired *Project) (*Project, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		if rawDesired.Labels != nil {
-			rawNew.Labels = rawDesired.Labels
-		}
+		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LifecycleState) && dcl.IsNotReturnedByServer(rawDesired.LifecycleState) {
-		if rawDesired.LifecycleState != nil {
-			rawNew.LifecycleState = rawDesired.LifecycleState
-		}
+		rawNew.LifecycleState = rawDesired.LifecycleState
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		if rawDesired.DisplayName != nil {
-			rawNew.DisplayName = rawDesired.DisplayName
-		}
+		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -462,9 +456,7 @@ func canonicalizeProjectNewState(c *Client, rawNew, rawDesired *Project) (*Proje
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Parent) && dcl.IsNotReturnedByServer(rawDesired.Parent) {
-		if rawDesired.Parent != nil {
-			rawNew.Parent = rawDesired.Parent
-		}
+		rawNew.Parent = rawDesired.Parent
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Parent, rawNew.Parent) {
 			rawNew.Parent = rawDesired.Parent
@@ -472,9 +464,7 @@ func canonicalizeProjectNewState(c *Client, rawNew, rawDesired *Project) (*Proje
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -482,9 +472,7 @@ func canonicalizeProjectNewState(c *Client, rawNew, rawDesired *Project) (*Proje
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ProjectNumber) && dcl.IsNotReturnedByServer(rawDesired.ProjectNumber) {
-		if rawDesired.ProjectNumber != nil {
-			rawNew.ProjectNumber = rawDesired.ProjectNumber
-		}
+		rawNew.ProjectNumber = rawDesired.ProjectNumber
 	} else {
 	}
 

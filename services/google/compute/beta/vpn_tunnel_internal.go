@@ -529,23 +529,17 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*VpnTunnel, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		if rawDesired.Labels != nil {
-			rawNew.Labels = rawDesired.Labels
-		}
+		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Id) && dcl.IsNotReturnedByServer(rawDesired.Id) {
-		if rawDesired.Id != nil {
-			rawNew.Id = rawDesired.Id
-		}
+		rawNew.Id = rawDesired.Id
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -553,9 +547,7 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -563,9 +555,7 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Region) && dcl.IsNotReturnedByServer(rawDesired.Region) {
-		if rawDesired.Region != nil {
-			rawNew.Region = rawDesired.Region
-		}
+		rawNew.Region = rawDesired.Region
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Region, rawNew.Region) {
 			rawNew.Region = rawDesired.Region
@@ -573,30 +563,22 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.TargetVpnGateway) && dcl.IsNotReturnedByServer(rawDesired.TargetVpnGateway) {
-		if rawDesired.TargetVpnGateway != nil {
-			rawNew.TargetVpnGateway = rawDesired.TargetVpnGateway
-		}
+		rawNew.TargetVpnGateway = rawDesired.TargetVpnGateway
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.VpnGateway) && dcl.IsNotReturnedByServer(rawDesired.VpnGateway) {
-		if rawDesired.VpnGateway != nil {
-			rawNew.VpnGateway = rawDesired.VpnGateway
-		}
+		rawNew.VpnGateway = rawDesired.VpnGateway
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.VpnGatewayInterface) && dcl.IsNotReturnedByServer(rawDesired.VpnGatewayInterface) {
-		if rawDesired.VpnGatewayInterface != nil {
-			rawNew.VpnGatewayInterface = rawDesired.VpnGatewayInterface
-		}
+		rawNew.VpnGatewayInterface = rawDesired.VpnGatewayInterface
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PeerExternalGateway) && dcl.IsNotReturnedByServer(rawDesired.PeerExternalGateway) {
-		if rawDesired.PeerExternalGateway != nil {
-			rawNew.PeerExternalGateway = rawDesired.PeerExternalGateway
-		}
+		rawNew.PeerExternalGateway = rawDesired.PeerExternalGateway
 	} else {
 		if dcl.StringCanonicalize(rawDesired.PeerExternalGateway, rawNew.PeerExternalGateway) {
 			rawNew.PeerExternalGateway = rawDesired.PeerExternalGateway
@@ -604,16 +586,12 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PeerExternalGatewayInterface) && dcl.IsNotReturnedByServer(rawDesired.PeerExternalGatewayInterface) {
-		if rawDesired.PeerExternalGatewayInterface != nil {
-			rawNew.PeerExternalGatewayInterface = rawDesired.PeerExternalGatewayInterface
-		}
+		rawNew.PeerExternalGatewayInterface = rawDesired.PeerExternalGatewayInterface
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PeerGcpGateway) && dcl.IsNotReturnedByServer(rawDesired.PeerGcpGateway) {
-		if rawDesired.PeerGcpGateway != nil {
-			rawNew.PeerGcpGateway = rawDesired.PeerGcpGateway
-		}
+		rawNew.PeerGcpGateway = rawDesired.PeerGcpGateway
 	} else {
 		if dcl.StringCanonicalize(rawDesired.PeerGcpGateway, rawNew.PeerGcpGateway) {
 			rawNew.PeerGcpGateway = rawDesired.PeerGcpGateway
@@ -621,9 +599,7 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Router) && dcl.IsNotReturnedByServer(rawDesired.Router) {
-		if rawDesired.Router != nil {
-			rawNew.Router = rawDesired.Router
-		}
+		rawNew.Router = rawDesired.Router
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Router, rawNew.Router) {
 			rawNew.Router = rawDesired.Router
@@ -631,9 +607,7 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PeerIP) && dcl.IsNotReturnedByServer(rawDesired.PeerIP) {
-		if rawDesired.PeerIP != nil {
-			rawNew.PeerIP = rawDesired.PeerIP
-		}
+		rawNew.PeerIP = rawDesired.PeerIP
 	} else {
 		if dcl.StringCanonicalize(rawDesired.PeerIP, rawNew.PeerIP) {
 			rawNew.PeerIP = rawDesired.PeerIP
@@ -643,9 +617,7 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	rawNew.SharedSecret = rawDesired.SharedSecret
 
 	if dcl.IsNotReturnedByServer(rawNew.SharedSecretHash) && dcl.IsNotReturnedByServer(rawDesired.SharedSecretHash) {
-		if rawDesired.SharedSecretHash != nil {
-			rawNew.SharedSecretHash = rawDesired.SharedSecretHash
-		}
+		rawNew.SharedSecretHash = rawDesired.SharedSecretHash
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SharedSecretHash, rawNew.SharedSecretHash) {
 			rawNew.SharedSecretHash = rawDesired.SharedSecretHash
@@ -653,16 +625,12 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Status) && dcl.IsNotReturnedByServer(rawDesired.Status) {
-		if rawDesired.Status != nil {
-			rawNew.Status = rawDesired.Status
-		}
+		rawNew.Status = rawDesired.Status
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
-		if rawDesired.SelfLink != nil {
-			rawNew.SelfLink = rawDesired.SelfLink
-		}
+		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
 			rawNew.SelfLink = rawDesired.SelfLink
@@ -670,16 +638,12 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.IkeVersion) && dcl.IsNotReturnedByServer(rawDesired.IkeVersion) {
-		if rawDesired.IkeVersion != nil {
-			rawNew.IkeVersion = rawDesired.IkeVersion
-		}
+		rawNew.IkeVersion = rawDesired.IkeVersion
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DetailedStatus) && dcl.IsNotReturnedByServer(rawDesired.DetailedStatus) {
-		if rawDesired.DetailedStatus != nil {
-			rawNew.DetailedStatus = rawDesired.DetailedStatus
-		}
+		rawNew.DetailedStatus = rawDesired.DetailedStatus
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DetailedStatus, rawNew.DetailedStatus) {
 			rawNew.DetailedStatus = rawDesired.DetailedStatus
@@ -687,9 +651,7 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LocalTrafficSelector) && dcl.IsNotReturnedByServer(rawDesired.LocalTrafficSelector) {
-		if rawDesired.LocalTrafficSelector != nil {
-			rawNew.LocalTrafficSelector = rawDesired.LocalTrafficSelector
-		}
+		rawNew.LocalTrafficSelector = rawDesired.LocalTrafficSelector
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.LocalTrafficSelector, rawNew.LocalTrafficSelector) {
 			rawNew.LocalTrafficSelector = rawDesired.LocalTrafficSelector
@@ -697,9 +659,7 @@ func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*V
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RemoteTrafficSelector) && dcl.IsNotReturnedByServer(rawDesired.RemoteTrafficSelector) {
-		if rawDesired.RemoteTrafficSelector != nil {
-			rawNew.RemoteTrafficSelector = rawDesired.RemoteTrafficSelector
-		}
+		rawNew.RemoteTrafficSelector = rawDesired.RemoteTrafficSelector
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.RemoteTrafficSelector, rawNew.RemoteTrafficSelector) {
 			rawNew.RemoteTrafficSelector = rawDesired.RemoteTrafficSelector

@@ -465,9 +465,7 @@ func canonicalizeRoleDesiredState(rawDesired, rawInitial *Role, opts ...dcl.Appl
 func canonicalizeRoleNewState(c *Client, rawNew, rawDesired *Role) (*Role, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -475,9 +473,7 @@ func canonicalizeRoleNewState(c *Client, rawNew, rawDesired *Role) (*Role, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Title) && dcl.IsNotReturnedByServer(rawDesired.Title) {
-		if rawDesired.Title != nil {
-			rawNew.Title = rawDesired.Title
-		}
+		rawNew.Title = rawDesired.Title
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Title, rawNew.Title) {
 			rawNew.Title = rawDesired.Title
@@ -485,9 +481,7 @@ func canonicalizeRoleNewState(c *Client, rawNew, rawDesired *Role) (*Role, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -495,17 +489,13 @@ func canonicalizeRoleNewState(c *Client, rawNew, rawDesired *Role) (*Role, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LocalizedValues) && dcl.IsNotReturnedByServer(rawDesired.LocalizedValues) {
-		if rawDesired.LocalizedValues != nil && !rawDesired.LocalizedValues.empty {
-			rawNew.LocalizedValues = rawDesired.LocalizedValues
-		}
+		rawNew.LocalizedValues = rawDesired.LocalizedValues
 	} else {
 		rawNew.LocalizedValues = canonicalizeNewRoleLocalizedValues(c, rawDesired.LocalizedValues, rawNew.LocalizedValues)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LifecyclePhase) && dcl.IsNotReturnedByServer(rawDesired.LifecyclePhase) {
-		if rawDesired.LifecyclePhase != nil {
-			rawNew.LifecyclePhase = rawDesired.LifecyclePhase
-		}
+		rawNew.LifecyclePhase = rawDesired.LifecyclePhase
 	} else {
 		if dcl.StringCanonicalize(rawDesired.LifecyclePhase, rawNew.LifecyclePhase) {
 			rawNew.LifecyclePhase = rawDesired.LifecyclePhase
@@ -513,9 +503,7 @@ func canonicalizeRoleNewState(c *Client, rawNew, rawDesired *Role) (*Role, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.GroupName) && dcl.IsNotReturnedByServer(rawDesired.GroupName) {
-		if rawDesired.GroupName != nil {
-			rawNew.GroupName = rawDesired.GroupName
-		}
+		rawNew.GroupName = rawDesired.GroupName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.GroupName, rawNew.GroupName) {
 			rawNew.GroupName = rawDesired.GroupName
@@ -523,9 +511,7 @@ func canonicalizeRoleNewState(c *Client, rawNew, rawDesired *Role) (*Role, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.GroupTitle) && dcl.IsNotReturnedByServer(rawDesired.GroupTitle) {
-		if rawDesired.GroupTitle != nil {
-			rawNew.GroupTitle = rawDesired.GroupTitle
-		}
+		rawNew.GroupTitle = rawDesired.GroupTitle
 	} else {
 		if dcl.StringCanonicalize(rawDesired.GroupTitle, rawNew.GroupTitle) {
 			rawNew.GroupTitle = rawDesired.GroupTitle
@@ -533,9 +519,7 @@ func canonicalizeRoleNewState(c *Client, rawNew, rawDesired *Role) (*Role, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.IncludedPermissions) && dcl.IsNotReturnedByServer(rawDesired.IncludedPermissions) {
-		if rawDesired.IncludedPermissions != nil {
-			rawNew.IncludedPermissions = rawDesired.IncludedPermissions
-		}
+		rawNew.IncludedPermissions = rawDesired.IncludedPermissions
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.IncludedPermissions, rawNew.IncludedPermissions) {
 			rawNew.IncludedPermissions = rawDesired.IncludedPermissions
@@ -543,16 +527,12 @@ func canonicalizeRoleNewState(c *Client, rawNew, rawDesired *Role) (*Role, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Stage) && dcl.IsNotReturnedByServer(rawDesired.Stage) {
-		if rawDesired.Stage != nil {
-			rawNew.Stage = rawDesired.Stage
-		}
+		rawNew.Stage = rawDesired.Stage
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
-		if rawDesired.Etag != nil {
-			rawNew.Etag = rawDesired.Etag
-		}
+		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
 			rawNew.Etag = rawDesired.Etag
@@ -560,9 +540,7 @@ func canonicalizeRoleNewState(c *Client, rawNew, rawDesired *Role) (*Role, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Deleted) && dcl.IsNotReturnedByServer(rawDesired.Deleted) {
-		if rawDesired.Deleted != nil {
-			rawNew.Deleted = rawDesired.Deleted
-		}
+		rawNew.Deleted = rawDesired.Deleted
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Deleted, rawNew.Deleted) {
 			rawNew.Deleted = rawDesired.Deleted
@@ -570,9 +548,7 @@ func canonicalizeRoleNewState(c *Client, rawNew, rawDesired *Role) (*Role, error
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.IncludedRoles) && dcl.IsNotReturnedByServer(rawDesired.IncludedRoles) {
-		if rawDesired.IncludedRoles != nil {
-			rawNew.IncludedRoles = rawDesired.IncludedRoles
-		}
+		rawNew.IncludedRoles = rawDesired.IncludedRoles
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.IncludedRoles, rawNew.IncludedRoles) {
 			rawNew.IncludedRoles = rawDesired.IncludedRoles

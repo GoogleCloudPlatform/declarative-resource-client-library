@@ -501,9 +501,7 @@ func canonicalizeAutoscalingPolicyDesiredState(rawDesired, rawInitial *Autoscali
 func canonicalizeAutoscalingPolicyNewState(c *Client, rawNew, rawDesired *AutoscalingPolicy) (*AutoscalingPolicy, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -511,25 +509,19 @@ func canonicalizeAutoscalingPolicyNewState(c *Client, rawNew, rawDesired *Autosc
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.BasicAlgorithm) && dcl.IsNotReturnedByServer(rawDesired.BasicAlgorithm) {
-		if rawDesired.BasicAlgorithm != nil && !rawDesired.BasicAlgorithm.empty {
-			rawNew.BasicAlgorithm = rawDesired.BasicAlgorithm
-		}
+		rawNew.BasicAlgorithm = rawDesired.BasicAlgorithm
 	} else {
 		rawNew.BasicAlgorithm = canonicalizeNewAutoscalingPolicyBasicAlgorithm(c, rawDesired.BasicAlgorithm, rawNew.BasicAlgorithm)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.WorkerConfig) && dcl.IsNotReturnedByServer(rawDesired.WorkerConfig) {
-		if rawDesired.WorkerConfig != nil && !rawDesired.WorkerConfig.empty {
-			rawNew.WorkerConfig = rawDesired.WorkerConfig
-		}
+		rawNew.WorkerConfig = rawDesired.WorkerConfig
 	} else {
 		rawNew.WorkerConfig = canonicalizeNewAutoscalingPolicyWorkerConfig(c, rawDesired.WorkerConfig, rawNew.WorkerConfig)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SecondaryWorkerConfig) && dcl.IsNotReturnedByServer(rawDesired.SecondaryWorkerConfig) {
-		if rawDesired.SecondaryWorkerConfig != nil && !rawDesired.SecondaryWorkerConfig.empty {
-			rawNew.SecondaryWorkerConfig = rawDesired.SecondaryWorkerConfig
-		}
+		rawNew.SecondaryWorkerConfig = rawDesired.SecondaryWorkerConfig
 	} else {
 		rawNew.SecondaryWorkerConfig = canonicalizeNewAutoscalingPolicySecondaryWorkerConfig(c, rawDesired.SecondaryWorkerConfig, rawNew.SecondaryWorkerConfig)
 	}

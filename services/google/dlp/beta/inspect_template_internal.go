@@ -642,16 +642,12 @@ func canonicalizeInspectTemplateDesiredState(rawDesired, rawInitial *InspectTemp
 func canonicalizeInspectTemplateNewState(c *Client, rawNew, rawDesired *InspectTemplate) (*InspectTemplate, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
-		if rawDesired.DisplayName != nil {
-			rawNew.DisplayName = rawDesired.DisplayName
-		}
+		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
 			rawNew.DisplayName = rawDesired.DisplayName
@@ -659,9 +655,7 @@ func canonicalizeInspectTemplateNewState(c *Client, rawNew, rawDesired *InspectT
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -669,31 +663,23 @@ func canonicalizeInspectTemplateNewState(c *Client, rawNew, rawDesired *InspectT
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		if rawDesired.CreateTime != nil {
-			rawNew.CreateTime = rawDesired.CreateTime
-		}
+		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		if rawDesired.UpdateTime != nil {
-			rawNew.UpdateTime = rawDesired.UpdateTime
-		}
+		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.InspectConfig) && dcl.IsNotReturnedByServer(rawDesired.InspectConfig) {
-		if rawDesired.InspectConfig != nil && !rawDesired.InspectConfig.empty {
-			rawNew.InspectConfig = rawDesired.InspectConfig
-		}
+		rawNew.InspectConfig = rawDesired.InspectConfig
 	} else {
 		rawNew.InspectConfig = canonicalizeNewInspectTemplateInspectConfig(c, rawDesired.InspectConfig, rawNew.InspectConfig)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LocationId) && dcl.IsNotReturnedByServer(rawDesired.LocationId) {
-		if rawDesired.LocationId != nil {
-			rawNew.LocationId = rawDesired.LocationId
-		}
+		rawNew.LocationId = rawDesired.LocationId
 	} else {
 		if dcl.StringCanonicalize(rawDesired.LocationId, rawNew.LocationId) {
 			rawNew.LocationId = rawDesired.LocationId

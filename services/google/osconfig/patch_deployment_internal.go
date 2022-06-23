@@ -831,9 +831,7 @@ func canonicalizePatchDeploymentDesiredState(rawDesired, rawInitial *PatchDeploy
 func canonicalizePatchDeploymentNewState(c *Client, rawNew, rawDesired *PatchDeployment) (*PatchDeployment, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -841,9 +839,7 @@ func canonicalizePatchDeploymentNewState(c *Client, rawNew, rawDesired *PatchDep
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -851,25 +847,19 @@ func canonicalizePatchDeploymentNewState(c *Client, rawNew, rawDesired *PatchDep
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.InstanceFilter) && dcl.IsNotReturnedByServer(rawDesired.InstanceFilter) {
-		if rawDesired.InstanceFilter != nil && !rawDesired.InstanceFilter.empty {
-			rawNew.InstanceFilter = rawDesired.InstanceFilter
-		}
+		rawNew.InstanceFilter = rawDesired.InstanceFilter
 	} else {
 		rawNew.InstanceFilter = canonicalizeNewPatchDeploymentInstanceFilter(c, rawDesired.InstanceFilter, rawNew.InstanceFilter)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.PatchConfig) && dcl.IsNotReturnedByServer(rawDesired.PatchConfig) {
-		if rawDesired.PatchConfig != nil && !rawDesired.PatchConfig.empty {
-			rawNew.PatchConfig = rawDesired.PatchConfig
-		}
+		rawNew.PatchConfig = rawDesired.PatchConfig
 	} else {
 		rawNew.PatchConfig = canonicalizeNewPatchDeploymentPatchConfig(c, rawDesired.PatchConfig, rawNew.PatchConfig)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Duration) && dcl.IsNotReturnedByServer(rawDesired.Duration) {
-		if rawDesired.Duration != nil {
-			rawNew.Duration = rawDesired.Duration
-		}
+		rawNew.Duration = rawDesired.Duration
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Duration, rawNew.Duration) {
 			rawNew.Duration = rawDesired.Duration
@@ -877,46 +867,34 @@ func canonicalizePatchDeploymentNewState(c *Client, rawNew, rawDesired *PatchDep
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.OneTimeSchedule) && dcl.IsNotReturnedByServer(rawDesired.OneTimeSchedule) {
-		if rawDesired.OneTimeSchedule != nil && !rawDesired.OneTimeSchedule.empty {
-			rawNew.OneTimeSchedule = rawDesired.OneTimeSchedule
-		}
+		rawNew.OneTimeSchedule = rawDesired.OneTimeSchedule
 	} else {
 		rawNew.OneTimeSchedule = canonicalizeNewPatchDeploymentOneTimeSchedule(c, rawDesired.OneTimeSchedule, rawNew.OneTimeSchedule)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.RecurringSchedule) && dcl.IsNotReturnedByServer(rawDesired.RecurringSchedule) {
-		if rawDesired.RecurringSchedule != nil && !rawDesired.RecurringSchedule.empty {
-			rawNew.RecurringSchedule = rawDesired.RecurringSchedule
-		}
+		rawNew.RecurringSchedule = rawDesired.RecurringSchedule
 	} else {
 		rawNew.RecurringSchedule = canonicalizeNewPatchDeploymentRecurringSchedule(c, rawDesired.RecurringSchedule, rawNew.RecurringSchedule)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		if rawDesired.CreateTime != nil {
-			rawNew.CreateTime = rawDesired.CreateTime
-		}
+		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		if rawDesired.UpdateTime != nil {
-			rawNew.UpdateTime = rawDesired.UpdateTime
-		}
+		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.LastExecuteTime) && dcl.IsNotReturnedByServer(rawDesired.LastExecuteTime) {
-		if rawDesired.LastExecuteTime != nil {
-			rawNew.LastExecuteTime = rawDesired.LastExecuteTime
-		}
+		rawNew.LastExecuteTime = rawDesired.LastExecuteTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Rollout) && dcl.IsNotReturnedByServer(rawDesired.Rollout) {
-		if rawDesired.Rollout != nil && !rawDesired.Rollout.empty {
-			rawNew.Rollout = rawDesired.Rollout
-		}
+		rawNew.Rollout = rawDesired.Rollout
 	} else {
 		rawNew.Rollout = canonicalizeNewPatchDeploymentRollout(c, rawDesired.Rollout, rawNew.Rollout)
 	}

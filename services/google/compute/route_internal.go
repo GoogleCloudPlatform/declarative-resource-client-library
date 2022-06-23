@@ -511,16 +511,12 @@ func canonicalizeRouteDesiredState(rawDesired, rawInitial *Route, opts ...dcl.Ap
 func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Id) && dcl.IsNotReturnedByServer(rawDesired.Id) {
-		if rawDesired.Id != nil {
-			rawNew.Id = rawDesired.Id
-		}
+		rawNew.Id = rawDesired.Id
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -528,9 +524,7 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -538,9 +532,7 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Network) && dcl.IsNotReturnedByServer(rawDesired.Network) {
-		if rawDesired.Network != nil {
-			rawNew.Network = rawDesired.Network
-		}
+		rawNew.Network = rawDesired.Network
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Network, rawNew.Network) {
 			rawNew.Network = rawDesired.Network
@@ -548,9 +540,7 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Tag) && dcl.IsNotReturnedByServer(rawDesired.Tag) {
-		if rawDesired.Tag != nil {
-			rawNew.Tag = rawDesired.Tag
-		}
+		rawNew.Tag = rawDesired.Tag
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.Tag, rawNew.Tag) {
 			rawNew.Tag = rawDesired.Tag
@@ -558,9 +548,7 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.DestRange) && dcl.IsNotReturnedByServer(rawDesired.DestRange) {
-		if rawDesired.DestRange != nil {
-			rawNew.DestRange = rawDesired.DestRange
-		}
+		rawNew.DestRange = rawDesired.DestRange
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DestRange, rawNew.DestRange) {
 			rawNew.DestRange = rawDesired.DestRange
@@ -568,16 +556,12 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Priority) && dcl.IsNotReturnedByServer(rawDesired.Priority) {
-		if rawDesired.Priority != nil {
-			rawNew.Priority = rawDesired.Priority
-		}
+		rawNew.Priority = rawDesired.Priority
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.NextHopInstance) && dcl.IsNotReturnedByServer(rawDesired.NextHopInstance) {
-		if rawDesired.NextHopInstance != nil {
-			rawNew.NextHopInstance = rawDesired.NextHopInstance
-		}
+		rawNew.NextHopInstance = rawDesired.NextHopInstance
 	} else {
 		if dcl.StringCanonicalize(rawDesired.NextHopInstance, rawNew.NextHopInstance) {
 			rawNew.NextHopInstance = rawDesired.NextHopInstance
@@ -585,9 +569,7 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.NextHopIP) && dcl.IsNotReturnedByServer(rawDesired.NextHopIP) {
-		if rawDesired.NextHopIP != nil {
-			rawNew.NextHopIP = rawDesired.NextHopIP
-		}
+		rawNew.NextHopIP = rawDesired.NextHopIP
 	} else {
 		if dcl.StringCanonicalize(rawDesired.NextHopIP, rawNew.NextHopIP) {
 			rawNew.NextHopIP = rawDesired.NextHopIP
@@ -595,9 +577,7 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.NextHopNetwork) && dcl.IsNotReturnedByServer(rawDesired.NextHopNetwork) {
-		if rawDesired.NextHopNetwork != nil {
-			rawNew.NextHopNetwork = rawDesired.NextHopNetwork
-		}
+		rawNew.NextHopNetwork = rawDesired.NextHopNetwork
 	} else {
 		if dcl.StringCanonicalize(rawDesired.NextHopNetwork, rawNew.NextHopNetwork) {
 			rawNew.NextHopNetwork = rawDesired.NextHopNetwork
@@ -605,9 +585,7 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.NextHopGateway) && dcl.IsNotReturnedByServer(rawDesired.NextHopGateway) {
-		if rawDesired.NextHopGateway != nil {
-			rawNew.NextHopGateway = rawDesired.NextHopGateway
-		}
+		rawNew.NextHopGateway = rawDesired.NextHopGateway
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.NextHopGateway, rawNew.NextHopGateway) {
 			rawNew.NextHopGateway = rawDesired.NextHopGateway
@@ -615,9 +593,7 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.NextHopPeering) && dcl.IsNotReturnedByServer(rawDesired.NextHopPeering) {
-		if rawDesired.NextHopPeering != nil {
-			rawNew.NextHopPeering = rawDesired.NextHopPeering
-		}
+		rawNew.NextHopPeering = rawDesired.NextHopPeering
 	} else {
 		if dcl.StringCanonicalize(rawDesired.NextHopPeering, rawNew.NextHopPeering) {
 			rawNew.NextHopPeering = rawDesired.NextHopPeering
@@ -625,9 +601,7 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.NextHopIlb) && dcl.IsNotReturnedByServer(rawDesired.NextHopIlb) {
-		if rawDesired.NextHopIlb != nil {
-			rawNew.NextHopIlb = rawDesired.NextHopIlb
-		}
+		rawNew.NextHopIlb = rawDesired.NextHopIlb
 	} else {
 		if dcl.StringCanonicalize(rawDesired.NextHopIlb, rawNew.NextHopIlb) {
 			rawNew.NextHopIlb = rawDesired.NextHopIlb
@@ -635,17 +609,13 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Warning) && dcl.IsNotReturnedByServer(rawDesired.Warning) {
-		if rawDesired.Warning != nil {
-			rawNew.Warning = rawDesired.Warning
-		}
+		rawNew.Warning = rawDesired.Warning
 	} else {
 		rawNew.Warning = canonicalizeNewRouteWarningSlice(c, rawDesired.Warning, rawNew.Warning)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.NextHopVpnTunnel) && dcl.IsNotReturnedByServer(rawDesired.NextHopVpnTunnel) {
-		if rawDesired.NextHopVpnTunnel != nil {
-			rawNew.NextHopVpnTunnel = rawDesired.NextHopVpnTunnel
-		}
+		rawNew.NextHopVpnTunnel = rawDesired.NextHopVpnTunnel
 	} else {
 		if dcl.StringCanonicalize(rawDesired.NextHopVpnTunnel, rawNew.NextHopVpnTunnel) {
 			rawNew.NextHopVpnTunnel = rawDesired.NextHopVpnTunnel
@@ -653,9 +623,7 @@ func canonicalizeRouteNewState(c *Client, rawNew, rawDesired *Route) (*Route, er
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
-		if rawDesired.SelfLink != nil {
-			rawNew.SelfLink = rawDesired.SelfLink
-		}
+		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
 			rawNew.SelfLink = rawDesired.SelfLink

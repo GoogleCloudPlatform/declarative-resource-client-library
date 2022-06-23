@@ -692,9 +692,7 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 func canonicalizeFunctionNewState(c *Client, rawNew, rawDesired *Function) (*Function, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -702,9 +700,7 @@ func canonicalizeFunctionNewState(c *Client, rawNew, rawDesired *Function) (*Fun
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
-		if rawDesired.Description != nil {
-			rawNew.Description = rawDesired.Description
-		}
+		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
 			rawNew.Description = rawDesired.Description
@@ -712,9 +708,7 @@ func canonicalizeFunctionNewState(c *Client, rawNew, rawDesired *Function) (*Fun
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SourceArchiveUrl) && dcl.IsNotReturnedByServer(rawDesired.SourceArchiveUrl) {
-		if rawDesired.SourceArchiveUrl != nil {
-			rawNew.SourceArchiveUrl = rawDesired.SourceArchiveUrl
-		}
+		rawNew.SourceArchiveUrl = rawDesired.SourceArchiveUrl
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SourceArchiveUrl, rawNew.SourceArchiveUrl) {
 			rawNew.SourceArchiveUrl = rawDesired.SourceArchiveUrl
@@ -722,40 +716,30 @@ func canonicalizeFunctionNewState(c *Client, rawNew, rawDesired *Function) (*Fun
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.SourceRepository) && dcl.IsNotReturnedByServer(rawDesired.SourceRepository) {
-		if rawDesired.SourceRepository != nil && !rawDesired.SourceRepository.empty {
-			rawNew.SourceRepository = rawDesired.SourceRepository
-		}
+		rawNew.SourceRepository = rawDesired.SourceRepository
 	} else {
 		rawNew.SourceRepository = canonicalizeNewFunctionSourceRepository(c, rawDesired.SourceRepository, rawNew.SourceRepository)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.HttpsTrigger) && dcl.IsNotReturnedByServer(rawDesired.HttpsTrigger) {
-		if rawDesired.HttpsTrigger != nil && !rawDesired.HttpsTrigger.empty {
-			rawNew.HttpsTrigger = rawDesired.HttpsTrigger
-		}
+		rawNew.HttpsTrigger = rawDesired.HttpsTrigger
 	} else {
 		rawNew.HttpsTrigger = canonicalizeNewFunctionHttpsTrigger(c, rawDesired.HttpsTrigger, rawNew.HttpsTrigger)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.EventTrigger) && dcl.IsNotReturnedByServer(rawDesired.EventTrigger) {
-		if rawDesired.EventTrigger != nil && !rawDesired.EventTrigger.empty {
-			rawNew.EventTrigger = rawDesired.EventTrigger
-		}
+		rawNew.EventTrigger = rawDesired.EventTrigger
 	} else {
 		rawNew.EventTrigger = canonicalizeNewFunctionEventTrigger(c, rawDesired.EventTrigger, rawNew.EventTrigger)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Status) && dcl.IsNotReturnedByServer(rawDesired.Status) {
-		if rawDesired.Status != nil {
-			rawNew.Status = rawDesired.Status
-		}
+		rawNew.Status = rawDesired.Status
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.EntryPoint) && dcl.IsNotReturnedByServer(rawDesired.EntryPoint) {
-		if rawDesired.EntryPoint != nil {
-			rawNew.EntryPoint = rawDesired.EntryPoint
-		}
+		rawNew.EntryPoint = rawDesired.EntryPoint
 	} else {
 		if dcl.StringCanonicalize(rawDesired.EntryPoint, rawNew.EntryPoint) {
 			rawNew.EntryPoint = rawDesired.EntryPoint
@@ -763,9 +747,7 @@ func canonicalizeFunctionNewState(c *Client, rawNew, rawDesired *Function) (*Fun
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Runtime) && dcl.IsNotReturnedByServer(rawDesired.Runtime) {
-		if rawDesired.Runtime != nil {
-			rawNew.Runtime = rawDesired.Runtime
-		}
+		rawNew.Runtime = rawDesired.Runtime
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Runtime, rawNew.Runtime) {
 			rawNew.Runtime = rawDesired.Runtime
@@ -773,9 +755,7 @@ func canonicalizeFunctionNewState(c *Client, rawNew, rawDesired *Function) (*Fun
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Timeout) && dcl.IsNotReturnedByServer(rawDesired.Timeout) {
-		if rawDesired.Timeout != nil {
-			rawNew.Timeout = rawDesired.Timeout
-		}
+		rawNew.Timeout = rawDesired.Timeout
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Timeout, rawNew.Timeout) {
 			rawNew.Timeout = rawDesired.Timeout
@@ -783,23 +763,17 @@ func canonicalizeFunctionNewState(c *Client, rawNew, rawDesired *Function) (*Fun
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.AvailableMemoryMb) && dcl.IsNotReturnedByServer(rawDesired.AvailableMemoryMb) {
-		if rawDesired.AvailableMemoryMb != nil {
-			rawNew.AvailableMemoryMb = rawDesired.AvailableMemoryMb
-		}
+		rawNew.AvailableMemoryMb = rawDesired.AvailableMemoryMb
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.ServiceAccountEmail) && dcl.IsNotReturnedByServer(rawDesired.ServiceAccountEmail) {
-		if rawDesired.ServiceAccountEmail != nil {
-			rawNew.ServiceAccountEmail = rawDesired.ServiceAccountEmail
-		}
+		rawNew.ServiceAccountEmail = rawDesired.ServiceAccountEmail
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
-		if rawDesired.UpdateTime != nil {
-			rawNew.UpdateTime = rawDesired.UpdateTime
-		}
+		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 		if dcl.StringCanonicalize(rawDesired.UpdateTime, rawNew.UpdateTime) {
 			rawNew.UpdateTime = rawDesired.UpdateTime
@@ -807,51 +781,37 @@ func canonicalizeFunctionNewState(c *Client, rawNew, rawDesired *Function) (*Fun
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.VersionId) && dcl.IsNotReturnedByServer(rawDesired.VersionId) {
-		if rawDesired.VersionId != nil {
-			rawNew.VersionId = rawDesired.VersionId
-		}
+		rawNew.VersionId = rawDesired.VersionId
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
-		if rawDesired.Labels != nil {
-			rawNew.Labels = rawDesired.Labels
-		}
+		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.EnvironmentVariables) && dcl.IsNotReturnedByServer(rawDesired.EnvironmentVariables) {
-		if rawDesired.EnvironmentVariables != nil {
-			rawNew.EnvironmentVariables = rawDesired.EnvironmentVariables
-		}
+		rawNew.EnvironmentVariables = rawDesired.EnvironmentVariables
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.MaxInstances) && dcl.IsNotReturnedByServer(rawDesired.MaxInstances) {
-		if rawDesired.MaxInstances != nil {
-			rawNew.MaxInstances = rawDesired.MaxInstances
-		}
+		rawNew.MaxInstances = rawDesired.MaxInstances
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.VPCConnector) && dcl.IsNotReturnedByServer(rawDesired.VPCConnector) {
-		if rawDesired.VPCConnector != nil {
-			rawNew.VPCConnector = rawDesired.VPCConnector
-		}
+		rawNew.VPCConnector = rawDesired.VPCConnector
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.VPCConnectorEgressSettings) && dcl.IsNotReturnedByServer(rawDesired.VPCConnectorEgressSettings) {
-		if rawDesired.VPCConnectorEgressSettings != nil {
-			rawNew.VPCConnectorEgressSettings = rawDesired.VPCConnectorEgressSettings
-		}
+		rawNew.VPCConnectorEgressSettings = rawDesired.VPCConnectorEgressSettings
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.IngressSettings) && dcl.IsNotReturnedByServer(rawDesired.IngressSettings) {
-		if rawDesired.IngressSettings != nil {
-			rawNew.IngressSettings = rawDesired.IngressSettings
-		}
+		rawNew.IngressSettings = rawDesired.IngressSettings
 	} else {
 	}
 

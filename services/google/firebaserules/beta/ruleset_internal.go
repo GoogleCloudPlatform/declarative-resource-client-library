@@ -383,31 +383,23 @@ func canonicalizeRulesetDesiredState(rawDesired, rawInitial *Ruleset, opts ...dc
 func canonicalizeRulesetNewState(c *Client, rawNew, rawDesired *Ruleset) (*Ruleset, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Source) && dcl.IsNotReturnedByServer(rawDesired.Source) {
-		if rawDesired.Source != nil && !rawDesired.Source.empty {
-			rawNew.Source = rawDesired.Source
-		}
+		rawNew.Source = rawDesired.Source
 	} else {
 		rawNew.Source = canonicalizeNewRulesetSource(c, rawDesired.Source, rawNew.Source)
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
-		if rawDesired.CreateTime != nil {
-			rawNew.CreateTime = rawDesired.CreateTime
-		}
+		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Metadata) && dcl.IsNotReturnedByServer(rawDesired.Metadata) {
-		if rawDesired.Metadata != nil && !rawDesired.Metadata.empty {
-			rawNew.Metadata = rawDesired.Metadata
-		}
+		rawNew.Metadata = rawDesired.Metadata
 	} else {
 		rawNew.Metadata = canonicalizeNewRulesetMetadata(c, rawDesired.Metadata, rawNew.Metadata)
 	}

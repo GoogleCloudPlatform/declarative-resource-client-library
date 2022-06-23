@@ -430,9 +430,7 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 func canonicalizePolicyNewState(c *Client, rawNew, rawDesired *Policy) (*Policy, error) {
 
 	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
-		if rawDesired.Name != nil {
-			rawNew.Name = rawDesired.Name
-		}
+		rawNew.Name = rawDesired.Name
 	} else {
 		if canonicalizePolicyName(rawDesired.Name, rawNew.Name) {
 			rawNew.Name = rawDesired.Name
@@ -440,9 +438,7 @@ func canonicalizePolicyNewState(c *Client, rawNew, rawDesired *Policy) (*Policy,
 	}
 
 	if dcl.IsNotReturnedByServer(rawNew.Spec) && dcl.IsNotReturnedByServer(rawDesired.Spec) {
-		if rawDesired.Spec != nil && !rawDesired.Spec.empty {
-			rawNew.Spec = rawDesired.Spec
-		}
+		rawNew.Spec = rawDesired.Spec
 	} else {
 		rawNew.Spec = canonicalizeNewPolicySpec(c, rawDesired.Spec, rawNew.Spec)
 	}
