@@ -20,11 +20,11 @@ versions:
 resource: samples/second_ihlb.subnetwork.json
 dependencies:
 - samples/first_ihlb.subnetwork.json
-- samples/legacy.network.json
+- samples/minimal.network.json
 updates:
 - resource: samples/update_1_second_ihlb.subnetwork.json
   dependencies:
-  - samples/legacy.network.json
+  - samples/minimal.network.json
 - resource: samples/update_2_second_ihlb.subnetwork.json
   dependencies:
   - samples/update_first_ihlb.subnetwork.json

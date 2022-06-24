@@ -15,7 +15,6 @@ info:
   title: Firebaserules/Release
   description: ""
   x-dcl-struct-name: Release
-  x-dcl-has-create: true
   x-dcl-has-iam: false
   x-dcl-ref:
     text: Firebase Rules API Documentation
@@ -62,6 +61,7 @@ components:
       title: Release
       x-dcl-id: projects/{{project}}/releases/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

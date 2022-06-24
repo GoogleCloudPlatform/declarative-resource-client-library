@@ -23,7 +23,6 @@ func DCLAttestorSchema() *dcl.Schema {
 			Title:       "BinaryAuthorization/Attestor",
 			Description: "The BinaryAuthorization Attestor resource",
 			StructName:  "Attestor",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -87,6 +86,7 @@ func DCLAttestorSchema() *dcl.Schema {
 					Title:           "Attestor",
 					ID:              "projects/{{project}}/attestors/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

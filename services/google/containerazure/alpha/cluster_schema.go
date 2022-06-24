@@ -23,7 +23,6 @@ func DCLClusterSchema() *dcl.Schema {
 			Title:       "ContainerAzure/Cluster",
 			Description: "An Anthos cluster running on Azure.",
 			StructName:  "Cluster",
-			HasCreate:   true,
 			Reference: &dcl.Link{
 				Text: "API reference",
 				URL:  "https://cloud.google.com/anthos/clusters/docs/multi-cloud/reference/rest/v1/projects.locations.azureClusters",
@@ -111,6 +110,7 @@ func DCLClusterSchema() *dcl.Schema {
 					Title:           "Cluster",
 					ID:              "projects/{{project}}/locations/{{location}}/azureClusters/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

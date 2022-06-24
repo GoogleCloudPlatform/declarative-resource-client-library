@@ -15,7 +15,6 @@ info:
   title: Compute/InterconnectAttachment
   description: The Compute InterconnectAttachment resource
   x-dcl-struct-name: InterconnectAttachment
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -66,6 +65,7 @@ components:
       x-dcl-locations:
       - region
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

@@ -23,7 +23,6 @@ func DCLLogBucketSchema() *dcl.Schema {
 			Title:       "Logging/LogBucket",
 			Description: "The Logging LogBucket resource",
 			StructName:  "LogBucket",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -98,8 +97,9 @@ func DCLLogBucketSchema() *dcl.Schema {
 		Components: &dcl.Components{
 			Schemas: map[string]*dcl.Component{
 				"LogBucket": &dcl.Component{
-					Title: "LogBucket",
-					ID:    "{{parent}}/locations/{{location}}/buckets/{{name}}",
+					Title:     "LogBucket",
+					ID:        "{{parent}}/locations/{{location}}/buckets/{{name}}",
+					HasCreate: true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

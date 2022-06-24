@@ -23,7 +23,6 @@ func DCLBudgetSchema() *dcl.Schema {
 			Title:       "BillingBudgets/Budget",
 			Description: "The BillingBudgets Budget resource",
 			StructName:  "Budget",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -84,8 +83,9 @@ func DCLBudgetSchema() *dcl.Schema {
 		Components: &dcl.Components{
 			Schemas: map[string]*dcl.Component{
 				"Budget": &dcl.Component{
-					Title: "Budget",
-					ID:    "billingAccounts/{{billing_account}}/budgets/{{name}}",
+					Title:     "Budget",
+					ID:        "billingAccounts/{{billing_account}}/budgets/{{name}}",
+					HasCreate: true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

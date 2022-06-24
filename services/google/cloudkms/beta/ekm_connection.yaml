@@ -15,7 +15,6 @@ info:
   title: Cloudkms/EkmConnection
   description: The Cloudkms EkmConnection resource
   x-dcl-struct-name: EkmConnection
-  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:
@@ -47,6 +46,7 @@ components:
       title: EkmConnection
       x-dcl-id: projects/{{project}}/locations/{{location}}/ekmConnections/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: true
       type: object
       required:

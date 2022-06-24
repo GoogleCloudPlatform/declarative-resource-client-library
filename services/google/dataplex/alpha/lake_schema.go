@@ -23,7 +23,6 @@ func DCLLakeSchema() *dcl.Schema {
 			Title:       "Dataplex/Lake",
 			Description: "The Dataplex Lake resource",
 			StructName:  "Lake",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -101,6 +100,7 @@ func DCLLakeSchema() *dcl.Schema {
 					Title:           "Lake",
 					ID:              "projects/{{project}}/locations/{{location}}/lakes/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

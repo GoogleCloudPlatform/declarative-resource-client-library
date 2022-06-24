@@ -15,7 +15,6 @@ info:
   title: BillingBudgets/Budget
   description: The BillingBudgets Budget resource
   x-dcl-struct-name: Budget
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -55,6 +54,7 @@ components:
     Budget:
       title: Budget
       x-dcl-id: billingAccounts/{{billing_account}}/budgets/{{name}}
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

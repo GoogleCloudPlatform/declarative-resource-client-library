@@ -23,7 +23,6 @@ func DCLProjectSchema() *dcl.Schema {
 			Title:       "CloudResourceManager/Project",
 			Description: "The CloudResourceManager Project resource",
 			StructName:  "Project",
-			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{
@@ -70,6 +69,7 @@ func DCLProjectSchema() *dcl.Schema {
 					Title:       "Project",
 					ID:          "projects/{{name}}",
 					LabelsField: "labels",
+					HasCreate:   true,
 					HasIAM:      true,
 					SchemaProperty: dcl.Property{
 						Type: "object",

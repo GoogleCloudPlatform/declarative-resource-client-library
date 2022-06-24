@@ -23,7 +23,6 @@ func DCLMetadataSchemaSchema() *dcl.Schema {
 			Title:       "VertexAI/MetadataSchema",
 			Description: "The VertexAI MetadataSchema resource",
 			StructName:  "MetadataSchema",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -79,6 +78,7 @@ func DCLMetadataSchemaSchema() *dcl.Schema {
 					Title:           "MetadataSchema",
 					ID:              "projects/{{project}}/locations/{{location}}/metadataStores/{{metadata_store}}/metadataSchemas/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

@@ -23,7 +23,6 @@ func DCLCertificateAuthoritySchema() *dcl.Schema {
 			Title:       "Privateca/CertificateAuthority",
 			Description: "The Privateca CertificateAuthority resource",
 			StructName:  "CertificateAuthority",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -116,6 +115,7 @@ func DCLCertificateAuthoritySchema() *dcl.Schema {
 					ID:              "projects/{{project}}/locations/{{location}}/caPools/{{ca_pool}}/certificateAuthorities/{{name}}",
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

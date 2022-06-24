@@ -23,7 +23,6 @@ func DCLEkmConnectionSchema() *dcl.Schema {
 			Title:       "Cloudkms/EkmConnection",
 			Description: "The Cloudkms EkmConnection resource",
 			StructName:  "EkmConnection",
-			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{
@@ -73,6 +72,7 @@ func DCLEkmConnectionSchema() *dcl.Schema {
 					Title:           "EkmConnection",
 					ID:              "projects/{{project}}/locations/{{location}}/ekmConnections/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					HasIAM:          true,
 					SchemaProperty: dcl.Property{
 						Type: "object",

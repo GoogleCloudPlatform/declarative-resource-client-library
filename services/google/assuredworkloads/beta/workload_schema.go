@@ -23,7 +23,6 @@ func DCLWorkloadSchema() *dcl.Schema {
 			Title:       "AssuredWorkloads/Workload",
 			Description: "The AssuredWorkloads Workload resource",
 			StructName:  "Workload",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -103,6 +102,7 @@ func DCLWorkloadSchema() *dcl.Schema {
 					UsesStateHint:   true,
 					ParentContainer: "organization",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

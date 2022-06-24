@@ -23,7 +23,6 @@ func DCLTargetSchema() *dcl.Schema {
 			Title:       "Clouddeploy/Target",
 			Description: "The Cloud Deploy `Target` resource",
 			StructName:  "Target",
-			HasCreate:   true,
 			Reference: &dcl.Link{
 				Text: "REST API",
 				URL:  "https://cloud.google.com/deploy/docs/api/reference/rest/v1/projects.locations.targets",
@@ -105,6 +104,7 @@ func DCLTargetSchema() *dcl.Schema {
 					Title:           "Target",
 					ID:              "projects/{{project}}/locations/{{location}}/targets/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{
@@ -164,11 +164,12 @@ func DCLTargetSchema() *dcl.Schema {
 								Immutable:   true,
 							},
 							"executionConfigs": &dcl.Property{
-								Type:        "array",
-								GoName:      "ExecutionConfigs",
-								Description: "Configurations for all execution that relates to this `Target`. Each `ExecutionEnvironmentUsage` value may only be used in a single configuration; using the same value multiple times is an error. When one or more configurations are specified, they must include the `RENDER` and `DEPLOY` `ExecutionEnvironmentUsage` values. When no configurations are specified, execution will use the default specified in `DefaultPool`.",
-								SendEmpty:   true,
-								ListType:    "list",
+								Type:          "array",
+								GoName:        "ExecutionConfigs",
+								Description:   "Configurations for all execution that relates to this `Target`. Each `ExecutionEnvironmentUsage` value may only be used in a single configuration; using the same value multiple times is an error. When one or more configurations are specified, they must include the `RENDER` and `DEPLOY` `ExecutionEnvironmentUsage` values. When no configurations are specified, execution will use the default specified in `DefaultPool`.",
+								ServerDefault: true,
+								SendEmpty:     true,
+								ListType:      "list",
 								Items: &dcl.Property{
 									Type:   "object",
 									GoType: "TargetExecutionConfigs",
@@ -177,14 +178,16 @@ func DCLTargetSchema() *dcl.Schema {
 									},
 									Properties: map[string]*dcl.Property{
 										"artifactStorage": &dcl.Property{
-											Type:        "string",
-											GoName:      "ArtifactStorage",
-											Description: "Optional. Cloud Storage location in which to store execution outputs. This can either be a bucket (\"gs://my-bucket\") or a path within a bucket (\"gs://my-bucket/my-dir\"). If unspecified, a default bucket located in the same region will be used.",
+											Type:          "string",
+											GoName:        "ArtifactStorage",
+											Description:   "Optional. Cloud Storage location in which to store execution outputs. This can either be a bucket (\"gs://my-bucket\") or a path within a bucket (\"gs://my-bucket/my-dir\"). If unspecified, a default bucket located in the same region will be used.",
+											ServerDefault: true,
 										},
 										"serviceAccount": &dcl.Property{
-											Type:        "string",
-											GoName:      "ServiceAccount",
-											Description: "Optional. Google service account to use for execution. If unspecified, the project execution service account (-compute@developer.gserviceaccount.com) is used.",
+											Type:          "string",
+											GoName:        "ServiceAccount",
+											Description:   "Optional. Google service account to use for execution. If unspecified, the project execution service account (-compute@developer.gserviceaccount.com) is used.",
+											ServerDefault: true,
 										},
 										"usages": &dcl.Property{
 											Type:        "array",

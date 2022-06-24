@@ -15,7 +15,6 @@ info:
   title: NetworkSecurity/AuthorizationPolicy
   description: The NetworkSecurity AuthorizationPolicy resource
   x-dcl-struct-name: AuthorizationPolicy
-  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:
@@ -65,6 +64,7 @@ components:
       x-dcl-id: projects/{{project}}/locations/{{location}}/authorizationPolicies/{{name}}
       x-dcl-parent-container: project
       x-dcl-labels: labels
+      x-dcl-has-create: true
       x-dcl-has-iam: true
       type: object
       required:

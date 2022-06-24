@@ -23,7 +23,6 @@ func DCLRoutineSchema() *dcl.Schema {
 			Title:       "Bigquery/Routine",
 			Description: "The Bigquery Routine resource",
 			StructName:  "Routine",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -185,6 +184,7 @@ func DCLRoutineSchema() *dcl.Schema {
 					Title:           "Routine",
 					ID:              "projects/{{project}}/datasets/{{dataset}}/routines/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

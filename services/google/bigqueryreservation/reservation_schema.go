@@ -23,7 +23,6 @@ func DCLReservationSchema() *dcl.Schema {
 			Title:       "BigqueryReservation/Reservation",
 			Description: "The BigqueryReservation Reservation resource",
 			StructName:  "Reservation",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -101,6 +100,7 @@ func DCLReservationSchema() *dcl.Schema {
 					Title:           "Reservation",
 					ID:              "projects/{{project}}/locations/{{location}}/reservations/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

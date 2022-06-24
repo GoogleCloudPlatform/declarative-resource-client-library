@@ -23,7 +23,6 @@ func DCLRoleSchema() *dcl.Schema {
 			Title:       "Iam/Role",
 			Description: "The Iam Role resource",
 			StructName:  "Role",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -84,8 +83,9 @@ func DCLRoleSchema() *dcl.Schema {
 		Components: &dcl.Components{
 			Schemas: map[string]*dcl.Component{
 				"Role": &dcl.Component{
-					Title: "Role",
-					ID:    "{{parent}}/roles/{{name}}",
+					Title:     "Role",
+					ID:        "{{parent}}/roles/{{name}}",
+					HasCreate: true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Properties: map[string]*dcl.Property{

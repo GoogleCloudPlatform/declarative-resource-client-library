@@ -4866,7 +4866,8 @@ func canonicalizeJobTriggerInspectJobInspectConfigCustomInfoTypesStoredType(des,
 
 	cDes := &JobTriggerInspectJobInspectConfigCustomInfoTypesStoredType{}
 
-	if dcl.StringCanonicalize(des.Name, initial.Name) || dcl.IsZeroValue(des.Name) {
+	if dcl.IsZeroValue(des.Name) || (dcl.IsEmptyValueIndirect(des.Name) && dcl.IsEmptyValueIndirect(initial.Name)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.Name = initial.Name
 	} else {
 		cDes.Name = des.Name
@@ -4915,10 +4916,6 @@ func canonicalizeNewJobTriggerInspectJobInspectConfigCustomInfoTypesStoredType(c
 			return des
 		}
 		return nil
-	}
-
-	if dcl.StringCanonicalize(des.Name, nw.Name) {
-		nw.Name = des.Name
 	}
 
 	return nw
@@ -10521,7 +10518,7 @@ func compareJobTriggerInspectJobInspectConfigCustomInfoTypesStoredTypeNewStyle(d
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateJobTriggerUpdateJobTriggerOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

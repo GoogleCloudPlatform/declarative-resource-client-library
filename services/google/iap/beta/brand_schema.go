@@ -23,7 +23,6 @@ func DCLBrandSchema() *dcl.Schema {
 			Title:       "Iap/Brand",
 			Description: "The Iap Brand resource",
 			StructName:  "Brand",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -65,6 +64,7 @@ func DCLBrandSchema() *dcl.Schema {
 					Title:           "Brand",
 					ID:              "projects/{{project}}/brands/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Properties: map[string]*dcl.Property{

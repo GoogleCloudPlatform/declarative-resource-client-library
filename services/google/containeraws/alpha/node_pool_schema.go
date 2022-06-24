@@ -23,7 +23,6 @@ func DCLNodePoolSchema() *dcl.Schema {
 			Title:       "ContainerAws/NodePool",
 			Description: "An Anthos node pool running on AWS.",
 			StructName:  "NodePool",
-			HasCreate:   true,
 			Reference: &dcl.Link{
 				Text: "API reference",
 				URL:  "https://cloud.google.com/anthos/clusters/docs/multi-cloud/reference/rest/v1/projects.locations.awsClusters.awsNodePools",
@@ -125,6 +124,7 @@ func DCLNodePoolSchema() *dcl.Schema {
 					Title:           "NodePool",
 					ID:              "projects/{{project}}/locations/{{location}}/awsClusters/{{cluster}}/awsNodePools/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

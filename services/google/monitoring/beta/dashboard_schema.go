@@ -23,7 +23,6 @@ func DCLDashboardSchema() *dcl.Schema {
 			Title:       "Monitoring/Dashboard",
 			Description: "The Monitoring Dashboard resource",
 			StructName:  "Dashboard",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -87,6 +86,7 @@ func DCLDashboardSchema() *dcl.Schema {
 					Title:           "Dashboard",
 					ID:              "projects/{{project}}/dashboards/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

@@ -23,7 +23,6 @@ func DCLKeySchema() *dcl.Schema {
 			Title:       "RecaptchaEnterprise/Key",
 			Description: "The RecaptchaEnterprise Key resource",
 			StructName:  "Key",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -88,6 +87,7 @@ func DCLKeySchema() *dcl.Schema {
 					ID:              "projects/{{project}}/keys/{{name}}",
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

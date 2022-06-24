@@ -15,7 +15,6 @@ info:
   title: NetworkSecurity/ServerTlsPolicy
   description: The NetworkSecurity ServerTlsPolicy resource
   x-dcl-struct-name: ServerTlsPolicy
-  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:
@@ -65,6 +64,7 @@ components:
       x-dcl-id: projects/{{project}}/locations/{{location}}/serverTlsPolicies/{{name}}
       x-dcl-parent-container: project
       x-dcl-labels: labels
+      x-dcl-has-create: true
       x-dcl-has-iam: true
       type: object
       required:

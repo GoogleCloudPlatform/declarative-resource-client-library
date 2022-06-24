@@ -23,7 +23,6 @@ func DCLCaPoolSchema() *dcl.Schema {
 			Title:       "Privateca/CaPool",
 			Description: "The Privateca CaPool resource",
 			StructName:  "CaPool",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -103,6 +102,7 @@ func DCLCaPoolSchema() *dcl.Schema {
 					UsesStateHint:   true,
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

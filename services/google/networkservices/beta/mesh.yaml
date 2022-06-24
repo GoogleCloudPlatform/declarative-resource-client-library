@@ -15,7 +15,6 @@ info:
   title: NetworkServices/Mesh
   description: The NetworkServices Mesh resource
   x-dcl-struct-name: Mesh
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -64,6 +63,7 @@ components:
       title: Mesh
       x-dcl-id: projects/{{project}}/locations/{{location}}/meshes/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

@@ -15,7 +15,6 @@ info:
   title: Bigquery/Routine
   description: The Bigquery Routine resource
   x-dcl-struct-name: Routine
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -61,6 +60,7 @@ paths:
 components:
   schemas:
     ArgumentsDataType:
+      x-dcl-has-create: false
       x-dcl-has-iam: false
       type: object
       x-dcl-go-name: DataType
@@ -136,6 +136,7 @@ components:
       title: Routine
       x-dcl-id: projects/{{project}}/datasets/{{dataset}}/routines/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

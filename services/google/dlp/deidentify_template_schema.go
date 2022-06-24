@@ -23,7 +23,6 @@ func DCLDeidentifyTemplateSchema() *dcl.Schema {
 			Title:       "Dlp/DeidentifyTemplate",
 			Description: "The Dlp DeidentifyTemplate resource",
 			StructName:  "DeidentifyTemplate",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -103,6 +102,7 @@ func DCLDeidentifyTemplateSchema() *dcl.Schema {
 					Locations: []string{
 						"region",
 					},
+					HasCreate: true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

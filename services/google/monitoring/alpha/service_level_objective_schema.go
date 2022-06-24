@@ -23,7 +23,6 @@ func DCLServiceLevelObjectiveSchema() *dcl.Schema {
 			Title:       "Monitoring/ServiceLevelObjective",
 			Description: "The Monitoring ServiceLevelObjective resource",
 			StructName:  "ServiceLevelObjective",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -102,6 +101,7 @@ func DCLServiceLevelObjectiveSchema() *dcl.Schema {
 					ID:              "projects/{{project}}/services/{{service}}/serviceLevelObjectives/{{name}}",
 					ParentContainer: "project",
 					LabelsField:     "userLabels",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

@@ -17,7 +17,6 @@ info:
     You can use the collected traffic to help you detect security threats and monitor
     application performance.
   x-dcl-struct-name: PacketMirroring
-  x-dcl-has-create: true
   x-dcl-has-iam: false
   x-dcl-ref:
     text: API documentation
@@ -74,6 +73,7 @@ components:
       x-dcl-locations:
       - region
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

@@ -23,7 +23,6 @@ func DCLAuthorizationPolicySchema() *dcl.Schema {
 			Title:       "NetworkSecurity/AuthorizationPolicy",
 			Description: "The NetworkSecurity AuthorizationPolicy resource",
 			StructName:  "AuthorizationPolicy",
-			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{
@@ -103,6 +102,7 @@ func DCLAuthorizationPolicySchema() *dcl.Schema {
 					ID:              "projects/{{project}}/locations/{{location}}/authorizationPolicies/{{name}}",
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					HasIAM:          true,
 					SchemaProperty: dcl.Property{
 						Type: "object",

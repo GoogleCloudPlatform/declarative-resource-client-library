@@ -23,7 +23,6 @@ func DCLHubSchema() *dcl.Schema {
 			Title:       "NetworkConnectivity/Hub",
 			Description: "The NetworkConnectivity Hub resource",
 			StructName:  "Hub",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -91,6 +90,7 @@ func DCLHubSchema() *dcl.Schema {
 					},
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

@@ -15,7 +15,6 @@ info:
   title: Dataproc/AutoscalingPolicy
   description: The Dataproc AutoscalingPolicy resource
   x-dcl-struct-name: AutoscalingPolicy
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -64,6 +63,7 @@ components:
       title: AutoscalingPolicy
       x-dcl-id: projects/{{project}}/locations/{{location}}/autoscalingPolicies/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

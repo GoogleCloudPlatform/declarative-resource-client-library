@@ -15,7 +15,6 @@ info:
   title: Apigee/Organization
   description: The Apigee Organization resource
   x-dcl-struct-name: Organization
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -48,6 +47,7 @@ components:
       title: Organization
       x-dcl-id: organizations/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

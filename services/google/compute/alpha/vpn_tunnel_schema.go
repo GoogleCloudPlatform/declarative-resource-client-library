@@ -23,7 +23,6 @@ func DCLVpnTunnelSchema() *dcl.Schema {
 			Title:       "Compute/VpnTunnel",
 			Description: "The Compute VpnTunnel resource",
 			StructName:  "VpnTunnel",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -106,6 +105,7 @@ func DCLVpnTunnelSchema() *dcl.Schema {
 					UsesStateHint:   true,
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

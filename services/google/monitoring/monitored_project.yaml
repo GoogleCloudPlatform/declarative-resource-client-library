@@ -18,7 +18,6 @@ info:
     potentially across multiple organizations.  This enables you to view these groups
     in the Monitoring page of the cloud console.
   x-dcl-struct-name: MonitoredProject
-  x-dcl-has-create: true
   x-dcl-has-iam: false
   x-dcl-ref:
     text: REST API
@@ -68,6 +67,7 @@ components:
       x-dcl-id: locations/global/metricsScopes/{{metrics_scope}}/projects/{{name}}
       x-dcl-locations:
       - global
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

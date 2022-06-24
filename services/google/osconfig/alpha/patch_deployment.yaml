@@ -17,7 +17,6 @@ info:
     to complete a patch. These configurations include instance filter, package repository
     settings, and a schedule.
   x-dcl-struct-name: PatchDeployment
-  x-dcl-has-create: true
   x-dcl-has-iam: false
   x-dcl-ref:
     text: API documentation
@@ -64,6 +63,7 @@ components:
       title: PatchDeployment
       x-dcl-id: projects/{{project}}/patchDeployments/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

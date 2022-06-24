@@ -23,7 +23,6 @@ func DCLMeshSchema() *dcl.Schema {
 			Title:       "NetworkServices/Mesh",
 			Description: "The NetworkServices Mesh resource",
 			StructName:  "Mesh",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -101,6 +100,7 @@ func DCLMeshSchema() *dcl.Schema {
 					Title:           "Mesh",
 					ID:              "projects/{{project}}/locations/{{location}}/meshes/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

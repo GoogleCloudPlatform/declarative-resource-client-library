@@ -23,7 +23,6 @@ func DCLServiceAttachmentSchema() *dcl.Schema {
 			Title:       "Compute/ServiceAttachment",
 			Description: "Represents a ServiceAttachment resource.",
 			StructName:  "ServiceAttachment",
-			HasCreate:   true,
 			Reference: &dcl.Link{
 				Text: "API documentation",
 				URL:  "https://cloud.google.com/compute/docs/reference/rest/beta/serviceAttachments",
@@ -114,6 +113,7 @@ func DCLServiceAttachmentSchema() *dcl.Schema {
 						"region",
 					},
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

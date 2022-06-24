@@ -15,7 +15,6 @@ info:
   title: CloudResourceManager/TagKey
   description: The CloudResourceManager TagKey resource
   x-dcl-struct-name: TagKey
-  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:
@@ -41,6 +40,7 @@ components:
     TagKey:
       title: TagKey
       x-dcl-id: tagKeys/{{name}}
+      x-dcl-has-create: true
       x-dcl-has-iam: true
       type: object
       required:

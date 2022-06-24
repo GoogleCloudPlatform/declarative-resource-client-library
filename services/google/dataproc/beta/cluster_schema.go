@@ -23,7 +23,6 @@ func DCLClusterSchema() *dcl.Schema {
 			Title:       "Dataproc/Cluster",
 			Description: "The Dataproc Cluster resource",
 			StructName:  "Cluster",
-			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{
@@ -103,6 +102,7 @@ func DCLClusterSchema() *dcl.Schema {
 					ID:              "projects/{{project}}/regions/{{location}}/clusters/{{name}}",
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					HasIAM:          true,
 					SchemaProperty: dcl.Property{
 						Type: "object",

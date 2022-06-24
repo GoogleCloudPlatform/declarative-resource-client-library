@@ -23,7 +23,6 @@ func DCLInstanceSchema() *dcl.Schema {
 			Title:       "Compute/Instance",
 			Description: "The Compute Instance resource",
 			StructName:  "Instance",
-			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{
@@ -107,6 +106,7 @@ func DCLInstanceSchema() *dcl.Schema {
 					UsesStateHint:   true,
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					HasIAM:          true,
 					SchemaProperty: dcl.Property{
 						Type: "object",

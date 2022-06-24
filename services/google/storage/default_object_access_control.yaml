@@ -15,7 +15,6 @@ info:
   title: Storage/DefaultObjectAccessControl
   description: The Storage DefaultObjectAccessControl resource
   x-dcl-struct-name: DefaultObjectAccessControl
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -64,6 +63,7 @@ components:
       title: DefaultObjectAccessControl
       x-dcl-id: b/{{bucket}}/defaultObjectAcl/{{entity}}?userProject={{project}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

@@ -15,7 +15,6 @@ info:
   title: Compute/ForwardingRule
   description: The Compute ForwardingRule resource
   x-dcl-struct-name: ForwardingRule
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -68,6 +67,7 @@ components:
       - global
       x-dcl-parent-container: project
       x-dcl-labels: labels
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

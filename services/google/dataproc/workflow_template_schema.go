@@ -23,7 +23,6 @@ func DCLWorkflowTemplateSchema() *dcl.Schema {
 			Title:       "Dataproc/WorkflowTemplate",
 			Description: "The Dataproc WorkflowTemplate resource",
 			StructName:  "WorkflowTemplate",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -102,6 +101,7 @@ func DCLWorkflowTemplateSchema() *dcl.Schema {
 					ID:              "projects/{{project}}/locations/{{location}}/workflowTemplates/{{name}}",
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

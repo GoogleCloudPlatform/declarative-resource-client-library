@@ -15,7 +15,6 @@ info:
   title: Firebase/WebApp
   description: ""
   x-dcl-struct-name: WebApp
-  x-dcl-has-create: true
   x-dcl-has-iam: false
   x-dcl-ref:
     text: Firebase WebApps API Documentation
@@ -62,6 +61,7 @@ components:
       title: WebApp
       x-dcl-id: projects/{{project}}/webApps/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

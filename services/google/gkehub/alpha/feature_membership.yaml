@@ -15,7 +15,6 @@ info:
   title: GkeHub/FeatureMembership
   description: The GkeHub FeatureMembership resource
   x-dcl-struct-name: FeatureMembership
-  x-dcl-has-create: true
   x-dcl-has-iam: false
   x-dcl-mutex: '{{project}}/{{location}}/{{feature}}'
 paths:
@@ -73,6 +72,7 @@ components:
       title: FeatureMembership
       x-dcl-id: projects/{{project}}/locations/{{location}}/features/{{feature}}/memberships/{{membership}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

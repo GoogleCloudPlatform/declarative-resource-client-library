@@ -15,7 +15,6 @@ info:
   title: Cloudkms/CryptoKey
   description: The Cloudkms CryptoKey resource
   x-dcl-struct-name: CryptoKey
-  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:
@@ -52,6 +51,7 @@ components:
       x-dcl-id: projects/{{project}}/locations/{{location}}/keyRings/{{key_ring}}/cryptoKeys/{{name}}
       x-dcl-parent-container: project
       x-dcl-labels: labels
+      x-dcl-has-create: true
       x-dcl-has-iam: true
       type: object
       required:

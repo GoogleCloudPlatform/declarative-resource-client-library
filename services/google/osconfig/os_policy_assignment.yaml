@@ -15,7 +15,6 @@ info:
   title: OSConfig/OSPolicyAssignment
   description: Represents an OSPolicyAssignment resource.
   x-dcl-struct-name: OSPolicyAssignment
-  x-dcl-has-create: true
   x-dcl-has-iam: false
   x-dcl-ref:
     text: API documentation
@@ -67,6 +66,7 @@ components:
       title: OSPolicyAssignment
       x-dcl-id: projects/{{project}}/locations/{{location}}/osPolicyAssignments/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

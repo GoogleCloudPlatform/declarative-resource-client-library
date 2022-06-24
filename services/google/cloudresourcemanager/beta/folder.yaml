@@ -15,7 +15,6 @@ info:
   title: CloudResourceManager/Folder
   description: The CloudResourceManager Folder resource
   x-dcl-struct-name: Folder
-  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:
@@ -55,6 +54,7 @@ components:
     Folder:
       title: Folder
       x-dcl-id: folders/{{name}}
+      x-dcl-has-create: true
       x-dcl-has-iam: true
       type: object
       required:

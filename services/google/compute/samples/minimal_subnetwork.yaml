@@ -19,7 +19,7 @@ versions:
 - beta
 resource: samples/minimal.subnetwork.json
 dependencies:
-- samples/legacy.network.json
+- samples/minimal.network.json
 variables:
 - name: compute_network
   type: resource_name

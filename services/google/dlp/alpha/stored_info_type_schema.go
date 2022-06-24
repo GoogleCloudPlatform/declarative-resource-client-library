@@ -23,7 +23,6 @@ func DCLStoredInfoTypeSchema() *dcl.Schema {
 			Title:       "Dlp/StoredInfoType",
 			Description: "The Dlp StoredInfoType resource",
 			StructName:  "StoredInfoType",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -103,6 +102,7 @@ func DCLStoredInfoTypeSchema() *dcl.Schema {
 					Locations: []string{
 						"region",
 					},
+					HasCreate: true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

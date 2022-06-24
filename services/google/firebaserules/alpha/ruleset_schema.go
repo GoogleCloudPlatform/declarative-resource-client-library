@@ -22,7 +22,6 @@ func DCLRulesetSchema() *dcl.Schema {
 		Info: &dcl.Info{
 			Title:      "Firebaserules/Ruleset",
 			StructName: "Ruleset",
-			HasCreate:  true,
 			Reference: &dcl.Link{
 				Text: "Firebase Ruleset API Documentation",
 				URL:  "https://firebase.google.com/docs/reference/rules/rest#rest-resource:-v1.projects.rulesets",
@@ -96,6 +95,7 @@ func DCLRulesetSchema() *dcl.Schema {
 					Title:           "Ruleset",
 					ID:              "projects/{{project}}/rulesets/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

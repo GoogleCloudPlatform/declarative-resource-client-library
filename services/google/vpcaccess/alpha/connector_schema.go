@@ -23,7 +23,6 @@ func DCLConnectorSchema() *dcl.Schema {
 			Title:       "VPCAccess/Connector",
 			Description: "The VPCAccess Connector resource",
 			StructName:  "Connector",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -101,6 +100,7 @@ func DCLConnectorSchema() *dcl.Schema {
 					Title:           "Connector",
 					ID:              "projects/{{project}}/locations/{{location}}/connectors/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

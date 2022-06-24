@@ -23,7 +23,6 @@ func DCLLogExclusionSchema() *dcl.Schema {
 			Title:       "Logging/LogExclusion",
 			Description: "The Logging LogExclusion resource",
 			StructName:  "LogExclusion",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -84,8 +83,9 @@ func DCLLogExclusionSchema() *dcl.Schema {
 		Components: &dcl.Components{
 			Schemas: map[string]*dcl.Component{
 				"LogExclusion": &dcl.Component{
-					Title: "LogExclusion",
-					ID:    "{{parent}}/exclusions/{{name}}",
+					Title:     "LogExclusion",
+					ID:        "{{parent}}/exclusions/{{name}}",
+					HasCreate: true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

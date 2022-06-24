@@ -23,7 +23,6 @@ func DCLGroupSchema() *dcl.Schema {
 			Title:       "Cloudidentity/Group",
 			Description: "The Cloudidentity Group resource",
 			StructName:  "Group",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -87,6 +86,7 @@ func DCLGroupSchema() *dcl.Schema {
 					Title:         "Group",
 					ID:            "groups/{{name}}",
 					UsesStateHint: true,
+					HasCreate:     true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

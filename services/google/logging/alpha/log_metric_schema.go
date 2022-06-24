@@ -23,7 +23,6 @@ func DCLLogMetricSchema() *dcl.Schema {
 			Title:       "Logging/LogMetric",
 			Description: "The Logging LogMetric resource",
 			StructName:  "LogMetric",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -88,6 +87,7 @@ func DCLLogMetricSchema() *dcl.Schema {
 					ID:              "projects/{{project}}/metrics/{{name}}",
 					UsesStateHint:   true,
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

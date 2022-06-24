@@ -2,6 +2,6 @@
   "name": "{{compute_subnetwork}}",
   "project": "{{project}}",
   "ipCidrRange": "10.2.0.0/16",
-  "network": "{{ref:legacy.network.json:selfLink}}",
+  "network": "{{ref:minimal.network.json:selfLink}}",
   "region": "{{region}}"
 }

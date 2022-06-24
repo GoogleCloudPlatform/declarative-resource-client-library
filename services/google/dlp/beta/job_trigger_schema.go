@@ -23,7 +23,6 @@ func DCLJobTriggerSchema() *dcl.Schema {
 			Title:       "Dlp/JobTrigger",
 			Description: "The Dlp JobTrigger resource",
 			StructName:  "JobTrigger",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -103,6 +102,7 @@ func DCLJobTriggerSchema() *dcl.Schema {
 					Locations: []string{
 						"region",
 					},
+					HasCreate: true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{
@@ -659,6 +659,13 @@ func DCLJobTriggerSchema() *dcl.Schema {
 																	Type:        "string",
 																	GoName:      "Name",
 																	Description: "Resource name of the requested `StoredInfoType`, for example `organizations/433245324/storedInfoTypes/432452342` or `projects/project-id/storedInfoTypes/432452342`.",
+																	ResourceReferences: []*dcl.PropertyResourceReference{
+																		&dcl.PropertyResourceReference{
+																			Resource: "Dlp/StoredInfoType",
+																			Field:    "name",
+																			Parent:   true,
+																		},
+																	},
 																},
 															},
 														},

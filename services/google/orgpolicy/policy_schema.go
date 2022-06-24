@@ -23,7 +23,6 @@ func DCLPolicySchema() *dcl.Schema {
 			Title:       "OrgPolicy/Policy",
 			Description: "An organization policy gives you programmatic control over your organization's cloud resources.  Using Organization Policies, you will be able to configure constraints across your entire resource hierarchy.",
 			StructName:  "Policy",
-			HasCreate:   true,
 			Reference: &dcl.Link{
 				Text: "REST API",
 				URL:  "https://cloud.google.com/resource-manager/docs/reference/orgpolicy/rest/v2/organizations.policies",
@@ -102,8 +101,9 @@ func DCLPolicySchema() *dcl.Schema {
 		Components: &dcl.Components{
 			Schemas: map[string]*dcl.Component{
 				"Policy": &dcl.Component{
-					Title: "Policy",
-					ID:    "{{parent}}/policies/{{name}}",
+					Title:     "Policy",
+					ID:        "{{parent}}/policies/{{name}}",
+					HasCreate: true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

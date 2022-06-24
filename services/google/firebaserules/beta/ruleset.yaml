@@ -15,7 +15,6 @@ info:
   title: Firebaserules/Ruleset
   description: ""
   x-dcl-struct-name: Ruleset
-  x-dcl-has-create: true
   x-dcl-has-iam: false
   x-dcl-ref:
     text: Firebase Ruleset API Documentation
@@ -62,6 +61,7 @@ components:
       title: Ruleset
       x-dcl-id: projects/{{project}}/rulesets/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

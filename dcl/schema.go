@@ -83,7 +83,6 @@ type Info struct {
 	Title       string  `yaml:"title"`
 	Description string  `yaml:"description"`
 	StructName  string  `yaml:"x-dcl-struct-name,omitempty"`
-	HasCreate   bool    `yaml:"x-dcl-has-create"`
 	HasIAM      bool    `yaml:"x-dcl-has-iam"`
 	Mutex       string  `yaml:"x-dcl-mutex,omitempty"`
 	Note        string  `yaml:"x-dcl-note,omitempty"`
@@ -138,6 +137,7 @@ type Component struct {
 	UsesStateHint   bool     `yaml:"x-dcl-uses-state-hint,omitempty"`
 	ParentContainer string   `yaml:"x-dcl-parent-container,omitempty"`
 	LabelsField     string   `yaml:"x-dcl-labels,omitempty"`
+	HasCreate       bool     `yaml:"x-dcl-has-create"`
 	HasIAM          bool     `yaml:"x-dcl-has-iam"`
 
 	// TODO: It appears that reused types are not fully conforming to the same spec as the rest of the components.

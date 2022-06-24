@@ -23,7 +23,6 @@ func DCLNotificationChannelSchema() *dcl.Schema {
 			Title:       "Monitoring/NotificationChannel",
 			Description: "The Monitoring NotificationChannel resource",
 			StructName:  "NotificationChannel",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -87,6 +86,7 @@ func DCLNotificationChannelSchema() *dcl.Schema {
 					Title:           "NotificationChannel",
 					ID:              "projects/{{project}}/notificationChannels/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Properties: map[string]*dcl.Property{

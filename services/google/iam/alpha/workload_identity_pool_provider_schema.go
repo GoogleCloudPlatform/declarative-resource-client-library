@@ -23,7 +23,6 @@ func DCLWorkloadIdentityPoolProviderSchema() *dcl.Schema {
 			Title:       "Iam/WorkloadIdentityPoolProvider",
 			Description: "The Iam WorkloadIdentityPoolProvider resource",
 			StructName:  "WorkloadIdentityPoolProvider",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -116,6 +115,7 @@ func DCLWorkloadIdentityPoolProviderSchema() *dcl.Schema {
 					ID:              "projects/{{project}}/locations/{{location}}/workloadIdentityPools/{{workload_identity_pool}}/providers/{{name}}",
 					UsesStateHint:   true,
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

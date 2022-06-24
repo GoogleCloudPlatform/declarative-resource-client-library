@@ -15,7 +15,6 @@ info:
   title: Run/Job
   description: The Run Job resource
   x-dcl-struct-name: Job
-  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:
@@ -64,6 +63,7 @@ components:
       title: Job
       x-dcl-id: projects/{{project}}/locations/{{location}}/jobs/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: true
       type: object
       required:

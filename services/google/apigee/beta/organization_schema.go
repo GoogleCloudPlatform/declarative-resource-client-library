@@ -23,7 +23,6 @@ func DCLOrganizationSchema() *dcl.Schema {
 			Title:       "Apigee/Organization",
 			Description: "The Apigee Organization resource",
 			StructName:  "Organization",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -69,6 +68,7 @@ func DCLOrganizationSchema() *dcl.Schema {
 					Title:           "Organization",
 					ID:              "organizations/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

@@ -23,7 +23,6 @@ func DCLInstanceSchema() *dcl.Schema {
 			Title:       "ConfigController/Instance",
 			Description: "The ConfigController Instance resource",
 			StructName:  "Instance",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -102,6 +101,7 @@ func DCLInstanceSchema() *dcl.Schema {
 					ID:              "projects/{{project}}/locations/{{location}}/krmApiHosts/{{name}}",
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

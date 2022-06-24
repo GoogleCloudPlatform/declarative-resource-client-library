@@ -23,7 +23,6 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 			Title:       "Vmware/PrivateCloud",
 			Description: "The Vmware PrivateCloud resource",
 			StructName:  "PrivateCloud",
-			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{
@@ -103,6 +102,7 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 					ID:              "projects/{{project}}/locations/{{location}}/privateClouds/{{name}}",
 					UsesStateHint:   true,
 					ParentContainer: "project",
+					HasCreate:       true,
 					HasIAM:          true,
 					SchemaProperty: dcl.Property{
 						Type: "object",

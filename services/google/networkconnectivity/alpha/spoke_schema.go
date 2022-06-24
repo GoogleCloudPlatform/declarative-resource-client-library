@@ -23,7 +23,6 @@ func DCLSpokeSchema() *dcl.Schema {
 			Title:       "NetworkConnectivity/Spoke",
 			Description: "The NetworkConnectivity Spoke resource",
 			StructName:  "Spoke",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -102,6 +101,7 @@ func DCLSpokeSchema() *dcl.Schema {
 					ID:              "projects/{{project}}/locations/{{location}}/spokes/{{name}}",
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

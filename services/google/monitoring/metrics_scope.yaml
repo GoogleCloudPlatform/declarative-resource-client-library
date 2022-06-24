@@ -15,7 +15,6 @@ info:
   title: Monitoring/MetricsScope
   description: The Monitoring MetricsScope resource
   x-dcl-struct-name: MetricsScope
-  x-dcl-has-create: false
   x-dcl-has-iam: false
 paths:
   get:
@@ -37,6 +36,7 @@ components:
       x-dcl-id: locations/global/metricsScopes/{{name}}
       x-dcl-locations:
       - global
+      x-dcl-has-create: false
       x-dcl-has-iam: false
       type: object
       required:

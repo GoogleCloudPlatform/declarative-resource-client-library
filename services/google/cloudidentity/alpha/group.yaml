@@ -15,7 +15,6 @@ info:
   title: Cloudidentity/Group
   description: The Cloudidentity Group resource
   x-dcl-struct-name: Group
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -56,6 +55,7 @@ components:
       title: Group
       x-dcl-id: groups/{{name}}
       x-dcl-uses-state-hint: true
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

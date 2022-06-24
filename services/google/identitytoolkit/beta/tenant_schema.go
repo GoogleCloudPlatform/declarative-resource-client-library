@@ -23,7 +23,6 @@ func DCLTenantSchema() *dcl.Schema {
 			Title:       "IdentityToolkit/Tenant",
 			Description: "The IdentityToolkit Tenant resource",
 			StructName:  "Tenant",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -87,6 +86,7 @@ func DCLTenantSchema() *dcl.Schema {
 					Title:           "Tenant",
 					ID:              "projects/{{project}}/tenants/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

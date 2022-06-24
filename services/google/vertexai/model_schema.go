@@ -23,7 +23,6 @@ func DCLModelSchema() *dcl.Schema {
 			Title:       "VertexAI/Model",
 			Description: "The VertexAI Model resource",
 			StructName:  "Model",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -103,6 +102,7 @@ func DCLModelSchema() *dcl.Schema {
 					UsesStateHint:   true,
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

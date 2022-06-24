@@ -15,7 +15,6 @@ info:
   title: GameServices/Realm
   description: The GameServices Realm resource
   x-dcl-struct-name: Realm
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -65,6 +64,7 @@ components:
       x-dcl-id: projects/{{project}}/locations/{{location}}/realms/{{name}}
       x-dcl-parent-container: project
       x-dcl-labels: labels
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

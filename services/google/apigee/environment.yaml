@@ -15,7 +15,6 @@ info:
   title: Apigee/Environment
   description: The Apigee Environment resource
   x-dcl-struct-name: Environment
-  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:
@@ -55,6 +54,7 @@ components:
     Environment:
       title: Environment
       x-dcl-id: organizations/{{apigee_organization}}/environments/{{name}}
+      x-dcl-has-create: true
       x-dcl-has-iam: true
       type: object
       required:

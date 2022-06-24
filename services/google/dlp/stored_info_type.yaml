@@ -15,7 +15,6 @@ info:
   title: Dlp/StoredInfoType
   description: The Dlp StoredInfoType resource
   x-dcl-struct-name: StoredInfoType
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -65,6 +64,7 @@ components:
       x-dcl-id: '{{parent}}/storedInfoTypes/{{name}}'
       x-dcl-locations:
       - region
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

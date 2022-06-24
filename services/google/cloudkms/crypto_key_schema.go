@@ -23,7 +23,6 @@ func DCLCryptoKeySchema() *dcl.Schema {
 			Title:       "Cloudkms/CryptoKey",
 			Description: "The Cloudkms CryptoKey resource",
 			StructName:  "CryptoKey",
-			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{
@@ -81,6 +80,7 @@ func DCLCryptoKeySchema() *dcl.Schema {
 					ID:              "projects/{{project}}/locations/{{location}}/keyRings/{{key_ring}}/cryptoKeys/{{name}}",
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					HasIAM:          true,
 					SchemaProperty: dcl.Property{
 						Type: "object",

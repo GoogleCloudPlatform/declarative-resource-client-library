@@ -23,7 +23,6 @@ func DCLFeatureSchema() *dcl.Schema {
 			Title:       "GkeHub/Feature",
 			Description: "The GkeHub Feature resource",
 			StructName:  "Feature",
-			HasCreate:   true,
 			Mutex:       "{{project}}/{{location}}/{{feature}}",
 		},
 		Paths: &dcl.Paths{
@@ -103,6 +102,7 @@ func DCLFeatureSchema() *dcl.Schema {
 					ID:              "projects/{{project}}/locations/{{location}}/features/{{name}}",
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

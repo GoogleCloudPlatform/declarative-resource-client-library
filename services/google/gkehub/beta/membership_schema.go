@@ -23,7 +23,6 @@ func DCLMembershipSchema() *dcl.Schema {
 			Title:       "GkeHub/Membership",
 			Description: "The GkeHub Membership resource",
 			StructName:  "Membership",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -103,6 +102,7 @@ func DCLMembershipSchema() *dcl.Schema {
 					UsesStateHint:   true,
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

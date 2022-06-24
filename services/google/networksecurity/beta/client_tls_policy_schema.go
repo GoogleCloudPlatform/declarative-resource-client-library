@@ -23,7 +23,6 @@ func DCLClientTlsPolicySchema() *dcl.Schema {
 			Title:       "NetworkSecurity/ClientTlsPolicy",
 			Description: "The NetworkSecurity ClientTlsPolicy resource",
 			StructName:  "ClientTlsPolicy",
-			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{
@@ -103,6 +102,7 @@ func DCLClientTlsPolicySchema() *dcl.Schema {
 					ID:              "projects/{{project}}/locations/{{location}}/clientTlsPolicies/{{name}}",
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					HasIAM:          true,
 					SchemaProperty: dcl.Property{
 						Type: "object",

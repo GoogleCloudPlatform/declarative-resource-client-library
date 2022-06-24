@@ -15,7 +15,6 @@ info:
   title: Compute/BackendBucket
   description: The Compute BackendBucket resource
   x-dcl-struct-name: BackendBucket
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -58,6 +57,7 @@ components:
       x-dcl-locations:
       - global
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       properties:

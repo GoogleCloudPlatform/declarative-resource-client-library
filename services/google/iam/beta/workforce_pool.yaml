@@ -15,7 +15,6 @@ info:
   title: Iam/WorkforcePool
   description: The Iam WorkforcePool resource
   x-dcl-struct-name: WorkforcePool
-  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:
@@ -63,6 +62,7 @@ components:
     WorkforcePool:
       title: WorkforcePool
       x-dcl-id: locations/{{location}}/workforcePools/{{name}}
+      x-dcl-has-create: true
       x-dcl-has-iam: true
       type: object
       required:

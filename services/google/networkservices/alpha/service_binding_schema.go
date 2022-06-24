@@ -23,7 +23,6 @@ func DCLServiceBindingSchema() *dcl.Schema {
 			Title:       "NetworkServices/ServiceBinding",
 			Description: "The NetworkServices ServiceBinding resource",
 			StructName:  "ServiceBinding",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -101,6 +100,7 @@ func DCLServiceBindingSchema() *dcl.Schema {
 					Title:           "ServiceBinding",
 					ID:              "projects/{{project}}/locations/{{location}}/serviceBindings/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

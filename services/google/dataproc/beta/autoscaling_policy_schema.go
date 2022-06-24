@@ -23,7 +23,6 @@ func DCLAutoscalingPolicySchema() *dcl.Schema {
 			Title:       "Dataproc/AutoscalingPolicy",
 			Description: "The Dataproc AutoscalingPolicy resource",
 			StructName:  "AutoscalingPolicy",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -101,6 +100,7 @@ func DCLAutoscalingPolicySchema() *dcl.Schema {
 					Title:           "AutoscalingPolicy",
 					ID:              "projects/{{project}}/locations/{{location}}/autoscalingPolicies/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

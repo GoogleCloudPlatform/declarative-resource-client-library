@@ -17,7 +17,6 @@ info:
     cloud resources.  Using Organization Policies, you will be able to configure constraints
     across your entire resource hierarchy.
   x-dcl-struct-name: Policy
-  x-dcl-has-create: true
   x-dcl-has-iam: false
   x-dcl-ref:
     text: REST API
@@ -67,6 +66,7 @@ components:
     Policy:
       title: Policy
       x-dcl-id: '{{parent}}/policies/{{name}}'
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

@@ -22,7 +22,6 @@ func DCLReleaseSchema() *dcl.Schema {
 		Info: &dcl.Info{
 			Title:      "Firebaserules/Release",
 			StructName: "Release",
-			HasCreate:  true,
 			Reference: &dcl.Link{
 				Text: "Firebase Rules API Documentation",
 				URL:  "https://firebase.google.com/docs/reference/rules/rest#rest-resource:-v1.projects.releases",
@@ -96,6 +95,7 @@ func DCLReleaseSchema() *dcl.Schema {
 					Title:           "Release",
 					ID:              "projects/{{project}}/releases/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

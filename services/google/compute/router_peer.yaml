@@ -15,7 +15,6 @@ info:
   title: Compute/RouterPeer
   description: The Compute RouterPeer resource
   x-dcl-struct-name: RouterPeer
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -72,6 +71,7 @@ components:
       title: RouterPeer
       x-dcl-id: projects/{{project}}/regions/{{location}}/routers/{{router}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

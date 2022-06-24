@@ -23,7 +23,6 @@ func DCLMembershipSchema() *dcl.Schema {
 			Title:       "Cloudidentity/Membership",
 			Description: "The Cloudidentity Membership resource",
 			StructName:  "Membership",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -84,8 +83,9 @@ func DCLMembershipSchema() *dcl.Schema {
 		Components: &dcl.Components{
 			Schemas: map[string]*dcl.Component{
 				"Membership": &dcl.Component{
-					Title: "Membership",
-					ID:    "groups/{{group}}/memberships/{{name}}",
+					Title:     "Membership",
+					ID:        "groups/{{group}}/memberships/{{name}}",
+					HasCreate: true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

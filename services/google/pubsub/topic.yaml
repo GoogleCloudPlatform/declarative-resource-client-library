@@ -15,7 +15,6 @@ info:
   title: Pubsub/Topic
   description: The Pubsub Topic resource
   x-dcl-struct-name: Topic
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -57,6 +56,7 @@ components:
       x-dcl-id: projects/{{project}}/topics/{{name}}
       x-dcl-parent-container: project
       x-dcl-labels: labels
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

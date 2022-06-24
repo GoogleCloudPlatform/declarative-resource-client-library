@@ -23,7 +23,6 @@ func DCLFleetSchema() *dcl.Schema {
 			Title:       "GkeHub/Fleet",
 			Description: "The GkeHub Fleet resource",
 			StructName:  "Fleet",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -63,6 +62,7 @@ func DCLFleetSchema() *dcl.Schema {
 					Title:           "Fleet",
 					ID:              "projects/{{project}}/locations/{{location}}/fleets/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

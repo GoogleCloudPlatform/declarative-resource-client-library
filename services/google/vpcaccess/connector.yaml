@@ -15,7 +15,6 @@ info:
   title: VPCAccess/Connector
   description: The VPCAccess Connector resource
   x-dcl-struct-name: Connector
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -64,6 +63,7 @@ components:
       title: Connector
       x-dcl-id: projects/{{project}}/locations/{{location}}/connectors/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

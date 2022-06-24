@@ -23,7 +23,6 @@ func DCLFunctionSchema() *dcl.Schema {
 			Title:       "CloudFunctions/Function",
 			Description: "The CloudFunctions Function resource",
 			StructName:  "Function",
-			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{
@@ -106,6 +105,7 @@ func DCLFunctionSchema() *dcl.Schema {
 					},
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					HasIAM:          true,
 					SchemaProperty: dcl.Property{
 						Type: "object",

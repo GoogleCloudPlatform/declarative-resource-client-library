@@ -23,7 +23,6 @@ func DCLBucketSchema() *dcl.Schema {
 			Title:       "Storage/Bucket",
 			Description: "The Storage Bucket resource",
 			StructName:  "Bucket",
-			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{
@@ -88,6 +87,7 @@ func DCLBucketSchema() *dcl.Schema {
 					Title:           "Bucket",
 					ID:              "b/{{name}}?userProject={{project}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					HasIAM:          true,
 					SchemaProperty: dcl.Property{
 						Type: "object",

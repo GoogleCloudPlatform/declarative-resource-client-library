@@ -15,7 +15,6 @@ info:
   title: Compute/UrlMap
   description: The Compute UrlMap resource
   x-dcl-struct-name: UrlMap
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -67,6 +66,7 @@ components:
       - region
       - global
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       properties:

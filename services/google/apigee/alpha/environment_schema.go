@@ -23,7 +23,6 @@ func DCLEnvironmentSchema() *dcl.Schema {
 			Title:       "Apigee/Environment",
 			Description: "The Apigee Environment resource",
 			StructName:  "Environment",
-			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{
@@ -85,9 +84,10 @@ func DCLEnvironmentSchema() *dcl.Schema {
 		Components: &dcl.Components{
 			Schemas: map[string]*dcl.Component{
 				"Environment": &dcl.Component{
-					Title:  "Environment",
-					ID:     "organizations/{{apigee_organization}}/environments/{{name}}",
-					HasIAM: true,
+					Title:     "Environment",
+					ID:        "organizations/{{apigee_organization}}/environments/{{name}}",
+					HasCreate: true,
+					HasIAM:    true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

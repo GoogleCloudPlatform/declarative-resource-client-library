@@ -22,7 +22,6 @@ func DCLWebAppSchema() *dcl.Schema {
 		Info: &dcl.Info{
 			Title:      "Firebase/WebApp",
 			StructName: "WebApp",
-			HasCreate:  true,
 			Reference: &dcl.Link{
 				Text: "Firebase WebApps API Documentation",
 				URL:  "https://firebase.google.com/docs/projects/api/reference/rest#rest-resource:-v1beta1.projects.webapps",
@@ -96,6 +95,7 @@ func DCLWebAppSchema() *dcl.Schema {
 					Title:           "WebApp",
 					ID:              "projects/{{project}}/webApps/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

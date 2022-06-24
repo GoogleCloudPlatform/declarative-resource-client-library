@@ -23,7 +23,6 @@ func DCLGroupSchema() *dcl.Schema {
 			Title:       "Monitoring/Group",
 			Description: "The Monitoring Group resource",
 			StructName:  "Group",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -87,6 +86,7 @@ func DCLGroupSchema() *dcl.Schema {
 					Title:           "Group",
 					ID:              "projects/{{project}}/groups/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

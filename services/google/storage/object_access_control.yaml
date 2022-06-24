@@ -15,7 +15,6 @@ info:
   title: Storage/ObjectAccessControl
   description: The Storage ObjectAccessControl resource
   x-dcl-struct-name: ObjectAccessControl
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -72,6 +71,7 @@ components:
       title: ObjectAccessControl
       x-dcl-id: b/{{bucket}}/o/{{object}}/acl/{{entity}}?userProject={{project}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

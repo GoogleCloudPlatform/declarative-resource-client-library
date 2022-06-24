@@ -15,7 +15,6 @@ info:
   title: Vmware/PrivateCloud
   description: The Vmware PrivateCloud resource
   x-dcl-struct-name: PrivateCloud
-  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:
@@ -65,6 +64,7 @@ components:
       x-dcl-id: projects/{{project}}/locations/{{location}}/privateClouds/{{name}}
       x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: true
       type: object
       required:

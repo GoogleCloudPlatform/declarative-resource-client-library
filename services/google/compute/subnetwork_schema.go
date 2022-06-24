@@ -23,7 +23,6 @@ func DCLSubnetworkSchema() *dcl.Schema {
 			Title:       "Compute/Subnetwork",
 			Description: "The Compute Subnetwork resource",
 			StructName:  "Subnetwork",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -104,6 +103,7 @@ func DCLSubnetworkSchema() *dcl.Schema {
 						"region",
 					},
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

@@ -23,7 +23,6 @@ func DCLInstanceSchema() *dcl.Schema {
 			Title:       "Apigee/Instance",
 			Description: "The Apigee Instance resource",
 			StructName:  "Instance",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -84,8 +83,9 @@ func DCLInstanceSchema() *dcl.Schema {
 		Components: &dcl.Components{
 			Schemas: map[string]*dcl.Component{
 				"Instance": &dcl.Component{
-					Title: "Instance",
-					ID:    "organizations/{{apigee_organization}}/instances/{{name}}",
+					Title:     "Instance",
+					ID:        "organizations/{{apigee_organization}}/instances/{{name}}",
+					HasCreate: true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

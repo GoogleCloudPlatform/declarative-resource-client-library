@@ -15,7 +15,6 @@ info:
   title: Compute/NetworkEndpoint
   description: The Compute NetworkEndpoint resource
   x-dcl-struct-name: NetworkEndpoint
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -74,6 +73,7 @@ components:
       - region
       - zone
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       properties:

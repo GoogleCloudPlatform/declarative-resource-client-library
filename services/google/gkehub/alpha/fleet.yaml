@@ -15,7 +15,6 @@ info:
   title: GkeHub/Fleet
   description: The GkeHub Fleet resource
   x-dcl-struct-name: Fleet
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -42,6 +41,7 @@ components:
       title: Fleet
       x-dcl-id: projects/{{project}}/locations/{{location}}/fleets/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

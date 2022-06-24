@@ -23,7 +23,6 @@ func DCLNoteSchema() *dcl.Schema {
 			Title:       "ContainerAnalysis/Note",
 			Description: "The ContainerAnalysis Note resource",
 			StructName:  "Note",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -87,6 +86,7 @@ func DCLNoteSchema() *dcl.Schema {
 					Title:           "Note",
 					ID:              "projects/{{project}}/notes/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

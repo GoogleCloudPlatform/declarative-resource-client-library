@@ -15,7 +15,6 @@ info:
   title: Iam/Role
   description: The Iam Role resource
   x-dcl-struct-name: Role
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -55,6 +54,7 @@ components:
     Role:
       title: Role
       x-dcl-id: '{{parent}}/roles/{{name}}'
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       properties:

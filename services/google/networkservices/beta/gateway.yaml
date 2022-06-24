@@ -15,7 +15,6 @@ info:
   title: NetworkServices/Gateway
   description: The NetworkServices Gateway resource
   x-dcl-struct-name: Gateway
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -64,6 +63,7 @@ components:
       title: Gateway
       x-dcl-id: projects/{{project}}/locations/{{location}}/gateways/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

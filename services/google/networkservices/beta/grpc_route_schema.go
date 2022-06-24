@@ -23,7 +23,6 @@ func DCLGrpcRouteSchema() *dcl.Schema {
 			Title:       "NetworkServices/GrpcRoute",
 			Description: "The NetworkServices GrpcRoute resource",
 			StructName:  "GrpcRoute",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -101,6 +100,7 @@ func DCLGrpcRouteSchema() *dcl.Schema {
 					Title:           "GrpcRoute",
 					ID:              "projects/{{project}}/locations/{{location}}/grpcRoutes/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

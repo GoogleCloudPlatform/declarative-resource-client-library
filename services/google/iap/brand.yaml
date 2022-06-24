@@ -15,7 +15,6 @@ info:
   title: Iap/Brand
   description: The Iap Brand resource
   x-dcl-struct-name: Brand
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -43,6 +42,7 @@ components:
       title: Brand
       x-dcl-id: projects/{{project}}/brands/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       properties:

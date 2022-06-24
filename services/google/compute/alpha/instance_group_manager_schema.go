@@ -23,7 +23,6 @@ func DCLInstanceGroupManagerSchema() *dcl.Schema {
 			Title:       "Compute/InstanceGroupManager",
 			Description: "The Compute InstanceGroupManager resource",
 			StructName:  "InstanceGroupManager",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -104,6 +103,7 @@ func DCLInstanceGroupManagerSchema() *dcl.Schema {
 						"region",
 					},
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

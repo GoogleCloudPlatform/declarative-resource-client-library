@@ -23,7 +23,6 @@ func DCLEnvironmentGroupAttachmentSchema() *dcl.Schema {
 			Title:       "Apigee/EnvironmentGroupAttachment",
 			Description: "The Apigee EnvironmentGroupAttachment resource",
 			StructName:  "EnvironmentGroupAttachment",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -84,8 +83,9 @@ func DCLEnvironmentGroupAttachmentSchema() *dcl.Schema {
 		Components: &dcl.Components{
 			Schemas: map[string]*dcl.Component{
 				"EnvironmentGroupAttachment": &dcl.Component{
-					Title: "EnvironmentGroupAttachment",
-					ID:    "{{envgroup}}/attachments/{{name}}",
+					Title:     "EnvironmentGroupAttachment",
+					ID:        "{{envgroup}}/attachments/{{name}}",
+					HasCreate: true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

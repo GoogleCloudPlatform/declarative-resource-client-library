@@ -23,7 +23,6 @@ func DCLTriggerSchema() *dcl.Schema {
 			Title:       "Eventarc/Trigger",
 			Description: "The Eventarc Trigger resource",
 			StructName:  "Trigger",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -102,6 +101,7 @@ func DCLTriggerSchema() *dcl.Schema {
 					ID:              "projects/{{project}}/locations/{{location}}/triggers/{{name}}",
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

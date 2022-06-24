@@ -15,7 +15,6 @@ info:
   title: Pubsub/Schema
   description: The Pubsub Schema resource
   x-dcl-struct-name: Schema
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -56,6 +55,7 @@ components:
       title: Schema
       x-dcl-id: projects/{{project}}/schemas/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

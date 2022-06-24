@@ -23,7 +23,6 @@ func DCLZoneSchema() *dcl.Schema {
 			Title:       "Dataplex/Zone",
 			Description: "The Dataplex Zone resource",
 			StructName:  "Zone",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -115,6 +114,7 @@ func DCLZoneSchema() *dcl.Schema {
 					Title:           "Zone",
 					ID:              "projects/{{project}}/locations/{{location}}/lakes/{{lake}}/zones/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

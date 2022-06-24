@@ -23,7 +23,6 @@ func DCLServiceSchema() *dcl.Schema {
 			Title:       "Monitoring/Service",
 			Description: "The Monitoring Service resource",
 			StructName:  "Service",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -88,6 +87,7 @@ func DCLServiceSchema() *dcl.Schema {
 					ID:              "projects/{{project}}/services/{{name}}",
 					ParentContainer: "project",
 					LabelsField:     "userLabels",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

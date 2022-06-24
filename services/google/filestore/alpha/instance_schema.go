@@ -23,7 +23,6 @@ func DCLInstanceSchema() *dcl.Schema {
 			Title:       "Filestore/Instance",
 			Description: "The Filestore Instance resource",
 			StructName:  "Instance",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -102,6 +101,7 @@ func DCLInstanceSchema() *dcl.Schema {
 					ID:              "projects/{{project}}/locations/{{location}}/instances/{{name}}",
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

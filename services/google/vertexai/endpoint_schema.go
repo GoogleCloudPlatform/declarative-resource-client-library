@@ -23,7 +23,6 @@ func DCLEndpointSchema() *dcl.Schema {
 			Title:       "VertexAI/Endpoint",
 			Description: "The VertexAI Endpoint resource",
 			StructName:  "Endpoint",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -102,6 +101,7 @@ func DCLEndpointSchema() *dcl.Schema {
 					ID:              "projects/{{project}}/locations/{{location}}/endpoints/{{name}}",
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

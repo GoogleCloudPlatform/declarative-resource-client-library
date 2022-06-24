@@ -23,7 +23,6 @@ func DCLKeySchema() *dcl.Schema {
 			Title:       "Apikeys/Key",
 			Description: "The Apikeys Key resource",
 			StructName:  "Key",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -90,6 +89,7 @@ func DCLKeySchema() *dcl.Schema {
 						"global",
 					},
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

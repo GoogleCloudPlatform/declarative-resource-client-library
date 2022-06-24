@@ -15,7 +15,6 @@ info:
   title: Compute/NetworkPeering
   description: The Compute NetworkPeering resource
   x-dcl-struct-name: NetworkPeering
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -56,6 +55,7 @@ components:
       title: NetworkPeering
       x-dcl-id: names/{{name}}
       x-dcl-uses-state-hint: true
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       properties:

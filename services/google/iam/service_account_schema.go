@@ -23,7 +23,6 @@ func DCLServiceAccountSchema() *dcl.Schema {
 			Title:       "Iam/ServiceAccount",
 			Description: "The Iam ServiceAccount resource",
 			StructName:  "ServiceAccount",
-			HasCreate:   true,
 			HasIAM:      true,
 		},
 		Paths: &dcl.Paths{
@@ -88,6 +87,7 @@ func DCLServiceAccountSchema() *dcl.Schema {
 					Title:           "ServiceAccount",
 					ID:              "projects/{{project}}/serviceAccounts/{{name}}@{{project}}.iam.gserviceaccount.com",
 					ParentContainer: "project",
+					HasCreate:       true,
 					HasIAM:          true,
 					SchemaProperty: dcl.Property{
 						Type: "object",

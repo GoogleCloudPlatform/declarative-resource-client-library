@@ -15,7 +15,6 @@ info:
   title: Monitoring/NotificationChannel
   description: The Monitoring NotificationChannel resource
   x-dcl-struct-name: NotificationChannel
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -56,6 +55,7 @@ components:
       title: NotificationChannel
       x-dcl-id: projects/{{project}}/notificationChannels/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       properties:

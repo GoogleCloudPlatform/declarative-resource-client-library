@@ -23,7 +23,6 @@ func DCLLogViewSchema() *dcl.Schema {
 			Title:       "Logging/LogView",
 			Description: "The Logging LogView resource",
 			StructName:  "LogView",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -112,8 +111,9 @@ func DCLLogViewSchema() *dcl.Schema {
 		Components: &dcl.Components{
 			Schemas: map[string]*dcl.Component{
 				"LogView": &dcl.Component{
-					Title: "LogView",
-					ID:    "{{parent}}/locations/{{location}}/buckets/{{bucket}}/views/{{name}}",
+					Title:     "LogView",
+					ID:        "{{parent}}/locations/{{location}}/buckets/{{bucket}}/views/{{name}}",
+					HasCreate: true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

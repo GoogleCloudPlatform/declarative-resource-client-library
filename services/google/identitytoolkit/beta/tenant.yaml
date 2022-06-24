@@ -15,7 +15,6 @@ info:
   title: IdentityToolkit/Tenant
   description: The IdentityToolkit Tenant resource
   x-dcl-struct-name: Tenant
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -56,6 +55,7 @@ components:
       title: Tenant
       x-dcl-id: projects/{{project}}/tenants/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

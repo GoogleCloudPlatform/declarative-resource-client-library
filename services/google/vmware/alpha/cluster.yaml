@@ -15,7 +15,6 @@ info:
   title: Vmware/Cluster
   description: The Vmware Cluster resource
   x-dcl-struct-name: Cluster
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -72,6 +71,7 @@ components:
       title: Cluster
       x-dcl-id: projects/{{project}}/locations/{{location}}/privateClouds/{{private_cloud}}/clusters/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

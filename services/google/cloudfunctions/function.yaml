@@ -15,7 +15,6 @@ info:
   title: CloudFunctions/Function
   description: The CloudFunctions Function resource
   x-dcl-struct-name: Function
-  x-dcl-has-create: true
   x-dcl-has-iam: true
 paths:
   get:
@@ -67,6 +66,7 @@ components:
       - region
       x-dcl-parent-container: project
       x-dcl-labels: labels
+      x-dcl-has-create: true
       x-dcl-has-iam: true
       type: object
       required:

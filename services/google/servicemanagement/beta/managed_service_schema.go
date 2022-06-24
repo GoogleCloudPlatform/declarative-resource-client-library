@@ -23,7 +23,6 @@ func DCLManagedServiceSchema() *dcl.Schema {
 			Title:       "Servicemanagement/ManagedService",
 			Description: "The Servicemanagement ManagedService resource",
 			StructName:  "ManagedService",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -87,6 +86,7 @@ func DCLManagedServiceSchema() *dcl.Schema {
 					Title:           "ManagedService",
 					ID:              "services/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

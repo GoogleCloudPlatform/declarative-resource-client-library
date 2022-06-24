@@ -23,7 +23,6 @@ func DCLDatasetSchema() *dcl.Schema {
 			Title:       "Bigquery/Dataset",
 			Description: "The Bigquery Dataset resource",
 			StructName:  "Dataset",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -88,6 +87,7 @@ func DCLDatasetSchema() *dcl.Schema {
 					ID:              "projects/{{project}}/datasets/{{name}}",
 					ParentContainer: "project",
 					LabelsField:     "labels",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

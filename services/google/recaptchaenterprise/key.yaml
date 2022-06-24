@@ -15,7 +15,6 @@ info:
   title: RecaptchaEnterprise/Key
   description: The RecaptchaEnterprise Key resource
   x-dcl-struct-name: Key
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -57,6 +56,7 @@ components:
       x-dcl-id: projects/{{project}}/keys/{{name}}
       x-dcl-parent-container: project
       x-dcl-labels: labels
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

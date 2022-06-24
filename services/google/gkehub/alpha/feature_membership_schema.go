@@ -23,7 +23,6 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 			Title:       "GkeHub/FeatureMembership",
 			Description: "The GkeHub FeatureMembership resource",
 			StructName:  "FeatureMembership",
-			HasCreate:   true,
 			Mutex:       "{{project}}/{{location}}/{{feature}}",
 		},
 		Paths: &dcl.Paths{
@@ -116,6 +115,7 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 					Title:           "FeatureMembership",
 					ID:              "projects/{{project}}/locations/{{location}}/features/{{feature}}/memberships/{{membership}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

@@ -15,7 +15,6 @@ info:
   title: Dataplex/Lake
   description: The Dataplex Lake resource
   x-dcl-struct-name: Lake
-  x-dcl-has-create: true
   x-dcl-has-iam: false
 paths:
   get:
@@ -64,6 +63,7 @@ components:
       title: Lake
       x-dcl-id: projects/{{project}}/locations/{{location}}/lakes/{{name}}
       x-dcl-parent-container: project
+      x-dcl-has-create: true
       x-dcl-has-iam: false
       type: object
       required:

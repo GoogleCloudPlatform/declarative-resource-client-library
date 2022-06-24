@@ -23,7 +23,6 @@ func DCLTcpRouteSchema() *dcl.Schema {
 			Title:       "NetworkServices/TcpRoute",
 			Description: "The NetworkServices TcpRoute resource",
 			StructName:  "TcpRoute",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -101,6 +100,7 @@ func DCLTcpRouteSchema() *dcl.Schema {
 					Title:           "TcpRoute",
 					ID:              "projects/{{project}}/locations/{{location}}/tcpRoutes/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

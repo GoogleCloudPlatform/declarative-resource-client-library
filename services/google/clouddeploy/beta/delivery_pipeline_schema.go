@@ -23,7 +23,6 @@ func DCLDeliveryPipelineSchema() *dcl.Schema {
 			Title:       "Clouddeploy/DeliveryPipeline",
 			Description: "The Cloud Deploy `DeliveryPipeline` resource",
 			StructName:  "DeliveryPipeline",
-			HasCreate:   true,
 			Reference: &dcl.Link{
 				Text: "REST API",
 				URL:  "https://cloud.google.com/deploy/docs/api/reference/rest/v1/projects.locations.deliveryPipelines",
@@ -105,6 +104,7 @@ func DCLDeliveryPipelineSchema() *dcl.Schema {
 					Title:           "DeliveryPipeline",
 					ID:              "projects/{{project}}/locations/{{location}}/deliveryPipelines/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

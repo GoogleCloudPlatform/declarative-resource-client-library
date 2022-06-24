@@ -23,7 +23,6 @@ func DCLTenantOAuthIdpConfigSchema() *dcl.Schema {
 			Title:       "IdentityToolkit/TenantOAuthIdpConfig",
 			Description: "The IdentityToolkit TenantOAuthIdpConfig resource",
 			StructName:  "TenantOAuthIdpConfig",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -101,6 +100,7 @@ func DCLTenantOAuthIdpConfigSchema() *dcl.Schema {
 					Title:           "TenantOAuthIdpConfig",
 					ID:              "projects/{{project}}/tenants/{{tenant}}/oauthIdpConfigs/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

@@ -23,7 +23,6 @@ func DCLInspectTemplateSchema() *dcl.Schema {
 			Title:       "Dlp/InspectTemplate",
 			Description: "The Dlp InspectTemplate resource",
 			StructName:  "InspectTemplate",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -103,6 +102,7 @@ func DCLInspectTemplateSchema() *dcl.Schema {
 					Locations: []string{
 						"region",
 					},
+					HasCreate: true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{
@@ -299,6 +299,13 @@ func DCLInspectTemplateSchema() *dcl.Schema {
 															Type:        "string",
 															GoName:      "Name",
 															Description: "Resource name of the requested `StoredInfoType`, for example `organizations/433245324/storedInfoTypes/432452342` or `projects/project-id/storedInfoTypes/432452342`.",
+															ResourceReferences: []*dcl.PropertyResourceReference{
+																&dcl.PropertyResourceReference{
+																	Resource: "Dlp/StoredInfoType",
+																	Field:    "name",
+																	Parent:   true,
+																},
+															},
 														},
 													},
 												},

@@ -23,7 +23,6 @@ func DCLCapacityCommitmentSchema() *dcl.Schema {
 			Title:       "BigqueryReservation/CapacityCommitment",
 			Description: "The BigqueryReservation CapacityCommitment resource",
 			StructName:  "CapacityCommitment",
-			HasCreate:   true,
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
@@ -101,6 +100,7 @@ func DCLCapacityCommitmentSchema() *dcl.Schema {
 					Title:           "CapacityCommitment",
 					ID:              "projects/{{project}}/locations/{{location}}/capacityCommitments/{{name}}",
 					ParentContainer: "project",
+					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{
