@@ -266,7 +266,6 @@ components:
               x-dcl-go-type: ClusterControlPlaneSshConfig
               description: SSH configuration for how to access the underlying control
                 plane machines.
-              x-kubernetes-immutable: true
               required:
               - authorizedKey
               properties:
@@ -276,7 +275,6 @@ components:
                   description: The SSH public key data for VMs managed by Anthos.
                     This accepts the authorized_keys file format used in OpenSSH according
                     to the sshd(8) manual page.
-                  x-kubernetes-immutable: true
             subnetId:
               type: string
               x-dcl-go-name: SubnetId

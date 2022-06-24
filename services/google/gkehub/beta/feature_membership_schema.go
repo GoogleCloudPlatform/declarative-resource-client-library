@@ -352,28 +352,6 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 									},
 								},
 							},
-							"mesh": &dcl.Property{
-								Type:        "object",
-								GoName:      "Mesh",
-								GoType:      "FeatureMembershipMesh",
-								Description: "Spec for a single Membership for the mesh feature",
-								Immutable:   true,
-								Properties: map[string]*dcl.Property{
-									"controlPlane": &dcl.Property{
-										Type:        "string",
-										GoName:      "ControlPlane",
-										GoType:      "FeatureMembershipMeshControlPlaneEnum",
-										Description: "Whether to automatically manage Service Mesh control planes. Possible values: CONTROL_PLANE_MANAGEMENT_UNSPECIFIED, AUTOMATIC, MANUAL",
-										Immutable:   true,
-										Default:     "CONTROL_PLANE_MANAGEMENT_UNSPECIFIED",
-										Enum: []string{
-											"CONTROL_PLANE_MANAGEMENT_UNSPECIFIED",
-											"AUTOMATIC",
-											"MANUAL",
-										},
-									},
-								},
-							},
 							"project": &dcl.Property{
 								Type:        "string",
 								GoName:      "Project",

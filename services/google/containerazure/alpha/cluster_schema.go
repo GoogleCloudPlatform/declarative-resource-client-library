@@ -309,7 +309,6 @@ func DCLClusterSchema() *dcl.Schema {
 										GoName:      "SshConfig",
 										GoType:      "ClusterControlPlaneSshConfig",
 										Description: "SSH configuration for how to access the underlying control plane machines.",
-										Immutable:   true,
 										Required: []string{
 											"authorizedKey",
 										},
@@ -318,7 +317,6 @@ func DCLClusterSchema() *dcl.Schema {
 												Type:        "string",
 												GoName:      "AuthorizedKey",
 												Description: "The SSH public key data for VMs managed by Anthos. This accepts the authorized_keys file format used in OpenSSH according to the sshd(8) manual page.",
-												Immutable:   true,
 											},
 										},
 									},

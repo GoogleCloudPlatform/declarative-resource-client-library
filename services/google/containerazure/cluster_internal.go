@@ -2568,7 +2568,7 @@ func compareClusterControlPlaneSshConfigNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AuthorizedKey, actual.AuthorizedKey, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AuthorizedKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AuthorizedKey, actual.AuthorizedKey, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAzureClusterOperation")}, fn.AddNest("AuthorizedKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
