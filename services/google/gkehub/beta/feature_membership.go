@@ -35,33 +35,6 @@ func (r *FeatureMembership) String() string {
 	return dcl.SprintResource(r)
 }
 
-// The enum FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum.
-type FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum string
-
-// FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnumRef returns a *FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnumRef(s string) *FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum {
-	v := FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum(s)
-	return &v
-}
-
-func (v FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum) Validate() error {
-	if string(v) == "" {
-		// Empty enum is okay.
-		return nil
-	}
-	for _, s := range []string{"MONITORING_BACKEND_UNSPECIFIED", "PROMETHEUS", "CLOUD_MONITORING"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
 type FeatureMembershipConfigmanagement struct {
 	empty               bool                                                  `json:"-"`
 	ConfigSync          *FeatureMembershipConfigmanagementConfigSync          `json:"configSync"`
@@ -240,15 +213,13 @@ func (r *FeatureMembershipConfigmanagementConfigSyncGit) HashCode() string {
 }
 
 type FeatureMembershipConfigmanagementPolicyController struct {
-	empty                      bool                                                                         `json:"-"`
-	Enabled                    *bool                                                                        `json:"enabled"`
-	ExemptableNamespaces       []string                                                                     `json:"exemptableNamespaces"`
-	ReferentialRulesEnabled    *bool                                                                        `json:"referentialRulesEnabled"`
-	LogDeniesEnabled           *bool                                                                        `json:"logDeniesEnabled"`
-	MutationEnabled            *bool                                                                        `json:"mutationEnabled"`
-	PolicyControllerMonitoring *FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoring `json:"policyControllerMonitoring"`
-	TemplateLibraryInstalled   *bool                                                                        `json:"templateLibraryInstalled"`
-	AuditIntervalSeconds       *string                                                                      `json:"auditIntervalSeconds"`
+	empty                    bool     `json:"-"`
+	Enabled                  *bool    `json:"enabled"`
+	ExemptableNamespaces     []string `json:"exemptableNamespaces"`
+	ReferentialRulesEnabled  *bool    `json:"referentialRulesEnabled"`
+	LogDeniesEnabled         *bool    `json:"logDeniesEnabled"`
+	TemplateLibraryInstalled *bool    `json:"templateLibraryInstalled"`
+	AuditIntervalSeconds     *string  `json:"auditIntervalSeconds"`
 }
 
 type jsonFeatureMembershipConfigmanagementPolicyController FeatureMembershipConfigmanagementPolicyController
@@ -274,10 +245,6 @@ func (r *FeatureMembershipConfigmanagementPolicyController) UnmarshalJSON(data [
 
 		r.LogDeniesEnabled = res.LogDeniesEnabled
 
-		r.MutationEnabled = res.MutationEnabled
-
-		r.PolicyControllerMonitoring = res.PolicyControllerMonitoring
-
 		r.TemplateLibraryInstalled = res.TemplateLibraryInstalled
 
 		r.AuditIntervalSeconds = res.AuditIntervalSeconds
@@ -300,52 +267,6 @@ func (r *FeatureMembershipConfigmanagementPolicyController) String() string {
 }
 
 func (r *FeatureMembershipConfigmanagementPolicyController) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoring struct {
-	empty    bool                                                                                      `json:"-"`
-	Backends []FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoringBackendsEnum `json:"backends"`
-}
-
-type jsonFeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoring FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoring
-
-func (r *FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoring) UnmarshalJSON(data []byte) error {
-	var res jsonFeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoring
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyFeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoring
-	} else {
-
-		r.Backends = res.Backends
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoring is
-// empty. Go lacks global const objects, but this object should be treated
-// as one. Modifying this object will have undesirable results.
-var EmptyFeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoring *FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoring = &FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoring{empty: true}
-
-func (r *FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoring) Empty() bool {
-	return r.empty
-}
-
-func (r *FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoring) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *FeatureMembershipConfigmanagementPolicyControllerPolicyControllerMonitoring) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
