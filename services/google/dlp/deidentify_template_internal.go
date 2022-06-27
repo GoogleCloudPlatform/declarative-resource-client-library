@@ -4529,8 +4529,7 @@ func canonicalizeDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransf
 	} else {
 		cDes.WrappedKey = des.WrappedKey
 	}
-	if dcl.IsZeroValue(des.CryptoKeyName) || (dcl.IsEmptyValueIndirect(des.CryptoKeyName) && dcl.IsEmptyValueIndirect(initial.CryptoKeyName)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.StringCanonicalize(des.CryptoKeyName, initial.CryptoKeyName) || dcl.IsZeroValue(des.CryptoKeyName) {
 		cDes.CryptoKeyName = initial.CryptoKeyName
 	} else {
 		cDes.CryptoKeyName = des.CryptoKeyName
@@ -4583,6 +4582,9 @@ func canonicalizeNewDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTra
 
 	if dcl.StringCanonicalize(des.WrappedKey, nw.WrappedKey) {
 		nw.WrappedKey = des.WrappedKey
+	}
+	if dcl.StringCanonicalize(des.CryptoKeyName, nw.CryptoKeyName) {
+		nw.CryptoKeyName = des.CryptoKeyName
 	}
 
 	return nw
@@ -28628,7 +28630,7 @@ func compareDeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformat
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.CryptoKeyName, actual.CryptoKeyName, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateDeidentifyTemplateUpdateDeidentifyTemplateOperation")}, fn.AddNest("CryptoKeyName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.CryptoKeyName, actual.CryptoKeyName, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeidentifyTemplateUpdateDeidentifyTemplateOperation")}, fn.AddNest("CryptoKeyName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
