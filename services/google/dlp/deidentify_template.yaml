@@ -842,6 +842,9 @@ components:
                                         x-dcl-go-name: CryptoKeyName
                                         description: Required. The resource name of
                                           the KMS CryptoKey to use for unwrapping.
+                                        x-dcl-references:
+                                        - resource: Cloudkms/CryptoKey
+                                          field: name
                                       wrappedKey:
                                         type: string
                                         x-dcl-go-name: WrappedKey
@@ -971,6 +974,9 @@ components:
                                         x-dcl-go-name: CryptoKeyName
                                         description: Required. The resource name of
                                           the KMS CryptoKey to use for unwrapping.
+                                        x-dcl-references:
+                                        - resource: Cloudkms/CryptoKey
+                                          field: name
                                       wrappedKey:
                                         type: string
                                         x-dcl-go-name: WrappedKey
@@ -1268,6 +1274,9 @@ components:
                                         x-dcl-go-name: CryptoKeyName
                                         description: Required. The resource name of
                                           the KMS CryptoKey to use for unwrapping.
+                                        x-dcl-references:
+                                        - resource: Cloudkms/CryptoKey
+                                          field: name
                                       wrappedKey:
                                         type: string
                                         x-dcl-go-name: WrappedKey
@@ -3042,6 +3051,9 @@ components:
                                                   description: Required. The resource
                                                     name of the KMS CryptoKey to use
                                                     for unwrapping.
+                                                  x-dcl-references:
+                                                  - resource: Cloudkms/CryptoKey
+                                                    field: name
                                                 wrappedKey:
                                                   type: string
                                                   x-dcl-go-name: WrappedKey
@@ -3184,6 +3196,9 @@ components:
                                                   description: Required. The resource
                                                     name of the KMS CryptoKey to use
                                                     for unwrapping.
+                                                  x-dcl-references:
+                                                  - resource: Cloudkms/CryptoKey
+                                                    field: name
                                                 wrappedKey:
                                                   type: string
                                                   x-dcl-go-name: WrappedKey
@@ -3321,6 +3336,9 @@ components:
                                                   description: Required. The resource
                                                     name of the KMS CryptoKey to use
                                                     for unwrapping.
+                                                  x-dcl-references:
+                                                  - resource: Cloudkms/CryptoKey
+                                                    field: name
                                                 wrappedKey:
                                                   type: string
                                                   x-dcl-go-name: WrappedKey
@@ -3504,6 +3522,9 @@ components:
                                                   description: Required. The resource
                                                     name of the KMS CryptoKey to use
                                                     for unwrapping.
+                                                  x-dcl-references:
+                                                  - resource: Cloudkms/CryptoKey
+                                                    field: name
                                                 wrappedKey:
                                                   type: string
                                                   x-dcl-go-name: WrappedKey
@@ -4935,6 +4956,9 @@ components:
                                         x-dcl-go-name: CryptoKeyName
                                         description: Required. The resource name of
                                           the KMS CryptoKey to use for unwrapping.
+                                        x-dcl-references:
+                                        - resource: Cloudkms/CryptoKey
+                                          field: name
                                       wrappedKey:
                                         type: string
                                         x-dcl-go-name: WrappedKey
@@ -5064,6 +5088,9 @@ components:
                                         x-dcl-go-name: CryptoKeyName
                                         description: Required. The resource name of
                                           the KMS CryptoKey to use for unwrapping.
+                                        x-dcl-references:
+                                        - resource: Cloudkms/CryptoKey
+                                          field: name
                                       wrappedKey:
                                         type: string
                                         x-dcl-go-name: WrappedKey
@@ -5192,6 +5219,9 @@ components:
                                         x-dcl-go-name: CryptoKeyName
                                         description: Required. The resource name of
                                           the KMS CryptoKey to use for unwrapping.
+                                        x-dcl-references:
+                                        - resource: Cloudkms/CryptoKey
+                                          field: name
                                       wrappedKey:
                                         type: string
                                         x-dcl-go-name: WrappedKey
@@ -5358,6 +5388,9 @@ components:
                                         x-dcl-go-name: CryptoKeyName
                                         description: Required. The resource name of
                                           the KMS CryptoKey to use for unwrapping.
+                                        x-dcl-references:
+                                        - resource: Cloudkms/CryptoKey
+                                          field: name
                                       wrappedKey:
                                         type: string
                                         x-dcl-go-name: WrappedKey

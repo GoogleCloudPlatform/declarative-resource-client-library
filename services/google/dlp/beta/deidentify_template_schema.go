@@ -883,6 +883,12 @@ func DCLDeidentifyTemplateSchema() *dcl.Schema {
 																							Type:        "string",
 																							GoName:      "CryptoKeyName",
 																							Description: "Required. The resource name of the KMS CryptoKey to use for unwrapping.",
+																							ResourceReferences: []*dcl.PropertyResourceReference{
+																								&dcl.PropertyResourceReference{
+																									Resource: "Cloudkms/CryptoKey",
+																									Field:    "name",
+																								},
+																							},
 																						},
 																						"wrappedKey": &dcl.Property{
 																							Type:        "string",
@@ -990,6 +996,12 @@ func DCLDeidentifyTemplateSchema() *dcl.Schema {
 																							Type:        "string",
 																							GoName:      "CryptoKeyName",
 																							Description: "Required. The resource name of the KMS CryptoKey to use for unwrapping.",
+																							ResourceReferences: []*dcl.PropertyResourceReference{
+																								&dcl.PropertyResourceReference{
+																									Resource: "Cloudkms/CryptoKey",
+																									Field:    "name",
+																								},
+																							},
 																						},
 																						"wrappedKey": &dcl.Property{
 																							Type:        "string",
@@ -1266,6 +1278,12 @@ func DCLDeidentifyTemplateSchema() *dcl.Schema {
 																							Type:        "string",
 																							GoName:      "CryptoKeyName",
 																							Description: "Required. The resource name of the KMS CryptoKey to use for unwrapping.",
+																							ResourceReferences: []*dcl.PropertyResourceReference{
+																								&dcl.PropertyResourceReference{
+																									Resource: "Cloudkms/CryptoKey",
+																									Field:    "name",
+																								},
+																							},
 																						},
 																						"wrappedKey": &dcl.Property{
 																							Type:        "string",
@@ -3065,6 +3083,12 @@ func DCLDeidentifyTemplateSchema() *dcl.Schema {
 																												Type:        "string",
 																												GoName:      "CryptoKeyName",
 																												Description: "Required. The resource name of the KMS CryptoKey to use for unwrapping.",
+																												ResourceReferences: []*dcl.PropertyResourceReference{
+																													&dcl.PropertyResourceReference{
+																														Resource: "Cloudkms/CryptoKey",
+																														Field:    "name",
+																													},
+																												},
 																											},
 																											"wrappedKey": &dcl.Property{
 																												Type:        "string",
@@ -3172,6 +3196,12 @@ func DCLDeidentifyTemplateSchema() *dcl.Schema {
 																												Type:        "string",
 																												GoName:      "CryptoKeyName",
 																												Description: "Required. The resource name of the KMS CryptoKey to use for unwrapping.",
+																												ResourceReferences: []*dcl.PropertyResourceReference{
+																													&dcl.PropertyResourceReference{
+																														Resource: "Cloudkms/CryptoKey",
+																														Field:    "name",
+																													},
+																												},
 																											},
 																											"wrappedKey": &dcl.Property{
 																												Type:        "string",
@@ -3299,6 +3329,12 @@ func DCLDeidentifyTemplateSchema() *dcl.Schema {
 																												Type:        "string",
 																												GoName:      "CryptoKeyName",
 																												Description: "Required. The resource name of the KMS CryptoKey to use for unwrapping.",
+																												ResourceReferences: []*dcl.PropertyResourceReference{
+																													&dcl.PropertyResourceReference{
+																														Resource: "Cloudkms/CryptoKey",
+																														Field:    "name",
+																													},
+																												},
 																											},
 																											"wrappedKey": &dcl.Property{
 																												Type:        "string",
@@ -3442,6 +3478,12 @@ func DCLDeidentifyTemplateSchema() *dcl.Schema {
 																												Type:        "string",
 																												GoName:      "CryptoKeyName",
 																												Description: "Required. The resource name of the KMS CryptoKey to use for unwrapping.",
+																												ResourceReferences: []*dcl.PropertyResourceReference{
+																													&dcl.PropertyResourceReference{
+																														Resource: "Cloudkms/CryptoKey",
+																														Field:    "name",
+																													},
+																												},
 																											},
 																											"wrappedKey": &dcl.Property{
 																												Type:        "string",
@@ -4905,6 +4947,12 @@ func DCLDeidentifyTemplateSchema() *dcl.Schema {
 																							Type:        "string",
 																							GoName:      "CryptoKeyName",
 																							Description: "Required. The resource name of the KMS CryptoKey to use for unwrapping.",
+																							ResourceReferences: []*dcl.PropertyResourceReference{
+																								&dcl.PropertyResourceReference{
+																									Resource: "Cloudkms/CryptoKey",
+																									Field:    "name",
+																								},
+																							},
 																						},
 																						"wrappedKey": &dcl.Property{
 																							Type:        "string",
@@ -5012,6 +5060,12 @@ func DCLDeidentifyTemplateSchema() *dcl.Schema {
 																							Type:        "string",
 																							GoName:      "CryptoKeyName",
 																							Description: "Required. The resource name of the KMS CryptoKey to use for unwrapping.",
+																							ResourceReferences: []*dcl.PropertyResourceReference{
+																								&dcl.PropertyResourceReference{
+																									Resource: "Cloudkms/CryptoKey",
+																									Field:    "name",
+																								},
+																							},
 																						},
 																						"wrappedKey": &dcl.Property{
 																							Type:        "string",
@@ -5139,6 +5193,12 @@ func DCLDeidentifyTemplateSchema() *dcl.Schema {
 																							Type:        "string",
 																							GoName:      "CryptoKeyName",
 																							Description: "Required. The resource name of the KMS CryptoKey to use for unwrapping.",
+																							ResourceReferences: []*dcl.PropertyResourceReference{
+																								&dcl.PropertyResourceReference{
+																									Resource: "Cloudkms/CryptoKey",
+																									Field:    "name",
+																								},
+																							},
 																						},
 																						"wrappedKey": &dcl.Property{
 																							Type:        "string",
@@ -5282,6 +5342,12 @@ func DCLDeidentifyTemplateSchema() *dcl.Schema {
 																							Type:        "string",
 																							GoName:      "CryptoKeyName",
 																							Description: "Required. The resource name of the KMS CryptoKey to use for unwrapping.",
+																							ResourceReferences: []*dcl.PropertyResourceReference{
+																								&dcl.PropertyResourceReference{
+																									Resource: "Cloudkms/CryptoKey",
+																									Field:    "name",
+																								},
+																							},
 																						},
 																						"wrappedKey": &dcl.Property{
 																							Type:        "string",
