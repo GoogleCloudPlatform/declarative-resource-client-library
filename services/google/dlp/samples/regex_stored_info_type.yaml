@@ -18,6 +18,9 @@ versions:
 - ga
 - beta
 resource: samples/regex.stored_info_type.json
+updates:
+- resource: samples/update_regex.stored_info_type.json
+  dependencies: []
 variables:
 - name: project
   type: project

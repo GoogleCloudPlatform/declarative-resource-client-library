@@ -22,12 +22,41 @@ resource: samples/big_query_field.stored_info_type.json
 dependencies:
 - samples/first.bigquery.dataset.json
 - samples/first.bigquery.table.json
+- samples/second.bigquery.dataset.json
+- samples/second.bigquery.table.json
+- samples/bigquery_admin.iam.member.json
+- samples/bigquery.serviceusage.service.json
+- samples/basic.cloudbilling.project_billing_info.json
+- samples/basic.cloudresourcemanager.project.json
+updates:
+- resource: samples/update_big_query_field.stored_info_type.json
+  dependencies:
+  - samples/first.bigquery.dataset.json
+  - samples/first.bigquery.table.json
+  - samples/second.bigquery.dataset.json
+  - samples/second.bigquery.table.json
+  - samples/bigquery_admin.iam.member.json
+  - samples/bigquery.serviceusage.service.json
+  - samples/basic.cloudbilling.project_billing_info.json
+  - samples/basic.cloudresourcemanager.project.json
 variables:
 - name: _dataset1
   type: resource_name
+- name: _dataset2
+  type: resource_name
 - name: _table1
   type: resource_name
+- name: _table2
+  type: resource_name
+- name: billing_account
+  type: billing_account
+- name: id
+  type: resource_name
+- name: org_id
+  type: org_id
 - name: project
   type: project
+- name: project_number
+  type: project_number
 - name: region
   type: region

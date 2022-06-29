@@ -19,6 +19,9 @@ versions:
 - ga
 - beta
 resource: samples/cloud_storage_path.stored_info_type.json
+updates:
+- resource: samples/update_cloud_storage_path.stored_info_type.json
+  dependencies: []
 variables:
 - name: project
   type: project

@@ -19,6 +19,9 @@ versions:
 - ga
 - beta
 resource: samples/word_list.stored_info_type.json
+updates:
+- resource: samples/update_word_list.stored_info_type.json
+  dependencies: []
 variables:
 - name: project
   type: project

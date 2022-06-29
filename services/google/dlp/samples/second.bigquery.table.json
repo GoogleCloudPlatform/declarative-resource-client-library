@@ -7,6 +7,10 @@
       {
         "name": "sample_field",
         "type": "STRING"
+      },
+      {
+        "name": "new_sample_field",
+        "type": "STRING"
       }
     ]
   }

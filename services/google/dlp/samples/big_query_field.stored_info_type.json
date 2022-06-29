@@ -2,7 +2,7 @@
   "parent": "projects/{{project}}/locations/{{region}}",
   "largeCustomDictionary": {
     "outputPath": {
-      "path": "gs://aaa-dont-delete-dcl-dlp-testing/large-custom-dictionary-2"
+      "path": "gs://aaa-dont-delete-dcl-dlp-testing/large-custom-dictionary-1"
     },
     "bigQueryField": {
       "table": {
