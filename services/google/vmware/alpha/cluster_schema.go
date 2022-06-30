@@ -44,6 +44,7 @@ func DCLClusterSchema() *dcl.Schema {
 						Description: "A full instance of a Cluster",
 					},
 				},
+				TimeoutSecs: 9600,
 			},
 			Delete: &dcl.Path{
 				Description: "The function used to delete a Cluster",
@@ -54,6 +55,7 @@ func DCLClusterSchema() *dcl.Schema {
 						Description: "A full instance of a Cluster",
 					},
 				},
+				TimeoutSecs: 4800,
 			},
 			DeleteAll: &dcl.Path{
 				Description: "The function used to delete all Cluster",
@@ -80,6 +82,7 @@ func DCLClusterSchema() *dcl.Schema {
 						},
 					},
 				},
+				TimeoutSecs: 4800,
 			},
 			List: &dcl.Path{
 				Description: "The function used to list information about many Cluster",

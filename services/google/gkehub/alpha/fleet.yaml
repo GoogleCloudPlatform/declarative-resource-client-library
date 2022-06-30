@@ -23,18 +23,21 @@ paths:
     - name: Fleet
       required: true
       description: A full instance of a Fleet
+    timeoutSecs: 0
   apply:
     description: The function used to apply information about a Fleet
     parameters:
     - name: Fleet
       required: true
       description: A full instance of a Fleet
+    timeoutSecs: 0
   delete:
     description: The function used to delete a Fleet
     parameters:
     - name: Fleet
       required: true
       description: A full instance of a Fleet
+    timeoutSecs: 0
 components:
   schemas:
     Fleet:

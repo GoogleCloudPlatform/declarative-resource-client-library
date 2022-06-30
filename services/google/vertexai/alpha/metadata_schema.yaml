@@ -23,12 +23,14 @@ paths:
     - name: MetadataSchema
       required: true
       description: A full instance of a MetadataSchema
+    timeoutSecs: 0
   apply:
     description: The function used to apply information about a MetadataSchema
     parameters:
     - name: MetadataSchema
       required: true
       description: A full instance of a MetadataSchema
+    timeoutSecs: 0
   list:
     description: The function used to list information about many MetadataSchema
     parameters:
@@ -44,6 +46,7 @@ paths:
       required: true
       schema:
         type: string
+    timeoutSecs: 0
 components:
   schemas:
     MetadataSchema:
