@@ -24,6 +24,7 @@ class Key(object):
         name: str = None,
         display_name: str = None,
         key_string: str = None,
+        uid: str = None,
         restrictions: dict = None,
         project: str = None,
         service_account_file: str = "",
@@ -60,6 +61,7 @@ class Key(object):
         self.name = Primitive.from_proto(response.name)
         self.display_name = Primitive.from_proto(response.display_name)
         self.key_string = Primitive.from_proto(response.key_string)
+        self.uid = Primitive.from_proto(response.uid)
         self.restrictions = KeyRestrictions.from_proto(response.restrictions)
         self.project = Primitive.from_proto(response.project)
 

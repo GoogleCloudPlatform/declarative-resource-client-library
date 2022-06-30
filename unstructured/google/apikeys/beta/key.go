@@ -105,6 +105,9 @@ func KeyToUnstructured(r *dclService.Key) *unstructured.Resource {
 		}
 		u.Object["restrictions"] = rRestrictions
 	}
+	if r.Uid != nil {
+		u.Object["uid"] = *r.Uid
+	}
 	return u
 }
 
@@ -260,6 +263,13 @@ func UnstructuredToKey(u *unstructured.Resource) (*dclService.Key, error) {
 			}
 		} else {
 			return nil, fmt.Errorf("r.Restrictions: expected map[string]interface{}")
+		}
+	}
+	if _, ok := u.Object["uid"]; ok {
+		if s, ok := u.Object["uid"].(string); ok {
+			r.Uid = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.Uid: expected string")
 		}
 	}
 	return r, nil

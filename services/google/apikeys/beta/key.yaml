@@ -240,3 +240,9 @@ components:
                   items:
                     type: string
                     x-dcl-go-type: string
+        uid:
+          type: string
+          x-dcl-go-name: Uid
+          readOnly: true
+          description: Output only. Unique id in UUID4 format.
+          x-kubernetes-immutable: true

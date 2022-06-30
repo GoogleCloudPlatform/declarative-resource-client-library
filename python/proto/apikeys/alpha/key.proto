@@ -25,8 +25,9 @@ message ApikeysAlphaKey {
   string name = 1;
   string display_name = 2;
   string key_string = 3;
-  ApikeysAlphaKeyRestrictions restrictions = 4;
-  string project = 5;
+  string uid = 4;
+  ApikeysAlphaKeyRestrictions restrictions = 5;
+  string project = 6;
 }
 
 message ApikeysAlphaKeyRestrictions {

@@ -121,6 +121,7 @@ func ProtoToKey(p *betapb.ApikeysBetaKey) *beta.Key {
 		Name:         dcl.StringOrNil(p.GetName()),
 		DisplayName:  dcl.StringOrNil(p.GetDisplayName()),
 		KeyString:    dcl.StringOrNil(p.GetKeyString()),
+		Uid:          dcl.StringOrNil(p.GetUid()),
 		Restrictions: ProtoToApikeysBetaKeyRestrictions(p.GetRestrictions()),
 		Project:      dcl.StringOrNil(p.GetProject()),
 	}
@@ -233,6 +234,7 @@ func KeyToProto(resource *beta.Key) *betapb.ApikeysBetaKey {
 	p.SetName(dcl.ValueOrEmptyString(resource.Name))
 	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
 	p.SetKeyString(dcl.ValueOrEmptyString(resource.KeyString))
+	p.SetUid(dcl.ValueOrEmptyString(resource.Uid))
 	p.SetRestrictions(ApikeysBetaKeyRestrictionsToProto(resource.Restrictions))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 
