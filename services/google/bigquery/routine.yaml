@@ -23,21 +23,18 @@ paths:
     - name: Routine
       required: true
       description: A full instance of a Routine
-    timeoutSecs: 0
   apply:
     description: The function used to apply information about a Routine
     parameters:
     - name: Routine
       required: true
       description: A full instance of a Routine
-    timeoutSecs: 0
   delete:
     description: The function used to delete a Routine
     parameters:
     - name: Routine
       required: true
       description: A full instance of a Routine
-    timeoutSecs: 0
   deleteAll:
     description: The function used to delete all Routine
     parameters:
@@ -49,7 +46,6 @@ paths:
       required: true
       schema:
         type: string
-    timeoutSecs: 0
   list:
     description: The function used to list information about many Routine
     parameters:
@@ -61,12 +57,14 @@ paths:
       required: true
       schema:
         type: string
-    timeoutSecs: 0
 components:
   schemas:
     ArgumentsDataType:
       x-dcl-has-create: false
       x-dcl-has-iam: false
+      x-dcl-read-timeout: 0
+      x-dcl-apply-timeout: 0
+      x-dcl-delete-timeout: 0
       type: object
       x-dcl-go-name: DataType
       x-dcl-go-type: RoutineArgumentsDataType
@@ -143,6 +141,9 @@ components:
       x-dcl-parent-container: project
       x-dcl-has-create: true
       x-dcl-has-iam: false
+      x-dcl-read-timeout: 0
+      x-dcl-apply-timeout: 0
+      x-dcl-delete-timeout: 0
       type: object
       required:
       - name

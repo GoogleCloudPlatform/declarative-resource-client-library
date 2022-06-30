@@ -23,21 +23,18 @@ paths:
     - name: Fleet
       required: true
       description: A full instance of a Fleet
-    timeoutSecs: 0
   apply:
     description: The function used to apply information about a Fleet
     parameters:
     - name: Fleet
       required: true
       description: A full instance of a Fleet
-    timeoutSecs: 0
   delete:
     description: The function used to delete a Fleet
     parameters:
     - name: Fleet
       required: true
       description: A full instance of a Fleet
-    timeoutSecs: 0
 components:
   schemas:
     Fleet:
@@ -46,6 +43,9 @@ components:
       x-dcl-parent-container: project
       x-dcl-has-create: true
       x-dcl-has-iam: false
+      x-dcl-read-timeout: 0
+      x-dcl-apply-timeout: 0
+      x-dcl-delete-timeout: 0
       type: object
       required:
       - project

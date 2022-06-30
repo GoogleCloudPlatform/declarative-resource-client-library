@@ -45,7 +45,6 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 						Description: "A full instance of a PrivateCloud",
 					},
 				},
-				TimeoutSecs: 9600,
 			},
 			Delete: &dcl.Path{
 				Description: "The function used to delete a PrivateCloud",
@@ -56,7 +55,6 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 						Description: "A full instance of a PrivateCloud",
 					},
 				},
-				TimeoutSecs: 4800,
 			},
 			DeleteAll: &dcl.Path{
 				Description: "The function used to delete all PrivateCloud",
@@ -76,7 +74,6 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 						},
 					},
 				},
-				TimeoutSecs: 4800,
 			},
 			List: &dcl.Path{
 				Description: "The function used to list information about many PrivateCloud",
@@ -107,6 +104,8 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 					ParentContainer: "project",
 					HasCreate:       true,
 					HasIAM:          true,
+					ApplyTimeout:    9600,
+					DeleteTimeout:   4800,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{

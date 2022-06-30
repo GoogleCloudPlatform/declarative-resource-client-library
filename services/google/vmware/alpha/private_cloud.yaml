@@ -23,21 +23,18 @@ paths:
     - name: PrivateCloud
       required: true
       description: A full instance of a PrivateCloud
-    timeoutSecs: 0
   apply:
     description: The function used to apply information about a PrivateCloud
     parameters:
     - name: PrivateCloud
       required: true
       description: A full instance of a PrivateCloud
-    timeoutSecs: 9600
   delete:
     description: The function used to delete a PrivateCloud
     parameters:
     - name: PrivateCloud
       required: true
       description: A full instance of a PrivateCloud
-    timeoutSecs: 4800
   deleteAll:
     description: The function used to delete all PrivateCloud
     parameters:
@@ -49,7 +46,6 @@ paths:
       required: true
       schema:
         type: string
-    timeoutSecs: 4800
   list:
     description: The function used to list information about many PrivateCloud
     parameters:
@@ -61,7 +57,6 @@ paths:
       required: true
       schema:
         type: string
-    timeoutSecs: 0
 components:
   schemas:
     PrivateCloud:
@@ -71,6 +66,9 @@ components:
       x-dcl-parent-container: project
       x-dcl-has-create: true
       x-dcl-has-iam: true
+      x-dcl-read-timeout: 0
+      x-dcl-apply-timeout: 9600
+      x-dcl-delete-timeout: 4800
       type: object
       required:
       - name
