@@ -197,7 +197,7 @@ func (r *WorkloadIdentityPoolProvider) ID() (string, error) {
 		"location":             dcl.ValueOrEmptyString(nr.Location),
 		"workloadIdentityPool": dcl.ValueOrEmptyString(nr.WorkloadIdentityPool),
 	}
-	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/workloadIdentityPools/{{workload_identity_pool}}/providers/{{name}}", params), nil
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/workloadIdentityPools/{{workloadIdentityPool}}/providers/{{name}}", params), nil
 }
 
 const WorkloadIdentityPoolProviderMaxPage = -1

@@ -98,7 +98,7 @@ func DCLWorkforcePoolProviderSchema() *dcl.Schema {
 			Schemas: map[string]*dcl.Component{
 				"WorkforcePoolProvider": &dcl.Component{
 					Title:     "WorkforcePoolProvider",
-					ID:        "locations/{{location}}/workforcePools/{{workforce_pool}}/providers/{{name}}",
+					ID:        "locations/{{location}}/workforcePools/{{workforcePool}}/providers/{{name}}",
 					HasCreate: true,
 					SchemaProperty: dcl.Property{
 						Type: "object",

@@ -548,7 +548,7 @@ func (r *CryptoKey) ID() (string, error) {
 		"location":                 dcl.ValueOrEmptyString(nr.Location),
 		"keyRing":                  dcl.ValueOrEmptyString(nr.KeyRing),
 	}
-	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/keyRings/{{key_ring}}/cryptoKeys/{{name}}", params), nil
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/keyRings/{{keyRing}}/cryptoKeys/{{name}}", params), nil
 }
 
 const CryptoKeyMaxPage = -1

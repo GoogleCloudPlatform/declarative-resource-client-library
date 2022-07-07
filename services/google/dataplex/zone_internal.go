@@ -594,7 +594,7 @@ func canonicalizeZoneDesiredState(rawDesired, rawInitial *Zone, opts ...dcl.Appl
 
 func canonicalizeZoneNewState(c *Client, rawNew, rawDesired *Zone) (*Zone, error) {
 
-	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -602,7 +602,7 @@ func canonicalizeZoneNewState(c *Client, rawNew, rawDesired *Zone) (*Zone, error
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
+	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
@@ -610,7 +610,7 @@ func canonicalizeZoneNewState(c *Client, rawNew, rawDesired *Zone) (*Zone, error
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Uid) && dcl.IsNotReturnedByServer(rawDesired.Uid) {
+	if dcl.IsEmptyValueIndirect(rawNew.Uid) && dcl.IsEmptyValueIndirect(rawDesired.Uid) {
 		rawNew.Uid = rawDesired.Uid
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
@@ -618,22 +618,22 @@ func canonicalizeZoneNewState(c *Client, rawNew, rawDesired *Zone) (*Zone, error
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
+	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
 		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
+	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -641,29 +641,29 @@ func canonicalizeZoneNewState(c *Client, rawNew, rawDesired *Zone) (*Zone, error
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
+	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
 		rawNew.State = rawDesired.State
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Type) && dcl.IsNotReturnedByServer(rawDesired.Type) {
+	if dcl.IsEmptyValueIndirect(rawNew.Type) && dcl.IsEmptyValueIndirect(rawDesired.Type) {
 		rawNew.Type = rawDesired.Type
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.DiscoverySpec) && dcl.IsNotReturnedByServer(rawDesired.DiscoverySpec) {
+	if dcl.IsEmptyValueIndirect(rawNew.DiscoverySpec) && dcl.IsEmptyValueIndirect(rawDesired.DiscoverySpec) {
 		rawNew.DiscoverySpec = rawDesired.DiscoverySpec
 	} else {
 		rawNew.DiscoverySpec = canonicalizeNewZoneDiscoverySpec(c, rawDesired.DiscoverySpec, rawNew.DiscoverySpec)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.ResourceSpec) && dcl.IsNotReturnedByServer(rawDesired.ResourceSpec) {
+	if dcl.IsEmptyValueIndirect(rawNew.ResourceSpec) && dcl.IsEmptyValueIndirect(rawDesired.ResourceSpec) {
 		rawNew.ResourceSpec = rawDesired.ResourceSpec
 	} else {
 		rawNew.ResourceSpec = canonicalizeNewZoneResourceSpec(c, rawDesired.ResourceSpec, rawNew.ResourceSpec)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.AssetStatus) && dcl.IsNotReturnedByServer(rawDesired.AssetStatus) {
+	if dcl.IsEmptyValueIndirect(rawNew.AssetStatus) && dcl.IsEmptyValueIndirect(rawDesired.AssetStatus) {
 		rawNew.AssetStatus = rawDesired.AssetStatus
 	} else {
 		rawNew.AssetStatus = canonicalizeNewZoneAssetStatus(c, rawDesired.AssetStatus, rawNew.AssetStatus)
@@ -753,7 +753,7 @@ func canonicalizeNewZoneDiscoverySpec(c *Client, des, nw *ZoneDiscoverySpec) *Zo
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for ZoneDiscoverySpec while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -895,7 +895,7 @@ func canonicalizeNewZoneDiscoverySpecCsvOptions(c *Client, des, nw *ZoneDiscover
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for ZoneDiscoverySpecCsvOptions while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1021,7 +1021,7 @@ func canonicalizeNewZoneDiscoverySpecJsonOptions(c *Client, des, nw *ZoneDiscove
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for ZoneDiscoverySpecJsonOptions while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1140,7 +1140,7 @@ func canonicalizeNewZoneResourceSpec(c *Client, des, nw *ZoneResourceSpec) *Zone
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for ZoneResourceSpec while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1264,7 +1264,7 @@ func canonicalizeNewZoneAssetStatus(c *Client, des, nw *ZoneAssetStatus) *ZoneAs
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for ZoneAssetStatus while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -2686,7 +2686,7 @@ func extractZoneFields(r *Zone) error {
 	if err := extractZoneDiscoverySpecFields(r, vDiscoverySpec); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vDiscoverySpec) {
+	if !dcl.IsEmptyValueIndirect(vDiscoverySpec) {
 		r.DiscoverySpec = vDiscoverySpec
 	}
 	vResourceSpec := r.ResourceSpec
@@ -2697,7 +2697,7 @@ func extractZoneFields(r *Zone) error {
 	if err := extractZoneResourceSpecFields(r, vResourceSpec); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vResourceSpec) {
+	if !dcl.IsEmptyValueIndirect(vResourceSpec) {
 		r.ResourceSpec = vResourceSpec
 	}
 	vAssetStatus := r.AssetStatus
@@ -2708,7 +2708,7 @@ func extractZoneFields(r *Zone) error {
 	if err := extractZoneAssetStatusFields(r, vAssetStatus); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vAssetStatus) {
+	if !dcl.IsEmptyValueIndirect(vAssetStatus) {
 		r.AssetStatus = vAssetStatus
 	}
 	return nil
@@ -2722,7 +2722,7 @@ func extractZoneDiscoverySpecFields(r *Zone, o *ZoneDiscoverySpec) error {
 	if err := extractZoneDiscoverySpecCsvOptionsFields(r, vCsvOptions); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vCsvOptions) {
+	if !dcl.IsEmptyValueIndirect(vCsvOptions) {
 		o.CsvOptions = vCsvOptions
 	}
 	vJsonOptions := o.JsonOptions
@@ -2733,7 +2733,7 @@ func extractZoneDiscoverySpecFields(r *Zone, o *ZoneDiscoverySpec) error {
 	if err := extractZoneDiscoverySpecJsonOptionsFields(r, vJsonOptions); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vJsonOptions) {
+	if !dcl.IsEmptyValueIndirect(vJsonOptions) {
 		o.JsonOptions = vJsonOptions
 	}
 	return nil
@@ -2760,7 +2760,7 @@ func postReadExtractZoneFields(r *Zone) error {
 	if err := postReadExtractZoneDiscoverySpecFields(r, vDiscoverySpec); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vDiscoverySpec) {
+	if !dcl.IsEmptyValueIndirect(vDiscoverySpec) {
 		r.DiscoverySpec = vDiscoverySpec
 	}
 	vResourceSpec := r.ResourceSpec
@@ -2771,7 +2771,7 @@ func postReadExtractZoneFields(r *Zone) error {
 	if err := postReadExtractZoneResourceSpecFields(r, vResourceSpec); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vResourceSpec) {
+	if !dcl.IsEmptyValueIndirect(vResourceSpec) {
 		r.ResourceSpec = vResourceSpec
 	}
 	vAssetStatus := r.AssetStatus
@@ -2782,7 +2782,7 @@ func postReadExtractZoneFields(r *Zone) error {
 	if err := postReadExtractZoneAssetStatusFields(r, vAssetStatus); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vAssetStatus) {
+	if !dcl.IsEmptyValueIndirect(vAssetStatus) {
 		r.AssetStatus = vAssetStatus
 	}
 	return nil
@@ -2796,7 +2796,7 @@ func postReadExtractZoneDiscoverySpecFields(r *Zone, o *ZoneDiscoverySpec) error
 	if err := extractZoneDiscoverySpecCsvOptionsFields(r, vCsvOptions); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vCsvOptions) {
+	if !dcl.IsEmptyValueIndirect(vCsvOptions) {
 		o.CsvOptions = vCsvOptions
 	}
 	vJsonOptions := o.JsonOptions
@@ -2807,7 +2807,7 @@ func postReadExtractZoneDiscoverySpecFields(r *Zone, o *ZoneDiscoverySpec) error
 	if err := extractZoneDiscoverySpecJsonOptionsFields(r, vJsonOptions); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vJsonOptions) {
+	if !dcl.IsEmptyValueIndirect(vJsonOptions) {
 		o.JsonOptions = vJsonOptions
 	}
 	return nil

@@ -445,12 +445,12 @@ func canonicalizeReservationNewState(c *Client, rawNew, rawDesired *Reservation)
 
 	rawNew.Name = rawDesired.Name
 
-	if dcl.IsNotReturnedByServer(rawNew.SlotCapacity) && dcl.IsNotReturnedByServer(rawDesired.SlotCapacity) {
+	if dcl.IsEmptyValueIndirect(rawNew.SlotCapacity) && dcl.IsEmptyValueIndirect(rawDesired.SlotCapacity) {
 		rawNew.SlotCapacity = rawDesired.SlotCapacity
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.IgnoreIdleSlots) && dcl.IsNotReturnedByServer(rawDesired.IgnoreIdleSlots) {
+	if dcl.IsEmptyValueIndirect(rawNew.IgnoreIdleSlots) && dcl.IsEmptyValueIndirect(rawDesired.IgnoreIdleSlots) {
 		rawNew.IgnoreIdleSlots = rawDesired.IgnoreIdleSlots
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.IgnoreIdleSlots, rawNew.IgnoreIdleSlots) {
@@ -458,12 +458,12 @@ func canonicalizeReservationNewState(c *Client, rawNew, rawDesired *Reservation)
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.CreationTime) && dcl.IsNotReturnedByServer(rawDesired.CreationTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.CreationTime) && dcl.IsEmptyValueIndirect(rawDesired.CreationTime) {
 		rawNew.CreationTime = rawDesired.CreationTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}

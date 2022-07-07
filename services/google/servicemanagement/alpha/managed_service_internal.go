@@ -345,7 +345,7 @@ func canonicalizeManagedServiceDesiredState(rawDesired, rawInitial *ManagedServi
 
 func canonicalizeManagedServiceNewState(c *Client, rawNew, rawDesired *ManagedService) (*ManagedService, error) {
 
-	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
@@ -353,7 +353,7 @@ func canonicalizeManagedServiceNewState(c *Client, rawNew, rawDesired *ManagedSe
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Project) && dcl.IsNotReturnedByServer(rawDesired.Project) {
+	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
 		rawNew.Project = rawDesired.Project
 	} else {
 	}

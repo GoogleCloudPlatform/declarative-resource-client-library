@@ -112,7 +112,7 @@ func DCLCertificateAuthoritySchema() *dcl.Schema {
 			Schemas: map[string]*dcl.Component{
 				"CertificateAuthority": &dcl.Component{
 					Title:           "CertificateAuthority",
-					ID:              "projects/{{project}}/locations/{{location}}/caPools/{{ca_pool}}/certificateAuthorities/{{name}}",
+					ID:              "projects/{{project}}/locations/{{location}}/caPools/{{caPool}}/certificateAuthorities/{{name}}",
 					ParentContainer: "project",
 					LabelsField:     "labels",
 					HasCreate:       true,

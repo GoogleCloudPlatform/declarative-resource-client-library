@@ -311,7 +311,7 @@ func canonicalizeFeatureMembershipDesiredState(rawDesired, rawInitial *FeatureMe
 
 func canonicalizeFeatureMembershipNewState(c *Client, rawNew, rawDesired *FeatureMembership) (*FeatureMembership, error) {
 
-	if dcl.IsNotReturnedByServer(rawNew.Configmanagement) && dcl.IsNotReturnedByServer(rawDesired.Configmanagement) {
+	if dcl.IsEmptyValueIndirect(rawNew.Configmanagement) && dcl.IsEmptyValueIndirect(rawDesired.Configmanagement) {
 		rawNew.Configmanagement = rawDesired.Configmanagement
 	} else {
 		rawNew.Configmanagement = canonicalizeNewFeatureMembershipConfigmanagement(c, rawDesired.Configmanagement, rawNew.Configmanagement)
@@ -390,7 +390,7 @@ func canonicalizeNewFeatureMembershipConfigmanagement(c *Client, des, nw *Featur
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for FeatureMembershipConfigmanagement while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -515,7 +515,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementConfigSync(c *Client, des, 
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for FeatureMembershipConfigmanagementConfigSync while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -670,7 +670,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncGit(c *Client, de
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for FeatureMembershipConfigmanagementConfigSyncGit while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -828,7 +828,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementPolicyController(c *Client,
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for FeatureMembershipConfigmanagementPolicyController while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -958,7 +958,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementBinauthz(c *Client, des, nw
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for FeatureMembershipConfigmanagementBinauthz while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1083,7 +1083,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementHierarchyController(c *Clie
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for FeatureMembershipConfigmanagementHierarchyController while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -2501,7 +2501,7 @@ func extractFeatureMembershipFields(r *FeatureMembership) error {
 	if err := extractFeatureMembershipConfigmanagementFields(r, vConfigmanagement); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vConfigmanagement) {
+	if !dcl.IsEmptyValueIndirect(vConfigmanagement) {
 		r.Configmanagement = vConfigmanagement
 	}
 	return nil
@@ -2515,7 +2515,7 @@ func extractFeatureMembershipConfigmanagementFields(r *FeatureMembership, o *Fea
 	if err := extractFeatureMembershipConfigmanagementConfigSyncFields(r, vConfigSync); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vConfigSync) {
+	if !dcl.IsEmptyValueIndirect(vConfigSync) {
 		o.ConfigSync = vConfigSync
 	}
 	vPolicyController := o.PolicyController
@@ -2526,7 +2526,7 @@ func extractFeatureMembershipConfigmanagementFields(r *FeatureMembership, o *Fea
 	if err := extractFeatureMembershipConfigmanagementPolicyControllerFields(r, vPolicyController); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vPolicyController) {
+	if !dcl.IsEmptyValueIndirect(vPolicyController) {
 		o.PolicyController = vPolicyController
 	}
 	vBinauthz := o.Binauthz
@@ -2537,7 +2537,7 @@ func extractFeatureMembershipConfigmanagementFields(r *FeatureMembership, o *Fea
 	if err := extractFeatureMembershipConfigmanagementBinauthzFields(r, vBinauthz); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vBinauthz) {
+	if !dcl.IsEmptyValueIndirect(vBinauthz) {
 		o.Binauthz = vBinauthz
 	}
 	vHierarchyController := o.HierarchyController
@@ -2548,7 +2548,7 @@ func extractFeatureMembershipConfigmanagementFields(r *FeatureMembership, o *Fea
 	if err := extractFeatureMembershipConfigmanagementHierarchyControllerFields(r, vHierarchyController); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vHierarchyController) {
+	if !dcl.IsEmptyValueIndirect(vHierarchyController) {
 		o.HierarchyController = vHierarchyController
 	}
 	return nil
@@ -2562,7 +2562,7 @@ func extractFeatureMembershipConfigmanagementConfigSyncFields(r *FeatureMembersh
 	if err := extractFeatureMembershipConfigmanagementConfigSyncGitFields(r, vGit); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vGit) {
+	if !dcl.IsEmptyValueIndirect(vGit) {
 		o.Git = vGit
 	}
 	return nil
@@ -2589,7 +2589,7 @@ func postReadExtractFeatureMembershipFields(r *FeatureMembership) error {
 	if err := postReadExtractFeatureMembershipConfigmanagementFields(r, vConfigmanagement); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vConfigmanagement) {
+	if !dcl.IsEmptyValueIndirect(vConfigmanagement) {
 		r.Configmanagement = vConfigmanagement
 	}
 	return nil
@@ -2603,7 +2603,7 @@ func postReadExtractFeatureMembershipConfigmanagementFields(r *FeatureMembership
 	if err := extractFeatureMembershipConfigmanagementConfigSyncFields(r, vConfigSync); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vConfigSync) {
+	if !dcl.IsEmptyValueIndirect(vConfigSync) {
 		o.ConfigSync = vConfigSync
 	}
 	vPolicyController := o.PolicyController
@@ -2614,7 +2614,7 @@ func postReadExtractFeatureMembershipConfigmanagementFields(r *FeatureMembership
 	if err := extractFeatureMembershipConfigmanagementPolicyControllerFields(r, vPolicyController); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vPolicyController) {
+	if !dcl.IsEmptyValueIndirect(vPolicyController) {
 		o.PolicyController = vPolicyController
 	}
 	vBinauthz := o.Binauthz
@@ -2625,7 +2625,7 @@ func postReadExtractFeatureMembershipConfigmanagementFields(r *FeatureMembership
 	if err := extractFeatureMembershipConfigmanagementBinauthzFields(r, vBinauthz); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vBinauthz) {
+	if !dcl.IsEmptyValueIndirect(vBinauthz) {
 		o.Binauthz = vBinauthz
 	}
 	vHierarchyController := o.HierarchyController
@@ -2636,7 +2636,7 @@ func postReadExtractFeatureMembershipConfigmanagementFields(r *FeatureMembership
 	if err := extractFeatureMembershipConfigmanagementHierarchyControllerFields(r, vHierarchyController); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vHierarchyController) {
+	if !dcl.IsEmptyValueIndirect(vHierarchyController) {
 		o.HierarchyController = vHierarchyController
 	}
 	return nil
@@ -2650,7 +2650,7 @@ func postReadExtractFeatureMembershipConfigmanagementConfigSyncFields(r *Feature
 	if err := extractFeatureMembershipConfigmanagementConfigSyncGitFields(r, vGit); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vGit) {
+	if !dcl.IsEmptyValueIndirect(vGit) {
 		o.Git = vGit
 	}
 	return nil

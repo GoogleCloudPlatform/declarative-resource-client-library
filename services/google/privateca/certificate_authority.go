@@ -2314,7 +2314,7 @@ func (r *CertificateAuthority) ID() (string, error) {
 		"location":                  dcl.ValueOrEmptyString(nr.Location),
 		"caPool":                    dcl.ValueOrEmptyString(nr.CaPool),
 	}
-	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/caPools/{{ca_pool}}/certificateAuthorities/{{name}}", params), nil
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/caPools/{{caPool}}/certificateAuthorities/{{name}}", params), nil
 }
 
 const CertificateAuthorityMaxPage = -1

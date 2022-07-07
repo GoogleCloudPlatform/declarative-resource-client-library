@@ -53,7 +53,7 @@ components:
   schemas:
     Budget:
       title: Budget
-      x-dcl-id: billingAccounts/{{billing_account}}/budgets/{{name}}
+      x-dcl-id: billingAccounts/{{billingAccount}}/budgets/{{name}}
       x-dcl-has-create: true
       x-dcl-has-iam: false
       x-dcl-read-timeout: 0

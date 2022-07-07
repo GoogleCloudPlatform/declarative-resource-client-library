@@ -369,7 +369,7 @@ func canonicalizeModelDeploymentDesiredState(rawDesired, rawInitial *ModelDeploy
 
 func canonicalizeModelDeploymentNewState(c *Client, rawNew, rawDesired *ModelDeployment) (*ModelDeployment, error) {
 
-	if dcl.IsNotReturnedByServer(rawNew.Model) && dcl.IsNotReturnedByServer(rawDesired.Model) {
+	if dcl.IsEmptyValueIndirect(rawNew.Model) && dcl.IsEmptyValueIndirect(rawDesired.Model) {
 		rawNew.Model = rawDesired.Model
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Model, rawNew.Model) {
@@ -377,7 +377,7 @@ func canonicalizeModelDeploymentNewState(c *Client, rawNew, rawDesired *ModelDep
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Id) && dcl.IsNotReturnedByServer(rawDesired.Id) {
+	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
 		rawNew.Id = rawDesired.Id
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Id, rawNew.Id) {
@@ -385,7 +385,7 @@ func canonicalizeModelDeploymentNewState(c *Client, rawNew, rawDesired *ModelDep
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.DedicatedResources) && dcl.IsNotReturnedByServer(rawDesired.DedicatedResources) {
+	if dcl.IsEmptyValueIndirect(rawNew.DedicatedResources) && dcl.IsEmptyValueIndirect(rawDesired.DedicatedResources) {
 		rawNew.DedicatedResources = rawDesired.DedicatedResources
 	} else {
 		rawNew.DedicatedResources = canonicalizeNewModelDeploymentDedicatedResources(c, rawDesired.DedicatedResources, rawNew.DedicatedResources)
@@ -466,7 +466,7 @@ func canonicalizeNewModelDeploymentDedicatedResources(c *Client, des, nw *ModelD
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for ModelDeploymentDedicatedResources while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -579,7 +579,7 @@ func canonicalizeNewModelDeploymentDedicatedResourcesMachineSpec(c *Client, des,
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for ModelDeploymentDedicatedResourcesMachineSpec while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1193,7 +1193,7 @@ func extractModelDeploymentFields(r *ModelDeployment) error {
 	if err := extractModelDeploymentDedicatedResourcesFields(r, vDedicatedResources); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vDedicatedResources) {
+	if !dcl.IsEmptyValueIndirect(vDedicatedResources) {
 		r.DedicatedResources = vDedicatedResources
 	}
 	vLocation, err := dcl.ValueFromRegexOnField("Location", r.Location, r.Endpoint, "projects/.*/locations/([a-z0-9A-Z-]*)/endpoints/.*")
@@ -1217,7 +1217,7 @@ func extractModelDeploymentDedicatedResourcesFields(r *ModelDeployment, o *Model
 	if err := extractModelDeploymentDedicatedResourcesMachineSpecFields(r, vMachineSpec); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vMachineSpec) {
+	if !dcl.IsEmptyValueIndirect(vMachineSpec) {
 		o.MachineSpec = vMachineSpec
 	}
 	return nil
@@ -1235,7 +1235,7 @@ func postReadExtractModelDeploymentFields(r *ModelDeployment) error {
 	if err := postReadExtractModelDeploymentDedicatedResourcesFields(r, vDedicatedResources); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vDedicatedResources) {
+	if !dcl.IsEmptyValueIndirect(vDedicatedResources) {
 		r.DedicatedResources = vDedicatedResources
 	}
 	return nil
@@ -1249,7 +1249,7 @@ func postReadExtractModelDeploymentDedicatedResourcesFields(r *ModelDeployment, 
 	if err := extractModelDeploymentDedicatedResourcesMachineSpecFields(r, vMachineSpec); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vMachineSpec) {
+	if !dcl.IsEmptyValueIndirect(vMachineSpec) {
 		o.MachineSpec = vMachineSpec
 	}
 	return nil

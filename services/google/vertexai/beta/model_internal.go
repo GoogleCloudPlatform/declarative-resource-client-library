@@ -530,12 +530,12 @@ func canonicalizeModelDesiredState(rawDesired, rawInitial *Model, opts ...dcl.Ap
 
 func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, error) {
 
-	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.VersionId) && dcl.IsNotReturnedByServer(rawDesired.VersionId) {
+	if dcl.IsEmptyValueIndirect(rawNew.VersionId) && dcl.IsEmptyValueIndirect(rawDesired.VersionId) {
 		rawNew.VersionId = rawDesired.VersionId
 	} else {
 		if dcl.StringCanonicalize(rawDesired.VersionId, rawNew.VersionId) {
@@ -543,7 +543,7 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.VersionAliases) && dcl.IsNotReturnedByServer(rawDesired.VersionAliases) {
+	if dcl.IsEmptyValueIndirect(rawNew.VersionAliases) && dcl.IsEmptyValueIndirect(rawDesired.VersionAliases) {
 		rawNew.VersionAliases = rawDesired.VersionAliases
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.VersionAliases, rawNew.VersionAliases) {
@@ -551,17 +551,17 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.VersionCreateTime) && dcl.IsNotReturnedByServer(rawDesired.VersionCreateTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.VersionCreateTime) && dcl.IsEmptyValueIndirect(rawDesired.VersionCreateTime) {
 		rawNew.VersionCreateTime = rawDesired.VersionCreateTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.VersionUpdateTime) && dcl.IsNotReturnedByServer(rawDesired.VersionUpdateTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.VersionUpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.VersionUpdateTime) {
 		rawNew.VersionUpdateTime = rawDesired.VersionUpdateTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
+	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
@@ -569,7 +569,7 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
+	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -577,7 +577,7 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.VersionDescription) && dcl.IsNotReturnedByServer(rawDesired.VersionDescription) {
+	if dcl.IsEmptyValueIndirect(rawNew.VersionDescription) && dcl.IsEmptyValueIndirect(rawDesired.VersionDescription) {
 		rawNew.VersionDescription = rawDesired.VersionDescription
 	} else {
 		if dcl.StringCanonicalize(rawDesired.VersionDescription, rawNew.VersionDescription) {
@@ -585,13 +585,13 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.SupportedExportFormats) && dcl.IsNotReturnedByServer(rawDesired.SupportedExportFormats) {
+	if dcl.IsEmptyValueIndirect(rawNew.SupportedExportFormats) && dcl.IsEmptyValueIndirect(rawDesired.SupportedExportFormats) {
 		rawNew.SupportedExportFormats = rawDesired.SupportedExportFormats
 	} else {
 		rawNew.SupportedExportFormats = canonicalizeNewModelSupportedExportFormatsSlice(c, rawDesired.SupportedExportFormats, rawNew.SupportedExportFormats)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.TrainingPipeline) && dcl.IsNotReturnedByServer(rawDesired.TrainingPipeline) {
+	if dcl.IsEmptyValueIndirect(rawNew.TrainingPipeline) && dcl.IsEmptyValueIndirect(rawDesired.TrainingPipeline) {
 		rawNew.TrainingPipeline = rawDesired.TrainingPipeline
 	} else {
 		if dcl.StringCanonicalize(rawDesired.TrainingPipeline, rawNew.TrainingPipeline) {
@@ -599,19 +599,19 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.OriginalModelInfo) && dcl.IsNotReturnedByServer(rawDesired.OriginalModelInfo) {
+	if dcl.IsEmptyValueIndirect(rawNew.OriginalModelInfo) && dcl.IsEmptyValueIndirect(rawDesired.OriginalModelInfo) {
 		rawNew.OriginalModelInfo = rawDesired.OriginalModelInfo
 	} else {
 		rawNew.OriginalModelInfo = canonicalizeNewModelOriginalModelInfo(c, rawDesired.OriginalModelInfo, rawNew.OriginalModelInfo)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.ContainerSpec) && dcl.IsNotReturnedByServer(rawDesired.ContainerSpec) {
+	if dcl.IsEmptyValueIndirect(rawNew.ContainerSpec) && dcl.IsEmptyValueIndirect(rawDesired.ContainerSpec) {
 		rawNew.ContainerSpec = rawDesired.ContainerSpec
 	} else {
 		rawNew.ContainerSpec = rawDesired.ContainerSpec
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.ArtifactUri) && dcl.IsNotReturnedByServer(rawDesired.ArtifactUri) {
+	if dcl.IsEmptyValueIndirect(rawNew.ArtifactUri) && dcl.IsEmptyValueIndirect(rawDesired.ArtifactUri) {
 		rawNew.ArtifactUri = rawDesired.ArtifactUri
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ArtifactUri, rawNew.ArtifactUri) {
@@ -619,12 +619,12 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.SupportedDeploymentResourcesTypes) && dcl.IsNotReturnedByServer(rawDesired.SupportedDeploymentResourcesTypes) {
+	if dcl.IsEmptyValueIndirect(rawNew.SupportedDeploymentResourcesTypes) && dcl.IsEmptyValueIndirect(rawDesired.SupportedDeploymentResourcesTypes) {
 		rawNew.SupportedDeploymentResourcesTypes = rawDesired.SupportedDeploymentResourcesTypes
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.SupportedInputStorageFormats) && dcl.IsNotReturnedByServer(rawDesired.SupportedInputStorageFormats) {
+	if dcl.IsEmptyValueIndirect(rawNew.SupportedInputStorageFormats) && dcl.IsEmptyValueIndirect(rawDesired.SupportedInputStorageFormats) {
 		rawNew.SupportedInputStorageFormats = rawDesired.SupportedInputStorageFormats
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.SupportedInputStorageFormats, rawNew.SupportedInputStorageFormats) {
@@ -632,7 +632,7 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.SupportedOutputStorageFormats) && dcl.IsNotReturnedByServer(rawDesired.SupportedOutputStorageFormats) {
+	if dcl.IsEmptyValueIndirect(rawNew.SupportedOutputStorageFormats) && dcl.IsEmptyValueIndirect(rawDesired.SupportedOutputStorageFormats) {
 		rawNew.SupportedOutputStorageFormats = rawDesired.SupportedOutputStorageFormats
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.SupportedOutputStorageFormats, rawNew.SupportedOutputStorageFormats) {
@@ -640,23 +640,23 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.DeployedModels) && dcl.IsNotReturnedByServer(rawDesired.DeployedModels) {
+	if dcl.IsEmptyValueIndirect(rawNew.DeployedModels) && dcl.IsEmptyValueIndirect(rawDesired.DeployedModels) {
 		rawNew.DeployedModels = rawDesired.DeployedModels
 	} else {
 		rawNew.DeployedModels = canonicalizeNewModelDeployedModelsSlice(c, rawDesired.DeployedModels, rawNew.DeployedModels)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
+	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
 		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
@@ -664,12 +664,12 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
+	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
 		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.EncryptionSpec) && dcl.IsNotReturnedByServer(rawDesired.EncryptionSpec) {
+	if dcl.IsEmptyValueIndirect(rawNew.EncryptionSpec) && dcl.IsEmptyValueIndirect(rawDesired.EncryptionSpec) {
 		rawNew.EncryptionSpec = rawDesired.EncryptionSpec
 	} else {
 		rawNew.EncryptionSpec = canonicalizeNewModelEncryptionSpec(c, rawDesired.EncryptionSpec, rawNew.EncryptionSpec)
@@ -734,7 +734,7 @@ func canonicalizeNewModelSupportedExportFormats(c *Client, des, nw *ModelSupport
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for ModelSupportedExportFormats while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -843,7 +843,7 @@ func canonicalizeNewModelOriginalModelInfo(c *Client, des, nw *ModelOriginalMode
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for ModelOriginalModelInfo while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -977,7 +977,7 @@ func canonicalizeNewModelContainerSpec(c *Client, des, nw *ModelContainerSpec) *
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for ModelContainerSpec while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1112,7 +1112,7 @@ func canonicalizeNewModelContainerSpecEnv(c *Client, des, nw *ModelContainerSpec
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for ModelContainerSpecEnv while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1231,7 +1231,7 @@ func canonicalizeNewModelContainerSpecPorts(c *Client, des, nw *ModelContainerSp
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for ModelContainerSpecPorts while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1349,7 +1349,7 @@ func canonicalizeNewModelContainerSpecAcceleratorRequirements(c *Client, des, nw
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for ModelContainerSpecAcceleratorRequirements while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1466,7 +1466,7 @@ func canonicalizeNewModelDeployedModels(c *Client, des, nw *ModelDeployedModels)
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for ModelDeployedModels while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1582,7 +1582,7 @@ func canonicalizeNewModelEncryptionSpec(c *Client, des, nw *ModelEncryptionSpec)
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for ModelEncryptionSpec while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -3492,7 +3492,7 @@ func extractModelFields(r *Model) error {
 	if err := extractModelOriginalModelInfoFields(r, vOriginalModelInfo); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vOriginalModelInfo) {
+	if !dcl.IsEmptyValueIndirect(vOriginalModelInfo) {
 		r.OriginalModelInfo = vOriginalModelInfo
 	}
 	vContainerSpec := r.ContainerSpec
@@ -3503,7 +3503,7 @@ func extractModelFields(r *Model) error {
 	if err := extractModelContainerSpecFields(r, vContainerSpec); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vContainerSpec) {
+	if !dcl.IsEmptyValueIndirect(vContainerSpec) {
 		r.ContainerSpec = vContainerSpec
 	}
 	vEncryptionSpec := r.EncryptionSpec
@@ -3514,7 +3514,7 @@ func extractModelFields(r *Model) error {
 	if err := extractModelEncryptionSpecFields(r, vEncryptionSpec); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vEncryptionSpec) {
+	if !dcl.IsEmptyValueIndirect(vEncryptionSpec) {
 		r.EncryptionSpec = vEncryptionSpec
 	}
 	return nil
@@ -3553,7 +3553,7 @@ func postReadExtractModelFields(r *Model) error {
 	if err := postReadExtractModelOriginalModelInfoFields(r, vOriginalModelInfo); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vOriginalModelInfo) {
+	if !dcl.IsEmptyValueIndirect(vOriginalModelInfo) {
 		r.OriginalModelInfo = vOriginalModelInfo
 	}
 	vContainerSpec := r.ContainerSpec
@@ -3564,7 +3564,7 @@ func postReadExtractModelFields(r *Model) error {
 	if err := postReadExtractModelContainerSpecFields(r, vContainerSpec); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vContainerSpec) {
+	if !dcl.IsEmptyValueIndirect(vContainerSpec) {
 		r.ContainerSpec = vContainerSpec
 	}
 	vEncryptionSpec := r.EncryptionSpec
@@ -3575,7 +3575,7 @@ func postReadExtractModelFields(r *Model) error {
 	if err := postReadExtractModelEncryptionSpecFields(r, vEncryptionSpec); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vEncryptionSpec) {
+	if !dcl.IsEmptyValueIndirect(vEncryptionSpec) {
 		r.EncryptionSpec = vEncryptionSpec
 	}
 	return nil

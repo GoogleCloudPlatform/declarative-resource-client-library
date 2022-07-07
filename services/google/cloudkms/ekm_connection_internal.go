@@ -432,7 +432,7 @@ func canonicalizeEkmConnectionDesiredState(rawDesired, rawInitial *EkmConnection
 
 func canonicalizeEkmConnectionNewState(c *Client, rawNew, rawDesired *EkmConnection) (*EkmConnection, error) {
 
-	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -440,18 +440,18 @@ func canonicalizeEkmConnectionNewState(c *Client, rawNew, rawDesired *EkmConnect
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.ServiceResolvers) && dcl.IsNotReturnedByServer(rawDesired.ServiceResolvers) {
+	if dcl.IsEmptyValueIndirect(rawNew.ServiceResolvers) && dcl.IsEmptyValueIndirect(rawDesired.ServiceResolvers) {
 		rawNew.ServiceResolvers = rawDesired.ServiceResolvers
 	} else {
 		rawNew.ServiceResolvers = canonicalizeNewEkmConnectionServiceResolversSlice(c, rawDesired.ServiceResolvers, rawNew.ServiceResolvers)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
+	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
 		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
@@ -535,7 +535,7 @@ func canonicalizeNewEkmConnectionServiceResolvers(c *Client, des, nw *EkmConnect
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for EkmConnectionServiceResolvers while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -657,7 +657,7 @@ func canonicalizeNewEkmConnectionServiceResolversServerCertificates(c *Client, d
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for EkmConnectionServiceResolversServerCertificates while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}

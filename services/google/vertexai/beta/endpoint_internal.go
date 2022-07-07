@@ -562,12 +562,12 @@ func canonicalizeEndpointDesiredState(rawDesired, rawInitial *Endpoint, opts ...
 
 func canonicalizeEndpointNewState(c *Client, rawNew, rawDesired *Endpoint) (*Endpoint, error) {
 
-	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
+	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
@@ -575,7 +575,7 @@ func canonicalizeEndpointNewState(c *Client, rawNew, rawDesired *Endpoint) (*End
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
+	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -583,13 +583,13 @@ func canonicalizeEndpointNewState(c *Client, rawNew, rawDesired *Endpoint) (*End
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.DeployedModels) && dcl.IsNotReturnedByServer(rawDesired.DeployedModels) {
+	if dcl.IsEmptyValueIndirect(rawNew.DeployedModels) && dcl.IsEmptyValueIndirect(rawDesired.DeployedModels) {
 		rawNew.DeployedModels = rawDesired.DeployedModels
 	} else {
 		rawNew.DeployedModels = canonicalizeNewEndpointDeployedModelsSlice(c, rawDesired.DeployedModels, rawNew.DeployedModels)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
+	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
 		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
@@ -597,33 +597,33 @@ func canonicalizeEndpointNewState(c *Client, rawNew, rawDesired *Endpoint) (*End
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
+	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
 		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.EncryptionSpec) && dcl.IsNotReturnedByServer(rawDesired.EncryptionSpec) {
+	if dcl.IsEmptyValueIndirect(rawNew.EncryptionSpec) && dcl.IsEmptyValueIndirect(rawDesired.EncryptionSpec) {
 		rawNew.EncryptionSpec = rawDesired.EncryptionSpec
 	} else {
 		rawNew.EncryptionSpec = canonicalizeNewEndpointEncryptionSpec(c, rawDesired.EncryptionSpec, rawNew.EncryptionSpec)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Network) && dcl.IsNotReturnedByServer(rawDesired.Network) {
+	if dcl.IsEmptyValueIndirect(rawNew.Network) && dcl.IsEmptyValueIndirect(rawDesired.Network) {
 		rawNew.Network = rawDesired.Network
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.ModelDeploymentMonitoringJob) && dcl.IsNotReturnedByServer(rawDesired.ModelDeploymentMonitoringJob) {
+	if dcl.IsEmptyValueIndirect(rawNew.ModelDeploymentMonitoringJob) && dcl.IsEmptyValueIndirect(rawDesired.ModelDeploymentMonitoringJob) {
 		rawNew.ModelDeploymentMonitoringJob = rawDesired.ModelDeploymentMonitoringJob
 	} else {
 		if dcl.StringCanonicalize(rawDesired.ModelDeploymentMonitoringJob, rawNew.ModelDeploymentMonitoringJob) {
@@ -755,7 +755,7 @@ func canonicalizeNewEndpointDeployedModels(c *Client, des, nw *EndpointDeployedM
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for EndpointDeployedModels while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -900,7 +900,7 @@ func canonicalizeNewEndpointDeployedModelsDedicatedResources(c *Client, des, nw 
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for EndpointDeployedModelsDedicatedResources while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1026,7 +1026,7 @@ func canonicalizeNewEndpointDeployedModelsDedicatedResourcesMachineSpec(c *Clien
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for EndpointDeployedModelsDedicatedResourcesMachineSpec while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1147,7 +1147,7 @@ func canonicalizeNewEndpointDeployedModelsDedicatedResourcesAutoscalingMetricSpe
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for EndpointDeployedModelsDedicatedResourcesAutoscalingMetricSpecs while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1269,7 +1269,7 @@ func canonicalizeNewEndpointDeployedModelsAutomaticResources(c *Client, des, nw 
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for EndpointDeployedModelsAutomaticResources while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1374,7 +1374,7 @@ func canonicalizeNewEndpointDeployedModelsPrivateEndpoints(c *Client, des, nw *E
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for EndpointDeployedModelsPrivateEndpoints while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1499,7 +1499,7 @@ func canonicalizeNewEndpointEncryptionSpec(c *Client, des, nw *EndpointEncryptio
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for EndpointEncryptionSpec while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -3177,7 +3177,7 @@ func extractEndpointFields(r *Endpoint) error {
 	if err := extractEndpointEncryptionSpecFields(r, vEncryptionSpec); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vEncryptionSpec) {
+	if !dcl.IsEmptyValueIndirect(vEncryptionSpec) {
 		r.EncryptionSpec = vEncryptionSpec
 	}
 	return nil
@@ -3191,7 +3191,7 @@ func extractEndpointDeployedModelsFields(r *Endpoint, o *EndpointDeployedModels)
 	if err := extractEndpointDeployedModelsDedicatedResourcesFields(r, vDedicatedResources); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vDedicatedResources) {
+	if !dcl.IsEmptyValueIndirect(vDedicatedResources) {
 		o.DedicatedResources = vDedicatedResources
 	}
 	vAutomaticResources := o.AutomaticResources
@@ -3202,7 +3202,7 @@ func extractEndpointDeployedModelsFields(r *Endpoint, o *EndpointDeployedModels)
 	if err := extractEndpointDeployedModelsAutomaticResourcesFields(r, vAutomaticResources); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vAutomaticResources) {
+	if !dcl.IsEmptyValueIndirect(vAutomaticResources) {
 		o.AutomaticResources = vAutomaticResources
 	}
 	vPrivateEndpoints := o.PrivateEndpoints
@@ -3213,7 +3213,7 @@ func extractEndpointDeployedModelsFields(r *Endpoint, o *EndpointDeployedModels)
 	if err := extractEndpointDeployedModelsPrivateEndpointsFields(r, vPrivateEndpoints); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vPrivateEndpoints) {
+	if !dcl.IsEmptyValueIndirect(vPrivateEndpoints) {
 		o.PrivateEndpoints = vPrivateEndpoints
 	}
 	return nil
@@ -3227,7 +3227,7 @@ func extractEndpointDeployedModelsDedicatedResourcesFields(r *Endpoint, o *Endpo
 	if err := extractEndpointDeployedModelsDedicatedResourcesMachineSpecFields(r, vMachineSpec); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vMachineSpec) {
+	if !dcl.IsEmptyValueIndirect(vMachineSpec) {
 		o.MachineSpec = vMachineSpec
 	}
 	return nil
@@ -3257,7 +3257,7 @@ func postReadExtractEndpointFields(r *Endpoint) error {
 	if err := postReadExtractEndpointEncryptionSpecFields(r, vEncryptionSpec); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vEncryptionSpec) {
+	if !dcl.IsEmptyValueIndirect(vEncryptionSpec) {
 		r.EncryptionSpec = vEncryptionSpec
 	}
 	return nil
@@ -3271,7 +3271,7 @@ func postReadExtractEndpointDeployedModelsFields(r *Endpoint, o *EndpointDeploye
 	if err := extractEndpointDeployedModelsDedicatedResourcesFields(r, vDedicatedResources); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vDedicatedResources) {
+	if !dcl.IsEmptyValueIndirect(vDedicatedResources) {
 		o.DedicatedResources = vDedicatedResources
 	}
 	vAutomaticResources := o.AutomaticResources
@@ -3282,7 +3282,7 @@ func postReadExtractEndpointDeployedModelsFields(r *Endpoint, o *EndpointDeploye
 	if err := extractEndpointDeployedModelsAutomaticResourcesFields(r, vAutomaticResources); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vAutomaticResources) {
+	if !dcl.IsEmptyValueIndirect(vAutomaticResources) {
 		o.AutomaticResources = vAutomaticResources
 	}
 	vPrivateEndpoints := o.PrivateEndpoints
@@ -3293,7 +3293,7 @@ func postReadExtractEndpointDeployedModelsFields(r *Endpoint, o *EndpointDeploye
 	if err := extractEndpointDeployedModelsPrivateEndpointsFields(r, vPrivateEndpoints); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vPrivateEndpoints) {
+	if !dcl.IsEmptyValueIndirect(vPrivateEndpoints) {
 		o.PrivateEndpoints = vPrivateEndpoints
 	}
 	return nil
@@ -3307,7 +3307,7 @@ func postReadExtractEndpointDeployedModelsDedicatedResourcesFields(r *Endpoint, 
 	if err := extractEndpointDeployedModelsDedicatedResourcesMachineSpecFields(r, vMachineSpec); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vMachineSpec) {
+	if !dcl.IsEmptyValueIndirect(vMachineSpec) {
 		o.MachineSpec = vMachineSpec
 	}
 	return nil

@@ -330,7 +330,7 @@ func canonicalizeMetadataSchemaDesiredState(rawDesired, rawInitial *MetadataSche
 
 func canonicalizeMetadataSchemaNewState(c *Client, rawNew, rawDesired *MetadataSchema) (*MetadataSchema, error) {
 
-	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -338,7 +338,7 @@ func canonicalizeMetadataSchemaNewState(c *Client, rawNew, rawDesired *MetadataS
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.SchemaVersion) && dcl.IsNotReturnedByServer(rawDesired.SchemaVersion) {
+	if dcl.IsEmptyValueIndirect(rawNew.SchemaVersion) && dcl.IsEmptyValueIndirect(rawDesired.SchemaVersion) {
 		rawNew.SchemaVersion = rawDesired.SchemaVersion
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SchemaVersion, rawNew.SchemaVersion) {
@@ -346,7 +346,7 @@ func canonicalizeMetadataSchemaNewState(c *Client, rawNew, rawDesired *MetadataS
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Schema) && dcl.IsNotReturnedByServer(rawDesired.Schema) {
+	if dcl.IsEmptyValueIndirect(rawNew.Schema) && dcl.IsEmptyValueIndirect(rawDesired.Schema) {
 		rawNew.Schema = rawDesired.Schema
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Schema, rawNew.Schema) {
@@ -354,12 +354,12 @@ func canonicalizeMetadataSchemaNewState(c *Client, rawNew, rawDesired *MetadataS
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.SchemaType) && dcl.IsNotReturnedByServer(rawDesired.SchemaType) {
+	if dcl.IsEmptyValueIndirect(rawNew.SchemaType) && dcl.IsEmptyValueIndirect(rawDesired.SchemaType) {
 		rawNew.SchemaType = rawDesired.SchemaType
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}

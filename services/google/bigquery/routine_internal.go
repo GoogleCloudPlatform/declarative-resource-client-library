@@ -584,7 +584,7 @@ func canonicalizeRoutineDesiredState(rawDesired, rawInitial *Routine, opts ...dc
 
 func canonicalizeRoutineNewState(c *Client, rawNew, rawDesired *Routine) (*Routine, error) {
 
-	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
+	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
 		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
@@ -592,7 +592,7 @@ func canonicalizeRoutineNewState(c *Client, rawNew, rawDesired *Routine) (*Routi
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
@@ -600,49 +600,49 @@ func canonicalizeRoutineNewState(c *Client, rawNew, rawDesired *Routine) (*Routi
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Project) && dcl.IsNotReturnedByServer(rawDesired.Project) {
+	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
 		rawNew.Project = rawDesired.Project
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Dataset) && dcl.IsNotReturnedByServer(rawDesired.Dataset) {
+	if dcl.IsEmptyValueIndirect(rawNew.Dataset) && dcl.IsEmptyValueIndirect(rawDesired.Dataset) {
 		rawNew.Dataset = rawDesired.Dataset
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.RoutineType) && dcl.IsNotReturnedByServer(rawDesired.RoutineType) {
+	if dcl.IsEmptyValueIndirect(rawNew.RoutineType) && dcl.IsEmptyValueIndirect(rawDesired.RoutineType) {
 		rawNew.RoutineType = rawDesired.RoutineType
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.CreationTime) && dcl.IsNotReturnedByServer(rawDesired.CreationTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.CreationTime) && dcl.IsEmptyValueIndirect(rawDesired.CreationTime) {
 		rawNew.CreationTime = rawDesired.CreationTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.LastModifiedTime) && dcl.IsNotReturnedByServer(rawDesired.LastModifiedTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.LastModifiedTime) && dcl.IsEmptyValueIndirect(rawDesired.LastModifiedTime) {
 		rawNew.LastModifiedTime = rawDesired.LastModifiedTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Language) && dcl.IsNotReturnedByServer(rawDesired.Language) {
+	if dcl.IsEmptyValueIndirect(rawNew.Language) && dcl.IsEmptyValueIndirect(rawDesired.Language) {
 		rawNew.Language = rawDesired.Language
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Arguments) && dcl.IsNotReturnedByServer(rawDesired.Arguments) {
+	if dcl.IsEmptyValueIndirect(rawNew.Arguments) && dcl.IsEmptyValueIndirect(rawDesired.Arguments) {
 		rawNew.Arguments = rawDesired.Arguments
 	} else {
 		rawNew.Arguments = canonicalizeNewRoutineArgumentsSlice(c, rawDesired.Arguments, rawNew.Arguments)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.ReturnType) && dcl.IsNotReturnedByServer(rawDesired.ReturnType) {
+	if dcl.IsEmptyValueIndirect(rawNew.ReturnType) && dcl.IsEmptyValueIndirect(rawDesired.ReturnType) {
 		rawNew.ReturnType = rawDesired.ReturnType
 	} else {
 		rawNew.ReturnType = canonicalizeNewRoutineArgumentsDataType(c, rawDesired.ReturnType, rawNew.ReturnType)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.ImportedLibraries) && dcl.IsNotReturnedByServer(rawDesired.ImportedLibraries) {
+	if dcl.IsEmptyValueIndirect(rawNew.ImportedLibraries) && dcl.IsEmptyValueIndirect(rawDesired.ImportedLibraries) {
 		rawNew.ImportedLibraries = rawDesired.ImportedLibraries
 	} else {
 		if dcl.StringArrayCanonicalize(rawDesired.ImportedLibraries, rawNew.ImportedLibraries) {
@@ -650,7 +650,7 @@ func canonicalizeRoutineNewState(c *Client, rawNew, rawDesired *Routine) (*Routi
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.DefinitionBody) && dcl.IsNotReturnedByServer(rawDesired.DefinitionBody) {
+	if dcl.IsEmptyValueIndirect(rawNew.DefinitionBody) && dcl.IsEmptyValueIndirect(rawDesired.DefinitionBody) {
 		rawNew.DefinitionBody = rawDesired.DefinitionBody
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DefinitionBody, rawNew.DefinitionBody) {
@@ -658,7 +658,7 @@ func canonicalizeRoutineNewState(c *Client, rawNew, rawDesired *Routine) (*Routi
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
+	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -666,12 +666,12 @@ func canonicalizeRoutineNewState(c *Client, rawNew, rawDesired *Routine) (*Routi
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.DeterminismLevel) && dcl.IsNotReturnedByServer(rawDesired.DeterminismLevel) {
+	if dcl.IsEmptyValueIndirect(rawNew.DeterminismLevel) && dcl.IsEmptyValueIndirect(rawDesired.DeterminismLevel) {
 		rawNew.DeterminismLevel = rawDesired.DeterminismLevel
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.StrictMode) && dcl.IsNotReturnedByServer(rawDesired.StrictMode) {
+	if dcl.IsEmptyValueIndirect(rawNew.StrictMode) && dcl.IsEmptyValueIndirect(rawDesired.StrictMode) {
 		rawNew.StrictMode = rawDesired.StrictMode
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.StrictMode, rawNew.StrictMode) {
@@ -753,7 +753,7 @@ func canonicalizeNewRoutineArguments(c *Client, des, nw *RoutineArguments) *Rout
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for RoutineArguments while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -892,7 +892,7 @@ func canonicalizeNewRoutineArgumentsDataType(c *Client, des, nw *RoutineArgument
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for RoutineArgumentsDataType while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1002,7 +1002,7 @@ func canonicalizeNewRoutineArgumentsDataTypeStructType(c *Client, des, nw *Routi
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for RoutineArgumentsDataTypeStructType while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1116,7 +1116,7 @@ func canonicalizeNewRoutineArgumentsDataTypeStructTypeFields(c *Client, des, nw 
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for RoutineArgumentsDataTypeStructTypeFields while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -2534,7 +2534,7 @@ func extractRoutineArgumentsDataTypeFields(r *Routine, o *RoutineArgumentsDataTy
 	if err := extractRoutineArgumentsDataTypeStructTypeFields(r, vStructType); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vStructType) {
+	if !dcl.IsEmptyValueIndirect(vStructType) {
 		o.StructType = vStructType
 	}
 	return nil
@@ -2569,7 +2569,7 @@ func postReadExtractRoutineArgumentsDataTypeFields(r *Routine, o *RoutineArgumen
 	if err := extractRoutineArgumentsDataTypeStructTypeFields(r, vStructType); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vStructType) {
+	if !dcl.IsEmptyValueIndirect(vStructType) {
 		o.StructType = vStructType
 	}
 	return nil

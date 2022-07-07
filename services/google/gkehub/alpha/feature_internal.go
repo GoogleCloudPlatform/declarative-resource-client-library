@@ -459,7 +459,7 @@ func canonicalizeFeatureDesiredState(rawDesired, rawInitial *Feature, opts ...dc
 
 func canonicalizeFeatureNewState(c *Client, rawNew, rawDesired *Feature) (*Feature, error) {
 
-	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -467,40 +467,40 @@ func canonicalizeFeatureNewState(c *Client, rawNew, rawDesired *Feature) (*Featu
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
+	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
 		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.ResourceState) && dcl.IsNotReturnedByServer(rawDesired.ResourceState) {
+	if dcl.IsEmptyValueIndirect(rawNew.ResourceState) && dcl.IsEmptyValueIndirect(rawDesired.ResourceState) {
 		rawNew.ResourceState = rawDesired.ResourceState
 	} else {
 		rawNew.ResourceState = canonicalizeNewFeatureResourceState(c, rawDesired.ResourceState, rawNew.ResourceState)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Spec) && dcl.IsNotReturnedByServer(rawDesired.Spec) {
+	if dcl.IsEmptyValueIndirect(rawNew.Spec) && dcl.IsEmptyValueIndirect(rawDesired.Spec) {
 		rawNew.Spec = rawDesired.Spec
 	} else {
 		rawNew.Spec = canonicalizeNewFeatureSpec(c, rawDesired.Spec, rawNew.Spec)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
+	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
 		rawNew.State = rawDesired.State
 	} else {
 		rawNew.State = canonicalizeNewFeatureState(c, rawDesired.State, rawNew.State)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.DeleteTime) && dcl.IsNotReturnedByServer(rawDesired.DeleteTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.DeleteTime) && dcl.IsEmptyValueIndirect(rawDesired.DeleteTime) {
 		rawNew.DeleteTime = rawDesired.DeleteTime
 	} else {
 	}
@@ -564,7 +564,7 @@ func canonicalizeNewFeatureResourceState(c *Client, des, nw *FeatureResourceStat
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for FeatureResourceState while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -676,7 +676,7 @@ func canonicalizeNewFeatureSpec(c *Client, des, nw *FeatureSpec) *FeatureSpec {
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for FeatureSpec while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -791,7 +791,7 @@ func canonicalizeNewFeatureSpecMulticlusteringress(c *Client, des, nw *FeatureSp
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for FeatureSpecMulticlusteringress while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -902,7 +902,7 @@ func canonicalizeNewFeatureSpecCloudauditlogging(c *Client, des, nw *FeatureSpec
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for FeatureSpecCloudauditlogging while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1011,7 +1011,7 @@ func canonicalizeNewFeatureState(c *Client, des, nw *FeatureState) *FeatureState
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for FeatureState while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1119,7 +1119,7 @@ func canonicalizeNewFeatureStateState(c *Client, des, nw *FeatureStateState) *Fe
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for FeatureStateState while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1231,7 +1231,7 @@ func canonicalizeNewFeatureStateServicemesh(c *Client, des, nw *FeatureStateServ
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for FeatureStateServicemesh while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1338,7 +1338,7 @@ func canonicalizeNewFeatureStateServicemeshAnalysisMessages(c *Client, des, nw *
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for FeatureStateServicemeshAnalysisMessages while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1451,7 +1451,7 @@ func canonicalizeNewFeatureStateServicemeshAnalysisMessagesMessageBase(c *Client
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for FeatureStateServicemeshAnalysisMessagesMessageBase while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1561,7 +1561,7 @@ func canonicalizeNewFeatureStateServicemeshAnalysisMessagesMessageBaseType(c *Cl
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for FeatureStateServicemeshAnalysisMessagesMessageBaseType while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -3582,7 +3582,7 @@ func extractFeatureFields(r *Feature) error {
 	if err := extractFeatureResourceStateFields(r, vResourceState); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vResourceState) {
+	if !dcl.IsEmptyValueIndirect(vResourceState) {
 		r.ResourceState = vResourceState
 	}
 	vSpec := r.Spec
@@ -3593,7 +3593,7 @@ func extractFeatureFields(r *Feature) error {
 	if err := extractFeatureSpecFields(r, vSpec); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vSpec) {
+	if !dcl.IsEmptyValueIndirect(vSpec) {
 		r.Spec = vSpec
 	}
 	vState := r.State
@@ -3604,7 +3604,7 @@ func extractFeatureFields(r *Feature) error {
 	if err := extractFeatureStateFields(r, vState); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vState) {
+	if !dcl.IsEmptyValueIndirect(vState) {
 		r.State = vState
 	}
 	return nil
@@ -3621,7 +3621,7 @@ func extractFeatureSpecFields(r *Feature, o *FeatureSpec) error {
 	if err := extractFeatureSpecMulticlusteringressFields(r, vMulticlusteringress); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vMulticlusteringress) {
+	if !dcl.IsEmptyValueIndirect(vMulticlusteringress) {
 		o.Multiclusteringress = vMulticlusteringress
 	}
 	vCloudauditlogging := o.Cloudauditlogging
@@ -3632,7 +3632,7 @@ func extractFeatureSpecFields(r *Feature, o *FeatureSpec) error {
 	if err := extractFeatureSpecCloudauditloggingFields(r, vCloudauditlogging); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vCloudauditlogging) {
+	if !dcl.IsEmptyValueIndirect(vCloudauditlogging) {
 		o.Cloudauditlogging = vCloudauditlogging
 	}
 	return nil
@@ -3652,7 +3652,7 @@ func extractFeatureStateFields(r *Feature, o *FeatureState) error {
 	if err := extractFeatureStateStateFields(r, vState); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vState) {
+	if !dcl.IsEmptyValueIndirect(vState) {
 		o.State = vState
 	}
 	vServicemesh := o.Servicemesh
@@ -3663,7 +3663,7 @@ func extractFeatureStateFields(r *Feature, o *FeatureState) error {
 	if err := extractFeatureStateServicemeshFields(r, vServicemesh); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vServicemesh) {
+	if !dcl.IsEmptyValueIndirect(vServicemesh) {
 		o.Servicemesh = vServicemesh
 	}
 	return nil
@@ -3683,7 +3683,7 @@ func extractFeatureStateServicemeshAnalysisMessagesFields(r *Feature, o *Feature
 	if err := extractFeatureStateServicemeshAnalysisMessagesMessageBaseFields(r, vMessageBase); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vMessageBase) {
+	if !dcl.IsEmptyValueIndirect(vMessageBase) {
 		o.MessageBase = vMessageBase
 	}
 	return nil
@@ -3697,7 +3697,7 @@ func extractFeatureStateServicemeshAnalysisMessagesMessageBaseFields(r *Feature,
 	if err := extractFeatureStateServicemeshAnalysisMessagesMessageBaseTypeFields(r, vType); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vType) {
+	if !dcl.IsEmptyValueIndirect(vType) {
 		o.Type = vType
 	}
 	return nil
@@ -3715,7 +3715,7 @@ func postReadExtractFeatureFields(r *Feature) error {
 	if err := postReadExtractFeatureResourceStateFields(r, vResourceState); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vResourceState) {
+	if !dcl.IsEmptyValueIndirect(vResourceState) {
 		r.ResourceState = vResourceState
 	}
 	vSpec := r.Spec
@@ -3726,7 +3726,7 @@ func postReadExtractFeatureFields(r *Feature) error {
 	if err := postReadExtractFeatureSpecFields(r, vSpec); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vSpec) {
+	if !dcl.IsEmptyValueIndirect(vSpec) {
 		r.Spec = vSpec
 	}
 	vState := r.State
@@ -3737,7 +3737,7 @@ func postReadExtractFeatureFields(r *Feature) error {
 	if err := postReadExtractFeatureStateFields(r, vState); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vState) {
+	if !dcl.IsEmptyValueIndirect(vState) {
 		r.State = vState
 	}
 	return nil
@@ -3754,7 +3754,7 @@ func postReadExtractFeatureSpecFields(r *Feature, o *FeatureSpec) error {
 	if err := extractFeatureSpecMulticlusteringressFields(r, vMulticlusteringress); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vMulticlusteringress) {
+	if !dcl.IsEmptyValueIndirect(vMulticlusteringress) {
 		o.Multiclusteringress = vMulticlusteringress
 	}
 	vCloudauditlogging := o.Cloudauditlogging
@@ -3765,7 +3765,7 @@ func postReadExtractFeatureSpecFields(r *Feature, o *FeatureSpec) error {
 	if err := extractFeatureSpecCloudauditloggingFields(r, vCloudauditlogging); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vCloudauditlogging) {
+	if !dcl.IsEmptyValueIndirect(vCloudauditlogging) {
 		o.Cloudauditlogging = vCloudauditlogging
 	}
 	return nil
@@ -3785,7 +3785,7 @@ func postReadExtractFeatureStateFields(r *Feature, o *FeatureState) error {
 	if err := extractFeatureStateStateFields(r, vState); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vState) {
+	if !dcl.IsEmptyValueIndirect(vState) {
 		o.State = vState
 	}
 	vServicemesh := o.Servicemesh
@@ -3796,7 +3796,7 @@ func postReadExtractFeatureStateFields(r *Feature, o *FeatureState) error {
 	if err := extractFeatureStateServicemeshFields(r, vServicemesh); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vServicemesh) {
+	if !dcl.IsEmptyValueIndirect(vServicemesh) {
 		o.Servicemesh = vServicemesh
 	}
 	return nil
@@ -3816,7 +3816,7 @@ func postReadExtractFeatureStateServicemeshAnalysisMessagesFields(r *Feature, o 
 	if err := extractFeatureStateServicemeshAnalysisMessagesMessageBaseFields(r, vMessageBase); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vMessageBase) {
+	if !dcl.IsEmptyValueIndirect(vMessageBase) {
 		o.MessageBase = vMessageBase
 	}
 	return nil
@@ -3830,7 +3830,7 @@ func postReadExtractFeatureStateServicemeshAnalysisMessagesMessageBaseFields(r *
 	if err := extractFeatureStateServicemeshAnalysisMessagesMessageBaseTypeFields(r, vType); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vType) {
+	if !dcl.IsEmptyValueIndirect(vType) {
 		o.Type = vType
 	}
 	return nil

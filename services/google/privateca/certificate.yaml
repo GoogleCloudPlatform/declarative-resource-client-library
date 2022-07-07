@@ -69,7 +69,7 @@ components:
   schemas:
     Certificate:
       title: Certificate
-      x-dcl-id: projects/{{project}}/locations/{{location}}/caPools/{{ca_pool}}/certificates/{{name}}
+      x-dcl-id: projects/{{project}}/locations/{{location}}/caPools/{{caPool}}/certificates/{{name}}
       x-dcl-parent-container: project
       x-dcl-labels: labels
       x-dcl-has-create: true

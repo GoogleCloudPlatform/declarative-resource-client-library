@@ -411,7 +411,7 @@ func canonicalizeMetadataStoreDesiredState(rawDesired, rawInitial *MetadataStore
 
 func canonicalizeMetadataStoreNewState(c *Client, rawNew, rawDesired *MetadataStore) (*MetadataStore, error) {
 
-	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -419,23 +419,23 @@ func canonicalizeMetadataStoreNewState(c *Client, rawNew, rawDesired *MetadataSt
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.EncryptionSpec) && dcl.IsNotReturnedByServer(rawDesired.EncryptionSpec) {
+	if dcl.IsEmptyValueIndirect(rawNew.EncryptionSpec) && dcl.IsEmptyValueIndirect(rawDesired.EncryptionSpec) {
 		rawNew.EncryptionSpec = rawDesired.EncryptionSpec
 	} else {
 		rawNew.EncryptionSpec = canonicalizeNewMetadataStoreEncryptionSpec(c, rawDesired.EncryptionSpec, rawNew.EncryptionSpec)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
+	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -443,7 +443,7 @@ func canonicalizeMetadataStoreNewState(c *Client, rawNew, rawDesired *MetadataSt
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
+	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
 		rawNew.State = rawDesired.State
 	} else {
 		rawNew.State = canonicalizeNewMetadataStoreState(c, rawDesired.State, rawNew.State)
@@ -515,7 +515,7 @@ func canonicalizeNewMetadataStoreEncryptionSpec(c *Client, des, nw *MetadataStor
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for MetadataStoreEncryptionSpec while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -627,7 +627,7 @@ func canonicalizeNewMetadataStoreState(c *Client, des, nw *MetadataStoreState) *
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for MetadataStoreState while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1241,7 +1241,7 @@ func extractMetadataStoreFields(r *MetadataStore) error {
 	if err := extractMetadataStoreEncryptionSpecFields(r, vEncryptionSpec); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vEncryptionSpec) {
+	if !dcl.IsEmptyValueIndirect(vEncryptionSpec) {
 		r.EncryptionSpec = vEncryptionSpec
 	}
 	vState := r.State
@@ -1252,7 +1252,7 @@ func extractMetadataStoreFields(r *MetadataStore) error {
 	if err := extractMetadataStoreStateFields(r, vState); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vState) {
+	if !dcl.IsEmptyValueIndirect(vState) {
 		r.State = vState
 	}
 	return nil
@@ -1273,7 +1273,7 @@ func postReadExtractMetadataStoreFields(r *MetadataStore) error {
 	if err := postReadExtractMetadataStoreEncryptionSpecFields(r, vEncryptionSpec); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vEncryptionSpec) {
+	if !dcl.IsEmptyValueIndirect(vEncryptionSpec) {
 		r.EncryptionSpec = vEncryptionSpec
 	}
 	vState := r.State
@@ -1284,7 +1284,7 @@ func postReadExtractMetadataStoreFields(r *MetadataStore) error {
 	if err := postReadExtractMetadataStoreStateFields(r, vState); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vState) {
+	if !dcl.IsEmptyValueIndirect(vState) {
 		r.State = vState
 	}
 	return nil

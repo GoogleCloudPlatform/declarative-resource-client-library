@@ -659,7 +659,7 @@ func (r *Budget) ID() (string, error) {
 		"allUpdatesRule": dcl.ValueOrEmptyString(nr.AllUpdatesRule),
 		"billingAccount": dcl.ValueOrEmptyString(nr.BillingAccount),
 	}
-	return dcl.Nprintf("billingAccounts/{{billing_account}}/budgets/{{name}}", params), nil
+	return dcl.Nprintf("billingAccounts/{{billingAccount}}/budgets/{{name}}", params), nil
 }
 
 const BudgetMaxPage = -1

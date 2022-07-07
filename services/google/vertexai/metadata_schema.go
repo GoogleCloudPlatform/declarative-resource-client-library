@@ -89,7 +89,7 @@ func (r *MetadataSchema) ID() (string, error) {
 		"location":      dcl.ValueOrEmptyString(nr.Location),
 		"metadataStore": dcl.ValueOrEmptyString(nr.MetadataStore),
 	}
-	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/metadataStores/{{metadata_store}}/metadataSchemas/{{name}}", params), nil
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/metadataStores/{{metadataStore}}/metadataSchemas/{{name}}", params), nil
 }
 
 const MetadataSchemaMaxPage = -1

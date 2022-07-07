@@ -200,7 +200,7 @@ func (r *FirewallPolicyRule) ID() (string, error) {
 		"kind":                  dcl.ValueOrEmptyString(nr.Kind),
 		"firewallPolicy":        dcl.ValueOrEmptyString(nr.FirewallPolicy),
 	}
-	return dcl.Nprintf("locations/global/firewallPolicies/{{firewall_policy}}/rules/{{priority}}", params), nil
+	return dcl.Nprintf("locations/global/firewallPolicies/{{firewallPolicy}}/rules/{{priority}}", params), nil
 }
 
 const FirewallPolicyRuleMaxPage = -1

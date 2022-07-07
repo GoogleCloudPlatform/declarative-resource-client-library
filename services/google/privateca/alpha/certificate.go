@@ -2017,7 +2017,7 @@ func (r *Certificate) ID() (string, error) {
 		"caPool":                     dcl.ValueOrEmptyString(nr.CaPool),
 		"certificateAuthority":       dcl.ValueOrEmptyString(nr.CertificateAuthority),
 	}
-	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/caPools/{{ca_pool}}/certificates/{{name}}", params), nil
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/caPools/{{caPool}}/certificates/{{name}}", params), nil
 }
 
 const CertificateMaxPage = -1

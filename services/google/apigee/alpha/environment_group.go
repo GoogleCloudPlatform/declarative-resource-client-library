@@ -85,7 +85,7 @@ func (r *EnvironmentGroup) ID() (string, error) {
 		"state":              dcl.ValueOrEmptyString(nr.State),
 		"apigeeOrganization": dcl.ValueOrEmptyString(nr.ApigeeOrganization),
 	}
-	return dcl.Nprintf("organizations/{{apigee_organization}}/envgroups/{{name}}", params), nil
+	return dcl.Nprintf("organizations/{{apigeeOrganization}}/envgroups/{{name}}", params), nil
 }
 
 const EnvironmentGroupMaxPage = -1

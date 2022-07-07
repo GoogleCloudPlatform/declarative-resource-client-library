@@ -545,7 +545,7 @@ func canonicalizeDatasetDesiredState(rawDesired, rawInitial *Dataset, opts ...dc
 
 func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Dataset, error) {
 
-	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
+	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
 		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
@@ -553,7 +553,7 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Id) && dcl.IsNotReturnedByServer(rawDesired.Id) {
+	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
 		rawNew.Id = rawDesired.Id
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Id, rawNew.Id) {
@@ -561,7 +561,7 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
+	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SelfLink, rawNew.SelfLink) {
@@ -569,7 +569,7 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Name, rawNew.Name) {
@@ -577,12 +577,12 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Project) && dcl.IsNotReturnedByServer(rawDesired.Project) {
+	if dcl.IsEmptyValueIndirect(rawNew.Project) && dcl.IsEmptyValueIndirect(rawDesired.Project) {
 		rawNew.Project = rawDesired.Project
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.FriendlyName) && dcl.IsNotReturnedByServer(rawDesired.FriendlyName) {
+	if dcl.IsEmptyValueIndirect(rawNew.FriendlyName) && dcl.IsEmptyValueIndirect(rawDesired.FriendlyName) {
 		rawNew.FriendlyName = rawDesired.FriendlyName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.FriendlyName, rawNew.FriendlyName) {
@@ -590,7 +590,7 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
+	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -598,7 +598,7 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.DefaultTableExpirationMs) && dcl.IsNotReturnedByServer(rawDesired.DefaultTableExpirationMs) {
+	if dcl.IsEmptyValueIndirect(rawNew.DefaultTableExpirationMs) && dcl.IsEmptyValueIndirect(rawDesired.DefaultTableExpirationMs) {
 		rawNew.DefaultTableExpirationMs = rawDesired.DefaultTableExpirationMs
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DefaultTableExpirationMs, rawNew.DefaultTableExpirationMs) {
@@ -606,7 +606,7 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.DefaultPartitionExpirationMs) && dcl.IsNotReturnedByServer(rawDesired.DefaultPartitionExpirationMs) {
+	if dcl.IsEmptyValueIndirect(rawNew.DefaultPartitionExpirationMs) && dcl.IsEmptyValueIndirect(rawDesired.DefaultPartitionExpirationMs) {
 		rawNew.DefaultPartitionExpirationMs = rawDesired.DefaultPartitionExpirationMs
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DefaultPartitionExpirationMs, rawNew.DefaultPartitionExpirationMs) {
@@ -614,28 +614,28 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Labels) && dcl.IsNotReturnedByServer(rawDesired.Labels) {
+	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
 		rawNew.Labels = rawDesired.Labels
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Access) && dcl.IsNotReturnedByServer(rawDesired.Access) {
+	if dcl.IsEmptyValueIndirect(rawNew.Access) && dcl.IsEmptyValueIndirect(rawDesired.Access) {
 		rawNew.Access = rawDesired.Access
 	} else {
 		rawNew.Access = canonicalizeNewDatasetAccessSet(c, rawDesired.Access, rawNew.Access)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.CreationTime) && dcl.IsNotReturnedByServer(rawDesired.CreationTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.CreationTime) && dcl.IsEmptyValueIndirect(rawDesired.CreationTime) {
 		rawNew.CreationTime = rawDesired.CreationTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.LastModifiedTime) && dcl.IsNotReturnedByServer(rawDesired.LastModifiedTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.LastModifiedTime) && dcl.IsEmptyValueIndirect(rawDesired.LastModifiedTime) {
 		rawNew.LastModifiedTime = rawDesired.LastModifiedTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Location) && dcl.IsNotReturnedByServer(rawDesired.Location) {
+	if dcl.IsEmptyValueIndirect(rawNew.Location) && dcl.IsEmptyValueIndirect(rawDesired.Location) {
 		rawNew.Location = rawDesired.Location
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Location, rawNew.Location) {
@@ -643,7 +643,7 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Published) && dcl.IsNotReturnedByServer(rawDesired.Published) {
+	if dcl.IsEmptyValueIndirect(rawNew.Published) && dcl.IsEmptyValueIndirect(rawDesired.Published) {
 		rawNew.Published = rawDesired.Published
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Published, rawNew.Published) {
@@ -651,7 +651,7 @@ func canonicalizeDatasetNewState(c *Client, rawNew, rawDesired *Dataset) (*Datas
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.DefaultEncryptionConfiguration) && dcl.IsNotReturnedByServer(rawDesired.DefaultEncryptionConfiguration) {
+	if dcl.IsEmptyValueIndirect(rawNew.DefaultEncryptionConfiguration) && dcl.IsEmptyValueIndirect(rawDesired.DefaultEncryptionConfiguration) {
 		rawNew.DefaultEncryptionConfiguration = rawDesired.DefaultEncryptionConfiguration
 	} else {
 		rawNew.DefaultEncryptionConfiguration = canonicalizeNewDatasetDefaultEncryptionConfiguration(c, rawDesired.DefaultEncryptionConfiguration, rawNew.DefaultEncryptionConfiguration)
@@ -815,7 +815,7 @@ func canonicalizeNewDatasetAccess(c *Client, des, nw *DatasetAccess) *DatasetAcc
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for DatasetAccess while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -960,7 +960,7 @@ func canonicalizeNewDatasetAccessView(c *Client, des, nw *DatasetAccessView) *Da
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for DatasetAccessView while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1084,7 +1084,7 @@ func canonicalizeNewDatasetAccessRoutine(c *Client, des, nw *DatasetAccessRoutin
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for DatasetAccessRoutine while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1196,7 +1196,7 @@ func canonicalizeNewDatasetDefaultEncryptionConfiguration(c *Client, des, nw *Da
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for DatasetDefaultEncryptionConfiguration while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -2330,7 +2330,7 @@ func extractDatasetFields(r *Dataset) error {
 	if err := extractDatasetDefaultEncryptionConfigurationFields(r, vDefaultEncryptionConfiguration); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vDefaultEncryptionConfiguration) {
+	if !dcl.IsEmptyValueIndirect(vDefaultEncryptionConfiguration) {
 		r.DefaultEncryptionConfiguration = vDefaultEncryptionConfiguration
 	}
 	return nil
@@ -2344,7 +2344,7 @@ func extractDatasetAccessFields(r *Dataset, o *DatasetAccess) error {
 	if err := extractDatasetAccessViewFields(r, vView); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vView) {
+	if !dcl.IsEmptyValueIndirect(vView) {
 		o.View = vView
 	}
 	vRoutine := o.Routine
@@ -2355,7 +2355,7 @@ func extractDatasetAccessFields(r *Dataset, o *DatasetAccess) error {
 	if err := extractDatasetAccessRoutineFields(r, vRoutine); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vRoutine) {
+	if !dcl.IsEmptyValueIndirect(vRoutine) {
 		o.Routine = vRoutine
 	}
 	return nil
@@ -2379,7 +2379,7 @@ func postReadExtractDatasetFields(r *Dataset) error {
 	if err := postReadExtractDatasetDefaultEncryptionConfigurationFields(r, vDefaultEncryptionConfiguration); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vDefaultEncryptionConfiguration) {
+	if !dcl.IsEmptyValueIndirect(vDefaultEncryptionConfiguration) {
 		r.DefaultEncryptionConfiguration = vDefaultEncryptionConfiguration
 	}
 	return nil
@@ -2393,7 +2393,7 @@ func postReadExtractDatasetAccessFields(r *Dataset, o *DatasetAccess) error {
 	if err := extractDatasetAccessViewFields(r, vView); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vView) {
+	if !dcl.IsEmptyValueIndirect(vView) {
 		o.View = vView
 	}
 	vRoutine := o.Routine
@@ -2404,7 +2404,7 @@ func postReadExtractDatasetAccessFields(r *Dataset, o *DatasetAccess) error {
 	if err := extractDatasetAccessRoutineFields(r, vRoutine); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vRoutine) {
+	if !dcl.IsEmptyValueIndirect(vRoutine) {
 		o.Routine = vRoutine
 	}
 	return nil

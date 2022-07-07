@@ -69,7 +69,7 @@ components:
   schemas:
     WorkloadIdentityPoolProvider:
       title: WorkloadIdentityPoolProvider
-      x-dcl-id: projects/{{project}}/locations/{{location}}/workloadIdentityPools/{{workload_identity_pool}}/providers/{{name}}
+      x-dcl-id: projects/{{project}}/locations/{{location}}/workloadIdentityPools/{{workloadIdentityPool}}/providers/{{name}}
       x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       x-dcl-has-create: true

@@ -124,7 +124,7 @@ func (r *Instance) ID() (string, error) {
 		"state":                 dcl.ValueOrEmptyString(nr.State),
 		"apigeeOrganization":    dcl.ValueOrEmptyString(nr.ApigeeOrganization),
 	}
-	return dcl.Nprintf("organizations/{{apigee_organization}}/instances/{{name}}", params), nil
+	return dcl.Nprintf("organizations/{{apigeeOrganization}}/instances/{{name}}", params), nil
 }
 
 const InstanceMaxPage = -1

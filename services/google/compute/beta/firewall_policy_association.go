@@ -54,7 +54,7 @@ func (r *FirewallPolicyAssociation) ID() (string, error) {
 		"firewallPolicy":   dcl.ValueOrEmptyString(nr.FirewallPolicy),
 		"shortName":        dcl.ValueOrEmptyString(nr.ShortName),
 	}
-	return dcl.Nprintf("locations/global/firewallPolicies/{{firewall_policy}}/associations/{{name}}", params), nil
+	return dcl.Nprintf("locations/global/firewallPolicies/{{firewallPolicy}}/associations/{{name}}", params), nil
 }
 
 const FirewallPolicyAssociationMaxPage = -1

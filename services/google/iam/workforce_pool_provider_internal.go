@@ -545,7 +545,7 @@ func canonicalizeWorkforcePoolProviderDesiredState(rawDesired, rawInitial *Workf
 
 func canonicalizeWorkforcePoolProviderNewState(c *Client, rawNew, rawDesired *WorkforcePoolProvider) (*WorkforcePoolProvider, error) {
 
-	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -553,7 +553,7 @@ func canonicalizeWorkforcePoolProviderNewState(c *Client, rawNew, rawDesired *Wo
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
+	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
@@ -561,7 +561,7 @@ func canonicalizeWorkforcePoolProviderNewState(c *Client, rawNew, rawDesired *Wo
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
+	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -569,12 +569,12 @@ func canonicalizeWorkforcePoolProviderNewState(c *Client, rawNew, rawDesired *Wo
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
+	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
 		rawNew.State = rawDesired.State
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Disabled) && dcl.IsNotReturnedByServer(rawDesired.Disabled) {
+	if dcl.IsEmptyValueIndirect(rawNew.Disabled) && dcl.IsEmptyValueIndirect(rawDesired.Disabled) {
 		rawNew.Disabled = rawDesired.Disabled
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Disabled, rawNew.Disabled) {
@@ -582,12 +582,12 @@ func canonicalizeWorkforcePoolProviderNewState(c *Client, rawNew, rawDesired *Wo
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.AttributeMapping) && dcl.IsNotReturnedByServer(rawDesired.AttributeMapping) {
+	if dcl.IsEmptyValueIndirect(rawNew.AttributeMapping) && dcl.IsEmptyValueIndirect(rawDesired.AttributeMapping) {
 		rawNew.AttributeMapping = rawDesired.AttributeMapping
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.AttributeCondition) && dcl.IsNotReturnedByServer(rawDesired.AttributeCondition) {
+	if dcl.IsEmptyValueIndirect(rawNew.AttributeCondition) && dcl.IsEmptyValueIndirect(rawDesired.AttributeCondition) {
 		rawNew.AttributeCondition = rawDesired.AttributeCondition
 	} else {
 		if dcl.StringCanonicalize(rawDesired.AttributeCondition, rawNew.AttributeCondition) {
@@ -595,13 +595,13 @@ func canonicalizeWorkforcePoolProviderNewState(c *Client, rawNew, rawDesired *Wo
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Saml) && dcl.IsNotReturnedByServer(rawDesired.Saml) {
+	if dcl.IsEmptyValueIndirect(rawNew.Saml) && dcl.IsEmptyValueIndirect(rawDesired.Saml) {
 		rawNew.Saml = rawDesired.Saml
 	} else {
 		rawNew.Saml = canonicalizeNewWorkforcePoolProviderSaml(c, rawDesired.Saml, rawNew.Saml)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Oidc) && dcl.IsNotReturnedByServer(rawDesired.Oidc) {
+	if dcl.IsEmptyValueIndirect(rawNew.Oidc) && dcl.IsEmptyValueIndirect(rawDesired.Oidc) {
 		rawNew.Oidc = rawDesired.Oidc
 	} else {
 		rawNew.Oidc = canonicalizeNewWorkforcePoolProviderOidc(c, rawDesired.Oidc, rawNew.Oidc)
@@ -672,7 +672,7 @@ func canonicalizeNewWorkforcePoolProviderSaml(c *Client, des, nw *WorkforcePoolP
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for WorkforcePoolProviderSaml while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -792,7 +792,7 @@ func canonicalizeNewWorkforcePoolProviderOidc(c *Client, des, nw *WorkforcePoolP
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for WorkforcePoolProviderOidc while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1532,7 +1532,7 @@ func extractWorkforcePoolProviderFields(r *WorkforcePoolProvider) error {
 	if err := extractWorkforcePoolProviderSamlFields(r, vSaml); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vSaml) {
+	if !dcl.IsEmptyValueIndirect(vSaml) {
 		r.Saml = vSaml
 	}
 	vOidc := r.Oidc
@@ -1543,7 +1543,7 @@ func extractWorkforcePoolProviderFields(r *WorkforcePoolProvider) error {
 	if err := extractWorkforcePoolProviderOidcFields(r, vOidc); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vOidc) {
+	if !dcl.IsEmptyValueIndirect(vOidc) {
 		r.Oidc = vOidc
 	}
 	return nil
@@ -1564,7 +1564,7 @@ func postReadExtractWorkforcePoolProviderFields(r *WorkforcePoolProvider) error 
 	if err := postReadExtractWorkforcePoolProviderSamlFields(r, vSaml); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vSaml) {
+	if !dcl.IsEmptyValueIndirect(vSaml) {
 		r.Saml = vSaml
 	}
 	vOidc := r.Oidc
@@ -1575,7 +1575,7 @@ func postReadExtractWorkforcePoolProviderFields(r *WorkforcePoolProvider) error 
 	if err := postReadExtractWorkforcePoolProviderOidcFields(r, vOidc); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vOidc) {
+	if !dcl.IsEmptyValueIndirect(vOidc) {
 		r.Oidc = vOidc
 	}
 	return nil

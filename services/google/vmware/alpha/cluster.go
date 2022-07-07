@@ -93,7 +93,7 @@ func (r *Cluster) ID() (string, error) {
 		"location":     dcl.ValueOrEmptyString(nr.Location),
 		"privateCloud": dcl.ValueOrEmptyString(nr.PrivateCloud),
 	}
-	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/privateClouds/{{private_cloud}}/clusters/{{name}}", params), nil
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/privateClouds/{{privateCloud}}/clusters/{{name}}", params), nil
 }
 
 const ClusterMaxPage = -1

@@ -192,7 +192,7 @@ func (r *WorkforcePoolProvider) ID() (string, error) {
 		"location":           dcl.ValueOrEmptyString(nr.Location),
 		"workforcePool":      dcl.ValueOrEmptyString(nr.WorkforcePool),
 	}
-	return dcl.Nprintf("locations/{{location}}/workforcePools/{{workforce_pool}}/providers/{{name}}", params), nil
+	return dcl.Nprintf("locations/{{location}}/workforcePools/{{workforcePool}}/providers/{{name}}", params), nil
 }
 
 const WorkforcePoolProviderMaxPage = -1

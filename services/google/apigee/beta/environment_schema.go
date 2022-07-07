@@ -85,7 +85,7 @@ func DCLEnvironmentSchema() *dcl.Schema {
 			Schemas: map[string]*dcl.Component{
 				"Environment": &dcl.Component{
 					Title:     "Environment",
-					ID:        "organizations/{{apigee_organization}}/environments/{{name}}",
+					ID:        "organizations/{{apigeeOrganization}}/environments/{{name}}",
 					HasCreate: true,
 					HasIAM:    true,
 					SchemaProperty: dcl.Property{

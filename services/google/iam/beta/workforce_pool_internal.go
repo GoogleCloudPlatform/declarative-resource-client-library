@@ -489,7 +489,7 @@ func canonicalizeWorkforcePoolNewState(c *Client, rawNew, rawDesired *WorkforceP
 
 	rawNew.Name = rawDesired.Name
 
-	if dcl.IsNotReturnedByServer(rawNew.SelfLink) && dcl.IsNotReturnedByServer(rawDesired.SelfLink) {
+	if dcl.IsEmptyValueIndirect(rawNew.SelfLink) && dcl.IsEmptyValueIndirect(rawDesired.SelfLink) {
 		rawNew.SelfLink = rawDesired.SelfLink
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.SelfLink, rawNew.SelfLink) {
@@ -497,7 +497,7 @@ func canonicalizeWorkforcePoolNewState(c *Client, rawNew, rawDesired *WorkforceP
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Parent) && dcl.IsNotReturnedByServer(rawDesired.Parent) {
+	if dcl.IsEmptyValueIndirect(rawNew.Parent) && dcl.IsEmptyValueIndirect(rawDesired.Parent) {
 		rawNew.Parent = rawDesired.Parent
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Parent, rawNew.Parent) {
@@ -505,7 +505,7 @@ func canonicalizeWorkforcePoolNewState(c *Client, rawNew, rawDesired *WorkforceP
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.DisplayName) && dcl.IsNotReturnedByServer(rawDesired.DisplayName) {
+	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
 		rawNew.DisplayName = rawDesired.DisplayName
 	} else {
 		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
@@ -513,7 +513,7 @@ func canonicalizeWorkforcePoolNewState(c *Client, rawNew, rawDesired *WorkforceP
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
+	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -521,12 +521,12 @@ func canonicalizeWorkforcePoolNewState(c *Client, rawNew, rawDesired *WorkforceP
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
+	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
 		rawNew.State = rawDesired.State
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Disabled) && dcl.IsNotReturnedByServer(rawDesired.Disabled) {
+	if dcl.IsEmptyValueIndirect(rawNew.Disabled) && dcl.IsEmptyValueIndirect(rawDesired.Disabled) {
 		rawNew.Disabled = rawDesired.Disabled
 	} else {
 		if dcl.BoolCanonicalize(rawDesired.Disabled, rawNew.Disabled) {
@@ -534,7 +534,7 @@ func canonicalizeWorkforcePoolNewState(c *Client, rawNew, rawDesired *WorkforceP
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.SessionDuration) && dcl.IsNotReturnedByServer(rawDesired.SessionDuration) {
+	if dcl.IsEmptyValueIndirect(rawNew.SessionDuration) && dcl.IsEmptyValueIndirect(rawDesired.SessionDuration) {
 		rawNew.SessionDuration = rawDesired.SessionDuration
 	} else {
 		if dcl.StringCanonicalize(rawDesired.SessionDuration, rawNew.SessionDuration) {

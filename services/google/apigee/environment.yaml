@@ -53,7 +53,7 @@ components:
   schemas:
     Environment:
       title: Environment
-      x-dcl-id: organizations/{{apigee_organization}}/environments/{{name}}
+      x-dcl-id: organizations/{{apigeeOrganization}}/environments/{{name}}
       x-dcl-has-create: true
       x-dcl-has-iam: true
       x-dcl-read-timeout: 0

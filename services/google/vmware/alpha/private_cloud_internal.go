@@ -616,7 +616,7 @@ func canonicalizePrivateCloudDesiredState(rawDesired, rawInitial *PrivateCloud, 
 
 func canonicalizePrivateCloudNewState(c *Client, rawNew, rawDesired *PrivateCloud) (*PrivateCloud, error) {
 
-	if dcl.IsNotReturnedByServer(rawNew.Name) && dcl.IsNotReturnedByServer(rawDesired.Name) {
+	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
 		rawNew.Name = rawDesired.Name
 	} else {
 		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
@@ -624,44 +624,44 @@ func canonicalizePrivateCloudNewState(c *Client, rawNew, rawDesired *PrivateClou
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.CreateTime) && dcl.IsNotReturnedByServer(rawDesired.CreateTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.UpdateTime) && dcl.IsNotReturnedByServer(rawDesired.UpdateTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.UpdateTime) && dcl.IsEmptyValueIndirect(rawDesired.UpdateTime) {
 		rawNew.UpdateTime = rawDesired.UpdateTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.DeleteTime) && dcl.IsNotReturnedByServer(rawDesired.DeleteTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.DeleteTime) && dcl.IsEmptyValueIndirect(rawDesired.DeleteTime) {
 		rawNew.DeleteTime = rawDesired.DeleteTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.ExpireTime) && dcl.IsNotReturnedByServer(rawDesired.ExpireTime) {
+	if dcl.IsEmptyValueIndirect(rawNew.ExpireTime) && dcl.IsEmptyValueIndirect(rawDesired.ExpireTime) {
 		rawNew.ExpireTime = rawDesired.ExpireTime
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.State) && dcl.IsNotReturnedByServer(rawDesired.State) {
+	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
 		rawNew.State = rawDesired.State
 	} else {
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.NetworkConfig) && dcl.IsNotReturnedByServer(rawDesired.NetworkConfig) {
+	if dcl.IsEmptyValueIndirect(rawNew.NetworkConfig) && dcl.IsEmptyValueIndirect(rawDesired.NetworkConfig) {
 		rawNew.NetworkConfig = rawDesired.NetworkConfig
 	} else {
 		rawNew.NetworkConfig = canonicalizeNewPrivateCloudNetworkConfig(c, rawDesired.NetworkConfig, rawNew.NetworkConfig)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.ManagementCluster) && dcl.IsNotReturnedByServer(rawDesired.ManagementCluster) {
+	if dcl.IsEmptyValueIndirect(rawNew.ManagementCluster) && dcl.IsEmptyValueIndirect(rawDesired.ManagementCluster) {
 		rawNew.ManagementCluster = rawDesired.ManagementCluster
 	} else {
 		rawNew.ManagementCluster = rawDesired.ManagementCluster
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Description) && dcl.IsNotReturnedByServer(rawDesired.Description) {
+	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
 		rawNew.Description = rawDesired.Description
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Description, rawNew.Description) {
@@ -669,25 +669,25 @@ func canonicalizePrivateCloudNewState(c *Client, rawNew, rawDesired *PrivateClou
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Conditions) && dcl.IsNotReturnedByServer(rawDesired.Conditions) {
+	if dcl.IsEmptyValueIndirect(rawNew.Conditions) && dcl.IsEmptyValueIndirect(rawDesired.Conditions) {
 		rawNew.Conditions = rawDesired.Conditions
 	} else {
 		rawNew.Conditions = canonicalizeNewPrivateCloudConditionsSlice(c, rawDesired.Conditions, rawNew.Conditions)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Hcx) && dcl.IsNotReturnedByServer(rawDesired.Hcx) {
+	if dcl.IsEmptyValueIndirect(rawNew.Hcx) && dcl.IsEmptyValueIndirect(rawDesired.Hcx) {
 		rawNew.Hcx = rawDesired.Hcx
 	} else {
 		rawNew.Hcx = canonicalizeNewPrivateCloudHcx(c, rawDesired.Hcx, rawNew.Hcx)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Nsx) && dcl.IsNotReturnedByServer(rawDesired.Nsx) {
+	if dcl.IsEmptyValueIndirect(rawNew.Nsx) && dcl.IsEmptyValueIndirect(rawDesired.Nsx) {
 		rawNew.Nsx = rawDesired.Nsx
 	} else {
 		rawNew.Nsx = canonicalizeNewPrivateCloudNsx(c, rawDesired.Nsx, rawNew.Nsx)
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.Vcenter) && dcl.IsNotReturnedByServer(rawDesired.Vcenter) {
+	if dcl.IsEmptyValueIndirect(rawNew.Vcenter) && dcl.IsEmptyValueIndirect(rawDesired.Vcenter) {
 		rawNew.Vcenter = rawDesired.Vcenter
 	} else {
 		rawNew.Vcenter = canonicalizeNewPrivateCloudVcenter(c, rawDesired.Vcenter, rawNew.Vcenter)
@@ -763,7 +763,7 @@ func canonicalizeNewPrivateCloudNetworkConfig(c *Client, des, nw *PrivateCloudNe
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for PrivateCloudNetworkConfig while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -895,7 +895,7 @@ func canonicalizeNewPrivateCloudManagementCluster(c *Client, des, nw *PrivateClo
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for PrivateCloudManagementCluster while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1007,7 +1007,7 @@ func canonicalizeNewPrivateCloudConditions(c *Client, des, nw *PrivateCloudCondi
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for PrivateCloudConditions while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1140,7 +1140,7 @@ func canonicalizeNewPrivateCloudHcx(c *Client, des, nw *PrivateCloudHcx) *Privat
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for PrivateCloudHcx while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1279,7 +1279,7 @@ func canonicalizeNewPrivateCloudNsx(c *Client, des, nw *PrivateCloudNsx) *Privat
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for PrivateCloudNsx while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -1418,7 +1418,7 @@ func canonicalizeNewPrivateCloudVcenter(c *Client, des, nw *PrivateCloudVcenter)
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for PrivateCloudVcenter while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
@@ -2901,7 +2901,7 @@ func extractPrivateCloudFields(r *PrivateCloud) error {
 	if err := extractPrivateCloudNetworkConfigFields(r, vNetworkConfig); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vNetworkConfig) {
+	if !dcl.IsEmptyValueIndirect(vNetworkConfig) {
 		r.NetworkConfig = vNetworkConfig
 	}
 	vManagementCluster := r.ManagementCluster
@@ -2912,7 +2912,7 @@ func extractPrivateCloudFields(r *PrivateCloud) error {
 	if err := extractPrivateCloudManagementClusterFields(r, vManagementCluster); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vManagementCluster) {
+	if !dcl.IsEmptyValueIndirect(vManagementCluster) {
 		r.ManagementCluster = vManagementCluster
 	}
 	vHcx := r.Hcx
@@ -2923,7 +2923,7 @@ func extractPrivateCloudFields(r *PrivateCloud) error {
 	if err := extractPrivateCloudHcxFields(r, vHcx); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vHcx) {
+	if !dcl.IsEmptyValueIndirect(vHcx) {
 		r.Hcx = vHcx
 	}
 	vNsx := r.Nsx
@@ -2934,7 +2934,7 @@ func extractPrivateCloudFields(r *PrivateCloud) error {
 	if err := extractPrivateCloudNsxFields(r, vNsx); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vNsx) {
+	if !dcl.IsEmptyValueIndirect(vNsx) {
 		r.Nsx = vNsx
 	}
 	vVcenter := r.Vcenter
@@ -2945,7 +2945,7 @@ func extractPrivateCloudFields(r *PrivateCloud) error {
 	if err := extractPrivateCloudVcenterFields(r, vVcenter); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vVcenter) {
+	if !dcl.IsEmptyValueIndirect(vVcenter) {
 		r.Vcenter = vVcenter
 	}
 	return nil
@@ -2978,7 +2978,7 @@ func postReadExtractPrivateCloudFields(r *PrivateCloud) error {
 	if err := postReadExtractPrivateCloudNetworkConfigFields(r, vNetworkConfig); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vNetworkConfig) {
+	if !dcl.IsEmptyValueIndirect(vNetworkConfig) {
 		r.NetworkConfig = vNetworkConfig
 	}
 	vManagementCluster := r.ManagementCluster
@@ -2989,7 +2989,7 @@ func postReadExtractPrivateCloudFields(r *PrivateCloud) error {
 	if err := postReadExtractPrivateCloudManagementClusterFields(r, vManagementCluster); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vManagementCluster) {
+	if !dcl.IsEmptyValueIndirect(vManagementCluster) {
 		r.ManagementCluster = vManagementCluster
 	}
 	vHcx := r.Hcx
@@ -3000,7 +3000,7 @@ func postReadExtractPrivateCloudFields(r *PrivateCloud) error {
 	if err := postReadExtractPrivateCloudHcxFields(r, vHcx); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vHcx) {
+	if !dcl.IsEmptyValueIndirect(vHcx) {
 		r.Hcx = vHcx
 	}
 	vNsx := r.Nsx
@@ -3011,7 +3011,7 @@ func postReadExtractPrivateCloudFields(r *PrivateCloud) error {
 	if err := postReadExtractPrivateCloudNsxFields(r, vNsx); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vNsx) {
+	if !dcl.IsEmptyValueIndirect(vNsx) {
 		r.Nsx = vNsx
 	}
 	vVcenter := r.Vcenter
@@ -3022,7 +3022,7 @@ func postReadExtractPrivateCloudFields(r *PrivateCloud) error {
 	if err := postReadExtractPrivateCloudVcenterFields(r, vVcenter); err != nil {
 		return err
 	}
-	if !dcl.IsNotReturnedByServer(vVcenter) {
+	if !dcl.IsEmptyValueIndirect(vVcenter) {
 		r.Vcenter = vVcenter
 	}
 	return nil

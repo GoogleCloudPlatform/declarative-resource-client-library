@@ -290,7 +290,7 @@ func canonicalizeEndpointTrafficSplitNewState(c *Client, rawNew, rawDesired *End
 
 	rawNew.Location = rawDesired.Location
 
-	if dcl.IsNotReturnedByServer(rawNew.Etag) && dcl.IsNotReturnedByServer(rawDesired.Etag) {
+	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
 		rawNew.Etag = rawDesired.Etag
 	} else {
 		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
@@ -298,7 +298,7 @@ func canonicalizeEndpointTrafficSplitNewState(c *Client, rawNew, rawDesired *End
 		}
 	}
 
-	if dcl.IsNotReturnedByServer(rawNew.TrafficSplit) && dcl.IsNotReturnedByServer(rawDesired.TrafficSplit) {
+	if dcl.IsEmptyValueIndirect(rawNew.TrafficSplit) && dcl.IsEmptyValueIndirect(rawDesired.TrafficSplit) {
 		rawNew.TrafficSplit = rawDesired.TrafficSplit
 	} else {
 		rawNew.TrafficSplit = canonicalizeNewEndpointTrafficSplitTrafficSplitSlice(c, rawDesired.TrafficSplit, rawNew.TrafficSplit)
@@ -372,7 +372,7 @@ func canonicalizeNewEndpointTrafficSplitTrafficSplit(c *Client, des, nw *Endpoin
 	}
 
 	if nw == nil {
-		if dcl.IsNotReturnedByServer(des) {
+		if dcl.IsEmptyValueIndirect(des) {
 			c.Config.Logger.Info("Found explicitly empty value for EndpointTrafficSplitTrafficSplit while comparing non-nil desired to nil actual.  Returning desired object.")
 			return des
 		}
