@@ -37,18 +37,6 @@ func ModelToUnstructured(r *dclService.Model) *unstructured.Resource {
 	}
 	if r.ContainerSpec != nil && r.ContainerSpec != dclService.EmptyModelContainerSpec {
 		rContainerSpec := make(map[string]interface{})
-		var rContainerSpecAcceleratorRequirements []interface{}
-		for _, rContainerSpecAcceleratorRequirementsVal := range r.ContainerSpec.AcceleratorRequirements {
-			rContainerSpecAcceleratorRequirementsObject := make(map[string]interface{})
-			if rContainerSpecAcceleratorRequirementsVal.Count != nil {
-				rContainerSpecAcceleratorRequirementsObject["count"] = *rContainerSpecAcceleratorRequirementsVal.Count
-			}
-			if rContainerSpecAcceleratorRequirementsVal.Type != nil {
-				rContainerSpecAcceleratorRequirementsObject["type"] = string(*rContainerSpecAcceleratorRequirementsVal.Type)
-			}
-			rContainerSpecAcceleratorRequirements = append(rContainerSpecAcceleratorRequirements, rContainerSpecAcceleratorRequirementsObject)
-		}
-		rContainerSpec["acceleratorRequirements"] = rContainerSpecAcceleratorRequirements
 		var rContainerSpecArgs []interface{}
 		for _, rContainerSpecArgsVal := range r.ContainerSpec.Args {
 			rContainerSpecArgs = append(rContainerSpecArgs, rContainerSpecArgsVal)
@@ -212,32 +200,6 @@ func UnstructuredToModel(u *unstructured.Resource) (*dclService.Model, error) {
 	if _, ok := u.Object["containerSpec"]; ok {
 		if rContainerSpec, ok := u.Object["containerSpec"].(map[string]interface{}); ok {
 			r.ContainerSpec = &dclService.ModelContainerSpec{}
-			if _, ok := rContainerSpec["acceleratorRequirements"]; ok {
-				if s, ok := rContainerSpec["acceleratorRequirements"].([]interface{}); ok {
-					for _, o := range s {
-						if objval, ok := o.(map[string]interface{}); ok {
-							var rContainerSpecAcceleratorRequirements dclService.ModelContainerSpecAcceleratorRequirements
-							if _, ok := objval["count"]; ok {
-								if i, ok := objval["count"].(int64); ok {
-									rContainerSpecAcceleratorRequirements.Count = dcl.Int64(i)
-								} else {
-									return nil, fmt.Errorf("rContainerSpecAcceleratorRequirements.Count: expected int64")
-								}
-							}
-							if _, ok := objval["type"]; ok {
-								if s, ok := objval["type"].(string); ok {
-									rContainerSpecAcceleratorRequirements.Type = dclService.ModelContainerSpecAcceleratorRequirementsTypeEnumRef(s)
-								} else {
-									return nil, fmt.Errorf("rContainerSpecAcceleratorRequirements.Type: expected string")
-								}
-							}
-							r.ContainerSpec.AcceleratorRequirements = append(r.ContainerSpec.AcceleratorRequirements, rContainerSpecAcceleratorRequirements)
-						}
-					}
-				} else {
-					return nil, fmt.Errorf("r.ContainerSpec.AcceleratorRequirements: expected []interface{}")
-				}
-			}
 			if _, ok := rContainerSpec["args"]; ok {
 				if s, ok := rContainerSpec["args"].([]interface{}); ok {
 					for _, ss := range s {

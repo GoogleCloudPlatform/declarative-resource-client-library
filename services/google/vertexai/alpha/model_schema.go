@@ -99,7 +99,6 @@ func DCLModelSchema() *dcl.Schema {
 				"Model": &dcl.Component{
 					Title:           "Model",
 					ID:              "projects/{{project}}/locations/{{location}}/models/{{name}}",
-					UsesStateHint:   true,
 					ParentContainer: "project",
 					LabelsField:     "labels",
 					HasCreate:       true,
@@ -122,47 +121,12 @@ func DCLModelSchema() *dcl.Schema {
 								Type:        "object",
 								GoName:      "ContainerSpec",
 								GoType:      "ModelContainerSpec",
-								Description: "Input only. The specification of the container that is to be used when deploying this Model. The specification is ingested upon ModelService.UploadModel, and all binaries it contains are copied and stored internally by Vertex AI. Not present for AutoML Models.",
+								Description: "The specification of the container that is to be used when deploying this Model. The specification is ingested upon ModelService.UploadModel, and all binaries it contains are copied and stored internally by Vertex AI. Not present for AutoML Models.",
 								Immutable:   true,
-								Unreadable:  true,
 								Required: []string{
 									"imageUri",
 								},
 								Properties: map[string]*dcl.Property{
-									"acceleratorRequirements": &dcl.Property{
-										Type:        "array",
-										GoName:      "AcceleratorRequirements",
-										Description: "Immutable. Accelerators required to run the container. This changes how containers are started. For example, GPU requirements are used to set the `resources` field in the Kubernetes [Container v1 core](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#container-v1-core) spec, as described on the [Schedule GPUs](https://kubernetes.io/docs/tasks/manage-gpus/scheduling-gpus/) page of the Kubernetes documentation. Currently, this field is only used when deploying to EdgeDevices.",
-										Immutable:   true,
-										SendEmpty:   true,
-										ListType:    "list",
-										Items: &dcl.Property{
-											Type:   "object",
-											GoType: "ModelContainerSpecAcceleratorRequirements",
-											Properties: map[string]*dcl.Property{
-												"count": &dcl.Property{
-													Type:        "integer",
-													Format:      "int64",
-													GoName:      "Count",
-													Description: "Number of accelerators of the specified type needed to run the container.",
-													Immutable:   true,
-												},
-												"type": &dcl.Property{
-													Type:        "string",
-													GoName:      "Type",
-													GoType:      "ModelContainerSpecAcceleratorRequirementsTypeEnum",
-													Description: "Type of the accelerator needed to run the container. Possible values: ACCELERATOR_TYPE_UNSPECIFIED, CORAL_EDGE_TPU, NVIDIA_GPU, AMD_GPU",
-													Immutable:   true,
-													Enum: []string{
-														"ACCELERATOR_TYPE_UNSPECIFIED",
-														"CORAL_EDGE_TPU",
-														"NVIDIA_GPU",
-														"AMD_GPU",
-													},
-												},
-											},
-										},
-									},
 									"args": &dcl.Property{
 										Type:        "array",
 										GoName:      "Args",

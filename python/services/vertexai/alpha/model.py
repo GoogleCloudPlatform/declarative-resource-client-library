@@ -337,7 +337,6 @@ class ModelContainerSpec(object):
         ports: list = None,
         predict_route: str = None,
         health_route: str = None,
-        accelerator_requirements: list = None,
     ):
         self.image_uri = image_uri
         self.command = command
@@ -346,7 +345,6 @@ class ModelContainerSpec(object):
         self.ports = ports
         self.predict_route = predict_route
         self.health_route = health_route
-        self.accelerator_requirements = accelerator_requirements
 
     @classmethod
     def to_proto(self, resource):
@@ -368,14 +366,6 @@ class ModelContainerSpec(object):
             res.predict_route = Primitive.to_proto(resource.predict_route)
         if Primitive.to_proto(resource.health_route):
             res.health_route = Primitive.to_proto(resource.health_route)
-        if ModelContainerSpecAcceleratorRequirementsArray.to_proto(
-            resource.accelerator_requirements
-        ):
-            res.accelerator_requirements.extend(
-                ModelContainerSpecAcceleratorRequirementsArray.to_proto(
-                    resource.accelerator_requirements
-                )
-            )
         return res
 
     @classmethod
@@ -391,9 +381,6 @@ class ModelContainerSpec(object):
             ports=ModelContainerSpecPortsArray.from_proto(resource.ports),
             predict_route=Primitive.from_proto(resource.predict_route),
             health_route=Primitive.from_proto(resource.health_route),
-            accelerator_requirements=ModelContainerSpecAcceleratorRequirementsArray.from_proto(
-                resource.accelerator_requirements
-            ),
         )
 
 
@@ -483,54 +470,6 @@ class ModelContainerSpecPortsArray(object):
     @classmethod
     def from_proto(self, resources):
         return [ModelContainerSpecPorts.from_proto(i) for i in resources]
-
-
-class ModelContainerSpecAcceleratorRequirements(object):
-    def __init__(self, type: str = None, count: int = None):
-        self.type = type
-        self.count = count
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = model_pb2.VertexaiAlphaModelContainerSpecAcceleratorRequirements()
-        if ModelContainerSpecAcceleratorRequirementsTypeEnum.to_proto(resource.type):
-            res.type = ModelContainerSpecAcceleratorRequirementsTypeEnum.to_proto(
-                resource.type
-            )
-        if Primitive.to_proto(resource.count):
-            res.count = Primitive.to_proto(resource.count)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return ModelContainerSpecAcceleratorRequirements(
-            type=ModelContainerSpecAcceleratorRequirementsTypeEnum.from_proto(
-                resource.type
-            ),
-            count=Primitive.from_proto(resource.count),
-        )
-
-
-class ModelContainerSpecAcceleratorRequirementsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            ModelContainerSpecAcceleratorRequirements.to_proto(i) for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            ModelContainerSpecAcceleratorRequirements.from_proto(i) for i in resources
-        ]
 
 
 class ModelDeployedModels(object):
@@ -627,27 +566,6 @@ class ModelSupportedExportFormatsExportableContentsEnum(object):
             resource
         )[
             len("VertexaiAlphaModelSupportedExportFormatsExportableContentsEnum") :
-        ]
-
-
-class ModelContainerSpecAcceleratorRequirementsTypeEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return model_pb2.VertexaiAlphaModelContainerSpecAcceleratorRequirementsTypeEnum.Value(
-            "VertexaiAlphaModelContainerSpecAcceleratorRequirementsTypeEnum%s"
-            % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return model_pb2.VertexaiAlphaModelContainerSpecAcceleratorRequirementsTypeEnum.Name(
-            resource
-        )[
-            len("VertexaiAlphaModelContainerSpecAcceleratorRequirementsTypeEnum") :
         ]
 
 

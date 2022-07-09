@@ -592,7 +592,7 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 	if dcl.IsEmptyValueIndirect(rawNew.ContainerSpec) && dcl.IsEmptyValueIndirect(rawDesired.ContainerSpec) {
 		rawNew.ContainerSpec = rawDesired.ContainerSpec
 	} else {
-		rawNew.ContainerSpec = rawDesired.ContainerSpec
+		rawNew.ContainerSpec = canonicalizeNewModelContainerSpec(c, rawDesired.ContainerSpec, rawNew.ContainerSpec)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ArtifactUri) && dcl.IsEmptyValueIndirect(rawDesired.ArtifactUri) {

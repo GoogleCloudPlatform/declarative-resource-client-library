@@ -22,13 +22,7 @@
       }
     ],
     "predictRoute": "/predict",
-    "healthRoute": "/health",
-    "acceleratorRequirements": [
-      {
-        "type": "CORAL_EDGE_TPU",
-        "count": 1
-      }
-    ]
+    "healthRoute": "/health"
   },
   "artifactUri": "gs://cloud-samples-data/vertex-ai/google-cloud-aiplatform-ci-artifacts/models/iris_xgboost/",
   "labels": {

@@ -82,33 +82,6 @@ func (v ModelSupportedExportFormatsExportableContentsEnum) Validate() error {
 	}
 }
 
-// The enum ModelContainerSpecAcceleratorRequirementsTypeEnum.
-type ModelContainerSpecAcceleratorRequirementsTypeEnum string
-
-// ModelContainerSpecAcceleratorRequirementsTypeEnumRef returns a *ModelContainerSpecAcceleratorRequirementsTypeEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func ModelContainerSpecAcceleratorRequirementsTypeEnumRef(s string) *ModelContainerSpecAcceleratorRequirementsTypeEnum {
-	v := ModelContainerSpecAcceleratorRequirementsTypeEnum(s)
-	return &v
-}
-
-func (v ModelContainerSpecAcceleratorRequirementsTypeEnum) Validate() error {
-	if string(v) == "" {
-		// Empty enum is okay.
-		return nil
-	}
-	for _, s := range []string{"ACCELERATOR_TYPE_UNSPECIFIED", "CORAL_EDGE_TPU", "NVIDIA_GPU", "AMD_GPU"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "ModelContainerSpecAcceleratorRequirementsTypeEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
 // The enum ModelSupportedDeploymentResourcesTypesEnum.
 type ModelSupportedDeploymentResourcesTypesEnum string
 
@@ -232,15 +205,14 @@ func (r *ModelOriginalModelInfo) HashCode() string {
 }
 
 type ModelContainerSpec struct {
-	empty                   bool                                        `json:"-"`
-	ImageUri                *string                                     `json:"imageUri"`
-	Command                 []string                                    `json:"command"`
-	Args                    []string                                    `json:"args"`
-	Env                     []ModelContainerSpecEnv                     `json:"env"`
-	Ports                   []ModelContainerSpecPorts                   `json:"ports"`
-	PredictRoute            *string                                     `json:"predictRoute"`
-	HealthRoute             *string                                     `json:"healthRoute"`
-	AcceleratorRequirements []ModelContainerSpecAcceleratorRequirements `json:"acceleratorRequirements"`
+	empty        bool                      `json:"-"`
+	ImageUri     *string                   `json:"imageUri"`
+	Command      []string                  `json:"command"`
+	Args         []string                  `json:"args"`
+	Env          []ModelContainerSpecEnv   `json:"env"`
+	Ports        []ModelContainerSpecPorts `json:"ports"`
+	PredictRoute *string                   `json:"predictRoute"`
+	HealthRoute  *string                   `json:"healthRoute"`
 }
 
 type jsonModelContainerSpec ModelContainerSpec
@@ -271,8 +243,6 @@ func (r *ModelContainerSpec) UnmarshalJSON(data []byte) error {
 		r.PredictRoute = res.PredictRoute
 
 		r.HealthRoute = res.HealthRoute
-
-		r.AcceleratorRequirements = res.AcceleratorRequirements
 
 	}
 	return nil
@@ -387,55 +357,6 @@ func (r *ModelContainerSpecPorts) String() string {
 }
 
 func (r *ModelContainerSpecPorts) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type ModelContainerSpecAcceleratorRequirements struct {
-	empty bool                                               `json:"-"`
-	Type  *ModelContainerSpecAcceleratorRequirementsTypeEnum `json:"type"`
-	Count *int64                                             `json:"count"`
-}
-
-type jsonModelContainerSpecAcceleratorRequirements ModelContainerSpecAcceleratorRequirements
-
-func (r *ModelContainerSpecAcceleratorRequirements) UnmarshalJSON(data []byte) error {
-	var res jsonModelContainerSpecAcceleratorRequirements
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyModelContainerSpecAcceleratorRequirements
-	} else {
-
-		r.Type = res.Type
-
-		r.Count = res.Count
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this ModelContainerSpecAcceleratorRequirements is
-// empty. Go lacks global const objects, but this object should be treated
-// as one. Modifying this object will have undesirable results.
-var EmptyModelContainerSpecAcceleratorRequirements *ModelContainerSpecAcceleratorRequirements = &ModelContainerSpecAcceleratorRequirements{empty: true}
-
-func (r *ModelContainerSpecAcceleratorRequirements) Empty() bool {
-	return r.empty
-}
-
-func (r *ModelContainerSpecAcceleratorRequirements) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *ModelContainerSpecAcceleratorRequirements) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

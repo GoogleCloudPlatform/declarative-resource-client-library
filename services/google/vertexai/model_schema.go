@@ -99,7 +99,6 @@ func DCLModelSchema() *dcl.Schema {
 				"Model": &dcl.Component{
 					Title:           "Model",
 					ID:              "projects/{{project}}/locations/{{location}}/models/{{name}}",
-					UsesStateHint:   true,
 					ParentContainer: "project",
 					LabelsField:     "labels",
 					HasCreate:       true,
@@ -122,9 +121,8 @@ func DCLModelSchema() *dcl.Schema {
 								Type:        "object",
 								GoName:      "ContainerSpec",
 								GoType:      "ModelContainerSpec",
-								Description: "Input only. The specification of the container that is to be used when deploying this Model. The specification is ingested upon ModelService.UploadModel, and all binaries it contains are copied and stored internally by Vertex AI. Not present for AutoML Models.",
+								Description: "The specification of the container that is to be used when deploying this Model. The specification is ingested upon ModelService.UploadModel, and all binaries it contains are copied and stored internally by Vertex AI. Not present for AutoML Models.",
 								Immutable:   true,
-								Unreadable:  true,
 								Required: []string{
 									"imageUri",
 								},

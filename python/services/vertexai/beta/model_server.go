@@ -36,18 +36,6 @@ func ProtoToVertexaiBetaModelSupportedExportFormatsExportableContentsEnum(e beta
 	return nil
 }
 
-// ProtoToModelContainerSpecAcceleratorRequirementsTypeEnum converts a ModelContainerSpecAcceleratorRequirementsTypeEnum enum from its proto representation.
-func ProtoToVertexaiBetaModelContainerSpecAcceleratorRequirementsTypeEnum(e betapb.VertexaiBetaModelContainerSpecAcceleratorRequirementsTypeEnum) *beta.ModelContainerSpecAcceleratorRequirementsTypeEnum {
-	if e == 0 {
-		return nil
-	}
-	if n, ok := betapb.VertexaiBetaModelContainerSpecAcceleratorRequirementsTypeEnum_name[int32(e)]; ok {
-		e := beta.ModelContainerSpecAcceleratorRequirementsTypeEnum(n[len("VertexaiBetaModelContainerSpecAcceleratorRequirementsTypeEnum"):])
-		return &e
-	}
-	return nil
-}
-
 // ProtoToModelSupportedDeploymentResourcesTypesEnum converts a ModelSupportedDeploymentResourcesTypesEnum enum from its proto representation.
 func ProtoToVertexaiBetaModelSupportedDeploymentResourcesTypesEnum(e betapb.VertexaiBetaModelSupportedDeploymentResourcesTypesEnum) *beta.ModelSupportedDeploymentResourcesTypesEnum {
 	if e == 0 {
@@ -107,9 +95,6 @@ func ProtoToVertexaiBetaModelContainerSpec(p *betapb.VertexaiBetaModelContainerS
 	for _, r := range p.GetPorts() {
 		obj.Ports = append(obj.Ports, *ProtoToVertexaiBetaModelContainerSpecPorts(r))
 	}
-	for _, r := range p.GetAcceleratorRequirements() {
-		obj.AcceleratorRequirements = append(obj.AcceleratorRequirements, *ProtoToVertexaiBetaModelContainerSpecAcceleratorRequirements(r))
-	}
 	return obj
 }
 
@@ -132,18 +117,6 @@ func ProtoToVertexaiBetaModelContainerSpecPorts(p *betapb.VertexaiBetaModelConta
 	}
 	obj := &beta.ModelContainerSpecPorts{
 		ContainerPort: dcl.Int64OrNil(p.GetContainerPort()),
-	}
-	return obj
-}
-
-// ProtoToModelContainerSpecAcceleratorRequirements converts a ModelContainerSpecAcceleratorRequirements object from its proto representation.
-func ProtoToVertexaiBetaModelContainerSpecAcceleratorRequirements(p *betapb.VertexaiBetaModelContainerSpecAcceleratorRequirements) *beta.ModelContainerSpecAcceleratorRequirements {
-	if p == nil {
-		return nil
-	}
-	obj := &beta.ModelContainerSpecAcceleratorRequirements{
-		Type:  ProtoToVertexaiBetaModelContainerSpecAcceleratorRequirementsTypeEnum(p.GetType()),
-		Count: dcl.Int64OrNil(p.GetCount()),
 	}
 	return obj
 }
@@ -224,17 +197,6 @@ func VertexaiBetaModelSupportedExportFormatsExportableContentsEnumToProto(e *bet
 	return betapb.VertexaiBetaModelSupportedExportFormatsExportableContentsEnum(0)
 }
 
-// ModelContainerSpecAcceleratorRequirementsTypeEnumToProto converts a ModelContainerSpecAcceleratorRequirementsTypeEnum enum to its proto representation.
-func VertexaiBetaModelContainerSpecAcceleratorRequirementsTypeEnumToProto(e *beta.ModelContainerSpecAcceleratorRequirementsTypeEnum) betapb.VertexaiBetaModelContainerSpecAcceleratorRequirementsTypeEnum {
-	if e == nil {
-		return betapb.VertexaiBetaModelContainerSpecAcceleratorRequirementsTypeEnum(0)
-	}
-	if v, ok := betapb.VertexaiBetaModelContainerSpecAcceleratorRequirementsTypeEnum_value["ModelContainerSpecAcceleratorRequirementsTypeEnum"+string(*e)]; ok {
-		return betapb.VertexaiBetaModelContainerSpecAcceleratorRequirementsTypeEnum(v)
-	}
-	return betapb.VertexaiBetaModelContainerSpecAcceleratorRequirementsTypeEnum(0)
-}
-
 // ModelSupportedDeploymentResourcesTypesEnumToProto converts a ModelSupportedDeploymentResourcesTypesEnum enum to its proto representation.
 func VertexaiBetaModelSupportedDeploymentResourcesTypesEnumToProto(e *beta.ModelSupportedDeploymentResourcesTypesEnum) betapb.VertexaiBetaModelSupportedDeploymentResourcesTypesEnum {
 	if e == nil {
@@ -300,11 +262,6 @@ func VertexaiBetaModelContainerSpecToProto(o *beta.ModelContainerSpec) *betapb.V
 		sPorts[i] = VertexaiBetaModelContainerSpecPortsToProto(&r)
 	}
 	p.SetPorts(sPorts)
-	sAcceleratorRequirements := make([]*betapb.VertexaiBetaModelContainerSpecAcceleratorRequirements, len(o.AcceleratorRequirements))
-	for i, r := range o.AcceleratorRequirements {
-		sAcceleratorRequirements[i] = VertexaiBetaModelContainerSpecAcceleratorRequirementsToProto(&r)
-	}
-	p.SetAcceleratorRequirements(sAcceleratorRequirements)
 	return p
 }
 
@@ -326,17 +283,6 @@ func VertexaiBetaModelContainerSpecPortsToProto(o *beta.ModelContainerSpecPorts)
 	}
 	p := &betapb.VertexaiBetaModelContainerSpecPorts{}
 	p.SetContainerPort(dcl.ValueOrEmptyInt64(o.ContainerPort))
-	return p
-}
-
-// ModelContainerSpecAcceleratorRequirementsToProto converts a ModelContainerSpecAcceleratorRequirements object to its proto representation.
-func VertexaiBetaModelContainerSpecAcceleratorRequirementsToProto(o *beta.ModelContainerSpecAcceleratorRequirements) *betapb.VertexaiBetaModelContainerSpecAcceleratorRequirements {
-	if o == nil {
-		return nil
-	}
-	p := &betapb.VertexaiBetaModelContainerSpecAcceleratorRequirements{}
-	p.SetType(VertexaiBetaModelContainerSpecAcceleratorRequirementsTypeEnumToProto(o.Type))
-	p.SetCount(dcl.ValueOrEmptyInt64(o.Count))
 	return p
 }
 

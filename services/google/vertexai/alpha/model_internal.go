@@ -80,9 +80,6 @@ func (r *ModelContainerSpecEnv) validate() error {
 func (r *ModelContainerSpecPorts) validate() error {
 	return nil
 }
-func (r *ModelContainerSpecAcceleratorRequirements) validate() error {
-	return nil
-}
 func (r *ModelDeployedModels) validate() error {
 	return nil
 }
@@ -608,7 +605,7 @@ func canonicalizeModelNewState(c *Client, rawNew, rawDesired *Model) (*Model, er
 	if dcl.IsEmptyValueIndirect(rawNew.ContainerSpec) && dcl.IsEmptyValueIndirect(rawDesired.ContainerSpec) {
 		rawNew.ContainerSpec = rawDesired.ContainerSpec
 	} else {
-		rawNew.ContainerSpec = rawDesired.ContainerSpec
+		rawNew.ContainerSpec = canonicalizeNewModelContainerSpec(c, rawDesired.ContainerSpec, rawNew.ContainerSpec)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.ArtifactUri) && dcl.IsEmptyValueIndirect(rawDesired.ArtifactUri) {
@@ -937,7 +934,6 @@ func canonicalizeModelContainerSpec(des, initial *ModelContainerSpec, opts ...dc
 	} else {
 		cDes.HealthRoute = des.HealthRoute
 	}
-	cDes.AcceleratorRequirements = canonicalizeModelContainerSpecAcceleratorRequirementsSlice(des.AcceleratorRequirements, initial.AcceleratorRequirements, opts...)
 
 	return cDes
 }
@@ -1001,7 +997,6 @@ func canonicalizeNewModelContainerSpec(c *Client, des, nw *ModelContainerSpec) *
 	if dcl.StringCanonicalize(des.HealthRoute, nw.HealthRoute) {
 		nw.HealthRoute = des.HealthRoute
 	}
-	nw.AcceleratorRequirements = canonicalizeNewModelContainerSpecAcceleratorRequirementsSlice(c, des.AcceleratorRequirements, nw.AcceleratorRequirements)
 
 	return nw
 }
@@ -1279,124 +1274,6 @@ func canonicalizeNewModelContainerSpecPortsSlice(c *Client, des, nw []ModelConta
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewModelContainerSpecPorts(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeModelContainerSpecAcceleratorRequirements(des, initial *ModelContainerSpecAcceleratorRequirements, opts ...dcl.ApplyOption) *ModelContainerSpecAcceleratorRequirements {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	cDes := &ModelContainerSpecAcceleratorRequirements{}
-
-	if dcl.IsZeroValue(des.Type) || (dcl.IsEmptyValueIndirect(des.Type) && dcl.IsEmptyValueIndirect(initial.Type)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		cDes.Type = initial.Type
-	} else {
-		cDes.Type = des.Type
-	}
-	if dcl.IsZeroValue(des.Count) || (dcl.IsEmptyValueIndirect(des.Count) && dcl.IsEmptyValueIndirect(initial.Count)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		cDes.Count = initial.Count
-	} else {
-		cDes.Count = des.Count
-	}
-
-	return cDes
-}
-
-func canonicalizeModelContainerSpecAcceleratorRequirementsSlice(des, initial []ModelContainerSpecAcceleratorRequirements, opts ...dcl.ApplyOption) []ModelContainerSpecAcceleratorRequirements {
-	if des == nil {
-		return initial
-	}
-
-	if len(des) != len(initial) {
-
-		items := make([]ModelContainerSpecAcceleratorRequirements, 0, len(des))
-		for _, d := range des {
-			cd := canonicalizeModelContainerSpecAcceleratorRequirements(&d, nil, opts...)
-			if cd != nil {
-				items = append(items, *cd)
-			}
-		}
-		return items
-	}
-
-	items := make([]ModelContainerSpecAcceleratorRequirements, 0, len(des))
-	for i, d := range des {
-		cd := canonicalizeModelContainerSpecAcceleratorRequirements(&d, &initial[i], opts...)
-		if cd != nil {
-			items = append(items, *cd)
-		}
-	}
-	return items
-
-}
-
-func canonicalizeNewModelContainerSpecAcceleratorRequirements(c *Client, des, nw *ModelContainerSpecAcceleratorRequirements) *ModelContainerSpecAcceleratorRequirements {
-
-	if des == nil {
-		return nw
-	}
-
-	if nw == nil {
-		if dcl.IsEmptyValueIndirect(des) {
-			c.Config.Logger.Info("Found explicitly empty value for ModelContainerSpecAcceleratorRequirements while comparing non-nil desired to nil actual.  Returning desired object.")
-			return des
-		}
-		return nil
-	}
-
-	return nw
-}
-
-func canonicalizeNewModelContainerSpecAcceleratorRequirementsSet(c *Client, des, nw []ModelContainerSpecAcceleratorRequirements) []ModelContainerSpecAcceleratorRequirements {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []ModelContainerSpecAcceleratorRequirements
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareModelContainerSpecAcceleratorRequirementsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewModelContainerSpecAcceleratorRequirementsSlice(c *Client, des, nw []ModelContainerSpecAcceleratorRequirements) []ModelContainerSpecAcceleratorRequirements {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []ModelContainerSpecAcceleratorRequirements
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewModelContainerSpecAcceleratorRequirements(c, &d, &n))
 	}
 
 	return items
@@ -1956,13 +1833,6 @@ func compareModelContainerSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 		}
 		diffs = append(diffs, ds...)
 	}
-
-	if ds, err := dcl.Diff(desired.AcceleratorRequirements, actual.AcceleratorRequirements, dcl.DiffInfo{ObjectFunction: compareModelContainerSpecAcceleratorRequirementsNewStyle, EmptyObject: EmptyModelContainerSpecAcceleratorRequirements, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AcceleratorRequirements")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
 	return diffs, nil
 }
 
@@ -2023,42 +1893,6 @@ func compareModelContainerSpecPortsNewStyle(d, a interface{}, fn dcl.FieldName) 
 	}
 
 	if ds, err := dcl.Diff(desired.ContainerPort, actual.ContainerPort, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ContainerPort")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareModelContainerSpecAcceleratorRequirementsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*ModelContainerSpecAcceleratorRequirements)
-	if !ok {
-		desiredNotPointer, ok := d.(ModelContainerSpecAcceleratorRequirements)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a ModelContainerSpecAcceleratorRequirements or *ModelContainerSpecAcceleratorRequirements", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*ModelContainerSpecAcceleratorRequirements)
-	if !ok {
-		actualNotPointer, ok := a.(ModelContainerSpecAcceleratorRequirements)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a ModelContainerSpecAcceleratorRequirements", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Count, actual.Count, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Count")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2623,11 +2457,6 @@ func expandModelContainerSpec(c *Client, f *ModelContainerSpec, res *Model) (map
 	if v := f.HealthRoute; !dcl.IsEmptyValueIndirect(v) {
 		m["healthRoute"] = v
 	}
-	if v, err := expandModelContainerSpecAcceleratorRequirementsSlice(c, f.AcceleratorRequirements, res); err != nil {
-		return nil, fmt.Errorf("error expanding AcceleratorRequirements into acceleratorRequirements: %w", err)
-	} else if v != nil {
-		m["acceleratorRequirements"] = v
-	}
 
 	return m, nil
 }
@@ -2652,7 +2481,6 @@ func flattenModelContainerSpec(c *Client, i interface{}, res *Model) *ModelConta
 	r.Ports = flattenModelContainerSpecPortsSlice(c, m["ports"], res)
 	r.PredictRoute = dcl.FlattenString(m["predictRoute"])
 	r.HealthRoute = dcl.FlattenString(m["healthRoute"])
-	r.AcceleratorRequirements = flattenModelContainerSpecAcceleratorRequirementsSlice(c, m["acceleratorRequirements"], res)
 
 	return r
 }
@@ -2885,124 +2713,6 @@ func flattenModelContainerSpecPorts(c *Client, i interface{}, res *Model) *Model
 		return EmptyModelContainerSpecPorts
 	}
 	r.ContainerPort = dcl.FlattenInteger(m["containerPort"])
-
-	return r
-}
-
-// expandModelContainerSpecAcceleratorRequirementsMap expands the contents of ModelContainerSpecAcceleratorRequirements into a JSON
-// request object.
-func expandModelContainerSpecAcceleratorRequirementsMap(c *Client, f map[string]ModelContainerSpecAcceleratorRequirements, res *Model) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandModelContainerSpecAcceleratorRequirements(c, &item, res)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandModelContainerSpecAcceleratorRequirementsSlice expands the contents of ModelContainerSpecAcceleratorRequirements into a JSON
-// request object.
-func expandModelContainerSpecAcceleratorRequirementsSlice(c *Client, f []ModelContainerSpecAcceleratorRequirements, res *Model) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandModelContainerSpecAcceleratorRequirements(c, &item, res)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenModelContainerSpecAcceleratorRequirementsMap flattens the contents of ModelContainerSpecAcceleratorRequirements from a JSON
-// response object.
-func flattenModelContainerSpecAcceleratorRequirementsMap(c *Client, i interface{}, res *Model) map[string]ModelContainerSpecAcceleratorRequirements {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]ModelContainerSpecAcceleratorRequirements{}
-	}
-
-	if len(a) == 0 {
-		return map[string]ModelContainerSpecAcceleratorRequirements{}
-	}
-
-	items := make(map[string]ModelContainerSpecAcceleratorRequirements)
-	for k, item := range a {
-		items[k] = *flattenModelContainerSpecAcceleratorRequirements(c, item.(map[string]interface{}), res)
-	}
-
-	return items
-}
-
-// flattenModelContainerSpecAcceleratorRequirementsSlice flattens the contents of ModelContainerSpecAcceleratorRequirements from a JSON
-// response object.
-func flattenModelContainerSpecAcceleratorRequirementsSlice(c *Client, i interface{}, res *Model) []ModelContainerSpecAcceleratorRequirements {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []ModelContainerSpecAcceleratorRequirements{}
-	}
-
-	if len(a) == 0 {
-		return []ModelContainerSpecAcceleratorRequirements{}
-	}
-
-	items := make([]ModelContainerSpecAcceleratorRequirements, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenModelContainerSpecAcceleratorRequirements(c, item.(map[string]interface{}), res))
-	}
-
-	return items
-}
-
-// expandModelContainerSpecAcceleratorRequirements expands an instance of ModelContainerSpecAcceleratorRequirements into a JSON
-// request object.
-func expandModelContainerSpecAcceleratorRequirements(c *Client, f *ModelContainerSpecAcceleratorRequirements, res *Model) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
-		m["type"] = v
-	}
-	if v := f.Count; !dcl.IsEmptyValueIndirect(v) {
-		m["count"] = v
-	}
-
-	return m, nil
-}
-
-// flattenModelContainerSpecAcceleratorRequirements flattens an instance of ModelContainerSpecAcceleratorRequirements from a JSON
-// response object.
-func flattenModelContainerSpecAcceleratorRequirements(c *Client, i interface{}, res *Model) *ModelContainerSpecAcceleratorRequirements {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &ModelContainerSpecAcceleratorRequirements{}
-
-	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyModelContainerSpecAcceleratorRequirements
-	}
-	r.Type = flattenModelContainerSpecAcceleratorRequirementsTypeEnum(m["type"])
-	r.Count = dcl.FlattenInteger(m["count"])
 
 	return r
 }
@@ -3290,57 +3000,6 @@ func flattenModelSupportedExportFormatsExportableContentsEnum(i interface{}) *Mo
 	return ModelSupportedExportFormatsExportableContentsEnumRef(s)
 }
 
-// flattenModelContainerSpecAcceleratorRequirementsTypeEnumMap flattens the contents of ModelContainerSpecAcceleratorRequirementsTypeEnum from a JSON
-// response object.
-func flattenModelContainerSpecAcceleratorRequirementsTypeEnumMap(c *Client, i interface{}, res *Model) map[string]ModelContainerSpecAcceleratorRequirementsTypeEnum {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]ModelContainerSpecAcceleratorRequirementsTypeEnum{}
-	}
-
-	if len(a) == 0 {
-		return map[string]ModelContainerSpecAcceleratorRequirementsTypeEnum{}
-	}
-
-	items := make(map[string]ModelContainerSpecAcceleratorRequirementsTypeEnum)
-	for k, item := range a {
-		items[k] = *flattenModelContainerSpecAcceleratorRequirementsTypeEnum(item.(interface{}))
-	}
-
-	return items
-}
-
-// flattenModelContainerSpecAcceleratorRequirementsTypeEnumSlice flattens the contents of ModelContainerSpecAcceleratorRequirementsTypeEnum from a JSON
-// response object.
-func flattenModelContainerSpecAcceleratorRequirementsTypeEnumSlice(c *Client, i interface{}, res *Model) []ModelContainerSpecAcceleratorRequirementsTypeEnum {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []ModelContainerSpecAcceleratorRequirementsTypeEnum{}
-	}
-
-	if len(a) == 0 {
-		return []ModelContainerSpecAcceleratorRequirementsTypeEnum{}
-	}
-
-	items := make([]ModelContainerSpecAcceleratorRequirementsTypeEnum, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenModelContainerSpecAcceleratorRequirementsTypeEnum(item.(interface{})))
-	}
-
-	return items
-}
-
-// flattenModelContainerSpecAcceleratorRequirementsTypeEnum asserts that an interface is a string, and returns a
-// pointer to a *ModelContainerSpecAcceleratorRequirementsTypeEnum with the same value as that string.
-func flattenModelContainerSpecAcceleratorRequirementsTypeEnum(i interface{}) *ModelContainerSpecAcceleratorRequirementsTypeEnum {
-	s, ok := i.(string)
-	if !ok {
-		return nil
-	}
-
-	return ModelContainerSpecAcceleratorRequirementsTypeEnumRef(s)
-}
-
 // flattenModelSupportedDeploymentResourcesTypesEnumMap flattens the contents of ModelSupportedDeploymentResourcesTypesEnum from a JSON
 // response object.
 func flattenModelSupportedDeploymentResourcesTypesEnumMap(c *Client, i interface{}, res *Model) map[string]ModelSupportedDeploymentResourcesTypesEnum {
@@ -3534,9 +3193,6 @@ func extractModelContainerSpecEnvFields(r *Model, o *ModelContainerSpecEnv) erro
 func extractModelContainerSpecPortsFields(r *Model, o *ModelContainerSpecPorts) error {
 	return nil
 }
-func extractModelContainerSpecAcceleratorRequirementsFields(r *Model, o *ModelContainerSpecAcceleratorRequirements) error {
-	return nil
-}
 func extractModelDeployedModelsFields(r *Model, o *ModelDeployedModels) error {
 	return nil
 }
@@ -3593,9 +3249,6 @@ func postReadExtractModelContainerSpecEnvFields(r *Model, o *ModelContainerSpecE
 	return nil
 }
 func postReadExtractModelContainerSpecPortsFields(r *Model, o *ModelContainerSpecPorts) error {
-	return nil
-}
-func postReadExtractModelContainerSpecAcceleratorRequirementsFields(r *Model, o *ModelContainerSpecAcceleratorRequirements) error {
 	return nil
 }
 func postReadExtractModelDeployedModelsFields(r *Model, o *ModelDeployedModels) error {

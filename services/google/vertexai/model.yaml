@@ -62,7 +62,6 @@ components:
     Model:
       title: Model
       x-dcl-id: projects/{{project}}/locations/{{location}}/models/{{name}}
-      x-dcl-uses-state-hint: true
       x-dcl-parent-container: project
       x-dcl-labels: labels
       x-dcl-has-create: true
@@ -87,12 +86,11 @@ components:
           type: object
           x-dcl-go-name: ContainerSpec
           x-dcl-go-type: ModelContainerSpec
-          description: Input only. The specification of the container that is to be
-            used when deploying this Model. The specification is ingested upon ModelService.UploadModel,
+          description: The specification of the container that is to be used when
+            deploying this Model. The specification is ingested upon ModelService.UploadModel,
             and all binaries it contains are copied and stored internally by Vertex
             AI. Not present for AutoML Models.
           x-kubernetes-immutable: true
-          x-dcl-mutable-unreadable: true
           required:
           - imageUri
           properties:
