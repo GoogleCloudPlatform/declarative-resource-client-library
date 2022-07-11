@@ -44,6 +44,42 @@ updates:
   - samples/container.serviceusage.service.json
   - samples/basic.cloudbilling.project_billing_info.json
   - samples/basic.cloudresourcemanager.project.json
+- resource: samples/update_3_acm.feature_membership.json
+  dependencies:
+  - samples/acm.feature.json
+  - samples/first.membership.json
+  - samples/first.container.cluster.json
+  - samples/first.iam.service_account.json
+  - samples/second.iam.service_account.json
+  - samples/anthosconfigmanagement.serviceusage.service.json
+  - samples/gkehub.serviceusage.service.json
+  - samples/container.serviceusage.service.json
+  - samples/basic.cloudbilling.project_billing_info.json
+  - samples/basic.cloudresourcemanager.project.json
+- resource: samples/update_4_acm.feature_membership.json
+  dependencies:
+  - samples/acm.feature.json
+  - samples/first.membership.json
+  - samples/first.container.cluster.json
+  - samples/first.iam.service_account.json
+  - samples/second.iam.service_account.json
+  - samples/anthosconfigmanagement.serviceusage.service.json
+  - samples/gkehub.serviceusage.service.json
+  - samples/container.serviceusage.service.json
+  - samples/basic.cloudbilling.project_billing_info.json
+  - samples/basic.cloudresourcemanager.project.json
+- resource: samples/update_5_acm.feature_membership.json
+  dependencies:
+  - samples/acm.feature.json
+  - samples/first.membership.json
+  - samples/first.container.cluster.json
+  - samples/first.iam.service_account.json
+  - samples/second.iam.service_account.json
+  - samples/anthosconfigmanagement.serviceusage.service.json
+  - samples/gkehub.serviceusage.service.json
+  - samples/container.serviceusage.service.json
+  - samples/basic.cloudbilling.project_billing_info.json
+  - samples/basic.cloudresourcemanager.project.json
 variables:
 - name: billing_account
   type: billing_account

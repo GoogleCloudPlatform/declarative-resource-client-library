@@ -6,10 +6,9 @@
   "configmanagement": {
     "configSync": {},
     "policyController": {
-      "enabled": false,
-      "mutationEnabled": false,
+      "enabled": true,
       "monitoring": {
-        "backends": ["CLOUD_MONITORING"]
+        "backends": []
       }
     }
   }

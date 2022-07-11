@@ -24,7 +24,11 @@
       "referentialRulesEnabled": false,
       "logDeniesEnabled": false,
       "templateLibraryInstalled": false,
-      "auditIntervalSeconds": "9"
+      "auditIntervalSeconds": "9",
+      "mutationEnabled": false,
+      "monitoring": {
+        "backends": ["PROMETHEUS"]
+      }
     },
     "binauthz": {
       "enabled": false

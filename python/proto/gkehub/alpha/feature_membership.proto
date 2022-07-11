@@ -21,6 +21,13 @@ import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
 
+enum GkehubAlphaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum {
+  GkehubAlphaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnumNO_VALUE_DO_NOT_USE = 0;
+  GkehubAlphaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnumMONITORING_BACKEND_UNSPECIFIED = 1;
+  GkehubAlphaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnumPROMETHEUS = 2;
+  GkehubAlphaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnumCLOUD_MONITORING = 3;
+}
+
 message GkehubAlphaFeatureMembership {
   GkehubAlphaFeatureMembershipConfigmanagement configmanagement = 1;
   string project = 2;
@@ -59,8 +66,14 @@ message GkehubAlphaFeatureMembershipConfigmanagementPolicyController {
   repeated string exemptable_namespaces = 2;
   bool referential_rules_enabled = 3;
   bool log_denies_enabled = 4;
-  bool template_library_installed = 5;
-  string audit_interval_seconds = 6;
+  bool mutation_enabled = 5;
+  GkehubAlphaFeatureMembershipConfigmanagementPolicyControllerMonitoring monitoring = 6;
+  bool template_library_installed = 7;
+  string audit_interval_seconds = 8;
+}
+
+message GkehubAlphaFeatureMembershipConfigmanagementPolicyControllerMonitoring {
+  repeated GkehubAlphaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum backends = 1;
 }
 
 message GkehubAlphaFeatureMembershipConfigmanagementBinauthz {

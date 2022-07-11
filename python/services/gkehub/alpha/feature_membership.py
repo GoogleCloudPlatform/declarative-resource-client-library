@@ -375,6 +375,8 @@ class FeatureMembershipConfigmanagementPolicyController(object):
         exemptable_namespaces: list = None,
         referential_rules_enabled: bool = None,
         log_denies_enabled: bool = None,
+        mutation_enabled: bool = None,
+        monitoring: dict = None,
         template_library_installed: bool = None,
         audit_interval_seconds: str = None,
     ):
@@ -382,6 +384,8 @@ class FeatureMembershipConfigmanagementPolicyController(object):
         self.exemptable_namespaces = exemptable_namespaces
         self.referential_rules_enabled = referential_rules_enabled
         self.log_denies_enabled = log_denies_enabled
+        self.mutation_enabled = mutation_enabled
+        self.monitoring = monitoring
         self.template_library_installed = template_library_installed
         self.audit_interval_seconds = audit_interval_seconds
 
@@ -405,6 +409,18 @@ class FeatureMembershipConfigmanagementPolicyController(object):
             )
         if Primitive.to_proto(resource.log_denies_enabled):
             res.log_denies_enabled = Primitive.to_proto(resource.log_denies_enabled)
+        if Primitive.to_proto(resource.mutation_enabled):
+            res.mutation_enabled = Primitive.to_proto(resource.mutation_enabled)
+        if FeatureMembershipConfigmanagementPolicyControllerMonitoring.to_proto(
+            resource.monitoring
+        ):
+            res.monitoring.CopyFrom(
+                FeatureMembershipConfigmanagementPolicyControllerMonitoring.to_proto(
+                    resource.monitoring
+                )
+            )
+        else:
+            res.ClearField("monitoring")
         if Primitive.to_proto(resource.template_library_installed):
             res.template_library_installed = Primitive.to_proto(
                 resource.template_library_installed
@@ -427,6 +443,10 @@ class FeatureMembershipConfigmanagementPolicyController(object):
                 resource.referential_rules_enabled
             ),
             log_denies_enabled=Primitive.from_proto(resource.log_denies_enabled),
+            mutation_enabled=Primitive.from_proto(resource.mutation_enabled),
+            monitoring=FeatureMembershipConfigmanagementPolicyControllerMonitoring.from_proto(
+                resource.monitoring
+            ),
             template_library_installed=Primitive.from_proto(
                 resource.template_library_installed
             ),
@@ -450,6 +470,58 @@ class FeatureMembershipConfigmanagementPolicyControllerArray(object):
     def from_proto(self, resources):
         return [
             FeatureMembershipConfigmanagementPolicyController.from_proto(i)
+            for i in resources
+        ]
+
+
+class FeatureMembershipConfigmanagementPolicyControllerMonitoring(object):
+    def __init__(self, backends: list = None):
+        self.backends = backends
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            feature_membership_pb2.GkehubAlphaFeatureMembershipConfigmanagementPolicyControllerMonitoring()
+        )
+        if FeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnumArray.to_proto(
+            resource.backends
+        ):
+            res.backends.extend(
+                FeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnumArray.to_proto(
+                    resource.backends
+                )
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureMembershipConfigmanagementPolicyControllerMonitoring(
+            backends=FeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnumArray.from_proto(
+                resource.backends
+            ),
+        )
+
+
+class FeatureMembershipConfigmanagementPolicyControllerMonitoringArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            FeatureMembershipConfigmanagementPolicyControllerMonitoring.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            FeatureMembershipConfigmanagementPolicyControllerMonitoring.from_proto(i)
             for i in resources
         ]
 
@@ -558,6 +630,29 @@ class FeatureMembershipConfigmanagementHierarchyControllerArray(object):
         return [
             FeatureMembershipConfigmanagementHierarchyController.from_proto(i)
             for i in resources
+        ]
+
+
+class FeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return feature_membership_pb2.GkehubAlphaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum.Value(
+            "GkehubAlphaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return feature_membership_pb2.GkehubAlphaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum.Name(
+            resource
+        )[
+            len(
+                "GkehubAlphaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum"
+            ) :
         ]
 
 

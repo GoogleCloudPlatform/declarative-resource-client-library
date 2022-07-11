@@ -6,11 +6,12 @@
   "configmanagement": {
     "configSync": {
       "git": {
+        "syncRepo": "https://github.com/GoogleCloudPlatform/magic-modules",
         "httpsProxy": "",
         "secretType": "ssh"
       },
       "preventDrift": false
     },
-    "version": "1.11.2"
+    "version": "1.12.0"
   }
 }

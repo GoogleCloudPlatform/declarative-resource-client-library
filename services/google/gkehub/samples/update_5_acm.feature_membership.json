@@ -4,13 +4,10 @@
   "feature": "projects/{{ref:acm.feature.json:project}}/locations/{{ref:acm.feature.json:location}}/features/{{ref:acm.feature.json:name}}",
   "membership": "{{ref:first.membership.json:name}}",
   "configmanagement": {
-    "configSync": {},
-    "policyController": {
-      "enabled": false,
-      "mutationEnabled": false,
-      "monitoring": {
-        "backends": ["CLOUD_MONITORING"]
-      }
-    }
+    "configSync": {
+      "git": {},
+      "preventDrift": false
+    },
+    "version": "1.11.0"
   }
 }
