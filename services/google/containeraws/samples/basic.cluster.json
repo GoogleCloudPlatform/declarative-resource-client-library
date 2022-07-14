@@ -53,7 +53,7 @@
   "authorization": {
     "adminUsers": [
       {
-        "username": "{{test_service_account}}"
+        "username": "user@domain.com"
       }
     ]
   },

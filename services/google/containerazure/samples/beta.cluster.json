@@ -46,7 +46,7 @@
   "authorization": {
     "adminUsers": [
       {
-        "username": "mmv2@google.com"
+        "username": "user@domain.com"
       }
     ]
   },
