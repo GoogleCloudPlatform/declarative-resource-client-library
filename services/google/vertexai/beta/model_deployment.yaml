@@ -130,6 +130,7 @@ components:
                 * number of cores in the selected machine type) and (max_replica_count
                 * number of GPUs per replica in the selected machine type).
               x-kubernetes-immutable: true
+              x-dcl-server-default: true
             minReplicaCount:
               type: integer
               format: int64
