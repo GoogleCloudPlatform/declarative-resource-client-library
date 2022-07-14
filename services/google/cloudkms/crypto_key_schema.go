@@ -77,7 +77,7 @@ func DCLCryptoKeySchema() *dcl.Schema {
 			Schemas: map[string]*dcl.Component{
 				"CryptoKey": &dcl.Component{
 					Title:           "CryptoKey",
-					ID:              "projects/{{project}}/locations/{{location}}/keyRings/{{keyRing}}/cryptoKeys/{{name}}",
+					ID:              "projects/{{project}}/locations/{{location}}/keyRings/{{key_ring}}/cryptoKeys/{{name}}",
 					ParentContainer: "project",
 					LabelsField:     "labels",
 					HasCreate:       true,

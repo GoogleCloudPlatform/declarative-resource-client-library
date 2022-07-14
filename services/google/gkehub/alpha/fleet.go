@@ -53,14 +53,14 @@ func (r *Fleet) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":              dcl.ValueOrEmptyString(nr.Name),
-		"displayName":       dcl.ValueOrEmptyString(nr.DisplayName),
-		"createTime":        dcl.ValueOrEmptyString(nr.CreateTime),
-		"updateTime":        dcl.ValueOrEmptyString(nr.UpdateTime),
-		"uid":               dcl.ValueOrEmptyString(nr.Uid),
-		"managedNamespaces": dcl.ValueOrEmptyString(nr.ManagedNamespaces),
-		"project":           dcl.ValueOrEmptyString(nr.Project),
-		"location":          dcl.ValueOrEmptyString(nr.Location),
+		"name":               dcl.ValueOrEmptyString(nr.Name),
+		"display_name":       dcl.ValueOrEmptyString(nr.DisplayName),
+		"create_time":        dcl.ValueOrEmptyString(nr.CreateTime),
+		"update_time":        dcl.ValueOrEmptyString(nr.UpdateTime),
+		"uid":                dcl.ValueOrEmptyString(nr.Uid),
+		"managed_namespaces": dcl.ValueOrEmptyString(nr.ManagedNamespaces),
+		"project":            dcl.ValueOrEmptyString(nr.Project),
+		"location":           dcl.ValueOrEmptyString(nr.Location),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/fleets/{{name}}", params), nil
 }

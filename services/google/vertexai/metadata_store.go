@@ -147,14 +147,14 @@ func (r *MetadataStore) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":           dcl.ValueOrEmptyString(nr.Name),
-		"createTime":     dcl.ValueOrEmptyString(nr.CreateTime),
-		"updateTime":     dcl.ValueOrEmptyString(nr.UpdateTime),
-		"encryptionSpec": dcl.ValueOrEmptyString(nr.EncryptionSpec),
-		"description":    dcl.ValueOrEmptyString(nr.Description),
-		"state":          dcl.ValueOrEmptyString(nr.State),
-		"project":        dcl.ValueOrEmptyString(nr.Project),
-		"location":       dcl.ValueOrEmptyString(nr.Location),
+		"name":            dcl.ValueOrEmptyString(nr.Name),
+		"create_time":     dcl.ValueOrEmptyString(nr.CreateTime),
+		"update_time":     dcl.ValueOrEmptyString(nr.UpdateTime),
+		"encryption_spec": dcl.ValueOrEmptyString(nr.EncryptionSpec),
+		"description":     dcl.ValueOrEmptyString(nr.Description),
+		"state":           dcl.ValueOrEmptyString(nr.State),
+		"project":         dcl.ValueOrEmptyString(nr.Project),
+		"location":        dcl.ValueOrEmptyString(nr.Location),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/metadataStores/{{name}}", params), nil
 }

@@ -112,7 +112,7 @@ func DCLWorkloadIdentityPoolProviderSchema() *dcl.Schema {
 			Schemas: map[string]*dcl.Component{
 				"WorkloadIdentityPoolProvider": &dcl.Component{
 					Title:           "WorkloadIdentityPoolProvider",
-					ID:              "projects/{{project}}/locations/{{location}}/workloadIdentityPools/{{workloadIdentityPool}}/providers/{{name}}",
+					ID:              "projects/{{project}}/locations/{{location}}/workloadIdentityPools/{{workload_identity_pool}}/providers/{{name}}",
 					UsesStateHint:   true,
 					ParentContainer: "project",
 					HasCreate:       true,

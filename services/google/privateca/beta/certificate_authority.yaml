@@ -69,7 +69,7 @@ components:
   schemas:
     CertificateAuthority:
       title: CertificateAuthority
-      x-dcl-id: projects/{{project}}/locations/{{location}}/caPools/{{caPool}}/certificateAuthorities/{{name}}
+      x-dcl-id: projects/{{project}}/locations/{{location}}/caPools/{{ca_pool}}/certificateAuthorities/{{name}}
       x-dcl-parent-container: project
       x-dcl-labels: labels
       x-dcl-has-create: true

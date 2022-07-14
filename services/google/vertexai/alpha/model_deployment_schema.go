@@ -112,7 +112,7 @@ func DCLModelDeploymentSchema() *dcl.Schema {
 			Schemas: map[string]*dcl.Component{
 				"ModelDeployment": &dcl.Component{
 					Title:           "ModelDeployment",
-					ID:              "models/{{model}}",
+					ID:              "projects/{{project}}/locations/{{location}}/endpoints/{{endpoint}}/models/{{model}}",
 					ParentContainer: "project",
 					HasCreate:       true,
 					SchemaProperty: dcl.Property{
@@ -168,6 +168,13 @@ func DCLModelDeploymentSchema() *dcl.Schema {
 									},
 								},
 							},
+							"deployedModelId": &dcl.Property{
+								Type:        "string",
+								GoName:      "DeployedModelId",
+								ReadOnly:    true,
+								Description: "The deployed ID of the model in the endpoint",
+								Immutable:   true,
+							},
 							"endpoint": &dcl.Property{
 								Type:        "string",
 								GoName:      "Endpoint",
@@ -180,13 +187,6 @@ func DCLModelDeploymentSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
-							},
-							"id": &dcl.Property{
-								Type:        "string",
-								GoName:      "Id",
-								ReadOnly:    true,
-								Description: "The deployed ID of the model in the endpoint",
-								Immutable:   true,
 							},
 							"location": &dcl.Property{
 								Type:           "string",

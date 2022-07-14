@@ -24,7 +24,7 @@ class ModelDeployment(object):
     def __init__(
         self,
         model: str = None,
-        id: str = None,
+        deployed_model_id: str = None,
         dedicated_resources: dict = None,
         endpoint: str = None,
         location: str = None,
@@ -67,7 +67,7 @@ class ModelDeployment(object):
 
         response = stub.ApplyVertexaiAlphaModelDeployment(request)
         self.model = Primitive.from_proto(response.model)
-        self.id = Primitive.from_proto(response.id)
+        self.deployed_model_id = Primitive.from_proto(response.deployed_model_id)
         self.dedicated_resources = ModelDeploymentDedicatedResources.from_proto(
             response.dedicated_resources
         )

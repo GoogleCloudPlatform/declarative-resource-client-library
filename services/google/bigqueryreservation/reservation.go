@@ -52,13 +52,13 @@ func (r *Reservation) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":            dcl.ValueOrEmptyString(nr.Name),
-		"slotCapacity":    dcl.ValueOrEmptyString(nr.SlotCapacity),
-		"ignoreIdleSlots": dcl.ValueOrEmptyString(nr.IgnoreIdleSlots),
-		"creationTime":    dcl.ValueOrEmptyString(nr.CreationTime),
-		"updateTime":      dcl.ValueOrEmptyString(nr.UpdateTime),
-		"project":         dcl.ValueOrEmptyString(nr.Project),
-		"location":        dcl.ValueOrEmptyString(nr.Location),
+		"name":              dcl.ValueOrEmptyString(nr.Name),
+		"slot_capacity":     dcl.ValueOrEmptyString(nr.SlotCapacity),
+		"ignore_idle_slots": dcl.ValueOrEmptyString(nr.IgnoreIdleSlots),
+		"creation_time":     dcl.ValueOrEmptyString(nr.CreationTime),
+		"update_time":       dcl.ValueOrEmptyString(nr.UpdateTime),
+		"project":           dcl.ValueOrEmptyString(nr.Project),
+		"location":          dcl.ValueOrEmptyString(nr.Location),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/reservations/{{name}}", params), nil
 }

@@ -64,7 +64,7 @@ components:
   schemas:
     MonitoredProject:
       title: MonitoredProject
-      x-dcl-id: locations/global/metricsScopes/{{metricsScope}}/projects/{{name}}
+      x-dcl-id: locations/global/metricsScopes/{{metrics_scope}}/projects/{{name}}
       x-dcl-locations:
       - global
       x-dcl-has-create: true

@@ -426,21 +426,21 @@ func (r *Routine) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"etag":              dcl.ValueOrEmptyString(nr.Etag),
-		"name":              dcl.ValueOrEmptyString(nr.Name),
-		"project":           dcl.ValueOrEmptyString(nr.Project),
-		"dataset":           dcl.ValueOrEmptyString(nr.Dataset),
-		"routineType":       dcl.ValueOrEmptyString(nr.RoutineType),
-		"creationTime":      dcl.ValueOrEmptyString(nr.CreationTime),
-		"lastModifiedTime":  dcl.ValueOrEmptyString(nr.LastModifiedTime),
-		"language":          dcl.ValueOrEmptyString(nr.Language),
-		"arguments":         dcl.ValueOrEmptyString(nr.Arguments),
-		"returnType":        dcl.ValueOrEmptyString(nr.ReturnType),
-		"importedLibraries": dcl.ValueOrEmptyString(nr.ImportedLibraries),
-		"definitionBody":    dcl.ValueOrEmptyString(nr.DefinitionBody),
-		"description":       dcl.ValueOrEmptyString(nr.Description),
-		"determinismLevel":  dcl.ValueOrEmptyString(nr.DeterminismLevel),
-		"strictMode":        dcl.ValueOrEmptyString(nr.StrictMode),
+		"etag":               dcl.ValueOrEmptyString(nr.Etag),
+		"name":               dcl.ValueOrEmptyString(nr.Name),
+		"project":            dcl.ValueOrEmptyString(nr.Project),
+		"dataset":            dcl.ValueOrEmptyString(nr.Dataset),
+		"routine_type":       dcl.ValueOrEmptyString(nr.RoutineType),
+		"creation_time":      dcl.ValueOrEmptyString(nr.CreationTime),
+		"last_modified_time": dcl.ValueOrEmptyString(nr.LastModifiedTime),
+		"language":           dcl.ValueOrEmptyString(nr.Language),
+		"arguments":          dcl.ValueOrEmptyString(nr.Arguments),
+		"return_type":        dcl.ValueOrEmptyString(nr.ReturnType),
+		"imported_libraries": dcl.ValueOrEmptyString(nr.ImportedLibraries),
+		"definition_body":    dcl.ValueOrEmptyString(nr.DefinitionBody),
+		"description":        dcl.ValueOrEmptyString(nr.Description),
+		"determinism_level":  dcl.ValueOrEmptyString(nr.DeterminismLevel),
+		"strict_mode":        dcl.ValueOrEmptyString(nr.StrictMode),
 	}
 	return dcl.Nprintf("projects/{{project}}/datasets/{{dataset}}/routines/{{name}}", params), nil
 }

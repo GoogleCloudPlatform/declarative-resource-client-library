@@ -84,7 +84,7 @@ func DCLBudgetSchema() *dcl.Schema {
 			Schemas: map[string]*dcl.Component{
 				"Budget": &dcl.Component{
 					Title:     "Budget",
-					ID:        "billingAccounts/{{billingAccount}}/budgets/{{name}}",
+					ID:        "billingAccounts/{{billing_account}}/budgets/{{name}}",
 					HasCreate: true,
 					SchemaProperty: dcl.Property{
 						Type: "object",

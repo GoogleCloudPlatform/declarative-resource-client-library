@@ -47,11 +47,11 @@ func (r *MonitoredProject) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":         dcl.ValueOrEmptyString(nr.Name),
-		"createTime":   dcl.ValueOrEmptyString(nr.CreateTime),
-		"metricsScope": dcl.ValueOrEmptyString(nr.MetricsScope),
+		"name":          dcl.ValueOrEmptyString(nr.Name),
+		"create_time":   dcl.ValueOrEmptyString(nr.CreateTime),
+		"metrics_scope": dcl.ValueOrEmptyString(nr.MetricsScope),
 	}
-	return dcl.Nprintf("locations/global/metricsScopes/{{metricsScope}}/projects/{{name}}", params), nil
+	return dcl.Nprintf("locations/global/metricsScopes/{{metrics_scope}}/projects/{{name}}", params), nil
 }
 
 const MonitoredProjectMaxPage = -1

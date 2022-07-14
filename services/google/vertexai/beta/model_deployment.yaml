@@ -69,7 +69,7 @@ components:
   schemas:
     ModelDeployment:
       title: ModelDeployment
-      x-dcl-id: models/{{model}}
+      x-dcl-id: projects/{{project}}/locations/{{location}}/endpoints/{{endpoint}}/models/{{model}}
       x-dcl-parent-container: project
       x-dcl-has-create: true
       x-dcl-has-iam: false
@@ -140,6 +140,12 @@ components:
                 it may dynamically be deployed onto more replicas, and as traffic
                 decreases, some of these extra replicas may be freed.
               x-kubernetes-immutable: true
+        deployedModelId:
+          type: string
+          x-dcl-go-name: DeployedModelId
+          readOnly: true
+          description: The deployed ID of the model in the endpoint
+          x-kubernetes-immutable: true
         endpoint:
           type: string
           x-dcl-go-name: Endpoint
@@ -149,12 +155,6 @@ components:
           - resource: Vertexai/Endpoint
             field: name
             parent: true
-        id:
-          type: string
-          x-dcl-go-name: Id
-          readOnly: true
-          description: The deployed ID of the model in the endpoint
-          x-kubernetes-immutable: true
         location:
           type: string
           x-dcl-go-name: Location

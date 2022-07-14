@@ -84,7 +84,7 @@ func DCLFirewallPolicyAssociationSchema() *dcl.Schema {
 			Schemas: map[string]*dcl.Component{
 				"FirewallPolicyAssociation": &dcl.Component{
 					Title: "FirewallPolicyAssociation",
-					ID:    "locations/global/firewallPolicies/{{firewallPolicy}}/associations/{{name}}",
+					ID:    "locations/global/firewallPolicies/{{firewall_policy}}/associations/{{name}}",
 					Locations: []string{
 						"global",
 					},

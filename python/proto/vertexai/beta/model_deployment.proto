@@ -23,7 +23,7 @@ import "proto/empty.proto";
 
 message VertexaiBetaModelDeployment {
   string model = 1;
-  string id = 2;
+  string deployed_model_id = 2;
   VertexaiBetaModelDeploymentDedicatedResources dedicated_resources = 3;
   string endpoint = 4;
   string location = 5;

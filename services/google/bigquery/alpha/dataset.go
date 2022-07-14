@@ -280,22 +280,22 @@ func (r *Dataset) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"etag":                           dcl.ValueOrEmptyString(nr.Etag),
-		"id":                             dcl.ValueOrEmptyString(nr.Id),
-		"selfLink":                       dcl.ValueOrEmptyString(nr.SelfLink),
-		"name":                           dcl.ValueOrEmptyString(nr.Name),
-		"project":                        dcl.ValueOrEmptyString(nr.Project),
-		"friendlyName":                   dcl.ValueOrEmptyString(nr.FriendlyName),
-		"description":                    dcl.ValueOrEmptyString(nr.Description),
-		"defaultTableExpirationMs":       dcl.ValueOrEmptyString(nr.DefaultTableExpirationMs),
-		"defaultPartitionExpirationMs":   dcl.ValueOrEmptyString(nr.DefaultPartitionExpirationMs),
-		"labels":                         dcl.ValueOrEmptyString(nr.Labels),
-		"access":                         dcl.ValueOrEmptyString(nr.Access),
-		"creationTime":                   dcl.ValueOrEmptyString(nr.CreationTime),
-		"lastModifiedTime":               dcl.ValueOrEmptyString(nr.LastModifiedTime),
-		"location":                       dcl.ValueOrEmptyString(nr.Location),
-		"published":                      dcl.ValueOrEmptyString(nr.Published),
-		"defaultEncryptionConfiguration": dcl.ValueOrEmptyString(nr.DefaultEncryptionConfiguration),
+		"etag":                             dcl.ValueOrEmptyString(nr.Etag),
+		"id":                               dcl.ValueOrEmptyString(nr.Id),
+		"self_link":                        dcl.ValueOrEmptyString(nr.SelfLink),
+		"name":                             dcl.ValueOrEmptyString(nr.Name),
+		"project":                          dcl.ValueOrEmptyString(nr.Project),
+		"friendly_name":                    dcl.ValueOrEmptyString(nr.FriendlyName),
+		"description":                      dcl.ValueOrEmptyString(nr.Description),
+		"default_table_expiration_ms":      dcl.ValueOrEmptyString(nr.DefaultTableExpirationMs),
+		"default_partition_expiration_ms":  dcl.ValueOrEmptyString(nr.DefaultPartitionExpirationMs),
+		"labels":                           dcl.ValueOrEmptyString(nr.Labels),
+		"access":                           dcl.ValueOrEmptyString(nr.Access),
+		"creation_time":                    dcl.ValueOrEmptyString(nr.CreationTime),
+		"last_modified_time":               dcl.ValueOrEmptyString(nr.LastModifiedTime),
+		"location":                         dcl.ValueOrEmptyString(nr.Location),
+		"published":                        dcl.ValueOrEmptyString(nr.Published),
+		"default_encryption_configuration": dcl.ValueOrEmptyString(nr.DefaultEncryptionConfiguration),
 	}
 	return dcl.Nprintf("projects/{{project}}/datasets/{{name}}", params), nil
 }

@@ -84,7 +84,7 @@ func DCLEnvironmentGroupSchema() *dcl.Schema {
 			Schemas: map[string]*dcl.Component{
 				"EnvironmentGroup": &dcl.Component{
 					Title:     "EnvironmentGroup",
-					ID:        "organizations/{{apigeeOrganization}}/envgroups/{{name}}",
+					ID:        "organizations/{{apigee_organization}}/envgroups/{{name}}",
 					HasCreate: true,
 					SchemaProperty: dcl.Property{
 						Type: "object",

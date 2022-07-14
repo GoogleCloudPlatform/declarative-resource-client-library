@@ -48,7 +48,7 @@ components:
   schemas:
     CryptoKey:
       title: CryptoKey
-      x-dcl-id: projects/{{project}}/locations/{{location}}/keyRings/{{keyRing}}/cryptoKeys/{{name}}
+      x-dcl-id: projects/{{project}}/locations/{{location}}/keyRings/{{key_ring}}/cryptoKeys/{{name}}
       x-dcl-parent-container: project
       x-dcl-labels: labels
       x-dcl-has-create: true

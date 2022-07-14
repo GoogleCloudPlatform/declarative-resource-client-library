@@ -82,18 +82,18 @@ func (r *Cluster) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":         dcl.ValueOrEmptyString(nr.Name),
-		"createTime":   dcl.ValueOrEmptyString(nr.CreateTime),
-		"updateTime":   dcl.ValueOrEmptyString(nr.UpdateTime),
-		"state":        dcl.ValueOrEmptyString(nr.State),
-		"management":   dcl.ValueOrEmptyString(nr.Management),
-		"nodeTypeId":   dcl.ValueOrEmptyString(nr.NodeTypeId),
-		"nodeCount":    dcl.ValueOrEmptyString(nr.NodeCount),
-		"project":      dcl.ValueOrEmptyString(nr.Project),
-		"location":     dcl.ValueOrEmptyString(nr.Location),
-		"privateCloud": dcl.ValueOrEmptyString(nr.PrivateCloud),
+		"name":          dcl.ValueOrEmptyString(nr.Name),
+		"create_time":   dcl.ValueOrEmptyString(nr.CreateTime),
+		"update_time":   dcl.ValueOrEmptyString(nr.UpdateTime),
+		"state":         dcl.ValueOrEmptyString(nr.State),
+		"management":    dcl.ValueOrEmptyString(nr.Management),
+		"node_type_id":  dcl.ValueOrEmptyString(nr.NodeTypeId),
+		"node_count":    dcl.ValueOrEmptyString(nr.NodeCount),
+		"project":       dcl.ValueOrEmptyString(nr.Project),
+		"location":      dcl.ValueOrEmptyString(nr.Location),
+		"private_cloud": dcl.ValueOrEmptyString(nr.PrivateCloud),
 	}
-	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/privateClouds/{{privateCloud}}/clusters/{{name}}", params), nil
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/privateClouds/{{private_cloud}}/clusters/{{name}}", params), nil
 }
 
 const ClusterMaxPage = -1

@@ -76,7 +76,7 @@ func DCLMetadataSchemaSchema() *dcl.Schema {
 			Schemas: map[string]*dcl.Component{
 				"MetadataSchema": &dcl.Component{
 					Title:           "MetadataSchema",
-					ID:              "projects/{{project}}/locations/{{location}}/metadataStores/{{metadataStore}}/metadataSchemas/{{name}}",
+					ID:              "projects/{{project}}/locations/{{location}}/metadataStores/{{metadata_store}}/metadataSchemas/{{name}}",
 					ParentContainer: "project",
 					HasCreate:       true,
 					SchemaProperty: dcl.Property{

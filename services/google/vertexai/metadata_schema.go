@@ -80,16 +80,16 @@ func (r *MetadataSchema) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":          dcl.ValueOrEmptyString(nr.Name),
-		"schemaVersion": dcl.ValueOrEmptyString(nr.SchemaVersion),
-		"schema":        dcl.ValueOrEmptyString(nr.Schema),
-		"schemaType":    dcl.ValueOrEmptyString(nr.SchemaType),
-		"createTime":    dcl.ValueOrEmptyString(nr.CreateTime),
-		"project":       dcl.ValueOrEmptyString(nr.Project),
-		"location":      dcl.ValueOrEmptyString(nr.Location),
-		"metadataStore": dcl.ValueOrEmptyString(nr.MetadataStore),
+		"name":           dcl.ValueOrEmptyString(nr.Name),
+		"schema_version": dcl.ValueOrEmptyString(nr.SchemaVersion),
+		"schema":         dcl.ValueOrEmptyString(nr.Schema),
+		"schema_type":    dcl.ValueOrEmptyString(nr.SchemaType),
+		"create_time":    dcl.ValueOrEmptyString(nr.CreateTime),
+		"project":        dcl.ValueOrEmptyString(nr.Project),
+		"location":       dcl.ValueOrEmptyString(nr.Location),
+		"metadata_store": dcl.ValueOrEmptyString(nr.MetadataStore),
 	}
-	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/metadataStores/{{metadataStore}}/metadataSchemas/{{name}}", params), nil
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/metadataStores/{{metadata_store}}/metadataSchemas/{{name}}", params), nil
 }
 
 const MetadataSchemaMaxPage = -1

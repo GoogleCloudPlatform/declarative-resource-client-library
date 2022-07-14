@@ -377,11 +377,11 @@ func canonicalizeModelDeploymentNewState(c *Client, rawNew, rawDesired *ModelDep
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
-		rawNew.Id = rawDesired.Id
+	if dcl.IsEmptyValueIndirect(rawNew.DeployedModelId) && dcl.IsEmptyValueIndirect(rawDesired.DeployedModelId) {
+		rawNew.DeployedModelId = rawDesired.DeployedModelId
 	} else {
-		if dcl.StringCanonicalize(rawDesired.Id, rawNew.Id) {
-			rawNew.Id = rawDesired.Id
+		if dcl.StringCanonicalize(rawDesired.DeployedModelId, rawNew.DeployedModelId) {
+			rawNew.DeployedModelId = rawDesired.DeployedModelId
 		}
 	}
 
@@ -661,7 +661,7 @@ func diffModelDeployment(c *Client, desired, actual *ModelDeployment, opts ...dc
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DeployedModelId, actual.DeployedModelId, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -776,7 +776,7 @@ func compareModelDeploymentDedicatedResourcesMachineSpecNewStyle(d, a interface{
 func (r *ModelDeployment) urlNormalized() *ModelDeployment {
 	normalized := dcl.Copy(*r).(ModelDeployment)
 	normalized.Model = dcl.SelfLinkToName(r.Model)
-	normalized.Id = dcl.SelfLinkToName(r.Id)
+	normalized.DeployedModelId = dcl.SelfLinkToName(r.DeployedModelId)
 	normalized.Endpoint = dcl.SelfLinkToName(r.Endpoint)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
@@ -865,7 +865,7 @@ func flattenModelDeployment(c *Client, i interface{}, res *ModelDeployment) *Mod
 
 	resultRes := &ModelDeployment{}
 	resultRes.Model = dcl.FlattenProjectNumbersToIDs(c.Config, dcl.FlattenString(m["model"]))
-	resultRes.Id = dcl.FlattenString(m["id"])
+	resultRes.DeployedModelId = dcl.FlattenString(m["id"])
 	resultRes.DedicatedResources = flattenModelDeploymentDedicatedResources(c, m["dedicatedResources"], res)
 	resultRes.Endpoint = dcl.FlattenString(m["endpoint"])
 	resultRes.Location = dcl.FlattenString(m["location"])

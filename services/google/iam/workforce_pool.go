@@ -82,15 +82,15 @@ func (r *WorkforcePool) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":            dcl.ValueOrEmptyString(nr.Name),
-		"selfLink":        dcl.ValueOrEmptyString(nr.SelfLink),
-		"parent":          dcl.ValueOrEmptyString(nr.Parent),
-		"displayName":     dcl.ValueOrEmptyString(nr.DisplayName),
-		"description":     dcl.ValueOrEmptyString(nr.Description),
-		"state":           dcl.ValueOrEmptyString(nr.State),
-		"disabled":        dcl.ValueOrEmptyString(nr.Disabled),
-		"sessionDuration": dcl.ValueOrEmptyString(nr.SessionDuration),
-		"location":        dcl.ValueOrEmptyString(nr.Location),
+		"name":             dcl.ValueOrEmptyString(nr.Name),
+		"self_link":        dcl.ValueOrEmptyString(nr.SelfLink),
+		"parent":           dcl.ValueOrEmptyString(nr.Parent),
+		"display_name":     dcl.ValueOrEmptyString(nr.DisplayName),
+		"description":      dcl.ValueOrEmptyString(nr.Description),
+		"state":            dcl.ValueOrEmptyString(nr.State),
+		"disabled":         dcl.ValueOrEmptyString(nr.Disabled),
+		"session_duration": dcl.ValueOrEmptyString(nr.SessionDuration),
+		"location":         dcl.ValueOrEmptyString(nr.Location),
 	}
 	return dcl.Nprintf("locations/{{location}}/workforcePools/{{name}}", params), nil
 }

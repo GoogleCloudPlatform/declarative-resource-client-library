@@ -101,11 +101,11 @@ func (r *EndpointTrafficSplit) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"endpoint":     dcl.ValueOrEmptyString(nr.Endpoint),
-		"project":      dcl.ValueOrEmptyString(nr.Project),
-		"location":     dcl.ValueOrEmptyString(nr.Location),
-		"etag":         dcl.ValueOrEmptyString(nr.Etag),
-		"trafficSplit": dcl.ValueOrEmptyString(nr.TrafficSplit),
+		"endpoint":      dcl.ValueOrEmptyString(nr.Endpoint),
+		"project":       dcl.ValueOrEmptyString(nr.Project),
+		"location":      dcl.ValueOrEmptyString(nr.Location),
+		"etag":          dcl.ValueOrEmptyString(nr.Etag),
+		"traffic_split": dcl.ValueOrEmptyString(nr.TrafficSplit),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/endpoints/{{endpoint}}", params), nil
 }

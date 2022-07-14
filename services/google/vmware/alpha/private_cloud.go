@@ -408,21 +408,21 @@ func (r *PrivateCloud) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":              dcl.ValueOrEmptyString(nr.Name),
-		"createTime":        dcl.ValueOrEmptyString(nr.CreateTime),
-		"updateTime":        dcl.ValueOrEmptyString(nr.UpdateTime),
-		"deleteTime":        dcl.ValueOrEmptyString(nr.DeleteTime),
-		"expireTime":        dcl.ValueOrEmptyString(nr.ExpireTime),
-		"state":             dcl.ValueOrEmptyString(nr.State),
-		"networkConfig":     dcl.ValueOrEmptyString(nr.NetworkConfig),
-		"managementCluster": dcl.ValueOrEmptyString(nr.ManagementCluster),
-		"description":       dcl.ValueOrEmptyString(nr.Description),
-		"conditions":        dcl.ValueOrEmptyString(nr.Conditions),
-		"hcx":               dcl.ValueOrEmptyString(nr.Hcx),
-		"nsx":               dcl.ValueOrEmptyString(nr.Nsx),
-		"vcenter":           dcl.ValueOrEmptyString(nr.Vcenter),
-		"project":           dcl.ValueOrEmptyString(nr.Project),
-		"location":          dcl.ValueOrEmptyString(nr.Location),
+		"name":               dcl.ValueOrEmptyString(nr.Name),
+		"create_time":        dcl.ValueOrEmptyString(nr.CreateTime),
+		"update_time":        dcl.ValueOrEmptyString(nr.UpdateTime),
+		"delete_time":        dcl.ValueOrEmptyString(nr.DeleteTime),
+		"expire_time":        dcl.ValueOrEmptyString(nr.ExpireTime),
+		"state":              dcl.ValueOrEmptyString(nr.State),
+		"network_config":     dcl.ValueOrEmptyString(nr.NetworkConfig),
+		"management_cluster": dcl.ValueOrEmptyString(nr.ManagementCluster),
+		"description":        dcl.ValueOrEmptyString(nr.Description),
+		"conditions":         dcl.ValueOrEmptyString(nr.Conditions),
+		"hcx":                dcl.ValueOrEmptyString(nr.Hcx),
+		"nsx":                dcl.ValueOrEmptyString(nr.Nsx),
+		"vcenter":            dcl.ValueOrEmptyString(nr.Vcenter),
+		"project":            dcl.ValueOrEmptyString(nr.Project),
+		"location":           dcl.ValueOrEmptyString(nr.Location),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/privateClouds/{{name}}", params), nil
 }

@@ -84,7 +84,7 @@ func DCLInstanceSchema() *dcl.Schema {
 			Schemas: map[string]*dcl.Component{
 				"Instance": &dcl.Component{
 					Title:         "Instance",
-					ID:            "organizations/{{apigeeOrganization}}/instances/{{name}}",
+					ID:            "organizations/{{apigee_organization}}/instances/{{name}}",
 					HasCreate:     true,
 					ApplyTimeout:  4800,
 					DeleteTimeout: 4800,

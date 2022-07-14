@@ -61,7 +61,7 @@ components:
   schemas:
     WorkforcePoolProvider:
       title: WorkforcePoolProvider
-      x-dcl-id: locations/{{location}}/workforcePools/{{workforcePool}}/providers/{{name}}
+      x-dcl-id: locations/{{location}}/workforcePools/{{workforce_pool}}/providers/{{name}}
       x-dcl-has-create: true
       x-dcl-has-iam: false
       x-dcl-read-timeout: 0

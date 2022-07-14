@@ -486,20 +486,20 @@ func (r *Group) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":                     dcl.ValueOrEmptyString(nr.Name),
-		"groupKey":                 dcl.ValueOrEmptyString(nr.GroupKey),
-		"additionalGroupKeys":      dcl.ValueOrEmptyString(nr.AdditionalGroupKeys),
-		"parent":                   dcl.ValueOrEmptyString(nr.Parent),
-		"displayName":              dcl.ValueOrEmptyString(nr.DisplayName),
-		"description":              dcl.ValueOrEmptyString(nr.Description),
-		"createTime":               dcl.ValueOrEmptyString(nr.CreateTime),
-		"updateTime":               dcl.ValueOrEmptyString(nr.UpdateTime),
-		"labels":                   dcl.ValueOrEmptyString(nr.Labels),
-		"directMemberCount":        dcl.ValueOrEmptyString(nr.DirectMemberCount),
-		"directMemberCountPerType": dcl.ValueOrEmptyString(nr.DirectMemberCountPerType),
-		"derivedAliases":           dcl.ValueOrEmptyString(nr.DerivedAliases),
-		"dynamicGroupMetadata":     dcl.ValueOrEmptyString(nr.DynamicGroupMetadata),
-		"initialGroupConfig":       dcl.ValueOrEmptyString(nr.InitialGroupConfig),
+		"name":                         dcl.ValueOrEmptyString(nr.Name),
+		"group_key":                    dcl.ValueOrEmptyString(nr.GroupKey),
+		"additional_group_keys":        dcl.ValueOrEmptyString(nr.AdditionalGroupKeys),
+		"parent":                       dcl.ValueOrEmptyString(nr.Parent),
+		"display_name":                 dcl.ValueOrEmptyString(nr.DisplayName),
+		"description":                  dcl.ValueOrEmptyString(nr.Description),
+		"create_time":                  dcl.ValueOrEmptyString(nr.CreateTime),
+		"update_time":                  dcl.ValueOrEmptyString(nr.UpdateTime),
+		"labels":                       dcl.ValueOrEmptyString(nr.Labels),
+		"direct_member_count":          dcl.ValueOrEmptyString(nr.DirectMemberCount),
+		"direct_member_count_per_type": dcl.ValueOrEmptyString(nr.DirectMemberCountPerType),
+		"derived_aliases":              dcl.ValueOrEmptyString(nr.DerivedAliases),
+		"dynamic_group_metadata":       dcl.ValueOrEmptyString(nr.DynamicGroupMetadata),
+		"initial_group_config":         dcl.ValueOrEmptyString(nr.InitialGroupConfig),
 	}
 	return dcl.Nprintf("groups/{{name}}", params), nil
 }

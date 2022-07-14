@@ -26,7 +26,7 @@ import (
 
 type ModelDeployment struct {
 	Model              *string                            `json:"model"`
-	Id                 *string                            `json:"id"`
+	DeployedModelId    *string                            `json:"deployedModelId"`
 	DedicatedResources *ModelDeploymentDedicatedResources `json:"dedicatedResources"`
 	Endpoint           *string                            `json:"endpoint"`
 	Location           *string                            `json:"location"`
@@ -151,14 +151,14 @@ func (r *ModelDeployment) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"model":              dcl.ValueOrEmptyString(nr.Model),
-		"id":                 dcl.ValueOrEmptyString(nr.Id),
-		"dedicatedResources": dcl.ValueOrEmptyString(nr.DedicatedResources),
-		"endpoint":           dcl.ValueOrEmptyString(nr.Endpoint),
-		"location":           dcl.ValueOrEmptyString(nr.Location),
-		"project":            dcl.ValueOrEmptyString(nr.Project),
+		"model":               dcl.ValueOrEmptyString(nr.Model),
+		"deployed_model_id":   dcl.ValueOrEmptyString(nr.DeployedModelId),
+		"dedicated_resources": dcl.ValueOrEmptyString(nr.DedicatedResources),
+		"endpoint":            dcl.ValueOrEmptyString(nr.Endpoint),
+		"location":            dcl.ValueOrEmptyString(nr.Location),
+		"project":             dcl.ValueOrEmptyString(nr.Project),
 	}
-	return dcl.Nprintf("models/{{model}}", params), nil
+	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/endpoints/{{endpoint}}/models/{{model}}", params), nil
 }
 
 const ModelDeploymentMaxPage = -1

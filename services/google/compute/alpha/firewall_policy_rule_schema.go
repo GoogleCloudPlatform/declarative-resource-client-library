@@ -84,7 +84,7 @@ func DCLFirewallPolicyRuleSchema() *dcl.Schema {
 			Schemas: map[string]*dcl.Component{
 				"FirewallPolicyRule": &dcl.Component{
 					Title: "FirewallPolicyRule",
-					ID:    "locations/global/firewallPolicies/{{firewallPolicy}}/rules/{{priority}}",
+					ID:    "locations/global/firewallPolicies/{{firewall_policy}}/rules/{{priority}}",
 					Locations: []string{
 						"global",
 					},

@@ -53,14 +53,14 @@ func (r *WebApp) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":        dcl.ValueOrEmptyString(nr.Name),
-		"appId":       dcl.ValueOrEmptyString(nr.AppId),
-		"displayName": dcl.ValueOrEmptyString(nr.DisplayName),
-		"projectId":   dcl.ValueOrEmptyString(nr.ProjectId),
-		"appUrls":     dcl.ValueOrEmptyString(nr.AppUrls),
-		"webId":       dcl.ValueOrEmptyString(nr.WebId),
-		"apiKeyId":    dcl.ValueOrEmptyString(nr.ApiKeyId),
-		"project":     dcl.ValueOrEmptyString(nr.Project),
+		"name":         dcl.ValueOrEmptyString(nr.Name),
+		"app_id":       dcl.ValueOrEmptyString(nr.AppId),
+		"display_name": dcl.ValueOrEmptyString(nr.DisplayName),
+		"project_id":   dcl.ValueOrEmptyString(nr.ProjectId),
+		"app_urls":     dcl.ValueOrEmptyString(nr.AppUrls),
+		"web_id":       dcl.ValueOrEmptyString(nr.WebId),
+		"api_key_id":   dcl.ValueOrEmptyString(nr.ApiKeyId),
+		"project":      dcl.ValueOrEmptyString(nr.Project),
 	}
 	return dcl.Nprintf("projects/{{project}}/webApps/{{name}}", params), nil
 }

@@ -52,7 +52,7 @@ func ProtoToVertexaiAlphaModelDeploymentDedicatedResourcesMachineSpec(p *alphapb
 func ProtoToModelDeployment(p *alphapb.VertexaiAlphaModelDeployment) *alpha.ModelDeployment {
 	obj := &alpha.ModelDeployment{
 		Model:              dcl.StringOrNil(p.GetModel()),
-		Id:                 dcl.StringOrNil(p.GetId()),
+		DeployedModelId:    dcl.StringOrNil(p.GetDeployedModelId()),
 		DedicatedResources: ProtoToVertexaiAlphaModelDeploymentDedicatedResources(p.GetDedicatedResources()),
 		Endpoint:           dcl.StringOrNil(p.GetEndpoint()),
 		Location:           dcl.StringOrNil(p.GetLocation()),
@@ -87,7 +87,7 @@ func VertexaiAlphaModelDeploymentDedicatedResourcesMachineSpecToProto(o *alpha.M
 func ModelDeploymentToProto(resource *alpha.ModelDeployment) *alphapb.VertexaiAlphaModelDeployment {
 	p := &alphapb.VertexaiAlphaModelDeployment{}
 	p.SetModel(dcl.ValueOrEmptyString(resource.Model))
-	p.SetId(dcl.ValueOrEmptyString(resource.Id))
+	p.SetDeployedModelId(dcl.ValueOrEmptyString(resource.DeployedModelId))
 	p.SetDedicatedResources(VertexaiAlphaModelDeploymentDedicatedResourcesToProto(resource.DedicatedResources))
 	p.SetEndpoint(dcl.ValueOrEmptyString(resource.Endpoint))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))

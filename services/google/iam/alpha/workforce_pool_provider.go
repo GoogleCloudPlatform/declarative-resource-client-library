@@ -180,19 +180,19 @@ func (r *WorkforcePoolProvider) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":               dcl.ValueOrEmptyString(nr.Name),
-		"displayName":        dcl.ValueOrEmptyString(nr.DisplayName),
-		"description":        dcl.ValueOrEmptyString(nr.Description),
-		"state":              dcl.ValueOrEmptyString(nr.State),
-		"disabled":           dcl.ValueOrEmptyString(nr.Disabled),
-		"attributeMapping":   dcl.ValueOrEmptyString(nr.AttributeMapping),
-		"attributeCondition": dcl.ValueOrEmptyString(nr.AttributeCondition),
-		"saml":               dcl.ValueOrEmptyString(nr.Saml),
-		"oidc":               dcl.ValueOrEmptyString(nr.Oidc),
-		"location":           dcl.ValueOrEmptyString(nr.Location),
-		"workforcePool":      dcl.ValueOrEmptyString(nr.WorkforcePool),
+		"name":                dcl.ValueOrEmptyString(nr.Name),
+		"display_name":        dcl.ValueOrEmptyString(nr.DisplayName),
+		"description":         dcl.ValueOrEmptyString(nr.Description),
+		"state":               dcl.ValueOrEmptyString(nr.State),
+		"disabled":            dcl.ValueOrEmptyString(nr.Disabled),
+		"attribute_mapping":   dcl.ValueOrEmptyString(nr.AttributeMapping),
+		"attribute_condition": dcl.ValueOrEmptyString(nr.AttributeCondition),
+		"saml":                dcl.ValueOrEmptyString(nr.Saml),
+		"oidc":                dcl.ValueOrEmptyString(nr.Oidc),
+		"location":            dcl.ValueOrEmptyString(nr.Location),
+		"workforce_pool":      dcl.ValueOrEmptyString(nr.WorkforcePool),
 	}
-	return dcl.Nprintf("locations/{{location}}/workforcePools/{{workforcePool}}/providers/{{name}}", params), nil
+	return dcl.Nprintf("locations/{{location}}/workforcePools/{{workforce_pool}}/providers/{{name}}", params), nil
 }
 
 const WorkforcePoolProviderMaxPage = -1

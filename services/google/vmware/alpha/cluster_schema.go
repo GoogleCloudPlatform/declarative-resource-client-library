@@ -112,7 +112,7 @@ func DCLClusterSchema() *dcl.Schema {
 			Schemas: map[string]*dcl.Component{
 				"Cluster": &dcl.Component{
 					Title:           "Cluster",
-					ID:              "projects/{{project}}/locations/{{location}}/privateClouds/{{privateCloud}}/clusters/{{name}}",
+					ID:              "projects/{{project}}/locations/{{location}}/privateClouds/{{private_cloud}}/clusters/{{name}}",
 					ParentContainer: "project",
 					HasCreate:       true,
 					ApplyTimeout:    9600,

@@ -49,11 +49,11 @@ func ModelDeploymentToUnstructured(r *dclService.ModelDeployment) *unstructured.
 		}
 		u.Object["dedicatedResources"] = rDedicatedResources
 	}
+	if r.DeployedModelId != nil {
+		u.Object["deployedModelId"] = *r.DeployedModelId
+	}
 	if r.Endpoint != nil {
 		u.Object["endpoint"] = *r.Endpoint
-	}
-	if r.Id != nil {
-		u.Object["id"] = *r.Id
 	}
 	if r.Location != nil {
 		u.Object["location"] = *r.Location
@@ -104,18 +104,18 @@ func UnstructuredToModelDeployment(u *unstructured.Resource) (*dclService.ModelD
 			return nil, fmt.Errorf("r.DedicatedResources: expected map[string]interface{}")
 		}
 	}
+	if _, ok := u.Object["deployedModelId"]; ok {
+		if s, ok := u.Object["deployedModelId"].(string); ok {
+			r.DeployedModelId = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.DeployedModelId: expected string")
+		}
+	}
 	if _, ok := u.Object["endpoint"]; ok {
 		if s, ok := u.Object["endpoint"].(string); ok {
 			r.Endpoint = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.Endpoint: expected string")
-		}
-	}
-	if _, ok := u.Object["id"]; ok {
-		if s, ok := u.Object["id"].(string); ok {
-			r.Id = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.Id: expected string")
 		}
 	}
 	if _, ok := u.Object["location"]; ok {

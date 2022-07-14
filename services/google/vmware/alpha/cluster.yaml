@@ -69,7 +69,7 @@ components:
   schemas:
     Cluster:
       title: Cluster
-      x-dcl-id: projects/{{project}}/locations/{{location}}/privateClouds/{{privateCloud}}/clusters/{{name}}
+      x-dcl-id: projects/{{project}}/locations/{{location}}/privateClouds/{{private_cloud}}/clusters/{{name}}
       x-dcl-parent-container: project
       x-dcl-has-create: true
       x-dcl-has-iam: false

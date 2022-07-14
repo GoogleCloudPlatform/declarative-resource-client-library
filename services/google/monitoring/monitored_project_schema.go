@@ -98,7 +98,7 @@ func DCLMonitoredProjectSchema() *dcl.Schema {
 			Schemas: map[string]*dcl.Component{
 				"MonitoredProject": &dcl.Component{
 					Title: "MonitoredProject",
-					ID:    "locations/global/metricsScopes/{{metricsScope}}/projects/{{name}}",
+					ID:    "locations/global/metricsScopes/{{metrics_scope}}/projects/{{name}}",
 					Locations: []string{
 						"global",
 					},

@@ -53,7 +53,7 @@ components:
   schemas:
     FirewallPolicyRule:
       title: FirewallPolicyRule
-      x-dcl-id: locations/global/firewallPolicies/{{firewallPolicy}}/rules/{{priority}}
+      x-dcl-id: locations/global/firewallPolicies/{{firewall_policy}}/rules/{{priority}}
       x-dcl-locations:
       - global
       x-dcl-has-create: true

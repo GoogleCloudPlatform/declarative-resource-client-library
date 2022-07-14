@@ -53,7 +53,7 @@ components:
   schemas:
     FirewallPolicyAssociation:
       title: FirewallPolicyAssociation
-      x-dcl-id: locations/global/firewallPolicies/{{firewallPolicy}}/associations/{{name}}
+      x-dcl-id: locations/global/firewallPolicies/{{firewall_policy}}/associations/{{name}}
       x-dcl-locations:
       - global
       x-dcl-has-create: true

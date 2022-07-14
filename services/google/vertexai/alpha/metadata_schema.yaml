@@ -48,7 +48,7 @@ components:
   schemas:
     MetadataSchema:
       title: MetadataSchema
-      x-dcl-id: projects/{{project}}/locations/{{location}}/metadataStores/{{metadataStore}}/metadataSchemas/{{name}}
+      x-dcl-id: projects/{{project}}/locations/{{location}}/metadataStores/{{metadata_store}}/metadataSchemas/{{name}}
       x-dcl-parent-container: project
       x-dcl-has-create: true
       x-dcl-has-iam: false

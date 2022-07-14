@@ -469,19 +469,19 @@ func (r *Endpoint) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":                         dcl.ValueOrEmptyString(nr.Name),
-		"displayName":                  dcl.ValueOrEmptyString(nr.DisplayName),
-		"description":                  dcl.ValueOrEmptyString(nr.Description),
-		"deployedModels":               dcl.ValueOrEmptyString(nr.DeployedModels),
-		"etag":                         dcl.ValueOrEmptyString(nr.Etag),
-		"labels":                       dcl.ValueOrEmptyString(nr.Labels),
-		"createTime":                   dcl.ValueOrEmptyString(nr.CreateTime),
-		"updateTime":                   dcl.ValueOrEmptyString(nr.UpdateTime),
-		"encryptionSpec":               dcl.ValueOrEmptyString(nr.EncryptionSpec),
-		"network":                      dcl.ValueOrEmptyString(nr.Network),
-		"modelDeploymentMonitoringJob": dcl.ValueOrEmptyString(nr.ModelDeploymentMonitoringJob),
-		"project":                      dcl.ValueOrEmptyString(nr.Project),
-		"location":                     dcl.ValueOrEmptyString(nr.Location),
+		"name":                            dcl.ValueOrEmptyString(nr.Name),
+		"display_name":                    dcl.ValueOrEmptyString(nr.DisplayName),
+		"description":                     dcl.ValueOrEmptyString(nr.Description),
+		"deployed_models":                 dcl.ValueOrEmptyString(nr.DeployedModels),
+		"etag":                            dcl.ValueOrEmptyString(nr.Etag),
+		"labels":                          dcl.ValueOrEmptyString(nr.Labels),
+		"create_time":                     dcl.ValueOrEmptyString(nr.CreateTime),
+		"update_time":                     dcl.ValueOrEmptyString(nr.UpdateTime),
+		"encryption_spec":                 dcl.ValueOrEmptyString(nr.EncryptionSpec),
+		"network":                         dcl.ValueOrEmptyString(nr.Network),
+		"model_deployment_monitoring_job": dcl.ValueOrEmptyString(nr.ModelDeploymentMonitoringJob),
+		"project":                         dcl.ValueOrEmptyString(nr.Project),
+		"location":                        dcl.ValueOrEmptyString(nr.Location),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/endpoints/{{name}}", params), nil
 }

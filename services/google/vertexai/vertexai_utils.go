@@ -102,7 +102,7 @@ func (op *deleteModelDeploymentOperation) do(ctx context.Context, r *ModelDeploy
 	}
 
 	req, err := json.Marshal(map[string]interface{}{
-		"deployedModelId": dcl.ValueOrEmptyString(r.Id),
+		"deployedModelId": dcl.ValueOrEmptyString(r.DeployedModelId),
 	})
 	if err != nil {
 		return err
