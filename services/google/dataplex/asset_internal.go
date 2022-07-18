@@ -33,6 +33,9 @@ func (r *Asset) validate() error {
 	if err := dcl.Required(r, "resourceSpec"); err != nil {
 		return err
 	}
+	if err := dcl.Required(r, "discoverySpec"); err != nil {
+		return err
+	}
 	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
 		return err
 	}

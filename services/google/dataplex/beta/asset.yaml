@@ -90,6 +90,7 @@ components:
       required:
       - name
       - resourceSpec
+      - discoverySpec
       - project
       - location
       - lake

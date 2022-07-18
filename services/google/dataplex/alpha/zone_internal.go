@@ -33,6 +33,9 @@ func (r *Zone) validate() error {
 	if err := dcl.Required(r, "type"); err != nil {
 		return err
 	}
+	if err := dcl.Required(r, "discoverySpec"); err != nil {
+		return err
+	}
 	if err := dcl.Required(r, "resourceSpec"); err != nil {
 		return err
 	}

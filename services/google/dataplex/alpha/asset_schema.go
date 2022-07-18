@@ -137,6 +137,7 @@ func DCLAssetSchema() *dcl.Schema {
 						Required: []string{
 							"name",
 							"resourceSpec",
+							"discoverySpec",
 							"project",
 							"location",
 							"lake",

@@ -120,6 +120,7 @@ func DCLZoneSchema() *dcl.Schema {
 						Required: []string{
 							"name",
 							"type",
+							"discoverySpec",
 							"resourceSpec",
 							"project",
 							"location",

@@ -80,6 +80,7 @@ components:
       required:
       - name
       - type
+      - discoverySpec
       - resourceSpec
       - project
       - location
