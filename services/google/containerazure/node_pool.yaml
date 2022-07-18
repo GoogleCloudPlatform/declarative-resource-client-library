@@ -111,7 +111,6 @@ components:
           x-dcl-go-name: Autoscaling
           x-dcl-go-type: NodePoolAutoscaling
           description: Autoscaler configuration for this node pool.
-          x-kubernetes-immutable: true
           required:
           - minNodeCount
           - maxNodeCount
@@ -121,14 +120,12 @@ components:
               format: int64
               x-dcl-go-name: MaxNodeCount
               description: Maximum number of nodes in the node pool. Must be >= min_node_count.
-              x-kubernetes-immutable: true
             minNodeCount:
               type: integer
               format: int64
               x-dcl-go-name: MinNodeCount
               description: Minimum number of nodes in the node pool. Must be >= 1
                 and <= max_node_count.
-              x-kubernetes-immutable: true
         azureAvailabilityZone:
           type: string
           x-dcl-go-name: AzureAvailabilityZone
@@ -150,7 +147,6 @@ components:
           x-dcl-go-name: Config
           x-dcl-go-type: NodePoolConfig
           description: The node configuration of the node pool.
-          x-kubernetes-immutable: true
           required:
           - sshConfig
           properties:
@@ -200,7 +196,6 @@ components:
               x-dcl-go-name: SshConfig
               x-dcl-go-type: NodePoolConfigSshConfig
               description: SSH configuration for how to access the node pool machines.
-              x-kubernetes-immutable: true
               required:
               - authorizedKey
               properties:
@@ -210,7 +205,6 @@ components:
                   description: The SSH public key data for VMs managed by Anthos.
                     This accepts the authorized_keys file format used in OpenSSH according
                     to the sshd(8) manual page.
-                  x-kubernetes-immutable: true
             tags:
               type: object
               additionalProperties:

@@ -194,6 +194,16 @@ func newUpdateNodePoolUpdateAzureNodePoolRequest(ctx context.Context, f *NodePoo
 	if v := f.Version; !dcl.IsEmptyValueIndirect(v) {
 		req["version"] = v
 	}
+	if v, err := expandNodePoolConfig(c, f.Config, res); err != nil {
+		return nil, fmt.Errorf("error expanding Config into config: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["config"] = v
+	}
+	if v, err := expandNodePoolAutoscaling(c, f.Autoscaling, res); err != nil {
+		return nil, fmt.Errorf("error expanding Autoscaling into autoscaling: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["autoscaling"] = v
+	}
 	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
 		req["annotations"] = v
 	}
@@ -1670,7 +1680,7 @@ func compareNodePoolConfigSshConfigNewStyle(d, a interface{}, fn dcl.FieldName) 
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AuthorizedKey, actual.AuthorizedKey, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AuthorizedKey")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AuthorizedKey, actual.AuthorizedKey, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateNodePoolUpdateAzureNodePoolOperation")}, fn.AddNest("AuthorizedKey")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1735,14 +1745,14 @@ func compareNodePoolAutoscalingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MinNodeCount, actual.MinNodeCount, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MinNodeCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MinNodeCount, actual.MinNodeCount, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateNodePoolUpdateAzureNodePoolOperation")}, fn.AddNest("MinNodeCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxNodeCount, actual.MaxNodeCount, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxNodeCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxNodeCount, actual.MaxNodeCount, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateNodePoolUpdateAzureNodePoolOperation")}, fn.AddNest("MaxNodeCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
