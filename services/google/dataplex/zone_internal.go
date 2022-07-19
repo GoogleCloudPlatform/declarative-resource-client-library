@@ -199,11 +199,6 @@ func newUpdateZoneUpdateZoneRequest(ctx context.Context, f *Zone, c *Client) (ma
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["discoverySpec"] = v
 	}
-	if v, err := expandZoneResourceSpec(c, f.ResourceSpec, res); err != nil {
-		return nil, fmt.Errorf("error expanding ResourceSpec into resourceSpec: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["resourceSpec"] = v
-	}
 	if v, err := expandZoneAssetStatus(c, f.AssetStatus, res); err != nil {
 		return nil, fmt.Errorf("error expanding AssetStatus into assetStatus: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1408,7 +1403,7 @@ func diffZone(c *Client, desired, actual *Zone, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceSpec, actual.ResourceSpec, dcl.DiffInfo{ObjectFunction: compareZoneResourceSpecNewStyle, EmptyObject: EmptyZoneResourceSpec, OperationSelector: dcl.TriggersOperation("updateZoneUpdateZoneOperation")}, fn.AddNest("ResourceSpec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceSpec, actual.ResourceSpec, dcl.DiffInfo{ObjectFunction: compareZoneResourceSpecNewStyle, EmptyObject: EmptyZoneResourceSpec, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceSpec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

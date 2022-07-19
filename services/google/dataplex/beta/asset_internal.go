@@ -219,11 +219,6 @@ func newUpdateAssetUpdateAssetRequest(ctx context.Context, f *Asset, c *Client) 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
-	if v, err := expandAssetResourceSpec(c, f.ResourceSpec, res); err != nil {
-		return nil, fmt.Errorf("error expanding ResourceSpec into resourceSpec: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		req["resourceSpec"] = v
-	}
 	if v, err := expandAssetResourceStatus(c, f.ResourceStatus, res); err != nil {
 		return nil, fmt.Errorf("error expanding ResourceStatus into resourceStatus: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1852,7 +1847,7 @@ func diffAsset(c *Client, desired, actual *Asset, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ResourceSpec, actual.ResourceSpec, dcl.DiffInfo{ObjectFunction: compareAssetResourceSpecNewStyle, EmptyObject: EmptyAssetResourceSpec, OperationSelector: dcl.TriggersOperation("updateAssetUpdateAssetOperation")}, fn.AddNest("ResourceSpec")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ResourceSpec, actual.ResourceSpec, dcl.DiffInfo{ObjectFunction: compareAssetResourceSpecNewStyle, EmptyObject: EmptyAssetResourceSpec, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ResourceSpec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

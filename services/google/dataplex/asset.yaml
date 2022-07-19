@@ -146,7 +146,7 @@ components:
             enabled:
               type: boolean
               x-dcl-go-name: Enabled
-              description: Optional. Whether discovery is enabled.
+              description: Required. Whether discovery is enabled.
             excludePatterns:
               type: array
               x-dcl-go-name: ExcludePatterns
@@ -307,8 +307,9 @@ components:
           type: object
           x-dcl-go-name: ResourceSpec
           x-dcl-go-type: AssetResourceSpec
-          description: Required. Specification of the resource that is referenced
-            by this asset.
+          description: Required. Immutable. Specification of the resource that is
+            referenced by this asset.
+          x-kubernetes-immutable: true
           required:
           - type
           properties:
@@ -318,12 +319,14 @@ components:
               description: 'Immutable. Relative name of the cloud resource that contains
                 the data that is being managed within a lake. For example: `projects/{project_number}/buckets/{bucket_id}`
                 `projects/{project_number}/datasets/{dataset_id}`'
+              x-kubernetes-immutable: true
             type:
               type: string
               x-dcl-go-name: Type
               x-dcl-go-type: AssetResourceSpecTypeEnum
               description: 'Required. Immutable. Type of resource. Possible values:
                 TYPE_UNSPECIFIED, STORAGE_BUCKET, BIGQUERY_DATASET'
+              x-kubernetes-immutable: true
               enum:
               - TYPE_UNSPECIFIED
               - STORAGE_BUCKET

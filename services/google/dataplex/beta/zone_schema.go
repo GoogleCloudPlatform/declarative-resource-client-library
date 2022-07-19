@@ -312,7 +312,8 @@ func DCLZoneSchema() *dcl.Schema {
 								Type:        "object",
 								GoName:      "ResourceSpec",
 								GoType:      "ZoneResourceSpec",
-								Description: "Required. Specification of the resources that are referenced by the assets within this zone.",
+								Description: "Required. Immutable. Specification of the resources that are referenced by the assets within this zone.",
+								Immutable:   true,
 								Required: []string{
 									"locationType",
 								},
@@ -322,6 +323,7 @@ func DCLZoneSchema() *dcl.Schema {
 										GoName:      "LocationType",
 										GoType:      "ZoneResourceSpecLocationTypeEnum",
 										Description: "Required. Immutable. The location type of the resources that are allowed to be attached to the assets within this zone. Possible values: LOCATION_TYPE_UNSPECIFIED, SINGLE_REGION, MULTI_REGION",
+										Immutable:   true,
 										Enum: []string{
 											"LOCATION_TYPE_UNSPECIFIED",
 											"SINGLE_REGION",
