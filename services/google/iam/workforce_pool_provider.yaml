@@ -209,5 +209,5 @@ components:
           x-kubernetes-immutable: true
           x-dcl-references:
           - resource: Iam/WorkforcePool
-            field: selflink
+            field: name
             parent: true

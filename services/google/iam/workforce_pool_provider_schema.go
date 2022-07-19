@@ -214,7 +214,7 @@ func DCLWorkforcePoolProviderSchema() *dcl.Schema {
 								ResourceReferences: []*dcl.PropertyResourceReference{
 									&dcl.PropertyResourceReference{
 										Resource: "Iam/WorkforcePool",
-										Field:    "selflink",
+										Field:    "name",
 										Parent:   true,
 									},
 								},
