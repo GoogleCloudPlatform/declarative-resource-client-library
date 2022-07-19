@@ -161,7 +161,7 @@ func DCLAssetSchema() *dcl.Schema {
 								Type:        "object",
 								GoName:      "DiscoverySpec",
 								GoType:      "AssetDiscoverySpec",
-								Description: "Optional. Specification of the discovery feature applied to data referenced by this asset. When this spec is left unset, the asset will use the spec set on the parent zone.",
+								Description: "Required. Specification of the discovery feature applied to data referenced by this asset. When this spec is left unset, the asset will use the spec set on the parent zone.",
 								Properties: map[string]*dcl.Property{
 									"csvOptions": &dcl.Property{
 										Type:        "object",

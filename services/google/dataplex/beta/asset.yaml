@@ -111,7 +111,7 @@ components:
           type: object
           x-dcl-go-name: DiscoverySpec
           x-dcl-go-type: AssetDiscoverySpec
-          description: Optional. Specification of the discovery feature applied to
+          description: Required. Specification of the discovery feature applied to
             data referenced by this asset. When this spec is left unset, the asset
             will use the spec set on the parent zone.
           properties:

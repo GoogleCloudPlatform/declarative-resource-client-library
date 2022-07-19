@@ -125,7 +125,7 @@ components:
           type: object
           x-dcl-go-name: DiscoverySpec
           x-dcl-go-type: ZoneDiscoverySpec
-          description: Optional. Specification of the discovery feature applied to
+          description: Required. Specification of the discovery feature applied to
             data in this zone.
           required:
           - enabled

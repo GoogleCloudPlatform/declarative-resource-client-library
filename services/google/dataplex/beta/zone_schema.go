@@ -171,7 +171,7 @@ func DCLZoneSchema() *dcl.Schema {
 								Type:        "object",
 								GoName:      "DiscoverySpec",
 								GoType:      "ZoneDiscoverySpec",
-								Description: "Optional. Specification of the discovery feature applied to data in this zone.",
+								Description: "Required. Specification of the discovery feature applied to data in this zone.",
 								Required: []string{
 									"enabled",
 								},
