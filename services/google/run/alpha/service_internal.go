@@ -3547,7 +3547,7 @@ func compareServiceTemplateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ContainerConcurrency, actual.ContainerConcurrency, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("ContainerConcurrency")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ContainerConcurrency, actual.ContainerConcurrency, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateServiceUpdateServiceOperation")}, fn.AddNest("MaxInstanceRequestConcurrency")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4695,7 +4695,7 @@ func expandServiceTemplate(c *Client, f *ServiceTemplate, res *Service) (map[str
 		m["vpcAccess"] = v
 	}
 	if v := f.ContainerConcurrency; !dcl.IsEmptyValueIndirect(v) {
-		m["containerConcurrency"] = v
+		m["maxInstanceRequestConcurrency"] = v
 	}
 	if v := f.Timeout; !dcl.IsEmptyValueIndirect(v) {
 		m["timeout"] = v
@@ -4738,7 +4738,7 @@ func flattenServiceTemplate(c *Client, i interface{}, res *Service) *ServiceTemp
 	r.Annotations = dcl.FlattenKeyValuePairs(m["annotations"])
 	r.Scaling = flattenServiceTemplateScaling(c, m["scaling"], res)
 	r.VPCAccess = flattenServiceTemplateVPCAccess(c, m["vpcAccess"], res)
-	r.ContainerConcurrency = dcl.FlattenInteger(m["containerConcurrency"])
+	r.ContainerConcurrency = dcl.FlattenInteger(m["maxInstanceRequestConcurrency"])
 	r.Timeout = dcl.FlattenString(m["timeout"])
 	r.ServiceAccount = dcl.FlattenString(m["serviceAccount"])
 	r.Containers = flattenServiceTemplateContainersSlice(c, m["containers"], res)
