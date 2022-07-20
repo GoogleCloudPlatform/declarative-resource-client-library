@@ -446,11 +446,6 @@ func canonicalizeWorkforcePoolDesiredState(rawDesired, rawInitial *WorkforcePool
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.PartialSelfLinkToSelfLink(rawDesired.SelfLink, rawInitial.SelfLink) {
-		canonicalDesired.SelfLink = rawInitial.SelfLink
-	} else {
-		canonicalDesired.SelfLink = rawDesired.SelfLink
-	}
 	if dcl.StringCanonicalize(rawDesired.Parent, rawInitial.Parent) {
 		canonicalDesired.Parent = rawInitial.Parent
 	} else {
@@ -572,7 +567,7 @@ func diffWorkforcePool(c *Client, desired, actual *WorkforcePool, opts ...dcl.Ap
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SelfLink, actual.SelfLink, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -697,11 +692,6 @@ func expandWorkforcePool(c *Client, f *WorkforcePool) (map[string]interface{}, e
 	_ = res
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["name"] = v
-	}
-	if v, err := dcl.DeriveField("locations/%s/workforcePools/%s", f.SelfLink, dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
-		return nil, fmt.Errorf("error expanding SelfLink into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}

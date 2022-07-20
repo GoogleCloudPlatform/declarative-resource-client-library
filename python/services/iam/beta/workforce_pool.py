@@ -35,7 +35,6 @@ class WorkforcePool(object):
 
         channel.initialize()
         self.name = name
-        self.self_link = self_link
         self.parent = parent
         self.display_name = display_name
         self.description = description
@@ -51,9 +50,6 @@ class WorkforcePool(object):
         request = workforce_pool_pb2.ApplyIamBetaWorkforcePoolRequest()
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
-
-        if Primitive.to_proto(self.self_link):
-            request.resource.self_link = Primitive.to_proto(self.self_link)
 
         if Primitive.to_proto(self.parent):
             request.resource.parent = Primitive.to_proto(self.parent)
@@ -97,9 +93,6 @@ class WorkforcePool(object):
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
-        if Primitive.to_proto(self.self_link):
-            request.resource.self_link = Primitive.to_proto(self.self_link)
-
         if Primitive.to_proto(self.parent):
             request.resource.parent = Primitive.to_proto(self.parent)
 
@@ -139,8 +132,6 @@ class WorkforcePool(object):
         resource = workforce_pool_pb2.IamBetaWorkforcePool()
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
-        if Primitive.to_proto(self.self_link):
-            resource.self_link = Primitive.to_proto(self.self_link)
         if Primitive.to_proto(self.parent):
             resource.parent = Primitive.to_proto(self.parent)
         if Primitive.to_proto(self.display_name):

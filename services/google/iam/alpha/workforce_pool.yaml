@@ -115,6 +115,7 @@ components:
         selfLink:
           type: string
           x-dcl-go-name: SelfLink
+          readOnly: true
           description: 'Output only. The resource name of the pool. Format: `locations/{location}/workforcePools/{workforce_pool_id}`'
           x-kubernetes-immutable: true
         sessionDuration:

@@ -154,6 +154,7 @@ func DCLWorkforcePoolSchema() *dcl.Schema {
 							"selfLink": &dcl.Property{
 								Type:        "string",
 								GoName:      "SelfLink",
+								ReadOnly:    true,
 								Description: "Output only. The resource name of the pool. Format: `locations/{location}/workforcePools/{workforce_pool_id}`",
 								Immutable:   true,
 							},
