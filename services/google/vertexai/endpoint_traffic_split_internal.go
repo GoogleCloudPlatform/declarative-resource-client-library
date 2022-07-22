@@ -19,6 +19,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"strings"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -56,6 +57,16 @@ func (r *EndpointTrafficSplit) basePath() string {
 }
 
 func (r *EndpointTrafficSplit) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]interface{}{
+		"project":  dcl.ValueOrEmptyString(nr.Project),
+		"location": dcl.ValueOrEmptyString(nr.Location),
+		"endpoint": dcl.ValueOrEmptyString(nr.Endpoint),
+	}
+	return dcl.URL("projects/{{project}}/locations/{{location}}/endpoints/{{endpoint}}", nr.basePath(), userBasePath, params), nil
+}
+
+func (r *EndpointTrafficSplit) deleteURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
 		"project":  dcl.ValueOrEmptyString(nr.Project),
@@ -156,6 +167,26 @@ func (op *updateEndpointTrafficSplitUpdateEndpointTrafficSplitOperation) do(ctx 
 
 	return nil
 }
+
+func (c *Client) deleteAllEndpointTrafficSplit(ctx context.Context, f func(*EndpointTrafficSplit) bool, resources []*EndpointTrafficSplit) error {
+	var errors []string
+	for _, res := range resources {
+		if f(res) {
+			// We do not want deleteAll to fail on a deletion or else it will stop deleting other resources.
+			err := c.DeleteEndpointTrafficSplit(ctx, res)
+			if err != nil {
+				errors = append(errors, err.Error())
+			}
+		}
+	}
+	if len(errors) > 0 {
+		return fmt.Errorf("%v", strings.Join(errors, "\n"))
+	} else {
+		return nil
+	}
+}
+
+type deleteEndpointTrafficSplitOperation struct{}
 
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of

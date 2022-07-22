@@ -29,6 +29,12 @@ paths:
     - name: EndpointTrafficSplit
       required: true
       description: A full instance of a EndpointTrafficSplit
+  delete:
+    description: The function used to delete a EndpointTrafficSplit
+    parameters:
+    - name: EndpointTrafficSplit
+      required: true
+      description: A full instance of a EndpointTrafficSplit
 components:
   schemas:
     EndpointTrafficSplit:

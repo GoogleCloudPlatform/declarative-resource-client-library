@@ -1,6 +1,6 @@
 {
-  "project": "{{project}}",
+  "project": "{{ref:basic.firebase_project.json:project}}",
   "displayName": "my new cooler name",
   "appUrls" : ["http://some.url.com/foo", "http://another.url.com/bar"],
-  "apiKeyId" : "d5c52ea0-a9fa-43e3-8aba-66e4ff81a10f"
+  "apiKeyId" : "{{ref:alternate.apikeys.key.json:uid}}"
 }

@@ -176,7 +176,12 @@ func EndpointTrafficSplitHasDiff(ctx context.Context, config *dcl.Config, u *uns
 }
 
 func DeleteEndpointTrafficSplit(ctx context.Context, config *dcl.Config, u *unstructured.Resource) error {
-	return unstructured.ErrNoSuchMethod
+	c := dclService.NewClient(config)
+	r, err := UnstructuredToEndpointTrafficSplit(u)
+	if err != nil {
+		return err
+	}
+	return c.DeleteEndpointTrafficSplit(ctx, r)
 }
 
 func EndpointTrafficSplitID(u *unstructured.Resource) (string, error) {

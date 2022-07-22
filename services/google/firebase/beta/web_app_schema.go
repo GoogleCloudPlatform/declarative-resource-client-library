@@ -106,6 +106,12 @@ func DCLWebAppSchema() *dcl.Schema {
 								Type:        "string",
 								GoName:      "ApiKeyId",
 								Description: "The key_id of the GCP ApiKey associated with this App. If set must have no restrictions, or only have restrictions that are valid for the associated Firebase App. Cannot be set in create requests, instead an existing valid API Key will be chosen, or if no valid API Keys exist, one will be provisioned for you. Cannot be set to an empty value in update requests.",
+								ResourceReferences: []*dcl.PropertyResourceReference{
+									&dcl.PropertyResourceReference{
+										Resource: "Apikeys/Key",
+										Field:    "name",
+									},
+								},
 							},
 							"appId": &dcl.Property{
 								Type:        "string",

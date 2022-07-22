@@ -17,9 +17,24 @@ type: web_app
 versions:
 - beta
 resource: samples/basic.web_app.json
+dependencies:
+- samples/basic.apikeys.key.json
+- samples/alternate.apikeys.key.json
+- samples/basic.cloudresourcemanager.project.json
+- samples/firebase.serviceusage.service.json
+- samples/basic.firebase_project.json
 updates:
 - resource: samples/update.web_app.json
-  dependencies: []
+  dependencies:
+  - samples/basic.apikeys.key.json
+  - samples/alternate.apikeys.key.json
+  - samples/basic.cloudresourcemanager.project.json
+  - samples/firebase.serviceusage.service.json
+  - samples/basic.firebase_project.json
 variables:
-- name: project
-  type: project
+- name: id
+  type: resource_name
+- name: key
+  type: resource_name
+- name: org_id
+  type: org_id

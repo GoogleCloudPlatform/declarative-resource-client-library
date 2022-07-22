@@ -45,6 +45,16 @@ func DCLEndpointTrafficSplitSchema() *dcl.Schema {
 					},
 				},
 			},
+			Delete: &dcl.Path{
+				Description: "The function used to delete a EndpointTrafficSplit",
+				Parameters: []dcl.PathParameters{
+					dcl.PathParameters{
+						Name:        "EndpointTrafficSplit",
+						Required:    true,
+						Description: "A full instance of a EndpointTrafficSplit",
+					},
+				},
+			},
 		},
 		Components: &dcl.Components{
 			Schemas: map[string]*dcl.Component{

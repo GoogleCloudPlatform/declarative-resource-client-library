@@ -93,7 +93,9 @@ func newUpdateWebAppUpdateWebAppRequest(ctx context.Context, f *WebApp, c *Clien
 	if v := f.AppUrls; v != nil {
 		req["appUrls"] = v
 	}
-	if v := f.ApiKeyId; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.SelfLinkToNameExpander(f.ApiKeyId); err != nil {
+		return nil, fmt.Errorf("error expanding ApiKeyId into apiKeyId: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["apiKeyId"] = v
 	}
 	b, err := c.getWebAppRaw(ctx, f)
@@ -452,7 +454,8 @@ func canonicalizeWebAppDesiredState(rawDesired, rawInitial *WebApp, opts ...dcl.
 	} else {
 		canonicalDesired.AppUrls = rawDesired.AppUrls
 	}
-	if dcl.StringCanonicalize(rawDesired.ApiKeyId, rawInitial.ApiKeyId) {
+	if dcl.IsZeroValue(rawDesired.ApiKeyId) || (dcl.IsEmptyValueIndirect(rawDesired.ApiKeyId) && dcl.IsEmptyValueIndirect(rawInitial.ApiKeyId)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.ApiKeyId = rawInitial.ApiKeyId
 	} else {
 		canonicalDesired.ApiKeyId = rawDesired.ApiKeyId
@@ -516,9 +519,6 @@ func canonicalizeWebAppNewState(c *Client, rawNew, rawDesired *WebApp) (*WebApp,
 	if dcl.IsEmptyValueIndirect(rawNew.ApiKeyId) && dcl.IsEmptyValueIndirect(rawDesired.ApiKeyId) {
 		rawNew.ApiKeyId = rawDesired.ApiKeyId
 	} else {
-		if dcl.StringCanonicalize(rawDesired.ApiKeyId, rawNew.ApiKeyId) {
-			rawNew.ApiKeyId = rawDesired.ApiKeyId
-		}
 	}
 
 	rawNew.Project = rawDesired.Project
@@ -586,7 +586,7 @@ func diffWebApp(c *Client, desired, actual *WebApp, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ApiKeyId, actual.ApiKeyId, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateWebAppUpdateWebAppOperation")}, fn.AddNest("ApiKeyId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ApiKeyId, actual.ApiKeyId, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateWebAppUpdateWebAppOperation")}, fn.AddNest("ApiKeyId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -678,7 +678,9 @@ func expandWebApp(c *Client, f *WebApp) (map[string]interface{}, error) {
 	if v := f.AppUrls; v != nil {
 		m["appUrls"] = v
 	}
-	if v := f.ApiKeyId; dcl.ValueShouldBeSent(v) {
+	if v, err := dcl.SelfLinkToNameExpander(f.ApiKeyId); err != nil {
+		return nil, fmt.Errorf("error expanding ApiKeyId into apiKeyId: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["apiKeyId"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {

@@ -179,3 +179,42 @@ func endpointTrafficSplitMapToSlice(c *Client, i interface{}, resource *Endpoint
 	}
 	return items
 }
+
+// EndpointTrafficSplit has a custom delete method that sets the traffic split to nil.
+func (op *deleteEndpointTrafficSplitOperation) do(ctx context.Context, r *EndpointTrafficSplit, c *Client) error {
+	_, err := c.GetEndpointTrafficSplit(ctx, r)
+	if err != nil {
+		return err
+	}
+
+	u, err := r.deleteURL(c.Config.BasePath)
+	if err != nil {
+		return err
+	}
+	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": "trafficSplit"})
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdateEndpointTrafficSplitUpdateEndpointTrafficSplitRequest(ctx, &EndpointTrafficSplit{
+		Endpoint: r.Endpoint,
+		Project:  r.Project,
+		Location: r.Location,
+		Etag:     r.Etag,
+	}, c)
+	if err != nil {
+		return err
+	}
+
+	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
+	body, err := marshalUpdateEndpointTrafficSplitUpdateEndpointTrafficSplitRequest(c, req)
+	if err != nil {
+		return err
+	}
+	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}

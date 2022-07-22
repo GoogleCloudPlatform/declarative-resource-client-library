@@ -163,6 +163,19 @@ func (c *Client) GetEndpointTrafficSplit(ctx context.Context, r *EndpointTraffic
 	return result, nil
 }
 
+func (c *Client) DeleteEndpointTrafficSplit(ctx context.Context, r *EndpointTrafficSplit) error {
+	ctx = dcl.ContextWithRequestID(ctx)
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
+	defer cancel()
+
+	if r == nil {
+		return fmt.Errorf("EndpointTrafficSplit resource is nil")
+	}
+	c.Config.Logger.InfoWithContext(ctx, "Deleting EndpointTrafficSplit...")
+	deleteOp := deleteEndpointTrafficSplitOperation{}
+	return deleteOp.do(ctx, r, c)
+}
+
 func (c *Client) ApplyEndpointTrafficSplit(ctx context.Context, rawDesired *EndpointTrafficSplit, opts ...dcl.ApplyOption) (*EndpointTrafficSplit, error) {
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()

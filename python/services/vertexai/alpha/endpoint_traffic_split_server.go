@@ -15,7 +15,6 @@ package server
 
 import (
 	"context"
-	"errors"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 	emptypb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/empty_go_proto"
 	alphapb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/vertexai/alpha/vertexai_alpha_go_proto"
@@ -101,7 +100,11 @@ func (s *EndpointTrafficSplitServer) ApplyVertexaiAlphaEndpointTrafficSplit(ctx 
 // DeleteEndpointTrafficSplit handles the gRPC request by passing it to the underlying EndpointTrafficSplit Delete() method.
 func (s *EndpointTrafficSplitServer) DeleteVertexaiAlphaEndpointTrafficSplit(ctx context.Context, request *alphapb.DeleteVertexaiAlphaEndpointTrafficSplitRequest) (*emptypb.Empty, error) {
 
-	return nil, errors.New("no delete endpoint for EndpointTrafficSplit")
+	cl, err := createConfigEndpointTrafficSplit(ctx, request.GetServiceAccountFile())
+	if err != nil {
+		return nil, err
+	}
+	return &emptypb.Empty{}, cl.DeleteEndpointTrafficSplit(ctx, ProtoToEndpointTrafficSplit(request.GetResource()))
 
 }
 

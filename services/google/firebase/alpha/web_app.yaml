@@ -79,6 +79,9 @@ components:
             an existing valid API Key will be chosen, or if no valid API Keys exist,
             one will be provisioned for you. Cannot be set to an empty value in update
             requests.
+          x-dcl-references:
+          - resource: Apikeys/Key
+            field: name
         appId:
           type: string
           x-dcl-go-name: AppId
