@@ -248,11 +248,10 @@ func (c *Client) GetModelDeployment(ctx context.Context, r *ModelDeployment) (*M
 	if err != nil {
 		return nil, err
 	}
-	nr := r.urlNormalized()
-	result.Project = nr.Project
-	result.Location = nr.Location
-	result.Endpoint = nr.Endpoint
-	result.Model = nr.Model
+	result.Project = r.Project
+	result.Location = r.Location
+	result.Endpoint = r.Endpoint
+	result.Model = r.Model
 
 	c.Config.Logger.InfoWithContextf(ctx, "Retrieved raw result state: %v", result)
 	c.Config.Logger.InfoWithContextf(ctx, "Canonicalizing with specified state: %v", r)

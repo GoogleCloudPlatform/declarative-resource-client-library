@@ -1,5 +1,5 @@
 {
-  "model": "projects/{{project}}/locations/{{region}}/models/{{ref:basic.model.json:name}}",
+  "model": "{{ref:basic.model.json:name}}",
   "endpoint": "projects/{{project}}/locations/{{region}}/endpoints/{{ref:minimal.endpoint.json:name}}",
   "dedicatedResources": {
     "machineSpec": {

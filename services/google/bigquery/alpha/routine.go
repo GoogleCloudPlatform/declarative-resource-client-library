@@ -531,10 +531,9 @@ func (c *Client) GetRoutine(ctx context.Context, r *Routine) (*Routine, error) {
 	if err != nil {
 		return nil, err
 	}
-	nr := r.urlNormalized()
-	result.Project = nr.Project
-	result.Dataset = nr.Dataset
-	result.Name = nr.Name
+	result.Project = r.Project
+	result.Dataset = r.Dataset
+	result.Name = r.Name
 
 	c.Config.Logger.InfoWithContextf(ctx, "Retrieved raw result state: %v", result)
 	c.Config.Logger.InfoWithContextf(ctx, "Canonicalizing with specified state: %v", r)

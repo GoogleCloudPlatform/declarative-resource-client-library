@@ -55,6 +55,7 @@ func DCLFirebaseProjectSchema() *dcl.Schema {
 					Title:           "FirebaseProject",
 					ID:              "projects/{{project}}",
 					ParentContainer: "project",
+					LabelsField:     "annotations",
 					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
@@ -62,6 +63,19 @@ func DCLFirebaseProjectSchema() *dcl.Schema {
 							"project",
 						},
 						Properties: map[string]*dcl.Property{
+							"annotations": &dcl.Property{
+								Type: "object",
+								AdditionalProperties: &dcl.Property{
+									Type: "string",
+								},
+								GoName:      "Annotations",
+								Description: "  // Set of user-defined annotations for the [FirebaseProject][] as per [AIP-128](https://google.aip.dev/128#annotations).  These annotations are intended solely for developers and client-side tools Firebase services will not mutate this annotation set.  This field may only be assigned on Update",
+							},
+							"displayName": &dcl.Property{
+								Type:        "string",
+								GoName:      "DisplayName",
+								Description: "The user-assigned display name of the Project.  This field may only be assigned on Update",
+							},
 							"project": &dcl.Property{
 								Type:        "string",
 								GoName:      "Project",

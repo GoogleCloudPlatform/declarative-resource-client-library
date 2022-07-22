@@ -32,6 +32,16 @@ func FirebaseProjectToUnstructured(r *dclService.FirebaseProject) *unstructured.
 		},
 		Object: make(map[string]interface{}),
 	}
+	if r.Annotations != nil {
+		rAnnotations := make(map[string]interface{})
+		for k, v := range r.Annotations {
+			rAnnotations[k] = v
+		}
+		u.Object["annotations"] = rAnnotations
+	}
+	if r.DisplayName != nil {
+		u.Object["displayName"] = *r.DisplayName
+	}
 	if r.Project != nil {
 		u.Object["project"] = *r.Project
 	}
@@ -65,6 +75,26 @@ func FirebaseProjectToUnstructured(r *dclService.FirebaseProject) *unstructured.
 
 func UnstructuredToFirebaseProject(u *unstructured.Resource) (*dclService.FirebaseProject, error) {
 	r := &dclService.FirebaseProject{}
+	if _, ok := u.Object["annotations"]; ok {
+		if rAnnotations, ok := u.Object["annotations"].(map[string]interface{}); ok {
+			m := make(map[string]string)
+			for k, v := range rAnnotations {
+				if s, ok := v.(string); ok {
+					m[k] = s
+				}
+			}
+			r.Annotations = m
+		} else {
+			return nil, fmt.Errorf("r.Annotations: expected map[string]interface{}")
+		}
+	}
+	if _, ok := u.Object["displayName"]; ok {
+		if s, ok := u.Object["displayName"].(string); ok {
+			r.DisplayName = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.DisplayName: expected string")
+		}
+	}
 	if _, ok := u.Object["project"]; ok {
 		if s, ok := u.Object["project"].(string); ok {
 			r.Project = dcl.String(s)

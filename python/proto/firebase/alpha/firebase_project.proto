@@ -31,9 +31,11 @@ enum FirebaseAlphaFirebaseProjectStateEnum {
 message FirebaseAlphaFirebaseProject {
   string project_id = 1;
   int64 project_number = 2;
-  FirebaseAlphaFirebaseProjectResources resources = 3;
-  FirebaseAlphaFirebaseProjectStateEnum state = 4;
-  string project = 5;
+  string display_name = 3;
+  FirebaseAlphaFirebaseProjectResources resources = 4;
+  FirebaseAlphaFirebaseProjectStateEnum state = 5;
+  map<string, string> annotations = 6;
+  string project = 7;
 }
 
 message FirebaseAlphaFirebaseProjectResources {

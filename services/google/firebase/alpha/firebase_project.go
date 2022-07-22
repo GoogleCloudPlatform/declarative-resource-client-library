@@ -27,8 +27,10 @@ import (
 type FirebaseProject struct {
 	ProjectId     *string                   `json:"projectId"`
 	ProjectNumber *int64                    `json:"projectNumber"`
+	DisplayName   *string                   `json:"displayName"`
 	Resources     *FirebaseProjectResources `json:"resources"`
 	State         *FirebaseProjectStateEnum `json:"state"`
+	Annotations   map[string]string         `json:"annotations"`
 	Project       *string                   `json:"project"`
 }
 
@@ -136,8 +138,10 @@ func (r *FirebaseProject) ID() (string, error) {
 	params := map[string]interface{}{
 		"project_id":     dcl.ValueOrEmptyString(nr.ProjectId),
 		"project_number": dcl.ValueOrEmptyString(nr.ProjectNumber),
+		"display_name":   dcl.ValueOrEmptyString(nr.DisplayName),
 		"resources":      dcl.ValueOrEmptyString(nr.Resources),
 		"state":          dcl.ValueOrEmptyString(nr.State),
+		"annotations":    dcl.ValueOrEmptyString(nr.Annotations),
 		"project":        dcl.ValueOrEmptyString(nr.Project),
 	}
 	return dcl.Nprintf("projects/{{project}}", params), nil
@@ -226,8 +230,7 @@ func (c *Client) GetFirebaseProject(ctx context.Context, r *FirebaseProject) (*F
 	if err != nil {
 		return nil, err
 	}
-	nr := r.urlNormalized()
-	result.Project = nr.Project
+	result.Project = r.Project
 
 	c.Config.Logger.InfoWithContextf(ctx, "Retrieved raw result state: %v", result)
 	c.Config.Logger.InfoWithContextf(ctx, "Canonicalizing with specified state: %v", r)

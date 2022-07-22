@@ -25,13 +25,17 @@ class FirebaseProject(object):
         self,
         project_id: str = None,
         project_number: int = None,
+        display_name: str = None,
         resources: dict = None,
         state: str = None,
+        annotations: dict = None,
         project: str = None,
         service_account_file: str = "",
     ):
 
         channel.initialize()
+        self.display_name = display_name
+        self.annotations = annotations
         self.project = project
         self.service_account_file = service_account_file
 
@@ -40,6 +44,12 @@ class FirebaseProject(object):
             channel.Channel()
         )
         request = firebase_project_pb2.ApplyFirebaseBetaFirebaseProjectRequest()
+        if Primitive.to_proto(self.display_name):
+            request.resource.display_name = Primitive.to_proto(self.display_name)
+
+        if Primitive.to_proto(self.annotations):
+            request.resource.annotations = Primitive.to_proto(self.annotations)
+
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -48,8 +58,10 @@ class FirebaseProject(object):
         response = stub.ApplyFirebaseBetaFirebaseProject(request)
         self.project_id = Primitive.from_proto(response.project_id)
         self.project_number = Primitive.from_proto(response.project_number)
+        self.display_name = Primitive.from_proto(response.display_name)
         self.resources = FirebaseProjectResources.from_proto(response.resources)
         self.state = FirebaseProjectStateEnum.from_proto(response.state)
+        self.annotations = Primitive.from_proto(response.annotations)
         self.project = Primitive.from_proto(response.project)
 
     def delete(self):
@@ -58,6 +70,12 @@ class FirebaseProject(object):
         )
         request = firebase_project_pb2.DeleteFirebaseBetaFirebaseProjectRequest()
         request.service_account_file = self.service_account_file
+        if Primitive.to_proto(self.display_name):
+            request.resource.display_name = Primitive.to_proto(self.display_name)
+
+        if Primitive.to_proto(self.annotations):
+            request.resource.annotations = Primitive.to_proto(self.annotations)
+
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -74,6 +92,10 @@ class FirebaseProject(object):
 
     def to_proto(self):
         resource = firebase_project_pb2.FirebaseBetaFirebaseProject()
+        if Primitive.to_proto(self.display_name):
+            resource.display_name = Primitive.to_proto(self.display_name)
+        if Primitive.to_proto(self.annotations):
+            resource.annotations = Primitive.to_proto(self.annotations)
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         return resource

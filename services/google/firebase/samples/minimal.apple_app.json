@@ -1,0 +1,4 @@
+{
+  "project": "{{ref:basic.cloudresourcemanager.project.json:name}}",
+  "bundleId": "{{bundleid}}"
+}

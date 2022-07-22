@@ -56,6 +56,7 @@ func ProtoToFirebaseProject(p *alphapb.FirebaseAlphaFirebaseProject) *alpha.Fire
 	obj := &alpha.FirebaseProject{
 		ProjectId:     dcl.StringOrNil(p.GetProjectId()),
 		ProjectNumber: dcl.Int64OrNil(p.GetProjectNumber()),
+		DisplayName:   dcl.StringOrNil(p.GetDisplayName()),
 		Resources:     ProtoToFirebaseAlphaFirebaseProjectResources(p.GetResources()),
 		State:         ProtoToFirebaseAlphaFirebaseProjectStateEnum(p.GetState()),
 		Project:       dcl.StringOrNil(p.GetProject()),
@@ -92,9 +93,15 @@ func FirebaseProjectToProto(resource *alpha.FirebaseProject) *alphapb.FirebaseAl
 	p := &alphapb.FirebaseAlphaFirebaseProject{}
 	p.SetProjectId(dcl.ValueOrEmptyString(resource.ProjectId))
 	p.SetProjectNumber(dcl.ValueOrEmptyInt64(resource.ProjectNumber))
+	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
 	p.SetResources(FirebaseAlphaFirebaseProjectResourcesToProto(resource.Resources))
 	p.SetState(FirebaseAlphaFirebaseProjectStateEnumToProto(resource.State))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
+	mAnnotations := make(map[string]string, len(resource.Annotations))
+	for k, r := range resource.Annotations {
+		mAnnotations[k] = r
+	}
+	p.SetAnnotations(mAnnotations)
 
 	return p
 }

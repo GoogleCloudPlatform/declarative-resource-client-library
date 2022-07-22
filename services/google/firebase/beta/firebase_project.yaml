@@ -38,6 +38,7 @@ components:
       title: FirebaseProject
       x-dcl-id: projects/{{project}}
       x-dcl-parent-container: project
+      x-dcl-labels: annotations
       x-dcl-has-create: true
       x-dcl-has-iam: false
       x-dcl-read-timeout: 0
@@ -47,6 +48,21 @@ components:
       required:
       - project
       properties:
+        annotations:
+          type: object
+          additionalProperties:
+            type: string
+          x-dcl-go-name: Annotations
+          description: '  // Set of user-defined annotations for the [FirebaseProject][]
+            as per [AIP-128](https://google.aip.dev/128#annotations).  These annotations
+            are intended solely for developers and client-side tools Firebase services
+            will not mutate this annotation set.  This field may only be assigned
+            on Update'
+        displayName:
+          type: string
+          x-dcl-go-name: DisplayName
+          description: The user-assigned display name of the Project.  This field
+            may only be assigned on Update
         project:
           type: string
           x-dcl-go-name: Project

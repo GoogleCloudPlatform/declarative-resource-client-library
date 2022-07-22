@@ -1,5 +1,5 @@
 {
-  "name": "projects/{{project}}/locations/{{region}}/services/{{name}}",
+  "name": "projects/run-v2-deploy-e2e/locations/{{region}}/services/{{name}}",
   "project": "run-v2-deploy-e2e",
   "location": "{{region}}",
   "ingress": "INGRESS_TRAFFIC_ALL",

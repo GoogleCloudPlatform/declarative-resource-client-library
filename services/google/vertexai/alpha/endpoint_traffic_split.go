@@ -144,10 +144,9 @@ func (c *Client) GetEndpointTrafficSplit(ctx context.Context, r *EndpointTraffic
 	if err != nil {
 		return nil, err
 	}
-	nr := r.urlNormalized()
-	result.Project = nr.Project
-	result.Location = nr.Location
-	result.Endpoint = nr.Endpoint
+	result.Project = r.Project
+	result.Location = r.Location
+	result.Endpoint = r.Endpoint
 
 	c.Config.Logger.InfoWithContextf(ctx, "Retrieved raw result state: %v", result)
 	c.Config.Logger.InfoWithContextf(ctx, "Canonicalizing with specified state: %v", r)

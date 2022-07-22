@@ -20,6 +20,11 @@ resource: samples/basic.firebase_project.json
 dependencies:
 - samples/basic.cloudresourcemanager.project.json
 - samples/firebase.serviceusage.service.json
+updates:
+- resource: samples/update.firebase_project.json
+  dependencies:
+  - samples/basic.cloudresourcemanager.project.json
+  - samples/firebase.serviceusage.service.json
 variables:
 - name: id
   type: resource_name

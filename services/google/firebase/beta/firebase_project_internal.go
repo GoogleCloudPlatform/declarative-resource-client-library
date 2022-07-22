@@ -82,6 +82,12 @@ func newUpdateFirebaseProjectUpdateFirebaseProjectRequest(ctx context.Context, f
 	res := f
 	_ = res
 
+	if v := f.DisplayName; !dcl.IsEmptyValueIndirect(v) {
+		req["displayName"] = v
+	}
+	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
+		req["annotations"] = v
+	}
 	b, err := c.getFirebaseProjectRaw(ctx, f)
 	if err != nil {
 		return nil, err
@@ -351,6 +357,17 @@ func canonicalizeFirebaseProjectDesiredState(rawDesired, rawInitial *FirebasePro
 		return rawDesired, nil
 	}
 	canonicalDesired := &FirebaseProject{}
+	if dcl.StringCanonicalize(rawDesired.DisplayName, rawInitial.DisplayName) {
+		canonicalDesired.DisplayName = rawInitial.DisplayName
+	} else {
+		canonicalDesired.DisplayName = rawDesired.DisplayName
+	}
+	if dcl.IsZeroValue(rawDesired.Annotations) || (dcl.IsEmptyValueIndirect(rawDesired.Annotations) && dcl.IsEmptyValueIndirect(rawInitial.Annotations)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		canonicalDesired.Annotations = rawInitial.Annotations
+	} else {
+		canonicalDesired.Annotations = rawDesired.Annotations
+	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		canonicalDesired.Project = rawInitial.Project
 	} else {
@@ -375,6 +392,14 @@ func canonicalizeFirebaseProjectNewState(c *Client, rawNew, rawDesired *Firebase
 	} else {
 	}
 
+	if dcl.IsEmptyValueIndirect(rawNew.DisplayName) && dcl.IsEmptyValueIndirect(rawDesired.DisplayName) {
+		rawNew.DisplayName = rawDesired.DisplayName
+	} else {
+		if dcl.StringCanonicalize(rawDesired.DisplayName, rawNew.DisplayName) {
+			rawNew.DisplayName = rawDesired.DisplayName
+		}
+	}
+
 	if dcl.IsEmptyValueIndirect(rawNew.Resources) && dcl.IsEmptyValueIndirect(rawDesired.Resources) {
 		rawNew.Resources = rawDesired.Resources
 	} else {
@@ -383,6 +408,11 @@ func canonicalizeFirebaseProjectNewState(c *Client, rawNew, rawDesired *Firebase
 
 	if dcl.IsEmptyValueIndirect(rawNew.State) && dcl.IsEmptyValueIndirect(rawDesired.State) {
 		rawNew.State = rawDesired.State
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Annotations) && dcl.IsEmptyValueIndirect(rawDesired.Annotations) {
+		rawNew.Annotations = rawDesired.Annotations
 	} else {
 	}
 
@@ -541,6 +571,13 @@ func diffFirebaseProject(c *Client, desired, actual *FirebaseProject, opts ...dc
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.DisplayName, actual.DisplayName, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateFirebaseProjectUpdateFirebaseProjectOperation")}, fn.AddNest("DisplayName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Resources, actual.Resources, dcl.DiffInfo{OutputOnly: true, ObjectFunction: compareFirebaseProjectResourcesNewStyle, EmptyObject: EmptyFirebaseProjectResources, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Resources")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -549,6 +586,13 @@ func diffFirebaseProject(c *Client, desired, actual *FirebaseProject, opts ...dc
 	}
 
 	if ds, err := dcl.Diff(desired.State, actual.State, dcl.DiffInfo{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Annotations, actual.Annotations, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateFirebaseProjectUpdateFirebaseProjectOperation")}, fn.AddNest("Annotations")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -620,6 +664,7 @@ func compareFirebaseProjectResourcesNewStyle(d, a interface{}, fn dcl.FieldName)
 func (r *FirebaseProject) urlNormalized() *FirebaseProject {
 	normalized := dcl.Copy(*r).(FirebaseProject)
 	normalized.ProjectId = dcl.SelfLinkToName(r.ProjectId)
+	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -672,6 +717,12 @@ func expandFirebaseProject(c *Client, f *FirebaseProject) (map[string]interface{
 	m := make(map[string]interface{})
 	res := f
 	_ = res
+	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
+		m["displayName"] = v
+	}
+	if v := f.Annotations; dcl.ValueShouldBeSent(v) {
+		m["annotations"] = v
+	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -695,8 +746,10 @@ func flattenFirebaseProject(c *Client, i interface{}, res *FirebaseProject) *Fir
 	resultRes := &FirebaseProject{}
 	resultRes.ProjectId = dcl.FlattenString(m["projectId"])
 	resultRes.ProjectNumber = dcl.FlattenInteger(m["projectNumber"])
+	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
 	resultRes.Resources = flattenFirebaseProjectResources(c, m["resources"], res)
 	resultRes.State = flattenFirebaseProjectStateEnum(m["state"])
+	resultRes.Annotations = dcl.FlattenKeyValuePairs(m["annotations"])
 	resultRes.Project = dcl.FlattenString(m["project"])
 
 	return resultRes

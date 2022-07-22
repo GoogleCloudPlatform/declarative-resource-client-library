@@ -1,0 +1,9 @@
+{
+  "name": "{{ref:__state__:name}}",
+  "project": "{{ref:basic.cloudresourcemanager.project.json:name}}",
+  "displayName": "my cool name ver2",
+  "appStoreId": "1234567890",
+  "bundleId": "{{bundleid}}",
+  "teamId": "6789012345",
+  "apiKeyId" : "{{ref:alternate_ios.apikeys.key.json:uid}}"
+}
