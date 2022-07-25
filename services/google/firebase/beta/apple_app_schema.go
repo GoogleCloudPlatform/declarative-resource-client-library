@@ -20,9 +20,18 @@ import (
 func DCLAppleAppSchema() *dcl.Schema {
 	return &dcl.Schema{
 		Info: &dcl.Info{
-			Title:       "Firebase/AppleApp",
-			Description: "The Firebase AppleApp resource",
-			StructName:  "AppleApp",
+			Title:      "Firebase/AppleApp",
+			StructName: "AppleApp",
+			Reference: &dcl.Link{
+				Text: "Firebase AppleApp API Documentation",
+				URL:  "https://firebase.google.com/docs/projects/api/reference/rest#rest-resource:-v1beta1.projects.iosapps",
+			},
+			Guides: []*dcl.Link{
+				&dcl.Link{
+					Text: "Get started with Firebase Projects and Apps",
+					URL:  "https://firebase.google.com/docs/projects/api/workflow_set-up-and-manage-project",
+				},
+			},
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{

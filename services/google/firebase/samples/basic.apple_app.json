@@ -1,5 +1,5 @@
 {
-  "project": "{{ref:basic.cloudresourcemanager.project.json:name}}",
+  "project": "{{ref:basic.firebase_project.json:project}}",
   "displayName": "my cool name",
   "bundleId": "{{bundleid}}",
   "appStoreId": "9876543210",

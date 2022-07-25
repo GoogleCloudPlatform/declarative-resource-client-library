@@ -1,7 +1,7 @@
 {
   "name": "{{ref:__state__:name}}",
-  "project": "{{ref:basic.cloudresourcemanager.project.json:name}}",
-  "displayName": "my cool name ver2",
+  "project": "{{ref:basic.firebase_project.json:project}}",
+  "displayName": "New AppleApp Name",
   "appStoreId": "1234567890",
   "bundleId": "{{bundleid}}",
   "teamId": "6789012345",

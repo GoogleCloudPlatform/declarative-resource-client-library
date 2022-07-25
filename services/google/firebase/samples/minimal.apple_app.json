@@ -1,4 +1,4 @@
 {
-  "project": "{{ref:basic.cloudresourcemanager.project.json:name}}",
+  "project": "{{ref:basic.firebase_project.json:project}}",
   "bundleId": "{{bundleid}}"
 }

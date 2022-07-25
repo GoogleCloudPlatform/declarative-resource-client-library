@@ -13,9 +13,15 @@
 # limitations under the License.
 info:
   title: Firebase/AppleApp
-  description: The Firebase AppleApp resource
+  description: ""
   x-dcl-struct-name: AppleApp
   x-dcl-has-iam: false
+  x-dcl-ref:
+    text: Firebase AppleApp API Documentation
+    url: https://firebase.google.com/docs/projects/api/reference/rest#rest-resource:-v1beta1.projects.iosapps
+  x-dcl-guides:
+  - text: Get started with Firebase Projects and Apps
+    url: https://firebase.google.com/docs/projects/api/workflow_set-up-and-manage-project
 paths:
   get:
     description: The function used to get information about a AppleApp
