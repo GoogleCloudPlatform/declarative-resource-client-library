@@ -1,10 +1,10 @@
 {
   "name": "{{connection}}",
   "project": "{{project}}",
-  "location": "us-central1",
+  "location": "{{region}}",
   "serviceResolvers": [
     {
-      "serviceDirectoryService": "projects/mmv2-acc-testing/locations/us-central1/namespaces/ekm-connection-test/services/ekm-connection-test",
+      "serviceDirectoryService": "projects/{{project}}/locations/{{region}}/namespaces/{{ref:basic.servicedirectory.namespace.json:name}}/services/{{ref:basic.servicedirectory.service.json:name}}",
       "hostname": "test",
       "serverCertificates": [
         {

@@ -215,7 +215,7 @@ components:
                 -- it''s best to assume the behavior is undefined and conflicts should
                 be avoided. For more information, including usage and the valid values,
                 see:   http://kubernetes.io/v1.1/docs/user-guide/labels.html  An object
-                containing a list of "key": value pairs. Example: { "name": "wrench",
+                containing a list of "key": value pairs. Example { "name": "wrench",
                 "mass": "1.3kg", "count": "3" }. '
               x-kubernetes-immutable: true
             localSsdCount:
@@ -248,7 +248,7 @@ components:
                 as interpreted by the image running in the instance. The only restriction
                 placed on them is that each value''s size must be less than or equal
                 to 32 KB.  The total size of all keys and values must be less than
-                512 KB.  An object containing a list of "key": value pairs. Example:
+                512 KB.  An object containing a list of "key": value pairs. Example
                 { "name": "wrench", "mass": "1.3kg", "count": "3" }. '
               x-kubernetes-immutable: true
             minCpuPlatform:

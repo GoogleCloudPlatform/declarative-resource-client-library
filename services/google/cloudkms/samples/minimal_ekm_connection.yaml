@@ -17,8 +17,19 @@ type: ekm_connection
 versions:
 - ga
 resource: samples/minimal.ekm_connection.json
+dependencies:
+- samples/basic.servicedirectory.namespace.json
+- samples/basic.servicedirectory.service.json
 variables:
 - name: connection
   type: resource_name
+- name: location
+  type: resource_name
+- name: namespace
+  type: resource_name
 - name: project
   type: project
+- name: region
+  type: region
+- name: service-name
+  type: resource_name
