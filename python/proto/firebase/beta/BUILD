@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="firebase/beta", resources=["apple_app","firebase_project","web_app"])
+proto_package(name="firebase/beta", resources=["android_app","apple_app","firebase_project","web_app"])

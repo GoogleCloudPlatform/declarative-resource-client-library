@@ -11,6 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-load("//:connector_rules.bzl", "proto_package")
-proto_package(name="firebase/alpha", resources=["android_app","apple_app","firebase_project","web_app"])
+name: minimal_android_app
+description: Creates a minmal Firebase Android App
+type: android_app
+versions:
+- beta
+resource: samples/minimal.android_app.json
+dependencies:
+- samples/basic.cloudresourcemanager.project.json
+- samples/firebase.serviceusage.service.json
+- samples/basic.firebase_project.json
+variables:
+- name: id
+  type: resource_name
+- name: org_id
+  type: org_id

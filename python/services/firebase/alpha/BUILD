@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="firebase/alpha", resources=["apple_app","firebase_project","web_app"])
+connector(name="firebase/alpha", resources=["android_app","apple_app","firebase_project","web_app"])

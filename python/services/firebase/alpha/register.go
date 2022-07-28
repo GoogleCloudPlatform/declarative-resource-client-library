@@ -20,6 +20,7 @@ import (
 
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
+	sdkgrpc.RegisterFirebaseAlphaAndroidAppServiceServer(s, &AndroidAppServer{})
 	sdkgrpc.RegisterFirebaseAlphaAppleAppServiceServer(s, &AppleAppServer{})
 	sdkgrpc.RegisterFirebaseAlphaFirebaseProjectServiceServer(s, &FirebaseProjectServer{})
 	sdkgrpc.RegisterFirebaseAlphaWebAppServiceServer(s, &WebAppServer{})
