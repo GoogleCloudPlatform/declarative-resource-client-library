@@ -20,9 +20,18 @@ import (
 func DCLFirebaseProjectSchema() *dcl.Schema {
 	return &dcl.Schema{
 		Info: &dcl.Info{
-			Title:       "Firebase/FirebaseProject",
-			Description: "The Firebase FirebaseProject resource",
-			StructName:  "FirebaseProject",
+			Title:      "Firebase/FirebaseProject",
+			StructName: "FirebaseProject",
+			Reference: &dcl.Link{
+				Text: "Firebase Project API Documentation",
+				URL:  "https://firebase.google.com/docs/projects/api/reference/rest#rest-resource:-v1beta1.projects",
+			},
+			Guides: []*dcl.Link{
+				&dcl.Link{
+					Text: "Get started with Firebase Projects and Apps",
+					URL:  "https://firebase.google.com/docs/projects/api/workflow_set-up-and-manage-project",
+				},
+			},
 		},
 		Paths: &dcl.Paths{
 			Get: &dcl.Path{
