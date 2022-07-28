@@ -35,6 +35,9 @@ func AssetToUnstructured(r *dclService.Asset) *unstructured.Resource {
 	if r.CreateTime != nil {
 		u.Object["createTime"] = *r.CreateTime
 	}
+	if r.DataplexZone != nil {
+		u.Object["dataplexZone"] = *r.DataplexZone
+	}
 	if r.Description != nil {
 		u.Object["description"] = *r.Description
 	}
@@ -186,9 +189,6 @@ func AssetToUnstructured(r *dclService.Asset) *unstructured.Resource {
 	if r.UpdateTime != nil {
 		u.Object["updateTime"] = *r.UpdateTime
 	}
-	if r.Zone != nil {
-		u.Object["zone"] = *r.Zone
-	}
 	return u
 }
 
@@ -199,6 +199,13 @@ func UnstructuredToAsset(u *unstructured.Resource) (*dclService.Asset, error) {
 			r.CreateTime = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.CreateTime: expected string")
+		}
+	}
+	if _, ok := u.Object["dataplexZone"]; ok {
+		if s, ok := u.Object["dataplexZone"].(string); ok {
+			r.DataplexZone = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.DataplexZone: expected string")
 		}
 	}
 	if _, ok := u.Object["description"]; ok {
@@ -530,13 +537,6 @@ func UnstructuredToAsset(u *unstructured.Resource) (*dclService.Asset, error) {
 			return nil, fmt.Errorf("r.UpdateTime: expected string")
 		}
 	}
-	if _, ok := u.Object["zone"]; ok {
-		if s, ok := u.Object["zone"].(string); ok {
-			r.Zone = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.Zone: expected string")
-		}
-	}
 	return r, nil
 }
 
@@ -553,9 +553,9 @@ func GetAsset(ctx context.Context, config *dcl.Config, u *unstructured.Resource)
 	return AssetToUnstructured(r), nil
 }
 
-func ListAsset(ctx context.Context, config *dcl.Config, project string, location string, zone string, lake string) ([]*unstructured.Resource, error) {
+func ListAsset(ctx context.Context, config *dcl.Config, project string, location string, dataplexzone string, lake string) ([]*unstructured.Resource, error) {
 	c := dclService.NewClient(config)
-	l, err := c.ListAsset(ctx, project, location, zone, lake)
+	l, err := c.ListAsset(ctx, project, location, dataplexzone, lake)
 	if err != nil {
 		return nil, err
 	}

@@ -216,7 +216,7 @@ func ProtoToAsset(p *dataplexpb.DataplexAsset) *dataplex.Asset {
 		Project:         dcl.StringOrNil(p.GetProject()),
 		Location:        dcl.StringOrNil(p.GetLocation()),
 		Lake:            dcl.StringOrNil(p.GetLake()),
-		Zone:            dcl.StringOrNil(p.GetZone()),
+		DataplexZone:    dcl.StringOrNil(p.GetDataplexZone()),
 	}
 	return obj
 }
@@ -404,7 +404,7 @@ func AssetToProto(resource *dataplex.Asset) *dataplexpb.DataplexAsset {
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetLake(dcl.ValueOrEmptyString(resource.Lake))
-	p.SetZone(dcl.ValueOrEmptyString(resource.Zone))
+	p.SetDataplexZone(dcl.ValueOrEmptyString(resource.DataplexZone))
 	mLabels := make(map[string]string, len(resource.Labels))
 	for k, r := range resource.Labels {
 		mLabels[k] = r
@@ -452,7 +452,7 @@ func (s *AssetServer) ListDataplexAsset(ctx context.Context, request *dataplexpb
 		return nil, err
 	}
 
-	resources, err := cl.ListAsset(ctx, request.GetProject(), request.GetLocation(), request.GetZone(), request.GetLake())
+	resources, err := cl.ListAsset(ctx, request.GetProject(), request.GetLocation(), request.GetDataplexZone(), request.GetLake())
 	if err != nil {
 		return nil, err
 	}

@@ -32,9 +32,8 @@ enum DataplexBetaAssetStateEnum {
 
 enum DataplexBetaAssetResourceSpecTypeEnum {
   DataplexBetaAssetResourceSpecTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  DataplexBetaAssetResourceSpecTypeEnumTYPE_UNSPECIFIED = 1;
-  DataplexBetaAssetResourceSpecTypeEnumSTORAGE_BUCKET = 2;
-  DataplexBetaAssetResourceSpecTypeEnumBIGQUERY_DATASET = 3;
+  DataplexBetaAssetResourceSpecTypeEnumSTORAGE_BUCKET = 1;
+  DataplexBetaAssetResourceSpecTypeEnumBIGQUERY_DATASET = 2;
 }
 
 enum DataplexBetaAssetResourceStatusStateEnum {
@@ -78,7 +77,7 @@ message DataplexBetaAsset {
   string project = 14;
   string location = 15;
   string lake = 16;
-  string zone = 17;
+  string dataplex_zone = 17;
 }
 
 message DataplexBetaAssetResourceSpec {
@@ -150,7 +149,7 @@ message ListDataplexBetaAssetRequest {
   string service_account_file = 1;
   string Project = 2;
   string Location = 3;
-  string Zone = 4;
+  string DataplexZone = 4;
   string Lake = 5;
 }
 

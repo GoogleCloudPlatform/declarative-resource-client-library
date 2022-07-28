@@ -37,7 +37,7 @@ class Asset(object):
         project: str = None,
         location: str = None,
         lake: str = None,
-        zone: str = None,
+        dataplex_zone: str = None,
         service_account_file: str = "",
     ):
 
@@ -51,7 +51,7 @@ class Asset(object):
         self.project = project
         self.location = location
         self.lake = lake
-        self.zone = zone
+        self.dataplex_zone = dataplex_zone
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -90,8 +90,8 @@ class Asset(object):
         if Primitive.to_proto(self.lake):
             request.resource.lake = Primitive.to_proto(self.lake)
 
-        if Primitive.to_proto(self.zone):
-            request.resource.zone = Primitive.to_proto(self.zone)
+        if Primitive.to_proto(self.dataplex_zone):
+            request.resource.dataplex_zone = Primitive.to_proto(self.dataplex_zone)
 
         request.service_account_file = self.service_account_file
 
@@ -114,7 +114,7 @@ class Asset(object):
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
         self.lake = Primitive.from_proto(response.lake)
-        self.zone = Primitive.from_proto(response.zone)
+        self.dataplex_zone = Primitive.from_proto(response.dataplex_zone)
 
     def delete(self):
         stub = asset_pb2_grpc.DataplexAssetServiceStub(channel.Channel())
@@ -153,13 +153,13 @@ class Asset(object):
         if Primitive.to_proto(self.lake):
             request.resource.lake = Primitive.to_proto(self.lake)
 
-        if Primitive.to_proto(self.zone):
-            request.resource.zone = Primitive.to_proto(self.zone)
+        if Primitive.to_proto(self.dataplex_zone):
+            request.resource.dataplex_zone = Primitive.to_proto(self.dataplex_zone)
 
         response = stub.DeleteDataplexAsset(request)
 
     @classmethod
-    def list(self, project, location, zone, lake, service_account_file=""):
+    def list(self, project, location, dataplexZone, lake, service_account_file=""):
         stub = asset_pb2_grpc.DataplexAssetServiceStub(channel.Channel())
         request = asset_pb2.ListDataplexAssetRequest()
         request.service_account_file = service_account_file
@@ -167,7 +167,7 @@ class Asset(object):
 
         request.Location = location
 
-        request.Zone = zone
+        request.DataplexZone = dataplexZone
 
         request.Lake = lake
 
@@ -201,8 +201,8 @@ class Asset(object):
             resource.location = Primitive.to_proto(self.location)
         if Primitive.to_proto(self.lake):
             resource.lake = Primitive.to_proto(self.lake)
-        if Primitive.to_proto(self.zone):
-            resource.zone = Primitive.to_proto(self.zone)
+        if Primitive.to_proto(self.dataplex_zone):
+            resource.dataplex_zone = Primitive.to_proto(self.dataplex_zone)
         return resource
 
 

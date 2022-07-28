@@ -12,5 +12,5 @@
   },
   "description": "Asset for DCL",
   "lake": "{{ref:basic.lake.json:name}}",
-  "zone": "{{ref:basic.zone.json:name}}"
+  "dataplexZone": "{{ref:basic.zone.json:name}}"
 }
