@@ -72,18 +72,17 @@ func (v EndpointDeployedModelsDedicatedResourcesMachineSpecAcceleratorTypeEnum) 
 }
 
 type EndpointDeployedModels struct {
-	empty                   bool                                      `json:"-"`
-	DedicatedResources      *EndpointDeployedModelsDedicatedResources `json:"dedicatedResources"`
-	AutomaticResources      *EndpointDeployedModelsAutomaticResources `json:"automaticResources"`
-	Id                      *string                                   `json:"id"`
-	Model                   *string                                   `json:"model"`
-	ModelVersionId          *string                                   `json:"modelVersionId"`
-	DisplayName             *string                                   `json:"displayName"`
-	CreateTime              *string                                   `json:"createTime"`
-	ServiceAccount          *string                                   `json:"serviceAccount"`
-	DisableContainerLogging *bool                                     `json:"disableContainerLogging"`
-	EnableAccessLogging     *bool                                     `json:"enableAccessLogging"`
-	PrivateEndpoints        *EndpointDeployedModelsPrivateEndpoints   `json:"privateEndpoints"`
+	empty               bool                                      `json:"-"`
+	DedicatedResources  *EndpointDeployedModelsDedicatedResources `json:"dedicatedResources"`
+	AutomaticResources  *EndpointDeployedModelsAutomaticResources `json:"automaticResources"`
+	Id                  *string                                   `json:"id"`
+	Model               *string                                   `json:"model"`
+	ModelVersionId      *string                                   `json:"modelVersionId"`
+	DisplayName         *string                                   `json:"displayName"`
+	CreateTime          *string                                   `json:"createTime"`
+	ServiceAccount      *string                                   `json:"serviceAccount"`
+	EnableAccessLogging *bool                                     `json:"enableAccessLogging"`
+	PrivateEndpoints    *EndpointDeployedModelsPrivateEndpoints   `json:"privateEndpoints"`
 }
 
 type jsonEndpointDeployedModels EndpointDeployedModels
@@ -116,8 +115,6 @@ func (r *EndpointDeployedModels) UnmarshalJSON(data []byte) error {
 		r.CreateTime = res.CreateTime
 
 		r.ServiceAccount = res.ServiceAccount
-
-		r.DisableContainerLogging = res.DisableContainerLogging
 
 		r.EnableAccessLogging = res.EnableAccessLogging
 

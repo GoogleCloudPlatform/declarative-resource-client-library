@@ -692,11 +692,6 @@ func canonicalizeEndpointDeployedModels(des, initial *EndpointDeployedModels, op
 	} else {
 		cDes.ServiceAccount = des.ServiceAccount
 	}
-	if dcl.BoolCanonicalize(des.DisableContainerLogging, initial.DisableContainerLogging) || dcl.IsZeroValue(des.DisableContainerLogging) {
-		cDes.DisableContainerLogging = initial.DisableContainerLogging
-	} else {
-		cDes.DisableContainerLogging = des.DisableContainerLogging
-	}
 	if dcl.BoolCanonicalize(des.EnableAccessLogging, initial.EnableAccessLogging) || dcl.IsZeroValue(des.EnableAccessLogging) {
 		cDes.EnableAccessLogging = initial.EnableAccessLogging
 	} else {
@@ -761,9 +756,6 @@ func canonicalizeNewEndpointDeployedModels(c *Client, des, nw *EndpointDeployedM
 	}
 	if dcl.StringCanonicalize(des.ServiceAccount, nw.ServiceAccount) {
 		nw.ServiceAccount = des.ServiceAccount
-	}
-	if dcl.BoolCanonicalize(des.DisableContainerLogging, nw.DisableContainerLogging) {
-		nw.DisableContainerLogging = des.DisableContainerLogging
 	}
 	if dcl.BoolCanonicalize(des.EnableAccessLogging, nw.EnableAccessLogging) {
 		nw.EnableAccessLogging = des.EnableAccessLogging
@@ -1722,13 +1714,6 @@ func compareEndpointDeployedModelsNewStyle(d, a interface{}, fn dcl.FieldName) (
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DisableContainerLogging, actual.DisableContainerLogging, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DisableContainerLogging")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.EnableAccessLogging, actual.EnableAccessLogging, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EnableAccessLogging")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -2233,9 +2218,6 @@ func expandEndpointDeployedModels(c *Client, f *EndpointDeployedModels, res *End
 	if v := f.ServiceAccount; !dcl.IsEmptyValueIndirect(v) {
 		m["serviceAccount"] = v
 	}
-	if v := f.DisableContainerLogging; !dcl.IsEmptyValueIndirect(v) {
-		m["disableContainerLogging"] = v
-	}
 	if v := f.EnableAccessLogging; !dcl.IsEmptyValueIndirect(v) {
 		m["enableAccessLogging"] = v
 	}
@@ -2264,7 +2246,6 @@ func flattenEndpointDeployedModels(c *Client, i interface{}, res *Endpoint) *End
 	r.DisplayName = dcl.FlattenString(m["displayName"])
 	r.CreateTime = dcl.FlattenString(m["createTime"])
 	r.ServiceAccount = dcl.FlattenString(m["serviceAccount"])
-	r.DisableContainerLogging = dcl.FlattenBool(m["disableContainerLogging"])
 	r.EnableAccessLogging = dcl.FlattenBool(m["enableAccessLogging"])
 	r.PrivateEndpoints = flattenEndpointDeployedModelsPrivateEndpoints(c, m["privateEndpoints"], res)
 

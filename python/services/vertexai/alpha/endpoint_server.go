@@ -42,19 +42,18 @@ func ProtoToVertexaiAlphaEndpointDeployedModels(p *alphapb.VertexaiAlphaEndpoint
 		return nil
 	}
 	obj := &alpha.EndpointDeployedModels{
-		DedicatedResources:      ProtoToVertexaiAlphaEndpointDeployedModelsDedicatedResources(p.GetDedicatedResources()),
-		AutomaticResources:      ProtoToVertexaiAlphaEndpointDeployedModelsAutomaticResources(p.GetAutomaticResources()),
-		Id:                      dcl.StringOrNil(p.GetId()),
-		Model:                   dcl.StringOrNil(p.GetModel()),
-		ModelVersionId:          dcl.StringOrNil(p.GetModelVersionId()),
-		DisplayName:             dcl.StringOrNil(p.GetDisplayName()),
-		CreateTime:              dcl.StringOrNil(p.GetCreateTime()),
-		ServiceAccount:          dcl.StringOrNil(p.GetServiceAccount()),
-		DisableContainerLogging: dcl.Bool(p.GetDisableContainerLogging()),
-		EnableAccessLogging:     dcl.Bool(p.GetEnableAccessLogging()),
-		PrivateEndpoints:        ProtoToVertexaiAlphaEndpointDeployedModelsPrivateEndpoints(p.GetPrivateEndpoints()),
-		SharedResources:         dcl.StringOrNil(p.GetSharedResources()),
-		EnableContainerLogging:  dcl.Bool(p.GetEnableContainerLogging()),
+		DedicatedResources:     ProtoToVertexaiAlphaEndpointDeployedModelsDedicatedResources(p.GetDedicatedResources()),
+		AutomaticResources:     ProtoToVertexaiAlphaEndpointDeployedModelsAutomaticResources(p.GetAutomaticResources()),
+		Id:                     dcl.StringOrNil(p.GetId()),
+		Model:                  dcl.StringOrNil(p.GetModel()),
+		ModelVersionId:         dcl.StringOrNil(p.GetModelVersionId()),
+		DisplayName:            dcl.StringOrNil(p.GetDisplayName()),
+		CreateTime:             dcl.StringOrNil(p.GetCreateTime()),
+		ServiceAccount:         dcl.StringOrNil(p.GetServiceAccount()),
+		EnableAccessLogging:    dcl.Bool(p.GetEnableAccessLogging()),
+		PrivateEndpoints:       ProtoToVertexaiAlphaEndpointDeployedModelsPrivateEndpoints(p.GetPrivateEndpoints()),
+		SharedResources:        dcl.StringOrNil(p.GetSharedResources()),
+		EnableContainerLogging: dcl.Bool(p.GetEnableContainerLogging()),
 	}
 	return obj
 }
@@ -183,7 +182,6 @@ func VertexaiAlphaEndpointDeployedModelsToProto(o *alpha.EndpointDeployedModels)
 	p.SetDisplayName(dcl.ValueOrEmptyString(o.DisplayName))
 	p.SetCreateTime(dcl.ValueOrEmptyString(o.CreateTime))
 	p.SetServiceAccount(dcl.ValueOrEmptyString(o.ServiceAccount))
-	p.SetDisableContainerLogging(dcl.ValueOrEmptyBool(o.DisableContainerLogging))
 	p.SetEnableAccessLogging(dcl.ValueOrEmptyBool(o.EnableAccessLogging))
 	p.SetPrivateEndpoints(VertexaiAlphaEndpointDeployedModelsPrivateEndpointsToProto(o.PrivateEndpoints))
 	p.SetSharedResources(dcl.ValueOrEmptyString(o.SharedResources))

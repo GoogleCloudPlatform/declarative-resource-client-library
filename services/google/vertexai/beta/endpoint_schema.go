@@ -256,12 +256,6 @@ func DCLEndpointSchema() *dcl.Schema {
 												},
 											},
 										},
-										"disableContainerLogging": &dcl.Property{
-											Type:        "boolean",
-											GoName:      "DisableContainerLogging",
-											Description: "For custom-trained Models and AutoML Tabular Models, the container of the DeployedModel instances will send `stderr` and `stdout` streams to Stackdriver Logging by default. Please note that the logs incur cost, which are subject to [Cloud Logging pricing](https://cloud.google.com/stackdriver/pricing). User can disable container logging by setting this flag to true.",
-											Immutable:   true,
-										},
 										"displayName": &dcl.Property{
 											Type:        "string",
 											GoName:      "DisplayName",

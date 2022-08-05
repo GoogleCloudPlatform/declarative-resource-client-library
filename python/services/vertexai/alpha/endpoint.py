@@ -181,7 +181,6 @@ class EndpointDeployedModels(object):
         display_name: str = None,
         create_time: str = None,
         service_account: str = None,
-        disable_container_logging: bool = None,
         enable_access_logging: bool = None,
         private_endpoints: dict = None,
         shared_resources: str = None,
@@ -195,7 +194,6 @@ class EndpointDeployedModels(object):
         self.display_name = display_name
         self.create_time = create_time
         self.service_account = service_account
-        self.disable_container_logging = disable_container_logging
         self.enable_access_logging = enable_access_logging
         self.private_endpoints = private_endpoints
         self.shared_resources = shared_resources
@@ -239,10 +237,6 @@ class EndpointDeployedModels(object):
             res.create_time = Primitive.to_proto(resource.create_time)
         if Primitive.to_proto(resource.service_account):
             res.service_account = Primitive.to_proto(resource.service_account)
-        if Primitive.to_proto(resource.disable_container_logging):
-            res.disable_container_logging = Primitive.to_proto(
-                resource.disable_container_logging
-            )
         if Primitive.to_proto(resource.enable_access_logging):
             res.enable_access_logging = Primitive.to_proto(
                 resource.enable_access_logging
@@ -281,9 +275,6 @@ class EndpointDeployedModels(object):
             display_name=Primitive.from_proto(resource.display_name),
             create_time=Primitive.from_proto(resource.create_time),
             service_account=Primitive.from_proto(resource.service_account),
-            disable_container_logging=Primitive.from_proto(
-                resource.disable_container_logging
-            ),
             enable_access_logging=Primitive.from_proto(resource.enable_access_logging),
             private_endpoints=EndpointDeployedModelsPrivateEndpoints.from_proto(
                 resource.private_endpoints

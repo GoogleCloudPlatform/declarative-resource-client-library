@@ -42,17 +42,16 @@ func ProtoToVertexaiEndpointDeployedModels(p *vertexaipb.VertexaiEndpointDeploye
 		return nil
 	}
 	obj := &vertexai.EndpointDeployedModels{
-		DedicatedResources:      ProtoToVertexaiEndpointDeployedModelsDedicatedResources(p.GetDedicatedResources()),
-		AutomaticResources:      ProtoToVertexaiEndpointDeployedModelsAutomaticResources(p.GetAutomaticResources()),
-		Id:                      dcl.StringOrNil(p.GetId()),
-		Model:                   dcl.StringOrNil(p.GetModel()),
-		ModelVersionId:          dcl.StringOrNil(p.GetModelVersionId()),
-		DisplayName:             dcl.StringOrNil(p.GetDisplayName()),
-		CreateTime:              dcl.StringOrNil(p.GetCreateTime()),
-		ServiceAccount:          dcl.StringOrNil(p.GetServiceAccount()),
-		DisableContainerLogging: dcl.Bool(p.GetDisableContainerLogging()),
-		EnableAccessLogging:     dcl.Bool(p.GetEnableAccessLogging()),
-		PrivateEndpoints:        ProtoToVertexaiEndpointDeployedModelsPrivateEndpoints(p.GetPrivateEndpoints()),
+		DedicatedResources:  ProtoToVertexaiEndpointDeployedModelsDedicatedResources(p.GetDedicatedResources()),
+		AutomaticResources:  ProtoToVertexaiEndpointDeployedModelsAutomaticResources(p.GetAutomaticResources()),
+		Id:                  dcl.StringOrNil(p.GetId()),
+		Model:               dcl.StringOrNil(p.GetModel()),
+		ModelVersionId:      dcl.StringOrNil(p.GetModelVersionId()),
+		DisplayName:         dcl.StringOrNil(p.GetDisplayName()),
+		CreateTime:          dcl.StringOrNil(p.GetCreateTime()),
+		ServiceAccount:      dcl.StringOrNil(p.GetServiceAccount()),
+		EnableAccessLogging: dcl.Bool(p.GetEnableAccessLogging()),
+		PrivateEndpoints:    ProtoToVertexaiEndpointDeployedModelsPrivateEndpoints(p.GetPrivateEndpoints()),
 	}
 	return obj
 }
@@ -181,7 +180,6 @@ func VertexaiEndpointDeployedModelsToProto(o *vertexai.EndpointDeployedModels) *
 	p.SetDisplayName(dcl.ValueOrEmptyString(o.DisplayName))
 	p.SetCreateTime(dcl.ValueOrEmptyString(o.CreateTime))
 	p.SetServiceAccount(dcl.ValueOrEmptyString(o.ServiceAccount))
-	p.SetDisableContainerLogging(dcl.ValueOrEmptyBool(o.DisableContainerLogging))
 	p.SetEnableAccessLogging(dcl.ValueOrEmptyBool(o.EnableAccessLogging))
 	p.SetPrivateEndpoints(VertexaiEndpointDeployedModelsPrivateEndpointsToProto(o.PrivateEndpoints))
 	return p

@@ -86,9 +86,6 @@ func EndpointToUnstructured(r *dclService.Endpoint) *unstructured.Resource {
 			}
 			rDeployedModelsObject["dedicatedResources"] = rDeployedModelsValDedicatedResources
 		}
-		if rDeployedModelsVal.DisableContainerLogging != nil {
-			rDeployedModelsObject["disableContainerLogging"] = *rDeployedModelsVal.DisableContainerLogging
-		}
 		if rDeployedModelsVal.DisplayName != nil {
 			rDeployedModelsObject["displayName"] = *rDeployedModelsVal.DisplayName
 		}
@@ -285,13 +282,6 @@ func UnstructuredToEndpoint(u *unstructured.Resource) (*dclService.Endpoint, err
 							}
 						} else {
 							return nil, fmt.Errorf("rDeployedModels.DedicatedResources: expected map[string]interface{}")
-						}
-					}
-					if _, ok := objval["disableContainerLogging"]; ok {
-						if b, ok := objval["disableContainerLogging"].(bool); ok {
-							rDeployedModels.DisableContainerLogging = dcl.Bool(b)
-						} else {
-							return nil, fmt.Errorf("rDeployedModels.DisableContainerLogging: expected bool")
 						}
 					}
 					if _, ok := objval["displayName"]; ok {
