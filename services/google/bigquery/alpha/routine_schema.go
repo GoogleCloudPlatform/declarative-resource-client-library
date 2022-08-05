@@ -301,10 +301,11 @@ func DCLRoutineSchema() *dcl.Schema {
 								},
 							},
 							"language": &dcl.Property{
-								Type:        "string",
-								GoName:      "Language",
-								GoType:      "RoutineLanguageEnum",
-								Description: "Optional. Defaults to \"SQL\". Possible values: LANGUAGE_UNSPECIFIED, SQL, JAVASCRIPT",
+								Type:          "string",
+								GoName:        "Language",
+								GoType:        "RoutineLanguageEnum",
+								Description:   "Optional. Defaults to \"SQL\". Possible values: LANGUAGE_UNSPECIFIED, SQL, JAVASCRIPT",
+								ServerDefault: true,
 								Enum: []string{
 									"LANGUAGE_UNSPECIFIED",
 									"SQL",

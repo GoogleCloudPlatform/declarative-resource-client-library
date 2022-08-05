@@ -701,10 +701,11 @@ func DCLJobSchema() *dcl.Schema {
 												},
 											},
 											"executionEnvironment": &dcl.Property{
-												Type:        "string",
-												GoName:      "ExecutionEnvironment",
-												GoType:      "JobTemplateTemplateExecutionEnvironmentEnum",
-												Description: "The execution environment being used to host this Task. Possible values: EXECUTION_ENVIRONMENT_UNSPECIFIED, EXECUTION_ENVIRONMENT_DEFAULT, EXECUTION_ENVIRONMENT_GEN2",
+												Type:          "string",
+												GoName:        "ExecutionEnvironment",
+												GoType:        "JobTemplateTemplateExecutionEnvironmentEnum",
+												Description:   "The execution environment being used to host this Task. Possible values: EXECUTION_ENVIRONMENT_UNSPECIFIED, EXECUTION_ENVIRONMENT_DEFAULT, EXECUTION_ENVIRONMENT_GEN2",
+												ServerDefault: true,
 												Enum: []string{
 													"EXECUTION_ENVIRONMENT_UNSPECIFIED",
 													"EXECUTION_ENVIRONMENT_DEFAULT",
@@ -712,10 +713,11 @@ func DCLJobSchema() *dcl.Schema {
 												},
 											},
 											"maxRetries": &dcl.Property{
-												Type:        "integer",
-												Format:      "int64",
-												GoName:      "MaxRetries",
-												Description: "Number of retries allowed per Task, before marking this Task failed.",
+												Type:          "integer",
+												Format:        "int64",
+												GoName:        "MaxRetries",
+												Description:   "Number of retries allowed per Task, before marking this Task failed.",
+												ServerDefault: true,
 											},
 											"serviceAccount": &dcl.Property{
 												Type:          "string",

@@ -386,6 +386,7 @@ components:
                 contains a ratio, typically in the range 0..1, that will be multiplied
                 by 100 and displayed as a percentage (so a metric value `0.03` means
                 "3 percent").'
+              x-dcl-server-default: true
             valueType:
               type: string
               x-dcl-go-name: ValueType

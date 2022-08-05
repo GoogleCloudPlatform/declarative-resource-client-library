@@ -70,7 +70,6 @@ class ForwardingRule(object):
         self.network_tier = network_tier
         self.port_range = port_range
         self.ports = ports
-        self.region = region
         self.service_label = service_label
         self.subnetwork = subnetwork
         self.target = target
@@ -146,9 +145,6 @@ class ForwardingRule(object):
 
         if Primitive.to_proto(self.ports):
             request.resource.ports.extend(Primitive.to_proto(self.ports))
-        if Primitive.to_proto(self.region):
-            request.resource.region = Primitive.to_proto(self.region)
-
         if Primitive.to_proto(self.service_label):
             request.resource.service_label = Primitive.to_proto(self.service_label)
 
@@ -287,9 +283,6 @@ class ForwardingRule(object):
 
         if Primitive.to_proto(self.ports):
             request.resource.ports.extend(Primitive.to_proto(self.ports))
-        if Primitive.to_proto(self.region):
-            request.resource.region = Primitive.to_proto(self.region)
-
         if Primitive.to_proto(self.service_label):
             request.resource.service_label = Primitive.to_proto(self.service_label)
 
@@ -374,8 +367,6 @@ class ForwardingRule(object):
             resource.port_range = Primitive.to_proto(self.port_range)
         if Primitive.to_proto(self.ports):
             resource.ports.extend(Primitive.to_proto(self.ports))
-        if Primitive.to_proto(self.region):
-            resource.region = Primitive.to_proto(self.region)
         if Primitive.to_proto(self.service_label):
             resource.service_label = Primitive.to_proto(self.service_label)
         if Primitive.to_proto(self.subnetwork):

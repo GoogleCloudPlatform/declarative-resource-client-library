@@ -106,6 +106,7 @@ components:
           description: 'The multiple response type to request for in the OAuth authorization
             flow. This can possibly be a combination of set bits (e.g.: {id\_token,
             token}).'
+          x-dcl-server-default: true
           properties:
             code:
               type: boolean

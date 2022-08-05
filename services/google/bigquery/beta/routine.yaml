@@ -258,6 +258,7 @@ components:
           x-dcl-go-type: RoutineLanguageEnum
           description: 'Optional. Defaults to "SQL". Possible values: LANGUAGE_UNSPECIFIED,
             SQL, JAVASCRIPT'
+          x-dcl-server-default: true
           enum:
           - LANGUAGE_UNSPECIFIED
           - SQL

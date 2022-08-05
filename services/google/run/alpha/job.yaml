@@ -671,6 +671,7 @@ components:
                   description: 'The execution environment being used to host this
                     Task. Possible values: EXECUTION_ENVIRONMENT_UNSPECIFIED, EXECUTION_ENVIRONMENT_DEFAULT,
                     EXECUTION_ENVIRONMENT_GEN2'
+                  x-dcl-server-default: true
                   enum:
                   - EXECUTION_ENVIRONMENT_UNSPECIFIED
                   - EXECUTION_ENVIRONMENT_DEFAULT
@@ -681,6 +682,7 @@ components:
                   x-dcl-go-name: MaxRetries
                   description: Number of retries allowed per Task, before marking
                     this Task failed.
+                  x-dcl-server-default: true
                 serviceAccount:
                   type: string
                   x-dcl-go-name: ServiceAccount
