@@ -38,6 +38,7 @@ import (
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/cloudbuild"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/cloudbuild/alpha"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/cloudbuild/beta"
+	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/cloudbuildv2/alpha"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/clouddeploy"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/clouddeploy/alpha"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/clouddeploy/beta"
