@@ -206,7 +206,6 @@ components:
             Possible values: INVALID, INTERNAL, INTERNAL_MANAGED, INTERNAL_SELF_MANAGED,
             EXTERNAL, EXTERNAL_MANAGED"
           x-kubernetes-immutable: true
-          x-dcl-server-default: true
           enum:
           - INVALID
           - INTERNAL
