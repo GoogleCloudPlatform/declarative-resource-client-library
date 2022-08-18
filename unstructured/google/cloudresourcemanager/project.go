@@ -257,7 +257,7 @@ func GetPolicyProject(ctx context.Context, config *dcl.Config, u *unstructured.R
 		return nil, err
 	}
 	iamClient := iam.NewClient(config)
-	policy, err := iamClient.GetPolicy(ctx, r)
+	policy, err := iamClient.GetPolicy(ctx, &iam.Policy{Resource: r})
 	if err != nil {
 		return nil, err
 	}
@@ -288,7 +288,11 @@ func GetPolicyMemberProject(ctx context.Context, config *dcl.Config, u *unstruct
 		return nil, err
 	}
 	iamClient := iam.NewClient(config)
-	policyMember, err := iamClient.GetMember(ctx, r, role, member)
+	policyMember, err := iamClient.GetMember(ctx, &iam.Member{
+		Resource: r,
+		Role:     dcl.String(role),
+		Member:   dcl.String(member),
+	})
 	if err != nil {
 		return nil, err
 	}

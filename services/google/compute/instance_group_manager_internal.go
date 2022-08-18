@@ -172,7 +172,7 @@ func (r *InstanceGroupManager) getURL(userBasePath string) (string, error) {
 		return dcl.URL("projects/{{project}}/zones/{{location}}/instanceGroupManagers/{{name}}", nr.basePath(), userBasePath, params), nil
 	}
 
-	return "", fmt.Errorf("No valid Get URL found")
+	return "", fmt.Errorf("no valid Get URL found")
 
 }
 
