@@ -401,7 +401,7 @@ func GetPolicyServerTlsPolicy(ctx context.Context, config *dcl.Config, u *unstru
 		return nil, err
 	}
 	iamClient := iam.NewClient(config)
-	policy, err := iamClient.GetPolicy(ctx, &iam.Policy{Resource: r})
+	policy, err := iamClient.GetPolicy(ctx, r)
 	if err != nil {
 		return nil, err
 	}
@@ -432,11 +432,7 @@ func GetPolicyMemberServerTlsPolicy(ctx context.Context, config *dcl.Config, u *
 		return nil, err
 	}
 	iamClient := iam.NewClient(config)
-	policyMember, err := iamClient.GetMember(ctx, &iam.Member{
-		Resource: r,
-		Role:     dcl.String(role),
-		Member:   dcl.String(member),
-	})
+	policyMember, err := iamClient.GetMember(ctx, r, role, member)
 	if err != nil {
 		return nil, err
 	}
