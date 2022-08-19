@@ -1,0 +1,12 @@
+{
+  "name": "{{dicom}}",
+  "project": "{{project}}",
+  "location": "{{region}}",
+  "dataset": "{{ref:minimal.dataset.json:name}}",
+  "notificationConfig": {
+    "pubsubTopic": "projects/{{project}}/topics/{{ref:second.pubsub.topic.json:name}}"
+  },
+  "labels": {
+    "label-two": "value-two"
+  }
+}

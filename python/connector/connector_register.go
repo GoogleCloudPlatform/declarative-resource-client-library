@@ -182,6 +182,12 @@ import (
 
 	gkehub_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/beta_connector"
 
+	healthcare_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/healthcare/connector"
+
+	healthcare_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/healthcare/beta_connector"
+
+	healthcare_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/healthcare/alpha_connector"
+
 	iam_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam/connector"
 
 	iam_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam/beta_connector"
@@ -458,6 +464,12 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	gkehub_alpha_connector.RegisterServers(grpcServer)
 
 	gkehub_beta_connector.RegisterServers(grpcServer)
+
+	healthcare_connector.RegisterServers(grpcServer)
+
+	healthcare_beta_connector.RegisterServers(grpcServer)
+
+	healthcare_alpha_connector.RegisterServers(grpcServer)
 
 	iam_connector.RegisterServers(grpcServer)
 

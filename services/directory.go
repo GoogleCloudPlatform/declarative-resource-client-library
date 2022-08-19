@@ -100,6 +100,9 @@ import (
 	gameservices_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices/beta"
 	gkehub_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/alpha"
 	gkehub_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/healthcare"
+	healthcare_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/healthcare/alpha"
+	healthcare_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/healthcare/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam"
 	iam_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam/alpha"
 	iam_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam/beta"
@@ -331,6 +334,12 @@ func Services() *Directory {
 	d.AddResource("ga", "firebaserules", "Release", firebaserules.YAML_release)
 	d.AddResource("ga", "gameservices", dcl.TitleToSnakeCase("Realm"), gameservices.YAML_realm)
 	d.AddResource("ga", "gameservices", "Realm", gameservices.YAML_realm)
+	d.AddResource("ga", "healthcare", dcl.TitleToSnakeCase("Dataset"), healthcare.YAML_dataset)
+	d.AddResource("ga", "healthcare", "Dataset", healthcare.YAML_dataset)
+	d.AddResource("ga", "healthcare", dcl.TitleToSnakeCase("DicomStore"), healthcare.YAML_dicom_store)
+	d.AddResource("ga", "healthcare", "DicomStore", healthcare.YAML_dicom_store)
+	d.AddResource("ga", "healthcare", dcl.TitleToSnakeCase("FhirStore"), healthcare.YAML_fhir_store)
+	d.AddResource("ga", "healthcare", "FhirStore", healthcare.YAML_fhir_store)
 	d.AddResource("ga", "iam", dcl.TitleToSnakeCase("Role"), iam.YAML_role)
 	d.AddResource("ga", "iam", "Role", iam.YAML_role)
 	d.AddResource("ga", "iam", dcl.TitleToSnakeCase("ServiceAccount"), iam.YAML_service_account)
@@ -563,6 +572,12 @@ func Services() *Directory {
 	d.AddResource("beta", "gkehub", "FeatureMembership", gkehub_beta.YAML_feature_membership)
 	d.AddResource("beta", "gkehub", dcl.TitleToSnakeCase("Membership"), gkehub_beta.YAML_membership)
 	d.AddResource("beta", "gkehub", "Membership", gkehub_beta.YAML_membership)
+	d.AddResource("beta", "healthcare", dcl.TitleToSnakeCase("Dataset"), healthcare_beta.YAML_dataset)
+	d.AddResource("beta", "healthcare", "Dataset", healthcare_beta.YAML_dataset)
+	d.AddResource("beta", "healthcare", dcl.TitleToSnakeCase("DicomStore"), healthcare_beta.YAML_dicom_store)
+	d.AddResource("beta", "healthcare", "DicomStore", healthcare_beta.YAML_dicom_store)
+	d.AddResource("beta", "healthcare", dcl.TitleToSnakeCase("FhirStore"), healthcare_beta.YAML_fhir_store)
+	d.AddResource("beta", "healthcare", "FhirStore", healthcare_beta.YAML_fhir_store)
 	d.AddResource("beta", "iam", dcl.TitleToSnakeCase("Role"), iam_beta.YAML_role)
 	d.AddResource("beta", "iam", "Role", iam_beta.YAML_role)
 	d.AddResource("beta", "iam", dcl.TitleToSnakeCase("ServiceAccount"), iam_beta.YAML_service_account)
@@ -827,6 +842,12 @@ func Services() *Directory {
 	d.AddResource("alpha", "gkehub", "Membership", gkehub_alpha.YAML_membership)
 	d.AddResource("alpha", "gkehub", dcl.TitleToSnakeCase("Fleet"), gkehub_alpha.YAML_fleet)
 	d.AddResource("alpha", "gkehub", "Fleet", gkehub_alpha.YAML_fleet)
+	d.AddResource("alpha", "healthcare", dcl.TitleToSnakeCase("Dataset"), healthcare_alpha.YAML_dataset)
+	d.AddResource("alpha", "healthcare", "Dataset", healthcare_alpha.YAML_dataset)
+	d.AddResource("alpha", "healthcare", dcl.TitleToSnakeCase("DicomStore"), healthcare_alpha.YAML_dicom_store)
+	d.AddResource("alpha", "healthcare", "DicomStore", healthcare_alpha.YAML_dicom_store)
+	d.AddResource("alpha", "healthcare", dcl.TitleToSnakeCase("FhirStore"), healthcare_alpha.YAML_fhir_store)
+	d.AddResource("alpha", "healthcare", "FhirStore", healthcare_alpha.YAML_fhir_store)
 	d.AddResource("alpha", "iam", dcl.TitleToSnakeCase("Role"), iam_alpha.YAML_role)
 	d.AddResource("alpha", "iam", "Role", iam_alpha.YAML_role)
 	d.AddResource("alpha", "iam", dcl.TitleToSnakeCase("ServiceAccount"), iam_alpha.YAML_service_account)

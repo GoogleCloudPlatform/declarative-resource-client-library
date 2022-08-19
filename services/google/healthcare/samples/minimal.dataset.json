@@ -1,0 +1,5 @@
+{
+  "name": "{{dataset}}",
+  "project": "{{project}}",
+  "location": "{{region}}"
+}

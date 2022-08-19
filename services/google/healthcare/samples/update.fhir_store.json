@@ -1,0 +1,40 @@
+{
+  "name": "{{fhir}}",
+  "enableUpdateCreate": true,
+  "notificationConfig": {
+    "pubsubTopic": "projects/{{project}}/topics/{{ref:second.pubsub.topic.json:name}}"
+  },
+  "disableReferentialIntegrity": false,
+  "shardNum": 0,
+  "disableResourceVersioning": false,
+  "labels": {
+    "key-two": "value-two"
+  },
+  "version": "DSTU2",
+  "streamConfigs": [
+    {
+      "resourceTypes": [
+        "Observation"
+      ],
+      "bigqueryDestination": {
+        "datasetUri": "bq://{{project}}.healthcare_2",
+        "schemaConfig": {
+          "schemaType": "ANALYTICS_V2",
+          "recursiveStructureDepth": 1
+        }
+      }
+    }
+  ],
+  "validationConfig": {
+    "disableProfileValidation": true,
+    "enabledImplementationGuides": [],
+    "disableRequiredFieldValidation": true,
+    "disableReferenceTypeValidation": true,
+    "disableFhirpathValidation": true
+  },
+  "defaultSearchHandlingStrict": true,
+  "complexDataTypeReferenceParsing": "ENABLED",
+  "project": "{{project}}",
+  "location": "{{region}}",
+  "dataset": "{{ref:minimal.dataset.json:name}}"
+}
