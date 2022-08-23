@@ -28,7 +28,6 @@ class TcpRoute(object):
         update_time: str = None,
         description: str = None,
         rules: list = None,
-        routers: list = None,
         meshes: list = None,
         gateways: list = None,
         labels: dict = None,
@@ -42,7 +41,6 @@ class TcpRoute(object):
         self.name = name
         self.description = description
         self.rules = rules
-        self.routers = routers
         self.meshes = meshes
         self.gateways = gateways
         self.labels = labels
@@ -63,8 +61,6 @@ class TcpRoute(object):
 
         if TcpRouteRulesArray.to_proto(self.rules):
             request.resource.rules.extend(TcpRouteRulesArray.to_proto(self.rules))
-        if Primitive.to_proto(self.routers):
-            request.resource.routers.extend(Primitive.to_proto(self.routers))
         if Primitive.to_proto(self.meshes):
             request.resource.meshes.extend(Primitive.to_proto(self.meshes))
         if Primitive.to_proto(self.gateways):
@@ -86,7 +82,6 @@ class TcpRoute(object):
         self.update_time = Primitive.from_proto(response.update_time)
         self.description = Primitive.from_proto(response.description)
         self.rules = TcpRouteRulesArray.from_proto(response.rules)
-        self.routers = Primitive.from_proto(response.routers)
         self.meshes = Primitive.from_proto(response.meshes)
         self.gateways = Primitive.from_proto(response.gateways)
         self.labels = Primitive.from_proto(response.labels)
@@ -108,8 +103,6 @@ class TcpRoute(object):
 
         if TcpRouteRulesArray.to_proto(self.rules):
             request.resource.rules.extend(TcpRouteRulesArray.to_proto(self.rules))
-        if Primitive.to_proto(self.routers):
-            request.resource.routers.extend(Primitive.to_proto(self.routers))
         if Primitive.to_proto(self.meshes):
             request.resource.meshes.extend(Primitive.to_proto(self.meshes))
         if Primitive.to_proto(self.gateways):
@@ -146,8 +139,6 @@ class TcpRoute(object):
             resource.description = Primitive.to_proto(self.description)
         if TcpRouteRulesArray.to_proto(self.rules):
             resource.rules.extend(TcpRouteRulesArray.to_proto(self.rules))
-        if Primitive.to_proto(self.routers):
-            resource.routers.extend(Primitive.to_proto(self.routers))
         if Primitive.to_proto(self.meshes):
             resource.meshes.extend(Primitive.to_proto(self.meshes))
         if Primitive.to_proto(self.gateways):

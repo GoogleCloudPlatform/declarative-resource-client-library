@@ -195,9 +195,6 @@ func ProtoToGrpcRoute(p *betapb.NetworkservicesBetaGrpcRoute) *beta.GrpcRoute {
 	for _, r := range p.GetHostnames() {
 		obj.Hostnames = append(obj.Hostnames, r)
 	}
-	for _, r := range p.GetRouters() {
-		obj.Routers = append(obj.Routers, r)
-	}
 	for _, r := range p.GetMeshes() {
 		obj.Meshes = append(obj.Meshes, r)
 	}
@@ -383,11 +380,6 @@ func GrpcRouteToProto(resource *beta.GrpcRoute) *betapb.NetworkservicesBetaGrpcR
 		sHostnames[i] = r
 	}
 	p.SetHostnames(sHostnames)
-	sRouters := make([]string, len(resource.Routers))
-	for i, r := range resource.Routers {
-		sRouters[i] = r
-	}
-	p.SetRouters(sRouters)
 	sMeshes := make([]string, len(resource.Meshes))
 	for i, r := range resource.Meshes {
 		sMeshes[i] = r

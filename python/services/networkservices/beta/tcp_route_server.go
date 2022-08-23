@@ -90,9 +90,6 @@ func ProtoToTcpRoute(p *betapb.NetworkservicesBetaTcpRoute) *beta.TcpRoute {
 	for _, r := range p.GetRules() {
 		obj.Rules = append(obj.Rules, *ProtoToNetworkservicesBetaTcpRouteRules(r))
 	}
-	for _, r := range p.GetRouters() {
-		obj.Routers = append(obj.Routers, r)
-	}
 	for _, r := range p.GetMeshes() {
 		obj.Meshes = append(obj.Meshes, r)
 	}
@@ -169,11 +166,6 @@ func TcpRouteToProto(resource *beta.TcpRoute) *betapb.NetworkservicesBetaTcpRout
 		sRules[i] = NetworkservicesBetaTcpRouteRulesToProto(&r)
 	}
 	p.SetRules(sRules)
-	sRouters := make([]string, len(resource.Routers))
-	for i, r := range resource.Routers {
-		sRouters[i] = r
-	}
-	p.SetRouters(sRouters)
 	sMeshes := make([]string, len(resource.Meshes))
 	for i, r := range resource.Meshes {
 		sMeshes[i] = r

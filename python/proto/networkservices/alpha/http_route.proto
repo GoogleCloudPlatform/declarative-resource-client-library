@@ -36,14 +36,13 @@ message NetworkservicesAlphaHttpRoute {
   string create_time = 3;
   string update_time = 4;
   repeated string hostnames = 5;
-  repeated string routers = 6;
-  repeated string meshes = 7;
-  repeated string gateways = 8;
-  map<string, string> labels = 9;
-  repeated NetworkservicesAlphaHttpRouteRules rules = 10;
-  string project = 11;
-  string location = 12;
-  string self_link = 13;
+  repeated string meshes = 6;
+  repeated string gateways = 7;
+  map<string, string> labels = 8;
+  repeated NetworkservicesAlphaHttpRouteRules rules = 9;
+  string project = 10;
+  string location = 11;
+  string self_link = 12;
 }
 
 message NetworkservicesAlphaHttpRouteRules {
@@ -86,15 +85,14 @@ message NetworkservicesAlphaHttpRouteRulesMatchesQueryParameters {
 message NetworkservicesAlphaHttpRouteRulesAction {
   repeated NetworkservicesAlphaHttpRouteRulesActionDestinations destinations = 1;
   NetworkservicesAlphaHttpRouteRulesActionRedirect redirect = 2;
-  bool original_destination = 3;
-  NetworkservicesAlphaHttpRouteRulesActionFaultInjectionPolicy fault_injection_policy = 4;
-  NetworkservicesAlphaHttpRouteRulesActionRequestHeaderModifier request_header_modifier = 5;
-  NetworkservicesAlphaHttpRouteRulesActionResponseHeaderModifier response_header_modifier = 6;
-  NetworkservicesAlphaHttpRouteRulesActionUrlRewrite url_rewrite = 7;
-  string timeout = 8;
-  NetworkservicesAlphaHttpRouteRulesActionRetryPolicy retry_policy = 9;
-  NetworkservicesAlphaHttpRouteRulesActionRequestMirrorPolicy request_mirror_policy = 10;
-  NetworkservicesAlphaHttpRouteRulesActionCorsPolicy cors_policy = 11;
+  NetworkservicesAlphaHttpRouteRulesActionFaultInjectionPolicy fault_injection_policy = 3;
+  NetworkservicesAlphaHttpRouteRulesActionRequestHeaderModifier request_header_modifier = 4;
+  NetworkservicesAlphaHttpRouteRulesActionResponseHeaderModifier response_header_modifier = 5;
+  NetworkservicesAlphaHttpRouteRulesActionUrlRewrite url_rewrite = 6;
+  string timeout = 7;
+  NetworkservicesAlphaHttpRouteRulesActionRetryPolicy retry_policy = 8;
+  NetworkservicesAlphaHttpRouteRulesActionRequestMirrorPolicy request_mirror_policy = 9;
+  NetworkservicesAlphaHttpRouteRulesActionCorsPolicy cors_policy = 10;
 }
 
 message NetworkservicesAlphaHttpRouteRulesActionDestinations {

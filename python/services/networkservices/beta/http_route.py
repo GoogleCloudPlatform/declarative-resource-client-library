@@ -28,7 +28,6 @@ class HttpRoute(object):
         create_time: str = None,
         update_time: str = None,
         hostnames: list = None,
-        routers: list = None,
         meshes: list = None,
         gateways: list = None,
         labels: dict = None,
@@ -43,7 +42,6 @@ class HttpRoute(object):
         self.name = name
         self.description = description
         self.hostnames = hostnames
-        self.routers = routers
         self.meshes = meshes
         self.gateways = gateways
         self.labels = labels
@@ -65,8 +63,6 @@ class HttpRoute(object):
 
         if Primitive.to_proto(self.hostnames):
             request.resource.hostnames.extend(Primitive.to_proto(self.hostnames))
-        if Primitive.to_proto(self.routers):
-            request.resource.routers.extend(Primitive.to_proto(self.routers))
         if Primitive.to_proto(self.meshes):
             request.resource.meshes.extend(Primitive.to_proto(self.meshes))
         if Primitive.to_proto(self.gateways):
@@ -90,7 +86,6 @@ class HttpRoute(object):
         self.create_time = Primitive.from_proto(response.create_time)
         self.update_time = Primitive.from_proto(response.update_time)
         self.hostnames = Primitive.from_proto(response.hostnames)
-        self.routers = Primitive.from_proto(response.routers)
         self.meshes = Primitive.from_proto(response.meshes)
         self.gateways = Primitive.from_proto(response.gateways)
         self.labels = Primitive.from_proto(response.labels)
@@ -113,8 +108,6 @@ class HttpRoute(object):
 
         if Primitive.to_proto(self.hostnames):
             request.resource.hostnames.extend(Primitive.to_proto(self.hostnames))
-        if Primitive.to_proto(self.routers):
-            request.resource.routers.extend(Primitive.to_proto(self.routers))
         if Primitive.to_proto(self.meshes):
             request.resource.meshes.extend(Primitive.to_proto(self.meshes))
         if Primitive.to_proto(self.gateways):
@@ -153,8 +146,6 @@ class HttpRoute(object):
             resource.description = Primitive.to_proto(self.description)
         if Primitive.to_proto(self.hostnames):
             resource.hostnames.extend(Primitive.to_proto(self.hostnames))
-        if Primitive.to_proto(self.routers):
-            resource.routers.extend(Primitive.to_proto(self.routers))
         if Primitive.to_proto(self.meshes):
             resource.meshes.extend(Primitive.to_proto(self.meshes))
         if Primitive.to_proto(self.gateways):
@@ -465,7 +456,6 @@ class HttpRouteRulesAction(object):
         self,
         destinations: list = None,
         redirect: dict = None,
-        original_destination: bool = None,
         fault_injection_policy: dict = None,
         request_header_modifier: dict = None,
         response_header_modifier: dict = None,
@@ -477,7 +467,6 @@ class HttpRouteRulesAction(object):
     ):
         self.destinations = destinations
         self.redirect = redirect
-        self.original_destination = original_destination
         self.fault_injection_policy = fault_injection_policy
         self.request_header_modifier = request_header_modifier
         self.response_header_modifier = response_header_modifier
@@ -503,8 +492,6 @@ class HttpRouteRulesAction(object):
             )
         else:
             res.ClearField("redirect")
-        if Primitive.to_proto(resource.original_destination):
-            res.original_destination = Primitive.to_proto(resource.original_destination)
         if HttpRouteRulesActionFaultInjectionPolicy.to_proto(
             resource.fault_injection_policy
         ):
@@ -577,7 +564,6 @@ class HttpRouteRulesAction(object):
                 resource.destinations
             ),
             redirect=HttpRouteRulesActionRedirect.from_proto(resource.redirect),
-            original_destination=Primitive.from_proto(resource.original_destination),
             fault_injection_policy=HttpRouteRulesActionFaultInjectionPolicy.from_proto(
                 resource.fault_injection_policy
             ),

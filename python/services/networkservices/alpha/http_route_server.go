@@ -121,7 +121,6 @@ func ProtoToNetworkservicesAlphaHttpRouteRulesAction(p *alphapb.NetworkservicesA
 	}
 	obj := &alpha.HttpRouteRulesAction{
 		Redirect:               ProtoToNetworkservicesAlphaHttpRouteRulesActionRedirect(p.GetRedirect()),
-		OriginalDestination:    dcl.Bool(p.GetOriginalDestination()),
 		FaultInjectionPolicy:   ProtoToNetworkservicesAlphaHttpRouteRulesActionFaultInjectionPolicy(p.GetFaultInjectionPolicy()),
 		RequestHeaderModifier:  ProtoToNetworkservicesAlphaHttpRouteRulesActionRequestHeaderModifier(p.GetRequestHeaderModifier()),
 		ResponseHeaderModifier: ProtoToNetworkservicesAlphaHttpRouteRulesActionResponseHeaderModifier(p.GetResponseHeaderModifier()),
@@ -318,9 +317,6 @@ func ProtoToHttpRoute(p *alphapb.NetworkservicesAlphaHttpRoute) *alpha.HttpRoute
 	for _, r := range p.GetHostnames() {
 		obj.Hostnames = append(obj.Hostnames, r)
 	}
-	for _, r := range p.GetRouters() {
-		obj.Routers = append(obj.Routers, r)
-	}
 	for _, r := range p.GetMeshes() {
 		obj.Meshes = append(obj.Meshes, r)
 	}
@@ -430,7 +426,6 @@ func NetworkservicesAlphaHttpRouteRulesActionToProto(o *alpha.HttpRouteRulesActi
 	}
 	p := &alphapb.NetworkservicesAlphaHttpRouteRulesAction{}
 	p.SetRedirect(NetworkservicesAlphaHttpRouteRulesActionRedirectToProto(o.Redirect))
-	p.SetOriginalDestination(dcl.ValueOrEmptyBool(o.OriginalDestination))
 	p.SetFaultInjectionPolicy(NetworkservicesAlphaHttpRouteRulesActionFaultInjectionPolicyToProto(o.FaultInjectionPolicy))
 	p.SetRequestHeaderModifier(NetworkservicesAlphaHttpRouteRulesActionRequestHeaderModifierToProto(o.RequestHeaderModifier))
 	p.SetResponseHeaderModifier(NetworkservicesAlphaHttpRouteRulesActionResponseHeaderModifierToProto(o.ResponseHeaderModifier))
@@ -655,11 +650,6 @@ func HttpRouteToProto(resource *alpha.HttpRoute) *alphapb.NetworkservicesAlphaHt
 		sHostnames[i] = r
 	}
 	p.SetHostnames(sHostnames)
-	sRouters := make([]string, len(resource.Routers))
-	for i, r := range resource.Routers {
-		sRouters[i] = r
-	}
-	p.SetRouters(sRouters)
 	sMeshes := make([]string, len(resource.Meshes))
 	for i, r := range resource.Meshes {
 		sMeshes[i] = r

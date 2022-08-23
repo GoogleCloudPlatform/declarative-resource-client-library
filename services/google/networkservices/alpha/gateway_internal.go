@@ -90,26 +90,6 @@ func (r *Gateway) deleteURL(userBasePath string) (string, error) {
 	return dcl.URL("projects/{{project}}/locations/{{location}}/gateways/{{name}}", nr.basePath(), userBasePath, params), nil
 }
 
-func (r *Gateway) SetPolicyURL(userBasePath string) string {
-	nr := r.urlNormalized()
-	fields := map[string]interface{}{}
-	return dcl.URL("", nr.basePath(), userBasePath, fields)
-}
-
-func (r *Gateway) SetPolicyVerb() string {
-	return ""
-}
-
-func (r *Gateway) getPolicyURL(userBasePath string) string {
-	nr := r.urlNormalized()
-	fields := map[string]interface{}{}
-	return dcl.URL("", nr.basePath(), userBasePath, fields)
-}
-
-func (r *Gateway) IAMPolicyVersion() int {
-	return 3
-}
-
 // gatewayApiOperation represents a mutable operation in the underlying REST
 // API such as Create, Update, or Delete.
 type gatewayApiOperation interface {

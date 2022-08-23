@@ -23,9 +23,9 @@ import "proto/empty.proto";
 
 enum NetworkservicesAlphaGrpcRouteRulesMatchesMethodTypeEnum {
   NetworkservicesAlphaGrpcRouteRulesMatchesMethodTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  NetworkservicesAlphaGrpcRouteRulesMatchesMethodTypeEnumMATCH_TYPE_UNSPECIFIED = 1;
-  NetworkservicesAlphaGrpcRouteRulesMatchesMethodTypeEnumMATCH_ANY = 2;
-  NetworkservicesAlphaGrpcRouteRulesMatchesMethodTypeEnumMATCH_ALL = 3;
+  NetworkservicesAlphaGrpcRouteRulesMatchesMethodTypeEnumTYPE_UNSPECIFIED = 1;
+  NetworkservicesAlphaGrpcRouteRulesMatchesMethodTypeEnumEXACT = 2;
+  NetworkservicesAlphaGrpcRouteRulesMatchesMethodTypeEnumREGULAR_EXPRESSION = 3;
 }
 
 enum NetworkservicesAlphaGrpcRouteRulesMatchesHeadersTypeEnum {
@@ -42,13 +42,12 @@ message NetworkservicesAlphaGrpcRoute {
   map<string, string> labels = 4;
   string description = 5;
   repeated string hostnames = 6;
-  repeated string routers = 7;
-  repeated string meshes = 8;
-  repeated string gateways = 9;
-  repeated NetworkservicesAlphaGrpcRouteRules rules = 10;
-  string project = 11;
-  string location = 12;
-  string self_link = 13;
+  repeated string meshes = 7;
+  repeated string gateways = 8;
+  repeated NetworkservicesAlphaGrpcRouteRules rules = 9;
+  string project = 10;
+  string location = 11;
+  string self_link = 12;
 }
 
 message NetworkservicesAlphaGrpcRouteRules {

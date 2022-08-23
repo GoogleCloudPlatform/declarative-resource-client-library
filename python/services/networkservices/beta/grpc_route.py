@@ -29,7 +29,6 @@ class GrpcRoute(object):
         labels: dict = None,
         description: str = None,
         hostnames: list = None,
-        routers: list = None,
         meshes: list = None,
         gateways: list = None,
         rules: list = None,
@@ -44,7 +43,6 @@ class GrpcRoute(object):
         self.labels = labels
         self.description = description
         self.hostnames = hostnames
-        self.routers = routers
         self.meshes = meshes
         self.gateways = gateways
         self.rules = rules
@@ -68,8 +66,6 @@ class GrpcRoute(object):
 
         if Primitive.to_proto(self.hostnames):
             request.resource.hostnames.extend(Primitive.to_proto(self.hostnames))
-        if Primitive.to_proto(self.routers):
-            request.resource.routers.extend(Primitive.to_proto(self.routers))
         if Primitive.to_proto(self.meshes):
             request.resource.meshes.extend(Primitive.to_proto(self.meshes))
         if Primitive.to_proto(self.gateways):
@@ -91,7 +87,6 @@ class GrpcRoute(object):
         self.labels = Primitive.from_proto(response.labels)
         self.description = Primitive.from_proto(response.description)
         self.hostnames = Primitive.from_proto(response.hostnames)
-        self.routers = Primitive.from_proto(response.routers)
         self.meshes = Primitive.from_proto(response.meshes)
         self.gateways = Primitive.from_proto(response.gateways)
         self.rules = GrpcRouteRulesArray.from_proto(response.rules)
@@ -116,8 +111,6 @@ class GrpcRoute(object):
 
         if Primitive.to_proto(self.hostnames):
             request.resource.hostnames.extend(Primitive.to_proto(self.hostnames))
-        if Primitive.to_proto(self.routers):
-            request.resource.routers.extend(Primitive.to_proto(self.routers))
         if Primitive.to_proto(self.meshes):
             request.resource.meshes.extend(Primitive.to_proto(self.meshes))
         if Primitive.to_proto(self.gateways):
@@ -155,8 +148,6 @@ class GrpcRoute(object):
             resource.description = Primitive.to_proto(self.description)
         if Primitive.to_proto(self.hostnames):
             resource.hostnames.extend(Primitive.to_proto(self.hostnames))
-        if Primitive.to_proto(self.routers):
-            resource.routers.extend(Primitive.to_proto(self.routers))
         if Primitive.to_proto(self.meshes):
             resource.meshes.extend(Primitive.to_proto(self.meshes))
         if Primitive.to_proto(self.gateways):
