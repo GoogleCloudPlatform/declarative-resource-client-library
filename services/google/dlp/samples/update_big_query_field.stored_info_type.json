@@ -1,4 +1,5 @@
 {
+  "name": "{{ref:__state__:name}}",
   "parent": "projects/{{project}}/locations/{{region}}",
   "largeCustomDictionary": {
     "outputPath": {
