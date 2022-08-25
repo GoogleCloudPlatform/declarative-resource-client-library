@@ -20,12 +20,12 @@ import (
 
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
-	sdkgrpc.RegisterNetworkservicesBetaEndpointPolicyServiceServer(s, &EndpointPolicyServer{})
+	sdkgrpc.RegisterNetworkservicesBetaGatewayServiceServer(s, &GatewayServer{})
 	sdkgrpc.RegisterNetworkservicesBetaGrpcRouteServiceServer(s, &GrpcRouteServer{})
 	sdkgrpc.RegisterNetworkservicesBetaHttpRouteServiceServer(s, &HttpRouteServer{})
 	sdkgrpc.RegisterNetworkservicesBetaMeshServiceServer(s, &MeshServer{})
 	sdkgrpc.RegisterNetworkservicesBetaTcpRouteServiceServer(s, &TcpRouteServer{})
-	sdkgrpc.RegisterNetworkservicesBetaGatewayServiceServer(s, &GatewayServer{})
 	sdkgrpc.RegisterNetworkservicesBetaTlsRouteServiceServer(s, &TlsRouteServer{})
+	sdkgrpc.RegisterNetworkservicesBetaEndpointPolicyServiceServer(s, &EndpointPolicyServer{})
 	sdkgrpc.RegisterNetworkservicesBetaServiceBindingServiceServer(s, &ServiceBindingServer{})
 }

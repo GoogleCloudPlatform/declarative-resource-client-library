@@ -1,0 +1,5 @@
+{
+  "exclude_create_coverage": ["addresses"],
+  "exclude_update_coverage": ["name", "addresses"],
+  "allow_in_minimal_sample": ["type"]
+}
