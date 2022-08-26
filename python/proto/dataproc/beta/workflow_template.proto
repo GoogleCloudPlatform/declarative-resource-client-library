@@ -132,6 +132,7 @@ message DataprocBetaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfi
   map<string, string> metadata = 9;
   DataprocBetaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity reservation_affinity = 10;
   DataprocBetaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity node_group_affinity = 11;
+  DataprocBetaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig shielded_instance_config = 12;
 }
 
 message DataprocBetaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity {
@@ -142,6 +143,12 @@ message DataprocBetaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfi
 
 message DataprocBetaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity {
   string node_group = 1;
+}
+
+message DataprocBetaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig {
+  bool enable_secure_boot = 1;
+  bool enable_vtpm = 2;
+  bool enable_integrity_monitoring = 3;
 }
 
 message DataprocBetaWorkflowTemplatePlacementManagedClusterConfigMasterConfig {

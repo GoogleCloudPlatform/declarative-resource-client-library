@@ -1297,6 +1297,33 @@ func DCLWorkflowTemplateSchema() *dcl.Schema {
 																	GoType: "string",
 																},
 															},
+															"shieldedInstanceConfig": &dcl.Property{
+																Type:        "object",
+																GoName:      "ShieldedInstanceConfig",
+																GoType:      "WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig",
+																Description: "Optional. Shielded Instance Config for clusters using Compute Engine Shielded VMs.",
+																Immutable:   true,
+																Properties: map[string]*dcl.Property{
+																	"enableIntegrityMonitoring": &dcl.Property{
+																		Type:        "boolean",
+																		GoName:      "EnableIntegrityMonitoring",
+																		Description: "Optional. Defines whether instances have integrity monitoring enabled. Integrity monitoring compares the most recent boot measurements to the integrity policy baseline and returns a pair of pass/fail results depending on whether they match or not.",
+																		Immutable:   true,
+																	},
+																	"enableSecureBoot": &dcl.Property{
+																		Type:        "boolean",
+																		GoName:      "EnableSecureBoot",
+																		Description: "Optional. Defines whether the instances have Secure Boot enabled. Secure Boot helps ensure that the system only runs authentic software by verifying the digital signature of all boot components, and halting the boot process if signature verification fails.",
+																		Immutable:   true,
+																	},
+																	"enableVtpm": &dcl.Property{
+																		Type:        "boolean",
+																		GoName:      "EnableVtpm",
+																		Description: "Optional. Defines whether the instance have the vTPM enabled. Virtual Trusted Platform Module protects objects like keys, certificates and enables Measured Boot by performing the measurements needed to create a known good boot baseline, called the integrity policy baseline.",
+																		Immutable:   true,
+																	},
+																},
+															},
 															"subnetwork": &dcl.Property{
 																Type:        "string",
 																GoName:      "Subnetwork",

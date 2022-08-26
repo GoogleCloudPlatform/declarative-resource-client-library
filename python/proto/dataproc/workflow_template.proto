@@ -130,6 +130,7 @@ message DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfig {
   map<string, string> metadata = 9;
   DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity reservation_affinity = 10;
   DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity node_group_affinity = 11;
+  DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig shielded_instance_config = 12;
 }
 
 message DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity {
@@ -140,6 +141,12 @@ message DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigRes
 
 message DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity {
   string node_group = 1;
+}
+
+message DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig {
+  bool enable_secure_boot = 1;
+  bool enable_vtpm = 2;
+  bool enable_integrity_monitoring = 3;
 }
 
 message DataprocWorkflowTemplatePlacementManagedClusterConfigMasterConfig {

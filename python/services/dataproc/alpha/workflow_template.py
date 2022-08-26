@@ -542,6 +542,7 @@ class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(object):
         metadata: dict = None,
         reservation_affinity: dict = None,
         node_group_affinity: dict = None,
+        shielded_instance_config: dict = None,
     ):
         self.zone = zone
         self.network = network
@@ -554,6 +555,7 @@ class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(object):
         self.metadata = metadata
         self.reservation_affinity = reservation_affinity
         self.node_group_affinity = node_group_affinity
+        self.shielded_instance_config = shielded_instance_config
 
     @classmethod
     def to_proto(self, resource):
@@ -607,6 +609,16 @@ class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(object):
             )
         else:
             res.ClearField("node_group_affinity")
+        if WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig.to_proto(
+            resource.shielded_instance_config
+        ):
+            res.shielded_instance_config.CopyFrom(
+                WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig.to_proto(
+                    resource.shielded_instance_config
+                )
+            )
+        else:
+            res.ClearField("shielded_instance_config")
         return res
 
     @classmethod
@@ -633,6 +645,9 @@ class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(object):
             ),
             node_group_affinity=WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity.from_proto(
                 resource.node_group_affinity
+            ),
+            shielded_instance_config=WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig.from_proto(
+                resource.shielded_instance_config
             ),
         )
 
@@ -769,6 +784,75 @@ class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffi
     def from_proto(self, resources):
         return [
             WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig(
+    object
+):
+    def __init__(
+        self,
+        enable_secure_boot: bool = None,
+        enable_vtpm: bool = None,
+        enable_integrity_monitoring: bool = None,
+    ):
+        self.enable_secure_boot = enable_secure_boot
+        self.enable_vtpm = enable_vtpm
+        self.enable_integrity_monitoring = enable_integrity_monitoring
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workflow_template_pb2.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig()
+        )
+        if Primitive.to_proto(resource.enable_secure_boot):
+            res.enable_secure_boot = Primitive.to_proto(resource.enable_secure_boot)
+        if Primitive.to_proto(resource.enable_vtpm):
+            res.enable_vtpm = Primitive.to_proto(resource.enable_vtpm)
+        if Primitive.to_proto(resource.enable_integrity_monitoring):
+            res.enable_integrity_monitoring = Primitive.to_proto(
+                resource.enable_integrity_monitoring
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig(
+            enable_secure_boot=Primitive.from_proto(resource.enable_secure_boot),
+            enable_vtpm=Primitive.from_proto(resource.enable_vtpm),
+            enable_integrity_monitoring=Primitive.from_proto(
+                resource.enable_integrity_monitoring
+            ),
+        )
+
+
+class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfigArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig.from_proto(
                 i
             )
             for i in resources

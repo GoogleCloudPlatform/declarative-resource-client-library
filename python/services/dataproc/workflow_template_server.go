@@ -159,6 +159,7 @@ func ProtoToDataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfi
 		ServiceAccount:          dcl.StringOrNil(p.GetServiceAccount()),
 		ReservationAffinity:     ProtoToDataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity(p.GetReservationAffinity()),
 		NodeGroupAffinity:       ProtoToDataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity(p.GetNodeGroupAffinity()),
+		ShieldedInstanceConfig:  ProtoToDataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig(p.GetShieldedInstanceConfig()),
 	}
 	for _, r := range p.GetServiceAccountScopes() {
 		obj.ServiceAccountScopes = append(obj.ServiceAccountScopes, r)
@@ -191,6 +192,19 @@ func ProtoToDataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfi
 	}
 	obj := &dataproc.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity{
 		NodeGroup: dcl.StringOrNil(p.GetNodeGroup()),
+	}
+	return obj
+}
+
+// ProtoToWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig converts a WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig object from its proto representation.
+func ProtoToDataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig(p *dataprocpb.DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig) *dataproc.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &dataproc.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig{
+		EnableSecureBoot:          dcl.Bool(p.GetEnableSecureBoot()),
+		EnableVtpm:                dcl.Bool(p.GetEnableVtpm()),
+		EnableIntegrityMonitoring: dcl.Bool(p.GetEnableIntegrityMonitoring()),
 	}
 	return obj
 }
@@ -1015,6 +1029,7 @@ func DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigToProt
 	p.SetServiceAccount(dcl.ValueOrEmptyString(o.ServiceAccount))
 	p.SetReservationAffinity(DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinityToProto(o.ReservationAffinity))
 	p.SetNodeGroupAffinity(DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinityToProto(o.NodeGroupAffinity))
+	p.SetShieldedInstanceConfig(DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfigToProto(o.ShieldedInstanceConfig))
 	sServiceAccountScopes := make([]string, len(o.ServiceAccountScopes))
 	for i, r := range o.ServiceAccountScopes {
 		sServiceAccountScopes[i] = r
@@ -1056,6 +1071,18 @@ func DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGr
 	}
 	p := &dataprocpb.DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity{}
 	p.SetNodeGroup(dcl.ValueOrEmptyString(o.NodeGroup))
+	return p
+}
+
+// WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfigToProto converts a WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig object to its proto representation.
+func DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfigToProto(o *dataproc.WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig) *dataprocpb.DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig {
+	if o == nil {
+		return nil
+	}
+	p := &dataprocpb.DataprocWorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig{}
+	p.SetEnableSecureBoot(dcl.ValueOrEmptyBool(o.EnableSecureBoot))
+	p.SetEnableVtpm(dcl.ValueOrEmptyBool(o.EnableVtpm))
+	p.SetEnableIntegrityMonitoring(dcl.ValueOrEmptyBool(o.EnableIntegrityMonitoring))
 	return p
 }
 
