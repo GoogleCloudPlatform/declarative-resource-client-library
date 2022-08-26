@@ -11,6 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-load("//:connector_rules.bzl", "proto_package")
-proto_package(name="eventarc/alpha", resources=["trigger","channel"])
+name: minimal_channel
+description: A basic example for an Eventarc Channel
+type: channel
+versions:
+- ga
+resource: samples/minimal.channel.json
+variables:
+- name: channel
+  type: resource_name
+- name: project
+  type: project
+- name: region
+  type: region

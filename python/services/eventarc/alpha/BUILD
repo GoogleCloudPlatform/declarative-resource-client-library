@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="eventarc/alpha", resources=["trigger"])
+connector(name="eventarc/alpha", resources=["trigger","channel"])

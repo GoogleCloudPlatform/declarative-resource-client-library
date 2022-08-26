@@ -21,4 +21,5 @@ import (
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterEventarcBetaTriggerServiceServer(s, &TriggerServer{})
+	sdkgrpc.RegisterEventarcBetaChannelServiceServer(s, &ChannelServer{})
 }
