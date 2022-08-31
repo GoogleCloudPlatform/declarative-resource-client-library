@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="eventarc", resources=["trigger","channel"])
+proto_package(name="eventarc", resources=["trigger","channel","google_channel_config"])

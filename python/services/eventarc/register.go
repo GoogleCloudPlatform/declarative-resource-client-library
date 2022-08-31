@@ -22,4 +22,5 @@ import (
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterEventarcTriggerServiceServer(s, &TriggerServer{})
 	sdkgrpc.RegisterEventarcChannelServiceServer(s, &ChannelServer{})
+	sdkgrpc.RegisterEventarcGoogleChannelConfigServiceServer(s, &GoogleChannelConfigServer{})
 }

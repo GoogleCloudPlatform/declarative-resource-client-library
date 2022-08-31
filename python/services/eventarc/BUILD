@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="eventarc", resources=["trigger","channel"])
+connector(name="eventarc", resources=["trigger","channel","google_channel_config"])

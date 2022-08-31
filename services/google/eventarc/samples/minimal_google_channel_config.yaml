@@ -11,6 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-load("//:connector_rules.bzl", "proto_package")
-proto_package(name="eventarc/alpha", resources=["trigger","channel","google_channel_config"])
+name: minimal_google_channel_config
+description: A minimal example of Google Channel Config Resource for Eventarc
+type: google_channel_config
+versions:
+- ga
+resource: samples/minimal.google_channel_config.json
+variables:
+- name: project
+  type: project
+- name: region
+  type: region
