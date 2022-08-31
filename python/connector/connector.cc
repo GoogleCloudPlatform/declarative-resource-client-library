@@ -13,6 +13,7 @@
 // limitations under the License.
 #include "connector/connector.h"
 
+#include <cstdlib>
 #include <string>
 
 #include "connector/connector.cgo.h"
