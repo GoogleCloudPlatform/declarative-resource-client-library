@@ -123,6 +123,7 @@ import (
 	networkconnectivity_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkconnectivity/beta"
 	networksecurity_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networksecurity/alpha"
 	networksecurity_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networksecurity/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices"
 	networkservices_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/alpha"
 	networkservices_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/networkservices/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/orgpolicy"
@@ -398,6 +399,18 @@ func Services() *Directory {
 	d.AddResource("ga", "networkconnectivity", "Hub", networkconnectivity.YAML_hub)
 	d.AddResource("ga", "networkconnectivity", dcl.TitleToSnakeCase("Spoke"), networkconnectivity.YAML_spoke)
 	d.AddResource("ga", "networkconnectivity", "Spoke", networkconnectivity.YAML_spoke)
+	d.AddResource("ga", "networkservices", dcl.TitleToSnakeCase("Gateway"), networkservices.YAML_gateway)
+	d.AddResource("ga", "networkservices", "Gateway", networkservices.YAML_gateway)
+	d.AddResource("ga", "networkservices", dcl.TitleToSnakeCase("GrpcRoute"), networkservices.YAML_grpc_route)
+	d.AddResource("ga", "networkservices", "GrpcRoute", networkservices.YAML_grpc_route)
+	d.AddResource("ga", "networkservices", dcl.TitleToSnakeCase("HttpRoute"), networkservices.YAML_http_route)
+	d.AddResource("ga", "networkservices", "HttpRoute", networkservices.YAML_http_route)
+	d.AddResource("ga", "networkservices", dcl.TitleToSnakeCase("Mesh"), networkservices.YAML_mesh)
+	d.AddResource("ga", "networkservices", "Mesh", networkservices.YAML_mesh)
+	d.AddResource("ga", "networkservices", dcl.TitleToSnakeCase("TcpRoute"), networkservices.YAML_tcp_route)
+	d.AddResource("ga", "networkservices", "TcpRoute", networkservices.YAML_tcp_route)
+	d.AddResource("ga", "networkservices", dcl.TitleToSnakeCase("TlsRoute"), networkservices.YAML_tls_route)
+	d.AddResource("ga", "networkservices", "TlsRoute", networkservices.YAML_tls_route)
 	d.AddResource("ga", "orgpolicy", dcl.TitleToSnakeCase("Policy"), orgpolicy.YAML_policy)
 	d.AddResource("ga", "orgpolicy", "Policy", orgpolicy.YAML_policy)
 	d.AddResource("ga", "osconfig", dcl.TitleToSnakeCase("OSPolicyAssignment"), osconfig.YAML_os_policy_assignment)
