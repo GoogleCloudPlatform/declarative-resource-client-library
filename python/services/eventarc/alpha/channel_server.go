@@ -39,17 +39,17 @@ func ProtoToEventarcAlphaChannelStateEnum(e alphapb.EventarcAlphaChannelStateEnu
 // ProtoToChannel converts a Channel resource from its proto representation.
 func ProtoToChannel(p *alphapb.EventarcAlphaChannel) *alpha.Channel {
 	obj := &alpha.Channel{
-		Name:            dcl.StringOrNil(p.GetName()),
-		Uid:             dcl.StringOrNil(p.GetUid()),
-		CreateTime:      dcl.StringOrNil(p.GetCreateTime()),
-		UpdateTime:      dcl.StringOrNil(p.GetUpdateTime()),
-		Provider:        dcl.StringOrNil(p.GetProvider()),
-		PubsubTopic:     dcl.StringOrNil(p.GetPubsubTopic()),
-		State:           ProtoToEventarcAlphaChannelStateEnum(p.GetState()),
-		ActivationToken: dcl.StringOrNil(p.GetActivationToken()),
-		CryptoKeyName:   dcl.StringOrNil(p.GetCryptoKeyName()),
-		Project:         dcl.StringOrNil(p.GetProject()),
-		Location:        dcl.StringOrNil(p.GetLocation()),
+		Name:               dcl.StringOrNil(p.GetName()),
+		Uid:                dcl.StringOrNil(p.GetUid()),
+		CreateTime:         dcl.StringOrNil(p.GetCreateTime()),
+		UpdateTime:         dcl.StringOrNil(p.GetUpdateTime()),
+		ThirdPartyProvider: dcl.StringOrNil(p.GetThirdPartyProvider()),
+		PubsubTopic:        dcl.StringOrNil(p.GetPubsubTopic()),
+		State:              ProtoToEventarcAlphaChannelStateEnum(p.GetState()),
+		ActivationToken:    dcl.StringOrNil(p.GetActivationToken()),
+		CryptoKeyName:      dcl.StringOrNil(p.GetCryptoKeyName()),
+		Project:            dcl.StringOrNil(p.GetProject()),
+		Location:           dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -72,7 +72,7 @@ func ChannelToProto(resource *alpha.Channel) *alphapb.EventarcAlphaChannel {
 	p.SetUid(dcl.ValueOrEmptyString(resource.Uid))
 	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
-	p.SetProvider(dcl.ValueOrEmptyString(resource.Provider))
+	p.SetThirdPartyProvider(dcl.ValueOrEmptyString(resource.ThirdPartyProvider))
 	p.SetPubsubTopic(dcl.ValueOrEmptyString(resource.PubsubTopic))
 	p.SetState(EventarcAlphaChannelStateEnumToProto(resource.State))
 	p.SetActivationToken(dcl.ValueOrEmptyString(resource.ActivationToken))

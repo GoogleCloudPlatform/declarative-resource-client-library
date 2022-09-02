@@ -25,7 +25,7 @@ class Channel(object):
         uid: str = None,
         create_time: str = None,
         update_time: str = None,
-        provider: str = None,
+        third_party_provider: str = None,
         pubsub_topic: str = None,
         state: str = None,
         activation_token: str = None,
@@ -37,7 +37,7 @@ class Channel(object):
 
         channel.initialize()
         self.name = name
-        self.provider = provider
+        self.third_party_provider = third_party_provider
         self.crypto_key_name = crypto_key_name
         self.project = project
         self.location = location
@@ -49,8 +49,10 @@ class Channel(object):
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
-        if Primitive.to_proto(self.provider):
-            request.resource.provider = Primitive.to_proto(self.provider)
+        if Primitive.to_proto(self.third_party_provider):
+            request.resource.third_party_provider = Primitive.to_proto(
+                self.third_party_provider
+            )
 
         if Primitive.to_proto(self.crypto_key_name):
             request.resource.crypto_key_name = Primitive.to_proto(self.crypto_key_name)
@@ -68,7 +70,7 @@ class Channel(object):
         self.uid = Primitive.from_proto(response.uid)
         self.create_time = Primitive.from_proto(response.create_time)
         self.update_time = Primitive.from_proto(response.update_time)
-        self.provider = Primitive.from_proto(response.provider)
+        self.third_party_provider = Primitive.from_proto(response.third_party_provider)
         self.pubsub_topic = Primitive.from_proto(response.pubsub_topic)
         self.state = ChannelStateEnum.from_proto(response.state)
         self.activation_token = Primitive.from_proto(response.activation_token)
@@ -83,8 +85,10 @@ class Channel(object):
         if Primitive.to_proto(self.name):
             request.resource.name = Primitive.to_proto(self.name)
 
-        if Primitive.to_proto(self.provider):
-            request.resource.provider = Primitive.to_proto(self.provider)
+        if Primitive.to_proto(self.third_party_provider):
+            request.resource.third_party_provider = Primitive.to_proto(
+                self.third_party_provider
+            )
 
         if Primitive.to_proto(self.crypto_key_name):
             request.resource.crypto_key_name = Primitive.to_proto(self.crypto_key_name)
@@ -112,8 +116,10 @@ class Channel(object):
         resource = channel_pb2.EventarcAlphaChannel()
         if Primitive.to_proto(self.name):
             resource.name = Primitive.to_proto(self.name)
-        if Primitive.to_proto(self.provider):
-            resource.provider = Primitive.to_proto(self.provider)
+        if Primitive.to_proto(self.third_party_provider):
+            resource.third_party_provider = Primitive.to_proto(
+                self.third_party_provider
+            )
         if Primitive.to_proto(self.crypto_key_name):
             resource.crypto_key_name = Primitive.to_proto(self.crypto_key_name)
         if Primitive.to_proto(self.project):

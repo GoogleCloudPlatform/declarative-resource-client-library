@@ -34,7 +34,7 @@ message EventarcChannel {
   string uid = 2;
   string create_time = 3;
   string update_time = 4;
-  string provider = 5;
+  string third_party_provider = 5;
   string pubsub_topic = 6;
   EventarcChannelStateEnum state = 7;
   string activation_token = 8;

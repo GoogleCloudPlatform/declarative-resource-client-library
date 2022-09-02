@@ -160,12 +160,6 @@ func DCLChannelSchema() *dcl.Schema {
 									},
 								},
 							},
-							"provider": &dcl.Property{
-								Type:        "string",
-								GoName:      "Provider",
-								Description: "The name of the event provider (e.g. Eventarc SaaS partner) associated with the channel. This provider will be granted permissions to publish events to the channel. Format: `projects/{project}/locations/{location}/providers/{provider_id}`.",
-								Immutable:   true,
-							},
 							"pubsubTopic": &dcl.Property{
 								Type:        "string",
 								GoName:      "PubsubTopic",
@@ -186,6 +180,12 @@ func DCLChannelSchema() *dcl.Schema {
 									"ACTIVE",
 									"INACTIVE",
 								},
+							},
+							"thirdPartyProvider": &dcl.Property{
+								Type:        "string",
+								GoName:      "ThirdPartyProvider",
+								Description: "The name of the event provider (e.g. Eventarc SaaS partner) associated with the channel. This provider will be granted permissions to publish events to the channel. Format: `projects/{project}/locations/{location}/providers/{provider_id}`.",
+								Immutable:   true,
 							},
 							"uid": &dcl.Property{
 								Type:        "string",
