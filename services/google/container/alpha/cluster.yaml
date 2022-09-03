@@ -903,19 +903,6 @@ components:
               description: Base64-encoded public certificate that is the root of trust
                 for the cluster.
               x-kubernetes-immutable: true
-            password:
-              type: string
-              x-dcl-go-name: Password
-              description: The password to use for HTTP basic authentication to the
-                master endpoint. Because the master endpoint is open to the Internet,
-                you should create a strong password with a minimum of 16 characters.
-              x-kubernetes-immutable: true
-            username:
-              type: string
-              x-dcl-go-name: Username
-              description: The username to use for HTTP basic authentication to the
-                master endpoint.
-              x-kubernetes-immutable: true
         masterAuthorizedNetworksConfig:
           type: object
           x-dcl-go-name: MasterAuthorizedNetworksConfig
@@ -1920,6 +1907,9 @@ components:
                   x-dcl-go-name: DatasetId
                   description: The ID of a BigQuery dataset
                   x-kubernetes-immutable: true
+                  x-dcl-references:
+                  - resource: Bigquery/Dataset
+                    field: name
             consumptionMeteringConfig:
               type: object
               x-dcl-go-name: ConsumptionMeteringConfig

@@ -44,7 +44,7 @@ message ComputeVpnTunnel {
   int64 id = 2;
   string name = 3;
   string description = 4;
-  string region = 5;
+  string location = 5;
   string target_vpn_gateway = 6;
   string vpn_gateway = 7;
   int64 vpn_gateway_interface = 8;
@@ -78,7 +78,7 @@ message DeleteComputeVpnTunnelRequest {
 message ListComputeVpnTunnelRequest {
   string service_account_file = 1;
   string Project = 2;
-  string Region = 3;
+  string Location = 3;
 }
 
 message ListComputeVpnTunnelResponse {

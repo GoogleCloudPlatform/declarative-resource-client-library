@@ -25,7 +25,7 @@ class VpnTunnel(object):
         id: int = None,
         name: str = None,
         description: str = None,
-        region: str = None,
+        location: str = None,
         target_vpn_gateway: str = None,
         vpn_gateway: str = None,
         vpn_gateway_interface: int = None,
@@ -50,7 +50,7 @@ class VpnTunnel(object):
         self.labels = labels
         self.name = name
         self.description = description
-        self.region = region
+        self.location = location
         self.target_vpn_gateway = target_vpn_gateway
         self.vpn_gateway = vpn_gateway
         self.vpn_gateway_interface = vpn_gateway_interface
@@ -78,8 +78,8 @@ class VpnTunnel(object):
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
-        if Primitive.to_proto(self.region):
-            request.resource.region = Primitive.to_proto(self.region)
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         if Primitive.to_proto(self.target_vpn_gateway):
             request.resource.target_vpn_gateway = Primitive.to_proto(
@@ -139,7 +139,7 @@ class VpnTunnel(object):
         self.id = Primitive.from_proto(response.id)
         self.name = Primitive.from_proto(response.name)
         self.description = Primitive.from_proto(response.description)
-        self.region = Primitive.from_proto(response.region)
+        self.location = Primitive.from_proto(response.location)
         self.target_vpn_gateway = Primitive.from_proto(response.target_vpn_gateway)
         self.vpn_gateway = Primitive.from_proto(response.vpn_gateway)
         self.vpn_gateway_interface = Primitive.from_proto(
@@ -181,8 +181,8 @@ class VpnTunnel(object):
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
-        if Primitive.to_proto(self.region):
-            request.resource.region = Primitive.to_proto(self.region)
+        if Primitive.to_proto(self.location):
+            request.resource.location = Primitive.to_proto(self.location)
 
         if Primitive.to_proto(self.target_vpn_gateway):
             request.resource.target_vpn_gateway = Primitive.to_proto(
@@ -238,13 +238,13 @@ class VpnTunnel(object):
         response = stub.DeleteComputeBetaVpnTunnel(request)
 
     @classmethod
-    def list(self, project, region, service_account_file=""):
+    def list(self, project, location, service_account_file=""):
         stub = vpn_tunnel_pb2_grpc.ComputeBetaVpnTunnelServiceStub(channel.Channel())
         request = vpn_tunnel_pb2.ListComputeBetaVpnTunnelRequest()
         request.service_account_file = service_account_file
         request.Project = project
 
-        request.Region = region
+        request.Location = location
 
         return stub.ListComputeBetaVpnTunnel(request).items
 
@@ -256,8 +256,8 @@ class VpnTunnel(object):
             resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.description):
             resource.description = Primitive.to_proto(self.description)
-        if Primitive.to_proto(self.region):
-            resource.region = Primitive.to_proto(self.region)
+        if Primitive.to_proto(self.location):
+            resource.location = Primitive.to_proto(self.location)
         if Primitive.to_proto(self.target_vpn_gateway):
             resource.target_vpn_gateway = Primitive.to_proto(self.target_vpn_gateway)
         if Primitive.to_proto(self.vpn_gateway):

@@ -1,6 +1,6 @@
 {
   "project": "{{ref:compute.serviceusage.service.json:project}}",
-  "region": "{{region}}",
+  "location": "{{region}}",
   "name": "{{tunnel}}",
   "peerIp": "{{ref:basic.vpn_gateway.json:vpnInterfaces[0].ipAddress}}",
   "sharedSecret": "a secret",

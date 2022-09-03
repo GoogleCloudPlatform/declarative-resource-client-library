@@ -42,7 +42,7 @@ func ProtoToVpnTunnel(p *computepb.ComputeVpnTunnel) *compute.VpnTunnel {
 		Id:                           dcl.Int64OrNil(p.GetId()),
 		Name:                         dcl.StringOrNil(p.GetName()),
 		Description:                  dcl.StringOrNil(p.GetDescription()),
-		Region:                       dcl.StringOrNil(p.GetRegion()),
+		Location:                     dcl.StringOrNil(p.GetLocation()),
 		TargetVpnGateway:             dcl.StringOrNil(p.GetTargetVpnGateway()),
 		VpnGateway:                   dcl.StringOrNil(p.GetVpnGateway()),
 		VpnGatewayInterface:          dcl.Int64OrNil(p.GetVpnGatewayInterface()),
@@ -85,7 +85,7 @@ func VpnTunnelToProto(resource *compute.VpnTunnel) *computepb.ComputeVpnTunnel {
 	p.SetId(dcl.ValueOrEmptyInt64(resource.Id))
 	p.SetName(dcl.ValueOrEmptyString(resource.Name))
 	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
-	p.SetRegion(dcl.ValueOrEmptyString(resource.Region))
+	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetTargetVpnGateway(dcl.ValueOrEmptyString(resource.TargetVpnGateway))
 	p.SetVpnGateway(dcl.ValueOrEmptyString(resource.VpnGateway))
 	p.SetVpnGatewayInterface(dcl.ValueOrEmptyInt64(resource.VpnGatewayInterface))
@@ -158,7 +158,7 @@ func (s *VpnTunnelServer) ListComputeVpnTunnel(ctx context.Context, request *com
 		return nil, err
 	}
 
-	resources, err := cl.ListVpnTunnel(ctx, request.GetProject(), request.GetRegion())
+	resources, err := cl.ListVpnTunnel(ctx, request.GetProject(), request.GetLocation())
 	if err != nil {
 		return nil, err
 	}
