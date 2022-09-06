@@ -125,12 +125,6 @@ components:
           enum:
           - IPV4
           - IPV6
-        labelFingerprint:
-          type: string
-          x-dcl-go-name: LabelFingerprint
-          readOnly: true
-          description: The fingerprint used for optimistic locking of this resource.  Used
-            internally during updates.
         location:
           type: string
           x-dcl-go-name: Location

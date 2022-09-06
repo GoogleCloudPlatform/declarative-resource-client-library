@@ -101,11 +101,6 @@ func VpnTunnelToProto(resource *compute.VpnTunnel) *computepb.ComputeVpnTunnel {
 	p.SetIkeVersion(dcl.ValueOrEmptyInt64(resource.IkeVersion))
 	p.SetDetailedStatus(dcl.ValueOrEmptyString(resource.DetailedStatus))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
-	mLabels := make(map[string]string, len(resource.Labels))
-	for k, r := range resource.Labels {
-		mLabels[k] = r
-	}
-	p.SetLabels(mLabels)
 	sLocalTrafficSelector := make([]string, len(resource.LocalTrafficSelector))
 	for i, r := range resource.LocalTrafficSelector {
 		sLocalTrafficSelector[i] = r

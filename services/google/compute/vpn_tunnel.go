@@ -23,7 +23,6 @@ import (
 )
 
 type VpnTunnel struct {
-	Labels                       map[string]string    `json:"labels"`
 	Id                           *int64               `json:"id"`
 	Name                         *string              `json:"name"`
 	Description                  *string              `json:"description"`
@@ -94,7 +93,6 @@ func (r *VpnTunnel) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"labels":                          dcl.ValueOrEmptyString(nr.Labels),
 		"id":                              dcl.ValueOrEmptyString(nr.Id),
 		"name":                            dcl.ValueOrEmptyString(nr.Name),
 		"description":                     dcl.ValueOrEmptyString(nr.Description),

@@ -104,13 +104,6 @@ components:
             version is 2.
           x-kubernetes-immutable: true
           default: 2
-        labels:
-          type: object
-          additionalProperties:
-            type: string
-          x-dcl-go-name: Labels
-          description: Labels for this VPN Tunnel
-          x-kubernetes-immutable: true
         localTrafficSelector:
           type: array
           x-dcl-go-name: LocalTrafficSelector

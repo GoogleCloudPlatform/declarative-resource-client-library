@@ -139,15 +139,6 @@ func DCLVpnTunnelSchema() *dcl.Schema {
 								Immutable:   true,
 								Default:     2,
 							},
-							"labels": &dcl.Property{
-								Type: "object",
-								AdditionalProperties: &dcl.Property{
-									Type: "string",
-								},
-								GoName:      "Labels",
-								Description: "Labels for this VPN Tunnel",
-								Immutable:   true,
-							},
 							"localTrafficSelector": &dcl.Property{
 								Type:          "array",
 								GoName:        "LocalTrafficSelector",

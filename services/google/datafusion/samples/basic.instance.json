@@ -18,6 +18,6 @@
     "ipAllocation": "10.89.48.0/22"
   },
   "zone": "{{zone}}",
-  "version": "6.3.0",
+  "version": "6.7.0",
   "displayName": "basic-instance"
 }

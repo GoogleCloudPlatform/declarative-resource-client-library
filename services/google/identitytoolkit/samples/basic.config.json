@@ -59,7 +59,7 @@
         "senderLocalPart": "noreply",
         "subject": "You've added 2 step verification to your %APP_NAME% account.",
         "senderDisplayName": "DCL Team",
-        "body": "\u003cp\u003eHello %DISPLAY_NAME%,\u003c/p\u003e\n\u003cp\u003eYour account in %APP_NAME% has been updated with a phone number %SECOND_FACTOR% for 2-step verification.\u003c/p\u003e\n\u003cp\u003eIf you didn't add this phone number for 2-step verification, click the link below to remove it.\u003c/p\u003e\n\u003cp\u003e\u003ca href='%LINK%'\u003e%LINK%\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eThanks,\u003c/p\u003e\n\u003cp\u003eYour %APP_NAME% team\u003c/p\u003e",
+        "body": "<p>Hello %DISPLAY_NAME%,</p>\n<p>Your account in %APP_NAME% has been updated with %SECOND_FACTOR% for 2-step verification.</p>\n<p>If you didn't add this 2-step verification, click the link below to remove it.</p>\n<p><a href='%LINK%'>%LINK%</a></p>\n<p>Thanks,</p>\n<p>Your %APP_NAME% team</p>",
         "bodyFormat": "PLAIN_TEXT",
         "replyTo": "noreply"
       }

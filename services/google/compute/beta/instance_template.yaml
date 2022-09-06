@@ -632,9 +632,9 @@ components:
                     To target a SPECIFIC_RESERVATION by name, specify googleapis.com/reservation-name
                     as the key and specify the name of your reservation as its value.
                   x-kubernetes-immutable: true
-                value:
+                values:
                   type: array
-                  x-dcl-go-name: Value
+                  x-dcl-go-name: Values
                   description: Corresponds to the label values of a reservation resource.
                   x-kubernetes-immutable: true
                   x-dcl-send-empty: true

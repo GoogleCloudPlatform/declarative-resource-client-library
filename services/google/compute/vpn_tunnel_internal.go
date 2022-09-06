@@ -359,12 +359,6 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 		return rawDesired, nil
 	}
 	canonicalDesired := &VpnTunnel{}
-	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		canonicalDesired.Labels = rawInitial.Labels
-	} else {
-		canonicalDesired.Labels = rawDesired.Labels
-	}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
@@ -455,11 +449,6 @@ func canonicalizeVpnTunnelDesiredState(rawDesired, rawInitial *VpnTunnel, opts .
 }
 
 func canonicalizeVpnTunnelNewState(c *Client, rawNew, rawDesired *VpnTunnel) (*VpnTunnel, error) {
-
-	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
-		rawNew.Labels = rawDesired.Labels
-	} else {
-	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Id) && dcl.IsEmptyValueIndirect(rawDesired.Id) {
 		rawNew.Id = rawDesired.Id
@@ -617,13 +606,6 @@ func diffVpnTunnel(c *Client, desired, actual *VpnTunnel, opts ...dcl.ApplyOptio
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.Id, actual.Id, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Id")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -835,9 +817,6 @@ func expandVpnTunnel(c *Client, f *VpnTunnel) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	res := f
 	_ = res
-	if v := f.Labels; dcl.ValueShouldBeSent(v) {
-		m["labels"] = v
-	}
 	if v := f.Name; dcl.ValueShouldBeSent(v) {
 		m["name"] = v
 	}
@@ -906,7 +885,6 @@ func flattenVpnTunnel(c *Client, i interface{}, res *VpnTunnel) *VpnTunnel {
 	}
 
 	resultRes := &VpnTunnel{}
-	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	resultRes.Id = dcl.FlattenInteger(m["id"])
 	resultRes.Name = dcl.FlattenString(m["name"])
 	resultRes.Description = dcl.FlattenString(m["description"])

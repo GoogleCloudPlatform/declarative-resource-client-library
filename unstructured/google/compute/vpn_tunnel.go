@@ -44,13 +44,6 @@ func VpnTunnelToUnstructured(r *dclService.VpnTunnel) *unstructured.Resource {
 	if r.IkeVersion != nil {
 		u.Object["ikeVersion"] = *r.IkeVersion
 	}
-	if r.Labels != nil {
-		rLabels := make(map[string]interface{})
-		for k, v := range r.Labels {
-			rLabels[k] = v
-		}
-		u.Object["labels"] = rLabels
-	}
 	var rLocalTrafficSelector []interface{}
 	for _, rLocalTrafficSelectorVal := range r.LocalTrafficSelector {
 		rLocalTrafficSelector = append(rLocalTrafficSelector, rLocalTrafficSelectorVal)
@@ -137,19 +130,6 @@ func UnstructuredToVpnTunnel(u *unstructured.Resource) (*dclService.VpnTunnel, e
 			r.IkeVersion = dcl.Int64(i)
 		} else {
 			return nil, fmt.Errorf("r.IkeVersion: expected int64")
-		}
-	}
-	if _, ok := u.Object["labels"]; ok {
-		if rLabels, ok := u.Object["labels"].(map[string]interface{}); ok {
-			m := make(map[string]string)
-			for k, v := range rLabels {
-				if s, ok := v.(string); ok {
-					m[k] = s
-				}
-			}
-			r.Labels = m
-		} else {
-			return nil, fmt.Errorf("r.Labels: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["localTrafficSelector"]; ok {
