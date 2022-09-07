@@ -133,9 +133,9 @@ func GetMetadataSchema(ctx context.Context, config *dcl.Config, u *unstructured.
 	return MetadataSchemaToUnstructured(r), nil
 }
 
-func ListMetadataSchema(ctx context.Context, config *dcl.Config, project string, location string, metadatastore string) ([]*unstructured.Resource, error) {
+func ListMetadataSchema(ctx context.Context, config *dcl.Config, project string, location string, metadataStore string) ([]*unstructured.Resource, error) {
 	c := dclService.NewClient(config)
-	l, err := c.ListMetadataSchema(ctx, project, location, metadatastore)
+	l, err := c.ListMetadataSchema(ctx, project, location, metadataStore)
 	if err != nil {
 		return nil, err
 	}

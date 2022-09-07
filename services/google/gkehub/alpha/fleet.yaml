@@ -20,19 +20,19 @@ paths:
   get:
     description: The function used to get information about a Fleet
     parameters:
-    - name: Fleet
+    - name: fleet
       required: true
       description: A full instance of a Fleet
   apply:
     description: The function used to apply information about a Fleet
     parameters:
-    - name: Fleet
+    - name: fleet
       required: true
       description: A full instance of a Fleet
   delete:
     description: The function used to delete a Fleet
     parameters:
-    - name: Fleet
+    - name: fleet
       required: true
       description: A full instance of a Fleet
 components:

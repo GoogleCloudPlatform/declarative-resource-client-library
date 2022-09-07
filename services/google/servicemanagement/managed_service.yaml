@@ -20,19 +20,19 @@ paths:
   get:
     description: The function used to get information about a ManagedService
     parameters:
-    - name: ManagedService
+    - name: managedService
       required: true
       description: A full instance of a ManagedService
   apply:
     description: The function used to apply information about a ManagedService
     parameters:
-    - name: ManagedService
+    - name: managedService
       required: true
       description: A full instance of a ManagedService
   delete:
     description: The function used to delete a ManagedService
     parameters:
-    - name: ManagedService
+    - name: managedService
       required: true
       description: A full instance of a ManagedService
   deleteAll:

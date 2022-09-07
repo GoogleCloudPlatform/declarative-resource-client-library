@@ -29,7 +29,7 @@ func DCLMetadataSchemaSchema() *dcl.Schema {
 				Description: "The function used to get information about a MetadataSchema",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "MetadataSchema",
+						Name:        "metadataSchema",
 						Required:    true,
 						Description: "A full instance of a MetadataSchema",
 					},
@@ -39,7 +39,7 @@ func DCLMetadataSchemaSchema() *dcl.Schema {
 				Description: "The function used to apply information about a MetadataSchema",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "MetadataSchema",
+						Name:        "metadataSchema",
 						Required:    true,
 						Description: "A full instance of a MetadataSchema",
 					},
@@ -63,7 +63,7 @@ func DCLMetadataSchemaSchema() *dcl.Schema {
 						},
 					},
 					dcl.PathParameters{
-						Name:     "metadatastore",
+						Name:     "metadataStore",
 						Required: true,
 						Schema: &dcl.PathParametersSchema{
 							Type: "string",

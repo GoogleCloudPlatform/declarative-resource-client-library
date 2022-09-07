@@ -26,19 +26,19 @@ paths:
   get:
     description: The function used to get information about a AppleApp
     parameters:
-    - name: AppleApp
+    - name: appleApp
       required: true
       description: A full instance of a AppleApp
   apply:
     description: The function used to apply information about a AppleApp
     parameters:
-    - name: AppleApp
+    - name: appleApp
       required: true
       description: A full instance of a AppleApp
   delete:
     description: The function used to delete a AppleApp
     parameters:
-    - name: AppleApp
+    - name: appleApp
       required: true
       description: A full instance of a AppleApp
   deleteAll:

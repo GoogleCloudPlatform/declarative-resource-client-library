@@ -20,19 +20,19 @@ paths:
   get:
     description: The function used to get information about a Disk
     parameters:
-    - name: Disk
+    - name: disk
       required: true
       description: A full instance of a Disk
   apply:
     description: The function used to apply information about a Disk
     parameters:
-    - name: Disk
+    - name: disk
       required: true
       description: A full instance of a Disk
   delete:
     description: The function used to delete a Disk
     parameters:
-    - name: Disk
+    - name: disk
       required: true
       description: A full instance of a Disk
   deleteAll:

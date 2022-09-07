@@ -38,7 +38,7 @@ func DCLFirebaseProjectSchema() *dcl.Schema {
 				Description: "The function used to get information about a FirebaseProject",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "FirebaseProject",
+						Name:        "firebaseProject",
 						Required:    true,
 						Description: "A full instance of a FirebaseProject",
 					},
@@ -48,7 +48,7 @@ func DCLFirebaseProjectSchema() *dcl.Schema {
 				Description: "The function used to apply information about a FirebaseProject",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "FirebaseProject",
+						Name:        "firebaseProject",
 						Required:    true,
 						Description: "A full instance of a FirebaseProject",
 					},

@@ -20,19 +20,19 @@ paths:
   get:
     description: The function used to get information about a Snapshot
     parameters:
-    - name: Snapshot
+    - name: snapshot
       required: true
       description: A full instance of a Snapshot
   apply:
     description: The function used to apply information about a Snapshot
     parameters:
-    - name: Snapshot
+    - name: snapshot
       required: true
       description: A full instance of a Snapshot
   delete:
     description: The function used to delete a Snapshot
     parameters:
-    - name: Snapshot
+    - name: snapshot
       required: true
       description: A full instance of a Snapshot
   deleteAll:

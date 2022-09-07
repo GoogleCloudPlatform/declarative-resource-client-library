@@ -20,19 +20,19 @@ paths:
   get:
     description: The function used to get information about a MetadataStore
     parameters:
-    - name: MetadataStore
+    - name: metadataStore
       required: true
       description: A full instance of a MetadataStore
   apply:
     description: The function used to apply information about a MetadataStore
     parameters:
-    - name: MetadataStore
+    - name: metadataStore
       required: true
       description: A full instance of a MetadataStore
   delete:
     description: The function used to delete a MetadataStore
     parameters:
-    - name: MetadataStore
+    - name: metadataStore
       required: true
       description: A full instance of a MetadataStore
   deleteAll:

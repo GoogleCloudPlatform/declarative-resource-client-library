@@ -29,7 +29,7 @@ func DCLManagedServiceSchema() *dcl.Schema {
 				Description: "The function used to get information about a ManagedService",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "ManagedService",
+						Name:        "managedService",
 						Required:    true,
 						Description: "A full instance of a ManagedService",
 					},
@@ -39,7 +39,7 @@ func DCLManagedServiceSchema() *dcl.Schema {
 				Description: "The function used to apply information about a ManagedService",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "ManagedService",
+						Name:        "managedService",
 						Required:    true,
 						Description: "A full instance of a ManagedService",
 					},
@@ -49,7 +49,7 @@ func DCLManagedServiceSchema() *dcl.Schema {
 				Description: "The function used to delete a ManagedService",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "ManagedService",
+						Name:        "managedService",
 						Required:    true,
 						Description: "A full instance of a ManagedService",
 					},

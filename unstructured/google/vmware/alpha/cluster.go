@@ -153,9 +153,9 @@ func GetCluster(ctx context.Context, config *dcl.Config, u *unstructured.Resourc
 	return ClusterToUnstructured(r), nil
 }
 
-func ListCluster(ctx context.Context, config *dcl.Config, project string, location string, privatecloud string) ([]*unstructured.Resource, error) {
+func ListCluster(ctx context.Context, config *dcl.Config, project string, location string, privateCloud string) ([]*unstructured.Resource, error) {
 	c := dclService.NewClient(config)
-	l, err := c.ListCluster(ctx, project, location, privatecloud)
+	l, err := c.ListCluster(ctx, project, location, privateCloud)
 	if err != nil {
 		return nil, err
 	}

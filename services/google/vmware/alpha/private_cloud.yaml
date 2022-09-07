@@ -20,19 +20,19 @@ paths:
   get:
     description: The function used to get information about a PrivateCloud
     parameters:
-    - name: PrivateCloud
+    - name: privateCloud
       required: true
       description: A full instance of a PrivateCloud
   apply:
     description: The function used to apply information about a PrivateCloud
     parameters:
-    - name: PrivateCloud
+    - name: privateCloud
       required: true
       description: A full instance of a PrivateCloud
   delete:
     description: The function used to delete a PrivateCloud
     parameters:
-    - name: PrivateCloud
+    - name: privateCloud
       required: true
       description: A full instance of a PrivateCloud
   deleteAll:

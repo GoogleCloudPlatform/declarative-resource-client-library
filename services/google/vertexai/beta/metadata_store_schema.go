@@ -29,7 +29,7 @@ func DCLMetadataStoreSchema() *dcl.Schema {
 				Description: "The function used to get information about a MetadataStore",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "MetadataStore",
+						Name:        "metadataStore",
 						Required:    true,
 						Description: "A full instance of a MetadataStore",
 					},
@@ -39,7 +39,7 @@ func DCLMetadataStoreSchema() *dcl.Schema {
 				Description: "The function used to apply information about a MetadataStore",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "MetadataStore",
+						Name:        "metadataStore",
 						Required:    true,
 						Description: "A full instance of a MetadataStore",
 					},
@@ -49,7 +49,7 @@ func DCLMetadataStoreSchema() *dcl.Schema {
 				Description: "The function used to delete a MetadataStore",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "MetadataStore",
+						Name:        "metadataStore",
 						Required:    true,
 						Description: "A full instance of a MetadataStore",
 					},

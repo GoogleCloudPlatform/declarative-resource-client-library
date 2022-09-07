@@ -29,7 +29,7 @@ func DCLEndpointSchema() *dcl.Schema {
 				Description: "The function used to get information about a Endpoint",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Endpoint",
+						Name:        "endpoint",
 						Required:    true,
 						Description: "A full instance of a Endpoint",
 					},
@@ -39,7 +39,7 @@ func DCLEndpointSchema() *dcl.Schema {
 				Description: "The function used to apply information about a Endpoint",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Endpoint",
+						Name:        "endpoint",
 						Required:    true,
 						Description: "A full instance of a Endpoint",
 					},
@@ -49,7 +49,7 @@ func DCLEndpointSchema() *dcl.Schema {
 				Description: "The function used to delete a Endpoint",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Endpoint",
+						Name:        "endpoint",
 						Required:    true,
 						Description: "A full instance of a Endpoint",
 					},

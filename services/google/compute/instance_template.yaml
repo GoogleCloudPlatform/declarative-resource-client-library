@@ -20,19 +20,19 @@ paths:
   get:
     description: The function used to get information about a InstanceTemplate
     parameters:
-    - name: InstanceTemplate
+    - name: instanceTemplate
       required: true
       description: A full instance of a InstanceTemplate
   apply:
     description: The function used to apply information about a InstanceTemplate
     parameters:
-    - name: InstanceTemplate
+    - name: instanceTemplate
       required: true
       description: A full instance of a InstanceTemplate
   delete:
     description: The function used to delete a InstanceTemplate
     parameters:
-    - name: InstanceTemplate
+    - name: instanceTemplate
       required: true
       description: A full instance of a InstanceTemplate
   deleteAll:

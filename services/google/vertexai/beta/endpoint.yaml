@@ -20,19 +20,19 @@ paths:
   get:
     description: The function used to get information about a Endpoint
     parameters:
-    - name: Endpoint
+    - name: endpoint
       required: true
       description: A full instance of a Endpoint
   apply:
     description: The function used to apply information about a Endpoint
     parameters:
-    - name: Endpoint
+    - name: endpoint
       required: true
       description: A full instance of a Endpoint
   delete:
     description: The function used to delete a Endpoint
     parameters:
-    - name: Endpoint
+    - name: endpoint
       required: true
       description: A full instance of a Endpoint
   deleteAll:

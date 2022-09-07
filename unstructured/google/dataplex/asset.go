@@ -553,9 +553,9 @@ func GetAsset(ctx context.Context, config *dcl.Config, u *unstructured.Resource)
 	return AssetToUnstructured(r), nil
 }
 
-func ListAsset(ctx context.Context, config *dcl.Config, project string, location string, dataplexzone string, lake string) ([]*unstructured.Resource, error) {
+func ListAsset(ctx context.Context, config *dcl.Config, project string, location string, dataplexZone string, lake string) ([]*unstructured.Resource, error) {
 	c := dclService.NewClient(config)
-	l, err := c.ListAsset(ctx, project, location, dataplexzone, lake)
+	l, err := c.ListAsset(ctx, project, location, dataplexZone, lake)
 	if err != nil {
 		return nil, err
 	}

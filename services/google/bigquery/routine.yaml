@@ -20,19 +20,19 @@ paths:
   get:
     description: The function used to get information about a Routine
     parameters:
-    - name: Routine
+    - name: routine
       required: true
       description: A full instance of a Routine
   apply:
     description: The function used to apply information about a Routine
     parameters:
-    - name: Routine
+    - name: routine
       required: true
       description: A full instance of a Routine
   delete:
     description: The function used to delete a Routine
     parameters:
-    - name: Routine
+    - name: routine
       required: true
       description: A full instance of a Routine
   deleteAll:

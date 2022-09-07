@@ -29,7 +29,7 @@ func DCLRepositorySchema() *dcl.Schema {
 				Description: "The function used to get information about a Repository",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Repository",
+						Name:        "repository",
 						Required:    true,
 						Description: "A full instance of a Repository",
 					},
@@ -39,7 +39,7 @@ func DCLRepositorySchema() *dcl.Schema {
 				Description: "The function used to apply information about a Repository",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Repository",
+						Name:        "repository",
 						Required:    true,
 						Description: "A full instance of a Repository",
 					},
@@ -49,7 +49,7 @@ func DCLRepositorySchema() *dcl.Schema {
 				Description: "The function used to delete a Repository",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Repository",
+						Name:        "repository",
 						Required:    true,
 						Description: "A full instance of a Repository",
 					},

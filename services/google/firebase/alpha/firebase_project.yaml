@@ -26,13 +26,13 @@ paths:
   get:
     description: The function used to get information about a FirebaseProject
     parameters:
-    - name: FirebaseProject
+    - name: firebaseProject
       required: true
       description: A full instance of a FirebaseProject
   apply:
     description: The function used to apply information about a FirebaseProject
     parameters:
-    - name: FirebaseProject
+    - name: firebaseProject
       required: true
       description: A full instance of a FirebaseProject
   list:

@@ -29,7 +29,7 @@ func DCLModelDeploymentSchema() *dcl.Schema {
 				Description: "The function used to get information about a ModelDeployment",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "ModelDeployment",
+						Name:        "modelDeployment",
 						Required:    true,
 						Description: "A full instance of a ModelDeployment",
 					},
@@ -39,7 +39,7 @@ func DCLModelDeploymentSchema() *dcl.Schema {
 				Description: "The function used to apply information about a ModelDeployment",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "ModelDeployment",
+						Name:        "modelDeployment",
 						Required:    true,
 						Description: "A full instance of a ModelDeployment",
 					},
@@ -49,7 +49,7 @@ func DCLModelDeploymentSchema() *dcl.Schema {
 				Description: "The function used to delete a ModelDeployment",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "ModelDeployment",
+						Name:        "modelDeployment",
 						Required:    true,
 						Description: "A full instance of a ModelDeployment",
 					},

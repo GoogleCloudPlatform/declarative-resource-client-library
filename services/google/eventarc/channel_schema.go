@@ -29,7 +29,7 @@ func DCLChannelSchema() *dcl.Schema {
 				Description: "The function used to get information about a Channel",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Channel",
+						Name:        "channel",
 						Required:    true,
 						Description: "A full instance of a Channel",
 					},
@@ -39,7 +39,7 @@ func DCLChannelSchema() *dcl.Schema {
 				Description: "The function used to apply information about a Channel",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Channel",
+						Name:        "channel",
 						Required:    true,
 						Description: "A full instance of a Channel",
 					},
@@ -49,7 +49,7 @@ func DCLChannelSchema() *dcl.Schema {
 				Description: "The function used to delete a Channel",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Channel",
+						Name:        "channel",
 						Required:    true,
 						Description: "A full instance of a Channel",
 					},

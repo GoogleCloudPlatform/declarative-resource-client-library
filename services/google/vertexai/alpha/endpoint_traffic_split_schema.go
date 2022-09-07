@@ -29,7 +29,7 @@ func DCLEndpointTrafficSplitSchema() *dcl.Schema {
 				Description: "The function used to get information about a EndpointTrafficSplit",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "EndpointTrafficSplit",
+						Name:        "endpointTrafficSplit",
 						Required:    true,
 						Description: "A full instance of a EndpointTrafficSplit",
 					},
@@ -39,7 +39,7 @@ func DCLEndpointTrafficSplitSchema() *dcl.Schema {
 				Description: "The function used to apply information about a EndpointTrafficSplit",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "EndpointTrafficSplit",
+						Name:        "endpointTrafficSplit",
 						Required:    true,
 						Description: "A full instance of a EndpointTrafficSplit",
 					},
@@ -49,7 +49,7 @@ func DCLEndpointTrafficSplitSchema() *dcl.Schema {
 				Description: "The function used to delete a EndpointTrafficSplit",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "EndpointTrafficSplit",
+						Name:        "endpointTrafficSplit",
 						Required:    true,
 						Description: "A full instance of a EndpointTrafficSplit",
 					},

@@ -20,19 +20,19 @@ paths:
   get:
     description: The function used to get information about a Repository
     parameters:
-    - name: Repository
+    - name: repository
       required: true
       description: A full instance of a Repository
   apply:
     description: The function used to apply information about a Repository
     parameters:
-    - name: Repository
+    - name: repository
       required: true
       description: A full instance of a Repository
   delete:
     description: The function used to delete a Repository
     parameters:
-    - name: Repository
+    - name: repository
       required: true
       description: A full instance of a Repository
   deleteAll:

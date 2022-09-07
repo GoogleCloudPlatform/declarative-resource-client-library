@@ -29,7 +29,7 @@ func DCLFleetSchema() *dcl.Schema {
 				Description: "The function used to get information about a Fleet",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Fleet",
+						Name:        "fleet",
 						Required:    true,
 						Description: "A full instance of a Fleet",
 					},
@@ -39,7 +39,7 @@ func DCLFleetSchema() *dcl.Schema {
 				Description: "The function used to apply information about a Fleet",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Fleet",
+						Name:        "fleet",
 						Required:    true,
 						Description: "A full instance of a Fleet",
 					},
@@ -49,7 +49,7 @@ func DCLFleetSchema() *dcl.Schema {
 				Description: "The function used to delete a Fleet",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Fleet",
+						Name:        "fleet",
 						Required:    true,
 						Description: "A full instance of a Fleet",
 					},

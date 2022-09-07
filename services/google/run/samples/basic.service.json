@@ -11,11 +11,11 @@
     "containers": [ {
       "image": "gcr.io/cloudrun/hello",
       "env": [ {
-        "name": "FOO",
-        "value": "bar]"
+        "name": "Foo",
+        "value": "oops"
       }, {
-        "name": "oops",
-        "value": "{yay]"
+        "name": "yAy",
+        "value": "wOw"
       } ]
     } ]
   },

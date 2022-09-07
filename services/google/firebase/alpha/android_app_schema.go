@@ -38,7 +38,7 @@ func DCLAndroidAppSchema() *dcl.Schema {
 				Description: "The function used to get information about a AndroidApp",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "AndroidApp",
+						Name:        "androidApp",
 						Required:    true,
 						Description: "A full instance of a AndroidApp",
 					},
@@ -48,7 +48,7 @@ func DCLAndroidAppSchema() *dcl.Schema {
 				Description: "The function used to apply information about a AndroidApp",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "AndroidApp",
+						Name:        "androidApp",
 						Required:    true,
 						Description: "A full instance of a AndroidApp",
 					},
@@ -58,7 +58,7 @@ func DCLAndroidAppSchema() *dcl.Schema {
 				Description: "The function used to delete a AndroidApp",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "AndroidApp",
+						Name:        "androidApp",
 						Required:    true,
 						Description: "A full instance of a AndroidApp",
 					},

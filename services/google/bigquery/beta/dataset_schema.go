@@ -29,7 +29,7 @@ func DCLDatasetSchema() *dcl.Schema {
 				Description: "The function used to get information about a Dataset",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Dataset",
+						Name:        "dataset",
 						Required:    true,
 						Description: "A full instance of a Dataset",
 					},
@@ -39,7 +39,7 @@ func DCLDatasetSchema() *dcl.Schema {
 				Description: "The function used to apply information about a Dataset",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Dataset",
+						Name:        "dataset",
 						Required:    true,
 						Description: "A full instance of a Dataset",
 					},
@@ -49,7 +49,7 @@ func DCLDatasetSchema() *dcl.Schema {
 				Description: "The function used to delete a Dataset",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Dataset",
+						Name:        "dataset",
 						Required:    true,
 						Description: "A full instance of a Dataset",
 					},

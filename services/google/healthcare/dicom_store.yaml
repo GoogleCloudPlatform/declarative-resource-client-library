@@ -20,19 +20,19 @@ paths:
   get:
     description: The function used to get information about a DicomStore
     parameters:
-    - name: DicomStore
+    - name: dicomStore
       required: true
       description: A full instance of a DicomStore
   apply:
     description: The function used to apply information about a DicomStore
     parameters:
-    - name: DicomStore
+    - name: dicomStore
       required: true
       description: A full instance of a DicomStore
   delete:
     description: The function used to delete a DicomStore
     parameters:
-    - name: DicomStore
+    - name: dicomStore
       required: true
       description: A full instance of a DicomStore
   deleteAll:

@@ -29,7 +29,7 @@ func DCLVpnTunnelSchema() *dcl.Schema {
 				Description: "The function used to get information about a VpnTunnel",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "VpnTunnel",
+						Name:        "vpnTunnel",
 						Required:    true,
 						Description: "A full instance of a VpnTunnel",
 					},
@@ -39,7 +39,7 @@ func DCLVpnTunnelSchema() *dcl.Schema {
 				Description: "The function used to apply information about a VpnTunnel",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "VpnTunnel",
+						Name:        "vpnTunnel",
 						Required:    true,
 						Description: "A full instance of a VpnTunnel",
 					},
@@ -49,7 +49,7 @@ func DCLVpnTunnelSchema() *dcl.Schema {
 				Description: "The function used to delete a VpnTunnel",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "VpnTunnel",
+						Name:        "vpnTunnel",
 						Required:    true,
 						Description: "A full instance of a VpnTunnel",
 					},

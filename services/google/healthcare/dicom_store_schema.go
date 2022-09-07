@@ -29,7 +29,7 @@ func DCLDicomStoreSchema() *dcl.Schema {
 				Description: "The function used to get information about a DicomStore",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "DicomStore",
+						Name:        "dicomStore",
 						Required:    true,
 						Description: "A full instance of a DicomStore",
 					},
@@ -39,7 +39,7 @@ func DCLDicomStoreSchema() *dcl.Schema {
 				Description: "The function used to apply information about a DicomStore",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "DicomStore",
+						Name:        "dicomStore",
 						Required:    true,
 						Description: "A full instance of a DicomStore",
 					},
@@ -49,7 +49,7 @@ func DCLDicomStoreSchema() *dcl.Schema {
 				Description: "The function used to delete a DicomStore",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "DicomStore",
+						Name:        "dicomStore",
 						Required:    true,
 						Description: "A full instance of a DicomStore",
 					},

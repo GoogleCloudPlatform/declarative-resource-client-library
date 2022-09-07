@@ -20,19 +20,19 @@ paths:
   get:
     description: The function used to get information about a Channel
     parameters:
-    - name: Channel
+    - name: channel
       required: true
       description: A full instance of a Channel
   apply:
     description: The function used to apply information about a Channel
     parameters:
-    - name: Channel
+    - name: channel
       required: true
       description: A full instance of a Channel
   delete:
     description: The function used to delete a Channel
     parameters:
-    - name: Channel
+    - name: channel
       required: true
       description: A full instance of a Channel
   deleteAll:

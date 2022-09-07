@@ -38,7 +38,7 @@ func DCLAppleAppSchema() *dcl.Schema {
 				Description: "The function used to get information about a AppleApp",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "AppleApp",
+						Name:        "appleApp",
 						Required:    true,
 						Description: "A full instance of a AppleApp",
 					},
@@ -48,7 +48,7 @@ func DCLAppleAppSchema() *dcl.Schema {
 				Description: "The function used to apply information about a AppleApp",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "AppleApp",
+						Name:        "appleApp",
 						Required:    true,
 						Description: "A full instance of a AppleApp",
 					},
@@ -58,7 +58,7 @@ func DCLAppleAppSchema() *dcl.Schema {
 				Description: "The function used to delete a AppleApp",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "AppleApp",
+						Name:        "appleApp",
 						Required:    true,
 						Description: "A full instance of a AppleApp",
 					},

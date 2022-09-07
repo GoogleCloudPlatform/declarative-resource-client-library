@@ -26,19 +26,19 @@ paths:
   get:
     description: The function used to get information about a WebApp
     parameters:
-    - name: WebApp
+    - name: webApp
       required: true
       description: A full instance of a WebApp
   apply:
     description: The function used to apply information about a WebApp
     parameters:
-    - name: WebApp
+    - name: webApp
       required: true
       description: A full instance of a WebApp
   delete:
     description: The function used to delete a WebApp
     parameters:
-    - name: WebApp
+    - name: webApp
       required: true
       description: A full instance of a WebApp
   deleteAll:

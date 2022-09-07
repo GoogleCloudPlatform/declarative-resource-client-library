@@ -38,7 +38,7 @@ func DCLWebAppSchema() *dcl.Schema {
 				Description: "The function used to get information about a WebApp",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "WebApp",
+						Name:        "webApp",
 						Required:    true,
 						Description: "A full instance of a WebApp",
 					},
@@ -48,7 +48,7 @@ func DCLWebAppSchema() *dcl.Schema {
 				Description: "The function used to apply information about a WebApp",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "WebApp",
+						Name:        "webApp",
 						Required:    true,
 						Description: "A full instance of a WebApp",
 					},
@@ -58,7 +58,7 @@ func DCLWebAppSchema() *dcl.Schema {
 				Description: "The function used to delete a WebApp",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "WebApp",
+						Name:        "webApp",
 						Required:    true,
 						Description: "A full instance of a WebApp",
 					},

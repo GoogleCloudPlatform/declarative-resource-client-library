@@ -26,19 +26,19 @@ paths:
   get:
     description: The function used to get information about a AndroidApp
     parameters:
-    - name: AndroidApp
+    - name: androidApp
       required: true
       description: A full instance of a AndroidApp
   apply:
     description: The function used to apply information about a AndroidApp
     parameters:
-    - name: AndroidApp
+    - name: androidApp
       required: true
       description: A full instance of a AndroidApp
   delete:
     description: The function used to delete a AndroidApp
     parameters:
-    - name: AndroidApp
+    - name: androidApp
       required: true
       description: A full instance of a AndroidApp
   deleteAll:

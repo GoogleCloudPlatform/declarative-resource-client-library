@@ -20,19 +20,19 @@ paths:
   get:
     description: The function used to get information about a EndpointTrafficSplit
     parameters:
-    - name: EndpointTrafficSplit
+    - name: endpointTrafficSplit
       required: true
       description: A full instance of a EndpointTrafficSplit
   apply:
     description: The function used to apply information about a EndpointTrafficSplit
     parameters:
-    - name: EndpointTrafficSplit
+    - name: endpointTrafficSplit
       required: true
       description: A full instance of a EndpointTrafficSplit
   delete:
     description: The function used to delete a EndpointTrafficSplit
     parameters:
-    - name: EndpointTrafficSplit
+    - name: endpointTrafficSplit
       required: true
       description: A full instance of a EndpointTrafficSplit
 components:

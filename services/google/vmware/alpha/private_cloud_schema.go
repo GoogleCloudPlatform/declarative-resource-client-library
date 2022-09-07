@@ -30,7 +30,7 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 				Description: "The function used to get information about a PrivateCloud",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "PrivateCloud",
+						Name:        "privateCloud",
 						Required:    true,
 						Description: "A full instance of a PrivateCloud",
 					},
@@ -40,7 +40,7 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 				Description: "The function used to apply information about a PrivateCloud",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "PrivateCloud",
+						Name:        "privateCloud",
 						Required:    true,
 						Description: "A full instance of a PrivateCloud",
 					},
@@ -50,7 +50,7 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 				Description: "The function used to delete a PrivateCloud",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "PrivateCloud",
+						Name:        "privateCloud",
 						Required:    true,
 						Description: "A full instance of a PrivateCloud",
 					},

@@ -29,7 +29,7 @@ func DCLGoogleChannelConfigSchema() *dcl.Schema {
 				Description: "The function used to get information about a GoogleChannelConfig",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "GoogleChannelConfig",
+						Name:        "googleChannelConfig",
 						Required:    true,
 						Description: "A full instance of a GoogleChannelConfig",
 					},
@@ -39,7 +39,7 @@ func DCLGoogleChannelConfigSchema() *dcl.Schema {
 				Description: "The function used to apply information about a GoogleChannelConfig",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "GoogleChannelConfig",
+						Name:        "googleChannelConfig",
 						Required:    true,
 						Description: "A full instance of a GoogleChannelConfig",
 					},
@@ -49,7 +49,7 @@ func DCLGoogleChannelConfigSchema() *dcl.Schema {
 				Description: "The function used to delete a GoogleChannelConfig",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "GoogleChannelConfig",
+						Name:        "googleChannelConfig",
 						Required:    true,
 						Description: "A full instance of a GoogleChannelConfig",
 					},

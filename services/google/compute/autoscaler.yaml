@@ -20,19 +20,19 @@ paths:
   get:
     description: The function used to get information about a Autoscaler
     parameters:
-    - name: Autoscaler
+    - name: autoscaler
       required: true
       description: A full instance of a Autoscaler
   apply:
     description: The function used to apply information about a Autoscaler
     parameters:
-    - name: Autoscaler
+    - name: autoscaler
       required: true
       description: A full instance of a Autoscaler
   delete:
     description: The function used to delete a Autoscaler
     parameters:
-    - name: Autoscaler
+    - name: autoscaler
       required: true
       description: A full instance of a Autoscaler
   deleteAll:

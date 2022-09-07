@@ -29,7 +29,7 @@ func DCLConnectionSchema() *dcl.Schema {
 				Description: "The function used to get information about a Connection",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Connection",
+						Name:        "connection",
 						Required:    true,
 						Description: "A full instance of a Connection",
 					},
@@ -39,7 +39,7 @@ func DCLConnectionSchema() *dcl.Schema {
 				Description: "The function used to apply information about a Connection",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Connection",
+						Name:        "connection",
 						Required:    true,
 						Description: "A full instance of a Connection",
 					},
@@ -49,7 +49,7 @@ func DCLConnectionSchema() *dcl.Schema {
 				Description: "The function used to delete a Connection",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Connection",
+						Name:        "connection",
 						Required:    true,
 						Description: "A full instance of a Connection",
 					},

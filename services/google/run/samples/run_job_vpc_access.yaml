@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 name: run_job_vpc_access
-description: A Cloud Run Job with labels and annotations using API v2
+description: A Cloud Run Job with vpc access using API v2
 type: job
 versions:
 - alpha

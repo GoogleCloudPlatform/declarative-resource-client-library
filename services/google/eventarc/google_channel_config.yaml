@@ -20,19 +20,19 @@ paths:
   get:
     description: The function used to get information about a GoogleChannelConfig
     parameters:
-    - name: GoogleChannelConfig
+    - name: googleChannelConfig
       required: true
       description: A full instance of a GoogleChannelConfig
   apply:
     description: The function used to apply information about a GoogleChannelConfig
     parameters:
-    - name: GoogleChannelConfig
+    - name: googleChannelConfig
       required: true
       description: A full instance of a GoogleChannelConfig
   delete:
     description: The function used to delete a GoogleChannelConfig
     parameters:
-    - name: GoogleChannelConfig
+    - name: googleChannelConfig
       required: true
       description: A full instance of a GoogleChannelConfig
 components:

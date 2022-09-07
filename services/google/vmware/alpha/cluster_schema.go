@@ -29,7 +29,7 @@ func DCLClusterSchema() *dcl.Schema {
 				Description: "The function used to get information about a Cluster",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Cluster",
+						Name:        "cluster",
 						Required:    true,
 						Description: "A full instance of a Cluster",
 					},
@@ -39,7 +39,7 @@ func DCLClusterSchema() *dcl.Schema {
 				Description: "The function used to apply information about a Cluster",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Cluster",
+						Name:        "cluster",
 						Required:    true,
 						Description: "A full instance of a Cluster",
 					},
@@ -49,7 +49,7 @@ func DCLClusterSchema() *dcl.Schema {
 				Description: "The function used to delete a Cluster",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Cluster",
+						Name:        "cluster",
 						Required:    true,
 						Description: "A full instance of a Cluster",
 					},
@@ -73,7 +73,7 @@ func DCLClusterSchema() *dcl.Schema {
 						},
 					},
 					dcl.PathParameters{
-						Name:     "privatecloud",
+						Name:     "privateCloud",
 						Required: true,
 						Schema: &dcl.PathParametersSchema{
 							Type: "string",
@@ -99,7 +99,7 @@ func DCLClusterSchema() *dcl.Schema {
 						},
 					},
 					dcl.PathParameters{
-						Name:     "privatecloud",
+						Name:     "privateCloud",
 						Required: true,
 						Schema: &dcl.PathParametersSchema{
 							Type: "string",

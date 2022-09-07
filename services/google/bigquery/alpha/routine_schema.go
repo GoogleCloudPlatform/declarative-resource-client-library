@@ -29,7 +29,7 @@ func DCLRoutineSchema() *dcl.Schema {
 				Description: "The function used to get information about a Routine",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Routine",
+						Name:        "routine",
 						Required:    true,
 						Description: "A full instance of a Routine",
 					},
@@ -39,7 +39,7 @@ func DCLRoutineSchema() *dcl.Schema {
 				Description: "The function used to apply information about a Routine",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Routine",
+						Name:        "routine",
 						Required:    true,
 						Description: "A full instance of a Routine",
 					},
@@ -49,7 +49,7 @@ func DCLRoutineSchema() *dcl.Schema {
 				Description: "The function used to delete a Routine",
 				Parameters: []dcl.PathParameters{
 					dcl.PathParameters{
-						Name:        "Routine",
+						Name:        "routine",
 						Required:    true,
 						Description: "A full instance of a Routine",
 					},
