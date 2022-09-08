@@ -65,12 +65,24 @@ func ProtoToClouddeployBetaTargetExecutionConfigs(p *betapb.ClouddeployBetaTarge
 		return nil
 	}
 	obj := &beta.TargetExecutionConfigs{
-		WorkerPool:      dcl.StringOrNil(p.GetWorkerPool()),
-		ServiceAccount:  dcl.StringOrNil(p.GetServiceAccount()),
-		ArtifactStorage: dcl.StringOrNil(p.GetArtifactStorage()),
+		WorkerPool:       dcl.StringOrNil(p.GetWorkerPool()),
+		ServiceAccount:   dcl.StringOrNil(p.GetServiceAccount()),
+		ArtifactStorage:  dcl.StringOrNil(p.GetArtifactStorage()),
+		ExecutionTimeout: dcl.StringOrNil(p.GetExecutionTimeout()),
 	}
 	for _, r := range p.GetUsages() {
 		obj.Usages = append(obj.Usages, *ProtoToClouddeployBetaTargetExecutionConfigsUsagesEnum(r))
+	}
+	return obj
+}
+
+// ProtoToTargetRun converts a TargetRun object from its proto representation.
+func ProtoToClouddeployBetaTargetRun(p *betapb.ClouddeployBetaTargetRun) *beta.TargetRun {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.TargetRun{
+		Location: dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -90,6 +102,7 @@ func ProtoToTarget(p *betapb.ClouddeployBetaTarget) *beta.Target {
 		Etag:            dcl.StringOrNil(p.GetEtag()),
 		Project:         dcl.StringOrNil(p.GetProject()),
 		Location:        dcl.StringOrNil(p.GetLocation()),
+		Run:             ProtoToClouddeployBetaTargetRun(p.GetRun()),
 	}
 	for _, r := range p.GetExecutionConfigs() {
 		obj.ExecutionConfigs = append(obj.ExecutionConfigs, *ProtoToClouddeployBetaTargetExecutionConfigs(r))
@@ -138,11 +151,22 @@ func ClouddeployBetaTargetExecutionConfigsToProto(o *beta.TargetExecutionConfigs
 	p.SetWorkerPool(dcl.ValueOrEmptyString(o.WorkerPool))
 	p.SetServiceAccount(dcl.ValueOrEmptyString(o.ServiceAccount))
 	p.SetArtifactStorage(dcl.ValueOrEmptyString(o.ArtifactStorage))
+	p.SetExecutionTimeout(dcl.ValueOrEmptyString(o.ExecutionTimeout))
 	sUsages := make([]betapb.ClouddeployBetaTargetExecutionConfigsUsagesEnum, len(o.Usages))
 	for i, r := range o.Usages {
 		sUsages[i] = betapb.ClouddeployBetaTargetExecutionConfigsUsagesEnum(betapb.ClouddeployBetaTargetExecutionConfigsUsagesEnum_value[string(r)])
 	}
 	p.SetUsages(sUsages)
+	return p
+}
+
+// TargetRunToProto converts a TargetRun object to its proto representation.
+func ClouddeployBetaTargetRunToProto(o *beta.TargetRun) *betapb.ClouddeployBetaTargetRun {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ClouddeployBetaTargetRun{}
+	p.SetLocation(dcl.ValueOrEmptyString(o.Location))
 	return p
 }
 
@@ -161,6 +185,7 @@ func TargetToProto(resource *beta.Target) *betapb.ClouddeployBetaTarget {
 	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetRun(ClouddeployBetaTargetRunToProto(resource.Run))
 	mAnnotations := make(map[string]string, len(resource.Annotations))
 	for k, r := range resource.Annotations {
 		mAnnotations[k] = r

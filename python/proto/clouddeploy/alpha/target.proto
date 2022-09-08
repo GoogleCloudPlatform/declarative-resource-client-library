@@ -44,6 +44,7 @@ message ClouddeployAlphaTarget {
   repeated ClouddeployAlphaTargetExecutionConfigs execution_configs = 13;
   string project = 14;
   string location = 15;
+  ClouddeployAlphaTargetRun run = 16;
 }
 
 message ClouddeployAlphaTargetGke {
@@ -60,6 +61,11 @@ message ClouddeployAlphaTargetExecutionConfigs {
   string worker_pool = 2;
   string service_account = 3;
   string artifact_storage = 4;
+  string execution_timeout = 5;
+}
+
+message ClouddeployAlphaTargetRun {
+  string location = 1;
 }
 
 message ApplyClouddeployAlphaTargetRequest {

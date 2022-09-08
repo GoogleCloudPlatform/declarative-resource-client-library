@@ -65,12 +65,24 @@ func ProtoToClouddeployAlphaTargetExecutionConfigs(p *alphapb.ClouddeployAlphaTa
 		return nil
 	}
 	obj := &alpha.TargetExecutionConfigs{
-		WorkerPool:      dcl.StringOrNil(p.GetWorkerPool()),
-		ServiceAccount:  dcl.StringOrNil(p.GetServiceAccount()),
-		ArtifactStorage: dcl.StringOrNil(p.GetArtifactStorage()),
+		WorkerPool:       dcl.StringOrNil(p.GetWorkerPool()),
+		ServiceAccount:   dcl.StringOrNil(p.GetServiceAccount()),
+		ArtifactStorage:  dcl.StringOrNil(p.GetArtifactStorage()),
+		ExecutionTimeout: dcl.StringOrNil(p.GetExecutionTimeout()),
 	}
 	for _, r := range p.GetUsages() {
 		obj.Usages = append(obj.Usages, *ProtoToClouddeployAlphaTargetExecutionConfigsUsagesEnum(r))
+	}
+	return obj
+}
+
+// ProtoToTargetRun converts a TargetRun object from its proto representation.
+func ProtoToClouddeployAlphaTargetRun(p *alphapb.ClouddeployAlphaTargetRun) *alpha.TargetRun {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.TargetRun{
+		Location: dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -90,6 +102,7 @@ func ProtoToTarget(p *alphapb.ClouddeployAlphaTarget) *alpha.Target {
 		Etag:            dcl.StringOrNil(p.GetEtag()),
 		Project:         dcl.StringOrNil(p.GetProject()),
 		Location:        dcl.StringOrNil(p.GetLocation()),
+		Run:             ProtoToClouddeployAlphaTargetRun(p.GetRun()),
 	}
 	for _, r := range p.GetExecutionConfigs() {
 		obj.ExecutionConfigs = append(obj.ExecutionConfigs, *ProtoToClouddeployAlphaTargetExecutionConfigs(r))
@@ -138,11 +151,22 @@ func ClouddeployAlphaTargetExecutionConfigsToProto(o *alpha.TargetExecutionConfi
 	p.SetWorkerPool(dcl.ValueOrEmptyString(o.WorkerPool))
 	p.SetServiceAccount(dcl.ValueOrEmptyString(o.ServiceAccount))
 	p.SetArtifactStorage(dcl.ValueOrEmptyString(o.ArtifactStorage))
+	p.SetExecutionTimeout(dcl.ValueOrEmptyString(o.ExecutionTimeout))
 	sUsages := make([]alphapb.ClouddeployAlphaTargetExecutionConfigsUsagesEnum, len(o.Usages))
 	for i, r := range o.Usages {
 		sUsages[i] = alphapb.ClouddeployAlphaTargetExecutionConfigsUsagesEnum(alphapb.ClouddeployAlphaTargetExecutionConfigsUsagesEnum_value[string(r)])
 	}
 	p.SetUsages(sUsages)
+	return p
+}
+
+// TargetRunToProto converts a TargetRun object to its proto representation.
+func ClouddeployAlphaTargetRunToProto(o *alpha.TargetRun) *alphapb.ClouddeployAlphaTargetRun {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ClouddeployAlphaTargetRun{}
+	p.SetLocation(dcl.ValueOrEmptyString(o.Location))
 	return p
 }
 
@@ -161,6 +185,7 @@ func TargetToProto(resource *alpha.Target) *alphapb.ClouddeployAlphaTarget {
 	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetRun(ClouddeployAlphaTargetRunToProto(resource.Run))
 	mAnnotations := make(map[string]string, len(resource.Annotations))
 	for k, r := range resource.Annotations {
 		mAnnotations[k] = r

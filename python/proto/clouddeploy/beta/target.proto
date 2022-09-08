@@ -44,6 +44,7 @@ message ClouddeployBetaTarget {
   repeated ClouddeployBetaTargetExecutionConfigs execution_configs = 13;
   string project = 14;
   string location = 15;
+  ClouddeployBetaTargetRun run = 16;
 }
 
 message ClouddeployBetaTargetGke {
@@ -60,6 +61,11 @@ message ClouddeployBetaTargetExecutionConfigs {
   string worker_pool = 2;
   string service_account = 3;
   string artifact_storage = 4;
+  string execution_timeout = 5;
+}
+
+message ClouddeployBetaTargetRun {
+  string location = 1;
 }
 
 message ApplyClouddeployBetaTargetRequest {
