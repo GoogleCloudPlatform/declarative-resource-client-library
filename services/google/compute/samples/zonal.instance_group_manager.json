@@ -26,7 +26,6 @@
   "updatePolicy": {
     "type": "OPPORTUNISTIC",
     "minimalAction": "RESTART",
-    "mostDisruptiveAllowedAction": "RESTART",
     "maxSurge": {
       "percent": 33
     },

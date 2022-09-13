@@ -25,7 +25,6 @@
     "type": "PROACTIVE",
     "instanceRedistributionType": "NONE",
     "minimalAction": "RESTART",
-    "mostDisruptiveAllowedAction": "RESTART",
     "maxSurge": {
       "fixed": 0
     },
@@ -44,16 +43,6 @@
     "preservedState": {
       "disks": {
         "sample-disk": {
-          "autoDelete": "ON_PERMANENT_INSTANCE_DELETION"
-        }
-      },
-      "internalIPs": {
-        "nic0": {
-          "autoDelete": "ON_PERMANENT_INSTANCE_DELETION"
-        }
-      },
-      "externalIPs": {
-        "nic0": {
           "autoDelete": "ON_PERMANENT_INSTANCE_DELETION"
         }
       }

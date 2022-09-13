@@ -36,9 +36,6 @@
           "crlSign": true,
           "certSign": true
         }
-      },
-      "extendedKeyUsage": {
-        "serverAuth": true
       }
     },
     "publicKey": {

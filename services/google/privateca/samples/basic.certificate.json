@@ -33,9 +33,6 @@
         "baseKeyUsage": {
           "crlSign": true
         }
-      },
-      "extendedKeyUsage": {
-        "serverAuth": true
       }
     },
     "publicKey": {

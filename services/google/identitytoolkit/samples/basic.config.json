@@ -104,11 +104,6 @@
       "beforeCreate": {
         "functionUri": "{{ref:first.cloudfunctions.function.json:httpsTrigger.url}}"
       }
-    },
-    "forwardInboundCredentials": {
-      "idToken": true,
-      "accessToken": true,
-      "refereshToken": true
     }
   }
 }

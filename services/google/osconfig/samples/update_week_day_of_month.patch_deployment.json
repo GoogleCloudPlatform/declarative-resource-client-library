@@ -26,7 +26,6 @@
       "excludes": ["zsh"]
     },
     "goo": {
-      "enabled": false
     },
     "zypper": {
       "withOptional": true,

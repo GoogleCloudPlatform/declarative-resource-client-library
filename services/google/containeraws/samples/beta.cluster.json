@@ -6,8 +6,7 @@
   "networking": {
     "vpcId": "{{aws_vpc}}",
     "podAddressCidrBlocks": ["10.2.0.0/16"],
-    "serviceAddressCidrBlocks": ["10.1.0.0/16"],
-    "serviceLoadBalancerSubnetIds": ["{{aws_subnet}}"]
+    "serviceAddressCidrBlocks": ["10.1.0.0/16"]
   },
   "awsRegion": "{{aws_region}}",
   "controlPlane": {

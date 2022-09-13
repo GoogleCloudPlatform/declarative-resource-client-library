@@ -49,16 +49,6 @@
           "emailProtection": true,
           "timeStamping": true
         }
-      },
-      "extendedKeyUsage": {
-        "serverAuth": true,
-        "clientAuth": true,
-        "codeSigning": true,
-        "emailProtection": true,
-        "timeStamping": true,
-        "ocspSigning": true,
-        "emailProtection": true,
-        "timeStamping": true
       }
     },
     "publicKey": {

@@ -25,7 +25,6 @@
     "type": "OPPORTUNISTIC",
     "instanceRedistributionType": "NONE",
     "minimalAction": "REPLACE",
-    "mostDisruptiveAllowedAction": "REPLACE",
     "maxSurge": {
       "fixed": 1
     },
@@ -44,16 +43,6 @@
     "preservedState": {
       "disks": {
         "sample-disk": {
-          "autoDelete": "NEVER"
-        }
-      },
-      "internalIPs": {
-        "nic0": {
-          "autoDelete": "NEVER"
-        }
-      },
-      "externalIPs": {
-        "nic0": {
           "autoDelete": "NEVER"
         }
       }

@@ -70,16 +70,6 @@
             "objectIdPath": [1, 2, 3, 4, 5, 5]
           }
         ]
-      },
-      "extendedKeyUsage": {
-        "serverAuth": true,
-        "clientAuth": true,
-        "codeSigning": true,
-        "emailProtection": true,
-        "timeStamping": true,
-        "ocspSigning": true,
-        "emailProtection": true,
-        "timeStamping": true
       }
     },
     "publicKey": {

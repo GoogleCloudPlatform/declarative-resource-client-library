@@ -26,7 +26,6 @@
       "excludes": ["bash"]
     },
     "goo": {
-      "enabled": true
     },
     "zypper": {
       "withOptional": false,
