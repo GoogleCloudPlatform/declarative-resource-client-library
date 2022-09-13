@@ -23,9 +23,9 @@ import "proto/empty.proto";
 
 enum NetworkservicesAlphaGatewayTypeEnum {
   NetworkservicesAlphaGatewayTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  NetworkservicesAlphaGatewayTypeEnumMATCH_TYPE_UNSPECIFIED = 1;
-  NetworkservicesAlphaGatewayTypeEnumMATCH_ANY = 2;
-  NetworkservicesAlphaGatewayTypeEnumMATCH_ALL = 3;
+  NetworkservicesAlphaGatewayTypeEnumTYPE_UNSPECIFIED = 1;
+  NetworkservicesAlphaGatewayTypeEnumOPEN_MESH = 2;
+  NetworkservicesAlphaGatewayTypeEnumSECURE_WEB_GATEWAY = 3;
 }
 
 message NetworkservicesAlphaGateway {

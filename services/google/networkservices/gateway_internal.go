@@ -736,8 +736,8 @@ func (r *Gateway) urlNormalized() *Gateway {
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Scope = dcl.SelfLinkToName(r.Scope)
-	normalized.ServerTlsPolicy = dcl.SelfLinkToName(r.ServerTlsPolicy)
-	normalized.AuthorizationPolicy = dcl.SelfLinkToName(r.AuthorizationPolicy)
+	normalized.ServerTlsPolicy = r.ServerTlsPolicy
+	normalized.AuthorizationPolicy = r.AuthorizationPolicy
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	normalized.SelfLink = dcl.SelfLinkToName(r.SelfLink)

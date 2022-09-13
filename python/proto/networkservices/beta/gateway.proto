@@ -23,9 +23,9 @@ import "proto/empty.proto";
 
 enum NetworkservicesBetaGatewayTypeEnum {
   NetworkservicesBetaGatewayTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  NetworkservicesBetaGatewayTypeEnumMATCH_TYPE_UNSPECIFIED = 1;
-  NetworkservicesBetaGatewayTypeEnumMATCH_ANY = 2;
-  NetworkservicesBetaGatewayTypeEnumMATCH_ALL = 3;
+  NetworkservicesBetaGatewayTypeEnumTYPE_UNSPECIFIED = 1;
+  NetworkservicesBetaGatewayTypeEnumOPEN_MESH = 2;
+  NetworkservicesBetaGatewayTypeEnumSECURE_WEB_GATEWAY = 3;
 }
 
 message NetworkservicesBetaGateway {
