@@ -114,7 +114,7 @@ func (s *ProjectServer) ListCloudresourcemanagerProject(ctx context.Context, req
 		return nil, err
 	}
 
-	resources, err := cl.ListProject(ctx)
+	resources, err := cl.ListProject(ctx, request.GetParent())
 	if err != nil {
 		return nil, err
 	}

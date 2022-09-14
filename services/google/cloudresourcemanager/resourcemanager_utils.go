@@ -24,11 +24,6 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
-// The project is already effectively deleted if it's in DELETE_REQUESTED state.
-func projectDeletePrecondition(r *Project) bool {
-	return *r.LifecycleState == *ProjectLifecycleStateEnumRef("DELETE_REQUESTED")
-}
-
 func (r *Folder) createURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
@@ -123,6 +118,29 @@ func (op *updateFolderMoveFolderOperation) do(ctx context.Context, r *Folder, c 
 	}
 
 	return nil
+}
+
+// The project is already effectively deleted if it's in DELETE_REQUESTED state.
+func projectDeletePrecondition(r *Project) bool {
+	return *r.LifecycleState == *ProjectLifecycleStateEnumRef("DELETE_REQUESTED")
+}
+
+// Project's list endpoint has a custom url method to use the filter query parameters.
+func (r *Project) listURL(userBasePath string) (string, error) {
+	parentParts := strings.Split(dcl.ValueOrEmptyString(r.Parent), "/")
+	var parentType, parentID string
+	if len(parentParts) == 2 {
+		parentType = strings.TrimSuffix(parentParts[0], "s")
+		parentID = parentParts[1]
+		u, err := dcl.AddQueryParams("https://cloudresourcemanager.googleapis.com/v1/projects", map[string]string{
+			"filter": fmt.Sprintf("parent.type=%s parent.id=%s", parentType, parentID),
+		})
+		if err != nil {
+			return "", err
+		}
+		return u, nil
+	}
+	return "https://cloudresourcemanager.googleapis.com/v1/projects", nil
 }
 
 // expandProjectParent expands an instance of ProjectParent into a JSON

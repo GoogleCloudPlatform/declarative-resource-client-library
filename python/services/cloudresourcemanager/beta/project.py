@@ -91,12 +91,14 @@ class Project(object):
         response = stub.DeleteCloudresourcemanagerBetaProject(request)
 
     @classmethod
-    def list(self, service_account_file=""):
+    def list(self, parent, service_account_file=""):
         stub = project_pb2_grpc.CloudresourcemanagerBetaProjectServiceStub(
             channel.Channel()
         )
         request = project_pb2.ListCloudresourcemanagerBetaProjectRequest()
         request.service_account_file = service_account_file
+        request.Parent = parent
+
         return stub.ListCloudresourcemanagerBetaProject(request).items
 
     def to_proto(self):
