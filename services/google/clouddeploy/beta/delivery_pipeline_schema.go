@@ -265,6 +265,27 @@ func DCLDeliveryPipelineSchema() *dcl.Schema {
 														GoType: "string",
 													},
 												},
+												"strategy": &dcl.Property{
+													Type:        "object",
+													GoName:      "Strategy",
+													GoType:      "DeliveryPipelineSerialPipelineStagesStrategy",
+													Description: "Optional. The strategy to use for a `Rollout` to this stage.",
+													Properties: map[string]*dcl.Property{
+														"standard": &dcl.Property{
+															Type:        "object",
+															GoName:      "Standard",
+															GoType:      "DeliveryPipelineSerialPipelineStagesStrategyStandard",
+															Description: "Standard deployment strategy executes a single deploy and allows verifying the deployment.",
+															Properties: map[string]*dcl.Property{
+																"verify": &dcl.Property{
+																	Type:        "boolean",
+																	GoName:      "Verify",
+																	Description: "Whether to verify a deployment.",
+																},
+															},
+														},
+													},
+												},
 												"targetId": &dcl.Property{
 													Type:        "string",
 													GoName:      "TargetId",

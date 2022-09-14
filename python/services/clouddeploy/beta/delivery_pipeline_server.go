@@ -43,9 +43,32 @@ func ProtoToClouddeployBetaDeliveryPipelineSerialPipelineStages(p *betapb.Cloudd
 	}
 	obj := &beta.DeliveryPipelineSerialPipelineStages{
 		TargetId: dcl.StringOrNil(p.GetTargetId()),
+		Strategy: ProtoToClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategy(p.GetStrategy()),
 	}
 	for _, r := range p.GetProfiles() {
 		obj.Profiles = append(obj.Profiles, r)
+	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesStrategy converts a DeliveryPipelineSerialPipelineStagesStrategy object from its proto representation.
+func ProtoToClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategy(p *betapb.ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategy) *beta.DeliveryPipelineSerialPipelineStagesStrategy {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.DeliveryPipelineSerialPipelineStagesStrategy{
+		Standard: ProtoToClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyStandard(p.GetStandard()),
+	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesStrategyStandard converts a DeliveryPipelineSerialPipelineStagesStrategyStandard object from its proto representation.
+func ProtoToClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyStandard(p *betapb.ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyStandard) *beta.DeliveryPipelineSerialPipelineStagesStrategyStandard {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.DeliveryPipelineSerialPipelineStagesStrategyStandard{
+		Verify: dcl.Bool(p.GetVerify()),
 	}
 	return obj
 }
@@ -128,11 +151,32 @@ func ClouddeployBetaDeliveryPipelineSerialPipelineStagesToProto(o *beta.Delivery
 	}
 	p := &betapb.ClouddeployBetaDeliveryPipelineSerialPipelineStages{}
 	p.SetTargetId(dcl.ValueOrEmptyString(o.TargetId))
+	p.SetStrategy(ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyToProto(o.Strategy))
 	sProfiles := make([]string, len(o.Profiles))
 	for i, r := range o.Profiles {
 		sProfiles[i] = r
 	}
 	p.SetProfiles(sProfiles)
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesStrategyToProto converts a DeliveryPipelineSerialPipelineStagesStrategy object to its proto representation.
+func ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyToProto(o *beta.DeliveryPipelineSerialPipelineStagesStrategy) *betapb.ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategy {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategy{}
+	p.SetStandard(ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyStandardToProto(o.Standard))
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesStrategyStandardToProto converts a DeliveryPipelineSerialPipelineStagesStrategyStandard object to its proto representation.
+func ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyStandardToProto(o *beta.DeliveryPipelineSerialPipelineStagesStrategyStandard) *betapb.ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyStandard {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyStandard{}
+	p.SetVerify(dcl.ValueOrEmptyBool(o.Verify))
 	return p
 }
 

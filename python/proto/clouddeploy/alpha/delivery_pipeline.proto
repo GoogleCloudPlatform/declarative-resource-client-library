@@ -44,6 +44,15 @@ message ClouddeployAlphaDeliveryPipelineSerialPipeline {
 message ClouddeployAlphaDeliveryPipelineSerialPipelineStages {
   string target_id = 1;
   repeated string profiles = 2;
+  ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategy strategy = 3;
+}
+
+message ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategy {
+  ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandard standard = 1;
+}
+
+message ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandard {
+  bool verify = 1;
 }
 
 message ClouddeployAlphaDeliveryPipelineCondition {

@@ -148,15 +148,10 @@ enum ContaineranalysisBetaNotePackageDistributionArchitectureEnum {
 
 enum ContaineranalysisBetaNotePackageDistributionLatestVersionKindEnum {
   ContaineranalysisBetaNotePackageDistributionLatestVersionKindEnumNO_VALUE_DO_NOT_USE = 0;
-  ContaineranalysisBetaNotePackageDistributionLatestVersionKindEnumNOTE_KIND_UNSPECIFIED = 1;
-  ContaineranalysisBetaNotePackageDistributionLatestVersionKindEnumVULNERABILITY = 2;
-  ContaineranalysisBetaNotePackageDistributionLatestVersionKindEnumBUILD = 3;
-  ContaineranalysisBetaNotePackageDistributionLatestVersionKindEnumIMAGE = 4;
-  ContaineranalysisBetaNotePackageDistributionLatestVersionKindEnumPACKAGE = 5;
-  ContaineranalysisBetaNotePackageDistributionLatestVersionKindEnumDEPLOYMENT = 6;
-  ContaineranalysisBetaNotePackageDistributionLatestVersionKindEnumDISCOVERY = 7;
-  ContaineranalysisBetaNotePackageDistributionLatestVersionKindEnumATTESTATION = 8;
-  ContaineranalysisBetaNotePackageDistributionLatestVersionKindEnumUPGRADE = 9;
+  ContaineranalysisBetaNotePackageDistributionLatestVersionKindEnumVERSION_KIND_UNSPECIFIED = 1;
+  ContaineranalysisBetaNotePackageDistributionLatestVersionKindEnumNORMAL = 2;
+  ContaineranalysisBetaNotePackageDistributionLatestVersionKindEnumMINIMUM = 3;
+  ContaineranalysisBetaNotePackageDistributionLatestVersionKindEnumMAXIMUM = 4;
 }
 
 enum ContaineranalysisBetaNoteDiscoveryAnalysisKindEnum {

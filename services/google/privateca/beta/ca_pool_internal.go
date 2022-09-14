@@ -2041,7 +2041,6 @@ func canonicalizeNewCaPoolIssuancePolicyBaselineValuesCaOptions(c *Client, des, 
 	if dcl.BoolCanonicalize(des.IsCa, nw.IsCa) {
 		nw.IsCa = des.IsCa
 	}
-	nw.MaxIssuerPathLength = des.MaxIssuerPathLength
 
 	return nw
 }
