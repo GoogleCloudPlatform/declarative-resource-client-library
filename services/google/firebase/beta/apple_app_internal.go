@@ -796,6 +796,7 @@ type appleAppDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         appleAppApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToAppleAppDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]appleAppDiff, error) {
@@ -815,7 +816,8 @@ func convertFieldDiffsToAppleAppDiffs(config *dcl.Config, fds []*dcl.FieldDiff, 
 	var diffs []appleAppDiff
 	// For each operation name, create a appleAppDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := appleAppDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := appleAppDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

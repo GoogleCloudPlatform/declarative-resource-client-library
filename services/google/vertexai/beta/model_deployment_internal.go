@@ -1142,6 +1142,7 @@ type modelDeploymentDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         modelDeploymentApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToModelDeploymentDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]modelDeploymentDiff, error) {
@@ -1161,7 +1162,8 @@ func convertFieldDiffsToModelDeploymentDiffs(config *dcl.Config, fds []*dcl.Fiel
 	var diffs []modelDeploymentDiff
 	// For each operation name, create a modelDeploymentDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := modelDeploymentDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := modelDeploymentDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

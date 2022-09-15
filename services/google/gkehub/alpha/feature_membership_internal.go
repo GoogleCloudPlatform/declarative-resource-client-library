@@ -1294,7 +1294,7 @@ func diffFeatureMembership(c *Client, desired, actual *FeatureMembership, opts .
 	var fn dcl.FieldName
 	var newDiffs []*dcl.FieldDiff
 	// New style diffs.
-	if ds, err := dcl.Diff(desired.Configmanagement, actual.Configmanagement, dcl.DiffInfo{ObjectFunction: compareFeatureMembershipConfigmanagementNewStyle, EmptyObject: EmptyFeatureMembershipConfigmanagement, OperationSelector: dcl.TriggersOperation("updateFeatureMembershipUpdateFeatureMembershipOperation")}, fn.AddNest("Configmanagement")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Configmanagement, actual.Configmanagement, dcl.DiffInfo{MergeNestedDiffs: true, ObjectFunction: compareFeatureMembershipConfigmanagementNewStyle, EmptyObject: EmptyFeatureMembershipConfigmanagement, OperationSelector: dcl.TriggersOperation("updateFeatureMembershipUpdateFeatureMembershipOperation")}, fn.AddNest("Configmanagement")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2795,6 +2795,7 @@ type featureMembershipDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         featureMembershipApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToFeatureMembershipDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]featureMembershipDiff, error) {
@@ -2814,7 +2815,8 @@ func convertFieldDiffsToFeatureMembershipDiffs(config *dcl.Config, fds []*dcl.Fi
 	var diffs []featureMembershipDiff
 	// For each operation name, create a featureMembershipDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := featureMembershipDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := featureMembershipDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

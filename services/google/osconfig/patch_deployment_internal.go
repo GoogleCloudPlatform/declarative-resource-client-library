@@ -10070,6 +10070,7 @@ type patchDeploymentDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         patchDeploymentApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToPatchDeploymentDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]patchDeploymentDiff, error) {
@@ -10089,7 +10090,8 @@ func convertFieldDiffsToPatchDeploymentDiffs(config *dcl.Config, fds []*dcl.Fiel
 	var diffs []patchDeploymentDiff
 	// For each operation name, create a patchDeploymentDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := patchDeploymentDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := patchDeploymentDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

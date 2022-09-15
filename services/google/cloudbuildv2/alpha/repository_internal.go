@@ -692,6 +692,7 @@ type repositoryDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         repositoryApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToRepositoryDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]repositoryDiff, error) {
@@ -711,7 +712,8 @@ func convertFieldDiffsToRepositoryDiffs(config *dcl.Config, fds []*dcl.FieldDiff
 	var diffs []repositoryDiff
 	// For each operation name, create a repositoryDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := repositoryDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := repositoryDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

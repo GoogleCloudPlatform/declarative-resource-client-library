@@ -2848,6 +2848,7 @@ type deliveryPipelineDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         deliveryPipelineApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToDeliveryPipelineDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]deliveryPipelineDiff, error) {
@@ -2867,7 +2868,8 @@ func convertFieldDiffsToDeliveryPipelineDiffs(config *dcl.Config, fds []*dcl.Fie
 	var diffs []deliveryPipelineDiff
 	// For each operation name, create a deliveryPipelineDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := deliveryPipelineDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := deliveryPipelineDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

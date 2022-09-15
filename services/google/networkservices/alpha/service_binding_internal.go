@@ -669,6 +669,7 @@ type serviceBindingDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         serviceBindingApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToServiceBindingDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]serviceBindingDiff, error) {
@@ -688,7 +689,8 @@ func convertFieldDiffsToServiceBindingDiffs(config *dcl.Config, fds []*dcl.Field
 	var diffs []serviceBindingDiff
 	// For each operation name, create a serviceBindingDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := serviceBindingDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := serviceBindingDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

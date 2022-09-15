@@ -1319,28 +1319,28 @@ func compareRoutineArgumentsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateRoutinePatchRoutineOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ArgumentKind, actual.ArgumentKind, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArgumentKind")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArgumentKind, actual.ArgumentKind, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateRoutinePatchRoutineOperation")}, fn.AddNest("ArgumentKind")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Mode, actual.Mode, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateRoutinePatchRoutineOperation")}, fn.AddNest("Mode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.DataType, actual.DataType, dcl.DiffInfo{ObjectFunction: compareRoutineArgumentsDataTypeNewStyle, EmptyObject: EmptyRoutineArgumentsDataType, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DataType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.DataType, actual.DataType, dcl.DiffInfo{ObjectFunction: compareRoutineArgumentsDataTypeNewStyle, EmptyObject: EmptyRoutineArgumentsDataType, OperationSelector: dcl.TriggersOperation("updateRoutinePatchRoutineOperation")}, fn.AddNest("DataType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1369,21 +1369,21 @@ func compareRoutineArgumentsDataTypeNewStyle(d, a interface{}, fn dcl.FieldName)
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.TypeKind, actual.TypeKind, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("TypeKind")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.TypeKind, actual.TypeKind, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateRoutinePatchRoutineOperation")}, fn.AddNest("TypeKind")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ArrayElementType, actual.ArrayElementType, dcl.DiffInfo{ObjectFunction: compareRoutineArgumentsDataTypeNewStyle, EmptyObject: EmptyRoutineArgumentsDataType, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ArrayElementType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ArrayElementType, actual.ArrayElementType, dcl.DiffInfo{ObjectFunction: compareRoutineArgumentsDataTypeNewStyle, EmptyObject: EmptyRoutineArgumentsDataType, OperationSelector: dcl.TriggersOperation("updateRoutinePatchRoutineOperation")}, fn.AddNest("ArrayElementType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.StructType, actual.StructType, dcl.DiffInfo{ObjectFunction: compareRoutineArgumentsDataTypeStructTypeNewStyle, EmptyObject: EmptyRoutineArgumentsDataTypeStructType, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StructType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StructType, actual.StructType, dcl.DiffInfo{ObjectFunction: compareRoutineArgumentsDataTypeStructTypeNewStyle, EmptyObject: EmptyRoutineArgumentsDataTypeStructType, OperationSelector: dcl.TriggersOperation("updateRoutinePatchRoutineOperation")}, fn.AddNest("StructType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1412,7 +1412,7 @@ func compareRoutineArgumentsDataTypeStructTypeNewStyle(d, a interface{}, fn dcl.
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Fields, actual.Fields, dcl.DiffInfo{ObjectFunction: compareRoutineArgumentsDataTypeStructTypeFieldsNewStyle, EmptyObject: EmptyRoutineArgumentsDataTypeStructTypeFields, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fields")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Fields, actual.Fields, dcl.DiffInfo{ObjectFunction: compareRoutineArgumentsDataTypeStructTypeFieldsNewStyle, EmptyObject: EmptyRoutineArgumentsDataTypeStructTypeFields, OperationSelector: dcl.TriggersOperation("updateRoutinePatchRoutineOperation")}, fn.AddNest("Fields")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1441,14 +1441,14 @@ func compareRoutineArgumentsDataTypeStructTypeFieldsNewStyle(d, a interface{}, f
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Name, actual.Name, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateRoutinePatchRoutineOperation")}, fn.AddNest("Name")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.DiffInfo{ObjectFunction: compareRoutineArgumentsDataTypeNewStyle, EmptyObject: EmptyRoutineArgumentsDataType, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.DiffInfo{ObjectFunction: compareRoutineArgumentsDataTypeNewStyle, EmptyObject: EmptyRoutineArgumentsDataType, OperationSelector: dcl.TriggersOperation("updateRoutinePatchRoutineOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2468,6 +2468,7 @@ type routineDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         routineApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToRoutineDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]routineDiff, error) {
@@ -2487,7 +2488,8 @@ func convertFieldDiffsToRoutineDiffs(config *dcl.Config, fds []*dcl.FieldDiff, o
 	var diffs []routineDiff
 	// For each operation name, create a routineDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := routineDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := routineDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

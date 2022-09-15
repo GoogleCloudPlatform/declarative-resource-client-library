@@ -757,6 +757,7 @@ type realmDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         realmApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToRealmDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]realmDiff, error) {
@@ -776,7 +777,8 @@ func convertFieldDiffsToRealmDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opt
 	var diffs []realmDiff
 	// For each operation name, create a realmDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := realmDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := realmDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

@@ -2844,6 +2844,7 @@ type privateCloudDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         privateCloudApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToPrivateCloudDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]privateCloudDiff, error) {
@@ -2863,7 +2864,8 @@ func convertFieldDiffsToPrivateCloudDiffs(config *dcl.Config, fds []*dcl.FieldDi
 	var diffs []privateCloudDiff
 	// For each operation name, create a privateCloudDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := privateCloudDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := privateCloudDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

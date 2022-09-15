@@ -10124,6 +10124,7 @@ type guestPolicyDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         guestPolicyApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToGuestPolicyDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]guestPolicyDiff, error) {
@@ -10143,7 +10144,8 @@ func convertFieldDiffsToGuestPolicyDiffs(config *dcl.Config, fds []*dcl.FieldDif
 	var diffs []guestPolicyDiff
 	// For each operation name, create a guestPolicyDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := guestPolicyDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := guestPolicyDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

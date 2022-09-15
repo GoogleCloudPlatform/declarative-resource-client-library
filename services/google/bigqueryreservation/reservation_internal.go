@@ -700,6 +700,7 @@ type reservationDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         reservationApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToReservationDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]reservationDiff, error) {
@@ -719,7 +720,8 @@ func convertFieldDiffsToReservationDiffs(config *dcl.Config, fds []*dcl.FieldDif
 	var diffs []reservationDiff
 	// For each operation name, create a reservationDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := reservationDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := reservationDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

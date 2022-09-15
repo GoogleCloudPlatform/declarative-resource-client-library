@@ -102,15 +102,13 @@ func DCLRoutineSchema() *dcl.Schema {
 						GoName:      "DataType",
 						GoType:      "RoutineArgumentsDataType",
 						Description: "Required unless argument_kind = ANY_TYPE.",
-						Immutable:   true,
 						Required: []string{
 							"typeKind",
 						},
 						Properties: map[string]*dcl.Property{
 							"arrayElementType": &dcl.Property{
-								Ref:       "#/components/schemas/ArgumentsDataType",
-								GoName:    "ArrayElementType",
-								Immutable: true,
+								Ref:    "#/components/schemas/ArgumentsDataType",
+								GoName: "ArrayElementType",
 								Conflicts: []string{
 									"structType",
 								},
@@ -120,7 +118,6 @@ func DCLRoutineSchema() *dcl.Schema {
 								GoName:      "StructType",
 								GoType:      "RoutineArgumentsDataTypeStructType",
 								Description: "The fields of this struct, in order, if type_kind = \"STRUCT\".",
-								Immutable:   true,
 								Conflicts: []string{
 									"arrayElementType",
 								},
@@ -128,7 +125,6 @@ func DCLRoutineSchema() *dcl.Schema {
 									"fields": &dcl.Property{
 										Type:      "array",
 										GoName:    "Fields",
-										Immutable: true,
 										SendEmpty: true,
 										ListType:  "list",
 										Items: &dcl.Property{
@@ -139,12 +135,10 @@ func DCLRoutineSchema() *dcl.Schema {
 													Type:        "string",
 													GoName:      "Name",
 													Description: "Optional. The name of this field. Can be absent for struct fields.",
-													Immutable:   true,
 												},
 												"type": &dcl.Property{
-													Ref:       "#/components/schemas/ArgumentsDataType",
-													GoName:    "Type",
-													Immutable: true,
+													Ref:    "#/components/schemas/ArgumentsDataType",
+													GoName: "Type",
 												},
 											},
 										},
@@ -156,7 +150,6 @@ func DCLRoutineSchema() *dcl.Schema {
 								GoName:      "TypeKind",
 								GoType:      "RoutineArgumentsDataTypeTypeKindEnum",
 								Description: "Required. The top level type of this field. Can be any standard SQL data type (e.g., \"INT64\", \"DATE\", \"ARRAY\"). Possible values: TYPE_KIND_UNSPECIFIED, INT64, BOOL, FLOAT64, STRING, BYTES, TIMESTAMP, DATE, TIME, DATETIME, INTERVAL, GEOGRAPHY, NUMERIC, BIGNUMERIC, JSON, ARRAY, STRUCT",
-								Immutable:   true,
 								Enum: []string{
 									"TYPE_KIND_UNSPECIFIED",
 									"INT64",
@@ -217,9 +210,8 @@ func DCLRoutineSchema() *dcl.Schema {
 											},
 										},
 										"dataType": &dcl.Property{
-											Ref:       "#/components/schemas/ArgumentsDataType",
-											GoName:    "DataType",
-											Immutable: true,
+											Ref:    "#/components/schemas/ArgumentsDataType",
+											GoName: "DataType",
 										},
 										"mode": &dcl.Property{
 											Type:        "string",

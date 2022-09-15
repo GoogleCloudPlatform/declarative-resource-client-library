@@ -751,6 +751,7 @@ type webAppDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         webAppApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToWebAppDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]webAppDiff, error) {
@@ -770,7 +771,8 @@ func convertFieldDiffsToWebAppDiffs(config *dcl.Config, fds []*dcl.FieldDiff, op
 	var diffs []webAppDiff
 	// For each operation name, create a webAppDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := webAppDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := webAppDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

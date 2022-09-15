@@ -69,14 +69,12 @@ components:
       x-dcl-go-name: DataType
       x-dcl-go-type: RoutineArgumentsDataType
       description: Required unless argument_kind = ANY_TYPE.
-      x-kubernetes-immutable: true
       required:
       - typeKind
       properties:
         arrayElementType:
           $ref: '#/components/schemas/ArgumentsDataType'
           x-dcl-go-name: ArrayElementType
-          x-kubernetes-immutable: true
           x-dcl-conflicts:
           - structType
         structType:
@@ -84,14 +82,12 @@ components:
           x-dcl-go-name: StructType
           x-dcl-go-type: RoutineArgumentsDataTypeStructType
           description: The fields of this struct, in order, if type_kind = "STRUCT".
-          x-kubernetes-immutable: true
           x-dcl-conflicts:
           - arrayElementType
           properties:
             fields:
               type: array
               x-dcl-go-name: Fields
-              x-kubernetes-immutable: true
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -103,11 +99,9 @@ components:
                     x-dcl-go-name: Name
                     description: Optional. The name of this field. Can be absent for
                       struct fields.
-                    x-kubernetes-immutable: true
                   type:
                     $ref: '#/components/schemas/ArgumentsDataType'
                     x-dcl-go-name: Type
-                    x-kubernetes-immutable: true
         typeKind:
           type: string
           x-dcl-go-name: TypeKind
@@ -116,7 +110,6 @@ components:
             SQL data type (e.g., "INT64", "DATE", "ARRAY"). Possible values: TYPE_KIND_UNSPECIFIED,
             INT64, BOOL, FLOAT64, STRING, BYTES, TIMESTAMP, DATE, TIME, DATETIME,
             INTERVAL, GEOGRAPHY, NUMERIC, BIGNUMERIC, JSON, ARRAY, STRUCT'
-          x-kubernetes-immutable: true
           enum:
           - TYPE_KIND_UNSPECIFIED
           - INT64
@@ -175,7 +168,6 @@ components:
               dataType:
                 $ref: '#/components/schemas/ArgumentsDataType'
                 x-dcl-go-name: DataType
-                x-kubernetes-immutable: true
               mode:
                 type: string
                 x-dcl-go-name: Mode

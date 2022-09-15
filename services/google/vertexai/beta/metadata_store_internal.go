@@ -1190,6 +1190,7 @@ type metadataStoreDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         metadataStoreApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToMetadataStoreDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]metadataStoreDiff, error) {
@@ -1209,7 +1210,8 @@ func convertFieldDiffsToMetadataStoreDiffs(config *dcl.Config, fds []*dcl.FieldD
 	var diffs []metadataStoreDiff
 	// For each operation name, create a metadataStoreDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := metadataStoreDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := metadataStoreDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

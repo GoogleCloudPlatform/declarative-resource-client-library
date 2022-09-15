@@ -1767,14 +1767,14 @@ func compareFeatureSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Multiclusteringress, actual.Multiclusteringress, dcl.DiffInfo{ObjectFunction: compareFeatureSpecMulticlusteringressNewStyle, EmptyObject: EmptyFeatureSpecMulticlusteringress, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Multiclusteringress")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Multiclusteringress, actual.Multiclusteringress, dcl.DiffInfo{ObjectFunction: compareFeatureSpecMulticlusteringressNewStyle, EmptyObject: EmptyFeatureSpecMulticlusteringress, OperationSelector: dcl.TriggersOperation("updateFeatureUpdateFeatureOperation")}, fn.AddNest("Multiclusteringress")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Cloudauditlogging, actual.Cloudauditlogging, dcl.DiffInfo{ObjectFunction: compareFeatureSpecCloudauditloggingNewStyle, EmptyObject: EmptyFeatureSpecCloudauditlogging, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Cloudauditlogging")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Cloudauditlogging, actual.Cloudauditlogging, dcl.DiffInfo{ObjectFunction: compareFeatureSpecCloudauditloggingNewStyle, EmptyObject: EmptyFeatureSpecCloudauditlogging, OperationSelector: dcl.TriggersOperation("updateFeatureUpdateFeatureOperation")}, fn.AddNest("Cloudauditlogging")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1803,7 +1803,7 @@ func compareFeatureSpecMulticlusteringressNewStyle(d, a interface{}, fn dcl.Fiel
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.ConfigMembership, actual.ConfigMembership, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ConfigMembership")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConfigMembership, actual.ConfigMembership, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateFeatureUpdateFeatureOperation")}, fn.AddNest("ConfigMembership")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1832,7 +1832,7 @@ func compareFeatureSpecCloudauditloggingNewStyle(d, a interface{}, fn dcl.FieldN
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.AllowlistedServiceAccounts, actual.AllowlistedServiceAccounts, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("AllowlistedServiceAccounts")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.AllowlistedServiceAccounts, actual.AllowlistedServiceAccounts, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateFeatureUpdateFeatureOperation")}, fn.AddNest("AllowlistedServiceAccounts")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3528,6 +3528,7 @@ type featureDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         featureApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToFeatureDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]featureDiff, error) {
@@ -3547,7 +3548,8 @@ func convertFieldDiffsToFeatureDiffs(config *dcl.Config, fds []*dcl.FieldDiff, o
 	var diffs []featureDiff
 	// For each operation name, create a featureDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := featureDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := featureDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

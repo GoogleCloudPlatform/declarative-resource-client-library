@@ -1331,6 +1331,7 @@ type serviceAccountDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         serviceAccountApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToServiceAccountDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]serviceAccountDiff, error) {
@@ -1350,7 +1351,8 @@ func convertFieldDiffsToServiceAccountDiffs(config *dcl.Config, fds []*dcl.Field
 	var diffs []serviceAccountDiff
 	// For each operation name, create a serviceAccountDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := serviceAccountDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := serviceAccountDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

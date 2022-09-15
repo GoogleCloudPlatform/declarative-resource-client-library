@@ -3101,6 +3101,7 @@ type endpointDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         endpointApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToEndpointDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]endpointDiff, error) {
@@ -3120,7 +3121,8 @@ func convertFieldDiffsToEndpointDiffs(config *dcl.Config, fds []*dcl.FieldDiff, 
 	var diffs []endpointDiff
 	// For each operation name, create a endpointDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := endpointDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := endpointDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

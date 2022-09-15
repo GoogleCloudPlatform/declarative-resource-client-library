@@ -735,6 +735,7 @@ type androidAppDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         androidAppApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToAndroidAppDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]androidAppDiff, error) {
@@ -754,7 +755,8 @@ func convertFieldDiffsToAndroidAppDiffs(config *dcl.Config, fds []*dcl.FieldDiff
 	var diffs []androidAppDiff
 	// For each operation name, create a androidAppDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := androidAppDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := androidAppDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

@@ -652,6 +652,7 @@ type fleetDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         fleetApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToFleetDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]fleetDiff, error) {
@@ -671,7 +672,8 @@ func convertFieldDiffsToFleetDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opt
 	var diffs []fleetDiff
 	// For each operation name, create a fleetDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := fleetDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := fleetDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

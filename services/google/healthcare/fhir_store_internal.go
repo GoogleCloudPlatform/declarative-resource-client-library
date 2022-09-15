@@ -2515,6 +2515,7 @@ type fhirStoreDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         fhirStoreApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToFhirStoreDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]fhirStoreDiff, error) {
@@ -2534,7 +2535,8 @@ func convertFieldDiffsToFhirStoreDiffs(config *dcl.Config, fds []*dcl.FieldDiff,
 	var diffs []fhirStoreDiff
 	// For each operation name, create a fhirStoreDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := fhirStoreDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := fhirStoreDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

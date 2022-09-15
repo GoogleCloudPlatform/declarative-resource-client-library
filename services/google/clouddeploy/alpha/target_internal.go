@@ -2225,6 +2225,7 @@ type targetDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         targetApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToTargetDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]targetDiff, error) {
@@ -2244,7 +2245,8 @@ func convertFieldDiffsToTargetDiffs(config *dcl.Config, fds []*dcl.FieldDiff, op
 	var diffs []targetDiff
 	// For each operation name, create a targetDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := targetDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := targetDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

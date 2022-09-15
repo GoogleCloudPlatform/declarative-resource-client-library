@@ -7268,6 +7268,7 @@ type instanceGroupManagerDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         instanceGroupManagerApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToInstanceGroupManagerDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]instanceGroupManagerDiff, error) {
@@ -7287,7 +7288,8 @@ func convertFieldDiffsToInstanceGroupManagerDiffs(config *dcl.Config, fds []*dcl
 	var diffs []instanceGroupManagerDiff
 	// For each operation name, create a instanceGroupManagerDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := instanceGroupManagerDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := instanceGroupManagerDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

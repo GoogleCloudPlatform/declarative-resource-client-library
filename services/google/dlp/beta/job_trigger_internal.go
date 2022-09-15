@@ -20349,6 +20349,7 @@ type jobTriggerDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         jobTriggerApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToJobTriggerDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]jobTriggerDiff, error) {
@@ -20368,7 +20369,8 @@ func convertFieldDiffsToJobTriggerDiffs(config *dcl.Config, fds []*dcl.FieldDiff
 	var diffs []jobTriggerDiff
 	// For each operation name, create a jobTriggerDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := jobTriggerDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := jobTriggerDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

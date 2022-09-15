@@ -115,6 +115,7 @@ func ProtoToTrigger(p *betapb.EventarcBetaTrigger) *beta.Trigger {
 		Etag:           dcl.StringOrNil(p.GetEtag()),
 		Project:        dcl.StringOrNil(p.GetProject()),
 		Location:       dcl.StringOrNil(p.GetLocation()),
+		Channel:        dcl.StringOrNil(p.GetChannel()),
 	}
 	for _, r := range p.GetMatchingCriteria() {
 		obj.MatchingCriteria = append(obj.MatchingCriteria, *ProtoToEventarcBetaTriggerMatchingCriteria(r))
@@ -207,6 +208,7 @@ func TriggerToProto(resource *beta.Trigger) *betapb.EventarcBetaTrigger {
 	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetChannel(dcl.ValueOrEmptyString(resource.Channel))
 	sMatchingCriteria := make([]*betapb.EventarcBetaTriggerMatchingCriteria, len(resource.MatchingCriteria))
 	for i, r := range resource.MatchingCriteria {
 		sMatchingCriteria[i] = EventarcBetaTriggerMatchingCriteriaToProto(&r)
@@ -217,6 +219,11 @@ func TriggerToProto(resource *beta.Trigger) *betapb.EventarcBetaTrigger {
 		mLabels[k] = r
 	}
 	p.SetLabels(mLabels)
+	mConditions := make(map[string]string, len(resource.Conditions))
+	for k, r := range resource.Conditions {
+		mConditions[k] = r
+	}
+	p.SetConditions(mConditions)
 
 	return p
 }

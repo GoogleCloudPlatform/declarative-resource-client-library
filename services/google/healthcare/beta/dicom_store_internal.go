@@ -958,6 +958,7 @@ type dicomStoreDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         dicomStoreApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToDicomStoreDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]dicomStoreDiff, error) {
@@ -977,7 +978,8 @@ func convertFieldDiffsToDicomStoreDiffs(config *dcl.Config, fds []*dcl.FieldDiff
 	var diffs []dicomStoreDiff
 	// For each operation name, create a dicomStoreDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := dicomStoreDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := dicomStoreDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

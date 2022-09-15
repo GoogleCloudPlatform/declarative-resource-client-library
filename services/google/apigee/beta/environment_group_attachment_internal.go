@@ -578,6 +578,7 @@ type environmentGroupAttachmentDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         environmentGroupAttachmentApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToEnvironmentGroupAttachmentDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]environmentGroupAttachmentDiff, error) {
@@ -597,7 +598,8 @@ func convertFieldDiffsToEnvironmentGroupAttachmentDiffs(config *dcl.Config, fds 
 	var diffs []environmentGroupAttachmentDiff
 	// For each operation name, create a environmentGroupAttachmentDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := environmentGroupAttachmentDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := environmentGroupAttachmentDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

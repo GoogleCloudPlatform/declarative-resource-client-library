@@ -5993,6 +5993,7 @@ type clusterDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         clusterApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToClusterDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]clusterDiff, error) {
@@ -6012,7 +6013,8 @@ func convertFieldDiffsToClusterDiffs(config *dcl.Config, fds []*dcl.FieldDiff, o
 	var diffs []clusterDiff
 	// For each operation name, create a clusterDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := clusterDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := clusterDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

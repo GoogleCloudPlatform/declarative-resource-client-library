@@ -33,6 +33,8 @@ class Trigger(object):
         etag: str = None,
         project: str = None,
         location: str = None,
+        channel: str = None,
+        conditions: dict = None,
         service_account_file: str = "",
     ):
 
@@ -45,6 +47,7 @@ class Trigger(object):
         self.labels = labels
         self.project = project
         self.location = location
+        self.channel = channel
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -81,6 +84,9 @@ class Trigger(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
+        if Primitive.to_proto(self.channel):
+            request.resource.channel = Primitive.to_proto(self.channel)
+
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyEventarcAlphaTrigger(request)
@@ -98,6 +104,8 @@ class Trigger(object):
         self.etag = Primitive.from_proto(response.etag)
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
+        self.channel = Primitive.from_proto(response.channel)
+        self.conditions = Primitive.from_proto(response.conditions)
 
     def delete(self):
         stub = trigger_pb2_grpc.EventarcAlphaTriggerServiceStub(channel.Channel())
@@ -133,6 +141,9 @@ class Trigger(object):
 
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
+
+        if Primitive.to_proto(self.channel):
+            request.resource.channel = Primitive.to_proto(self.channel)
 
         response = stub.DeleteEventarcAlphaTrigger(request)
 
@@ -171,6 +182,8 @@ class Trigger(object):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):
             resource.location = Primitive.to_proto(self.location)
+        if Primitive.to_proto(self.channel):
+            resource.channel = Primitive.to_proto(self.channel)
         return resource
 
 

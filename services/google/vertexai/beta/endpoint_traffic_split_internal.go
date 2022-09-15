@@ -818,6 +818,7 @@ type endpointTrafficSplitDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         endpointTrafficSplitApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToEndpointTrafficSplitDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]endpointTrafficSplitDiff, error) {
@@ -837,7 +838,8 @@ func convertFieldDiffsToEndpointTrafficSplitDiffs(config *dcl.Config, fds []*dcl
 	var diffs []endpointTrafficSplitDiff
 	// For each operation name, create a endpointTrafficSplitDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := endpointTrafficSplitDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := endpointTrafficSplitDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

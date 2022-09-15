@@ -830,6 +830,7 @@ type httpFilterDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         httpFilterApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToHttpFilterDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]httpFilterDiff, error) {
@@ -849,7 +850,8 @@ func convertFieldDiffsToHttpFilterDiffs(config *dcl.Config, fds []*dcl.FieldDiff
 	var diffs []httpFilterDiff
 	// For each operation name, create a httpFilterDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := httpFilterDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := httpFilterDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {

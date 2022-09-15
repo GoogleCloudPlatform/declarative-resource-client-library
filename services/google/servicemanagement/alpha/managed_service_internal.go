@@ -503,6 +503,7 @@ type managedServiceDiff struct {
 	// The diff should include one or the other of RequiresRecreate or UpdateOp.
 	RequiresRecreate bool
 	UpdateOp         managedServiceApiOperation
+	FieldName        string // used for error logging
 }
 
 func convertFieldDiffsToManagedServiceDiffs(config *dcl.Config, fds []*dcl.FieldDiff, opts []dcl.ApplyOption) ([]managedServiceDiff, error) {
@@ -522,7 +523,8 @@ func convertFieldDiffsToManagedServiceDiffs(config *dcl.Config, fds []*dcl.Field
 	var diffs []managedServiceDiff
 	// For each operation name, create a managedServiceDiff which contains the operation.
 	for opName, fieldDiffs := range opNamesToFieldDiffs {
-		diff := managedServiceDiff{}
+		// Use the first field diff's field name for logging required recreate error.
+		diff := managedServiceDiff{FieldName: fieldDiffs[0].FieldName}
 		if opName == "Recreate" {
 			diff.RequiresRecreate = true
 		} else {
