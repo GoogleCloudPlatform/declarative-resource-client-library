@@ -48,6 +48,7 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterComputeManagedSslCertificateServiceServer(s, &ManagedSslCertificateServer{})
 	sdkgrpc.RegisterComputeNetworkEndpointServiceServer(s, &NetworkEndpointServer{})
 	sdkgrpc.RegisterComputeNetworkEndpointGroupServiceServer(s, &NetworkEndpointGroupServer{})
+	sdkgrpc.RegisterComputeNetworkFirewallPolicyServiceServer(s, &NetworkFirewallPolicyServer{})
 	sdkgrpc.RegisterComputeNetworkPeeringServiceServer(s, &NetworkPeeringServer{})
 	sdkgrpc.RegisterComputeReservationServiceServer(s, &ReservationServer{})
 	sdkgrpc.RegisterComputeRouterServiceServer(s, &RouterServer{})
