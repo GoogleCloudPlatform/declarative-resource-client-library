@@ -168,7 +168,7 @@ func DCLPolicySchema() *dcl.Schema {
 										GoName:      "Rules",
 										Description: "Up to 10 PolicyRules are allowed. In Policies for boolean constraints, the following requirements apply: - There must be one and only one PolicyRule where condition is unset. - BooleanPolicyRules with conditions must set `enforced` to the opposite of the PolicyRule without a condition. - During policy evaluation, PolicyRules with conditions that are true for a target resource take precedence.",
 										SendEmpty:   true,
-										ListType:    "list",
+										ListType:    "set",
 										Items: &dcl.Property{
 											Type:   "object",
 											GoType: "PolicySpecRules",

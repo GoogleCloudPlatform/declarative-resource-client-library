@@ -522,7 +522,7 @@ func canonicalizeNewPolicySpec(c *Client, des, nw *PolicySpec) *PolicySpec {
 	if dcl.StringCanonicalize(des.Etag, nw.Etag) {
 		nw.Etag = des.Etag
 	}
-	nw.Rules = canonicalizeNewPolicySpecRulesSlice(c, des.Rules, nw.Rules)
+	nw.Rules = canonicalizeNewPolicySpecRulesSet(c, des.Rules, nw.Rules)
 	if dcl.BoolCanonicalize(des.InheritFromParent, nw.InheritFromParent) {
 		nw.InheritFromParent = des.InheritFromParent
 	}
@@ -1088,7 +1088,7 @@ func comparePolicySpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Field
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Rules, actual.Rules, dcl.DiffInfo{ObjectFunction: comparePolicySpecRulesNewStyle, EmptyObject: EmptyPolicySpecRules, OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("Rules")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Rules, actual.Rules, dcl.DiffInfo{Type: "Set", ObjectFunction: comparePolicySpecRulesNewStyle, EmptyObject: EmptyPolicySpecRules, OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("Rules")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
