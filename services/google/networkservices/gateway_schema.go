@@ -100,6 +100,7 @@ func DCLGatewaySchema() *dcl.Schema {
 					Title:           "Gateway",
 					ID:              "projects/{{project}}/locations/{{location}}/gateways/{{name}}",
 					ParentContainer: "project",
+					LabelsField:     "labels",
 					HasCreate:       true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
