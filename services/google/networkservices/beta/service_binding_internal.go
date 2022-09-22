@@ -369,7 +369,8 @@ func canonicalizeServiceBindingDesiredState(rawDesired, rawInitial *ServiceBindi
 	} else {
 		canonicalDesired.Description = rawDesired.Description
 	}
-	if dcl.StringCanonicalize(rawDesired.Service, rawInitial.Service) {
+	if dcl.IsZeroValue(rawDesired.Service) || (dcl.IsEmptyValueIndirect(rawDesired.Service) && dcl.IsEmptyValueIndirect(rawInitial.Service)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Service = rawInitial.Service
 	} else {
 		canonicalDesired.Service = rawDesired.Service
@@ -425,9 +426,6 @@ func canonicalizeServiceBindingNewState(c *Client, rawNew, rawDesired *ServiceBi
 	if dcl.IsEmptyValueIndirect(rawNew.Service) && dcl.IsEmptyValueIndirect(rawDesired.Service) {
 		rawNew.Service = rawDesired.Service
 	} else {
-		if dcl.StringCanonicalize(rawDesired.Service, rawNew.Service) {
-			rawNew.Service = rawDesired.Service
-		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
@@ -488,7 +486,7 @@ func diffServiceBinding(c *Client, desired, actual *ServiceBinding, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -526,7 +524,7 @@ func (r *ServiceBinding) urlNormalized() *ServiceBinding {
 	normalized := dcl.Copy(*r).(ServiceBinding)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
-	normalized.Service = dcl.SelfLinkToName(r.Service)
+	normalized.Service = r.Service
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	return &normalized
