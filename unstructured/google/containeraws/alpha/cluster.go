@@ -203,6 +203,17 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 		}
 		u.Object["loggingConfig"] = rLoggingConfig
 	}
+	if r.MonitoringConfig != nil && r.MonitoringConfig != dclService.EmptyClusterMonitoringConfig {
+		rMonitoringConfig := make(map[string]interface{})
+		if r.MonitoringConfig.ManagedPrometheusConfig != nil && r.MonitoringConfig.ManagedPrometheusConfig != dclService.EmptyClusterMonitoringConfigManagedPrometheusConfig {
+			rMonitoringConfigManagedPrometheusConfig := make(map[string]interface{})
+			if r.MonitoringConfig.ManagedPrometheusConfig.Enabled != nil {
+				rMonitoringConfigManagedPrometheusConfig["enabled"] = *r.MonitoringConfig.ManagedPrometheusConfig.Enabled
+			}
+			rMonitoringConfig["managedPrometheusConfig"] = rMonitoringConfigManagedPrometheusConfig
+		}
+		u.Object["monitoringConfig"] = rMonitoringConfig
+	}
 	if r.Name != nil {
 		u.Object["name"] = *r.Name
 	}
@@ -612,6 +623,27 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 			}
 		} else {
 			return nil, fmt.Errorf("r.LoggingConfig: expected map[string]interface{}")
+		}
+	}
+	if _, ok := u.Object["monitoringConfig"]; ok {
+		if rMonitoringConfig, ok := u.Object["monitoringConfig"].(map[string]interface{}); ok {
+			r.MonitoringConfig = &dclService.ClusterMonitoringConfig{}
+			if _, ok := rMonitoringConfig["managedPrometheusConfig"]; ok {
+				if rMonitoringConfigManagedPrometheusConfig, ok := rMonitoringConfig["managedPrometheusConfig"].(map[string]interface{}); ok {
+					r.MonitoringConfig.ManagedPrometheusConfig = &dclService.ClusterMonitoringConfigManagedPrometheusConfig{}
+					if _, ok := rMonitoringConfigManagedPrometheusConfig["enabled"]; ok {
+						if b, ok := rMonitoringConfigManagedPrometheusConfig["enabled"].(bool); ok {
+							r.MonitoringConfig.ManagedPrometheusConfig.Enabled = dcl.Bool(b)
+						} else {
+							return nil, fmt.Errorf("r.MonitoringConfig.ManagedPrometheusConfig.Enabled: expected bool")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.MonitoringConfig.ManagedPrometheusConfig: expected map[string]interface{}")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.MonitoringConfig: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["name"]; ok {

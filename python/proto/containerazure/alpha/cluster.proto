@@ -61,6 +61,7 @@ message ContainerazureAlphaCluster {
   string location = 19;
   ContainerazureAlphaClusterFleet fleet = 20;
   ContainerazureAlphaClusterLoggingConfig logging_config = 21;
+  ContainerazureAlphaClusterMonitoringConfig monitoring_config = 22;
 }
 
 message ContainerazureAlphaClusterNetworking {
@@ -133,6 +134,14 @@ message ContainerazureAlphaClusterLoggingConfig {
 
 message ContainerazureAlphaClusterLoggingConfigComponentConfig {
   repeated ContainerazureAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum enable_components = 1;
+}
+
+message ContainerazureAlphaClusterMonitoringConfig {
+  ContainerazureAlphaClusterMonitoringConfigManagedPrometheusConfig managed_prometheus_config = 1;
+}
+
+message ContainerazureAlphaClusterMonitoringConfigManagedPrometheusConfig {
+  bool enabled = 1;
 }
 
 message ApplyContainerazureAlphaClusterRequest {

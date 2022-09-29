@@ -81,6 +81,7 @@ message ContainerawsBetaCluster {
   string location = 17;
   ContainerawsBetaClusterFleet fleet = 18;
   ContainerawsBetaClusterLoggingConfig logging_config = 19;
+  ContainerawsBetaClusterMonitoringConfig monitoring_config = 20;
 }
 
 message ContainerawsBetaClusterNetworking {
@@ -171,6 +172,14 @@ message ContainerawsBetaClusterLoggingConfig {
 
 message ContainerawsBetaClusterLoggingConfigComponentConfig {
   repeated ContainerawsBetaClusterLoggingConfigComponentConfigEnableComponentsEnum enable_components = 1;
+}
+
+message ContainerawsBetaClusterMonitoringConfig {
+  ContainerawsBetaClusterMonitoringConfigManagedPrometheusConfig managed_prometheus_config = 1;
+}
+
+message ContainerawsBetaClusterMonitoringConfigManagedPrometheusConfig {
+  bool enabled = 1;
 }
 
 message ApplyContainerawsBetaClusterRequest {

@@ -49,6 +49,7 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterComputeAlphaNetworkEndpointServiceServer(s, &NetworkEndpointServer{})
 	sdkgrpc.RegisterComputeAlphaNetworkEndpointGroupServiceServer(s, &NetworkEndpointGroupServer{})
 	sdkgrpc.RegisterComputeAlphaNetworkFirewallPolicyServiceServer(s, &NetworkFirewallPolicyServer{})
+	sdkgrpc.RegisterComputeAlphaNetworkFirewallPolicyAssociationServiceServer(s, &NetworkFirewallPolicyAssociationServer{})
 	sdkgrpc.RegisterComputeAlphaNetworkPeeringServiceServer(s, &NetworkPeeringServer{})
 	sdkgrpc.RegisterComputeAlphaReservationServiceServer(s, &ReservationServer{})
 	sdkgrpc.RegisterComputeAlphaRouterServiceServer(s, &RouterServer{})

@@ -295,6 +295,28 @@ func ProtoToContainerawsAlphaClusterLoggingConfigComponentConfig(p *alphapb.Cont
 	return obj
 }
 
+// ProtoToClusterMonitoringConfig converts a ClusterMonitoringConfig object from its proto representation.
+func ProtoToContainerawsAlphaClusterMonitoringConfig(p *alphapb.ContainerawsAlphaClusterMonitoringConfig) *alpha.ClusterMonitoringConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterMonitoringConfig{
+		ManagedPrometheusConfig: ProtoToContainerawsAlphaClusterMonitoringConfigManagedPrometheusConfig(p.GetManagedPrometheusConfig()),
+	}
+	return obj
+}
+
+// ProtoToClusterMonitoringConfigManagedPrometheusConfig converts a ClusterMonitoringConfigManagedPrometheusConfig object from its proto representation.
+func ProtoToContainerawsAlphaClusterMonitoringConfigManagedPrometheusConfig(p *alphapb.ContainerawsAlphaClusterMonitoringConfigManagedPrometheusConfig) *alpha.ClusterMonitoringConfigManagedPrometheusConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterMonitoringConfigManagedPrometheusConfig{
+		Enabled: dcl.Bool(p.GetEnabled()),
+	}
+	return obj
+}
+
 // ProtoToCluster converts a Cluster resource from its proto representation.
 func ProtoToCluster(p *alphapb.ContainerawsAlphaCluster) *alpha.Cluster {
 	obj := &alpha.Cluster{
@@ -316,6 +338,7 @@ func ProtoToCluster(p *alphapb.ContainerawsAlphaCluster) *alpha.Cluster {
 		Location:               dcl.StringOrNil(p.GetLocation()),
 		Fleet:                  ProtoToContainerawsAlphaClusterFleet(p.GetFleet()),
 		LoggingConfig:          ProtoToContainerawsAlphaClusterLoggingConfig(p.GetLoggingConfig()),
+		MonitoringConfig:       ProtoToContainerawsAlphaClusterMonitoringConfig(p.GetMonitoringConfig()),
 	}
 	return obj
 }
@@ -589,6 +612,26 @@ func ContainerawsAlphaClusterLoggingConfigComponentConfigToProto(o *alpha.Cluste
 	return p
 }
 
+// ClusterMonitoringConfigToProto converts a ClusterMonitoringConfig object to its proto representation.
+func ContainerawsAlphaClusterMonitoringConfigToProto(o *alpha.ClusterMonitoringConfig) *alphapb.ContainerawsAlphaClusterMonitoringConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerawsAlphaClusterMonitoringConfig{}
+	p.SetManagedPrometheusConfig(ContainerawsAlphaClusterMonitoringConfigManagedPrometheusConfigToProto(o.ManagedPrometheusConfig))
+	return p
+}
+
+// ClusterMonitoringConfigManagedPrometheusConfigToProto converts a ClusterMonitoringConfigManagedPrometheusConfig object to its proto representation.
+func ContainerawsAlphaClusterMonitoringConfigManagedPrometheusConfigToProto(o *alpha.ClusterMonitoringConfigManagedPrometheusConfig) *alphapb.ContainerawsAlphaClusterMonitoringConfigManagedPrometheusConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerawsAlphaClusterMonitoringConfigManagedPrometheusConfig{}
+	p.SetEnabled(dcl.ValueOrEmptyBool(o.Enabled))
+	return p
+}
+
 // ClusterToProto converts a Cluster resource to its proto representation.
 func ClusterToProto(resource *alpha.Cluster) *alphapb.ContainerawsAlphaCluster {
 	p := &alphapb.ContainerawsAlphaCluster{}
@@ -610,6 +653,7 @@ func ClusterToProto(resource *alpha.Cluster) *alphapb.ContainerawsAlphaCluster {
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetFleet(ContainerawsAlphaClusterFleetToProto(resource.Fleet))
 	p.SetLoggingConfig(ContainerawsAlphaClusterLoggingConfigToProto(resource.LoggingConfig))
+	p.SetMonitoringConfig(ContainerawsAlphaClusterMonitoringConfigToProto(resource.MonitoringConfig))
 	mAnnotations := make(map[string]string, len(resource.Annotations))
 	for k, r := range resource.Annotations {
 		mAnnotations[k] = r

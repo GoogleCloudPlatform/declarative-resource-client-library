@@ -42,6 +42,7 @@ class Cluster(object):
         location: str = None,
         fleet: dict = None,
         logging_config: dict = None,
+        monitoring_config: dict = None,
         service_account_file: str = "",
     ):
 
@@ -59,6 +60,7 @@ class Cluster(object):
         self.location = location
         self.fleet = fleet
         self.logging_config = logging_config
+        self.monitoring_config = monitoring_config
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -118,6 +120,12 @@ class Cluster(object):
             )
         else:
             request.resource.ClearField("logging_config")
+        if ClusterMonitoringConfig.to_proto(self.monitoring_config):
+            request.resource.monitoring_config.CopyFrom(
+                ClusterMonitoringConfig.to_proto(self.monitoring_config)
+            )
+        else:
+            request.resource.ClearField("monitoring_config")
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyContainerazureBetaCluster(request)
@@ -144,6 +152,9 @@ class Cluster(object):
         self.location = Primitive.from_proto(response.location)
         self.fleet = ClusterFleet.from_proto(response.fleet)
         self.logging_config = ClusterLoggingConfig.from_proto(response.logging_config)
+        self.monitoring_config = ClusterMonitoringConfig.from_proto(
+            response.monitoring_config
+        )
 
     def delete(self):
         stub = cluster_pb2_grpc.ContainerazureBetaClusterServiceStub(channel.Channel())
@@ -203,6 +214,12 @@ class Cluster(object):
             )
         else:
             request.resource.ClearField("logging_config")
+        if ClusterMonitoringConfig.to_proto(self.monitoring_config):
+            request.resource.monitoring_config.CopyFrom(
+                ClusterMonitoringConfig.to_proto(self.monitoring_config)
+            )
+        else:
+            request.resource.ClearField("monitoring_config")
         response = stub.DeleteContainerazureBetaCluster(request)
 
     @classmethod
@@ -260,6 +277,12 @@ class Cluster(object):
             )
         else:
             resource.ClearField("logging_config")
+        if ClusterMonitoringConfig.to_proto(self.monitoring_config):
+            resource.monitoring_config.CopyFrom(
+                ClusterMonitoringConfig.to_proto(self.monitoring_config)
+            )
+        else:
+            resource.ClearField("monitoring_config")
         return resource
 
 
@@ -915,6 +938,96 @@ class ClusterLoggingConfigComponentConfigArray(object):
     @classmethod
     def from_proto(self, resources):
         return [ClusterLoggingConfigComponentConfig.from_proto(i) for i in resources]
+
+
+class ClusterMonitoringConfig(object):
+    def __init__(self, managed_prometheus_config: dict = None):
+        self.managed_prometheus_config = managed_prometheus_config
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.ContainerazureBetaClusterMonitoringConfig()
+        if ClusterMonitoringConfigManagedPrometheusConfig.to_proto(
+            resource.managed_prometheus_config
+        ):
+            res.managed_prometheus_config.CopyFrom(
+                ClusterMonitoringConfigManagedPrometheusConfig.to_proto(
+                    resource.managed_prometheus_config
+                )
+            )
+        else:
+            res.ClearField("managed_prometheus_config")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterMonitoringConfig(
+            managed_prometheus_config=ClusterMonitoringConfigManagedPrometheusConfig.from_proto(
+                resource.managed_prometheus_config
+            ),
+        )
+
+
+class ClusterMonitoringConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterMonitoringConfig.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterMonitoringConfig.from_proto(i) for i in resources]
+
+
+class ClusterMonitoringConfigManagedPrometheusConfig(object):
+    def __init__(self, enabled: bool = None):
+        self.enabled = enabled
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            cluster_pb2.ContainerazureBetaClusterMonitoringConfigManagedPrometheusConfig()
+        )
+        if Primitive.to_proto(resource.enabled):
+            res.enabled = Primitive.to_proto(resource.enabled)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterMonitoringConfigManagedPrometheusConfig(
+            enabled=Primitive.from_proto(resource.enabled),
+        )
+
+
+class ClusterMonitoringConfigManagedPrometheusConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterMonitoringConfigManagedPrometheusConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterMonitoringConfigManagedPrometheusConfig.from_proto(i)
+            for i in resources
+        ]
 
 
 class ClusterStateEnum(object):

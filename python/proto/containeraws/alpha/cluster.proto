@@ -81,6 +81,7 @@ message ContainerawsAlphaCluster {
   string location = 17;
   ContainerawsAlphaClusterFleet fleet = 18;
   ContainerawsAlphaClusterLoggingConfig logging_config = 19;
+  ContainerawsAlphaClusterMonitoringConfig monitoring_config = 20;
 }
 
 message ContainerawsAlphaClusterNetworking {
@@ -171,6 +172,14 @@ message ContainerawsAlphaClusterLoggingConfig {
 
 message ContainerawsAlphaClusterLoggingConfigComponentConfig {
   repeated ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum enable_components = 1;
+}
+
+message ContainerawsAlphaClusterMonitoringConfig {
+  ContainerawsAlphaClusterMonitoringConfigManagedPrometheusConfig managed_prometheus_config = 1;
+}
+
+message ContainerawsAlphaClusterMonitoringConfigManagedPrometheusConfig {
+  bool enabled = 1;
 }
 
 message ApplyContainerawsAlphaClusterRequest {

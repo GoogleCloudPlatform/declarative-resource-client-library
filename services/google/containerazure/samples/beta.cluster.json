@@ -60,5 +60,10 @@
     "componentConfig": {
       "enableComponents": ["SYSTEM_COMPONENTS"]
     }
-  }
+  },
+  "monitoringConfig": {
+    "managedPrometheusConfig": {
+      "enabled": false
+    }
+  }  
 }

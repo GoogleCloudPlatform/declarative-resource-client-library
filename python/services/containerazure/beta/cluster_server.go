@@ -225,6 +225,28 @@ func ProtoToContainerazureBetaClusterLoggingConfigComponentConfig(p *betapb.Cont
 	return obj
 }
 
+// ProtoToClusterMonitoringConfig converts a ClusterMonitoringConfig object from its proto representation.
+func ProtoToContainerazureBetaClusterMonitoringConfig(p *betapb.ContainerazureBetaClusterMonitoringConfig) *beta.ClusterMonitoringConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.ClusterMonitoringConfig{
+		ManagedPrometheusConfig: ProtoToContainerazureBetaClusterMonitoringConfigManagedPrometheusConfig(p.GetManagedPrometheusConfig()),
+	}
+	return obj
+}
+
+// ProtoToClusterMonitoringConfigManagedPrometheusConfig converts a ClusterMonitoringConfigManagedPrometheusConfig object from its proto representation.
+func ProtoToContainerazureBetaClusterMonitoringConfigManagedPrometheusConfig(p *betapb.ContainerazureBetaClusterMonitoringConfigManagedPrometheusConfig) *beta.ClusterMonitoringConfigManagedPrometheusConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.ClusterMonitoringConfigManagedPrometheusConfig{
+		Enabled: dcl.Bool(p.GetEnabled()),
+	}
+	return obj
+}
+
 // ProtoToCluster converts a Cluster resource from its proto representation.
 func ProtoToCluster(p *betapb.ContainerazureBetaCluster) *beta.Cluster {
 	obj := &beta.Cluster{
@@ -248,6 +270,7 @@ func ProtoToCluster(p *betapb.ContainerazureBetaCluster) *beta.Cluster {
 		Location:               dcl.StringOrNil(p.GetLocation()),
 		Fleet:                  ProtoToContainerazureBetaClusterFleet(p.GetFleet()),
 		LoggingConfig:          ProtoToContainerazureBetaClusterLoggingConfig(p.GetLoggingConfig()),
+		MonitoringConfig:       ProtoToContainerazureBetaClusterMonitoringConfig(p.GetMonitoringConfig()),
 	}
 	return obj
 }
@@ -454,6 +477,26 @@ func ContainerazureBetaClusterLoggingConfigComponentConfigToProto(o *beta.Cluste
 	return p
 }
 
+// ClusterMonitoringConfigToProto converts a ClusterMonitoringConfig object to its proto representation.
+func ContainerazureBetaClusterMonitoringConfigToProto(o *beta.ClusterMonitoringConfig) *betapb.ContainerazureBetaClusterMonitoringConfig {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ContainerazureBetaClusterMonitoringConfig{}
+	p.SetManagedPrometheusConfig(ContainerazureBetaClusterMonitoringConfigManagedPrometheusConfigToProto(o.ManagedPrometheusConfig))
+	return p
+}
+
+// ClusterMonitoringConfigManagedPrometheusConfigToProto converts a ClusterMonitoringConfigManagedPrometheusConfig object to its proto representation.
+func ContainerazureBetaClusterMonitoringConfigManagedPrometheusConfigToProto(o *beta.ClusterMonitoringConfigManagedPrometheusConfig) *betapb.ContainerazureBetaClusterMonitoringConfigManagedPrometheusConfig {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ContainerazureBetaClusterMonitoringConfigManagedPrometheusConfig{}
+	p.SetEnabled(dcl.ValueOrEmptyBool(o.Enabled))
+	return p
+}
+
 // ClusterToProto converts a Cluster resource to its proto representation.
 func ClusterToProto(resource *beta.Cluster) *betapb.ContainerazureBetaCluster {
 	p := &betapb.ContainerazureBetaCluster{}
@@ -477,6 +520,7 @@ func ClusterToProto(resource *beta.Cluster) *betapb.ContainerazureBetaCluster {
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetFleet(ContainerazureBetaClusterFleetToProto(resource.Fleet))
 	p.SetLoggingConfig(ContainerazureBetaClusterLoggingConfigToProto(resource.LoggingConfig))
+	p.SetMonitoringConfig(ContainerazureBetaClusterMonitoringConfigToProto(resource.MonitoringConfig))
 	mAnnotations := make(map[string]string, len(resource.Annotations))
 	for k, r := range resource.Annotations {
 		mAnnotations[k] = r
