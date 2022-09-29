@@ -77,6 +77,13 @@ type FleetList struct {
 
 func (c *Client) GetFleet(ctx context.Context, r *Fleet) (*Fleet, error) {
 	ctx = dcl.ContextWithRequestID(ctx)
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
+		403: dcl.Retryability{
+			Retryable: true,
+			Pattern:   "",
+			Timeout:   70000000000,
+		},
+	})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -119,6 +126,13 @@ func (c *Client) GetFleet(ctx context.Context, r *Fleet) (*Fleet, error) {
 
 func (c *Client) DeleteFleet(ctx context.Context, r *Fleet) error {
 	ctx = dcl.ContextWithRequestID(ctx)
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
+		403: dcl.Retryability{
+			Retryable: true,
+			Pattern:   "",
+			Timeout:   70000000000,
+		},
+	})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -135,6 +149,13 @@ func (c *Client) ApplyFleet(ctx context.Context, rawDesired *Fleet, opts ...dcl.
 	defer cancel()
 
 	ctx = dcl.ContextWithRequestID(ctx)
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
+		403: dcl.Retryability{
+			Retryable: true,
+			Pattern:   "",
+			Timeout:   70000000000,
+		},
+	})))
 	var resultNewState *Fleet
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyFleetHelper(c, ctx, rawDesired, opts...)

@@ -22,6 +22,7 @@ import (
 	"strings"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl/operations"
 )
 
 func (r *Fleet) validate() error {
@@ -137,7 +138,17 @@ func (op *updateFleetUpdateFleetOperation) do(ctx context.Context, r *Fleet, c *
 	if err != nil {
 		return err
 	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	resp, err := dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	var o operations.StandardGCPOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	err = o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET")
+
 	if err != nil {
 		return err
 	}
@@ -183,9 +194,18 @@ func (op *deleteFleetOperation) do(ctx context.Context, r *Fleet, c *Client) err
 
 	// Delete should never have a body
 	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
+	resp, err := dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
 	if err != nil {
-		return fmt.Errorf("failed to delete Fleet: %w", err)
+		return err
+	}
+
+	// wait for object to be deleted.
+	var o operations.StandardGCPOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
+	}
+	if err := o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET"); err != nil {
+		return err
 	}
 	return nil
 }
@@ -220,12 +240,17 @@ func (op *createFleetOperation) do(ctx context.Context, r *Fleet, c *Client) err
 	if err != nil {
 		return err
 	}
-
-	o, err := dcl.ResponseBodyAsJSON(resp)
-	if err != nil {
-		return fmt.Errorf("error decoding response body into JSON: %w", err)
+	// wait for object to be created.
+	var o operations.StandardGCPOperation
+	if err := dcl.ParseResponse(resp.Response, &o); err != nil {
+		return err
 	}
-	op.response = o
+	if err := o.Wait(context.WithValue(ctx, dcl.DoNotLogRequestsKey, true), c.Config, r.basePath(), "GET"); err != nil {
+		c.Config.Logger.Warningf("Creation failed after waiting for operation: %v", err)
+		return err
+	}
+	c.Config.Logger.InfoWithContextf(ctx, "Successfully waited for operation")
+	op.response, _ = o.FirstResponse()
 
 	// Include Name in URL substitution for initial GET request.
 	m := op.response
