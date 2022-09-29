@@ -92,10 +92,9 @@ func (r *DeliveryPipelineSerialPipeline) HashCode() string {
 }
 
 type DeliveryPipelineSerialPipelineStages struct {
-	empty    bool                                          `json:"-"`
-	TargetId *string                                       `json:"targetId"`
-	Profiles []string                                      `json:"profiles"`
-	Strategy *DeliveryPipelineSerialPipelineStagesStrategy `json:"strategy"`
+	empty    bool     `json:"-"`
+	TargetId *string  `json:"targetId"`
+	Profiles []string `json:"profiles"`
 }
 
 type jsonDeliveryPipelineSerialPipelineStages DeliveryPipelineSerialPipelineStages
@@ -117,8 +116,6 @@ func (r *DeliveryPipelineSerialPipelineStages) UnmarshalJSON(data []byte) error 
 
 		r.Profiles = res.Profiles
 
-		r.Strategy = res.Strategy
-
 	}
 	return nil
 }
@@ -137,98 +134,6 @@ func (r *DeliveryPipelineSerialPipelineStages) String() string {
 }
 
 func (r *DeliveryPipelineSerialPipelineStages) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DeliveryPipelineSerialPipelineStagesStrategy struct {
-	empty    bool                                                  `json:"-"`
-	Standard *DeliveryPipelineSerialPipelineStagesStrategyStandard `json:"standard"`
-}
-
-type jsonDeliveryPipelineSerialPipelineStagesStrategy DeliveryPipelineSerialPipelineStagesStrategy
-
-func (r *DeliveryPipelineSerialPipelineStagesStrategy) UnmarshalJSON(data []byte) error {
-	var res jsonDeliveryPipelineSerialPipelineStagesStrategy
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyDeliveryPipelineSerialPipelineStagesStrategy
-	} else {
-
-		r.Standard = res.Standard
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this DeliveryPipelineSerialPipelineStagesStrategy is
-// empty. Go lacks global const objects, but this object should be treated
-// as one. Modifying this object will have undesirable results.
-var EmptyDeliveryPipelineSerialPipelineStagesStrategy *DeliveryPipelineSerialPipelineStagesStrategy = &DeliveryPipelineSerialPipelineStagesStrategy{empty: true}
-
-func (r *DeliveryPipelineSerialPipelineStagesStrategy) Empty() bool {
-	return r.empty
-}
-
-func (r *DeliveryPipelineSerialPipelineStagesStrategy) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DeliveryPipelineSerialPipelineStagesStrategy) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type DeliveryPipelineSerialPipelineStagesStrategyStandard struct {
-	empty  bool  `json:"-"`
-	Verify *bool `json:"verify"`
-}
-
-type jsonDeliveryPipelineSerialPipelineStagesStrategyStandard DeliveryPipelineSerialPipelineStagesStrategyStandard
-
-func (r *DeliveryPipelineSerialPipelineStagesStrategyStandard) UnmarshalJSON(data []byte) error {
-	var res jsonDeliveryPipelineSerialPipelineStagesStrategyStandard
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyDeliveryPipelineSerialPipelineStagesStrategyStandard
-	} else {
-
-		r.Verify = res.Verify
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this DeliveryPipelineSerialPipelineStagesStrategyStandard is
-// empty. Go lacks global const objects, but this object should be treated
-// as one. Modifying this object will have undesirable results.
-var EmptyDeliveryPipelineSerialPipelineStagesStrategyStandard *DeliveryPipelineSerialPipelineStagesStrategyStandard = &DeliveryPipelineSerialPipelineStagesStrategyStandard{empty: true}
-
-func (r *DeliveryPipelineSerialPipelineStagesStrategyStandard) Empty() bool {
-	return r.empty
-}
-
-func (r *DeliveryPipelineSerialPipelineStagesStrategyStandard) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *DeliveryPipelineSerialPipelineStagesStrategyStandard) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

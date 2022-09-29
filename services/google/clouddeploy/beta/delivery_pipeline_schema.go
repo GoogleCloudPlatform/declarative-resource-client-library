@@ -151,7 +151,7 @@ func DCLDeliveryPipelineSchema() *dcl.Schema {
 										Type:        "object",
 										GoName:      "TargetsPresentCondition",
 										GoType:      "DeliveryPipelineConditionTargetsPresentCondition",
-										Description: "Detalis around targets enumerated in the pipeline.",
+										Description: "Details around targets enumerated in the pipeline.",
 										Properties: map[string]*dcl.Property{
 											"missingTargets": &dcl.Property{
 												Type:        "array",

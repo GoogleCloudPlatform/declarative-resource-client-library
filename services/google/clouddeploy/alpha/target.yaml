@@ -153,6 +153,7 @@ components:
                 description: Optional. Execution timeout for a Cloud Build Execution.
                   This must be between 10m and 24h in seconds format. If unspecified,
                   a default timeout of 1h is used.
+                x-dcl-server-default: true
               serviceAccount:
                 type: string
                 x-dcl-go-name: ServiceAccount

@@ -185,9 +185,10 @@ func DCLTargetSchema() *dcl.Schema {
 											ServerDefault: true,
 										},
 										"executionTimeout": &dcl.Property{
-											Type:        "string",
-											GoName:      "ExecutionTimeout",
-											Description: "Optional. Execution timeout for a Cloud Build Execution. This must be between 10m and 24h in seconds format. If unspecified, a default timeout of 1h is used.",
+											Type:          "string",
+											GoName:        "ExecutionTimeout",
+											Description:   "Optional. Execution timeout for a Cloud Build Execution. This must be between 10m and 24h in seconds format. If unspecified, a default timeout of 1h is used.",
+											ServerDefault: true,
 										},
 										"serviceAccount": &dcl.Property{
 											Type:          "string",

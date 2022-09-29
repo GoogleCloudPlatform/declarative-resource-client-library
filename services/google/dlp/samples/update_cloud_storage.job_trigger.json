@@ -185,6 +185,6 @@
         }
       ]
     },
-    "inspectTemplateName": "new-fake"
+    "inspectTemplateName": "{{ref:inspection.inspect_template.json:name}}"
   }
 }

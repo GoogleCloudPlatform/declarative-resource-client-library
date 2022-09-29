@@ -19,14 +19,20 @@ versions:
 - beta
 resource: samples/cloud_storage.job_trigger.json
 dependencies:
+- samples/minimal.inspect_template.json
+- samples/inspection.inspect_template.json
 - samples/minimal.stored_info_type.json
 - samples/regex.stored_info_type.json
 updates:
 - resource: samples/update_cloud_storage.job_trigger.json
   dependencies:
+  - samples/minimal.inspect_template.json
+  - samples/inspection.inspect_template.json
   - samples/minimal.stored_info_type.json
   - samples/regex.stored_info_type.json
 variables:
+- name: org_id
+  type: org_id
 - name: project
   type: project
 - name: region

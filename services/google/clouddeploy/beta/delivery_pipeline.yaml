@@ -114,7 +114,7 @@ components:
               type: object
               x-dcl-go-name: TargetsPresentCondition
               x-dcl-go-type: DeliveryPipelineConditionTargetsPresentCondition
-              description: Detalis around targets enumerated in the pipeline.
+              description: Details around targets enumerated in the pipeline.
               properties:
                 missingTargets:
                   type: array

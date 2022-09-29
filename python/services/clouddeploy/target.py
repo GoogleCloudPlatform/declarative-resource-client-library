@@ -36,7 +36,6 @@ class Target(object):
         execution_configs: list = None,
         project: str = None,
         location: str = None,
-        run: dict = None,
         service_account_file: str = "",
     ):
 
@@ -51,7 +50,6 @@ class Target(object):
         self.execution_configs = execution_configs
         self.project = project
         self.location = location
-        self.run = run
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -94,10 +92,6 @@ class Target(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
-        if TargetRun.to_proto(self.run):
-            request.resource.run.CopyFrom(TargetRun.to_proto(self.run))
-        else:
-            request.resource.ClearField("run")
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyClouddeployTarget(request)
@@ -118,7 +112,6 @@ class Target(object):
         )
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
-        self.run = TargetRun.from_proto(response.run)
 
     def delete(self):
         stub = target_pb2_grpc.ClouddeployTargetServiceStub(channel.Channel())
@@ -161,10 +154,6 @@ class Target(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
-        if TargetRun.to_proto(self.run):
-            request.resource.run.CopyFrom(TargetRun.to_proto(self.run))
-        else:
-            request.resource.ClearField("run")
         response = stub.DeleteClouddeployTarget(request)
 
     @classmethod
@@ -208,10 +197,6 @@ class Target(object):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):
             resource.location = Primitive.to_proto(self.location)
-        if TargetRun.to_proto(self.run):
-            resource.run.CopyFrom(TargetRun.to_proto(self.run))
-        else:
-            resource.ClearField("run")
         return resource
 
 
@@ -350,42 +335,6 @@ class TargetExecutionConfigsArray(object):
     @classmethod
     def from_proto(self, resources):
         return [TargetExecutionConfigs.from_proto(i) for i in resources]
-
-
-class TargetRun(object):
-    def __init__(self, location: str = None):
-        self.location = location
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = target_pb2.ClouddeployTargetRun()
-        if Primitive.to_proto(resource.location):
-            res.location = Primitive.to_proto(resource.location)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return TargetRun(
-            location=Primitive.from_proto(resource.location),
-        )
-
-
-class TargetRunArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [TargetRun.to_proto(i) for i in resources]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [TargetRun.from_proto(i) for i in resources]
 
 
 class TargetExecutionConfigsUsagesEnum(object):

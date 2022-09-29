@@ -76,17 +76,6 @@ func ProtoToClouddeployTargetExecutionConfigs(p *clouddeploypb.ClouddeployTarget
 	return obj
 }
 
-// ProtoToTargetRun converts a TargetRun object from its proto representation.
-func ProtoToClouddeployTargetRun(p *clouddeploypb.ClouddeployTargetRun) *clouddeploy.TargetRun {
-	if p == nil {
-		return nil
-	}
-	obj := &clouddeploy.TargetRun{
-		Location: dcl.StringOrNil(p.GetLocation()),
-	}
-	return obj
-}
-
 // ProtoToTarget converts a Target resource from its proto representation.
 func ProtoToTarget(p *clouddeploypb.ClouddeployTarget) *clouddeploy.Target {
 	obj := &clouddeploy.Target{
@@ -102,7 +91,6 @@ func ProtoToTarget(p *clouddeploypb.ClouddeployTarget) *clouddeploy.Target {
 		Etag:            dcl.StringOrNil(p.GetEtag()),
 		Project:         dcl.StringOrNil(p.GetProject()),
 		Location:        dcl.StringOrNil(p.GetLocation()),
-		Run:             ProtoToClouddeployTargetRun(p.GetRun()),
 	}
 	for _, r := range p.GetExecutionConfigs() {
 		obj.ExecutionConfigs = append(obj.ExecutionConfigs, *ProtoToClouddeployTargetExecutionConfigs(r))
@@ -160,16 +148,6 @@ func ClouddeployTargetExecutionConfigsToProto(o *clouddeploy.TargetExecutionConf
 	return p
 }
 
-// TargetRunToProto converts a TargetRun object to its proto representation.
-func ClouddeployTargetRunToProto(o *clouddeploy.TargetRun) *clouddeploypb.ClouddeployTargetRun {
-	if o == nil {
-		return nil
-	}
-	p := &clouddeploypb.ClouddeployTargetRun{}
-	p.SetLocation(dcl.ValueOrEmptyString(o.Location))
-	return p
-}
-
 // TargetToProto converts a Target resource to its proto representation.
 func TargetToProto(resource *clouddeploy.Target) *clouddeploypb.ClouddeployTarget {
 	p := &clouddeploypb.ClouddeployTarget{}
@@ -185,7 +163,6 @@ func TargetToProto(resource *clouddeploy.Target) *clouddeploypb.ClouddeployTarge
 	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
-	p.SetRun(ClouddeployTargetRunToProto(resource.Run))
 	mAnnotations := make(map[string]string, len(resource.Annotations))
 	for k, r := range resource.Annotations {
 		mAnnotations[k] = r

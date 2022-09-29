@@ -184,6 +184,6 @@
         }
       ]
     },
-    "inspectTemplateName": "fake"
+    "inspectTemplateName": "{{ref:minimal.inspect_template.json:name}}"
   }
 }
