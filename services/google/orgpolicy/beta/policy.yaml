@@ -148,7 +148,7 @@ components:
                 without a condition. - During policy evaluation, PolicyRules with
                 conditions that are true for a target resource take precedence.'
               x-dcl-send-empty: true
-              x-dcl-list-type: set
+              x-dcl-list-type: list
               items:
                 type: object
                 x-dcl-go-type: PolicySpecRules
