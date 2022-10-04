@@ -182,12 +182,6 @@ import (
 
 	gkehub_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/beta_connector"
 
-	healthcare_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/healthcare/connector"
-
-	healthcare_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/healthcare/beta_connector"
-
-	healthcare_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/healthcare/alpha_connector"
-
 	iam_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam/connector"
 
 	iam_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam/beta_connector"
@@ -253,12 +247,6 @@ import (
 	pubsub_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/pubsub/alpha_connector"
 
 	run_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/run/alpha_connector"
-
-	servicemanagement_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/servicemanagement/connector"
-
-	servicemanagement_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/servicemanagement/beta_connector"
-
-	servicemanagement_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/servicemanagement/alpha_connector"
 
 	storage_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/connector"
 
@@ -467,12 +455,6 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	gkehub_beta_connector.RegisterServers(grpcServer)
 
-	healthcare_connector.RegisterServers(grpcServer)
-
-	healthcare_beta_connector.RegisterServers(grpcServer)
-
-	healthcare_alpha_connector.RegisterServers(grpcServer)
-
 	iam_connector.RegisterServers(grpcServer)
 
 	iam_beta_connector.RegisterServers(grpcServer)
@@ -538,12 +520,6 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	pubsub_alpha_connector.RegisterServers(grpcServer)
 
 	run_alpha_connector.RegisterServers(grpcServer)
-
-	servicemanagement_connector.RegisterServers(grpcServer)
-
-	servicemanagement_beta_connector.RegisterServers(grpcServer)
-
-	servicemanagement_alpha_connector.RegisterServers(grpcServer)
 
 	storage_connector.RegisterServers(grpcServer)
 
