@@ -11,6 +11,18 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-load("//:connector_rules.bzl", "connector")
-connector(name="cloudresourcemanager/beta", resources=["folder","project","tag_key","tag_value"])
+name: minimal_tag_value
+description: A minimal example of a tag value
+type: tag_value
+versions:
+- ga
+resource: samples/minimal.tag_value.json
+dependencies:
+- samples/minimal.tag_key.json
+variables:
+- name: org_id
+  type: org_id
+- name: tag_key
+  type: resource_name
+- name: tag_value
+  type: resource_name

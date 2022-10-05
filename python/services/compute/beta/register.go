@@ -50,6 +50,7 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterComputeBetaNetworkEndpointGroupServiceServer(s, &NetworkEndpointGroupServer{})
 	sdkgrpc.RegisterComputeBetaNetworkFirewallPolicyServiceServer(s, &NetworkFirewallPolicyServer{})
 	sdkgrpc.RegisterComputeBetaNetworkFirewallPolicyAssociationServiceServer(s, &NetworkFirewallPolicyAssociationServer{})
+	sdkgrpc.RegisterComputeBetaNetworkFirewallPolicyRuleServiceServer(s, &NetworkFirewallPolicyRuleServer{})
 	sdkgrpc.RegisterComputeBetaNetworkPeeringServiceServer(s, &NetworkPeeringServer{})
 	sdkgrpc.RegisterComputeBetaReservationServiceServer(s, &ReservationServer{})
 	sdkgrpc.RegisterComputeBetaRouterServiceServer(s, &RouterServer{})

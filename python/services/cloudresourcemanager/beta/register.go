@@ -23,4 +23,5 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterCloudresourcemanagerBetaFolderServiceServer(s, &FolderServer{})
 	sdkgrpc.RegisterCloudresourcemanagerBetaProjectServiceServer(s, &ProjectServer{})
 	sdkgrpc.RegisterCloudresourcemanagerBetaTagKeyServiceServer(s, &TagKeyServer{})
+	sdkgrpc.RegisterCloudresourcemanagerBetaTagValueServiceServer(s, &TagValueServer{})
 }

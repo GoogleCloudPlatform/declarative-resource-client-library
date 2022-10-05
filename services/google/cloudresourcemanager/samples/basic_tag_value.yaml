@@ -11,6 +11,28 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-load("//:connector_rules.bzl", "connector")
-connector(name="cloudresourcemanager/beta", resources=["folder","project","tag_key","tag_value"])
+name: basic_tag_value
+description: A basic example of a tag value
+type: tag_value
+versions:
+- ga
+resource: samples/basic.tag_value.json
+dependencies:
+- samples/basic.compute.network.json
+- samples/basic.tag_key.json
+updates:
+- resource: samples/update.tag_value.json
+  dependencies:
+  - samples/basic.compute.network.json
+  - samples/basic.tag_key.json
+variables:
+- name: compute_network
+  type: resource_name
+- name: org_id
+  type: org_id
+- name: project
+  type: project
+- name: tag_key
+  type: resource_name
+- name: tag_value
+  type: resource_name

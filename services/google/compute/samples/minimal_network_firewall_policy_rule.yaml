@@ -11,6 +11,16 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-load("//:connector_rules.bzl", "connector")
-connector(name="cloudresourcemanager/beta", resources=["folder","project","tag_key","tag_value"])
+name: minimal_network_firewall_policy_rule
+description: An example of a global compute network firewall policy rule
+type: network_firewall_policy_rule
+versions:
+- ga
+resource: samples/minimal.network_firewall_policy_rule.json
+dependencies:
+- samples/minimal.network_firewall_policy.json
+variables:
+- name: policy
+  type: resource_name
+- name: project
+  type: project

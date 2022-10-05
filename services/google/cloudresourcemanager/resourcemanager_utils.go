@@ -205,3 +205,32 @@ func (r *TagKey) deleteURL(userBasePath string) (string, error) {
 	}
 	return dcl.URL("tagKeys/{{name}}", "https://cloudresourcemanager.googleapis.com/v3", userBasePath, params), nil
 }
+
+func (r *TagValue) createURL(userBasePath string) (string, error) {
+	params := make(map[string]any)
+	return dcl.URL("tagValues", "https://cloudresourcemanager.googleapis.com/v3", userBasePath, params), nil
+}
+
+func (r *TagValue) getURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]any{
+		"name": dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("tagValues/{{name}}", "https://cloudresourcemanager.googleapis.com/v3", userBasePath, params), nil
+}
+
+func (r *TagValue) updateURL(userBasePath, updateName string) (string, error) {
+	nr := r.urlNormalized()
+	fields := map[string]any{
+		"name": dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("tagValues/{{name}}?updateMask=displayName", "https://cloudresourcemanager.googleapis.com/v3", userBasePath, fields), nil
+}
+
+func (r *TagValue) deleteURL(userBasePath string) (string, error) {
+	nr := r.urlNormalized()
+	params := map[string]any{
+		"name": dcl.ValueOrEmptyString(nr.Name),
+	}
+	return dcl.URL("tagValues/{{name}}", "https://cloudresourcemanager.googleapis.com/v3", userBasePath, params), nil
+}
