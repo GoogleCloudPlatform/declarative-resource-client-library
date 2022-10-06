@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 name: minimal_feature_membership
-description: A minimal example for a GKEHub acm feature membership
+description: A minimal example for a GKEHub feature membership
 type: feature_membership
 versions:
 - beta

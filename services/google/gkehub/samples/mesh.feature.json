@@ -1,5 +1,5 @@
 {
-  "name": "configmanagement",
+  "name": "servicemesh",
   "project": "{{ref:mesh.serviceusage.service.json:project}}",
   "location": "global",
   "labels": {

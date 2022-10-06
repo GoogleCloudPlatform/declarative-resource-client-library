@@ -23,6 +23,7 @@ from typing import List
 class FeatureMembership(object):
     def __init__(
         self,
+        mesh: dict = None,
         configmanagement: dict = None,
         project: str = None,
         location: str = None,
@@ -32,6 +33,7 @@ class FeatureMembership(object):
     ):
 
         channel.initialize()
+        self.mesh = mesh
         self.configmanagement = configmanagement
         self.project = project
         self.location = location
@@ -44,6 +46,10 @@ class FeatureMembership(object):
             channel.Channel()
         )
         request = feature_membership_pb2.ApplyGkehubAlphaFeatureMembershipRequest()
+        if FeatureMembershipMesh.to_proto(self.mesh):
+            request.resource.mesh.CopyFrom(FeatureMembershipMesh.to_proto(self.mesh))
+        else:
+            request.resource.ClearField("mesh")
         if FeatureMembershipConfigmanagement.to_proto(self.configmanagement):
             request.resource.configmanagement.CopyFrom(
                 FeatureMembershipConfigmanagement.to_proto(self.configmanagement)
@@ -65,6 +71,7 @@ class FeatureMembership(object):
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyGkehubAlphaFeatureMembership(request)
+        self.mesh = FeatureMembershipMesh.from_proto(response.mesh)
         self.configmanagement = FeatureMembershipConfigmanagement.from_proto(
             response.configmanagement
         )
@@ -79,6 +86,10 @@ class FeatureMembership(object):
         )
         request = feature_membership_pb2.DeleteGkehubAlphaFeatureMembershipRequest()
         request.service_account_file = self.service_account_file
+        if FeatureMembershipMesh.to_proto(self.mesh):
+            request.resource.mesh.CopyFrom(FeatureMembershipMesh.to_proto(self.mesh))
+        else:
+            request.resource.ClearField("mesh")
         if FeatureMembershipConfigmanagement.to_proto(self.configmanagement):
             request.resource.configmanagement.CopyFrom(
                 FeatureMembershipConfigmanagement.to_proto(self.configmanagement)
@@ -116,6 +127,10 @@ class FeatureMembership(object):
 
     def to_proto(self):
         resource = feature_membership_pb2.GkehubAlphaFeatureMembership()
+        if FeatureMembershipMesh.to_proto(self.mesh):
+            resource.mesh.CopyFrom(FeatureMembershipMesh.to_proto(self.mesh))
+        else:
+            resource.ClearField("mesh")
         if FeatureMembershipConfigmanagement.to_proto(self.configmanagement):
             resource.configmanagement.CopyFrom(
                 FeatureMembershipConfigmanagement.to_proto(self.configmanagement)
@@ -131,6 +146,46 @@ class FeatureMembership(object):
         if Primitive.to_proto(self.membership):
             resource.membership = Primitive.to_proto(self.membership)
         return resource
+
+
+class FeatureMembershipMesh(object):
+    def __init__(self, management: str = None):
+        self.management = management
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = feature_membership_pb2.GkehubAlphaFeatureMembershipMesh()
+        if FeatureMembershipMeshManagementEnum.to_proto(resource.management):
+            res.management = FeatureMembershipMeshManagementEnum.to_proto(
+                resource.management
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureMembershipMesh(
+            management=FeatureMembershipMeshManagementEnum.from_proto(
+                resource.management
+            ),
+        )
+
+
+class FeatureMembershipMeshArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [FeatureMembershipMesh.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [FeatureMembershipMesh.from_proto(i) for i in resources]
 
 
 class FeatureMembershipConfigmanagement(object):
@@ -631,6 +686,28 @@ class FeatureMembershipConfigmanagementHierarchyControllerArray(object):
             FeatureMembershipConfigmanagementHierarchyController.from_proto(i)
             for i in resources
         ]
+
+
+class FeatureMembershipMeshManagementEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return (
+            feature_membership_pb2.GkehubAlphaFeatureMembershipMeshManagementEnum.Value(
+                "GkehubAlphaFeatureMembershipMeshManagementEnum%s" % resource
+            )
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return (
+            feature_membership_pb2.GkehubAlphaFeatureMembershipMeshManagementEnum.Name(
+                resource
+            )[len("GkehubAlphaFeatureMembershipMeshManagementEnum") :]
+        )
 
 
 class FeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum(object):

@@ -27,7 +27,7 @@ dependencies:
 - samples/basic.cloudbilling.project_billing_info.json
 - samples/basic.cloudresourcemanager.project.json
 updates:
-- resource: samples/update_first_mesh.feature_membership.json
+- resource: samples/update_1_mesh.feature_membership.json
   dependencies:
   - samples/mesh.feature.json
   - samples/mesh.serviceusage.service.json
@@ -37,17 +37,7 @@ updates:
   - samples/container.serviceusage.service.json
   - samples/basic.cloudbilling.project_billing_info.json
   - samples/basic.cloudresourcemanager.project.json
-- resource: samples/update_second_mesh.feature_membership.json
-  dependencies:
-  - samples/mesh.feature.json
-  - samples/mesh.serviceusage.service.json
-  - samples/first.membership.json
-  - samples/first.container.cluster.json
-  - samples/gkehub.serviceusage.service.json
-  - samples/container.serviceusage.service.json
-  - samples/basic.cloudbilling.project_billing_info.json
-  - samples/basic.cloudresourcemanager.project.json
-- resource: samples/update_third_mesh.feature_membership.json
+- resource: samples/update_2_mesh.feature_membership.json
   dependencies:
   - samples/mesh.feature.json
   - samples/mesh.serviceusage.service.json

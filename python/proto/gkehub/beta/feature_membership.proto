@@ -21,6 +21,13 @@ import "proto/connector/sdk.proto";
 import "proto/empty.proto";
 
 
+enum GkehubBetaFeatureMembershipMeshManagementEnum {
+  GkehubBetaFeatureMembershipMeshManagementEnumNO_VALUE_DO_NOT_USE = 0;
+  GkehubBetaFeatureMembershipMeshManagementEnumMANAGEMENT_UNSPECIFIED = 1;
+  GkehubBetaFeatureMembershipMeshManagementEnumMANAGEMENT_AUTOMATIC = 2;
+  GkehubBetaFeatureMembershipMeshManagementEnumMANAGEMENT_MANUAL = 3;
+}
+
 enum GkehubBetaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum {
   GkehubBetaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnumNO_VALUE_DO_NOT_USE = 0;
   GkehubBetaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnumMONITORING_BACKEND_UNSPECIFIED = 1;
@@ -29,11 +36,16 @@ enum GkehubBetaFeatureMembershipConfigmanagementPolicyControllerMonitoringBacken
 }
 
 message GkehubBetaFeatureMembership {
-  GkehubBetaFeatureMembershipConfigmanagement configmanagement = 1;
-  string project = 2;
-  string location = 3;
-  string feature = 4;
-  string membership = 5;
+  GkehubBetaFeatureMembershipMesh mesh = 1;
+  GkehubBetaFeatureMembershipConfigmanagement configmanagement = 2;
+  string project = 3;
+  string location = 4;
+  string feature = 5;
+  string membership = 6;
+}
+
+message GkehubBetaFeatureMembershipMesh {
+  GkehubBetaFeatureMembershipMeshManagementEnum management = 1;
 }
 
 message GkehubBetaFeatureMembershipConfigmanagement {
