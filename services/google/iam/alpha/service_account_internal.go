@@ -46,15 +46,6 @@ func (r *ServiceAccount) basePath() string {
 	return dcl.Nprintf("https://iam.googleapis.com/v1/", params)
 }
 
-func (r *ServiceAccount) getURL(userBasePath string) (string, error) {
-	nr := r.urlNormalized()
-	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(nr.Project),
-		"name":    dcl.ValueOrEmptyString(nr.Name),
-	}
-	return dcl.URL("projects/{{project}}/serviceAccounts/{{name}}@{{project}}.iam.gserviceaccount.com", nr.basePath(), userBasePath, params), nil
-}
-
 func (r *ServiceAccount) listURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
@@ -62,50 +53,6 @@ func (r *ServiceAccount) listURL(userBasePath string) (string, error) {
 	}
 	return dcl.URL("projects/{{project}}/serviceAccounts", nr.basePath(), userBasePath, params), nil
 
-}
-
-func (r *ServiceAccount) createURL(userBasePath string) (string, error) {
-	nr := r.urlNormalized()
-	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(nr.Project),
-	}
-	return dcl.URL("projects/{{project}}/serviceAccounts", nr.basePath(), userBasePath, params), nil
-
-}
-
-func (r *ServiceAccount) deleteURL(userBasePath string) (string, error) {
-	nr := r.urlNormalized()
-	params := map[string]interface{}{
-		"project": dcl.ValueOrEmptyString(nr.Project),
-		"name":    dcl.ValueOrEmptyString(nr.Name),
-	}
-	return dcl.URL("projects/{{project}}/serviceAccounts/{{name}}@{{project}}.iam.gserviceaccount.com", nr.basePath(), userBasePath, params), nil
-}
-
-func (r *ServiceAccount) SetPolicyURL(userBasePath string) string {
-	nr := r.urlNormalized()
-	fields := map[string]interface{}{
-		"project": *nr.Project,
-		"name":    *nr.Name,
-	}
-	return dcl.URL("projects/{{project}}/serviceAccounts/{{name}}@{{project}}.iam.gserviceaccount.com:setIamPolicy", nr.basePath(), userBasePath, fields)
-}
-
-func (r *ServiceAccount) SetPolicyVerb() string {
-	return "POST"
-}
-
-func (r *ServiceAccount) getPolicyURL(userBasePath string) string {
-	nr := r.urlNormalized()
-	fields := map[string]interface{}{
-		"project": *nr.Project,
-		"name":    *nr.Name,
-	}
-	return dcl.URL("projects/{{project}}/serviceAccounts/{{name}}@{{project}}.iam.gserviceaccount.com:getIamPolicy", nr.basePath(), userBasePath, fields)
-}
-
-func (r *ServiceAccount) IAMPolicyVersion() int {
-	return 3
 }
 
 // serviceAccountApiOperation represents a mutable operation in the underlying REST
