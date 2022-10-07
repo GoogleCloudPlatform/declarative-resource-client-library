@@ -29,5 +29,4 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterMonitoringBetaUptimeCheckConfigServiceServer(s, &UptimeCheckConfigServer{})
 	sdkgrpc.RegisterMonitoringBetaServiceServiceServer(s, &ServiceServer{})
 	sdkgrpc.RegisterMonitoringBetaServiceLevelObjectiveServiceServer(s, &ServiceLevelObjectiveServer{})
-	sdkgrpc.RegisterMonitoringBetaAlertPolicyServiceServer(s, &AlertPolicyServer{})
 }

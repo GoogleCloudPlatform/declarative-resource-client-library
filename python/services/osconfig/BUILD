@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="osconfig", resources=["os_policy_assignment","patch_deployment"])
+connector(name="osconfig", resources=["os_policy_assignment"])
