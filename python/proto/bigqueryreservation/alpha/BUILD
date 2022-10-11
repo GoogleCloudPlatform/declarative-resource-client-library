@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="bigqueryreservation/alpha", resources=["assignment","capacity_commitment","reservation"])
+proto_package(name="bigqueryreservation/alpha", resources=["assignment","reservation"])

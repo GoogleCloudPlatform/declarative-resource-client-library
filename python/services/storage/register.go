@@ -21,8 +21,4 @@ import (
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterStorageBucketServiceServer(s, &BucketServer{})
-	sdkgrpc.RegisterStorageDefaultObjectAccessControlServiceServer(s, &DefaultObjectAccessControlServer{})
-	sdkgrpc.RegisterStorageHmacKeyServiceServer(s, &HmacKeyServer{})
-	sdkgrpc.RegisterStorageObjectServiceServer(s, &ObjectServer{})
-	sdkgrpc.RegisterStorageObjectAccessControlServiceServer(s, &ObjectAccessControlServer{})
 }

@@ -23,5 +23,4 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterDataprocAlphaAutoscalingPolicyServiceServer(s, &AutoscalingPolicyServer{})
 	sdkgrpc.RegisterDataprocAlphaClusterServiceServer(s, &ClusterServer{})
 	sdkgrpc.RegisterDataprocAlphaWorkflowTemplateServiceServer(s, &WorkflowTemplateServer{})
-	sdkgrpc.RegisterDataprocAlphaJobServiceServer(s, &JobServer{})
 }

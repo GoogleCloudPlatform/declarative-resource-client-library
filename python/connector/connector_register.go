@@ -260,12 +260,6 @@ import (
 
 	privateca_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/alpha_connector"
 
-	vertexai_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vertexai/connector"
-
-	vertexai_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vertexai/beta_connector"
-
-	vertexai_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vertexai/alpha_connector"
-
 	vmware_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vmware/alpha_connector"
 
 	vpcaccess_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vpcaccess/connector"
@@ -532,12 +526,6 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	privateca_beta_connector.RegisterServers(grpcServer)
 
 	privateca_alpha_connector.RegisterServers(grpcServer)
-
-	vertexai_connector.RegisterServers(grpcServer)
-
-	vertexai_beta_connector.RegisterServers(grpcServer)
-
-	vertexai_alpha_connector.RegisterServers(grpcServer)
 
 	vmware_alpha_connector.RegisterServers(grpcServer)
 

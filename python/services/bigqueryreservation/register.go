@@ -21,6 +21,5 @@ import (
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterBigqueryreservationAssignmentServiceServer(s, &AssignmentServer{})
-	sdkgrpc.RegisterBigqueryreservationCapacityCommitmentServiceServer(s, &CapacityCommitmentServer{})
 	sdkgrpc.RegisterBigqueryreservationReservationServiceServer(s, &ReservationServer{})
 }

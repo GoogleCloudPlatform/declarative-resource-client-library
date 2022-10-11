@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="bigqueryreservation", resources=["assignment","capacity_commitment","reservation"])
+connector(name="bigqueryreservation", resources=["assignment","reservation"])
