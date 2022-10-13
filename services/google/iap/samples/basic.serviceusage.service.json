@@ -1,4 +1,0 @@
-{
-  "name": "iap.googleapis.com",
-  "project": "{{ref:basic.cloudresourcemanager.project.json:name}}"
-}

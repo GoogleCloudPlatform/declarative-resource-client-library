@@ -1,4 +1,0 @@
-{
-  "name": "{{ref:basic.appengine.application.json:name}}.appspot.com",
-  "project": "{{ref:basic.cloudresourcemanager.project.json:name}}"
-}

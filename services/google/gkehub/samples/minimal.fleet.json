@@ -1,5 +1,0 @@
-{
-  "name": "{{fleet1}}",
-  "project": "{{ref:gkehub.serviceusage.service.json:project}}",
-  "location": "global"
-}

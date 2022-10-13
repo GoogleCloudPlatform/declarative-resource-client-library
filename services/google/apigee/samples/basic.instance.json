@@ -1,9 +1,0 @@
-{
-  "name": "{{instance}}",
-  "apigeeOrganization": "organizations/{{ref:basic.organization.json:name}}",
-  "location": "{{region}}",
-  "peeringCidrRange": "SLASH_22",
-  "description": "A sample apigee instance",
-  "displayName": "sample-instance",
-  "diskEncryptionKeyName": "projects/{{ref:cloudkms.serviceusage.service.json:project}}/locations/{{region}}/keyRings/{{ref:minimal.cloudkms.key_ring.json:name}}/cryptoKeys/{{ref:minimal.cloudkms.crypto_key.json:name}}"
-}

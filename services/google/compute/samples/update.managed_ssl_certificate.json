@@ -1,7 +1,0 @@
-{
-  "name": "{{ref:basic.managed_ssl_certificate.json:name}}",
-  "project": "{{ref:basic.managed_ssl_certificate.json:project}}",
-  "managed": {
-    "domains": ["foo.bar.{{domain}}.com"]
-  }
-}

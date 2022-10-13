@@ -1,4 +1,0 @@
-{
-  "environment": "{{ref:basic.environment.json:apigeeOrganization}}/environments/{{ref:basic.environment.json:name}}",
-  "envgroup": "{{ref:basic.envgroup.json:apigeeOrganization}}/envgroups/{{ref:basic.envgroup.json:name}}"
-}

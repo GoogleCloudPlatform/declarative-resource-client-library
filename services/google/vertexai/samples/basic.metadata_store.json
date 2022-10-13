@@ -1,9 +1,0 @@
-{
-  "name": "{{store}}",
-  "project": "projects/{{project}}",
-  "location": "{{region}}",
-  "description": "A sample metadata store",
-  "encryptionSpec": {
-    "kmsKeyName": "projects/{{project}}/locations/{{region}}/keyRings/{{ref:minimal.cloudkms.key_ring.json:name}}/cryptoKeys/{{ref:basic.cloudkms.crypto_key.json:name}}"
-  }
-}

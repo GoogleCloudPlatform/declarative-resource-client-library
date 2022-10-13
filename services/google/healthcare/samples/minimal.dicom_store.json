@@ -1,6 +1,0 @@
-{
-  "name": "{{dicom}}",
-  "project": "{{project}}",
-  "location": "{{region}}",
-  "dataset": "{{ref:minimal.dataset.json:name}}"
-}

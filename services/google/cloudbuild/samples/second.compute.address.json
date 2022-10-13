@@ -1,8 +1,0 @@
-{
-  "project":      "{{project}}",
-  "name":         "{{address2}}",
-  "purpose":      "VPC_PEERING",
-  "addressType":  "INTERNAL",
-  "network":      "{{ref:second.compute.network.json:selfLink}}",
-  "prefixLength": 24
-}

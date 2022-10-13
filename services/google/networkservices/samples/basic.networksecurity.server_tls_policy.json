@@ -1,6 +1,0 @@
-{
-  "name": "{{policy}}",
-  "project": "{{project}}",
-  "location": "global",
-  "allowOpen": true
-}

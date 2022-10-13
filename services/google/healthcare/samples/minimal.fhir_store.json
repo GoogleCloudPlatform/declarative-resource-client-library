@@ -1,7 +1,0 @@
-{
-  "name": "{{fhir}}",
-  "project": "{{project}}",
-  "location": "{{region}}",
-  "dataset": "{{ref:minimal.dataset.json:name}}",
-  "version": "DSTU2"
-}
