@@ -1,5 +1,0 @@
-{
-  "role": "roles/cloudkms.cryptoKeyEncrypterDecrypter",
-  "member": "serviceAccount:service-{{ref:basic.cloudresourcemanager.project.json:projectNumber}}@gcp-sa-apigee.iam.gserviceaccount.com",
-  "resource": "{{ref:minimal.cloudkms.crypto_key.json:__resource__}}"
-}

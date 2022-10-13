@@ -1,5 +1,0 @@
-{
-  "name": "{{envgroup}}",
-  "apigeeOrganization": "organizations/{{ref:basic.organization.json:name}}",
-  "hostnames": ["abc.example.com"]
-}

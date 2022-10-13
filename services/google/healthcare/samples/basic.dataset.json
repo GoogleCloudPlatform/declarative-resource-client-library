@@ -1,6 +1,0 @@
-{
-  "name": "{{dataset}}",
-  "project": "{{project}}",
-  "location": "{{region}}",
-  "timeZone": "America/New_York"
-}

@@ -1,4 +1,0 @@
-{
-  "name": "{{service}}",
-  "parent": "organizations/{{org_id}}"
-}

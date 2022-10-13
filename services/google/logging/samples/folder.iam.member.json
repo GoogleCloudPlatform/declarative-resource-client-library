@@ -1,5 +1,0 @@
-{
-  "role": "roles/logging.admin",
-  "member": "serviceAccount:{{test_service_account}}",
-  "resource": "{{ref:folder.cloudresourcemanager.folder.json:__resource__}}"
-}

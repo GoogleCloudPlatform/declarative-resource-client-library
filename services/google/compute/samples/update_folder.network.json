@@ -1,5 +1,0 @@
-{
-  "name": "{{network_name}}-update",
-  "autoCreateSubnetworks": false,
-  "project": "{{ref:compute.serviceusage.service.json:project}}"
-}

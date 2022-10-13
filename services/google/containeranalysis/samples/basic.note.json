@@ -1,9 +1,0 @@
-{
-  "name": "{{note}}",
-  "project": "{{project}}",
-  "attestation": {
-    "hint": {
-      "humanReadableName": "Attestor Note"
-    }
-  }
-}

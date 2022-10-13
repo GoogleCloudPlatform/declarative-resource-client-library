@@ -1,5 +1,0 @@
-{
-  "role": "roles/apigee.admin",
-  "members": ["domain:google.com"],
-  "resource": "{{ref:basic.environment.json:__resource__}}"
-}

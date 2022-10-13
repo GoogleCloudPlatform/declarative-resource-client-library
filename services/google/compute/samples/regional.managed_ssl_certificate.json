@@ -1,8 +1,0 @@
-{
-  "name": "{{cert}}",
-  "project": "{{project}}",
-  "location": "{{region}}",
-  "managed": {
-    "domains": ["sslcert.{{domain}}.com."]
-  }
-}
