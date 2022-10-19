@@ -362,10 +362,6 @@ func canonicalizeFeatureMembershipMesh(des, initial *FeatureMembershipMesh, opts
 		return des
 	}
 
-	if dcl.IsZeroValue(des.Management) {
-		des.Management = FeatureMembershipMeshManagementEnumRef("MANAGEMENT_UNSPECIFIED")
-	}
-
 	if initial == nil {
 		return des
 	}
@@ -422,10 +418,6 @@ func canonicalizeNewFeatureMembershipMesh(c *Client, des, nw *FeatureMembershipM
 			return des
 		}
 		return nil
-	}
-
-	if dcl.IsZeroValue(nw.Management) {
-		nw.Management = FeatureMembershipMeshManagementEnumRef("MANAGEMENT_UNSPECIFIED")
 	}
 
 	return nw
@@ -2090,10 +2082,6 @@ func flattenFeatureMembershipMesh(c *Client, i interface{}, res *FeatureMembersh
 		return EmptyFeatureMembershipMesh
 	}
 	r.Management = flattenFeatureMembershipMeshManagementEnum(m["management"])
-	if dcl.IsEmptyValueIndirect(m["management"]) {
-		c.Config.Logger.Info("Using default value for management.")
-		r.Management = FeatureMembershipMeshManagementEnumRef("MANAGEMENT_UNSPECIFIED")
-	}
 
 	return r
 }

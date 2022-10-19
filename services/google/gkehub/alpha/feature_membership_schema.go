@@ -365,7 +365,6 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 										GoName:      "Management",
 										GoType:      "FeatureMembershipMeshManagementEnum",
 										Description: "Whether to automatically manage Service Mesh. Possible values: MANAGEMENT_UNSPECIFIED, MANAGEMENT_AUTOMATIC, MANAGEMENT_MANUAL",
-										Default:     "MANAGEMENT_UNSPECIFIED",
 										Enum: []string{
 											"MANAGEMENT_UNSPECIFIED",
 											"MANAGEMENT_AUTOMATIC",
