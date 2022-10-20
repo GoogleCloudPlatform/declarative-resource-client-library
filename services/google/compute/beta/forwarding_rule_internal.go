@@ -1708,6 +1708,7 @@ func (r *ForwardingRule) marshal(c *Client) ([]byte, error) {
 	if err != nil {
 		return nil, fmt.Errorf("error marshalling ForwardingRule: %w", err)
 	}
+	m = forwardingRuleEncodeCreateRequest(m)
 
 	return json.Marshal(m)
 }

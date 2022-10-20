@@ -22,6 +22,12 @@ dependencies:
 - samples/basic.cloudresourcemanager.project.json
 - samples/basic.cloudbilling.project_billing_info.json
 - samples/dataproc.serviceusage.service.json
+updates:
+- resource: samples/update.cluster.json
+  dependencies:
+  - samples/basic.cloudresourcemanager.project.json
+  - samples/basic.cloudbilling.project_billing_info.json
+  - samples/dataproc.serviceusage.service.json
 variables:
 - name: billing_account
   type: billing_account

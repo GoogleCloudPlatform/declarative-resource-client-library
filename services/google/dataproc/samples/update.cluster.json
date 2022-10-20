@@ -3,7 +3,7 @@
   "location": "{{region}}",
   "project": "projects/{{ref:dataproc.serviceusage.service.json:project}}",
   "labels": {
-   "my-cluster": "exists"
+   "my-cluster": "updated"
   },
   "config": {
     "gceClusterConfig": {
