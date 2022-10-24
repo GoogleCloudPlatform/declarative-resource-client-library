@@ -30,6 +30,7 @@ class Cluster(object):
         cluster_uuid: str = None,
         metrics: dict = None,
         location: str = None,
+        virtual_cluster_config: dict = None,
         service_account_file: str = "",
     ):
 
@@ -39,6 +40,7 @@ class Cluster(object):
         self.config = config
         self.labels = labels
         self.location = location
+        self.virtual_cluster_config = virtual_cluster_config
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -60,6 +62,12 @@ class Cluster(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
+        if ClusterVirtualClusterConfig.to_proto(self.virtual_cluster_config):
+            request.resource.virtual_cluster_config.CopyFrom(
+                ClusterVirtualClusterConfig.to_proto(self.virtual_cluster_config)
+            )
+        else:
+            request.resource.ClearField("virtual_cluster_config")
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyDataprocBetaCluster(request)
@@ -74,6 +82,9 @@ class Cluster(object):
         self.cluster_uuid = Primitive.from_proto(response.cluster_uuid)
         self.metrics = ClusterMetrics.from_proto(response.metrics)
         self.location = Primitive.from_proto(response.location)
+        self.virtual_cluster_config = ClusterVirtualClusterConfig.from_proto(
+            response.virtual_cluster_config
+        )
 
     def delete(self):
         stub = cluster_pb2_grpc.DataprocBetaClusterServiceStub(channel.Channel())
@@ -95,6 +106,12 @@ class Cluster(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
+        if ClusterVirtualClusterConfig.to_proto(self.virtual_cluster_config):
+            request.resource.virtual_cluster_config.CopyFrom(
+                ClusterVirtualClusterConfig.to_proto(self.virtual_cluster_config)
+            )
+        else:
+            request.resource.ClearField("virtual_cluster_config")
         response = stub.DeleteDataprocBetaCluster(request)
 
     @classmethod
@@ -122,6 +139,12 @@ class Cluster(object):
             resource.labels = Primitive.to_proto(self.labels)
         if Primitive.to_proto(self.location):
             resource.location = Primitive.to_proto(self.location)
+        if ClusterVirtualClusterConfig.to_proto(self.virtual_cluster_config):
+            resource.virtual_cluster_config.CopyFrom(
+                ClusterVirtualClusterConfig.to_proto(self.virtual_cluster_config)
+            )
+        else:
+            resource.ClearField("virtual_cluster_config")
         return resource
 
 
@@ -143,6 +166,7 @@ class ClusterConfig(object):
         endpoint_config: dict = None,
         gke_cluster_config: dict = None,
         metastore_config: dict = None,
+        dataproc_metric_config: dict = None,
     ):
         self.staging_bucket = staging_bucket
         self.temp_bucket = temp_bucket
@@ -159,6 +183,7 @@ class ClusterConfig(object):
         self.endpoint_config = endpoint_config
         self.gke_cluster_config = gke_cluster_config
         self.metastore_config = metastore_config
+        self.dataproc_metric_config = dataproc_metric_config
 
     @classmethod
     def to_proto(self, resource):
@@ -254,6 +279,14 @@ class ClusterConfig(object):
             )
         else:
             res.ClearField("metastore_config")
+        if ClusterConfigDataprocMetricConfig.to_proto(resource.dataproc_metric_config):
+            res.dataproc_metric_config.CopyFrom(
+                ClusterConfigDataprocMetricConfig.to_proto(
+                    resource.dataproc_metric_config
+                )
+            )
+        else:
+            res.ClearField("dataproc_metric_config")
         return res
 
     @classmethod
@@ -299,6 +332,9 @@ class ClusterConfig(object):
             metastore_config=ClusterConfigMetastoreConfig.from_proto(
                 resource.metastore_config
             ),
+            dataproc_metric_config=ClusterConfigDataprocMetricConfig.from_proto(
+                resource.dataproc_metric_config
+            ),
         )
 
 
@@ -328,6 +364,8 @@ class ClusterConfigGceClusterConfig(object):
         metadata: dict = None,
         reservation_affinity: dict = None,
         node_group_affinity: dict = None,
+        shielded_instance_config: dict = None,
+        confidential_instance_config: dict = None,
     ):
         self.zone = zone
         self.network = network
@@ -340,6 +378,8 @@ class ClusterConfigGceClusterConfig(object):
         self.metadata = metadata
         self.reservation_affinity = reservation_affinity
         self.node_group_affinity = node_group_affinity
+        self.shielded_instance_config = shielded_instance_config
+        self.confidential_instance_config = confidential_instance_config
 
     @classmethod
     def to_proto(self, resource):
@@ -393,6 +433,26 @@ class ClusterConfigGceClusterConfig(object):
             )
         else:
             res.ClearField("node_group_affinity")
+        if ClusterConfigGceClusterConfigShieldedInstanceConfig.to_proto(
+            resource.shielded_instance_config
+        ):
+            res.shielded_instance_config.CopyFrom(
+                ClusterConfigGceClusterConfigShieldedInstanceConfig.to_proto(
+                    resource.shielded_instance_config
+                )
+            )
+        else:
+            res.ClearField("shielded_instance_config")
+        if ClusterConfigGceClusterConfigConfidentialInstanceConfig.to_proto(
+            resource.confidential_instance_config
+        ):
+            res.confidential_instance_config.CopyFrom(
+                ClusterConfigGceClusterConfigConfidentialInstanceConfig.to_proto(
+                    resource.confidential_instance_config
+                )
+            )
+        else:
+            res.ClearField("confidential_instance_config")
         return res
 
     @classmethod
@@ -419,6 +479,12 @@ class ClusterConfigGceClusterConfig(object):
             ),
             node_group_affinity=ClusterConfigGceClusterConfigNodeGroupAffinity.from_proto(
                 resource.node_group_affinity
+            ),
+            shielded_instance_config=ClusterConfigGceClusterConfigShieldedInstanceConfig.from_proto(
+                resource.shielded_instance_config
+            ),
+            confidential_instance_config=ClusterConfigGceClusterConfigConfidentialInstanceConfig.from_proto(
+                resource.confidential_instance_config
             ),
         )
 
@@ -535,6 +601,115 @@ class ClusterConfigGceClusterConfigNodeGroupAffinityArray(object):
         ]
 
 
+class ClusterConfigGceClusterConfigShieldedInstanceConfig(object):
+    def __init__(
+        self,
+        enable_secure_boot: bool = None,
+        enable_vtpm: bool = None,
+        enable_integrity_monitoring: bool = None,
+    ):
+        self.enable_secure_boot = enable_secure_boot
+        self.enable_vtpm = enable_vtpm
+        self.enable_integrity_monitoring = enable_integrity_monitoring
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            cluster_pb2.DataprocBetaClusterConfigGceClusterConfigShieldedInstanceConfig()
+        )
+        if Primitive.to_proto(resource.enable_secure_boot):
+            res.enable_secure_boot = Primitive.to_proto(resource.enable_secure_boot)
+        if Primitive.to_proto(resource.enable_vtpm):
+            res.enable_vtpm = Primitive.to_proto(resource.enable_vtpm)
+        if Primitive.to_proto(resource.enable_integrity_monitoring):
+            res.enable_integrity_monitoring = Primitive.to_proto(
+                resource.enable_integrity_monitoring
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterConfigGceClusterConfigShieldedInstanceConfig(
+            enable_secure_boot=Primitive.from_proto(resource.enable_secure_boot),
+            enable_vtpm=Primitive.from_proto(resource.enable_vtpm),
+            enable_integrity_monitoring=Primitive.from_proto(
+                resource.enable_integrity_monitoring
+            ),
+        )
+
+
+class ClusterConfigGceClusterConfigShieldedInstanceConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterConfigGceClusterConfigShieldedInstanceConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterConfigGceClusterConfigShieldedInstanceConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class ClusterConfigGceClusterConfigConfidentialInstanceConfig(object):
+    def __init__(self, enable_confidential_compute: bool = None):
+        self.enable_confidential_compute = enable_confidential_compute
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            cluster_pb2.DataprocBetaClusterConfigGceClusterConfigConfidentialInstanceConfig()
+        )
+        if Primitive.to_proto(resource.enable_confidential_compute):
+            res.enable_confidential_compute = Primitive.to_proto(
+                resource.enable_confidential_compute
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterConfigGceClusterConfigConfidentialInstanceConfig(
+            enable_confidential_compute=Primitive.from_proto(
+                resource.enable_confidential_compute
+            ),
+        )
+
+
+class ClusterConfigGceClusterConfigConfidentialInstanceConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterConfigGceClusterConfigConfidentialInstanceConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterConfigGceClusterConfigConfidentialInstanceConfig.from_proto(i)
+            for i in resources
+        ]
+
+
 class ClusterConfigMasterConfig(object):
     def __init__(
         self,
@@ -548,6 +723,7 @@ class ClusterConfigMasterConfig(object):
         managed_group_config: dict = None,
         accelerators: list = None,
         min_cpu_platform: str = None,
+        instance_references: list = None,
     ):
         self.num_instances = num_instances
         self.instance_names = instance_names
@@ -559,6 +735,7 @@ class ClusterConfigMasterConfig(object):
         self.managed_group_config = managed_group_config
         self.accelerators = accelerators
         self.min_cpu_platform = min_cpu_platform
+        self.instance_references = instance_references
 
     @classmethod
     def to_proto(self, resource):
@@ -606,6 +783,14 @@ class ClusterConfigMasterConfig(object):
             )
         if Primitive.to_proto(resource.min_cpu_platform):
             res.min_cpu_platform = Primitive.to_proto(resource.min_cpu_platform)
+        if ClusterConfigMasterConfigInstanceReferencesArray.to_proto(
+            resource.instance_references
+        ):
+            res.instance_references.extend(
+                ClusterConfigMasterConfigInstanceReferencesArray.to_proto(
+                    resource.instance_references
+                )
+            )
         return res
 
     @classmethod
@@ -632,6 +817,9 @@ class ClusterConfigMasterConfig(object):
                 resource.accelerators
             ),
             min_cpu_platform=Primitive.from_proto(resource.min_cpu_platform),
+            instance_references=ClusterConfigMasterConfigInstanceReferencesArray.from_proto(
+                resource.instance_references
+            ),
         )
 
 
@@ -653,10 +841,12 @@ class ClusterConfigMasterConfigDiskConfig(object):
         boot_disk_type: str = None,
         boot_disk_size_gb: int = None,
         num_local_ssds: int = None,
+        local_ssd_interface: str = None,
     ):
         self.boot_disk_type = boot_disk_type
         self.boot_disk_size_gb = boot_disk_size_gb
         self.num_local_ssds = num_local_ssds
+        self.local_ssd_interface = local_ssd_interface
 
     @classmethod
     def to_proto(self, resource):
@@ -670,6 +860,8 @@ class ClusterConfigMasterConfigDiskConfig(object):
             res.boot_disk_size_gb = Primitive.to_proto(resource.boot_disk_size_gb)
         if Primitive.to_proto(resource.num_local_ssds):
             res.num_local_ssds = Primitive.to_proto(resource.num_local_ssds)
+        if Primitive.to_proto(resource.local_ssd_interface):
+            res.local_ssd_interface = Primitive.to_proto(resource.local_ssd_interface)
         return res
 
     @classmethod
@@ -681,6 +873,7 @@ class ClusterConfigMasterConfigDiskConfig(object):
             boot_disk_type=Primitive.from_proto(resource.boot_disk_type),
             boot_disk_size_gb=Primitive.from_proto(resource.boot_disk_size_gb),
             num_local_ssds=Primitive.from_proto(resource.num_local_ssds),
+            local_ssd_interface=Primitive.from_proto(resource.local_ssd_interface),
         )
 
 
@@ -792,6 +985,64 @@ class ClusterConfigMasterConfigAcceleratorsArray(object):
         return [ClusterConfigMasterConfigAccelerators.from_proto(i) for i in resources]
 
 
+class ClusterConfigMasterConfigInstanceReferences(object):
+    def __init__(
+        self,
+        instance_name: str = None,
+        instance_id: str = None,
+        public_key: str = None,
+        public_ecies_key: str = None,
+    ):
+        self.instance_name = instance_name
+        self.instance_id = instance_id
+        self.public_key = public_key
+        self.public_ecies_key = public_ecies_key
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.DataprocBetaClusterConfigMasterConfigInstanceReferences()
+        if Primitive.to_proto(resource.instance_name):
+            res.instance_name = Primitive.to_proto(resource.instance_name)
+        if Primitive.to_proto(resource.instance_id):
+            res.instance_id = Primitive.to_proto(resource.instance_id)
+        if Primitive.to_proto(resource.public_key):
+            res.public_key = Primitive.to_proto(resource.public_key)
+        if Primitive.to_proto(resource.public_ecies_key):
+            res.public_ecies_key = Primitive.to_proto(resource.public_ecies_key)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterConfigMasterConfigInstanceReferences(
+            instance_name=Primitive.from_proto(resource.instance_name),
+            instance_id=Primitive.from_proto(resource.instance_id),
+            public_key=Primitive.from_proto(resource.public_key),
+            public_ecies_key=Primitive.from_proto(resource.public_ecies_key),
+        )
+
+
+class ClusterConfigMasterConfigInstanceReferencesArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterConfigMasterConfigInstanceReferences.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterConfigMasterConfigInstanceReferences.from_proto(i) for i in resources
+        ]
+
+
 class ClusterConfigWorkerConfig(object):
     def __init__(
         self,
@@ -805,6 +1056,7 @@ class ClusterConfigWorkerConfig(object):
         managed_group_config: dict = None,
         accelerators: list = None,
         min_cpu_platform: str = None,
+        instance_references: list = None,
     ):
         self.num_instances = num_instances
         self.instance_names = instance_names
@@ -816,6 +1068,7 @@ class ClusterConfigWorkerConfig(object):
         self.managed_group_config = managed_group_config
         self.accelerators = accelerators
         self.min_cpu_platform = min_cpu_platform
+        self.instance_references = instance_references
 
     @classmethod
     def to_proto(self, resource):
@@ -863,6 +1116,14 @@ class ClusterConfigWorkerConfig(object):
             )
         if Primitive.to_proto(resource.min_cpu_platform):
             res.min_cpu_platform = Primitive.to_proto(resource.min_cpu_platform)
+        if ClusterConfigWorkerConfigInstanceReferencesArray.to_proto(
+            resource.instance_references
+        ):
+            res.instance_references.extend(
+                ClusterConfigWorkerConfigInstanceReferencesArray.to_proto(
+                    resource.instance_references
+                )
+            )
         return res
 
     @classmethod
@@ -889,6 +1150,9 @@ class ClusterConfigWorkerConfig(object):
                 resource.accelerators
             ),
             min_cpu_platform=Primitive.from_proto(resource.min_cpu_platform),
+            instance_references=ClusterConfigWorkerConfigInstanceReferencesArray.from_proto(
+                resource.instance_references
+            ),
         )
 
 
@@ -910,10 +1174,12 @@ class ClusterConfigWorkerConfigDiskConfig(object):
         boot_disk_type: str = None,
         boot_disk_size_gb: int = None,
         num_local_ssds: int = None,
+        local_ssd_interface: str = None,
     ):
         self.boot_disk_type = boot_disk_type
         self.boot_disk_size_gb = boot_disk_size_gb
         self.num_local_ssds = num_local_ssds
+        self.local_ssd_interface = local_ssd_interface
 
     @classmethod
     def to_proto(self, resource):
@@ -927,6 +1193,8 @@ class ClusterConfigWorkerConfigDiskConfig(object):
             res.boot_disk_size_gb = Primitive.to_proto(resource.boot_disk_size_gb)
         if Primitive.to_proto(resource.num_local_ssds):
             res.num_local_ssds = Primitive.to_proto(resource.num_local_ssds)
+        if Primitive.to_proto(resource.local_ssd_interface):
+            res.local_ssd_interface = Primitive.to_proto(resource.local_ssd_interface)
         return res
 
     @classmethod
@@ -938,6 +1206,7 @@ class ClusterConfigWorkerConfigDiskConfig(object):
             boot_disk_type=Primitive.from_proto(resource.boot_disk_type),
             boot_disk_size_gb=Primitive.from_proto(resource.boot_disk_size_gb),
             num_local_ssds=Primitive.from_proto(resource.num_local_ssds),
+            local_ssd_interface=Primitive.from_proto(resource.local_ssd_interface),
         )
 
 
@@ -1049,6 +1318,64 @@ class ClusterConfigWorkerConfigAcceleratorsArray(object):
         return [ClusterConfigWorkerConfigAccelerators.from_proto(i) for i in resources]
 
 
+class ClusterConfigWorkerConfigInstanceReferences(object):
+    def __init__(
+        self,
+        instance_name: str = None,
+        instance_id: str = None,
+        public_key: str = None,
+        public_ecies_key: str = None,
+    ):
+        self.instance_name = instance_name
+        self.instance_id = instance_id
+        self.public_key = public_key
+        self.public_ecies_key = public_ecies_key
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.DataprocBetaClusterConfigWorkerConfigInstanceReferences()
+        if Primitive.to_proto(resource.instance_name):
+            res.instance_name = Primitive.to_proto(resource.instance_name)
+        if Primitive.to_proto(resource.instance_id):
+            res.instance_id = Primitive.to_proto(resource.instance_id)
+        if Primitive.to_proto(resource.public_key):
+            res.public_key = Primitive.to_proto(resource.public_key)
+        if Primitive.to_proto(resource.public_ecies_key):
+            res.public_ecies_key = Primitive.to_proto(resource.public_ecies_key)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterConfigWorkerConfigInstanceReferences(
+            instance_name=Primitive.from_proto(resource.instance_name),
+            instance_id=Primitive.from_proto(resource.instance_id),
+            public_key=Primitive.from_proto(resource.public_key),
+            public_ecies_key=Primitive.from_proto(resource.public_ecies_key),
+        )
+
+
+class ClusterConfigWorkerConfigInstanceReferencesArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterConfigWorkerConfigInstanceReferences.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterConfigWorkerConfigInstanceReferences.from_proto(i) for i in resources
+        ]
+
+
 class ClusterConfigSecondaryWorkerConfig(object):
     def __init__(
         self,
@@ -1062,6 +1389,7 @@ class ClusterConfigSecondaryWorkerConfig(object):
         managed_group_config: dict = None,
         accelerators: list = None,
         min_cpu_platform: str = None,
+        instance_references: list = None,
     ):
         self.num_instances = num_instances
         self.instance_names = instance_names
@@ -1073,6 +1401,7 @@ class ClusterConfigSecondaryWorkerConfig(object):
         self.managed_group_config = managed_group_config
         self.accelerators = accelerators
         self.min_cpu_platform = min_cpu_platform
+        self.instance_references = instance_references
 
     @classmethod
     def to_proto(self, resource):
@@ -1126,6 +1455,14 @@ class ClusterConfigSecondaryWorkerConfig(object):
             )
         if Primitive.to_proto(resource.min_cpu_platform):
             res.min_cpu_platform = Primitive.to_proto(resource.min_cpu_platform)
+        if ClusterConfigSecondaryWorkerConfigInstanceReferencesArray.to_proto(
+            resource.instance_references
+        ):
+            res.instance_references.extend(
+                ClusterConfigSecondaryWorkerConfigInstanceReferencesArray.to_proto(
+                    resource.instance_references
+                )
+            )
         return res
 
     @classmethod
@@ -1152,6 +1489,9 @@ class ClusterConfigSecondaryWorkerConfig(object):
                 resource.accelerators
             ),
             min_cpu_platform=Primitive.from_proto(resource.min_cpu_platform),
+            instance_references=ClusterConfigSecondaryWorkerConfigInstanceReferencesArray.from_proto(
+                resource.instance_references
+            ),
         )
 
 
@@ -1173,10 +1513,12 @@ class ClusterConfigSecondaryWorkerConfigDiskConfig(object):
         boot_disk_type: str = None,
         boot_disk_size_gb: int = None,
         num_local_ssds: int = None,
+        local_ssd_interface: str = None,
     ):
         self.boot_disk_type = boot_disk_type
         self.boot_disk_size_gb = boot_disk_size_gb
         self.num_local_ssds = num_local_ssds
+        self.local_ssd_interface = local_ssd_interface
 
     @classmethod
     def to_proto(self, resource):
@@ -1190,6 +1532,8 @@ class ClusterConfigSecondaryWorkerConfigDiskConfig(object):
             res.boot_disk_size_gb = Primitive.to_proto(resource.boot_disk_size_gb)
         if Primitive.to_proto(resource.num_local_ssds):
             res.num_local_ssds = Primitive.to_proto(resource.num_local_ssds)
+        if Primitive.to_proto(resource.local_ssd_interface):
+            res.local_ssd_interface = Primitive.to_proto(resource.local_ssd_interface)
         return res
 
     @classmethod
@@ -1201,6 +1545,7 @@ class ClusterConfigSecondaryWorkerConfigDiskConfig(object):
             boot_disk_type=Primitive.from_proto(resource.boot_disk_type),
             boot_disk_size_gb=Primitive.from_proto(resource.boot_disk_size_gb),
             num_local_ssds=Primitive.from_proto(resource.num_local_ssds),
+            local_ssd_interface=Primitive.from_proto(resource.local_ssd_interface),
         )
 
 
@@ -1323,6 +1668,68 @@ class ClusterConfigSecondaryWorkerConfigAcceleratorsArray(object):
     def from_proto(self, resources):
         return [
             ClusterConfigSecondaryWorkerConfigAccelerators.from_proto(i)
+            for i in resources
+        ]
+
+
+class ClusterConfigSecondaryWorkerConfigInstanceReferences(object):
+    def __init__(
+        self,
+        instance_name: str = None,
+        instance_id: str = None,
+        public_key: str = None,
+        public_ecies_key: str = None,
+    ):
+        self.instance_name = instance_name
+        self.instance_id = instance_id
+        self.public_key = public_key
+        self.public_ecies_key = public_ecies_key
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            cluster_pb2.DataprocBetaClusterConfigSecondaryWorkerConfigInstanceReferences()
+        )
+        if Primitive.to_proto(resource.instance_name):
+            res.instance_name = Primitive.to_proto(resource.instance_name)
+        if Primitive.to_proto(resource.instance_id):
+            res.instance_id = Primitive.to_proto(resource.instance_id)
+        if Primitive.to_proto(resource.public_key):
+            res.public_key = Primitive.to_proto(resource.public_key)
+        if Primitive.to_proto(resource.public_ecies_key):
+            res.public_ecies_key = Primitive.to_proto(resource.public_ecies_key)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterConfigSecondaryWorkerConfigInstanceReferences(
+            instance_name=Primitive.from_proto(resource.instance_name),
+            instance_id=Primitive.from_proto(resource.instance_id),
+            public_key=Primitive.from_proto(resource.public_key),
+            public_ecies_key=Primitive.from_proto(resource.public_ecies_key),
+        )
+
+
+class ClusterConfigSecondaryWorkerConfigInstanceReferencesArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterConfigSecondaryWorkerConfigInstanceReferences.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterConfigSecondaryWorkerConfigInstanceReferences.from_proto(i)
             for i in resources
         ]
 
@@ -1497,8 +1904,9 @@ class ClusterConfigAutoscalingConfigArray(object):
 
 
 class ClusterConfigSecurityConfig(object):
-    def __init__(self, kerberos_config: dict = None):
+    def __init__(self, kerberos_config: dict = None, identity_config: dict = None):
         self.kerberos_config = kerberos_config
+        self.identity_config = identity_config
 
     @classmethod
     def to_proto(self, resource):
@@ -1514,6 +1922,14 @@ class ClusterConfigSecurityConfig(object):
             )
         else:
             res.ClearField("kerberos_config")
+        if ClusterConfigSecurityConfigIdentityConfig.to_proto(resource.identity_config):
+            res.identity_config.CopyFrom(
+                ClusterConfigSecurityConfigIdentityConfig.to_proto(
+                    resource.identity_config
+                )
+            )
+        else:
+            res.ClearField("identity_config")
         return res
 
     @classmethod
@@ -1524,6 +1940,9 @@ class ClusterConfigSecurityConfig(object):
         return ClusterConfigSecurityConfig(
             kerberos_config=ClusterConfigSecurityConfigKerberosConfig.from_proto(
                 resource.kerberos_config
+            ),
+            identity_config=ClusterConfigSecurityConfigIdentityConfig.from_proto(
+                resource.identity_config
             ),
         )
 
@@ -1668,6 +2087,50 @@ class ClusterConfigSecurityConfigKerberosConfigArray(object):
     def from_proto(self, resources):
         return [
             ClusterConfigSecurityConfigKerberosConfig.from_proto(i) for i in resources
+        ]
+
+
+class ClusterConfigSecurityConfigIdentityConfig(object):
+    def __init__(self, user_service_account_mapping: dict = None):
+        self.user_service_account_mapping = user_service_account_mapping
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.DataprocBetaClusterConfigSecurityConfigIdentityConfig()
+        if Primitive.to_proto(resource.user_service_account_mapping):
+            res.user_service_account_mapping = Primitive.to_proto(
+                resource.user_service_account_mapping
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterConfigSecurityConfigIdentityConfig(
+            user_service_account_mapping=Primitive.from_proto(
+                resource.user_service_account_mapping
+            ),
+        )
+
+
+class ClusterConfigSecurityConfigIdentityConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterConfigSecurityConfigIdentityConfig.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterConfigSecurityConfigIdentityConfig.from_proto(i) for i in resources
         ]
 
 
@@ -1903,6 +2366,96 @@ class ClusterConfigMetastoreConfigArray(object):
         return [ClusterConfigMetastoreConfig.from_proto(i) for i in resources]
 
 
+class ClusterConfigDataprocMetricConfig(object):
+    def __init__(self, metrics: list = None):
+        self.metrics = metrics
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.DataprocBetaClusterConfigDataprocMetricConfig()
+        if ClusterConfigDataprocMetricConfigMetricsArray.to_proto(resource.metrics):
+            res.metrics.extend(
+                ClusterConfigDataprocMetricConfigMetricsArray.to_proto(resource.metrics)
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterConfigDataprocMetricConfig(
+            metrics=ClusterConfigDataprocMetricConfigMetricsArray.from_proto(
+                resource.metrics
+            ),
+        )
+
+
+class ClusterConfigDataprocMetricConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterConfigDataprocMetricConfig.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterConfigDataprocMetricConfig.from_proto(i) for i in resources]
+
+
+class ClusterConfigDataprocMetricConfigMetrics(object):
+    def __init__(self, metric_source: str = None, metric_overrides: list = None):
+        self.metric_source = metric_source
+        self.metric_overrides = metric_overrides
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.DataprocBetaClusterConfigDataprocMetricConfigMetrics()
+        if ClusterConfigDataprocMetricConfigMetricsMetricSourceEnum.to_proto(
+            resource.metric_source
+        ):
+            res.metric_source = (
+                ClusterConfigDataprocMetricConfigMetricsMetricSourceEnum.to_proto(
+                    resource.metric_source
+                )
+            )
+        if Primitive.to_proto(resource.metric_overrides):
+            res.metric_overrides.extend(Primitive.to_proto(resource.metric_overrides))
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterConfigDataprocMetricConfigMetrics(
+            metric_source=ClusterConfigDataprocMetricConfigMetricsMetricSourceEnum.from_proto(
+                resource.metric_source
+            ),
+            metric_overrides=Primitive.from_proto(resource.metric_overrides),
+        )
+
+
+class ClusterConfigDataprocMetricConfigMetricsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterConfigDataprocMetricConfigMetrics.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterConfigDataprocMetricConfigMetrics.from_proto(i) for i in resources
+        ]
+
+
 class ClusterStatus(object):
     def __init__(
         self,
@@ -2051,6 +2604,889 @@ class ClusterMetricsArray(object):
         return [ClusterMetrics.from_proto(i) for i in resources]
 
 
+class ClusterVirtualClusterConfig(object):
+    def __init__(
+        self,
+        staging_bucket: str = None,
+        kubernetes_cluster_config: dict = None,
+        auxiliary_services_config: dict = None,
+    ):
+        self.staging_bucket = staging_bucket
+        self.kubernetes_cluster_config = kubernetes_cluster_config
+        self.auxiliary_services_config = auxiliary_services_config
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.DataprocBetaClusterVirtualClusterConfig()
+        if Primitive.to_proto(resource.staging_bucket):
+            res.staging_bucket = Primitive.to_proto(resource.staging_bucket)
+        if ClusterVirtualClusterConfigKubernetesClusterConfig.to_proto(
+            resource.kubernetes_cluster_config
+        ):
+            res.kubernetes_cluster_config.CopyFrom(
+                ClusterVirtualClusterConfigKubernetesClusterConfig.to_proto(
+                    resource.kubernetes_cluster_config
+                )
+            )
+        else:
+            res.ClearField("kubernetes_cluster_config")
+        if ClusterVirtualClusterConfigAuxiliaryServicesConfig.to_proto(
+            resource.auxiliary_services_config
+        ):
+            res.auxiliary_services_config.CopyFrom(
+                ClusterVirtualClusterConfigAuxiliaryServicesConfig.to_proto(
+                    resource.auxiliary_services_config
+                )
+            )
+        else:
+            res.ClearField("auxiliary_services_config")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterVirtualClusterConfig(
+            staging_bucket=Primitive.from_proto(resource.staging_bucket),
+            kubernetes_cluster_config=ClusterVirtualClusterConfigKubernetesClusterConfig.from_proto(
+                resource.kubernetes_cluster_config
+            ),
+            auxiliary_services_config=ClusterVirtualClusterConfigAuxiliaryServicesConfig.from_proto(
+                resource.auxiliary_services_config
+            ),
+        )
+
+
+class ClusterVirtualClusterConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterVirtualClusterConfig.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterVirtualClusterConfig.from_proto(i) for i in resources]
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfig(object):
+    def __init__(
+        self,
+        kubernetes_namespace: str = None,
+        gke_cluster_config: dict = None,
+        kubernetes_software_config: dict = None,
+    ):
+        self.kubernetes_namespace = kubernetes_namespace
+        self.gke_cluster_config = gke_cluster_config
+        self.kubernetes_software_config = kubernetes_software_config
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            cluster_pb2.DataprocBetaClusterVirtualClusterConfigKubernetesClusterConfig()
+        )
+        if Primitive.to_proto(resource.kubernetes_namespace):
+            res.kubernetes_namespace = Primitive.to_proto(resource.kubernetes_namespace)
+        if ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig.to_proto(
+            resource.gke_cluster_config
+        ):
+            res.gke_cluster_config.CopyFrom(
+                ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig.to_proto(
+                    resource.gke_cluster_config
+                )
+            )
+        else:
+            res.ClearField("gke_cluster_config")
+        if ClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig.to_proto(
+            resource.kubernetes_software_config
+        ):
+            res.kubernetes_software_config.CopyFrom(
+                ClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig.to_proto(
+                    resource.kubernetes_software_config
+                )
+            )
+        else:
+            res.ClearField("kubernetes_software_config")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterVirtualClusterConfigKubernetesClusterConfig(
+            kubernetes_namespace=Primitive.from_proto(resource.kubernetes_namespace),
+            gke_cluster_config=ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig.from_proto(
+                resource.gke_cluster_config
+            ),
+            kubernetes_software_config=ClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig.from_proto(
+                resource.kubernetes_software_config
+            ),
+        )
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterVirtualClusterConfigKubernetesClusterConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterVirtualClusterConfigKubernetesClusterConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig(object):
+    def __init__(self, gke_cluster_target: str = None, node_pool_target: list = None):
+        self.gke_cluster_target = gke_cluster_target
+        self.node_pool_target = node_pool_target
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            cluster_pb2.DataprocBetaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig()
+        )
+        if Primitive.to_proto(resource.gke_cluster_target):
+            res.gke_cluster_target = Primitive.to_proto(resource.gke_cluster_target)
+        if ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetArray.to_proto(
+            resource.node_pool_target
+        ):
+            res.node_pool_target.extend(
+                ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetArray.to_proto(
+                    resource.node_pool_target
+                )
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig(
+            gke_cluster_target=Primitive.from_proto(resource.gke_cluster_target),
+            node_pool_target=ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetArray.from_proto(
+                resource.node_pool_target
+            ),
+        )
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget(
+    object
+):
+    def __init__(
+        self, node_pool: str = None, roles: list = None, node_pool_config: dict = None
+    ):
+        self.node_pool = node_pool
+        self.roles = roles
+        self.node_pool_config = node_pool_config
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            cluster_pb2.DataprocBetaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget()
+        )
+        if Primitive.to_proto(resource.node_pool):
+            res.node_pool = Primitive.to_proto(resource.node_pool)
+        if ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnumArray.to_proto(
+            resource.roles
+        ):
+            res.roles.extend(
+                ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnumArray.to_proto(
+                    resource.roles
+                )
+            )
+        if ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig.to_proto(
+            resource.node_pool_config
+        ):
+            res.node_pool_config.CopyFrom(
+                ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig.to_proto(
+                    resource.node_pool_config
+                )
+            )
+        else:
+            res.ClearField("node_pool_config")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget(
+            node_pool=Primitive.from_proto(resource.node_pool),
+            roles=ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnumArray.from_proto(
+                resource.roles
+            ),
+            node_pool_config=ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig.from_proto(
+                resource.node_pool_config
+            ),
+        )
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig(
+    object
+):
+    def __init__(
+        self, config: dict = None, locations: list = None, autoscaling: dict = None
+    ):
+        self.config = config
+        self.locations = locations
+        self.autoscaling = autoscaling
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            cluster_pb2.DataprocBetaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig()
+        )
+        if ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig.to_proto(
+            resource.config
+        ):
+            res.config.CopyFrom(
+                ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig.to_proto(
+                    resource.config
+                )
+            )
+        else:
+            res.ClearField("config")
+        if Primitive.to_proto(resource.locations):
+            res.locations.extend(Primitive.to_proto(resource.locations))
+        if ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling.to_proto(
+            resource.autoscaling
+        ):
+            res.autoscaling.CopyFrom(
+                ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling.to_proto(
+                    resource.autoscaling
+                )
+            )
+        else:
+            res.ClearField("autoscaling")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig(
+            config=ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig.from_proto(
+                resource.config
+            ),
+            locations=Primitive.from_proto(resource.locations),
+            autoscaling=ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling.from_proto(
+                resource.autoscaling
+            ),
+        )
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig(
+    object
+):
+    def __init__(
+        self,
+        machine_type: str = None,
+        local_ssd_count: int = None,
+        preemptible: bool = None,
+        accelerators: list = None,
+        min_cpu_platform: str = None,
+        boot_disk_kms_key: str = None,
+        ephemeral_storage_config: dict = None,
+        spot: bool = None,
+    ):
+        self.machine_type = machine_type
+        self.local_ssd_count = local_ssd_count
+        self.preemptible = preemptible
+        self.accelerators = accelerators
+        self.min_cpu_platform = min_cpu_platform
+        self.boot_disk_kms_key = boot_disk_kms_key
+        self.ephemeral_storage_config = ephemeral_storage_config
+        self.spot = spot
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            cluster_pb2.DataprocBetaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig()
+        )
+        if Primitive.to_proto(resource.machine_type):
+            res.machine_type = Primitive.to_proto(resource.machine_type)
+        if Primitive.to_proto(resource.local_ssd_count):
+            res.local_ssd_count = Primitive.to_proto(resource.local_ssd_count)
+        if Primitive.to_proto(resource.preemptible):
+            res.preemptible = Primitive.to_proto(resource.preemptible)
+        if ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAcceleratorsArray.to_proto(
+            resource.accelerators
+        ):
+            res.accelerators.extend(
+                ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAcceleratorsArray.to_proto(
+                    resource.accelerators
+                )
+            )
+        if Primitive.to_proto(resource.min_cpu_platform):
+            res.min_cpu_platform = Primitive.to_proto(resource.min_cpu_platform)
+        if Primitive.to_proto(resource.boot_disk_kms_key):
+            res.boot_disk_kms_key = Primitive.to_proto(resource.boot_disk_kms_key)
+        if ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig.to_proto(
+            resource.ephemeral_storage_config
+        ):
+            res.ephemeral_storage_config.CopyFrom(
+                ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig.to_proto(
+                    resource.ephemeral_storage_config
+                )
+            )
+        else:
+            res.ClearField("ephemeral_storage_config")
+        if Primitive.to_proto(resource.spot):
+            res.spot = Primitive.to_proto(resource.spot)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig(
+            machine_type=Primitive.from_proto(resource.machine_type),
+            local_ssd_count=Primitive.from_proto(resource.local_ssd_count),
+            preemptible=Primitive.from_proto(resource.preemptible),
+            accelerators=ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAcceleratorsArray.from_proto(
+                resource.accelerators
+            ),
+            min_cpu_platform=Primitive.from_proto(resource.min_cpu_platform),
+            boot_disk_kms_key=Primitive.from_proto(resource.boot_disk_kms_key),
+            ephemeral_storage_config=ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig.from_proto(
+                resource.ephemeral_storage_config
+            ),
+            spot=Primitive.from_proto(resource.spot),
+        )
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators(
+    object
+):
+    def __init__(
+        self,
+        accelerator_count: int = None,
+        accelerator_type: str = None,
+        gpu_partition_size: str = None,
+    ):
+        self.accelerator_count = accelerator_count
+        self.accelerator_type = accelerator_type
+        self.gpu_partition_size = gpu_partition_size
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            cluster_pb2.DataprocBetaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators()
+        )
+        if Primitive.to_proto(resource.accelerator_count):
+            res.accelerator_count = Primitive.to_proto(resource.accelerator_count)
+        if Primitive.to_proto(resource.accelerator_type):
+            res.accelerator_type = Primitive.to_proto(resource.accelerator_type)
+        if Primitive.to_proto(resource.gpu_partition_size):
+            res.gpu_partition_size = Primitive.to_proto(resource.gpu_partition_size)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators(
+            accelerator_count=Primitive.from_proto(resource.accelerator_count),
+            accelerator_type=Primitive.from_proto(resource.accelerator_type),
+            gpu_partition_size=Primitive.from_proto(resource.gpu_partition_size),
+        )
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAcceleratorsArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig(
+    object
+):
+    def __init__(self, local_ssd_count: int = None):
+        self.local_ssd_count = local_ssd_count
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            cluster_pb2.DataprocBetaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig()
+        )
+        if Primitive.to_proto(resource.local_ssd_count):
+            res.local_ssd_count = Primitive.to_proto(resource.local_ssd_count)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig(
+            local_ssd_count=Primitive.from_proto(resource.local_ssd_count),
+        )
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfigArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling(
+    object
+):
+    def __init__(self, min_node_count: int = None, max_node_count: int = None):
+        self.min_node_count = min_node_count
+        self.max_node_count = max_node_count
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            cluster_pb2.DataprocBetaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling()
+        )
+        if Primitive.to_proto(resource.min_node_count):
+            res.min_node_count = Primitive.to_proto(resource.min_node_count)
+        if Primitive.to_proto(resource.max_node_count):
+            res.max_node_count = Primitive.to_proto(resource.max_node_count)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling(
+            min_node_count=Primitive.from_proto(resource.min_node_count),
+            max_node_count=Primitive.from_proto(resource.max_node_count),
+        )
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscalingArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig(
+    object
+):
+    def __init__(self, component_version: dict = None, properties: dict = None):
+        self.component_version = component_version
+        self.properties = properties
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            cluster_pb2.DataprocBetaClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig()
+        )
+        if Primitive.to_proto(resource.component_version):
+            res.component_version = Primitive.to_proto(resource.component_version)
+        if Primitive.to_proto(resource.properties):
+            res.properties = Primitive.to_proto(resource.properties)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return (
+            ClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig(
+                component_version=Primitive.from_proto(resource.component_version),
+                properties=Primitive.from_proto(resource.properties),
+            )
+        )
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfigArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class ClusterVirtualClusterConfigAuxiliaryServicesConfig(object):
+    def __init__(
+        self, metastore_config: dict = None, spark_history_server_config: dict = None
+    ):
+        self.metastore_config = metastore_config
+        self.spark_history_server_config = spark_history_server_config
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            cluster_pb2.DataprocBetaClusterVirtualClusterConfigAuxiliaryServicesConfig()
+        )
+        if ClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig.to_proto(
+            resource.metastore_config
+        ):
+            res.metastore_config.CopyFrom(
+                ClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig.to_proto(
+                    resource.metastore_config
+                )
+            )
+        else:
+            res.ClearField("metastore_config")
+        if ClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig.to_proto(
+            resource.spark_history_server_config
+        ):
+            res.spark_history_server_config.CopyFrom(
+                ClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig.to_proto(
+                    resource.spark_history_server_config
+                )
+            )
+        else:
+            res.ClearField("spark_history_server_config")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterVirtualClusterConfigAuxiliaryServicesConfig(
+            metastore_config=ClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig.from_proto(
+                resource.metastore_config
+            ),
+            spark_history_server_config=ClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig.from_proto(
+                resource.spark_history_server_config
+            ),
+        )
+
+
+class ClusterVirtualClusterConfigAuxiliaryServicesConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterVirtualClusterConfigAuxiliaryServicesConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterVirtualClusterConfigAuxiliaryServicesConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class ClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig(object):
+    def __init__(self, dataproc_metastore_service: str = None):
+        self.dataproc_metastore_service = dataproc_metastore_service
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            cluster_pb2.DataprocBetaClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig()
+        )
+        if Primitive.to_proto(resource.dataproc_metastore_service):
+            res.dataproc_metastore_service = Primitive.to_proto(
+                resource.dataproc_metastore_service
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig(
+            dataproc_metastore_service=Primitive.from_proto(
+                resource.dataproc_metastore_service
+            ),
+        )
+
+
+class ClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class ClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig(
+    object
+):
+    def __init__(self, dataproc_cluster: str = None):
+        self.dataproc_cluster = dataproc_cluster
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            cluster_pb2.DataprocBetaClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig()
+        )
+        if Primitive.to_proto(resource.dataproc_cluster):
+            res.dataproc_cluster = Primitive.to_proto(resource.dataproc_cluster)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return (
+            ClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig(
+                dataproc_cluster=Primitive.from_proto(resource.dataproc_cluster),
+            )
+        )
+
+
+class ClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfigArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
 class ClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -2180,6 +3616,29 @@ class ClusterConfigSoftwareConfigOptionalComponentsEnum(object):
         ]
 
 
+class ClusterConfigDataprocMetricConfigMetricsMetricSourceEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return cluster_pb2.DataprocBetaClusterConfigDataprocMetricConfigMetricsMetricSourceEnum.Value(
+            "DataprocBetaClusterConfigDataprocMetricConfigMetricsMetricSourceEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return cluster_pb2.DataprocBetaClusterConfigDataprocMetricConfigMetricsMetricSourceEnum.Name(
+            resource
+        )[
+            len(
+                "DataprocBetaClusterConfigDataprocMetricConfigMetricsMetricSourceEnum"
+            ) :
+        ]
+
+
 class ClusterStatusStateEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -2249,6 +3708,31 @@ class ClusterStatusHistorySubstateEnum(object):
             return resource
         return cluster_pb2.DataprocBetaClusterStatusHistorySubstateEnum.Name(resource)[
             len("DataprocBetaClusterStatusHistorySubstateEnum") :
+        ]
+
+
+class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum(
+    object
+):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return cluster_pb2.DataprocBetaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum.Value(
+            "DataprocBetaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return cluster_pb2.DataprocBetaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum.Name(
+            resource
+        )[
+            len(
+                "DataprocBetaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum"
+            ) :
         ]
 
 

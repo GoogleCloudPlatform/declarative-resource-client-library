@@ -76,6 +76,17 @@ enum DataprocClusterConfigSoftwareConfigOptionalComponentsEnum {
   DataprocClusterConfigSoftwareConfigOptionalComponentsEnumZOOKEEPER = 14;
 }
 
+enum DataprocClusterConfigDataprocMetricConfigMetricsMetricSourceEnum {
+  DataprocClusterConfigDataprocMetricConfigMetricsMetricSourceEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocClusterConfigDataprocMetricConfigMetricsMetricSourceEnumMETRIC_SOURCE_UNSPECIFIED = 1;
+  DataprocClusterConfigDataprocMetricConfigMetricsMetricSourceEnumMONITORING_AGENT_DEFAULTS = 2;
+  DataprocClusterConfigDataprocMetricConfigMetricsMetricSourceEnumHDFS = 3;
+  DataprocClusterConfigDataprocMetricConfigMetricsMetricSourceEnumSPARK = 4;
+  DataprocClusterConfigDataprocMetricConfigMetricsMetricSourceEnumYARN = 5;
+  DataprocClusterConfigDataprocMetricConfigMetricsMetricSourceEnumSPARK_HISTORY_SERVER = 6;
+  DataprocClusterConfigDataprocMetricConfigMetricsMetricSourceEnumHIVESERVER2 = 7;
+}
+
 enum DataprocClusterStatusStateEnum {
   DataprocClusterStatusStateEnumNO_VALUE_DO_NOT_USE = 0;
   DataprocClusterStatusStateEnumUNKNOWN = 1;
@@ -116,6 +127,15 @@ enum DataprocClusterStatusHistorySubstateEnum {
   DataprocClusterStatusHistorySubstateEnumSTALE_STATUS = 3;
 }
 
+enum DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum {
+  DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnumNO_VALUE_DO_NOT_USE = 0;
+  DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnumROLE_UNSPECIFIED = 1;
+  DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnumDEFAULT = 2;
+  DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnumCONTROLLER = 3;
+  DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnumSPARK_DRIVER = 4;
+  DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnumSPARK_EXECUTOR = 5;
+}
+
 message DataprocCluster {
   string project = 1;
   string name = 2;
@@ -126,6 +146,7 @@ message DataprocCluster {
   string cluster_uuid = 7;
   DataprocClusterMetrics metrics = 8;
   string location = 9;
+  DataprocClusterVirtualClusterConfig virtual_cluster_config = 10;
 }
 
 message DataprocClusterConfig {
@@ -142,6 +163,8 @@ message DataprocClusterConfig {
   DataprocClusterConfigSecurityConfig security_config = 11;
   DataprocClusterConfigLifecycleConfig lifecycle_config = 12;
   DataprocClusterConfigEndpointConfig endpoint_config = 13;
+  DataprocClusterConfigMetastoreConfig metastore_config = 14;
+  DataprocClusterConfigDataprocMetricConfig dataproc_metric_config = 15;
 }
 
 message DataprocClusterConfigGceClusterConfig {
@@ -156,6 +179,8 @@ message DataprocClusterConfigGceClusterConfig {
   map<string, string> metadata = 9;
   DataprocClusterConfigGceClusterConfigReservationAffinity reservation_affinity = 10;
   DataprocClusterConfigGceClusterConfigNodeGroupAffinity node_group_affinity = 11;
+  DataprocClusterConfigGceClusterConfigShieldedInstanceConfig shielded_instance_config = 12;
+  DataprocClusterConfigGceClusterConfigConfidentialInstanceConfig confidential_instance_config = 13;
 }
 
 message DataprocClusterConfigGceClusterConfigReservationAffinity {
@@ -166,6 +191,16 @@ message DataprocClusterConfigGceClusterConfigReservationAffinity {
 
 message DataprocClusterConfigGceClusterConfigNodeGroupAffinity {
   string node_group = 1;
+}
+
+message DataprocClusterConfigGceClusterConfigShieldedInstanceConfig {
+  bool enable_secure_boot = 1;
+  bool enable_vtpm = 2;
+  bool enable_integrity_monitoring = 3;
+}
+
+message DataprocClusterConfigGceClusterConfigConfidentialInstanceConfig {
+  bool enable_confidential_compute = 1;
 }
 
 message DataprocClusterConfigMasterConfig {
@@ -179,12 +214,14 @@ message DataprocClusterConfigMasterConfig {
   DataprocClusterConfigMasterConfigManagedGroupConfig managed_group_config = 8;
   repeated DataprocClusterConfigMasterConfigAccelerators accelerators = 9;
   string min_cpu_platform = 10;
+  repeated DataprocClusterConfigMasterConfigInstanceReferences instance_references = 11;
 }
 
 message DataprocClusterConfigMasterConfigDiskConfig {
   string boot_disk_type = 1;
   int64 boot_disk_size_gb = 2;
   int64 num_local_ssds = 3;
+  string local_ssd_interface = 4;
 }
 
 message DataprocClusterConfigMasterConfigManagedGroupConfig {
@@ -195,6 +232,13 @@ message DataprocClusterConfigMasterConfigManagedGroupConfig {
 message DataprocClusterConfigMasterConfigAccelerators {
   string accelerator_type = 1;
   int64 accelerator_count = 2;
+}
+
+message DataprocClusterConfigMasterConfigInstanceReferences {
+  string instance_name = 1;
+  string instance_id = 2;
+  string public_key = 3;
+  string public_ecies_key = 4;
 }
 
 message DataprocClusterConfigWorkerConfig {
@@ -208,12 +252,14 @@ message DataprocClusterConfigWorkerConfig {
   DataprocClusterConfigWorkerConfigManagedGroupConfig managed_group_config = 8;
   repeated DataprocClusterConfigWorkerConfigAccelerators accelerators = 9;
   string min_cpu_platform = 10;
+  repeated DataprocClusterConfigWorkerConfigInstanceReferences instance_references = 11;
 }
 
 message DataprocClusterConfigWorkerConfigDiskConfig {
   string boot_disk_type = 1;
   int64 boot_disk_size_gb = 2;
   int64 num_local_ssds = 3;
+  string local_ssd_interface = 4;
 }
 
 message DataprocClusterConfigWorkerConfigManagedGroupConfig {
@@ -224,6 +270,13 @@ message DataprocClusterConfigWorkerConfigManagedGroupConfig {
 message DataprocClusterConfigWorkerConfigAccelerators {
   string accelerator_type = 1;
   int64 accelerator_count = 2;
+}
+
+message DataprocClusterConfigWorkerConfigInstanceReferences {
+  string instance_name = 1;
+  string instance_id = 2;
+  string public_key = 3;
+  string public_ecies_key = 4;
 }
 
 message DataprocClusterConfigSecondaryWorkerConfig {
@@ -237,12 +290,14 @@ message DataprocClusterConfigSecondaryWorkerConfig {
   DataprocClusterConfigSecondaryWorkerConfigManagedGroupConfig managed_group_config = 8;
   repeated DataprocClusterConfigSecondaryWorkerConfigAccelerators accelerators = 9;
   string min_cpu_platform = 10;
+  repeated DataprocClusterConfigSecondaryWorkerConfigInstanceReferences instance_references = 11;
 }
 
 message DataprocClusterConfigSecondaryWorkerConfigDiskConfig {
   string boot_disk_type = 1;
   int64 boot_disk_size_gb = 2;
   int64 num_local_ssds = 3;
+  string local_ssd_interface = 4;
 }
 
 message DataprocClusterConfigSecondaryWorkerConfigManagedGroupConfig {
@@ -253,6 +308,13 @@ message DataprocClusterConfigSecondaryWorkerConfigManagedGroupConfig {
 message DataprocClusterConfigSecondaryWorkerConfigAccelerators {
   string accelerator_type = 1;
   int64 accelerator_count = 2;
+}
+
+message DataprocClusterConfigSecondaryWorkerConfigInstanceReferences {
+  string instance_name = 1;
+  string instance_id = 2;
+  string public_key = 3;
+  string public_ecies_key = 4;
 }
 
 message DataprocClusterConfigSoftwareConfig {
@@ -276,6 +338,7 @@ message DataprocClusterConfigAutoscalingConfig {
 
 message DataprocClusterConfigSecurityConfig {
   DataprocClusterConfigSecurityConfigKerberosConfig kerberos_config = 1;
+  DataprocClusterConfigSecurityConfigIdentityConfig identity_config = 2;
 }
 
 message DataprocClusterConfigSecurityConfigKerberosConfig {
@@ -296,6 +359,10 @@ message DataprocClusterConfigSecurityConfigKerberosConfig {
   string realm = 15;
 }
 
+message DataprocClusterConfigSecurityConfigIdentityConfig {
+  map<string, string> user_service_account_mapping = 1;
+}
+
 message DataprocClusterConfigLifecycleConfig {
   string idle_delete_ttl = 1;
   string auto_delete_time = 2;
@@ -306,6 +373,19 @@ message DataprocClusterConfigLifecycleConfig {
 message DataprocClusterConfigEndpointConfig {
   map<string, string> http_ports = 1;
   bool enable_http_port_access = 2;
+}
+
+message DataprocClusterConfigMetastoreConfig {
+  string dataproc_metastore_service = 1;
+}
+
+message DataprocClusterConfigDataprocMetricConfig {
+  repeated DataprocClusterConfigDataprocMetricConfigMetrics metrics = 1;
+}
+
+message DataprocClusterConfigDataprocMetricConfigMetrics {
+  DataprocClusterConfigDataprocMetricConfigMetricsMetricSourceEnum metric_source = 1;
+  repeated string metric_overrides = 2;
 }
 
 message DataprocClusterStatus {
@@ -325,6 +405,79 @@ message DataprocClusterStatusHistory {
 message DataprocClusterMetrics {
   map<string, string> hdfs_metrics = 1;
   map<string, string> yarn_metrics = 2;
+}
+
+message DataprocClusterVirtualClusterConfig {
+  string staging_bucket = 1;
+  DataprocClusterVirtualClusterConfigKubernetesClusterConfig kubernetes_cluster_config = 2;
+  DataprocClusterVirtualClusterConfigAuxiliaryServicesConfig auxiliary_services_config = 3;
+}
+
+message DataprocClusterVirtualClusterConfigKubernetesClusterConfig {
+  string kubernetes_namespace = 1;
+  DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig gke_cluster_config = 2;
+  DataprocClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig kubernetes_software_config = 3;
+}
+
+message DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig {
+  string gke_cluster_target = 1;
+  repeated DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget node_pool_target = 2;
+}
+
+message DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget {
+  string node_pool = 1;
+  repeated DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum roles = 2;
+  DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig node_pool_config = 3;
+}
+
+message DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig {
+  DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig config = 1;
+  repeated string locations = 2;
+  DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling autoscaling = 3;
+}
+
+message DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig {
+  string machine_type = 1;
+  int64 local_ssd_count = 2;
+  bool preemptible = 3;
+  repeated DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators accelerators = 4;
+  string min_cpu_platform = 5;
+  string boot_disk_kms_key = 6;
+  DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig ephemeral_storage_config = 7;
+  bool spot = 8;
+}
+
+message DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators {
+  int64 accelerator_count = 1;
+  string accelerator_type = 2;
+  string gpu_partition_size = 3;
+}
+
+message DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig {
+  int64 local_ssd_count = 1;
+}
+
+message DataprocClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling {
+  int64 min_node_count = 1;
+  int64 max_node_count = 2;
+}
+
+message DataprocClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig {
+  map<string, string> component_version = 1;
+  map<string, string> properties = 2;
+}
+
+message DataprocClusterVirtualClusterConfigAuxiliaryServicesConfig {
+  DataprocClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig metastore_config = 1;
+  DataprocClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig spark_history_server_config = 2;
+}
+
+message DataprocClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig {
+  string dataproc_metastore_service = 1;
+}
+
+message DataprocClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig {
+  string dataproc_cluster = 1;
 }
 
 message ApplyDataprocClusterRequest {

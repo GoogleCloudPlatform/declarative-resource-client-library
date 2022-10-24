@@ -96,6 +96,18 @@ func ProtoToDataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnum(e alp
 	return nil
 }
 
+// ProtoToClusterConfigDataprocMetricConfigMetricsMetricSourceEnum converts a ClusterConfigDataprocMetricConfigMetricsMetricSourceEnum enum from its proto representation.
+func ProtoToDataprocAlphaClusterConfigDataprocMetricConfigMetricsMetricSourceEnum(e alphapb.DataprocAlphaClusterConfigDataprocMetricConfigMetricsMetricSourceEnum) *alpha.ClusterConfigDataprocMetricConfigMetricsMetricSourceEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.DataprocAlphaClusterConfigDataprocMetricConfigMetricsMetricSourceEnum_name[int32(e)]; ok {
+		e := alpha.ClusterConfigDataprocMetricConfigMetricsMetricSourceEnum(n[len("DataprocAlphaClusterConfigDataprocMetricConfigMetricsMetricSourceEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToClusterStatusStateEnum converts a ClusterStatusStateEnum enum from its proto representation.
 func ProtoToDataprocAlphaClusterStatusStateEnum(e alphapb.DataprocAlphaClusterStatusStateEnum) *alpha.ClusterStatusStateEnum {
 	if e == 0 {
@@ -144,6 +156,18 @@ func ProtoToDataprocAlphaClusterStatusHistorySubstateEnum(e alphapb.DataprocAlph
 	return nil
 }
 
+// ProtoToClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum converts a ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum enum from its proto representation.
+func ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum(e alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum) *alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum_name[int32(e)]; ok {
+		e := alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum(n[len("DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToClusterConfig converts a ClusterConfig object from its proto representation.
 func ProtoToDataprocAlphaClusterConfig(p *alphapb.DataprocAlphaClusterConfig) *alpha.ClusterConfig {
 	if p == nil {
@@ -164,6 +188,7 @@ func ProtoToDataprocAlphaClusterConfig(p *alphapb.DataprocAlphaClusterConfig) *a
 		EndpointConfig:        ProtoToDataprocAlphaClusterConfigEndpointConfig(p.GetEndpointConfig()),
 		GkeClusterConfig:      ProtoToDataprocAlphaClusterConfigGkeClusterConfig(p.GetGkeClusterConfig()),
 		MetastoreConfig:       ProtoToDataprocAlphaClusterConfigMetastoreConfig(p.GetMetastoreConfig()),
+		DataprocMetricConfig:  ProtoToDataprocAlphaClusterConfigDataprocMetricConfig(p.GetDataprocMetricConfig()),
 	}
 	for _, r := range p.GetInitializationActions() {
 		obj.InitializationActions = append(obj.InitializationActions, *ProtoToDataprocAlphaClusterConfigInitializationActions(r))
@@ -177,14 +202,16 @@ func ProtoToDataprocAlphaClusterConfigGceClusterConfig(p *alphapb.DataprocAlphaC
 		return nil
 	}
 	obj := &alpha.ClusterConfigGceClusterConfig{
-		Zone:                    dcl.StringOrNil(p.GetZone()),
-		Network:                 dcl.StringOrNil(p.GetNetwork()),
-		Subnetwork:              dcl.StringOrNil(p.GetSubnetwork()),
-		InternalIPOnly:          dcl.Bool(p.GetInternalIpOnly()),
-		PrivateIPv6GoogleAccess: ProtoToDataprocAlphaClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(p.GetPrivateIpv6GoogleAccess()),
-		ServiceAccount:          dcl.StringOrNil(p.GetServiceAccount()),
-		ReservationAffinity:     ProtoToDataprocAlphaClusterConfigGceClusterConfigReservationAffinity(p.GetReservationAffinity()),
-		NodeGroupAffinity:       ProtoToDataprocAlphaClusterConfigGceClusterConfigNodeGroupAffinity(p.GetNodeGroupAffinity()),
+		Zone:                       dcl.StringOrNil(p.GetZone()),
+		Network:                    dcl.StringOrNil(p.GetNetwork()),
+		Subnetwork:                 dcl.StringOrNil(p.GetSubnetwork()),
+		InternalIPOnly:             dcl.Bool(p.GetInternalIpOnly()),
+		PrivateIPv6GoogleAccess:    ProtoToDataprocAlphaClusterConfigGceClusterConfigPrivateIPv6GoogleAccessEnum(p.GetPrivateIpv6GoogleAccess()),
+		ServiceAccount:             dcl.StringOrNil(p.GetServiceAccount()),
+		ReservationAffinity:        ProtoToDataprocAlphaClusterConfigGceClusterConfigReservationAffinity(p.GetReservationAffinity()),
+		NodeGroupAffinity:          ProtoToDataprocAlphaClusterConfigGceClusterConfigNodeGroupAffinity(p.GetNodeGroupAffinity()),
+		ShieldedInstanceConfig:     ProtoToDataprocAlphaClusterConfigGceClusterConfigShieldedInstanceConfig(p.GetShieldedInstanceConfig()),
+		ConfidentialInstanceConfig: ProtoToDataprocAlphaClusterConfigGceClusterConfigConfidentialInstanceConfig(p.GetConfidentialInstanceConfig()),
 	}
 	for _, r := range p.GetServiceAccountScopes() {
 		obj.ServiceAccountScopes = append(obj.ServiceAccountScopes, r)
@@ -221,6 +248,30 @@ func ProtoToDataprocAlphaClusterConfigGceClusterConfigNodeGroupAffinity(p *alpha
 	return obj
 }
 
+// ProtoToClusterConfigGceClusterConfigShieldedInstanceConfig converts a ClusterConfigGceClusterConfigShieldedInstanceConfig object from its proto representation.
+func ProtoToDataprocAlphaClusterConfigGceClusterConfigShieldedInstanceConfig(p *alphapb.DataprocAlphaClusterConfigGceClusterConfigShieldedInstanceConfig) *alpha.ClusterConfigGceClusterConfigShieldedInstanceConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterConfigGceClusterConfigShieldedInstanceConfig{
+		EnableSecureBoot:          dcl.Bool(p.GetEnableSecureBoot()),
+		EnableVtpm:                dcl.Bool(p.GetEnableVtpm()),
+		EnableIntegrityMonitoring: dcl.Bool(p.GetEnableIntegrityMonitoring()),
+	}
+	return obj
+}
+
+// ProtoToClusterConfigGceClusterConfigConfidentialInstanceConfig converts a ClusterConfigGceClusterConfigConfidentialInstanceConfig object from its proto representation.
+func ProtoToDataprocAlphaClusterConfigGceClusterConfigConfidentialInstanceConfig(p *alphapb.DataprocAlphaClusterConfigGceClusterConfigConfidentialInstanceConfig) *alpha.ClusterConfigGceClusterConfigConfidentialInstanceConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterConfigGceClusterConfigConfidentialInstanceConfig{
+		EnableConfidentialCompute: dcl.Bool(p.GetEnableConfidentialCompute()),
+	}
+	return obj
+}
+
 // ProtoToClusterConfigMasterConfig converts a ClusterConfigMasterConfig object from its proto representation.
 func ProtoToDataprocAlphaClusterConfigMasterConfig(p *alphapb.DataprocAlphaClusterConfigMasterConfig) *alpha.ClusterConfigMasterConfig {
 	if p == nil {
@@ -242,6 +293,9 @@ func ProtoToDataprocAlphaClusterConfigMasterConfig(p *alphapb.DataprocAlphaClust
 	for _, r := range p.GetAccelerators() {
 		obj.Accelerators = append(obj.Accelerators, *ProtoToDataprocAlphaClusterConfigMasterConfigAccelerators(r))
 	}
+	for _, r := range p.GetInstanceReferences() {
+		obj.InstanceReferences = append(obj.InstanceReferences, *ProtoToDataprocAlphaClusterConfigMasterConfigInstanceReferences(r))
+	}
 	return obj
 }
 
@@ -251,9 +305,10 @@ func ProtoToDataprocAlphaClusterConfigMasterConfigDiskConfig(p *alphapb.Dataproc
 		return nil
 	}
 	obj := &alpha.ClusterConfigMasterConfigDiskConfig{
-		BootDiskType:   dcl.StringOrNil(p.GetBootDiskType()),
-		BootDiskSizeGb: dcl.Int64OrNil(p.GetBootDiskSizeGb()),
-		NumLocalSsds:   dcl.Int64OrNil(p.GetNumLocalSsds()),
+		BootDiskType:      dcl.StringOrNil(p.GetBootDiskType()),
+		BootDiskSizeGb:    dcl.Int64OrNil(p.GetBootDiskSizeGb()),
+		NumLocalSsds:      dcl.Int64OrNil(p.GetNumLocalSsds()),
+		LocalSsdInterface: dcl.StringOrNil(p.GetLocalSsdInterface()),
 	}
 	return obj
 }
@@ -282,6 +337,20 @@ func ProtoToDataprocAlphaClusterConfigMasterConfigAccelerators(p *alphapb.Datapr
 	return obj
 }
 
+// ProtoToClusterConfigMasterConfigInstanceReferences converts a ClusterConfigMasterConfigInstanceReferences object from its proto representation.
+func ProtoToDataprocAlphaClusterConfigMasterConfigInstanceReferences(p *alphapb.DataprocAlphaClusterConfigMasterConfigInstanceReferences) *alpha.ClusterConfigMasterConfigInstanceReferences {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterConfigMasterConfigInstanceReferences{
+		InstanceName:   dcl.StringOrNil(p.GetInstanceName()),
+		InstanceId:     dcl.StringOrNil(p.GetInstanceId()),
+		PublicKey:      dcl.StringOrNil(p.GetPublicKey()),
+		PublicEciesKey: dcl.StringOrNil(p.GetPublicEciesKey()),
+	}
+	return obj
+}
+
 // ProtoToClusterConfigWorkerConfig converts a ClusterConfigWorkerConfig object from its proto representation.
 func ProtoToDataprocAlphaClusterConfigWorkerConfig(p *alphapb.DataprocAlphaClusterConfigWorkerConfig) *alpha.ClusterConfigWorkerConfig {
 	if p == nil {
@@ -303,6 +372,9 @@ func ProtoToDataprocAlphaClusterConfigWorkerConfig(p *alphapb.DataprocAlphaClust
 	for _, r := range p.GetAccelerators() {
 		obj.Accelerators = append(obj.Accelerators, *ProtoToDataprocAlphaClusterConfigWorkerConfigAccelerators(r))
 	}
+	for _, r := range p.GetInstanceReferences() {
+		obj.InstanceReferences = append(obj.InstanceReferences, *ProtoToDataprocAlphaClusterConfigWorkerConfigInstanceReferences(r))
+	}
 	return obj
 }
 
@@ -312,9 +384,10 @@ func ProtoToDataprocAlphaClusterConfigWorkerConfigDiskConfig(p *alphapb.Dataproc
 		return nil
 	}
 	obj := &alpha.ClusterConfigWorkerConfigDiskConfig{
-		BootDiskType:   dcl.StringOrNil(p.GetBootDiskType()),
-		BootDiskSizeGb: dcl.Int64OrNil(p.GetBootDiskSizeGb()),
-		NumLocalSsds:   dcl.Int64OrNil(p.GetNumLocalSsds()),
+		BootDiskType:      dcl.StringOrNil(p.GetBootDiskType()),
+		BootDiskSizeGb:    dcl.Int64OrNil(p.GetBootDiskSizeGb()),
+		NumLocalSsds:      dcl.Int64OrNil(p.GetNumLocalSsds()),
+		LocalSsdInterface: dcl.StringOrNil(p.GetLocalSsdInterface()),
 	}
 	return obj
 }
@@ -343,6 +416,20 @@ func ProtoToDataprocAlphaClusterConfigWorkerConfigAccelerators(p *alphapb.Datapr
 	return obj
 }
 
+// ProtoToClusterConfigWorkerConfigInstanceReferences converts a ClusterConfigWorkerConfigInstanceReferences object from its proto representation.
+func ProtoToDataprocAlphaClusterConfigWorkerConfigInstanceReferences(p *alphapb.DataprocAlphaClusterConfigWorkerConfigInstanceReferences) *alpha.ClusterConfigWorkerConfigInstanceReferences {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterConfigWorkerConfigInstanceReferences{
+		InstanceName:   dcl.StringOrNil(p.GetInstanceName()),
+		InstanceId:     dcl.StringOrNil(p.GetInstanceId()),
+		PublicKey:      dcl.StringOrNil(p.GetPublicKey()),
+		PublicEciesKey: dcl.StringOrNil(p.GetPublicEciesKey()),
+	}
+	return obj
+}
+
 // ProtoToClusterConfigSecondaryWorkerConfig converts a ClusterConfigSecondaryWorkerConfig object from its proto representation.
 func ProtoToDataprocAlphaClusterConfigSecondaryWorkerConfig(p *alphapb.DataprocAlphaClusterConfigSecondaryWorkerConfig) *alpha.ClusterConfigSecondaryWorkerConfig {
 	if p == nil {
@@ -364,6 +451,9 @@ func ProtoToDataprocAlphaClusterConfigSecondaryWorkerConfig(p *alphapb.DataprocA
 	for _, r := range p.GetAccelerators() {
 		obj.Accelerators = append(obj.Accelerators, *ProtoToDataprocAlphaClusterConfigSecondaryWorkerConfigAccelerators(r))
 	}
+	for _, r := range p.GetInstanceReferences() {
+		obj.InstanceReferences = append(obj.InstanceReferences, *ProtoToDataprocAlphaClusterConfigSecondaryWorkerConfigInstanceReferences(r))
+	}
 	return obj
 }
 
@@ -373,9 +463,10 @@ func ProtoToDataprocAlphaClusterConfigSecondaryWorkerConfigDiskConfig(p *alphapb
 		return nil
 	}
 	obj := &alpha.ClusterConfigSecondaryWorkerConfigDiskConfig{
-		BootDiskType:   dcl.StringOrNil(p.GetBootDiskType()),
-		BootDiskSizeGb: dcl.Int64OrNil(p.GetBootDiskSizeGb()),
-		NumLocalSsds:   dcl.Int64OrNil(p.GetNumLocalSsds()),
+		BootDiskType:      dcl.StringOrNil(p.GetBootDiskType()),
+		BootDiskSizeGb:    dcl.Int64OrNil(p.GetBootDiskSizeGb()),
+		NumLocalSsds:      dcl.Int64OrNil(p.GetNumLocalSsds()),
+		LocalSsdInterface: dcl.StringOrNil(p.GetLocalSsdInterface()),
 	}
 	return obj
 }
@@ -400,6 +491,20 @@ func ProtoToDataprocAlphaClusterConfigSecondaryWorkerConfigAccelerators(p *alpha
 	obj := &alpha.ClusterConfigSecondaryWorkerConfigAccelerators{
 		AcceleratorType:  dcl.StringOrNil(p.GetAcceleratorType()),
 		AcceleratorCount: dcl.Int64OrNil(p.GetAcceleratorCount()),
+	}
+	return obj
+}
+
+// ProtoToClusterConfigSecondaryWorkerConfigInstanceReferences converts a ClusterConfigSecondaryWorkerConfigInstanceReferences object from its proto representation.
+func ProtoToDataprocAlphaClusterConfigSecondaryWorkerConfigInstanceReferences(p *alphapb.DataprocAlphaClusterConfigSecondaryWorkerConfigInstanceReferences) *alpha.ClusterConfigSecondaryWorkerConfigInstanceReferences {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterConfigSecondaryWorkerConfigInstanceReferences{
+		InstanceName:   dcl.StringOrNil(p.GetInstanceName()),
+		InstanceId:     dcl.StringOrNil(p.GetInstanceId()),
+		PublicKey:      dcl.StringOrNil(p.GetPublicKey()),
+		PublicEciesKey: dcl.StringOrNil(p.GetPublicEciesKey()),
 	}
 	return obj
 }
@@ -459,6 +564,7 @@ func ProtoToDataprocAlphaClusterConfigSecurityConfig(p *alphapb.DataprocAlphaClu
 	}
 	obj := &alpha.ClusterConfigSecurityConfig{
 		KerberosConfig: ProtoToDataprocAlphaClusterConfigSecurityConfigKerberosConfig(p.GetKerberosConfig()),
+		IdentityConfig: ProtoToDataprocAlphaClusterConfigSecurityConfigIdentityConfig(p.GetIdentityConfig()),
 	}
 	return obj
 }
@@ -485,6 +591,15 @@ func ProtoToDataprocAlphaClusterConfigSecurityConfigKerberosConfig(p *alphapb.Da
 		TgtLifetimeHours:              dcl.Int64OrNil(p.GetTgtLifetimeHours()),
 		Realm:                         dcl.StringOrNil(p.GetRealm()),
 	}
+	return obj
+}
+
+// ProtoToClusterConfigSecurityConfigIdentityConfig converts a ClusterConfigSecurityConfigIdentityConfig object from its proto representation.
+func ProtoToDataprocAlphaClusterConfigSecurityConfigIdentityConfig(p *alphapb.DataprocAlphaClusterConfigSecurityConfigIdentityConfig) *alpha.ClusterConfigSecurityConfigIdentityConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterConfigSecurityConfigIdentityConfig{}
 	return obj
 }
 
@@ -547,6 +662,32 @@ func ProtoToDataprocAlphaClusterConfigMetastoreConfig(p *alphapb.DataprocAlphaCl
 	return obj
 }
 
+// ProtoToClusterConfigDataprocMetricConfig converts a ClusterConfigDataprocMetricConfig object from its proto representation.
+func ProtoToDataprocAlphaClusterConfigDataprocMetricConfig(p *alphapb.DataprocAlphaClusterConfigDataprocMetricConfig) *alpha.ClusterConfigDataprocMetricConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterConfigDataprocMetricConfig{}
+	for _, r := range p.GetMetrics() {
+		obj.Metrics = append(obj.Metrics, *ProtoToDataprocAlphaClusterConfigDataprocMetricConfigMetrics(r))
+	}
+	return obj
+}
+
+// ProtoToClusterConfigDataprocMetricConfigMetrics converts a ClusterConfigDataprocMetricConfigMetrics object from its proto representation.
+func ProtoToDataprocAlphaClusterConfigDataprocMetricConfigMetrics(p *alphapb.DataprocAlphaClusterConfigDataprocMetricConfigMetrics) *alpha.ClusterConfigDataprocMetricConfigMetrics {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterConfigDataprocMetricConfigMetrics{
+		MetricSource: ProtoToDataprocAlphaClusterConfigDataprocMetricConfigMetricsMetricSourceEnum(p.GetMetricSource()),
+	}
+	for _, r := range p.GetMetricOverrides() {
+		obj.MetricOverrides = append(obj.MetricOverrides, r)
+	}
+	return obj
+}
+
 // ProtoToClusterStatus converts a ClusterStatus object from its proto representation.
 func ProtoToDataprocAlphaClusterStatus(p *alphapb.DataprocAlphaClusterStatus) *alpha.ClusterStatus {
 	if p == nil {
@@ -584,16 +725,186 @@ func ProtoToDataprocAlphaClusterMetrics(p *alphapb.DataprocAlphaClusterMetrics) 
 	return obj
 }
 
+// ProtoToClusterVirtualClusterConfig converts a ClusterVirtualClusterConfig object from its proto representation.
+func ProtoToDataprocAlphaClusterVirtualClusterConfig(p *alphapb.DataprocAlphaClusterVirtualClusterConfig) *alpha.ClusterVirtualClusterConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterVirtualClusterConfig{
+		StagingBucket:           dcl.StringOrNil(p.GetStagingBucket()),
+		KubernetesClusterConfig: ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfig(p.GetKubernetesClusterConfig()),
+		AuxiliaryServicesConfig: ProtoToDataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfig(p.GetAuxiliaryServicesConfig()),
+	}
+	return obj
+}
+
+// ProtoToClusterVirtualClusterConfigKubernetesClusterConfig converts a ClusterVirtualClusterConfigKubernetesClusterConfig object from its proto representation.
+func ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfig(p *alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfig) *alpha.ClusterVirtualClusterConfigKubernetesClusterConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterVirtualClusterConfigKubernetesClusterConfig{
+		KubernetesNamespace:      dcl.StringOrNil(p.GetKubernetesNamespace()),
+		GkeClusterConfig:         ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig(p.GetGkeClusterConfig()),
+		KubernetesSoftwareConfig: ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig(p.GetKubernetesSoftwareConfig()),
+	}
+	return obj
+}
+
+// ProtoToClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig converts a ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig object from its proto representation.
+func ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig(p *alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig) *alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig{
+		GkeClusterTarget: dcl.StringOrNil(p.GetGkeClusterTarget()),
+	}
+	for _, r := range p.GetNodePoolTarget() {
+		obj.NodePoolTarget = append(obj.NodePoolTarget, *ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget(r))
+	}
+	return obj
+}
+
+// ProtoToClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget converts a ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget object from its proto representation.
+func ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget(p *alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget) *alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget{
+		NodePool:       dcl.StringOrNil(p.GetNodePool()),
+		NodePoolConfig: ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig(p.GetNodePoolConfig()),
+	}
+	for _, r := range p.GetRoles() {
+		obj.Roles = append(obj.Roles, *ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum(r))
+	}
+	return obj
+}
+
+// ProtoToClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig converts a ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig object from its proto representation.
+func ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig(p *alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig) *alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig{
+		Config:      ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig(p.GetConfig()),
+		Autoscaling: ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling(p.GetAutoscaling()),
+	}
+	for _, r := range p.GetLocations() {
+		obj.Locations = append(obj.Locations, r)
+	}
+	return obj
+}
+
+// ProtoToClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig converts a ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig object from its proto representation.
+func ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig(p *alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig) *alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig{
+		MachineType:            dcl.StringOrNil(p.GetMachineType()),
+		LocalSsdCount:          dcl.Int64OrNil(p.GetLocalSsdCount()),
+		Preemptible:            dcl.Bool(p.GetPreemptible()),
+		MinCpuPlatform:         dcl.StringOrNil(p.GetMinCpuPlatform()),
+		BootDiskKmsKey:         dcl.StringOrNil(p.GetBootDiskKmsKey()),
+		EphemeralStorageConfig: ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig(p.GetEphemeralStorageConfig()),
+		Spot:                   dcl.Bool(p.GetSpot()),
+	}
+	for _, r := range p.GetAccelerators() {
+		obj.Accelerators = append(obj.Accelerators, *ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators(r))
+	}
+	return obj
+}
+
+// ProtoToClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators converts a ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators object from its proto representation.
+func ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators(p *alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators) *alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators{
+		AcceleratorCount: dcl.Int64OrNil(p.GetAcceleratorCount()),
+		AcceleratorType:  dcl.StringOrNil(p.GetAcceleratorType()),
+		GpuPartitionSize: dcl.StringOrNil(p.GetGpuPartitionSize()),
+	}
+	return obj
+}
+
+// ProtoToClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig converts a ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig object from its proto representation.
+func ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig(p *alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig) *alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig{
+		LocalSsdCount: dcl.Int64OrNil(p.GetLocalSsdCount()),
+	}
+	return obj
+}
+
+// ProtoToClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling converts a ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling object from its proto representation.
+func ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling(p *alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling) *alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling{
+		MinNodeCount: dcl.Int64OrNil(p.GetMinNodeCount()),
+		MaxNodeCount: dcl.Int64OrNil(p.GetMaxNodeCount()),
+	}
+	return obj
+}
+
+// ProtoToClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig converts a ClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig object from its proto representation.
+func ProtoToDataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig(p *alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig) *alpha.ClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig{}
+	return obj
+}
+
+// ProtoToClusterVirtualClusterConfigAuxiliaryServicesConfig converts a ClusterVirtualClusterConfigAuxiliaryServicesConfig object from its proto representation.
+func ProtoToDataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfig(p *alphapb.DataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfig) *alpha.ClusterVirtualClusterConfigAuxiliaryServicesConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterVirtualClusterConfigAuxiliaryServicesConfig{
+		MetastoreConfig:          ProtoToDataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig(p.GetMetastoreConfig()),
+		SparkHistoryServerConfig: ProtoToDataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig(p.GetSparkHistoryServerConfig()),
+	}
+	return obj
+}
+
+// ProtoToClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig converts a ClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig object from its proto representation.
+func ProtoToDataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig(p *alphapb.DataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig) *alpha.ClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig{
+		DataprocMetastoreService: dcl.StringOrNil(p.GetDataprocMetastoreService()),
+	}
+	return obj
+}
+
+// ProtoToClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig converts a ClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig object from its proto representation.
+func ProtoToDataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig(p *alphapb.DataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig) *alpha.ClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig{
+		DataprocCluster: dcl.StringOrNil(p.GetDataprocCluster()),
+	}
+	return obj
+}
+
 // ProtoToCluster converts a Cluster resource from its proto representation.
 func ProtoToCluster(p *alphapb.DataprocAlphaCluster) *alpha.Cluster {
 	obj := &alpha.Cluster{
-		Project:     dcl.StringOrNil(p.GetProject()),
-		Name:        dcl.StringOrNil(p.GetName()),
-		Config:      ProtoToDataprocAlphaClusterConfig(p.GetConfig()),
-		Status:      ProtoToDataprocAlphaClusterStatus(p.GetStatus()),
-		ClusterUuid: dcl.StringOrNil(p.GetClusterUuid()),
-		Metrics:     ProtoToDataprocAlphaClusterMetrics(p.GetMetrics()),
-		Location:    dcl.StringOrNil(p.GetLocation()),
+		Project:              dcl.StringOrNil(p.GetProject()),
+		Name:                 dcl.StringOrNil(p.GetName()),
+		Config:               ProtoToDataprocAlphaClusterConfig(p.GetConfig()),
+		Status:               ProtoToDataprocAlphaClusterStatus(p.GetStatus()),
+		ClusterUuid:          dcl.StringOrNil(p.GetClusterUuid()),
+		Metrics:              ProtoToDataprocAlphaClusterMetrics(p.GetMetrics()),
+		Location:             dcl.StringOrNil(p.GetLocation()),
+		VirtualClusterConfig: ProtoToDataprocAlphaClusterVirtualClusterConfig(p.GetVirtualClusterConfig()),
 	}
 	for _, r := range p.GetStatusHistory() {
 		obj.StatusHistory = append(obj.StatusHistory, *ProtoToDataprocAlphaClusterStatusHistory(r))
@@ -667,6 +978,17 @@ func DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnumToProto(e *al
 	return alphapb.DataprocAlphaClusterConfigSoftwareConfigOptionalComponentsEnum(0)
 }
 
+// ClusterConfigDataprocMetricConfigMetricsMetricSourceEnumToProto converts a ClusterConfigDataprocMetricConfigMetricsMetricSourceEnum enum to its proto representation.
+func DataprocAlphaClusterConfigDataprocMetricConfigMetricsMetricSourceEnumToProto(e *alpha.ClusterConfigDataprocMetricConfigMetricsMetricSourceEnum) alphapb.DataprocAlphaClusterConfigDataprocMetricConfigMetricsMetricSourceEnum {
+	if e == nil {
+		return alphapb.DataprocAlphaClusterConfigDataprocMetricConfigMetricsMetricSourceEnum(0)
+	}
+	if v, ok := alphapb.DataprocAlphaClusterConfigDataprocMetricConfigMetricsMetricSourceEnum_value["ClusterConfigDataprocMetricConfigMetricsMetricSourceEnum"+string(*e)]; ok {
+		return alphapb.DataprocAlphaClusterConfigDataprocMetricConfigMetricsMetricSourceEnum(v)
+	}
+	return alphapb.DataprocAlphaClusterConfigDataprocMetricConfigMetricsMetricSourceEnum(0)
+}
+
 // ClusterStatusStateEnumToProto converts a ClusterStatusStateEnum enum to its proto representation.
 func DataprocAlphaClusterStatusStateEnumToProto(e *alpha.ClusterStatusStateEnum) alphapb.DataprocAlphaClusterStatusStateEnum {
 	if e == nil {
@@ -711,6 +1033,17 @@ func DataprocAlphaClusterStatusHistorySubstateEnumToProto(e *alpha.ClusterStatus
 	return alphapb.DataprocAlphaClusterStatusHistorySubstateEnum(0)
 }
 
+// ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnumToProto converts a ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum enum to its proto representation.
+func DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnumToProto(e *alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum) alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum {
+	if e == nil {
+		return alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum(0)
+	}
+	if v, ok := alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum_value["ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum"+string(*e)]; ok {
+		return alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum(v)
+	}
+	return alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum(0)
+}
+
 // ClusterConfigToProto converts a ClusterConfig object to its proto representation.
 func DataprocAlphaClusterConfigToProto(o *alpha.ClusterConfig) *alphapb.DataprocAlphaClusterConfig {
 	if o == nil {
@@ -731,6 +1064,7 @@ func DataprocAlphaClusterConfigToProto(o *alpha.ClusterConfig) *alphapb.Dataproc
 	p.SetEndpointConfig(DataprocAlphaClusterConfigEndpointConfigToProto(o.EndpointConfig))
 	p.SetGkeClusterConfig(DataprocAlphaClusterConfigGkeClusterConfigToProto(o.GkeClusterConfig))
 	p.SetMetastoreConfig(DataprocAlphaClusterConfigMetastoreConfigToProto(o.MetastoreConfig))
+	p.SetDataprocMetricConfig(DataprocAlphaClusterConfigDataprocMetricConfigToProto(o.DataprocMetricConfig))
 	sInitializationActions := make([]*alphapb.DataprocAlphaClusterConfigInitializationActions, len(o.InitializationActions))
 	for i, r := range o.InitializationActions {
 		sInitializationActions[i] = DataprocAlphaClusterConfigInitializationActionsToProto(&r)
@@ -753,6 +1087,8 @@ func DataprocAlphaClusterConfigGceClusterConfigToProto(o *alpha.ClusterConfigGce
 	p.SetServiceAccount(dcl.ValueOrEmptyString(o.ServiceAccount))
 	p.SetReservationAffinity(DataprocAlphaClusterConfigGceClusterConfigReservationAffinityToProto(o.ReservationAffinity))
 	p.SetNodeGroupAffinity(DataprocAlphaClusterConfigGceClusterConfigNodeGroupAffinityToProto(o.NodeGroupAffinity))
+	p.SetShieldedInstanceConfig(DataprocAlphaClusterConfigGceClusterConfigShieldedInstanceConfigToProto(o.ShieldedInstanceConfig))
+	p.SetConfidentialInstanceConfig(DataprocAlphaClusterConfigGceClusterConfigConfidentialInstanceConfigToProto(o.ConfidentialInstanceConfig))
 	sServiceAccountScopes := make([]string, len(o.ServiceAccountScopes))
 	for i, r := range o.ServiceAccountScopes {
 		sServiceAccountScopes[i] = r
@@ -797,6 +1133,28 @@ func DataprocAlphaClusterConfigGceClusterConfigNodeGroupAffinityToProto(o *alpha
 	return p
 }
 
+// ClusterConfigGceClusterConfigShieldedInstanceConfigToProto converts a ClusterConfigGceClusterConfigShieldedInstanceConfig object to its proto representation.
+func DataprocAlphaClusterConfigGceClusterConfigShieldedInstanceConfigToProto(o *alpha.ClusterConfigGceClusterConfigShieldedInstanceConfig) *alphapb.DataprocAlphaClusterConfigGceClusterConfigShieldedInstanceConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterConfigGceClusterConfigShieldedInstanceConfig{}
+	p.SetEnableSecureBoot(dcl.ValueOrEmptyBool(o.EnableSecureBoot))
+	p.SetEnableVtpm(dcl.ValueOrEmptyBool(o.EnableVtpm))
+	p.SetEnableIntegrityMonitoring(dcl.ValueOrEmptyBool(o.EnableIntegrityMonitoring))
+	return p
+}
+
+// ClusterConfigGceClusterConfigConfidentialInstanceConfigToProto converts a ClusterConfigGceClusterConfigConfidentialInstanceConfig object to its proto representation.
+func DataprocAlphaClusterConfigGceClusterConfigConfidentialInstanceConfigToProto(o *alpha.ClusterConfigGceClusterConfigConfidentialInstanceConfig) *alphapb.DataprocAlphaClusterConfigGceClusterConfigConfidentialInstanceConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterConfigGceClusterConfigConfidentialInstanceConfig{}
+	p.SetEnableConfidentialCompute(dcl.ValueOrEmptyBool(o.EnableConfidentialCompute))
+	return p
+}
+
 // ClusterConfigMasterConfigToProto converts a ClusterConfigMasterConfig object to its proto representation.
 func DataprocAlphaClusterConfigMasterConfigToProto(o *alpha.ClusterConfigMasterConfig) *alphapb.DataprocAlphaClusterConfigMasterConfig {
 	if o == nil {
@@ -821,6 +1179,11 @@ func DataprocAlphaClusterConfigMasterConfigToProto(o *alpha.ClusterConfigMasterC
 		sAccelerators[i] = DataprocAlphaClusterConfigMasterConfigAcceleratorsToProto(&r)
 	}
 	p.SetAccelerators(sAccelerators)
+	sInstanceReferences := make([]*alphapb.DataprocAlphaClusterConfigMasterConfigInstanceReferences, len(o.InstanceReferences))
+	for i, r := range o.InstanceReferences {
+		sInstanceReferences[i] = DataprocAlphaClusterConfigMasterConfigInstanceReferencesToProto(&r)
+	}
+	p.SetInstanceReferences(sInstanceReferences)
 	return p
 }
 
@@ -833,6 +1196,7 @@ func DataprocAlphaClusterConfigMasterConfigDiskConfigToProto(o *alpha.ClusterCon
 	p.SetBootDiskType(dcl.ValueOrEmptyString(o.BootDiskType))
 	p.SetBootDiskSizeGb(dcl.ValueOrEmptyInt64(o.BootDiskSizeGb))
 	p.SetNumLocalSsds(dcl.ValueOrEmptyInt64(o.NumLocalSsds))
+	p.SetLocalSsdInterface(dcl.ValueOrEmptyString(o.LocalSsdInterface))
 	return p
 }
 
@@ -855,6 +1219,19 @@ func DataprocAlphaClusterConfigMasterConfigAcceleratorsToProto(o *alpha.ClusterC
 	p := &alphapb.DataprocAlphaClusterConfigMasterConfigAccelerators{}
 	p.SetAcceleratorType(dcl.ValueOrEmptyString(o.AcceleratorType))
 	p.SetAcceleratorCount(dcl.ValueOrEmptyInt64(o.AcceleratorCount))
+	return p
+}
+
+// ClusterConfigMasterConfigInstanceReferencesToProto converts a ClusterConfigMasterConfigInstanceReferences object to its proto representation.
+func DataprocAlphaClusterConfigMasterConfigInstanceReferencesToProto(o *alpha.ClusterConfigMasterConfigInstanceReferences) *alphapb.DataprocAlphaClusterConfigMasterConfigInstanceReferences {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterConfigMasterConfigInstanceReferences{}
+	p.SetInstanceName(dcl.ValueOrEmptyString(o.InstanceName))
+	p.SetInstanceId(dcl.ValueOrEmptyString(o.InstanceId))
+	p.SetPublicKey(dcl.ValueOrEmptyString(o.PublicKey))
+	p.SetPublicEciesKey(dcl.ValueOrEmptyString(o.PublicEciesKey))
 	return p
 }
 
@@ -882,6 +1259,11 @@ func DataprocAlphaClusterConfigWorkerConfigToProto(o *alpha.ClusterConfigWorkerC
 		sAccelerators[i] = DataprocAlphaClusterConfigWorkerConfigAcceleratorsToProto(&r)
 	}
 	p.SetAccelerators(sAccelerators)
+	sInstanceReferences := make([]*alphapb.DataprocAlphaClusterConfigWorkerConfigInstanceReferences, len(o.InstanceReferences))
+	for i, r := range o.InstanceReferences {
+		sInstanceReferences[i] = DataprocAlphaClusterConfigWorkerConfigInstanceReferencesToProto(&r)
+	}
+	p.SetInstanceReferences(sInstanceReferences)
 	return p
 }
 
@@ -894,6 +1276,7 @@ func DataprocAlphaClusterConfigWorkerConfigDiskConfigToProto(o *alpha.ClusterCon
 	p.SetBootDiskType(dcl.ValueOrEmptyString(o.BootDiskType))
 	p.SetBootDiskSizeGb(dcl.ValueOrEmptyInt64(o.BootDiskSizeGb))
 	p.SetNumLocalSsds(dcl.ValueOrEmptyInt64(o.NumLocalSsds))
+	p.SetLocalSsdInterface(dcl.ValueOrEmptyString(o.LocalSsdInterface))
 	return p
 }
 
@@ -916,6 +1299,19 @@ func DataprocAlphaClusterConfigWorkerConfigAcceleratorsToProto(o *alpha.ClusterC
 	p := &alphapb.DataprocAlphaClusterConfigWorkerConfigAccelerators{}
 	p.SetAcceleratorType(dcl.ValueOrEmptyString(o.AcceleratorType))
 	p.SetAcceleratorCount(dcl.ValueOrEmptyInt64(o.AcceleratorCount))
+	return p
+}
+
+// ClusterConfigWorkerConfigInstanceReferencesToProto converts a ClusterConfigWorkerConfigInstanceReferences object to its proto representation.
+func DataprocAlphaClusterConfigWorkerConfigInstanceReferencesToProto(o *alpha.ClusterConfigWorkerConfigInstanceReferences) *alphapb.DataprocAlphaClusterConfigWorkerConfigInstanceReferences {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterConfigWorkerConfigInstanceReferences{}
+	p.SetInstanceName(dcl.ValueOrEmptyString(o.InstanceName))
+	p.SetInstanceId(dcl.ValueOrEmptyString(o.InstanceId))
+	p.SetPublicKey(dcl.ValueOrEmptyString(o.PublicKey))
+	p.SetPublicEciesKey(dcl.ValueOrEmptyString(o.PublicEciesKey))
 	return p
 }
 
@@ -943,6 +1339,11 @@ func DataprocAlphaClusterConfigSecondaryWorkerConfigToProto(o *alpha.ClusterConf
 		sAccelerators[i] = DataprocAlphaClusterConfigSecondaryWorkerConfigAcceleratorsToProto(&r)
 	}
 	p.SetAccelerators(sAccelerators)
+	sInstanceReferences := make([]*alphapb.DataprocAlphaClusterConfigSecondaryWorkerConfigInstanceReferences, len(o.InstanceReferences))
+	for i, r := range o.InstanceReferences {
+		sInstanceReferences[i] = DataprocAlphaClusterConfigSecondaryWorkerConfigInstanceReferencesToProto(&r)
+	}
+	p.SetInstanceReferences(sInstanceReferences)
 	return p
 }
 
@@ -955,6 +1356,7 @@ func DataprocAlphaClusterConfigSecondaryWorkerConfigDiskConfigToProto(o *alpha.C
 	p.SetBootDiskType(dcl.ValueOrEmptyString(o.BootDiskType))
 	p.SetBootDiskSizeGb(dcl.ValueOrEmptyInt64(o.BootDiskSizeGb))
 	p.SetNumLocalSsds(dcl.ValueOrEmptyInt64(o.NumLocalSsds))
+	p.SetLocalSsdInterface(dcl.ValueOrEmptyString(o.LocalSsdInterface))
 	return p
 }
 
@@ -977,6 +1379,19 @@ func DataprocAlphaClusterConfigSecondaryWorkerConfigAcceleratorsToProto(o *alpha
 	p := &alphapb.DataprocAlphaClusterConfigSecondaryWorkerConfigAccelerators{}
 	p.SetAcceleratorType(dcl.ValueOrEmptyString(o.AcceleratorType))
 	p.SetAcceleratorCount(dcl.ValueOrEmptyInt64(o.AcceleratorCount))
+	return p
+}
+
+// ClusterConfigSecondaryWorkerConfigInstanceReferencesToProto converts a ClusterConfigSecondaryWorkerConfigInstanceReferences object to its proto representation.
+func DataprocAlphaClusterConfigSecondaryWorkerConfigInstanceReferencesToProto(o *alpha.ClusterConfigSecondaryWorkerConfigInstanceReferences) *alphapb.DataprocAlphaClusterConfigSecondaryWorkerConfigInstanceReferences {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterConfigSecondaryWorkerConfigInstanceReferences{}
+	p.SetInstanceName(dcl.ValueOrEmptyString(o.InstanceName))
+	p.SetInstanceId(dcl.ValueOrEmptyString(o.InstanceId))
+	p.SetPublicKey(dcl.ValueOrEmptyString(o.PublicKey))
+	p.SetPublicEciesKey(dcl.ValueOrEmptyString(o.PublicEciesKey))
 	return p
 }
 
@@ -1038,6 +1453,7 @@ func DataprocAlphaClusterConfigSecurityConfigToProto(o *alpha.ClusterConfigSecur
 	}
 	p := &alphapb.DataprocAlphaClusterConfigSecurityConfig{}
 	p.SetKerberosConfig(DataprocAlphaClusterConfigSecurityConfigKerberosConfigToProto(o.KerberosConfig))
+	p.SetIdentityConfig(DataprocAlphaClusterConfigSecurityConfigIdentityConfigToProto(o.IdentityConfig))
 	return p
 }
 
@@ -1062,6 +1478,20 @@ func DataprocAlphaClusterConfigSecurityConfigKerberosConfigToProto(o *alpha.Clus
 	p.SetKdcDbKey(dcl.ValueOrEmptyString(o.KdcDbKey))
 	p.SetTgtLifetimeHours(dcl.ValueOrEmptyInt64(o.TgtLifetimeHours))
 	p.SetRealm(dcl.ValueOrEmptyString(o.Realm))
+	return p
+}
+
+// ClusterConfigSecurityConfigIdentityConfigToProto converts a ClusterConfigSecurityConfigIdentityConfig object to its proto representation.
+func DataprocAlphaClusterConfigSecurityConfigIdentityConfigToProto(o *alpha.ClusterConfigSecurityConfigIdentityConfig) *alphapb.DataprocAlphaClusterConfigSecurityConfigIdentityConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterConfigSecurityConfigIdentityConfig{}
+	mUserServiceAccountMapping := make(map[string]string, len(o.UserServiceAccountMapping))
+	for k, r := range o.UserServiceAccountMapping {
+		mUserServiceAccountMapping[k] = r
+	}
+	p.SetUserServiceAccountMapping(mUserServiceAccountMapping)
 	return p
 }
 
@@ -1124,6 +1554,35 @@ func DataprocAlphaClusterConfigMetastoreConfigToProto(o *alpha.ClusterConfigMeta
 	return p
 }
 
+// ClusterConfigDataprocMetricConfigToProto converts a ClusterConfigDataprocMetricConfig object to its proto representation.
+func DataprocAlphaClusterConfigDataprocMetricConfigToProto(o *alpha.ClusterConfigDataprocMetricConfig) *alphapb.DataprocAlphaClusterConfigDataprocMetricConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterConfigDataprocMetricConfig{}
+	sMetrics := make([]*alphapb.DataprocAlphaClusterConfigDataprocMetricConfigMetrics, len(o.Metrics))
+	for i, r := range o.Metrics {
+		sMetrics[i] = DataprocAlphaClusterConfigDataprocMetricConfigMetricsToProto(&r)
+	}
+	p.SetMetrics(sMetrics)
+	return p
+}
+
+// ClusterConfigDataprocMetricConfigMetricsToProto converts a ClusterConfigDataprocMetricConfigMetrics object to its proto representation.
+func DataprocAlphaClusterConfigDataprocMetricConfigMetricsToProto(o *alpha.ClusterConfigDataprocMetricConfigMetrics) *alphapb.DataprocAlphaClusterConfigDataprocMetricConfigMetrics {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterConfigDataprocMetricConfigMetrics{}
+	p.SetMetricSource(DataprocAlphaClusterConfigDataprocMetricConfigMetricsMetricSourceEnumToProto(o.MetricSource))
+	sMetricOverrides := make([]string, len(o.MetricOverrides))
+	for i, r := range o.MetricOverrides {
+		sMetricOverrides[i] = r
+	}
+	p.SetMetricOverrides(sMetricOverrides)
+	return p
+}
+
 // ClusterStatusToProto converts a ClusterStatus object to its proto representation.
 func DataprocAlphaClusterStatusToProto(o *alpha.ClusterStatus) *alphapb.DataprocAlphaClusterStatus {
 	if o == nil {
@@ -1169,6 +1628,181 @@ func DataprocAlphaClusterMetricsToProto(o *alpha.ClusterMetrics) *alphapb.Datapr
 	return p
 }
 
+// ClusterVirtualClusterConfigToProto converts a ClusterVirtualClusterConfig object to its proto representation.
+func DataprocAlphaClusterVirtualClusterConfigToProto(o *alpha.ClusterVirtualClusterConfig) *alphapb.DataprocAlphaClusterVirtualClusterConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterVirtualClusterConfig{}
+	p.SetStagingBucket(dcl.ValueOrEmptyString(o.StagingBucket))
+	p.SetKubernetesClusterConfig(DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigToProto(o.KubernetesClusterConfig))
+	p.SetAuxiliaryServicesConfig(DataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfigToProto(o.AuxiliaryServicesConfig))
+	return p
+}
+
+// ClusterVirtualClusterConfigKubernetesClusterConfigToProto converts a ClusterVirtualClusterConfigKubernetesClusterConfig object to its proto representation.
+func DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigToProto(o *alpha.ClusterVirtualClusterConfigKubernetesClusterConfig) *alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfig{}
+	p.SetKubernetesNamespace(dcl.ValueOrEmptyString(o.KubernetesNamespace))
+	p.SetGkeClusterConfig(DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigToProto(o.GkeClusterConfig))
+	p.SetKubernetesSoftwareConfig(DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfigToProto(o.KubernetesSoftwareConfig))
+	return p
+}
+
+// ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigToProto converts a ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig object to its proto representation.
+func DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigToProto(o *alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig) *alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig{}
+	p.SetGkeClusterTarget(dcl.ValueOrEmptyString(o.GkeClusterTarget))
+	sNodePoolTarget := make([]*alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget, len(o.NodePoolTarget))
+	for i, r := range o.NodePoolTarget {
+		sNodePoolTarget[i] = DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetToProto(&r)
+	}
+	p.SetNodePoolTarget(sNodePoolTarget)
+	return p
+}
+
+// ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetToProto converts a ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget object to its proto representation.
+func DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetToProto(o *alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget) *alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget{}
+	p.SetNodePool(dcl.ValueOrEmptyString(o.NodePool))
+	p.SetNodePoolConfig(DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigToProto(o.NodePoolConfig))
+	sRoles := make([]alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum, len(o.Roles))
+	for i, r := range o.Roles {
+		sRoles[i] = alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum(alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetRolesEnum_value[string(r)])
+	}
+	p.SetRoles(sRoles)
+	return p
+}
+
+// ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigToProto converts a ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig object to its proto representation.
+func DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigToProto(o *alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig) *alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig{}
+	p.SetConfig(DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigToProto(o.Config))
+	p.SetAutoscaling(DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscalingToProto(o.Autoscaling))
+	sLocations := make([]string, len(o.Locations))
+	for i, r := range o.Locations {
+		sLocations[i] = r
+	}
+	p.SetLocations(sLocations)
+	return p
+}
+
+// ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigToProto converts a ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig object to its proto representation.
+func DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigToProto(o *alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig) *alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig{}
+	p.SetMachineType(dcl.ValueOrEmptyString(o.MachineType))
+	p.SetLocalSsdCount(dcl.ValueOrEmptyInt64(o.LocalSsdCount))
+	p.SetPreemptible(dcl.ValueOrEmptyBool(o.Preemptible))
+	p.SetMinCpuPlatform(dcl.ValueOrEmptyString(o.MinCpuPlatform))
+	p.SetBootDiskKmsKey(dcl.ValueOrEmptyString(o.BootDiskKmsKey))
+	p.SetEphemeralStorageConfig(DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfigToProto(o.EphemeralStorageConfig))
+	p.SetSpot(dcl.ValueOrEmptyBool(o.Spot))
+	sAccelerators := make([]*alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators, len(o.Accelerators))
+	for i, r := range o.Accelerators {
+		sAccelerators[i] = DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAcceleratorsToProto(&r)
+	}
+	p.SetAccelerators(sAccelerators)
+	return p
+}
+
+// ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAcceleratorsToProto converts a ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators object to its proto representation.
+func DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAcceleratorsToProto(o *alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators) *alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators{}
+	p.SetAcceleratorCount(dcl.ValueOrEmptyInt64(o.AcceleratorCount))
+	p.SetAcceleratorType(dcl.ValueOrEmptyString(o.AcceleratorType))
+	p.SetGpuPartitionSize(dcl.ValueOrEmptyString(o.GpuPartitionSize))
+	return p
+}
+
+// ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfigToProto converts a ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig object to its proto representation.
+func DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfigToProto(o *alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig) *alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig{}
+	p.SetLocalSsdCount(dcl.ValueOrEmptyInt64(o.LocalSsdCount))
+	return p
+}
+
+// ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscalingToProto converts a ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling object to its proto representation.
+func DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscalingToProto(o *alpha.ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling) *alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling{}
+	p.SetMinNodeCount(dcl.ValueOrEmptyInt64(o.MinNodeCount))
+	p.SetMaxNodeCount(dcl.ValueOrEmptyInt64(o.MaxNodeCount))
+	return p
+}
+
+// ClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfigToProto converts a ClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig object to its proto representation.
+func DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfigToProto(o *alpha.ClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig) *alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig{}
+	mComponentVersion := make(map[string]string, len(o.ComponentVersion))
+	for k, r := range o.ComponentVersion {
+		mComponentVersion[k] = r
+	}
+	p.SetComponentVersion(mComponentVersion)
+	mProperties := make(map[string]string, len(o.Properties))
+	for k, r := range o.Properties {
+		mProperties[k] = r
+	}
+	p.SetProperties(mProperties)
+	return p
+}
+
+// ClusterVirtualClusterConfigAuxiliaryServicesConfigToProto converts a ClusterVirtualClusterConfigAuxiliaryServicesConfig object to its proto representation.
+func DataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfigToProto(o *alpha.ClusterVirtualClusterConfigAuxiliaryServicesConfig) *alphapb.DataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfig{}
+	p.SetMetastoreConfig(DataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfigToProto(o.MetastoreConfig))
+	p.SetSparkHistoryServerConfig(DataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfigToProto(o.SparkHistoryServerConfig))
+	return p
+}
+
+// ClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfigToProto converts a ClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig object to its proto representation.
+func DataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfigToProto(o *alpha.ClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig) *alphapb.DataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig{}
+	p.SetDataprocMetastoreService(dcl.ValueOrEmptyString(o.DataprocMetastoreService))
+	return p
+}
+
+// ClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfigToProto converts a ClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig object to its proto representation.
+func DataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfigToProto(o *alpha.ClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig) *alphapb.DataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig{}
+	p.SetDataprocCluster(dcl.ValueOrEmptyString(o.DataprocCluster))
+	return p
+}
+
 // ClusterToProto converts a Cluster resource to its proto representation.
 func ClusterToProto(resource *alpha.Cluster) *alphapb.DataprocAlphaCluster {
 	p := &alphapb.DataprocAlphaCluster{}
@@ -1179,6 +1813,7 @@ func ClusterToProto(resource *alpha.Cluster) *alphapb.DataprocAlphaCluster {
 	p.SetClusterUuid(dcl.ValueOrEmptyString(resource.ClusterUuid))
 	p.SetMetrics(DataprocAlphaClusterMetricsToProto(resource.Metrics))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetVirtualClusterConfig(DataprocAlphaClusterVirtualClusterConfigToProto(resource.VirtualClusterConfig))
 	mLabels := make(map[string]string, len(resource.Labels))
 	for k, r := range resource.Labels {
 		mLabels[k] = r
