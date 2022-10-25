@@ -76,24 +76,8 @@ func ConnectionToUnstructured(r *dclService.Connection) *unstructured.Resource {
 		if r.GithubEnterpriseConfig.AppSlug != nil {
 			rGithubEnterpriseConfig["appSlug"] = *r.GithubEnterpriseConfig.AppSlug
 		}
-		if r.GithubEnterpriseConfig.AuthorizerCredential != nil && r.GithubEnterpriseConfig.AuthorizerCredential != dclService.EmptyConnectionGithubEnterpriseConfigAuthorizerCredential {
-			rGithubEnterpriseConfigAuthorizerCredential := make(map[string]interface{})
-			if r.GithubEnterpriseConfig.AuthorizerCredential.OAuthTokenSecretVersion != nil {
-				rGithubEnterpriseConfigAuthorizerCredential["oauthTokenSecretVersion"] = *r.GithubEnterpriseConfig.AuthorizerCredential.OAuthTokenSecretVersion
-			}
-			if r.GithubEnterpriseConfig.AuthorizerCredential.Username != nil {
-				rGithubEnterpriseConfigAuthorizerCredential["username"] = *r.GithubEnterpriseConfig.AuthorizerCredential.Username
-			}
-			rGithubEnterpriseConfig["authorizerCredential"] = rGithubEnterpriseConfigAuthorizerCredential
-		}
 		if r.GithubEnterpriseConfig.HostUri != nil {
 			rGithubEnterpriseConfig["hostUri"] = *r.GithubEnterpriseConfig.HostUri
-		}
-		if r.GithubEnterpriseConfig.OAuthClientIdSecretVersion != nil {
-			rGithubEnterpriseConfig["oauthClientIdSecretVersion"] = *r.GithubEnterpriseConfig.OAuthClientIdSecretVersion
-		}
-		if r.GithubEnterpriseConfig.OAuthSecretSecretVersion != nil {
-			rGithubEnterpriseConfig["oauthSecretSecretVersion"] = *r.GithubEnterpriseConfig.OAuthSecretSecretVersion
 		}
 		if r.GithubEnterpriseConfig.PrivateKeySecretVersion != nil {
 			rGithubEnterpriseConfig["privateKeySecretVersion"] = *r.GithubEnterpriseConfig.PrivateKeySecretVersion
@@ -239,46 +223,11 @@ func UnstructuredToConnection(u *unstructured.Resource) (*dclService.Connection,
 					return nil, fmt.Errorf("r.GithubEnterpriseConfig.AppSlug: expected string")
 				}
 			}
-			if _, ok := rGithubEnterpriseConfig["authorizerCredential"]; ok {
-				if rGithubEnterpriseConfigAuthorizerCredential, ok := rGithubEnterpriseConfig["authorizerCredential"].(map[string]interface{}); ok {
-					r.GithubEnterpriseConfig.AuthorizerCredential = &dclService.ConnectionGithubEnterpriseConfigAuthorizerCredential{}
-					if _, ok := rGithubEnterpriseConfigAuthorizerCredential["oauthTokenSecretVersion"]; ok {
-						if s, ok := rGithubEnterpriseConfigAuthorizerCredential["oauthTokenSecretVersion"].(string); ok {
-							r.GithubEnterpriseConfig.AuthorizerCredential.OAuthTokenSecretVersion = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("r.GithubEnterpriseConfig.AuthorizerCredential.OAuthTokenSecretVersion: expected string")
-						}
-					}
-					if _, ok := rGithubEnterpriseConfigAuthorizerCredential["username"]; ok {
-						if s, ok := rGithubEnterpriseConfigAuthorizerCredential["username"].(string); ok {
-							r.GithubEnterpriseConfig.AuthorizerCredential.Username = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("r.GithubEnterpriseConfig.AuthorizerCredential.Username: expected string")
-						}
-					}
-				} else {
-					return nil, fmt.Errorf("r.GithubEnterpriseConfig.AuthorizerCredential: expected map[string]interface{}")
-				}
-			}
 			if _, ok := rGithubEnterpriseConfig["hostUri"]; ok {
 				if s, ok := rGithubEnterpriseConfig["hostUri"].(string); ok {
 					r.GithubEnterpriseConfig.HostUri = dcl.String(s)
 				} else {
 					return nil, fmt.Errorf("r.GithubEnterpriseConfig.HostUri: expected string")
-				}
-			}
-			if _, ok := rGithubEnterpriseConfig["oauthClientIdSecretVersion"]; ok {
-				if s, ok := rGithubEnterpriseConfig["oauthClientIdSecretVersion"].(string); ok {
-					r.GithubEnterpriseConfig.OAuthClientIdSecretVersion = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.GithubEnterpriseConfig.OAuthClientIdSecretVersion: expected string")
-				}
-			}
-			if _, ok := rGithubEnterpriseConfig["oauthSecretSecretVersion"]; ok {
-				if s, ok := rGithubEnterpriseConfig["oauthSecretSecretVersion"].(string); ok {
-					r.GithubEnterpriseConfig.OAuthSecretSecretVersion = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.GithubEnterpriseConfig.OAuthSecretSecretVersion: expected string")
 				}
 			}
 			if _, ok := rGithubEnterpriseConfig["privateKeySecretVersion"]; ok {

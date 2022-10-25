@@ -71,19 +71,11 @@ func (r *ConnectionGithubEnterpriseConfig) validate() error {
 	if err := dcl.Required(r, "hostUri"); err != nil {
 		return err
 	}
-	if !dcl.IsEmptyValueIndirect(r.AuthorizerCredential) {
-		if err := r.AuthorizerCredential.validate(); err != nil {
-			return err
-		}
-	}
 	if !dcl.IsEmptyValueIndirect(r.ServiceDirectoryConfig) {
 		if err := r.ServiceDirectoryConfig.validate(); err != nil {
 			return err
 		}
 	}
-	return nil
-}
-func (r *ConnectionGithubEnterpriseConfigAuthorizerCredential) validate() error {
 	return nil
 }
 func (r *ConnectionGithubEnterpriseConfigServiceDirectoryConfig) validate() error {
@@ -798,11 +790,6 @@ func canonicalizeConnectionGithubConfigAuthorizerCredential(des, initial *Connec
 	} else {
 		cDes.OAuthTokenSecretVersion = des.OAuthTokenSecretVersion
 	}
-	if dcl.StringCanonicalize(des.Username, initial.Username) || dcl.IsZeroValue(des.Username) {
-		cDes.Username = initial.Username
-	} else {
-		cDes.Username = des.Username
-	}
 
 	return cDes
 }
@@ -941,19 +928,6 @@ func canonicalizeConnectionGithubEnterpriseConfig(des, initial *ConnectionGithub
 	} else {
 		cDes.WebhookSecretSecretVersion = des.WebhookSecretSecretVersion
 	}
-	if dcl.IsZeroValue(des.OAuthSecretSecretVersion) || (dcl.IsEmptyValueIndirect(des.OAuthSecretSecretVersion) && dcl.IsEmptyValueIndirect(initial.OAuthSecretSecretVersion)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		cDes.OAuthSecretSecretVersion = initial.OAuthSecretSecretVersion
-	} else {
-		cDes.OAuthSecretSecretVersion = des.OAuthSecretSecretVersion
-	}
-	if dcl.IsZeroValue(des.OAuthClientIdSecretVersion) || (dcl.IsEmptyValueIndirect(des.OAuthClientIdSecretVersion) && dcl.IsEmptyValueIndirect(initial.OAuthClientIdSecretVersion)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		cDes.OAuthClientIdSecretVersion = initial.OAuthClientIdSecretVersion
-	} else {
-		cDes.OAuthClientIdSecretVersion = des.OAuthClientIdSecretVersion
-	}
-	cDes.AuthorizerCredential = canonicalizeConnectionGithubEnterpriseConfigAuthorizerCredential(des.AuthorizerCredential, initial.AuthorizerCredential, opts...)
 	if dcl.IsZeroValue(des.AppInstallationId) || (dcl.IsEmptyValueIndirect(des.AppInstallationId) && dcl.IsEmptyValueIndirect(initial.AppInstallationId)) {
 		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.AppInstallationId = initial.AppInstallationId
@@ -1018,7 +992,6 @@ func canonicalizeNewConnectionGithubEnterpriseConfig(c *Client, des, nw *Connect
 	if dcl.StringCanonicalize(des.AppSlug, nw.AppSlug) {
 		nw.AppSlug = des.AppSlug
 	}
-	nw.AuthorizerCredential = canonicalizeNewConnectionGithubEnterpriseConfigAuthorizerCredential(c, des.AuthorizerCredential, nw.AuthorizerCredential)
 	nw.ServiceDirectoryConfig = canonicalizeNewConnectionGithubEnterpriseConfigServiceDirectoryConfig(c, des.ServiceDirectoryConfig, nw.ServiceDirectoryConfig)
 	if dcl.StringCanonicalize(des.SslCa, nw.SslCa) {
 		nw.SslCa = des.SslCa
@@ -1065,127 +1038,6 @@ func canonicalizeNewConnectionGithubEnterpriseConfigSlice(c *Client, des, nw []C
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewConnectionGithubEnterpriseConfig(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizeConnectionGithubEnterpriseConfigAuthorizerCredential(des, initial *ConnectionGithubEnterpriseConfigAuthorizerCredential, opts ...dcl.ApplyOption) *ConnectionGithubEnterpriseConfigAuthorizerCredential {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	cDes := &ConnectionGithubEnterpriseConfigAuthorizerCredential{}
-
-	if dcl.IsZeroValue(des.OAuthTokenSecretVersion) || (dcl.IsEmptyValueIndirect(des.OAuthTokenSecretVersion) && dcl.IsEmptyValueIndirect(initial.OAuthTokenSecretVersion)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		cDes.OAuthTokenSecretVersion = initial.OAuthTokenSecretVersion
-	} else {
-		cDes.OAuthTokenSecretVersion = des.OAuthTokenSecretVersion
-	}
-	if dcl.StringCanonicalize(des.Username, initial.Username) || dcl.IsZeroValue(des.Username) {
-		cDes.Username = initial.Username
-	} else {
-		cDes.Username = des.Username
-	}
-
-	return cDes
-}
-
-func canonicalizeConnectionGithubEnterpriseConfigAuthorizerCredentialSlice(des, initial []ConnectionGithubEnterpriseConfigAuthorizerCredential, opts ...dcl.ApplyOption) []ConnectionGithubEnterpriseConfigAuthorizerCredential {
-	if dcl.IsEmptyValueIndirect(des) {
-		return initial
-	}
-
-	if len(des) != len(initial) {
-
-		items := make([]ConnectionGithubEnterpriseConfigAuthorizerCredential, 0, len(des))
-		for _, d := range des {
-			cd := canonicalizeConnectionGithubEnterpriseConfigAuthorizerCredential(&d, nil, opts...)
-			if cd != nil {
-				items = append(items, *cd)
-			}
-		}
-		return items
-	}
-
-	items := make([]ConnectionGithubEnterpriseConfigAuthorizerCredential, 0, len(des))
-	for i, d := range des {
-		cd := canonicalizeConnectionGithubEnterpriseConfigAuthorizerCredential(&d, &initial[i], opts...)
-		if cd != nil {
-			items = append(items, *cd)
-		}
-	}
-	return items
-
-}
-
-func canonicalizeNewConnectionGithubEnterpriseConfigAuthorizerCredential(c *Client, des, nw *ConnectionGithubEnterpriseConfigAuthorizerCredential) *ConnectionGithubEnterpriseConfigAuthorizerCredential {
-
-	if des == nil {
-		return nw
-	}
-
-	if nw == nil {
-		if dcl.IsEmptyValueIndirect(des) {
-			c.Config.Logger.Info("Found explicitly empty value for ConnectionGithubEnterpriseConfigAuthorizerCredential while comparing non-nil desired to nil actual.  Returning desired object.")
-			return des
-		}
-		return nil
-	}
-
-	if dcl.StringCanonicalize(des.Username, nw.Username) {
-		nw.Username = des.Username
-	}
-
-	return nw
-}
-
-func canonicalizeNewConnectionGithubEnterpriseConfigAuthorizerCredentialSet(c *Client, des, nw []ConnectionGithubEnterpriseConfigAuthorizerCredential) []ConnectionGithubEnterpriseConfigAuthorizerCredential {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []ConnectionGithubEnterpriseConfigAuthorizerCredential
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := compareConnectionGithubEnterpriseConfigAuthorizerCredentialNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewConnectionGithubEnterpriseConfigAuthorizerCredentialSlice(c *Client, des, nw []ConnectionGithubEnterpriseConfigAuthorizerCredential) []ConnectionGithubEnterpriseConfigAuthorizerCredential {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []ConnectionGithubEnterpriseConfigAuthorizerCredential
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewConnectionGithubEnterpriseConfigAuthorizerCredential(c, &d, &n))
 	}
 
 	return items
@@ -1582,7 +1434,7 @@ func compareConnectionGithubConfigAuthorizerCredentialNewStyle(d, a interface{},
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Username, actual.Username, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("Username")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Username, actual.Username, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Username")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1646,27 +1498,6 @@ func compareConnectionGithubEnterpriseConfigNewStyle(d, a interface{}, fn dcl.Fi
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.OAuthSecretSecretVersion, actual.OAuthSecretSecretVersion, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("OauthSecretSecretVersion")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.OAuthClientIdSecretVersion, actual.OAuthClientIdSecretVersion, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("OauthClientIdSecretVersion")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.AuthorizerCredential, actual.AuthorizerCredential, dcl.DiffInfo{ObjectFunction: compareConnectionGithubEnterpriseConfigAuthorizerCredentialNewStyle, EmptyObject: EmptyConnectionGithubEnterpriseConfigAuthorizerCredential, OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("AuthorizerCredential")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.AppInstallationId, actual.AppInstallationId, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("AppInstallationId")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -1682,42 +1513,6 @@ func compareConnectionGithubEnterpriseConfigNewStyle(d, a interface{}, fn dcl.Fi
 	}
 
 	if ds, err := dcl.Diff(desired.SslCa, actual.SslCa, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("SslCa")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func compareConnectionGithubEnterpriseConfigAuthorizerCredentialNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*ConnectionGithubEnterpriseConfigAuthorizerCredential)
-	if !ok {
-		desiredNotPointer, ok := d.(ConnectionGithubEnterpriseConfigAuthorizerCredential)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a ConnectionGithubEnterpriseConfigAuthorizerCredential or *ConnectionGithubEnterpriseConfigAuthorizerCredential", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*ConnectionGithubEnterpriseConfigAuthorizerCredential)
-	if !ok {
-		actualNotPointer, ok := a.(ConnectionGithubEnterpriseConfigAuthorizerCredential)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a ConnectionGithubEnterpriseConfigAuthorizerCredential", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.OAuthTokenSecretVersion, actual.OAuthTokenSecretVersion, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("OauthTokenSecretVersion")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Username, actual.Username, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("Username")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2135,9 +1930,6 @@ func expandConnectionGithubConfigAuthorizerCredential(c *Client, f *ConnectionGi
 	if v := f.OAuthTokenSecretVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["oauthTokenSecretVersion"] = v
 	}
-	if v := f.Username; !dcl.IsEmptyValueIndirect(v) {
-		m["username"] = v
-	}
 
 	return m, nil
 }
@@ -2265,17 +2057,6 @@ func expandConnectionGithubEnterpriseConfig(c *Client, f *ConnectionGithubEnterp
 	if v := f.WebhookSecretSecretVersion; !dcl.IsEmptyValueIndirect(v) {
 		m["webhookSecretSecretVersion"] = v
 	}
-	if v := f.OAuthSecretSecretVersion; !dcl.IsEmptyValueIndirect(v) {
-		m["oauthSecretSecretVersion"] = v
-	}
-	if v := f.OAuthClientIdSecretVersion; !dcl.IsEmptyValueIndirect(v) {
-		m["oauthClientIdSecretVersion"] = v
-	}
-	if v, err := expandConnectionGithubEnterpriseConfigAuthorizerCredential(c, f.AuthorizerCredential, res); err != nil {
-		return nil, fmt.Errorf("error expanding AuthorizerCredential into authorizerCredential: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["authorizerCredential"] = v
-	}
 	if v := f.AppInstallationId; !dcl.IsEmptyValueIndirect(v) {
 		m["appInstallationId"] = v
 	}
@@ -2309,130 +2090,9 @@ func flattenConnectionGithubEnterpriseConfig(c *Client, i interface{}, res *Conn
 	r.AppSlug = dcl.FlattenString(m["appSlug"])
 	r.PrivateKeySecretVersion = dcl.FlattenString(m["privateKeySecretVersion"])
 	r.WebhookSecretSecretVersion = dcl.FlattenString(m["webhookSecretSecretVersion"])
-	r.OAuthSecretSecretVersion = dcl.FlattenString(m["oauthSecretSecretVersion"])
-	r.OAuthClientIdSecretVersion = dcl.FlattenString(m["oauthClientIdSecretVersion"])
-	r.AuthorizerCredential = flattenConnectionGithubEnterpriseConfigAuthorizerCredential(c, m["authorizerCredential"], res)
 	r.AppInstallationId = dcl.FlattenInteger(m["appInstallationId"])
 	r.ServiceDirectoryConfig = flattenConnectionGithubEnterpriseConfigServiceDirectoryConfig(c, m["serviceDirectoryConfig"], res)
 	r.SslCa = dcl.FlattenString(m["sslCa"])
-
-	return r
-}
-
-// expandConnectionGithubEnterpriseConfigAuthorizerCredentialMap expands the contents of ConnectionGithubEnterpriseConfigAuthorizerCredential into a JSON
-// request object.
-func expandConnectionGithubEnterpriseConfigAuthorizerCredentialMap(c *Client, f map[string]ConnectionGithubEnterpriseConfigAuthorizerCredential, res *Connection) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandConnectionGithubEnterpriseConfigAuthorizerCredential(c, &item, res)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandConnectionGithubEnterpriseConfigAuthorizerCredentialSlice expands the contents of ConnectionGithubEnterpriseConfigAuthorizerCredential into a JSON
-// request object.
-func expandConnectionGithubEnterpriseConfigAuthorizerCredentialSlice(c *Client, f []ConnectionGithubEnterpriseConfigAuthorizerCredential, res *Connection) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandConnectionGithubEnterpriseConfigAuthorizerCredential(c, &item, res)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenConnectionGithubEnterpriseConfigAuthorizerCredentialMap flattens the contents of ConnectionGithubEnterpriseConfigAuthorizerCredential from a JSON
-// response object.
-func flattenConnectionGithubEnterpriseConfigAuthorizerCredentialMap(c *Client, i interface{}, res *Connection) map[string]ConnectionGithubEnterpriseConfigAuthorizerCredential {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]ConnectionGithubEnterpriseConfigAuthorizerCredential{}
-	}
-
-	if len(a) == 0 {
-		return map[string]ConnectionGithubEnterpriseConfigAuthorizerCredential{}
-	}
-
-	items := make(map[string]ConnectionGithubEnterpriseConfigAuthorizerCredential)
-	for k, item := range a {
-		items[k] = *flattenConnectionGithubEnterpriseConfigAuthorizerCredential(c, item.(map[string]interface{}), res)
-	}
-
-	return items
-}
-
-// flattenConnectionGithubEnterpriseConfigAuthorizerCredentialSlice flattens the contents of ConnectionGithubEnterpriseConfigAuthorizerCredential from a JSON
-// response object.
-func flattenConnectionGithubEnterpriseConfigAuthorizerCredentialSlice(c *Client, i interface{}, res *Connection) []ConnectionGithubEnterpriseConfigAuthorizerCredential {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []ConnectionGithubEnterpriseConfigAuthorizerCredential{}
-	}
-
-	if len(a) == 0 {
-		return []ConnectionGithubEnterpriseConfigAuthorizerCredential{}
-	}
-
-	items := make([]ConnectionGithubEnterpriseConfigAuthorizerCredential, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenConnectionGithubEnterpriseConfigAuthorizerCredential(c, item.(map[string]interface{}), res))
-	}
-
-	return items
-}
-
-// expandConnectionGithubEnterpriseConfigAuthorizerCredential expands an instance of ConnectionGithubEnterpriseConfigAuthorizerCredential into a JSON
-// request object.
-func expandConnectionGithubEnterpriseConfigAuthorizerCredential(c *Client, f *ConnectionGithubEnterpriseConfigAuthorizerCredential, res *Connection) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.OAuthTokenSecretVersion; !dcl.IsEmptyValueIndirect(v) {
-		m["oauthTokenSecretVersion"] = v
-	}
-	if v := f.Username; !dcl.IsEmptyValueIndirect(v) {
-		m["username"] = v
-	}
-
-	return m, nil
-}
-
-// flattenConnectionGithubEnterpriseConfigAuthorizerCredential flattens an instance of ConnectionGithubEnterpriseConfigAuthorizerCredential from a JSON
-// response object.
-func flattenConnectionGithubEnterpriseConfigAuthorizerCredential(c *Client, i interface{}, res *Connection) *ConnectionGithubEnterpriseConfigAuthorizerCredential {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &ConnectionGithubEnterpriseConfigAuthorizerCredential{}
-
-	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyConnectionGithubEnterpriseConfigAuthorizerCredential
-	}
-	r.OAuthTokenSecretVersion = dcl.FlattenString(m["oauthTokenSecretVersion"])
-	r.Username = dcl.FlattenString(m["username"])
 
 	return r
 }
@@ -2862,17 +2522,6 @@ func extractConnectionGithubConfigAuthorizerCredentialFields(r *Connection, o *C
 	return nil
 }
 func extractConnectionGithubEnterpriseConfigFields(r *Connection, o *ConnectionGithubEnterpriseConfig) error {
-	vAuthorizerCredential := o.AuthorizerCredential
-	if vAuthorizerCredential == nil {
-		// note: explicitly not the empty object.
-		vAuthorizerCredential = &ConnectionGithubEnterpriseConfigAuthorizerCredential{}
-	}
-	if err := extractConnectionGithubEnterpriseConfigAuthorizerCredentialFields(r, vAuthorizerCredential); err != nil {
-		return err
-	}
-	if !dcl.IsEmptyValueIndirect(vAuthorizerCredential) {
-		o.AuthorizerCredential = vAuthorizerCredential
-	}
 	vServiceDirectoryConfig := o.ServiceDirectoryConfig
 	if vServiceDirectoryConfig == nil {
 		// note: explicitly not the empty object.
@@ -2884,9 +2533,6 @@ func extractConnectionGithubEnterpriseConfigFields(r *Connection, o *ConnectionG
 	if !dcl.IsEmptyValueIndirect(vServiceDirectoryConfig) {
 		o.ServiceDirectoryConfig = vServiceDirectoryConfig
 	}
-	return nil
-}
-func extractConnectionGithubEnterpriseConfigAuthorizerCredentialFields(r *Connection, o *ConnectionGithubEnterpriseConfigAuthorizerCredential) error {
 	return nil
 }
 func extractConnectionGithubEnterpriseConfigServiceDirectoryConfigFields(r *Connection, o *ConnectionGithubEnterpriseConfigServiceDirectoryConfig) error {
@@ -2950,17 +2596,6 @@ func postReadExtractConnectionGithubConfigAuthorizerCredentialFields(r *Connecti
 	return nil
 }
 func postReadExtractConnectionGithubEnterpriseConfigFields(r *Connection, o *ConnectionGithubEnterpriseConfig) error {
-	vAuthorizerCredential := o.AuthorizerCredential
-	if vAuthorizerCredential == nil {
-		// note: explicitly not the empty object.
-		vAuthorizerCredential = &ConnectionGithubEnterpriseConfigAuthorizerCredential{}
-	}
-	if err := extractConnectionGithubEnterpriseConfigAuthorizerCredentialFields(r, vAuthorizerCredential); err != nil {
-		return err
-	}
-	if !dcl.IsEmptyValueIndirect(vAuthorizerCredential) {
-		o.AuthorizerCredential = vAuthorizerCredential
-	}
 	vServiceDirectoryConfig := o.ServiceDirectoryConfig
 	if vServiceDirectoryConfig == nil {
 		// note: explicitly not the empty object.
@@ -2972,9 +2607,6 @@ func postReadExtractConnectionGithubEnterpriseConfigFields(r *Connection, o *Con
 	if !dcl.IsEmptyValueIndirect(vServiceDirectoryConfig) {
 		o.ServiceDirectoryConfig = vServiceDirectoryConfig
 	}
-	return nil
-}
-func postReadExtractConnectionGithubEnterpriseConfigAuthorizerCredentialFields(r *Connection, o *ConnectionGithubEnterpriseConfigAuthorizerCredential) error {
 	return nil
 }
 func postReadExtractConnectionGithubEnterpriseConfigServiceDirectoryConfigFields(r *Connection, o *ConnectionGithubEnterpriseConfigServiceDirectoryConfig) error {

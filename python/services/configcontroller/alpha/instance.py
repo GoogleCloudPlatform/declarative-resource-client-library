@@ -262,8 +262,13 @@ class InstanceBundlesConfigConfigControllerConfigArray(object):
 
 
 class InstanceManagementConfig(object):
-    def __init__(self, standard_management_config: dict = None):
+    def __init__(
+        self,
+        standard_management_config: dict = None,
+        full_management_config: dict = None,
+    ):
         self.standard_management_config = standard_management_config
+        self.full_management_config = full_management_config
 
     @classmethod
     def to_proto(self, resource):
@@ -281,6 +286,16 @@ class InstanceManagementConfig(object):
             )
         else:
             res.ClearField("standard_management_config")
+        if InstanceManagementConfigFullManagementConfig.to_proto(
+            resource.full_management_config
+        ):
+            res.full_management_config.CopyFrom(
+                InstanceManagementConfigFullManagementConfig.to_proto(
+                    resource.full_management_config
+                )
+            )
+        else:
+            res.ClearField("full_management_config")
         return res
 
     @classmethod
@@ -291,6 +306,9 @@ class InstanceManagementConfig(object):
         return InstanceManagementConfig(
             standard_management_config=InstanceManagementConfigStandardManagementConfig.from_proto(
                 resource.standard_management_config
+            ),
+            full_management_config=InstanceManagementConfigFullManagementConfig.from_proto(
+                resource.full_management_config
             ),
         )
 
@@ -384,6 +402,86 @@ class InstanceManagementConfigStandardManagementConfigArray(object):
     def from_proto(self, resources):
         return [
             InstanceManagementConfigStandardManagementConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class InstanceManagementConfigFullManagementConfig(object):
+    def __init__(
+        self,
+        network: str = None,
+        master_ipv4_cidr_block: str = None,
+        man_block: str = None,
+        cluster_cidr_block: str = None,
+        services_cidr_block: str = None,
+        cluster_named_range: str = None,
+        services_named_range: str = None,
+    ):
+        self.network = network
+        self.master_ipv4_cidr_block = master_ipv4_cidr_block
+        self.man_block = man_block
+        self.cluster_cidr_block = cluster_cidr_block
+        self.services_cidr_block = services_cidr_block
+        self.cluster_named_range = cluster_named_range
+        self.services_named_range = services_named_range
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            instance_pb2.ConfigcontrollerAlphaInstanceManagementConfigFullManagementConfig()
+        )
+        if Primitive.to_proto(resource.network):
+            res.network = Primitive.to_proto(resource.network)
+        if Primitive.to_proto(resource.master_ipv4_cidr_block):
+            res.master_ipv4_cidr_block = Primitive.to_proto(
+                resource.master_ipv4_cidr_block
+            )
+        if Primitive.to_proto(resource.man_block):
+            res.man_block = Primitive.to_proto(resource.man_block)
+        if Primitive.to_proto(resource.cluster_cidr_block):
+            res.cluster_cidr_block = Primitive.to_proto(resource.cluster_cidr_block)
+        if Primitive.to_proto(resource.services_cidr_block):
+            res.services_cidr_block = Primitive.to_proto(resource.services_cidr_block)
+        if Primitive.to_proto(resource.cluster_named_range):
+            res.cluster_named_range = Primitive.to_proto(resource.cluster_named_range)
+        if Primitive.to_proto(resource.services_named_range):
+            res.services_named_range = Primitive.to_proto(resource.services_named_range)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return InstanceManagementConfigFullManagementConfig(
+            network=Primitive.from_proto(resource.network),
+            master_ipv4_cidr_block=Primitive.from_proto(
+                resource.master_ipv4_cidr_block
+            ),
+            man_block=Primitive.from_proto(resource.man_block),
+            cluster_cidr_block=Primitive.from_proto(resource.cluster_cidr_block),
+            services_cidr_block=Primitive.from_proto(resource.services_cidr_block),
+            cluster_named_range=Primitive.from_proto(resource.cluster_named_range),
+            services_named_range=Primitive.from_proto(resource.services_named_range),
+        )
+
+
+class InstanceManagementConfigFullManagementConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            InstanceManagementConfigFullManagementConfig.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            InstanceManagementConfigFullManagementConfig.from_proto(i)
             for i in resources
         ]
 

@@ -53,9 +53,20 @@ message ConfigcontrollerAlphaInstanceBundlesConfigConfigControllerConfig {
 
 message ConfigcontrollerAlphaInstanceManagementConfig {
   ConfigcontrollerAlphaInstanceManagementConfigStandardManagementConfig standard_management_config = 1;
+  ConfigcontrollerAlphaInstanceManagementConfigFullManagementConfig full_management_config = 2;
 }
 
 message ConfigcontrollerAlphaInstanceManagementConfigStandardManagementConfig {
+  string network = 1;
+  string master_ipv4_cidr_block = 2;
+  string man_block = 3;
+  string cluster_cidr_block = 4;
+  string services_cidr_block = 5;
+  string cluster_named_range = 6;
+  string services_named_range = 7;
+}
+
+message ConfigcontrollerAlphaInstanceManagementConfigFullManagementConfig {
   string network = 1;
   string master_ipv4_cidr_block = 2;
   string man_block = 3;

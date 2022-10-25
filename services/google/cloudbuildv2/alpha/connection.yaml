@@ -135,6 +135,7 @@ components:
                 username:
                   type: string
                   x-dcl-go-name: Username
+                  readOnly: true
                   description: The username associated to this token.
         githubEnterpriseConfig:
           type: object
@@ -160,48 +161,11 @@ components:
               type: string
               x-dcl-go-name: AppSlug
               description: The URL-friendly name of the GitHub App.
-            authorizerCredential:
-              type: object
-              x-dcl-go-name: AuthorizerCredential
-              x-dcl-go-type: ConnectionGithubEnterpriseConfigAuthorizerCredential
-              description: OAuth credential of the account that authorized the Cloud
-                Build GitHub App. It is recommended to use a robot account instead
-                of a human user account The OAuth token must be tied to the Cloud
-                Build GitHub App.
-              properties:
-                oauthTokenSecretVersion:
-                  type: string
-                  x-dcl-go-name: OAuthTokenSecretVersion
-                  description: 'A SecretManager resource containing the OAuth token
-                    that authorizes the Cloud Build connection. Format: `projects/*/secrets/*/versions/*`.'
-                  x-dcl-references:
-                  - resource: Secretmanager/SecretVersion
-                    field: selfLink
-                username:
-                  type: string
-                  x-dcl-go-name: Username
-                  description: The username associated to this token.
             hostUri:
               type: string
               x-dcl-go-name: HostUri
               description: Required. The URI of the GitHub Enterprise host this connection
                 is for.
-            oauthClientIdSecretVersion:
-              type: string
-              x-dcl-go-name: OAuthClientIdSecretVersion
-              description: SecretManager resource containing the OAuth client_id of
-                the GitHub App, formatted as `projects/*/secrets/*/versions/*`.
-              x-dcl-references:
-              - resource: Secretmanager/SecretVersion
-                field: selfLink
-            oauthSecretSecretVersion:
-              type: string
-              x-dcl-go-name: OAuthSecretSecretVersion
-              description: SecretManager resource containing the OAuth secret of the
-                GitHub App, formatted as `projects/*/secrets/*/versions/*`.
-              x-dcl-references:
-              - resource: Secretmanager/SecretVersion
-                field: selfLink
             privateKeySecretVersion:
               type: string
               x-dcl-go-name: PrivateKeySecretVersion

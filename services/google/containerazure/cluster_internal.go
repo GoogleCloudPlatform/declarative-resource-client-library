@@ -2490,7 +2490,7 @@ func compareClusterControlPlaneNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VmSize, actual.VmSize, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAzureClusterOperation")}, fn.AddNest("VmSize")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VmSize, actual.VmSize, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAzureClusterOperation")}, fn.AddNest("VmSize")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2504,14 +2504,14 @@ func compareClusterControlPlaneNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RootVolume, actual.RootVolume, dcl.DiffInfo{ObjectFunction: compareClusterControlPlaneRootVolumeNewStyle, EmptyObject: EmptyClusterControlPlaneRootVolume, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RootVolume")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RootVolume, actual.RootVolume, dcl.DiffInfo{ServerDefault: true, ObjectFunction: compareClusterControlPlaneRootVolumeNewStyle, EmptyObject: EmptyClusterControlPlaneRootVolume, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RootVolume")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MainVolume, actual.MainVolume, dcl.DiffInfo{ObjectFunction: compareClusterControlPlaneMainVolumeNewStyle, EmptyObject: EmptyClusterControlPlaneMainVolume, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainVolume")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MainVolume, actual.MainVolume, dcl.DiffInfo{ServerDefault: true, ObjectFunction: compareClusterControlPlaneMainVolumeNewStyle, EmptyObject: EmptyClusterControlPlaneMainVolume, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainVolume")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2597,7 +2597,7 @@ func compareClusterControlPlaneRootVolumeNewStyle(d, a interface{}, fn dcl.Field
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SizeGib, actual.SizeGib, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SizeGib")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SizeGib, actual.SizeGib, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SizeGib")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2626,7 +2626,7 @@ func compareClusterControlPlaneMainVolumeNewStyle(d, a interface{}, fn dcl.Field
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SizeGib, actual.SizeGib, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SizeGib")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SizeGib, actual.SizeGib, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SizeGib")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

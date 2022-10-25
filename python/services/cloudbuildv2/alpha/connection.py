@@ -283,9 +283,6 @@ class ConnectionGithubEnterpriseConfig(object):
         app_slug: str = None,
         private_key_secret_version: str = None,
         webhook_secret_secret_version: str = None,
-        oauth_secret_secret_version: str = None,
-        oauth_client_id_secret_version: str = None,
-        authorizer_credential: dict = None,
         app_installation_id: int = None,
         service_directory_config: dict = None,
         ssl_ca: str = None,
@@ -295,9 +292,6 @@ class ConnectionGithubEnterpriseConfig(object):
         self.app_slug = app_slug
         self.private_key_secret_version = private_key_secret_version
         self.webhook_secret_secret_version = webhook_secret_secret_version
-        self.oauth_secret_secret_version = oauth_secret_secret_version
-        self.oauth_client_id_secret_version = oauth_client_id_secret_version
-        self.authorizer_credential = authorizer_credential
         self.app_installation_id = app_installation_id
         self.service_directory_config = service_directory_config
         self.ssl_ca = ssl_ca
@@ -322,24 +316,6 @@ class ConnectionGithubEnterpriseConfig(object):
             res.webhook_secret_secret_version = Primitive.to_proto(
                 resource.webhook_secret_secret_version
             )
-        if Primitive.to_proto(resource.oauth_secret_secret_version):
-            res.oauth_secret_secret_version = Primitive.to_proto(
-                resource.oauth_secret_secret_version
-            )
-        if Primitive.to_proto(resource.oauth_client_id_secret_version):
-            res.oauth_client_id_secret_version = Primitive.to_proto(
-                resource.oauth_client_id_secret_version
-            )
-        if ConnectionGithubEnterpriseConfigAuthorizerCredential.to_proto(
-            resource.authorizer_credential
-        ):
-            res.authorizer_credential.CopyFrom(
-                ConnectionGithubEnterpriseConfigAuthorizerCredential.to_proto(
-                    resource.authorizer_credential
-                )
-            )
-        else:
-            res.ClearField("authorizer_credential")
         if Primitive.to_proto(resource.app_installation_id):
             res.app_installation_id = Primitive.to_proto(resource.app_installation_id)
         if ConnectionGithubEnterpriseConfigServiceDirectoryConfig.to_proto(
@@ -371,15 +347,6 @@ class ConnectionGithubEnterpriseConfig(object):
             webhook_secret_secret_version=Primitive.from_proto(
                 resource.webhook_secret_secret_version
             ),
-            oauth_secret_secret_version=Primitive.from_proto(
-                resource.oauth_secret_secret_version
-            ),
-            oauth_client_id_secret_version=Primitive.from_proto(
-                resource.oauth_client_id_secret_version
-            ),
-            authorizer_credential=ConnectionGithubEnterpriseConfigAuthorizerCredential.from_proto(
-                resource.authorizer_credential
-            ),
             app_installation_id=Primitive.from_proto(resource.app_installation_id),
             service_directory_config=ConnectionGithubEnterpriseConfigServiceDirectoryConfig.from_proto(
                 resource.service_directory_config
@@ -398,58 +365,6 @@ class ConnectionGithubEnterpriseConfigArray(object):
     @classmethod
     def from_proto(self, resources):
         return [ConnectionGithubEnterpriseConfig.from_proto(i) for i in resources]
-
-
-class ConnectionGithubEnterpriseConfigAuthorizerCredential(object):
-    def __init__(self, oauth_token_secret_version: str = None, username: str = None):
-        self.oauth_token_secret_version = oauth_token_secret_version
-        self.username = username
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            connection_pb2.Cloudbuildv2AlphaConnectionGithubEnterpriseConfigAuthorizerCredential()
-        )
-        if Primitive.to_proto(resource.oauth_token_secret_version):
-            res.oauth_token_secret_version = Primitive.to_proto(
-                resource.oauth_token_secret_version
-            )
-        if Primitive.to_proto(resource.username):
-            res.username = Primitive.to_proto(resource.username)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return ConnectionGithubEnterpriseConfigAuthorizerCredential(
-            oauth_token_secret_version=Primitive.from_proto(
-                resource.oauth_token_secret_version
-            ),
-            username=Primitive.from_proto(resource.username),
-        )
-
-
-class ConnectionGithubEnterpriseConfigAuthorizerCredentialArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            ConnectionGithubEnterpriseConfigAuthorizerCredential.to_proto(i)
-            for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            ConnectionGithubEnterpriseConfigAuthorizerCredential.from_proto(i)
-            for i in resources
-        ]
 
 
 class ConnectionGithubEnterpriseConfigServiceDirectoryConfig(object):

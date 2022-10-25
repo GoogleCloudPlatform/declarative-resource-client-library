@@ -71,24 +71,9 @@ func ProtoToCloudbuildv2AlphaConnectionGithubEnterpriseConfig(p *alphapb.Cloudbu
 		AppSlug:                    dcl.StringOrNil(p.GetAppSlug()),
 		PrivateKeySecretVersion:    dcl.StringOrNil(p.GetPrivateKeySecretVersion()),
 		WebhookSecretSecretVersion: dcl.StringOrNil(p.GetWebhookSecretSecretVersion()),
-		OAuthSecretSecretVersion:   dcl.StringOrNil(p.GetOauthSecretSecretVersion()),
-		OAuthClientIdSecretVersion: dcl.StringOrNil(p.GetOauthClientIdSecretVersion()),
-		AuthorizerCredential:       ProtoToCloudbuildv2AlphaConnectionGithubEnterpriseConfigAuthorizerCredential(p.GetAuthorizerCredential()),
 		AppInstallationId:          dcl.Int64OrNil(p.GetAppInstallationId()),
 		ServiceDirectoryConfig:     ProtoToCloudbuildv2AlphaConnectionGithubEnterpriseConfigServiceDirectoryConfig(p.GetServiceDirectoryConfig()),
 		SslCa:                      dcl.StringOrNil(p.GetSslCa()),
-	}
-	return obj
-}
-
-// ProtoToConnectionGithubEnterpriseConfigAuthorizerCredential converts a ConnectionGithubEnterpriseConfigAuthorizerCredential object from its proto representation.
-func ProtoToCloudbuildv2AlphaConnectionGithubEnterpriseConfigAuthorizerCredential(p *alphapb.Cloudbuildv2AlphaConnectionGithubEnterpriseConfigAuthorizerCredential) *alpha.ConnectionGithubEnterpriseConfigAuthorizerCredential {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.ConnectionGithubEnterpriseConfigAuthorizerCredential{
-		OAuthTokenSecretVersion: dcl.StringOrNil(p.GetOauthTokenSecretVersion()),
-		Username:                dcl.StringOrNil(p.GetUsername()),
 	}
 	return obj
 }
@@ -179,23 +164,9 @@ func Cloudbuildv2AlphaConnectionGithubEnterpriseConfigToProto(o *alpha.Connectio
 	p.SetAppSlug(dcl.ValueOrEmptyString(o.AppSlug))
 	p.SetPrivateKeySecretVersion(dcl.ValueOrEmptyString(o.PrivateKeySecretVersion))
 	p.SetWebhookSecretSecretVersion(dcl.ValueOrEmptyString(o.WebhookSecretSecretVersion))
-	p.SetOauthSecretSecretVersion(dcl.ValueOrEmptyString(o.OAuthSecretSecretVersion))
-	p.SetOauthClientIdSecretVersion(dcl.ValueOrEmptyString(o.OAuthClientIdSecretVersion))
-	p.SetAuthorizerCredential(Cloudbuildv2AlphaConnectionGithubEnterpriseConfigAuthorizerCredentialToProto(o.AuthorizerCredential))
 	p.SetAppInstallationId(dcl.ValueOrEmptyInt64(o.AppInstallationId))
 	p.SetServiceDirectoryConfig(Cloudbuildv2AlphaConnectionGithubEnterpriseConfigServiceDirectoryConfigToProto(o.ServiceDirectoryConfig))
 	p.SetSslCa(dcl.ValueOrEmptyString(o.SslCa))
-	return p
-}
-
-// ConnectionGithubEnterpriseConfigAuthorizerCredentialToProto converts a ConnectionGithubEnterpriseConfigAuthorizerCredential object to its proto representation.
-func Cloudbuildv2AlphaConnectionGithubEnterpriseConfigAuthorizerCredentialToProto(o *alpha.ConnectionGithubEnterpriseConfigAuthorizerCredential) *alphapb.Cloudbuildv2AlphaConnectionGithubEnterpriseConfigAuthorizerCredential {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.Cloudbuildv2AlphaConnectionGithubEnterpriseConfigAuthorizerCredential{}
-	p.SetOauthTokenSecretVersion(dcl.ValueOrEmptyString(o.OAuthTokenSecretVersion))
-	p.SetUsername(dcl.ValueOrEmptyString(o.Username))
 	return p
 }
 

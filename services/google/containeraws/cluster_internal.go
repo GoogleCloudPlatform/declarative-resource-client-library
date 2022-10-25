@@ -2636,7 +2636,7 @@ func compareClusterControlPlaneNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceType, actual.InstanceType, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("InstanceType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceType, actual.InstanceType, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("InstanceType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2678,14 +2678,14 @@ func compareClusterControlPlaneNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RootVolume, actual.RootVolume, dcl.DiffInfo{ObjectFunction: compareClusterControlPlaneRootVolumeNewStyle, EmptyObject: EmptyClusterControlPlaneRootVolume, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RootVolume")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RootVolume, actual.RootVolume, dcl.DiffInfo{ServerDefault: true, ObjectFunction: compareClusterControlPlaneRootVolumeNewStyle, EmptyObject: EmptyClusterControlPlaneRootVolume, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RootVolume")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MainVolume, actual.MainVolume, dcl.DiffInfo{ObjectFunction: compareClusterControlPlaneMainVolumeNewStyle, EmptyObject: EmptyClusterControlPlaneMainVolume, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainVolume")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MainVolume, actual.MainVolume, dcl.DiffInfo{ServerDefault: true, ObjectFunction: compareClusterControlPlaneMainVolumeNewStyle, EmptyObject: EmptyClusterControlPlaneMainVolume, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MainVolume")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2800,21 +2800,21 @@ func compareClusterControlPlaneRootVolumeNewStyle(d, a interface{}, fn dcl.Field
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SizeGib, actual.SizeGib, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("SizeGib")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SizeGib, actual.SizeGib, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("SizeGib")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VolumeType, actual.VolumeType, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("VolumeType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VolumeType, actual.VolumeType, dcl.DiffInfo{ServerDefault: true, Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("VolumeType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Iops, actual.Iops, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("Iops")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Iops, actual.Iops, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("Iops")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2850,21 +2850,21 @@ func compareClusterControlPlaneMainVolumeNewStyle(d, a interface{}, fn dcl.Field
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SizeGib, actual.SizeGib, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SizeGib")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SizeGib, actual.SizeGib, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SizeGib")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VolumeType, actual.VolumeType, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VolumeType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VolumeType, actual.VolumeType, dcl.DiffInfo{ServerDefault: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VolumeType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Iops, actual.Iops, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Iops")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Iops, actual.Iops, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Iops")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2936,7 +2936,7 @@ func compareClusterControlPlaneAwsServicesAuthenticationNewStyle(d, a interface{
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RoleSessionName, actual.RoleSessionName, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("RoleSessionName")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RoleSessionName, actual.RoleSessionName, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("RoleSessionName")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

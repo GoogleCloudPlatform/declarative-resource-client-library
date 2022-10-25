@@ -1876,14 +1876,14 @@ func compareNodePoolConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.InstanceType, actual.InstanceType, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.InstanceType, actual.InstanceType, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("InstanceType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.RootVolume, actual.RootVolume, dcl.DiffInfo{ObjectFunction: compareNodePoolConfigRootVolumeNewStyle, EmptyObject: EmptyNodePoolConfigRootVolume, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RootVolume")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.RootVolume, actual.RootVolume, dcl.DiffInfo{ServerDefault: true, ObjectFunction: compareNodePoolConfigRootVolumeNewStyle, EmptyObject: EmptyNodePoolConfigRootVolume, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("RootVolume")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1968,21 +1968,21 @@ func compareNodePoolConfigRootVolumeNewStyle(d, a interface{}, fn dcl.FieldName)
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SizeGib, actual.SizeGib, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateNodePoolUpdateAwsNodePoolOperation")}, fn.AddNest("SizeGib")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SizeGib, actual.SizeGib, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.TriggersOperation("updateNodePoolUpdateAwsNodePoolOperation")}, fn.AddNest("SizeGib")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.VolumeType, actual.VolumeType, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateNodePoolUpdateAwsNodePoolOperation")}, fn.AddNest("VolumeType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.VolumeType, actual.VolumeType, dcl.DiffInfo{ServerDefault: true, Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateNodePoolUpdateAwsNodePoolOperation")}, fn.AddNest("VolumeType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Iops, actual.Iops, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateNodePoolUpdateAwsNodePoolOperation")}, fn.AddNest("Iops")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Iops, actual.Iops, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.TriggersOperation("updateNodePoolUpdateAwsNodePoolOperation")}, fn.AddNest("Iops")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

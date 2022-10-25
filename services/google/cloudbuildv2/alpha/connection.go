@@ -175,9 +175,6 @@ type ConnectionGithubEnterpriseConfig struct {
 	AppSlug                    *string                                                 `json:"appSlug"`
 	PrivateKeySecretVersion    *string                                                 `json:"privateKeySecretVersion"`
 	WebhookSecretSecretVersion *string                                                 `json:"webhookSecretSecretVersion"`
-	OAuthSecretSecretVersion   *string                                                 `json:"oauthSecretSecretVersion"`
-	OAuthClientIdSecretVersion *string                                                 `json:"oauthClientIdSecretVersion"`
-	AuthorizerCredential       *ConnectionGithubEnterpriseConfigAuthorizerCredential   `json:"authorizerCredential"`
 	AppInstallationId          *int64                                                  `json:"appInstallationId"`
 	ServiceDirectoryConfig     *ConnectionGithubEnterpriseConfigServiceDirectoryConfig `json:"serviceDirectoryConfig"`
 	SslCa                      *string                                                 `json:"sslCa"`
@@ -208,12 +205,6 @@ func (r *ConnectionGithubEnterpriseConfig) UnmarshalJSON(data []byte) error {
 
 		r.WebhookSecretSecretVersion = res.WebhookSecretSecretVersion
 
-		r.OAuthSecretSecretVersion = res.OAuthSecretSecretVersion
-
-		r.OAuthClientIdSecretVersion = res.OAuthClientIdSecretVersion
-
-		r.AuthorizerCredential = res.AuthorizerCredential
-
 		r.AppInstallationId = res.AppInstallationId
 
 		r.ServiceDirectoryConfig = res.ServiceDirectoryConfig
@@ -238,55 +229,6 @@ func (r *ConnectionGithubEnterpriseConfig) String() string {
 }
 
 func (r *ConnectionGithubEnterpriseConfig) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type ConnectionGithubEnterpriseConfigAuthorizerCredential struct {
-	empty                   bool    `json:"-"`
-	OAuthTokenSecretVersion *string `json:"oauthTokenSecretVersion"`
-	Username                *string `json:"username"`
-}
-
-type jsonConnectionGithubEnterpriseConfigAuthorizerCredential ConnectionGithubEnterpriseConfigAuthorizerCredential
-
-func (r *ConnectionGithubEnterpriseConfigAuthorizerCredential) UnmarshalJSON(data []byte) error {
-	var res jsonConnectionGithubEnterpriseConfigAuthorizerCredential
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyConnectionGithubEnterpriseConfigAuthorizerCredential
-	} else {
-
-		r.OAuthTokenSecretVersion = res.OAuthTokenSecretVersion
-
-		r.Username = res.Username
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this ConnectionGithubEnterpriseConfigAuthorizerCredential is
-// empty. Go lacks global const objects, but this object should be treated
-// as one. Modifying this object will have undesirable results.
-var EmptyConnectionGithubEnterpriseConfigAuthorizerCredential *ConnectionGithubEnterpriseConfigAuthorizerCredential = &ConnectionGithubEnterpriseConfigAuthorizerCredential{empty: true}
-
-func (r *ConnectionGithubEnterpriseConfigAuthorizerCredential) Empty() bool {
-	return r.empty
-}
-
-func (r *ConnectionGithubEnterpriseConfigAuthorizerCredential) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *ConnectionGithubEnterpriseConfigAuthorizerCredential) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

@@ -61,17 +61,9 @@ message Cloudbuildv2AlphaConnectionGithubEnterpriseConfig {
   string app_slug = 3;
   string private_key_secret_version = 4;
   string webhook_secret_secret_version = 5;
-  string oauth_secret_secret_version = 6;
-  string oauth_client_id_secret_version = 7;
-  Cloudbuildv2AlphaConnectionGithubEnterpriseConfigAuthorizerCredential authorizer_credential = 8;
-  int64 app_installation_id = 9;
-  Cloudbuildv2AlphaConnectionGithubEnterpriseConfigServiceDirectoryConfig service_directory_config = 10;
-  string ssl_ca = 11;
-}
-
-message Cloudbuildv2AlphaConnectionGithubEnterpriseConfigAuthorizerCredential {
-  string oauth_token_secret_version = 1;
-  string username = 2;
+  int64 app_installation_id = 6;
+  Cloudbuildv2AlphaConnectionGithubEnterpriseConfigServiceDirectoryConfig service_directory_config = 7;
+  string ssl_ca = 8;
 }
 
 message Cloudbuildv2AlphaConnectionGithubEnterpriseConfigServiceDirectoryConfig {

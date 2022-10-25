@@ -172,6 +172,7 @@ func DCLConnectionSchema() *dcl.Schema {
 											"username": &dcl.Property{
 												Type:        "string",
 												GoName:      "Username",
+												ReadOnly:    true,
 												Description: "The username associated to this token.",
 											},
 										},
@@ -207,56 +208,10 @@ func DCLConnectionSchema() *dcl.Schema {
 										GoName:      "AppSlug",
 										Description: "The URL-friendly name of the GitHub App.",
 									},
-									"authorizerCredential": &dcl.Property{
-										Type:        "object",
-										GoName:      "AuthorizerCredential",
-										GoType:      "ConnectionGithubEnterpriseConfigAuthorizerCredential",
-										Description: "OAuth credential of the account that authorized the Cloud Build GitHub App. It is recommended to use a robot account instead of a human user account The OAuth token must be tied to the Cloud Build GitHub App.",
-										Properties: map[string]*dcl.Property{
-											"oauthTokenSecretVersion": &dcl.Property{
-												Type:        "string",
-												GoName:      "OAuthTokenSecretVersion",
-												Description: "A SecretManager resource containing the OAuth token that authorizes the Cloud Build connection. Format: `projects/*/secrets/*/versions/*`.",
-												ResourceReferences: []*dcl.PropertyResourceReference{
-													&dcl.PropertyResourceReference{
-														Resource: "Secretmanager/SecretVersion",
-														Field:    "selfLink",
-													},
-												},
-											},
-											"username": &dcl.Property{
-												Type:        "string",
-												GoName:      "Username",
-												Description: "The username associated to this token.",
-											},
-										},
-									},
 									"hostUri": &dcl.Property{
 										Type:        "string",
 										GoName:      "HostUri",
 										Description: "Required. The URI of the GitHub Enterprise host this connection is for.",
-									},
-									"oauthClientIdSecretVersion": &dcl.Property{
-										Type:        "string",
-										GoName:      "OAuthClientIdSecretVersion",
-										Description: "SecretManager resource containing the OAuth client_id of the GitHub App, formatted as `projects/*/secrets/*/versions/*`.",
-										ResourceReferences: []*dcl.PropertyResourceReference{
-											&dcl.PropertyResourceReference{
-												Resource: "Secretmanager/SecretVersion",
-												Field:    "selfLink",
-											},
-										},
-									},
-									"oauthSecretSecretVersion": &dcl.Property{
-										Type:        "string",
-										GoName:      "OAuthSecretSecretVersion",
-										Description: "SecretManager resource containing the OAuth secret of the GitHub App, formatted as `projects/*/secrets/*/versions/*`.",
-										ResourceReferences: []*dcl.PropertyResourceReference{
-											&dcl.PropertyResourceReference{
-												Resource: "Secretmanager/SecretVersion",
-												Field:    "selfLink",
-											},
-										},
 									},
 									"privateKeySecretVersion": &dcl.Property{
 										Type:        "string",

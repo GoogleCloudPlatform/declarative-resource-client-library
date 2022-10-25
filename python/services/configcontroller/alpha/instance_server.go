@@ -65,6 +65,7 @@ func ProtoToConfigcontrollerAlphaInstanceManagementConfig(p *alphapb.Configcontr
 	}
 	obj := &alpha.InstanceManagementConfig{
 		StandardManagementConfig: ProtoToConfigcontrollerAlphaInstanceManagementConfigStandardManagementConfig(p.GetStandardManagementConfig()),
+		FullManagementConfig:     ProtoToConfigcontrollerAlphaInstanceManagementConfigFullManagementConfig(p.GetFullManagementConfig()),
 	}
 	return obj
 }
@@ -75,6 +76,23 @@ func ProtoToConfigcontrollerAlphaInstanceManagementConfigStandardManagementConfi
 		return nil
 	}
 	obj := &alpha.InstanceManagementConfigStandardManagementConfig{
+		Network:             dcl.StringOrNil(p.GetNetwork()),
+		MasterIPv4CidrBlock: dcl.StringOrNil(p.GetMasterIpv4CidrBlock()),
+		ManBlock:            dcl.StringOrNil(p.GetManBlock()),
+		ClusterCidrBlock:    dcl.StringOrNil(p.GetClusterCidrBlock()),
+		ServicesCidrBlock:   dcl.StringOrNil(p.GetServicesCidrBlock()),
+		ClusterNamedRange:   dcl.StringOrNil(p.GetClusterNamedRange()),
+		ServicesNamedRange:  dcl.StringOrNil(p.GetServicesNamedRange()),
+	}
+	return obj
+}
+
+// ProtoToInstanceManagementConfigFullManagementConfig converts a InstanceManagementConfigFullManagementConfig object from its proto representation.
+func ProtoToConfigcontrollerAlphaInstanceManagementConfigFullManagementConfig(p *alphapb.ConfigcontrollerAlphaInstanceManagementConfigFullManagementConfig) *alpha.InstanceManagementConfigFullManagementConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.InstanceManagementConfigFullManagementConfig{
 		Network:             dcl.StringOrNil(p.GetNetwork()),
 		MasterIPv4CidrBlock: dcl.StringOrNil(p.GetMasterIpv4CidrBlock()),
 		ManBlock:            dcl.StringOrNil(p.GetManBlock()),
@@ -139,6 +157,7 @@ func ConfigcontrollerAlphaInstanceManagementConfigToProto(o *alpha.InstanceManag
 	}
 	p := &alphapb.ConfigcontrollerAlphaInstanceManagementConfig{}
 	p.SetStandardManagementConfig(ConfigcontrollerAlphaInstanceManagementConfigStandardManagementConfigToProto(o.StandardManagementConfig))
+	p.SetFullManagementConfig(ConfigcontrollerAlphaInstanceManagementConfigFullManagementConfigToProto(o.FullManagementConfig))
 	return p
 }
 
@@ -148,6 +167,22 @@ func ConfigcontrollerAlphaInstanceManagementConfigStandardManagementConfigToProt
 		return nil
 	}
 	p := &alphapb.ConfigcontrollerAlphaInstanceManagementConfigStandardManagementConfig{}
+	p.SetNetwork(dcl.ValueOrEmptyString(o.Network))
+	p.SetMasterIpv4CidrBlock(dcl.ValueOrEmptyString(o.MasterIPv4CidrBlock))
+	p.SetManBlock(dcl.ValueOrEmptyString(o.ManBlock))
+	p.SetClusterCidrBlock(dcl.ValueOrEmptyString(o.ClusterCidrBlock))
+	p.SetServicesCidrBlock(dcl.ValueOrEmptyString(o.ServicesCidrBlock))
+	p.SetClusterNamedRange(dcl.ValueOrEmptyString(o.ClusterNamedRange))
+	p.SetServicesNamedRange(dcl.ValueOrEmptyString(o.ServicesNamedRange))
+	return p
+}
+
+// InstanceManagementConfigFullManagementConfigToProto converts a InstanceManagementConfigFullManagementConfig object to its proto representation.
+func ConfigcontrollerAlphaInstanceManagementConfigFullManagementConfigToProto(o *alpha.InstanceManagementConfigFullManagementConfig) *alphapb.ConfigcontrollerAlphaInstanceManagementConfigFullManagementConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ConfigcontrollerAlphaInstanceManagementConfigFullManagementConfig{}
 	p.SetNetwork(dcl.ValueOrEmptyString(o.Network))
 	p.SetMasterIpv4CidrBlock(dcl.ValueOrEmptyString(o.MasterIPv4CidrBlock))
 	p.SetManBlock(dcl.ValueOrEmptyString(o.ManBlock))
