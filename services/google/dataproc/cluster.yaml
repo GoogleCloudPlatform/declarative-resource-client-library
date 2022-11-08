@@ -1965,3 +1965,6 @@ components:
                 **This field requires a Cloud Storage bucket name, not a `gs://...`
                 URI to a Cloud Storage bucket.**
               x-kubernetes-immutable: true
+              x-dcl-references:
+              - resource: Storage/Bucket
+                field: name

@@ -5568,7 +5568,8 @@ func canonicalizeClusterVirtualClusterConfig(des, initial *ClusterVirtualCluster
 
 	cDes := &ClusterVirtualClusterConfig{}
 
-	if dcl.StringCanonicalize(des.StagingBucket, initial.StagingBucket) || dcl.IsZeroValue(des.StagingBucket) {
+	if dcl.IsZeroValue(des.StagingBucket) || (dcl.IsEmptyValueIndirect(des.StagingBucket) && dcl.IsEmptyValueIndirect(initial.StagingBucket)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.StagingBucket = initial.StagingBucket
 	} else {
 		cDes.StagingBucket = des.StagingBucket
@@ -5621,9 +5622,6 @@ func canonicalizeNewClusterVirtualClusterConfig(c *Client, des, nw *ClusterVirtu
 		return nil
 	}
 
-	if dcl.StringCanonicalize(des.StagingBucket, nw.StagingBucket) {
-		nw.StagingBucket = des.StagingBucket
-	}
 	nw.KubernetesClusterConfig = canonicalizeNewClusterVirtualClusterConfigKubernetesClusterConfig(c, des.KubernetesClusterConfig, nw.KubernetesClusterConfig)
 	nw.AuxiliaryServicesConfig = canonicalizeNewClusterVirtualClusterConfigAuxiliaryServicesConfig(c, des.AuxiliaryServicesConfig, nw.AuxiliaryServicesConfig)
 
@@ -9068,7 +9066,7 @@ func compareClusterVirtualClusterConfigNewStyle(d, a interface{}, fn dcl.FieldNa
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.StagingBucket, actual.StagingBucket, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StagingBucket")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.StagingBucket, actual.StagingBucket, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StagingBucket")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
