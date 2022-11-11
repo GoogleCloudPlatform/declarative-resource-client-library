@@ -41,7 +41,7 @@ enum ComputeNetworkFirewallPolicyRuleTargetSecureTagsStateEnum {
 
 message ComputeNetworkFirewallPolicyRule {
   string description = 1;
-  string name = 2;
+  string rule_name = 2;
   int64 priority = 3;
   string location = 4;
   ComputeNetworkFirewallPolicyRuleMatch match = 5;

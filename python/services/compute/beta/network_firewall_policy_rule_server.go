@@ -123,7 +123,7 @@ func ProtoToComputeBetaNetworkFirewallPolicyRuleTargetSecureTags(p *betapb.Compu
 func ProtoToNetworkFirewallPolicyRule(p *betapb.ComputeBetaNetworkFirewallPolicyRule) *beta.NetworkFirewallPolicyRule {
 	obj := &beta.NetworkFirewallPolicyRule{
 		Description:    dcl.StringOrNil(p.GetDescription()),
-		Name:           dcl.StringOrNil(p.GetName()),
+		RuleName:       dcl.StringOrNil(p.GetRuleName()),
 		Priority:       dcl.Int64OrNil(p.GetPriority()),
 		Location:       dcl.StringOrNil(p.GetLocation()),
 		Match:          ProtoToComputeBetaNetworkFirewallPolicyRuleMatch(p.GetMatch()),
@@ -248,7 +248,7 @@ func ComputeBetaNetworkFirewallPolicyRuleTargetSecureTagsToProto(o *beta.Network
 func NetworkFirewallPolicyRuleToProto(resource *beta.NetworkFirewallPolicyRule) *betapb.ComputeBetaNetworkFirewallPolicyRule {
 	p := &betapb.ComputeBetaNetworkFirewallPolicyRule{}
 	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
-	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetRuleName(dcl.ValueOrEmptyString(resource.RuleName))
 	p.SetPriority(dcl.ValueOrEmptyInt64(resource.Priority))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetMatch(ComputeBetaNetworkFirewallPolicyRuleMatchToProto(resource.Match))

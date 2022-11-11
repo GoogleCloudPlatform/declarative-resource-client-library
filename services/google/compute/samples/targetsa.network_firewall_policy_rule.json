@@ -4,7 +4,7 @@
   "location": "global",
   "firewallPolicy": "projects/{{project}}/global/firewallPolicies/{{ref:global.network_firewall_policy.json:name}}",
   "description": "sample global policy rule",
-  "name": "rule9000-allow-probe",
+  "ruleName": "rule9000-allow-probe",
   "match": {
     "layer4Configs": [
       {

@@ -26,7 +26,7 @@ class NetworkFirewallPolicyRule(object):
     def __init__(
         self,
         description: str = None,
-        name: str = None,
+        rule_name: str = None,
         priority: int = None,
         location: str = None,
         match: dict = None,
@@ -45,7 +45,7 @@ class NetworkFirewallPolicyRule(object):
 
         channel.initialize()
         self.description = description
-        self.name = name
+        self.rule_name = rule_name
         self.priority = priority
         self.location = location
         self.match = match
@@ -69,8 +69,8 @@ class NetworkFirewallPolicyRule(object):
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.rule_name):
+            request.resource.rule_name = Primitive.to_proto(self.rule_name)
 
         if Primitive.to_proto(self.priority):
             request.resource.priority = Primitive.to_proto(self.priority)
@@ -120,7 +120,7 @@ class NetworkFirewallPolicyRule(object):
 
         response = stub.ApplyComputeNetworkFirewallPolicyRule(request)
         self.description = Primitive.from_proto(response.description)
-        self.name = Primitive.from_proto(response.name)
+        self.rule_name = Primitive.from_proto(response.rule_name)
         self.priority = Primitive.from_proto(response.priority)
         self.location = Primitive.from_proto(response.location)
         self.match = NetworkFirewallPolicyRuleMatch.from_proto(response.match)
@@ -154,8 +154,8 @@ class NetworkFirewallPolicyRule(object):
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
-        if Primitive.to_proto(self.name):
-            request.resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.rule_name):
+            request.resource.rule_name = Primitive.to_proto(self.rule_name)
 
         if Primitive.to_proto(self.priority):
             request.resource.priority = Primitive.to_proto(self.priority)
@@ -224,8 +224,8 @@ class NetworkFirewallPolicyRule(object):
         resource = network_firewall_policy_rule_pb2.ComputeNetworkFirewallPolicyRule()
         if Primitive.to_proto(self.description):
             resource.description = Primitive.to_proto(self.description)
-        if Primitive.to_proto(self.name):
-            resource.name = Primitive.to_proto(self.name)
+        if Primitive.to_proto(self.rule_name):
+            resource.rule_name = Primitive.to_proto(self.rule_name)
         if Primitive.to_proto(self.priority):
             resource.priority = Primitive.to_proto(self.priority)
         if Primitive.to_proto(self.location):

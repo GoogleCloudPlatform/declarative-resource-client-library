@@ -123,7 +123,7 @@ func ProtoToComputeAlphaNetworkFirewallPolicyRuleTargetSecureTags(p *alphapb.Com
 func ProtoToNetworkFirewallPolicyRule(p *alphapb.ComputeAlphaNetworkFirewallPolicyRule) *alpha.NetworkFirewallPolicyRule {
 	obj := &alpha.NetworkFirewallPolicyRule{
 		Description:    dcl.StringOrNil(p.GetDescription()),
-		Name:           dcl.StringOrNil(p.GetName()),
+		RuleName:       dcl.StringOrNil(p.GetRuleName()),
 		Priority:       dcl.Int64OrNil(p.GetPriority()),
 		Location:       dcl.StringOrNil(p.GetLocation()),
 		Match:          ProtoToComputeAlphaNetworkFirewallPolicyRuleMatch(p.GetMatch()),
@@ -248,7 +248,7 @@ func ComputeAlphaNetworkFirewallPolicyRuleTargetSecureTagsToProto(o *alpha.Netwo
 func NetworkFirewallPolicyRuleToProto(resource *alpha.NetworkFirewallPolicyRule) *alphapb.ComputeAlphaNetworkFirewallPolicyRule {
 	p := &alphapb.ComputeAlphaNetworkFirewallPolicyRule{}
 	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
-	p.SetName(dcl.ValueOrEmptyString(resource.Name))
+	p.SetRuleName(dcl.ValueOrEmptyString(resource.RuleName))
 	p.SetPriority(dcl.ValueOrEmptyInt64(resource.Priority))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetMatch(ComputeAlphaNetworkFirewallPolicyRuleMatchToProto(resource.Match))

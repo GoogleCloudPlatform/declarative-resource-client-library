@@ -4,7 +4,7 @@
   "location": "global",
   "firewallPolicy": "projects/{{project}}/global/firewallPolicies/{{ref:global.network_firewall_policy.json:name}}",
   "description": "Updated sample global network firewall policy rule",
-  "name": "rule9000-allow-probe-updated",
+  "ruleName": "rule9000-allow-probe-updated",
   "match": {
     "layer4Configs": [
       {
