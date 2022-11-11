@@ -168,7 +168,9 @@ message PrivatecaAlphaCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtende
 
 message PrivatecaAlphaCertificateAuthorityConfigX509ConfigCaOptions {
   bool is_ca = 1;
-  int64 max_issuer_path_length = 2;
+  bool non_ca = 2;
+  int64 max_issuer_path_length = 3;
+  bool zero_max_issuer_path_length = 4;
 }
 
 message PrivatecaAlphaCertificateAuthorityConfigX509ConfigPolicyIds {
@@ -294,7 +296,9 @@ message PrivatecaAlphaCertificateAuthorityCaCertificateDescriptionsX509Descripti
 
 message PrivatecaAlphaCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions {
   bool is_ca = 1;
-  int64 max_issuer_path_length = 2;
+  bool non_ca = 2;
+  int64 max_issuer_path_length = 3;
+  bool zero_max_issuer_path_length = 4;
 }
 
 message PrivatecaAlphaCertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds {

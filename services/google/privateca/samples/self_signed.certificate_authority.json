@@ -52,6 +52,7 @@
       },
       "caOptions": {
         "isCa": true,
+        "nonCa": false,
         "maxIssuerPathLength": 7
       },
       "policyIds": [

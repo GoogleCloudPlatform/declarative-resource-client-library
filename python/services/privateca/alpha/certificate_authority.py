@@ -1019,9 +1019,17 @@ class CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsagesArray(
 
 
 class CertificateAuthorityConfigX509ConfigCaOptions(object):
-    def __init__(self, is_ca: bool = None, max_issuer_path_length: int = None):
+    def __init__(
+        self,
+        is_ca: bool = None,
+        non_ca: bool = None,
+        max_issuer_path_length: int = None,
+        zero_max_issuer_path_length: bool = None,
+    ):
         self.is_ca = is_ca
+        self.non_ca = non_ca
         self.max_issuer_path_length = max_issuer_path_length
+        self.zero_max_issuer_path_length = zero_max_issuer_path_length
 
     @classmethod
     def to_proto(self, resource):
@@ -1033,9 +1041,15 @@ class CertificateAuthorityConfigX509ConfigCaOptions(object):
         )
         if Primitive.to_proto(resource.is_ca):
             res.is_ca = Primitive.to_proto(resource.is_ca)
+        if Primitive.to_proto(resource.non_ca):
+            res.non_ca = Primitive.to_proto(resource.non_ca)
         if Primitive.to_proto(resource.max_issuer_path_length):
             res.max_issuer_path_length = Primitive.to_proto(
                 resource.max_issuer_path_length
+            )
+        if Primitive.to_proto(resource.zero_max_issuer_path_length):
+            res.zero_max_issuer_path_length = Primitive.to_proto(
+                resource.zero_max_issuer_path_length
             )
         return res
 
@@ -1046,8 +1060,12 @@ class CertificateAuthorityConfigX509ConfigCaOptions(object):
 
         return CertificateAuthorityConfigX509ConfigCaOptions(
             is_ca=Primitive.from_proto(resource.is_ca),
+            non_ca=Primitive.from_proto(resource.non_ca),
             max_issuer_path_length=Primitive.from_proto(
                 resource.max_issuer_path_length
+            ),
+            zero_max_issuer_path_length=Primitive.from_proto(
+                resource.zero_max_issuer_path_length
             ),
         )
 
@@ -2372,9 +2390,17 @@ class CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknow
 
 
 class CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions(object):
-    def __init__(self, is_ca: bool = None, max_issuer_path_length: int = None):
+    def __init__(
+        self,
+        is_ca: bool = None,
+        non_ca: bool = None,
+        max_issuer_path_length: int = None,
+        zero_max_issuer_path_length: bool = None,
+    ):
         self.is_ca = is_ca
+        self.non_ca = non_ca
         self.max_issuer_path_length = max_issuer_path_length
+        self.zero_max_issuer_path_length = zero_max_issuer_path_length
 
     @classmethod
     def to_proto(self, resource):
@@ -2386,9 +2412,15 @@ class CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions(obje
         )
         if Primitive.to_proto(resource.is_ca):
             res.is_ca = Primitive.to_proto(resource.is_ca)
+        if Primitive.to_proto(resource.non_ca):
+            res.non_ca = Primitive.to_proto(resource.non_ca)
         if Primitive.to_proto(resource.max_issuer_path_length):
             res.max_issuer_path_length = Primitive.to_proto(
                 resource.max_issuer_path_length
+            )
+        if Primitive.to_proto(resource.zero_max_issuer_path_length):
+            res.zero_max_issuer_path_length = Primitive.to_proto(
+                resource.zero_max_issuer_path_length
             )
         return res
 
@@ -2399,8 +2431,12 @@ class CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions(obje
 
         return CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions(
             is_ca=Primitive.from_proto(resource.is_ca),
+            non_ca=Primitive.from_proto(resource.non_ca),
             max_issuer_path_length=Primitive.from_proto(
                 resource.max_issuer_path_length
+            ),
+            zero_max_issuer_path_length=Primitive.from_proto(
+                resource.zero_max_issuer_path_length
             ),
         )
 
