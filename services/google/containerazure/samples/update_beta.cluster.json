@@ -64,5 +64,10 @@
     "componentConfig": {
       "enableComponents": ["SYSTEM_COMPONENTS", "WORKLOADS"]
     }
-  }
+  },
+  "monitoringConfig": {
+    "managedPrometheusConfig": {
+      "enabled": true
+    }
+  }  
 }

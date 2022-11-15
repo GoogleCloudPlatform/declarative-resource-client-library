@@ -329,6 +329,11 @@ func newUpdateClusterUpdateAwsClusterRequest(ctx context.Context, f *Cluster, c 
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["loggingConfig"] = v
 	}
+	if v, err := expandClusterMonitoringConfig(c, f.MonitoringConfig, res); err != nil {
+		return nil, fmt.Errorf("error expanding MonitoringConfig into monitoringConfig: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["monitoringConfig"] = v
+	}
 	b, err := c.getClusterRaw(ctx, f)
 	if err != nil {
 		return nil, err
@@ -3895,7 +3900,7 @@ func compareClusterMonitoringConfigManagedPrometheusConfigNewStyle(d, a interfac
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("Enabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

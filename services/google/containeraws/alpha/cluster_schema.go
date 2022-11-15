@@ -541,7 +541,6 @@ func DCLClusterSchema() *dcl.Schema {
 								GoName:        "MonitoringConfig",
 								GoType:        "ClusterMonitoringConfig",
 								Description:   "Monitoring configuration.",
-								Immutable:     true,
 								ServerDefault: true,
 								Properties: map[string]*dcl.Property{
 									"managedPrometheusConfig": &dcl.Property{
@@ -549,14 +548,12 @@ func DCLClusterSchema() *dcl.Schema {
 										GoName:        "ManagedPrometheusConfig",
 										GoType:        "ClusterMonitoringConfigManagedPrometheusConfig",
 										Description:   "Configuration of the Google Cloud Managed Service for Prometheus.",
-										Immutable:     true,
 										ServerDefault: true,
 										Properties: map[string]*dcl.Property{
 											"enabled": &dcl.Property{
 												Type:          "boolean",
 												GoName:        "Enabled",
 												Description:   "Configuration of the enable Managed Collection.",
-												Immutable:     true,
 												ServerDefault: true,
 											},
 										},
