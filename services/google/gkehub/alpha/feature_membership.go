@@ -63,6 +63,33 @@ func (v FeatureMembershipMeshManagementEnum) Validate() error {
 	}
 }
 
+// The enum FeatureMembershipMeshControlPlaneEnum.
+type FeatureMembershipMeshControlPlaneEnum string
+
+// FeatureMembershipMeshControlPlaneEnumRef returns a *FeatureMembershipMeshControlPlaneEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func FeatureMembershipMeshControlPlaneEnumRef(s string) *FeatureMembershipMeshControlPlaneEnum {
+	v := FeatureMembershipMeshControlPlaneEnum(s)
+	return &v
+}
+
+func (v FeatureMembershipMeshControlPlaneEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"CONTROL_PLANE_MANAGEMENT_UNSPECIFIED", "AUTOMATIC", "MANUAL"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "FeatureMembershipMeshControlPlaneEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 // The enum FeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum.
 type FeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum string
 
@@ -91,8 +118,9 @@ func (v FeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum)
 }
 
 type FeatureMembershipMesh struct {
-	empty      bool                                 `json:"-"`
-	Management *FeatureMembershipMeshManagementEnum `json:"management"`
+	empty        bool                                   `json:"-"`
+	Management   *FeatureMembershipMeshManagementEnum   `json:"management"`
+	ControlPlane *FeatureMembershipMeshControlPlaneEnum `json:"controlPlane"`
 }
 
 type jsonFeatureMembershipMesh FeatureMembershipMesh
@@ -111,6 +139,8 @@ func (r *FeatureMembershipMesh) UnmarshalJSON(data []byte) error {
 	} else {
 
 		r.Management = res.Management
+
+		r.ControlPlane = res.ControlPlane
 
 	}
 	return nil

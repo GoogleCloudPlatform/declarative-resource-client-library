@@ -180,7 +180,7 @@ components:
                 x-kubernetes-immutable: true
                 x-dcl-references:
                 - resource: Compute/Network
-                  field: selfLink
+                  field: name
               type:
                 type: string
                 x-dcl-go-name: Type

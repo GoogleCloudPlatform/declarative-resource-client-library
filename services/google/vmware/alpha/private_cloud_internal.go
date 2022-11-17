@@ -739,8 +739,7 @@ func canonicalizePrivateCloudNetworkConfig(des, initial *PrivateCloudNetworkConf
 	} else {
 		cDes.ManagementCidr = des.ManagementCidr
 	}
-	if dcl.IsZeroValue(des.VmwareEngineNetwork) || (dcl.IsEmptyValueIndirect(des.VmwareEngineNetwork) && dcl.IsEmptyValueIndirect(initial.VmwareEngineNetwork)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+	if dcl.PartialSelfLinkToSelfLink(des.VmwareEngineNetwork, initial.VmwareEngineNetwork) || dcl.IsZeroValue(des.VmwareEngineNetwork) {
 		cDes.VmwareEngineNetwork = initial.VmwareEngineNetwork
 	} else {
 		cDes.VmwareEngineNetwork = des.VmwareEngineNetwork
@@ -799,6 +798,9 @@ func canonicalizeNewPrivateCloudNetworkConfig(c *Client, des, nw *PrivateCloudNe
 	}
 	if dcl.StringCanonicalize(des.ManagementCidr, nw.ManagementCidr) {
 		nw.ManagementCidr = des.ManagementCidr
+	}
+	if dcl.PartialSelfLinkToSelfLink(des.VmwareEngineNetwork, nw.VmwareEngineNetwork) {
+		nw.VmwareEngineNetwork = des.VmwareEngineNetwork
 	}
 
 	return nw
@@ -2250,7 +2252,9 @@ func expandPrivateCloudNetworkConfig(c *Client, f *PrivateCloudNetworkConfig, re
 	if v := f.ManagementCidr; !dcl.IsEmptyValueIndirect(v) {
 		m["managementCidr"] = v
 	}
-	if v := f.VmwareEngineNetwork; !dcl.IsEmptyValueIndirect(v) {
+	if v, err := dcl.DeriveField("projects/%s/locations/%s/vmwareEngineNetworks/%s", f.VmwareEngineNetwork, dcl.SelfLinkToName(res.Project), dcl.SelfLinkToName(res.Location), dcl.SelfLinkToName(f.VmwareEngineNetwork)); err != nil {
+		return nil, fmt.Errorf("error expanding VmwareEngineNetwork into vmwareEngineNetwork: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["vmwareEngineNetwork"] = v
 	}
 

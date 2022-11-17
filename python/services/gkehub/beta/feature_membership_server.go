@@ -36,6 +36,18 @@ func ProtoToGkehubBetaFeatureMembershipMeshManagementEnum(e betapb.GkehubBetaFea
 	return nil
 }
 
+// ProtoToFeatureMembershipMeshControlPlaneEnum converts a FeatureMembershipMeshControlPlaneEnum enum from its proto representation.
+func ProtoToGkehubBetaFeatureMembershipMeshControlPlaneEnum(e betapb.GkehubBetaFeatureMembershipMeshControlPlaneEnum) *beta.FeatureMembershipMeshControlPlaneEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.GkehubBetaFeatureMembershipMeshControlPlaneEnum_name[int32(e)]; ok {
+		e := beta.FeatureMembershipMeshControlPlaneEnum(n[len("GkehubBetaFeatureMembershipMeshControlPlaneEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum converts a FeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum enum from its proto representation.
 func ProtoToGkehubBetaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum(e betapb.GkehubBetaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum) *beta.FeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum {
 	if e == 0 {
@@ -54,7 +66,8 @@ func ProtoToGkehubBetaFeatureMembershipMesh(p *betapb.GkehubBetaFeatureMembershi
 		return nil
 	}
 	obj := &beta.FeatureMembershipMesh{
-		Management: ProtoToGkehubBetaFeatureMembershipMeshManagementEnum(p.GetManagement()),
+		Management:   ProtoToGkehubBetaFeatureMembershipMeshManagementEnum(p.GetManagement()),
+		ControlPlane: ProtoToGkehubBetaFeatureMembershipMeshControlPlaneEnum(p.GetControlPlane()),
 	}
 	return obj
 }
@@ -185,6 +198,17 @@ func GkehubBetaFeatureMembershipMeshManagementEnumToProto(e *beta.FeatureMembers
 	return betapb.GkehubBetaFeatureMembershipMeshManagementEnum(0)
 }
 
+// FeatureMembershipMeshControlPlaneEnumToProto converts a FeatureMembershipMeshControlPlaneEnum enum to its proto representation.
+func GkehubBetaFeatureMembershipMeshControlPlaneEnumToProto(e *beta.FeatureMembershipMeshControlPlaneEnum) betapb.GkehubBetaFeatureMembershipMeshControlPlaneEnum {
+	if e == nil {
+		return betapb.GkehubBetaFeatureMembershipMeshControlPlaneEnum(0)
+	}
+	if v, ok := betapb.GkehubBetaFeatureMembershipMeshControlPlaneEnum_value["FeatureMembershipMeshControlPlaneEnum"+string(*e)]; ok {
+		return betapb.GkehubBetaFeatureMembershipMeshControlPlaneEnum(v)
+	}
+	return betapb.GkehubBetaFeatureMembershipMeshControlPlaneEnum(0)
+}
+
 // FeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnumToProto converts a FeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum enum to its proto representation.
 func GkehubBetaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnumToProto(e *beta.FeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum) betapb.GkehubBetaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum {
 	if e == nil {
@@ -203,6 +227,7 @@ func GkehubBetaFeatureMembershipMeshToProto(o *beta.FeatureMembershipMesh) *beta
 	}
 	p := &betapb.GkehubBetaFeatureMembershipMesh{}
 	p.SetManagement(GkehubBetaFeatureMembershipMeshManagementEnumToProto(o.Management))
+	p.SetControlPlane(GkehubBetaFeatureMembershipMeshControlPlaneEnumToProto(o.ControlPlane))
 	return p
 }
 

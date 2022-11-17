@@ -360,6 +360,17 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 								GoType:      "FeatureMembershipMesh",
 								Description: "Manage Mesh Features",
 								Properties: map[string]*dcl.Property{
+									"controlPlane": &dcl.Property{
+										Type:        "string",
+										GoName:      "ControlPlane",
+										GoType:      "FeatureMembershipMeshControlPlaneEnum",
+										Description: "Whether to automatically manage Service Mesh control planes. Possible values: CONTROL_PLANE_MANAGEMENT_UNSPECIFIED, AUTOMATIC, MANUAL",
+										Enum: []string{
+											"CONTROL_PLANE_MANAGEMENT_UNSPECIFIED",
+											"AUTOMATIC",
+											"MANUAL",
+										},
+									},
 									"management": &dcl.Property{
 										Type:        "string",
 										GoName:      "Management",

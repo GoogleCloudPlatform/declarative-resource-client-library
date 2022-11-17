@@ -149,8 +149,9 @@ class FeatureMembership(object):
 
 
 class FeatureMembershipMesh(object):
-    def __init__(self, management: str = None):
+    def __init__(self, management: str = None, control_plane: str = None):
         self.management = management
+        self.control_plane = control_plane
 
     @classmethod
     def to_proto(self, resource):
@@ -162,6 +163,10 @@ class FeatureMembershipMesh(object):
             res.management = FeatureMembershipMeshManagementEnum.to_proto(
                 resource.management
             )
+        if FeatureMembershipMeshControlPlaneEnum.to_proto(resource.control_plane):
+            res.control_plane = FeatureMembershipMeshControlPlaneEnum.to_proto(
+                resource.control_plane
+            )
         return res
 
     @classmethod
@@ -172,6 +177,9 @@ class FeatureMembershipMesh(object):
         return FeatureMembershipMesh(
             management=FeatureMembershipMeshManagementEnum.from_proto(
                 resource.management
+            ),
+            control_plane=FeatureMembershipMeshControlPlaneEnum.from_proto(
+                resource.control_plane
             ),
         )
 
@@ -707,6 +715,26 @@ class FeatureMembershipMeshManagementEnum(object):
             feature_membership_pb2.GkehubBetaFeatureMembershipMeshManagementEnum.Name(
                 resource
             )[len("GkehubBetaFeatureMembershipMeshManagementEnum") :]
+        )
+
+
+class FeatureMembershipMeshControlPlaneEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return feature_membership_pb2.GkehubBetaFeatureMembershipMeshControlPlaneEnum.Value(
+            "GkehubBetaFeatureMembershipMeshControlPlaneEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return (
+            feature_membership_pb2.GkehubBetaFeatureMembershipMeshControlPlaneEnum.Name(
+                resource
+            )[len("GkehubBetaFeatureMembershipMeshControlPlaneEnum") :]
         )
 
 

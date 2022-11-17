@@ -374,6 +374,12 @@ func canonicalizeFeatureMembershipMesh(des, initial *FeatureMembershipMesh, opts
 	} else {
 		cDes.Management = des.Management
 	}
+	if dcl.IsZeroValue(des.ControlPlane) || (dcl.IsEmptyValueIndirect(des.ControlPlane) && dcl.IsEmptyValueIndirect(initial.ControlPlane)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.ControlPlane = initial.ControlPlane
+	} else {
+		cDes.ControlPlane = des.ControlPlane
+	}
 
 	return cDes
 }
@@ -1494,6 +1500,13 @@ func compareFeatureMembershipMeshNewStyle(d, a interface{}, fn dcl.FieldName) ([
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.ControlPlane, actual.ControlPlane, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateFeatureMembershipUpdateFeatureMembershipOperation")}, fn.AddNest("ControlPlane")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -2064,6 +2077,9 @@ func expandFeatureMembershipMesh(c *Client, f *FeatureMembershipMesh, res *Featu
 	if v := f.Management; !dcl.IsEmptyValueIndirect(v) {
 		m["management"] = v
 	}
+	if v := f.ControlPlane; !dcl.IsEmptyValueIndirect(v) {
+		m["controlPlane"] = v
+	}
 
 	return m, nil
 }
@@ -2082,6 +2098,7 @@ func flattenFeatureMembershipMesh(c *Client, i interface{}, res *FeatureMembersh
 		return EmptyFeatureMembershipMesh
 	}
 	r.Management = flattenFeatureMembershipMeshManagementEnum(m["management"])
+	r.ControlPlane = flattenFeatureMembershipMeshControlPlaneEnum(m["controlPlane"])
 
 	return r
 }
@@ -3033,6 +3050,57 @@ func flattenFeatureMembershipMeshManagementEnum(i interface{}) *FeatureMembershi
 	}
 
 	return FeatureMembershipMeshManagementEnumRef(s)
+}
+
+// flattenFeatureMembershipMeshControlPlaneEnumMap flattens the contents of FeatureMembershipMeshControlPlaneEnum from a JSON
+// response object.
+func flattenFeatureMembershipMeshControlPlaneEnumMap(c *Client, i interface{}, res *FeatureMembership) map[string]FeatureMembershipMeshControlPlaneEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]FeatureMembershipMeshControlPlaneEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]FeatureMembershipMeshControlPlaneEnum{}
+	}
+
+	items := make(map[string]FeatureMembershipMeshControlPlaneEnum)
+	for k, item := range a {
+		items[k] = *flattenFeatureMembershipMeshControlPlaneEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenFeatureMembershipMeshControlPlaneEnumSlice flattens the contents of FeatureMembershipMeshControlPlaneEnum from a JSON
+// response object.
+func flattenFeatureMembershipMeshControlPlaneEnumSlice(c *Client, i interface{}, res *FeatureMembership) []FeatureMembershipMeshControlPlaneEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []FeatureMembershipMeshControlPlaneEnum{}
+	}
+
+	if len(a) == 0 {
+		return []FeatureMembershipMeshControlPlaneEnum{}
+	}
+
+	items := make([]FeatureMembershipMeshControlPlaneEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenFeatureMembershipMeshControlPlaneEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenFeatureMembershipMeshControlPlaneEnum asserts that an interface is a string, and returns a
+// pointer to a *FeatureMembershipMeshControlPlaneEnum with the same value as that string.
+func flattenFeatureMembershipMeshControlPlaneEnum(i interface{}) *FeatureMembershipMeshControlPlaneEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return FeatureMembershipMeshControlPlaneEnumRef(s)
 }
 
 // flattenFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnumMap flattens the contents of FeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum from a JSON

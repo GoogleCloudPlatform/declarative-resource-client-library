@@ -16,6 +16,7 @@ description: Entrypoint to testing GKEHub membership for anthos service mesh
 type: feature_membership
 versions:
 - beta
+- ga
 resource: samples/mesh.feature_membership.json
 dependencies:
 - samples/mesh.feature.json

@@ -4,6 +4,7 @@
   "feature": "projects/{{ref:mesh.feature.json:project}}/locations/{{ref:mesh.feature.json:location}}/features/{{ref:mesh.feature.json:name}}",
   "membership": "{{ref:first.membership.json:name}}",
   "mesh": {
-    "management": "MANAGEMENT_AUTOMATIC"
+    "management": "MANAGEMENT_AUTOMATIC",
+    "controlPlane": "AUTOMATIC"
   }
 }

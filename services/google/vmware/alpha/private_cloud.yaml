@@ -287,14 +287,12 @@ components:
             vmwareEngineNetwork:
               type: string
               x-dcl-go-name: VmwareEngineNetwork
-              description: 'Required. The relative resource name of the VMware Engine
-                network attached to the private cloud. Specify the name in the following
-                form: `projects/{project}/locations/{location}/vmwareEngineNetworks/{vmware_engine_network_id}`
-                where `{project}` can either be a project number or a project ID.'
+              description: Required. The relative resource name of the VMware Engine
+                network attached to the private cloud.
               x-kubernetes-immutable: true
               x-dcl-references:
               - resource: Vmwareengine/VmwareEngineNetwork
-                field: selfLink
+                field: name
             vmwareEngineNetworkCanonical:
               type: string
               x-dcl-go-name: VmwareEngineNetworkCanonical
@@ -304,7 +302,7 @@ components:
               x-kubernetes-immutable: true
               x-dcl-references:
               - resource: Vmwareengine/VmwareEngineNetwork
-                field: selfLink
+                field: name
         nsx:
           type: object
           x-dcl-go-name: Nsx

@@ -340,12 +340,12 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 									"vmwareEngineNetwork": &dcl.Property{
 										Type:        "string",
 										GoName:      "VmwareEngineNetwork",
-										Description: "Required. The relative resource name of the VMware Engine network attached to the private cloud. Specify the name in the following form: `projects/{project}/locations/{location}/vmwareEngineNetworks/{vmware_engine_network_id}` where `{project}` can either be a project number or a project ID.",
+										Description: "Required. The relative resource name of the VMware Engine network attached to the private cloud.",
 										Immutable:   true,
 										ResourceReferences: []*dcl.PropertyResourceReference{
 											&dcl.PropertyResourceReference{
 												Resource: "Vmwareengine/VmwareEngineNetwork",
-												Field:    "selfLink",
+												Field:    "name",
 											},
 										},
 									},
@@ -358,7 +358,7 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 										ResourceReferences: []*dcl.PropertyResourceReference{
 											&dcl.PropertyResourceReference{
 												Resource: "Vmwareengine/VmwareEngineNetwork",
-												Field:    "selfLink",
+												Field:    "name",
 											},
 										},
 									},

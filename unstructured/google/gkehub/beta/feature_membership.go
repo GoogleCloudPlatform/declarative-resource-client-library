@@ -144,6 +144,9 @@ func FeatureMembershipToUnstructured(r *dclService.FeatureMembership) *unstructu
 	}
 	if r.Mesh != nil && r.Mesh != dclService.EmptyFeatureMembershipMesh {
 		rMesh := make(map[string]interface{})
+		if r.Mesh.ControlPlane != nil {
+			rMesh["controlPlane"] = string(*r.Mesh.ControlPlane)
+		}
 		if r.Mesh.Management != nil {
 			rMesh["management"] = string(*r.Mesh.Management)
 		}
@@ -399,6 +402,13 @@ func UnstructuredToFeatureMembership(u *unstructured.Resource) (*dclService.Feat
 	if _, ok := u.Object["mesh"]; ok {
 		if rMesh, ok := u.Object["mesh"].(map[string]interface{}); ok {
 			r.Mesh = &dclService.FeatureMembershipMesh{}
+			if _, ok := rMesh["controlPlane"]; ok {
+				if s, ok := rMesh["controlPlane"].(string); ok {
+					r.Mesh.ControlPlane = dclService.FeatureMembershipMeshControlPlaneEnumRef(s)
+				} else {
+					return nil, fmt.Errorf("r.Mesh.ControlPlane: expected string")
+				}
+			}
 			if _, ok := rMesh["management"]; ok {
 				if s, ok := rMesh["management"].(string); ok {
 					r.Mesh.Management = dclService.FeatureMembershipMeshManagementEnumRef(s)

@@ -219,7 +219,7 @@ func DCLVmwareEngineNetworkSchema() *dcl.Schema {
 											ResourceReferences: []*dcl.PropertyResourceReference{
 												&dcl.PropertyResourceReference{
 													Resource: "Compute/Network",
-													Field:    "selfLink",
+													Field:    "name",
 												},
 											},
 										},

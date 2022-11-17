@@ -28,6 +28,13 @@ enum GkehubAlphaFeatureMembershipMeshManagementEnum {
   GkehubAlphaFeatureMembershipMeshManagementEnumMANAGEMENT_MANUAL = 3;
 }
 
+enum GkehubAlphaFeatureMembershipMeshControlPlaneEnum {
+  GkehubAlphaFeatureMembershipMeshControlPlaneEnumNO_VALUE_DO_NOT_USE = 0;
+  GkehubAlphaFeatureMembershipMeshControlPlaneEnumCONTROL_PLANE_MANAGEMENT_UNSPECIFIED = 1;
+  GkehubAlphaFeatureMembershipMeshControlPlaneEnumAUTOMATIC = 2;
+  GkehubAlphaFeatureMembershipMeshControlPlaneEnumMANUAL = 3;
+}
+
 enum GkehubAlphaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum {
   GkehubAlphaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnumNO_VALUE_DO_NOT_USE = 0;
   GkehubAlphaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnumMONITORING_BACKEND_UNSPECIFIED = 1;
@@ -46,6 +53,7 @@ message GkehubAlphaFeatureMembership {
 
 message GkehubAlphaFeatureMembershipMesh {
   GkehubAlphaFeatureMembershipMeshManagementEnum management = 1;
+  GkehubAlphaFeatureMembershipMeshControlPlaneEnum control_plane = 2;
 }
 
 message GkehubAlphaFeatureMembershipConfigmanagement {
