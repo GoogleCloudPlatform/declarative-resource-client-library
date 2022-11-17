@@ -105,7 +105,7 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 					HasCreate:       true,
 					HasIAM:          true,
 					ApplyTimeout:    9600,
-					DeleteTimeout:   4800,
+					DeleteTimeout:   7200,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{
@@ -165,6 +165,13 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 								GoName:      "Description",
 								Description: "User-provided description for this private cloud.",
 							},
+							"etag": &dcl.Property{
+								Type:        "string",
+								GoName:      "Etag",
+								ReadOnly:    true,
+								Description: "Checksum that may be sent on update, delete, and undelete requests to ensure that the user-provided value is up to date before the server processes a request. The server computes checksums based on the value of other fields in the request.",
+								Immutable:   true,
+							},
 							"expireTime": &dcl.Property{
 								Type:        "string",
 								Format:      "date-time",
@@ -193,11 +200,34 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 										Description: "Fully qualified domain name of the appliance.",
 										Immutable:   true,
 									},
+									"fqdn": &dcl.Property{
+										Type:        "string",
+										GoName:      "Fqdn",
+										Description: "Fully qualified domain name of the appliance.",
+										Immutable:   true,
+									},
 									"internalIP": &dcl.Property{
 										Type:        "string",
 										GoName:      "InternalIP",
 										Description: "Internal IP address of the appliance.",
 										Immutable:   true,
+									},
+									"state": &dcl.Property{
+										Type:        "string",
+										GoName:      "State",
+										GoType:      "PrivateCloudHcxStateEnum",
+										ReadOnly:    true,
+										Description: "Output only. The state of the appliance. Possible values: STATE_UNSPECIFIED, ACTIVE, CREATING, UPDATING, FAILED, DELETED, PURGING",
+										Immutable:   true,
+										Enum: []string{
+											"STATE_UNSPECIFIED",
+											"ACTIVE",
+											"CREATING",
+											"UPDATING",
+											"FAILED",
+											"DELETED",
+											"PURGING",
+										},
 									},
 									"version": &dcl.Property{
 										Type:        "string",
@@ -237,6 +267,13 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 										GoName:      "NodeCount",
 										Description: "Required. Number of nodes in this cluster.",
 									},
+									"nodeCustomCoreCount": &dcl.Property{
+										Type:        "integer",
+										Format:      "int64",
+										GoName:      "NodeCustomCoreCount",
+										Description: "Optional. Customized number of cores available to each node of the cluster. This number must always be one of `NodeType.available_custom_core_counts`. If zero is provided max value from `NodeType.available_custom_core_counts` will be used.",
+										Immutable:   true,
+									},
 									"nodeTypeId": &dcl.Property{
 										Type:        "string",
 										GoName:      "NodeTypeId",
@@ -258,10 +295,23 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 								Description: "Required. Network configuration.",
 								Immutable:   true,
 								Required: []string{
-									"network",
 									"managementCidr",
+									"vmwareEngineNetwork",
 								},
 								Properties: map[string]*dcl.Property{
+									"ipAddressLayoutVersion": &dcl.Property{
+										Type:        "string",
+										GoName:      "IPAddressLayoutVersion",
+										GoType:      "PrivateCloudNetworkConfigIPAddressLayoutVersionEnum",
+										ReadOnly:    true,
+										Description: "Output only. IP address layout version of the management IP address range. Possible values: IP_ADDRESS_LAYOUT_VERSION_UNSPECIFIED, VERSION_1, VERSION_2",
+										Immutable:   true,
+										Enum: []string{
+											"IP_ADDRESS_LAYOUT_VERSION_UNSPECIFIED",
+											"VERSION_1",
+											"VERSION_2",
+										},
+									},
 									"managementCidr": &dcl.Property{
 										Type:        "string",
 										GoName:      "ManagementCidr",
@@ -271,7 +321,7 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 									"network": &dcl.Property{
 										Type:        "string",
 										GoName:      "Network",
-										Description: "Required. The relative resource name of the consumer VPC network this private cloud is attached to. Specify the name in the following form: `projects/{project}/global/networks/{network_id}` where `{project}` can either be a project number or a project ID.",
+										Description: "Optional. The relative resource name of the consumer VPC network this private cloud is attached to. Specify the name in the following form: `projects/{project}/global/networks/{network_id}` where `{project}` can either be a project number or a project ID.",
 										Immutable:   true,
 										ResourceReferences: []*dcl.PropertyResourceReference{
 											&dcl.PropertyResourceReference{
@@ -286,6 +336,31 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 										ReadOnly:    true,
 										Description: "Output only. The relative resource name of the service VPC network this private cloud is attached to. The name is specified in the following form: `projects/{service_project_number}/global/networks/{network_id}`.",
 										Immutable:   true,
+									},
+									"vmwareEngineNetwork": &dcl.Property{
+										Type:        "string",
+										GoName:      "VmwareEngineNetwork",
+										Description: "Required. The relative resource name of the VMware Engine network attached to the private cloud. Specify the name in the following form: `projects/{project}/locations/{location}/vmwareEngineNetworks/{vmware_engine_network_id}` where `{project}` can either be a project number or a project ID.",
+										Immutable:   true,
+										ResourceReferences: []*dcl.PropertyResourceReference{
+											&dcl.PropertyResourceReference{
+												Resource: "Vmwareengine/VmwareEngineNetwork",
+												Field:    "selfLink",
+											},
+										},
+									},
+									"vmwareEngineNetworkCanonical": &dcl.Property{
+										Type:        "string",
+										GoName:      "VmwareEngineNetworkCanonical",
+										ReadOnly:    true,
+										Description: "Output only. The canonical name of the VMware Engine network in the form: `projects/{project_number}/locations/{location}/vmwareEngineNetworks/{vmware_engine_network_id}`",
+										Immutable:   true,
+										ResourceReferences: []*dcl.PropertyResourceReference{
+											&dcl.PropertyResourceReference{
+												Resource: "Vmwareengine/VmwareEngineNetwork",
+												Field:    "selfLink",
+											},
+										},
 									},
 								},
 							},
@@ -309,11 +384,34 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 										Description: "Fully qualified domain name of the appliance.",
 										Immutable:   true,
 									},
+									"fqdn": &dcl.Property{
+										Type:        "string",
+										GoName:      "Fqdn",
+										Description: "Fully qualified domain name of the appliance.",
+										Immutable:   true,
+									},
 									"internalIP": &dcl.Property{
 										Type:        "string",
 										GoName:      "InternalIP",
 										Description: "Internal IP address of the appliance.",
 										Immutable:   true,
+									},
+									"state": &dcl.Property{
+										Type:        "string",
+										GoName:      "State",
+										GoType:      "PrivateCloudNsxStateEnum",
+										ReadOnly:    true,
+										Description: "Output only. The state of the appliance. Possible values: STATE_UNSPECIFIED, ACTIVE, CREATING, UPDATING, FAILED, DELETED, PURGING",
+										Immutable:   true,
+										Enum: []string{
+											"STATE_UNSPECIFIED",
+											"ACTIVE",
+											"CREATING",
+											"UPDATING",
+											"FAILED",
+											"DELETED",
+											"PURGING",
+										},
 									},
 									"version": &dcl.Property{
 										Type:        "string",
@@ -351,6 +449,13 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 									"DELETED",
 								},
 							},
+							"uid": &dcl.Property{
+								Type:        "string",
+								GoName:      "Uid",
+								ReadOnly:    true,
+								Description: "Output only. System-generated unique identifier for the resource.",
+								Immutable:   true,
+							},
 							"updateTime": &dcl.Property{
 								Type:        "string",
 								Format:      "date-time",
@@ -379,11 +484,34 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 										Description: "Fully qualified domain name of the appliance.",
 										Immutable:   true,
 									},
+									"fqdn": &dcl.Property{
+										Type:        "string",
+										GoName:      "Fqdn",
+										Description: "Fully qualified domain name of the appliance.",
+										Immutable:   true,
+									},
 									"internalIP": &dcl.Property{
 										Type:        "string",
 										GoName:      "InternalIP",
 										Description: "Internal IP address of the appliance.",
 										Immutable:   true,
+									},
+									"state": &dcl.Property{
+										Type:        "string",
+										GoName:      "State",
+										GoType:      "PrivateCloudVcenterStateEnum",
+										ReadOnly:    true,
+										Description: "Output only. The state of the appliance. Possible values: STATE_UNSPECIFIED, ACTIVE, CREATING, UPDATING, FAILED, DELETED, PURGING",
+										Immutable:   true,
+										Enum: []string{
+											"STATE_UNSPECIFIED",
+											"ACTIVE",
+											"CREATING",
+											"UPDATING",
+											"FAILED",
+											"DELETED",
+											"PURGING",
+										},
 									},
 									"version": &dcl.Property{
 										Type:        "string",

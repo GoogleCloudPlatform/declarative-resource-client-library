@@ -31,6 +31,9 @@ class Cluster(object):
         project: str = None,
         location: str = None,
         private_cloud: str = None,
+        node_custom_core_count: int = None,
+        uid: str = None,
+        etag: str = None,
         service_account_file: str = "",
     ):
 
@@ -41,6 +44,7 @@ class Cluster(object):
         self.project = project
         self.location = location
         self.private_cloud = private_cloud
+        self.node_custom_core_count = node_custom_core_count
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -64,6 +68,11 @@ class Cluster(object):
         if Primitive.to_proto(self.private_cloud):
             request.resource.private_cloud = Primitive.to_proto(self.private_cloud)
 
+        if Primitive.to_proto(self.node_custom_core_count):
+            request.resource.node_custom_core_count = Primitive.to_proto(
+                self.node_custom_core_count
+            )
+
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyVmwareAlphaCluster(request)
@@ -77,6 +86,11 @@ class Cluster(object):
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
         self.private_cloud = Primitive.from_proto(response.private_cloud)
+        self.node_custom_core_count = Primitive.from_proto(
+            response.node_custom_core_count
+        )
+        self.uid = Primitive.from_proto(response.uid)
+        self.etag = Primitive.from_proto(response.etag)
 
     def delete(self):
         stub = cluster_pb2_grpc.VmwareAlphaClusterServiceStub(channel.Channel())
@@ -99,6 +113,11 @@ class Cluster(object):
 
         if Primitive.to_proto(self.private_cloud):
             request.resource.private_cloud = Primitive.to_proto(self.private_cloud)
+
+        if Primitive.to_proto(self.node_custom_core_count):
+            request.resource.node_custom_core_count = Primitive.to_proto(
+                self.node_custom_core_count
+            )
 
         response = stub.DeleteVmwareAlphaCluster(request)
 
@@ -129,6 +148,10 @@ class Cluster(object):
             resource.location = Primitive.to_proto(self.location)
         if Primitive.to_proto(self.private_cloud):
             resource.private_cloud = Primitive.to_proto(self.private_cloud)
+        if Primitive.to_proto(self.node_custom_core_count):
+            resource.node_custom_core_count = Primitive.to_proto(
+                self.node_custom_core_count
+            )
         return resource
 
 

@@ -21,6 +21,7 @@ resource: samples/basic.cluster.json
 dependencies:
 - samples/vmwareengine_viewer.iam.binding.json
 - samples/basic.private_cloud.json
+- samples/basic.vmware_engine_network.json
 updates:
 - resource: samples/update.cluster.json
   dependencies:
@@ -31,6 +32,8 @@ variables:
 - name: cluster
   type: resource_name
 - name: management
+  type: resource_name
+- name: network
   type: resource_name
 - name: project
   type: project

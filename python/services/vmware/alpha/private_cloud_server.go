@@ -36,15 +36,66 @@ func ProtoToVmwareAlphaPrivateCloudStateEnum(e alphapb.VmwareAlphaPrivateCloudSt
 	return nil
 }
 
+// ProtoToPrivateCloudNetworkConfigIPAddressLayoutVersionEnum converts a PrivateCloudNetworkConfigIPAddressLayoutVersionEnum enum from its proto representation.
+func ProtoToVmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnum(e alphapb.VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnum) *alpha.PrivateCloudNetworkConfigIPAddressLayoutVersionEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnum_name[int32(e)]; ok {
+		e := alpha.PrivateCloudNetworkConfigIPAddressLayoutVersionEnum(n[len("VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToPrivateCloudHcxStateEnum converts a PrivateCloudHcxStateEnum enum from its proto representation.
+func ProtoToVmwareAlphaPrivateCloudHcxStateEnum(e alphapb.VmwareAlphaPrivateCloudHcxStateEnum) *alpha.PrivateCloudHcxStateEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.VmwareAlphaPrivateCloudHcxStateEnum_name[int32(e)]; ok {
+		e := alpha.PrivateCloudHcxStateEnum(n[len("VmwareAlphaPrivateCloudHcxStateEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToPrivateCloudNsxStateEnum converts a PrivateCloudNsxStateEnum enum from its proto representation.
+func ProtoToVmwareAlphaPrivateCloudNsxStateEnum(e alphapb.VmwareAlphaPrivateCloudNsxStateEnum) *alpha.PrivateCloudNsxStateEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.VmwareAlphaPrivateCloudNsxStateEnum_name[int32(e)]; ok {
+		e := alpha.PrivateCloudNsxStateEnum(n[len("VmwareAlphaPrivateCloudNsxStateEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToPrivateCloudVcenterStateEnum converts a PrivateCloudVcenterStateEnum enum from its proto representation.
+func ProtoToVmwareAlphaPrivateCloudVcenterStateEnum(e alphapb.VmwareAlphaPrivateCloudVcenterStateEnum) *alpha.PrivateCloudVcenterStateEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.VmwareAlphaPrivateCloudVcenterStateEnum_name[int32(e)]; ok {
+		e := alpha.PrivateCloudVcenterStateEnum(n[len("VmwareAlphaPrivateCloudVcenterStateEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToPrivateCloudNetworkConfig converts a PrivateCloudNetworkConfig object from its proto representation.
 func ProtoToVmwareAlphaPrivateCloudNetworkConfig(p *alphapb.VmwareAlphaPrivateCloudNetworkConfig) *alpha.PrivateCloudNetworkConfig {
 	if p == nil {
 		return nil
 	}
 	obj := &alpha.PrivateCloudNetworkConfig{
-		Network:        dcl.StringOrNil(p.GetNetwork()),
-		ServiceNetwork: dcl.StringOrNil(p.GetServiceNetwork()),
-		ManagementCidr: dcl.StringOrNil(p.GetManagementCidr()),
+		Network:                      dcl.StringOrNil(p.GetNetwork()),
+		ServiceNetwork:               dcl.StringOrNil(p.GetServiceNetwork()),
+		ManagementCidr:               dcl.StringOrNil(p.GetManagementCidr()),
+		VmwareEngineNetwork:          dcl.StringOrNil(p.GetVmwareEngineNetwork()),
+		VmwareEngineNetworkCanonical: dcl.StringOrNil(p.GetVmwareEngineNetworkCanonical()),
+		IPAddressLayoutVersion:       ProtoToVmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnum(p.GetIpAddressLayoutVersion()),
 	}
 	return obj
 }
@@ -55,9 +106,10 @@ func ProtoToVmwareAlphaPrivateCloudManagementCluster(p *alphapb.VmwareAlphaPriva
 		return nil
 	}
 	obj := &alpha.PrivateCloudManagementCluster{
-		ClusterId:  dcl.StringOrNil(p.GetClusterId()),
-		NodeTypeId: dcl.StringOrNil(p.GetNodeTypeId()),
-		NodeCount:  dcl.Int64OrNil(p.GetNodeCount()),
+		ClusterId:           dcl.StringOrNil(p.GetClusterId()),
+		NodeTypeId:          dcl.StringOrNil(p.GetNodeTypeId()),
+		NodeCount:           dcl.Int64OrNil(p.GetNodeCount()),
+		NodeCustomCoreCount: dcl.Int64OrNil(p.GetNodeCustomCoreCount()),
 	}
 	return obj
 }
@@ -84,6 +136,8 @@ func ProtoToVmwareAlphaPrivateCloudHcx(p *alphapb.VmwareAlphaPrivateCloudHcx) *a
 		InternalIP: dcl.StringOrNil(p.GetInternalIp()),
 		ExternalIP: dcl.StringOrNil(p.GetExternalIp()),
 		Version:    dcl.StringOrNil(p.GetVersion()),
+		State:      ProtoToVmwareAlphaPrivateCloudHcxStateEnum(p.GetState()),
+		Fqdn:       dcl.StringOrNil(p.GetFqdn()),
 	}
 	return obj
 }
@@ -98,6 +152,8 @@ func ProtoToVmwareAlphaPrivateCloudNsx(p *alphapb.VmwareAlphaPrivateCloudNsx) *a
 		InternalIP: dcl.StringOrNil(p.GetInternalIp()),
 		ExternalIP: dcl.StringOrNil(p.GetExternalIp()),
 		Version:    dcl.StringOrNil(p.GetVersion()),
+		State:      ProtoToVmwareAlphaPrivateCloudNsxStateEnum(p.GetState()),
+		Fqdn:       dcl.StringOrNil(p.GetFqdn()),
 	}
 	return obj
 }
@@ -112,6 +168,8 @@ func ProtoToVmwareAlphaPrivateCloudVcenter(p *alphapb.VmwareAlphaPrivateCloudVce
 		InternalIP: dcl.StringOrNil(p.GetInternalIp()),
 		ExternalIP: dcl.StringOrNil(p.GetExternalIp()),
 		Version:    dcl.StringOrNil(p.GetVersion()),
+		State:      ProtoToVmwareAlphaPrivateCloudVcenterStateEnum(p.GetState()),
+		Fqdn:       dcl.StringOrNil(p.GetFqdn()),
 	}
 	return obj
 }
@@ -133,6 +191,8 @@ func ProtoToPrivateCloud(p *alphapb.VmwareAlphaPrivateCloud) *alpha.PrivateCloud
 		Vcenter:           ProtoToVmwareAlphaPrivateCloudVcenter(p.GetVcenter()),
 		Project:           dcl.StringOrNil(p.GetProject()),
 		Location:          dcl.StringOrNil(p.GetLocation()),
+		Uid:               dcl.StringOrNil(p.GetUid()),
+		Etag:              dcl.StringOrNil(p.GetEtag()),
 	}
 	for _, r := range p.GetConditions() {
 		obj.Conditions = append(obj.Conditions, *ProtoToVmwareAlphaPrivateCloudConditions(r))
@@ -151,6 +211,50 @@ func VmwareAlphaPrivateCloudStateEnumToProto(e *alpha.PrivateCloudStateEnum) alp
 	return alphapb.VmwareAlphaPrivateCloudStateEnum(0)
 }
 
+// PrivateCloudNetworkConfigIPAddressLayoutVersionEnumToProto converts a PrivateCloudNetworkConfigIPAddressLayoutVersionEnum enum to its proto representation.
+func VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnumToProto(e *alpha.PrivateCloudNetworkConfigIPAddressLayoutVersionEnum) alphapb.VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnum {
+	if e == nil {
+		return alphapb.VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnum(0)
+	}
+	if v, ok := alphapb.VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnum_value["PrivateCloudNetworkConfigIPAddressLayoutVersionEnum"+string(*e)]; ok {
+		return alphapb.VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnum(v)
+	}
+	return alphapb.VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnum(0)
+}
+
+// PrivateCloudHcxStateEnumToProto converts a PrivateCloudHcxStateEnum enum to its proto representation.
+func VmwareAlphaPrivateCloudHcxStateEnumToProto(e *alpha.PrivateCloudHcxStateEnum) alphapb.VmwareAlphaPrivateCloudHcxStateEnum {
+	if e == nil {
+		return alphapb.VmwareAlphaPrivateCloudHcxStateEnum(0)
+	}
+	if v, ok := alphapb.VmwareAlphaPrivateCloudHcxStateEnum_value["PrivateCloudHcxStateEnum"+string(*e)]; ok {
+		return alphapb.VmwareAlphaPrivateCloudHcxStateEnum(v)
+	}
+	return alphapb.VmwareAlphaPrivateCloudHcxStateEnum(0)
+}
+
+// PrivateCloudNsxStateEnumToProto converts a PrivateCloudNsxStateEnum enum to its proto representation.
+func VmwareAlphaPrivateCloudNsxStateEnumToProto(e *alpha.PrivateCloudNsxStateEnum) alphapb.VmwareAlphaPrivateCloudNsxStateEnum {
+	if e == nil {
+		return alphapb.VmwareAlphaPrivateCloudNsxStateEnum(0)
+	}
+	if v, ok := alphapb.VmwareAlphaPrivateCloudNsxStateEnum_value["PrivateCloudNsxStateEnum"+string(*e)]; ok {
+		return alphapb.VmwareAlphaPrivateCloudNsxStateEnum(v)
+	}
+	return alphapb.VmwareAlphaPrivateCloudNsxStateEnum(0)
+}
+
+// PrivateCloudVcenterStateEnumToProto converts a PrivateCloudVcenterStateEnum enum to its proto representation.
+func VmwareAlphaPrivateCloudVcenterStateEnumToProto(e *alpha.PrivateCloudVcenterStateEnum) alphapb.VmwareAlphaPrivateCloudVcenterStateEnum {
+	if e == nil {
+		return alphapb.VmwareAlphaPrivateCloudVcenterStateEnum(0)
+	}
+	if v, ok := alphapb.VmwareAlphaPrivateCloudVcenterStateEnum_value["PrivateCloudVcenterStateEnum"+string(*e)]; ok {
+		return alphapb.VmwareAlphaPrivateCloudVcenterStateEnum(v)
+	}
+	return alphapb.VmwareAlphaPrivateCloudVcenterStateEnum(0)
+}
+
 // PrivateCloudNetworkConfigToProto converts a PrivateCloudNetworkConfig object to its proto representation.
 func VmwareAlphaPrivateCloudNetworkConfigToProto(o *alpha.PrivateCloudNetworkConfig) *alphapb.VmwareAlphaPrivateCloudNetworkConfig {
 	if o == nil {
@@ -160,6 +264,9 @@ func VmwareAlphaPrivateCloudNetworkConfigToProto(o *alpha.PrivateCloudNetworkCon
 	p.SetNetwork(dcl.ValueOrEmptyString(o.Network))
 	p.SetServiceNetwork(dcl.ValueOrEmptyString(o.ServiceNetwork))
 	p.SetManagementCidr(dcl.ValueOrEmptyString(o.ManagementCidr))
+	p.SetVmwareEngineNetwork(dcl.ValueOrEmptyString(o.VmwareEngineNetwork))
+	p.SetVmwareEngineNetworkCanonical(dcl.ValueOrEmptyString(o.VmwareEngineNetworkCanonical))
+	p.SetIpAddressLayoutVersion(VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnumToProto(o.IPAddressLayoutVersion))
 	return p
 }
 
@@ -172,6 +279,7 @@ func VmwareAlphaPrivateCloudManagementClusterToProto(o *alpha.PrivateCloudManage
 	p.SetClusterId(dcl.ValueOrEmptyString(o.ClusterId))
 	p.SetNodeTypeId(dcl.ValueOrEmptyString(o.NodeTypeId))
 	p.SetNodeCount(dcl.ValueOrEmptyInt64(o.NodeCount))
+	p.SetNodeCustomCoreCount(dcl.ValueOrEmptyInt64(o.NodeCustomCoreCount))
 	return p
 }
 
@@ -196,6 +304,8 @@ func VmwareAlphaPrivateCloudHcxToProto(o *alpha.PrivateCloudHcx) *alphapb.Vmware
 	p.SetInternalIp(dcl.ValueOrEmptyString(o.InternalIP))
 	p.SetExternalIp(dcl.ValueOrEmptyString(o.ExternalIP))
 	p.SetVersion(dcl.ValueOrEmptyString(o.Version))
+	p.SetState(VmwareAlphaPrivateCloudHcxStateEnumToProto(o.State))
+	p.SetFqdn(dcl.ValueOrEmptyString(o.Fqdn))
 	return p
 }
 
@@ -209,6 +319,8 @@ func VmwareAlphaPrivateCloudNsxToProto(o *alpha.PrivateCloudNsx) *alphapb.Vmware
 	p.SetInternalIp(dcl.ValueOrEmptyString(o.InternalIP))
 	p.SetExternalIp(dcl.ValueOrEmptyString(o.ExternalIP))
 	p.SetVersion(dcl.ValueOrEmptyString(o.Version))
+	p.SetState(VmwareAlphaPrivateCloudNsxStateEnumToProto(o.State))
+	p.SetFqdn(dcl.ValueOrEmptyString(o.Fqdn))
 	return p
 }
 
@@ -222,6 +334,8 @@ func VmwareAlphaPrivateCloudVcenterToProto(o *alpha.PrivateCloudVcenter) *alphap
 	p.SetInternalIp(dcl.ValueOrEmptyString(o.InternalIP))
 	p.SetExternalIp(dcl.ValueOrEmptyString(o.ExternalIP))
 	p.SetVersion(dcl.ValueOrEmptyString(o.Version))
+	p.SetState(VmwareAlphaPrivateCloudVcenterStateEnumToProto(o.State))
+	p.SetFqdn(dcl.ValueOrEmptyString(o.Fqdn))
 	return p
 }
 
@@ -242,6 +356,8 @@ func PrivateCloudToProto(resource *alpha.PrivateCloud) *alphapb.VmwareAlphaPriva
 	p.SetVcenter(VmwareAlphaPrivateCloudVcenterToProto(resource.Vcenter))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetUid(dcl.ValueOrEmptyString(resource.Uid))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	sConditions := make([]*alphapb.VmwareAlphaPrivateCloudConditions, len(resource.Conditions))
 	for i, r := range resource.Conditions {
 		sConditions[i] = VmwareAlphaPrivateCloudConditionsToProto(&r)

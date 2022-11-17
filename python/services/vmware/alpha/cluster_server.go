@@ -39,16 +39,19 @@ func ProtoToVmwareAlphaClusterStateEnum(e alphapb.VmwareAlphaClusterStateEnum) *
 // ProtoToCluster converts a Cluster resource from its proto representation.
 func ProtoToCluster(p *alphapb.VmwareAlphaCluster) *alpha.Cluster {
 	obj := &alpha.Cluster{
-		Name:         dcl.StringOrNil(p.GetName()),
-		CreateTime:   dcl.StringOrNil(p.GetCreateTime()),
-		UpdateTime:   dcl.StringOrNil(p.GetUpdateTime()),
-		State:        ProtoToVmwareAlphaClusterStateEnum(p.GetState()),
-		Management:   dcl.Bool(p.GetManagement()),
-		NodeTypeId:   dcl.StringOrNil(p.GetNodeTypeId()),
-		NodeCount:    dcl.Int64OrNil(p.GetNodeCount()),
-		Project:      dcl.StringOrNil(p.GetProject()),
-		Location:     dcl.StringOrNil(p.GetLocation()),
-		PrivateCloud: dcl.StringOrNil(p.GetPrivateCloud()),
+		Name:                dcl.StringOrNil(p.GetName()),
+		CreateTime:          dcl.StringOrNil(p.GetCreateTime()),
+		UpdateTime:          dcl.StringOrNil(p.GetUpdateTime()),
+		State:               ProtoToVmwareAlphaClusterStateEnum(p.GetState()),
+		Management:          dcl.Bool(p.GetManagement()),
+		NodeTypeId:          dcl.StringOrNil(p.GetNodeTypeId()),
+		NodeCount:           dcl.Int64OrNil(p.GetNodeCount()),
+		Project:             dcl.StringOrNil(p.GetProject()),
+		Location:            dcl.StringOrNil(p.GetLocation()),
+		PrivateCloud:        dcl.StringOrNil(p.GetPrivateCloud()),
+		NodeCustomCoreCount: dcl.Int64OrNil(p.GetNodeCustomCoreCount()),
+		Uid:                 dcl.StringOrNil(p.GetUid()),
+		Etag:                dcl.StringOrNil(p.GetEtag()),
 	}
 	return obj
 }
@@ -77,6 +80,9 @@ func ClusterToProto(resource *alpha.Cluster) *alphapb.VmwareAlphaCluster {
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetPrivateCloud(dcl.ValueOrEmptyString(resource.PrivateCloud))
+	p.SetNodeCustomCoreCount(dcl.ValueOrEmptyInt64(resource.NodeCustomCoreCount))
+	p.SetUid(dcl.ValueOrEmptyString(resource.Uid))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 
 	return p
 }

@@ -116,7 +116,7 @@ func DCLClusterSchema() *dcl.Schema {
 					ParentContainer: "project",
 					HasCreate:       true,
 					ApplyTimeout:    9600,
-					DeleteTimeout:   4800,
+					DeleteTimeout:   7200,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{
@@ -134,6 +134,13 @@ func DCLClusterSchema() *dcl.Schema {
 								GoName:      "CreateTime",
 								ReadOnly:    true,
 								Description: "Output only. Creation time of this resource in RFC3339 text format.",
+								Immutable:   true,
+							},
+							"etag": &dcl.Property{
+								Type:        "string",
+								GoName:      "Etag",
+								ReadOnly:    true,
+								Description: "Optional. Checksum that may be sent on update and delete requests to ensure that the user-provided value is up to date before the server processes a request. The server computes checksums based on the value of other fields in the request.",
 								Immutable:   true,
 							},
 							"location": &dcl.Property{
@@ -160,6 +167,12 @@ func DCLClusterSchema() *dcl.Schema {
 								Format:      "int64",
 								GoName:      "NodeCount",
 								Description: "Required. Number of nodes in this cluster.",
+							},
+							"nodeCustomCoreCount": &dcl.Property{
+								Type:        "integer",
+								Format:      "int64",
+								GoName:      "NodeCustomCoreCount",
+								Description: "Optional. Customized number of cores available to each node of the cluster. This number must always be one of `NodeType.available_custom_core_counts`. If zero is provided max value from `NodeType.available_custom_core_counts` will be used.",
 							},
 							"nodeTypeId": &dcl.Property{
 								Type:        "string",
@@ -207,6 +220,13 @@ func DCLClusterSchema() *dcl.Schema {
 									"FAILED",
 									"DELETED",
 								},
+							},
+							"uid": &dcl.Property{
+								Type:        "string",
+								GoName:      "Uid",
+								ReadOnly:    true,
+								Description: "Output only. System-generated unique identifier for the resource.",
+								Immutable:   true,
 							},
 							"updateTime": &dcl.Property{
 								Type:        "string",

@@ -42,6 +42,9 @@ message VmwareAlphaCluster {
   string project = 8;
   string location = 9;
   string private_cloud = 10;
+  int64 node_custom_core_count = 11;
+  string uid = 12;
+  string etag = 13;
 }
 
 message ApplyVmwareAlphaClusterRequest {

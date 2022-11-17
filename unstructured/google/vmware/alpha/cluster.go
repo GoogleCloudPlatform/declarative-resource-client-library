@@ -35,6 +35,9 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 	if r.CreateTime != nil {
 		u.Object["createTime"] = *r.CreateTime
 	}
+	if r.Etag != nil {
+		u.Object["etag"] = *r.Etag
+	}
 	if r.Location != nil {
 		u.Object["location"] = *r.Location
 	}
@@ -47,6 +50,9 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 	if r.NodeCount != nil {
 		u.Object["nodeCount"] = *r.NodeCount
 	}
+	if r.NodeCustomCoreCount != nil {
+		u.Object["nodeCustomCoreCount"] = *r.NodeCustomCoreCount
+	}
 	if r.NodeTypeId != nil {
 		u.Object["nodeTypeId"] = *r.NodeTypeId
 	}
@@ -58,6 +64,9 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 	}
 	if r.State != nil {
 		u.Object["state"] = string(*r.State)
+	}
+	if r.Uid != nil {
+		u.Object["uid"] = *r.Uid
 	}
 	if r.UpdateTime != nil {
 		u.Object["updateTime"] = *r.UpdateTime
@@ -72,6 +81,13 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 			r.CreateTime = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.CreateTime: expected string")
+		}
+	}
+	if _, ok := u.Object["etag"]; ok {
+		if s, ok := u.Object["etag"].(string); ok {
+			r.Etag = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.Etag: expected string")
 		}
 	}
 	if _, ok := u.Object["location"]; ok {
@@ -102,6 +118,13 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 			return nil, fmt.Errorf("r.NodeCount: expected int64")
 		}
 	}
+	if _, ok := u.Object["nodeCustomCoreCount"]; ok {
+		if i, ok := u.Object["nodeCustomCoreCount"].(int64); ok {
+			r.NodeCustomCoreCount = dcl.Int64(i)
+		} else {
+			return nil, fmt.Errorf("r.NodeCustomCoreCount: expected int64")
+		}
+	}
 	if _, ok := u.Object["nodeTypeId"]; ok {
 		if s, ok := u.Object["nodeTypeId"].(string); ok {
 			r.NodeTypeId = dcl.String(s)
@@ -128,6 +151,13 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 			r.State = dclService.ClusterStateEnumRef(s)
 		} else {
 			return nil, fmt.Errorf("r.State: expected string")
+		}
+	}
+	if _, ok := u.Object["uid"]; ok {
+		if s, ok := u.Object["uid"].(string); ok {
+			r.Uid = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.Uid: expected string")
 		}
 	}
 	if _, ok := u.Object["updateTime"]; ok {

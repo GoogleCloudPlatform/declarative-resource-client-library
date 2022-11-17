@@ -17,10 +17,14 @@ type: private_cloud
 versions:
 - alpha
 resource: samples/minimal.private_cloud.json
+dependencies:
+- samples/basic.vmware_engine_network.json
 variables:
 - name: cloud
   type: resource_name
 - name: management
+  type: resource_name
+- name: network
   type: resource_name
 - name: project
   type: project

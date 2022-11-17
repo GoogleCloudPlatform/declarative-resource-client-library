@@ -3,8 +3,8 @@
   "project": "{{project}}",
   "location": "{{zone}}",
   "networkConfig": {
-    "network": "projects/{{project}}/global/networks/default",
-    "managementCidr": "192.168.1.0/24"
+    "vmwareEngineNetwork": "projects/{{project}}/locations/global/vmwareEngineNetworks/{{ref:basic.vmware_engine_network.json:name}}",
+    "managementCidr": "192.168.30.0/24"
   },
   "managementCluster": {
     "clusterId": "{{management}}",

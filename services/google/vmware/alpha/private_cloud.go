@@ -41,6 +41,8 @@ type PrivateCloud struct {
 	Vcenter           *PrivateCloudVcenter           `json:"vcenter"`
 	Project           *string                        `json:"project"`
 	Location          *string                        `json:"location"`
+	Uid               *string                        `json:"uid"`
+	Etag              *string                        `json:"etag"`
 }
 
 func (r *PrivateCloud) String() string {
@@ -74,11 +76,122 @@ func (v PrivateCloudStateEnum) Validate() error {
 	}
 }
 
+// The enum PrivateCloudNetworkConfigIPAddressLayoutVersionEnum.
+type PrivateCloudNetworkConfigIPAddressLayoutVersionEnum string
+
+// PrivateCloudNetworkConfigIPAddressLayoutVersionEnumRef returns a *PrivateCloudNetworkConfigIPAddressLayoutVersionEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func PrivateCloudNetworkConfigIPAddressLayoutVersionEnumRef(s string) *PrivateCloudNetworkConfigIPAddressLayoutVersionEnum {
+	v := PrivateCloudNetworkConfigIPAddressLayoutVersionEnum(s)
+	return &v
+}
+
+func (v PrivateCloudNetworkConfigIPAddressLayoutVersionEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"IP_ADDRESS_LAYOUT_VERSION_UNSPECIFIED", "VERSION_1", "VERSION_2"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "PrivateCloudNetworkConfigIPAddressLayoutVersionEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum PrivateCloudHcxStateEnum.
+type PrivateCloudHcxStateEnum string
+
+// PrivateCloudHcxStateEnumRef returns a *PrivateCloudHcxStateEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func PrivateCloudHcxStateEnumRef(s string) *PrivateCloudHcxStateEnum {
+	v := PrivateCloudHcxStateEnum(s)
+	return &v
+}
+
+func (v PrivateCloudHcxStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"STATE_UNSPECIFIED", "ACTIVE", "CREATING", "UPDATING", "FAILED", "DELETED", "PURGING"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "PrivateCloudHcxStateEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum PrivateCloudNsxStateEnum.
+type PrivateCloudNsxStateEnum string
+
+// PrivateCloudNsxStateEnumRef returns a *PrivateCloudNsxStateEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func PrivateCloudNsxStateEnumRef(s string) *PrivateCloudNsxStateEnum {
+	v := PrivateCloudNsxStateEnum(s)
+	return &v
+}
+
+func (v PrivateCloudNsxStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"STATE_UNSPECIFIED", "ACTIVE", "CREATING", "UPDATING", "FAILED", "DELETED", "PURGING"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "PrivateCloudNsxStateEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum PrivateCloudVcenterStateEnum.
+type PrivateCloudVcenterStateEnum string
+
+// PrivateCloudVcenterStateEnumRef returns a *PrivateCloudVcenterStateEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func PrivateCloudVcenterStateEnumRef(s string) *PrivateCloudVcenterStateEnum {
+	v := PrivateCloudVcenterStateEnum(s)
+	return &v
+}
+
+func (v PrivateCloudVcenterStateEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"STATE_UNSPECIFIED", "ACTIVE", "CREATING", "UPDATING", "FAILED", "DELETED", "PURGING"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "PrivateCloudVcenterStateEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 type PrivateCloudNetworkConfig struct {
-	empty          bool    `json:"-"`
-	Network        *string `json:"network"`
-	ServiceNetwork *string `json:"serviceNetwork"`
-	ManagementCidr *string `json:"managementCidr"`
+	empty                        bool                                                 `json:"-"`
+	Network                      *string                                              `json:"network"`
+	ServiceNetwork               *string                                              `json:"serviceNetwork"`
+	ManagementCidr               *string                                              `json:"managementCidr"`
+	VmwareEngineNetwork          *string                                              `json:"vmwareEngineNetwork"`
+	VmwareEngineNetworkCanonical *string                                              `json:"vmwareEngineNetworkCanonical"`
+	IPAddressLayoutVersion       *PrivateCloudNetworkConfigIPAddressLayoutVersionEnum `json:"ipAddressLayoutVersion"`
 }
 
 type jsonPrivateCloudNetworkConfig PrivateCloudNetworkConfig
@@ -101,6 +214,12 @@ func (r *PrivateCloudNetworkConfig) UnmarshalJSON(data []byte) error {
 		r.ServiceNetwork = res.ServiceNetwork
 
 		r.ManagementCidr = res.ManagementCidr
+
+		r.VmwareEngineNetwork = res.VmwareEngineNetwork
+
+		r.VmwareEngineNetworkCanonical = res.VmwareEngineNetworkCanonical
+
+		r.IPAddressLayoutVersion = res.IPAddressLayoutVersion
 
 	}
 	return nil
@@ -127,10 +246,11 @@ func (r *PrivateCloudNetworkConfig) HashCode() string {
 }
 
 type PrivateCloudManagementCluster struct {
-	empty      bool    `json:"-"`
-	ClusterId  *string `json:"clusterId"`
-	NodeTypeId *string `json:"nodeTypeId"`
-	NodeCount  *int64  `json:"nodeCount"`
+	empty               bool    `json:"-"`
+	ClusterId           *string `json:"clusterId"`
+	NodeTypeId          *string `json:"nodeTypeId"`
+	NodeCount           *int64  `json:"nodeCount"`
+	NodeCustomCoreCount *int64  `json:"nodeCustomCoreCount"`
 }
 
 type jsonPrivateCloudManagementCluster PrivateCloudManagementCluster
@@ -153,6 +273,8 @@ func (r *PrivateCloudManagementCluster) UnmarshalJSON(data []byte) error {
 		r.NodeTypeId = res.NodeTypeId
 
 		r.NodeCount = res.NodeCount
+
+		r.NodeCustomCoreCount = res.NodeCustomCoreCount
 
 	}
 	return nil
@@ -228,11 +350,13 @@ func (r *PrivateCloudConditions) HashCode() string {
 }
 
 type PrivateCloudHcx struct {
-	empty      bool    `json:"-"`
-	Fdqn       *string `json:"fdqn"`
-	InternalIP *string `json:"internalIP"`
-	ExternalIP *string `json:"externalIP"`
-	Version    *string `json:"version"`
+	empty      bool                      `json:"-"`
+	Fdqn       *string                   `json:"fdqn"`
+	InternalIP *string                   `json:"internalIP"`
+	ExternalIP *string                   `json:"externalIP"`
+	Version    *string                   `json:"version"`
+	State      *PrivateCloudHcxStateEnum `json:"state"`
+	Fqdn       *string                   `json:"fqdn"`
 }
 
 type jsonPrivateCloudHcx PrivateCloudHcx
@@ -257,6 +381,10 @@ func (r *PrivateCloudHcx) UnmarshalJSON(data []byte) error {
 		r.ExternalIP = res.ExternalIP
 
 		r.Version = res.Version
+
+		r.State = res.State
+
+		r.Fqdn = res.Fqdn
 
 	}
 	return nil
@@ -283,11 +411,13 @@ func (r *PrivateCloudHcx) HashCode() string {
 }
 
 type PrivateCloudNsx struct {
-	empty      bool    `json:"-"`
-	Fdqn       *string `json:"fdqn"`
-	InternalIP *string `json:"internalIP"`
-	ExternalIP *string `json:"externalIP"`
-	Version    *string `json:"version"`
+	empty      bool                      `json:"-"`
+	Fdqn       *string                   `json:"fdqn"`
+	InternalIP *string                   `json:"internalIP"`
+	ExternalIP *string                   `json:"externalIP"`
+	Version    *string                   `json:"version"`
+	State      *PrivateCloudNsxStateEnum `json:"state"`
+	Fqdn       *string                   `json:"fqdn"`
 }
 
 type jsonPrivateCloudNsx PrivateCloudNsx
@@ -312,6 +442,10 @@ func (r *PrivateCloudNsx) UnmarshalJSON(data []byte) error {
 		r.ExternalIP = res.ExternalIP
 
 		r.Version = res.Version
+
+		r.State = res.State
+
+		r.Fqdn = res.Fqdn
 
 	}
 	return nil
@@ -338,11 +472,13 @@ func (r *PrivateCloudNsx) HashCode() string {
 }
 
 type PrivateCloudVcenter struct {
-	empty      bool    `json:"-"`
-	Fdqn       *string `json:"fdqn"`
-	InternalIP *string `json:"internalIP"`
-	ExternalIP *string `json:"externalIP"`
-	Version    *string `json:"version"`
+	empty      bool                          `json:"-"`
+	Fdqn       *string                       `json:"fdqn"`
+	InternalIP *string                       `json:"internalIP"`
+	ExternalIP *string                       `json:"externalIP"`
+	Version    *string                       `json:"version"`
+	State      *PrivateCloudVcenterStateEnum `json:"state"`
+	Fqdn       *string                       `json:"fqdn"`
 }
 
 type jsonPrivateCloudVcenter PrivateCloudVcenter
@@ -367,6 +503,10 @@ func (r *PrivateCloudVcenter) UnmarshalJSON(data []byte) error {
 		r.ExternalIP = res.ExternalIP
 
 		r.Version = res.Version
+
+		r.State = res.State
+
+		r.Fqdn = res.Fqdn
 
 	}
 	return nil
@@ -423,6 +563,8 @@ func (r *PrivateCloud) ID() (string, error) {
 		"vcenter":            dcl.ValueOrEmptyString(nr.Vcenter),
 		"project":            dcl.ValueOrEmptyString(nr.Project),
 		"location":           dcl.ValueOrEmptyString(nr.Location),
+		"uid":                dcl.ValueOrEmptyString(nr.Uid),
+		"etag":               dcl.ValueOrEmptyString(nr.Etag),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/privateClouds/{{name}}", params), nil
 }
@@ -533,7 +675,7 @@ func (c *Client) GetPrivateCloud(ctx context.Context, r *PrivateCloud) (*Private
 
 func (c *Client) DeletePrivateCloud(ctx context.Context, r *PrivateCloud) error {
 	ctx = dcl.ContextWithRequestID(ctx)
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(4800*time.Second))
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(7200*time.Second))
 	defer cancel()
 
 	if r == nil {

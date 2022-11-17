@@ -910,6 +910,8 @@ func Services() *Directory {
 	d.AddResource("alpha", "vmware", "PrivateCloud", vmware_alpha.YAML_private_cloud)
 	d.AddResource("alpha", "vmware", dcl.TitleToSnakeCase("Cluster"), vmware_alpha.YAML_cluster)
 	d.AddResource("alpha", "vmware", "Cluster", vmware_alpha.YAML_cluster)
+	d.AddResource("alpha", "vmware", dcl.TitleToSnakeCase("VmwareEngineNetwork"), vmware_alpha.YAML_vmware_engine_network)
+	d.AddResource("alpha", "vmware", "VmwareEngineNetwork", vmware_alpha.YAML_vmware_engine_network)
 	d.AddResource("alpha", "vpcaccess", dcl.TitleToSnakeCase("Connector"), vpcaccess_alpha.YAML_connector)
 	d.AddResource("alpha", "vpcaccess", "Connector", vpcaccess_alpha.YAML_connector)
 	d.AddResource("alpha", "recaptchaenterprise", dcl.TitleToSnakeCase("Key"), recaptchaenterprise_alpha.YAML_key)

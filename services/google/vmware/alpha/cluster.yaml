@@ -75,7 +75,7 @@ components:
       x-dcl-has-iam: false
       x-dcl-read-timeout: 0
       x-dcl-apply-timeout: 9600
-      x-dcl-delete-timeout: 4800
+      x-dcl-delete-timeout: 7200
       type: object
       required:
       - name
@@ -92,6 +92,15 @@ components:
           readOnly: true
           description: Output only. Creation time of this resource in RFC3339 text
             format.
+          x-kubernetes-immutable: true
+        etag:
+          type: string
+          x-dcl-go-name: Etag
+          readOnly: true
+          description: Optional. Checksum that may be sent on update and delete requests
+            to ensure that the user-provided value is up to date before the server
+            processes a request. The server computes checksums based on the value
+            of other fields in the request.
           x-kubernetes-immutable: true
         location:
           type: string
@@ -118,6 +127,14 @@ components:
           format: int64
           x-dcl-go-name: NodeCount
           description: Required. Number of nodes in this cluster.
+        nodeCustomCoreCount:
+          type: integer
+          format: int64
+          x-dcl-go-name: NodeCustomCoreCount
+          description: Optional. Customized number of cores available to each node
+            of the cluster. This number must always be one of `NodeType.available_custom_core_counts`.
+            If zero is provided max value from `NodeType.available_custom_core_counts`
+            will be used.
         nodeTypeId:
           type: string
           x-dcl-go-name: NodeTypeId
@@ -156,6 +173,12 @@ components:
           - UPDATING
           - FAILED
           - DELETED
+        uid:
+          type: string
+          x-dcl-go-name: Uid
+          readOnly: true
+          description: Output only. System-generated unique identifier for the resource.
+          x-kubernetes-immutable: true
         updateTime:
           type: string
           format: date-time

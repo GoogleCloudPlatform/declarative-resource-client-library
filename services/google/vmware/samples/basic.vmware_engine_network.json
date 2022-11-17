@@ -1,0 +1,7 @@
+{
+  "name": "{{network}}",
+  "project": "{{project}}",
+  "location": "global",
+  "description": "A GCVE Network",
+  "type": "STANDARD"
+}

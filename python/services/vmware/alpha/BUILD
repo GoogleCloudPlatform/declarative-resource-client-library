@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="vmware/alpha", resources=["private_cloud","cluster"])
+connector(name="vmware/alpha", resources=["private_cloud","cluster","vmware_engine_network"])

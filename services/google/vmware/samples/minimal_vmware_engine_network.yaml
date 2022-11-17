@@ -11,6 +11,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-load("//:connector_rules.bzl", "proto_package")
-proto_package(name="vmware/alpha", resources=["private_cloud","cluster","vmware_engine_network"])
+name: minimal_vmware_engine_network
+description: A basic example of a vmware engine private cloud
+type: vmware_engine_network
+versions:
+- alpha
+resource: samples/minimal.vmware_engine_network.json
+variables:
+- name: network
+  type: resource_name
+- name: project
+  type: project

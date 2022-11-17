@@ -19,10 +19,13 @@ versions:
 resource: samples/vmwareengine_viewer.iam.binding.json
 dependencies:
 - samples/basic.private_cloud.json
+- samples/basic.vmware_engine_network.json
 variables:
 - name: cloud
   type: resource_name
 - name: management
+  type: resource_name
+- name: network
   type: resource_name
 - name: project
   type: project

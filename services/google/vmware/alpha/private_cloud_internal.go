@@ -27,7 +27,7 @@ import (
 
 func (r *PrivateCloud) validate() error {
 
-	if err := dcl.Required(r, "name"); err != nil {
+	if err := dcl.RequiredParameter(r.Name, "Name"); err != nil {
 		return err
 	}
 	if err := dcl.Required(r, "networkConfig"); err != nil {
@@ -70,10 +70,10 @@ func (r *PrivateCloud) validate() error {
 	return nil
 }
 func (r *PrivateCloudNetworkConfig) validate() error {
-	if err := dcl.Required(r, "network"); err != nil {
+	if err := dcl.Required(r, "managementCidr"); err != nil {
 		return err
 	}
-	if err := dcl.Required(r, "managementCidr"); err != nil {
+	if err := dcl.Required(r, "vmwareEngineNetwork"); err != nil {
 		return err
 	}
 	return nil
@@ -434,6 +434,11 @@ func (op *deletePrivateCloudOperation) do(ctx context.Context, r *PrivateCloud, 
 		return err
 	}
 
+	u, err = dcl.AddQueryParams(u, map[string]string{"force": "true"})
+	if err != nil {
+		return err
+	}
+
 	// Delete should never have a body
 	body := &bytes.Buffer{}
 	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
@@ -588,7 +593,7 @@ func canonicalizePrivateCloudDesiredState(rawDesired, rawInitial *PrivateCloud, 
 		return rawDesired, nil
 	}
 	canonicalDesired := &PrivateCloud{}
-	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
+	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -616,13 +621,7 @@ func canonicalizePrivateCloudDesiredState(rawDesired, rawInitial *PrivateCloud, 
 
 func canonicalizePrivateCloudNewState(c *Client, rawNew, rawDesired *PrivateCloud) (*PrivateCloud, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
-	} else {
-		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
-			rawNew.Name = rawDesired.Name
-		}
-	}
+	rawNew.Name = rawDesired.Name
 
 	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
@@ -697,6 +696,22 @@ func canonicalizePrivateCloudNewState(c *Client, rawNew, rawDesired *PrivateClou
 
 	rawNew.Location = rawDesired.Location
 
+	if dcl.IsEmptyValueIndirect(rawNew.Uid) && dcl.IsEmptyValueIndirect(rawDesired.Uid) {
+		rawNew.Uid = rawDesired.Uid
+	} else {
+		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
+			rawNew.Uid = rawDesired.Uid
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
+		rawNew.Etag = rawDesired.Etag
+	} else {
+		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
+			rawNew.Etag = rawDesired.Etag
+		}
+	}
+
 	return rawNew, nil
 }
 
@@ -723,6 +738,12 @@ func canonicalizePrivateCloudNetworkConfig(des, initial *PrivateCloudNetworkConf
 		cDes.ManagementCidr = initial.ManagementCidr
 	} else {
 		cDes.ManagementCidr = des.ManagementCidr
+	}
+	if dcl.IsZeroValue(des.VmwareEngineNetwork) || (dcl.IsEmptyValueIndirect(des.VmwareEngineNetwork) && dcl.IsEmptyValueIndirect(initial.VmwareEngineNetwork)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.VmwareEngineNetwork = initial.VmwareEngineNetwork
+	} else {
+		cDes.VmwareEngineNetwork = des.VmwareEngineNetwork
 	}
 
 	return cDes
@@ -855,6 +876,12 @@ func canonicalizePrivateCloudManagementCluster(des, initial *PrivateCloudManagem
 		cDes.NodeCount = initial.NodeCount
 	} else {
 		cDes.NodeCount = des.NodeCount
+	}
+	if dcl.IsZeroValue(des.NodeCustomCoreCount) || (dcl.IsEmptyValueIndirect(des.NodeCustomCoreCount) && dcl.IsEmptyValueIndirect(initial.NodeCustomCoreCount)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.NodeCustomCoreCount = initial.NodeCustomCoreCount
+	} else {
+		cDes.NodeCustomCoreCount = des.NodeCustomCoreCount
 	}
 
 	return cDes
@@ -1101,6 +1128,11 @@ func canonicalizePrivateCloudHcx(des, initial *PrivateCloudHcx, opts ...dcl.Appl
 	} else {
 		cDes.Version = des.Version
 	}
+	if dcl.StringCanonicalize(des.Fqdn, initial.Fqdn) || dcl.IsZeroValue(des.Fqdn) {
+		cDes.Fqdn = initial.Fqdn
+	} else {
+		cDes.Fqdn = des.Fqdn
+	}
 
 	return cDes
 }
@@ -1158,6 +1190,9 @@ func canonicalizeNewPrivateCloudHcx(c *Client, des, nw *PrivateCloudHcx) *Privat
 	}
 	if dcl.StringCanonicalize(des.Version, nw.Version) {
 		nw.Version = des.Version
+	}
+	if dcl.StringCanonicalize(des.Fqdn, nw.Fqdn) {
+		nw.Fqdn = des.Fqdn
 	}
 
 	return nw
@@ -1240,6 +1275,11 @@ func canonicalizePrivateCloudNsx(des, initial *PrivateCloudNsx, opts ...dcl.Appl
 	} else {
 		cDes.Version = des.Version
 	}
+	if dcl.StringCanonicalize(des.Fqdn, initial.Fqdn) || dcl.IsZeroValue(des.Fqdn) {
+		cDes.Fqdn = initial.Fqdn
+	} else {
+		cDes.Fqdn = des.Fqdn
+	}
 
 	return cDes
 }
@@ -1297,6 +1337,9 @@ func canonicalizeNewPrivateCloudNsx(c *Client, des, nw *PrivateCloudNsx) *Privat
 	}
 	if dcl.StringCanonicalize(des.Version, nw.Version) {
 		nw.Version = des.Version
+	}
+	if dcl.StringCanonicalize(des.Fqdn, nw.Fqdn) {
+		nw.Fqdn = des.Fqdn
 	}
 
 	return nw
@@ -1379,6 +1422,11 @@ func canonicalizePrivateCloudVcenter(des, initial *PrivateCloudVcenter, opts ...
 	} else {
 		cDes.Version = des.Version
 	}
+	if dcl.StringCanonicalize(des.Fqdn, initial.Fqdn) || dcl.IsZeroValue(des.Fqdn) {
+		cDes.Fqdn = initial.Fqdn
+	} else {
+		cDes.Fqdn = des.Fqdn
+	}
 
 	return cDes
 }
@@ -1436,6 +1484,9 @@ func canonicalizeNewPrivateCloudVcenter(c *Client, des, nw *PrivateCloudVcenter)
 	}
 	if dcl.StringCanonicalize(des.Version, nw.Version) {
 		nw.Version = des.Version
+	}
+	if dcl.StringCanonicalize(des.Fqdn, nw.Fqdn) {
+		nw.Fqdn = des.Fqdn
 	}
 
 	return nw
@@ -1607,6 +1658,20 @@ func diffPrivateCloud(c *Client, desired, actual *PrivateCloud, opts ...dcl.Appl
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	return newDiffs, nil
 }
 func comparePrivateCloudNetworkConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
@@ -1644,6 +1709,27 @@ func comparePrivateCloudNetworkConfigNewStyle(d, a interface{}, fn dcl.FieldName
 	}
 
 	if ds, err := dcl.Diff(desired.ManagementCidr, actual.ManagementCidr, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ManagementCidr")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VmwareEngineNetwork, actual.VmwareEngineNetwork, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VmwareEngineNetwork")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.VmwareEngineNetworkCanonical, actual.VmwareEngineNetworkCanonical, dcl.DiffInfo{OutputOnly: true, Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("VmwareEngineNetworkCanonical")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.IPAddressLayoutVersion, actual.IPAddressLayoutVersion, dcl.DiffInfo{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("IpAddressLayoutVersion")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1687,6 +1773,13 @@ func comparePrivateCloudManagementClusterNewStyle(d, a interface{}, fn dcl.Field
 	}
 
 	if ds, err := dcl.Diff(desired.NodeCount, actual.NodeCount, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updatePrivateCloudUpdateClusterOperation")}, fn.AddNest("NodeCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.NodeCustomCoreCount, actual.NodeCustomCoreCount, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("NodeCustomCoreCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1778,6 +1871,20 @@ func comparePrivateCloudHcxNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.DiffInfo{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Fqdn, actual.Fqdn, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fqdn")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -1823,6 +1930,20 @@ func comparePrivateCloudNsxNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.
 	}
 
 	if ds, err := dcl.Diff(desired.Version, actual.Version, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Version")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.DiffInfo{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Fqdn, actual.Fqdn, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fqdn")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1878,6 +1999,20 @@ func comparePrivateCloudVcenterNewStyle(d, a interface{}, fn dcl.FieldName) ([]*
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.State, actual.State, dcl.DiffInfo{OutputOnly: true, Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("State")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Fqdn, actual.Fqdn, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fqdn")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -1890,6 +2025,8 @@ func (r *PrivateCloud) urlNormalized() *PrivateCloud {
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
+	normalized.Uid = dcl.SelfLinkToName(r.Uid)
+	normalized.Etag = dcl.SelfLinkToName(r.Etag)
 	return &normalized
 }
 
@@ -1953,7 +2090,7 @@ func expandPrivateCloud(c *Client, f *PrivateCloud) (map[string]interface{}, err
 	m := make(map[string]interface{})
 	res := f
 	_ = res
-	if v, err := dcl.DeriveField("projects/%s/locations/%s/privateClouds/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.Name)); err != nil {
+	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
@@ -2012,6 +2149,8 @@ func flattenPrivateCloud(c *Client, i interface{}, res *PrivateCloud) *PrivateCl
 	resultRes.Vcenter = flattenPrivateCloudVcenter(c, m["vcenter"], res)
 	resultRes.Project = dcl.FlattenString(m["project"])
 	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.Uid = dcl.FlattenString(m["uid"])
+	resultRes.Etag = dcl.FlattenString(m["etag"])
 
 	return resultRes
 }
@@ -2111,6 +2250,9 @@ func expandPrivateCloudNetworkConfig(c *Client, f *PrivateCloudNetworkConfig, re
 	if v := f.ManagementCidr; !dcl.IsEmptyValueIndirect(v) {
 		m["managementCidr"] = v
 	}
+	if v := f.VmwareEngineNetwork; !dcl.IsEmptyValueIndirect(v) {
+		m["vmwareEngineNetwork"] = v
+	}
 
 	return m, nil
 }
@@ -2131,6 +2273,9 @@ func flattenPrivateCloudNetworkConfig(c *Client, i interface{}, res *PrivateClou
 	r.Network = dcl.FlattenString(m["network"])
 	r.ServiceNetwork = dcl.FlattenString(m["serviceNetwork"])
 	r.ManagementCidr = dcl.FlattenString(m["managementCidr"])
+	r.VmwareEngineNetwork = dcl.FlattenString(m["vmwareEngineNetwork"])
+	r.VmwareEngineNetworkCanonical = dcl.FlattenString(m["vmwareEngineNetworkCanonical"])
+	r.IPAddressLayoutVersion = flattenPrivateCloudNetworkConfigIPAddressLayoutVersionEnum(m["ipAddressLayoutVersion"])
 
 	return r
 }
@@ -2233,6 +2378,9 @@ func expandPrivateCloudManagementCluster(c *Client, f *PrivateCloudManagementClu
 	if v := f.NodeCount; !dcl.IsEmptyValueIndirect(v) {
 		m["nodeCount"] = v
 	}
+	if v := f.NodeCustomCoreCount; !dcl.IsEmptyValueIndirect(v) {
+		m["nodeCustomCoreCount"] = v
+	}
 
 	return m, nil
 }
@@ -2253,6 +2401,7 @@ func flattenPrivateCloudManagementCluster(c *Client, i interface{}, res *Private
 	r.ClusterId = dcl.FlattenString(m["clusterId"])
 	r.NodeTypeId = dcl.FlattenString(m["nodeTypeId"])
 	r.NodeCount = dcl.FlattenInteger(m["nodeCount"])
+	r.NodeCustomCoreCount = dcl.FlattenInteger(m["nodeCustomCoreCount"])
 
 	return r
 }
@@ -2470,6 +2619,9 @@ func expandPrivateCloudHcx(c *Client, f *PrivateCloudHcx, res *PrivateCloud) (ma
 	if v := f.Version; !dcl.IsEmptyValueIndirect(v) {
 		m["version"] = v
 	}
+	if v := f.Fqdn; !dcl.IsEmptyValueIndirect(v) {
+		m["fqdn"] = v
+	}
 
 	return m, nil
 }
@@ -2491,6 +2643,8 @@ func flattenPrivateCloudHcx(c *Client, i interface{}, res *PrivateCloud) *Privat
 	r.InternalIP = dcl.FlattenString(m["internalIp"])
 	r.ExternalIP = dcl.FlattenString(m["externalIp"])
 	r.Version = dcl.FlattenString(m["version"])
+	r.State = flattenPrivateCloudHcxStateEnum(m["state"])
+	r.Fqdn = dcl.FlattenString(m["fqdn"])
 
 	return r
 }
@@ -2596,6 +2750,9 @@ func expandPrivateCloudNsx(c *Client, f *PrivateCloudNsx, res *PrivateCloud) (ma
 	if v := f.Version; !dcl.IsEmptyValueIndirect(v) {
 		m["version"] = v
 	}
+	if v := f.Fqdn; !dcl.IsEmptyValueIndirect(v) {
+		m["fqdn"] = v
+	}
 
 	return m, nil
 }
@@ -2617,6 +2774,8 @@ func flattenPrivateCloudNsx(c *Client, i interface{}, res *PrivateCloud) *Privat
 	r.InternalIP = dcl.FlattenString(m["internalIp"])
 	r.ExternalIP = dcl.FlattenString(m["externalIp"])
 	r.Version = dcl.FlattenString(m["version"])
+	r.State = flattenPrivateCloudNsxStateEnum(m["state"])
+	r.Fqdn = dcl.FlattenString(m["fqdn"])
 
 	return r
 }
@@ -2722,6 +2881,9 @@ func expandPrivateCloudVcenter(c *Client, f *PrivateCloudVcenter, res *PrivateCl
 	if v := f.Version; !dcl.IsEmptyValueIndirect(v) {
 		m["version"] = v
 	}
+	if v := f.Fqdn; !dcl.IsEmptyValueIndirect(v) {
+		m["fqdn"] = v
+	}
 
 	return m, nil
 }
@@ -2743,6 +2905,8 @@ func flattenPrivateCloudVcenter(c *Client, i interface{}, res *PrivateCloud) *Pr
 	r.InternalIP = dcl.FlattenString(m["internalIp"])
 	r.ExternalIP = dcl.FlattenString(m["externalIp"])
 	r.Version = dcl.FlattenString(m["version"])
+	r.State = flattenPrivateCloudVcenterStateEnum(m["state"])
+	r.Fqdn = dcl.FlattenString(m["fqdn"])
 
 	return r
 }
@@ -2796,6 +2960,210 @@ func flattenPrivateCloudStateEnum(i interface{}) *PrivateCloudStateEnum {
 	}
 
 	return PrivateCloudStateEnumRef(s)
+}
+
+// flattenPrivateCloudNetworkConfigIPAddressLayoutVersionEnumMap flattens the contents of PrivateCloudNetworkConfigIPAddressLayoutVersionEnum from a JSON
+// response object.
+func flattenPrivateCloudNetworkConfigIPAddressLayoutVersionEnumMap(c *Client, i interface{}, res *PrivateCloud) map[string]PrivateCloudNetworkConfigIPAddressLayoutVersionEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]PrivateCloudNetworkConfigIPAddressLayoutVersionEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]PrivateCloudNetworkConfigIPAddressLayoutVersionEnum{}
+	}
+
+	items := make(map[string]PrivateCloudNetworkConfigIPAddressLayoutVersionEnum)
+	for k, item := range a {
+		items[k] = *flattenPrivateCloudNetworkConfigIPAddressLayoutVersionEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenPrivateCloudNetworkConfigIPAddressLayoutVersionEnumSlice flattens the contents of PrivateCloudNetworkConfigIPAddressLayoutVersionEnum from a JSON
+// response object.
+func flattenPrivateCloudNetworkConfigIPAddressLayoutVersionEnumSlice(c *Client, i interface{}, res *PrivateCloud) []PrivateCloudNetworkConfigIPAddressLayoutVersionEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []PrivateCloudNetworkConfigIPAddressLayoutVersionEnum{}
+	}
+
+	if len(a) == 0 {
+		return []PrivateCloudNetworkConfigIPAddressLayoutVersionEnum{}
+	}
+
+	items := make([]PrivateCloudNetworkConfigIPAddressLayoutVersionEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenPrivateCloudNetworkConfigIPAddressLayoutVersionEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenPrivateCloudNetworkConfigIPAddressLayoutVersionEnum asserts that an interface is a string, and returns a
+// pointer to a *PrivateCloudNetworkConfigIPAddressLayoutVersionEnum with the same value as that string.
+func flattenPrivateCloudNetworkConfigIPAddressLayoutVersionEnum(i interface{}) *PrivateCloudNetworkConfigIPAddressLayoutVersionEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return PrivateCloudNetworkConfigIPAddressLayoutVersionEnumRef(s)
+}
+
+// flattenPrivateCloudHcxStateEnumMap flattens the contents of PrivateCloudHcxStateEnum from a JSON
+// response object.
+func flattenPrivateCloudHcxStateEnumMap(c *Client, i interface{}, res *PrivateCloud) map[string]PrivateCloudHcxStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]PrivateCloudHcxStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]PrivateCloudHcxStateEnum{}
+	}
+
+	items := make(map[string]PrivateCloudHcxStateEnum)
+	for k, item := range a {
+		items[k] = *flattenPrivateCloudHcxStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenPrivateCloudHcxStateEnumSlice flattens the contents of PrivateCloudHcxStateEnum from a JSON
+// response object.
+func flattenPrivateCloudHcxStateEnumSlice(c *Client, i interface{}, res *PrivateCloud) []PrivateCloudHcxStateEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []PrivateCloudHcxStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return []PrivateCloudHcxStateEnum{}
+	}
+
+	items := make([]PrivateCloudHcxStateEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenPrivateCloudHcxStateEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenPrivateCloudHcxStateEnum asserts that an interface is a string, and returns a
+// pointer to a *PrivateCloudHcxStateEnum with the same value as that string.
+func flattenPrivateCloudHcxStateEnum(i interface{}) *PrivateCloudHcxStateEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return PrivateCloudHcxStateEnumRef(s)
+}
+
+// flattenPrivateCloudNsxStateEnumMap flattens the contents of PrivateCloudNsxStateEnum from a JSON
+// response object.
+func flattenPrivateCloudNsxStateEnumMap(c *Client, i interface{}, res *PrivateCloud) map[string]PrivateCloudNsxStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]PrivateCloudNsxStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]PrivateCloudNsxStateEnum{}
+	}
+
+	items := make(map[string]PrivateCloudNsxStateEnum)
+	for k, item := range a {
+		items[k] = *flattenPrivateCloudNsxStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenPrivateCloudNsxStateEnumSlice flattens the contents of PrivateCloudNsxStateEnum from a JSON
+// response object.
+func flattenPrivateCloudNsxStateEnumSlice(c *Client, i interface{}, res *PrivateCloud) []PrivateCloudNsxStateEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []PrivateCloudNsxStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return []PrivateCloudNsxStateEnum{}
+	}
+
+	items := make([]PrivateCloudNsxStateEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenPrivateCloudNsxStateEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenPrivateCloudNsxStateEnum asserts that an interface is a string, and returns a
+// pointer to a *PrivateCloudNsxStateEnum with the same value as that string.
+func flattenPrivateCloudNsxStateEnum(i interface{}) *PrivateCloudNsxStateEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return PrivateCloudNsxStateEnumRef(s)
+}
+
+// flattenPrivateCloudVcenterStateEnumMap flattens the contents of PrivateCloudVcenterStateEnum from a JSON
+// response object.
+func flattenPrivateCloudVcenterStateEnumMap(c *Client, i interface{}, res *PrivateCloud) map[string]PrivateCloudVcenterStateEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]PrivateCloudVcenterStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]PrivateCloudVcenterStateEnum{}
+	}
+
+	items := make(map[string]PrivateCloudVcenterStateEnum)
+	for k, item := range a {
+		items[k] = *flattenPrivateCloudVcenterStateEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenPrivateCloudVcenterStateEnumSlice flattens the contents of PrivateCloudVcenterStateEnum from a JSON
+// response object.
+func flattenPrivateCloudVcenterStateEnumSlice(c *Client, i interface{}, res *PrivateCloud) []PrivateCloudVcenterStateEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []PrivateCloudVcenterStateEnum{}
+	}
+
+	if len(a) == 0 {
+		return []PrivateCloudVcenterStateEnum{}
+	}
+
+	items := make([]PrivateCloudVcenterStateEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenPrivateCloudVcenterStateEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenPrivateCloudVcenterStateEnum asserts that an interface is a string, and returns a
+// pointer to a *PrivateCloudVcenterStateEnum with the same value as that string.
+func flattenPrivateCloudVcenterStateEnum(i interface{}) *PrivateCloudVcenterStateEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return PrivateCloudVcenterStateEnumRef(s)
 }
 
 // This function returns a matcher that checks whether a serialized resource matches this resource

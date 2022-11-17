@@ -30,6 +30,46 @@ enum VmwareAlphaPrivateCloudStateEnum {
   VmwareAlphaPrivateCloudStateEnumDELETED = 5;
 }
 
+enum VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnum {
+  VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnumNO_VALUE_DO_NOT_USE = 0;
+  VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnumIP_ADDRESS_LAYOUT_VERSION_UNSPECIFIED = 1;
+  VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnumVERSION_1 = 2;
+  VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnumVERSION_2 = 3;
+}
+
+enum VmwareAlphaPrivateCloudHcxStateEnum {
+  VmwareAlphaPrivateCloudHcxStateEnumNO_VALUE_DO_NOT_USE = 0;
+  VmwareAlphaPrivateCloudHcxStateEnumSTATE_UNSPECIFIED = 1;
+  VmwareAlphaPrivateCloudHcxStateEnumACTIVE = 2;
+  VmwareAlphaPrivateCloudHcxStateEnumCREATING = 3;
+  VmwareAlphaPrivateCloudHcxStateEnumUPDATING = 4;
+  VmwareAlphaPrivateCloudHcxStateEnumFAILED = 5;
+  VmwareAlphaPrivateCloudHcxStateEnumDELETED = 6;
+  VmwareAlphaPrivateCloudHcxStateEnumPURGING = 7;
+}
+
+enum VmwareAlphaPrivateCloudNsxStateEnum {
+  VmwareAlphaPrivateCloudNsxStateEnumNO_VALUE_DO_NOT_USE = 0;
+  VmwareAlphaPrivateCloudNsxStateEnumSTATE_UNSPECIFIED = 1;
+  VmwareAlphaPrivateCloudNsxStateEnumACTIVE = 2;
+  VmwareAlphaPrivateCloudNsxStateEnumCREATING = 3;
+  VmwareAlphaPrivateCloudNsxStateEnumUPDATING = 4;
+  VmwareAlphaPrivateCloudNsxStateEnumFAILED = 5;
+  VmwareAlphaPrivateCloudNsxStateEnumDELETED = 6;
+  VmwareAlphaPrivateCloudNsxStateEnumPURGING = 7;
+}
+
+enum VmwareAlphaPrivateCloudVcenterStateEnum {
+  VmwareAlphaPrivateCloudVcenterStateEnumNO_VALUE_DO_NOT_USE = 0;
+  VmwareAlphaPrivateCloudVcenterStateEnumSTATE_UNSPECIFIED = 1;
+  VmwareAlphaPrivateCloudVcenterStateEnumACTIVE = 2;
+  VmwareAlphaPrivateCloudVcenterStateEnumCREATING = 3;
+  VmwareAlphaPrivateCloudVcenterStateEnumUPDATING = 4;
+  VmwareAlphaPrivateCloudVcenterStateEnumFAILED = 5;
+  VmwareAlphaPrivateCloudVcenterStateEnumDELETED = 6;
+  VmwareAlphaPrivateCloudVcenterStateEnumPURGING = 7;
+}
+
 message VmwareAlphaPrivateCloud {
   string name = 1;
   string create_time = 2;
@@ -46,18 +86,24 @@ message VmwareAlphaPrivateCloud {
   VmwareAlphaPrivateCloudVcenter vcenter = 13;
   string project = 14;
   string location = 15;
+  string uid = 16;
+  string etag = 17;
 }
 
 message VmwareAlphaPrivateCloudNetworkConfig {
   string network = 1;
   string service_network = 2;
   string management_cidr = 3;
+  string vmware_engine_network = 4;
+  string vmware_engine_network_canonical = 5;
+  VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnum ip_address_layout_version = 6;
 }
 
 message VmwareAlphaPrivateCloudManagementCluster {
   string cluster_id = 1;
   string node_type_id = 2;
   int64 node_count = 3;
+  int64 node_custom_core_count = 4;
 }
 
 message VmwareAlphaPrivateCloudConditions {
@@ -70,6 +116,8 @@ message VmwareAlphaPrivateCloudHcx {
   string internal_ip = 2;
   string external_ip = 3;
   string version = 4;
+  VmwareAlphaPrivateCloudHcxStateEnum state = 5;
+  string fqdn = 6;
 }
 
 message VmwareAlphaPrivateCloudNsx {
@@ -77,6 +125,8 @@ message VmwareAlphaPrivateCloudNsx {
   string internal_ip = 2;
   string external_ip = 3;
   string version = 4;
+  VmwareAlphaPrivateCloudNsxStateEnum state = 5;
+  string fqdn = 6;
 }
 
 message VmwareAlphaPrivateCloudVcenter {
@@ -84,6 +134,8 @@ message VmwareAlphaPrivateCloudVcenter {
   string internal_ip = 2;
   string external_ip = 3;
   string version = 4;
+  VmwareAlphaPrivateCloudVcenterStateEnum state = 5;
+  string fqdn = 6;
 }
 
 message ApplyVmwareAlphaPrivateCloudRequest {

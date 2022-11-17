@@ -27,7 +27,7 @@ import (
 
 func (r *Cluster) validate() error {
 
-	if err := dcl.Required(r, "name"); err != nil {
+	if err := dcl.RequiredParameter(r.Name, "Name"); err != nil {
 		return err
 	}
 	if err := dcl.Required(r, "nodeTypeId"); err != nil {
@@ -116,6 +116,9 @@ func newUpdateClusterUpdateClusterRequest(ctx context.Context, f *Cluster, c *Cl
 	}
 	if v := f.NodeCount; !dcl.IsEmptyValueIndirect(v) {
 		req["nodeCount"] = v
+	}
+	if v := f.NodeCustomCoreCount; !dcl.IsEmptyValueIndirect(v) {
+		req["nodeCustomCoreCount"] = v
 	}
 	req["name"] = fmt.Sprintf("projects/%s/locations/%s/privateClouds/%s/clusters/%s", *f.Project, *f.Location, *f.PrivateCloud, *f.Name)
 
@@ -452,7 +455,7 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 		return rawDesired, nil
 	}
 	canonicalDesired := &Cluster{}
-	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
+	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
 	} else {
 		canonicalDesired.Name = rawDesired.Name
@@ -483,19 +486,19 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 	} else {
 		canonicalDesired.PrivateCloud = rawDesired.PrivateCloud
 	}
+	if dcl.IsZeroValue(rawDesired.NodeCustomCoreCount) || (dcl.IsEmptyValueIndirect(rawDesired.NodeCustomCoreCount) && dcl.IsEmptyValueIndirect(rawInitial.NodeCustomCoreCount)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		canonicalDesired.NodeCustomCoreCount = rawInitial.NodeCustomCoreCount
+	} else {
+		canonicalDesired.NodeCustomCoreCount = rawDesired.NodeCustomCoreCount
+	}
 
 	return canonicalDesired, nil
 }
 
 func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Cluster, error) {
 
-	if dcl.IsEmptyValueIndirect(rawNew.Name) && dcl.IsEmptyValueIndirect(rawDesired.Name) {
-		rawNew.Name = rawDesired.Name
-	} else {
-		if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawNew.Name) {
-			rawNew.Name = rawDesired.Name
-		}
-	}
+	rawNew.Name = rawDesired.Name
 
 	if dcl.IsEmptyValueIndirect(rawNew.CreateTime) && dcl.IsEmptyValueIndirect(rawDesired.CreateTime) {
 		rawNew.CreateTime = rawDesired.CreateTime
@@ -538,6 +541,27 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 	rawNew.Location = rawDesired.Location
 
 	rawNew.PrivateCloud = rawDesired.PrivateCloud
+
+	if dcl.IsEmptyValueIndirect(rawNew.NodeCustomCoreCount) && dcl.IsEmptyValueIndirect(rawDesired.NodeCustomCoreCount) {
+		rawNew.NodeCustomCoreCount = rawDesired.NodeCustomCoreCount
+	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Uid) && dcl.IsEmptyValueIndirect(rawDesired.Uid) {
+		rawNew.Uid = rawDesired.Uid
+	} else {
+		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
+			rawNew.Uid = rawDesired.Uid
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
+		rawNew.Etag = rawDesired.Etag
+	} else {
+		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
+			rawNew.Etag = rawDesired.Etag
+		}
+	}
 
 	return rawNew, nil
 }
@@ -630,6 +654,27 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.NodeCustomCoreCount, actual.NodeCustomCoreCount, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateClusterUpdateClusterOperation")}, fn.AddNest("NodeCustomCoreCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	return newDiffs, nil
 }
 
@@ -643,6 +688,8 @@ func (r *Cluster) urlNormalized() *Cluster {
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	normalized.PrivateCloud = dcl.SelfLinkToName(r.PrivateCloud)
+	normalized.Uid = dcl.SelfLinkToName(r.Uid)
+	normalized.Etag = dcl.SelfLinkToName(r.Etag)
 	return &normalized
 }
 
@@ -697,7 +744,7 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	m := make(map[string]interface{})
 	res := f
 	_ = res
-	if v, err := dcl.DeriveField("projects/%s/locations/%s/privateClouds/%s/clusters/%s", f.Name, dcl.SelfLinkToName(f.Project), dcl.SelfLinkToName(f.Location), dcl.SelfLinkToName(f.PrivateCloud), dcl.SelfLinkToName(f.Name)); err != nil {
+	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Name into name: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
@@ -722,6 +769,9 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 		return nil, fmt.Errorf("error expanding PrivateCloud into privateCloud: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["privateCloud"] = v
+	}
+	if v := f.NodeCustomCoreCount; dcl.ValueShouldBeSent(v) {
+		m["nodeCustomCoreCount"] = v
 	}
 
 	return m, nil
@@ -749,6 +799,9 @@ func flattenCluster(c *Client, i interface{}, res *Cluster) *Cluster {
 	resultRes.Project = dcl.FlattenString(m["project"])
 	resultRes.Location = dcl.FlattenString(m["location"])
 	resultRes.PrivateCloud = dcl.FlattenString(m["privateCloud"])
+	resultRes.NodeCustomCoreCount = dcl.FlattenInteger(m["nodeCustomCoreCount"])
+	resultRes.Uid = dcl.FlattenString(m["uid"])
+	resultRes.Etag = dcl.FlattenString(m["etag"])
 
 	return resultRes
 }

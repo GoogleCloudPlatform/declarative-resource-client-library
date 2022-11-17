@@ -19,12 +19,15 @@ versions:
 resource: samples/minimal.cluster.json
 dependencies:
 - samples/minimal.private_cloud.json
+- samples/basic.vmware_engine_network.json
 variables:
 - name: cloud
   type: resource_name
 - name: cluster
   type: resource_name
 - name: management
+  type: resource_name
+- name: network
   type: resource_name
 - name: project
   type: project

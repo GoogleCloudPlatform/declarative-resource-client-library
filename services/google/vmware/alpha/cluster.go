@@ -23,16 +23,19 @@ import (
 )
 
 type Cluster struct {
-	Name         *string           `json:"name"`
-	CreateTime   *string           `json:"createTime"`
-	UpdateTime   *string           `json:"updateTime"`
-	State        *ClusterStateEnum `json:"state"`
-	Management   *bool             `json:"management"`
-	NodeTypeId   *string           `json:"nodeTypeId"`
-	NodeCount    *int64            `json:"nodeCount"`
-	Project      *string           `json:"project"`
-	Location     *string           `json:"location"`
-	PrivateCloud *string           `json:"privateCloud"`
+	Name                *string           `json:"name"`
+	CreateTime          *string           `json:"createTime"`
+	UpdateTime          *string           `json:"updateTime"`
+	State               *ClusterStateEnum `json:"state"`
+	Management          *bool             `json:"management"`
+	NodeTypeId          *string           `json:"nodeTypeId"`
+	NodeCount           *int64            `json:"nodeCount"`
+	Project             *string           `json:"project"`
+	Location            *string           `json:"location"`
+	PrivateCloud        *string           `json:"privateCloud"`
+	NodeCustomCoreCount *int64            `json:"nodeCustomCoreCount"`
+	Uid                 *string           `json:"uid"`
+	Etag                *string           `json:"etag"`
 }
 
 func (r *Cluster) String() string {
@@ -82,16 +85,19 @@ func (r *Cluster) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":          dcl.ValueOrEmptyString(nr.Name),
-		"create_time":   dcl.ValueOrEmptyString(nr.CreateTime),
-		"update_time":   dcl.ValueOrEmptyString(nr.UpdateTime),
-		"state":         dcl.ValueOrEmptyString(nr.State),
-		"management":    dcl.ValueOrEmptyString(nr.Management),
-		"node_type_id":  dcl.ValueOrEmptyString(nr.NodeTypeId),
-		"node_count":    dcl.ValueOrEmptyString(nr.NodeCount),
-		"project":       dcl.ValueOrEmptyString(nr.Project),
-		"location":      dcl.ValueOrEmptyString(nr.Location),
-		"private_cloud": dcl.ValueOrEmptyString(nr.PrivateCloud),
+		"name":                   dcl.ValueOrEmptyString(nr.Name),
+		"create_time":            dcl.ValueOrEmptyString(nr.CreateTime),
+		"update_time":            dcl.ValueOrEmptyString(nr.UpdateTime),
+		"state":                  dcl.ValueOrEmptyString(nr.State),
+		"management":             dcl.ValueOrEmptyString(nr.Management),
+		"node_type_id":           dcl.ValueOrEmptyString(nr.NodeTypeId),
+		"node_count":             dcl.ValueOrEmptyString(nr.NodeCount),
+		"project":                dcl.ValueOrEmptyString(nr.Project),
+		"location":               dcl.ValueOrEmptyString(nr.Location),
+		"private_cloud":          dcl.ValueOrEmptyString(nr.PrivateCloud),
+		"node_custom_core_count": dcl.ValueOrEmptyString(nr.NodeCustomCoreCount),
+		"uid":                    dcl.ValueOrEmptyString(nr.Uid),
+		"etag":                   dcl.ValueOrEmptyString(nr.Etag),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/privateClouds/{{private_cloud}}/clusters/{{name}}", params), nil
 }
@@ -204,7 +210,7 @@ func (c *Client) GetCluster(ctx context.Context, r *Cluster) (*Cluster, error) {
 
 func (c *Client) DeleteCluster(ctx context.Context, r *Cluster) error {
 	ctx = dcl.ContextWithRequestID(ctx)
-	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(4800*time.Second))
+	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(7200*time.Second))
 	defer cancel()
 
 	if r == nil {

@@ -22,4 +22,5 @@ import (
 func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterVmwareAlphaPrivateCloudServiceServer(s, &PrivateCloudServer{})
 	sdkgrpc.RegisterVmwareAlphaClusterServiceServer(s, &ClusterServer{})
+	sdkgrpc.RegisterVmwareAlphaVmwareEngineNetworkServiceServer(s, &VmwareEngineNetworkServer{})
 }

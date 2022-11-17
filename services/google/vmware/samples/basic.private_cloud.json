@@ -3,13 +3,14 @@
   "project": "{{project}}",
   "location": "{{zone}}",
   "networkConfig": {
-    "network": "projects/{{project}}/global/networks/default",
-    "managementCidr": "192.168.0.0/24"
+    "vmwareEngineNetwork": "projects/{{project}}/locations/global/vmwareEngineNetworks/test-network-ahnp-1661403607",
+    "managementCidr": "192.168.30.0/24"
   },
   "managementCluster": {
     "clusterId": "{{management}}",
     "nodeTypeId": "standard-72",
-    "nodeCount": 4
+    "nodeCount": 3,
+    "nodeCustomCoreCount": 0
   },
   "description": "A sample private cloud"
 }
