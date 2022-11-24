@@ -229,6 +229,7 @@ type FeatureMembershipConfigmanagementConfigSync struct {
 	Git          *FeatureMembershipConfigmanagementConfigSyncGit `json:"git"`
 	SourceFormat *string                                         `json:"sourceFormat"`
 	PreventDrift *bool                                           `json:"preventDrift"`
+	Oci          *FeatureMembershipConfigmanagementConfigSyncOci `json:"oci"`
 }
 
 type jsonFeatureMembershipConfigmanagementConfigSync FeatureMembershipConfigmanagementConfigSync
@@ -251,6 +252,8 @@ func (r *FeatureMembershipConfigmanagementConfigSync) UnmarshalJSON(data []byte)
 		r.SourceFormat = res.SourceFormat
 
 		r.PreventDrift = res.PreventDrift
+
+		r.Oci = res.Oci
 
 	}
 	return nil
@@ -337,6 +340,64 @@ func (r *FeatureMembershipConfigmanagementConfigSyncGit) String() string {
 }
 
 func (r *FeatureMembershipConfigmanagementConfigSyncGit) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type FeatureMembershipConfigmanagementConfigSyncOci struct {
+	empty                  bool    `json:"-"`
+	SyncRepo               *string `json:"syncRepo"`
+	PolicyDir              *string `json:"policyDir"`
+	SyncWaitSecs           *string `json:"syncWaitSecs"`
+	SecretType             *string `json:"secretType"`
+	GcpServiceAccountEmail *string `json:"gcpServiceAccountEmail"`
+}
+
+type jsonFeatureMembershipConfigmanagementConfigSyncOci FeatureMembershipConfigmanagementConfigSyncOci
+
+func (r *FeatureMembershipConfigmanagementConfigSyncOci) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureMembershipConfigmanagementConfigSyncOci
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureMembershipConfigmanagementConfigSyncOci
+	} else {
+
+		r.SyncRepo = res.SyncRepo
+
+		r.PolicyDir = res.PolicyDir
+
+		r.SyncWaitSecs = res.SyncWaitSecs
+
+		r.SecretType = res.SecretType
+
+		r.GcpServiceAccountEmail = res.GcpServiceAccountEmail
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this FeatureMembershipConfigmanagementConfigSyncOci is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyFeatureMembershipConfigmanagementConfigSyncOci *FeatureMembershipConfigmanagementConfigSyncOci = &FeatureMembershipConfigmanagementConfigSyncOci{empty: true}
+
+func (r *FeatureMembershipConfigmanagementConfigSyncOci) Empty() bool {
+	return r.empty
+}
+
+func (r *FeatureMembershipConfigmanagementConfigSyncOci) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureMembershipConfigmanagementConfigSyncOci) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

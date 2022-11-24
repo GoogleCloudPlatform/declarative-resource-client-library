@@ -96,6 +96,7 @@ func ProtoToGkehubBetaFeatureMembershipConfigmanagementConfigSync(p *betapb.Gkeh
 		Git:          ProtoToGkehubBetaFeatureMembershipConfigmanagementConfigSyncGit(p.GetGit()),
 		SourceFormat: dcl.StringOrNil(p.GetSourceFormat()),
 		PreventDrift: dcl.Bool(p.GetPreventDrift()),
+		Oci:          ProtoToGkehubBetaFeatureMembershipConfigmanagementConfigSyncOci(p.GetOci()),
 	}
 	return obj
 }
@@ -113,6 +114,21 @@ func ProtoToGkehubBetaFeatureMembershipConfigmanagementConfigSyncGit(p *betapb.G
 		SyncRev:                dcl.StringOrNil(p.GetSyncRev()),
 		SecretType:             dcl.StringOrNil(p.GetSecretType()),
 		HttpsProxy:             dcl.StringOrNil(p.GetHttpsProxy()),
+		GcpServiceAccountEmail: dcl.StringOrNil(p.GetGcpServiceAccountEmail()),
+	}
+	return obj
+}
+
+// ProtoToFeatureMembershipConfigmanagementConfigSyncOci converts a FeatureMembershipConfigmanagementConfigSyncOci object from its proto representation.
+func ProtoToGkehubBetaFeatureMembershipConfigmanagementConfigSyncOci(p *betapb.GkehubBetaFeatureMembershipConfigmanagementConfigSyncOci) *beta.FeatureMembershipConfigmanagementConfigSyncOci {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.FeatureMembershipConfigmanagementConfigSyncOci{
+		SyncRepo:               dcl.StringOrNil(p.GetSyncRepo()),
+		PolicyDir:              dcl.StringOrNil(p.GetPolicyDir()),
+		SyncWaitSecs:           dcl.StringOrNil(p.GetSyncWaitSecs()),
+		SecretType:             dcl.StringOrNil(p.GetSecretType()),
 		GcpServiceAccountEmail: dcl.StringOrNil(p.GetGcpServiceAccountEmail()),
 	}
 	return obj
@@ -254,6 +270,7 @@ func GkehubBetaFeatureMembershipConfigmanagementConfigSyncToProto(o *beta.Featur
 	p.SetGit(GkehubBetaFeatureMembershipConfigmanagementConfigSyncGitToProto(o.Git))
 	p.SetSourceFormat(dcl.ValueOrEmptyString(o.SourceFormat))
 	p.SetPreventDrift(dcl.ValueOrEmptyBool(o.PreventDrift))
+	p.SetOci(GkehubBetaFeatureMembershipConfigmanagementConfigSyncOciToProto(o.Oci))
 	return p
 }
 
@@ -270,6 +287,20 @@ func GkehubBetaFeatureMembershipConfigmanagementConfigSyncGitToProto(o *beta.Fea
 	p.SetSyncRev(dcl.ValueOrEmptyString(o.SyncRev))
 	p.SetSecretType(dcl.ValueOrEmptyString(o.SecretType))
 	p.SetHttpsProxy(dcl.ValueOrEmptyString(o.HttpsProxy))
+	p.SetGcpServiceAccountEmail(dcl.ValueOrEmptyString(o.GcpServiceAccountEmail))
+	return p
+}
+
+// FeatureMembershipConfigmanagementConfigSyncOciToProto converts a FeatureMembershipConfigmanagementConfigSyncOci object to its proto representation.
+func GkehubBetaFeatureMembershipConfigmanagementConfigSyncOciToProto(o *beta.FeatureMembershipConfigmanagementConfigSyncOci) *betapb.GkehubBetaFeatureMembershipConfigmanagementConfigSyncOci {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.GkehubBetaFeatureMembershipConfigmanagementConfigSyncOci{}
+	p.SetSyncRepo(dcl.ValueOrEmptyString(o.SyncRepo))
+	p.SetPolicyDir(dcl.ValueOrEmptyString(o.PolicyDir))
+	p.SetSyncWaitSecs(dcl.ValueOrEmptyString(o.SyncWaitSecs))
+	p.SetSecretType(dcl.ValueOrEmptyString(o.SecretType))
 	p.SetGcpServiceAccountEmail(dcl.ValueOrEmptyString(o.GcpServiceAccountEmail))
 	return p
 }

@@ -291,11 +291,16 @@ class FeatureMembershipConfigmanagementArray(object):
 
 class FeatureMembershipConfigmanagementConfigSync(object):
     def __init__(
-        self, git: dict = None, source_format: str = None, prevent_drift: bool = None
+        self,
+        git: dict = None,
+        source_format: str = None,
+        prevent_drift: bool = None,
+        oci: dict = None,
     ):
         self.git = git
         self.source_format = source_format
         self.prevent_drift = prevent_drift
+        self.oci = oci
 
     @classmethod
     def to_proto(self, resource):
@@ -315,6 +320,12 @@ class FeatureMembershipConfigmanagementConfigSync(object):
             res.source_format = Primitive.to_proto(resource.source_format)
         if Primitive.to_proto(resource.prevent_drift):
             res.prevent_drift = Primitive.to_proto(resource.prevent_drift)
+        if FeatureMembershipConfigmanagementConfigSyncOci.to_proto(resource.oci):
+            res.oci.CopyFrom(
+                FeatureMembershipConfigmanagementConfigSyncOci.to_proto(resource.oci)
+            )
+        else:
+            res.ClearField("oci")
         return res
 
     @classmethod
@@ -326,6 +337,7 @@ class FeatureMembershipConfigmanagementConfigSync(object):
             git=FeatureMembershipConfigmanagementConfigSyncGit.from_proto(resource.git),
             source_format=Primitive.from_proto(resource.source_format),
             prevent_drift=Primitive.from_proto(resource.prevent_drift),
+            oci=FeatureMembershipConfigmanagementConfigSyncOci.from_proto(resource.oci),
         )
 
 
@@ -427,6 +439,77 @@ class FeatureMembershipConfigmanagementConfigSyncGitArray(object):
     def from_proto(self, resources):
         return [
             FeatureMembershipConfigmanagementConfigSyncGit.from_proto(i)
+            for i in resources
+        ]
+
+
+class FeatureMembershipConfigmanagementConfigSyncOci(object):
+    def __init__(
+        self,
+        sync_repo: str = None,
+        policy_dir: str = None,
+        sync_wait_secs: str = None,
+        secret_type: str = None,
+        gcp_service_account_email: str = None,
+    ):
+        self.sync_repo = sync_repo
+        self.policy_dir = policy_dir
+        self.sync_wait_secs = sync_wait_secs
+        self.secret_type = secret_type
+        self.gcp_service_account_email = gcp_service_account_email
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            feature_membership_pb2.GkehubAlphaFeatureMembershipConfigmanagementConfigSyncOci()
+        )
+        if Primitive.to_proto(resource.sync_repo):
+            res.sync_repo = Primitive.to_proto(resource.sync_repo)
+        if Primitive.to_proto(resource.policy_dir):
+            res.policy_dir = Primitive.to_proto(resource.policy_dir)
+        if Primitive.to_proto(resource.sync_wait_secs):
+            res.sync_wait_secs = Primitive.to_proto(resource.sync_wait_secs)
+        if Primitive.to_proto(resource.secret_type):
+            res.secret_type = Primitive.to_proto(resource.secret_type)
+        if Primitive.to_proto(resource.gcp_service_account_email):
+            res.gcp_service_account_email = Primitive.to_proto(
+                resource.gcp_service_account_email
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureMembershipConfigmanagementConfigSyncOci(
+            sync_repo=Primitive.from_proto(resource.sync_repo),
+            policy_dir=Primitive.from_proto(resource.policy_dir),
+            sync_wait_secs=Primitive.from_proto(resource.sync_wait_secs),
+            secret_type=Primitive.from_proto(resource.secret_type),
+            gcp_service_account_email=Primitive.from_proto(
+                resource.gcp_service_account_email
+            ),
+        )
+
+
+class FeatureMembershipConfigmanagementConfigSyncOciArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            FeatureMembershipConfigmanagementConfigSyncOci.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            FeatureMembershipConfigmanagementConfigSyncOci.from_proto(i)
             for i in resources
         ]
 

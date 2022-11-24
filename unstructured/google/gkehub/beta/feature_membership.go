@@ -71,6 +71,25 @@ func FeatureMembershipToUnstructured(r *dclService.FeatureMembership) *unstructu
 				}
 				rConfigmanagementConfigSync["git"] = rConfigmanagementConfigSyncGit
 			}
+			if r.Configmanagement.ConfigSync.Oci != nil && r.Configmanagement.ConfigSync.Oci != dclService.EmptyFeatureMembershipConfigmanagementConfigSyncOci {
+				rConfigmanagementConfigSyncOci := make(map[string]interface{})
+				if r.Configmanagement.ConfigSync.Oci.GcpServiceAccountEmail != nil {
+					rConfigmanagementConfigSyncOci["gcpServiceAccountEmail"] = *r.Configmanagement.ConfigSync.Oci.GcpServiceAccountEmail
+				}
+				if r.Configmanagement.ConfigSync.Oci.PolicyDir != nil {
+					rConfigmanagementConfigSyncOci["policyDir"] = *r.Configmanagement.ConfigSync.Oci.PolicyDir
+				}
+				if r.Configmanagement.ConfigSync.Oci.SecretType != nil {
+					rConfigmanagementConfigSyncOci["secretType"] = *r.Configmanagement.ConfigSync.Oci.SecretType
+				}
+				if r.Configmanagement.ConfigSync.Oci.SyncRepo != nil {
+					rConfigmanagementConfigSyncOci["syncRepo"] = *r.Configmanagement.ConfigSync.Oci.SyncRepo
+				}
+				if r.Configmanagement.ConfigSync.Oci.SyncWaitSecs != nil {
+					rConfigmanagementConfigSyncOci["syncWaitSecs"] = *r.Configmanagement.ConfigSync.Oci.SyncWaitSecs
+				}
+				rConfigmanagementConfigSync["oci"] = rConfigmanagementConfigSyncOci
+			}
 			if r.Configmanagement.ConfigSync.PreventDrift != nil {
 				rConfigmanagementConfigSync["preventDrift"] = *r.Configmanagement.ConfigSync.PreventDrift
 			}
@@ -241,6 +260,48 @@ func UnstructuredToFeatureMembership(u *unstructured.Resource) (*dclService.Feat
 							}
 						} else {
 							return nil, fmt.Errorf("r.Configmanagement.ConfigSync.Git: expected map[string]interface{}")
+						}
+					}
+					if _, ok := rConfigmanagementConfigSync["oci"]; ok {
+						if rConfigmanagementConfigSyncOci, ok := rConfigmanagementConfigSync["oci"].(map[string]interface{}); ok {
+							r.Configmanagement.ConfigSync.Oci = &dclService.FeatureMembershipConfigmanagementConfigSyncOci{}
+							if _, ok := rConfigmanagementConfigSyncOci["gcpServiceAccountEmail"]; ok {
+								if s, ok := rConfigmanagementConfigSyncOci["gcpServiceAccountEmail"].(string); ok {
+									r.Configmanagement.ConfigSync.Oci.GcpServiceAccountEmail = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Configmanagement.ConfigSync.Oci.GcpServiceAccountEmail: expected string")
+								}
+							}
+							if _, ok := rConfigmanagementConfigSyncOci["policyDir"]; ok {
+								if s, ok := rConfigmanagementConfigSyncOci["policyDir"].(string); ok {
+									r.Configmanagement.ConfigSync.Oci.PolicyDir = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Configmanagement.ConfigSync.Oci.PolicyDir: expected string")
+								}
+							}
+							if _, ok := rConfigmanagementConfigSyncOci["secretType"]; ok {
+								if s, ok := rConfigmanagementConfigSyncOci["secretType"].(string); ok {
+									r.Configmanagement.ConfigSync.Oci.SecretType = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Configmanagement.ConfigSync.Oci.SecretType: expected string")
+								}
+							}
+							if _, ok := rConfigmanagementConfigSyncOci["syncRepo"]; ok {
+								if s, ok := rConfigmanagementConfigSyncOci["syncRepo"].(string); ok {
+									r.Configmanagement.ConfigSync.Oci.SyncRepo = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Configmanagement.ConfigSync.Oci.SyncRepo: expected string")
+								}
+							}
+							if _, ok := rConfigmanagementConfigSyncOci["syncWaitSecs"]; ok {
+								if s, ok := rConfigmanagementConfigSyncOci["syncWaitSecs"].(string); ok {
+									r.Configmanagement.ConfigSync.Oci.SyncWaitSecs = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Configmanagement.ConfigSync.Oci.SyncWaitSecs: expected string")
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Configmanagement.ConfigSync.Oci: expected map[string]interface{}")
 						}
 					}
 					if _, ok := rConfigmanagementConfigSync["preventDrift"]; ok {
