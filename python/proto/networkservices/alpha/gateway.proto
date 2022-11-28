@@ -39,10 +39,9 @@ message NetworkservicesAlphaGateway {
   repeated int64 ports = 8;
   string scope = 9;
   string server_tls_policy = 10;
-  string authorization_policy = 11;
-  string project = 12;
-  string location = 13;
-  string self_link = 14;
+  string project = 11;
+  string location = 12;
+  string self_link = 13;
 }
 
 message ApplyNetworkservicesAlphaGatewayRequest {

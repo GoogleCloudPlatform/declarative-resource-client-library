@@ -33,7 +33,6 @@ class Gateway(object):
         ports: list = None,
         scope: str = None,
         server_tls_policy: str = None,
-        authorization_policy: str = None,
         project: str = None,
         location: str = None,
         self_link: str = None,
@@ -49,7 +48,6 @@ class Gateway(object):
         self.ports = ports
         self.scope = scope
         self.server_tls_policy = server_tls_policy
-        self.authorization_policy = authorization_policy
         self.project = project
         self.location = location
         self.service_account_file = service_account_file
@@ -81,11 +79,6 @@ class Gateway(object):
                 self.server_tls_policy
             )
 
-        if Primitive.to_proto(self.authorization_policy):
-            request.resource.authorization_policy = Primitive.to_proto(
-                self.authorization_policy
-            )
-
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -105,7 +98,6 @@ class Gateway(object):
         self.ports = int64Array.from_proto(response.ports)
         self.scope = Primitive.from_proto(response.scope)
         self.server_tls_policy = Primitive.from_proto(response.server_tls_policy)
-        self.authorization_policy = Primitive.from_proto(response.authorization_policy)
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
         self.self_link = Primitive.from_proto(response.self_link)
@@ -136,11 +128,6 @@ class Gateway(object):
         if Primitive.to_proto(self.server_tls_policy):
             request.resource.server_tls_policy = Primitive.to_proto(
                 self.server_tls_policy
-            )
-
-        if Primitive.to_proto(self.authorization_policy):
-            request.resource.authorization_policy = Primitive.to_proto(
-                self.authorization_policy
             )
 
         if Primitive.to_proto(self.project):
@@ -180,10 +167,6 @@ class Gateway(object):
             resource.scope = Primitive.to_proto(self.scope)
         if Primitive.to_proto(self.server_tls_policy):
             resource.server_tls_policy = Primitive.to_proto(self.server_tls_policy)
-        if Primitive.to_proto(self.authorization_policy):
-            resource.authorization_policy = Primitive.to_proto(
-                self.authorization_policy
-            )
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):

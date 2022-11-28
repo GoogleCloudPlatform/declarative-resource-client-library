@@ -9,6 +9,5 @@
   "labels": {
     "foo": "bar"
   },
-  "serverTlsPolicy": "projects/{{project}}/locations/global/serverTlsPolicies/{{ref:basichttpgateway.networksecurity.server_tls_policy.json:name}}",
-  "authorizationPolicy": "projects/{{project}}/locations/global/authorizationPolicies/{{ref:basichttpgateway.networksecurity.authorization_policy.json:name}}"
+  "serverTlsPolicy": "projects/{{project}}/locations/global/serverTlsPolicies/{{ref:basichttpgateway.networksecurity.server_tls_policy.json:name}}"
 }

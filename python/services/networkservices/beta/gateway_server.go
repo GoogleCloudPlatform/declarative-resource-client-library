@@ -39,17 +39,16 @@ func ProtoToNetworkservicesBetaGatewayTypeEnum(e betapb.NetworkservicesBetaGatew
 // ProtoToGateway converts a Gateway resource from its proto representation.
 func ProtoToGateway(p *betapb.NetworkservicesBetaGateway) *beta.Gateway {
 	obj := &beta.Gateway{
-		Name:                dcl.StringOrNil(p.GetName()),
-		CreateTime:          dcl.StringOrNil(p.GetCreateTime()),
-		UpdateTime:          dcl.StringOrNil(p.GetUpdateTime()),
-		Description:         dcl.StringOrNil(p.GetDescription()),
-		Type:                ProtoToNetworkservicesBetaGatewayTypeEnum(p.GetType()),
-		Scope:               dcl.StringOrNil(p.GetScope()),
-		ServerTlsPolicy:     dcl.StringOrNil(p.GetServerTlsPolicy()),
-		AuthorizationPolicy: dcl.StringOrNil(p.GetAuthorizationPolicy()),
-		Project:             dcl.StringOrNil(p.GetProject()),
-		Location:            dcl.StringOrNil(p.GetLocation()),
-		SelfLink:            dcl.StringOrNil(p.GetSelfLink()),
+		Name:            dcl.StringOrNil(p.GetName()),
+		CreateTime:      dcl.StringOrNil(p.GetCreateTime()),
+		UpdateTime:      dcl.StringOrNil(p.GetUpdateTime()),
+		Description:     dcl.StringOrNil(p.GetDescription()),
+		Type:            ProtoToNetworkservicesBetaGatewayTypeEnum(p.GetType()),
+		Scope:           dcl.StringOrNil(p.GetScope()),
+		ServerTlsPolicy: dcl.StringOrNil(p.GetServerTlsPolicy()),
+		Project:         dcl.StringOrNil(p.GetProject()),
+		Location:        dcl.StringOrNil(p.GetLocation()),
+		SelfLink:        dcl.StringOrNil(p.GetSelfLink()),
 	}
 	for _, r := range p.GetAddresses() {
 		obj.Addresses = append(obj.Addresses, r)
@@ -81,7 +80,6 @@ func GatewayToProto(resource *beta.Gateway) *betapb.NetworkservicesBetaGateway {
 	p.SetType(NetworkservicesBetaGatewayTypeEnumToProto(resource.Type))
 	p.SetScope(dcl.ValueOrEmptyString(resource.Scope))
 	p.SetServerTlsPolicy(dcl.ValueOrEmptyString(resource.ServerTlsPolicy))
-	p.SetAuthorizationPolicy(dcl.ValueOrEmptyString(resource.AuthorizationPolicy))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetSelfLink(dcl.ValueOrEmptyString(resource.SelfLink))
