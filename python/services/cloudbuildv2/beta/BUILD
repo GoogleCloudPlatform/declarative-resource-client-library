@@ -11,16 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-name: ghe_priv_connection
-description: Creates a connection to a private server using Service Directory.
-type: connection
-versions:
-- beta
-resource: samples/ghe_priv.connection.json
-variables:
-- name: connection
-  type: resource_name
-- name: project
-  type: project
-- name: region
-  type: region
+
+load("//:connector_rules.bzl", "connector")
+connector(name="cloudbuildv2/beta", resources=["connection","repository"])

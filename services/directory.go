@@ -42,6 +42,7 @@ import (
 	cloudbuild_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/alpha"
 	cloudbuild_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/beta"
 	cloudbuildv2_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuildv2/alpha"
+	cloudbuildv2_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuildv2/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/clouddeploy"
 	clouddeploy_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/clouddeploy/alpha"
 	clouddeploy_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/clouddeploy/beta"
@@ -436,6 +437,10 @@ func Services() *Directory {
 	d.AddResource("beta", "binaryauthorization", "Policy", binaryauthorization_beta.YAML_policy)
 	d.AddResource("beta", "cloudbuild", dcl.TitleToSnakeCase("WorkerPool"), cloudbuild_beta.YAML_worker_pool)
 	d.AddResource("beta", "cloudbuild", "WorkerPool", cloudbuild_beta.YAML_worker_pool)
+	d.AddResource("beta", "cloudbuildv2", dcl.TitleToSnakeCase("Connection"), cloudbuildv2_beta.YAML_connection)
+	d.AddResource("beta", "cloudbuildv2", "Connection", cloudbuildv2_beta.YAML_connection)
+	d.AddResource("beta", "cloudbuildv2", dcl.TitleToSnakeCase("Repository"), cloudbuildv2_beta.YAML_repository)
+	d.AddResource("beta", "cloudbuildv2", "Repository", cloudbuildv2_beta.YAML_repository)
 	d.AddResource("beta", "clouddeploy", dcl.TitleToSnakeCase("DeliveryPipeline"), clouddeploy_beta.YAML_delivery_pipeline)
 	d.AddResource("beta", "clouddeploy", "DeliveryPipeline", clouddeploy_beta.YAML_delivery_pipeline)
 	d.AddResource("beta", "clouddeploy", dcl.TitleToSnakeCase("Target"), clouddeploy_beta.YAML_target)
