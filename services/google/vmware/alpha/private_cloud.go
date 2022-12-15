@@ -35,14 +35,12 @@ type PrivateCloud struct {
 	NetworkConfig     *PrivateCloudNetworkConfig     `json:"networkConfig"`
 	ManagementCluster *PrivateCloudManagementCluster `json:"managementCluster"`
 	Description       *string                        `json:"description"`
-	Conditions        []PrivateCloudConditions       `json:"conditions"`
 	Hcx               *PrivateCloudHcx               `json:"hcx"`
 	Nsx               *PrivateCloudNsx               `json:"nsx"`
 	Vcenter           *PrivateCloudVcenter           `json:"vcenter"`
+	Uid               *string                        `json:"uid"`
 	Project           *string                        `json:"project"`
 	Location          *string                        `json:"location"`
-	Uid               *string                        `json:"uid"`
-	Etag              *string                        `json:"etag"`
 }
 
 func (r *PrivateCloud) String() string {
@@ -64,40 +62,13 @@ func (v PrivateCloudStateEnum) Validate() error {
 		// Empty enum is okay.
 		return nil
 	}
-	for _, s := range []string{"ACTIVE", "CREATING", "UPDATING", "FAILED", "DELETED"} {
+	for _, s := range []string{"STATE_UNSPECIFIED", "ACTIVE", "CREATING", "UPDATING", "FAILED", "DELETED", "PURGING"} {
 		if string(v) == s {
 			return nil
 		}
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "PrivateCloudStateEnum",
-		Value: string(v),
-		Valid: []string{},
-	}
-}
-
-// The enum PrivateCloudNetworkConfigIPAddressLayoutVersionEnum.
-type PrivateCloudNetworkConfigIPAddressLayoutVersionEnum string
-
-// PrivateCloudNetworkConfigIPAddressLayoutVersionEnumRef returns a *PrivateCloudNetworkConfigIPAddressLayoutVersionEnum with the value of string s
-// If the empty string is provided, nil is returned.
-func PrivateCloudNetworkConfigIPAddressLayoutVersionEnumRef(s string) *PrivateCloudNetworkConfigIPAddressLayoutVersionEnum {
-	v := PrivateCloudNetworkConfigIPAddressLayoutVersionEnum(s)
-	return &v
-}
-
-func (v PrivateCloudNetworkConfigIPAddressLayoutVersionEnum) Validate() error {
-	if string(v) == "" {
-		// Empty enum is okay.
-		return nil
-	}
-	for _, s := range []string{"IP_ADDRESS_LAYOUT_VERSION_UNSPECIFIED", "VERSION_1", "VERSION_2"} {
-		if string(v) == s {
-			return nil
-		}
-	}
-	return &dcl.EnumInvalidError{
-		Enum:  "PrivateCloudNetworkConfigIPAddressLayoutVersionEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -118,7 +89,7 @@ func (v PrivateCloudHcxStateEnum) Validate() error {
 		// Empty enum is okay.
 		return nil
 	}
-	for _, s := range []string{"STATE_UNSPECIFIED", "ACTIVE", "CREATING", "UPDATING", "FAILED", "DELETED", "PURGING"} {
+	for _, s := range []string{"STATE_UNSPECIFIED", "ACTIVE", "CREATING"} {
 		if string(v) == s {
 			return nil
 		}
@@ -145,7 +116,7 @@ func (v PrivateCloudNsxStateEnum) Validate() error {
 		// Empty enum is okay.
 		return nil
 	}
-	for _, s := range []string{"STATE_UNSPECIFIED", "ACTIVE", "CREATING", "UPDATING", "FAILED", "DELETED", "PURGING"} {
+	for _, s := range []string{"STATE_UNSPECIFIED", "ACTIVE", "CREATING"} {
 		if string(v) == s {
 			return nil
 		}
@@ -172,7 +143,7 @@ func (v PrivateCloudVcenterStateEnum) Validate() error {
 		// Empty enum is okay.
 		return nil
 	}
-	for _, s := range []string{"STATE_UNSPECIFIED", "ACTIVE", "CREATING", "UPDATING", "FAILED", "DELETED", "PURGING"} {
+	for _, s := range []string{"STATE_UNSPECIFIED", "ACTIVE", "CREATING"} {
 		if string(v) == s {
 			return nil
 		}
@@ -185,13 +156,11 @@ func (v PrivateCloudVcenterStateEnum) Validate() error {
 }
 
 type PrivateCloudNetworkConfig struct {
-	empty                        bool                                                 `json:"-"`
-	Network                      *string                                              `json:"network"`
-	ServiceNetwork               *string                                              `json:"serviceNetwork"`
-	ManagementCidr               *string                                              `json:"managementCidr"`
-	VmwareEngineNetwork          *string                                              `json:"vmwareEngineNetwork"`
-	VmwareEngineNetworkCanonical *string                                              `json:"vmwareEngineNetworkCanonical"`
-	IPAddressLayoutVersion       *PrivateCloudNetworkConfigIPAddressLayoutVersionEnum `json:"ipAddressLayoutVersion"`
+	empty                            bool    `json:"-"`
+	ManagementCidr                   *string `json:"managementCidr"`
+	VmwareEngineNetwork              *string `json:"vmwareEngineNetwork"`
+	VmwareEngineNetworkCanonical     *string `json:"vmwareEngineNetworkCanonical"`
+	ManagementIPAddressLayoutVersion *int64  `json:"managementIPAddressLayoutVersion"`
 }
 
 type jsonPrivateCloudNetworkConfig PrivateCloudNetworkConfig
@@ -209,17 +178,13 @@ func (r *PrivateCloudNetworkConfig) UnmarshalJSON(data []byte) error {
 		*r = *EmptyPrivateCloudNetworkConfig
 	} else {
 
-		r.Network = res.Network
-
-		r.ServiceNetwork = res.ServiceNetwork
-
 		r.ManagementCidr = res.ManagementCidr
 
 		r.VmwareEngineNetwork = res.VmwareEngineNetwork
 
 		r.VmwareEngineNetworkCanonical = res.VmwareEngineNetworkCanonical
 
-		r.IPAddressLayoutVersion = res.IPAddressLayoutVersion
+		r.ManagementIPAddressLayoutVersion = res.ManagementIPAddressLayoutVersion
 
 	}
 	return nil
@@ -246,11 +211,9 @@ func (r *PrivateCloudNetworkConfig) HashCode() string {
 }
 
 type PrivateCloudManagementCluster struct {
-	empty               bool    `json:"-"`
-	ClusterId           *string `json:"clusterId"`
-	NodeTypeId          *string `json:"nodeTypeId"`
-	NodeCount           *int64  `json:"nodeCount"`
-	NodeCustomCoreCount *int64  `json:"nodeCustomCoreCount"`
+	empty           bool                                                    `json:"-"`
+	ClusterId       *string                                                 `json:"clusterId"`
+	NodeTypeConfigs map[string]PrivateCloudManagementClusterNodeTypeConfigs `json:"nodeTypeConfigs"`
 }
 
 type jsonPrivateCloudManagementCluster PrivateCloudManagementCluster
@@ -270,11 +233,7 @@ func (r *PrivateCloudManagementCluster) UnmarshalJSON(data []byte) error {
 
 		r.ClusterId = res.ClusterId
 
-		r.NodeTypeId = res.NodeTypeId
-
-		r.NodeCount = res.NodeCount
-
-		r.NodeCustomCoreCount = res.NodeCustomCoreCount
+		r.NodeTypeConfigs = res.NodeTypeConfigs
 
 	}
 	return nil
@@ -300,16 +259,16 @@ func (r *PrivateCloudManagementCluster) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
-type PrivateCloudConditions struct {
-	empty   bool    `json:"-"`
-	Code    *string `json:"code"`
-	Message *string `json:"message"`
+type PrivateCloudManagementClusterNodeTypeConfigs struct {
+	empty           bool   `json:"-"`
+	NodeCount       *int64 `json:"nodeCount"`
+	CustomCoreCount *int64 `json:"customCoreCount"`
 }
 
-type jsonPrivateCloudConditions PrivateCloudConditions
+type jsonPrivateCloudManagementClusterNodeTypeConfigs PrivateCloudManagementClusterNodeTypeConfigs
 
-func (r *PrivateCloudConditions) UnmarshalJSON(data []byte) error {
-	var res jsonPrivateCloudConditions
+func (r *PrivateCloudManagementClusterNodeTypeConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonPrivateCloudManagementClusterNodeTypeConfigs
 	if err := json.Unmarshal(data, &res); err != nil {
 		return err
 	}
@@ -318,31 +277,31 @@ func (r *PrivateCloudConditions) UnmarshalJSON(data []byte) error {
 	json.Unmarshal(data, &m)
 
 	if len(m) == 0 {
-		*r = *EmptyPrivateCloudConditions
+		*r = *EmptyPrivateCloudManagementClusterNodeTypeConfigs
 	} else {
 
-		r.Code = res.Code
+		r.NodeCount = res.NodeCount
 
-		r.Message = res.Message
+		r.CustomCoreCount = res.CustomCoreCount
 
 	}
 	return nil
 }
 
-// This object is used to assert a desired state where this PrivateCloudConditions is
+// This object is used to assert a desired state where this PrivateCloudManagementClusterNodeTypeConfigs is
 // empty. Go lacks global const objects, but this object should be treated
 // as one. Modifying this object will have undesirable results.
-var EmptyPrivateCloudConditions *PrivateCloudConditions = &PrivateCloudConditions{empty: true}
+var EmptyPrivateCloudManagementClusterNodeTypeConfigs *PrivateCloudManagementClusterNodeTypeConfigs = &PrivateCloudManagementClusterNodeTypeConfigs{empty: true}
 
-func (r *PrivateCloudConditions) Empty() bool {
+func (r *PrivateCloudManagementClusterNodeTypeConfigs) Empty() bool {
 	return r.empty
 }
 
-func (r *PrivateCloudConditions) String() string {
+func (r *PrivateCloudManagementClusterNodeTypeConfigs) String() string {
 	return dcl.SprintResource(r)
 }
 
-func (r *PrivateCloudConditions) HashCode() string {
+func (r *PrivateCloudManagementClusterNodeTypeConfigs) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))
@@ -351,9 +310,7 @@ func (r *PrivateCloudConditions) HashCode() string {
 
 type PrivateCloudHcx struct {
 	empty      bool                      `json:"-"`
-	Fdqn       *string                   `json:"fdqn"`
 	InternalIP *string                   `json:"internalIP"`
-	ExternalIP *string                   `json:"externalIP"`
 	Version    *string                   `json:"version"`
 	State      *PrivateCloudHcxStateEnum `json:"state"`
 	Fqdn       *string                   `json:"fqdn"`
@@ -374,11 +331,7 @@ func (r *PrivateCloudHcx) UnmarshalJSON(data []byte) error {
 		*r = *EmptyPrivateCloudHcx
 	} else {
 
-		r.Fdqn = res.Fdqn
-
 		r.InternalIP = res.InternalIP
-
-		r.ExternalIP = res.ExternalIP
 
 		r.Version = res.Version
 
@@ -412,9 +365,7 @@ func (r *PrivateCloudHcx) HashCode() string {
 
 type PrivateCloudNsx struct {
 	empty      bool                      `json:"-"`
-	Fdqn       *string                   `json:"fdqn"`
 	InternalIP *string                   `json:"internalIP"`
-	ExternalIP *string                   `json:"externalIP"`
 	Version    *string                   `json:"version"`
 	State      *PrivateCloudNsxStateEnum `json:"state"`
 	Fqdn       *string                   `json:"fqdn"`
@@ -435,11 +386,7 @@ func (r *PrivateCloudNsx) UnmarshalJSON(data []byte) error {
 		*r = *EmptyPrivateCloudNsx
 	} else {
 
-		r.Fdqn = res.Fdqn
-
 		r.InternalIP = res.InternalIP
-
-		r.ExternalIP = res.ExternalIP
 
 		r.Version = res.Version
 
@@ -473,9 +420,7 @@ func (r *PrivateCloudNsx) HashCode() string {
 
 type PrivateCloudVcenter struct {
 	empty      bool                          `json:"-"`
-	Fdqn       *string                       `json:"fdqn"`
 	InternalIP *string                       `json:"internalIP"`
-	ExternalIP *string                       `json:"externalIP"`
 	Version    *string                       `json:"version"`
 	State      *PrivateCloudVcenterStateEnum `json:"state"`
 	Fqdn       *string                       `json:"fqdn"`
@@ -496,11 +441,7 @@ func (r *PrivateCloudVcenter) UnmarshalJSON(data []byte) error {
 		*r = *EmptyPrivateCloudVcenter
 	} else {
 
-		r.Fdqn = res.Fdqn
-
 		r.InternalIP = res.InternalIP
-
-		r.ExternalIP = res.ExternalIP
 
 		r.Version = res.Version
 
@@ -557,14 +498,12 @@ func (r *PrivateCloud) ID() (string, error) {
 		"network_config":     dcl.ValueOrEmptyString(nr.NetworkConfig),
 		"management_cluster": dcl.ValueOrEmptyString(nr.ManagementCluster),
 		"description":        dcl.ValueOrEmptyString(nr.Description),
-		"conditions":         dcl.ValueOrEmptyString(nr.Conditions),
 		"hcx":                dcl.ValueOrEmptyString(nr.Hcx),
 		"nsx":                dcl.ValueOrEmptyString(nr.Nsx),
 		"vcenter":            dcl.ValueOrEmptyString(nr.Vcenter),
+		"uid":                dcl.ValueOrEmptyString(nr.Uid),
 		"project":            dcl.ValueOrEmptyString(nr.Project),
 		"location":           dcl.ValueOrEmptyString(nr.Location),
-		"uid":                dcl.ValueOrEmptyString(nr.Uid),
-		"etag":               dcl.ValueOrEmptyString(nr.Etag),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/privateClouds/{{name}}", params), nil
 }

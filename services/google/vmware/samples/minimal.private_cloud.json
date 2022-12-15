@@ -3,12 +3,14 @@
   "project": "{{project}}",
   "location": "{{zone}}",
   "networkConfig": {
-    "vmwareEngineNetwork": "projects/{{project}}/locations/global/vmwareEngineNetworks/{{ref:basic.vmware_engine_network.json:name}}",
     "managementCidr": "192.168.30.0/24"
   },
   "managementCluster": {
     "clusterId": "{{management}}",
-    "nodeTypeId": "standard-72",
-    "nodeCount": 3
+    "nodeTypeConfigs": {
+      "standard-72": {
+        "nodeCount": 3
+      }
+    }
   }
 }

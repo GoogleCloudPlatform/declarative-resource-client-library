@@ -107,6 +107,9 @@ func newUpdateVmwareEngineNetworkUpdateVmwareEngineNetworkRequest(ctx context.Co
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
+	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
+		req["type"] = v
+	}
 	b, err := c.getVmwareEngineNetworkRaw(ctx, f)
 	if err != nil {
 		return nil, err
@@ -714,7 +717,7 @@ func diffVmwareEngineNetwork(c *Client, desired, actual *VmwareEngineNetwork, op
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Type, actual.Type, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateVmwareEngineNetworkUpdateVmwareEngineNetworkOperation")}, fn.AddNest("Type")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

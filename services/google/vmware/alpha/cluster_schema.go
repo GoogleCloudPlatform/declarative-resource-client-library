@@ -121,8 +121,7 @@ func DCLClusterSchema() *dcl.Schema {
 						Type: "object",
 						Required: []string{
 							"name",
-							"nodeTypeId",
-							"nodeCount",
+							"nodeTypeConfigs",
 							"project",
 							"location",
 							"privateCloud",
@@ -133,14 +132,7 @@ func DCLClusterSchema() *dcl.Schema {
 								Format:      "date-time",
 								GoName:      "CreateTime",
 								ReadOnly:    true,
-								Description: "Output only. Creation time of this resource in RFC3339 text format.",
-								Immutable:   true,
-							},
-							"etag": &dcl.Property{
-								Type:        "string",
-								GoName:      "Etag",
-								ReadOnly:    true,
-								Description: "Optional. Checksum that may be sent on update and delete requests to ensure that the user-provided value is up to date before the server processes a request. The server computes checksums based on the value of other fields in the request.",
+								Description: "Output only. Creation time of this resource.",
 								Immutable:   true,
 							},
 							"location": &dcl.Property{
@@ -159,34 +151,43 @@ func DCLClusterSchema() *dcl.Schema {
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
-								Description: "The resource name of this cluster. Resource names are schemeless URIs that follow the conventions in https://cloud.google.com/apis/design/resource_names. For example: `projects/my-project/locations/us-west1-a/privateClouds/my-cloud/clusters/my-cluster`",
+								Description: "Output only. The resource name of this cluster. Resource names are schemeless URIs that follow the conventions in https://cloud.google.com/apis/design/resource_names. For example: `projects/my-project/locations/us-west1-a/privateClouds/my-cloud/clusters/my-cluster`",
 								Immutable:   true,
 							},
-							"nodeCount": &dcl.Property{
-								Type:        "integer",
-								Format:      "int64",
-								GoName:      "NodeCount",
-								Description: "Required. Number of nodes in this cluster.",
-							},
-							"nodeCustomCoreCount": &dcl.Property{
-								Type:        "integer",
-								Format:      "int64",
-								GoName:      "NodeCustomCoreCount",
-								Description: "Optional. Customized number of cores available to each node of the cluster. This number must always be one of `NodeType.available_custom_core_counts`. If zero is provided max value from `NodeType.available_custom_core_counts` will be used.",
-							},
-							"nodeTypeId": &dcl.Property{
-								Type:        "string",
-								GoName:      "NodeTypeId",
-								Description: "Required. The canonical identifier of node types (`NodeType`) in this cluster. For example: standard-72.",
+							"nodeTypeConfigs": &dcl.Property{
+								Type: "object",
+								AdditionalProperties: &dcl.Property{
+									Type:   "object",
+									GoType: "ClusterNodeTypeConfigs",
+									Required: []string{
+										"nodeCount",
+									},
+									Properties: map[string]*dcl.Property{
+										"customCoreCount": &dcl.Property{
+											Type:        "integer",
+											Format:      "int64",
+											GoName:      "CustomCoreCount",
+											Description: "Optional. Customized number of cores available to each node of the type. This number must always be one of `nodeType.availableCustomCoreCounts`. If zero is provided max value from `nodeType.availableCustomCoreCounts` will be used.",
+										},
+										"nodeCount": &dcl.Property{
+											Type:        "integer",
+											Format:      "int64",
+											GoName:      "NodeCount",
+											Description: "Required. The number of nodes of this type in the cluster",
+										},
+									},
+								},
+								GoName:      "NodeTypeConfigs",
+								Description: "Required. The map of cluster node types in this cluster, where the key is canonical identifier of the node type (corresponds to the `NodeType`).",
 							},
 							"privateCloud": &dcl.Property{
 								Type:        "string",
 								GoName:      "PrivateCloud",
-								Description: "The privateCloud for the resource",
+								Description: "The private_cloud for the resource",
 								Immutable:   true,
 								ResourceReferences: []*dcl.PropertyResourceReference{
 									&dcl.PropertyResourceReference{
-										Resource: "Vmware/PrivateCloud",
+										Resource: "Vmwareengine/PrivateCloud",
 										Field:    "name",
 										Parent:   true,
 									},
@@ -210,15 +211,15 @@ func DCLClusterSchema() *dcl.Schema {
 								GoName:      "State",
 								GoType:      "ClusterStateEnum",
 								ReadOnly:    true,
-								Description: "Output only. State of the resource. Possible values: STATE_UNSPECIFIED, ACTIVE, CREATING, UPDATING, FAILED, DELETED",
+								Description: "Output only. State of the resource. Possible values: STATE_UNSPECIFIED, ACTIVE, CREATING, UPDATING, DELETING, REPAIRING",
 								Immutable:   true,
 								Enum: []string{
 									"STATE_UNSPECIFIED",
 									"ACTIVE",
 									"CREATING",
 									"UPDATING",
-									"FAILED",
-									"DELETED",
+									"DELETING",
+									"REPAIRING",
 								},
 							},
 							"uid": &dcl.Property{
@@ -233,7 +234,7 @@ func DCLClusterSchema() *dcl.Schema {
 								Format:      "date-time",
 								GoName:      "UpdateTime",
 								ReadOnly:    true,
-								Description: "Output only. Last update time of this resource in RFC3339 text format.",
+								Description: "Output only. Last update time of this resource.",
 								Immutable:   true,
 							},
 						},

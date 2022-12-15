@@ -30,14 +30,12 @@ class PrivateCloud(object):
         network_config: dict = None,
         management_cluster: dict = None,
         description: str = None,
-        conditions: list = None,
         hcx: dict = None,
         nsx: dict = None,
         vcenter: dict = None,
+        uid: str = None,
         project: str = None,
         location: str = None,
-        uid: str = None,
-        etag: str = None,
         service_account_file: str = "",
     ):
 
@@ -95,14 +93,12 @@ class PrivateCloud(object):
             response.management_cluster
         )
         self.description = Primitive.from_proto(response.description)
-        self.conditions = PrivateCloudConditionsArray.from_proto(response.conditions)
         self.hcx = PrivateCloudHcx.from_proto(response.hcx)
         self.nsx = PrivateCloudNsx.from_proto(response.nsx)
         self.vcenter = PrivateCloudVcenter.from_proto(response.vcenter)
+        self.uid = Primitive.from_proto(response.uid)
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
-        self.uid = Primitive.from_proto(response.uid)
-        self.etag = Primitive.from_proto(response.etag)
 
     def delete(self):
         stub = private_cloud_pb2_grpc.VmwareAlphaPrivateCloudServiceStub(
@@ -177,19 +173,15 @@ class PrivateCloud(object):
 class PrivateCloudNetworkConfig(object):
     def __init__(
         self,
-        network: str = None,
-        service_network: str = None,
         management_cidr: str = None,
         vmware_engine_network: str = None,
         vmware_engine_network_canonical: str = None,
-        ip_address_layout_version: str = None,
+        management_ip_address_layout_version: int = None,
     ):
-        self.network = network
-        self.service_network = service_network
         self.management_cidr = management_cidr
         self.vmware_engine_network = vmware_engine_network
         self.vmware_engine_network_canonical = vmware_engine_network_canonical
-        self.ip_address_layout_version = ip_address_layout_version
+        self.management_ip_address_layout_version = management_ip_address_layout_version
 
     @classmethod
     def to_proto(self, resource):
@@ -197,10 +189,6 @@ class PrivateCloudNetworkConfig(object):
             return None
 
         res = private_cloud_pb2.VmwareAlphaPrivateCloudNetworkConfig()
-        if Primitive.to_proto(resource.network):
-            res.network = Primitive.to_proto(resource.network)
-        if Primitive.to_proto(resource.service_network):
-            res.service_network = Primitive.to_proto(resource.service_network)
         if Primitive.to_proto(resource.management_cidr):
             res.management_cidr = Primitive.to_proto(resource.management_cidr)
         if Primitive.to_proto(resource.vmware_engine_network):
@@ -211,13 +199,9 @@ class PrivateCloudNetworkConfig(object):
             res.vmware_engine_network_canonical = Primitive.to_proto(
                 resource.vmware_engine_network_canonical
             )
-        if PrivateCloudNetworkConfigIPAddressLayoutVersionEnum.to_proto(
-            resource.ip_address_layout_version
-        ):
-            res.ip_address_layout_version = (
-                PrivateCloudNetworkConfigIPAddressLayoutVersionEnum.to_proto(
-                    resource.ip_address_layout_version
-                )
+        if Primitive.to_proto(resource.management_ip_address_layout_version):
+            res.management_ip_address_layout_version = Primitive.to_proto(
+                resource.management_ip_address_layout_version
             )
         return res
 
@@ -227,15 +211,13 @@ class PrivateCloudNetworkConfig(object):
             return None
 
         return PrivateCloudNetworkConfig(
-            network=Primitive.from_proto(resource.network),
-            service_network=Primitive.from_proto(resource.service_network),
             management_cidr=Primitive.from_proto(resource.management_cidr),
             vmware_engine_network=Primitive.from_proto(resource.vmware_engine_network),
             vmware_engine_network_canonical=Primitive.from_proto(
                 resource.vmware_engine_network_canonical
             ),
-            ip_address_layout_version=PrivateCloudNetworkConfigIPAddressLayoutVersionEnum.from_proto(
-                resource.ip_address_layout_version
+            management_ip_address_layout_version=Primitive.from_proto(
+                resource.management_ip_address_layout_version
             ),
         )
 
@@ -253,17 +235,9 @@ class PrivateCloudNetworkConfigArray(object):
 
 
 class PrivateCloudManagementCluster(object):
-    def __init__(
-        self,
-        cluster_id: str = None,
-        node_type_id: str = None,
-        node_count: int = None,
-        node_custom_core_count: int = None,
-    ):
+    def __init__(self, cluster_id: str = None, node_type_configs: dict = None):
         self.cluster_id = cluster_id
-        self.node_type_id = node_type_id
-        self.node_count = node_count
-        self.node_custom_core_count = node_custom_core_count
+        self.node_type_configs = node_type_configs
 
     @classmethod
     def to_proto(self, resource):
@@ -273,14 +247,8 @@ class PrivateCloudManagementCluster(object):
         res = private_cloud_pb2.VmwareAlphaPrivateCloudManagementCluster()
         if Primitive.to_proto(resource.cluster_id):
             res.cluster_id = Primitive.to_proto(resource.cluster_id)
-        if Primitive.to_proto(resource.node_type_id):
-            res.node_type_id = Primitive.to_proto(resource.node_type_id)
-        if Primitive.to_proto(resource.node_count):
-            res.node_count = Primitive.to_proto(resource.node_count)
-        if Primitive.to_proto(resource.node_custom_core_count):
-            res.node_custom_core_count = Primitive.to_proto(
-                resource.node_custom_core_count
-            )
+        if Primitive.to_proto(resource.node_type_configs):
+            res.node_type_configs = Primitive.to_proto(resource.node_type_configs)
         return res
 
     @classmethod
@@ -290,11 +258,7 @@ class PrivateCloudManagementCluster(object):
 
         return PrivateCloudManagementCluster(
             cluster_id=Primitive.from_proto(resource.cluster_id),
-            node_type_id=Primitive.from_proto(resource.node_type_id),
-            node_count=Primitive.from_proto(resource.node_count),
-            node_custom_core_count=Primitive.from_proto(
-                resource.node_custom_core_count
-            ),
+            node_type_configs=Primitive.from_proto(resource.node_type_configs),
         )
 
 
@@ -310,21 +274,23 @@ class PrivateCloudManagementClusterArray(object):
         return [PrivateCloudManagementCluster.from_proto(i) for i in resources]
 
 
-class PrivateCloudConditions(object):
-    def __init__(self, code: str = None, message: str = None):
-        self.code = code
-        self.message = message
+class PrivateCloudManagementClusterNodeTypeConfigs(object):
+    def __init__(self, node_count: int = None, custom_core_count: int = None):
+        self.node_count = node_count
+        self.custom_core_count = custom_core_count
 
     @classmethod
     def to_proto(self, resource):
         if not resource:
             return None
 
-        res = private_cloud_pb2.VmwareAlphaPrivateCloudConditions()
-        if Primitive.to_proto(resource.code):
-            res.code = Primitive.to_proto(resource.code)
-        if Primitive.to_proto(resource.message):
-            res.message = Primitive.to_proto(resource.message)
+        res = (
+            private_cloud_pb2.VmwareAlphaPrivateCloudManagementClusterNodeTypeConfigs()
+        )
+        if Primitive.to_proto(resource.node_count):
+            res.node_count = Primitive.to_proto(resource.node_count)
+        if Primitive.to_proto(resource.custom_core_count):
+            res.custom_core_count = Primitive.to_proto(resource.custom_core_count)
         return res
 
     @classmethod
@@ -332,37 +298,38 @@ class PrivateCloudConditions(object):
         if not resource:
             return None
 
-        return PrivateCloudConditions(
-            code=Primitive.from_proto(resource.code),
-            message=Primitive.from_proto(resource.message),
+        return PrivateCloudManagementClusterNodeTypeConfigs(
+            node_count=Primitive.from_proto(resource.node_count),
+            custom_core_count=Primitive.from_proto(resource.custom_core_count),
         )
 
 
-class PrivateCloudConditionsArray(object):
+class PrivateCloudManagementClusterNodeTypeConfigsArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [PrivateCloudConditions.to_proto(i) for i in resources]
+        return [
+            PrivateCloudManagementClusterNodeTypeConfigs.to_proto(i) for i in resources
+        ]
 
     @classmethod
     def from_proto(self, resources):
-        return [PrivateCloudConditions.from_proto(i) for i in resources]
+        return [
+            PrivateCloudManagementClusterNodeTypeConfigs.from_proto(i)
+            for i in resources
+        ]
 
 
 class PrivateCloudHcx(object):
     def __init__(
         self,
-        fdqn: str = None,
         internal_ip: str = None,
-        external_ip: str = None,
         version: str = None,
         state: str = None,
         fqdn: str = None,
     ):
-        self.fdqn = fdqn
         self.internal_ip = internal_ip
-        self.external_ip = external_ip
         self.version = version
         self.state = state
         self.fqdn = fqdn
@@ -373,12 +340,8 @@ class PrivateCloudHcx(object):
             return None
 
         res = private_cloud_pb2.VmwareAlphaPrivateCloudHcx()
-        if Primitive.to_proto(resource.fdqn):
-            res.fdqn = Primitive.to_proto(resource.fdqn)
         if Primitive.to_proto(resource.internal_ip):
             res.internal_ip = Primitive.to_proto(resource.internal_ip)
-        if Primitive.to_proto(resource.external_ip):
-            res.external_ip = Primitive.to_proto(resource.external_ip)
         if Primitive.to_proto(resource.version):
             res.version = Primitive.to_proto(resource.version)
         if PrivateCloudHcxStateEnum.to_proto(resource.state):
@@ -393,9 +356,7 @@ class PrivateCloudHcx(object):
             return None
 
         return PrivateCloudHcx(
-            fdqn=Primitive.from_proto(resource.fdqn),
             internal_ip=Primitive.from_proto(resource.internal_ip),
-            external_ip=Primitive.from_proto(resource.external_ip),
             version=Primitive.from_proto(resource.version),
             state=PrivateCloudHcxStateEnum.from_proto(resource.state),
             fqdn=Primitive.from_proto(resource.fqdn),
@@ -417,16 +378,12 @@ class PrivateCloudHcxArray(object):
 class PrivateCloudNsx(object):
     def __init__(
         self,
-        fdqn: str = None,
         internal_ip: str = None,
-        external_ip: str = None,
         version: str = None,
         state: str = None,
         fqdn: str = None,
     ):
-        self.fdqn = fdqn
         self.internal_ip = internal_ip
-        self.external_ip = external_ip
         self.version = version
         self.state = state
         self.fqdn = fqdn
@@ -437,12 +394,8 @@ class PrivateCloudNsx(object):
             return None
 
         res = private_cloud_pb2.VmwareAlphaPrivateCloudNsx()
-        if Primitive.to_proto(resource.fdqn):
-            res.fdqn = Primitive.to_proto(resource.fdqn)
         if Primitive.to_proto(resource.internal_ip):
             res.internal_ip = Primitive.to_proto(resource.internal_ip)
-        if Primitive.to_proto(resource.external_ip):
-            res.external_ip = Primitive.to_proto(resource.external_ip)
         if Primitive.to_proto(resource.version):
             res.version = Primitive.to_proto(resource.version)
         if PrivateCloudNsxStateEnum.to_proto(resource.state):
@@ -457,9 +410,7 @@ class PrivateCloudNsx(object):
             return None
 
         return PrivateCloudNsx(
-            fdqn=Primitive.from_proto(resource.fdqn),
             internal_ip=Primitive.from_proto(resource.internal_ip),
-            external_ip=Primitive.from_proto(resource.external_ip),
             version=Primitive.from_proto(resource.version),
             state=PrivateCloudNsxStateEnum.from_proto(resource.state),
             fqdn=Primitive.from_proto(resource.fqdn),
@@ -481,16 +432,12 @@ class PrivateCloudNsxArray(object):
 class PrivateCloudVcenter(object):
     def __init__(
         self,
-        fdqn: str = None,
         internal_ip: str = None,
-        external_ip: str = None,
         version: str = None,
         state: str = None,
         fqdn: str = None,
     ):
-        self.fdqn = fdqn
         self.internal_ip = internal_ip
-        self.external_ip = external_ip
         self.version = version
         self.state = state
         self.fqdn = fqdn
@@ -501,12 +448,8 @@ class PrivateCloudVcenter(object):
             return None
 
         res = private_cloud_pb2.VmwareAlphaPrivateCloudVcenter()
-        if Primitive.to_proto(resource.fdqn):
-            res.fdqn = Primitive.to_proto(resource.fdqn)
         if Primitive.to_proto(resource.internal_ip):
             res.internal_ip = Primitive.to_proto(resource.internal_ip)
-        if Primitive.to_proto(resource.external_ip):
-            res.external_ip = Primitive.to_proto(resource.external_ip)
         if Primitive.to_proto(resource.version):
             res.version = Primitive.to_proto(resource.version)
         if PrivateCloudVcenterStateEnum.to_proto(resource.state):
@@ -521,9 +464,7 @@ class PrivateCloudVcenter(object):
             return None
 
         return PrivateCloudVcenter(
-            fdqn=Primitive.from_proto(resource.fdqn),
             internal_ip=Primitive.from_proto(resource.internal_ip),
-            external_ip=Primitive.from_proto(resource.external_ip),
             version=Primitive.from_proto(resource.version),
             state=PrivateCloudVcenterStateEnum.from_proto(resource.state),
             fqdn=Primitive.from_proto(resource.fqdn),
@@ -557,27 +498,6 @@ class PrivateCloudStateEnum(object):
             return resource
         return private_cloud_pb2.VmwareAlphaPrivateCloudStateEnum.Name(resource)[
             len("VmwareAlphaPrivateCloudStateEnum") :
-        ]
-
-
-class PrivateCloudNetworkConfigIPAddressLayoutVersionEnum(object):
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return resource
-        return private_cloud_pb2.VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnum.Value(
-            "VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnum%s"
-            % resource
-        )
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return resource
-        return private_cloud_pb2.VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnum.Name(
-            resource
-        )[
-            len("VmwareAlphaPrivateCloudNetworkConfigIPAddressLayoutVersionEnum") :
         ]
 
 

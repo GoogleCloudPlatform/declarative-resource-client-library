@@ -36,22 +36,30 @@ func ProtoToVmwareAlphaClusterStateEnum(e alphapb.VmwareAlphaClusterStateEnum) *
 	return nil
 }
 
+// ProtoToClusterNodeTypeConfigs converts a ClusterNodeTypeConfigs object from its proto representation.
+func ProtoToVmwareAlphaClusterNodeTypeConfigs(p *alphapb.VmwareAlphaClusterNodeTypeConfigs) *alpha.ClusterNodeTypeConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterNodeTypeConfigs{
+		NodeCount:       dcl.Int64OrNil(p.GetNodeCount()),
+		CustomCoreCount: dcl.Int64OrNil(p.GetCustomCoreCount()),
+	}
+	return obj
+}
+
 // ProtoToCluster converts a Cluster resource from its proto representation.
 func ProtoToCluster(p *alphapb.VmwareAlphaCluster) *alpha.Cluster {
 	obj := &alpha.Cluster{
-		Name:                dcl.StringOrNil(p.GetName()),
-		CreateTime:          dcl.StringOrNil(p.GetCreateTime()),
-		UpdateTime:          dcl.StringOrNil(p.GetUpdateTime()),
-		State:               ProtoToVmwareAlphaClusterStateEnum(p.GetState()),
-		Management:          dcl.Bool(p.GetManagement()),
-		NodeTypeId:          dcl.StringOrNil(p.GetNodeTypeId()),
-		NodeCount:           dcl.Int64OrNil(p.GetNodeCount()),
-		Project:             dcl.StringOrNil(p.GetProject()),
-		Location:            dcl.StringOrNil(p.GetLocation()),
-		PrivateCloud:        dcl.StringOrNil(p.GetPrivateCloud()),
-		NodeCustomCoreCount: dcl.Int64OrNil(p.GetNodeCustomCoreCount()),
-		Uid:                 dcl.StringOrNil(p.GetUid()),
-		Etag:                dcl.StringOrNil(p.GetEtag()),
+		Name:         dcl.StringOrNil(p.GetName()),
+		CreateTime:   dcl.StringOrNil(p.GetCreateTime()),
+		UpdateTime:   dcl.StringOrNil(p.GetUpdateTime()),
+		State:        ProtoToVmwareAlphaClusterStateEnum(p.GetState()),
+		Management:   dcl.Bool(p.GetManagement()),
+		Uid:          dcl.StringOrNil(p.GetUid()),
+		Project:      dcl.StringOrNil(p.GetProject()),
+		Location:     dcl.StringOrNil(p.GetLocation()),
+		PrivateCloud: dcl.StringOrNil(p.GetPrivateCloud()),
 	}
 	return obj
 }
@@ -67,6 +75,17 @@ func VmwareAlphaClusterStateEnumToProto(e *alpha.ClusterStateEnum) alphapb.Vmwar
 	return alphapb.VmwareAlphaClusterStateEnum(0)
 }
 
+// ClusterNodeTypeConfigsToProto converts a ClusterNodeTypeConfigs object to its proto representation.
+func VmwareAlphaClusterNodeTypeConfigsToProto(o *alpha.ClusterNodeTypeConfigs) *alphapb.VmwareAlphaClusterNodeTypeConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.VmwareAlphaClusterNodeTypeConfigs{}
+	p.SetNodeCount(dcl.ValueOrEmptyInt64(o.NodeCount))
+	p.SetCustomCoreCount(dcl.ValueOrEmptyInt64(o.CustomCoreCount))
+	return p
+}
+
 // ClusterToProto converts a Cluster resource to its proto representation.
 func ClusterToProto(resource *alpha.Cluster) *alphapb.VmwareAlphaCluster {
 	p := &alphapb.VmwareAlphaCluster{}
@@ -75,14 +94,15 @@ func ClusterToProto(resource *alpha.Cluster) *alphapb.VmwareAlphaCluster {
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
 	p.SetState(VmwareAlphaClusterStateEnumToProto(resource.State))
 	p.SetManagement(dcl.ValueOrEmptyBool(resource.Management))
-	p.SetNodeTypeId(dcl.ValueOrEmptyString(resource.NodeTypeId))
-	p.SetNodeCount(dcl.ValueOrEmptyInt64(resource.NodeCount))
+	p.SetUid(dcl.ValueOrEmptyString(resource.Uid))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetPrivateCloud(dcl.ValueOrEmptyString(resource.PrivateCloud))
-	p.SetNodeCustomCoreCount(dcl.ValueOrEmptyInt64(resource.NodeCustomCoreCount))
-	p.SetUid(dcl.ValueOrEmptyString(resource.Uid))
-	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
+	mNodeTypeConfigs := make(map[string]*alphapb.VmwareAlphaClusterNodeTypeConfigs, len(resource.NodeTypeConfigs))
+	for k, r := range resource.NodeTypeConfigs {
+		mNodeTypeConfigs[k] = VmwareAlphaClusterNodeTypeConfigsToProto(&r)
+	}
+	p.SetNodeTypeConfigs(mNodeTypeConfigs)
 
 	return p
 }

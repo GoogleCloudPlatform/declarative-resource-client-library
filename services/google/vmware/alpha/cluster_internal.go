@@ -30,10 +30,7 @@ func (r *Cluster) validate() error {
 	if err := dcl.RequiredParameter(r.Name, "Name"); err != nil {
 		return err
 	}
-	if err := dcl.Required(r, "nodeTypeId"); err != nil {
-		return err
-	}
-	if err := dcl.Required(r, "nodeCount"); err != nil {
+	if err := dcl.Required(r, "nodeTypeConfigs"); err != nil {
 		return err
 	}
 	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
@@ -43,6 +40,12 @@ func (r *Cluster) validate() error {
 		return err
 	}
 	if err := dcl.RequiredParameter(r.PrivateCloud, "PrivateCloud"); err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ClusterNodeTypeConfigs) validate() error {
+	if err := dcl.Required(r, "nodeCount"); err != nil {
 		return err
 	}
 	return nil
@@ -111,14 +114,10 @@ func newUpdateClusterUpdateClusterRequest(ctx context.Context, f *Cluster, c *Cl
 	res := f
 	_ = res
 
-	if v := f.NodeTypeId; !dcl.IsEmptyValueIndirect(v) {
-		req["nodeTypeId"] = v
-	}
-	if v := f.NodeCount; !dcl.IsEmptyValueIndirect(v) {
-		req["nodeCount"] = v
-	}
-	if v := f.NodeCustomCoreCount; !dcl.IsEmptyValueIndirect(v) {
-		req["nodeCustomCoreCount"] = v
+	if v, err := expandClusterNodeTypeConfigsMap(c, f.NodeTypeConfigs, res); err != nil {
+		return nil, fmt.Errorf("error expanding NodeTypeConfigs into nodeTypeConfigs: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["nodeTypeConfigs"] = v
 	}
 	req["name"] = fmt.Sprintf("projects/%s/locations/%s/privateClouds/%s/clusters/%s", *f.Project, *f.Location, *f.PrivateCloud, *f.Name)
 
@@ -460,16 +459,11 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-	if dcl.StringCanonicalize(rawDesired.NodeTypeId, rawInitial.NodeTypeId) {
-		canonicalDesired.NodeTypeId = rawInitial.NodeTypeId
-	} else {
-		canonicalDesired.NodeTypeId = rawDesired.NodeTypeId
-	}
-	if dcl.IsZeroValue(rawDesired.NodeCount) || (dcl.IsEmptyValueIndirect(rawDesired.NodeCount) && dcl.IsEmptyValueIndirect(rawInitial.NodeCount)) {
+	if dcl.IsZeroValue(rawDesired.NodeTypeConfigs) || (dcl.IsEmptyValueIndirect(rawDesired.NodeTypeConfigs) && dcl.IsEmptyValueIndirect(rawInitial.NodeTypeConfigs)) {
 		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		canonicalDesired.NodeCount = rawInitial.NodeCount
+		canonicalDesired.NodeTypeConfigs = rawInitial.NodeTypeConfigs
 	} else {
-		canonicalDesired.NodeCount = rawDesired.NodeCount
+		canonicalDesired.NodeTypeConfigs = rawDesired.NodeTypeConfigs
 	}
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		canonicalDesired.Project = rawInitial.Project
@@ -485,12 +479,6 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 		canonicalDesired.PrivateCloud = rawInitial.PrivateCloud
 	} else {
 		canonicalDesired.PrivateCloud = rawDesired.PrivateCloud
-	}
-	if dcl.IsZeroValue(rawDesired.NodeCustomCoreCount) || (dcl.IsEmptyValueIndirect(rawDesired.NodeCustomCoreCount) && dcl.IsEmptyValueIndirect(rawInitial.NodeCustomCoreCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		canonicalDesired.NodeCustomCoreCount = rawInitial.NodeCustomCoreCount
-	} else {
-		canonicalDesired.NodeCustomCoreCount = rawDesired.NodeCustomCoreCount
 	}
 
 	return canonicalDesired, nil
@@ -523,16 +511,16 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.NodeTypeId) && dcl.IsEmptyValueIndirect(rawDesired.NodeTypeId) {
-		rawNew.NodeTypeId = rawDesired.NodeTypeId
+	if dcl.IsEmptyValueIndirect(rawNew.Uid) && dcl.IsEmptyValueIndirect(rawDesired.Uid) {
+		rawNew.Uid = rawDesired.Uid
 	} else {
-		if dcl.StringCanonicalize(rawDesired.NodeTypeId, rawNew.NodeTypeId) {
-			rawNew.NodeTypeId = rawDesired.NodeTypeId
+		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
+			rawNew.Uid = rawDesired.Uid
 		}
 	}
 
-	if dcl.IsEmptyValueIndirect(rawNew.NodeCount) && dcl.IsEmptyValueIndirect(rawDesired.NodeCount) {
-		rawNew.NodeCount = rawDesired.NodeCount
+	if dcl.IsEmptyValueIndirect(rawNew.NodeTypeConfigs) && dcl.IsEmptyValueIndirect(rawDesired.NodeTypeConfigs) {
+		rawNew.NodeTypeConfigs = rawDesired.NodeTypeConfigs
 	} else {
 	}
 
@@ -542,28 +530,125 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 
 	rawNew.PrivateCloud = rawDesired.PrivateCloud
 
-	if dcl.IsEmptyValueIndirect(rawNew.NodeCustomCoreCount) && dcl.IsEmptyValueIndirect(rawDesired.NodeCustomCoreCount) {
-		rawNew.NodeCustomCoreCount = rawDesired.NodeCustomCoreCount
-	} else {
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.Uid) && dcl.IsEmptyValueIndirect(rawDesired.Uid) {
-		rawNew.Uid = rawDesired.Uid
-	} else {
-		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
-			rawNew.Uid = rawDesired.Uid
-		}
-	}
-
-	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
-		rawNew.Etag = rawDesired.Etag
-	} else {
-		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
-			rawNew.Etag = rawDesired.Etag
-		}
-	}
-
 	return rawNew, nil
+}
+
+func canonicalizeClusterNodeTypeConfigs(des, initial *ClusterNodeTypeConfigs, opts ...dcl.ApplyOption) *ClusterNodeTypeConfigs {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ClusterNodeTypeConfigs{}
+
+	if dcl.IsZeroValue(des.NodeCount) || (dcl.IsEmptyValueIndirect(des.NodeCount) && dcl.IsEmptyValueIndirect(initial.NodeCount)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.NodeCount = initial.NodeCount
+	} else {
+		cDes.NodeCount = des.NodeCount
+	}
+	if dcl.IsZeroValue(des.CustomCoreCount) || (dcl.IsEmptyValueIndirect(des.CustomCoreCount) && dcl.IsEmptyValueIndirect(initial.CustomCoreCount)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.CustomCoreCount = initial.CustomCoreCount
+	} else {
+		cDes.CustomCoreCount = des.CustomCoreCount
+	}
+
+	return cDes
+}
+
+func canonicalizeClusterNodeTypeConfigsSlice(des, initial []ClusterNodeTypeConfigs, opts ...dcl.ApplyOption) []ClusterNodeTypeConfigs {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterNodeTypeConfigs, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterNodeTypeConfigs(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterNodeTypeConfigs, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterNodeTypeConfigs(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewClusterNodeTypeConfigs(c *Client, des, nw *ClusterNodeTypeConfigs) *ClusterNodeTypeConfigs {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ClusterNodeTypeConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	return nw
+}
+
+func canonicalizeNewClusterNodeTypeConfigsSet(c *Client, des, nw []ClusterNodeTypeConfigs) []ClusterNodeTypeConfigs {
+	if des == nil {
+		return nw
+	}
+	var reorderedNew []ClusterNodeTypeConfigs
+	for _, d := range des {
+		matchedNew := -1
+		for idx, n := range nw {
+			if diffs, _ := compareClusterNodeTypeConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedNew = idx
+				break
+			}
+		}
+		if matchedNew != -1 {
+			reorderedNew = append(reorderedNew, nw[matchedNew])
+			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		}
+	}
+	reorderedNew = append(reorderedNew, nw...)
+
+	return reorderedNew
+}
+
+func canonicalizeNewClusterNodeTypeConfigsSlice(c *Client, des, nw []ClusterNodeTypeConfigs) []ClusterNodeTypeConfigs {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ClusterNodeTypeConfigs
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterNodeTypeConfigs(c, &d, &n))
+	}
+
+	return items
 }
 
 // The differ returns a list of diffs, along with a list of operations that should be taken
@@ -619,14 +704,14 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodeTypeId, actual.NodeTypeId, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateClusterUpdateClusterOperation")}, fn.AddNest("NodeTypeId")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodeCount, actual.NodeCount, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateClusterUpdateClusterOperation")}, fn.AddNest("NodeCount")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.NodeTypeConfigs, actual.NodeTypeConfigs, dcl.DiffInfo{ObjectFunction: compareClusterNodeTypeConfigsNewStyle, EmptyObject: EmptyClusterNodeTypeConfigs, OperationSelector: dcl.TriggersOperation("updateClusterUpdateClusterOperation")}, fn.AddNest("NodeTypeConfigs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -654,28 +739,42 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NodeCustomCoreCount, actual.NodeCustomCoreCount, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateClusterUpdateClusterOperation")}, fn.AddNest("NodeCustomCoreCount")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Uid, actual.Uid, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Uid")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		newDiffs = append(newDiffs, ds...)
-	}
-
 	return newDiffs, nil
+}
+func compareClusterNodeTypeConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterNodeTypeConfigs)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterNodeTypeConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeTypeConfigs or *ClusterNodeTypeConfigs", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterNodeTypeConfigs)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterNodeTypeConfigs)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterNodeTypeConfigs", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.NodeCount, actual.NodeCount, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateClusterUpdateClusterOperation")}, fn.AddNest("NodeCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CustomCoreCount, actual.CustomCoreCount, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateClusterUpdateClusterOperation")}, fn.AddNest("CustomCoreCount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
 }
 
 // urlNormalized returns a copy of the resource struct with values normalized
@@ -684,12 +783,10 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 func (r *Cluster) urlNormalized() *Cluster {
 	normalized := dcl.Copy(*r).(Cluster)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
-	normalized.NodeTypeId = dcl.SelfLinkToName(r.NodeTypeId)
+	normalized.Uid = dcl.SelfLinkToName(r.Uid)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	normalized.PrivateCloud = dcl.SelfLinkToName(r.PrivateCloud)
-	normalized.Uid = dcl.SelfLinkToName(r.Uid)
-	normalized.Etag = dcl.SelfLinkToName(r.Etag)
 	return &normalized
 }
 
@@ -749,11 +846,10 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["name"] = v
 	}
-	if v := f.NodeTypeId; dcl.ValueShouldBeSent(v) {
-		m["nodeTypeId"] = v
-	}
-	if v := f.NodeCount; dcl.ValueShouldBeSent(v) {
-		m["nodeCount"] = v
+	if v, err := expandClusterNodeTypeConfigsMap(c, f.NodeTypeConfigs, res); err != nil {
+		return nil, fmt.Errorf("error expanding NodeTypeConfigs into nodeTypeConfigs: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["nodeTypeConfigs"] = v
 	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Project into project: %w", err)
@@ -769,9 +865,6 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 		return nil, fmt.Errorf("error expanding PrivateCloud into privateCloud: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["privateCloud"] = v
-	}
-	if v := f.NodeCustomCoreCount; dcl.ValueShouldBeSent(v) {
-		m["nodeCustomCoreCount"] = v
 	}
 
 	return m, nil
@@ -794,16 +887,131 @@ func flattenCluster(c *Client, i interface{}, res *Cluster) *Cluster {
 	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
 	resultRes.State = flattenClusterStateEnum(m["state"])
 	resultRes.Management = dcl.FlattenBool(m["management"])
-	resultRes.NodeTypeId = dcl.FlattenString(m["nodeTypeId"])
-	resultRes.NodeCount = dcl.FlattenInteger(m["nodeCount"])
+	resultRes.Uid = dcl.FlattenString(m["uid"])
+	resultRes.NodeTypeConfigs = flattenClusterNodeTypeConfigsMap(c, m["nodeTypeConfigs"], res)
 	resultRes.Project = dcl.FlattenString(m["project"])
 	resultRes.Location = dcl.FlattenString(m["location"])
 	resultRes.PrivateCloud = dcl.FlattenString(m["privateCloud"])
-	resultRes.NodeCustomCoreCount = dcl.FlattenInteger(m["nodeCustomCoreCount"])
-	resultRes.Uid = dcl.FlattenString(m["uid"])
-	resultRes.Etag = dcl.FlattenString(m["etag"])
 
 	return resultRes
+}
+
+// expandClusterNodeTypeConfigsMap expands the contents of ClusterNodeTypeConfigs into a JSON
+// request object.
+func expandClusterNodeTypeConfigsMap(c *Client, f map[string]ClusterNodeTypeConfigs, res *Cluster) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandClusterNodeTypeConfigs(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandClusterNodeTypeConfigsSlice expands the contents of ClusterNodeTypeConfigs into a JSON
+// request object.
+func expandClusterNodeTypeConfigsSlice(c *Client, f []ClusterNodeTypeConfigs, res *Cluster) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandClusterNodeTypeConfigs(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenClusterNodeTypeConfigsMap flattens the contents of ClusterNodeTypeConfigs from a JSON
+// response object.
+func flattenClusterNodeTypeConfigsMap(c *Client, i interface{}, res *Cluster) map[string]ClusterNodeTypeConfigs {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterNodeTypeConfigs{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterNodeTypeConfigs{}
+	}
+
+	items := make(map[string]ClusterNodeTypeConfigs)
+	for k, item := range a {
+		items[k] = *flattenClusterNodeTypeConfigs(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenClusterNodeTypeConfigsSlice flattens the contents of ClusterNodeTypeConfigs from a JSON
+// response object.
+func flattenClusterNodeTypeConfigsSlice(c *Client, i interface{}, res *Cluster) []ClusterNodeTypeConfigs {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ClusterNodeTypeConfigs{}
+	}
+
+	if len(a) == 0 {
+		return []ClusterNodeTypeConfigs{}
+	}
+
+	items := make([]ClusterNodeTypeConfigs, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenClusterNodeTypeConfigs(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandClusterNodeTypeConfigs expands an instance of ClusterNodeTypeConfigs into a JSON
+// request object.
+func expandClusterNodeTypeConfigs(c *Client, f *ClusterNodeTypeConfigs, res *Cluster) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.NodeCount; !dcl.IsEmptyValueIndirect(v) {
+		m["nodeCount"] = v
+	}
+	if v := f.CustomCoreCount; !dcl.IsEmptyValueIndirect(v) {
+		m["customCoreCount"] = v
+	}
+
+	return m, nil
+}
+
+// flattenClusterNodeTypeConfigs flattens an instance of ClusterNodeTypeConfigs from a JSON
+// response object.
+func flattenClusterNodeTypeConfigs(c *Client, i interface{}, res *Cluster) *ClusterNodeTypeConfigs {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ClusterNodeTypeConfigs{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterNodeTypeConfigs
+	}
+	r.NodeCount = dcl.FlattenInteger(m["nodeCount"])
+	r.CustomCoreCount = dcl.FlattenInteger(m["customCoreCount"])
+
+	return r
 }
 
 // flattenClusterStateEnumMap flattens the contents of ClusterStateEnum from a JSON
@@ -961,7 +1169,13 @@ func convertOpNameToClusterApiOperation(opName string, fieldDiffs []*dcl.FieldDi
 func extractClusterFields(r *Cluster) error {
 	return nil
 }
+func extractClusterNodeTypeConfigsFields(r *Cluster, o *ClusterNodeTypeConfigs) error {
+	return nil
+}
 
 func postReadExtractClusterFields(r *Cluster) error {
+	return nil
+}
+func postReadExtractClusterNodeTypeConfigsFields(r *Cluster, o *ClusterNodeTypeConfigs) error {
 	return nil
 }

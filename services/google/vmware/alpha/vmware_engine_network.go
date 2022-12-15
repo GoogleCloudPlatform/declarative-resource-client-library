@@ -57,7 +57,7 @@ func (v VmwareEngineNetworkVPCNetworksTypeEnum) Validate() error {
 		// Empty enum is okay.
 		return nil
 	}
-	for _, s := range []string{"PATH", "OTHER", "PARAMETER"} {
+	for _, s := range []string{"TYPE_UNSPECIFIED", "INTRANET", "INTERNET", "GOOGLE_CLOUD"} {
 		if string(v) == s {
 			return nil
 		}
@@ -84,7 +84,7 @@ func (v VmwareEngineNetworkStateEnum) Validate() error {
 		// Empty enum is okay.
 		return nil
 	}
-	for _, s := range []string{"STATE_UNSPECIFIED", "ACTIVE", "CREATING", "UPDATING", "FAILED", "DELETED", "PURGING"} {
+	for _, s := range []string{"STATE_UNSPECIFIED", "CREATING", "ACTIVE", "UPDATING", "DELETING"} {
 		if string(v) == s {
 			return nil
 		}
@@ -111,7 +111,7 @@ func (v VmwareEngineNetworkTypeEnum) Validate() error {
 		// Empty enum is okay.
 		return nil
 	}
-	for _, s := range []string{"PATH", "OTHER", "PARAMETER"} {
+	for _, s := range []string{"TYPE_UNSPECIFIED", "LEGACY"} {
 		if string(v) == s {
 			return nil
 		}

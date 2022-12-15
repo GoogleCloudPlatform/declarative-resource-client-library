@@ -15,25 +15,8 @@
 package alpha
 
 import (
-	"strings"
-
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
-
-func encodePrivateCloudUpdateClusterRequest(m map[string]interface{}) map[string]interface{} {
-	if req, ok := m["managementCluster"].(map[string]interface{}); ok {
-		delete(req, "clusterId")
-		return req
-	}
-	return nil
-}
-
-func (op *updatePrivateCloudUpdateClusterOperation) UpdateMask() string {
-	for _, fieldDiff := range op.FieldDiffs {
-		fieldDiff.FieldName = strings.TrimPrefix(fieldDiff.FieldName, "ManagementCluster.")
-	}
-	return dcl.UpdateMask(op.FieldDiffs)
-}
 
 // Compare two private cloud network field values by only considering the networks' short names and
 // not their partial urls.

@@ -15,6 +15,8 @@ package alpha
 
 import (
 	"context"
+	"crypto/sha256"
+	"encoding/json"
 	"fmt"
 	"time"
 
@@ -23,19 +25,16 @@ import (
 )
 
 type Cluster struct {
-	Name                *string           `json:"name"`
-	CreateTime          *string           `json:"createTime"`
-	UpdateTime          *string           `json:"updateTime"`
-	State               *ClusterStateEnum `json:"state"`
-	Management          *bool             `json:"management"`
-	NodeTypeId          *string           `json:"nodeTypeId"`
-	NodeCount           *int64            `json:"nodeCount"`
-	Project             *string           `json:"project"`
-	Location            *string           `json:"location"`
-	PrivateCloud        *string           `json:"privateCloud"`
-	NodeCustomCoreCount *int64            `json:"nodeCustomCoreCount"`
-	Uid                 *string           `json:"uid"`
-	Etag                *string           `json:"etag"`
+	Name            *string                           `json:"name"`
+	CreateTime      *string                           `json:"createTime"`
+	UpdateTime      *string                           `json:"updateTime"`
+	State           *ClusterStateEnum                 `json:"state"`
+	Management      *bool                             `json:"management"`
+	Uid             *string                           `json:"uid"`
+	NodeTypeConfigs map[string]ClusterNodeTypeConfigs `json:"nodeTypeConfigs"`
+	Project         *string                           `json:"project"`
+	Location        *string                           `json:"location"`
+	PrivateCloud    *string                           `json:"privateCloud"`
 }
 
 func (r *Cluster) String() string {
@@ -57,7 +56,7 @@ func (v ClusterStateEnum) Validate() error {
 		// Empty enum is okay.
 		return nil
 	}
-	for _, s := range []string{"STATE_UNSPECIFIED", "ACTIVE", "CREATING", "UPDATING", "FAILED", "DELETED"} {
+	for _, s := range []string{"STATE_UNSPECIFIED", "ACTIVE", "CREATING", "UPDATING", "DELETING", "REPAIRING"} {
 		if string(v) == s {
 			return nil
 		}
@@ -67,6 +66,55 @@ func (v ClusterStateEnum) Validate() error {
 		Value: string(v),
 		Valid: []string{},
 	}
+}
+
+type ClusterNodeTypeConfigs struct {
+	empty           bool   `json:"-"`
+	NodeCount       *int64 `json:"nodeCount"`
+	CustomCoreCount *int64 `json:"customCoreCount"`
+}
+
+type jsonClusterNodeTypeConfigs ClusterNodeTypeConfigs
+
+func (r *ClusterNodeTypeConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonClusterNodeTypeConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterNodeTypeConfigs
+	} else {
+
+		r.NodeCount = res.NodeCount
+
+		r.CustomCoreCount = res.CustomCoreCount
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ClusterNodeTypeConfigs is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyClusterNodeTypeConfigs *ClusterNodeTypeConfigs = &ClusterNodeTypeConfigs{empty: true}
+
+func (r *ClusterNodeTypeConfigs) Empty() bool {
+	return r.empty
+}
+
+func (r *ClusterNodeTypeConfigs) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ClusterNodeTypeConfigs) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
 }
 
 // Describe returns a simple description of this resource to ensure that automated tools
@@ -85,19 +133,16 @@ func (r *Cluster) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":                   dcl.ValueOrEmptyString(nr.Name),
-		"create_time":            dcl.ValueOrEmptyString(nr.CreateTime),
-		"update_time":            dcl.ValueOrEmptyString(nr.UpdateTime),
-		"state":                  dcl.ValueOrEmptyString(nr.State),
-		"management":             dcl.ValueOrEmptyString(nr.Management),
-		"node_type_id":           dcl.ValueOrEmptyString(nr.NodeTypeId),
-		"node_count":             dcl.ValueOrEmptyString(nr.NodeCount),
-		"project":                dcl.ValueOrEmptyString(nr.Project),
-		"location":               dcl.ValueOrEmptyString(nr.Location),
-		"private_cloud":          dcl.ValueOrEmptyString(nr.PrivateCloud),
-		"node_custom_core_count": dcl.ValueOrEmptyString(nr.NodeCustomCoreCount),
-		"uid":                    dcl.ValueOrEmptyString(nr.Uid),
-		"etag":                   dcl.ValueOrEmptyString(nr.Etag),
+		"name":              dcl.ValueOrEmptyString(nr.Name),
+		"create_time":       dcl.ValueOrEmptyString(nr.CreateTime),
+		"update_time":       dcl.ValueOrEmptyString(nr.UpdateTime),
+		"state":             dcl.ValueOrEmptyString(nr.State),
+		"management":        dcl.ValueOrEmptyString(nr.Management),
+		"uid":               dcl.ValueOrEmptyString(nr.Uid),
+		"node_type_configs": dcl.ValueOrEmptyString(nr.NodeTypeConfigs),
+		"project":           dcl.ValueOrEmptyString(nr.Project),
+		"location":          dcl.ValueOrEmptyString(nr.Location),
+		"private_cloud":     dcl.ValueOrEmptyString(nr.PrivateCloud),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/privateClouds/{{private_cloud}}/clusters/{{name}}", params), nil
 }

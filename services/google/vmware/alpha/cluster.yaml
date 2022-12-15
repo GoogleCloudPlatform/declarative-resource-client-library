@@ -79,8 +79,7 @@ components:
       type: object
       required:
       - name
-      - nodeTypeId
-      - nodeCount
+      - nodeTypeConfigs
       - project
       - location
       - privateCloud
@@ -90,17 +89,7 @@ components:
           format: date-time
           x-dcl-go-name: CreateTime
           readOnly: true
-          description: Output only. Creation time of this resource in RFC3339 text
-            format.
-          x-kubernetes-immutable: true
-        etag:
-          type: string
-          x-dcl-go-name: Etag
-          readOnly: true
-          description: Optional. Checksum that may be sent on update and delete requests
-            to ensure that the user-provided value is up to date before the server
-            processes a request. The server computes checksums based on the value
-            of other fields in the request.
+          description: Output only. Creation time of this resource.
           x-kubernetes-immutable: true
         location:
           type: string
@@ -118,35 +107,41 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          description: 'The resource name of this cluster. Resource names are schemeless
-            URIs that follow the conventions in https://cloud.google.com/apis/design/resource_names.
+          description: 'Output only. The resource name of this cluster. Resource names
+            are schemeless URIs that follow the conventions in https://cloud.google.com/apis/design/resource_names.
             For example: `projects/my-project/locations/us-west1-a/privateClouds/my-cloud/clusters/my-cluster`'
           x-kubernetes-immutable: true
-        nodeCount:
-          type: integer
-          format: int64
-          x-dcl-go-name: NodeCount
-          description: Required. Number of nodes in this cluster.
-        nodeCustomCoreCount:
-          type: integer
-          format: int64
-          x-dcl-go-name: NodeCustomCoreCount
-          description: Optional. Customized number of cores available to each node
-            of the cluster. This number must always be one of `NodeType.available_custom_core_counts`.
-            If zero is provided max value from `NodeType.available_custom_core_counts`
-            will be used.
-        nodeTypeId:
-          type: string
-          x-dcl-go-name: NodeTypeId
-          description: 'Required. The canonical identifier of node types (`NodeType`)
-            in this cluster. For example: standard-72.'
+        nodeTypeConfigs:
+          type: object
+          additionalProperties:
+            type: object
+            x-dcl-go-type: ClusterNodeTypeConfigs
+            required:
+            - nodeCount
+            properties:
+              customCoreCount:
+                type: integer
+                format: int64
+                x-dcl-go-name: CustomCoreCount
+                description: Optional. Customized number of cores available to each
+                  node of the type. This number must always be one of `nodeType.availableCustomCoreCounts`.
+                  If zero is provided max value from `nodeType.availableCustomCoreCounts`
+                  will be used.
+              nodeCount:
+                type: integer
+                format: int64
+                x-dcl-go-name: NodeCount
+                description: Required. The number of nodes of this type in the cluster
+          x-dcl-go-name: NodeTypeConfigs
+          description: Required. The map of cluster node types in this cluster, where
+            the key is canonical identifier of the node type (corresponds to the `NodeType`).
         privateCloud:
           type: string
           x-dcl-go-name: PrivateCloud
-          description: The privateCloud for the resource
+          description: The private_cloud for the resource
           x-kubernetes-immutable: true
           x-dcl-references:
-          - resource: Vmware/PrivateCloud
+          - resource: Vmwareengine/PrivateCloud
             field: name
             parent: true
         project:
@@ -164,15 +159,15 @@ components:
           x-dcl-go-type: ClusterStateEnum
           readOnly: true
           description: 'Output only. State of the resource. Possible values: STATE_UNSPECIFIED,
-            ACTIVE, CREATING, UPDATING, FAILED, DELETED'
+            ACTIVE, CREATING, UPDATING, DELETING, REPAIRING'
           x-kubernetes-immutable: true
           enum:
           - STATE_UNSPECIFIED
           - ACTIVE
           - CREATING
           - UPDATING
-          - FAILED
-          - DELETED
+          - DELETING
+          - REPAIRING
         uid:
           type: string
           x-dcl-go-name: Uid
@@ -184,6 +179,5 @@ components:
           format: date-time
           x-dcl-go-name: UpdateTime
           readOnly: true
-          description: Output only. Last update time of this resource in RFC3339 text
-            format.
+          description: Output only. Last update time of this resource.
           x-kubernetes-immutable: true

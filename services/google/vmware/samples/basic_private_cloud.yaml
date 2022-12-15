@@ -15,7 +15,7 @@ name: basic_private_cloud
 description: A basic example of a vmware engine private cloud
 type: private_cloud
 versions:
-- alpha
+- ga
 resource: samples/basic.private_cloud.json
 updates:
 - resource: samples/update.private_cloud.json
@@ -27,5 +27,7 @@ variables:
   type: resource_name
 - name: project
   type: project
+- name: region
+  type: region
 - name: zone
   type: zone

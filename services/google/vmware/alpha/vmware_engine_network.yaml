@@ -122,28 +122,23 @@ components:
           x-dcl-go-type: VmwareEngineNetworkStateEnum
           readOnly: true
           description: 'Output only. State of the VMware Engine network. Possible
-            values: STATE_UNSPECIFIED, ACTIVE, CREATING, UPDATING, FAILED, DELETED,
-            PURGING'
+            values: STATE_UNSPECIFIED, CREATING, ACTIVE, UPDATING, DELETING'
           x-kubernetes-immutable: true
           enum:
           - STATE_UNSPECIFIED
-          - ACTIVE
           - CREATING
+          - ACTIVE
           - UPDATING
-          - FAILED
-          - DELETED
-          - PURGING
+          - DELETING
         type:
           type: string
           x-dcl-go-name: Type
           x-dcl-go-type: VmwareEngineNetworkTypeEnum
-          description: 'Required. VMware Engine network type. Possible values: PATH,
-            OTHER, PARAMETER'
-          x-kubernetes-immutable: true
+          description: 'Required. VMware Engine network type. Possible values: TYPE_UNSPECIFIED,
+            LEGACY'
           enum:
-          - PATH
-          - OTHER
-          - PARAMETER
+          - TYPE_UNSPECIFIED
+          - LEGACY
         uid:
           type: string
           x-dcl-go-name: Uid
@@ -180,16 +175,18 @@ components:
                 x-kubernetes-immutable: true
                 x-dcl-references:
                 - resource: Compute/Network
-                  field: name
+                  field: selfLink
               type:
                 type: string
                 x-dcl-go-name: Type
                 x-dcl-go-type: VmwareEngineNetworkVPCNetworksTypeEnum
                 readOnly: true
                 description: 'Output only. Type of VPC network (INTRANET, INTERNET,
-                  or GOOGLE_CLOUD) Possible values: PATH, OTHER, PARAMETER'
+                  or GOOGLE_CLOUD) Possible values: TYPE_UNSPECIFIED, INTRANET, INTERNET,
+                  GOOGLE_CLOUD'
                 x-kubernetes-immutable: true
                 enum:
-                - PATH
-                - OTHER
-                - PARAMETER
+                - TYPE_UNSPECIFIED
+                - INTRANET
+                - INTERNET
+                - GOOGLE_CLOUD

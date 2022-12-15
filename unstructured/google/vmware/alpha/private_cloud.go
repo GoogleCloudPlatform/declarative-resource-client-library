@@ -34,18 +34,6 @@ func PrivateCloudToUnstructured(r *dclService.PrivateCloud) *unstructured.Resour
 		},
 		Object: make(map[string]interface{}),
 	}
-	var rConditions []interface{}
-	for _, rConditionsVal := range r.Conditions {
-		rConditionsObject := make(map[string]interface{})
-		if rConditionsVal.Code != nil {
-			rConditionsObject["code"] = *rConditionsVal.Code
-		}
-		if rConditionsVal.Message != nil {
-			rConditionsObject["message"] = *rConditionsVal.Message
-		}
-		rConditions = append(rConditions, rConditionsObject)
-	}
-	u.Object["conditions"] = rConditions
 	if r.CreateTime != nil {
 		u.Object["createTime"] = *r.CreateTime
 	}
@@ -55,20 +43,11 @@ func PrivateCloudToUnstructured(r *dclService.PrivateCloud) *unstructured.Resour
 	if r.Description != nil {
 		u.Object["description"] = *r.Description
 	}
-	if r.Etag != nil {
-		u.Object["etag"] = *r.Etag
-	}
 	if r.ExpireTime != nil {
 		u.Object["expireTime"] = *r.ExpireTime
 	}
 	if r.Hcx != nil && r.Hcx != dclService.EmptyPrivateCloudHcx {
 		rHcx := make(map[string]interface{})
-		if r.Hcx.ExternalIP != nil {
-			rHcx["externalIP"] = *r.Hcx.ExternalIP
-		}
-		if r.Hcx.Fdqn != nil {
-			rHcx["fdqn"] = *r.Hcx.Fdqn
-		}
 		if r.Hcx.Fqdn != nil {
 			rHcx["fqdn"] = *r.Hcx.Fqdn
 		}
@@ -91,14 +70,19 @@ func PrivateCloudToUnstructured(r *dclService.PrivateCloud) *unstructured.Resour
 		if r.ManagementCluster.ClusterId != nil {
 			rManagementCluster["clusterId"] = *r.ManagementCluster.ClusterId
 		}
-		if r.ManagementCluster.NodeCount != nil {
-			rManagementCluster["nodeCount"] = *r.ManagementCluster.NodeCount
-		}
-		if r.ManagementCluster.NodeCustomCoreCount != nil {
-			rManagementCluster["nodeCustomCoreCount"] = *r.ManagementCluster.NodeCustomCoreCount
-		}
-		if r.ManagementCluster.NodeTypeId != nil {
-			rManagementCluster["nodeTypeId"] = *r.ManagementCluster.NodeTypeId
+		if r.ManagementCluster.NodeTypeConfigs != nil {
+			rManagementClusterNodeTypeConfigs := make(map[string]interface{})
+			for k, v := range r.ManagementCluster.NodeTypeConfigs {
+				rManagementClusterNodeTypeConfigsMap := make(map[string]interface{})
+				if v.CustomCoreCount != nil {
+					rManagementClusterNodeTypeConfigsMap["customCoreCount"] = *v.CustomCoreCount
+				}
+				if v.NodeCount != nil {
+					rManagementClusterNodeTypeConfigsMap["nodeCount"] = *v.NodeCount
+				}
+				rManagementClusterNodeTypeConfigs[k] = rManagementClusterNodeTypeConfigsMap
+			}
+			rManagementCluster["nodeTypeConfigs"] = rManagementClusterNodeTypeConfigs
 		}
 		u.Object["managementCluster"] = rManagementCluster
 	}
@@ -107,17 +91,11 @@ func PrivateCloudToUnstructured(r *dclService.PrivateCloud) *unstructured.Resour
 	}
 	if r.NetworkConfig != nil && r.NetworkConfig != dclService.EmptyPrivateCloudNetworkConfig {
 		rNetworkConfig := make(map[string]interface{})
-		if r.NetworkConfig.IPAddressLayoutVersion != nil {
-			rNetworkConfig["ipAddressLayoutVersion"] = string(*r.NetworkConfig.IPAddressLayoutVersion)
-		}
 		if r.NetworkConfig.ManagementCidr != nil {
 			rNetworkConfig["managementCidr"] = *r.NetworkConfig.ManagementCidr
 		}
-		if r.NetworkConfig.Network != nil {
-			rNetworkConfig["network"] = *r.NetworkConfig.Network
-		}
-		if r.NetworkConfig.ServiceNetwork != nil {
-			rNetworkConfig["serviceNetwork"] = *r.NetworkConfig.ServiceNetwork
+		if r.NetworkConfig.ManagementIPAddressLayoutVersion != nil {
+			rNetworkConfig["managementIPAddressLayoutVersion"] = *r.NetworkConfig.ManagementIPAddressLayoutVersion
 		}
 		if r.NetworkConfig.VmwareEngineNetwork != nil {
 			rNetworkConfig["vmwareEngineNetwork"] = *r.NetworkConfig.VmwareEngineNetwork
@@ -129,12 +107,6 @@ func PrivateCloudToUnstructured(r *dclService.PrivateCloud) *unstructured.Resour
 	}
 	if r.Nsx != nil && r.Nsx != dclService.EmptyPrivateCloudNsx {
 		rNsx := make(map[string]interface{})
-		if r.Nsx.ExternalIP != nil {
-			rNsx["externalIP"] = *r.Nsx.ExternalIP
-		}
-		if r.Nsx.Fdqn != nil {
-			rNsx["fdqn"] = *r.Nsx.Fdqn
-		}
 		if r.Nsx.Fqdn != nil {
 			rNsx["fqdn"] = *r.Nsx.Fqdn
 		}
@@ -163,12 +135,6 @@ func PrivateCloudToUnstructured(r *dclService.PrivateCloud) *unstructured.Resour
 	}
 	if r.Vcenter != nil && r.Vcenter != dclService.EmptyPrivateCloudVcenter {
 		rVcenter := make(map[string]interface{})
-		if r.Vcenter.ExternalIP != nil {
-			rVcenter["externalIP"] = *r.Vcenter.ExternalIP
-		}
-		if r.Vcenter.Fdqn != nil {
-			rVcenter["fdqn"] = *r.Vcenter.Fdqn
-		}
 		if r.Vcenter.Fqdn != nil {
 			rVcenter["fqdn"] = *r.Vcenter.Fqdn
 		}
@@ -188,32 +154,6 @@ func PrivateCloudToUnstructured(r *dclService.PrivateCloud) *unstructured.Resour
 
 func UnstructuredToPrivateCloud(u *unstructured.Resource) (*dclService.PrivateCloud, error) {
 	r := &dclService.PrivateCloud{}
-	if _, ok := u.Object["conditions"]; ok {
-		if s, ok := u.Object["conditions"].([]interface{}); ok {
-			for _, o := range s {
-				if objval, ok := o.(map[string]interface{}); ok {
-					var rConditions dclService.PrivateCloudConditions
-					if _, ok := objval["code"]; ok {
-						if s, ok := objval["code"].(string); ok {
-							rConditions.Code = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("rConditions.Code: expected string")
-						}
-					}
-					if _, ok := objval["message"]; ok {
-						if s, ok := objval["message"].(string); ok {
-							rConditions.Message = dcl.String(s)
-						} else {
-							return nil, fmt.Errorf("rConditions.Message: expected string")
-						}
-					}
-					r.Conditions = append(r.Conditions, rConditions)
-				}
-			}
-		} else {
-			return nil, fmt.Errorf("r.Conditions: expected []interface{}")
-		}
-	}
 	if _, ok := u.Object["createTime"]; ok {
 		if s, ok := u.Object["createTime"].(string); ok {
 			r.CreateTime = dcl.String(s)
@@ -235,13 +175,6 @@ func UnstructuredToPrivateCloud(u *unstructured.Resource) (*dclService.PrivateCl
 			return nil, fmt.Errorf("r.Description: expected string")
 		}
 	}
-	if _, ok := u.Object["etag"]; ok {
-		if s, ok := u.Object["etag"].(string); ok {
-			r.Etag = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.Etag: expected string")
-		}
-	}
 	if _, ok := u.Object["expireTime"]; ok {
 		if s, ok := u.Object["expireTime"].(string); ok {
 			r.ExpireTime = dcl.String(s)
@@ -252,20 +185,6 @@ func UnstructuredToPrivateCloud(u *unstructured.Resource) (*dclService.PrivateCl
 	if _, ok := u.Object["hcx"]; ok {
 		if rHcx, ok := u.Object["hcx"].(map[string]interface{}); ok {
 			r.Hcx = &dclService.PrivateCloudHcx{}
-			if _, ok := rHcx["externalIP"]; ok {
-				if s, ok := rHcx["externalIP"].(string); ok {
-					r.Hcx.ExternalIP = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.Hcx.ExternalIP: expected string")
-				}
-			}
-			if _, ok := rHcx["fdqn"]; ok {
-				if s, ok := rHcx["fdqn"].(string); ok {
-					r.Hcx.Fdqn = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.Hcx.Fdqn: expected string")
-				}
-			}
 			if _, ok := rHcx["fqdn"]; ok {
 				if s, ok := rHcx["fqdn"].(string); ok {
 					r.Hcx.Fqdn = dcl.String(s)
@@ -315,25 +234,34 @@ func UnstructuredToPrivateCloud(u *unstructured.Resource) (*dclService.PrivateCl
 					return nil, fmt.Errorf("r.ManagementCluster.ClusterId: expected string")
 				}
 			}
-			if _, ok := rManagementCluster["nodeCount"]; ok {
-				if i, ok := rManagementCluster["nodeCount"].(int64); ok {
-					r.ManagementCluster.NodeCount = dcl.Int64(i)
+			if _, ok := rManagementCluster["nodeTypeConfigs"]; ok {
+				if rManagementClusterNodeTypeConfigs, ok := rManagementCluster["nodeTypeConfigs"].(map[string]interface{}); ok {
+					m := make(map[string]dclService.PrivateCloudManagementClusterNodeTypeConfigs)
+					for k, v := range rManagementClusterNodeTypeConfigs {
+						if objval, ok := v.(map[string]interface{}); ok {
+							var rManagementClusterNodeTypeConfigsObj dclService.PrivateCloudManagementClusterNodeTypeConfigs
+							if _, ok := objval["customCoreCount"]; ok {
+								if i, ok := objval["customCoreCount"].(int64); ok {
+									rManagementClusterNodeTypeConfigsObj.CustomCoreCount = dcl.Int64(i)
+								} else {
+									return nil, fmt.Errorf("rManagementClusterNodeTypeConfigsObj.CustomCoreCount: expected int64")
+								}
+							}
+							if _, ok := objval["nodeCount"]; ok {
+								if i, ok := objval["nodeCount"].(int64); ok {
+									rManagementClusterNodeTypeConfigsObj.NodeCount = dcl.Int64(i)
+								} else {
+									return nil, fmt.Errorf("rManagementClusterNodeTypeConfigsObj.NodeCount: expected int64")
+								}
+							}
+							m[k] = rManagementClusterNodeTypeConfigsObj
+						} else {
+							return nil, fmt.Errorf("r.ManagementCluster.NodeTypeConfigs: expected map[string]interface{}")
+						}
+					}
+					r.ManagementCluster.NodeTypeConfigs = m
 				} else {
-					return nil, fmt.Errorf("r.ManagementCluster.NodeCount: expected int64")
-				}
-			}
-			if _, ok := rManagementCluster["nodeCustomCoreCount"]; ok {
-				if i, ok := rManagementCluster["nodeCustomCoreCount"].(int64); ok {
-					r.ManagementCluster.NodeCustomCoreCount = dcl.Int64(i)
-				} else {
-					return nil, fmt.Errorf("r.ManagementCluster.NodeCustomCoreCount: expected int64")
-				}
-			}
-			if _, ok := rManagementCluster["nodeTypeId"]; ok {
-				if s, ok := rManagementCluster["nodeTypeId"].(string); ok {
-					r.ManagementCluster.NodeTypeId = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.ManagementCluster.NodeTypeId: expected string")
+					return nil, fmt.Errorf("r.ManagementCluster.NodeTypeConfigs: expected map[string]interface{}")
 				}
 			}
 		} else {
@@ -350,13 +278,6 @@ func UnstructuredToPrivateCloud(u *unstructured.Resource) (*dclService.PrivateCl
 	if _, ok := u.Object["networkConfig"]; ok {
 		if rNetworkConfig, ok := u.Object["networkConfig"].(map[string]interface{}); ok {
 			r.NetworkConfig = &dclService.PrivateCloudNetworkConfig{}
-			if _, ok := rNetworkConfig["ipAddressLayoutVersion"]; ok {
-				if s, ok := rNetworkConfig["ipAddressLayoutVersion"].(string); ok {
-					r.NetworkConfig.IPAddressLayoutVersion = dclService.PrivateCloudNetworkConfigIPAddressLayoutVersionEnumRef(s)
-				} else {
-					return nil, fmt.Errorf("r.NetworkConfig.IPAddressLayoutVersion: expected string")
-				}
-			}
 			if _, ok := rNetworkConfig["managementCidr"]; ok {
 				if s, ok := rNetworkConfig["managementCidr"].(string); ok {
 					r.NetworkConfig.ManagementCidr = dcl.String(s)
@@ -364,18 +285,11 @@ func UnstructuredToPrivateCloud(u *unstructured.Resource) (*dclService.PrivateCl
 					return nil, fmt.Errorf("r.NetworkConfig.ManagementCidr: expected string")
 				}
 			}
-			if _, ok := rNetworkConfig["network"]; ok {
-				if s, ok := rNetworkConfig["network"].(string); ok {
-					r.NetworkConfig.Network = dcl.String(s)
+			if _, ok := rNetworkConfig["managementIPAddressLayoutVersion"]; ok {
+				if i, ok := rNetworkConfig["managementIPAddressLayoutVersion"].(int64); ok {
+					r.NetworkConfig.ManagementIPAddressLayoutVersion = dcl.Int64(i)
 				} else {
-					return nil, fmt.Errorf("r.NetworkConfig.Network: expected string")
-				}
-			}
-			if _, ok := rNetworkConfig["serviceNetwork"]; ok {
-				if s, ok := rNetworkConfig["serviceNetwork"].(string); ok {
-					r.NetworkConfig.ServiceNetwork = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.NetworkConfig.ServiceNetwork: expected string")
+					return nil, fmt.Errorf("r.NetworkConfig.ManagementIPAddressLayoutVersion: expected int64")
 				}
 			}
 			if _, ok := rNetworkConfig["vmwareEngineNetwork"]; ok {
@@ -399,20 +313,6 @@ func UnstructuredToPrivateCloud(u *unstructured.Resource) (*dclService.PrivateCl
 	if _, ok := u.Object["nsx"]; ok {
 		if rNsx, ok := u.Object["nsx"].(map[string]interface{}); ok {
 			r.Nsx = &dclService.PrivateCloudNsx{}
-			if _, ok := rNsx["externalIP"]; ok {
-				if s, ok := rNsx["externalIP"].(string); ok {
-					r.Nsx.ExternalIP = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.Nsx.ExternalIP: expected string")
-				}
-			}
-			if _, ok := rNsx["fdqn"]; ok {
-				if s, ok := rNsx["fdqn"].(string); ok {
-					r.Nsx.Fdqn = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.Nsx.Fdqn: expected string")
-				}
-			}
 			if _, ok := rNsx["fqdn"]; ok {
 				if s, ok := rNsx["fqdn"].(string); ok {
 					r.Nsx.Fqdn = dcl.String(s)
@@ -476,20 +376,6 @@ func UnstructuredToPrivateCloud(u *unstructured.Resource) (*dclService.PrivateCl
 	if _, ok := u.Object["vcenter"]; ok {
 		if rVcenter, ok := u.Object["vcenter"].(map[string]interface{}); ok {
 			r.Vcenter = &dclService.PrivateCloudVcenter{}
-			if _, ok := rVcenter["externalIP"]; ok {
-				if s, ok := rVcenter["externalIP"].(string); ok {
-					r.Vcenter.ExternalIP = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.Vcenter.ExternalIP: expected string")
-				}
-			}
-			if _, ok := rVcenter["fdqn"]; ok {
-				if s, ok := rVcenter["fdqn"].(string); ok {
-					r.Vcenter.Fdqn = dcl.String(s)
-				} else {
-					return nil, fmt.Errorf("r.Vcenter.Fdqn: expected string")
-				}
-			}
 			if _, ok := rVcenter["fqdn"]; ok {
 				if s, ok := rVcenter["fqdn"].(string); ok {
 					r.Vcenter.Fqdn = dcl.String(s)

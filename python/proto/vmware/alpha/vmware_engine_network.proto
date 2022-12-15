@@ -23,27 +23,25 @@ import "proto/empty.proto";
 
 enum VmwareAlphaVmwareEngineNetworkVPCNetworksTypeEnum {
   VmwareAlphaVmwareEngineNetworkVPCNetworksTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  VmwareAlphaVmwareEngineNetworkVPCNetworksTypeEnumPATH = 1;
-  VmwareAlphaVmwareEngineNetworkVPCNetworksTypeEnumOTHER = 2;
-  VmwareAlphaVmwareEngineNetworkVPCNetworksTypeEnumPARAMETER = 3;
+  VmwareAlphaVmwareEngineNetworkVPCNetworksTypeEnumTYPE_UNSPECIFIED = 1;
+  VmwareAlphaVmwareEngineNetworkVPCNetworksTypeEnumINTRANET = 2;
+  VmwareAlphaVmwareEngineNetworkVPCNetworksTypeEnumINTERNET = 3;
+  VmwareAlphaVmwareEngineNetworkVPCNetworksTypeEnumGOOGLE_CLOUD = 4;
 }
 
 enum VmwareAlphaVmwareEngineNetworkStateEnum {
   VmwareAlphaVmwareEngineNetworkStateEnumNO_VALUE_DO_NOT_USE = 0;
   VmwareAlphaVmwareEngineNetworkStateEnumSTATE_UNSPECIFIED = 1;
-  VmwareAlphaVmwareEngineNetworkStateEnumACTIVE = 2;
-  VmwareAlphaVmwareEngineNetworkStateEnumCREATING = 3;
+  VmwareAlphaVmwareEngineNetworkStateEnumCREATING = 2;
+  VmwareAlphaVmwareEngineNetworkStateEnumACTIVE = 3;
   VmwareAlphaVmwareEngineNetworkStateEnumUPDATING = 4;
-  VmwareAlphaVmwareEngineNetworkStateEnumFAILED = 5;
-  VmwareAlphaVmwareEngineNetworkStateEnumDELETED = 6;
-  VmwareAlphaVmwareEngineNetworkStateEnumPURGING = 7;
+  VmwareAlphaVmwareEngineNetworkStateEnumDELETING = 5;
 }
 
 enum VmwareAlphaVmwareEngineNetworkTypeEnum {
   VmwareAlphaVmwareEngineNetworkTypeEnumNO_VALUE_DO_NOT_USE = 0;
-  VmwareAlphaVmwareEngineNetworkTypeEnumPATH = 1;
-  VmwareAlphaVmwareEngineNetworkTypeEnumOTHER = 2;
-  VmwareAlphaVmwareEngineNetworkTypeEnumPARAMETER = 3;
+  VmwareAlphaVmwareEngineNetworkTypeEnumTYPE_UNSPECIFIED = 1;
+  VmwareAlphaVmwareEngineNetworkTypeEnumLEGACY = 2;
 }
 
 message VmwareAlphaVmwareEngineNetwork {

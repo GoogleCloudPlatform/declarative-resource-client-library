@@ -21,7 +21,7 @@ updates:
 - resource: samples/update.vmware_engine_network.json
   dependencies: []
 variables:
-- name: network
-  type: resource_name
 - name: project
   type: project
+- name: region
+  type: region

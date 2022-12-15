@@ -27,8 +27,8 @@ enum VmwareAlphaClusterStateEnum {
   VmwareAlphaClusterStateEnumACTIVE = 2;
   VmwareAlphaClusterStateEnumCREATING = 3;
   VmwareAlphaClusterStateEnumUPDATING = 4;
-  VmwareAlphaClusterStateEnumFAILED = 5;
-  VmwareAlphaClusterStateEnumDELETED = 6;
+  VmwareAlphaClusterStateEnumDELETING = 5;
+  VmwareAlphaClusterStateEnumREPAIRING = 6;
 }
 
 message VmwareAlphaCluster {
@@ -37,14 +37,16 @@ message VmwareAlphaCluster {
   string update_time = 3;
   VmwareAlphaClusterStateEnum state = 4;
   bool management = 5;
-  string node_type_id = 6;
-  int64 node_count = 7;
+  string uid = 6;
+  map<string, VmwareAlphaClusterNodeTypeConfigs> node_type_configs = 7;
   string project = 8;
   string location = 9;
   string private_cloud = 10;
-  int64 node_custom_core_count = 11;
-  string uid = 12;
-  string etag = 13;
+}
+
+message VmwareAlphaClusterNodeTypeConfigs {
+  int64 node_count = 1;
+  int64 custom_core_count = 2;
 }
 
 message ApplyVmwareAlphaClusterRequest {

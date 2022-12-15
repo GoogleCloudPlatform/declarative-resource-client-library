@@ -77,66 +77,30 @@ components:
       - project
       - location
       properties:
-        conditions:
-          type: array
-          x-dcl-go-name: Conditions
-          readOnly: true
-          description: Output only. The conditions that caused the current private
-            cloud state. For example, private cloud provisioning failure description.
-          x-kubernetes-immutable: true
-          x-dcl-list-type: list
-          items:
-            type: object
-            x-dcl-go-type: PrivateCloudConditions
-            properties:
-              code:
-                type: string
-                x-dcl-go-name: Code
-                readOnly: true
-                description: Output only. Machine-readable representation of the condition.
-                x-kubernetes-immutable: true
-              message:
-                type: string
-                x-dcl-go-name: Message
-                readOnly: true
-                description: Output only. Human-readable description of the condition.
-                x-kubernetes-immutable: true
         createTime:
           type: string
           format: date-time
           x-dcl-go-name: CreateTime
           readOnly: true
-          description: Output only. Creation time of this resource in RFC3339 text
-            format.
+          description: Output only. Creation time of this resource.
           x-kubernetes-immutable: true
         deleteTime:
           type: string
           format: date-time
           x-dcl-go-name: DeleteTime
           readOnly: true
-          description: Output only. Time the resource was marked as deleted, in RFC3339
-            text format.
+          description: Output only. Time when the resource was scheduled for deletion.
           x-kubernetes-immutable: true
         description:
           type: string
           x-dcl-go-name: Description
           description: User-provided description for this private cloud.
-        etag:
-          type: string
-          x-dcl-go-name: Etag
-          readOnly: true
-          description: Checksum that may be sent on update, delete, and undelete requests
-            to ensure that the user-provided value is up to date before the server
-            processes a request. The server computes checksums based on the value
-            of other fields in the request.
-          x-kubernetes-immutable: true
         expireTime:
           type: string
           format: date-time
           x-dcl-go-name: ExpireTime
           readOnly: true
-          description: Output only. Planned deletion time of this resource in RFC3339
-            text format.
+          description: Output only. Time when the resource will be irreversibly deleted.
           x-kubernetes-immutable: true
         hcx:
           type: object
@@ -144,152 +108,126 @@ components:
           x-dcl-go-type: PrivateCloudHcx
           readOnly: true
           description: Output only. HCX appliance.
-          x-kubernetes-immutable: true
           properties:
-            externalIP:
-              type: string
-              x-dcl-go-name: ExternalIP
-              description: External IP address of the appliance.
-              x-kubernetes-immutable: true
-            fdqn:
-              type: string
-              x-dcl-go-name: Fdqn
-              description: Fully qualified domain name of the appliance.
-              x-kubernetes-immutable: true
             fqdn:
               type: string
               x-dcl-go-name: Fqdn
               description: Fully qualified domain name of the appliance.
-              x-kubernetes-immutable: true
             internalIP:
               type: string
               x-dcl-go-name: InternalIP
               description: Internal IP address of the appliance.
-              x-kubernetes-immutable: true
             state:
               type: string
               x-dcl-go-name: State
               x-dcl-go-type: PrivateCloudHcxStateEnum
               readOnly: true
               description: 'Output only. The state of the appliance. Possible values:
-                STATE_UNSPECIFIED, ACTIVE, CREATING, UPDATING, FAILED, DELETED, PURGING'
+                STATE_UNSPECIFIED, ACTIVE, CREATING'
               x-kubernetes-immutable: true
               enum:
               - STATE_UNSPECIFIED
               - ACTIVE
               - CREATING
-              - UPDATING
-              - FAILED
-              - DELETED
-              - PURGING
             version:
               type: string
               x-dcl-go-name: Version
               description: Version of the appliance.
-              x-kubernetes-immutable: true
         location:
           type: string
           x-dcl-go-name: Location
           description: The location for the resource
           x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Locations/Location
+            field: name
+            parent: true
         managementCluster:
           type: object
           x-dcl-go-name: ManagementCluster
           x-dcl-go-type: PrivateCloudManagementCluster
-          description: Input only. The management cluster for this private cloud.
-            This parameter is required during creation of private cloud to provide
-            details for the default cluster.
+          description: 'Required. Input only. The management cluster for this private
+            cloud. This field is required during creation of the private cloud to
+            provide details for the default cluster. The following fields can''t be
+            changed after private cloud creation: `ManagementCluster.clusterId`, `ManagementCluster.nodeTypeId`.'
           x-dcl-mutable-unreadable: true
           required:
           - clusterId
-          - nodeTypeId
-          - nodeCount
+          - nodeTypeConfigs
           properties:
             clusterId:
               type: string
               x-dcl-go-name: ClusterId
-              description: Required. The user-provided identifier of the new `Cluster`.
-              x-kubernetes-immutable: true
-            nodeCount:
-              type: integer
-              format: int64
-              x-dcl-go-name: NodeCount
-              description: Required. Number of nodes in this cluster.
-            nodeCustomCoreCount:
-              type: integer
-              format: int64
-              x-dcl-go-name: NodeCustomCoreCount
-              description: Optional. Customized number of cores available to each
-                node of the cluster. This number must always be one of `NodeType.available_custom_core_counts`.
-                If zero is provided max value from `NodeType.available_custom_core_counts`
-                will be used.
-              x-kubernetes-immutable: true
-            nodeTypeId:
-              type: string
-              x-dcl-go-name: NodeTypeId
-              description: 'Required. The canonical identifier of node types (`NodeType`)
-                in this cluster. For example: standard-72.'
-              x-kubernetes-immutable: true
+              description: 'Required. The user-provided identifier of the new `Cluster`.
+                The identifier must meet the following requirements: * Only contains
+                1-63 alphanumeric characters and hyphens * Begins with an alphabetical
+                character * Ends with a non-hyphen character * Not formatted as a
+                UUID * Complies with [RFC 1034](https://datatracker.ietf.org/doc/html/rfc1034)
+                (section 3.5)'
+            nodeTypeConfigs:
+              type: object
+              additionalProperties:
+                type: object
+                x-dcl-go-type: PrivateCloudManagementClusterNodeTypeConfigs
+                required:
+                - nodeCount
+                properties:
+                  customCoreCount:
+                    type: integer
+                    format: int64
+                    x-dcl-go-name: CustomCoreCount
+                    description: Optional. Customized number of cores available to
+                      each node of the type. This number must always be one of `nodeType.availableCustomCoreCounts`.
+                      If zero is provided max value from `nodeType.availableCustomCoreCounts`
+                      will be used.
+                  nodeCount:
+                    type: integer
+                    format: int64
+                    x-dcl-go-name: NodeCount
+                    description: Required. The number of nodes of this type in the
+                      cluster
+              x-dcl-go-name: NodeTypeConfigs
+              description: Required. The map of cluster node types in this cluster,
+                where the key is canonical identifier of the node type (corresponds
+                to the `NodeType`).
         name:
           type: string
           x-dcl-go-name: Name
-          description: 'The resource name of this private cloud. Resource names are
-            schemeless URIs that follow the conventions in https://cloud.google.com/apis/design/resource_names.
+          description: 'Output only. The resource name of this private cloud. Resource
+            names are schemeless URIs that follow the conventions in https://cloud.google.com/apis/design/resource_names.
             For example: `projects/my-project/locations/us-west1-a/privateClouds/my-cloud`'
           x-kubernetes-immutable: true
         networkConfig:
           type: object
           x-dcl-go-name: NetworkConfig
           x-dcl-go-type: PrivateCloudNetworkConfig
-          description: Required. Network configuration.
-          x-kubernetes-immutable: true
+          description: Required. Network configuration of the private cloud.
           required:
           - managementCidr
-          - vmwareEngineNetwork
           properties:
-            ipAddressLayoutVersion:
-              type: string
-              x-dcl-go-name: IPAddressLayoutVersion
-              x-dcl-go-type: PrivateCloudNetworkConfigIPAddressLayoutVersionEnum
-              readOnly: true
-              description: 'Output only. IP address layout version of the management
-                IP address range. Possible values: IP_ADDRESS_LAYOUT_VERSION_UNSPECIFIED,
-                VERSION_1, VERSION_2'
-              x-kubernetes-immutable: true
-              enum:
-              - IP_ADDRESS_LAYOUT_VERSION_UNSPECIFIED
-              - VERSION_1
-              - VERSION_2
             managementCidr:
               type: string
               x-dcl-go-name: ManagementCidr
-              description: Required. Management CIDR used by VMWare management appliances.
-              x-kubernetes-immutable: true
-            network:
-              type: string
-              x-dcl-go-name: Network
-              description: 'Optional. The relative resource name of the consumer VPC
-                network this private cloud is attached to. Specify the name in the
-                following form: `projects/{project}/global/networks/{network_id}`
-                where `{project}` can either be a project number or a project ID.'
-              x-kubernetes-immutable: true
-              x-dcl-references:
-              - resource: Compute/Network
-                field: name
-            serviceNetwork:
-              type: string
-              x-dcl-go-name: ServiceNetwork
+              description: Required. Management CIDR used by VMware management appliances.
+            managementIPAddressLayoutVersion:
+              type: integer
+              format: int64
+              x-dcl-go-name: ManagementIPAddressLayoutVersion
               readOnly: true
-              description: 'Output only. The relative resource name of the service
-                VPC network this private cloud is attached to. The name is specified
-                in the following form: `projects/{service_project_number}/global/networks/{network_id}`.'
-              x-kubernetes-immutable: true
+              description: 'Output only. The IP address layout version of the management
+                IP address range. Possible versions include: * `managementIpAddressLayoutVersion=1`:
+                Indicates the legacy IP address layout used by some existing private
+                clouds. This is no longer supported for new private clouds as it does
+                not support all features. * `managementIpAddressLayoutVersion=2`:
+                Indicates the latest IP address layout used by all newly created private
+                clouds. This version supports all current features.'
             vmwareEngineNetwork:
               type: string
               x-dcl-go-name: VmwareEngineNetwork
-              description: Required. The relative resource name of the VMware Engine
-                network attached to the private cloud.
-              x-kubernetes-immutable: true
+              description: 'Optional. The relative resource name of the VMware Engine
+                network attached to the private cloud. Specify the name in the following
+                form: `projects/{project}/locations/{location}/vmwareEngineNetworks/{vmware_engine_network_id}`
+                where `{project}` can either be a project number or a project ID.'
               x-dcl-references:
               - resource: Vmwareengine/VmwareEngineNetwork
                 field: name
@@ -299,7 +237,6 @@ components:
               readOnly: true
               description: 'Output only. The canonical name of the VMware Engine network
                 in the form: `projects/{project_number}/locations/{location}/vmwareEngineNetworks/{vmware_engine_network_id}`'
-              x-kubernetes-immutable: true
               x-dcl-references:
               - resource: Vmwareengine/VmwareEngineNetwork
                 field: name
@@ -309,49 +246,31 @@ components:
           x-dcl-go-type: PrivateCloudNsx
           readOnly: true
           description: Output only. NSX appliance.
-          x-kubernetes-immutable: true
           properties:
-            externalIP:
-              type: string
-              x-dcl-go-name: ExternalIP
-              description: External IP address of the appliance.
-              x-kubernetes-immutable: true
-            fdqn:
-              type: string
-              x-dcl-go-name: Fdqn
-              description: Fully qualified domain name of the appliance.
-              x-kubernetes-immutable: true
             fqdn:
               type: string
               x-dcl-go-name: Fqdn
               description: Fully qualified domain name of the appliance.
-              x-kubernetes-immutable: true
             internalIP:
               type: string
               x-dcl-go-name: InternalIP
               description: Internal IP address of the appliance.
-              x-kubernetes-immutable: true
             state:
               type: string
               x-dcl-go-name: State
               x-dcl-go-type: PrivateCloudNsxStateEnum
               readOnly: true
               description: 'Output only. The state of the appliance. Possible values:
-                STATE_UNSPECIFIED, ACTIVE, CREATING, UPDATING, FAILED, DELETED, PURGING'
+                STATE_UNSPECIFIED, ACTIVE, CREATING'
               x-kubernetes-immutable: true
               enum:
               - STATE_UNSPECIFIED
               - ACTIVE
               - CREATING
-              - UPDATING
-              - FAILED
-              - DELETED
-              - PURGING
             version:
               type: string
               x-dcl-go-name: Version
               description: Version of the appliance.
-              x-kubernetes-immutable: true
         project:
           type: string
           x-dcl-go-name: Project
@@ -366,15 +285,18 @@ components:
           x-dcl-go-name: State
           x-dcl-go-type: PrivateCloudStateEnum
           readOnly: true
-          description: 'Output only. State of the resource. Possible values: ACTIVE,
-            CREATING, UPDATING, FAILED, DELETED'
+          description: 'Output only. State of the resource. New values may be added
+            to this enum when appropriate. Possible values: STATE_UNSPECIFIED, ACTIVE,
+            CREATING, UPDATING, FAILED, DELETED, PURGING'
           x-kubernetes-immutable: true
           enum:
+          - STATE_UNSPECIFIED
           - ACTIVE
           - CREATING
           - UPDATING
           - FAILED
           - DELETED
+          - PURGING
         uid:
           type: string
           x-dcl-go-name: Uid
@@ -386,8 +308,7 @@ components:
           format: date-time
           x-dcl-go-name: UpdateTime
           readOnly: true
-          description: Output only. Last update time of this resource in RFC3339 text
-            format.
+          description: Output only. Last update time of this resource.
           x-kubernetes-immutable: true
         vcenter:
           type: object
@@ -395,46 +316,28 @@ components:
           x-dcl-go-type: PrivateCloudVcenter
           readOnly: true
           description: Output only. Vcenter appliance.
-          x-kubernetes-immutable: true
           properties:
-            externalIP:
-              type: string
-              x-dcl-go-name: ExternalIP
-              description: External IP address of the appliance.
-              x-kubernetes-immutable: true
-            fdqn:
-              type: string
-              x-dcl-go-name: Fdqn
-              description: Fully qualified domain name of the appliance.
-              x-kubernetes-immutable: true
             fqdn:
               type: string
               x-dcl-go-name: Fqdn
               description: Fully qualified domain name of the appliance.
-              x-kubernetes-immutable: true
             internalIP:
               type: string
               x-dcl-go-name: InternalIP
               description: Internal IP address of the appliance.
-              x-kubernetes-immutable: true
             state:
               type: string
               x-dcl-go-name: State
               x-dcl-go-type: PrivateCloudVcenterStateEnum
               readOnly: true
               description: 'Output only. The state of the appliance. Possible values:
-                STATE_UNSPECIFIED, ACTIVE, CREATING, UPDATING, FAILED, DELETED, PURGING'
+                STATE_UNSPECIFIED, ACTIVE, CREATING'
               x-kubernetes-immutable: true
               enum:
               - STATE_UNSPECIFIED
               - ACTIVE
               - CREATING
-              - UPDATING
-              - FAILED
-              - DELETED
-              - PURGING
             version:
               type: string
               x-dcl-go-name: Version
               description: Version of the appliance.
-              x-kubernetes-immutable: true

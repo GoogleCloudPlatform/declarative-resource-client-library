@@ -35,9 +35,6 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 	if r.CreateTime != nil {
 		u.Object["createTime"] = *r.CreateTime
 	}
-	if r.Etag != nil {
-		u.Object["etag"] = *r.Etag
-	}
 	if r.Location != nil {
 		u.Object["location"] = *r.Location
 	}
@@ -47,14 +44,19 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 	if r.Name != nil {
 		u.Object["name"] = *r.Name
 	}
-	if r.NodeCount != nil {
-		u.Object["nodeCount"] = *r.NodeCount
-	}
-	if r.NodeCustomCoreCount != nil {
-		u.Object["nodeCustomCoreCount"] = *r.NodeCustomCoreCount
-	}
-	if r.NodeTypeId != nil {
-		u.Object["nodeTypeId"] = *r.NodeTypeId
+	if r.NodeTypeConfigs != nil {
+		rNodeTypeConfigs := make(map[string]interface{})
+		for k, v := range r.NodeTypeConfigs {
+			rNodeTypeConfigsMap := make(map[string]interface{})
+			if v.CustomCoreCount != nil {
+				rNodeTypeConfigsMap["customCoreCount"] = *v.CustomCoreCount
+			}
+			if v.NodeCount != nil {
+				rNodeTypeConfigsMap["nodeCount"] = *v.NodeCount
+			}
+			rNodeTypeConfigs[k] = rNodeTypeConfigsMap
+		}
+		u.Object["nodeTypeConfigs"] = rNodeTypeConfigs
 	}
 	if r.PrivateCloud != nil {
 		u.Object["privateCloud"] = *r.PrivateCloud
@@ -83,13 +85,6 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 			return nil, fmt.Errorf("r.CreateTime: expected string")
 		}
 	}
-	if _, ok := u.Object["etag"]; ok {
-		if s, ok := u.Object["etag"].(string); ok {
-			r.Etag = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.Etag: expected string")
-		}
-	}
 	if _, ok := u.Object["location"]; ok {
 		if s, ok := u.Object["location"].(string); ok {
 			r.Location = dcl.String(s)
@@ -111,25 +106,34 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 			return nil, fmt.Errorf("r.Name: expected string")
 		}
 	}
-	if _, ok := u.Object["nodeCount"]; ok {
-		if i, ok := u.Object["nodeCount"].(int64); ok {
-			r.NodeCount = dcl.Int64(i)
+	if _, ok := u.Object["nodeTypeConfigs"]; ok {
+		if rNodeTypeConfigs, ok := u.Object["nodeTypeConfigs"].(map[string]interface{}); ok {
+			m := make(map[string]dclService.ClusterNodeTypeConfigs)
+			for k, v := range rNodeTypeConfigs {
+				if objval, ok := v.(map[string]interface{}); ok {
+					var rNodeTypeConfigsObj dclService.ClusterNodeTypeConfigs
+					if _, ok := objval["customCoreCount"]; ok {
+						if i, ok := objval["customCoreCount"].(int64); ok {
+							rNodeTypeConfigsObj.CustomCoreCount = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("rNodeTypeConfigsObj.CustomCoreCount: expected int64")
+						}
+					}
+					if _, ok := objval["nodeCount"]; ok {
+						if i, ok := objval["nodeCount"].(int64); ok {
+							rNodeTypeConfigsObj.NodeCount = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("rNodeTypeConfigsObj.NodeCount: expected int64")
+						}
+					}
+					m[k] = rNodeTypeConfigsObj
+				} else {
+					return nil, fmt.Errorf("r.NodeTypeConfigs: expected map[string]interface{}")
+				}
+			}
+			r.NodeTypeConfigs = m
 		} else {
-			return nil, fmt.Errorf("r.NodeCount: expected int64")
-		}
-	}
-	if _, ok := u.Object["nodeCustomCoreCount"]; ok {
-		if i, ok := u.Object["nodeCustomCoreCount"].(int64); ok {
-			r.NodeCustomCoreCount = dcl.Int64(i)
-		} else {
-			return nil, fmt.Errorf("r.NodeCustomCoreCount: expected int64")
-		}
-	}
-	if _, ok := u.Object["nodeTypeId"]; ok {
-		if s, ok := u.Object["nodeTypeId"].(string); ok {
-			r.NodeTypeId = dcl.String(s)
-		} else {
-			return nil, fmt.Errorf("r.NodeTypeId: expected string")
+			return nil, fmt.Errorf("r.NodeTypeConfigs: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["privateCloud"]; ok {

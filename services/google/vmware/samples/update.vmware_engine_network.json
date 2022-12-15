@@ -1,7 +1,7 @@
 {
-  "name": "{{network}}",
+  "name": "{{region}}-default",
   "project": "{{project}}",
-  "location": "global",
+  "location": "{{region}}",
   "description": "Updated GCVE Network",
-  "type": "STANDARD"
+  "type": "LEGACY"
 }

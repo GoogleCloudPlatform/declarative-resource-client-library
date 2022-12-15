@@ -3,7 +3,10 @@
   "project": "{{project}}",
   "location": "{{zone}}",
   "privateCloud": "{{ref:basic.private_cloud.json:name}}",
-  "nodeTypeId": "standard-72",
-  "nodeCount": 4,
-  "nodeCustomCoreCount": 0
+  "nodeTypeConfigs": {
+    "standard-72": {
+      "nodeCount": 4,
+      "customCoreCount": 32
+    }
+  }
 }
