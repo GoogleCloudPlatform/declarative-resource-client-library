@@ -40,6 +40,7 @@ class OSPolicyAssignment(object):
         uid: str = None,
         project: str = None,
         location: str = None,
+        skip_await_rollout: bool = None,
         service_account_file: str = "",
     ):
 
@@ -51,6 +52,7 @@ class OSPolicyAssignment(object):
         self.rollout = rollout
         self.project = project
         self.location = location
+        self.skip_await_rollout = skip_await_rollout
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -86,6 +88,11 @@ class OSPolicyAssignment(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
+        if Primitive.to_proto(self.skip_await_rollout):
+            request.resource.skip_await_rollout = Primitive.to_proto(
+                self.skip_await_rollout
+            )
+
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyOsconfigAlphaOSPolicyAssignment(request)
@@ -110,6 +117,7 @@ class OSPolicyAssignment(object):
         self.uid = Primitive.from_proto(response.uid)
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
+        self.skip_await_rollout = Primitive.from_proto(response.skip_await_rollout)
 
     def delete(self):
         stub = os_policy_assignment_pb2_grpc.OsconfigAlphaOSPolicyAssignmentServiceStub(
@@ -146,6 +154,11 @@ class OSPolicyAssignment(object):
 
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
+
+        if Primitive.to_proto(self.skip_await_rollout):
+            request.resource.skip_await_rollout = Primitive.to_proto(
+                self.skip_await_rollout
+            )
 
         response = stub.DeleteOsconfigAlphaOSPolicyAssignment(request)
 
@@ -186,6 +199,8 @@ class OSPolicyAssignment(object):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):
             resource.location = Primitive.to_proto(self.location)
+        if Primitive.to_proto(self.skip_await_rollout):
+            resource.skip_await_rollout = Primitive.to_proto(self.skip_await_rollout)
         return resource
 
 

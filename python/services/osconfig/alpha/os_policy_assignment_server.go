@@ -728,6 +728,7 @@ func ProtoToOSPolicyAssignment(p *alphapb.OsconfigAlphaOSPolicyAssignment) *alph
 		Uid:                dcl.StringOrNil(p.GetUid()),
 		Project:            dcl.StringOrNil(p.GetProject()),
 		Location:           dcl.StringOrNil(p.GetLocation()),
+		SkipAwaitRollout:   dcl.Bool(p.GetSkipAwaitRollout()),
 	}
 	for _, r := range p.GetOsPolicies() {
 		obj.OSPolicies = append(obj.OSPolicies, *ProtoToOsconfigAlphaOSPolicyAssignmentOSPolicies(r))
@@ -1424,6 +1425,7 @@ func OSPolicyAssignmentToProto(resource *alpha.OSPolicyAssignment) *alphapb.Osco
 	p.SetUid(dcl.ValueOrEmptyString(resource.Uid))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetSkipAwaitRollout(dcl.ValueOrEmptyBool(resource.SkipAwaitRollout))
 	sOSPolicies := make([]*alphapb.OsconfigAlphaOSPolicyAssignmentOSPolicies, len(resource.OSPolicies))
 	for i, r := range resource.OSPolicies {
 		sOSPolicies[i] = OsconfigAlphaOSPolicyAssignmentOSPoliciesToProto(&r)

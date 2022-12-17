@@ -92,6 +92,7 @@ message OsconfigAlphaOSPolicyAssignment {
   string uid = 13;
   string project = 14;
   string location = 15;
+  bool skip_await_rollout = 16;
 }
 
 message OsconfigAlphaOSPolicyAssignmentOSPolicies {

@@ -40,6 +40,7 @@ type OSPolicyAssignment struct {
 	Uid                *string                             `json:"uid"`
 	Project            *string                             `json:"project"`
 	Location           *string                             `json:"location"`
+	SkipAwaitRollout   *bool                               `json:"skipAwaitRollout"`
 }
 
 func (r *OSPolicyAssignment) String() string {
@@ -2603,6 +2604,7 @@ func (r *OSPolicyAssignment) ID() (string, error) {
 		"uid":                  dcl.ValueOrEmptyString(nr.Uid),
 		"project":              dcl.ValueOrEmptyString(nr.Project),
 		"location":             dcl.ValueOrEmptyString(nr.Location),
+		"skip_await_rollout":   dcl.ValueOrEmptyString(nr.SkipAwaitRollout),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/osPolicyAssignments/{{name}}", params), nil
 }
