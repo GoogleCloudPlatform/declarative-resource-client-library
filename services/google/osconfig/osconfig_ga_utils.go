@@ -106,7 +106,18 @@ func (op *updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation) do(ctx cont
 	if err != nil {
 		return err
 	}
-	mask := dcl.TopLevelUpdateMask(op.FieldDiffs)
+	diffs := make([]*dcl.FieldDiff, 0)
+	for _, d := range op.FieldDiffs {
+		// skipAwaitUpdate is a custom field not available in the API and should not be included in an update mask
+		if d.FieldName != "skipAwaitRollout" {
+			diffs = append(diffs, d)
+		}
+	}
+	if len(diffs) == 0 {
+		// Only diff was skipAwaitUpdate, return success
+		return nil
+	}
+	mask := dcl.TopLevelUpdateMask(diffs)
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": mask})
 	if err != nil {
 		return err
