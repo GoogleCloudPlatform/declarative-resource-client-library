@@ -109,7 +109,7 @@ func (op *updateOSPolicyAssignmentUpdateOSPolicyAssignmentOperation) do(ctx cont
 	diffs := make([]*dcl.FieldDiff, 0)
 	for _, d := range op.FieldDiffs {
 		// skipAwaitUpdate is a custom field not available in the API and should not be included in an update mask
-		if d.FieldName != "skipAwaitRollout" {
+		if d.FieldName != "SkipAwaitRollout" {
 			diffs = append(diffs, d)
 		}
 	}
