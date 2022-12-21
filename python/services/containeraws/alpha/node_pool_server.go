@@ -78,14 +78,15 @@ func ProtoToContainerawsAlphaNodePoolConfig(p *alphapb.ContainerawsAlphaNodePool
 		return nil
 	}
 	obj := &alpha.NodePoolConfig{
-		InstanceType:       dcl.StringOrNil(p.GetInstanceType()),
-		RootVolume:         ProtoToContainerawsAlphaNodePoolConfigRootVolume(p.GetRootVolume()),
-		IamInstanceProfile: dcl.StringOrNil(p.GetIamInstanceProfile()),
-		ConfigEncryption:   ProtoToContainerawsAlphaNodePoolConfigConfigEncryption(p.GetConfigEncryption()),
-		SshConfig:          ProtoToContainerawsAlphaNodePoolConfigSshConfig(p.GetSshConfig()),
-		ProxyConfig:        ProtoToContainerawsAlphaNodePoolConfigProxyConfig(p.GetProxyConfig()),
-		InstancePlacement:  ProtoToContainerawsAlphaNodePoolConfigInstancePlacement(p.GetInstancePlacement()),
-		ImageType:          dcl.StringOrNil(p.GetImageType()),
+		InstanceType:                 dcl.StringOrNil(p.GetInstanceType()),
+		RootVolume:                   ProtoToContainerawsAlphaNodePoolConfigRootVolume(p.GetRootVolume()),
+		IamInstanceProfile:           dcl.StringOrNil(p.GetIamInstanceProfile()),
+		ConfigEncryption:             ProtoToContainerawsAlphaNodePoolConfigConfigEncryption(p.GetConfigEncryption()),
+		SshConfig:                    ProtoToContainerawsAlphaNodePoolConfigSshConfig(p.GetSshConfig()),
+		ProxyConfig:                  ProtoToContainerawsAlphaNodePoolConfigProxyConfig(p.GetProxyConfig()),
+		InstancePlacement:            ProtoToContainerawsAlphaNodePoolConfigInstancePlacement(p.GetInstancePlacement()),
+		ImageType:                    dcl.StringOrNil(p.GetImageType()),
+		AutoscalingMetricsCollection: ProtoToContainerawsAlphaNodePoolConfigAutoscalingMetricsCollection(p.GetAutoscalingMetricsCollection()),
 	}
 	for _, r := range p.GetTaints() {
 		obj.Taints = append(obj.Taints, *ProtoToContainerawsAlphaNodePoolConfigTaints(r))
@@ -164,6 +165,20 @@ func ProtoToContainerawsAlphaNodePoolConfigInstancePlacement(p *alphapb.Containe
 	}
 	obj := &alpha.NodePoolConfigInstancePlacement{
 		Tenancy: ProtoToContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnum(p.GetTenancy()),
+	}
+	return obj
+}
+
+// ProtoToNodePoolConfigAutoscalingMetricsCollection converts a NodePoolConfigAutoscalingMetricsCollection object from its proto representation.
+func ProtoToContainerawsAlphaNodePoolConfigAutoscalingMetricsCollection(p *alphapb.ContainerawsAlphaNodePoolConfigAutoscalingMetricsCollection) *alpha.NodePoolConfigAutoscalingMetricsCollection {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.NodePoolConfigAutoscalingMetricsCollection{
+		Granularity: dcl.StringOrNil(p.GetGranularity()),
+	}
+	for _, r := range p.GetMetrics() {
+		obj.Metrics = append(obj.Metrics, r)
 	}
 	return obj
 }
@@ -271,6 +286,7 @@ func ContainerawsAlphaNodePoolConfigToProto(o *alpha.NodePoolConfig) *alphapb.Co
 	p.SetProxyConfig(ContainerawsAlphaNodePoolConfigProxyConfigToProto(o.ProxyConfig))
 	p.SetInstancePlacement(ContainerawsAlphaNodePoolConfigInstancePlacementToProto(o.InstancePlacement))
 	p.SetImageType(dcl.ValueOrEmptyString(o.ImageType))
+	p.SetAutoscalingMetricsCollection(ContainerawsAlphaNodePoolConfigAutoscalingMetricsCollectionToProto(o.AutoscalingMetricsCollection))
 	sTaints := make([]*alphapb.ContainerawsAlphaNodePoolConfigTaints, len(o.Taints))
 	for i, r := range o.Taints {
 		sTaints[i] = ContainerawsAlphaNodePoolConfigTaintsToProto(&r)
@@ -357,6 +373,21 @@ func ContainerawsAlphaNodePoolConfigInstancePlacementToProto(o *alpha.NodePoolCo
 	}
 	p := &alphapb.ContainerawsAlphaNodePoolConfigInstancePlacement{}
 	p.SetTenancy(ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnumToProto(o.Tenancy))
+	return p
+}
+
+// NodePoolConfigAutoscalingMetricsCollectionToProto converts a NodePoolConfigAutoscalingMetricsCollection object to its proto representation.
+func ContainerawsAlphaNodePoolConfigAutoscalingMetricsCollectionToProto(o *alpha.NodePoolConfigAutoscalingMetricsCollection) *alphapb.ContainerawsAlphaNodePoolConfigAutoscalingMetricsCollection {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerawsAlphaNodePoolConfigAutoscalingMetricsCollection{}
+	p.SetGranularity(dcl.ValueOrEmptyString(o.Granularity))
+	sMetrics := make([]string, len(o.Metrics))
+	for i, r := range o.Metrics {
+		sMetrics[i] = r
+	}
+	p.SetMetrics(sMetrics)
 	return p
 }
 

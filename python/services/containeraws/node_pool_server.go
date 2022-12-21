@@ -66,12 +66,13 @@ func ProtoToContainerawsNodePoolConfig(p *containerawspb.ContainerawsNodePoolCon
 		return nil
 	}
 	obj := &containeraws.NodePoolConfig{
-		InstanceType:       dcl.StringOrNil(p.GetInstanceType()),
-		RootVolume:         ProtoToContainerawsNodePoolConfigRootVolume(p.GetRootVolume()),
-		IamInstanceProfile: dcl.StringOrNil(p.GetIamInstanceProfile()),
-		ConfigEncryption:   ProtoToContainerawsNodePoolConfigConfigEncryption(p.GetConfigEncryption()),
-		SshConfig:          ProtoToContainerawsNodePoolConfigSshConfig(p.GetSshConfig()),
-		ProxyConfig:        ProtoToContainerawsNodePoolConfigProxyConfig(p.GetProxyConfig()),
+		InstanceType:                 dcl.StringOrNil(p.GetInstanceType()),
+		RootVolume:                   ProtoToContainerawsNodePoolConfigRootVolume(p.GetRootVolume()),
+		IamInstanceProfile:           dcl.StringOrNil(p.GetIamInstanceProfile()),
+		ConfigEncryption:             ProtoToContainerawsNodePoolConfigConfigEncryption(p.GetConfigEncryption()),
+		SshConfig:                    ProtoToContainerawsNodePoolConfigSshConfig(p.GetSshConfig()),
+		ProxyConfig:                  ProtoToContainerawsNodePoolConfigProxyConfig(p.GetProxyConfig()),
+		AutoscalingMetricsCollection: ProtoToContainerawsNodePoolConfigAutoscalingMetricsCollection(p.GetAutoscalingMetricsCollection()),
 	}
 	for _, r := range p.GetTaints() {
 		obj.Taints = append(obj.Taints, *ProtoToContainerawsNodePoolConfigTaints(r))
@@ -139,6 +140,20 @@ func ProtoToContainerawsNodePoolConfigProxyConfig(p *containerawspb.Containeraws
 	obj := &containeraws.NodePoolConfigProxyConfig{
 		SecretArn:     dcl.StringOrNil(p.GetSecretArn()),
 		SecretVersion: dcl.StringOrNil(p.GetSecretVersion()),
+	}
+	return obj
+}
+
+// ProtoToNodePoolConfigAutoscalingMetricsCollection converts a NodePoolConfigAutoscalingMetricsCollection object from its proto representation.
+func ProtoToContainerawsNodePoolConfigAutoscalingMetricsCollection(p *containerawspb.ContainerawsNodePoolConfigAutoscalingMetricsCollection) *containeraws.NodePoolConfigAutoscalingMetricsCollection {
+	if p == nil {
+		return nil
+	}
+	obj := &containeraws.NodePoolConfigAutoscalingMetricsCollection{
+		Granularity: dcl.StringOrNil(p.GetGranularity()),
+	}
+	for _, r := range p.GetMetrics() {
+		obj.Metrics = append(obj.Metrics, r)
 	}
 	return obj
 }
@@ -233,6 +248,7 @@ func ContainerawsNodePoolConfigToProto(o *containeraws.NodePoolConfig) *containe
 	p.SetConfigEncryption(ContainerawsNodePoolConfigConfigEncryptionToProto(o.ConfigEncryption))
 	p.SetSshConfig(ContainerawsNodePoolConfigSshConfigToProto(o.SshConfig))
 	p.SetProxyConfig(ContainerawsNodePoolConfigProxyConfigToProto(o.ProxyConfig))
+	p.SetAutoscalingMetricsCollection(ContainerawsNodePoolConfigAutoscalingMetricsCollectionToProto(o.AutoscalingMetricsCollection))
 	sTaints := make([]*containerawspb.ContainerawsNodePoolConfigTaints, len(o.Taints))
 	for i, r := range o.Taints {
 		sTaints[i] = ContainerawsNodePoolConfigTaintsToProto(&r)
@@ -309,6 +325,21 @@ func ContainerawsNodePoolConfigProxyConfigToProto(o *containeraws.NodePoolConfig
 	p := &containerawspb.ContainerawsNodePoolConfigProxyConfig{}
 	p.SetSecretArn(dcl.ValueOrEmptyString(o.SecretArn))
 	p.SetSecretVersion(dcl.ValueOrEmptyString(o.SecretVersion))
+	return p
+}
+
+// NodePoolConfigAutoscalingMetricsCollectionToProto converts a NodePoolConfigAutoscalingMetricsCollection object to its proto representation.
+func ContainerawsNodePoolConfigAutoscalingMetricsCollectionToProto(o *containeraws.NodePoolConfigAutoscalingMetricsCollection) *containerawspb.ContainerawsNodePoolConfigAutoscalingMetricsCollection {
+	if o == nil {
+		return nil
+	}
+	p := &containerawspb.ContainerawsNodePoolConfigAutoscalingMetricsCollection{}
+	p.SetGranularity(dcl.ValueOrEmptyString(o.Granularity))
+	sMetrics := make([]string, len(o.Metrics))
+	for i, r := range o.Metrics {
+		sMetrics[i] = r
+	}
+	p.SetMetrics(sMetrics)
 	return p
 }
 

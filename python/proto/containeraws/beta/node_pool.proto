@@ -87,6 +87,7 @@ message ContainerawsBetaNodePoolConfig {
   ContainerawsBetaNodePoolConfigProxyConfig proxy_config = 10;
   ContainerawsBetaNodePoolConfigInstancePlacement instance_placement = 11;
   string image_type = 12;
+  ContainerawsBetaNodePoolConfigAutoscalingMetricsCollection autoscaling_metrics_collection = 13;
 }
 
 message ContainerawsBetaNodePoolConfigRootVolume {
@@ -117,6 +118,11 @@ message ContainerawsBetaNodePoolConfigProxyConfig {
 
 message ContainerawsBetaNodePoolConfigInstancePlacement {
   ContainerawsBetaNodePoolConfigInstancePlacementTenancyEnum tenancy = 1;
+}
+
+message ContainerawsBetaNodePoolConfigAutoscalingMetricsCollection {
+  string granularity = 1;
+  repeated string metrics = 2;
 }
 
 message ContainerawsBetaNodePoolAutoscaling {

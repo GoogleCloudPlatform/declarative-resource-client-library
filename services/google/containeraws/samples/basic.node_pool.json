@@ -3,7 +3,7 @@
   "project": "{{project}}",
   "location": "us-west1",
   "cluster": "{{ref:minimal.cluster.json:name}}",
-  "version": "1.24.3-gke.2100",
+  "version": "1.25.4-gke.1300",
   "autoscaling": {
     "minNodeCount": 1,
     "maxNodeCount": 5
@@ -44,6 +44,10 @@
     "proxyConfig": {
       "secretArn": "arn:aws:secretsmanager:us-west-2:126285863215:secret:proxy_config20210824150329476300000001-ABCDEF",
       "secretVersion": "12345678-ABCD-EFGH-IJKL-987654321098"
+    },
+    "autoscalingMetricsCollection": {
+      "granularity": "1Minute",
+      "metrics": ["GroupMinSize"]
     }
   },
   "annotations": {

@@ -227,6 +227,7 @@ class NodePoolConfig(object):
         proxy_config: dict = None,
         instance_placement: dict = None,
         image_type: str = None,
+        autoscaling_metrics_collection: dict = None,
     ):
         self.instance_type = instance_type
         self.root_volume = root_volume
@@ -240,6 +241,7 @@ class NodePoolConfig(object):
         self.proxy_config = proxy_config
         self.instance_placement = instance_placement
         self.image_type = image_type
+        self.autoscaling_metrics_collection = autoscaling_metrics_collection
 
     @classmethod
     def to_proto(self, resource):
@@ -293,6 +295,16 @@ class NodePoolConfig(object):
             res.ClearField("instance_placement")
         if Primitive.to_proto(resource.image_type):
             res.image_type = Primitive.to_proto(resource.image_type)
+        if NodePoolConfigAutoscalingMetricsCollection.to_proto(
+            resource.autoscaling_metrics_collection
+        ):
+            res.autoscaling_metrics_collection.CopyFrom(
+                NodePoolConfigAutoscalingMetricsCollection.to_proto(
+                    resource.autoscaling_metrics_collection
+                )
+            )
+        else:
+            res.ClearField("autoscaling_metrics_collection")
         return res
 
     @classmethod
@@ -317,6 +329,9 @@ class NodePoolConfig(object):
                 resource.instance_placement
             ),
             image_type=Primitive.from_proto(resource.image_type),
+            autoscaling_metrics_collection=NodePoolConfigAutoscalingMetricsCollection.from_proto(
+                resource.autoscaling_metrics_collection
+            ),
         )
 
 
@@ -584,6 +599,52 @@ class NodePoolConfigInstancePlacementArray(object):
     @classmethod
     def from_proto(self, resources):
         return [NodePoolConfigInstancePlacement.from_proto(i) for i in resources]
+
+
+class NodePoolConfigAutoscalingMetricsCollection(object):
+    def __init__(self, granularity: str = None, metrics: list = None):
+        self.granularity = granularity
+        self.metrics = metrics
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            node_pool_pb2.ContainerawsAlphaNodePoolConfigAutoscalingMetricsCollection()
+        )
+        if Primitive.to_proto(resource.granularity):
+            res.granularity = Primitive.to_proto(resource.granularity)
+        if Primitive.to_proto(resource.metrics):
+            res.metrics.extend(Primitive.to_proto(resource.metrics))
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return NodePoolConfigAutoscalingMetricsCollection(
+            granularity=Primitive.from_proto(resource.granularity),
+            metrics=Primitive.from_proto(resource.metrics),
+        )
+
+
+class NodePoolConfigAutoscalingMetricsCollectionArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            NodePoolConfigAutoscalingMetricsCollection.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            NodePoolConfigAutoscalingMetricsCollection.from_proto(i) for i in resources
+        ]
 
 
 class NodePoolAutoscaling(object):

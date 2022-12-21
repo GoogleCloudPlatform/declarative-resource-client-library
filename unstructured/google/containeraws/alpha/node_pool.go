@@ -54,6 +54,18 @@ func NodePoolToUnstructured(r *dclService.NodePool) *unstructured.Resource {
 	}
 	if r.Config != nil && r.Config != dclService.EmptyNodePoolConfig {
 		rConfig := make(map[string]interface{})
+		if r.Config.AutoscalingMetricsCollection != nil && r.Config.AutoscalingMetricsCollection != dclService.EmptyNodePoolConfigAutoscalingMetricsCollection {
+			rConfigAutoscalingMetricsCollection := make(map[string]interface{})
+			if r.Config.AutoscalingMetricsCollection.Granularity != nil {
+				rConfigAutoscalingMetricsCollection["granularity"] = *r.Config.AutoscalingMetricsCollection.Granularity
+			}
+			var rConfigAutoscalingMetricsCollectionMetrics []interface{}
+			for _, rConfigAutoscalingMetricsCollectionMetricsVal := range r.Config.AutoscalingMetricsCollection.Metrics {
+				rConfigAutoscalingMetricsCollectionMetrics = append(rConfigAutoscalingMetricsCollectionMetrics, rConfigAutoscalingMetricsCollectionMetricsVal)
+			}
+			rConfigAutoscalingMetricsCollection["metrics"] = rConfigAutoscalingMetricsCollectionMetrics
+			rConfig["autoscalingMetricsCollection"] = rConfigAutoscalingMetricsCollection
+		}
 		if r.Config.ConfigEncryption != nil && r.Config.ConfigEncryption != dclService.EmptyNodePoolConfigConfigEncryption {
 			rConfigConfigEncryption := make(map[string]interface{})
 			if r.Config.ConfigEncryption.KmsKeyArn != nil {
@@ -235,6 +247,31 @@ func UnstructuredToNodePool(u *unstructured.Resource) (*dclService.NodePool, err
 	if _, ok := u.Object["config"]; ok {
 		if rConfig, ok := u.Object["config"].(map[string]interface{}); ok {
 			r.Config = &dclService.NodePoolConfig{}
+			if _, ok := rConfig["autoscalingMetricsCollection"]; ok {
+				if rConfigAutoscalingMetricsCollection, ok := rConfig["autoscalingMetricsCollection"].(map[string]interface{}); ok {
+					r.Config.AutoscalingMetricsCollection = &dclService.NodePoolConfigAutoscalingMetricsCollection{}
+					if _, ok := rConfigAutoscalingMetricsCollection["granularity"]; ok {
+						if s, ok := rConfigAutoscalingMetricsCollection["granularity"].(string); ok {
+							r.Config.AutoscalingMetricsCollection.Granularity = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Config.AutoscalingMetricsCollection.Granularity: expected string")
+						}
+					}
+					if _, ok := rConfigAutoscalingMetricsCollection["metrics"]; ok {
+						if s, ok := rConfigAutoscalingMetricsCollection["metrics"].([]interface{}); ok {
+							for _, ss := range s {
+								if strval, ok := ss.(string); ok {
+									r.Config.AutoscalingMetricsCollection.Metrics = append(r.Config.AutoscalingMetricsCollection.Metrics, strval)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.AutoscalingMetricsCollection.Metrics: expected []interface{}")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Config.AutoscalingMetricsCollection: expected map[string]interface{}")
+				}
+			}
 			if _, ok := rConfig["configEncryption"]; ok {
 				if rConfigConfigEncryption, ok := rConfig["configEncryption"].(map[string]interface{}); ok {
 					r.Config.ConfigEncryption = &dclService.NodePoolConfigConfigEncryption{}

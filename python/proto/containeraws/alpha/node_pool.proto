@@ -87,6 +87,7 @@ message ContainerawsAlphaNodePoolConfig {
   ContainerawsAlphaNodePoolConfigProxyConfig proxy_config = 10;
   ContainerawsAlphaNodePoolConfigInstancePlacement instance_placement = 11;
   string image_type = 12;
+  ContainerawsAlphaNodePoolConfigAutoscalingMetricsCollection autoscaling_metrics_collection = 13;
 }
 
 message ContainerawsAlphaNodePoolConfigRootVolume {
@@ -117,6 +118,11 @@ message ContainerawsAlphaNodePoolConfigProxyConfig {
 
 message ContainerawsAlphaNodePoolConfigInstancePlacement {
   ContainerawsAlphaNodePoolConfigInstancePlacementTenancyEnum tenancy = 1;
+}
+
+message ContainerawsAlphaNodePoolConfigAutoscalingMetricsCollection {
+  string granularity = 1;
+  repeated string metrics = 2;
 }
 
 message ContainerawsAlphaNodePoolAutoscaling {
