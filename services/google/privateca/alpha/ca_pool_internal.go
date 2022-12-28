@@ -1986,21 +1986,11 @@ func canonicalizeCaPoolIssuancePolicyBaselineValuesCaOptions(des, initial *CaPoo
 	} else {
 		cDes.IsCa = des.IsCa
 	}
-	if dcl.BoolCanonicalize(des.NonCa, initial.NonCa) || dcl.IsZeroValue(des.NonCa) {
-		cDes.NonCa = initial.NonCa
-	} else {
-		cDes.NonCa = des.NonCa
-	}
 	if dcl.IsZeroValue(des.MaxIssuerPathLength) || (dcl.IsEmptyValueIndirect(des.MaxIssuerPathLength) && dcl.IsEmptyValueIndirect(initial.MaxIssuerPathLength)) {
 		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.MaxIssuerPathLength = initial.MaxIssuerPathLength
 	} else {
 		cDes.MaxIssuerPathLength = des.MaxIssuerPathLength
-	}
-	if dcl.BoolCanonicalize(des.ZeroMaxIssuerPathLength, initial.ZeroMaxIssuerPathLength) || dcl.IsZeroValue(des.ZeroMaxIssuerPathLength) {
-		cDes.ZeroMaxIssuerPathLength = initial.ZeroMaxIssuerPathLength
-	} else {
-		cDes.ZeroMaxIssuerPathLength = des.ZeroMaxIssuerPathLength
 	}
 
 	return cDes
@@ -2050,12 +2040,6 @@ func canonicalizeNewCaPoolIssuancePolicyBaselineValuesCaOptions(c *Client, des, 
 
 	if dcl.BoolCanonicalize(des.IsCa, nw.IsCa) {
 		nw.IsCa = des.IsCa
-	}
-	if dcl.BoolCanonicalize(des.NonCa, nw.NonCa) {
-		nw.NonCa = des.NonCa
-	}
-	if dcl.BoolCanonicalize(des.ZeroMaxIssuerPathLength, nw.ZeroMaxIssuerPathLength) {
-		nw.ZeroMaxIssuerPathLength = des.ZeroMaxIssuerPathLength
 	}
 
 	return nw
@@ -3642,21 +3626,7 @@ func compareCaPoolIssuancePolicyBaselineValuesCaOptionsNewStyle(d, a interface{}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.NonCa, actual.NonCa, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateCaPoolUpdateCaPoolOperation")}, fn.AddNest("NonCa")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
 	if ds, err := dcl.Diff(desired.MaxIssuerPathLength, actual.MaxIssuerPathLength, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateCaPoolUpdateCaPoolOperation")}, fn.AddNest("MaxIssuerPathLength")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.ZeroMaxIssuerPathLength, actual.ZeroMaxIssuerPathLength, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateCaPoolUpdateCaPoolOperation")}, fn.AddNest("ZeroMaxIssuerPathLength")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4789,7 +4759,7 @@ func expandCaPoolIssuancePolicyBaselineValues(c *Client, f *CaPoolIssuancePolicy
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["keyUsage"] = v
 	}
-	if v, err := expandCaPoolIssuancePolicyBaselineValuesCAOptions(c, f.CaOptions, res); err != nil {
+	if v, err := expandCaPoolIssuancePolicyBaselineValuesCaOptions(c, f.CaOptions, res); err != nil {
 		return nil, fmt.Errorf("error expanding CaOptions into caOptions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["caOptions"] = v
@@ -4825,7 +4795,7 @@ func flattenCaPoolIssuancePolicyBaselineValues(c *Client, i interface{}, res *Ca
 		return EmptyCaPoolIssuancePolicyBaselineValues
 	}
 	r.KeyUsage = flattenCaPoolIssuancePolicyBaselineValuesKeyUsage(c, m["keyUsage"], res)
-	r.CaOptions = flattenCaPoolIssuancePolicyBaselineValuesCAOptions(c, m["caOptions"], res)
+	r.CaOptions = flattenCaPoolIssuancePolicyBaselineValuesCaOptions(c, m["caOptions"], res)
 	r.PolicyIds = flattenCaPoolIssuancePolicyBaselineValuesPolicyIdsSlice(c, m["policyIds"], res)
 	r.AiaOcspServers = dcl.FlattenStringSlice(m["aiaOcspServers"])
 	r.AdditionalExtensions = flattenCaPoolIssuancePolicyBaselineValuesAdditionalExtensionsSlice(c, m["additionalExtensions"], res)
@@ -5447,14 +5417,8 @@ func expandCaPoolIssuancePolicyBaselineValuesCaOptions(c *Client, f *CaPoolIssua
 	if v := f.IsCa; !dcl.IsEmptyValueIndirect(v) {
 		m["isCa"] = v
 	}
-	if v := f.NonCa; !dcl.IsEmptyValueIndirect(v) {
-		m["nonCa"] = v
-	}
 	if v := f.MaxIssuerPathLength; !dcl.IsEmptyValueIndirect(v) {
 		m["maxIssuerPathLength"] = v
-	}
-	if v := f.ZeroMaxIssuerPathLength; !dcl.IsEmptyValueIndirect(v) {
-		m["zeroMaxIssuerPathLength"] = v
 	}
 
 	return m, nil
@@ -5474,9 +5438,7 @@ func flattenCaPoolIssuancePolicyBaselineValuesCaOptions(c *Client, i interface{}
 		return EmptyCaPoolIssuancePolicyBaselineValuesCaOptions
 	}
 	r.IsCa = dcl.FlattenBool(m["isCa"])
-	r.NonCa = dcl.FlattenBool(m["nonCa"])
 	r.MaxIssuerPathLength = dcl.FlattenInteger(m["maxIssuerPathLength"])
-	r.ZeroMaxIssuerPathLength = dcl.FlattenBool(m["zeroMaxIssuerPathLength"])
 
 	return r
 }

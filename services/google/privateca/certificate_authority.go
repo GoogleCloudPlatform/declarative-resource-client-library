@@ -825,11 +825,9 @@ func (r *CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages) H
 }
 
 type CertificateAuthorityConfigX509ConfigCaOptions struct {
-	empty                   bool   `json:"-"`
-	IsCa                    *bool  `json:"isCa"`
-	NonCa                   *bool  `json:"nonCa"`
-	MaxIssuerPathLength     *int64 `json:"maxIssuerPathLength"`
-	ZeroMaxIssuerPathLength *bool  `json:"zeroMaxIssuerPathLength"`
+	empty               bool   `json:"-"`
+	IsCa                *bool  `json:"isCa"`
+	MaxIssuerPathLength *int64 `json:"maxIssuerPathLength"`
 }
 
 type jsonCertificateAuthorityConfigX509ConfigCaOptions CertificateAuthorityConfigX509ConfigCaOptions
@@ -849,11 +847,7 @@ func (r *CertificateAuthorityConfigX509ConfigCaOptions) UnmarshalJSON(data []byt
 
 		r.IsCa = res.IsCa
 
-		r.NonCa = res.NonCa
-
 		r.MaxIssuerPathLength = res.MaxIssuerPathLength
-
-		r.ZeroMaxIssuerPathLength = res.ZeroMaxIssuerPathLength
 
 	}
 	return nil
@@ -1855,11 +1849,9 @@ func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnk
 }
 
 type CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions struct {
-	empty                   bool   `json:"-"`
-	IsCa                    *bool  `json:"isCa"`
-	NonCa                   *bool  `json:"nonCa"`
-	MaxIssuerPathLength     *int64 `json:"maxIssuerPathLength"`
-	ZeroMaxIssuerPathLength *bool  `json:"zeroMaxIssuerPathLength"`
+	empty               bool   `json:"-"`
+	IsCa                *bool  `json:"isCa"`
+	MaxIssuerPathLength *int64 `json:"maxIssuerPathLength"`
 }
 
 type jsonCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions
@@ -1879,11 +1871,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions) 
 
 		r.IsCa = res.IsCa
 
-		r.NonCa = res.NonCa
-
 		r.MaxIssuerPathLength = res.MaxIssuerPathLength
-
-		r.ZeroMaxIssuerPathLength = res.ZeroMaxIssuerPathLength
 
 	}
 	return nil

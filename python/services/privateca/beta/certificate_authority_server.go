@@ -277,10 +277,8 @@ func ProtoToPrivatecaBetaCertificateAuthorityConfigX509ConfigCaOptions(p *betapb
 		return nil
 	}
 	obj := &beta.CertificateAuthorityConfigX509ConfigCaOptions{
-		IsCa:                    dcl.Bool(p.GetIsCa()),
-		NonCa:                   dcl.Bool(p.GetNonCa()),
-		MaxIssuerPathLength:     dcl.Int64OrNil(p.GetMaxIssuerPathLength()),
-		ZeroMaxIssuerPathLength: dcl.Bool(p.GetZeroMaxIssuerPathLength()),
+		IsCa:                dcl.Bool(p.GetIsCa()),
+		MaxIssuerPathLength: dcl.Int64OrNil(p.GetMaxIssuerPathLength()),
 	}
 	return obj
 }
@@ -564,10 +562,8 @@ func ProtoToPrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509Descri
 		return nil
 	}
 	obj := &beta.CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions{
-		IsCa:                    dcl.Bool(p.GetIsCa()),
-		NonCa:                   dcl.Bool(p.GetNonCa()),
-		MaxIssuerPathLength:     dcl.Int64OrNil(p.GetMaxIssuerPathLength()),
-		ZeroMaxIssuerPathLength: dcl.Bool(p.GetZeroMaxIssuerPathLength()),
+		IsCa:                dcl.Bool(p.GetIsCa()),
+		MaxIssuerPathLength: dcl.Int64OrNil(p.GetMaxIssuerPathLength()),
 	}
 	return obj
 }
@@ -960,9 +956,7 @@ func PrivatecaBetaCertificateAuthorityConfigX509ConfigCaOptionsToProto(o *beta.C
 	}
 	p := &betapb.PrivatecaBetaCertificateAuthorityConfigX509ConfigCaOptions{}
 	p.SetIsCa(dcl.ValueOrEmptyBool(o.IsCa))
-	p.SetNonCa(dcl.ValueOrEmptyBool(o.NonCa))
 	p.SetMaxIssuerPathLength(dcl.ValueOrEmptyInt64(o.MaxIssuerPathLength))
-	p.SetZeroMaxIssuerPathLength(dcl.ValueOrEmptyBool(o.ZeroMaxIssuerPathLength))
 	return p
 }
 
@@ -1266,9 +1260,7 @@ func PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionCa
 	}
 	p := &betapb.PrivatecaBetaCertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions{}
 	p.SetIsCa(dcl.ValueOrEmptyBool(o.IsCa))
-	p.SetNonCa(dcl.ValueOrEmptyBool(o.NonCa))
 	p.SetMaxIssuerPathLength(dcl.ValueOrEmptyInt64(o.MaxIssuerPathLength))
-	p.SetZeroMaxIssuerPathLength(dcl.ValueOrEmptyBool(o.ZeroMaxIssuerPathLength))
 	return p
 }
 
