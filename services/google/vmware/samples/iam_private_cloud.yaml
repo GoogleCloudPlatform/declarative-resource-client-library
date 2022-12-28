@@ -15,7 +15,7 @@ name: iam_private_cloud
 description: A basic example of an iam member for a vmware engine private cloud
 type: iam.binding
 versions:
-- alpha
+- ga
 resource: samples/vmwareengine_viewer.iam.binding.json
 dependencies:
 - samples/basic.private_cloud.json

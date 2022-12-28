@@ -15,7 +15,7 @@ name: minimal_private_cloud
 description: A minimal example of a vmware engine private cloud
 type: private_cloud
 versions:
-- alpha
+- ga
 resource: samples/minimal.private_cloud.json
 dependencies:
 - samples/basic.vmware_engine_network.json

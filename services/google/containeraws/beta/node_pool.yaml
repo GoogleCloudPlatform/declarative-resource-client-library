@@ -327,7 +327,6 @@ components:
                 AWS resource. Specify at most 50 pairs containing alphanumerics, spaces,
                 and symbols (.+-=_:@/). Keys can be up to 127 Unicode characters.
                 Values can be up to 255 Unicode characters.
-              x-kubernetes-immutable: true
             taints:
               type: array
               x-dcl-go-name: Taints

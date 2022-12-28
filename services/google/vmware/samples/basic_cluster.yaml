@@ -16,7 +16,7 @@ description: This test creates a private cloud, sets an iam policy member, creat
   a cluster, then updates the cloud and cluster.
 type: cluster
 versions:
-- alpha
+- ga
 resource: samples/basic.cluster.json
 dependencies:
 - samples/vmwareengine_viewer.iam.binding.json

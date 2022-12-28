@@ -15,7 +15,7 @@ name: minimal_vmware_engine_network
 description: A basic example of a vmware engine private cloud
 type: vmware_engine_network
 versions:
-- alpha
+- ga
 resource: samples/minimal.vmware_engine_network.json
 variables:
 - name: network

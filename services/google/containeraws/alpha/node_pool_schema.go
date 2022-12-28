@@ -385,7 +385,6 @@ func DCLNodePoolSchema() *dcl.Schema {
 										},
 										GoName:      "Tags",
 										Description: "Optional. Key/value metadata to assign to each underlying AWS resource. Specify at most 50 pairs containing alphanumerics, spaces, and symbols (.+-=_:@/). Keys can be up to 127 Unicode characters. Values can be up to 255 Unicode characters.",
-										Immutable:   true,
 									},
 									"taints": &dcl.Property{
 										Type:        "array",
