@@ -17,9 +17,12 @@ type: private_cloud
 versions:
 - ga
 resource: samples/basic.private_cloud.json
+dependencies:
+- samples/basic.vmware_engine_network.json
 updates:
 - resource: samples/update.private_cloud.json
-  dependencies: []
+  dependencies:
+  - samples/basic.vmware_engine_network.json
 variables:
 - name: cloud
   type: resource_name

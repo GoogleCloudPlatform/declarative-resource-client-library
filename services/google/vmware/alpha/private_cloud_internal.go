@@ -360,36 +360,6 @@ func (c *Client) deleteAllPrivateCloud(ctx context.Context, f func(*PrivateCloud
 
 type deletePrivateCloudOperation struct{}
 
-func (op *deletePrivateCloudOperation) do(ctx context.Context, r *PrivateCloud, c *Client) error {
-	r, err := c.GetPrivateCloud(ctx, r)
-	if err != nil {
-		if dcl.IsNotFound(err) {
-			c.Config.Logger.InfoWithContextf(ctx, "PrivateCloud not found, returning. Original error: %v", err)
-			return nil
-		}
-		c.Config.Logger.WarningWithContextf(ctx, "GetPrivateCloud checking for existence. error: %v", err)
-		return err
-	}
-
-	u, err := r.deleteURL(c.Config.BasePath)
-	if err != nil {
-		return err
-	}
-
-	u, err = dcl.AddQueryParams(u, map[string]string{"force": "true"})
-	if err != nil {
-		return err
-	}
-
-	// Delete should never have a body
-	body := &bytes.Buffer{}
-	_, err = dcl.SendRequest(ctx, c.Config, "DELETE", u, body, c.Config.RetryProvider)
-	if err != nil {
-		return fmt.Errorf("failed to delete PrivateCloud: %w", err)
-	}
-	return nil
-}
-
 // Create operations are similar to Update operations, although they do not have
 // specific request objects. The Create request object is the json encoding of
 // the resource, which is modified by res.marshal to form the base request body.

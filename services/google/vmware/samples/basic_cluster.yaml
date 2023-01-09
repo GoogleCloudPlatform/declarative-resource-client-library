@@ -19,9 +19,9 @@ versions:
 - ga
 resource: samples/basic.cluster.json
 dependencies:
+- samples/basic.vmware_engine_network.json
 - samples/vmwareengine_viewer.iam.binding.json
 - samples/basic.private_cloud.json
-- samples/basic.vmware_engine_network.json
 updates:
 - resource: samples/update.cluster.json
   dependencies:
