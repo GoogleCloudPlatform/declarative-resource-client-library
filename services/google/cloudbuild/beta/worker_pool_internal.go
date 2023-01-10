@@ -946,6 +946,11 @@ func canonicalizeWorkerPoolPrivatePoolV1ConfigNetworkConfig(des, initial *Worker
 	} else {
 		cDes.PeeredNetwork = des.PeeredNetwork
 	}
+	if dcl.StringCanonicalize(des.PeeredNetworkIPRange, initial.PeeredNetworkIPRange) || dcl.IsZeroValue(des.PeeredNetworkIPRange) {
+		cDes.PeeredNetworkIPRange = initial.PeeredNetworkIPRange
+	} else {
+		cDes.PeeredNetworkIPRange = des.PeeredNetworkIPRange
+	}
 	if dcl.IsZeroValue(des.EgressOption) || (dcl.IsEmptyValueIndirect(des.EgressOption) && dcl.IsEmptyValueIndirect(initial.EgressOption)) {
 		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		cDes.EgressOption = initial.EgressOption
@@ -996,6 +1001,10 @@ func canonicalizeNewWorkerPoolPrivatePoolV1ConfigNetworkConfig(c *Client, des, n
 			return des
 		}
 		return nil
+	}
+
+	if dcl.StringCanonicalize(des.PeeredNetworkIPRange, nw.PeeredNetworkIPRange) {
+		nw.PeeredNetworkIPRange = des.PeeredNetworkIPRange
 	}
 
 	return nw
@@ -1193,6 +1202,11 @@ func canonicalizeWorkerPoolNetworkConfig(des, initial *WorkerPoolNetworkConfig, 
 	} else {
 		cDes.PeeredNetwork = des.PeeredNetwork
 	}
+	if dcl.StringCanonicalize(des.PeeredNetworkIPRange, initial.PeeredNetworkIPRange) || dcl.IsZeroValue(des.PeeredNetworkIPRange) {
+		cDes.PeeredNetworkIPRange = initial.PeeredNetworkIPRange
+	} else {
+		cDes.PeeredNetworkIPRange = des.PeeredNetworkIPRange
+	}
 
 	return cDes
 }
@@ -1237,6 +1251,10 @@ func canonicalizeNewWorkerPoolNetworkConfig(c *Client, des, nw *WorkerPoolNetwor
 			return des
 		}
 		return nil
+	}
+
+	if dcl.StringCanonicalize(des.PeeredNetworkIPRange, nw.PeeredNetworkIPRange) {
+		nw.PeeredNetworkIPRange = des.PeeredNetworkIPRange
 	}
 
 	return nw
@@ -1502,6 +1520,13 @@ func compareWorkerPoolPrivatePoolV1ConfigNetworkConfigNewStyle(d, a interface{},
 		diffs = append(diffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.PeeredNetworkIPRange, actual.PeeredNetworkIPRange, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PeeredNetworkIpRange")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.EgressOption, actual.EgressOption, dcl.DiffInfo{ServerDefault: true, Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateWorkerPoolUpdateWorkerPoolOperation")}, fn.AddNest("EgressOption")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -1575,6 +1600,13 @@ func compareWorkerPoolNetworkConfigNewStyle(d, a interface{}, fn dcl.FieldName) 
 	}
 
 	if ds, err := dcl.Diff(desired.PeeredNetwork, actual.PeeredNetwork, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PeeredNetwork")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PeeredNetworkIPRange, actual.PeeredNetworkIPRange, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PeeredNetworkIpRange")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2049,6 +2081,9 @@ func expandWorkerPoolPrivatePoolV1ConfigNetworkConfig(c *Client, f *WorkerPoolPr
 	if v := f.PeeredNetwork; !dcl.IsEmptyValueIndirect(v) {
 		m["peeredNetwork"] = v
 	}
+	if v := f.PeeredNetworkIPRange; !dcl.IsEmptyValueIndirect(v) {
+		m["peeredNetworkIpRange"] = v
+	}
 	if v := f.EgressOption; !dcl.IsEmptyValueIndirect(v) {
 		m["egressOption"] = v
 	}
@@ -2070,6 +2105,7 @@ func flattenWorkerPoolPrivatePoolV1ConfigNetworkConfig(c *Client, i interface{},
 		return EmptyWorkerPoolPrivatePoolV1ConfigNetworkConfig
 	}
 	r.PeeredNetwork = dcl.FlattenString(m["peeredNetwork"])
+	r.PeeredNetworkIPRange = dcl.FlattenString(m["peeredNetworkIpRange"])
 	r.EgressOption = flattenWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum(m["egressOption"])
 
 	return r
@@ -2289,6 +2325,9 @@ func expandWorkerPoolNetworkConfig(c *Client, f *WorkerPoolNetworkConfig, res *W
 	if v := f.PeeredNetwork; !dcl.IsEmptyValueIndirect(v) {
 		m["peeredNetwork"] = v
 	}
+	if v := f.PeeredNetworkIPRange; !dcl.IsEmptyValueIndirect(v) {
+		m["peeredNetworkIpRange"] = v
+	}
 
 	return m, nil
 }
@@ -2307,6 +2346,7 @@ func flattenWorkerPoolNetworkConfig(c *Client, i interface{}, res *WorkerPool) *
 		return EmptyWorkerPoolNetworkConfig
 	}
 	r.PeeredNetwork = dcl.FlattenString(m["peeredNetwork"])
+	r.PeeredNetworkIPRange = dcl.FlattenString(m["peeredNetworkIpRange"])
 
 	return r
 }

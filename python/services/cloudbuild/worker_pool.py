@@ -291,8 +291,14 @@ class WorkerPoolPrivatePoolV1ConfigWorkerConfigArray(object):
 
 
 class WorkerPoolPrivatePoolV1ConfigNetworkConfig(object):
-    def __init__(self, peered_network: str = None, egress_option: str = None):
+    def __init__(
+        self,
+        peered_network: str = None,
+        peered_network_ip_range: str = None,
+        egress_option: str = None,
+    ):
         self.peered_network = peered_network
+        self.peered_network_ip_range = peered_network_ip_range
         self.egress_option = egress_option
 
     @classmethod
@@ -303,6 +309,10 @@ class WorkerPoolPrivatePoolV1ConfigNetworkConfig(object):
         res = worker_pool_pb2.CloudbuildWorkerPoolPrivatePoolV1ConfigNetworkConfig()
         if Primitive.to_proto(resource.peered_network):
             res.peered_network = Primitive.to_proto(resource.peered_network)
+        if Primitive.to_proto(resource.peered_network_ip_range):
+            res.peered_network_ip_range = Primitive.to_proto(
+                resource.peered_network_ip_range
+            )
         if WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum.to_proto(
             resource.egress_option
         ):
@@ -320,6 +330,9 @@ class WorkerPoolPrivatePoolV1ConfigNetworkConfig(object):
 
         return WorkerPoolPrivatePoolV1ConfigNetworkConfig(
             peered_network=Primitive.from_proto(resource.peered_network),
+            peered_network_ip_range=Primitive.from_proto(
+                resource.peered_network_ip_range
+            ),
             egress_option=WorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum.from_proto(
                 resource.egress_option
             ),
@@ -392,8 +405,9 @@ class WorkerPoolWorkerConfigArray(object):
 
 
 class WorkerPoolNetworkConfig(object):
-    def __init__(self, peered_network: str = None):
+    def __init__(self, peered_network: str = None, peered_network_ip_range: str = None):
         self.peered_network = peered_network
+        self.peered_network_ip_range = peered_network_ip_range
 
     @classmethod
     def to_proto(self, resource):
@@ -403,6 +417,10 @@ class WorkerPoolNetworkConfig(object):
         res = worker_pool_pb2.CloudbuildWorkerPoolNetworkConfig()
         if Primitive.to_proto(resource.peered_network):
             res.peered_network = Primitive.to_proto(resource.peered_network)
+        if Primitive.to_proto(resource.peered_network_ip_range):
+            res.peered_network_ip_range = Primitive.to_proto(
+                resource.peered_network_ip_range
+            )
         return res
 
     @classmethod
@@ -412,6 +430,9 @@ class WorkerPoolNetworkConfig(object):
 
         return WorkerPoolNetworkConfig(
             peered_network=Primitive.from_proto(resource.peered_network),
+            peered_network_ip_range=Primitive.from_proto(
+                resource.peered_network_ip_range
+            ),
         )
 
 

@@ -62,6 +62,9 @@ func WorkerPoolToUnstructured(r *dclService.WorkerPool) *unstructured.Resource {
 		if r.NetworkConfig.PeeredNetwork != nil {
 			rNetworkConfig["peeredNetwork"] = *r.NetworkConfig.PeeredNetwork
 		}
+		if r.NetworkConfig.PeeredNetworkIPRange != nil {
+			rNetworkConfig["peeredNetworkIPRange"] = *r.NetworkConfig.PeeredNetworkIPRange
+		}
 		u.Object["networkConfig"] = rNetworkConfig
 	}
 	if r.Project != nil {
@@ -157,6 +160,13 @@ func UnstructuredToWorkerPool(u *unstructured.Resource) (*dclService.WorkerPool,
 					r.NetworkConfig.PeeredNetwork = dcl.String(s)
 				} else {
 					return nil, fmt.Errorf("r.NetworkConfig.PeeredNetwork: expected string")
+				}
+			}
+			if _, ok := rNetworkConfig["peeredNetworkIPRange"]; ok {
+				if s, ok := rNetworkConfig["peeredNetworkIPRange"].(string); ok {
+					r.NetworkConfig.PeeredNetworkIPRange = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.NetworkConfig.PeeredNetworkIPRange: expected string")
 				}
 			}
 		} else {

@@ -66,7 +66,8 @@ message CloudbuildWorkerPoolPrivatePoolV1ConfigWorkerConfig {
 
 message CloudbuildWorkerPoolPrivatePoolV1ConfigNetworkConfig {
   string peered_network = 1;
-  CloudbuildWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum egress_option = 2;
+  string peered_network_ip_range = 2;
+  CloudbuildWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum egress_option = 3;
 }
 
 message CloudbuildWorkerPoolWorkerConfig {
@@ -77,6 +78,7 @@ message CloudbuildWorkerPoolWorkerConfig {
 
 message CloudbuildWorkerPoolNetworkConfig {
   string peered_network = 1;
+  string peered_network_ip_range = 2;
 }
 
 message ApplyCloudbuildWorkerPoolRequest {

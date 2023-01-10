@@ -78,8 +78,9 @@ func ProtoToCloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfig(p *betapb.C
 		return nil
 	}
 	obj := &beta.WorkerPoolPrivatePoolV1ConfigNetworkConfig{
-		PeeredNetwork: dcl.StringOrNil(p.GetPeeredNetwork()),
-		EgressOption:  ProtoToCloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum(p.GetEgressOption()),
+		PeeredNetwork:        dcl.StringOrNil(p.GetPeeredNetwork()),
+		PeeredNetworkIPRange: dcl.StringOrNil(p.GetPeeredNetworkIpRange()),
+		EgressOption:         ProtoToCloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum(p.GetEgressOption()),
 	}
 	return obj
 }
@@ -103,7 +104,8 @@ func ProtoToCloudbuildBetaWorkerPoolNetworkConfig(p *betapb.CloudbuildBetaWorker
 		return nil
 	}
 	obj := &beta.WorkerPoolNetworkConfig{
-		PeeredNetwork: dcl.StringOrNil(p.GetPeeredNetwork()),
+		PeeredNetwork:        dcl.StringOrNil(p.GetPeeredNetwork()),
+		PeeredNetworkIPRange: dcl.StringOrNil(p.GetPeeredNetworkIpRange()),
 	}
 	return obj
 }
@@ -179,6 +181,7 @@ func CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfigToProto(o *beta.Wor
 	}
 	p := &betapb.CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfig{}
 	p.SetPeeredNetwork(dcl.ValueOrEmptyString(o.PeeredNetwork))
+	p.SetPeeredNetworkIpRange(dcl.ValueOrEmptyString(o.PeeredNetworkIPRange))
 	p.SetEgressOption(CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnumToProto(o.EgressOption))
 	return p
 }
@@ -202,6 +205,7 @@ func CloudbuildBetaWorkerPoolNetworkConfigToProto(o *beta.WorkerPoolNetworkConfi
 	}
 	p := &betapb.CloudbuildBetaWorkerPoolNetworkConfig{}
 	p.SetPeeredNetwork(dcl.ValueOrEmptyString(o.PeeredNetwork))
+	p.SetPeeredNetworkIpRange(dcl.ValueOrEmptyString(o.PeeredNetworkIPRange))
 	return p
 }
 

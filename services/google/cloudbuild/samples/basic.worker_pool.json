@@ -13,7 +13,8 @@
     },
     "networkConfig": {
       "peeredNetwork": "projects/{{project}}/global/networks/{{ref:basic.compute.network.json:name}}",
-      "egressOption": "NO_PUBLIC_EGRESS"
+      "egressOption": "NO_PUBLIC_EGRESS",
+      "peeredNetworkIPRange": "/28"
     }
   }
 }

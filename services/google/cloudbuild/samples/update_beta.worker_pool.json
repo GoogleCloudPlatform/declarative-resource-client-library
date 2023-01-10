@@ -8,6 +8,7 @@
     "noExternalIP": false
   },
   "networkConfig": {
-    "peeredNetwork": "projects/{{project}}/global/networks/{{ref:basic.compute.network.json:name}}"
+    "peeredNetwork": "projects/{{project}}/global/networks/{{ref:basic.compute.network.json:name}}",
+    "peeredNetworkIPRange": "/28"
   }
 }
