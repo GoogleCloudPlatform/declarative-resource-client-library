@@ -79,7 +79,6 @@ components:
       type: object
       required:
       - name
-      - nodeTypeConfigs
       - project
       - location
       - privateCloud
@@ -111,30 +110,6 @@ components:
             are schemeless URIs that follow the conventions in https://cloud.google.com/apis/design/resource_names.
             For example: `projects/my-project/locations/us-west1-a/privateClouds/my-cloud/clusters/my-cluster`'
           x-kubernetes-immutable: true
-        nodeTypeConfigs:
-          type: object
-          additionalProperties:
-            type: object
-            x-dcl-go-type: ClusterNodeTypeConfigs
-            required:
-            - nodeCount
-            properties:
-              customCoreCount:
-                type: integer
-                format: int64
-                x-dcl-go-name: CustomCoreCount
-                description: Optional. Customized number of cores available to each
-                  node of the type. This number must always be one of `nodeType.availableCustomCoreCounts`.
-                  If zero is provided max value from `nodeType.availableCustomCoreCounts`
-                  will be used.
-              nodeCount:
-                type: integer
-                format: int64
-                x-dcl-go-name: NodeCount
-                description: Required. The number of nodes of this type in the cluster
-          x-dcl-go-name: NodeTypeConfigs
-          description: Required. The map of cluster node types in this cluster, where
-            the key is canonical identifier of the node type (corresponds to the `NodeType`).
         privateCloud:
           type: string
           x-dcl-go-name: PrivateCloud

@@ -1014,23 +1014,26 @@ func canonicalizeNewForwardingRuleMetadataFilterSet(c *Client, des, nw []Forward
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []ForwardingRuleMetadataFilter
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []ForwardingRuleMetadataFilter
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareForwardingRuleMetadataFilterNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewForwardingRuleMetadataFilter(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewForwardingRuleMetadataFilterSlice(c *Client, des, nw []ForwardingRuleMetadataFilter) []ForwardingRuleMetadataFilter {
@@ -1137,23 +1140,26 @@ func canonicalizeNewForwardingRuleMetadataFilterFilterLabelSet(c *Client, des, n
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []ForwardingRuleMetadataFilterFilterLabel
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []ForwardingRuleMetadataFilterFilterLabel
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareForwardingRuleMetadataFilterFilterLabelNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewForwardingRuleMetadataFilterFilterLabel(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewForwardingRuleMetadataFilterFilterLabelSlice(c *Client, des, nw []ForwardingRuleMetadataFilterFilterLabel) []ForwardingRuleMetadataFilterFilterLabel {
@@ -1260,23 +1266,26 @@ func canonicalizeNewForwardingRuleServiceDirectoryRegistrationsSet(c *Client, de
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []ForwardingRuleServiceDirectoryRegistrations
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []ForwardingRuleServiceDirectoryRegistrations
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareForwardingRuleServiceDirectoryRegistrationsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewForwardingRuleServiceDirectoryRegistrations(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewForwardingRuleServiceDirectoryRegistrationsSlice(c *Client, des, nw []ForwardingRuleServiceDirectoryRegistrations) []ForwardingRuleServiceDirectoryRegistrations {

@@ -901,23 +901,26 @@ func canonicalizeNewFunctionSourceRepositorySet(c *Client, des, nw []FunctionSou
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []FunctionSourceRepository
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []FunctionSourceRepository
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareFunctionSourceRepositoryNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewFunctionSourceRepository(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewFunctionSourceRepositorySlice(c *Client, des, nw []FunctionSourceRepository) []FunctionSourceRepository {
@@ -1017,23 +1020,26 @@ func canonicalizeNewFunctionHttpsTriggerSet(c *Client, des, nw []FunctionHttpsTr
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []FunctionHttpsTrigger
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []FunctionHttpsTrigger
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareFunctionHttpsTriggerNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewFunctionHttpsTrigger(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewFunctionHttpsTriggerSlice(c *Client, des, nw []FunctionHttpsTrigger) []FunctionHttpsTrigger {
@@ -1154,23 +1160,26 @@ func canonicalizeNewFunctionEventTriggerSet(c *Client, des, nw []FunctionEventTr
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []FunctionEventTrigger
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []FunctionEventTrigger
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareFunctionEventTriggerNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewFunctionEventTrigger(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewFunctionEventTriggerSlice(c *Client, des, nw []FunctionEventTrigger) []FunctionEventTrigger {

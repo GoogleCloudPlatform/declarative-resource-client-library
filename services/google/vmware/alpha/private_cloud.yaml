@@ -153,7 +153,6 @@ components:
           x-dcl-mutable-unreadable: true
           required:
           - clusterId
-          - nodeTypeConfigs
           properties:
             clusterId:
               type: string
@@ -164,32 +163,6 @@ components:
                 character * Ends with a non-hyphen character * Not formatted as a
                 UUID * Complies with [RFC 1034](https://datatracker.ietf.org/doc/html/rfc1034)
                 (section 3.5)'
-            nodeTypeConfigs:
-              type: object
-              additionalProperties:
-                type: object
-                x-dcl-go-type: PrivateCloudManagementClusterNodeTypeConfigs
-                required:
-                - nodeCount
-                properties:
-                  customCoreCount:
-                    type: integer
-                    format: int64
-                    x-dcl-go-name: CustomCoreCount
-                    description: Optional. Customized number of cores available to
-                      each node of the type. This number must always be one of `nodeType.availableCustomCoreCounts`.
-                      If zero is provided max value from `nodeType.availableCustomCoreCounts`
-                      will be used.
-                  nodeCount:
-                    type: integer
-                    format: int64
-                    x-dcl-go-name: NodeCount
-                    description: Required. The number of nodes of this type in the
-                      cluster
-              x-dcl-go-name: NodeTypeConfigs
-              description: Required. The map of cluster node types in this cluster,
-                where the key is canonical identifier of the node type (corresponds
-                to the `NodeType`).
         name:
           type: string
           x-dcl-go-name: Name

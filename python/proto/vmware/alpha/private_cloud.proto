@@ -80,12 +80,6 @@ message VmwareAlphaPrivateCloudNetworkConfig {
 
 message VmwareAlphaPrivateCloudManagementCluster {
   string cluster_id = 1;
-  map<string, VmwareAlphaPrivateCloudManagementClusterNodeTypeConfigs> node_type_configs = 2;
-}
-
-message VmwareAlphaPrivateCloudManagementClusterNodeTypeConfigs {
-  int64 node_count = 1;
-  int64 custom_core_count = 2;
 }
 
 message VmwareAlphaPrivateCloudHcx {

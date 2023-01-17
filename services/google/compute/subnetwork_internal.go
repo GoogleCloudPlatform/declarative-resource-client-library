@@ -831,23 +831,26 @@ func canonicalizeNewSubnetworkSecondaryIPRangesSet(c *Client, des, nw []Subnetwo
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []SubnetworkSecondaryIPRanges
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []SubnetworkSecondaryIPRanges
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareSubnetworkSecondaryIPRangesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewSubnetworkSecondaryIPRanges(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewSubnetworkSecondaryIPRangesSlice(c *Client, des, nw []SubnetworkSecondaryIPRanges) []SubnetworkSecondaryIPRanges {
@@ -979,23 +982,26 @@ func canonicalizeNewSubnetworkLogConfigSet(c *Client, des, nw []SubnetworkLogCon
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []SubnetworkLogConfig
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []SubnetworkLogConfig
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareSubnetworkLogConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewSubnetworkLogConfig(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewSubnetworkLogConfigSlice(c *Client, des, nw []SubnetworkLogConfig) []SubnetworkLogConfig {

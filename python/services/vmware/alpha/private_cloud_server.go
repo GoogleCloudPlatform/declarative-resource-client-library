@@ -97,18 +97,6 @@ func ProtoToVmwareAlphaPrivateCloudManagementCluster(p *alphapb.VmwareAlphaPriva
 	return obj
 }
 
-// ProtoToPrivateCloudManagementClusterNodeTypeConfigs converts a PrivateCloudManagementClusterNodeTypeConfigs object from its proto representation.
-func ProtoToVmwareAlphaPrivateCloudManagementClusterNodeTypeConfigs(p *alphapb.VmwareAlphaPrivateCloudManagementClusterNodeTypeConfigs) *alpha.PrivateCloudManagementClusterNodeTypeConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.PrivateCloudManagementClusterNodeTypeConfigs{
-		NodeCount:       dcl.Int64OrNil(p.GetNodeCount()),
-		CustomCoreCount: dcl.Int64OrNil(p.GetCustomCoreCount()),
-	}
-	return obj
-}
-
 // ProtoToPrivateCloudHcx converts a PrivateCloudHcx object from its proto representation.
 func ProtoToVmwareAlphaPrivateCloudHcx(p *alphapb.VmwareAlphaPrivateCloudHcx) *alpha.PrivateCloudHcx {
 	if p == nil {
@@ -237,22 +225,6 @@ func VmwareAlphaPrivateCloudManagementClusterToProto(o *alpha.PrivateCloudManage
 	}
 	p := &alphapb.VmwareAlphaPrivateCloudManagementCluster{}
 	p.SetClusterId(dcl.ValueOrEmptyString(o.ClusterId))
-	mNodeTypeConfigs := make(map[string]*alphapb.VmwareAlphaPrivateCloudManagementClusterNodeTypeConfigs, len(o.NodeTypeConfigs))
-	for k, r := range o.NodeTypeConfigs {
-		mNodeTypeConfigs[k] = VmwareAlphaPrivateCloudManagementClusterNodeTypeConfigsToProto(&r)
-	}
-	p.SetNodeTypeConfigs(mNodeTypeConfigs)
-	return p
-}
-
-// PrivateCloudManagementClusterNodeTypeConfigsToProto converts a PrivateCloudManagementClusterNodeTypeConfigs object to its proto representation.
-func VmwareAlphaPrivateCloudManagementClusterNodeTypeConfigsToProto(o *alpha.PrivateCloudManagementClusterNodeTypeConfigs) *alphapb.VmwareAlphaPrivateCloudManagementClusterNodeTypeConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.VmwareAlphaPrivateCloudManagementClusterNodeTypeConfigs{}
-	p.SetNodeCount(dcl.ValueOrEmptyInt64(o.NodeCount))
-	p.SetCustomCoreCount(dcl.ValueOrEmptyInt64(o.CustomCoreCount))
 	return p
 }
 

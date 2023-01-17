@@ -44,20 +44,6 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 	if r.Name != nil {
 		u.Object["name"] = *r.Name
 	}
-	if r.NodeTypeConfigs != nil {
-		rNodeTypeConfigs := make(map[string]interface{})
-		for k, v := range r.NodeTypeConfigs {
-			rNodeTypeConfigsMap := make(map[string]interface{})
-			if v.CustomCoreCount != nil {
-				rNodeTypeConfigsMap["customCoreCount"] = *v.CustomCoreCount
-			}
-			if v.NodeCount != nil {
-				rNodeTypeConfigsMap["nodeCount"] = *v.NodeCount
-			}
-			rNodeTypeConfigs[k] = rNodeTypeConfigsMap
-		}
-		u.Object["nodeTypeConfigs"] = rNodeTypeConfigs
-	}
 	if r.PrivateCloud != nil {
 		u.Object["privateCloud"] = *r.PrivateCloud
 	}
@@ -104,36 +90,6 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 			r.Name = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.Name: expected string")
-		}
-	}
-	if _, ok := u.Object["nodeTypeConfigs"]; ok {
-		if rNodeTypeConfigs, ok := u.Object["nodeTypeConfigs"].(map[string]interface{}); ok {
-			m := make(map[string]dclService.ClusterNodeTypeConfigs)
-			for k, v := range rNodeTypeConfigs {
-				if objval, ok := v.(map[string]interface{}); ok {
-					var rNodeTypeConfigsObj dclService.ClusterNodeTypeConfigs
-					if _, ok := objval["customCoreCount"]; ok {
-						if i, ok := objval["customCoreCount"].(int64); ok {
-							rNodeTypeConfigsObj.CustomCoreCount = dcl.Int64(i)
-						} else {
-							return nil, fmt.Errorf("rNodeTypeConfigsObj.CustomCoreCount: expected int64")
-						}
-					}
-					if _, ok := objval["nodeCount"]; ok {
-						if i, ok := objval["nodeCount"].(int64); ok {
-							rNodeTypeConfigsObj.NodeCount = dcl.Int64(i)
-						} else {
-							return nil, fmt.Errorf("rNodeTypeConfigsObj.NodeCount: expected int64")
-						}
-					}
-					m[k] = rNodeTypeConfigsObj
-				} else {
-					return nil, fmt.Errorf("r.NodeTypeConfigs: expected map[string]interface{}")
-				}
-			}
-			r.NodeTypeConfigs = m
-		} else {
-			return nil, fmt.Errorf("r.NodeTypeConfigs: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["privateCloud"]; ok {

@@ -70,20 +70,6 @@ func PrivateCloudToUnstructured(r *dclService.PrivateCloud) *unstructured.Resour
 		if r.ManagementCluster.ClusterId != nil {
 			rManagementCluster["clusterId"] = *r.ManagementCluster.ClusterId
 		}
-		if r.ManagementCluster.NodeTypeConfigs != nil {
-			rManagementClusterNodeTypeConfigs := make(map[string]interface{})
-			for k, v := range r.ManagementCluster.NodeTypeConfigs {
-				rManagementClusterNodeTypeConfigsMap := make(map[string]interface{})
-				if v.CustomCoreCount != nil {
-					rManagementClusterNodeTypeConfigsMap["customCoreCount"] = *v.CustomCoreCount
-				}
-				if v.NodeCount != nil {
-					rManagementClusterNodeTypeConfigsMap["nodeCount"] = *v.NodeCount
-				}
-				rManagementClusterNodeTypeConfigs[k] = rManagementClusterNodeTypeConfigsMap
-			}
-			rManagementCluster["nodeTypeConfigs"] = rManagementClusterNodeTypeConfigs
-		}
 		u.Object["managementCluster"] = rManagementCluster
 	}
 	if r.Name != nil {
@@ -232,36 +218,6 @@ func UnstructuredToPrivateCloud(u *unstructured.Resource) (*dclService.PrivateCl
 					r.ManagementCluster.ClusterId = dcl.String(s)
 				} else {
 					return nil, fmt.Errorf("r.ManagementCluster.ClusterId: expected string")
-				}
-			}
-			if _, ok := rManagementCluster["nodeTypeConfigs"]; ok {
-				if rManagementClusterNodeTypeConfigs, ok := rManagementCluster["nodeTypeConfigs"].(map[string]interface{}); ok {
-					m := make(map[string]dclService.PrivateCloudManagementClusterNodeTypeConfigs)
-					for k, v := range rManagementClusterNodeTypeConfigs {
-						if objval, ok := v.(map[string]interface{}); ok {
-							var rManagementClusterNodeTypeConfigsObj dclService.PrivateCloudManagementClusterNodeTypeConfigs
-							if _, ok := objval["customCoreCount"]; ok {
-								if i, ok := objval["customCoreCount"].(int64); ok {
-									rManagementClusterNodeTypeConfigsObj.CustomCoreCount = dcl.Int64(i)
-								} else {
-									return nil, fmt.Errorf("rManagementClusterNodeTypeConfigsObj.CustomCoreCount: expected int64")
-								}
-							}
-							if _, ok := objval["nodeCount"]; ok {
-								if i, ok := objval["nodeCount"].(int64); ok {
-									rManagementClusterNodeTypeConfigsObj.NodeCount = dcl.Int64(i)
-								} else {
-									return nil, fmt.Errorf("rManagementClusterNodeTypeConfigsObj.NodeCount: expected int64")
-								}
-							}
-							m[k] = rManagementClusterNodeTypeConfigsObj
-						} else {
-							return nil, fmt.Errorf("r.ManagementCluster.NodeTypeConfigs: expected map[string]interface{}")
-						}
-					}
-					r.ManagementCluster.NodeTypeConfigs = m
-				} else {
-					return nil, fmt.Errorf("r.ManagementCluster.NodeTypeConfigs: expected map[string]interface{}")
 				}
 			}
 		} else {

@@ -36,18 +36,6 @@ func ProtoToVmwareAlphaClusterStateEnum(e alphapb.VmwareAlphaClusterStateEnum) *
 	return nil
 }
 
-// ProtoToClusterNodeTypeConfigs converts a ClusterNodeTypeConfigs object from its proto representation.
-func ProtoToVmwareAlphaClusterNodeTypeConfigs(p *alphapb.VmwareAlphaClusterNodeTypeConfigs) *alpha.ClusterNodeTypeConfigs {
-	if p == nil {
-		return nil
-	}
-	obj := &alpha.ClusterNodeTypeConfigs{
-		NodeCount:       dcl.Int64OrNil(p.GetNodeCount()),
-		CustomCoreCount: dcl.Int64OrNil(p.GetCustomCoreCount()),
-	}
-	return obj
-}
-
 // ProtoToCluster converts a Cluster resource from its proto representation.
 func ProtoToCluster(p *alphapb.VmwareAlphaCluster) *alpha.Cluster {
 	obj := &alpha.Cluster{
@@ -75,17 +63,6 @@ func VmwareAlphaClusterStateEnumToProto(e *alpha.ClusterStateEnum) alphapb.Vmwar
 	return alphapb.VmwareAlphaClusterStateEnum(0)
 }
 
-// ClusterNodeTypeConfigsToProto converts a ClusterNodeTypeConfigs object to its proto representation.
-func VmwareAlphaClusterNodeTypeConfigsToProto(o *alpha.ClusterNodeTypeConfigs) *alphapb.VmwareAlphaClusterNodeTypeConfigs {
-	if o == nil {
-		return nil
-	}
-	p := &alphapb.VmwareAlphaClusterNodeTypeConfigs{}
-	p.SetNodeCount(dcl.ValueOrEmptyInt64(o.NodeCount))
-	p.SetCustomCoreCount(dcl.ValueOrEmptyInt64(o.CustomCoreCount))
-	return p
-}
-
 // ClusterToProto converts a Cluster resource to its proto representation.
 func ClusterToProto(resource *alpha.Cluster) *alphapb.VmwareAlphaCluster {
 	p := &alphapb.VmwareAlphaCluster{}
@@ -98,11 +75,6 @@ func ClusterToProto(resource *alpha.Cluster) *alphapb.VmwareAlphaCluster {
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetPrivateCloud(dcl.ValueOrEmptyString(resource.PrivateCloud))
-	mNodeTypeConfigs := make(map[string]*alphapb.VmwareAlphaClusterNodeTypeConfigs, len(resource.NodeTypeConfigs))
-	for k, r := range resource.NodeTypeConfigs {
-		mNodeTypeConfigs[k] = VmwareAlphaClusterNodeTypeConfigsToProto(&r)
-	}
-	p.SetNodeTypeConfigs(mNodeTypeConfigs)
 
 	return p
 }

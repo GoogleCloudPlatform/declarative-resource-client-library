@@ -611,23 +611,26 @@ func canonicalizeNewAutoscalingPolicyBasicAlgorithmSet(c *Client, des, nw []Auto
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []AutoscalingPolicyBasicAlgorithm
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []AutoscalingPolicyBasicAlgorithm
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareAutoscalingPolicyBasicAlgorithmNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewAutoscalingPolicyBasicAlgorithm(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewAutoscalingPolicyBasicAlgorithmSlice(c *Client, des, nw []AutoscalingPolicyBasicAlgorithm) []AutoscalingPolicyBasicAlgorithm {
@@ -750,23 +753,26 @@ func canonicalizeNewAutoscalingPolicyBasicAlgorithmYarnConfigSet(c *Client, des,
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []AutoscalingPolicyBasicAlgorithmYarnConfig
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []AutoscalingPolicyBasicAlgorithmYarnConfig
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareAutoscalingPolicyBasicAlgorithmYarnConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewAutoscalingPolicyBasicAlgorithmYarnConfig(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewAutoscalingPolicyBasicAlgorithmYarnConfigSlice(c *Client, des, nw []AutoscalingPolicyBasicAlgorithmYarnConfig) []AutoscalingPolicyBasicAlgorithmYarnConfig {
@@ -874,23 +880,26 @@ func canonicalizeNewAutoscalingPolicyWorkerConfigSet(c *Client, des, nw []Autosc
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []AutoscalingPolicyWorkerConfig
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []AutoscalingPolicyWorkerConfig
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareAutoscalingPolicyWorkerConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewAutoscalingPolicyWorkerConfig(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewAutoscalingPolicyWorkerConfigSlice(c *Client, des, nw []AutoscalingPolicyWorkerConfig) []AutoscalingPolicyWorkerConfig {
@@ -998,23 +1007,26 @@ func canonicalizeNewAutoscalingPolicySecondaryWorkerConfigSet(c *Client, des, nw
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []AutoscalingPolicySecondaryWorkerConfig
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []AutoscalingPolicySecondaryWorkerConfig
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareAutoscalingPolicySecondaryWorkerConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewAutoscalingPolicySecondaryWorkerConfig(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewAutoscalingPolicySecondaryWorkerConfigSlice(c *Client, des, nw []AutoscalingPolicySecondaryWorkerConfig) []AutoscalingPolicySecondaryWorkerConfig {

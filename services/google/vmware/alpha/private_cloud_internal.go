@@ -79,15 +79,6 @@ func (r *PrivateCloudManagementCluster) validate() error {
 	if err := dcl.Required(r, "clusterId"); err != nil {
 		return err
 	}
-	if err := dcl.Required(r, "nodeTypeConfigs"); err != nil {
-		return err
-	}
-	return nil
-}
-func (r *PrivateCloudManagementClusterNodeTypeConfigs) validate() error {
-	if err := dcl.Required(r, "nodeCount"); err != nil {
-		return err
-	}
 	return nil
 }
 func (r *PrivateCloudHcx) validate() error {
@@ -695,23 +686,26 @@ func canonicalizeNewPrivateCloudNetworkConfigSet(c *Client, des, nw []PrivateClo
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []PrivateCloudNetworkConfig
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []PrivateCloudNetworkConfig
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := comparePrivateCloudNetworkConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewPrivateCloudNetworkConfig(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewPrivateCloudNetworkConfigSlice(c *Client, des, nw []PrivateCloudNetworkConfig) []PrivateCloudNetworkConfig {
@@ -752,12 +746,6 @@ func canonicalizePrivateCloudManagementCluster(des, initial *PrivateCloudManagem
 		cDes.ClusterId = initial.ClusterId
 	} else {
 		cDes.ClusterId = des.ClusterId
-	}
-	if dcl.IsZeroValue(des.NodeTypeConfigs) || (dcl.IsEmptyValueIndirect(des.NodeTypeConfigs) && dcl.IsEmptyValueIndirect(initial.NodeTypeConfigs)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		cDes.NodeTypeConfigs = initial.NodeTypeConfigs
-	} else {
-		cDes.NodeTypeConfigs = des.NodeTypeConfigs
 	}
 
 	return cDes
@@ -816,23 +804,26 @@ func canonicalizeNewPrivateCloudManagementClusterSet(c *Client, des, nw []Privat
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []PrivateCloudManagementCluster
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []PrivateCloudManagementCluster
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := comparePrivateCloudManagementClusterNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewPrivateCloudManagementCluster(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewPrivateCloudManagementClusterSlice(c *Client, des, nw []PrivateCloudManagementCluster) []PrivateCloudManagementCluster {
@@ -850,124 +841,6 @@ func canonicalizeNewPrivateCloudManagementClusterSlice(c *Client, des, nw []Priv
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewPrivateCloudManagementCluster(c, &d, &n))
-	}
-
-	return items
-}
-
-func canonicalizePrivateCloudManagementClusterNodeTypeConfigs(des, initial *PrivateCloudManagementClusterNodeTypeConfigs, opts ...dcl.ApplyOption) *PrivateCloudManagementClusterNodeTypeConfigs {
-	if des == nil {
-		return initial
-	}
-	if des.empty {
-		return des
-	}
-
-	if initial == nil {
-		return des
-	}
-
-	cDes := &PrivateCloudManagementClusterNodeTypeConfigs{}
-
-	if dcl.IsZeroValue(des.NodeCount) || (dcl.IsEmptyValueIndirect(des.NodeCount) && dcl.IsEmptyValueIndirect(initial.NodeCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		cDes.NodeCount = initial.NodeCount
-	} else {
-		cDes.NodeCount = des.NodeCount
-	}
-	if dcl.IsZeroValue(des.CustomCoreCount) || (dcl.IsEmptyValueIndirect(des.CustomCoreCount) && dcl.IsEmptyValueIndirect(initial.CustomCoreCount)) {
-		// Desired and initial values are equivalent, so set canonical desired value to initial value.
-		cDes.CustomCoreCount = initial.CustomCoreCount
-	} else {
-		cDes.CustomCoreCount = des.CustomCoreCount
-	}
-
-	return cDes
-}
-
-func canonicalizePrivateCloudManagementClusterNodeTypeConfigsSlice(des, initial []PrivateCloudManagementClusterNodeTypeConfigs, opts ...dcl.ApplyOption) []PrivateCloudManagementClusterNodeTypeConfigs {
-	if dcl.IsEmptyValueIndirect(des) {
-		return initial
-	}
-
-	if len(des) != len(initial) {
-
-		items := make([]PrivateCloudManagementClusterNodeTypeConfigs, 0, len(des))
-		for _, d := range des {
-			cd := canonicalizePrivateCloudManagementClusterNodeTypeConfigs(&d, nil, opts...)
-			if cd != nil {
-				items = append(items, *cd)
-			}
-		}
-		return items
-	}
-
-	items := make([]PrivateCloudManagementClusterNodeTypeConfigs, 0, len(des))
-	for i, d := range des {
-		cd := canonicalizePrivateCloudManagementClusterNodeTypeConfigs(&d, &initial[i], opts...)
-		if cd != nil {
-			items = append(items, *cd)
-		}
-	}
-	return items
-
-}
-
-func canonicalizeNewPrivateCloudManagementClusterNodeTypeConfigs(c *Client, des, nw *PrivateCloudManagementClusterNodeTypeConfigs) *PrivateCloudManagementClusterNodeTypeConfigs {
-
-	if des == nil {
-		return nw
-	}
-
-	if nw == nil {
-		if dcl.IsEmptyValueIndirect(des) {
-			c.Config.Logger.Info("Found explicitly empty value for PrivateCloudManagementClusterNodeTypeConfigs while comparing non-nil desired to nil actual.  Returning desired object.")
-			return des
-		}
-		return nil
-	}
-
-	return nw
-}
-
-func canonicalizeNewPrivateCloudManagementClusterNodeTypeConfigsSet(c *Client, des, nw []PrivateCloudManagementClusterNodeTypeConfigs) []PrivateCloudManagementClusterNodeTypeConfigs {
-	if des == nil {
-		return nw
-	}
-	var reorderedNew []PrivateCloudManagementClusterNodeTypeConfigs
-	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
-			if diffs, _ := comparePrivateCloudManagementClusterNodeTypeConfigsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
-				break
-			}
-		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
-		}
-	}
-	reorderedNew = append(reorderedNew, nw...)
-
-	return reorderedNew
-}
-
-func canonicalizeNewPrivateCloudManagementClusterNodeTypeConfigsSlice(c *Client, des, nw []PrivateCloudManagementClusterNodeTypeConfigs) []PrivateCloudManagementClusterNodeTypeConfigs {
-	if des == nil {
-		return nw
-	}
-
-	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
-	// Return the original array.
-	if len(des) != len(nw) {
-		return nw
-	}
-
-	var items []PrivateCloudManagementClusterNodeTypeConfigs
-	for i, d := range des {
-		n := nw[i]
-		items = append(items, *canonicalizeNewPrivateCloudManagementClusterNodeTypeConfigs(c, &d, &n))
 	}
 
 	return items
@@ -1065,23 +938,26 @@ func canonicalizeNewPrivateCloudHcxSet(c *Client, des, nw []PrivateCloudHcx) []P
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []PrivateCloudHcx
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []PrivateCloudHcx
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := comparePrivateCloudHcxNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewPrivateCloudHcx(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewPrivateCloudHcxSlice(c *Client, des, nw []PrivateCloudHcx) []PrivateCloudHcx {
@@ -1196,23 +1072,26 @@ func canonicalizeNewPrivateCloudNsxSet(c *Client, des, nw []PrivateCloudNsx) []P
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []PrivateCloudNsx
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []PrivateCloudNsx
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := comparePrivateCloudNsxNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewPrivateCloudNsx(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewPrivateCloudNsxSlice(c *Client, des, nw []PrivateCloudNsx) []PrivateCloudNsx {
@@ -1327,23 +1206,26 @@ func canonicalizeNewPrivateCloudVcenterSet(c *Client, des, nw []PrivateCloudVcen
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []PrivateCloudVcenter
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []PrivateCloudVcenter
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := comparePrivateCloudVcenterNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewPrivateCloudVcenter(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewPrivateCloudVcenterSlice(c *Client, des, nw []PrivateCloudVcenter) []PrivateCloudVcenter {
@@ -1562,49 +1444,6 @@ func comparePrivateCloudManagementClusterNewStyle(d, a interface{}, fn dcl.Field
 	}
 
 	if ds, err := dcl.Diff(desired.ClusterId, actual.ClusterId, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updatePrivateCloudUpdatePrivateCloudOperation")}, fn.AddNest("ClusterId")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.NodeTypeConfigs, actual.NodeTypeConfigs, dcl.DiffInfo{ObjectFunction: comparePrivateCloudManagementClusterNodeTypeConfigsNewStyle, EmptyObject: EmptyPrivateCloudManagementClusterNodeTypeConfigs, OperationSelector: dcl.TriggersOperation("updatePrivateCloudUpdatePrivateCloudOperation")}, fn.AddNest("NodeTypeConfigs")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-	return diffs, nil
-}
-
-func comparePrivateCloudManagementClusterNodeTypeConfigsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
-	var diffs []*dcl.FieldDiff
-
-	desired, ok := d.(*PrivateCloudManagementClusterNodeTypeConfigs)
-	if !ok {
-		desiredNotPointer, ok := d.(PrivateCloudManagementClusterNodeTypeConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a PrivateCloudManagementClusterNodeTypeConfigs or *PrivateCloudManagementClusterNodeTypeConfigs", d)
-		}
-		desired = &desiredNotPointer
-	}
-	actual, ok := a.(*PrivateCloudManagementClusterNodeTypeConfigs)
-	if !ok {
-		actualNotPointer, ok := a.(PrivateCloudManagementClusterNodeTypeConfigs)
-		if !ok {
-			return nil, fmt.Errorf("obj %v is not a PrivateCloudManagementClusterNodeTypeConfigs", a)
-		}
-		actual = &actualNotPointer
-	}
-
-	if ds, err := dcl.Diff(desired.NodeCount, actual.NodeCount, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updatePrivateCloudUpdatePrivateCloudOperation")}, fn.AddNest("NodeCount")); len(ds) != 0 || err != nil {
-		if err != nil {
-			return nil, err
-		}
-		diffs = append(diffs, ds...)
-	}
-
-	if ds, err := dcl.Diff(desired.CustomCoreCount, actual.CustomCoreCount, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updatePrivateCloudUpdatePrivateCloudOperation")}, fn.AddNest("CustomCoreCount")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2101,11 +1940,6 @@ func expandPrivateCloudManagementCluster(c *Client, f *PrivateCloudManagementClu
 	if v := f.ClusterId; !dcl.IsEmptyValueIndirect(v) {
 		m["clusterId"] = v
 	}
-	if v, err := expandPrivateCloudManagementClusterNodeTypeConfigsMap(c, f.NodeTypeConfigs, res); err != nil {
-		return nil, fmt.Errorf("error expanding NodeTypeConfigs into nodeTypeConfigs: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
-		m["nodeTypeConfigs"] = v
-	}
 
 	return m, nil
 }
@@ -2124,125 +1958,6 @@ func flattenPrivateCloudManagementCluster(c *Client, i interface{}, res *Private
 		return EmptyPrivateCloudManagementCluster
 	}
 	r.ClusterId = dcl.FlattenString(m["clusterId"])
-	r.NodeTypeConfigs = flattenPrivateCloudManagementClusterNodeTypeConfigsMap(c, m["nodeTypeConfigs"], res)
-
-	return r
-}
-
-// expandPrivateCloudManagementClusterNodeTypeConfigsMap expands the contents of PrivateCloudManagementClusterNodeTypeConfigs into a JSON
-// request object.
-func expandPrivateCloudManagementClusterNodeTypeConfigsMap(c *Client, f map[string]PrivateCloudManagementClusterNodeTypeConfigs, res *PrivateCloud) (map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := make(map[string]interface{})
-	for k, item := range f {
-		i, err := expandPrivateCloudManagementClusterNodeTypeConfigs(c, &item, res)
-		if err != nil {
-			return nil, err
-		}
-		if i != nil {
-			items[k] = i
-		}
-	}
-
-	return items, nil
-}
-
-// expandPrivateCloudManagementClusterNodeTypeConfigsSlice expands the contents of PrivateCloudManagementClusterNodeTypeConfigs into a JSON
-// request object.
-func expandPrivateCloudManagementClusterNodeTypeConfigsSlice(c *Client, f []PrivateCloudManagementClusterNodeTypeConfigs, res *PrivateCloud) ([]map[string]interface{}, error) {
-	if f == nil {
-		return nil, nil
-	}
-
-	items := []map[string]interface{}{}
-	for _, item := range f {
-		i, err := expandPrivateCloudManagementClusterNodeTypeConfigs(c, &item, res)
-		if err != nil {
-			return nil, err
-		}
-
-		items = append(items, i)
-	}
-
-	return items, nil
-}
-
-// flattenPrivateCloudManagementClusterNodeTypeConfigsMap flattens the contents of PrivateCloudManagementClusterNodeTypeConfigs from a JSON
-// response object.
-func flattenPrivateCloudManagementClusterNodeTypeConfigsMap(c *Client, i interface{}, res *PrivateCloud) map[string]PrivateCloudManagementClusterNodeTypeConfigs {
-	a, ok := i.(map[string]interface{})
-	if !ok {
-		return map[string]PrivateCloudManagementClusterNodeTypeConfigs{}
-	}
-
-	if len(a) == 0 {
-		return map[string]PrivateCloudManagementClusterNodeTypeConfigs{}
-	}
-
-	items := make(map[string]PrivateCloudManagementClusterNodeTypeConfigs)
-	for k, item := range a {
-		items[k] = *flattenPrivateCloudManagementClusterNodeTypeConfigs(c, item.(map[string]interface{}), res)
-	}
-
-	return items
-}
-
-// flattenPrivateCloudManagementClusterNodeTypeConfigsSlice flattens the contents of PrivateCloudManagementClusterNodeTypeConfigs from a JSON
-// response object.
-func flattenPrivateCloudManagementClusterNodeTypeConfigsSlice(c *Client, i interface{}, res *PrivateCloud) []PrivateCloudManagementClusterNodeTypeConfigs {
-	a, ok := i.([]interface{})
-	if !ok {
-		return []PrivateCloudManagementClusterNodeTypeConfigs{}
-	}
-
-	if len(a) == 0 {
-		return []PrivateCloudManagementClusterNodeTypeConfigs{}
-	}
-
-	items := make([]PrivateCloudManagementClusterNodeTypeConfigs, 0, len(a))
-	for _, item := range a {
-		items = append(items, *flattenPrivateCloudManagementClusterNodeTypeConfigs(c, item.(map[string]interface{}), res))
-	}
-
-	return items
-}
-
-// expandPrivateCloudManagementClusterNodeTypeConfigs expands an instance of PrivateCloudManagementClusterNodeTypeConfigs into a JSON
-// request object.
-func expandPrivateCloudManagementClusterNodeTypeConfigs(c *Client, f *PrivateCloudManagementClusterNodeTypeConfigs, res *PrivateCloud) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
-		return nil, nil
-	}
-
-	m := make(map[string]interface{})
-	if v := f.NodeCount; !dcl.IsEmptyValueIndirect(v) {
-		m["nodeCount"] = v
-	}
-	if v := f.CustomCoreCount; !dcl.IsEmptyValueIndirect(v) {
-		m["customCoreCount"] = v
-	}
-
-	return m, nil
-}
-
-// flattenPrivateCloudManagementClusterNodeTypeConfigs flattens an instance of PrivateCloudManagementClusterNodeTypeConfigs from a JSON
-// response object.
-func flattenPrivateCloudManagementClusterNodeTypeConfigs(c *Client, i interface{}, res *PrivateCloud) *PrivateCloudManagementClusterNodeTypeConfigs {
-	m, ok := i.(map[string]interface{})
-	if !ok {
-		return nil
-	}
-
-	r := &PrivateCloudManagementClusterNodeTypeConfigs{}
-
-	if dcl.IsEmptyValueIndirect(i) {
-		return EmptyPrivateCloudManagementClusterNodeTypeConfigs
-	}
-	r.NodeCount = dcl.FlattenInteger(m["nodeCount"])
-	r.CustomCoreCount = dcl.FlattenInteger(m["customCoreCount"])
 
 	return r
 }
@@ -2977,9 +2692,6 @@ func extractPrivateCloudNetworkConfigFields(r *PrivateCloud, o *PrivateCloudNetw
 func extractPrivateCloudManagementClusterFields(r *PrivateCloud, o *PrivateCloudManagementCluster) error {
 	return nil
 }
-func extractPrivateCloudManagementClusterNodeTypeConfigsFields(r *PrivateCloud, o *PrivateCloudManagementClusterNodeTypeConfigs) error {
-	return nil
-}
 func extractPrivateCloudHcxFields(r *PrivateCloud, o *PrivateCloudHcx) error {
 	return nil
 }
@@ -3052,9 +2764,6 @@ func postReadExtractPrivateCloudNetworkConfigFields(r *PrivateCloud, o *PrivateC
 	return nil
 }
 func postReadExtractPrivateCloudManagementClusterFields(r *PrivateCloud, o *PrivateCloudManagementCluster) error {
-	return nil
-}
-func postReadExtractPrivateCloudManagementClusterNodeTypeConfigsFields(r *PrivateCloud, o *PrivateCloudManagementClusterNodeTypeConfigs) error {
 	return nil
 }
 func postReadExtractPrivateCloudHcxFields(r *PrivateCloud, o *PrivateCloudHcx) error {

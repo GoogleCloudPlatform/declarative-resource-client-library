@@ -203,39 +203,12 @@ func DCLPrivateCloudSchema() *dcl.Schema {
 								Unreadable:  true,
 								Required: []string{
 									"clusterId",
-									"nodeTypeConfigs",
 								},
 								Properties: map[string]*dcl.Property{
 									"clusterId": &dcl.Property{
 										Type:        "string",
 										GoName:      "ClusterId",
 										Description: "Required. The user-provided identifier of the new `Cluster`. The identifier must meet the following requirements: * Only contains 1-63 alphanumeric characters and hyphens * Begins with an alphabetical character * Ends with a non-hyphen character * Not formatted as a UUID * Complies with [RFC 1034](https://datatracker.ietf.org/doc/html/rfc1034) (section 3.5)",
-									},
-									"nodeTypeConfigs": &dcl.Property{
-										Type: "object",
-										AdditionalProperties: &dcl.Property{
-											Type:   "object",
-											GoType: "PrivateCloudManagementClusterNodeTypeConfigs",
-											Required: []string{
-												"nodeCount",
-											},
-											Properties: map[string]*dcl.Property{
-												"customCoreCount": &dcl.Property{
-													Type:        "integer",
-													Format:      "int64",
-													GoName:      "CustomCoreCount",
-													Description: "Optional. Customized number of cores available to each node of the type. This number must always be one of `nodeType.availableCustomCoreCounts`. If zero is provided max value from `nodeType.availableCustomCoreCounts` will be used.",
-												},
-												"nodeCount": &dcl.Property{
-													Type:        "integer",
-													Format:      "int64",
-													GoName:      "NodeCount",
-													Description: "Required. The number of nodes of this type in the cluster",
-												},
-											},
-										},
-										GoName:      "NodeTypeConfigs",
-										Description: "Required. The map of cluster node types in this cluster, where the key is canonical identifier of the node type (corresponds to the `NodeType`).",
 									},
 								},
 							},

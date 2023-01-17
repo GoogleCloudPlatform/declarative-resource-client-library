@@ -775,23 +775,26 @@ func canonicalizeNewUptimeCheckConfigMonitoredResourceSet(c *Client, des, nw []U
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []UptimeCheckConfigMonitoredResource
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []UptimeCheckConfigMonitoredResource
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareUptimeCheckConfigMonitoredResourceNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewUptimeCheckConfigMonitoredResource(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewUptimeCheckConfigMonitoredResourceSlice(c *Client, des, nw []UptimeCheckConfigMonitoredResource) []UptimeCheckConfigMonitoredResource {
@@ -893,23 +896,26 @@ func canonicalizeNewUptimeCheckConfigResourceGroupSet(c *Client, des, nw []Uptim
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []UptimeCheckConfigResourceGroup
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []UptimeCheckConfigResourceGroup
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareUptimeCheckConfigResourceGroupNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewUptimeCheckConfigResourceGroup(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewUptimeCheckConfigResourceGroupSlice(c *Client, des, nw []UptimeCheckConfigResourceGroup) []UptimeCheckConfigResourceGroup {
@@ -1083,23 +1089,26 @@ func canonicalizeNewUptimeCheckConfigHttpCheckSet(c *Client, des, nw []UptimeChe
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []UptimeCheckConfigHttpCheck
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []UptimeCheckConfigHttpCheck
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareUptimeCheckConfigHttpCheckNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewUptimeCheckConfigHttpCheck(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewUptimeCheckConfigHttpCheckSlice(c *Client, des, nw []UptimeCheckConfigHttpCheck) []UptimeCheckConfigHttpCheck {
@@ -1204,23 +1213,26 @@ func canonicalizeNewUptimeCheckConfigHttpCheckAuthInfoSet(c *Client, des, nw []U
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []UptimeCheckConfigHttpCheckAuthInfo
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []UptimeCheckConfigHttpCheckAuthInfo
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareUptimeCheckConfigHttpCheckAuthInfoNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewUptimeCheckConfigHttpCheckAuthInfo(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewUptimeCheckConfigHttpCheckAuthInfoSlice(c *Client, des, nw []UptimeCheckConfigHttpCheckAuthInfo) []UptimeCheckConfigHttpCheckAuthInfo {
@@ -1316,23 +1328,26 @@ func canonicalizeNewUptimeCheckConfigTcpCheckSet(c *Client, des, nw []UptimeChec
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []UptimeCheckConfigTcpCheck
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []UptimeCheckConfigTcpCheck
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareUptimeCheckConfigTcpCheckNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewUptimeCheckConfigTcpCheck(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewUptimeCheckConfigTcpCheckSlice(c *Client, des, nw []UptimeCheckConfigTcpCheck) []UptimeCheckConfigTcpCheck {
@@ -1445,23 +1460,26 @@ func canonicalizeNewUptimeCheckConfigContentMatchersSet(c *Client, des, nw []Upt
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []UptimeCheckConfigContentMatchers
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []UptimeCheckConfigContentMatchers
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareUptimeCheckConfigContentMatchersNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewUptimeCheckConfigContentMatchers(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewUptimeCheckConfigContentMatchersSlice(c *Client, des, nw []UptimeCheckConfigContentMatchers) []UptimeCheckConfigContentMatchers {

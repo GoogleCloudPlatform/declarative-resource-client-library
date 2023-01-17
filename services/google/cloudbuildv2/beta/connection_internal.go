@@ -731,23 +731,26 @@ func canonicalizeNewConnectionGithubConfigSet(c *Client, des, nw []ConnectionGit
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []ConnectionGithubConfig
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []ConnectionGithubConfig
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareConnectionGithubConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewConnectionGithubConfig(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewConnectionGithubConfigSlice(c *Client, des, nw []ConnectionGithubConfig) []ConnectionGithubConfig {
@@ -847,23 +850,26 @@ func canonicalizeNewConnectionGithubConfigAuthorizerCredentialSet(c *Client, des
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []ConnectionGithubConfigAuthorizerCredential
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []ConnectionGithubConfigAuthorizerCredential
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareConnectionGithubConfigAuthorizerCredentialNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewConnectionGithubConfigAuthorizerCredential(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewConnectionGithubConfigAuthorizerCredentialSlice(c *Client, des, nw []ConnectionGithubConfigAuthorizerCredential) []ConnectionGithubConfigAuthorizerCredential {
@@ -1004,23 +1010,26 @@ func canonicalizeNewConnectionGithubEnterpriseConfigSet(c *Client, des, nw []Con
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []ConnectionGithubEnterpriseConfig
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []ConnectionGithubEnterpriseConfig
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareConnectionGithubEnterpriseConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewConnectionGithubEnterpriseConfig(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewConnectionGithubEnterpriseConfigSlice(c *Client, des, nw []ConnectionGithubEnterpriseConfig) []ConnectionGithubEnterpriseConfig {
@@ -1116,23 +1125,26 @@ func canonicalizeNewConnectionGithubEnterpriseConfigServiceDirectoryConfigSet(c 
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []ConnectionGithubEnterpriseConfigServiceDirectoryConfig
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []ConnectionGithubEnterpriseConfigServiceDirectoryConfig
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareConnectionGithubEnterpriseConfigServiceDirectoryConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewConnectionGithubEnterpriseConfigServiceDirectoryConfig(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewConnectionGithubEnterpriseConfigServiceDirectoryConfigSlice(c *Client, des, nw []ConnectionGithubEnterpriseConfigServiceDirectoryConfig) []ConnectionGithubEnterpriseConfigServiceDirectoryConfig {
@@ -1228,23 +1240,26 @@ func canonicalizeNewConnectionInstallationStateSet(c *Client, des, nw []Connecti
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []ConnectionInstallationState
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []ConnectionInstallationState
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareConnectionInstallationStateNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewConnectionInstallationState(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewConnectionInstallationStateSlice(c *Client, des, nw []ConnectionInstallationState) []ConnectionInstallationState {

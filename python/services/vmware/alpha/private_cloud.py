@@ -235,9 +235,8 @@ class PrivateCloudNetworkConfigArray(object):
 
 
 class PrivateCloudManagementCluster(object):
-    def __init__(self, cluster_id: str = None, node_type_configs: dict = None):
+    def __init__(self, cluster_id: str = None):
         self.cluster_id = cluster_id
-        self.node_type_configs = node_type_configs
 
     @classmethod
     def to_proto(self, resource):
@@ -247,8 +246,6 @@ class PrivateCloudManagementCluster(object):
         res = private_cloud_pb2.VmwareAlphaPrivateCloudManagementCluster()
         if Primitive.to_proto(resource.cluster_id):
             res.cluster_id = Primitive.to_proto(resource.cluster_id)
-        if Primitive.to_proto(resource.node_type_configs):
-            res.node_type_configs = Primitive.to_proto(resource.node_type_configs)
         return res
 
     @classmethod
@@ -258,7 +255,6 @@ class PrivateCloudManagementCluster(object):
 
         return PrivateCloudManagementCluster(
             cluster_id=Primitive.from_proto(resource.cluster_id),
-            node_type_configs=Primitive.from_proto(resource.node_type_configs),
         )
 
 
@@ -272,53 +268,6 @@ class PrivateCloudManagementClusterArray(object):
     @classmethod
     def from_proto(self, resources):
         return [PrivateCloudManagementCluster.from_proto(i) for i in resources]
-
-
-class PrivateCloudManagementClusterNodeTypeConfigs(object):
-    def __init__(self, node_count: int = None, custom_core_count: int = None):
-        self.node_count = node_count
-        self.custom_core_count = custom_core_count
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            private_cloud_pb2.VmwareAlphaPrivateCloudManagementClusterNodeTypeConfigs()
-        )
-        if Primitive.to_proto(resource.node_count):
-            res.node_count = Primitive.to_proto(resource.node_count)
-        if Primitive.to_proto(resource.custom_core_count):
-            res.custom_core_count = Primitive.to_proto(resource.custom_core_count)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return PrivateCloudManagementClusterNodeTypeConfigs(
-            node_count=Primitive.from_proto(resource.node_count),
-            custom_core_count=Primitive.from_proto(resource.custom_core_count),
-        )
-
-
-class PrivateCloudManagementClusterNodeTypeConfigsArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            PrivateCloudManagementClusterNodeTypeConfigs.to_proto(i) for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            PrivateCloudManagementClusterNodeTypeConfigs.from_proto(i)
-            for i in resources
-        ]
 
 
 class PrivateCloudHcx(object):

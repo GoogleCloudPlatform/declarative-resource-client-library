@@ -656,23 +656,26 @@ func canonicalizeNewMembershipPreferredMemberKeySet(c *Client, des, nw []Members
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []MembershipPreferredMemberKey
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []MembershipPreferredMemberKey
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareMembershipPreferredMemberKeyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewMembershipPreferredMemberKey(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewMembershipPreferredMemberKeySlice(c *Client, des, nw []MembershipPreferredMemberKey) []MembershipPreferredMemberKey {
@@ -775,23 +778,26 @@ func canonicalizeNewMembershipRolesSet(c *Client, des, nw []MembershipRoles) []M
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []MembershipRoles
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []MembershipRoles
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareMembershipRolesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewMembershipRoles(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewMembershipRolesSlice(c *Client, des, nw []MembershipRoles) []MembershipRoles {
@@ -887,23 +893,26 @@ func canonicalizeNewMembershipRolesExpiryDetailSet(c *Client, des, nw []Membersh
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []MembershipRolesExpiryDetail
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []MembershipRolesExpiryDetail
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareMembershipRolesExpiryDetailNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewMembershipRolesExpiryDetail(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewMembershipRolesExpiryDetailSlice(c *Client, des, nw []MembershipRolesExpiryDetail) []MembershipRolesExpiryDetail {
@@ -996,23 +1005,26 @@ func canonicalizeNewMembershipRolesRestrictionEvaluationsSet(c *Client, des, nw 
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []MembershipRolesRestrictionEvaluations
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []MembershipRolesRestrictionEvaluations
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareMembershipRolesRestrictionEvaluationsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewMembershipRolesRestrictionEvaluations(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewMembershipRolesRestrictionEvaluationsSlice(c *Client, des, nw []MembershipRolesRestrictionEvaluations) []MembershipRolesRestrictionEvaluations {
@@ -1101,23 +1113,26 @@ func canonicalizeNewMembershipRolesRestrictionEvaluationsMemberRestrictionEvalua
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewMembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationSlice(c *Client, des, nw []MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation) []MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation {
@@ -1246,23 +1261,26 @@ func canonicalizeNewMembershipDisplayNameSet(c *Client, des, nw []MembershipDisp
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []MembershipDisplayName
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []MembershipDisplayName
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareMembershipDisplayNameNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewMembershipDisplayName(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewMembershipDisplayNameSlice(c *Client, des, nw []MembershipDisplayName) []MembershipDisplayName {
@@ -1369,23 +1387,26 @@ func canonicalizeNewMembershipMemberKeySet(c *Client, des, nw []MembershipMember
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []MembershipMemberKey
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []MembershipMemberKey
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareMembershipMemberKeyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewMembershipMemberKey(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewMembershipMemberKeySlice(c *Client, des, nw []MembershipMemberKey) []MembershipMemberKey {

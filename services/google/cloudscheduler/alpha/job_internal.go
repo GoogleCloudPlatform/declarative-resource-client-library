@@ -794,23 +794,26 @@ func canonicalizeNewJobPubsubTargetSet(c *Client, des, nw []JobPubsubTarget) []J
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []JobPubsubTarget
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []JobPubsubTarget
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareJobPubsubTargetNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewJobPubsubTarget(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewJobPubsubTargetSlice(c *Client, des, nw []JobPubsubTarget) []JobPubsubTarget {
@@ -931,23 +934,26 @@ func canonicalizeNewJobAppEngineHttpTargetSet(c *Client, des, nw []JobAppEngineH
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []JobAppEngineHttpTarget
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []JobAppEngineHttpTarget
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareJobAppEngineHttpTargetNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewJobAppEngineHttpTarget(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewJobAppEngineHttpTargetSlice(c *Client, des, nw []JobAppEngineHttpTarget) []JobAppEngineHttpTarget {
@@ -1065,23 +1071,26 @@ func canonicalizeNewJobAppEngineHttpTargetAppEngineRoutingSet(c *Client, des, nw
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []JobAppEngineHttpTargetAppEngineRouting
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []JobAppEngineHttpTargetAppEngineRouting
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareJobAppEngineHttpTargetAppEngineRoutingNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewJobAppEngineHttpTargetAppEngineRouting(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewJobAppEngineHttpTargetAppEngineRoutingSlice(c *Client, des, nw []JobAppEngineHttpTargetAppEngineRouting) []JobAppEngineHttpTargetAppEngineRouting {
@@ -1204,23 +1213,26 @@ func canonicalizeNewJobHttpTargetSet(c *Client, des, nw []JobHttpTarget) []JobHt
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []JobHttpTarget
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []JobHttpTarget
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareJobHttpTargetNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewJobHttpTarget(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewJobHttpTargetSlice(c *Client, des, nw []JobHttpTarget) []JobHttpTarget {
@@ -1325,23 +1337,26 @@ func canonicalizeNewJobHttpTargetOAuthTokenSet(c *Client, des, nw []JobHttpTarge
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []JobHttpTargetOAuthToken
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []JobHttpTargetOAuthToken
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareJobHttpTargetOAuthTokenNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewJobHttpTargetOAuthToken(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewJobHttpTargetOAuthTokenSlice(c *Client, des, nw []JobHttpTargetOAuthToken) []JobHttpTargetOAuthToken {
@@ -1446,23 +1461,26 @@ func canonicalizeNewJobHttpTargetOidcTokenSet(c *Client, des, nw []JobHttpTarget
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []JobHttpTargetOidcToken
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []JobHttpTargetOidcToken
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareJobHttpTargetOidcTokenNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewJobHttpTargetOidcToken(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewJobHttpTargetOidcTokenSlice(c *Client, des, nw []JobHttpTargetOidcToken) []JobHttpTargetOidcToken {
@@ -1569,23 +1587,26 @@ func canonicalizeNewJobStatusSet(c *Client, des, nw []JobStatus) []JobStatus {
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []JobStatus
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []JobStatus
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareJobStatusNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewJobStatus(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewJobStatusSlice(c *Client, des, nw []JobStatus) []JobStatus {
@@ -1692,23 +1713,26 @@ func canonicalizeNewJobStatusDetailsSet(c *Client, des, nw []JobStatusDetails) [
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []JobStatusDetails
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []JobStatusDetails
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareJobStatusDetailsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewJobStatusDetails(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewJobStatusDetailsSlice(c *Client, des, nw []JobStatusDetails) []JobStatusDetails {
@@ -1835,23 +1859,26 @@ func canonicalizeNewJobRetryConfigSet(c *Client, des, nw []JobRetryConfig) []Job
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []JobRetryConfig
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []JobRetryConfig
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareJobRetryConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewJobRetryConfig(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewJobRetryConfigSlice(c *Client, des, nw []JobRetryConfig) []JobRetryConfig {

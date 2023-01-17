@@ -38,15 +38,9 @@ message VmwareAlphaCluster {
   VmwareAlphaClusterStateEnum state = 4;
   bool management = 5;
   string uid = 6;
-  map<string, VmwareAlphaClusterNodeTypeConfigs> node_type_configs = 7;
-  string project = 8;
-  string location = 9;
-  string private_cloud = 10;
-}
-
-message VmwareAlphaClusterNodeTypeConfigs {
-  int64 node_count = 1;
-  int64 custom_core_count = 2;
+  string project = 7;
+  string location = 8;
+  string private_cloud = 9;
 }
 
 message ApplyVmwareAlphaClusterRequest {

@@ -718,23 +718,26 @@ func canonicalizeNewGroupGroupKeySet(c *Client, des, nw []GroupGroupKey) []Group
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []GroupGroupKey
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []GroupGroupKey
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareGroupGroupKeyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewGroupGroupKey(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewGroupGroupKeySlice(c *Client, des, nw []GroupGroupKey) []GroupGroupKey {
@@ -841,23 +844,26 @@ func canonicalizeNewGroupAdditionalGroupKeysSet(c *Client, des, nw []GroupAdditi
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []GroupAdditionalGroupKeys
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []GroupAdditionalGroupKeys
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareGroupAdditionalGroupKeysNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewGroupAdditionalGroupKeys(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewGroupAdditionalGroupKeysSlice(c *Client, des, nw []GroupAdditionalGroupKeys) []GroupAdditionalGroupKeys {
@@ -946,23 +952,26 @@ func canonicalizeNewGroupDirectMemberCountPerTypeSet(c *Client, des, nw []GroupD
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []GroupDirectMemberCountPerType
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []GroupDirectMemberCountPerType
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareGroupDirectMemberCountPerTypeNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewGroupDirectMemberCountPerType(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewGroupDirectMemberCountPerTypeSlice(c *Client, des, nw []GroupDirectMemberCountPerType) []GroupDirectMemberCountPerType {
@@ -1069,23 +1078,26 @@ func canonicalizeNewGroupDerivedAliasesSet(c *Client, des, nw []GroupDerivedAlia
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []GroupDerivedAliases
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []GroupDerivedAliases
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareGroupDerivedAliasesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewGroupDerivedAliases(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewGroupDerivedAliasesSlice(c *Client, des, nw []GroupDerivedAliases) []GroupDerivedAliases {
@@ -1179,23 +1191,26 @@ func canonicalizeNewGroupDynamicGroupMetadataSet(c *Client, des, nw []GroupDynam
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []GroupDynamicGroupMetadata
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []GroupDynamicGroupMetadata
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareGroupDynamicGroupMetadataNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewGroupDynamicGroupMetadata(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewGroupDynamicGroupMetadataSlice(c *Client, des, nw []GroupDynamicGroupMetadata) []GroupDynamicGroupMetadata {
@@ -1300,23 +1315,26 @@ func canonicalizeNewGroupDynamicGroupMetadataQueriesSet(c *Client, des, nw []Gro
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []GroupDynamicGroupMetadataQueries
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []GroupDynamicGroupMetadataQueries
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareGroupDynamicGroupMetadataQueriesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewGroupDynamicGroupMetadataQueries(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewGroupDynamicGroupMetadataQueriesSlice(c *Client, des, nw []GroupDynamicGroupMetadataQueries) []GroupDynamicGroupMetadataQueries {
@@ -1418,23 +1436,26 @@ func canonicalizeNewGroupDynamicGroupMetadataStatusSet(c *Client, des, nw []Grou
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []GroupDynamicGroupMetadataStatus
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []GroupDynamicGroupMetadataStatus
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareGroupDynamicGroupMetadataStatusNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewGroupDynamicGroupMetadataStatus(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewGroupDynamicGroupMetadataStatusSlice(c *Client, des, nw []GroupDynamicGroupMetadataStatus) []GroupDynamicGroupMetadataStatus {

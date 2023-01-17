@@ -693,23 +693,26 @@ func canonicalizeNewKeyWebSettingsSet(c *Client, des, nw []KeyWebSettings) []Key
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []KeyWebSettings
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []KeyWebSettings
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareKeyWebSettingsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewKeyWebSettings(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewKeyWebSettingsSlice(c *Client, des, nw []KeyWebSettings) []KeyWebSettings {
@@ -816,23 +819,26 @@ func canonicalizeNewKeyAndroidSettingsSet(c *Client, des, nw []KeyAndroidSetting
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []KeyAndroidSettings
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []KeyAndroidSettings
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareKeyAndroidSettingsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewKeyAndroidSettings(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewKeyAndroidSettingsSlice(c *Client, des, nw []KeyAndroidSettings) []KeyAndroidSettings {
@@ -939,23 +945,26 @@ func canonicalizeNewKeyIosSettingsSet(c *Client, des, nw []KeyIosSettings) []Key
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []KeyIosSettings
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []KeyIosSettings
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareKeyIosSettingsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewKeyIosSettings(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewKeyIosSettingsSlice(c *Client, des, nw []KeyIosSettings) []KeyIosSettings {
@@ -1057,23 +1066,26 @@ func canonicalizeNewKeyTestingOptionsSet(c *Client, des, nw []KeyTestingOptions)
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []KeyTestingOptions
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []KeyTestingOptions
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareKeyTestingOptionsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewKeyTestingOptions(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewKeyTestingOptionsSlice(c *Client, des, nw []KeyTestingOptions) []KeyTestingOptions {

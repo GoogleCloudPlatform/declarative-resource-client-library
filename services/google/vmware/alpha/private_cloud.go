@@ -211,9 +211,8 @@ func (r *PrivateCloudNetworkConfig) HashCode() string {
 }
 
 type PrivateCloudManagementCluster struct {
-	empty           bool                                                    `json:"-"`
-	ClusterId       *string                                                 `json:"clusterId"`
-	NodeTypeConfigs map[string]PrivateCloudManagementClusterNodeTypeConfigs `json:"nodeTypeConfigs"`
+	empty     bool    `json:"-"`
+	ClusterId *string `json:"clusterId"`
 }
 
 type jsonPrivateCloudManagementCluster PrivateCloudManagementCluster
@@ -233,8 +232,6 @@ func (r *PrivateCloudManagementCluster) UnmarshalJSON(data []byte) error {
 
 		r.ClusterId = res.ClusterId
 
-		r.NodeTypeConfigs = res.NodeTypeConfigs
-
 	}
 	return nil
 }
@@ -253,55 +250,6 @@ func (r *PrivateCloudManagementCluster) String() string {
 }
 
 func (r *PrivateCloudManagementCluster) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type PrivateCloudManagementClusterNodeTypeConfigs struct {
-	empty           bool   `json:"-"`
-	NodeCount       *int64 `json:"nodeCount"`
-	CustomCoreCount *int64 `json:"customCoreCount"`
-}
-
-type jsonPrivateCloudManagementClusterNodeTypeConfigs PrivateCloudManagementClusterNodeTypeConfigs
-
-func (r *PrivateCloudManagementClusterNodeTypeConfigs) UnmarshalJSON(data []byte) error {
-	var res jsonPrivateCloudManagementClusterNodeTypeConfigs
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyPrivateCloudManagementClusterNodeTypeConfigs
-	} else {
-
-		r.NodeCount = res.NodeCount
-
-		r.CustomCoreCount = res.CustomCoreCount
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this PrivateCloudManagementClusterNodeTypeConfigs is
-// empty. Go lacks global const objects, but this object should be treated
-// as one. Modifying this object will have undesirable results.
-var EmptyPrivateCloudManagementClusterNodeTypeConfigs *PrivateCloudManagementClusterNodeTypeConfigs = &PrivateCloudManagementClusterNodeTypeConfigs{empty: true}
-
-func (r *PrivateCloudManagementClusterNodeTypeConfigs) Empty() bool {
-	return r.empty
-}
-
-func (r *PrivateCloudManagementClusterNodeTypeConfigs) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *PrivateCloudManagementClusterNodeTypeConfigs) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

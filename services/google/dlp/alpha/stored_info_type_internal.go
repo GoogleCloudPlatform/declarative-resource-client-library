@@ -743,23 +743,26 @@ func canonicalizeNewStoredInfoTypeLargeCustomDictionarySet(c *Client, des, nw []
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []StoredInfoTypeLargeCustomDictionary
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []StoredInfoTypeLargeCustomDictionary
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareStoredInfoTypeLargeCustomDictionaryNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewStoredInfoTypeLargeCustomDictionary(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewStoredInfoTypeLargeCustomDictionarySlice(c *Client, des, nw []StoredInfoTypeLargeCustomDictionary) []StoredInfoTypeLargeCustomDictionary {
@@ -858,23 +861,26 @@ func canonicalizeNewStoredInfoTypeLargeCustomDictionaryOutputPathSet(c *Client, 
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []StoredInfoTypeLargeCustomDictionaryOutputPath
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []StoredInfoTypeLargeCustomDictionaryOutputPath
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareStoredInfoTypeLargeCustomDictionaryOutputPathNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewStoredInfoTypeLargeCustomDictionaryOutputPath(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewStoredInfoTypeLargeCustomDictionaryOutputPathSlice(c *Client, des, nw []StoredInfoTypeLargeCustomDictionaryOutputPath) []StoredInfoTypeLargeCustomDictionaryOutputPath {
@@ -973,23 +979,26 @@ func canonicalizeNewStoredInfoTypeLargeCustomDictionaryCloudStorageFileSetSet(c 
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareStoredInfoTypeLargeCustomDictionaryCloudStorageFileSetNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewStoredInfoTypeLargeCustomDictionaryCloudStorageFileSet(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewStoredInfoTypeLargeCustomDictionaryCloudStorageFileSetSlice(c *Client, des, nw []StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet) []StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet {
@@ -1084,23 +1093,26 @@ func canonicalizeNewStoredInfoTypeLargeCustomDictionaryBigQueryFieldSet(c *Clien
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []StoredInfoTypeLargeCustomDictionaryBigQueryField
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []StoredInfoTypeLargeCustomDictionaryBigQueryField
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareStoredInfoTypeLargeCustomDictionaryBigQueryFieldNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewStoredInfoTypeLargeCustomDictionaryBigQueryField(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewStoredInfoTypeLargeCustomDictionaryBigQueryFieldSlice(c *Client, des, nw []StoredInfoTypeLargeCustomDictionaryBigQueryField) []StoredInfoTypeLargeCustomDictionaryBigQueryField {
@@ -1208,23 +1220,26 @@ func canonicalizeNewStoredInfoTypeLargeCustomDictionaryBigQueryFieldTableSet(c *
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareStoredInfoTypeLargeCustomDictionaryBigQueryFieldTableNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewStoredInfoTypeLargeCustomDictionaryBigQueryFieldTable(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewStoredInfoTypeLargeCustomDictionaryBigQueryFieldTableSlice(c *Client, des, nw []StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable) []StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable {
@@ -1323,23 +1338,26 @@ func canonicalizeNewStoredInfoTypeLargeCustomDictionaryBigQueryFieldFieldSet(c *
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []StoredInfoTypeLargeCustomDictionaryBigQueryFieldField
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []StoredInfoTypeLargeCustomDictionaryBigQueryFieldField
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareStoredInfoTypeLargeCustomDictionaryBigQueryFieldFieldNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewStoredInfoTypeLargeCustomDictionaryBigQueryFieldField(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewStoredInfoTypeLargeCustomDictionaryBigQueryFieldFieldSlice(c *Client, des, nw []StoredInfoTypeLargeCustomDictionaryBigQueryFieldField) []StoredInfoTypeLargeCustomDictionaryBigQueryFieldField {
@@ -1454,23 +1472,26 @@ func canonicalizeNewStoredInfoTypeDictionarySet(c *Client, des, nw []StoredInfoT
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []StoredInfoTypeDictionary
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []StoredInfoTypeDictionary
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareStoredInfoTypeDictionaryNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewStoredInfoTypeDictionary(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewStoredInfoTypeDictionarySlice(c *Client, des, nw []StoredInfoTypeDictionary) []StoredInfoTypeDictionary {
@@ -1569,23 +1590,26 @@ func canonicalizeNewStoredInfoTypeDictionaryWordListSet(c *Client, des, nw []Sto
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []StoredInfoTypeDictionaryWordList
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []StoredInfoTypeDictionaryWordList
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareStoredInfoTypeDictionaryWordListNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewStoredInfoTypeDictionaryWordList(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewStoredInfoTypeDictionaryWordListSlice(c *Client, des, nw []StoredInfoTypeDictionaryWordList) []StoredInfoTypeDictionaryWordList {
@@ -1684,23 +1708,26 @@ func canonicalizeNewStoredInfoTypeDictionaryCloudStoragePathSet(c *Client, des, 
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []StoredInfoTypeDictionaryCloudStoragePath
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []StoredInfoTypeDictionaryCloudStoragePath
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareStoredInfoTypeDictionaryCloudStoragePathNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewStoredInfoTypeDictionaryCloudStoragePath(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewStoredInfoTypeDictionaryCloudStoragePathSlice(c *Client, des, nw []StoredInfoTypeDictionaryCloudStoragePath) []StoredInfoTypeDictionaryCloudStoragePath {
@@ -1805,23 +1832,26 @@ func canonicalizeNewStoredInfoTypeRegexSet(c *Client, des, nw []StoredInfoTypeRe
 	if des == nil {
 		return nw
 	}
-	var reorderedNew []StoredInfoTypeRegex
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []StoredInfoTypeRegex
 	for _, d := range des {
-		matchedNew := -1
-		for idx, n := range nw {
+		matchedIndex := -1
+		for i, n := range nw {
 			if diffs, _ := compareStoredInfoTypeRegexNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
-				matchedNew = idx
+				matchedIndex = i
 				break
 			}
 		}
-		if matchedNew != -1 {
-			reorderedNew = append(reorderedNew, nw[matchedNew])
-			nw = append(nw[:matchedNew], nw[matchedNew+1:]...)
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewStoredInfoTypeRegex(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
 		}
 	}
-	reorderedNew = append(reorderedNew, nw...)
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
 
-	return reorderedNew
+	return items
 }
 
 func canonicalizeNewStoredInfoTypeRegexSlice(c *Client, des, nw []StoredInfoTypeRegex) []StoredInfoTypeRegex {
