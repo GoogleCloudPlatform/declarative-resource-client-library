@@ -30,6 +30,7 @@ type Connection struct {
 	UpdateTime             *string                           `json:"updateTime"`
 	GithubConfig           *ConnectionGithubConfig           `json:"githubConfig"`
 	GithubEnterpriseConfig *ConnectionGithubEnterpriseConfig `json:"githubEnterpriseConfig"`
+	GitlabEnterpriseConfig *ConnectionGitlabEnterpriseConfig `json:"gitlabEnterpriseConfig"`
 	InstallationState      *ConnectionInstallationState      `json:"installationState"`
 	Disabled               *bool                             `json:"disabled"`
 	Reconciling            *bool                             `json:"reconciling"`
@@ -281,6 +282,214 @@ func (r *ConnectionGithubEnterpriseConfigServiceDirectoryConfig) HashCode() stri
 	return fmt.Sprintf("%x", hash)
 }
 
+type ConnectionGitlabEnterpriseConfig struct {
+	empty                      bool                                                      `json:"-"`
+	HostUri                    *string                                                   `json:"hostUri"`
+	WebhookSecretSecretVersion *string                                                   `json:"webhookSecretSecretVersion"`
+	ReadAuthorizerCredential   *ConnectionGitlabEnterpriseConfigReadAuthorizerCredential `json:"readAuthorizerCredential"`
+	AuthorizerCredential       *ConnectionGitlabEnterpriseConfigAuthorizerCredential     `json:"authorizerCredential"`
+	ServiceDirectoryConfig     *ConnectionGitlabEnterpriseConfigServiceDirectoryConfig   `json:"serviceDirectoryConfig"`
+	SslCa                      *string                                                   `json:"sslCa"`
+	ServerVersion              *string                                                   `json:"serverVersion"`
+}
+
+type jsonConnectionGitlabEnterpriseConfig ConnectionGitlabEnterpriseConfig
+
+func (r *ConnectionGitlabEnterpriseConfig) UnmarshalJSON(data []byte) error {
+	var res jsonConnectionGitlabEnterpriseConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyConnectionGitlabEnterpriseConfig
+	} else {
+
+		r.HostUri = res.HostUri
+
+		r.WebhookSecretSecretVersion = res.WebhookSecretSecretVersion
+
+		r.ReadAuthorizerCredential = res.ReadAuthorizerCredential
+
+		r.AuthorizerCredential = res.AuthorizerCredential
+
+		r.ServiceDirectoryConfig = res.ServiceDirectoryConfig
+
+		r.SslCa = res.SslCa
+
+		r.ServerVersion = res.ServerVersion
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ConnectionGitlabEnterpriseConfig is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyConnectionGitlabEnterpriseConfig *ConnectionGitlabEnterpriseConfig = &ConnectionGitlabEnterpriseConfig{empty: true}
+
+func (r *ConnectionGitlabEnterpriseConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *ConnectionGitlabEnterpriseConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ConnectionGitlabEnterpriseConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ConnectionGitlabEnterpriseConfigReadAuthorizerCredential struct {
+	empty                  bool    `json:"-"`
+	UserTokenSecretVersion *string `json:"userTokenSecretVersion"`
+	Username               *string `json:"username"`
+}
+
+type jsonConnectionGitlabEnterpriseConfigReadAuthorizerCredential ConnectionGitlabEnterpriseConfigReadAuthorizerCredential
+
+func (r *ConnectionGitlabEnterpriseConfigReadAuthorizerCredential) UnmarshalJSON(data []byte) error {
+	var res jsonConnectionGitlabEnterpriseConfigReadAuthorizerCredential
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyConnectionGitlabEnterpriseConfigReadAuthorizerCredential
+	} else {
+
+		r.UserTokenSecretVersion = res.UserTokenSecretVersion
+
+		r.Username = res.Username
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ConnectionGitlabEnterpriseConfigReadAuthorizerCredential is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyConnectionGitlabEnterpriseConfigReadAuthorizerCredential *ConnectionGitlabEnterpriseConfigReadAuthorizerCredential = &ConnectionGitlabEnterpriseConfigReadAuthorizerCredential{empty: true}
+
+func (r *ConnectionGitlabEnterpriseConfigReadAuthorizerCredential) Empty() bool {
+	return r.empty
+}
+
+func (r *ConnectionGitlabEnterpriseConfigReadAuthorizerCredential) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ConnectionGitlabEnterpriseConfigReadAuthorizerCredential) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ConnectionGitlabEnterpriseConfigAuthorizerCredential struct {
+	empty                  bool    `json:"-"`
+	UserTokenSecretVersion *string `json:"userTokenSecretVersion"`
+	Username               *string `json:"username"`
+}
+
+type jsonConnectionGitlabEnterpriseConfigAuthorizerCredential ConnectionGitlabEnterpriseConfigAuthorizerCredential
+
+func (r *ConnectionGitlabEnterpriseConfigAuthorizerCredential) UnmarshalJSON(data []byte) error {
+	var res jsonConnectionGitlabEnterpriseConfigAuthorizerCredential
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyConnectionGitlabEnterpriseConfigAuthorizerCredential
+	} else {
+
+		r.UserTokenSecretVersion = res.UserTokenSecretVersion
+
+		r.Username = res.Username
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ConnectionGitlabEnterpriseConfigAuthorizerCredential is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyConnectionGitlabEnterpriseConfigAuthorizerCredential *ConnectionGitlabEnterpriseConfigAuthorizerCredential = &ConnectionGitlabEnterpriseConfigAuthorizerCredential{empty: true}
+
+func (r *ConnectionGitlabEnterpriseConfigAuthorizerCredential) Empty() bool {
+	return r.empty
+}
+
+func (r *ConnectionGitlabEnterpriseConfigAuthorizerCredential) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ConnectionGitlabEnterpriseConfigAuthorizerCredential) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ConnectionGitlabEnterpriseConfigServiceDirectoryConfig struct {
+	empty   bool    `json:"-"`
+	Service *string `json:"service"`
+}
+
+type jsonConnectionGitlabEnterpriseConfigServiceDirectoryConfig ConnectionGitlabEnterpriseConfigServiceDirectoryConfig
+
+func (r *ConnectionGitlabEnterpriseConfigServiceDirectoryConfig) UnmarshalJSON(data []byte) error {
+	var res jsonConnectionGitlabEnterpriseConfigServiceDirectoryConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyConnectionGitlabEnterpriseConfigServiceDirectoryConfig
+	} else {
+
+		r.Service = res.Service
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ConnectionGitlabEnterpriseConfigServiceDirectoryConfig is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyConnectionGitlabEnterpriseConfigServiceDirectoryConfig *ConnectionGitlabEnterpriseConfigServiceDirectoryConfig = &ConnectionGitlabEnterpriseConfigServiceDirectoryConfig{empty: true}
+
+func (r *ConnectionGitlabEnterpriseConfigServiceDirectoryConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *ConnectionGitlabEnterpriseConfigServiceDirectoryConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ConnectionGitlabEnterpriseConfigServiceDirectoryConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 type ConnectionInstallationState struct {
 	empty     bool                                  `json:"-"`
 	Stage     *ConnectionInstallationStateStageEnum `json:"stage"`
@@ -354,6 +563,7 @@ func (r *Connection) ID() (string, error) {
 		"update_time":              dcl.ValueOrEmptyString(nr.UpdateTime),
 		"github_config":            dcl.ValueOrEmptyString(nr.GithubConfig),
 		"github_enterprise_config": dcl.ValueOrEmptyString(nr.GithubEnterpriseConfig),
+		"gitlab_enterprise_config": dcl.ValueOrEmptyString(nr.GitlabEnterpriseConfig),
 		"installation_state":       dcl.ValueOrEmptyString(nr.InstallationState),
 		"disabled":                 dcl.ValueOrEmptyString(nr.Disabled),
 		"reconciling":              dcl.ValueOrEmptyString(nr.Reconciling),

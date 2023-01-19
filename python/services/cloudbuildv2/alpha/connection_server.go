@@ -89,6 +89,58 @@ func ProtoToCloudbuildv2AlphaConnectionGithubEnterpriseConfigServiceDirectoryCon
 	return obj
 }
 
+// ProtoToConnectionGitlabEnterpriseConfig converts a ConnectionGitlabEnterpriseConfig object from its proto representation.
+func ProtoToCloudbuildv2AlphaConnectionGitlabEnterpriseConfig(p *alphapb.Cloudbuildv2AlphaConnectionGitlabEnterpriseConfig) *alpha.ConnectionGitlabEnterpriseConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ConnectionGitlabEnterpriseConfig{
+		HostUri:                    dcl.StringOrNil(p.GetHostUri()),
+		WebhookSecretSecretVersion: dcl.StringOrNil(p.GetWebhookSecretSecretVersion()),
+		ReadAuthorizerCredential:   ProtoToCloudbuildv2AlphaConnectionGitlabEnterpriseConfigReadAuthorizerCredential(p.GetReadAuthorizerCredential()),
+		AuthorizerCredential:       ProtoToCloudbuildv2AlphaConnectionGitlabEnterpriseConfigAuthorizerCredential(p.GetAuthorizerCredential()),
+		ServiceDirectoryConfig:     ProtoToCloudbuildv2AlphaConnectionGitlabEnterpriseConfigServiceDirectoryConfig(p.GetServiceDirectoryConfig()),
+		SslCa:                      dcl.StringOrNil(p.GetSslCa()),
+		ServerVersion:              dcl.StringOrNil(p.GetServerVersion()),
+	}
+	return obj
+}
+
+// ProtoToConnectionGitlabEnterpriseConfigReadAuthorizerCredential converts a ConnectionGitlabEnterpriseConfigReadAuthorizerCredential object from its proto representation.
+func ProtoToCloudbuildv2AlphaConnectionGitlabEnterpriseConfigReadAuthorizerCredential(p *alphapb.Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigReadAuthorizerCredential) *alpha.ConnectionGitlabEnterpriseConfigReadAuthorizerCredential {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ConnectionGitlabEnterpriseConfigReadAuthorizerCredential{
+		UserTokenSecretVersion: dcl.StringOrNil(p.GetUserTokenSecretVersion()),
+		Username:               dcl.StringOrNil(p.GetUsername()),
+	}
+	return obj
+}
+
+// ProtoToConnectionGitlabEnterpriseConfigAuthorizerCredential converts a ConnectionGitlabEnterpriseConfigAuthorizerCredential object from its proto representation.
+func ProtoToCloudbuildv2AlphaConnectionGitlabEnterpriseConfigAuthorizerCredential(p *alphapb.Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigAuthorizerCredential) *alpha.ConnectionGitlabEnterpriseConfigAuthorizerCredential {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ConnectionGitlabEnterpriseConfigAuthorizerCredential{
+		UserTokenSecretVersion: dcl.StringOrNil(p.GetUserTokenSecretVersion()),
+		Username:               dcl.StringOrNil(p.GetUsername()),
+	}
+	return obj
+}
+
+// ProtoToConnectionGitlabEnterpriseConfigServiceDirectoryConfig converts a ConnectionGitlabEnterpriseConfigServiceDirectoryConfig object from its proto representation.
+func ProtoToCloudbuildv2AlphaConnectionGitlabEnterpriseConfigServiceDirectoryConfig(p *alphapb.Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigServiceDirectoryConfig) *alpha.ConnectionGitlabEnterpriseConfigServiceDirectoryConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ConnectionGitlabEnterpriseConfigServiceDirectoryConfig{
+		Service: dcl.StringOrNil(p.GetService()),
+	}
+	return obj
+}
+
 // ProtoToConnectionInstallationState converts a ConnectionInstallationState object from its proto representation.
 func ProtoToCloudbuildv2AlphaConnectionInstallationState(p *alphapb.Cloudbuildv2AlphaConnectionInstallationState) *alpha.ConnectionInstallationState {
 	if p == nil {
@@ -110,6 +162,7 @@ func ProtoToConnection(p *alphapb.Cloudbuildv2AlphaConnection) *alpha.Connection
 		UpdateTime:             dcl.StringOrNil(p.GetUpdateTime()),
 		GithubConfig:           ProtoToCloudbuildv2AlphaConnectionGithubConfig(p.GetGithubConfig()),
 		GithubEnterpriseConfig: ProtoToCloudbuildv2AlphaConnectionGithubEnterpriseConfig(p.GetGithubEnterpriseConfig()),
+		GitlabEnterpriseConfig: ProtoToCloudbuildv2AlphaConnectionGitlabEnterpriseConfig(p.GetGitlabEnterpriseConfig()),
 		InstallationState:      ProtoToCloudbuildv2AlphaConnectionInstallationState(p.GetInstallationState()),
 		Disabled:               dcl.Bool(p.GetDisabled()),
 		Reconciling:            dcl.Bool(p.GetReconciling()),
@@ -180,6 +233,54 @@ func Cloudbuildv2AlphaConnectionGithubEnterpriseConfigServiceDirectoryConfigToPr
 	return p
 }
 
+// ConnectionGitlabEnterpriseConfigToProto converts a ConnectionGitlabEnterpriseConfig object to its proto representation.
+func Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigToProto(o *alpha.ConnectionGitlabEnterpriseConfig) *alphapb.Cloudbuildv2AlphaConnectionGitlabEnterpriseConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Cloudbuildv2AlphaConnectionGitlabEnterpriseConfig{}
+	p.SetHostUri(dcl.ValueOrEmptyString(o.HostUri))
+	p.SetWebhookSecretSecretVersion(dcl.ValueOrEmptyString(o.WebhookSecretSecretVersion))
+	p.SetReadAuthorizerCredential(Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigReadAuthorizerCredentialToProto(o.ReadAuthorizerCredential))
+	p.SetAuthorizerCredential(Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigAuthorizerCredentialToProto(o.AuthorizerCredential))
+	p.SetServiceDirectoryConfig(Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigServiceDirectoryConfigToProto(o.ServiceDirectoryConfig))
+	p.SetSslCa(dcl.ValueOrEmptyString(o.SslCa))
+	p.SetServerVersion(dcl.ValueOrEmptyString(o.ServerVersion))
+	return p
+}
+
+// ConnectionGitlabEnterpriseConfigReadAuthorizerCredentialToProto converts a ConnectionGitlabEnterpriseConfigReadAuthorizerCredential object to its proto representation.
+func Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigReadAuthorizerCredentialToProto(o *alpha.ConnectionGitlabEnterpriseConfigReadAuthorizerCredential) *alphapb.Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigReadAuthorizerCredential {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigReadAuthorizerCredential{}
+	p.SetUserTokenSecretVersion(dcl.ValueOrEmptyString(o.UserTokenSecretVersion))
+	p.SetUsername(dcl.ValueOrEmptyString(o.Username))
+	return p
+}
+
+// ConnectionGitlabEnterpriseConfigAuthorizerCredentialToProto converts a ConnectionGitlabEnterpriseConfigAuthorizerCredential object to its proto representation.
+func Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigAuthorizerCredentialToProto(o *alpha.ConnectionGitlabEnterpriseConfigAuthorizerCredential) *alphapb.Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigAuthorizerCredential {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigAuthorizerCredential{}
+	p.SetUserTokenSecretVersion(dcl.ValueOrEmptyString(o.UserTokenSecretVersion))
+	p.SetUsername(dcl.ValueOrEmptyString(o.Username))
+	return p
+}
+
+// ConnectionGitlabEnterpriseConfigServiceDirectoryConfigToProto converts a ConnectionGitlabEnterpriseConfigServiceDirectoryConfig object to its proto representation.
+func Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigServiceDirectoryConfigToProto(o *alpha.ConnectionGitlabEnterpriseConfigServiceDirectoryConfig) *alphapb.Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigServiceDirectoryConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigServiceDirectoryConfig{}
+	p.SetService(dcl.ValueOrEmptyString(o.Service))
+	return p
+}
+
 // ConnectionInstallationStateToProto converts a ConnectionInstallationState object to its proto representation.
 func Cloudbuildv2AlphaConnectionInstallationStateToProto(o *alpha.ConnectionInstallationState) *alphapb.Cloudbuildv2AlphaConnectionInstallationState {
 	if o == nil {
@@ -200,6 +301,7 @@ func ConnectionToProto(resource *alpha.Connection) *alphapb.Cloudbuildv2AlphaCon
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
 	p.SetGithubConfig(Cloudbuildv2AlphaConnectionGithubConfigToProto(resource.GithubConfig))
 	p.SetGithubEnterpriseConfig(Cloudbuildv2AlphaConnectionGithubEnterpriseConfigToProto(resource.GithubEnterpriseConfig))
+	p.SetGitlabEnterpriseConfig(Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigToProto(resource.GitlabEnterpriseConfig))
 	p.SetInstallationState(Cloudbuildv2AlphaConnectionInstallationStateToProto(resource.InstallationState))
 	p.SetDisabled(dcl.ValueOrEmptyBool(resource.Disabled))
 	p.SetReconciling(dcl.ValueOrEmptyBool(resource.Reconciling))

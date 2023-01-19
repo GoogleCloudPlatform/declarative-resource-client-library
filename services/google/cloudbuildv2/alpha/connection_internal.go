@@ -27,7 +27,7 @@ import (
 
 func (r *Connection) validate() error {
 
-	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"GithubConfig", "GithubEnterpriseConfig"}, r.GithubConfig, r.GithubEnterpriseConfig); err != nil {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"GithubConfig", "GithubEnterpriseConfig", "GitlabEnterpriseConfig"}, r.GithubConfig, r.GithubEnterpriseConfig, r.GitlabEnterpriseConfig); err != nil {
 		return err
 	}
 	if err := dcl.Required(r, "name"); err != nil {
@@ -46,6 +46,11 @@ func (r *Connection) validate() error {
 	}
 	if !dcl.IsEmptyValueIndirect(r.GithubEnterpriseConfig) {
 		if err := r.GithubEnterpriseConfig.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.GitlabEnterpriseConfig) {
+		if err := r.GitlabEnterpriseConfig.validate(); err != nil {
 			return err
 		}
 	}
@@ -79,6 +84,51 @@ func (r *ConnectionGithubEnterpriseConfig) validate() error {
 	return nil
 }
 func (r *ConnectionGithubEnterpriseConfigServiceDirectoryConfig) validate() error {
+	if err := dcl.Required(r, "service"); err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ConnectionGitlabEnterpriseConfig) validate() error {
+	if err := dcl.Required(r, "hostUri"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "webhookSecretSecretVersion"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "authorizerCredential"); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(r.ReadAuthorizerCredential) {
+		if err := r.ReadAuthorizerCredential.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.AuthorizerCredential) {
+		if err := r.AuthorizerCredential.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.ServiceDirectoryConfig) {
+		if err := r.ServiceDirectoryConfig.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ConnectionGitlabEnterpriseConfigReadAuthorizerCredential) validate() error {
+	if err := dcl.Required(r, "userTokenSecretVersion"); err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ConnectionGitlabEnterpriseConfigAuthorizerCredential) validate() error {
+	if err := dcl.Required(r, "userTokenSecretVersion"); err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ConnectionGitlabEnterpriseConfigServiceDirectoryConfig) validate() error {
 	if err := dcl.Required(r, "service"); err != nil {
 		return err
 	}
@@ -156,6 +206,11 @@ func newUpdateConnectionUpdateConnectionRequest(ctx context.Context, f *Connecti
 		return nil, fmt.Errorf("error expanding GithubEnterpriseConfig into githubEnterpriseConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["githubEnterpriseConfig"] = v
+	}
+	if v, err := expandConnectionGitlabEnterpriseConfig(c, f.GitlabEnterpriseConfig, res); err != nil {
+		return nil, fmt.Errorf("error expanding GitlabEnterpriseConfig into gitlabEnterpriseConfig: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["gitlabEnterpriseConfig"] = v
 	}
 	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
 		req["disabled"] = v
@@ -498,15 +553,22 @@ func canonicalizeConnectionInitialState(rawInitial, rawDesired *Connection) (*Co
 
 	if !dcl.IsZeroValue(rawInitial.GithubConfig) {
 		// Check if anything else is set.
-		if dcl.AnySet(rawInitial.GithubEnterpriseConfig) {
+		if dcl.AnySet(rawInitial.GithubEnterpriseConfig, rawInitial.GitlabEnterpriseConfig) {
 			rawInitial.GithubConfig = EmptyConnectionGithubConfig
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.GithubEnterpriseConfig) {
 		// Check if anything else is set.
-		if dcl.AnySet(rawInitial.GithubConfig) {
+		if dcl.AnySet(rawInitial.GithubConfig, rawInitial.GitlabEnterpriseConfig) {
 			rawInitial.GithubEnterpriseConfig = EmptyConnectionGithubEnterpriseConfig
+		}
+	}
+
+	if !dcl.IsZeroValue(rawInitial.GitlabEnterpriseConfig) {
+		// Check if anything else is set.
+		if dcl.AnySet(rawInitial.GithubConfig, rawInitial.GithubEnterpriseConfig) {
+			rawInitial.GitlabEnterpriseConfig = EmptyConnectionGitlabEnterpriseConfig
 		}
 	}
 
@@ -527,6 +589,7 @@ func canonicalizeConnectionDesiredState(rawDesired, rawInitial *Connection, opts
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
 		rawDesired.GithubConfig = canonicalizeConnectionGithubConfig(rawDesired.GithubConfig, nil, opts...)
 		rawDesired.GithubEnterpriseConfig = canonicalizeConnectionGithubEnterpriseConfig(rawDesired.GithubEnterpriseConfig, nil, opts...)
+		rawDesired.GitlabEnterpriseConfig = canonicalizeConnectionGitlabEnterpriseConfig(rawDesired.GitlabEnterpriseConfig, nil, opts...)
 		rawDesired.InstallationState = canonicalizeConnectionInstallationState(rawDesired.InstallationState, nil, opts...)
 
 		return rawDesired, nil
@@ -534,7 +597,7 @@ func canonicalizeConnectionDesiredState(rawDesired, rawInitial *Connection, opts
 
 	if rawDesired.GithubConfig != nil || rawInitial.GithubConfig != nil {
 		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.GithubEnterpriseConfig) {
+		if dcl.AnySet(rawDesired.GithubEnterpriseConfig, rawDesired.GitlabEnterpriseConfig) {
 			rawDesired.GithubConfig = nil
 			rawInitial.GithubConfig = nil
 		}
@@ -542,9 +605,17 @@ func canonicalizeConnectionDesiredState(rawDesired, rawInitial *Connection, opts
 
 	if rawDesired.GithubEnterpriseConfig != nil || rawInitial.GithubEnterpriseConfig != nil {
 		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.GithubConfig) {
+		if dcl.AnySet(rawDesired.GithubConfig, rawDesired.GitlabEnterpriseConfig) {
 			rawDesired.GithubEnterpriseConfig = nil
 			rawInitial.GithubEnterpriseConfig = nil
+		}
+	}
+
+	if rawDesired.GitlabEnterpriseConfig != nil || rawInitial.GitlabEnterpriseConfig != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.GithubConfig, rawDesired.GithubEnterpriseConfig) {
+			rawDesired.GitlabEnterpriseConfig = nil
+			rawInitial.GitlabEnterpriseConfig = nil
 		}
 	}
 
@@ -556,6 +627,7 @@ func canonicalizeConnectionDesiredState(rawDesired, rawInitial *Connection, opts
 	}
 	canonicalDesired.GithubConfig = canonicalizeConnectionGithubConfig(rawDesired.GithubConfig, rawInitial.GithubConfig, opts...)
 	canonicalDesired.GithubEnterpriseConfig = canonicalizeConnectionGithubEnterpriseConfig(rawDesired.GithubEnterpriseConfig, rawInitial.GithubEnterpriseConfig, opts...)
+	canonicalDesired.GitlabEnterpriseConfig = canonicalizeConnectionGitlabEnterpriseConfig(rawDesired.GitlabEnterpriseConfig, rawInitial.GitlabEnterpriseConfig, opts...)
 	if dcl.BoolCanonicalize(rawDesired.Disabled, rawInitial.Disabled) {
 		canonicalDesired.Disabled = rawInitial.Disabled
 	} else {
@@ -611,6 +683,12 @@ func canonicalizeConnectionNewState(c *Client, rawNew, rawDesired *Connection) (
 		rawNew.GithubEnterpriseConfig = rawDesired.GithubEnterpriseConfig
 	} else {
 		rawNew.GithubEnterpriseConfig = canonicalizeNewConnectionGithubEnterpriseConfig(c, rawDesired.GithubEnterpriseConfig, rawNew.GithubEnterpriseConfig)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.GitlabEnterpriseConfig) && dcl.IsEmptyValueIndirect(rawDesired.GitlabEnterpriseConfig) {
+		rawNew.GitlabEnterpriseConfig = rawDesired.GitlabEnterpriseConfig
+	} else {
+		rawNew.GitlabEnterpriseConfig = canonicalizeNewConnectionGitlabEnterpriseConfig(c, rawDesired.GitlabEnterpriseConfig, rawNew.GitlabEnterpriseConfig)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.InstallationState) && dcl.IsEmptyValueIndirect(rawDesired.InstallationState) {
@@ -1167,6 +1245,500 @@ func canonicalizeNewConnectionGithubEnterpriseConfigServiceDirectoryConfigSlice(
 	return items
 }
 
+func canonicalizeConnectionGitlabEnterpriseConfig(des, initial *ConnectionGitlabEnterpriseConfig, opts ...dcl.ApplyOption) *ConnectionGitlabEnterpriseConfig {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ConnectionGitlabEnterpriseConfig{}
+
+	if dcl.StringCanonicalize(des.HostUri, initial.HostUri) || dcl.IsZeroValue(des.HostUri) {
+		cDes.HostUri = initial.HostUri
+	} else {
+		cDes.HostUri = des.HostUri
+	}
+	if dcl.IsZeroValue(des.WebhookSecretSecretVersion) || (dcl.IsEmptyValueIndirect(des.WebhookSecretSecretVersion) && dcl.IsEmptyValueIndirect(initial.WebhookSecretSecretVersion)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.WebhookSecretSecretVersion = initial.WebhookSecretSecretVersion
+	} else {
+		cDes.WebhookSecretSecretVersion = des.WebhookSecretSecretVersion
+	}
+	cDes.ReadAuthorizerCredential = canonicalizeConnectionGitlabEnterpriseConfigReadAuthorizerCredential(des.ReadAuthorizerCredential, initial.ReadAuthorizerCredential, opts...)
+	cDes.AuthorizerCredential = canonicalizeConnectionGitlabEnterpriseConfigAuthorizerCredential(des.AuthorizerCredential, initial.AuthorizerCredential, opts...)
+	cDes.ServiceDirectoryConfig = canonicalizeConnectionGitlabEnterpriseConfigServiceDirectoryConfig(des.ServiceDirectoryConfig, initial.ServiceDirectoryConfig, opts...)
+	if dcl.StringCanonicalize(des.SslCa, initial.SslCa) || dcl.IsZeroValue(des.SslCa) {
+		cDes.SslCa = initial.SslCa
+	} else {
+		cDes.SslCa = des.SslCa
+	}
+
+	return cDes
+}
+
+func canonicalizeConnectionGitlabEnterpriseConfigSlice(des, initial []ConnectionGitlabEnterpriseConfig, opts ...dcl.ApplyOption) []ConnectionGitlabEnterpriseConfig {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ConnectionGitlabEnterpriseConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeConnectionGitlabEnterpriseConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ConnectionGitlabEnterpriseConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeConnectionGitlabEnterpriseConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewConnectionGitlabEnterpriseConfig(c *Client, des, nw *ConnectionGitlabEnterpriseConfig) *ConnectionGitlabEnterpriseConfig {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ConnectionGitlabEnterpriseConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.HostUri, nw.HostUri) {
+		nw.HostUri = des.HostUri
+	}
+	nw.ReadAuthorizerCredential = canonicalizeNewConnectionGitlabEnterpriseConfigReadAuthorizerCredential(c, des.ReadAuthorizerCredential, nw.ReadAuthorizerCredential)
+	nw.AuthorizerCredential = canonicalizeNewConnectionGitlabEnterpriseConfigAuthorizerCredential(c, des.AuthorizerCredential, nw.AuthorizerCredential)
+	nw.ServiceDirectoryConfig = canonicalizeNewConnectionGitlabEnterpriseConfigServiceDirectoryConfig(c, des.ServiceDirectoryConfig, nw.ServiceDirectoryConfig)
+	if dcl.StringCanonicalize(des.SslCa, nw.SslCa) {
+		nw.SslCa = des.SslCa
+	}
+	if dcl.StringCanonicalize(des.ServerVersion, nw.ServerVersion) {
+		nw.ServerVersion = des.ServerVersion
+	}
+
+	return nw
+}
+
+func canonicalizeNewConnectionGitlabEnterpriseConfigSet(c *Client, des, nw []ConnectionGitlabEnterpriseConfig) []ConnectionGitlabEnterpriseConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []ConnectionGitlabEnterpriseConfig
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareConnectionGitlabEnterpriseConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewConnectionGitlabEnterpriseConfig(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewConnectionGitlabEnterpriseConfigSlice(c *Client, des, nw []ConnectionGitlabEnterpriseConfig) []ConnectionGitlabEnterpriseConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ConnectionGitlabEnterpriseConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewConnectionGitlabEnterpriseConfig(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeConnectionGitlabEnterpriseConfigReadAuthorizerCredential(des, initial *ConnectionGitlabEnterpriseConfigReadAuthorizerCredential, opts ...dcl.ApplyOption) *ConnectionGitlabEnterpriseConfigReadAuthorizerCredential {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ConnectionGitlabEnterpriseConfigReadAuthorizerCredential{}
+
+	if dcl.IsZeroValue(des.UserTokenSecretVersion) || (dcl.IsEmptyValueIndirect(des.UserTokenSecretVersion) && dcl.IsEmptyValueIndirect(initial.UserTokenSecretVersion)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.UserTokenSecretVersion = initial.UserTokenSecretVersion
+	} else {
+		cDes.UserTokenSecretVersion = des.UserTokenSecretVersion
+	}
+
+	return cDes
+}
+
+func canonicalizeConnectionGitlabEnterpriseConfigReadAuthorizerCredentialSlice(des, initial []ConnectionGitlabEnterpriseConfigReadAuthorizerCredential, opts ...dcl.ApplyOption) []ConnectionGitlabEnterpriseConfigReadAuthorizerCredential {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ConnectionGitlabEnterpriseConfigReadAuthorizerCredential, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeConnectionGitlabEnterpriseConfigReadAuthorizerCredential(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ConnectionGitlabEnterpriseConfigReadAuthorizerCredential, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeConnectionGitlabEnterpriseConfigReadAuthorizerCredential(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewConnectionGitlabEnterpriseConfigReadAuthorizerCredential(c *Client, des, nw *ConnectionGitlabEnterpriseConfigReadAuthorizerCredential) *ConnectionGitlabEnterpriseConfigReadAuthorizerCredential {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ConnectionGitlabEnterpriseConfigReadAuthorizerCredential while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Username, nw.Username) {
+		nw.Username = des.Username
+	}
+
+	return nw
+}
+
+func canonicalizeNewConnectionGitlabEnterpriseConfigReadAuthorizerCredentialSet(c *Client, des, nw []ConnectionGitlabEnterpriseConfigReadAuthorizerCredential) []ConnectionGitlabEnterpriseConfigReadAuthorizerCredential {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []ConnectionGitlabEnterpriseConfigReadAuthorizerCredential
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareConnectionGitlabEnterpriseConfigReadAuthorizerCredentialNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewConnectionGitlabEnterpriseConfigReadAuthorizerCredential(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewConnectionGitlabEnterpriseConfigReadAuthorizerCredentialSlice(c *Client, des, nw []ConnectionGitlabEnterpriseConfigReadAuthorizerCredential) []ConnectionGitlabEnterpriseConfigReadAuthorizerCredential {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ConnectionGitlabEnterpriseConfigReadAuthorizerCredential
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewConnectionGitlabEnterpriseConfigReadAuthorizerCredential(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeConnectionGitlabEnterpriseConfigAuthorizerCredential(des, initial *ConnectionGitlabEnterpriseConfigAuthorizerCredential, opts ...dcl.ApplyOption) *ConnectionGitlabEnterpriseConfigAuthorizerCredential {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ConnectionGitlabEnterpriseConfigAuthorizerCredential{}
+
+	if dcl.IsZeroValue(des.UserTokenSecretVersion) || (dcl.IsEmptyValueIndirect(des.UserTokenSecretVersion) && dcl.IsEmptyValueIndirect(initial.UserTokenSecretVersion)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.UserTokenSecretVersion = initial.UserTokenSecretVersion
+	} else {
+		cDes.UserTokenSecretVersion = des.UserTokenSecretVersion
+	}
+
+	return cDes
+}
+
+func canonicalizeConnectionGitlabEnterpriseConfigAuthorizerCredentialSlice(des, initial []ConnectionGitlabEnterpriseConfigAuthorizerCredential, opts ...dcl.ApplyOption) []ConnectionGitlabEnterpriseConfigAuthorizerCredential {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ConnectionGitlabEnterpriseConfigAuthorizerCredential, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeConnectionGitlabEnterpriseConfigAuthorizerCredential(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ConnectionGitlabEnterpriseConfigAuthorizerCredential, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeConnectionGitlabEnterpriseConfigAuthorizerCredential(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewConnectionGitlabEnterpriseConfigAuthorizerCredential(c *Client, des, nw *ConnectionGitlabEnterpriseConfigAuthorizerCredential) *ConnectionGitlabEnterpriseConfigAuthorizerCredential {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ConnectionGitlabEnterpriseConfigAuthorizerCredential while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Username, nw.Username) {
+		nw.Username = des.Username
+	}
+
+	return nw
+}
+
+func canonicalizeNewConnectionGitlabEnterpriseConfigAuthorizerCredentialSet(c *Client, des, nw []ConnectionGitlabEnterpriseConfigAuthorizerCredential) []ConnectionGitlabEnterpriseConfigAuthorizerCredential {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []ConnectionGitlabEnterpriseConfigAuthorizerCredential
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareConnectionGitlabEnterpriseConfigAuthorizerCredentialNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewConnectionGitlabEnterpriseConfigAuthorizerCredential(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewConnectionGitlabEnterpriseConfigAuthorizerCredentialSlice(c *Client, des, nw []ConnectionGitlabEnterpriseConfigAuthorizerCredential) []ConnectionGitlabEnterpriseConfigAuthorizerCredential {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ConnectionGitlabEnterpriseConfigAuthorizerCredential
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewConnectionGitlabEnterpriseConfigAuthorizerCredential(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeConnectionGitlabEnterpriseConfigServiceDirectoryConfig(des, initial *ConnectionGitlabEnterpriseConfigServiceDirectoryConfig, opts ...dcl.ApplyOption) *ConnectionGitlabEnterpriseConfigServiceDirectoryConfig {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ConnectionGitlabEnterpriseConfigServiceDirectoryConfig{}
+
+	if dcl.IsZeroValue(des.Service) || (dcl.IsEmptyValueIndirect(des.Service) && dcl.IsEmptyValueIndirect(initial.Service)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+
+	return cDes
+}
+
+func canonicalizeConnectionGitlabEnterpriseConfigServiceDirectoryConfigSlice(des, initial []ConnectionGitlabEnterpriseConfigServiceDirectoryConfig, opts ...dcl.ApplyOption) []ConnectionGitlabEnterpriseConfigServiceDirectoryConfig {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ConnectionGitlabEnterpriseConfigServiceDirectoryConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeConnectionGitlabEnterpriseConfigServiceDirectoryConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ConnectionGitlabEnterpriseConfigServiceDirectoryConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeConnectionGitlabEnterpriseConfigServiceDirectoryConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewConnectionGitlabEnterpriseConfigServiceDirectoryConfig(c *Client, des, nw *ConnectionGitlabEnterpriseConfigServiceDirectoryConfig) *ConnectionGitlabEnterpriseConfigServiceDirectoryConfig {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ConnectionGitlabEnterpriseConfigServiceDirectoryConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	return nw
+}
+
+func canonicalizeNewConnectionGitlabEnterpriseConfigServiceDirectoryConfigSet(c *Client, des, nw []ConnectionGitlabEnterpriseConfigServiceDirectoryConfig) []ConnectionGitlabEnterpriseConfigServiceDirectoryConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []ConnectionGitlabEnterpriseConfigServiceDirectoryConfig
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareConnectionGitlabEnterpriseConfigServiceDirectoryConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewConnectionGitlabEnterpriseConfigServiceDirectoryConfig(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewConnectionGitlabEnterpriseConfigServiceDirectoryConfigSlice(c *Client, des, nw []ConnectionGitlabEnterpriseConfigServiceDirectoryConfig) []ConnectionGitlabEnterpriseConfigServiceDirectoryConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ConnectionGitlabEnterpriseConfigServiceDirectoryConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewConnectionGitlabEnterpriseConfigServiceDirectoryConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeConnectionInstallationState(des, initial *ConnectionInstallationState, opts ...dcl.ApplyOption) *ConnectionInstallationState {
 	if des == nil {
 		return initial
@@ -1329,6 +1901,13 @@ func diffConnection(c *Client, desired, actual *Connection, opts ...dcl.ApplyOpt
 	}
 
 	if ds, err := dcl.Diff(desired.GithubEnterpriseConfig, actual.GithubEnterpriseConfig, dcl.DiffInfo{ObjectFunction: compareConnectionGithubEnterpriseConfigNewStyle, EmptyObject: EmptyConnectionGithubEnterpriseConfig, OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("GithubEnterpriseConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.GitlabEnterpriseConfig, actual.GitlabEnterpriseConfig, dcl.DiffInfo{ObjectFunction: compareConnectionGitlabEnterpriseConfigNewStyle, EmptyObject: EmptyConnectionGitlabEnterpriseConfig, OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("GitlabEnterpriseConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1565,6 +2144,178 @@ func compareConnectionGithubEnterpriseConfigServiceDirectoryConfigNewStyle(d, a 
 	return diffs, nil
 }
 
+func compareConnectionGitlabEnterpriseConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ConnectionGitlabEnterpriseConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ConnectionGitlabEnterpriseConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConnectionGitlabEnterpriseConfig or *ConnectionGitlabEnterpriseConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ConnectionGitlabEnterpriseConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ConnectionGitlabEnterpriseConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConnectionGitlabEnterpriseConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.HostUri, actual.HostUri, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("HostUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.WebhookSecretSecretVersion, actual.WebhookSecretSecretVersion, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WebhookSecretSecretVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadAuthorizerCredential, actual.ReadAuthorizerCredential, dcl.DiffInfo{ObjectFunction: compareConnectionGitlabEnterpriseConfigReadAuthorizerCredentialNewStyle, EmptyObject: EmptyConnectionGitlabEnterpriseConfigReadAuthorizerCredential, OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("ReadAuthorizerCredential")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AuthorizerCredential, actual.AuthorizerCredential, dcl.DiffInfo{ObjectFunction: compareConnectionGitlabEnterpriseConfigAuthorizerCredentialNewStyle, EmptyObject: EmptyConnectionGitlabEnterpriseConfigAuthorizerCredential, OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("AuthorizerCredential")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServiceDirectoryConfig, actual.ServiceDirectoryConfig, dcl.DiffInfo{ObjectFunction: compareConnectionGitlabEnterpriseConfigServiceDirectoryConfigNewStyle, EmptyObject: EmptyConnectionGitlabEnterpriseConfigServiceDirectoryConfig, OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("ServiceDirectoryConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SslCa, actual.SslCa, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("SslCa")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServerVersion, actual.ServerVersion, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServerVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareConnectionGitlabEnterpriseConfigReadAuthorizerCredentialNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ConnectionGitlabEnterpriseConfigReadAuthorizerCredential)
+	if !ok {
+		desiredNotPointer, ok := d.(ConnectionGitlabEnterpriseConfigReadAuthorizerCredential)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConnectionGitlabEnterpriseConfigReadAuthorizerCredential or *ConnectionGitlabEnterpriseConfigReadAuthorizerCredential", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ConnectionGitlabEnterpriseConfigReadAuthorizerCredential)
+	if !ok {
+		actualNotPointer, ok := a.(ConnectionGitlabEnterpriseConfigReadAuthorizerCredential)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConnectionGitlabEnterpriseConfigReadAuthorizerCredential", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.UserTokenSecretVersion, actual.UserTokenSecretVersion, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("UserTokenSecretVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Username, actual.Username, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Username")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareConnectionGitlabEnterpriseConfigAuthorizerCredentialNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ConnectionGitlabEnterpriseConfigAuthorizerCredential)
+	if !ok {
+		desiredNotPointer, ok := d.(ConnectionGitlabEnterpriseConfigAuthorizerCredential)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConnectionGitlabEnterpriseConfigAuthorizerCredential or *ConnectionGitlabEnterpriseConfigAuthorizerCredential", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ConnectionGitlabEnterpriseConfigAuthorizerCredential)
+	if !ok {
+		actualNotPointer, ok := a.(ConnectionGitlabEnterpriseConfigAuthorizerCredential)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConnectionGitlabEnterpriseConfigAuthorizerCredential", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.UserTokenSecretVersion, actual.UserTokenSecretVersion, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("UserTokenSecretVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Username, actual.Username, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Username")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareConnectionGitlabEnterpriseConfigServiceDirectoryConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ConnectionGitlabEnterpriseConfigServiceDirectoryConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ConnectionGitlabEnterpriseConfigServiceDirectoryConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConnectionGitlabEnterpriseConfigServiceDirectoryConfig or *ConnectionGitlabEnterpriseConfigServiceDirectoryConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ConnectionGitlabEnterpriseConfigServiceDirectoryConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ConnectionGitlabEnterpriseConfigServiceDirectoryConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConnectionGitlabEnterpriseConfigServiceDirectoryConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareConnectionInstallationStateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
@@ -1685,6 +2436,11 @@ func expandConnection(c *Client, f *Connection) (map[string]interface{}, error) 
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["githubEnterpriseConfig"] = v
 	}
+	if v, err := expandConnectionGitlabEnterpriseConfig(c, f.GitlabEnterpriseConfig, res); err != nil {
+		return nil, fmt.Errorf("error expanding GitlabEnterpriseConfig into gitlabEnterpriseConfig: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["gitlabEnterpriseConfig"] = v
+	}
 	if v := f.Disabled; dcl.ValueShouldBeSent(v) {
 		m["disabled"] = v
 	}
@@ -1722,6 +2478,7 @@ func flattenConnection(c *Client, i interface{}, res *Connection) *Connection {
 	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
 	resultRes.GithubConfig = flattenConnectionGithubConfig(c, m["githubConfig"], res)
 	resultRes.GithubEnterpriseConfig = flattenConnectionGithubEnterpriseConfig(c, m["githubEnterpriseConfig"], res)
+	resultRes.GitlabEnterpriseConfig = flattenConnectionGitlabEnterpriseConfig(c, m["gitlabEnterpriseConfig"], res)
 	resultRes.InstallationState = flattenConnectionInstallationState(c, m["installationState"], res)
 	resultRes.Disabled = dcl.FlattenBool(m["disabled"])
 	resultRes.Reconciling = dcl.FlattenBool(m["reconciling"])
@@ -2226,6 +2983,491 @@ func flattenConnectionGithubEnterpriseConfigServiceDirectoryConfig(c *Client, i 
 	return r
 }
 
+// expandConnectionGitlabEnterpriseConfigMap expands the contents of ConnectionGitlabEnterpriseConfig into a JSON
+// request object.
+func expandConnectionGitlabEnterpriseConfigMap(c *Client, f map[string]ConnectionGitlabEnterpriseConfig, res *Connection) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandConnectionGitlabEnterpriseConfig(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandConnectionGitlabEnterpriseConfigSlice expands the contents of ConnectionGitlabEnterpriseConfig into a JSON
+// request object.
+func expandConnectionGitlabEnterpriseConfigSlice(c *Client, f []ConnectionGitlabEnterpriseConfig, res *Connection) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandConnectionGitlabEnterpriseConfig(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenConnectionGitlabEnterpriseConfigMap flattens the contents of ConnectionGitlabEnterpriseConfig from a JSON
+// response object.
+func flattenConnectionGitlabEnterpriseConfigMap(c *Client, i interface{}, res *Connection) map[string]ConnectionGitlabEnterpriseConfig {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ConnectionGitlabEnterpriseConfig{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ConnectionGitlabEnterpriseConfig{}
+	}
+
+	items := make(map[string]ConnectionGitlabEnterpriseConfig)
+	for k, item := range a {
+		items[k] = *flattenConnectionGitlabEnterpriseConfig(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenConnectionGitlabEnterpriseConfigSlice flattens the contents of ConnectionGitlabEnterpriseConfig from a JSON
+// response object.
+func flattenConnectionGitlabEnterpriseConfigSlice(c *Client, i interface{}, res *Connection) []ConnectionGitlabEnterpriseConfig {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ConnectionGitlabEnterpriseConfig{}
+	}
+
+	if len(a) == 0 {
+		return []ConnectionGitlabEnterpriseConfig{}
+	}
+
+	items := make([]ConnectionGitlabEnterpriseConfig, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenConnectionGitlabEnterpriseConfig(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandConnectionGitlabEnterpriseConfig expands an instance of ConnectionGitlabEnterpriseConfig into a JSON
+// request object.
+func expandConnectionGitlabEnterpriseConfig(c *Client, f *ConnectionGitlabEnterpriseConfig, res *Connection) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.HostUri; !dcl.IsEmptyValueIndirect(v) {
+		m["hostUri"] = v
+	}
+	if v := f.WebhookSecretSecretVersion; !dcl.IsEmptyValueIndirect(v) {
+		m["webhookSecretSecretVersion"] = v
+	}
+	if v, err := expandConnectionGitlabEnterpriseConfigReadAuthorizerCredential(c, f.ReadAuthorizerCredential, res); err != nil {
+		return nil, fmt.Errorf("error expanding ReadAuthorizerCredential into readAuthorizerCredential: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["readAuthorizerCredential"] = v
+	}
+	if v, err := expandConnectionGitlabEnterpriseConfigAuthorizerCredential(c, f.AuthorizerCredential, res); err != nil {
+		return nil, fmt.Errorf("error expanding AuthorizerCredential into authorizerCredential: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["authorizerCredential"] = v
+	}
+	if v, err := expandConnectionGitlabEnterpriseConfigServiceDirectoryConfig(c, f.ServiceDirectoryConfig, res); err != nil {
+		return nil, fmt.Errorf("error expanding ServiceDirectoryConfig into serviceDirectoryConfig: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["serviceDirectoryConfig"] = v
+	}
+	if v := f.SslCa; !dcl.IsEmptyValueIndirect(v) {
+		m["sslCa"] = v
+	}
+
+	return m, nil
+}
+
+// flattenConnectionGitlabEnterpriseConfig flattens an instance of ConnectionGitlabEnterpriseConfig from a JSON
+// response object.
+func flattenConnectionGitlabEnterpriseConfig(c *Client, i interface{}, res *Connection) *ConnectionGitlabEnterpriseConfig {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ConnectionGitlabEnterpriseConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyConnectionGitlabEnterpriseConfig
+	}
+	r.HostUri = dcl.FlattenString(m["hostUri"])
+	r.WebhookSecretSecretVersion = dcl.FlattenString(m["webhookSecretSecretVersion"])
+	r.ReadAuthorizerCredential = flattenConnectionGitlabEnterpriseConfigReadAuthorizerCredential(c, m["readAuthorizerCredential"], res)
+	r.AuthorizerCredential = flattenConnectionGitlabEnterpriseConfigAuthorizerCredential(c, m["authorizerCredential"], res)
+	r.ServiceDirectoryConfig = flattenConnectionGitlabEnterpriseConfigServiceDirectoryConfig(c, m["serviceDirectoryConfig"], res)
+	r.SslCa = dcl.FlattenString(m["sslCa"])
+	r.ServerVersion = dcl.FlattenString(m["serverVersion"])
+
+	return r
+}
+
+// expandConnectionGitlabEnterpriseConfigReadAuthorizerCredentialMap expands the contents of ConnectionGitlabEnterpriseConfigReadAuthorizerCredential into a JSON
+// request object.
+func expandConnectionGitlabEnterpriseConfigReadAuthorizerCredentialMap(c *Client, f map[string]ConnectionGitlabEnterpriseConfigReadAuthorizerCredential, res *Connection) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandConnectionGitlabEnterpriseConfigReadAuthorizerCredential(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandConnectionGitlabEnterpriseConfigReadAuthorizerCredentialSlice expands the contents of ConnectionGitlabEnterpriseConfigReadAuthorizerCredential into a JSON
+// request object.
+func expandConnectionGitlabEnterpriseConfigReadAuthorizerCredentialSlice(c *Client, f []ConnectionGitlabEnterpriseConfigReadAuthorizerCredential, res *Connection) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandConnectionGitlabEnterpriseConfigReadAuthorizerCredential(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenConnectionGitlabEnterpriseConfigReadAuthorizerCredentialMap flattens the contents of ConnectionGitlabEnterpriseConfigReadAuthorizerCredential from a JSON
+// response object.
+func flattenConnectionGitlabEnterpriseConfigReadAuthorizerCredentialMap(c *Client, i interface{}, res *Connection) map[string]ConnectionGitlabEnterpriseConfigReadAuthorizerCredential {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ConnectionGitlabEnterpriseConfigReadAuthorizerCredential{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ConnectionGitlabEnterpriseConfigReadAuthorizerCredential{}
+	}
+
+	items := make(map[string]ConnectionGitlabEnterpriseConfigReadAuthorizerCredential)
+	for k, item := range a {
+		items[k] = *flattenConnectionGitlabEnterpriseConfigReadAuthorizerCredential(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenConnectionGitlabEnterpriseConfigReadAuthorizerCredentialSlice flattens the contents of ConnectionGitlabEnterpriseConfigReadAuthorizerCredential from a JSON
+// response object.
+func flattenConnectionGitlabEnterpriseConfigReadAuthorizerCredentialSlice(c *Client, i interface{}, res *Connection) []ConnectionGitlabEnterpriseConfigReadAuthorizerCredential {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ConnectionGitlabEnterpriseConfigReadAuthorizerCredential{}
+	}
+
+	if len(a) == 0 {
+		return []ConnectionGitlabEnterpriseConfigReadAuthorizerCredential{}
+	}
+
+	items := make([]ConnectionGitlabEnterpriseConfigReadAuthorizerCredential, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenConnectionGitlabEnterpriseConfigReadAuthorizerCredential(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandConnectionGitlabEnterpriseConfigReadAuthorizerCredential expands an instance of ConnectionGitlabEnterpriseConfigReadAuthorizerCredential into a JSON
+// request object.
+func expandConnectionGitlabEnterpriseConfigReadAuthorizerCredential(c *Client, f *ConnectionGitlabEnterpriseConfigReadAuthorizerCredential, res *Connection) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.UserTokenSecretVersion; !dcl.IsEmptyValueIndirect(v) {
+		m["userTokenSecretVersion"] = v
+	}
+
+	return m, nil
+}
+
+// flattenConnectionGitlabEnterpriseConfigReadAuthorizerCredential flattens an instance of ConnectionGitlabEnterpriseConfigReadAuthorizerCredential from a JSON
+// response object.
+func flattenConnectionGitlabEnterpriseConfigReadAuthorizerCredential(c *Client, i interface{}, res *Connection) *ConnectionGitlabEnterpriseConfigReadAuthorizerCredential {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ConnectionGitlabEnterpriseConfigReadAuthorizerCredential{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyConnectionGitlabEnterpriseConfigReadAuthorizerCredential
+	}
+	r.UserTokenSecretVersion = dcl.FlattenString(m["userTokenSecretVersion"])
+	r.Username = dcl.FlattenString(m["username"])
+
+	return r
+}
+
+// expandConnectionGitlabEnterpriseConfigAuthorizerCredentialMap expands the contents of ConnectionGitlabEnterpriseConfigAuthorizerCredential into a JSON
+// request object.
+func expandConnectionGitlabEnterpriseConfigAuthorizerCredentialMap(c *Client, f map[string]ConnectionGitlabEnterpriseConfigAuthorizerCredential, res *Connection) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandConnectionGitlabEnterpriseConfigAuthorizerCredential(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandConnectionGitlabEnterpriseConfigAuthorizerCredentialSlice expands the contents of ConnectionGitlabEnterpriseConfigAuthorizerCredential into a JSON
+// request object.
+func expandConnectionGitlabEnterpriseConfigAuthorizerCredentialSlice(c *Client, f []ConnectionGitlabEnterpriseConfigAuthorizerCredential, res *Connection) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandConnectionGitlabEnterpriseConfigAuthorizerCredential(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenConnectionGitlabEnterpriseConfigAuthorizerCredentialMap flattens the contents of ConnectionGitlabEnterpriseConfigAuthorizerCredential from a JSON
+// response object.
+func flattenConnectionGitlabEnterpriseConfigAuthorizerCredentialMap(c *Client, i interface{}, res *Connection) map[string]ConnectionGitlabEnterpriseConfigAuthorizerCredential {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ConnectionGitlabEnterpriseConfigAuthorizerCredential{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ConnectionGitlabEnterpriseConfigAuthorizerCredential{}
+	}
+
+	items := make(map[string]ConnectionGitlabEnterpriseConfigAuthorizerCredential)
+	for k, item := range a {
+		items[k] = *flattenConnectionGitlabEnterpriseConfigAuthorizerCredential(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenConnectionGitlabEnterpriseConfigAuthorizerCredentialSlice flattens the contents of ConnectionGitlabEnterpriseConfigAuthorizerCredential from a JSON
+// response object.
+func flattenConnectionGitlabEnterpriseConfigAuthorizerCredentialSlice(c *Client, i interface{}, res *Connection) []ConnectionGitlabEnterpriseConfigAuthorizerCredential {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ConnectionGitlabEnterpriseConfigAuthorizerCredential{}
+	}
+
+	if len(a) == 0 {
+		return []ConnectionGitlabEnterpriseConfigAuthorizerCredential{}
+	}
+
+	items := make([]ConnectionGitlabEnterpriseConfigAuthorizerCredential, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenConnectionGitlabEnterpriseConfigAuthorizerCredential(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandConnectionGitlabEnterpriseConfigAuthorizerCredential expands an instance of ConnectionGitlabEnterpriseConfigAuthorizerCredential into a JSON
+// request object.
+func expandConnectionGitlabEnterpriseConfigAuthorizerCredential(c *Client, f *ConnectionGitlabEnterpriseConfigAuthorizerCredential, res *Connection) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.UserTokenSecretVersion; !dcl.IsEmptyValueIndirect(v) {
+		m["userTokenSecretVersion"] = v
+	}
+
+	return m, nil
+}
+
+// flattenConnectionGitlabEnterpriseConfigAuthorizerCredential flattens an instance of ConnectionGitlabEnterpriseConfigAuthorizerCredential from a JSON
+// response object.
+func flattenConnectionGitlabEnterpriseConfigAuthorizerCredential(c *Client, i interface{}, res *Connection) *ConnectionGitlabEnterpriseConfigAuthorizerCredential {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ConnectionGitlabEnterpriseConfigAuthorizerCredential{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyConnectionGitlabEnterpriseConfigAuthorizerCredential
+	}
+	r.UserTokenSecretVersion = dcl.FlattenString(m["userTokenSecretVersion"])
+	r.Username = dcl.FlattenString(m["username"])
+
+	return r
+}
+
+// expandConnectionGitlabEnterpriseConfigServiceDirectoryConfigMap expands the contents of ConnectionGitlabEnterpriseConfigServiceDirectoryConfig into a JSON
+// request object.
+func expandConnectionGitlabEnterpriseConfigServiceDirectoryConfigMap(c *Client, f map[string]ConnectionGitlabEnterpriseConfigServiceDirectoryConfig, res *Connection) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandConnectionGitlabEnterpriseConfigServiceDirectoryConfig(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandConnectionGitlabEnterpriseConfigServiceDirectoryConfigSlice expands the contents of ConnectionGitlabEnterpriseConfigServiceDirectoryConfig into a JSON
+// request object.
+func expandConnectionGitlabEnterpriseConfigServiceDirectoryConfigSlice(c *Client, f []ConnectionGitlabEnterpriseConfigServiceDirectoryConfig, res *Connection) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandConnectionGitlabEnterpriseConfigServiceDirectoryConfig(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenConnectionGitlabEnterpriseConfigServiceDirectoryConfigMap flattens the contents of ConnectionGitlabEnterpriseConfigServiceDirectoryConfig from a JSON
+// response object.
+func flattenConnectionGitlabEnterpriseConfigServiceDirectoryConfigMap(c *Client, i interface{}, res *Connection) map[string]ConnectionGitlabEnterpriseConfigServiceDirectoryConfig {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ConnectionGitlabEnterpriseConfigServiceDirectoryConfig{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ConnectionGitlabEnterpriseConfigServiceDirectoryConfig{}
+	}
+
+	items := make(map[string]ConnectionGitlabEnterpriseConfigServiceDirectoryConfig)
+	for k, item := range a {
+		items[k] = *flattenConnectionGitlabEnterpriseConfigServiceDirectoryConfig(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenConnectionGitlabEnterpriseConfigServiceDirectoryConfigSlice flattens the contents of ConnectionGitlabEnterpriseConfigServiceDirectoryConfig from a JSON
+// response object.
+func flattenConnectionGitlabEnterpriseConfigServiceDirectoryConfigSlice(c *Client, i interface{}, res *Connection) []ConnectionGitlabEnterpriseConfigServiceDirectoryConfig {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ConnectionGitlabEnterpriseConfigServiceDirectoryConfig{}
+	}
+
+	if len(a) == 0 {
+		return []ConnectionGitlabEnterpriseConfigServiceDirectoryConfig{}
+	}
+
+	items := make([]ConnectionGitlabEnterpriseConfigServiceDirectoryConfig, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenConnectionGitlabEnterpriseConfigServiceDirectoryConfig(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandConnectionGitlabEnterpriseConfigServiceDirectoryConfig expands an instance of ConnectionGitlabEnterpriseConfigServiceDirectoryConfig into a JSON
+// request object.
+func expandConnectionGitlabEnterpriseConfigServiceDirectoryConfig(c *Client, f *ConnectionGitlabEnterpriseConfigServiceDirectoryConfig, res *Connection) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+
+	return m, nil
+}
+
+// flattenConnectionGitlabEnterpriseConfigServiceDirectoryConfig flattens an instance of ConnectionGitlabEnterpriseConfigServiceDirectoryConfig from a JSON
+// response object.
+func flattenConnectionGitlabEnterpriseConfigServiceDirectoryConfig(c *Client, i interface{}, res *Connection) *ConnectionGitlabEnterpriseConfigServiceDirectoryConfig {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ConnectionGitlabEnterpriseConfigServiceDirectoryConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyConnectionGitlabEnterpriseConfigServiceDirectoryConfig
+	}
+	r.Service = dcl.FlattenString(m["service"])
+
+	return r
+}
+
 // expandConnectionInstallationStateMap expands the contents of ConnectionInstallationState into a JSON
 // request object.
 func expandConnectionInstallationStateMap(c *Client, f map[string]ConnectionInstallationState, res *Connection) (map[string]interface{}, error) {
@@ -2506,6 +3748,17 @@ func extractConnectionFields(r *Connection) error {
 	if !dcl.IsEmptyValueIndirect(vGithubEnterpriseConfig) {
 		r.GithubEnterpriseConfig = vGithubEnterpriseConfig
 	}
+	vGitlabEnterpriseConfig := r.GitlabEnterpriseConfig
+	if vGitlabEnterpriseConfig == nil {
+		// note: explicitly not the empty object.
+		vGitlabEnterpriseConfig = &ConnectionGitlabEnterpriseConfig{}
+	}
+	if err := extractConnectionGitlabEnterpriseConfigFields(r, vGitlabEnterpriseConfig); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vGitlabEnterpriseConfig) {
+		r.GitlabEnterpriseConfig = vGitlabEnterpriseConfig
+	}
 	vInstallationState := r.InstallationState
 	if vInstallationState == nil {
 		// note: explicitly not the empty object.
@@ -2553,6 +3806,51 @@ func extractConnectionGithubEnterpriseConfigFields(r *Connection, o *ConnectionG
 func extractConnectionGithubEnterpriseConfigServiceDirectoryConfigFields(r *Connection, o *ConnectionGithubEnterpriseConfigServiceDirectoryConfig) error {
 	return nil
 }
+func extractConnectionGitlabEnterpriseConfigFields(r *Connection, o *ConnectionGitlabEnterpriseConfig) error {
+	vReadAuthorizerCredential := o.ReadAuthorizerCredential
+	if vReadAuthorizerCredential == nil {
+		// note: explicitly not the empty object.
+		vReadAuthorizerCredential = &ConnectionGitlabEnterpriseConfigReadAuthorizerCredential{}
+	}
+	if err := extractConnectionGitlabEnterpriseConfigReadAuthorizerCredentialFields(r, vReadAuthorizerCredential); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vReadAuthorizerCredential) {
+		o.ReadAuthorizerCredential = vReadAuthorizerCredential
+	}
+	vAuthorizerCredential := o.AuthorizerCredential
+	if vAuthorizerCredential == nil {
+		// note: explicitly not the empty object.
+		vAuthorizerCredential = &ConnectionGitlabEnterpriseConfigAuthorizerCredential{}
+	}
+	if err := extractConnectionGitlabEnterpriseConfigAuthorizerCredentialFields(r, vAuthorizerCredential); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vAuthorizerCredential) {
+		o.AuthorizerCredential = vAuthorizerCredential
+	}
+	vServiceDirectoryConfig := o.ServiceDirectoryConfig
+	if vServiceDirectoryConfig == nil {
+		// note: explicitly not the empty object.
+		vServiceDirectoryConfig = &ConnectionGitlabEnterpriseConfigServiceDirectoryConfig{}
+	}
+	if err := extractConnectionGitlabEnterpriseConfigServiceDirectoryConfigFields(r, vServiceDirectoryConfig); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vServiceDirectoryConfig) {
+		o.ServiceDirectoryConfig = vServiceDirectoryConfig
+	}
+	return nil
+}
+func extractConnectionGitlabEnterpriseConfigReadAuthorizerCredentialFields(r *Connection, o *ConnectionGitlabEnterpriseConfigReadAuthorizerCredential) error {
+	return nil
+}
+func extractConnectionGitlabEnterpriseConfigAuthorizerCredentialFields(r *Connection, o *ConnectionGitlabEnterpriseConfigAuthorizerCredential) error {
+	return nil
+}
+func extractConnectionGitlabEnterpriseConfigServiceDirectoryConfigFields(r *Connection, o *ConnectionGitlabEnterpriseConfigServiceDirectoryConfig) error {
+	return nil
+}
 func extractConnectionInstallationStateFields(r *Connection, o *ConnectionInstallationState) error {
 	return nil
 }
@@ -2579,6 +3877,17 @@ func postReadExtractConnectionFields(r *Connection) error {
 	}
 	if !dcl.IsEmptyValueIndirect(vGithubEnterpriseConfig) {
 		r.GithubEnterpriseConfig = vGithubEnterpriseConfig
+	}
+	vGitlabEnterpriseConfig := r.GitlabEnterpriseConfig
+	if vGitlabEnterpriseConfig == nil {
+		// note: explicitly not the empty object.
+		vGitlabEnterpriseConfig = &ConnectionGitlabEnterpriseConfig{}
+	}
+	if err := postReadExtractConnectionGitlabEnterpriseConfigFields(r, vGitlabEnterpriseConfig); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vGitlabEnterpriseConfig) {
+		r.GitlabEnterpriseConfig = vGitlabEnterpriseConfig
 	}
 	vInstallationState := r.InstallationState
 	if vInstallationState == nil {
@@ -2625,6 +3934,51 @@ func postReadExtractConnectionGithubEnterpriseConfigFields(r *Connection, o *Con
 	return nil
 }
 func postReadExtractConnectionGithubEnterpriseConfigServiceDirectoryConfigFields(r *Connection, o *ConnectionGithubEnterpriseConfigServiceDirectoryConfig) error {
+	return nil
+}
+func postReadExtractConnectionGitlabEnterpriseConfigFields(r *Connection, o *ConnectionGitlabEnterpriseConfig) error {
+	vReadAuthorizerCredential := o.ReadAuthorizerCredential
+	if vReadAuthorizerCredential == nil {
+		// note: explicitly not the empty object.
+		vReadAuthorizerCredential = &ConnectionGitlabEnterpriseConfigReadAuthorizerCredential{}
+	}
+	if err := extractConnectionGitlabEnterpriseConfigReadAuthorizerCredentialFields(r, vReadAuthorizerCredential); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vReadAuthorizerCredential) {
+		o.ReadAuthorizerCredential = vReadAuthorizerCredential
+	}
+	vAuthorizerCredential := o.AuthorizerCredential
+	if vAuthorizerCredential == nil {
+		// note: explicitly not the empty object.
+		vAuthorizerCredential = &ConnectionGitlabEnterpriseConfigAuthorizerCredential{}
+	}
+	if err := extractConnectionGitlabEnterpriseConfigAuthorizerCredentialFields(r, vAuthorizerCredential); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vAuthorizerCredential) {
+		o.AuthorizerCredential = vAuthorizerCredential
+	}
+	vServiceDirectoryConfig := o.ServiceDirectoryConfig
+	if vServiceDirectoryConfig == nil {
+		// note: explicitly not the empty object.
+		vServiceDirectoryConfig = &ConnectionGitlabEnterpriseConfigServiceDirectoryConfig{}
+	}
+	if err := extractConnectionGitlabEnterpriseConfigServiceDirectoryConfigFields(r, vServiceDirectoryConfig); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vServiceDirectoryConfig) {
+		o.ServiceDirectoryConfig = vServiceDirectoryConfig
+	}
+	return nil
+}
+func postReadExtractConnectionGitlabEnterpriseConfigReadAuthorizerCredentialFields(r *Connection, o *ConnectionGitlabEnterpriseConfigReadAuthorizerCredential) error {
+	return nil
+}
+func postReadExtractConnectionGitlabEnterpriseConfigAuthorizerCredentialFields(r *Connection, o *ConnectionGitlabEnterpriseConfigAuthorizerCredential) error {
+	return nil
+}
+func postReadExtractConnectionGitlabEnterpriseConfigServiceDirectoryConfigFields(r *Connection, o *ConnectionGitlabEnterpriseConfigServiceDirectoryConfig) error {
 	return nil
 }
 func postReadExtractConnectionInstallationStateFields(r *Connection, o *ConnectionInstallationState) error {

@@ -36,13 +36,14 @@ message Cloudbuildv2AlphaConnection {
   string update_time = 3;
   Cloudbuildv2AlphaConnectionGithubConfig github_config = 4;
   Cloudbuildv2AlphaConnectionGithubEnterpriseConfig github_enterprise_config = 5;
-  Cloudbuildv2AlphaConnectionInstallationState installation_state = 6;
-  bool disabled = 7;
-  bool reconciling = 8;
-  map<string, string> annotations = 9;
-  string etag = 10;
-  string project = 11;
-  string location = 12;
+  Cloudbuildv2AlphaConnectionGitlabEnterpriseConfig gitlab_enterprise_config = 6;
+  Cloudbuildv2AlphaConnectionInstallationState installation_state = 7;
+  bool disabled = 8;
+  bool reconciling = 9;
+  map<string, string> annotations = 10;
+  string etag = 11;
+  string project = 12;
+  string location = 13;
 }
 
 message Cloudbuildv2AlphaConnectionGithubConfig {
@@ -67,6 +68,30 @@ message Cloudbuildv2AlphaConnectionGithubEnterpriseConfig {
 }
 
 message Cloudbuildv2AlphaConnectionGithubEnterpriseConfigServiceDirectoryConfig {
+  string service = 1;
+}
+
+message Cloudbuildv2AlphaConnectionGitlabEnterpriseConfig {
+  string host_uri = 1;
+  string webhook_secret_secret_version = 2;
+  Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigReadAuthorizerCredential read_authorizer_credential = 3;
+  Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigAuthorizerCredential authorizer_credential = 4;
+  Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigServiceDirectoryConfig service_directory_config = 5;
+  string ssl_ca = 6;
+  string server_version = 7;
+}
+
+message Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigReadAuthorizerCredential {
+  string user_token_secret_version = 1;
+  string username = 2;
+}
+
+message Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigAuthorizerCredential {
+  string user_token_secret_version = 1;
+  string username = 2;
+}
+
+message Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigServiceDirectoryConfig {
   string service = 1;
 }
 

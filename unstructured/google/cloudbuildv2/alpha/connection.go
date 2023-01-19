@@ -97,6 +97,49 @@ func ConnectionToUnstructured(r *dclService.Connection) *unstructured.Resource {
 		}
 		u.Object["githubEnterpriseConfig"] = rGithubEnterpriseConfig
 	}
+	if r.GitlabEnterpriseConfig != nil && r.GitlabEnterpriseConfig != dclService.EmptyConnectionGitlabEnterpriseConfig {
+		rGitlabEnterpriseConfig := make(map[string]interface{})
+		if r.GitlabEnterpriseConfig.AuthorizerCredential != nil && r.GitlabEnterpriseConfig.AuthorizerCredential != dclService.EmptyConnectionGitlabEnterpriseConfigAuthorizerCredential {
+			rGitlabEnterpriseConfigAuthorizerCredential := make(map[string]interface{})
+			if r.GitlabEnterpriseConfig.AuthorizerCredential.UserTokenSecretVersion != nil {
+				rGitlabEnterpriseConfigAuthorizerCredential["userTokenSecretVersion"] = *r.GitlabEnterpriseConfig.AuthorizerCredential.UserTokenSecretVersion
+			}
+			if r.GitlabEnterpriseConfig.AuthorizerCredential.Username != nil {
+				rGitlabEnterpriseConfigAuthorizerCredential["username"] = *r.GitlabEnterpriseConfig.AuthorizerCredential.Username
+			}
+			rGitlabEnterpriseConfig["authorizerCredential"] = rGitlabEnterpriseConfigAuthorizerCredential
+		}
+		if r.GitlabEnterpriseConfig.HostUri != nil {
+			rGitlabEnterpriseConfig["hostUri"] = *r.GitlabEnterpriseConfig.HostUri
+		}
+		if r.GitlabEnterpriseConfig.ReadAuthorizerCredential != nil && r.GitlabEnterpriseConfig.ReadAuthorizerCredential != dclService.EmptyConnectionGitlabEnterpriseConfigReadAuthorizerCredential {
+			rGitlabEnterpriseConfigReadAuthorizerCredential := make(map[string]interface{})
+			if r.GitlabEnterpriseConfig.ReadAuthorizerCredential.UserTokenSecretVersion != nil {
+				rGitlabEnterpriseConfigReadAuthorizerCredential["userTokenSecretVersion"] = *r.GitlabEnterpriseConfig.ReadAuthorizerCredential.UserTokenSecretVersion
+			}
+			if r.GitlabEnterpriseConfig.ReadAuthorizerCredential.Username != nil {
+				rGitlabEnterpriseConfigReadAuthorizerCredential["username"] = *r.GitlabEnterpriseConfig.ReadAuthorizerCredential.Username
+			}
+			rGitlabEnterpriseConfig["readAuthorizerCredential"] = rGitlabEnterpriseConfigReadAuthorizerCredential
+		}
+		if r.GitlabEnterpriseConfig.ServerVersion != nil {
+			rGitlabEnterpriseConfig["serverVersion"] = *r.GitlabEnterpriseConfig.ServerVersion
+		}
+		if r.GitlabEnterpriseConfig.ServiceDirectoryConfig != nil && r.GitlabEnterpriseConfig.ServiceDirectoryConfig != dclService.EmptyConnectionGitlabEnterpriseConfigServiceDirectoryConfig {
+			rGitlabEnterpriseConfigServiceDirectoryConfig := make(map[string]interface{})
+			if r.GitlabEnterpriseConfig.ServiceDirectoryConfig.Service != nil {
+				rGitlabEnterpriseConfigServiceDirectoryConfig["service"] = *r.GitlabEnterpriseConfig.ServiceDirectoryConfig.Service
+			}
+			rGitlabEnterpriseConfig["serviceDirectoryConfig"] = rGitlabEnterpriseConfigServiceDirectoryConfig
+		}
+		if r.GitlabEnterpriseConfig.SslCa != nil {
+			rGitlabEnterpriseConfig["sslCa"] = *r.GitlabEnterpriseConfig.SslCa
+		}
+		if r.GitlabEnterpriseConfig.WebhookSecretSecretVersion != nil {
+			rGitlabEnterpriseConfig["webhookSecretSecretVersion"] = *r.GitlabEnterpriseConfig.WebhookSecretSecretVersion
+		}
+		u.Object["gitlabEnterpriseConfig"] = rGitlabEnterpriseConfig
+	}
 	if r.InstallationState != nil && r.InstallationState != dclService.EmptyConnectionInstallationState {
 		rInstallationState := make(map[string]interface{})
 		if r.InstallationState.ActionUri != nil {
@@ -267,6 +310,97 @@ func UnstructuredToConnection(u *unstructured.Resource) (*dclService.Connection,
 			}
 		} else {
 			return nil, fmt.Errorf("r.GithubEnterpriseConfig: expected map[string]interface{}")
+		}
+	}
+	if _, ok := u.Object["gitlabEnterpriseConfig"]; ok {
+		if rGitlabEnterpriseConfig, ok := u.Object["gitlabEnterpriseConfig"].(map[string]interface{}); ok {
+			r.GitlabEnterpriseConfig = &dclService.ConnectionGitlabEnterpriseConfig{}
+			if _, ok := rGitlabEnterpriseConfig["authorizerCredential"]; ok {
+				if rGitlabEnterpriseConfigAuthorizerCredential, ok := rGitlabEnterpriseConfig["authorizerCredential"].(map[string]interface{}); ok {
+					r.GitlabEnterpriseConfig.AuthorizerCredential = &dclService.ConnectionGitlabEnterpriseConfigAuthorizerCredential{}
+					if _, ok := rGitlabEnterpriseConfigAuthorizerCredential["userTokenSecretVersion"]; ok {
+						if s, ok := rGitlabEnterpriseConfigAuthorizerCredential["userTokenSecretVersion"].(string); ok {
+							r.GitlabEnterpriseConfig.AuthorizerCredential.UserTokenSecretVersion = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.GitlabEnterpriseConfig.AuthorizerCredential.UserTokenSecretVersion: expected string")
+						}
+					}
+					if _, ok := rGitlabEnterpriseConfigAuthorizerCredential["username"]; ok {
+						if s, ok := rGitlabEnterpriseConfigAuthorizerCredential["username"].(string); ok {
+							r.GitlabEnterpriseConfig.AuthorizerCredential.Username = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.GitlabEnterpriseConfig.AuthorizerCredential.Username: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.GitlabEnterpriseConfig.AuthorizerCredential: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rGitlabEnterpriseConfig["hostUri"]; ok {
+				if s, ok := rGitlabEnterpriseConfig["hostUri"].(string); ok {
+					r.GitlabEnterpriseConfig.HostUri = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.GitlabEnterpriseConfig.HostUri: expected string")
+				}
+			}
+			if _, ok := rGitlabEnterpriseConfig["readAuthorizerCredential"]; ok {
+				if rGitlabEnterpriseConfigReadAuthorizerCredential, ok := rGitlabEnterpriseConfig["readAuthorizerCredential"].(map[string]interface{}); ok {
+					r.GitlabEnterpriseConfig.ReadAuthorizerCredential = &dclService.ConnectionGitlabEnterpriseConfigReadAuthorizerCredential{}
+					if _, ok := rGitlabEnterpriseConfigReadAuthorizerCredential["userTokenSecretVersion"]; ok {
+						if s, ok := rGitlabEnterpriseConfigReadAuthorizerCredential["userTokenSecretVersion"].(string); ok {
+							r.GitlabEnterpriseConfig.ReadAuthorizerCredential.UserTokenSecretVersion = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.GitlabEnterpriseConfig.ReadAuthorizerCredential.UserTokenSecretVersion: expected string")
+						}
+					}
+					if _, ok := rGitlabEnterpriseConfigReadAuthorizerCredential["username"]; ok {
+						if s, ok := rGitlabEnterpriseConfigReadAuthorizerCredential["username"].(string); ok {
+							r.GitlabEnterpriseConfig.ReadAuthorizerCredential.Username = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.GitlabEnterpriseConfig.ReadAuthorizerCredential.Username: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.GitlabEnterpriseConfig.ReadAuthorizerCredential: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rGitlabEnterpriseConfig["serverVersion"]; ok {
+				if s, ok := rGitlabEnterpriseConfig["serverVersion"].(string); ok {
+					r.GitlabEnterpriseConfig.ServerVersion = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.GitlabEnterpriseConfig.ServerVersion: expected string")
+				}
+			}
+			if _, ok := rGitlabEnterpriseConfig["serviceDirectoryConfig"]; ok {
+				if rGitlabEnterpriseConfigServiceDirectoryConfig, ok := rGitlabEnterpriseConfig["serviceDirectoryConfig"].(map[string]interface{}); ok {
+					r.GitlabEnterpriseConfig.ServiceDirectoryConfig = &dclService.ConnectionGitlabEnterpriseConfigServiceDirectoryConfig{}
+					if _, ok := rGitlabEnterpriseConfigServiceDirectoryConfig["service"]; ok {
+						if s, ok := rGitlabEnterpriseConfigServiceDirectoryConfig["service"].(string); ok {
+							r.GitlabEnterpriseConfig.ServiceDirectoryConfig.Service = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.GitlabEnterpriseConfig.ServiceDirectoryConfig.Service: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.GitlabEnterpriseConfig.ServiceDirectoryConfig: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rGitlabEnterpriseConfig["sslCa"]; ok {
+				if s, ok := rGitlabEnterpriseConfig["sslCa"].(string); ok {
+					r.GitlabEnterpriseConfig.SslCa = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.GitlabEnterpriseConfig.SslCa: expected string")
+				}
+			}
+			if _, ok := rGitlabEnterpriseConfig["webhookSecretSecretVersion"]; ok {
+				if s, ok := rGitlabEnterpriseConfig["webhookSecretSecretVersion"].(string); ok {
+					r.GitlabEnterpriseConfig.WebhookSecretSecretVersion = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.GitlabEnterpriseConfig.WebhookSecretSecretVersion: expected string")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.GitlabEnterpriseConfig: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["installationState"]; ok {
