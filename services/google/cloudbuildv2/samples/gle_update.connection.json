@@ -5,7 +5,7 @@
     "authorizerCredential": {
       "userTokenSecretVersion": "projects/212465313333/secrets/proctor-repo-gle-api-token/versions/latest"
     },
-    "webhookSecretSecretVersion":"projects/212465313333/secrets/proctor-gle-webhook-secret/versions/latest"
+    "webhookSecretSecretVersion":"projects/407304063574/secrets/gle-webhook-secret/versions/latest"
   },
   "project": "{{project}}",
   "annotations": {"somekey": "somevalue"},

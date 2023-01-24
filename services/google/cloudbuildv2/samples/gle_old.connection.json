@@ -3,12 +3,12 @@
   "gitlabEnterpriseConfig": {
     "hostUri": "https://gle-old.gcb-test.com",
     "authorizerCredential": {
-      "userTokenSecretVersion": "projects/212465313333/secrets/proctor-repo-old-gle-api-token/versions/1"
+      "userTokenSecretVersion": "projects/407304063574/secrets/gle-old-api-token/versions/1"
     },
     "readAuthorizerCredential": {
-      "userTokenSecretVersion": "projects/212465313333/secrets/proctor-repo-old-gle-read-token/versions/1"
+      "userTokenSecretVersion": "projects/407304063574/secrets/gle-old-read-token/versions/1"
     },
-    "webhookSecretSecretVersion":"projects/212465313333/secrets/proctor-gle-webhook-secret/versions/latest"
+    "webhookSecretSecretVersion":"projects/407304063574/secrets/gle-webhook-secret/versions/latest"
   },
   "project": "{{project}}",
   "location": "us-west1"
