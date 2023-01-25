@@ -462,7 +462,6 @@ func canonicalizeOAuthIdpConfigDesiredState(rawDesired, rawInitial *OAuthIdpConf
 	} else {
 		canonicalDesired.Project = rawDesired.Project
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -735,6 +734,9 @@ func diffOAuthIdpConfig(c *Client, desired, actual *OAuthIdpConfig, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareOAuthIdpConfigResponseTypeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

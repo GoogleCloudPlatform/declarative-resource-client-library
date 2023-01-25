@@ -731,7 +731,6 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 		canonicalDesired.Location = rawDesired.Location
 	}
 	canonicalDesired.ServiceDirectoryRegistrations = canonicalizeForwardingRuleServiceDirectoryRegistrationsSlice(rawDesired.ServiceDirectoryRegistrations, rawInitial.ServiceDirectoryRegistrations, opts...)
-
 	return canonicalDesired, nil
 }
 
@@ -1529,6 +1528,9 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareForwardingRuleMetadataFilterNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

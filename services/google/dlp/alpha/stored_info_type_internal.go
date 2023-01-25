@@ -542,31 +542,6 @@ func canonicalizeStoredInfoTypeDesiredState(rawDesired, rawInitial *StoredInfoTy
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.LargeCustomDictionary != nil || rawInitial.LargeCustomDictionary != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Dictionary, rawDesired.Regex) {
-			rawDesired.LargeCustomDictionary = nil
-			rawInitial.LargeCustomDictionary = nil
-		}
-	}
-
-	if rawDesired.Dictionary != nil || rawInitial.Dictionary != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.LargeCustomDictionary, rawDesired.Regex) {
-			rawDesired.Dictionary = nil
-			rawInitial.Dictionary = nil
-		}
-	}
-
-	if rawDesired.Regex != nil || rawInitial.Regex != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.LargeCustomDictionary, rawDesired.Dictionary) {
-			rawDesired.Regex = nil
-			rawInitial.Regex = nil
-		}
-	}
-
 	canonicalDesired := &StoredInfoType{}
 	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
 		// Desired and initial values are equivalent, so set canonical desired value to initial value.
@@ -596,6 +571,27 @@ func canonicalizeStoredInfoTypeDesiredState(rawDesired, rawInitial *StoredInfoTy
 		canonicalDesired.Location = rawInitial.Location
 	} else {
 		canonicalDesired.Location = rawDesired.Location
+	}
+
+	if canonicalDesired.LargeCustomDictionary != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.Dictionary, rawDesired.Regex) {
+			canonicalDesired.LargeCustomDictionary = EmptyStoredInfoTypeLargeCustomDictionary
+		}
+	}
+
+	if canonicalDesired.Dictionary != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.LargeCustomDictionary, rawDesired.Regex) {
+			canonicalDesired.Dictionary = EmptyStoredInfoTypeDictionary
+		}
+	}
+
+	if canonicalDesired.Regex != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.LargeCustomDictionary, rawDesired.Dictionary) {
+			canonicalDesired.Regex = EmptyStoredInfoTypeRegex
+		}
 	}
 
 	return canonicalDesired, nil
@@ -1948,6 +1944,9 @@ func diffStoredInfoType(c *Client, desired, actual *StoredInfoType, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareStoredInfoTypeLargeCustomDictionaryNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

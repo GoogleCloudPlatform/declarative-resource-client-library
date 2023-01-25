@@ -541,7 +541,6 @@ func canonicalizePacketMirroringDesiredState(rawDesired, rawInitial *PacketMirro
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1464,6 +1463,9 @@ func diffPacketMirroring(c *Client, desired, actual *PacketMirroring, opts ...dc
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func comparePacketMirroringNetworkNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

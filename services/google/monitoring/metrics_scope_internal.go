@@ -162,7 +162,6 @@ func canonicalizeMetricsScopeDesiredState(rawDesired, rawInitial *MetricsScope, 
 	} else {
 		canonicalDesired.Name = rawDesired.Name
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -359,6 +358,9 @@ func diffMetricsScope(c *Client, desired, actual *MetricsScope, opts ...dcl.Appl
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareMetricsScopeMonitoredProjectsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

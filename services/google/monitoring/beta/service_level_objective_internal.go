@@ -652,23 +652,6 @@ func canonicalizeServiceLevelObjectiveDesiredState(rawDesired, rawInitial *Servi
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.RollingPeriod != nil || rawInitial.RollingPeriod != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.CalendarPeriod) {
-			rawDesired.RollingPeriod = nil
-			rawInitial.RollingPeriod = nil
-		}
-	}
-
-	if rawDesired.CalendarPeriod != nil || rawInitial.CalendarPeriod != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.RollingPeriod) {
-			rawDesired.CalendarPeriod = nil
-			rawInitial.CalendarPeriod = nil
-		}
-	}
-
 	canonicalDesired := &ServiceLevelObjective{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -713,6 +696,20 @@ func canonicalizeServiceLevelObjectiveDesiredState(rawDesired, rawInitial *Servi
 		canonicalDesired.Service = rawInitial.Service
 	} else {
 		canonicalDesired.Service = rawDesired.Service
+	}
+
+	if canonicalDesired.RollingPeriod != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.CalendarPeriod) {
+			canonicalDesired.RollingPeriod = dcl.String("")
+		}
+	}
+
+	if canonicalDesired.CalendarPeriod != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.RollingPeriod) {
+			canonicalDesired.CalendarPeriod = ServiceLevelObjectiveCalendarPeriodEnumRef("")
+		}
 	}
 
 	return canonicalDesired, nil
@@ -4138,6 +4135,9 @@ func diffServiceLevelObjective(c *Client, desired, actual *ServiceLevelObjective
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareServiceLevelObjectiveServiceLevelIndicatorNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

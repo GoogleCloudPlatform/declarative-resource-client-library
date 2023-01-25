@@ -579,7 +579,6 @@ func canonicalizeServerTlsPolicyDesiredState(rawDesired, rawInitial *ServerTlsPo
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1583,6 +1582,9 @@ func diffServerTlsPolicy(c *Client, desired, actual *ServerTlsPolicy, opts ...dc
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareServerTlsPolicyServerCertificateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

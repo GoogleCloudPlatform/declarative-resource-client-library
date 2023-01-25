@@ -532,7 +532,6 @@ func canonicalizeAuthorizationPolicyDesiredState(rawDesired, rawInitial *Authori
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1168,6 +1167,9 @@ func diffAuthorizationPolicy(c *Client, desired, actual *AuthorizationPolicy, op
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareAuthorizationPolicyRulesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

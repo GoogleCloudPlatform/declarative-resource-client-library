@@ -458,7 +458,6 @@ func canonicalizeRoleDesiredState(rawDesired, rawInitial *Role, opts ...dcl.Appl
 	} else {
 		canonicalDesired.Parent = rawDesired.Parent
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -795,6 +794,9 @@ func diffRole(c *Client, desired, actual *Role, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareRoleLocalizedValuesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

@@ -564,31 +564,6 @@ func canonicalizeTargetDesiredState(rawDesired, rawInitial *Target, opts ...dcl.
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.Gke != nil || rawInitial.Gke != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.AnthosCluster, rawDesired.Run) {
-			rawDesired.Gke = nil
-			rawInitial.Gke = nil
-		}
-	}
-
-	if rawDesired.AnthosCluster != nil || rawInitial.AnthosCluster != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Gke, rawDesired.Run) {
-			rawDesired.AnthosCluster = nil
-			rawInitial.AnthosCluster = nil
-		}
-	}
-
-	if rawDesired.Run != nil || rawInitial.Run != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Gke, rawDesired.AnthosCluster) {
-			rawDesired.Run = nil
-			rawInitial.Run = nil
-		}
-	}
-
 	canonicalDesired := &Target{}
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -631,6 +606,27 @@ func canonicalizeTargetDesiredState(rawDesired, rawInitial *Target, opts ...dcl.
 		canonicalDesired.Location = rawDesired.Location
 	}
 	canonicalDesired.Run = canonicalizeTargetRun(rawDesired.Run, rawInitial.Run, opts...)
+
+	if canonicalDesired.Gke != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.AnthosCluster, rawDesired.Run) {
+			canonicalDesired.Gke = EmptyTargetGke
+		}
+	}
+
+	if canonicalDesired.AnthosCluster != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.Gke, rawDesired.Run) {
+			canonicalDesired.AnthosCluster = EmptyTargetAnthosCluster
+		}
+	}
+
+	if canonicalDesired.Run != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.Gke, rawDesired.AnthosCluster) {
+			canonicalDesired.Run = EmptyTargetRun
+		}
+	}
 
 	return canonicalDesired, nil
 }
@@ -1363,6 +1359,9 @@ func diffTarget(c *Client, desired, actual *Target, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareTargetGkeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

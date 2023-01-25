@@ -520,7 +520,6 @@ func canonicalizeFirewallPolicyRuleDesiredState(rawDesired, rawInitial *Firewall
 	} else {
 		canonicalDesired.FirewallPolicy = rawDesired.FirewallPolicy
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -970,6 +969,9 @@ func diffFirewallPolicyRule(c *Client, desired, actual *FirewallPolicyRule, opts
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareFirewallPolicyRuleMatchNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

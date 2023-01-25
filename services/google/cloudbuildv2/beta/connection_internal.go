@@ -531,23 +531,6 @@ func canonicalizeConnectionDesiredState(rawDesired, rawInitial *Connection, opts
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.GithubConfig != nil || rawInitial.GithubConfig != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.GithubEnterpriseConfig) {
-			rawDesired.GithubConfig = nil
-			rawInitial.GithubConfig = nil
-		}
-	}
-
-	if rawDesired.GithubEnterpriseConfig != nil || rawInitial.GithubEnterpriseConfig != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.GithubConfig) {
-			rawDesired.GithubEnterpriseConfig = nil
-			rawInitial.GithubEnterpriseConfig = nil
-		}
-	}
-
 	canonicalDesired := &Connection{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -576,6 +559,20 @@ func canonicalizeConnectionDesiredState(rawDesired, rawInitial *Connection, opts
 		canonicalDesired.Location = rawInitial.Location
 	} else {
 		canonicalDesired.Location = rawDesired.Location
+	}
+
+	if canonicalDesired.GithubConfig != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.GithubEnterpriseConfig) {
+			canonicalDesired.GithubConfig = EmptyConnectionGithubConfig
+		}
+	}
+
+	if canonicalDesired.GithubEnterpriseConfig != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.GithubConfig) {
+			canonicalDesired.GithubEnterpriseConfig = EmptyConnectionGithubEnterpriseConfig
+		}
 	}
 
 	return canonicalDesired, nil
@@ -1384,6 +1381,9 @@ func diffConnection(c *Client, desired, actual *Connection, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareConnectionGithubConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

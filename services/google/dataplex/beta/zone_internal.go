@@ -586,7 +586,6 @@ func canonicalizeZoneDesiredState(rawDesired, rawInitial *Zone, opts ...dcl.Appl
 	} else {
 		canonicalDesired.Lake = rawDesired.Lake
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1453,6 +1452,9 @@ func diffZone(c *Client, desired, actual *Zone, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareZoneDiscoverySpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

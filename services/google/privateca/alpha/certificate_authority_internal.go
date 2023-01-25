@@ -840,7 +840,6 @@ func canonicalizeCertificateAuthorityDesiredState(rawDesired, rawInitial *Certif
 	} else {
 		canonicalDesired.CaPool = rawDesired.CaPool
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -6216,6 +6215,9 @@ func diffCertificateAuthority(c *Client, desired, actual *CertificateAuthority, 
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareCertificateAuthorityConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

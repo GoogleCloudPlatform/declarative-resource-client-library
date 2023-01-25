@@ -800,23 +800,6 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.InstanceTemplate != nil || rawInitial.InstanceTemplate != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Versions) {
-			rawDesired.InstanceTemplate = nil
-			rawInitial.InstanceTemplate = nil
-		}
-	}
-
-	if rawDesired.Versions != nil || rawInitial.Versions != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.InstanceTemplate) {
-			rawDesired.Versions = nil
-			rawInitial.Versions = nil
-		}
-	}
-
 	canonicalDesired := &InstanceGroupManager{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -877,6 +860,20 @@ func canonicalizeInstanceGroupManagerDesiredState(rawDesired, rawInitial *Instan
 		canonicalDesired.Location = rawInitial.Location
 	} else {
 		canonicalDesired.Location = rawDesired.Location
+	}
+
+	if canonicalDesired.InstanceTemplate != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.Versions) {
+			canonicalDesired.InstanceTemplate = dcl.String("")
+		}
+	}
+
+	if canonicalDesired.Versions != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.InstanceTemplate) {
+			canonicalDesired.Versions = []InstanceGroupManagerVersions{}
+		}
 	}
 
 	return canonicalDesired, nil
@@ -3509,6 +3506,9 @@ func diffInstanceGroupManager(c *Client, desired, actual *InstanceGroupManager, 
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareInstanceGroupManagerDistributionPolicyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

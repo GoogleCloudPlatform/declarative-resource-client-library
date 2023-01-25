@@ -473,7 +473,6 @@ func canonicalizeRealmDesiredState(rawDesired, rawInitial *Realm, opts ...dcl.Ap
 	} else {
 		canonicalDesired.Project = rawDesired.Project
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -593,6 +592,9 @@ func diffRealm(c *Client, desired, actual *Realm, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 

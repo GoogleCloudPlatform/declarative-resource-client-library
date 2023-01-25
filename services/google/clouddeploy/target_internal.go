@@ -540,23 +540,6 @@ func canonicalizeTargetDesiredState(rawDesired, rawInitial *Target, opts ...dcl.
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.Gke != nil || rawInitial.Gke != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.AnthosCluster) {
-			rawDesired.Gke = nil
-			rawInitial.Gke = nil
-		}
-	}
-
-	if rawDesired.AnthosCluster != nil || rawInitial.AnthosCluster != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Gke) {
-			rawDesired.AnthosCluster = nil
-			rawInitial.AnthosCluster = nil
-		}
-	}
-
 	canonicalDesired := &Target{}
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -597,6 +580,20 @@ func canonicalizeTargetDesiredState(rawDesired, rawInitial *Target, opts ...dcl.
 		canonicalDesired.Location = rawInitial.Location
 	} else {
 		canonicalDesired.Location = rawDesired.Location
+	}
+
+	if canonicalDesired.Gke != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.AnthosCluster) {
+			canonicalDesired.Gke = EmptyTargetGke
+		}
+	}
+
+	if canonicalDesired.AnthosCluster != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.Gke) {
+			canonicalDesired.AnthosCluster = EmptyTargetAnthosCluster
+		}
 	}
 
 	return canonicalDesired, nil
@@ -1199,6 +1196,9 @@ func diffTarget(c *Client, desired, actual *Target, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareTargetGkeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

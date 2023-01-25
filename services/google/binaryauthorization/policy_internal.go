@@ -358,39 +358,6 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.KubernetesNamespaceAdmissionRules != nil || rawInitial.KubernetesNamespaceAdmissionRules != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.KubernetesServiceAccountAdmissionRules, rawDesired.IstioServiceIdentityAdmissionRules, rawDesired.ClusterAdmissionRules) {
-			rawDesired.KubernetesNamespaceAdmissionRules = nil
-			rawInitial.KubernetesNamespaceAdmissionRules = nil
-		}
-	}
-
-	if rawDesired.KubernetesServiceAccountAdmissionRules != nil || rawInitial.KubernetesServiceAccountAdmissionRules != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.KubernetesNamespaceAdmissionRules, rawDesired.IstioServiceIdentityAdmissionRules, rawDesired.ClusterAdmissionRules) {
-			rawDesired.KubernetesServiceAccountAdmissionRules = nil
-			rawInitial.KubernetesServiceAccountAdmissionRules = nil
-		}
-	}
-
-	if rawDesired.IstioServiceIdentityAdmissionRules != nil || rawInitial.IstioServiceIdentityAdmissionRules != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.KubernetesNamespaceAdmissionRules, rawDesired.KubernetesServiceAccountAdmissionRules, rawDesired.ClusterAdmissionRules) {
-			rawDesired.IstioServiceIdentityAdmissionRules = nil
-			rawInitial.IstioServiceIdentityAdmissionRules = nil
-		}
-	}
-
-	if rawDesired.ClusterAdmissionRules != nil || rawInitial.ClusterAdmissionRules != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.KubernetesNamespaceAdmissionRules, rawDesired.KubernetesServiceAccountAdmissionRules, rawDesired.IstioServiceIdentityAdmissionRules) {
-			rawDesired.ClusterAdmissionRules = nil
-			rawInitial.ClusterAdmissionRules = nil
-		}
-	}
-
 	canonicalDesired := &Policy{}
 	canonicalDesired.AdmissionWhitelistPatterns = canonicalizePolicyAdmissionWhitelistPatternsSlice(rawDesired.AdmissionWhitelistPatterns, rawInitial.AdmissionWhitelistPatterns, opts...)
 	if dcl.IsZeroValue(rawDesired.ClusterAdmissionRules) || (dcl.IsEmptyValueIndirect(rawDesired.ClusterAdmissionRules) && dcl.IsEmptyValueIndirect(rawInitial.ClusterAdmissionRules)) {
@@ -432,6 +399,34 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
+	}
+
+	if canonicalDesired.KubernetesNamespaceAdmissionRules != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.KubernetesServiceAccountAdmissionRules, rawDesired.IstioServiceIdentityAdmissionRules, rawDesired.ClusterAdmissionRules) {
+			canonicalDesired.KubernetesNamespaceAdmissionRules = map[string]PolicyKubernetesNamespaceAdmissionRules{}
+		}
+	}
+
+	if canonicalDesired.KubernetesServiceAccountAdmissionRules != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.KubernetesNamespaceAdmissionRules, rawDesired.IstioServiceIdentityAdmissionRules, rawDesired.ClusterAdmissionRules) {
+			canonicalDesired.KubernetesServiceAccountAdmissionRules = map[string]PolicyKubernetesServiceAccountAdmissionRules{}
+		}
+	}
+
+	if canonicalDesired.IstioServiceIdentityAdmissionRules != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.KubernetesNamespaceAdmissionRules, rawDesired.KubernetesServiceAccountAdmissionRules, rawDesired.ClusterAdmissionRules) {
+			canonicalDesired.IstioServiceIdentityAdmissionRules = map[string]PolicyIstioServiceIdentityAdmissionRules{}
+		}
+	}
+
+	if canonicalDesired.ClusterAdmissionRules != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.KubernetesNamespaceAdmissionRules, rawDesired.KubernetesServiceAccountAdmissionRules, rawDesired.IstioServiceIdentityAdmissionRules) {
+			canonicalDesired.ClusterAdmissionRules = map[string]PolicyClusterAdmissionRules{}
+		}
 	}
 
 	return canonicalDesired, nil
@@ -1368,6 +1363,9 @@ func diffPolicy(c *Client, desired, actual *Policy, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func comparePolicyAdmissionWhitelistPatternsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

@@ -685,23 +685,6 @@ func canonicalizeCertificateDesiredState(rawDesired, rawInitial *Certificate, op
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.PemCsr != nil || rawInitial.PemCsr != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Config) {
-			rawDesired.PemCsr = nil
-			rawInitial.PemCsr = nil
-		}
-	}
-
-	if rawDesired.Config != nil || rawInitial.Config != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.PemCsr) {
-			rawDesired.Config = nil
-			rawInitial.Config = nil
-		}
-	}
-
 	canonicalDesired := &Certificate{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -755,6 +738,20 @@ func canonicalizeCertificateDesiredState(rawDesired, rawInitial *Certificate, op
 		canonicalDesired.CertificateAuthority = rawInitial.CertificateAuthority
 	} else {
 		canonicalDesired.CertificateAuthority = rawDesired.CertificateAuthority
+	}
+
+	if canonicalDesired.PemCsr != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.Config) {
+			canonicalDesired.PemCsr = dcl.String("")
+		}
+	}
+
+	if canonicalDesired.Config != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.PemCsr) {
+			canonicalDesired.Config = EmptyCertificateConfig
+		}
 	}
 
 	return canonicalDesired, nil
@@ -5512,6 +5509,9 @@ func diffCertificate(c *Client, desired, actual *Certificate, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareCertificateConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

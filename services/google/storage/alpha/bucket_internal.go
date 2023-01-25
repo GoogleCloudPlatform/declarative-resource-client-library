@@ -530,7 +530,6 @@ func canonicalizeBucketDesiredState(rawDesired, rawInitial *Bucket, opts ...dcl.
 	}
 	canonicalDesired.Versioning = canonicalizeBucketVersioning(rawDesired.Versioning, rawInitial.Versioning, opts...)
 	canonicalDesired.Website = canonicalizeBucketWebsite(rawDesired.Website, rawInitial.Website, opts...)
-
 	return canonicalDesired, nil
 }
 
@@ -1675,6 +1674,9 @@ func diffBucket(c *Client, desired, actual *Bucket, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareBucketCorsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

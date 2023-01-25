@@ -538,31 +538,6 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.PubsubTarget != nil || rawInitial.PubsubTarget != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.AppEngineHttpTarget, rawDesired.HttpTarget) {
-			rawDesired.PubsubTarget = nil
-			rawInitial.PubsubTarget = nil
-		}
-	}
-
-	if rawDesired.AppEngineHttpTarget != nil || rawInitial.AppEngineHttpTarget != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.PubsubTarget, rawDesired.HttpTarget) {
-			rawDesired.AppEngineHttpTarget = nil
-			rawInitial.AppEngineHttpTarget = nil
-		}
-	}
-
-	if rawDesired.HttpTarget != nil || rawInitial.HttpTarget != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.PubsubTarget, rawDesired.AppEngineHttpTarget) {
-			rawDesired.HttpTarget = nil
-			rawInitial.HttpTarget = nil
-		}
-	}
-
 	canonicalDesired := &Job{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -602,6 +577,27 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 		canonicalDesired.Location = rawInitial.Location
 	} else {
 		canonicalDesired.Location = rawDesired.Location
+	}
+
+	if canonicalDesired.PubsubTarget != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.AppEngineHttpTarget, rawDesired.HttpTarget) {
+			canonicalDesired.PubsubTarget = EmptyJobPubsubTarget
+		}
+	}
+
+	if canonicalDesired.AppEngineHttpTarget != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.PubsubTarget, rawDesired.HttpTarget) {
+			canonicalDesired.AppEngineHttpTarget = EmptyJobAppEngineHttpTarget
+		}
+	}
+
+	if canonicalDesired.HttpTarget != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.PubsubTarget, rawDesired.AppEngineHttpTarget) {
+			canonicalDesired.HttpTarget = EmptyJobHttpTarget
+		}
 	}
 
 	return canonicalDesired, nil
@@ -2031,6 +2027,9 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]*dcl.F
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareJobPubsubTargetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

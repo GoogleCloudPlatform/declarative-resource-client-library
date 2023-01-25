@@ -483,7 +483,6 @@ func canonicalizeKeyDesiredState(rawDesired, rawInitial *Key, opts ...dcl.ApplyO
 	} else {
 		canonicalDesired.Project = rawDesired.Project
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1464,6 +1463,9 @@ func diffKey(c *Client, desired, actual *Key, opts ...dcl.ApplyOption) ([]*dcl.F
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareKeyRestrictionsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

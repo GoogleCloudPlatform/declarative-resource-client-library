@@ -511,31 +511,6 @@ func canonicalizeSpokeDesiredState(rawDesired, rawInitial *Spoke, opts ...dcl.Ap
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.LinkedVpnTunnels != nil || rawInitial.LinkedVpnTunnels != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.LinkedInterconnectAttachments, rawDesired.LinkedRouterApplianceInstances) {
-			rawDesired.LinkedVpnTunnels = nil
-			rawInitial.LinkedVpnTunnels = nil
-		}
-	}
-
-	if rawDesired.LinkedInterconnectAttachments != nil || rawInitial.LinkedInterconnectAttachments != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.LinkedVpnTunnels, rawDesired.LinkedRouterApplianceInstances) {
-			rawDesired.LinkedInterconnectAttachments = nil
-			rawInitial.LinkedInterconnectAttachments = nil
-		}
-	}
-
-	if rawDesired.LinkedRouterApplianceInstances != nil || rawInitial.LinkedRouterApplianceInstances != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.LinkedVpnTunnels, rawDesired.LinkedInterconnectAttachments) {
-			rawDesired.LinkedRouterApplianceInstances = nil
-			rawInitial.LinkedRouterApplianceInstances = nil
-		}
-	}
-
 	canonicalDesired := &Spoke{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -571,6 +546,27 @@ func canonicalizeSpokeDesiredState(rawDesired, rawInitial *Spoke, opts ...dcl.Ap
 		canonicalDesired.Location = rawInitial.Location
 	} else {
 		canonicalDesired.Location = rawDesired.Location
+	}
+
+	if canonicalDesired.LinkedVpnTunnels != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.LinkedInterconnectAttachments, rawDesired.LinkedRouterApplianceInstances) {
+			canonicalDesired.LinkedVpnTunnels = EmptySpokeLinkedVpnTunnels
+		}
+	}
+
+	if canonicalDesired.LinkedInterconnectAttachments != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.LinkedVpnTunnels, rawDesired.LinkedRouterApplianceInstances) {
+			canonicalDesired.LinkedInterconnectAttachments = EmptySpokeLinkedInterconnectAttachments
+		}
+	}
+
+	if canonicalDesired.LinkedRouterApplianceInstances != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.LinkedVpnTunnels, rawDesired.LinkedInterconnectAttachments) {
+			canonicalDesired.LinkedRouterApplianceInstances = EmptySpokeLinkedRouterApplianceInstances
+		}
 	}
 
 	return canonicalDesired, nil
@@ -1257,6 +1253,9 @@ func diffSpoke(c *Client, desired, actual *Spoke, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareSpokeLinkedVpnTunnelsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

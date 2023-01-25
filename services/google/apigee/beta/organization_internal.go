@@ -498,7 +498,6 @@ func canonicalizeOrganizationDesiredState(rawDesired, rawInitial *Organization, 
 	} else {
 		canonicalDesired.Project = rawDesired.Project
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1119,6 +1118,9 @@ func diffOrganization(c *Client, desired, actual *Organization, opts ...dcl.Appl
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareOrganizationAddonsConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

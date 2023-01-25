@@ -644,7 +644,6 @@ func canonicalizeNodePoolDesiredState(rawDesired, rawInitial *NodePool, opts ...
 	} else {
 		canonicalDesired.Cluster = rawDesired.Cluster
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -2150,6 +2149,9 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareNodePoolConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

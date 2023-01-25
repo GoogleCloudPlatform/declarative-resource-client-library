@@ -575,7 +575,6 @@ func canonicalizeNetworkFirewallPolicyRuleDesiredState(rawDesired, rawInitial *N
 	} else {
 		canonicalDesired.Project = rawDesired.Project
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1285,6 +1284,9 @@ func diffNetworkFirewallPolicyRule(c *Client, desired, actual *NetworkFirewallPo
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareNetworkFirewallPolicyRuleMatchNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

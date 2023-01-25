@@ -483,7 +483,6 @@ func canonicalizeAppleAppDesiredState(rawDesired, rawInitial *AppleApp, opts ...
 	} else {
 		canonicalDesired.Project = rawDesired.Project
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -633,6 +632,9 @@ func diffAppleApp(c *Client, desired, actual *AppleApp, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 

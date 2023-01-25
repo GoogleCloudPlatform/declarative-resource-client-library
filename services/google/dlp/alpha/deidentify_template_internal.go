@@ -2236,7 +2236,6 @@ func canonicalizeDeidentifyTemplateDesiredState(rawDesired, rawInitial *Deidenti
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -28448,6 +28447,9 @@ func diffDeidentifyTemplate(c *Client, desired, actual *DeidentifyTemplate, opts
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareDeidentifyTemplateDeidentifyConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

@@ -421,7 +421,6 @@ func canonicalizeMetricDescriptorDesiredState(rawDesired, rawInitial *MetricDesc
 	} else {
 		canonicalDesired.Project = rawDesired.Project
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -871,6 +870,9 @@ func diffMetricDescriptor(c *Client, desired, actual *MetricDescriptor, opts ...
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareMetricDescriptorLabelsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

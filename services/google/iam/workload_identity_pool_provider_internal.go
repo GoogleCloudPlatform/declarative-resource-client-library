@@ -480,23 +480,6 @@ func canonicalizeWorkloadIdentityPoolProviderDesiredState(rawDesired, rawInitial
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.Aws != nil || rawInitial.Aws != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Oidc) {
-			rawDesired.Aws = nil
-			rawInitial.Aws = nil
-		}
-	}
-
-	if rawDesired.Oidc != nil || rawInitial.Oidc != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Aws) {
-			rawDesired.Oidc = nil
-			rawInitial.Oidc = nil
-		}
-	}
-
 	canonicalDesired := &WorkloadIdentityPoolProvider{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -545,6 +528,20 @@ func canonicalizeWorkloadIdentityPoolProviderDesiredState(rawDesired, rawInitial
 		canonicalDesired.WorkloadIdentityPool = rawInitial.WorkloadIdentityPool
 	} else {
 		canonicalDesired.WorkloadIdentityPool = rawDesired.WorkloadIdentityPool
+	}
+
+	if canonicalDesired.Aws != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.Oidc) {
+			canonicalDesired.Aws = EmptyWorkloadIdentityPoolProviderAws
+		}
+	}
+
+	if canonicalDesired.Oidc != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.Aws) {
+			canonicalDesired.Oidc = EmptyWorkloadIdentityPoolProviderOidc
+		}
 	}
 
 	return canonicalDesired, nil
@@ -975,6 +972,9 @@ func diffWorkloadIdentityPoolProvider(c *Client, desired, actual *WorkloadIdenti
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareWorkloadIdentityPoolProviderAwsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

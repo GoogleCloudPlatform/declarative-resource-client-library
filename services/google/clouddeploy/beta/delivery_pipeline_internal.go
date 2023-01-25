@@ -587,7 +587,6 @@ func canonicalizeDeliveryPipelineDesiredState(rawDesired, rawInitial *DeliveryPi
 	} else {
 		canonicalDesired.Suspended = rawDesired.Suspended
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1615,6 +1614,9 @@ func diffDeliveryPipeline(c *Client, desired, actual *DeliveryPipeline, opts ...
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareDeliveryPipelineSerialPipelineNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

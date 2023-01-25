@@ -540,7 +540,6 @@ func canonicalizeLakeDesiredState(rawDesired, rawInitial *Lake, opts ...dcl.Appl
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1130,6 +1129,9 @@ func diffLake(c *Client, desired, actual *Lake, opts ...dcl.ApplyOption) ([]*dcl
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareLakeMetastoreNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

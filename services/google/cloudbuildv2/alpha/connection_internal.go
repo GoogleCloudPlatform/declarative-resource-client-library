@@ -594,31 +594,6 @@ func canonicalizeConnectionDesiredState(rawDesired, rawInitial *Connection, opts
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.GithubConfig != nil || rawInitial.GithubConfig != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.GithubEnterpriseConfig, rawDesired.GitlabEnterpriseConfig) {
-			rawDesired.GithubConfig = nil
-			rawInitial.GithubConfig = nil
-		}
-	}
-
-	if rawDesired.GithubEnterpriseConfig != nil || rawInitial.GithubEnterpriseConfig != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.GithubConfig, rawDesired.GitlabEnterpriseConfig) {
-			rawDesired.GithubEnterpriseConfig = nil
-			rawInitial.GithubEnterpriseConfig = nil
-		}
-	}
-
-	if rawDesired.GitlabEnterpriseConfig != nil || rawInitial.GitlabEnterpriseConfig != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.GithubConfig, rawDesired.GithubEnterpriseConfig) {
-			rawDesired.GitlabEnterpriseConfig = nil
-			rawInitial.GitlabEnterpriseConfig = nil
-		}
-	}
-
 	canonicalDesired := &Connection{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -648,6 +623,27 @@ func canonicalizeConnectionDesiredState(rawDesired, rawInitial *Connection, opts
 		canonicalDesired.Location = rawInitial.Location
 	} else {
 		canonicalDesired.Location = rawDesired.Location
+	}
+
+	if canonicalDesired.GithubConfig != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.GithubEnterpriseConfig, rawDesired.GitlabEnterpriseConfig) {
+			canonicalDesired.GithubConfig = EmptyConnectionGithubConfig
+		}
+	}
+
+	if canonicalDesired.GithubEnterpriseConfig != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.GithubConfig, rawDesired.GitlabEnterpriseConfig) {
+			canonicalDesired.GithubEnterpriseConfig = EmptyConnectionGithubEnterpriseConfig
+		}
+	}
+
+	if canonicalDesired.GitlabEnterpriseConfig != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.GithubConfig, rawDesired.GithubEnterpriseConfig) {
+			canonicalDesired.GitlabEnterpriseConfig = EmptyConnectionGitlabEnterpriseConfig
+		}
 	}
 
 	return canonicalDesired, nil
@@ -1963,6 +1959,9 @@ func diffConnection(c *Client, desired, actual *Connection, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareConnectionGithubConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

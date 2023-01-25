@@ -462,7 +462,6 @@ func canonicalizeWebAppDesiredState(rawDesired, rawInitial *WebApp, opts ...dcl.
 	} else {
 		canonicalDesired.Project = rawDesired.Project
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -597,6 +596,9 @@ func diffWebApp(c *Client, desired, actual *WebApp, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 

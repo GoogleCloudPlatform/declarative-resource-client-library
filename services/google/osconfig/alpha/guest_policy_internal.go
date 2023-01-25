@@ -677,7 +677,6 @@ func canonicalizeGuestPolicyDesiredState(rawDesired, rawInitial *GuestPolicy, op
 	} else {
 		canonicalDesired.Project = rawDesired.Project
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -4683,6 +4682,9 @@ func diffGuestPolicy(c *Client, desired, actual *GuestPolicy, opts ...dcl.ApplyO
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareGuestPolicyAssignmentNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

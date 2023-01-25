@@ -560,39 +560,6 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.SourceArchiveUrl != nil || rawInitial.SourceArchiveUrl != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.SourceRepository) {
-			rawDesired.SourceArchiveUrl = nil
-			rawInitial.SourceArchiveUrl = nil
-		}
-	}
-
-	if rawDesired.SourceRepository != nil || rawInitial.SourceRepository != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.SourceArchiveUrl) {
-			rawDesired.SourceRepository = nil
-			rawInitial.SourceRepository = nil
-		}
-	}
-
-	if rawDesired.EventTrigger != nil || rawInitial.EventTrigger != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.HttpsTrigger) {
-			rawDesired.EventTrigger = nil
-			rawInitial.EventTrigger = nil
-		}
-	}
-
-	if rawDesired.HttpsTrigger != nil || rawInitial.HttpsTrigger != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.EventTrigger) {
-			rawDesired.HttpsTrigger = nil
-			rawInitial.HttpsTrigger = nil
-		}
-	}
-
 	canonicalDesired := &Function{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -684,6 +651,34 @@ func canonicalizeFunctionDesiredState(rawDesired, rawInitial *Function, opts ...
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
+	}
+
+	if canonicalDesired.SourceArchiveUrl != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.SourceRepository) {
+			canonicalDesired.SourceArchiveUrl = dcl.String("")
+		}
+	}
+
+	if canonicalDesired.SourceRepository != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.SourceArchiveUrl) {
+			canonicalDesired.SourceRepository = EmptyFunctionSourceRepository
+		}
+	}
+
+	if canonicalDesired.EventTrigger != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.HttpsTrigger) {
+			canonicalDesired.EventTrigger = EmptyFunctionEventTrigger
+		}
+	}
+
+	if canonicalDesired.HttpsTrigger != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.EventTrigger) {
+			canonicalDesired.HttpsTrigger = EmptyFunctionHttpsTrigger
+		}
 	}
 
 	return canonicalDesired, nil
@@ -1374,6 +1369,9 @@ func diffFunction(c *Client, desired, actual *Function, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareFunctionSourceRepositoryNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

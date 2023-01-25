@@ -626,7 +626,6 @@ func canonicalizeAssetDesiredState(rawDesired, rawInitial *Asset, opts ...dcl.Ap
 	} else {
 		canonicalDesired.DataplexZone = rawDesired.DataplexZone
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1937,6 +1936,9 @@ func diffAsset(c *Client, desired, actual *Asset, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareAssetResourceSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

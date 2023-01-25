@@ -423,7 +423,6 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 	} else {
 		canonicalDesired.Parent = rawDesired.Parent
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1064,6 +1063,9 @@ func diffPolicy(c *Client, desired, actual *Policy, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func comparePolicySpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

@@ -539,7 +539,6 @@ func canonicalizeDatasetDesiredState(rawDesired, rawInitial *Dataset, opts ...dc
 		canonicalDesired.Published = rawDesired.Published
 	}
 	canonicalDesired.DefaultEncryptionConfiguration = canonicalizeDatasetDefaultEncryptionConfiguration(rawDesired.DefaultEncryptionConfiguration, rawInitial.DefaultEncryptionConfiguration, opts...)
-
 	return canonicalDesired, nil
 }
 
@@ -1391,6 +1390,9 @@ func diffDataset(c *Client, desired, actual *Dataset, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareDatasetAccessNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

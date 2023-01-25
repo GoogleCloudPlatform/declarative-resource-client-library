@@ -537,7 +537,6 @@ func canonicalizeServiceAttachmentDesiredState(rawDesired, rawInitial *ServiceAt
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1136,6 +1135,9 @@ func diffServiceAttachment(c *Client, desired, actual *ServiceAttachment, opts .
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareServiceAttachmentConnectedEndpointsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

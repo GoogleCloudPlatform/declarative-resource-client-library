@@ -467,7 +467,6 @@ func canonicalizeTopicDesiredState(rawDesired, rawInitial *Topic, opts ...dcl.Ap
 	} else {
 		canonicalDesired.Project = rawDesired.Project
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -670,6 +669,9 @@ func diffTopic(c *Client, desired, actual *Topic, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareTopicMessageStoragePolicyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

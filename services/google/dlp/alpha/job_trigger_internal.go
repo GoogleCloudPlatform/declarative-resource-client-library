@@ -947,7 +947,6 @@ func canonicalizeJobTriggerDesiredState(rawDesired, rawInitial *JobTrigger, opts
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -9485,6 +9484,9 @@ func diffJobTrigger(c *Client, desired, actual *JobTrigger, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareJobTriggerInspectJobNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

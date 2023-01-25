@@ -1796,39 +1796,6 @@ func canonicalizeDashboardDesiredState(rawDesired, rawInitial *Dashboard, opts .
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.GridLayout != nil || rawInitial.GridLayout != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.MosaicLayout, rawDesired.RowLayout, rawDesired.ColumnLayout) {
-			rawDesired.GridLayout = nil
-			rawInitial.GridLayout = nil
-		}
-	}
-
-	if rawDesired.MosaicLayout != nil || rawInitial.MosaicLayout != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.GridLayout, rawDesired.RowLayout, rawDesired.ColumnLayout) {
-			rawDesired.MosaicLayout = nil
-			rawInitial.MosaicLayout = nil
-		}
-	}
-
-	if rawDesired.RowLayout != nil || rawInitial.RowLayout != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.GridLayout, rawDesired.MosaicLayout, rawDesired.ColumnLayout) {
-			rawDesired.RowLayout = nil
-			rawInitial.RowLayout = nil
-		}
-	}
-
-	if rawDesired.ColumnLayout != nil || rawInitial.ColumnLayout != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.GridLayout, rawDesired.MosaicLayout, rawDesired.RowLayout) {
-			rawDesired.ColumnLayout = nil
-			rawInitial.ColumnLayout = nil
-		}
-	}
-
 	canonicalDesired := &Dashboard{}
 	if dcl.NameToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -1848,6 +1815,34 @@ func canonicalizeDashboardDesiredState(rawDesired, rawInitial *Dashboard, opts .
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
+	}
+
+	if canonicalDesired.GridLayout != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.MosaicLayout, rawDesired.RowLayout, rawDesired.ColumnLayout) {
+			canonicalDesired.GridLayout = EmptyDashboardGridLayout
+		}
+	}
+
+	if canonicalDesired.MosaicLayout != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.GridLayout, rawDesired.RowLayout, rawDesired.ColumnLayout) {
+			canonicalDesired.MosaicLayout = EmptyDashboardMosaicLayout
+		}
+	}
+
+	if canonicalDesired.RowLayout != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.GridLayout, rawDesired.MosaicLayout, rawDesired.ColumnLayout) {
+			canonicalDesired.RowLayout = EmptyDashboardRowLayout
+		}
+	}
+
+	if canonicalDesired.ColumnLayout != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.GridLayout, rawDesired.MosaicLayout, rawDesired.RowLayout) {
+			canonicalDesired.ColumnLayout = EmptyDashboardColumnLayout
+		}
 	}
 
 	return canonicalDesired, nil
@@ -22436,6 +22431,9 @@ func diffDashboard(c *Client, desired, actual *Dashboard, opts ...dcl.ApplyOptio
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareDashboardGridLayoutNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

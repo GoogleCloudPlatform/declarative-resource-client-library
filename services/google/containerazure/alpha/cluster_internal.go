@@ -714,7 +714,6 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 	canonicalDesired.Fleet = canonicalizeClusterFleet(rawDesired.Fleet, rawInitial.Fleet, opts...)
 	canonicalDesired.LoggingConfig = canonicalizeClusterLoggingConfig(rawDesired.LoggingConfig, rawInitial.LoggingConfig, opts...)
 	canonicalDesired.MonitoringConfig = canonicalizeClusterMonitoringConfig(rawDesired.MonitoringConfig, rawInitial.MonitoringConfig, opts...)
-
 	return canonicalDesired, nil
 }
 
@@ -2976,6 +2975,9 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareClusterNetworkingNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

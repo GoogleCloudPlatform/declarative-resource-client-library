@@ -853,7 +853,6 @@ func canonicalizeWorkflowTemplateDesiredState(rawDesired, rawInitial *WorkflowTe
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -8351,6 +8350,9 @@ func diffWorkflowTemplate(c *Client, desired, actual *WorkflowTemplate, opts ...
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareWorkflowTemplatePlacementNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

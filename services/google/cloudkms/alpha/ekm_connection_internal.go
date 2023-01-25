@@ -426,7 +426,6 @@ func canonicalizeEkmConnectionDesiredState(rawDesired, rawInitial *EkmConnection
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -796,6 +795,9 @@ func diffEkmConnection(c *Client, desired, actual *EkmConnection, opts ...dcl.Ap
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareEkmConnectionServiceResolversNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

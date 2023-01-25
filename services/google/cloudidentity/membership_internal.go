@@ -474,15 +474,6 @@ func canonicalizeMembershipDesiredState(rawDesired, rawInitial *Membership, opts
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.DisplayName != nil || rawInitial.DisplayName != nil {
-		// Check if anything else is set.
-		if dcl.AnySet() {
-			rawDesired.DisplayName = nil
-			rawInitial.DisplayName = nil
-		}
-	}
-
 	canonicalDesired := &Membership{}
 	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
 		// Desired and initial values are equivalent, so set canonical desired value to initial value.
@@ -496,6 +487,13 @@ func canonicalizeMembershipDesiredState(rawDesired, rawInitial *Membership, opts
 		canonicalDesired.Group = rawInitial.Group
 	} else {
 		canonicalDesired.Group = rawDesired.Group
+	}
+
+	if canonicalDesired.DisplayName != nil {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			canonicalDesired.DisplayName = EmptyMembershipDisplayName
+		}
 	}
 
 	return canonicalDesired, nil
@@ -1363,6 +1361,9 @@ func diffMembership(c *Client, desired, actual *Membership, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareMembershipPreferredMemberKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

@@ -696,7 +696,6 @@ func canonicalizeJobDesiredState(rawDesired, rawInitial *Job, opts ...dcl.ApplyO
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -3673,6 +3672,9 @@ func diffJob(c *Client, desired, actual *Job, opts ...dcl.ApplyOption) ([]*dcl.F
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareJobBinaryAuthorizationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

@@ -880,7 +880,6 @@ func canonicalizeOSPolicyAssignmentDesiredState(rawDesired, rawInitial *OSPolicy
 	} else {
 		canonicalDesired.SkipAwaitRollout = rawDesired.SkipAwaitRollout
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -7261,6 +7260,9 @@ func diffOSPolicyAssignment(c *Client, desired, actual *OSPolicyAssignment, opts
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareOSPolicyAssignmentOSPoliciesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

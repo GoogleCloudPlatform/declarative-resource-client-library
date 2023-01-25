@@ -638,7 +638,6 @@ func canonicalizeSubnetworkDesiredState(rawDesired, rawInitial *Subnetwork, opts
 	} else {
 		canonicalDesired.EnableFlowLogs = rawDesired.EnableFlowLogs
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1154,6 +1153,9 @@ func diffSubnetwork(c *Client, desired, actual *Subnetwork, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareSubnetworkSecondaryIPRangesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

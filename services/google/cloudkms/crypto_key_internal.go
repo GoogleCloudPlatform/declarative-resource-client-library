@@ -500,7 +500,6 @@ func canonicalizeCryptoKeyDesiredState(rawDesired, rawInitial *CryptoKey, opts .
 	} else {
 		canonicalDesired.KeyRing = rawDesired.KeyRing
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1308,6 +1307,9 @@ func diffCryptoKey(c *Client, desired, actual *CryptoKey, opts ...dcl.ApplyOptio
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareCryptoKeyPrimaryNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

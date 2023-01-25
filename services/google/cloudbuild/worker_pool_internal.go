@@ -543,39 +543,6 @@ func canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial *WorkerPool, opts
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.NetworkConfig != nil || rawInitial.NetworkConfig != nil {
-		// Check if anything else is set.
-		if dcl.AnySet() {
-			rawDesired.NetworkConfig = nil
-			rawInitial.NetworkConfig = nil
-		}
-	}
-
-	if rawDesired.PrivatePoolV1Config != nil || rawInitial.PrivatePoolV1Config != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.NetworkConfig) {
-			rawDesired.PrivatePoolV1Config = nil
-			rawInitial.PrivatePoolV1Config = nil
-		}
-	}
-
-	if rawDesired.WorkerConfig != nil || rawInitial.WorkerConfig != nil {
-		// Check if anything else is set.
-		if dcl.AnySet() {
-			rawDesired.WorkerConfig = nil
-			rawInitial.WorkerConfig = nil
-		}
-	}
-
-	if rawDesired.PrivatePoolV1Config != nil || rawInitial.PrivatePoolV1Config != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.WorkerConfig) {
-			rawDesired.PrivatePoolV1Config = nil
-			rawInitial.PrivatePoolV1Config = nil
-		}
-	}
-
 	canonicalDesired := &WorkerPool{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -605,6 +572,34 @@ func canonicalizeWorkerPoolDesiredState(rawDesired, rawInitial *WorkerPool, opts
 		canonicalDesired.Location = rawInitial.Location
 	} else {
 		canonicalDesired.Location = rawDesired.Location
+	}
+
+	if canonicalDesired.NetworkConfig != nil {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			canonicalDesired.NetworkConfig = EmptyWorkerPoolNetworkConfig
+		}
+	}
+
+	if canonicalDesired.PrivatePoolV1Config != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.NetworkConfig) {
+			canonicalDesired.PrivatePoolV1Config = EmptyWorkerPoolPrivatePoolV1Config
+		}
+	}
+
+	if canonicalDesired.WorkerConfig != nil {
+		// Check if anything else is set.
+		if dcl.AnySet() {
+			canonicalDesired.WorkerConfig = EmptyWorkerPoolWorkerConfig
+		}
+	}
+
+	if canonicalDesired.PrivatePoolV1Config != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.WorkerConfig) {
+			canonicalDesired.PrivatePoolV1Config = EmptyWorkerPoolPrivatePoolV1Config
+		}
 	}
 
 	return canonicalDesired, nil
@@ -1434,6 +1429,9 @@ func diffWorkerPool(c *Client, desired, actual *WorkerPool, opts ...dcl.ApplyOpt
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareWorkerPoolPrivatePoolV1ConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

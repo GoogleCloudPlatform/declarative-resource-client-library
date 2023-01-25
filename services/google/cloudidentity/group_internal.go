@@ -544,7 +544,6 @@ func canonicalizeGroupDesiredState(rawDesired, rawInitial *Group, opts ...dcl.Ap
 	} else {
 		canonicalDesired.InitialGroupConfig = rawDesired.InitialGroupConfig
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1594,6 +1593,9 @@ func diffGroup(c *Client, desired, actual *Group, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareGroupGroupKeyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

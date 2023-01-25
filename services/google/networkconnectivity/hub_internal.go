@@ -452,7 +452,6 @@ func canonicalizeHubDesiredState(rawDesired, rawInitial *Hub, opts ...dcl.ApplyO
 	} else {
 		canonicalDesired.Project = rawDesired.Project
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -709,6 +708,9 @@ func diffHub(c *Client, desired, actual *Hub, opts ...dcl.ApplyOption) ([]*dcl.F
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareHubRoutingVpcsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

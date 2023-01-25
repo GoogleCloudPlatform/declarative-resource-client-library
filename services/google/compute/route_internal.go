@@ -401,47 +401,6 @@ func canonicalizeRouteDesiredState(rawDesired, rawInitial *Route, opts ...dcl.Ap
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.NextHopVpnTunnel != nil || rawInitial.NextHopVpnTunnel != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.NextHopIP, rawDesired.NextHopInstance, rawDesired.NextHopGateway, rawDesired.NextHopIlb) {
-			rawDesired.NextHopVpnTunnel = nil
-			rawInitial.NextHopVpnTunnel = nil
-		}
-	}
-
-	if rawDesired.NextHopIP != nil || rawInitial.NextHopIP != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.NextHopVpnTunnel, rawDesired.NextHopInstance, rawDesired.NextHopGateway, rawDesired.NextHopIlb) {
-			rawDesired.NextHopIP = nil
-			rawInitial.NextHopIP = nil
-		}
-	}
-
-	if rawDesired.NextHopInstance != nil || rawInitial.NextHopInstance != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.NextHopVpnTunnel, rawDesired.NextHopIP, rawDesired.NextHopGateway, rawDesired.NextHopIlb) {
-			rawDesired.NextHopInstance = nil
-			rawInitial.NextHopInstance = nil
-		}
-	}
-
-	if rawDesired.NextHopGateway != nil || rawInitial.NextHopGateway != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.NextHopVpnTunnel, rawDesired.NextHopIP, rawDesired.NextHopInstance, rawDesired.NextHopIlb) {
-			rawDesired.NextHopGateway = nil
-			rawInitial.NextHopGateway = nil
-		}
-	}
-
-	if rawDesired.NextHopIlb != nil || rawInitial.NextHopIlb != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.NextHopVpnTunnel, rawDesired.NextHopIP, rawDesired.NextHopInstance, rawDesired.NextHopGateway) {
-			rawDesired.NextHopIlb = nil
-			rawInitial.NextHopIlb = nil
-		}
-	}
-
 	canonicalDesired := &Route{}
 	if dcl.StringCanonicalize(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -503,6 +462,41 @@ func canonicalizeRouteDesiredState(rawDesired, rawInitial *Route, opts ...dcl.Ap
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
+	}
+
+	if canonicalDesired.NextHopVpnTunnel != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.NextHopIP, rawDesired.NextHopInstance, rawDesired.NextHopGateway, rawDesired.NextHopIlb) {
+			canonicalDesired.NextHopVpnTunnel = dcl.String("")
+		}
+	}
+
+	if canonicalDesired.NextHopIP != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.NextHopVpnTunnel, rawDesired.NextHopInstance, rawDesired.NextHopGateway, rawDesired.NextHopIlb) {
+			canonicalDesired.NextHopIP = dcl.String("")
+		}
+	}
+
+	if canonicalDesired.NextHopInstance != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.NextHopVpnTunnel, rawDesired.NextHopIP, rawDesired.NextHopGateway, rawDesired.NextHopIlb) {
+			canonicalDesired.NextHopInstance = dcl.String("")
+		}
+	}
+
+	if canonicalDesired.NextHopGateway != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.NextHopVpnTunnel, rawDesired.NextHopIP, rawDesired.NextHopInstance, rawDesired.NextHopIlb) {
+			canonicalDesired.NextHopGateway = dcl.String("")
+		}
+	}
+
+	if canonicalDesired.NextHopIlb != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.NextHopVpnTunnel, rawDesired.NextHopIP, rawDesired.NextHopInstance, rawDesired.NextHopGateway) {
+			canonicalDesired.NextHopIlb = dcl.String("")
+		}
 	}
 
 	return canonicalDesired, nil
@@ -884,6 +878,9 @@ func diffRoute(c *Client, desired, actual *Route, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareRouteWarningNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

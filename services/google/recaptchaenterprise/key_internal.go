@@ -479,31 +479,6 @@ func canonicalizeKeyDesiredState(rawDesired, rawInitial *Key, opts ...dcl.ApplyO
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.WebSettings != nil || rawInitial.WebSettings != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.AndroidSettings, rawDesired.IosSettings) {
-			rawDesired.WebSettings = nil
-			rawInitial.WebSettings = nil
-		}
-	}
-
-	if rawDesired.AndroidSettings != nil || rawInitial.AndroidSettings != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.WebSettings, rawDesired.IosSettings) {
-			rawDesired.AndroidSettings = nil
-			rawInitial.AndroidSettings = nil
-		}
-	}
-
-	if rawDesired.IosSettings != nil || rawInitial.IosSettings != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.WebSettings, rawDesired.AndroidSettings) {
-			rawDesired.IosSettings = nil
-			rawInitial.IosSettings = nil
-		}
-	}
-
 	canonicalDesired := &Key{}
 	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
 		// Desired and initial values are equivalent, so set canonical desired value to initial value.
@@ -530,6 +505,27 @@ func canonicalizeKeyDesiredState(rawDesired, rawInitial *Key, opts ...dcl.ApplyO
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
+	}
+
+	if canonicalDesired.WebSettings != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.AndroidSettings, rawDesired.IosSettings) {
+			canonicalDesired.WebSettings = EmptyKeyWebSettings
+		}
+	}
+
+	if canonicalDesired.AndroidSettings != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.WebSettings, rawDesired.IosSettings) {
+			canonicalDesired.AndroidSettings = EmptyKeyAndroidSettings
+		}
+	}
+
+	if canonicalDesired.IosSettings != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.WebSettings, rawDesired.AndroidSettings) {
+			canonicalDesired.IosSettings = EmptyKeyIosSettings
+		}
 	}
 
 	return canonicalDesired, nil
@@ -1189,6 +1185,9 @@ func diffKey(c *Client, desired, actual *Key, opts ...dcl.ApplyOption) ([]*dcl.F
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareKeyWebSettingsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

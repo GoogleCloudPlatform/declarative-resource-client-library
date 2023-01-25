@@ -545,39 +545,6 @@ func canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial *UptimeChe
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.MonitoredResource != nil || rawInitial.MonitoredResource != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.ResourceGroup) {
-			rawDesired.MonitoredResource = nil
-			rawInitial.MonitoredResource = nil
-		}
-	}
-
-	if rawDesired.ResourceGroup != nil || rawInitial.ResourceGroup != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.MonitoredResource) {
-			rawDesired.ResourceGroup = nil
-			rawInitial.ResourceGroup = nil
-		}
-	}
-
-	if rawDesired.HttpCheck != nil || rawInitial.HttpCheck != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.TcpCheck) {
-			rawDesired.HttpCheck = nil
-			rawInitial.HttpCheck = nil
-		}
-	}
-
-	if rawDesired.TcpCheck != nil || rawInitial.TcpCheck != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.HttpCheck) {
-			rawDesired.TcpCheck = nil
-			rawInitial.TcpCheck = nil
-		}
-	}
-
 	canonicalDesired := &UptimeCheckConfig{}
 	if dcl.IsZeroValue(rawDesired.Name) || (dcl.IsEmptyValueIndirect(rawDesired.Name) && dcl.IsEmptyValueIndirect(rawInitial.Name)) {
 		// Desired and initial values are equivalent, so set canonical desired value to initial value.
@@ -614,6 +581,34 @@ func canonicalizeUptimeCheckConfigDesiredState(rawDesired, rawInitial *UptimeChe
 		canonicalDesired.Project = rawInitial.Project
 	} else {
 		canonicalDesired.Project = rawDesired.Project
+	}
+
+	if canonicalDesired.MonitoredResource != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.ResourceGroup) {
+			canonicalDesired.MonitoredResource = EmptyUptimeCheckConfigMonitoredResource
+		}
+	}
+
+	if canonicalDesired.ResourceGroup != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.MonitoredResource) {
+			canonicalDesired.ResourceGroup = EmptyUptimeCheckConfigResourceGroup
+		}
+	}
+
+	if canonicalDesired.HttpCheck != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.TcpCheck) {
+			canonicalDesired.HttpCheck = EmptyUptimeCheckConfigHttpCheck
+		}
+	}
+
+	if canonicalDesired.TcpCheck != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.HttpCheck) {
+			canonicalDesired.TcpCheck = EmptyUptimeCheckConfigTcpCheck
+		}
 	}
 
 	return canonicalDesired, nil
@@ -1597,6 +1592,9 @@ func diffUptimeCheckConfig(c *Client, desired, actual *UptimeCheckConfig, opts .
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareUptimeCheckConfigMonitoredResourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

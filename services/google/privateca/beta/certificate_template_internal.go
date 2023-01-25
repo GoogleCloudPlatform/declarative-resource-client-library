@@ -593,7 +593,6 @@ func canonicalizeCertificateTemplateDesiredState(rawDesired, rawInitial *Certifi
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -2425,6 +2424,9 @@ func diffCertificateTemplate(c *Client, desired, actual *CertificateTemplate, op
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareCertificateTemplatePredefinedValuesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

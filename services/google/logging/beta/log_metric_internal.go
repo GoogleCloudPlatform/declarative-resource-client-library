@@ -513,7 +513,6 @@ func canonicalizeLogMetricDesiredState(rawDesired, rawInitial *LogMetric, opts .
 	} else {
 		canonicalDesired.Project = rawDesired.Project
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1624,6 +1623,9 @@ func diffLogMetric(c *Client, desired, actual *LogMetric, opts ...dcl.ApplyOptio
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareLogMetricMetricDescriptorNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

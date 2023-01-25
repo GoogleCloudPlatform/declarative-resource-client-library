@@ -494,7 +494,6 @@ func canonicalizeAutoscalingPolicyDesiredState(rawDesired, rawInitial *Autoscali
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1109,6 +1108,9 @@ func diffAutoscalingPolicy(c *Client, desired, actual *AutoscalingPolicy, opts .
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareAutoscalingPolicyBasicAlgorithmNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

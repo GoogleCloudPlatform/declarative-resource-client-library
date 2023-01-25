@@ -577,7 +577,6 @@ func canonicalizeTriggerDesiredState(rawDesired, rawInitial *Trigger, opts ...dc
 	} else {
 		canonicalDesired.Channel = rawDesired.Channel
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1595,6 +1594,9 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareTriggerMatchingCriteriaNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

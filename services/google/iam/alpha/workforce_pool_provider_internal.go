@@ -478,23 +478,6 @@ func canonicalizeWorkforcePoolProviderDesiredState(rawDesired, rawInitial *Workf
 
 		return rawDesired, nil
 	}
-
-	if rawDesired.Saml != nil || rawInitial.Saml != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Oidc) {
-			rawDesired.Saml = nil
-			rawInitial.Saml = nil
-		}
-	}
-
-	if rawDesired.Oidc != nil || rawInitial.Oidc != nil {
-		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Saml) {
-			rawDesired.Oidc = nil
-			rawInitial.Oidc = nil
-		}
-	}
-
 	canonicalDesired := &WorkforcePoolProvider{}
 	if dcl.PartialSelfLinkToSelfLink(rawDesired.Name, rawInitial.Name) {
 		canonicalDesired.Name = rawInitial.Name
@@ -538,6 +521,20 @@ func canonicalizeWorkforcePoolProviderDesiredState(rawDesired, rawInitial *Workf
 		canonicalDesired.WorkforcePool = rawInitial.WorkforcePool
 	} else {
 		canonicalDesired.WorkforcePool = rawDesired.WorkforcePool
+	}
+
+	if canonicalDesired.Saml != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.Oidc) {
+			canonicalDesired.Saml = EmptyWorkforcePoolProviderSaml
+		}
+	}
+
+	if canonicalDesired.Oidc != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.Saml) {
+			canonicalDesired.Oidc = EmptyWorkforcePoolProviderOidc
+		}
 	}
 
 	return canonicalDesired, nil
@@ -953,6 +950,9 @@ func diffWorkforcePoolProvider(c *Client, desired, actual *WorkforcePoolProvider
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareWorkforcePoolProviderSamlNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

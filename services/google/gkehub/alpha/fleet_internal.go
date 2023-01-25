@@ -390,7 +390,6 @@ func canonicalizeFleetDesiredState(rawDesired, rawInitial *Fleet, opts ...dcl.Ap
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -516,6 +515,9 @@ func diffFleet(c *Client, desired, actual *Fleet, opts ...dcl.ApplyOption) ([]*d
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 

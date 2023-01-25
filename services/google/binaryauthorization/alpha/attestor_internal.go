@@ -439,7 +439,6 @@ func canonicalizeAttestorDesiredState(rawDesired, rawInitial *Attestor, opts ...
 	} else {
 		canonicalDesired.Project = rawDesired.Project
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -911,6 +910,9 @@ func diffAttestor(c *Client, desired, actual *Attestor, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareAttestorUserOwnedDrydockNoteNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

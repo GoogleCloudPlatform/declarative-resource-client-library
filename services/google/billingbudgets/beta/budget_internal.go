@@ -483,7 +483,6 @@ func canonicalizeBudgetDesiredState(rawDesired, rawInitial *Budget, opts ...dcl.
 	} else {
 		canonicalDesired.BillingAccount = rawDesired.BillingAccount
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -1913,6 +1912,9 @@ func diffBudget(c *Client, desired, actual *Budget, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareBudgetBudgetFilterNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {

@@ -373,7 +373,6 @@ func canonicalizeRulesetDesiredState(rawDesired, rawInitial *Ruleset, opts ...dc
 	} else {
 		canonicalDesired.Project = rawDesired.Project
 	}
-
 	return canonicalDesired, nil
 }
 
@@ -829,6 +828,9 @@ func diffRuleset(c *Client, desired, actual *Ruleset, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if len(newDiffs) > 0 {
+		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
+	}
 	return newDiffs, nil
 }
 func compareRulesetSourceNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
