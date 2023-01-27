@@ -55,6 +55,16 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 	if r.AzureRegion != nil {
 		u.Object["azureRegion"] = *r.AzureRegion
 	}
+	if r.AzureServicesAuthentication != nil && r.AzureServicesAuthentication != dclService.EmptyClusterAzureServicesAuthentication {
+		rAzureServicesAuthentication := make(map[string]interface{})
+		if r.AzureServicesAuthentication.ApplicationId != nil {
+			rAzureServicesAuthentication["applicationId"] = *r.AzureServicesAuthentication.ApplicationId
+		}
+		if r.AzureServicesAuthentication.TenantId != nil {
+			rAzureServicesAuthentication["tenantId"] = *r.AzureServicesAuthentication.TenantId
+		}
+		u.Object["azureServicesAuthentication"] = rAzureServicesAuthentication
+	}
 	if r.Client != nil {
 		u.Object["client"] = *r.Client
 	}
@@ -253,6 +263,27 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 			r.AzureRegion = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.AzureRegion: expected string")
+		}
+	}
+	if _, ok := u.Object["azureServicesAuthentication"]; ok {
+		if rAzureServicesAuthentication, ok := u.Object["azureServicesAuthentication"].(map[string]interface{}); ok {
+			r.AzureServicesAuthentication = &dclService.ClusterAzureServicesAuthentication{}
+			if _, ok := rAzureServicesAuthentication["applicationId"]; ok {
+				if s, ok := rAzureServicesAuthentication["applicationId"].(string); ok {
+					r.AzureServicesAuthentication.ApplicationId = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.AzureServicesAuthentication.ApplicationId: expected string")
+				}
+			}
+			if _, ok := rAzureServicesAuthentication["tenantId"]; ok {
+				if s, ok := rAzureServicesAuthentication["tenantId"].(string); ok {
+					r.AzureServicesAuthentication.TenantId = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.AzureServicesAuthentication.TenantId: expected string")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.AzureServicesAuthentication: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["client"]; ok {

@@ -38,21 +38,27 @@ message ContainerazureCluster {
   string azure_region = 3;
   string resource_group_id = 4;
   string client = 5;
-  ContainerazureClusterNetworking networking = 6;
-  ContainerazureClusterControlPlane control_plane = 7;
-  ContainerazureClusterAuthorization authorization = 8;
-  ContainerazureClusterStateEnum state = 9;
-  string endpoint = 10;
-  string uid = 11;
-  bool reconciling = 12;
-  string create_time = 13;
-  string update_time = 14;
-  string etag = 15;
-  map<string, string> annotations = 16;
-  ContainerazureClusterWorkloadIdentityConfig workload_identity_config = 17;
-  string project = 18;
-  string location = 19;
-  ContainerazureClusterFleet fleet = 20;
+  ContainerazureClusterAzureServicesAuthentication azure_services_authentication = 6;
+  ContainerazureClusterNetworking networking = 7;
+  ContainerazureClusterControlPlane control_plane = 8;
+  ContainerazureClusterAuthorization authorization = 9;
+  ContainerazureClusterStateEnum state = 10;
+  string endpoint = 11;
+  string uid = 12;
+  bool reconciling = 13;
+  string create_time = 14;
+  string update_time = 15;
+  string etag = 16;
+  map<string, string> annotations = 17;
+  ContainerazureClusterWorkloadIdentityConfig workload_identity_config = 18;
+  string project = 19;
+  string location = 20;
+  ContainerazureClusterFleet fleet = 21;
+}
+
+message ContainerazureClusterAzureServicesAuthentication {
+  string tenant_id = 1;
+  string application_id = 2;
 }
 
 message ContainerazureClusterNetworking {

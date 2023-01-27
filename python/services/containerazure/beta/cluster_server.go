@@ -48,6 +48,18 @@ func ProtoToContainerazureBetaClusterLoggingConfigComponentConfigEnableComponent
 	return nil
 }
 
+// ProtoToClusterAzureServicesAuthentication converts a ClusterAzureServicesAuthentication object from its proto representation.
+func ProtoToContainerazureBetaClusterAzureServicesAuthentication(p *betapb.ContainerazureBetaClusterAzureServicesAuthentication) *beta.ClusterAzureServicesAuthentication {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.ClusterAzureServicesAuthentication{
+		TenantId:      dcl.StringOrNil(p.GetTenantId()),
+		ApplicationId: dcl.StringOrNil(p.GetApplicationId()),
+	}
+	return obj
+}
+
 // ProtoToClusterNetworking converts a ClusterNetworking object from its proto representation.
 func ProtoToContainerazureBetaClusterNetworking(p *betapb.ContainerazureBetaClusterNetworking) *beta.ClusterNetworking {
 	if p == nil {
@@ -250,27 +262,28 @@ func ProtoToContainerazureBetaClusterMonitoringConfigManagedPrometheusConfig(p *
 // ProtoToCluster converts a Cluster resource from its proto representation.
 func ProtoToCluster(p *betapb.ContainerazureBetaCluster) *beta.Cluster {
 	obj := &beta.Cluster{
-		Name:                   dcl.StringOrNil(p.GetName()),
-		Description:            dcl.StringOrNil(p.GetDescription()),
-		AzureRegion:            dcl.StringOrNil(p.GetAzureRegion()),
-		ResourceGroupId:        dcl.StringOrNil(p.GetResourceGroupId()),
-		Client:                 dcl.StringOrNil(p.GetClient()),
-		Networking:             ProtoToContainerazureBetaClusterNetworking(p.GetNetworking()),
-		ControlPlane:           ProtoToContainerazureBetaClusterControlPlane(p.GetControlPlane()),
-		Authorization:          ProtoToContainerazureBetaClusterAuthorization(p.GetAuthorization()),
-		State:                  ProtoToContainerazureBetaClusterStateEnum(p.GetState()),
-		Endpoint:               dcl.StringOrNil(p.GetEndpoint()),
-		Uid:                    dcl.StringOrNil(p.GetUid()),
-		Reconciling:            dcl.Bool(p.GetReconciling()),
-		CreateTime:             dcl.StringOrNil(p.GetCreateTime()),
-		UpdateTime:             dcl.StringOrNil(p.GetUpdateTime()),
-		Etag:                   dcl.StringOrNil(p.GetEtag()),
-		WorkloadIdentityConfig: ProtoToContainerazureBetaClusterWorkloadIdentityConfig(p.GetWorkloadIdentityConfig()),
-		Project:                dcl.StringOrNil(p.GetProject()),
-		Location:               dcl.StringOrNil(p.GetLocation()),
-		Fleet:                  ProtoToContainerazureBetaClusterFleet(p.GetFleet()),
-		LoggingConfig:          ProtoToContainerazureBetaClusterLoggingConfig(p.GetLoggingConfig()),
-		MonitoringConfig:       ProtoToContainerazureBetaClusterMonitoringConfig(p.GetMonitoringConfig()),
+		Name:                        dcl.StringOrNil(p.GetName()),
+		Description:                 dcl.StringOrNil(p.GetDescription()),
+		AzureRegion:                 dcl.StringOrNil(p.GetAzureRegion()),
+		ResourceGroupId:             dcl.StringOrNil(p.GetResourceGroupId()),
+		Client:                      dcl.StringOrNil(p.GetClient()),
+		AzureServicesAuthentication: ProtoToContainerazureBetaClusterAzureServicesAuthentication(p.GetAzureServicesAuthentication()),
+		Networking:                  ProtoToContainerazureBetaClusterNetworking(p.GetNetworking()),
+		ControlPlane:                ProtoToContainerazureBetaClusterControlPlane(p.GetControlPlane()),
+		Authorization:               ProtoToContainerazureBetaClusterAuthorization(p.GetAuthorization()),
+		State:                       ProtoToContainerazureBetaClusterStateEnum(p.GetState()),
+		Endpoint:                    dcl.StringOrNil(p.GetEndpoint()),
+		Uid:                         dcl.StringOrNil(p.GetUid()),
+		Reconciling:                 dcl.Bool(p.GetReconciling()),
+		CreateTime:                  dcl.StringOrNil(p.GetCreateTime()),
+		UpdateTime:                  dcl.StringOrNil(p.GetUpdateTime()),
+		Etag:                        dcl.StringOrNil(p.GetEtag()),
+		WorkloadIdentityConfig:      ProtoToContainerazureBetaClusterWorkloadIdentityConfig(p.GetWorkloadIdentityConfig()),
+		Project:                     dcl.StringOrNil(p.GetProject()),
+		Location:                    dcl.StringOrNil(p.GetLocation()),
+		Fleet:                       ProtoToContainerazureBetaClusterFleet(p.GetFleet()),
+		LoggingConfig:               ProtoToContainerazureBetaClusterLoggingConfig(p.GetLoggingConfig()),
+		MonitoringConfig:            ProtoToContainerazureBetaClusterMonitoringConfig(p.GetMonitoringConfig()),
 	}
 	return obj
 }
@@ -295,6 +308,17 @@ func ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnumTo
 		return betapb.ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnum(v)
 	}
 	return betapb.ContainerazureBetaClusterLoggingConfigComponentConfigEnableComponentsEnum(0)
+}
+
+// ClusterAzureServicesAuthenticationToProto converts a ClusterAzureServicesAuthentication object to its proto representation.
+func ContainerazureBetaClusterAzureServicesAuthenticationToProto(o *beta.ClusterAzureServicesAuthentication) *betapb.ContainerazureBetaClusterAzureServicesAuthentication {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ContainerazureBetaClusterAzureServicesAuthentication{}
+	p.SetTenantId(dcl.ValueOrEmptyString(o.TenantId))
+	p.SetApplicationId(dcl.ValueOrEmptyString(o.ApplicationId))
+	return p
 }
 
 // ClusterNetworkingToProto converts a ClusterNetworking object to its proto representation.
@@ -505,6 +529,7 @@ func ClusterToProto(resource *beta.Cluster) *betapb.ContainerazureBetaCluster {
 	p.SetAzureRegion(dcl.ValueOrEmptyString(resource.AzureRegion))
 	p.SetResourceGroupId(dcl.ValueOrEmptyString(resource.ResourceGroupId))
 	p.SetClient(dcl.ValueOrEmptyString(resource.Client))
+	p.SetAzureServicesAuthentication(ContainerazureBetaClusterAzureServicesAuthenticationToProto(resource.AzureServicesAuthentication))
 	p.SetNetworking(ContainerazureBetaClusterNetworkingToProto(resource.Networking))
 	p.SetControlPlane(ContainerazureBetaClusterControlPlaneToProto(resource.ControlPlane))
 	p.SetAuthorization(ContainerazureBetaClusterAuthorizationToProto(resource.Authorization))

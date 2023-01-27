@@ -11,15 +11,21 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-name: beta_cluster
-description: A basic example of a containerazure azure cluster using beta fields
+name: beta_cluster_with_client
+description: A basic example of a containerazure azure cluster with azure client using
+  beta fields
 type: cluster
 versions:
 - beta
-resource: samples/beta.cluster.json
+resource: samples/beta_client.cluster.json
+dependencies:
+- samples/first.azure_client.json
+- samples/second.azure_client.json
 updates:
 - resource: samples/update_beta.cluster.json
-  dependencies: []
+  dependencies:
+  - samples/first.azure_client.json
+  - samples/second.azure_client.json
 variables:
 - name: azure_ad_tenant
   type: azure_ad_tenant
@@ -31,6 +37,8 @@ variables:
   type: azure_subscription
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
+- name: client
+  type: resource_name
 - name: cluster
   type: resource_name
 - name: project

@@ -48,6 +48,18 @@ func ProtoToContainerazureAlphaClusterLoggingConfigComponentConfigEnableComponen
 	return nil
 }
 
+// ProtoToClusterAzureServicesAuthentication converts a ClusterAzureServicesAuthentication object from its proto representation.
+func ProtoToContainerazureAlphaClusterAzureServicesAuthentication(p *alphapb.ContainerazureAlphaClusterAzureServicesAuthentication) *alpha.ClusterAzureServicesAuthentication {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterAzureServicesAuthentication{
+		TenantId:      dcl.StringOrNil(p.GetTenantId()),
+		ApplicationId: dcl.StringOrNil(p.GetApplicationId()),
+	}
+	return obj
+}
+
 // ProtoToClusterNetworking converts a ClusterNetworking object from its proto representation.
 func ProtoToContainerazureAlphaClusterNetworking(p *alphapb.ContainerazureAlphaClusterNetworking) *alpha.ClusterNetworking {
 	if p == nil {
@@ -250,27 +262,28 @@ func ProtoToContainerazureAlphaClusterMonitoringConfigManagedPrometheusConfig(p 
 // ProtoToCluster converts a Cluster resource from its proto representation.
 func ProtoToCluster(p *alphapb.ContainerazureAlphaCluster) *alpha.Cluster {
 	obj := &alpha.Cluster{
-		Name:                   dcl.StringOrNil(p.GetName()),
-		Description:            dcl.StringOrNil(p.GetDescription()),
-		AzureRegion:            dcl.StringOrNil(p.GetAzureRegion()),
-		ResourceGroupId:        dcl.StringOrNil(p.GetResourceGroupId()),
-		Client:                 dcl.StringOrNil(p.GetClient()),
-		Networking:             ProtoToContainerazureAlphaClusterNetworking(p.GetNetworking()),
-		ControlPlane:           ProtoToContainerazureAlphaClusterControlPlane(p.GetControlPlane()),
-		Authorization:          ProtoToContainerazureAlphaClusterAuthorization(p.GetAuthorization()),
-		State:                  ProtoToContainerazureAlphaClusterStateEnum(p.GetState()),
-		Endpoint:               dcl.StringOrNil(p.GetEndpoint()),
-		Uid:                    dcl.StringOrNil(p.GetUid()),
-		Reconciling:            dcl.Bool(p.GetReconciling()),
-		CreateTime:             dcl.StringOrNil(p.GetCreateTime()),
-		UpdateTime:             dcl.StringOrNil(p.GetUpdateTime()),
-		Etag:                   dcl.StringOrNil(p.GetEtag()),
-		WorkloadIdentityConfig: ProtoToContainerazureAlphaClusterWorkloadIdentityConfig(p.GetWorkloadIdentityConfig()),
-		Project:                dcl.StringOrNil(p.GetProject()),
-		Location:               dcl.StringOrNil(p.GetLocation()),
-		Fleet:                  ProtoToContainerazureAlphaClusterFleet(p.GetFleet()),
-		LoggingConfig:          ProtoToContainerazureAlphaClusterLoggingConfig(p.GetLoggingConfig()),
-		MonitoringConfig:       ProtoToContainerazureAlphaClusterMonitoringConfig(p.GetMonitoringConfig()),
+		Name:                        dcl.StringOrNil(p.GetName()),
+		Description:                 dcl.StringOrNil(p.GetDescription()),
+		AzureRegion:                 dcl.StringOrNil(p.GetAzureRegion()),
+		ResourceGroupId:             dcl.StringOrNil(p.GetResourceGroupId()),
+		Client:                      dcl.StringOrNil(p.GetClient()),
+		AzureServicesAuthentication: ProtoToContainerazureAlphaClusterAzureServicesAuthentication(p.GetAzureServicesAuthentication()),
+		Networking:                  ProtoToContainerazureAlphaClusterNetworking(p.GetNetworking()),
+		ControlPlane:                ProtoToContainerazureAlphaClusterControlPlane(p.GetControlPlane()),
+		Authorization:               ProtoToContainerazureAlphaClusterAuthorization(p.GetAuthorization()),
+		State:                       ProtoToContainerazureAlphaClusterStateEnum(p.GetState()),
+		Endpoint:                    dcl.StringOrNil(p.GetEndpoint()),
+		Uid:                         dcl.StringOrNil(p.GetUid()),
+		Reconciling:                 dcl.Bool(p.GetReconciling()),
+		CreateTime:                  dcl.StringOrNil(p.GetCreateTime()),
+		UpdateTime:                  dcl.StringOrNil(p.GetUpdateTime()),
+		Etag:                        dcl.StringOrNil(p.GetEtag()),
+		WorkloadIdentityConfig:      ProtoToContainerazureAlphaClusterWorkloadIdentityConfig(p.GetWorkloadIdentityConfig()),
+		Project:                     dcl.StringOrNil(p.GetProject()),
+		Location:                    dcl.StringOrNil(p.GetLocation()),
+		Fleet:                       ProtoToContainerazureAlphaClusterFleet(p.GetFleet()),
+		LoggingConfig:               ProtoToContainerazureAlphaClusterLoggingConfig(p.GetLoggingConfig()),
+		MonitoringConfig:            ProtoToContainerazureAlphaClusterMonitoringConfig(p.GetMonitoringConfig()),
 	}
 	return obj
 }
@@ -295,6 +308,17 @@ func ContainerazureAlphaClusterLoggingConfigComponentConfigEnableComponentsEnumT
 		return alphapb.ContainerazureAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum(v)
 	}
 	return alphapb.ContainerazureAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum(0)
+}
+
+// ClusterAzureServicesAuthenticationToProto converts a ClusterAzureServicesAuthentication object to its proto representation.
+func ContainerazureAlphaClusterAzureServicesAuthenticationToProto(o *alpha.ClusterAzureServicesAuthentication) *alphapb.ContainerazureAlphaClusterAzureServicesAuthentication {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerazureAlphaClusterAzureServicesAuthentication{}
+	p.SetTenantId(dcl.ValueOrEmptyString(o.TenantId))
+	p.SetApplicationId(dcl.ValueOrEmptyString(o.ApplicationId))
+	return p
 }
 
 // ClusterNetworkingToProto converts a ClusterNetworking object to its proto representation.
@@ -505,6 +529,7 @@ func ClusterToProto(resource *alpha.Cluster) *alphapb.ContainerazureAlphaCluster
 	p.SetAzureRegion(dcl.ValueOrEmptyString(resource.AzureRegion))
 	p.SetResourceGroupId(dcl.ValueOrEmptyString(resource.ResourceGroupId))
 	p.SetClient(dcl.ValueOrEmptyString(resource.Client))
+	p.SetAzureServicesAuthentication(ContainerazureAlphaClusterAzureServicesAuthenticationToProto(resource.AzureServicesAuthentication))
 	p.SetNetworking(ContainerazureAlphaClusterNetworkingToProto(resource.Networking))
 	p.SetControlPlane(ContainerazureAlphaClusterControlPlaneToProto(resource.ControlPlane))
 	p.SetAuthorization(ContainerazureAlphaClusterAuthorizationToProto(resource.Authorization))

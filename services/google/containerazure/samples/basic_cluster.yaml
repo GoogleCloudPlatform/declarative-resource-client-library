@@ -17,14 +17,9 @@ type: cluster
 versions:
 - beta
 resource: samples/basic.cluster.json
-dependencies:
-- samples/first.azure_client.json
-- samples/second.azure_client.json
 updates:
 - resource: samples/update.cluster.json
-  dependencies:
-  - samples/first.azure_client.json
-  - samples/second.azure_client.json
+  dependencies: []
 variables:
 - name: azure_ad_tenant
   type: azure_ad_tenant
@@ -36,8 +31,6 @@ variables:
   type: azure_subscription
 - name: byo_multicloud_prefix
   type: byo_multicloud_prefix
-- name: client
-  type: resource_name
 - name: cluster
   type: resource_name
 - name: project

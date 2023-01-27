@@ -45,23 +45,29 @@ message ContainerazureBetaCluster {
   string azure_region = 3;
   string resource_group_id = 4;
   string client = 5;
-  ContainerazureBetaClusterNetworking networking = 6;
-  ContainerazureBetaClusterControlPlane control_plane = 7;
-  ContainerazureBetaClusterAuthorization authorization = 8;
-  ContainerazureBetaClusterStateEnum state = 9;
-  string endpoint = 10;
-  string uid = 11;
-  bool reconciling = 12;
-  string create_time = 13;
-  string update_time = 14;
-  string etag = 15;
-  map<string, string> annotations = 16;
-  ContainerazureBetaClusterWorkloadIdentityConfig workload_identity_config = 17;
-  string project = 18;
-  string location = 19;
-  ContainerazureBetaClusterFleet fleet = 20;
-  ContainerazureBetaClusterLoggingConfig logging_config = 21;
-  ContainerazureBetaClusterMonitoringConfig monitoring_config = 22;
+  ContainerazureBetaClusterAzureServicesAuthentication azure_services_authentication = 6;
+  ContainerazureBetaClusterNetworking networking = 7;
+  ContainerazureBetaClusterControlPlane control_plane = 8;
+  ContainerazureBetaClusterAuthorization authorization = 9;
+  ContainerazureBetaClusterStateEnum state = 10;
+  string endpoint = 11;
+  string uid = 12;
+  bool reconciling = 13;
+  string create_time = 14;
+  string update_time = 15;
+  string etag = 16;
+  map<string, string> annotations = 17;
+  ContainerazureBetaClusterWorkloadIdentityConfig workload_identity_config = 18;
+  string project = 19;
+  string location = 20;
+  ContainerazureBetaClusterFleet fleet = 21;
+  ContainerazureBetaClusterLoggingConfig logging_config = 22;
+  ContainerazureBetaClusterMonitoringConfig monitoring_config = 23;
+}
+
+message ContainerazureBetaClusterAzureServicesAuthentication {
+  string tenant_id = 1;
+  string application_id = 2;
 }
 
 message ContainerazureBetaClusterNetworking {

@@ -26,6 +26,7 @@ class Cluster(object):
         azure_region: str = None,
         resource_group_id: str = None,
         client: str = None,
+        azure_services_authentication: dict = None,
         networking: dict = None,
         control_plane: dict = None,
         authorization: dict = None,
@@ -50,6 +51,7 @@ class Cluster(object):
         self.azure_region = azure_region
         self.resource_group_id = resource_group_id
         self.client = client
+        self.azure_services_authentication = azure_services_authentication
         self.networking = networking
         self.control_plane = control_plane
         self.authorization = authorization
@@ -79,6 +81,16 @@ class Cluster(object):
         if Primitive.to_proto(self.client):
             request.resource.client = Primitive.to_proto(self.client)
 
+        if ClusterAzureServicesAuthentication.to_proto(
+            self.azure_services_authentication
+        ):
+            request.resource.azure_services_authentication.CopyFrom(
+                ClusterAzureServicesAuthentication.to_proto(
+                    self.azure_services_authentication
+                )
+            )
+        else:
+            request.resource.ClearField("azure_services_authentication")
         if ClusterNetworking.to_proto(self.networking):
             request.resource.networking.CopyFrom(
                 ClusterNetworking.to_proto(self.networking)
@@ -118,6 +130,11 @@ class Cluster(object):
         self.azure_region = Primitive.from_proto(response.azure_region)
         self.resource_group_id = Primitive.from_proto(response.resource_group_id)
         self.client = Primitive.from_proto(response.client)
+        self.azure_services_authentication = (
+            ClusterAzureServicesAuthentication.from_proto(
+                response.azure_services_authentication
+            )
+        )
         self.networking = ClusterNetworking.from_proto(response.networking)
         self.control_plane = ClusterControlPlane.from_proto(response.control_plane)
         self.authorization = ClusterAuthorization.from_proto(response.authorization)
@@ -157,6 +174,16 @@ class Cluster(object):
         if Primitive.to_proto(self.client):
             request.resource.client = Primitive.to_proto(self.client)
 
+        if ClusterAzureServicesAuthentication.to_proto(
+            self.azure_services_authentication
+        ):
+            request.resource.azure_services_authentication.CopyFrom(
+                ClusterAzureServicesAuthentication.to_proto(
+                    self.azure_services_authentication
+                )
+            )
+        else:
+            request.resource.ClearField("azure_services_authentication")
         if ClusterNetworking.to_proto(self.networking):
             request.resource.networking.CopyFrom(
                 ClusterNetworking.to_proto(self.networking)
@@ -213,6 +240,16 @@ class Cluster(object):
             resource.resource_group_id = Primitive.to_proto(self.resource_group_id)
         if Primitive.to_proto(self.client):
             resource.client = Primitive.to_proto(self.client)
+        if ClusterAzureServicesAuthentication.to_proto(
+            self.azure_services_authentication
+        ):
+            resource.azure_services_authentication.CopyFrom(
+                ClusterAzureServicesAuthentication.to_proto(
+                    self.azure_services_authentication
+                )
+            )
+        else:
+            resource.ClearField("azure_services_authentication")
         if ClusterNetworking.to_proto(self.networking):
             resource.networking.CopyFrom(ClusterNetworking.to_proto(self.networking))
         else:
@@ -240,6 +277,46 @@ class Cluster(object):
         else:
             resource.ClearField("fleet")
         return resource
+
+
+class ClusterAzureServicesAuthentication(object):
+    def __init__(self, tenant_id: str = None, application_id: str = None):
+        self.tenant_id = tenant_id
+        self.application_id = application_id
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.ContainerazureClusterAzureServicesAuthentication()
+        if Primitive.to_proto(resource.tenant_id):
+            res.tenant_id = Primitive.to_proto(resource.tenant_id)
+        if Primitive.to_proto(resource.application_id):
+            res.application_id = Primitive.to_proto(resource.application_id)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterAzureServicesAuthentication(
+            tenant_id=Primitive.from_proto(resource.tenant_id),
+            application_id=Primitive.from_proto(resource.application_id),
+        )
+
+
+class ClusterAzureServicesAuthenticationArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterAzureServicesAuthentication.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterAzureServicesAuthentication.from_proto(i) for i in resources]
 
 
 class ClusterNetworking(object):

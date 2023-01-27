@@ -2,9 +2,12 @@
   "name": "{{cluster}}",
   "project": "{{project}}",
   "location": "us-west1",
-  "client": "projects/{{project_number}}/locations/us-west1/azureClients/{{ref:first.azure_client.json:name}}",
   "description": "A sample azure cluster",
   "azureRegion": "westus2",
+  "azureServicesAuthentication": {
+    "tenantId": "{{azure_ad_tenant}}",
+    "applicationId": "{{azure_application}}"
+  },
   "networking": {
     "virtualNetworkId": "/subscriptions/{{azure_subscription}}/resourceGroups/{{byo_multicloud_prefix}}-dev-byo/providers/Microsoft.Network/virtualNetworks/{{byo_multicloud_prefix}}-dev-vnet",
     "podAddressCidrBlocks": ["10.200.0.0/16"],

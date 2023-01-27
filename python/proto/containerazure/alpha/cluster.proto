@@ -45,23 +45,29 @@ message ContainerazureAlphaCluster {
   string azure_region = 3;
   string resource_group_id = 4;
   string client = 5;
-  ContainerazureAlphaClusterNetworking networking = 6;
-  ContainerazureAlphaClusterControlPlane control_plane = 7;
-  ContainerazureAlphaClusterAuthorization authorization = 8;
-  ContainerazureAlphaClusterStateEnum state = 9;
-  string endpoint = 10;
-  string uid = 11;
-  bool reconciling = 12;
-  string create_time = 13;
-  string update_time = 14;
-  string etag = 15;
-  map<string, string> annotations = 16;
-  ContainerazureAlphaClusterWorkloadIdentityConfig workload_identity_config = 17;
-  string project = 18;
-  string location = 19;
-  ContainerazureAlphaClusterFleet fleet = 20;
-  ContainerazureAlphaClusterLoggingConfig logging_config = 21;
-  ContainerazureAlphaClusterMonitoringConfig monitoring_config = 22;
+  ContainerazureAlphaClusterAzureServicesAuthentication azure_services_authentication = 6;
+  ContainerazureAlphaClusterNetworking networking = 7;
+  ContainerazureAlphaClusterControlPlane control_plane = 8;
+  ContainerazureAlphaClusterAuthorization authorization = 9;
+  ContainerazureAlphaClusterStateEnum state = 10;
+  string endpoint = 11;
+  string uid = 12;
+  bool reconciling = 13;
+  string create_time = 14;
+  string update_time = 15;
+  string etag = 16;
+  map<string, string> annotations = 17;
+  ContainerazureAlphaClusterWorkloadIdentityConfig workload_identity_config = 18;
+  string project = 19;
+  string location = 20;
+  ContainerazureAlphaClusterFleet fleet = 21;
+  ContainerazureAlphaClusterLoggingConfig logging_config = 22;
+  ContainerazureAlphaClusterMonitoringConfig monitoring_config = 23;
+}
+
+message ContainerazureAlphaClusterAzureServicesAuthentication {
+  string tenant_id = 1;
+  string application_id = 2;
 }
 
 message ContainerazureAlphaClusterNetworking {
