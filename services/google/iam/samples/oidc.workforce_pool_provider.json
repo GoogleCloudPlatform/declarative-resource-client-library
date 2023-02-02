@@ -6,7 +6,7 @@
     "google.subject": "assertion.sub"
   },
   "oidc": {
-    "issuerUri": "https://accounts.google.com",
+    "issuerUri": "https://example.com",
     "clientId": "client-id"
   }
 }
