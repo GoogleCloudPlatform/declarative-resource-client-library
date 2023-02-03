@@ -32,7 +32,6 @@ class Bucket(object):
         website: dict = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.project = project
         self.location = location

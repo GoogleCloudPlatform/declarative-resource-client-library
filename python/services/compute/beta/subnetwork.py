@@ -39,7 +39,6 @@ class Subnetwork(object):
         enable_flow_logs: bool = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.description = description
         self.ip_cidr_range = ip_cidr_range

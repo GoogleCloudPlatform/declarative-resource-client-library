@@ -28,7 +28,6 @@ class Brand(object):
         project: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.application_title = application_title
         self.name = name

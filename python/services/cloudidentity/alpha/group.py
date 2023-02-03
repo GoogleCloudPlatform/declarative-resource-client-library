@@ -38,7 +38,6 @@ class Group(object):
         initial_group_config: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.group_key = group_key

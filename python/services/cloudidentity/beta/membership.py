@@ -35,7 +35,6 @@ class Membership(object):
         group: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.preferred_member_key = preferred_member_key

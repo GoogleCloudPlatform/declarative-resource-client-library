@@ -42,7 +42,6 @@ class NetworkFirewallPolicyRule(object):
         project: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.description = description
         self.rule_name = rule_name

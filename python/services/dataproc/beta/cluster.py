@@ -33,7 +33,6 @@ class Cluster(object):
         virtual_cluster_config: dict = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.project = project
         self.name = name

@@ -34,7 +34,6 @@ class Channel(object):
         location: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.third_party_provider = third_party_provider

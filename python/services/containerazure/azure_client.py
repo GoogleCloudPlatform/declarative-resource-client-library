@@ -31,7 +31,6 @@ class Client(object):
         location: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.tenant_id = tenant_id

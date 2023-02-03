@@ -54,7 +54,6 @@ class InterconnectAttachment(object):
         project: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.description = description
         self.name = name

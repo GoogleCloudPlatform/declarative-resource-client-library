@@ -38,7 +38,6 @@ class NetworkFirewallPolicy(object):
         project: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.location = location
         self.name = name

@@ -52,7 +52,6 @@ class ForwardingRule(object):
         psc_connection_status: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.labels = labels
         self.all_ports = all_ports

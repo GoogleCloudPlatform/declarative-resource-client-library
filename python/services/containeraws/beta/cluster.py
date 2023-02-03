@@ -43,7 +43,6 @@ class Cluster(object):
         monitoring_config: dict = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.description = description

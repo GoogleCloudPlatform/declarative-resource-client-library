@@ -36,7 +36,6 @@ class Connection(object):
         location: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.github_config = github_config

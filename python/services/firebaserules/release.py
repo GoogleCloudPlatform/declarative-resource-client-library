@@ -29,7 +29,6 @@ class Release(object):
         project: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.ruleset_name = ruleset_name

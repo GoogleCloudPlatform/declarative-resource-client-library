@@ -36,7 +36,6 @@ class Policy(object):
         update_time: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.admission_whitelist_patterns = admission_whitelist_patterns
         self.cluster_admission_rules = cluster_admission_rules

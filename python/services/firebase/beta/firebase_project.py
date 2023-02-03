@@ -32,7 +32,6 @@ class FirebaseProject(object):
         project: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.display_name = display_name
         self.annotations = annotations

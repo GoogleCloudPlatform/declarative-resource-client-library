@@ -43,7 +43,6 @@ class OSPolicyAssignment(object):
         skip_await_rollout: bool = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.description = description

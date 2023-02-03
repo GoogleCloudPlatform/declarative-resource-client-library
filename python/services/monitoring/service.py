@@ -29,7 +29,6 @@ class Service(object):
         project: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.display_name = display_name

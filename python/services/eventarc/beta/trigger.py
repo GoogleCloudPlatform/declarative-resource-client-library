@@ -37,7 +37,6 @@ class Trigger(object):
         conditions: dict = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.matching_criteria = matching_criteria

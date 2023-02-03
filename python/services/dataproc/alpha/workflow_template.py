@@ -36,7 +36,6 @@ class WorkflowTemplate(object):
         location: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.labels = labels

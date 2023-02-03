@@ -31,7 +31,6 @@ class FeatureMembership(object):
         membership: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.mesh = mesh
         self.configmanagement = configmanagement

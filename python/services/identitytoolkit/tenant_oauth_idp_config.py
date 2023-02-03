@@ -36,7 +36,6 @@ class TenantOAuthIdpConfig(object):
         tenant: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.client_id = client_id

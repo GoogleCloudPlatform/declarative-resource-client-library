@@ -34,7 +34,6 @@ class Config(object):
         project: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.sign_in = sign_in
         self.notification = notification

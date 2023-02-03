@@ -41,7 +41,6 @@ class Certificate(object):
         certificate_authority: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.pem_csr = pem_csr

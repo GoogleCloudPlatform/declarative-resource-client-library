@@ -39,7 +39,6 @@ class WorkloadIdentityPoolProvider(object):
         workload_identity_pool: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.display_name = display_name

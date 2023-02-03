@@ -47,7 +47,6 @@ class Instance(object):
         self_link: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.can_ip_forward = can_ip_forward
         self.deletion_protection = deletion_protection

@@ -32,7 +32,6 @@ class Attestor(object):
         project: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.description = description

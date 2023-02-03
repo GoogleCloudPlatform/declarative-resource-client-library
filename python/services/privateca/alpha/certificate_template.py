@@ -37,7 +37,6 @@ class CertificateTemplate(object):
         location: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.predefined_values = predefined_values

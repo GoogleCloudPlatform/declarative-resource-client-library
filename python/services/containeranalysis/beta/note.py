@@ -39,7 +39,6 @@ class Note(object):
         project: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.short_description = short_description

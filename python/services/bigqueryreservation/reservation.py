@@ -34,7 +34,6 @@ class Reservation(object):
         location: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.slot_capacity = slot_capacity

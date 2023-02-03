@@ -37,7 +37,6 @@ class FirewallPolicyRule(object):
         firewall_policy: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.description = description
         self.priority = priority

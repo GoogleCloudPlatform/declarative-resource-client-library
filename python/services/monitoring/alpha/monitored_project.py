@@ -28,7 +28,6 @@ class MonitoredProject(object):
         metrics_scope: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.metrics_scope = metrics_scope

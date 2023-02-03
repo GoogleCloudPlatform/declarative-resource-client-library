@@ -32,7 +32,6 @@ class Network(object):
         self_link_with_id: str = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.description = description
         self.name = name

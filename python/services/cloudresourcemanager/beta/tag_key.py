@@ -37,7 +37,6 @@ class TagKey(object):
         purpose_data: dict = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.parent = parent

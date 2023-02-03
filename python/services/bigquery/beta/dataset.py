@@ -39,7 +39,6 @@ class Dataset(object):
         default_encryption_configuration: dict = None,
         service_account_file: str = "",
     ):
-
         channel.initialize()
         self.name = name
         self.project = project
