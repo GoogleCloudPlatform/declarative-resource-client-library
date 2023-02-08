@@ -45,6 +45,7 @@ message ClouddeployAlphaTarget {
   string project = 14;
   string location = 15;
   ClouddeployAlphaTargetRun run = 16;
+  ClouddeployAlphaTargetMultiTarget multi_target = 17;
 }
 
 message ClouddeployAlphaTargetGke {
@@ -66,6 +67,10 @@ message ClouddeployAlphaTargetExecutionConfigs {
 
 message ClouddeployAlphaTargetRun {
   string location = 1;
+}
+
+message ClouddeployAlphaTargetMultiTarget {
+  repeated string target_ids = 1;
 }
 
 message ApplyClouddeployAlphaTargetRequest {

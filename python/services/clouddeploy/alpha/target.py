@@ -37,6 +37,7 @@ class Target(object):
         project: str = None,
         location: str = None,
         run: dict = None,
+        multi_target: dict = None,
         service_account_file: str = "",
     ):
         channel.initialize()
@@ -51,6 +52,7 @@ class Target(object):
         self.project = project
         self.location = location
         self.run = run
+        self.multi_target = multi_target
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -97,6 +99,12 @@ class Target(object):
             request.resource.run.CopyFrom(TargetRun.to_proto(self.run))
         else:
             request.resource.ClearField("run")
+        if TargetMultiTarget.to_proto(self.multi_target):
+            request.resource.multi_target.CopyFrom(
+                TargetMultiTarget.to_proto(self.multi_target)
+            )
+        else:
+            request.resource.ClearField("multi_target")
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyClouddeployAlphaTarget(request)
@@ -118,6 +126,7 @@ class Target(object):
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
         self.run = TargetRun.from_proto(response.run)
+        self.multi_target = TargetMultiTarget.from_proto(response.multi_target)
 
     def delete(self):
         stub = target_pb2_grpc.ClouddeployAlphaTargetServiceStub(channel.Channel())
@@ -164,6 +173,12 @@ class Target(object):
             request.resource.run.CopyFrom(TargetRun.to_proto(self.run))
         else:
             request.resource.ClearField("run")
+        if TargetMultiTarget.to_proto(self.multi_target):
+            request.resource.multi_target.CopyFrom(
+                TargetMultiTarget.to_proto(self.multi_target)
+            )
+        else:
+            request.resource.ClearField("multi_target")
         response = stub.DeleteClouddeployAlphaTarget(request)
 
     @classmethod
@@ -211,6 +226,12 @@ class Target(object):
             resource.run.CopyFrom(TargetRun.to_proto(self.run))
         else:
             resource.ClearField("run")
+        if TargetMultiTarget.to_proto(self.multi_target):
+            resource.multi_target.CopyFrom(
+                TargetMultiTarget.to_proto(self.multi_target)
+            )
+        else:
+            resource.ClearField("multi_target")
         return resource
 
 
@@ -385,6 +406,42 @@ class TargetRunArray(object):
     @classmethod
     def from_proto(self, resources):
         return [TargetRun.from_proto(i) for i in resources]
+
+
+class TargetMultiTarget(object):
+    def __init__(self, target_ids: list = None):
+        self.target_ids = target_ids
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = target_pb2.ClouddeployAlphaTargetMultiTarget()
+        if Primitive.to_proto(resource.target_ids):
+            res.target_ids.extend(Primitive.to_proto(resource.target_ids))
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return TargetMultiTarget(
+            target_ids=Primitive.from_proto(resource.target_ids),
+        )
+
+
+class TargetMultiTargetArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [TargetMultiTarget.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [TargetMultiTarget.from_proto(i) for i in resources]
 
 
 class TargetExecutionConfigsUsagesEnum(object):

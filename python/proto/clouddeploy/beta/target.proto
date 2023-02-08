@@ -45,6 +45,7 @@ message ClouddeployBetaTarget {
   string project = 14;
   string location = 15;
   ClouddeployBetaTargetRun run = 16;
+  ClouddeployBetaTargetMultiTarget multi_target = 17;
 }
 
 message ClouddeployBetaTargetGke {
@@ -66,6 +67,10 @@ message ClouddeployBetaTargetExecutionConfigs {
 
 message ClouddeployBetaTargetRun {
   string location = 1;
+}
+
+message ClouddeployBetaTargetMultiTarget {
+  repeated string target_ids = 1;
 }
 
 message ApplyClouddeployBetaTargetRequest {

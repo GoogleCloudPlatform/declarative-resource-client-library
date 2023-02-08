@@ -87,6 +87,18 @@ func ProtoToClouddeployBetaTargetRun(p *betapb.ClouddeployBetaTargetRun) *beta.T
 	return obj
 }
 
+// ProtoToTargetMultiTarget converts a TargetMultiTarget object from its proto representation.
+func ProtoToClouddeployBetaTargetMultiTarget(p *betapb.ClouddeployBetaTargetMultiTarget) *beta.TargetMultiTarget {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.TargetMultiTarget{}
+	for _, r := range p.GetTargetIds() {
+		obj.TargetIds = append(obj.TargetIds, r)
+	}
+	return obj
+}
+
 // ProtoToTarget converts a Target resource from its proto representation.
 func ProtoToTarget(p *betapb.ClouddeployBetaTarget) *beta.Target {
 	obj := &beta.Target{
@@ -103,6 +115,7 @@ func ProtoToTarget(p *betapb.ClouddeployBetaTarget) *beta.Target {
 		Project:         dcl.StringOrNil(p.GetProject()),
 		Location:        dcl.StringOrNil(p.GetLocation()),
 		Run:             ProtoToClouddeployBetaTargetRun(p.GetRun()),
+		MultiTarget:     ProtoToClouddeployBetaTargetMultiTarget(p.GetMultiTarget()),
 	}
 	for _, r := range p.GetExecutionConfigs() {
 		obj.ExecutionConfigs = append(obj.ExecutionConfigs, *ProtoToClouddeployBetaTargetExecutionConfigs(r))
@@ -170,6 +183,20 @@ func ClouddeployBetaTargetRunToProto(o *beta.TargetRun) *betapb.ClouddeployBetaT
 	return p
 }
 
+// TargetMultiTargetToProto converts a TargetMultiTarget object to its proto representation.
+func ClouddeployBetaTargetMultiTargetToProto(o *beta.TargetMultiTarget) *betapb.ClouddeployBetaTargetMultiTarget {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ClouddeployBetaTargetMultiTarget{}
+	sTargetIds := make([]string, len(o.TargetIds))
+	for i, r := range o.TargetIds {
+		sTargetIds[i] = r
+	}
+	p.SetTargetIds(sTargetIds)
+	return p
+}
+
 // TargetToProto converts a Target resource to its proto representation.
 func TargetToProto(resource *beta.Target) *betapb.ClouddeployBetaTarget {
 	p := &betapb.ClouddeployBetaTarget{}
@@ -186,6 +213,7 @@ func TargetToProto(resource *beta.Target) *betapb.ClouddeployBetaTarget {
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetRun(ClouddeployBetaTargetRunToProto(resource.Run))
+	p.SetMultiTarget(ClouddeployBetaTargetMultiTargetToProto(resource.MultiTarget))
 	mAnnotations := make(map[string]string, len(resource.Annotations))
 	for k, r := range resource.Annotations {
 		mAnnotations[k] = r
