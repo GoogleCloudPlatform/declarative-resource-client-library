@@ -139,6 +139,12 @@ func DCLWorkloadSchema() *dcl.Schema {
 									"FEDRAMP_HIGH",
 									"FEDRAMP_MODERATE",
 									"US_REGIONAL_ACCESS",
+									"HIPAA",
+									"EU_REGIONS_AND_SUPPORT",
+									"CA_REGIONS_AND_SUPPORT",
+									"ITAR",
+									"AU_REGIONS_AND_US_SUPPORT",
+									"ASSURED_WORKLOADS_FOR_PARTNERS",
 								},
 							},
 							"createTime": &dcl.Property{
