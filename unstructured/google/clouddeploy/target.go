@@ -107,6 +107,13 @@ func TargetToUnstructured(r *dclService.Target) *unstructured.Resource {
 	if r.RequireApproval != nil {
 		u.Object["requireApproval"] = *r.RequireApproval
 	}
+	if r.Run != nil && r.Run != dclService.EmptyTargetRun {
+		rRun := make(map[string]interface{})
+		if r.Run.Location != nil {
+			rRun["location"] = *r.Run.Location
+		}
+		u.Object["run"] = rRun
+	}
 	if r.TargetId != nil {
 		u.Object["targetId"] = *r.TargetId
 	}
@@ -280,6 +287,20 @@ func UnstructuredToTarget(u *unstructured.Resource) (*dclService.Target, error) 
 			r.RequireApproval = dcl.Bool(b)
 		} else {
 			return nil, fmt.Errorf("r.RequireApproval: expected bool")
+		}
+	}
+	if _, ok := u.Object["run"]; ok {
+		if rRun, ok := u.Object["run"].(map[string]interface{}); ok {
+			r.Run = &dclService.TargetRun{}
+			if _, ok := rRun["location"]; ok {
+				if s, ok := rRun["location"].(string); ok {
+					r.Run.Location = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.Run.Location: expected string")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.Run: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["targetId"]; ok {

@@ -44,6 +44,7 @@ message ClouddeployTarget {
   repeated ClouddeployTargetExecutionConfigs execution_configs = 13;
   string project = 14;
   string location = 15;
+  ClouddeployTargetRun run = 16;
 }
 
 message ClouddeployTargetGke {
@@ -61,6 +62,10 @@ message ClouddeployTargetExecutionConfigs {
   string service_account = 3;
   string artifact_storage = 4;
   string execution_timeout = 5;
+}
+
+message ClouddeployTargetRun {
+  string location = 1;
 }
 
 message ApplyClouddeployTargetRequest {
