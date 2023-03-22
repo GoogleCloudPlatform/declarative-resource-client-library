@@ -38,6 +38,12 @@ enum AssuredworkloadsWorkloadComplianceRegimeEnum {
   AssuredworkloadsWorkloadComplianceRegimeEnumFEDRAMP_HIGH = 4;
   AssuredworkloadsWorkloadComplianceRegimeEnumFEDRAMP_MODERATE = 5;
   AssuredworkloadsWorkloadComplianceRegimeEnumUS_REGIONAL_ACCESS = 6;
+  AssuredworkloadsWorkloadComplianceRegimeEnumHIPAA = 7;
+  AssuredworkloadsWorkloadComplianceRegimeEnumEU_REGIONS_AND_SUPPORT = 8;
+  AssuredworkloadsWorkloadComplianceRegimeEnumCA_REGIONS_AND_SUPPORT = 9;
+  AssuredworkloadsWorkloadComplianceRegimeEnumITAR = 10;
+  AssuredworkloadsWorkloadComplianceRegimeEnumAU_REGIONS_AND_US_SUPPORT = 11;
+  AssuredworkloadsWorkloadComplianceRegimeEnumASSURED_WORKLOADS_FOR_PARTNERS = 12;
 }
 
 enum AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum {
