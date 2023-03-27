@@ -126,6 +126,7 @@ message PrivatecaCaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsa
 message PrivatecaCaPoolIssuancePolicyBaselineValuesCaOptions {
   bool is_ca = 1;
   int64 max_issuer_path_length = 2;
+  bool zero_max_issuer_path_length = 3;
 }
 
 message PrivatecaCaPoolIssuancePolicyBaselineValuesPolicyIds {

@@ -169,6 +169,7 @@ message PrivatecaBetaCertificateAuthorityConfigX509ConfigKeyUsageUnknownExtended
 message PrivatecaBetaCertificateAuthorityConfigX509ConfigCaOptions {
   bool is_ca = 1;
   int64 max_issuer_path_length = 2;
+  bool zero_max_issuer_path_length = 3;
 }
 
 message PrivatecaBetaCertificateAuthorityConfigX509ConfigPolicyIds {

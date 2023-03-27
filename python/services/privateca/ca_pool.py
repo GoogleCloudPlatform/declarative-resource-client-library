@@ -836,9 +836,15 @@ class CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesArray(ob
 
 
 class CaPoolIssuancePolicyBaselineValuesCaOptions(object):
-    def __init__(self, is_ca: bool = None, max_issuer_path_length: int = None):
+    def __init__(
+        self,
+        is_ca: bool = None,
+        max_issuer_path_length: int = None,
+        zero_max_issuer_path_length: bool = None,
+    ):
         self.is_ca = is_ca
         self.max_issuer_path_length = max_issuer_path_length
+        self.zero_max_issuer_path_length = zero_max_issuer_path_length
 
     @classmethod
     def to_proto(self, resource):
@@ -852,6 +858,10 @@ class CaPoolIssuancePolicyBaselineValuesCaOptions(object):
             res.max_issuer_path_length = Primitive.to_proto(
                 resource.max_issuer_path_length
             )
+        if Primitive.to_proto(resource.zero_max_issuer_path_length):
+            res.zero_max_issuer_path_length = Primitive.to_proto(
+                resource.zero_max_issuer_path_length
+            )
         return res
 
     @classmethod
@@ -863,6 +873,9 @@ class CaPoolIssuancePolicyBaselineValuesCaOptions(object):
             is_ca=Primitive.from_proto(resource.is_ca),
             max_issuer_path_length=Primitive.from_proto(
                 resource.max_issuer_path_length
+            ),
+            zero_max_issuer_path_length=Primitive.from_proto(
+                resource.zero_max_issuer_path_length
             ),
         )
 

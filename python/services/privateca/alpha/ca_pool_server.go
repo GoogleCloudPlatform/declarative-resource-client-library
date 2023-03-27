@@ -214,8 +214,9 @@ func ProtoToPrivatecaAlphaCaPoolIssuancePolicyBaselineValuesCaOptions(p *alphapb
 		return nil
 	}
 	obj := &alpha.CaPoolIssuancePolicyBaselineValuesCaOptions{
-		IsCa:                dcl.Bool(p.GetIsCa()),
-		MaxIssuerPathLength: dcl.Int64OrNil(p.GetMaxIssuerPathLength()),
+		IsCa:                    dcl.Bool(p.GetIsCa()),
+		MaxIssuerPathLength:     dcl.Int64OrNil(p.GetMaxIssuerPathLength()),
+		ZeroMaxIssuerPathLength: dcl.Bool(p.GetZeroMaxIssuerPathLength()),
 	}
 	return obj
 }
@@ -528,6 +529,7 @@ func PrivatecaAlphaCaPoolIssuancePolicyBaselineValuesCaOptionsToProto(o *alpha.C
 	p := &alphapb.PrivatecaAlphaCaPoolIssuancePolicyBaselineValuesCaOptions{}
 	p.SetIsCa(dcl.ValueOrEmptyBool(o.IsCa))
 	p.SetMaxIssuerPathLength(dcl.ValueOrEmptyInt64(o.MaxIssuerPathLength))
+	p.SetZeroMaxIssuerPathLength(dcl.ValueOrEmptyBool(o.ZeroMaxIssuerPathLength))
 	return p
 }
 
