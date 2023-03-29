@@ -183,6 +183,24 @@ func DCLDeliveryPipelineSchema() *dcl.Schema {
 											},
 										},
 									},
+									"targetsTypeCondition": &dcl.Property{
+										Type:        "object",
+										GoName:      "TargetsTypeCondition",
+										GoType:      "DeliveryPipelineConditionTargetsTypeCondition",
+										Description: "Details on the whether the targets enumerated in the pipeline are of the same type.",
+										Properties: map[string]*dcl.Property{
+											"errorDetails": &dcl.Property{
+												Type:        "string",
+												GoName:      "ErrorDetails",
+												Description: "Human readable error message.",
+											},
+											"status": &dcl.Property{
+												Type:        "boolean",
+												GoName:      "Status",
+												Description: "True if the targets are all a comparable type. For example this is true if all targets are GKE clusters. This is false if some targets are Cloud Run targets and others are GKE clusters.",
+											},
+										},
+									},
 								},
 							},
 							"createTime": &dcl.Property{
@@ -263,6 +281,27 @@ func DCLDeliveryPipelineSchema() *dcl.Schema {
 													Items: &dcl.Property{
 														Type:   "string",
 														GoType: "string",
+													},
+												},
+												"strategy": &dcl.Property{
+													Type:        "object",
+													GoName:      "Strategy",
+													GoType:      "DeliveryPipelineSerialPipelineStagesStrategy",
+													Description: "Optional. The strategy to use for a `Rollout` to this stage.",
+													Properties: map[string]*dcl.Property{
+														"standard": &dcl.Property{
+															Type:        "object",
+															GoName:      "Standard",
+															GoType:      "DeliveryPipelineSerialPipelineStagesStrategyStandard",
+															Description: "Standard deployment strategy executes a single deploy and allows verifying the deployment.",
+															Properties: map[string]*dcl.Property{
+																"verify": &dcl.Property{
+																	Type:        "boolean",
+																	GoName:      "Verify",
+																	Description: "Whether to verify a deployment.",
+																},
+															},
+														},
 													},
 												},
 												"targetId": &dcl.Property{

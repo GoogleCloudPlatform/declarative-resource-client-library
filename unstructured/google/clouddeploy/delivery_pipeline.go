@@ -66,6 +66,16 @@ func DeliveryPipelineToUnstructured(r *dclService.DeliveryPipeline) *unstructure
 			}
 			rCondition["targetsPresentCondition"] = rConditionTargetsPresentCondition
 		}
+		if r.Condition.TargetsTypeCondition != nil && r.Condition.TargetsTypeCondition != dclService.EmptyDeliveryPipelineConditionTargetsTypeCondition {
+			rConditionTargetsTypeCondition := make(map[string]interface{})
+			if r.Condition.TargetsTypeCondition.ErrorDetails != nil {
+				rConditionTargetsTypeCondition["errorDetails"] = *r.Condition.TargetsTypeCondition.ErrorDetails
+			}
+			if r.Condition.TargetsTypeCondition.Status != nil {
+				rConditionTargetsTypeCondition["status"] = *r.Condition.TargetsTypeCondition.Status
+			}
+			rCondition["targetsTypeCondition"] = rConditionTargetsTypeCondition
+		}
 		u.Object["condition"] = rCondition
 	}
 	if r.CreateTime != nil {
@@ -103,6 +113,17 @@ func DeliveryPipelineToUnstructured(r *dclService.DeliveryPipeline) *unstructure
 				rSerialPipelineStagesValProfiles = append(rSerialPipelineStagesValProfiles, rSerialPipelineStagesValProfilesVal)
 			}
 			rSerialPipelineStagesObject["profiles"] = rSerialPipelineStagesValProfiles
+			if rSerialPipelineStagesVal.Strategy != nil && rSerialPipelineStagesVal.Strategy != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategy {
+				rSerialPipelineStagesValStrategy := make(map[string]interface{})
+				if rSerialPipelineStagesVal.Strategy.Standard != nil && rSerialPipelineStagesVal.Strategy.Standard != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyStandard {
+					rSerialPipelineStagesValStrategyStandard := make(map[string]interface{})
+					if rSerialPipelineStagesVal.Strategy.Standard.Verify != nil {
+						rSerialPipelineStagesValStrategyStandard["verify"] = *rSerialPipelineStagesVal.Strategy.Standard.Verify
+					}
+					rSerialPipelineStagesValStrategy["standard"] = rSerialPipelineStagesValStrategyStandard
+				}
+				rSerialPipelineStagesObject["strategy"] = rSerialPipelineStagesValStrategy
+			}
 			if rSerialPipelineStagesVal.TargetId != nil {
 				rSerialPipelineStagesObject["targetId"] = *rSerialPipelineStagesVal.TargetId
 			}
@@ -194,6 +215,27 @@ func UnstructuredToDeliveryPipeline(u *unstructured.Resource) (*dclService.Deliv
 					return nil, fmt.Errorf("r.Condition.TargetsPresentCondition: expected map[string]interface{}")
 				}
 			}
+			if _, ok := rCondition["targetsTypeCondition"]; ok {
+				if rConditionTargetsTypeCondition, ok := rCondition["targetsTypeCondition"].(map[string]interface{}); ok {
+					r.Condition.TargetsTypeCondition = &dclService.DeliveryPipelineConditionTargetsTypeCondition{}
+					if _, ok := rConditionTargetsTypeCondition["errorDetails"]; ok {
+						if s, ok := rConditionTargetsTypeCondition["errorDetails"].(string); ok {
+							r.Condition.TargetsTypeCondition.ErrorDetails = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Condition.TargetsTypeCondition.ErrorDetails: expected string")
+						}
+					}
+					if _, ok := rConditionTargetsTypeCondition["status"]; ok {
+						if b, ok := rConditionTargetsTypeCondition["status"].(bool); ok {
+							r.Condition.TargetsTypeCondition.Status = dcl.Bool(b)
+						} else {
+							return nil, fmt.Errorf("r.Condition.TargetsTypeCondition.Status: expected bool")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Condition.TargetsTypeCondition: expected map[string]interface{}")
+				}
+			}
 		} else {
 			return nil, fmt.Errorf("r.Condition: expected map[string]interface{}")
 		}
@@ -270,6 +312,27 @@ func UnstructuredToDeliveryPipeline(u *unstructured.Resource) (*dclService.Deliv
 									}
 								} else {
 									return nil, fmt.Errorf("rSerialPipelineStages.Profiles: expected []interface{}")
+								}
+							}
+							if _, ok := objval["strategy"]; ok {
+								if rSerialPipelineStagesStrategy, ok := objval["strategy"].(map[string]interface{}); ok {
+									rSerialPipelineStages.Strategy = &dclService.DeliveryPipelineSerialPipelineStagesStrategy{}
+									if _, ok := rSerialPipelineStagesStrategy["standard"]; ok {
+										if rSerialPipelineStagesStrategyStandard, ok := rSerialPipelineStagesStrategy["standard"].(map[string]interface{}); ok {
+											rSerialPipelineStages.Strategy.Standard = &dclService.DeliveryPipelineSerialPipelineStagesStrategyStandard{}
+											if _, ok := rSerialPipelineStagesStrategyStandard["verify"]; ok {
+												if b, ok := rSerialPipelineStagesStrategyStandard["verify"].(bool); ok {
+													rSerialPipelineStages.Strategy.Standard.Verify = dcl.Bool(b)
+												} else {
+													return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Standard.Verify: expected bool")
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Standard: expected map[string]interface{}")
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("rSerialPipelineStages.Strategy: expected map[string]interface{}")
 								}
 							}
 							if _, ok := objval["targetId"]; ok {

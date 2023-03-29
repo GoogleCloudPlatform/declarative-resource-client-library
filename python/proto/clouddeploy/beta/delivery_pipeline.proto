@@ -49,15 +49,64 @@ message ClouddeployBetaDeliveryPipelineSerialPipelineStages {
 
 message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategy {
   ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyStandard standard = 1;
+  ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanary canary = 2;
 }
 
 message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyStandard {
   bool verify = 1;
 }
 
+message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanary {
+  ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig runtime_config = 1;
+  ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment canary_deployment = 2;
+  ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment custom_canary_deployment = 3;
+}
+
+message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig {
+  ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes kubernetes = 1;
+  ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun cloud_run = 2;
+}
+
+message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes {
+  ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh gateway_service_mesh = 1;
+  ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking service_networking = 2;
+}
+
+message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh {
+  string http_route = 1;
+  string service = 2;
+  string deployment = 3;
+}
+
+message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking {
+  string service = 1;
+  string deployment = 2;
+}
+
+message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun {
+  bool automatic_traffic_control = 1;
+}
+
+message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment {
+  repeated int64 percentages = 1;
+  bool verify = 2;
+}
+
+message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment {
+  repeated ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs phase_configs = 1;
+}
+
+message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs {
+  string phase_id = 1;
+  int64 percentage = 2;
+  repeated string profiles = 3;
+  bool verify = 4;
+}
+
 message ClouddeployBetaDeliveryPipelineCondition {
   ClouddeployBetaDeliveryPipelineConditionPipelineReadyCondition pipeline_ready_condition = 1;
   ClouddeployBetaDeliveryPipelineConditionTargetsPresentCondition targets_present_condition = 2;
+  ClouddeployBetaDeliveryPipelineConditionTargetsTypeCondition targets_type_condition = 3;
 }
 
 message ClouddeployBetaDeliveryPipelineConditionPipelineReadyCondition {
@@ -69,6 +118,11 @@ message ClouddeployBetaDeliveryPipelineConditionTargetsPresentCondition {
   bool status = 1;
   repeated string missing_targets = 2;
   string update_time = 3;
+}
+
+message ClouddeployBetaDeliveryPipelineConditionTargetsTypeCondition {
+  bool status = 1;
+  string error_details = 2;
 }
 
 message ApplyClouddeployBetaDeliveryPipelineRequest {

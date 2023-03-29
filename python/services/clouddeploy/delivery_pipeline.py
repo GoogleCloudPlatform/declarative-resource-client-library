@@ -216,9 +216,12 @@ class DeliveryPipelineSerialPipelineArray(object):
 
 
 class DeliveryPipelineSerialPipelineStages(object):
-    def __init__(self, target_id: str = None, profiles: list = None):
+    def __init__(
+        self, target_id: str = None, profiles: list = None, strategy: dict = None
+    ):
         self.target_id = target_id
         self.profiles = profiles
+        self.strategy = strategy
 
     @classmethod
     def to_proto(self, resource):
@@ -230,6 +233,12 @@ class DeliveryPipelineSerialPipelineStages(object):
             res.target_id = Primitive.to_proto(resource.target_id)
         if Primitive.to_proto(resource.profiles):
             res.profiles.extend(Primitive.to_proto(resource.profiles))
+        if DeliveryPipelineSerialPipelineStagesStrategy.to_proto(resource.strategy):
+            res.strategy.CopyFrom(
+                DeliveryPipelineSerialPipelineStagesStrategy.to_proto(resource.strategy)
+            )
+        else:
+            res.ClearField("strategy")
         return res
 
     @classmethod
@@ -240,6 +249,9 @@ class DeliveryPipelineSerialPipelineStages(object):
         return DeliveryPipelineSerialPipelineStages(
             target_id=Primitive.from_proto(resource.target_id),
             profiles=Primitive.from_proto(resource.profiles),
+            strategy=DeliveryPipelineSerialPipelineStagesStrategy.from_proto(
+                resource.strategy
+            ),
         )
 
 
@@ -255,14 +267,113 @@ class DeliveryPipelineSerialPipelineStagesArray(object):
         return [DeliveryPipelineSerialPipelineStages.from_proto(i) for i in resources]
 
 
+class DeliveryPipelineSerialPipelineStagesStrategy(object):
+    def __init__(self, standard: dict = None):
+        self.standard = standard
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            delivery_pipeline_pb2.ClouddeployDeliveryPipelineSerialPipelineStagesStrategy()
+        )
+        if DeliveryPipelineSerialPipelineStagesStrategyStandard.to_proto(
+            resource.standard
+        ):
+            res.standard.CopyFrom(
+                DeliveryPipelineSerialPipelineStagesStrategyStandard.to_proto(
+                    resource.standard
+                )
+            )
+        else:
+            res.ClearField("standard")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DeliveryPipelineSerialPipelineStagesStrategy(
+            standard=DeliveryPipelineSerialPipelineStagesStrategyStandard.from_proto(
+                resource.standard
+            ),
+        )
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategy.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategy.from_proto(i)
+            for i in resources
+        ]
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyStandard(object):
+    def __init__(self, verify: bool = None):
+        self.verify = verify
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            delivery_pipeline_pb2.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyStandard()
+        )
+        if Primitive.to_proto(resource.verify):
+            res.verify = Primitive.to_proto(resource.verify)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DeliveryPipelineSerialPipelineStagesStrategyStandard(
+            verify=Primitive.from_proto(resource.verify),
+        )
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyStandardArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyStandard.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyStandard.from_proto(i)
+            for i in resources
+        ]
+
+
 class DeliveryPipelineCondition(object):
     def __init__(
         self,
         pipeline_ready_condition: dict = None,
         targets_present_condition: dict = None,
+        targets_type_condition: dict = None,
     ):
         self.pipeline_ready_condition = pipeline_ready_condition
         self.targets_present_condition = targets_present_condition
+        self.targets_type_condition = targets_type_condition
 
     @classmethod
     def to_proto(self, resource):
@@ -290,6 +401,16 @@ class DeliveryPipelineCondition(object):
             )
         else:
             res.ClearField("targets_present_condition")
+        if DeliveryPipelineConditionTargetsTypeCondition.to_proto(
+            resource.targets_type_condition
+        ):
+            res.targets_type_condition.CopyFrom(
+                DeliveryPipelineConditionTargetsTypeCondition.to_proto(
+                    resource.targets_type_condition
+                )
+            )
+        else:
+            res.ClearField("targets_type_condition")
         return res
 
     @classmethod
@@ -303,6 +424,9 @@ class DeliveryPipelineCondition(object):
             ),
             targets_present_condition=DeliveryPipelineConditionTargetsPresentCondition.from_proto(
                 resource.targets_present_condition
+            ),
+            targets_type_condition=DeliveryPipelineConditionTargetsTypeCondition.from_proto(
+                resource.targets_type_condition
             ),
         )
 
@@ -417,6 +541,53 @@ class DeliveryPipelineConditionTargetsPresentConditionArray(object):
     def from_proto(self, resources):
         return [
             DeliveryPipelineConditionTargetsPresentCondition.from_proto(i)
+            for i in resources
+        ]
+
+
+class DeliveryPipelineConditionTargetsTypeCondition(object):
+    def __init__(self, status: bool = None, error_details: str = None):
+        self.status = status
+        self.error_details = error_details
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            delivery_pipeline_pb2.ClouddeployDeliveryPipelineConditionTargetsTypeCondition()
+        )
+        if Primitive.to_proto(resource.status):
+            res.status = Primitive.to_proto(resource.status)
+        if Primitive.to_proto(resource.error_details):
+            res.error_details = Primitive.to_proto(resource.error_details)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DeliveryPipelineConditionTargetsTypeCondition(
+            status=Primitive.from_proto(resource.status),
+            error_details=Primitive.from_proto(resource.error_details),
+        )
+
+
+class DeliveryPipelineConditionTargetsTypeConditionArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            DeliveryPipelineConditionTargetsTypeCondition.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            DeliveryPipelineConditionTargetsTypeCondition.from_proto(i)
             for i in resources
         ]
 

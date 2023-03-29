@@ -52,6 +52,22 @@ func (r *DeliveryPipelineSerialPipeline) validate() error {
 	return nil
 }
 func (r *DeliveryPipelineSerialPipelineStages) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.Strategy) {
+		if err := r.Strategy.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *DeliveryPipelineSerialPipelineStagesStrategy) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.Standard) {
+		if err := r.Standard.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *DeliveryPipelineSerialPipelineStagesStrategyStandard) validate() error {
 	return nil
 }
 func (r *DeliveryPipelineCondition) validate() error {
@@ -65,12 +81,20 @@ func (r *DeliveryPipelineCondition) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.TargetsTypeCondition) {
+		if err := r.TargetsTypeCondition.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *DeliveryPipelineConditionPipelineReadyCondition) validate() error {
 	return nil
 }
 func (r *DeliveryPipelineConditionTargetsPresentCondition) validate() error {
+	return nil
+}
+func (r *DeliveryPipelineConditionTargetsTypeCondition) validate() error {
 	return nil
 }
 func (r *DeliveryPipeline) basePath() string {
@@ -785,6 +809,7 @@ func canonicalizeDeliveryPipelineSerialPipelineStages(des, initial *DeliveryPipe
 	} else {
 		cDes.Profiles = des.Profiles
 	}
+	cDes.Strategy = canonicalizeDeliveryPipelineSerialPipelineStagesStrategy(des.Strategy, initial.Strategy, opts...)
 
 	return cDes
 }
@@ -837,6 +862,7 @@ func canonicalizeNewDeliveryPipelineSerialPipelineStages(c *Client, des, nw *Del
 	if dcl.StringArrayCanonicalize(des.Profiles, nw.Profiles) {
 		nw.Profiles = des.Profiles
 	}
+	nw.Strategy = canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategy(c, des.Strategy, nw.Strategy)
 
 	return nw
 }
@@ -887,6 +913,236 @@ func canonicalizeNewDeliveryPipelineSerialPipelineStagesSlice(c *Client, des, nw
 	return items
 }
 
+func canonicalizeDeliveryPipelineSerialPipelineStagesStrategy(des, initial *DeliveryPipelineSerialPipelineStagesStrategy, opts ...dcl.ApplyOption) *DeliveryPipelineSerialPipelineStagesStrategy {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &DeliveryPipelineSerialPipelineStagesStrategy{}
+
+	cDes.Standard = canonicalizeDeliveryPipelineSerialPipelineStagesStrategyStandard(des.Standard, initial.Standard, opts...)
+
+	return cDes
+}
+
+func canonicalizeDeliveryPipelineSerialPipelineStagesStrategySlice(des, initial []DeliveryPipelineSerialPipelineStagesStrategy, opts ...dcl.ApplyOption) []DeliveryPipelineSerialPipelineStagesStrategy {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DeliveryPipelineSerialPipelineStagesStrategy, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDeliveryPipelineSerialPipelineStagesStrategy(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DeliveryPipelineSerialPipelineStagesStrategy, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDeliveryPipelineSerialPipelineStagesStrategy(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategy(c *Client, des, nw *DeliveryPipelineSerialPipelineStagesStrategy) *DeliveryPipelineSerialPipelineStagesStrategy {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DeliveryPipelineSerialPipelineStagesStrategy while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	nw.Standard = canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategyStandard(c, des.Standard, nw.Standard)
+
+	return nw
+}
+
+func canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategySet(c *Client, des, nw []DeliveryPipelineSerialPipelineStagesStrategy) []DeliveryPipelineSerialPipelineStagesStrategy {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []DeliveryPipelineSerialPipelineStagesStrategy
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareDeliveryPipelineSerialPipelineStagesStrategyNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategy(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategySlice(c *Client, des, nw []DeliveryPipelineSerialPipelineStagesStrategy) []DeliveryPipelineSerialPipelineStagesStrategy {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []DeliveryPipelineSerialPipelineStagesStrategy
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategy(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeDeliveryPipelineSerialPipelineStagesStrategyStandard(des, initial *DeliveryPipelineSerialPipelineStagesStrategyStandard, opts ...dcl.ApplyOption) *DeliveryPipelineSerialPipelineStagesStrategyStandard {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &DeliveryPipelineSerialPipelineStagesStrategyStandard{}
+
+	if dcl.BoolCanonicalize(des.Verify, initial.Verify) || dcl.IsZeroValue(des.Verify) {
+		cDes.Verify = initial.Verify
+	} else {
+		cDes.Verify = des.Verify
+	}
+
+	return cDes
+}
+
+func canonicalizeDeliveryPipelineSerialPipelineStagesStrategyStandardSlice(des, initial []DeliveryPipelineSerialPipelineStagesStrategyStandard, opts ...dcl.ApplyOption) []DeliveryPipelineSerialPipelineStagesStrategyStandard {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DeliveryPipelineSerialPipelineStagesStrategyStandard, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDeliveryPipelineSerialPipelineStagesStrategyStandard(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DeliveryPipelineSerialPipelineStagesStrategyStandard, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDeliveryPipelineSerialPipelineStagesStrategyStandard(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategyStandard(c *Client, des, nw *DeliveryPipelineSerialPipelineStagesStrategyStandard) *DeliveryPipelineSerialPipelineStagesStrategyStandard {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DeliveryPipelineSerialPipelineStagesStrategyStandard while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.BoolCanonicalize(des.Verify, nw.Verify) {
+		nw.Verify = des.Verify
+	}
+
+	return nw
+}
+
+func canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategyStandardSet(c *Client, des, nw []DeliveryPipelineSerialPipelineStagesStrategyStandard) []DeliveryPipelineSerialPipelineStagesStrategyStandard {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []DeliveryPipelineSerialPipelineStagesStrategyStandard
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareDeliveryPipelineSerialPipelineStagesStrategyStandardNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategyStandard(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategyStandardSlice(c *Client, des, nw []DeliveryPipelineSerialPipelineStagesStrategyStandard) []DeliveryPipelineSerialPipelineStagesStrategyStandard {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []DeliveryPipelineSerialPipelineStagesStrategyStandard
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategyStandard(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeDeliveryPipelineCondition(des, initial *DeliveryPipelineCondition, opts ...dcl.ApplyOption) *DeliveryPipelineCondition {
 	if des == nil {
 		return initial
@@ -903,6 +1159,7 @@ func canonicalizeDeliveryPipelineCondition(des, initial *DeliveryPipelineConditi
 
 	cDes.PipelineReadyCondition = canonicalizeDeliveryPipelineConditionPipelineReadyCondition(des.PipelineReadyCondition, initial.PipelineReadyCondition, opts...)
 	cDes.TargetsPresentCondition = canonicalizeDeliveryPipelineConditionTargetsPresentCondition(des.TargetsPresentCondition, initial.TargetsPresentCondition, opts...)
+	cDes.TargetsTypeCondition = canonicalizeDeliveryPipelineConditionTargetsTypeCondition(des.TargetsTypeCondition, initial.TargetsTypeCondition, opts...)
 
 	return cDes
 }
@@ -951,6 +1208,7 @@ func canonicalizeNewDeliveryPipelineCondition(c *Client, des, nw *DeliveryPipeli
 
 	nw.PipelineReadyCondition = canonicalizeNewDeliveryPipelineConditionPipelineReadyCondition(c, des.PipelineReadyCondition, nw.PipelineReadyCondition)
 	nw.TargetsPresentCondition = canonicalizeNewDeliveryPipelineConditionTargetsPresentCondition(c, des.TargetsPresentCondition, nw.TargetsPresentCondition)
+	nw.TargetsTypeCondition = canonicalizeNewDeliveryPipelineConditionTargetsTypeCondition(c, des.TargetsTypeCondition, nw.TargetsTypeCondition)
 
 	return nw
 }
@@ -1257,6 +1515,132 @@ func canonicalizeNewDeliveryPipelineConditionTargetsPresentConditionSlice(c *Cli
 	return items
 }
 
+func canonicalizeDeliveryPipelineConditionTargetsTypeCondition(des, initial *DeliveryPipelineConditionTargetsTypeCondition, opts ...dcl.ApplyOption) *DeliveryPipelineConditionTargetsTypeCondition {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &DeliveryPipelineConditionTargetsTypeCondition{}
+
+	if dcl.BoolCanonicalize(des.Status, initial.Status) || dcl.IsZeroValue(des.Status) {
+		cDes.Status = initial.Status
+	} else {
+		cDes.Status = des.Status
+	}
+	if dcl.StringCanonicalize(des.ErrorDetails, initial.ErrorDetails) || dcl.IsZeroValue(des.ErrorDetails) {
+		cDes.ErrorDetails = initial.ErrorDetails
+	} else {
+		cDes.ErrorDetails = des.ErrorDetails
+	}
+
+	return cDes
+}
+
+func canonicalizeDeliveryPipelineConditionTargetsTypeConditionSlice(des, initial []DeliveryPipelineConditionTargetsTypeCondition, opts ...dcl.ApplyOption) []DeliveryPipelineConditionTargetsTypeCondition {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DeliveryPipelineConditionTargetsTypeCondition, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDeliveryPipelineConditionTargetsTypeCondition(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DeliveryPipelineConditionTargetsTypeCondition, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDeliveryPipelineConditionTargetsTypeCondition(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewDeliveryPipelineConditionTargetsTypeCondition(c *Client, des, nw *DeliveryPipelineConditionTargetsTypeCondition) *DeliveryPipelineConditionTargetsTypeCondition {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DeliveryPipelineConditionTargetsTypeCondition while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.BoolCanonicalize(des.Status, nw.Status) {
+		nw.Status = des.Status
+	}
+	if dcl.StringCanonicalize(des.ErrorDetails, nw.ErrorDetails) {
+		nw.ErrorDetails = des.ErrorDetails
+	}
+
+	return nw
+}
+
+func canonicalizeNewDeliveryPipelineConditionTargetsTypeConditionSet(c *Client, des, nw []DeliveryPipelineConditionTargetsTypeCondition) []DeliveryPipelineConditionTargetsTypeCondition {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []DeliveryPipelineConditionTargetsTypeCondition
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareDeliveryPipelineConditionTargetsTypeConditionNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewDeliveryPipelineConditionTargetsTypeCondition(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewDeliveryPipelineConditionTargetsTypeConditionSlice(c *Client, des, nw []DeliveryPipelineConditionTargetsTypeCondition) []DeliveryPipelineConditionTargetsTypeCondition {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []DeliveryPipelineConditionTargetsTypeCondition
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDeliveryPipelineConditionTargetsTypeCondition(c, &d, &n))
+	}
+
+	return items
+}
+
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -1433,6 +1817,71 @@ func compareDeliveryPipelineSerialPipelineStagesNewStyle(d, a interface{}, fn dc
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Strategy, actual.Strategy, dcl.DiffInfo{ObjectFunction: compareDeliveryPipelineSerialPipelineStagesStrategyNewStyle, EmptyObject: EmptyDeliveryPipelineSerialPipelineStagesStrategy, OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Strategy")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareDeliveryPipelineSerialPipelineStagesStrategyNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DeliveryPipelineSerialPipelineStagesStrategy)
+	if !ok {
+		desiredNotPointer, ok := d.(DeliveryPipelineSerialPipelineStagesStrategy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DeliveryPipelineSerialPipelineStagesStrategy or *DeliveryPipelineSerialPipelineStagesStrategy", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DeliveryPipelineSerialPipelineStagesStrategy)
+	if !ok {
+		actualNotPointer, ok := a.(DeliveryPipelineSerialPipelineStagesStrategy)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DeliveryPipelineSerialPipelineStagesStrategy", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Standard, actual.Standard, dcl.DiffInfo{ObjectFunction: compareDeliveryPipelineSerialPipelineStagesStrategyStandardNewStyle, EmptyObject: EmptyDeliveryPipelineSerialPipelineStagesStrategyStandard, OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Standard")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareDeliveryPipelineSerialPipelineStagesStrategyStandardNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DeliveryPipelineSerialPipelineStagesStrategyStandard)
+	if !ok {
+		desiredNotPointer, ok := d.(DeliveryPipelineSerialPipelineStagesStrategyStandard)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DeliveryPipelineSerialPipelineStagesStrategyStandard or *DeliveryPipelineSerialPipelineStagesStrategyStandard", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DeliveryPipelineSerialPipelineStagesStrategyStandard)
+	if !ok {
+		actualNotPointer, ok := a.(DeliveryPipelineSerialPipelineStagesStrategyStandard)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DeliveryPipelineSerialPipelineStagesStrategyStandard", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Verify, actual.Verify, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Verify")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -1464,6 +1913,13 @@ func compareDeliveryPipelineConditionNewStyle(d, a interface{}, fn dcl.FieldName
 	}
 
 	if ds, err := dcl.Diff(desired.TargetsPresentCondition, actual.TargetsPresentCondition, dcl.DiffInfo{ObjectFunction: compareDeliveryPipelineConditionTargetsPresentConditionNewStyle, EmptyObject: EmptyDeliveryPipelineConditionTargetsPresentCondition, OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("TargetsPresentCondition")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.TargetsTypeCondition, actual.TargetsTypeCondition, dcl.DiffInfo{ObjectFunction: compareDeliveryPipelineConditionTargetsTypeConditionNewStyle, EmptyObject: EmptyDeliveryPipelineConditionTargetsTypeCondition, OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("TargetsTypeCondition")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1543,6 +1999,42 @@ func compareDeliveryPipelineConditionTargetsPresentConditionNewStyle(d, a interf
 	}
 
 	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareDeliveryPipelineConditionTargetsTypeConditionNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DeliveryPipelineConditionTargetsTypeCondition)
+	if !ok {
+		desiredNotPointer, ok := d.(DeliveryPipelineConditionTargetsTypeCondition)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DeliveryPipelineConditionTargetsTypeCondition or *DeliveryPipelineConditionTargetsTypeCondition", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DeliveryPipelineConditionTargetsTypeCondition)
+	if !ok {
+		actualNotPointer, ok := a.(DeliveryPipelineConditionTargetsTypeCondition)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DeliveryPipelineConditionTargetsTypeCondition", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Status, actual.Status, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("Status")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ErrorDetails, actual.ErrorDetails, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("ErrorDetails")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1891,6 +2383,11 @@ func expandDeliveryPipelineSerialPipelineStages(c *Client, f *DeliveryPipelineSe
 	if v := f.Profiles; v != nil {
 		m["profiles"] = v
 	}
+	if v, err := expandDeliveryPipelineSerialPipelineStagesStrategy(c, f.Strategy, res); err != nil {
+		return nil, fmt.Errorf("error expanding Strategy into strategy: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["strategy"] = v
+	}
 
 	return m, nil
 }
@@ -1910,6 +2407,237 @@ func flattenDeliveryPipelineSerialPipelineStages(c *Client, i interface{}, res *
 	}
 	r.TargetId = dcl.FlattenString(m["targetId"])
 	r.Profiles = dcl.FlattenStringSlice(m["profiles"])
+	r.Strategy = flattenDeliveryPipelineSerialPipelineStagesStrategy(c, m["strategy"], res)
+
+	return r
+}
+
+// expandDeliveryPipelineSerialPipelineStagesStrategyMap expands the contents of DeliveryPipelineSerialPipelineStagesStrategy into a JSON
+// request object.
+func expandDeliveryPipelineSerialPipelineStagesStrategyMap(c *Client, f map[string]DeliveryPipelineSerialPipelineStagesStrategy, res *DeliveryPipeline) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandDeliveryPipelineSerialPipelineStagesStrategy(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandDeliveryPipelineSerialPipelineStagesStrategySlice expands the contents of DeliveryPipelineSerialPipelineStagesStrategy into a JSON
+// request object.
+func expandDeliveryPipelineSerialPipelineStagesStrategySlice(c *Client, f []DeliveryPipelineSerialPipelineStagesStrategy, res *DeliveryPipeline) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandDeliveryPipelineSerialPipelineStagesStrategy(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenDeliveryPipelineSerialPipelineStagesStrategyMap flattens the contents of DeliveryPipelineSerialPipelineStagesStrategy from a JSON
+// response object.
+func flattenDeliveryPipelineSerialPipelineStagesStrategyMap(c *Client, i interface{}, res *DeliveryPipeline) map[string]DeliveryPipelineSerialPipelineStagesStrategy {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DeliveryPipelineSerialPipelineStagesStrategy{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DeliveryPipelineSerialPipelineStagesStrategy{}
+	}
+
+	items := make(map[string]DeliveryPipelineSerialPipelineStagesStrategy)
+	for k, item := range a {
+		items[k] = *flattenDeliveryPipelineSerialPipelineStagesStrategy(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenDeliveryPipelineSerialPipelineStagesStrategySlice flattens the contents of DeliveryPipelineSerialPipelineStagesStrategy from a JSON
+// response object.
+func flattenDeliveryPipelineSerialPipelineStagesStrategySlice(c *Client, i interface{}, res *DeliveryPipeline) []DeliveryPipelineSerialPipelineStagesStrategy {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []DeliveryPipelineSerialPipelineStagesStrategy{}
+	}
+
+	if len(a) == 0 {
+		return []DeliveryPipelineSerialPipelineStagesStrategy{}
+	}
+
+	items := make([]DeliveryPipelineSerialPipelineStagesStrategy, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenDeliveryPipelineSerialPipelineStagesStrategy(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandDeliveryPipelineSerialPipelineStagesStrategy expands an instance of DeliveryPipelineSerialPipelineStagesStrategy into a JSON
+// request object.
+func expandDeliveryPipelineSerialPipelineStagesStrategy(c *Client, f *DeliveryPipelineSerialPipelineStagesStrategy, res *DeliveryPipeline) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := expandDeliveryPipelineSerialPipelineStagesStrategyStandard(c, f.Standard, res); err != nil {
+		return nil, fmt.Errorf("error expanding Standard into standard: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["standard"] = v
+	}
+
+	return m, nil
+}
+
+// flattenDeliveryPipelineSerialPipelineStagesStrategy flattens an instance of DeliveryPipelineSerialPipelineStagesStrategy from a JSON
+// response object.
+func flattenDeliveryPipelineSerialPipelineStagesStrategy(c *Client, i interface{}, res *DeliveryPipeline) *DeliveryPipelineSerialPipelineStagesStrategy {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &DeliveryPipelineSerialPipelineStagesStrategy{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDeliveryPipelineSerialPipelineStagesStrategy
+	}
+	r.Standard = flattenDeliveryPipelineSerialPipelineStagesStrategyStandard(c, m["standard"], res)
+
+	return r
+}
+
+// expandDeliveryPipelineSerialPipelineStagesStrategyStandardMap expands the contents of DeliveryPipelineSerialPipelineStagesStrategyStandard into a JSON
+// request object.
+func expandDeliveryPipelineSerialPipelineStagesStrategyStandardMap(c *Client, f map[string]DeliveryPipelineSerialPipelineStagesStrategyStandard, res *DeliveryPipeline) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandDeliveryPipelineSerialPipelineStagesStrategyStandard(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandDeliveryPipelineSerialPipelineStagesStrategyStandardSlice expands the contents of DeliveryPipelineSerialPipelineStagesStrategyStandard into a JSON
+// request object.
+func expandDeliveryPipelineSerialPipelineStagesStrategyStandardSlice(c *Client, f []DeliveryPipelineSerialPipelineStagesStrategyStandard, res *DeliveryPipeline) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandDeliveryPipelineSerialPipelineStagesStrategyStandard(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenDeliveryPipelineSerialPipelineStagesStrategyStandardMap flattens the contents of DeliveryPipelineSerialPipelineStagesStrategyStandard from a JSON
+// response object.
+func flattenDeliveryPipelineSerialPipelineStagesStrategyStandardMap(c *Client, i interface{}, res *DeliveryPipeline) map[string]DeliveryPipelineSerialPipelineStagesStrategyStandard {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DeliveryPipelineSerialPipelineStagesStrategyStandard{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DeliveryPipelineSerialPipelineStagesStrategyStandard{}
+	}
+
+	items := make(map[string]DeliveryPipelineSerialPipelineStagesStrategyStandard)
+	for k, item := range a {
+		items[k] = *flattenDeliveryPipelineSerialPipelineStagesStrategyStandard(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenDeliveryPipelineSerialPipelineStagesStrategyStandardSlice flattens the contents of DeliveryPipelineSerialPipelineStagesStrategyStandard from a JSON
+// response object.
+func flattenDeliveryPipelineSerialPipelineStagesStrategyStandardSlice(c *Client, i interface{}, res *DeliveryPipeline) []DeliveryPipelineSerialPipelineStagesStrategyStandard {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []DeliveryPipelineSerialPipelineStagesStrategyStandard{}
+	}
+
+	if len(a) == 0 {
+		return []DeliveryPipelineSerialPipelineStagesStrategyStandard{}
+	}
+
+	items := make([]DeliveryPipelineSerialPipelineStagesStrategyStandard, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenDeliveryPipelineSerialPipelineStagesStrategyStandard(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandDeliveryPipelineSerialPipelineStagesStrategyStandard expands an instance of DeliveryPipelineSerialPipelineStagesStrategyStandard into a JSON
+// request object.
+func expandDeliveryPipelineSerialPipelineStagesStrategyStandard(c *Client, f *DeliveryPipelineSerialPipelineStagesStrategyStandard, res *DeliveryPipeline) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Verify; !dcl.IsEmptyValueIndirect(v) {
+		m["verify"] = v
+	}
+
+	return m, nil
+}
+
+// flattenDeliveryPipelineSerialPipelineStagesStrategyStandard flattens an instance of DeliveryPipelineSerialPipelineStagesStrategyStandard from a JSON
+// response object.
+func flattenDeliveryPipelineSerialPipelineStagesStrategyStandard(c *Client, i interface{}, res *DeliveryPipeline) *DeliveryPipelineSerialPipelineStagesStrategyStandard {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &DeliveryPipelineSerialPipelineStagesStrategyStandard{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDeliveryPipelineSerialPipelineStagesStrategyStandard
+	}
+	r.Verify = dcl.FlattenBool(m["verify"])
 
 	return r
 }
@@ -2013,6 +2741,11 @@ func expandDeliveryPipelineCondition(c *Client, f *DeliveryPipelineCondition, re
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["targetsPresentCondition"] = v
 	}
+	if v, err := expandDeliveryPipelineConditionTargetsTypeCondition(c, f.TargetsTypeCondition, res); err != nil {
+		return nil, fmt.Errorf("error expanding TargetsTypeCondition into targetsTypeCondition: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["targetsTypeCondition"] = v
+	}
 
 	return m, nil
 }
@@ -2032,6 +2765,7 @@ func flattenDeliveryPipelineCondition(c *Client, i interface{}, res *DeliveryPip
 	}
 	r.PipelineReadyCondition = flattenDeliveryPipelineConditionPipelineReadyCondition(c, m["pipelineReadyCondition"], res)
 	r.TargetsPresentCondition = flattenDeliveryPipelineConditionTargetsPresentCondition(c, m["targetsPresentCondition"], res)
+	r.TargetsTypeCondition = flattenDeliveryPipelineConditionTargetsTypeCondition(c, m["targetsTypeCondition"], res)
 
 	return r
 }
@@ -2276,6 +3010,124 @@ func flattenDeliveryPipelineConditionTargetsPresentCondition(c *Client, i interf
 	return r
 }
 
+// expandDeliveryPipelineConditionTargetsTypeConditionMap expands the contents of DeliveryPipelineConditionTargetsTypeCondition into a JSON
+// request object.
+func expandDeliveryPipelineConditionTargetsTypeConditionMap(c *Client, f map[string]DeliveryPipelineConditionTargetsTypeCondition, res *DeliveryPipeline) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandDeliveryPipelineConditionTargetsTypeCondition(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandDeliveryPipelineConditionTargetsTypeConditionSlice expands the contents of DeliveryPipelineConditionTargetsTypeCondition into a JSON
+// request object.
+func expandDeliveryPipelineConditionTargetsTypeConditionSlice(c *Client, f []DeliveryPipelineConditionTargetsTypeCondition, res *DeliveryPipeline) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandDeliveryPipelineConditionTargetsTypeCondition(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenDeliveryPipelineConditionTargetsTypeConditionMap flattens the contents of DeliveryPipelineConditionTargetsTypeCondition from a JSON
+// response object.
+func flattenDeliveryPipelineConditionTargetsTypeConditionMap(c *Client, i interface{}, res *DeliveryPipeline) map[string]DeliveryPipelineConditionTargetsTypeCondition {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DeliveryPipelineConditionTargetsTypeCondition{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DeliveryPipelineConditionTargetsTypeCondition{}
+	}
+
+	items := make(map[string]DeliveryPipelineConditionTargetsTypeCondition)
+	for k, item := range a {
+		items[k] = *flattenDeliveryPipelineConditionTargetsTypeCondition(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenDeliveryPipelineConditionTargetsTypeConditionSlice flattens the contents of DeliveryPipelineConditionTargetsTypeCondition from a JSON
+// response object.
+func flattenDeliveryPipelineConditionTargetsTypeConditionSlice(c *Client, i interface{}, res *DeliveryPipeline) []DeliveryPipelineConditionTargetsTypeCondition {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []DeliveryPipelineConditionTargetsTypeCondition{}
+	}
+
+	if len(a) == 0 {
+		return []DeliveryPipelineConditionTargetsTypeCondition{}
+	}
+
+	items := make([]DeliveryPipelineConditionTargetsTypeCondition, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenDeliveryPipelineConditionTargetsTypeCondition(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandDeliveryPipelineConditionTargetsTypeCondition expands an instance of DeliveryPipelineConditionTargetsTypeCondition into a JSON
+// request object.
+func expandDeliveryPipelineConditionTargetsTypeCondition(c *Client, f *DeliveryPipelineConditionTargetsTypeCondition, res *DeliveryPipeline) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Status; !dcl.IsEmptyValueIndirect(v) {
+		m["status"] = v
+	}
+	if v := f.ErrorDetails; !dcl.IsEmptyValueIndirect(v) {
+		m["errorDetails"] = v
+	}
+
+	return m, nil
+}
+
+// flattenDeliveryPipelineConditionTargetsTypeCondition flattens an instance of DeliveryPipelineConditionTargetsTypeCondition from a JSON
+// response object.
+func flattenDeliveryPipelineConditionTargetsTypeCondition(c *Client, i interface{}, res *DeliveryPipeline) *DeliveryPipelineConditionTargetsTypeCondition {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &DeliveryPipelineConditionTargetsTypeCondition{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDeliveryPipelineConditionTargetsTypeCondition
+	}
+	r.Status = dcl.FlattenBool(m["status"])
+	r.ErrorDetails = dcl.FlattenString(m["errorDetails"])
+
+	return r
+}
+
 // This function returns a matcher that checks whether a serialized resource matches this resource
 // in its parameters (as defined by the fields in a Get, which definitionally define resource
 // identity).  This is useful in extracting the element from a List call.
@@ -2398,6 +3250,34 @@ func extractDeliveryPipelineSerialPipelineFields(r *DeliveryPipeline, o *Deliver
 	return nil
 }
 func extractDeliveryPipelineSerialPipelineStagesFields(r *DeliveryPipeline, o *DeliveryPipelineSerialPipelineStages) error {
+	vStrategy := o.Strategy
+	if vStrategy == nil {
+		// note: explicitly not the empty object.
+		vStrategy = &DeliveryPipelineSerialPipelineStagesStrategy{}
+	}
+	if err := extractDeliveryPipelineSerialPipelineStagesStrategyFields(r, vStrategy); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vStrategy) {
+		o.Strategy = vStrategy
+	}
+	return nil
+}
+func extractDeliveryPipelineSerialPipelineStagesStrategyFields(r *DeliveryPipeline, o *DeliveryPipelineSerialPipelineStagesStrategy) error {
+	vStandard := o.Standard
+	if vStandard == nil {
+		// note: explicitly not the empty object.
+		vStandard = &DeliveryPipelineSerialPipelineStagesStrategyStandard{}
+	}
+	if err := extractDeliveryPipelineSerialPipelineStagesStrategyStandardFields(r, vStandard); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vStandard) {
+		o.Standard = vStandard
+	}
+	return nil
+}
+func extractDeliveryPipelineSerialPipelineStagesStrategyStandardFields(r *DeliveryPipeline, o *DeliveryPipelineSerialPipelineStagesStrategyStandard) error {
 	return nil
 }
 func extractDeliveryPipelineConditionFields(r *DeliveryPipeline, o *DeliveryPipelineCondition) error {
@@ -2423,12 +3303,26 @@ func extractDeliveryPipelineConditionFields(r *DeliveryPipeline, o *DeliveryPipe
 	if !dcl.IsEmptyValueIndirect(vTargetsPresentCondition) {
 		o.TargetsPresentCondition = vTargetsPresentCondition
 	}
+	vTargetsTypeCondition := o.TargetsTypeCondition
+	if vTargetsTypeCondition == nil {
+		// note: explicitly not the empty object.
+		vTargetsTypeCondition = &DeliveryPipelineConditionTargetsTypeCondition{}
+	}
+	if err := extractDeliveryPipelineConditionTargetsTypeConditionFields(r, vTargetsTypeCondition); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vTargetsTypeCondition) {
+		o.TargetsTypeCondition = vTargetsTypeCondition
+	}
 	return nil
 }
 func extractDeliveryPipelineConditionPipelineReadyConditionFields(r *DeliveryPipeline, o *DeliveryPipelineConditionPipelineReadyCondition) error {
 	return nil
 }
 func extractDeliveryPipelineConditionTargetsPresentConditionFields(r *DeliveryPipeline, o *DeliveryPipelineConditionTargetsPresentCondition) error {
+	return nil
+}
+func extractDeliveryPipelineConditionTargetsTypeConditionFields(r *DeliveryPipeline, o *DeliveryPipelineConditionTargetsTypeCondition) error {
 	return nil
 }
 
@@ -2461,6 +3355,34 @@ func postReadExtractDeliveryPipelineSerialPipelineFields(r *DeliveryPipeline, o 
 	return nil
 }
 func postReadExtractDeliveryPipelineSerialPipelineStagesFields(r *DeliveryPipeline, o *DeliveryPipelineSerialPipelineStages) error {
+	vStrategy := o.Strategy
+	if vStrategy == nil {
+		// note: explicitly not the empty object.
+		vStrategy = &DeliveryPipelineSerialPipelineStagesStrategy{}
+	}
+	if err := extractDeliveryPipelineSerialPipelineStagesStrategyFields(r, vStrategy); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vStrategy) {
+		o.Strategy = vStrategy
+	}
+	return nil
+}
+func postReadExtractDeliveryPipelineSerialPipelineStagesStrategyFields(r *DeliveryPipeline, o *DeliveryPipelineSerialPipelineStagesStrategy) error {
+	vStandard := o.Standard
+	if vStandard == nil {
+		// note: explicitly not the empty object.
+		vStandard = &DeliveryPipelineSerialPipelineStagesStrategyStandard{}
+	}
+	if err := extractDeliveryPipelineSerialPipelineStagesStrategyStandardFields(r, vStandard); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vStandard) {
+		o.Standard = vStandard
+	}
+	return nil
+}
+func postReadExtractDeliveryPipelineSerialPipelineStagesStrategyStandardFields(r *DeliveryPipeline, o *DeliveryPipelineSerialPipelineStagesStrategyStandard) error {
 	return nil
 }
 func postReadExtractDeliveryPipelineConditionFields(r *DeliveryPipeline, o *DeliveryPipelineCondition) error {
@@ -2486,11 +3408,25 @@ func postReadExtractDeliveryPipelineConditionFields(r *DeliveryPipeline, o *Deli
 	if !dcl.IsEmptyValueIndirect(vTargetsPresentCondition) {
 		o.TargetsPresentCondition = vTargetsPresentCondition
 	}
+	vTargetsTypeCondition := o.TargetsTypeCondition
+	if vTargetsTypeCondition == nil {
+		// note: explicitly not the empty object.
+		vTargetsTypeCondition = &DeliveryPipelineConditionTargetsTypeCondition{}
+	}
+	if err := extractDeliveryPipelineConditionTargetsTypeConditionFields(r, vTargetsTypeCondition); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vTargetsTypeCondition) {
+		o.TargetsTypeCondition = vTargetsTypeCondition
+	}
 	return nil
 }
 func postReadExtractDeliveryPipelineConditionPipelineReadyConditionFields(r *DeliveryPipeline, o *DeliveryPipelineConditionPipelineReadyCondition) error {
 	return nil
 }
 func postReadExtractDeliveryPipelineConditionTargetsPresentConditionFields(r *DeliveryPipeline, o *DeliveryPipelineConditionTargetsPresentCondition) error {
+	return nil
+}
+func postReadExtractDeliveryPipelineConditionTargetsTypeConditionFields(r *DeliveryPipeline, o *DeliveryPipelineConditionTargetsTypeCondition) error {
 	return nil
 }

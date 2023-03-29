@@ -44,11 +44,21 @@ message ClouddeployDeliveryPipelineSerialPipeline {
 message ClouddeployDeliveryPipelineSerialPipelineStages {
   string target_id = 1;
   repeated string profiles = 2;
+  ClouddeployDeliveryPipelineSerialPipelineStagesStrategy strategy = 3;
+}
+
+message ClouddeployDeliveryPipelineSerialPipelineStagesStrategy {
+  ClouddeployDeliveryPipelineSerialPipelineStagesStrategyStandard standard = 1;
+}
+
+message ClouddeployDeliveryPipelineSerialPipelineStagesStrategyStandard {
+  bool verify = 1;
 }
 
 message ClouddeployDeliveryPipelineCondition {
   ClouddeployDeliveryPipelineConditionPipelineReadyCondition pipeline_ready_condition = 1;
   ClouddeployDeliveryPipelineConditionTargetsPresentCondition targets_present_condition = 2;
+  ClouddeployDeliveryPipelineConditionTargetsTypeCondition targets_type_condition = 3;
 }
 
 message ClouddeployDeliveryPipelineConditionPipelineReadyCondition {
@@ -60,6 +70,11 @@ message ClouddeployDeliveryPipelineConditionTargetsPresentCondition {
   bool status = 1;
   repeated string missing_targets = 2;
   string update_time = 3;
+}
+
+message ClouddeployDeliveryPipelineConditionTargetsTypeCondition {
+  bool status = 1;
+  string error_details = 2;
 }
 
 message ApplyClouddeployDeliveryPipelineRequest {

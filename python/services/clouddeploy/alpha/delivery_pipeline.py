@@ -270,8 +270,9 @@ class DeliveryPipelineSerialPipelineStagesArray(object):
 
 
 class DeliveryPipelineSerialPipelineStagesStrategy(object):
-    def __init__(self, standard: dict = None):
+    def __init__(self, standard: dict = None, canary: dict = None):
         self.standard = standard
+        self.canary = canary
 
     @classmethod
     def to_proto(self, resource):
@@ -291,6 +292,14 @@ class DeliveryPipelineSerialPipelineStagesStrategy(object):
             )
         else:
             res.ClearField("standard")
+        if DeliveryPipelineSerialPipelineStagesStrategyCanary.to_proto(resource.canary):
+            res.canary.CopyFrom(
+                DeliveryPipelineSerialPipelineStagesStrategyCanary.to_proto(
+                    resource.canary
+                )
+            )
+        else:
+            res.ClearField("canary")
         return res
 
     @classmethod
@@ -301,6 +310,9 @@ class DeliveryPipelineSerialPipelineStagesStrategy(object):
         return DeliveryPipelineSerialPipelineStagesStrategy(
             standard=DeliveryPipelineSerialPipelineStagesStrategyStandard.from_proto(
                 resource.standard
+            ),
+            canary=DeliveryPipelineSerialPipelineStagesStrategyCanary.from_proto(
+                resource.canary
             ),
         )
 
@@ -366,14 +378,601 @@ class DeliveryPipelineSerialPipelineStagesStrategyStandardArray(object):
         ]
 
 
+class DeliveryPipelineSerialPipelineStagesStrategyCanary(object):
+    def __init__(
+        self,
+        runtime_config: dict = None,
+        canary_deployment: dict = None,
+        custom_canary_deployment: dict = None,
+    ):
+        self.runtime_config = runtime_config
+        self.canary_deployment = canary_deployment
+        self.custom_canary_deployment = custom_canary_deployment
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            delivery_pipeline_pb2.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanary()
+        )
+        if DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig.to_proto(
+            resource.runtime_config
+        ):
+            res.runtime_config.CopyFrom(
+                DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig.to_proto(
+                    resource.runtime_config
+                )
+            )
+        else:
+            res.ClearField("runtime_config")
+        if DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment.to_proto(
+            resource.canary_deployment
+        ):
+            res.canary_deployment.CopyFrom(
+                DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment.to_proto(
+                    resource.canary_deployment
+                )
+            )
+        else:
+            res.ClearField("canary_deployment")
+        if DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment.to_proto(
+            resource.custom_canary_deployment
+        ):
+            res.custom_canary_deployment.CopyFrom(
+                DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment.to_proto(
+                    resource.custom_canary_deployment
+                )
+            )
+        else:
+            res.ClearField("custom_canary_deployment")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DeliveryPipelineSerialPipelineStagesStrategyCanary(
+            runtime_config=DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig.from_proto(
+                resource.runtime_config
+            ),
+            canary_deployment=DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment.from_proto(
+                resource.canary_deployment
+            ),
+            custom_canary_deployment=DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment.from_proto(
+                resource.custom_canary_deployment
+            ),
+        )
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanary.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanary.from_proto(i)
+            for i in resources
+        ]
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig(object):
+    def __init__(self, kubernetes: dict = None, cloud_run: dict = None):
+        self.kubernetes = kubernetes
+        self.cloud_run = cloud_run
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            delivery_pipeline_pb2.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig()
+        )
+        if DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes.to_proto(
+            resource.kubernetes
+        ):
+            res.kubernetes.CopyFrom(
+                DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes.to_proto(
+                    resource.kubernetes
+                )
+            )
+        else:
+            res.ClearField("kubernetes")
+        if DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun.to_proto(
+            resource.cloud_run
+        ):
+            res.cloud_run.CopyFrom(
+                DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun.to_proto(
+                    resource.cloud_run
+                )
+            )
+        else:
+            res.ClearField("cloud_run")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig(
+            kubernetes=DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes.from_proto(
+                resource.kubernetes
+            ),
+            cloud_run=DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun.from_proto(
+                resource.cloud_run
+            ),
+        )
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes(object):
+    def __init__(
+        self, gateway_service_mesh: dict = None, service_networking: dict = None
+    ):
+        self.gateway_service_mesh = gateway_service_mesh
+        self.service_networking = service_networking
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            delivery_pipeline_pb2.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes()
+        )
+        if DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh.to_proto(
+            resource.gateway_service_mesh
+        ):
+            res.gateway_service_mesh.CopyFrom(
+                DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh.to_proto(
+                    resource.gateway_service_mesh
+                )
+            )
+        else:
+            res.ClearField("gateway_service_mesh")
+        if DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking.to_proto(
+            resource.service_networking
+        ):
+            res.service_networking.CopyFrom(
+                DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking.to_proto(
+                    resource.service_networking
+                )
+            )
+        else:
+            res.ClearField("service_networking")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes(
+            gateway_service_mesh=DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh.from_proto(
+                resource.gateway_service_mesh
+            ),
+            service_networking=DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking.from_proto(
+                resource.service_networking
+            ),
+        )
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh(
+    object
+):
+    def __init__(
+        self, http_route: str = None, service: str = None, deployment: str = None
+    ):
+        self.http_route = http_route
+        self.service = service
+        self.deployment = deployment
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            delivery_pipeline_pb2.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh()
+        )
+        if Primitive.to_proto(resource.http_route):
+            res.http_route = Primitive.to_proto(resource.http_route)
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.deployment):
+            res.deployment = Primitive.to_proto(resource.deployment)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh(
+            http_route=Primitive.from_proto(resource.http_route),
+            service=Primitive.from_proto(resource.service),
+            deployment=Primitive.from_proto(resource.deployment),
+        )
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking(
+    object
+):
+    def __init__(self, service: str = None, deployment: str = None):
+        self.service = service
+        self.deployment = deployment
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            delivery_pipeline_pb2.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking()
+        )
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        if Primitive.to_proto(resource.deployment):
+            res.deployment = Primitive.to_proto(resource.deployment)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking(
+            service=Primitive.from_proto(resource.service),
+            deployment=Primitive.from_proto(resource.deployment),
+        )
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworkingArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun(object):
+    def __init__(self, automatic_traffic_control: bool = None):
+        self.automatic_traffic_control = automatic_traffic_control
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            delivery_pipeline_pb2.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun()
+        )
+        if Primitive.to_proto(resource.automatic_traffic_control):
+            res.automatic_traffic_control = Primitive.to_proto(
+                resource.automatic_traffic_control
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun(
+            automatic_traffic_control=Primitive.from_proto(
+                resource.automatic_traffic_control
+            ),
+        )
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRunArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment(object):
+    def __init__(self, percentages: list = None, verify: bool = None):
+        self.percentages = percentages
+        self.verify = verify
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            delivery_pipeline_pb2.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment()
+        )
+        if int64Array.to_proto(resource.percentages):
+            res.percentages.extend(int64Array.to_proto(resource.percentages))
+        if Primitive.to_proto(resource.verify):
+            res.verify = Primitive.to_proto(resource.verify)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment(
+            percentages=int64Array.from_proto(resource.percentages),
+            verify=Primitive.from_proto(resource.verify),
+        )
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment(object):
+    def __init__(self, phase_configs: list = None):
+        self.phase_configs = phase_configs
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            delivery_pipeline_pb2.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment()
+        )
+        if DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsArray.to_proto(
+            resource.phase_configs
+        ):
+            res.phase_configs.extend(
+                DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsArray.to_proto(
+                    resource.phase_configs
+                )
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment(
+            phase_configs=DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsArray.from_proto(
+                resource.phase_configs
+            ),
+        )
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs(
+    object
+):
+    def __init__(
+        self,
+        phase_id: str = None,
+        percentage: int = None,
+        profiles: list = None,
+        verify: bool = None,
+    ):
+        self.phase_id = phase_id
+        self.percentage = percentage
+        self.profiles = profiles
+        self.verify = verify
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            delivery_pipeline_pb2.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs()
+        )
+        if Primitive.to_proto(resource.phase_id):
+            res.phase_id = Primitive.to_proto(resource.phase_id)
+        if Primitive.to_proto(resource.percentage):
+            res.percentage = Primitive.to_proto(resource.percentage)
+        if Primitive.to_proto(resource.profiles):
+            res.profiles.extend(Primitive.to_proto(resource.profiles))
+        if Primitive.to_proto(resource.verify):
+            res.verify = Primitive.to_proto(resource.verify)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs(
+            phase_id=Primitive.from_proto(resource.phase_id),
+            percentage=Primitive.from_proto(resource.percentage),
+            profiles=Primitive.from_proto(resource.profiles),
+            verify=Primitive.from_proto(resource.verify),
+        )
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
 class DeliveryPipelineCondition(object):
     def __init__(
         self,
         pipeline_ready_condition: dict = None,
         targets_present_condition: dict = None,
+        targets_type_condition: dict = None,
     ):
         self.pipeline_ready_condition = pipeline_ready_condition
         self.targets_present_condition = targets_present_condition
+        self.targets_type_condition = targets_type_condition
 
     @classmethod
     def to_proto(self, resource):
@@ -401,6 +1000,16 @@ class DeliveryPipelineCondition(object):
             )
         else:
             res.ClearField("targets_present_condition")
+        if DeliveryPipelineConditionTargetsTypeCondition.to_proto(
+            resource.targets_type_condition
+        ):
+            res.targets_type_condition.CopyFrom(
+                DeliveryPipelineConditionTargetsTypeCondition.to_proto(
+                    resource.targets_type_condition
+                )
+            )
+        else:
+            res.ClearField("targets_type_condition")
         return res
 
     @classmethod
@@ -414,6 +1023,9 @@ class DeliveryPipelineCondition(object):
             ),
             targets_present_condition=DeliveryPipelineConditionTargetsPresentCondition.from_proto(
                 resource.targets_present_condition
+            ),
+            targets_type_condition=DeliveryPipelineConditionTargetsTypeCondition.from_proto(
+                resource.targets_type_condition
             ),
         )
 
@@ -528,6 +1140,53 @@ class DeliveryPipelineConditionTargetsPresentConditionArray(object):
     def from_proto(self, resources):
         return [
             DeliveryPipelineConditionTargetsPresentCondition.from_proto(i)
+            for i in resources
+        ]
+
+
+class DeliveryPipelineConditionTargetsTypeCondition(object):
+    def __init__(self, status: bool = None, error_details: str = None):
+        self.status = status
+        self.error_details = error_details
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            delivery_pipeline_pb2.ClouddeployAlphaDeliveryPipelineConditionTargetsTypeCondition()
+        )
+        if Primitive.to_proto(resource.status):
+            res.status = Primitive.to_proto(resource.status)
+        if Primitive.to_proto(resource.error_details):
+            res.error_details = Primitive.to_proto(resource.error_details)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DeliveryPipelineConditionTargetsTypeCondition(
+            status=Primitive.from_proto(resource.status),
+            error_details=Primitive.from_proto(resource.error_details),
+        )
+
+
+class DeliveryPipelineConditionTargetsTypeConditionArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            DeliveryPipelineConditionTargetsTypeCondition.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            DeliveryPipelineConditionTargetsTypeCondition.from_proto(i)
             for i in resources
         ]
 
