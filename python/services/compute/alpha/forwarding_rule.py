@@ -50,6 +50,8 @@ class ForwardingRule(object):
         service_directory_registrations: list = None,
         psc_connection_id: str = None,
         psc_connection_status: str = None,
+        source_ip_ranges: list = None,
+        base_forwarding_rule: str = None,
         service_account_file: str = "",
     ):
         channel.initialize()
@@ -75,6 +77,7 @@ class ForwardingRule(object):
         self.project = project
         self.location = location
         self.service_directory_registrations = service_directory_registrations
+        self.source_ip_ranges = source_ip_ranges
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -167,6 +170,10 @@ class ForwardingRule(object):
                     self.service_directory_registrations
                 )
             )
+        if Primitive.to_proto(self.source_ip_ranges):
+            request.resource.source_ip_ranges.extend(
+                Primitive.to_proto(self.source_ip_ranges)
+            )
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyComputeAlphaForwardingRule(request)
@@ -213,6 +220,8 @@ class ForwardingRule(object):
         self.psc_connection_status = ForwardingRulePscConnectionStatusEnum.from_proto(
             response.psc_connection_status
         )
+        self.source_ip_ranges = Primitive.from_proto(response.source_ip_ranges)
+        self.base_forwarding_rule = Primitive.from_proto(response.base_forwarding_rule)
 
     def delete(self):
         stub = forwarding_rule_pb2_grpc.ComputeAlphaForwardingRuleServiceStub(
@@ -305,6 +314,10 @@ class ForwardingRule(object):
                     self.service_directory_registrations
                 )
             )
+        if Primitive.to_proto(self.source_ip_ranges):
+            request.resource.source_ip_ranges.extend(
+                Primitive.to_proto(self.source_ip_ranges)
+            )
         response = stub.DeleteComputeAlphaForwardingRule(request)
 
     @classmethod
@@ -384,6 +397,8 @@ class ForwardingRule(object):
                     self.service_directory_registrations
                 )
             )
+        if Primitive.to_proto(self.source_ip_ranges):
+            resource.source_ip_ranges.extend(Primitive.to_proto(self.source_ip_ranges))
         return resource
 
 

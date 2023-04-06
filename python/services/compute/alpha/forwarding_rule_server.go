@@ -162,6 +162,7 @@ func ProtoToForwardingRule(p *alphapb.ComputeAlphaForwardingRule) *alpha.Forward
 		Location:             dcl.StringOrNil(p.GetLocation()),
 		PscConnectionId:      dcl.StringOrNil(p.GetPscConnectionId()),
 		PscConnectionStatus:  ProtoToComputeAlphaForwardingRulePscConnectionStatusEnum(p.GetPscConnectionStatus()),
+		BaseForwardingRule:   dcl.StringOrNil(p.GetBaseForwardingRule()),
 	}
 	for _, r := range p.GetMetadataFilter() {
 		obj.MetadataFilter = append(obj.MetadataFilter, *ProtoToComputeAlphaForwardingRuleMetadataFilter(r))
@@ -171,6 +172,9 @@ func ProtoToForwardingRule(p *alphapb.ComputeAlphaForwardingRule) *alpha.Forward
 	}
 	for _, r := range p.GetServiceDirectoryRegistrations() {
 		obj.ServiceDirectoryRegistrations = append(obj.ServiceDirectoryRegistrations, *ProtoToComputeAlphaForwardingRuleServiceDirectoryRegistrations(r))
+	}
+	for _, r := range p.GetSourceIpRanges() {
+		obj.SourceIPRanges = append(obj.SourceIPRanges, r)
 	}
 	return obj
 }
@@ -306,6 +310,7 @@ func ForwardingRuleToProto(resource *alpha.ForwardingRule) *alphapb.ComputeAlpha
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetPscConnectionId(dcl.ValueOrEmptyString(resource.PscConnectionId))
 	p.SetPscConnectionStatus(ComputeAlphaForwardingRulePscConnectionStatusEnumToProto(resource.PscConnectionStatus))
+	p.SetBaseForwardingRule(dcl.ValueOrEmptyString(resource.BaseForwardingRule))
 	mLabels := make(map[string]string, len(resource.Labels))
 	for k, r := range resource.Labels {
 		mLabels[k] = r
@@ -326,6 +331,11 @@ func ForwardingRuleToProto(resource *alpha.ForwardingRule) *alphapb.ComputeAlpha
 		sServiceDirectoryRegistrations[i] = ComputeAlphaForwardingRuleServiceDirectoryRegistrationsToProto(&r)
 	}
 	p.SetServiceDirectoryRegistrations(sServiceDirectoryRegistrations)
+	sSourceIPRanges := make([]string, len(resource.SourceIPRanges))
+	for i, r := range resource.SourceIPRanges {
+		sSourceIPRanges[i] = r
+	}
+	p.SetSourceIpRanges(sSourceIPRanges)
 
 	return p
 }

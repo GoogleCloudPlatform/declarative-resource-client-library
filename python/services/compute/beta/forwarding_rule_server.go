@@ -162,6 +162,7 @@ func ProtoToForwardingRule(p *betapb.ComputeBetaForwardingRule) *beta.Forwarding
 		Location:             dcl.StringOrNil(p.GetLocation()),
 		PscConnectionId:      dcl.StringOrNil(p.GetPscConnectionId()),
 		PscConnectionStatus:  ProtoToComputeBetaForwardingRulePscConnectionStatusEnum(p.GetPscConnectionStatus()),
+		BaseForwardingRule:   dcl.StringOrNil(p.GetBaseForwardingRule()),
 	}
 	for _, r := range p.GetMetadataFilter() {
 		obj.MetadataFilter = append(obj.MetadataFilter, *ProtoToComputeBetaForwardingRuleMetadataFilter(r))
@@ -171,6 +172,9 @@ func ProtoToForwardingRule(p *betapb.ComputeBetaForwardingRule) *beta.Forwarding
 	}
 	for _, r := range p.GetServiceDirectoryRegistrations() {
 		obj.ServiceDirectoryRegistrations = append(obj.ServiceDirectoryRegistrations, *ProtoToComputeBetaForwardingRuleServiceDirectoryRegistrations(r))
+	}
+	for _, r := range p.GetSourceIpRanges() {
+		obj.SourceIPRanges = append(obj.SourceIPRanges, r)
 	}
 	return obj
 }
@@ -306,6 +310,7 @@ func ForwardingRuleToProto(resource *beta.ForwardingRule) *betapb.ComputeBetaFor
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetPscConnectionId(dcl.ValueOrEmptyString(resource.PscConnectionId))
 	p.SetPscConnectionStatus(ComputeBetaForwardingRulePscConnectionStatusEnumToProto(resource.PscConnectionStatus))
+	p.SetBaseForwardingRule(dcl.ValueOrEmptyString(resource.BaseForwardingRule))
 	mLabels := make(map[string]string, len(resource.Labels))
 	for k, r := range resource.Labels {
 		mLabels[k] = r
@@ -326,6 +331,11 @@ func ForwardingRuleToProto(resource *beta.ForwardingRule) *betapb.ComputeBetaFor
 		sServiceDirectoryRegistrations[i] = ComputeBetaForwardingRuleServiceDirectoryRegistrationsToProto(&r)
 	}
 	p.SetServiceDirectoryRegistrations(sServiceDirectoryRegistrations)
+	sSourceIPRanges := make([]string, len(resource.SourceIPRanges))
+	for i, r := range resource.SourceIPRanges {
+		sSourceIPRanges[i] = r
+	}
+	p.SetSourceIpRanges(sSourceIPRanges)
 
 	return p
 }

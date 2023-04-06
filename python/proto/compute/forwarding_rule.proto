@@ -101,6 +101,8 @@ message ComputeForwardingRule {
   repeated ComputeForwardingRuleServiceDirectoryRegistrations service_directory_registrations = 27;
   string psc_connection_id = 28;
   ComputeForwardingRulePscConnectionStatusEnum psc_connection_status = 29;
+  repeated string source_ip_ranges = 30;
+  string base_forwarding_rule = 31;
 }
 
 message ComputeForwardingRuleMetadataFilter {

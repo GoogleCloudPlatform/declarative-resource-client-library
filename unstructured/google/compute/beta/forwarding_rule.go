@@ -41,6 +41,9 @@ func ForwardingRuleToUnstructured(r *dclService.ForwardingRule) *unstructured.Re
 	if r.BackendService != nil {
 		u.Object["backendService"] = *r.BackendService
 	}
+	if r.BaseForwardingRule != nil {
+		u.Object["baseForwardingRule"] = *r.BaseForwardingRule
+	}
 	if r.CreationTimestamp != nil {
 		u.Object["creationTimestamp"] = *r.CreationTimestamp
 	}
@@ -146,6 +149,11 @@ func ForwardingRuleToUnstructured(r *dclService.ForwardingRule) *unstructured.Re
 	if r.ServiceName != nil {
 		u.Object["serviceName"] = *r.ServiceName
 	}
+	var rSourceIPRanges []interface{}
+	for _, rSourceIPRangesVal := range r.SourceIPRanges {
+		rSourceIPRanges = append(rSourceIPRanges, rSourceIPRangesVal)
+	}
+	u.Object["sourceIPRanges"] = rSourceIPRanges
 	if r.Subnetwork != nil {
 		u.Object["subnetwork"] = *r.Subnetwork
 	}
@@ -176,6 +184,13 @@ func UnstructuredToForwardingRule(u *unstructured.Resource) (*dclService.Forward
 			r.BackendService = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.BackendService: expected string")
+		}
+	}
+	if _, ok := u.Object["baseForwardingRule"]; ok {
+		if s, ok := u.Object["baseForwardingRule"].(string); ok {
+			r.BaseForwardingRule = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.BaseForwardingRule: expected string")
 		}
 	}
 	if _, ok := u.Object["creationTimestamp"]; ok {
@@ -411,6 +426,17 @@ func UnstructuredToForwardingRule(u *unstructured.Resource) (*dclService.Forward
 			r.ServiceName = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.ServiceName: expected string")
+		}
+	}
+	if _, ok := u.Object["sourceIPRanges"]; ok {
+		if s, ok := u.Object["sourceIPRanges"].([]interface{}); ok {
+			for _, ss := range s {
+				if strval, ok := ss.(string); ok {
+					r.SourceIPRanges = append(r.SourceIPRanges, strval)
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.SourceIPRanges: expected []interface{}")
 		}
 	}
 	if _, ok := u.Object["subnetwork"]; ok {
