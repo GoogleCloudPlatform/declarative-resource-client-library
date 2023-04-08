@@ -78,6 +78,12 @@ func ProtoToComputeBetaNetworkFirewallPolicyRuleMatch(p *betapb.ComputeBetaNetwo
 	for _, r := range p.GetSrcSecureTags() {
 		obj.SrcSecureTags = append(obj.SrcSecureTags, *ProtoToComputeBetaNetworkFirewallPolicyRuleMatchSrcSecureTags(r))
 	}
+	for _, r := range p.GetSrcThreatIntelligences() {
+		obj.SrcThreatIntelligences = append(obj.SrcThreatIntelligences, r)
+	}
+	for _, r := range p.GetDestThreatIntelligences() {
+		obj.DestThreatIntelligences = append(obj.DestThreatIntelligences, r)
+	}
 	return obj
 }
 
@@ -204,6 +210,16 @@ func ComputeBetaNetworkFirewallPolicyRuleMatchToProto(o *beta.NetworkFirewallPol
 		sSrcSecureTags[i] = ComputeBetaNetworkFirewallPolicyRuleMatchSrcSecureTagsToProto(&r)
 	}
 	p.SetSrcSecureTags(sSrcSecureTags)
+	sSrcThreatIntelligences := make([]string, len(o.SrcThreatIntelligences))
+	for i, r := range o.SrcThreatIntelligences {
+		sSrcThreatIntelligences[i] = r
+	}
+	p.SetSrcThreatIntelligences(sSrcThreatIntelligences)
+	sDestThreatIntelligences := make([]string, len(o.DestThreatIntelligences))
+	for i, r := range o.DestThreatIntelligences {
+		sDestThreatIntelligences[i] = r
+	}
+	p.SetDestThreatIntelligences(sDestThreatIntelligences)
 	return p
 }
 

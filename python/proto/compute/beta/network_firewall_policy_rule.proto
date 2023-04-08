@@ -62,6 +62,8 @@ message ComputeBetaNetworkFirewallPolicyRuleMatch {
   repeated string dest_ip_ranges = 2;
   repeated ComputeBetaNetworkFirewallPolicyRuleMatchLayer4Configs layer4_configs = 3;
   repeated ComputeBetaNetworkFirewallPolicyRuleMatchSrcSecureTags src_secure_tags = 4;
+  repeated string src_threat_intelligences = 5;
+  repeated string dest_threat_intelligences = 6;
 }
 
 message ComputeBetaNetworkFirewallPolicyRuleMatchLayer4Configs {

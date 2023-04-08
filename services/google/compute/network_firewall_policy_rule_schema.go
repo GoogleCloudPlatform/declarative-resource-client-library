@@ -206,6 +206,17 @@ func DCLNetworkFirewallPolicyRuleSchema() *dcl.Schema {
 											GoType: "string",
 										},
 									},
+									"destThreatIntelligences": &dcl.Property{
+										Type:        "array",
+										GoName:      "DestThreatIntelligences",
+										Description: "Name of the Google Cloud Threat Intelligence list.",
+										SendEmpty:   true,
+										ListType:    "list",
+										Items: &dcl.Property{
+											Type:   "string",
+											GoType: "string",
+										},
+									},
 									"layer4Configs": &dcl.Property{
 										Type:        "array",
 										GoName:      "Layer4Configs",
@@ -285,6 +296,17 @@ func DCLNetworkFirewallPolicyRuleSchema() *dcl.Schema {
 													},
 												},
 											},
+										},
+									},
+									"srcThreatIntelligences": &dcl.Property{
+										Type:        "array",
+										GoName:      "SrcThreatIntelligences",
+										Description: "Name of the Google Cloud Threat Intelligence list.",
+										SendEmpty:   true,
+										ListType:    "list",
+										Items: &dcl.Property{
+											Type:   "string",
+											GoType: "string",
 										},
 									},
 								},

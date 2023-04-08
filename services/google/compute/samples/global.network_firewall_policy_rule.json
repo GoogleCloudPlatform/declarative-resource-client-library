@@ -12,7 +12,8 @@
         "ports": ["123"]
       }
     ],
-    "destIPRanges": ["10.100.0.1/32"]
+    "destIPRanges": ["10.100.0.1/32"],
+    "destThreatIntelligences": ["iplist-known-malicious-ips"]
   },
   "enableLogging" : false,
   "targetSecureTags": [{"name": "tagValues/{{ref:second.cloudresourcemanager.tag_value.json:name}}"}],

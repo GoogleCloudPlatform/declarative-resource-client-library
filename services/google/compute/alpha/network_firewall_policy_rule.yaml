@@ -161,6 +161,15 @@ components:
               items:
                 type: string
                 x-dcl-go-type: string
+            destThreatIntelligences:
+              type: array
+              x-dcl-go-name: DestThreatIntelligences
+              description: Name of the Google Cloud Threat Intelligence list.
+              x-dcl-send-empty: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
             layer4Configs:
               type: array
               x-dcl-go-name: Layer4Configs
@@ -238,6 +247,15 @@ components:
                     enum:
                     - EFFECTIVE
                     - INEFFECTIVE
+            srcThreatIntelligences:
+              type: array
+              x-dcl-go-name: SrcThreatIntelligences
+              description: Name of the Google Cloud Threat Intelligence list.
+              x-dcl-send-empty: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
         priority:
           type: integer
           format: int64

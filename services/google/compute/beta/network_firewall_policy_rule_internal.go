@@ -701,6 +701,16 @@ func canonicalizeNetworkFirewallPolicyRuleMatch(des, initial *NetworkFirewallPol
 	}
 	cDes.Layer4Configs = canonicalizeNetworkFirewallPolicyRuleMatchLayer4ConfigsSlice(des.Layer4Configs, initial.Layer4Configs, opts...)
 	cDes.SrcSecureTags = canonicalizeNetworkFirewallPolicyRuleMatchSrcSecureTagsSlice(des.SrcSecureTags, initial.SrcSecureTags, opts...)
+	if dcl.StringArrayCanonicalize(des.SrcThreatIntelligences, initial.SrcThreatIntelligences) {
+		cDes.SrcThreatIntelligences = initial.SrcThreatIntelligences
+	} else {
+		cDes.SrcThreatIntelligences = des.SrcThreatIntelligences
+	}
+	if dcl.StringArrayCanonicalize(des.DestThreatIntelligences, initial.DestThreatIntelligences) {
+		cDes.DestThreatIntelligences = initial.DestThreatIntelligences
+	} else {
+		cDes.DestThreatIntelligences = des.DestThreatIntelligences
+	}
 
 	return cDes
 }
@@ -755,6 +765,12 @@ func canonicalizeNewNetworkFirewallPolicyRuleMatch(c *Client, des, nw *NetworkFi
 	}
 	nw.Layer4Configs = canonicalizeNewNetworkFirewallPolicyRuleMatchLayer4ConfigsSlice(c, des.Layer4Configs, nw.Layer4Configs)
 	nw.SrcSecureTags = canonicalizeNewNetworkFirewallPolicyRuleMatchSrcSecureTagsSlice(c, des.SrcSecureTags, nw.SrcSecureTags)
+	if dcl.StringArrayCanonicalize(des.SrcThreatIntelligences, nw.SrcThreatIntelligences) {
+		nw.SrcThreatIntelligences = des.SrcThreatIntelligences
+	}
+	if dcl.StringArrayCanonicalize(des.DestThreatIntelligences, nw.DestThreatIntelligences) {
+		nw.DestThreatIntelligences = des.DestThreatIntelligences
+	}
 
 	return nw
 }
@@ -1336,6 +1352,20 @@ func compareNetworkFirewallPolicyRuleMatchNewStyle(d, a interface{}, fn dcl.Fiel
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.SrcThreatIntelligences, actual.SrcThreatIntelligences, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateNetworkFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("SrcThreatIntelligences")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DestThreatIntelligences, actual.DestThreatIntelligences, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateNetworkFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("DestThreatIntelligences")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -1704,6 +1734,12 @@ func expandNetworkFirewallPolicyRuleMatch(c *Client, f *NetworkFirewallPolicyRul
 	} else if v != nil {
 		m["srcSecureTags"] = v
 	}
+	if v := f.SrcThreatIntelligences; v != nil {
+		m["srcThreatIntelligences"] = v
+	}
+	if v := f.DestThreatIntelligences; v != nil {
+		m["destThreatIntelligences"] = v
+	}
 
 	return m, nil
 }
@@ -1725,6 +1761,8 @@ func flattenNetworkFirewallPolicyRuleMatch(c *Client, i interface{}, res *Networ
 	r.DestIPRanges = dcl.FlattenStringSlice(m["destIpRanges"])
 	r.Layer4Configs = flattenNetworkFirewallPolicyRuleMatchLayer4ConfigsSlice(c, m["layer4Configs"], res)
 	r.SrcSecureTags = flattenNetworkFirewallPolicyRuleMatchSrcSecureTagsSlice(c, m["srcSecureTags"], res)
+	r.SrcThreatIntelligences = dcl.FlattenStringSlice(m["srcThreatIntelligences"])
+	r.DestThreatIntelligences = dcl.FlattenStringSlice(m["destThreatIntelligences"])
 
 	return r
 }

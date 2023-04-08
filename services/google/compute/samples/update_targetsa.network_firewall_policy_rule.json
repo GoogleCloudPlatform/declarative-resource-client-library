@@ -13,7 +13,9 @@
       }
     ],
     "srcSecureTags" : [],
-    "destIPRanges": ["10.100.0.2/32"]
+    "destIPRanges": ["10.100.0.2/32"],
+    "srcThreatIntelligences": [],
+    "destThreatIntelligences": ["iplist-known-malicious-ips"]
   },
   "enableLogging" : true,
   "targetServiceAccounts" : ["update-261421534184-compute@developer.gserviceaccount.com"],

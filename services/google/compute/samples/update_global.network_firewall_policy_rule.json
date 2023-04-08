@@ -13,7 +13,9 @@
       }
     ],
     "srcSecureTags": [{"name": "tagValues/{{ref:second.cloudresourcemanager.tag_value.json:name}}"}],
-    "srcIPRanges": ["10.100.0.2/32"]
+    "srcIPRanges": ["10.100.0.2/32"],
+    "destThreatIntelligences": [],
+    "srcThreatIntelligences": ["iplist-public-clouds"]
   },
   "enableLogging" : true,
   "targetSecureTags": [{"name": "tagValues/{{ref:first.cloudresourcemanager.tag_value.json:name}}"}],

@@ -62,6 +62,8 @@ message ComputeAlphaNetworkFirewallPolicyRuleMatch {
   repeated string dest_ip_ranges = 2;
   repeated ComputeAlphaNetworkFirewallPolicyRuleMatchLayer4Configs layer4_configs = 3;
   repeated ComputeAlphaNetworkFirewallPolicyRuleMatchSrcSecureTags src_secure_tags = 4;
+  repeated string src_threat_intelligences = 5;
+  repeated string dest_threat_intelligences = 6;
 }
 
 message ComputeAlphaNetworkFirewallPolicyRuleMatchLayer4Configs {

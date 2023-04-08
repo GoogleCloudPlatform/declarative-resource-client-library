@@ -128,11 +128,13 @@ func (v NetworkFirewallPolicyRuleTargetSecureTagsStateEnum) Validate() error {
 }
 
 type NetworkFirewallPolicyRuleMatch struct {
-	empty         bool                                          `json:"-"`
-	SrcIPRanges   []string                                      `json:"srcIPRanges"`
-	DestIPRanges  []string                                      `json:"destIPRanges"`
-	Layer4Configs []NetworkFirewallPolicyRuleMatchLayer4Configs `json:"layer4Configs"`
-	SrcSecureTags []NetworkFirewallPolicyRuleMatchSrcSecureTags `json:"srcSecureTags"`
+	empty                   bool                                          `json:"-"`
+	SrcIPRanges             []string                                      `json:"srcIPRanges"`
+	DestIPRanges            []string                                      `json:"destIPRanges"`
+	Layer4Configs           []NetworkFirewallPolicyRuleMatchLayer4Configs `json:"layer4Configs"`
+	SrcSecureTags           []NetworkFirewallPolicyRuleMatchSrcSecureTags `json:"srcSecureTags"`
+	SrcThreatIntelligences  []string                                      `json:"srcThreatIntelligences"`
+	DestThreatIntelligences []string                                      `json:"destThreatIntelligences"`
 }
 
 type jsonNetworkFirewallPolicyRuleMatch NetworkFirewallPolicyRuleMatch
@@ -157,6 +159,10 @@ func (r *NetworkFirewallPolicyRuleMatch) UnmarshalJSON(data []byte) error {
 		r.Layer4Configs = res.Layer4Configs
 
 		r.SrcSecureTags = res.SrcSecureTags
+
+		r.SrcThreatIntelligences = res.SrcThreatIntelligences
+
+		r.DestThreatIntelligences = res.DestThreatIntelligences
 
 	}
 	return nil

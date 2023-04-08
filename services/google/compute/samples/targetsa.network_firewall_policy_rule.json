@@ -13,7 +13,8 @@
       }
     ],
     "srcSecureTags": [{"name": "tagValues/{{ref:first.cloudresourcemanager.tag_value.json:name}}"}],
-    "srcIPRanges": ["10.100.0.1/32"]
+    "srcIPRanges": ["10.100.0.1/32"],
+    "srcThreatIntelligences": ["iplist-public-clouds"]
   },
   "enableLogging" : false,
   "targetServiceAccounts" : ["261421534184-compute@developer.gserviceaccount.com"],

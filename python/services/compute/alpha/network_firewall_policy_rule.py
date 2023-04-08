@@ -271,11 +271,15 @@ class NetworkFirewallPolicyRuleMatch(object):
         dest_ip_ranges: list = None,
         layer4_configs: list = None,
         src_secure_tags: list = None,
+        src_threat_intelligences: list = None,
+        dest_threat_intelligences: list = None,
     ):
         self.src_ip_ranges = src_ip_ranges
         self.dest_ip_ranges = dest_ip_ranges
         self.layer4_configs = layer4_configs
         self.src_secure_tags = src_secure_tags
+        self.src_threat_intelligences = src_threat_intelligences
+        self.dest_threat_intelligences = dest_threat_intelligences
 
     @classmethod
     def to_proto(self, resource):
@@ -305,6 +309,14 @@ class NetworkFirewallPolicyRuleMatch(object):
                     resource.src_secure_tags
                 )
             )
+        if Primitive.to_proto(resource.src_threat_intelligences):
+            res.src_threat_intelligences.extend(
+                Primitive.to_proto(resource.src_threat_intelligences)
+            )
+        if Primitive.to_proto(resource.dest_threat_intelligences):
+            res.dest_threat_intelligences.extend(
+                Primitive.to_proto(resource.dest_threat_intelligences)
+            )
         return res
 
     @classmethod
@@ -320,6 +332,12 @@ class NetworkFirewallPolicyRuleMatch(object):
             ),
             src_secure_tags=NetworkFirewallPolicyRuleMatchSrcSecureTagsArray.from_proto(
                 resource.src_secure_tags
+            ),
+            src_threat_intelligences=Primitive.from_proto(
+                resource.src_threat_intelligences
+            ),
+            dest_threat_intelligences=Primitive.from_proto(
+                resource.dest_threat_intelligences
             ),
         )
 

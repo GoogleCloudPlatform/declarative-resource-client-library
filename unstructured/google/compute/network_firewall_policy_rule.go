@@ -63,6 +63,11 @@ func NetworkFirewallPolicyRuleToUnstructured(r *dclService.NetworkFirewallPolicy
 			rMatchDestIPRanges = append(rMatchDestIPRanges, rMatchDestIPRangesVal)
 		}
 		rMatch["destIPRanges"] = rMatchDestIPRanges
+		var rMatchDestThreatIntelligences []interface{}
+		for _, rMatchDestThreatIntelligencesVal := range r.Match.DestThreatIntelligences {
+			rMatchDestThreatIntelligences = append(rMatchDestThreatIntelligences, rMatchDestThreatIntelligencesVal)
+		}
+		rMatch["destThreatIntelligences"] = rMatchDestThreatIntelligences
 		var rMatchLayer4Configs []interface{}
 		for _, rMatchLayer4ConfigsVal := range r.Match.Layer4Configs {
 			rMatchLayer4ConfigsObject := make(map[string]interface{})
@@ -94,6 +99,11 @@ func NetworkFirewallPolicyRuleToUnstructured(r *dclService.NetworkFirewallPolicy
 			rMatchSrcSecureTags = append(rMatchSrcSecureTags, rMatchSrcSecureTagsObject)
 		}
 		rMatch["srcSecureTags"] = rMatchSrcSecureTags
+		var rMatchSrcThreatIntelligences []interface{}
+		for _, rMatchSrcThreatIntelligencesVal := range r.Match.SrcThreatIntelligences {
+			rMatchSrcThreatIntelligences = append(rMatchSrcThreatIntelligences, rMatchSrcThreatIntelligencesVal)
+		}
+		rMatch["srcThreatIntelligences"] = rMatchSrcThreatIntelligences
 		u.Object["match"] = rMatch
 	}
 	if r.Priority != nil {
@@ -200,6 +210,17 @@ func UnstructuredToNetworkFirewallPolicyRule(u *unstructured.Resource) (*dclServ
 					return nil, fmt.Errorf("r.Match.DestIPRanges: expected []interface{}")
 				}
 			}
+			if _, ok := rMatch["destThreatIntelligences"]; ok {
+				if s, ok := rMatch["destThreatIntelligences"].([]interface{}); ok {
+					for _, ss := range s {
+						if strval, ok := ss.(string); ok {
+							r.Match.DestThreatIntelligences = append(r.Match.DestThreatIntelligences, strval)
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Match.DestThreatIntelligences: expected []interface{}")
+				}
+			}
 			if _, ok := rMatch["layer4Configs"]; ok {
 				if s, ok := rMatch["layer4Configs"].([]interface{}); ok {
 					for _, o := range s {
@@ -265,6 +286,17 @@ func UnstructuredToNetworkFirewallPolicyRule(u *unstructured.Resource) (*dclServ
 					}
 				} else {
 					return nil, fmt.Errorf("r.Match.SrcSecureTags: expected []interface{}")
+				}
+			}
+			if _, ok := rMatch["srcThreatIntelligences"]; ok {
+				if s, ok := rMatch["srcThreatIntelligences"].([]interface{}); ok {
+					for _, ss := range s {
+						if strval, ok := ss.(string); ok {
+							r.Match.SrcThreatIntelligences = append(r.Match.SrcThreatIntelligences, strval)
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Match.SrcThreatIntelligences: expected []interface{}")
 				}
 			}
 		} else {
