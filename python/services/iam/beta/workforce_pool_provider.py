@@ -238,9 +238,12 @@ class WorkforcePoolProviderSamlArray(object):
 
 
 class WorkforcePoolProviderOidc(object):
-    def __init__(self, issuer_uri: str = None, client_id: str = None):
+    def __init__(
+        self, issuer_uri: str = None, client_id: str = None, web_sso_config: dict = None
+    ):
         self.issuer_uri = issuer_uri
         self.client_id = client_id
+        self.web_sso_config = web_sso_config
 
     @classmethod
     def to_proto(self, resource):
@@ -252,6 +255,12 @@ class WorkforcePoolProviderOidc(object):
             res.issuer_uri = Primitive.to_proto(resource.issuer_uri)
         if Primitive.to_proto(resource.client_id):
             res.client_id = Primitive.to_proto(resource.client_id)
+        if WorkforcePoolProviderOidcWebSsoConfig.to_proto(resource.web_sso_config):
+            res.web_sso_config.CopyFrom(
+                WorkforcePoolProviderOidcWebSsoConfig.to_proto(resource.web_sso_config)
+            )
+        else:
+            res.ClearField("web_sso_config")
         return res
 
     @classmethod
@@ -262,6 +271,9 @@ class WorkforcePoolProviderOidc(object):
         return WorkforcePoolProviderOidc(
             issuer_uri=Primitive.from_proto(resource.issuer_uri),
             client_id=Primitive.from_proto(resource.client_id),
+            web_sso_config=WorkforcePoolProviderOidcWebSsoConfig.from_proto(
+                resource.web_sso_config
+            ),
         )
 
 
@@ -275,6 +287,62 @@ class WorkforcePoolProviderOidcArray(object):
     @classmethod
     def from_proto(self, resources):
         return [WorkforcePoolProviderOidc.from_proto(i) for i in resources]
+
+
+class WorkforcePoolProviderOidcWebSsoConfig(object):
+    def __init__(
+        self, response_type: str = None, assertion_claims_behavior: str = None
+    ):
+        self.response_type = response_type
+        self.assertion_claims_behavior = assertion_claims_behavior
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = workforce_pool_provider_pb2.IamBetaWorkforcePoolProviderOidcWebSsoConfig()
+        if WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum.to_proto(
+            resource.response_type
+        ):
+            res.response_type = (
+                WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum.to_proto(
+                    resource.response_type
+                )
+            )
+        if WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum.to_proto(
+            resource.assertion_claims_behavior
+        ):
+            res.assertion_claims_behavior = WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum.to_proto(
+                resource.assertion_claims_behavior
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkforcePoolProviderOidcWebSsoConfig(
+            response_type=WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum.from_proto(
+                resource.response_type
+            ),
+            assertion_claims_behavior=WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum.from_proto(
+                resource.assertion_claims_behavior
+            ),
+        )
+
+
+class WorkforcePoolProviderOidcWebSsoConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [WorkforcePoolProviderOidcWebSsoConfig.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [WorkforcePoolProviderOidcWebSsoConfig.from_proto(i) for i in resources]
 
 
 class WorkforcePoolProviderStateEnum(object):
@@ -293,6 +361,49 @@ class WorkforcePoolProviderStateEnum(object):
         return workforce_pool_provider_pb2.IamBetaWorkforcePoolProviderStateEnum.Name(
             resource
         )[len("IamBetaWorkforcePoolProviderStateEnum") :]
+
+
+class WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return workforce_pool_provider_pb2.IamBetaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum.Value(
+            "IamBetaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return workforce_pool_provider_pb2.IamBetaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum.Name(
+            resource
+        )[
+            len("IamBetaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum") :
+        ]
+
+
+class WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return workforce_pool_provider_pb2.IamBetaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum.Value(
+            "IamBetaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return workforce_pool_provider_pb2.IamBetaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum.Name(
+            resource
+        )[
+            len(
+                "IamBetaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum"
+            ) :
+        ]
 
 
 class Primitive(object):

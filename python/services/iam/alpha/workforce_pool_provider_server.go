@@ -36,6 +36,30 @@ func ProtoToIamAlphaWorkforcePoolProviderStateEnum(e alphapb.IamAlphaWorkforcePo
 	return nil
 }
 
+// ProtoToWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum converts a WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum enum from its proto representation.
+func ProtoToIamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum(e alphapb.IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum) *alpha.WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum_name[int32(e)]; ok {
+		e := alpha.WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum(n[len("IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum converts a WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum enum from its proto representation.
+func ProtoToIamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum(e alphapb.IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum) *alpha.WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum_name[int32(e)]; ok {
+		e := alpha.WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum(n[len("IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToWorkforcePoolProviderSaml converts a WorkforcePoolProviderSaml object from its proto representation.
 func ProtoToIamAlphaWorkforcePoolProviderSaml(p *alphapb.IamAlphaWorkforcePoolProviderSaml) *alpha.WorkforcePoolProviderSaml {
 	if p == nil {
@@ -53,8 +77,21 @@ func ProtoToIamAlphaWorkforcePoolProviderOidc(p *alphapb.IamAlphaWorkforcePoolPr
 		return nil
 	}
 	obj := &alpha.WorkforcePoolProviderOidc{
-		IssuerUri: dcl.StringOrNil(p.GetIssuerUri()),
-		ClientId:  dcl.StringOrNil(p.GetClientId()),
+		IssuerUri:    dcl.StringOrNil(p.GetIssuerUri()),
+		ClientId:     dcl.StringOrNil(p.GetClientId()),
+		WebSsoConfig: ProtoToIamAlphaWorkforcePoolProviderOidcWebSsoConfig(p.GetWebSsoConfig()),
+	}
+	return obj
+}
+
+// ProtoToWorkforcePoolProviderOidcWebSsoConfig converts a WorkforcePoolProviderOidcWebSsoConfig object from its proto representation.
+func ProtoToIamAlphaWorkforcePoolProviderOidcWebSsoConfig(p *alphapb.IamAlphaWorkforcePoolProviderOidcWebSsoConfig) *alpha.WorkforcePoolProviderOidcWebSsoConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkforcePoolProviderOidcWebSsoConfig{
+		ResponseType:            ProtoToIamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum(p.GetResponseType()),
+		AssertionClaimsBehavior: ProtoToIamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum(p.GetAssertionClaimsBehavior()),
 	}
 	return obj
 }
@@ -87,6 +124,28 @@ func IamAlphaWorkforcePoolProviderStateEnumToProto(e *alpha.WorkforcePoolProvide
 	return alphapb.IamAlphaWorkforcePoolProviderStateEnum(0)
 }
 
+// WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnumToProto converts a WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum enum to its proto representation.
+func IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnumToProto(e *alpha.WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum) alphapb.IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum {
+	if e == nil {
+		return alphapb.IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum(0)
+	}
+	if v, ok := alphapb.IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum_value["WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum"+string(*e)]; ok {
+		return alphapb.IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum(v)
+	}
+	return alphapb.IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum(0)
+}
+
+// WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnumToProto converts a WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum enum to its proto representation.
+func IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnumToProto(e *alpha.WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum) alphapb.IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum {
+	if e == nil {
+		return alphapb.IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum(0)
+	}
+	if v, ok := alphapb.IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum_value["WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum"+string(*e)]; ok {
+		return alphapb.IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum(v)
+	}
+	return alphapb.IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum(0)
+}
+
 // WorkforcePoolProviderSamlToProto converts a WorkforcePoolProviderSaml object to its proto representation.
 func IamAlphaWorkforcePoolProviderSamlToProto(o *alpha.WorkforcePoolProviderSaml) *alphapb.IamAlphaWorkforcePoolProviderSaml {
 	if o == nil {
@@ -105,6 +164,18 @@ func IamAlphaWorkforcePoolProviderOidcToProto(o *alpha.WorkforcePoolProviderOidc
 	p := &alphapb.IamAlphaWorkforcePoolProviderOidc{}
 	p.SetIssuerUri(dcl.ValueOrEmptyString(o.IssuerUri))
 	p.SetClientId(dcl.ValueOrEmptyString(o.ClientId))
+	p.SetWebSsoConfig(IamAlphaWorkforcePoolProviderOidcWebSsoConfigToProto(o.WebSsoConfig))
+	return p
+}
+
+// WorkforcePoolProviderOidcWebSsoConfigToProto converts a WorkforcePoolProviderOidcWebSsoConfig object to its proto representation.
+func IamAlphaWorkforcePoolProviderOidcWebSsoConfigToProto(o *alpha.WorkforcePoolProviderOidcWebSsoConfig) *alphapb.IamAlphaWorkforcePoolProviderOidcWebSsoConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.IamAlphaWorkforcePoolProviderOidcWebSsoConfig{}
+	p.SetResponseType(IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnumToProto(o.ResponseType))
+	p.SetAssertionClaimsBehavior(IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnumToProto(o.AssertionClaimsBehavior))
 	return p
 }
 

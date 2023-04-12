@@ -7,6 +7,10 @@
   },
   "oidc": {
     "issuerUri": "https://example.com",
-    "clientId": "client-id"
+    "clientId": "client-id",
+    "webSsoConfig": {
+      "responseType": "ID_TOKEN",
+      "assertionClaimsBehavior": "ONLY_ID_TOKEN_CLAIMS"
+    }
   }
 }

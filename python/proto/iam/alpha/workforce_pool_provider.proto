@@ -28,6 +28,18 @@ enum IamAlphaWorkforcePoolProviderStateEnum {
   IamAlphaWorkforcePoolProviderStateEnumDELETED = 3;
 }
 
+enum IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum {
+  IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnumRESPONSE_TYPE_UNSPECIFIED = 1;
+  IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnumID_TOKEN = 2;
+}
+
+enum IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum {
+  IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnumNO_VALUE_DO_NOT_USE = 0;
+  IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnumASSERTION_CLAIMS_BEHAVIOR_UNSPECIFIED = 1;
+  IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnumONLY_ID_TOKEN_CLAIMS = 2;
+}
+
 message IamAlphaWorkforcePoolProvider {
   string name = 1;
   string display_name = 2;
@@ -49,6 +61,12 @@ message IamAlphaWorkforcePoolProviderSaml {
 message IamAlphaWorkforcePoolProviderOidc {
   string issuer_uri = 1;
   string client_id = 2;
+  IamAlphaWorkforcePoolProviderOidcWebSsoConfig web_sso_config = 3;
+}
+
+message IamAlphaWorkforcePoolProviderOidcWebSsoConfig {
+  IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum response_type = 1;
+  IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum assertion_claims_behavior = 2;
 }
 
 message ApplyIamAlphaWorkforcePoolProviderRequest {

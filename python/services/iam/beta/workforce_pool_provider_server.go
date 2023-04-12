@@ -36,6 +36,30 @@ func ProtoToIamBetaWorkforcePoolProviderStateEnum(e betapb.IamBetaWorkforcePoolP
 	return nil
 }
 
+// ProtoToWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum converts a WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum enum from its proto representation.
+func ProtoToIamBetaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum(e betapb.IamBetaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum) *beta.WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.IamBetaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum_name[int32(e)]; ok {
+		e := beta.WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum(n[len("IamBetaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum converts a WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum enum from its proto representation.
+func ProtoToIamBetaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum(e betapb.IamBetaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum) *beta.WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.IamBetaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum_name[int32(e)]; ok {
+		e := beta.WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum(n[len("IamBetaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToWorkforcePoolProviderSaml converts a WorkforcePoolProviderSaml object from its proto representation.
 func ProtoToIamBetaWorkforcePoolProviderSaml(p *betapb.IamBetaWorkforcePoolProviderSaml) *beta.WorkforcePoolProviderSaml {
 	if p == nil {
@@ -53,8 +77,21 @@ func ProtoToIamBetaWorkforcePoolProviderOidc(p *betapb.IamBetaWorkforcePoolProvi
 		return nil
 	}
 	obj := &beta.WorkforcePoolProviderOidc{
-		IssuerUri: dcl.StringOrNil(p.GetIssuerUri()),
-		ClientId:  dcl.StringOrNil(p.GetClientId()),
+		IssuerUri:    dcl.StringOrNil(p.GetIssuerUri()),
+		ClientId:     dcl.StringOrNil(p.GetClientId()),
+		WebSsoConfig: ProtoToIamBetaWorkforcePoolProviderOidcWebSsoConfig(p.GetWebSsoConfig()),
+	}
+	return obj
+}
+
+// ProtoToWorkforcePoolProviderOidcWebSsoConfig converts a WorkforcePoolProviderOidcWebSsoConfig object from its proto representation.
+func ProtoToIamBetaWorkforcePoolProviderOidcWebSsoConfig(p *betapb.IamBetaWorkforcePoolProviderOidcWebSsoConfig) *beta.WorkforcePoolProviderOidcWebSsoConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.WorkforcePoolProviderOidcWebSsoConfig{
+		ResponseType:            ProtoToIamBetaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum(p.GetResponseType()),
+		AssertionClaimsBehavior: ProtoToIamBetaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum(p.GetAssertionClaimsBehavior()),
 	}
 	return obj
 }
@@ -87,6 +124,28 @@ func IamBetaWorkforcePoolProviderStateEnumToProto(e *beta.WorkforcePoolProviderS
 	return betapb.IamBetaWorkforcePoolProviderStateEnum(0)
 }
 
+// WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnumToProto converts a WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum enum to its proto representation.
+func IamBetaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnumToProto(e *beta.WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum) betapb.IamBetaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum {
+	if e == nil {
+		return betapb.IamBetaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum(0)
+	}
+	if v, ok := betapb.IamBetaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum_value["WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum"+string(*e)]; ok {
+		return betapb.IamBetaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum(v)
+	}
+	return betapb.IamBetaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum(0)
+}
+
+// WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnumToProto converts a WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum enum to its proto representation.
+func IamBetaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnumToProto(e *beta.WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum) betapb.IamBetaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum {
+	if e == nil {
+		return betapb.IamBetaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum(0)
+	}
+	if v, ok := betapb.IamBetaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum_value["WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum"+string(*e)]; ok {
+		return betapb.IamBetaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum(v)
+	}
+	return betapb.IamBetaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum(0)
+}
+
 // WorkforcePoolProviderSamlToProto converts a WorkforcePoolProviderSaml object to its proto representation.
 func IamBetaWorkforcePoolProviderSamlToProto(o *beta.WorkforcePoolProviderSaml) *betapb.IamBetaWorkforcePoolProviderSaml {
 	if o == nil {
@@ -105,6 +164,18 @@ func IamBetaWorkforcePoolProviderOidcToProto(o *beta.WorkforcePoolProviderOidc) 
 	p := &betapb.IamBetaWorkforcePoolProviderOidc{}
 	p.SetIssuerUri(dcl.ValueOrEmptyString(o.IssuerUri))
 	p.SetClientId(dcl.ValueOrEmptyString(o.ClientId))
+	p.SetWebSsoConfig(IamBetaWorkforcePoolProviderOidcWebSsoConfigToProto(o.WebSsoConfig))
+	return p
+}
+
+// WorkforcePoolProviderOidcWebSsoConfigToProto converts a WorkforcePoolProviderOidcWebSsoConfig object to its proto representation.
+func IamBetaWorkforcePoolProviderOidcWebSsoConfigToProto(o *beta.WorkforcePoolProviderOidcWebSsoConfig) *betapb.IamBetaWorkforcePoolProviderOidcWebSsoConfig {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.IamBetaWorkforcePoolProviderOidcWebSsoConfig{}
+	p.SetResponseType(IamBetaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnumToProto(o.ResponseType))
+	p.SetAssertionClaimsBehavior(IamBetaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnumToProto(o.AssertionClaimsBehavior))
 	return p
 }
 
