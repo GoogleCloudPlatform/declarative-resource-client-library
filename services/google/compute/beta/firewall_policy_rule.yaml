@@ -73,8 +73,7 @@ components:
           type: string
           x-dcl-go-name: Action
           description: The Action to perform when the client connection triggers the
-            rule. Can currently be either "allow" or "deny()" where valid values for
-            status are 403, 404, and 502.
+            rule. Valid actions are "allow", "deny" and "goto_next".
         description:
           type: string
           x-dcl-go-name: Description
