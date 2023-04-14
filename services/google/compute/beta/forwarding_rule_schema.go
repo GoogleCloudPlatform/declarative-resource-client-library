@@ -124,6 +124,11 @@ func DCLForwardingRuleSchema() *dcl.Schema {
 								GoName:      "AllowGlobalAccess",
 								Description: "This field is used along with the `backend_service` field for internal load balancing or with the `target` field for internal TargetInstance. If the field is set to `TRUE`, clients can access ILB from all regions. Otherwise only allows access from clients in the same region as the internal load balancer.",
 							},
+							"allowPscGlobalAccess": &dcl.Property{
+								Type:        "boolean",
+								GoName:      "AllowPscGlobalAccess",
+								Description: "This is used in PSC consumer ForwardingRule to control whether the PSC endpoint can be accessed from another region.",
+							},
 							"backendService": &dcl.Property{
 								Type:        "string",
 								GoName:      "BackendService",

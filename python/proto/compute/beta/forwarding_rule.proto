@@ -103,6 +103,7 @@ message ComputeBetaForwardingRule {
   ComputeBetaForwardingRulePscConnectionStatusEnum psc_connection_status = 29;
   repeated string source_ip_ranges = 30;
   string base_forwarding_rule = 31;
+  bool allow_psc_global_access = 32;
 }
 
 message ComputeBetaForwardingRuleMetadataFilter {

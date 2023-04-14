@@ -56,6 +56,7 @@ type ForwardingRule struct {
 	PscConnectionStatus           *ForwardingRulePscConnectionStatusEnum        `json:"pscConnectionStatus"`
 	SourceIPRanges                []string                                      `json:"sourceIPRanges"`
 	BaseForwardingRule            *string                                       `json:"baseForwardingRule"`
+	AllowPscGlobalAccess          *bool                                         `json:"allowPscGlobalAccess"`
 }
 
 func (r *ForwardingRule) String() string {
@@ -418,6 +419,7 @@ func (r *ForwardingRule) ID() (string, error) {
 		"psc_connection_status":           dcl.ValueOrEmptyString(nr.PscConnectionStatus),
 		"source_ip_ranges":                dcl.ValueOrEmptyString(nr.SourceIPRanges),
 		"base_forwarding_rule":            dcl.ValueOrEmptyString(nr.BaseForwardingRule),
+		"allow_psc_global_access":         dcl.ValueOrEmptyString(nr.AllowPscGlobalAccess),
 	}
 	if dcl.IsRegion(nr.Location) {
 		return dcl.Nprintf("projects/{{project}}/regions/{{location}}/forwardingRules/{{name}}", params), nil

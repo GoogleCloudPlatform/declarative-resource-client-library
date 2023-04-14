@@ -38,6 +38,9 @@ func ForwardingRuleToUnstructured(r *dclService.ForwardingRule) *unstructured.Re
 	if r.AllowGlobalAccess != nil {
 		u.Object["allowGlobalAccess"] = *r.AllowGlobalAccess
 	}
+	if r.AllowPscGlobalAccess != nil {
+		u.Object["allowPscGlobalAccess"] = *r.AllowPscGlobalAccess
+	}
 	if r.BackendService != nil {
 		u.Object["backendService"] = *r.BackendService
 	}
@@ -177,6 +180,13 @@ func UnstructuredToForwardingRule(u *unstructured.Resource) (*dclService.Forward
 			r.AllowGlobalAccess = dcl.Bool(b)
 		} else {
 			return nil, fmt.Errorf("r.AllowGlobalAccess: expected bool")
+		}
+	}
+	if _, ok := u.Object["allowPscGlobalAccess"]; ok {
+		if b, ok := u.Object["allowPscGlobalAccess"].(bool); ok {
+			r.AllowPscGlobalAccess = dcl.Bool(b)
+		} else {
+			return nil, fmt.Errorf("r.AllowPscGlobalAccess: expected bool")
 		}
 	}
 	if _, ok := u.Object["backendService"]; ok {

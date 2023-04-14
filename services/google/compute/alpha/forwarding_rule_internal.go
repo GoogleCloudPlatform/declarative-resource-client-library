@@ -297,6 +297,11 @@ func newUpdateForwardingRuleUpdateRequest(ctx context.Context, f *ForwardingRule
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["allowGlobalAccess"] = v
 	}
+	if v, err := dcl.FalseToNil(f.AllowPscGlobalAccess); err != nil {
+		return nil, fmt.Errorf("error expanding AllowPscGlobalAccess into allowPscGlobalAccess: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["allowPscGlobalAccess"] = v
+	}
 	return req, nil
 }
 
@@ -736,6 +741,11 @@ func canonicalizeForwardingRuleDesiredState(rawDesired, rawInitial *ForwardingRu
 	} else {
 		canonicalDesired.SourceIPRanges = rawDesired.SourceIPRanges
 	}
+	if dcl.BoolCanonicalize(rawDesired.AllowPscGlobalAccess, rawInitial.AllowPscGlobalAccess) {
+		canonicalDesired.AllowPscGlobalAccess = rawInitial.AllowPscGlobalAccess
+	} else {
+		canonicalDesired.AllowPscGlobalAccess = rawDesired.AllowPscGlobalAccess
+	}
 	return canonicalDesired, nil
 }
 
@@ -952,6 +962,14 @@ func canonicalizeForwardingRuleNewState(c *Client, rawNew, rawDesired *Forwardin
 	} else {
 		if dcl.StringCanonicalize(rawDesired.BaseForwardingRule, rawNew.BaseForwardingRule) {
 			rawNew.BaseForwardingRule = rawDesired.BaseForwardingRule
+		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.AllowPscGlobalAccess) && dcl.IsEmptyValueIndirect(rawDesired.AllowPscGlobalAccess) {
+		rawNew.AllowPscGlobalAccess = rawDesired.AllowPscGlobalAccess
+	} else {
+		if dcl.BoolCanonicalize(rawDesired.AllowPscGlobalAccess, rawNew.AllowPscGlobalAccess) {
+			rawNew.AllowPscGlobalAccess = rawDesired.AllowPscGlobalAccess
 		}
 	}
 
@@ -1563,6 +1581,13 @@ func diffForwardingRule(c *Client, desired, actual *ForwardingRule, opts ...dcl.
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.AllowPscGlobalAccess, actual.AllowPscGlobalAccess, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateForwardingRuleUpdateOperation")}, fn.AddNest("AllowPscGlobalAccess")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if len(newDiffs) > 0 {
 		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
 	}
@@ -1870,6 +1895,11 @@ func expandForwardingRule(c *Client, f *ForwardingRule) (map[string]interface{},
 	if v := f.SourceIPRanges; v != nil {
 		m["sourceIpRanges"] = v
 	}
+	if v, err := dcl.FalseToNil(f.AllowPscGlobalAccess); err != nil {
+		return nil, fmt.Errorf("error expanding AllowPscGlobalAccess into allowPscGlobalAccess: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["allowPscGlobalAccess"] = v
+	}
 
 	return m, nil
 }
@@ -1917,6 +1947,7 @@ func flattenForwardingRule(c *Client, i interface{}, res *ForwardingRule) *Forwa
 	resultRes.PscConnectionStatus = flattenForwardingRulePscConnectionStatusEnum(m["pscConnectionStatus"])
 	resultRes.SourceIPRanges = dcl.FlattenStringSlice(m["sourceIpRanges"])
 	resultRes.BaseForwardingRule = dcl.FlattenString(m["baseForwardingRule"])
+	resultRes.AllowPscGlobalAccess = dcl.FlattenBool(m["allowPscGlobalAccess"])
 
 	return resultRes
 }

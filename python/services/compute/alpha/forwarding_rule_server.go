@@ -163,6 +163,7 @@ func ProtoToForwardingRule(p *alphapb.ComputeAlphaForwardingRule) *alpha.Forward
 		PscConnectionId:      dcl.StringOrNil(p.GetPscConnectionId()),
 		PscConnectionStatus:  ProtoToComputeAlphaForwardingRulePscConnectionStatusEnum(p.GetPscConnectionStatus()),
 		BaseForwardingRule:   dcl.StringOrNil(p.GetBaseForwardingRule()),
+		AllowPscGlobalAccess: dcl.Bool(p.GetAllowPscGlobalAccess()),
 	}
 	for _, r := range p.GetMetadataFilter() {
 		obj.MetadataFilter = append(obj.MetadataFilter, *ProtoToComputeAlphaForwardingRuleMetadataFilter(r))
@@ -311,6 +312,7 @@ func ForwardingRuleToProto(resource *alpha.ForwardingRule) *alphapb.ComputeAlpha
 	p.SetPscConnectionId(dcl.ValueOrEmptyString(resource.PscConnectionId))
 	p.SetPscConnectionStatus(ComputeAlphaForwardingRulePscConnectionStatusEnumToProto(resource.PscConnectionStatus))
 	p.SetBaseForwardingRule(dcl.ValueOrEmptyString(resource.BaseForwardingRule))
+	p.SetAllowPscGlobalAccess(dcl.ValueOrEmptyBool(resource.AllowPscGlobalAccess))
 	mLabels := make(map[string]string, len(resource.Labels))
 	for k, r := range resource.Labels {
 		mLabels[k] = r

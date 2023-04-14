@@ -52,6 +52,7 @@ class ForwardingRule(object):
         psc_connection_status: str = None,
         source_ip_ranges: list = None,
         base_forwarding_rule: str = None,
+        allow_psc_global_access: bool = None,
         service_account_file: str = "",
     ):
         channel.initialize()
@@ -78,6 +79,7 @@ class ForwardingRule(object):
         self.location = location
         self.service_directory_registrations = service_directory_registrations
         self.source_ip_ranges = source_ip_ranges
+        self.allow_psc_global_access = allow_psc_global_access
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -174,6 +176,11 @@ class ForwardingRule(object):
             request.resource.source_ip_ranges.extend(
                 Primitive.to_proto(self.source_ip_ranges)
             )
+        if Primitive.to_proto(self.allow_psc_global_access):
+            request.resource.allow_psc_global_access = Primitive.to_proto(
+                self.allow_psc_global_access
+            )
+
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyComputeBetaForwardingRule(request)
@@ -222,6 +229,9 @@ class ForwardingRule(object):
         )
         self.source_ip_ranges = Primitive.from_proto(response.source_ip_ranges)
         self.base_forwarding_rule = Primitive.from_proto(response.base_forwarding_rule)
+        self.allow_psc_global_access = Primitive.from_proto(
+            response.allow_psc_global_access
+        )
 
     def delete(self):
         stub = forwarding_rule_pb2_grpc.ComputeBetaForwardingRuleServiceStub(
@@ -318,6 +328,11 @@ class ForwardingRule(object):
             request.resource.source_ip_ranges.extend(
                 Primitive.to_proto(self.source_ip_ranges)
             )
+        if Primitive.to_proto(self.allow_psc_global_access):
+            request.resource.allow_psc_global_access = Primitive.to_proto(
+                self.allow_psc_global_access
+            )
+
         response = stub.DeleteComputeBetaForwardingRule(request)
 
     @classmethod
@@ -399,6 +414,10 @@ class ForwardingRule(object):
             )
         if Primitive.to_proto(self.source_ip_ranges):
             resource.source_ip_ranges.extend(Primitive.to_proto(self.source_ip_ranges))
+        if Primitive.to_proto(self.allow_psc_global_access):
+            resource.allow_psc_global_access = Primitive.to_proto(
+                self.allow_psc_global_access
+            )
         return resource
 
 

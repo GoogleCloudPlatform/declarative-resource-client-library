@@ -95,6 +95,11 @@ components:
             If the field is set to `TRUE`, clients can access ILB from all regions.
             Otherwise only allows access from clients in the same region as the internal
             load balancer.
+        allowPscGlobalAccess:
+          type: boolean
+          x-dcl-go-name: AllowPscGlobalAccess
+          description: This is used in PSC consumer ForwardingRule to control whether
+            the PSC endpoint can be accessed from another region.
         backendService:
           type: string
           x-dcl-go-name: BackendService
