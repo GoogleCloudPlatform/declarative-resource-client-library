@@ -71,10 +71,12 @@ func (v FirewallPolicyRuleDirectionEnum) Validate() error {
 }
 
 type FirewallPolicyRuleMatch struct {
-	empty         bool                                   `json:"-"`
-	SrcIPRanges   []string                               `json:"srcIPRanges"`
-	DestIPRanges  []string                               `json:"destIPRanges"`
-	Layer4Configs []FirewallPolicyRuleMatchLayer4Configs `json:"layer4Configs"`
+	empty                   bool                                   `json:"-"`
+	SrcIPRanges             []string                               `json:"srcIPRanges"`
+	DestIPRanges            []string                               `json:"destIPRanges"`
+	SrcThreatIntelligences  []string                               `json:"srcThreatIntelligences"`
+	DestThreatIntelligences []string                               `json:"destThreatIntelligences"`
+	Layer4Configs           []FirewallPolicyRuleMatchLayer4Configs `json:"layer4Configs"`
 }
 
 type jsonFirewallPolicyRuleMatch FirewallPolicyRuleMatch
@@ -95,6 +97,10 @@ func (r *FirewallPolicyRuleMatch) UnmarshalJSON(data []byte) error {
 		r.SrcIPRanges = res.SrcIPRanges
 
 		r.DestIPRanges = res.DestIPRanges
+
+		r.SrcThreatIntelligences = res.SrcThreatIntelligences
+
+		r.DestThreatIntelligences = res.DestThreatIntelligences
 
 		r.Layer4Configs = res.Layer4Configs
 

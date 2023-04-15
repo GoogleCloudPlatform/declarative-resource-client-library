@@ -637,6 +637,16 @@ func canonicalizeFirewallPolicyRuleMatch(des, initial *FirewallPolicyRuleMatch, 
 	} else {
 		cDes.DestIPRanges = des.DestIPRanges
 	}
+	if dcl.StringArrayCanonicalize(des.SrcThreatIntelligences, initial.SrcThreatIntelligences) {
+		cDes.SrcThreatIntelligences = initial.SrcThreatIntelligences
+	} else {
+		cDes.SrcThreatIntelligences = des.SrcThreatIntelligences
+	}
+	if dcl.StringArrayCanonicalize(des.DestThreatIntelligences, initial.DestThreatIntelligences) {
+		cDes.DestThreatIntelligences = initial.DestThreatIntelligences
+	} else {
+		cDes.DestThreatIntelligences = des.DestThreatIntelligences
+	}
 	cDes.Layer4Configs = canonicalizeFirewallPolicyRuleMatchLayer4ConfigsSlice(des.Layer4Configs, initial.Layer4Configs, opts...)
 
 	return cDes
@@ -689,6 +699,12 @@ func canonicalizeNewFirewallPolicyRuleMatch(c *Client, des, nw *FirewallPolicyRu
 	}
 	if dcl.StringArrayCanonicalize(des.DestIPRanges, nw.DestIPRanges) {
 		nw.DestIPRanges = des.DestIPRanges
+	}
+	if dcl.StringArrayCanonicalize(des.SrcThreatIntelligences, nw.SrcThreatIntelligences) {
+		nw.SrcThreatIntelligences = des.SrcThreatIntelligences
+	}
+	if dcl.StringArrayCanonicalize(des.DestThreatIntelligences, nw.DestThreatIntelligences) {
+		nw.DestThreatIntelligences = des.DestThreatIntelligences
 	}
 	nw.Layer4Configs = canonicalizeNewFirewallPolicyRuleMatchLayer4ConfigsSlice(c, des.Layer4Configs, nw.Layer4Configs)
 
@@ -1008,6 +1024,20 @@ func compareFirewallPolicyRuleMatchNewStyle(d, a interface{}, fn dcl.FieldName) 
 		diffs = append(diffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.SrcThreatIntelligences, actual.SrcThreatIntelligences, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("SrcThreatIntelligences")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DestThreatIntelligences, actual.DestThreatIntelligences, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("DestThreatIntelligences")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Layer4Configs, actual.Layer4Configs, dcl.DiffInfo{ObjectFunction: compareFirewallPolicyRuleMatchLayer4ConfigsNewStyle, EmptyObject: EmptyFirewallPolicyRuleMatchLayer4Configs, OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("Layer4Configs")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -1275,6 +1305,12 @@ func expandFirewallPolicyRuleMatch(c *Client, f *FirewallPolicyRuleMatch, res *F
 	if v := f.DestIPRanges; v != nil {
 		m["destIpRanges"] = v
 	}
+	if v := f.SrcThreatIntelligences; v != nil {
+		m["srcThreatIntelligences"] = v
+	}
+	if v := f.DestThreatIntelligences; v != nil {
+		m["destThreatIntelligences"] = v
+	}
 	if v, err := expandFirewallPolicyRuleMatchLayer4ConfigsSlice(c, f.Layer4Configs, res); err != nil {
 		return nil, fmt.Errorf("error expanding Layer4Configs into layer4Configs: %w", err)
 	} else if v != nil {
@@ -1299,6 +1335,8 @@ func flattenFirewallPolicyRuleMatch(c *Client, i interface{}, res *FirewallPolic
 	}
 	r.SrcIPRanges = dcl.FlattenStringSlice(m["srcIpRanges"])
 	r.DestIPRanges = dcl.FlattenStringSlice(m["destIpRanges"])
+	r.SrcThreatIntelligences = dcl.FlattenStringSlice(m["srcThreatIntelligences"])
+	r.DestThreatIntelligences = dcl.FlattenStringSlice(m["destThreatIntelligences"])
 	r.Layer4Configs = flattenFirewallPolicyRuleMatchLayer4ConfigsSlice(c, m["layer4Configs"], res)
 
 	return r

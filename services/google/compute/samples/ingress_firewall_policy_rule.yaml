@@ -11,12 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-name: egress_firewall_policy_rule
+name: ingress_firewall_policy_rule
 description: An example of a compute firewall policy rule for a folder
 type: firewall_policy_rule
 versions:
 - ga
-resource: samples/egress.firewall_policy_rule.json
+resource: samples/ingress.firewall_policy_rule.json
 dependencies:
 - samples/folder.firewall_policy_association.json
 - samples/folder.firewall_policy.json
@@ -29,7 +29,7 @@ dependencies:
 - samples/basic.cloudresourcemanager.folder.json
 - samples/first.cloudresourcemanager.project.json
 updates:
-- resource: samples/update_egress.firewall_policy_rule.json
+- resource: samples/update_ingress.firewall_policy_rule.json
   dependencies:
   - samples/update_folder.firewall_policy.json
 variables:

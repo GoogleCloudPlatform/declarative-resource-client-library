@@ -48,6 +48,12 @@ func ProtoToComputeAlphaFirewallPolicyRuleMatch(p *alphapb.ComputeAlphaFirewallP
 	for _, r := range p.GetDestIpRanges() {
 		obj.DestIPRanges = append(obj.DestIPRanges, r)
 	}
+	for _, r := range p.GetSrcThreatIntelligences() {
+		obj.SrcThreatIntelligences = append(obj.SrcThreatIntelligences, r)
+	}
+	for _, r := range p.GetDestThreatIntelligences() {
+		obj.DestThreatIntelligences = append(obj.DestThreatIntelligences, r)
+	}
 	for _, r := range p.GetLayer4Configs() {
 		obj.Layer4Configs = append(obj.Layer4Configs, *ProtoToComputeAlphaFirewallPolicyRuleMatchLayer4Configs(r))
 	}
@@ -118,6 +124,16 @@ func ComputeAlphaFirewallPolicyRuleMatchToProto(o *alpha.FirewallPolicyRuleMatch
 		sDestIPRanges[i] = r
 	}
 	p.SetDestIpRanges(sDestIPRanges)
+	sSrcThreatIntelligences := make([]string, len(o.SrcThreatIntelligences))
+	for i, r := range o.SrcThreatIntelligences {
+		sSrcThreatIntelligences[i] = r
+	}
+	p.SetSrcThreatIntelligences(sSrcThreatIntelligences)
+	sDestThreatIntelligences := make([]string, len(o.DestThreatIntelligences))
+	for i, r := range o.DestThreatIntelligences {
+		sDestThreatIntelligences[i] = r
+	}
+	p.SetDestThreatIntelligences(sDestThreatIntelligences)
 	sLayer4Configs := make([]*alphapb.ComputeAlphaFirewallPolicyRuleMatchLayer4Configs, len(o.Layer4Configs))
 	for i, r := range o.Layer4Configs {
 		sLayer4Configs[i] = ComputeAlphaFirewallPolicyRuleMatchLayer4ConfigsToProto(&r)

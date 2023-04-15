@@ -136,6 +136,15 @@ components:
               items:
                 type: string
                 x-dcl-go-type: string
+            destThreatIntelligences:
+              type: array
+              x-dcl-go-name: DestThreatIntelligences
+              description: Name of the Google Cloud Threat Intelligence list.
+              x-dcl-send-empty: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
             layer4Configs:
               type: array
               x-dcl-go-name: Layer4Configs
@@ -174,6 +183,15 @@ components:
               x-dcl-go-name: SrcIPRanges
               description: CIDR IP address range. Maximum number of source CIDR IP
                 ranges allowed is 256.
+              x-dcl-send-empty: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            srcThreatIntelligences:
+              type: array
+              x-dcl-go-name: SrcThreatIntelligences
+              description: Name of the Google Cloud Threat Intelligence list.
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:

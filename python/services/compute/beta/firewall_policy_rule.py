@@ -202,10 +202,14 @@ class FirewallPolicyRuleMatch(object):
         self,
         src_ip_ranges: list = None,
         dest_ip_ranges: list = None,
+        src_threat_intelligences: list = None,
+        dest_threat_intelligences: list = None,
         layer4_configs: list = None,
     ):
         self.src_ip_ranges = src_ip_ranges
         self.dest_ip_ranges = dest_ip_ranges
+        self.src_threat_intelligences = src_threat_intelligences
+        self.dest_threat_intelligences = dest_threat_intelligences
         self.layer4_configs = layer4_configs
 
     @classmethod
@@ -218,6 +222,14 @@ class FirewallPolicyRuleMatch(object):
             res.src_ip_ranges.extend(Primitive.to_proto(resource.src_ip_ranges))
         if Primitive.to_proto(resource.dest_ip_ranges):
             res.dest_ip_ranges.extend(Primitive.to_proto(resource.dest_ip_ranges))
+        if Primitive.to_proto(resource.src_threat_intelligences):
+            res.src_threat_intelligences.extend(
+                Primitive.to_proto(resource.src_threat_intelligences)
+            )
+        if Primitive.to_proto(resource.dest_threat_intelligences):
+            res.dest_threat_intelligences.extend(
+                Primitive.to_proto(resource.dest_threat_intelligences)
+            )
         if FirewallPolicyRuleMatchLayer4ConfigsArray.to_proto(resource.layer4_configs):
             res.layer4_configs.extend(
                 FirewallPolicyRuleMatchLayer4ConfigsArray.to_proto(
@@ -234,6 +246,12 @@ class FirewallPolicyRuleMatch(object):
         return FirewallPolicyRuleMatch(
             src_ip_ranges=Primitive.from_proto(resource.src_ip_ranges),
             dest_ip_ranges=Primitive.from_proto(resource.dest_ip_ranges),
+            src_threat_intelligences=Primitive.from_proto(
+                resource.src_threat_intelligences
+            ),
+            dest_threat_intelligences=Primitive.from_proto(
+                resource.dest_threat_intelligences
+            ),
             layer4_configs=FirewallPolicyRuleMatchLayer4ConfigsArray.from_proto(
                 resource.layer4_configs
             ),

@@ -169,6 +169,17 @@ func DCLFirewallPolicyRuleSchema() *dcl.Schema {
 											GoType: "string",
 										},
 									},
+									"destThreatIntelligences": &dcl.Property{
+										Type:        "array",
+										GoName:      "DestThreatIntelligences",
+										Description: "Name of the Google Cloud Threat Intelligence list.",
+										SendEmpty:   true,
+										ListType:    "list",
+										Items: &dcl.Property{
+											Type:   "string",
+											GoType: "string",
+										},
+									},
 									"layer4Configs": &dcl.Property{
 										Type:        "array",
 										GoName:      "Layer4Configs",
@@ -205,6 +216,17 @@ func DCLFirewallPolicyRuleSchema() *dcl.Schema {
 										Type:        "array",
 										GoName:      "SrcIPRanges",
 										Description: "CIDR IP address range. Maximum number of source CIDR IP ranges allowed is 256.",
+										SendEmpty:   true,
+										ListType:    "list",
+										Items: &dcl.Property{
+											Type:   "string",
+											GoType: "string",
+										},
+									},
+									"srcThreatIntelligences": &dcl.Property{
+										Type:        "array",
+										GoName:      "SrcThreatIntelligences",
+										Description: "Name of the Google Cloud Threat Intelligence list.",
 										SendEmpty:   true,
 										ListType:    "list",
 										Items: &dcl.Property{
