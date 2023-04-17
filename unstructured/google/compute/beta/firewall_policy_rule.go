@@ -55,11 +55,21 @@ func FirewallPolicyRuleToUnstructured(r *dclService.FirewallPolicyRule) *unstruc
 	}
 	if r.Match != nil && r.Match != dclService.EmptyFirewallPolicyRuleMatch {
 		rMatch := make(map[string]interface{})
+		var rMatchDestFqdns []interface{}
+		for _, rMatchDestFqdnsVal := range r.Match.DestFqdns {
+			rMatchDestFqdns = append(rMatchDestFqdns, rMatchDestFqdnsVal)
+		}
+		rMatch["destFqdns"] = rMatchDestFqdns
 		var rMatchDestIPRanges []interface{}
 		for _, rMatchDestIPRangesVal := range r.Match.DestIPRanges {
 			rMatchDestIPRanges = append(rMatchDestIPRanges, rMatchDestIPRangesVal)
 		}
 		rMatch["destIPRanges"] = rMatchDestIPRanges
+		var rMatchDestRegionCodes []interface{}
+		for _, rMatchDestRegionCodesVal := range r.Match.DestRegionCodes {
+			rMatchDestRegionCodes = append(rMatchDestRegionCodes, rMatchDestRegionCodesVal)
+		}
+		rMatch["destRegionCodes"] = rMatchDestRegionCodes
 		var rMatchDestThreatIntelligences []interface{}
 		for _, rMatchDestThreatIntelligencesVal := range r.Match.DestThreatIntelligences {
 			rMatchDestThreatIntelligences = append(rMatchDestThreatIntelligences, rMatchDestThreatIntelligencesVal)
@@ -79,11 +89,21 @@ func FirewallPolicyRuleToUnstructured(r *dclService.FirewallPolicyRule) *unstruc
 			rMatchLayer4Configs = append(rMatchLayer4Configs, rMatchLayer4ConfigsObject)
 		}
 		rMatch["layer4Configs"] = rMatchLayer4Configs
+		var rMatchSrcFqdns []interface{}
+		for _, rMatchSrcFqdnsVal := range r.Match.SrcFqdns {
+			rMatchSrcFqdns = append(rMatchSrcFqdns, rMatchSrcFqdnsVal)
+		}
+		rMatch["srcFqdns"] = rMatchSrcFqdns
 		var rMatchSrcIPRanges []interface{}
 		for _, rMatchSrcIPRangesVal := range r.Match.SrcIPRanges {
 			rMatchSrcIPRanges = append(rMatchSrcIPRanges, rMatchSrcIPRangesVal)
 		}
 		rMatch["srcIPRanges"] = rMatchSrcIPRanges
+		var rMatchSrcRegionCodes []interface{}
+		for _, rMatchSrcRegionCodesVal := range r.Match.SrcRegionCodes {
+			rMatchSrcRegionCodes = append(rMatchSrcRegionCodes, rMatchSrcRegionCodesVal)
+		}
+		rMatch["srcRegionCodes"] = rMatchSrcRegionCodes
 		var rMatchSrcThreatIntelligences []interface{}
 		for _, rMatchSrcThreatIntelligencesVal := range r.Match.SrcThreatIntelligences {
 			rMatchSrcThreatIntelligences = append(rMatchSrcThreatIntelligences, rMatchSrcThreatIntelligencesVal)
@@ -164,6 +184,17 @@ func UnstructuredToFirewallPolicyRule(u *unstructured.Resource) (*dclService.Fir
 	if _, ok := u.Object["match"]; ok {
 		if rMatch, ok := u.Object["match"].(map[string]interface{}); ok {
 			r.Match = &dclService.FirewallPolicyRuleMatch{}
+			if _, ok := rMatch["destFqdns"]; ok {
+				if s, ok := rMatch["destFqdns"].([]interface{}); ok {
+					for _, ss := range s {
+						if strval, ok := ss.(string); ok {
+							r.Match.DestFqdns = append(r.Match.DestFqdns, strval)
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Match.DestFqdns: expected []interface{}")
+				}
+			}
 			if _, ok := rMatch["destIPRanges"]; ok {
 				if s, ok := rMatch["destIPRanges"].([]interface{}); ok {
 					for _, ss := range s {
@@ -173,6 +204,17 @@ func UnstructuredToFirewallPolicyRule(u *unstructured.Resource) (*dclService.Fir
 					}
 				} else {
 					return nil, fmt.Errorf("r.Match.DestIPRanges: expected []interface{}")
+				}
+			}
+			if _, ok := rMatch["destRegionCodes"]; ok {
+				if s, ok := rMatch["destRegionCodes"].([]interface{}); ok {
+					for _, ss := range s {
+						if strval, ok := ss.(string); ok {
+							r.Match.DestRegionCodes = append(r.Match.DestRegionCodes, strval)
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Match.DestRegionCodes: expected []interface{}")
 				}
 			}
 			if _, ok := rMatch["destThreatIntelligences"]; ok {
@@ -216,6 +258,17 @@ func UnstructuredToFirewallPolicyRule(u *unstructured.Resource) (*dclService.Fir
 					return nil, fmt.Errorf("r.Match.Layer4Configs: expected []interface{}")
 				}
 			}
+			if _, ok := rMatch["srcFqdns"]; ok {
+				if s, ok := rMatch["srcFqdns"].([]interface{}); ok {
+					for _, ss := range s {
+						if strval, ok := ss.(string); ok {
+							r.Match.SrcFqdns = append(r.Match.SrcFqdns, strval)
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Match.SrcFqdns: expected []interface{}")
+				}
+			}
 			if _, ok := rMatch["srcIPRanges"]; ok {
 				if s, ok := rMatch["srcIPRanges"].([]interface{}); ok {
 					for _, ss := range s {
@@ -225,6 +278,17 @@ func UnstructuredToFirewallPolicyRule(u *unstructured.Resource) (*dclService.Fir
 					}
 				} else {
 					return nil, fmt.Errorf("r.Match.SrcIPRanges: expected []interface{}")
+				}
+			}
+			if _, ok := rMatch["srcRegionCodes"]; ok {
+				if s, ok := rMatch["srcRegionCodes"].([]interface{}); ok {
+					for _, ss := range s {
+						if strval, ok := ss.(string); ok {
+							r.Match.SrcRegionCodes = append(r.Match.SrcRegionCodes, strval)
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Match.SrcRegionCodes: expected []interface{}")
 				}
 			}
 			if _, ok := rMatch["srcThreatIntelligences"]; ok {

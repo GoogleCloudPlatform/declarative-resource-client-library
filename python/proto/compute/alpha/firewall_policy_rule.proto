@@ -45,9 +45,13 @@ message ComputeAlphaFirewallPolicyRule {
 message ComputeAlphaFirewallPolicyRuleMatch {
   repeated string src_ip_ranges = 1;
   repeated string dest_ip_ranges = 2;
-  repeated string src_threat_intelligences = 3;
-  repeated string dest_threat_intelligences = 4;
-  repeated ComputeAlphaFirewallPolicyRuleMatchLayer4Configs layer4_configs = 5;
+  repeated string src_region_codes = 3;
+  repeated string dest_region_codes = 4;
+  repeated string src_threat_intelligences = 5;
+  repeated string dest_threat_intelligences = 6;
+  repeated string src_fqdns = 7;
+  repeated string dest_fqdns = 8;
+  repeated ComputeAlphaFirewallPolicyRuleMatchLayer4Configs layer4_configs = 9;
 }
 
 message ComputeAlphaFirewallPolicyRuleMatchLayer4Configs {

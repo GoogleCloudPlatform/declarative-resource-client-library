@@ -9,6 +9,8 @@
         "ports": ["456"]
       }
     ],
+    "srcFqdns": ["wikipedia.org"],
+    "srcRegionCodes": ["US"],
     "srcThreatIntelligences": ["iplist-public-clouds"],
     "srcIPRanges": ["10.100.0.2/32"]
   },

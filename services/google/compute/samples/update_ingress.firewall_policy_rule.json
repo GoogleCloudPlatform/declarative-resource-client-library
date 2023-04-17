@@ -9,6 +9,10 @@
         "ports": ["22"]
       }
     ],
+    "srcFqdns": [],
+    "destFqdns": ["wikipedia.org"],
+    "srcRegionCodes": [],
+    "destRegionCodes": ["US"],
     "srcThreatIntelligences": [],
     "destThreatIntelligences": ["iplist-public-clouds"],
     "srcIPRanges": [],

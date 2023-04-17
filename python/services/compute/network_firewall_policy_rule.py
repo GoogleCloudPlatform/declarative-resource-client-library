@@ -269,15 +269,23 @@ class NetworkFirewallPolicyRuleMatch(object):
         dest_ip_ranges: list = None,
         layer4_configs: list = None,
         src_secure_tags: list = None,
+        src_region_codes: list = None,
+        dest_region_codes: list = None,
         src_threat_intelligences: list = None,
         dest_threat_intelligences: list = None,
+        src_fqdns: list = None,
+        dest_fqdns: list = None,
     ):
         self.src_ip_ranges = src_ip_ranges
         self.dest_ip_ranges = dest_ip_ranges
         self.layer4_configs = layer4_configs
         self.src_secure_tags = src_secure_tags
+        self.src_region_codes = src_region_codes
+        self.dest_region_codes = dest_region_codes
         self.src_threat_intelligences = src_threat_intelligences
         self.dest_threat_intelligences = dest_threat_intelligences
+        self.src_fqdns = src_fqdns
+        self.dest_fqdns = dest_fqdns
 
     @classmethod
     def to_proto(self, resource):
@@ -305,6 +313,10 @@ class NetworkFirewallPolicyRuleMatch(object):
                     resource.src_secure_tags
                 )
             )
+        if Primitive.to_proto(resource.src_region_codes):
+            res.src_region_codes.extend(Primitive.to_proto(resource.src_region_codes))
+        if Primitive.to_proto(resource.dest_region_codes):
+            res.dest_region_codes.extend(Primitive.to_proto(resource.dest_region_codes))
         if Primitive.to_proto(resource.src_threat_intelligences):
             res.src_threat_intelligences.extend(
                 Primitive.to_proto(resource.src_threat_intelligences)
@@ -313,6 +325,10 @@ class NetworkFirewallPolicyRuleMatch(object):
             res.dest_threat_intelligences.extend(
                 Primitive.to_proto(resource.dest_threat_intelligences)
             )
+        if Primitive.to_proto(resource.src_fqdns):
+            res.src_fqdns.extend(Primitive.to_proto(resource.src_fqdns))
+        if Primitive.to_proto(resource.dest_fqdns):
+            res.dest_fqdns.extend(Primitive.to_proto(resource.dest_fqdns))
         return res
 
     @classmethod
@@ -329,12 +345,16 @@ class NetworkFirewallPolicyRuleMatch(object):
             src_secure_tags=NetworkFirewallPolicyRuleMatchSrcSecureTagsArray.from_proto(
                 resource.src_secure_tags
             ),
+            src_region_codes=Primitive.from_proto(resource.src_region_codes),
+            dest_region_codes=Primitive.from_proto(resource.dest_region_codes),
             src_threat_intelligences=Primitive.from_proto(
                 resource.src_threat_intelligences
             ),
             dest_threat_intelligences=Primitive.from_proto(
                 resource.dest_threat_intelligences
             ),
+            src_fqdns=Primitive.from_proto(resource.src_fqdns),
+            dest_fqdns=Primitive.from_proto(resource.dest_fqdns),
         )
 
 

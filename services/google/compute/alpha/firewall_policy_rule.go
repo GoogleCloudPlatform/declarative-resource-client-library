@@ -74,8 +74,12 @@ type FirewallPolicyRuleMatch struct {
 	empty                   bool                                   `json:"-"`
 	SrcIPRanges             []string                               `json:"srcIPRanges"`
 	DestIPRanges            []string                               `json:"destIPRanges"`
+	SrcRegionCodes          []string                               `json:"srcRegionCodes"`
+	DestRegionCodes         []string                               `json:"destRegionCodes"`
 	SrcThreatIntelligences  []string                               `json:"srcThreatIntelligences"`
 	DestThreatIntelligences []string                               `json:"destThreatIntelligences"`
+	SrcFqdns                []string                               `json:"srcFqdns"`
+	DestFqdns               []string                               `json:"destFqdns"`
 	Layer4Configs           []FirewallPolicyRuleMatchLayer4Configs `json:"layer4Configs"`
 }
 
@@ -98,9 +102,17 @@ func (r *FirewallPolicyRuleMatch) UnmarshalJSON(data []byte) error {
 
 		r.DestIPRanges = res.DestIPRanges
 
+		r.SrcRegionCodes = res.SrcRegionCodes
+
+		r.DestRegionCodes = res.DestRegionCodes
+
 		r.SrcThreatIntelligences = res.SrcThreatIntelligences
 
 		r.DestThreatIntelligences = res.DestThreatIntelligences
+
+		r.SrcFqdns = res.SrcFqdns
+
+		r.DestFqdns = res.DestFqdns
 
 		r.Layer4Configs = res.Layer4Configs
 

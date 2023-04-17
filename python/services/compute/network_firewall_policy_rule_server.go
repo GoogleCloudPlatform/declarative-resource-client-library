@@ -78,11 +78,23 @@ func ProtoToComputeNetworkFirewallPolicyRuleMatch(p *computepb.ComputeNetworkFir
 	for _, r := range p.GetSrcSecureTags() {
 		obj.SrcSecureTags = append(obj.SrcSecureTags, *ProtoToComputeNetworkFirewallPolicyRuleMatchSrcSecureTags(r))
 	}
+	for _, r := range p.GetSrcRegionCodes() {
+		obj.SrcRegionCodes = append(obj.SrcRegionCodes, r)
+	}
+	for _, r := range p.GetDestRegionCodes() {
+		obj.DestRegionCodes = append(obj.DestRegionCodes, r)
+	}
 	for _, r := range p.GetSrcThreatIntelligences() {
 		obj.SrcThreatIntelligences = append(obj.SrcThreatIntelligences, r)
 	}
 	for _, r := range p.GetDestThreatIntelligences() {
 		obj.DestThreatIntelligences = append(obj.DestThreatIntelligences, r)
+	}
+	for _, r := range p.GetSrcFqdns() {
+		obj.SrcFqdns = append(obj.SrcFqdns, r)
+	}
+	for _, r := range p.GetDestFqdns() {
+		obj.DestFqdns = append(obj.DestFqdns, r)
 	}
 	return obj
 }
@@ -210,6 +222,16 @@ func ComputeNetworkFirewallPolicyRuleMatchToProto(o *compute.NetworkFirewallPoli
 		sSrcSecureTags[i] = ComputeNetworkFirewallPolicyRuleMatchSrcSecureTagsToProto(&r)
 	}
 	p.SetSrcSecureTags(sSrcSecureTags)
+	sSrcRegionCodes := make([]string, len(o.SrcRegionCodes))
+	for i, r := range o.SrcRegionCodes {
+		sSrcRegionCodes[i] = r
+	}
+	p.SetSrcRegionCodes(sSrcRegionCodes)
+	sDestRegionCodes := make([]string, len(o.DestRegionCodes))
+	for i, r := range o.DestRegionCodes {
+		sDestRegionCodes[i] = r
+	}
+	p.SetDestRegionCodes(sDestRegionCodes)
 	sSrcThreatIntelligences := make([]string, len(o.SrcThreatIntelligences))
 	for i, r := range o.SrcThreatIntelligences {
 		sSrcThreatIntelligences[i] = r
@@ -220,6 +242,16 @@ func ComputeNetworkFirewallPolicyRuleMatchToProto(o *compute.NetworkFirewallPoli
 		sDestThreatIntelligences[i] = r
 	}
 	p.SetDestThreatIntelligences(sDestThreatIntelligences)
+	sSrcFqdns := make([]string, len(o.SrcFqdns))
+	for i, r := range o.SrcFqdns {
+		sSrcFqdns[i] = r
+	}
+	p.SetSrcFqdns(sSrcFqdns)
+	sDestFqdns := make([]string, len(o.DestFqdns))
+	for i, r := range o.DestFqdns {
+		sDestFqdns[i] = r
+	}
+	p.SetDestFqdns(sDestFqdns)
 	return p
 }
 

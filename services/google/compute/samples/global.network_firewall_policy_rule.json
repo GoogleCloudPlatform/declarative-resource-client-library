@@ -13,6 +13,8 @@
       }
     ],
     "destIPRanges": ["10.100.0.1/32"],
+    "destFqdns": ["wikipedia.org"],
+    "destRegionCodes": ["US"],
     "destThreatIntelligences": ["iplist-known-malicious-ips"]
   },
   "enableLogging" : false,

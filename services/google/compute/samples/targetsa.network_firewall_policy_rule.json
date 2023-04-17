@@ -14,6 +14,8 @@
     ],
     "srcSecureTags": [{"name": "tagValues/{{ref:first.cloudresourcemanager.tag_value.json:name}}"}],
     "srcIPRanges": ["10.100.0.1/32"],
+    "srcFqdns": ["wikipedia.org"],
+    "srcRegionCodes": ["US"],
     "srcThreatIntelligences": ["iplist-public-clouds"]
   },
   "enableLogging" : false,

@@ -126,11 +126,33 @@ components:
           required:
           - layer4Configs
           properties:
+            destFqdns:
+              type: array
+              x-dcl-go-name: DestFqdns
+              description: Domain names that will be used to match against the resolved
+                domain name of destination of traffic. Can only be specified if DIRECTION
+                is egress.
+              x-dcl-send-empty: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
             destIPRanges:
               type: array
               x-dcl-go-name: DestIPRanges
               description: CIDR IP address range. Maximum number of destination CIDR
                 IP ranges allowed is 256.
+              x-dcl-send-empty: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            destRegionCodes:
+              type: array
+              x-dcl-go-name: DestRegionCodes
+              description: The Unicode country codes whose IP addresses will be used
+                to match against the source of traffic. Can only be specified if DIRECTION
+                is egress.
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
@@ -178,11 +200,33 @@ components:
                     items:
                       type: string
                       x-dcl-go-type: string
+            srcFqdns:
+              type: array
+              x-dcl-go-name: SrcFqdns
+              description: Domain names that will be used to match against the resolved
+                domain name of source of traffic. Can only be specified if DIRECTION
+                is ingress.
+              x-dcl-send-empty: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
             srcIPRanges:
               type: array
               x-dcl-go-name: SrcIPRanges
               description: CIDR IP address range. Maximum number of source CIDR IP
                 ranges allowed is 256.
+              x-dcl-send-empty: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
+            srcRegionCodes:
+              type: array
+              x-dcl-go-name: SrcRegionCodes
+              description: The Unicode country codes whose IP addresses will be used
+                to match against the source of traffic. Can only be specified if DIRECTION
+                is ingress.
               x-dcl-send-empty: true
               x-dcl-list-type: list
               items:
