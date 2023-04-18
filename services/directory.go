@@ -99,6 +99,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices"
 	gameservices_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices/alpha"
 	gameservices_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub"
 	gkehub_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/alpha"
 	gkehub_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam"
@@ -329,6 +330,8 @@ func Services() *Directory {
 	d.AddResource("ga", "firebaserules", "Release", firebaserules.YAML_release)
 	d.AddResource("ga", "gameservices", dcl.TitleToSnakeCase("Realm"), gameservices.YAML_realm)
 	d.AddResource("ga", "gameservices", "Realm", gameservices.YAML_realm)
+	d.AddResource("ga", "gkehub", dcl.TitleToSnakeCase("Feature"), gkehub.YAML_feature)
+	d.AddResource("ga", "gkehub", "Feature", gkehub.YAML_feature)
 	d.AddResource("ga", "iam", dcl.TitleToSnakeCase("Role"), iam.YAML_role)
 	d.AddResource("ga", "iam", "Role", iam.YAML_role)
 	d.AddResource("ga", "iam", dcl.TitleToSnakeCase("ServiceAccount"), iam.YAML_service_account)

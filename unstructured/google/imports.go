@@ -96,6 +96,7 @@ import (
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/gameservices"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/gameservices/alpha"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/gameservices/beta"
+	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/gkehub"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/gkehub/alpha"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/gkehub/beta"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/iam"
