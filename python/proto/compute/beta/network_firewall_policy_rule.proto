@@ -68,6 +68,8 @@ message ComputeBetaNetworkFirewallPolicyRuleMatch {
   repeated string dest_threat_intelligences = 8;
   repeated string src_fqdns = 9;
   repeated string dest_fqdns = 10;
+  repeated string src_address_groups = 11;
+  repeated string dest_address_groups = 12;
 }
 
 message ComputeBetaNetworkFirewallPolicyRuleMatchLayer4Configs {

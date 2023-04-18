@@ -16,7 +16,8 @@
     "srcIPRanges": ["10.100.0.1/32"],
     "srcFqdns": ["wikipedia.org"],
     "srcRegionCodes": ["US"],
-    "srcThreatIntelligences": ["iplist-public-clouds"]
+    "srcThreatIntelligences": ["iplist-public-clouds"],
+    "srcAddressGroups": ["projects/{{project}}/locations/global/addressGroups/{{ref:global.networksecurity.address_group.json:name}}"]
   },
   "enableLogging" : false,
   "targetServiceAccounts" : ["261421534184-compute@developer.gserviceaccount.com"],

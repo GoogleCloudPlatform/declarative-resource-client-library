@@ -96,6 +96,12 @@ func ProtoToComputeAlphaNetworkFirewallPolicyRuleMatch(p *alphapb.ComputeAlphaNe
 	for _, r := range p.GetDestFqdns() {
 		obj.DestFqdns = append(obj.DestFqdns, r)
 	}
+	for _, r := range p.GetSrcAddressGroups() {
+		obj.SrcAddressGroups = append(obj.SrcAddressGroups, r)
+	}
+	for _, r := range p.GetDestAddressGroups() {
+		obj.DestAddressGroups = append(obj.DestAddressGroups, r)
+	}
 	return obj
 }
 
@@ -252,6 +258,16 @@ func ComputeAlphaNetworkFirewallPolicyRuleMatchToProto(o *alpha.NetworkFirewallP
 		sDestFqdns[i] = r
 	}
 	p.SetDestFqdns(sDestFqdns)
+	sSrcAddressGroups := make([]string, len(o.SrcAddressGroups))
+	for i, r := range o.SrcAddressGroups {
+		sSrcAddressGroups[i] = r
+	}
+	p.SetSrcAddressGroups(sSrcAddressGroups)
+	sDestAddressGroups := make([]string, len(o.DestAddressGroups))
+	for i, r := range o.DestAddressGroups {
+		sDestAddressGroups[i] = r
+	}
+	p.SetDestAddressGroups(sDestAddressGroups)
 	return p
 }
 

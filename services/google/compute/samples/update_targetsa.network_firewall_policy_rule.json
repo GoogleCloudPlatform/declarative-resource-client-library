@@ -19,7 +19,9 @@
     "srcRegionCodes": [],
     "destRegionCodes": ["US"],
     "srcThreatIntelligences": [],
-    "destThreatIntelligences": ["iplist-known-malicious-ips"]
+    "destThreatIntelligences": ["iplist-known-malicious-ips"],
+    "srcAddressGroups": [],
+    "destAddressGroups": ["projects/{{project}}/locations/global/addressGroups/{{ref:global.networksecurity.address_group.json:name}}"]
   },
   "enableLogging" : true,
   "targetServiceAccounts" : ["update-261421534184-compute@developer.gserviceaccount.com"],

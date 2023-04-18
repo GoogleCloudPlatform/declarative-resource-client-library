@@ -19,6 +19,7 @@ versions:
 resource: samples/egress.firewall_policy_rule.json
 dependencies:
 - samples/folder.firewall_policy_association.json
+- samples/basic.networksecurity.address_group.json
 - samples/folder.firewall_policy.json
 - samples/folder_firewall.iam.member.json
 - samples/folder_compute.iam.member.json

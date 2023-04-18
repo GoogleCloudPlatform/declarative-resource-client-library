@@ -195,6 +195,17 @@ func DCLNetworkFirewallPolicyRuleSchema() *dcl.Schema {
 									"layer4Configs",
 								},
 								Properties: map[string]*dcl.Property{
+									"destAddressGroups": &dcl.Property{
+										Type:        "array",
+										GoName:      "DestAddressGroups",
+										Description: "Address groups which should be matched against the traffic destination. Maximum number of destination address groups is 10. Destination address groups is only supported in Egress rules.",
+										SendEmpty:   true,
+										ListType:    "list",
+										Items: &dcl.Property{
+											Type:   "string",
+											GoType: "string",
+										},
+									},
 									"destFqdns": &dcl.Property{
 										Type:        "array",
 										GoName:      "DestFqdns",
@@ -269,6 +280,17 @@ func DCLNetworkFirewallPolicyRuleSchema() *dcl.Schema {
 													},
 												},
 											},
+										},
+									},
+									"srcAddressGroups": &dcl.Property{
+										Type:        "array",
+										GoName:      "SrcAddressGroups",
+										Description: "Address groups which should be matched against the traffic source. Maximum number of source address groups is 10. Source address groups is only supported in Ingress rules.",
+										SendEmpty:   true,
+										ListType:    "list",
+										Items: &dcl.Property{
+											Type:   "string",
+											GoType: "string",
 										},
 									},
 									"srcFqdns": &dcl.Property{

@@ -69,6 +69,12 @@ func ProtoToComputeBetaFirewallPolicyRuleMatch(p *betapb.ComputeBetaFirewallPoli
 	for _, r := range p.GetLayer4Configs() {
 		obj.Layer4Configs = append(obj.Layer4Configs, *ProtoToComputeBetaFirewallPolicyRuleMatchLayer4Configs(r))
 	}
+	for _, r := range p.GetSrcAddressGroups() {
+		obj.SrcAddressGroups = append(obj.SrcAddressGroups, r)
+	}
+	for _, r := range p.GetDestAddressGroups() {
+		obj.DestAddressGroups = append(obj.DestAddressGroups, r)
+	}
 	return obj
 }
 
@@ -171,6 +177,16 @@ func ComputeBetaFirewallPolicyRuleMatchToProto(o *beta.FirewallPolicyRuleMatch) 
 		sLayer4Configs[i] = ComputeBetaFirewallPolicyRuleMatchLayer4ConfigsToProto(&r)
 	}
 	p.SetLayer4Configs(sLayer4Configs)
+	sSrcAddressGroups := make([]string, len(o.SrcAddressGroups))
+	for i, r := range o.SrcAddressGroups {
+		sSrcAddressGroups[i] = r
+	}
+	p.SetSrcAddressGroups(sSrcAddressGroups)
+	sDestAddressGroups := make([]string, len(o.DestAddressGroups))
+	for i, r := range o.DestAddressGroups {
+		sDestAddressGroups[i] = r
+	}
+	p.SetDestAddressGroups(sDestAddressGroups)
 	return p
 }
 

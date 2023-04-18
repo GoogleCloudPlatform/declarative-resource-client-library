@@ -126,6 +126,17 @@ components:
           required:
           - layer4Configs
           properties:
+            destAddressGroups:
+              type: array
+              x-dcl-go-name: DestAddressGroups
+              description: Address groups which should be matched against the traffic
+                destination. Maximum number of destination address groups is 10. Destination
+                address groups is only supported in Egress rules.
+              x-dcl-send-empty: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
             destFqdns:
               type: array
               x-dcl-go-name: DestFqdns
@@ -200,6 +211,17 @@ components:
                     items:
                       type: string
                       x-dcl-go-type: string
+            srcAddressGroups:
+              type: array
+              x-dcl-go-name: SrcAddressGroups
+              description: Address groups which should be matched against the traffic
+                source. Maximum number of source address groups is 10. Source address
+                groups is only supported in Ingress rules.
+              x-dcl-send-empty: true
+              x-dcl-list-type: list
+              items:
+                type: string
+                x-dcl-go-type: string
             srcFqdns:
               type: array
               x-dcl-go-name: SrcFqdns

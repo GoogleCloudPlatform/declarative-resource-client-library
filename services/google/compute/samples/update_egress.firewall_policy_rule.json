@@ -16,7 +16,9 @@
     "srcThreatIntelligences": ["iplist-known-malicious-ips"],
     "destThreatIntelligences": [],
     "srcIPRanges": ["11.100.0.1/32"],
-    "destIPRanges": []
+    "destIPRanges": [],
+    "srcAddressGroups": ["organizations/{{org_id}}/locations/global/addressGroups/{{ref:basic.networksecurity.address_group.json:name}}"],
+    "destAddressGroups": []
   },
   "enableLogging" : true,
   "targetServiceAccounts" : ["update-261421534184-compute@developer.gserviceaccount.com"],

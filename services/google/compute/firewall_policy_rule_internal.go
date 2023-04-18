@@ -668,6 +668,16 @@ func canonicalizeFirewallPolicyRuleMatch(des, initial *FirewallPolicyRuleMatch, 
 		cDes.DestFqdns = des.DestFqdns
 	}
 	cDes.Layer4Configs = canonicalizeFirewallPolicyRuleMatchLayer4ConfigsSlice(des.Layer4Configs, initial.Layer4Configs, opts...)
+	if dcl.StringArrayCanonicalize(des.SrcAddressGroups, initial.SrcAddressGroups) {
+		cDes.SrcAddressGroups = initial.SrcAddressGroups
+	} else {
+		cDes.SrcAddressGroups = des.SrcAddressGroups
+	}
+	if dcl.StringArrayCanonicalize(des.DestAddressGroups, initial.DestAddressGroups) {
+		cDes.DestAddressGroups = initial.DestAddressGroups
+	} else {
+		cDes.DestAddressGroups = des.DestAddressGroups
+	}
 
 	return cDes
 }
@@ -739,6 +749,12 @@ func canonicalizeNewFirewallPolicyRuleMatch(c *Client, des, nw *FirewallPolicyRu
 		nw.DestFqdns = des.DestFqdns
 	}
 	nw.Layer4Configs = canonicalizeNewFirewallPolicyRuleMatchLayer4ConfigsSlice(c, des.Layer4Configs, nw.Layer4Configs)
+	if dcl.StringArrayCanonicalize(des.SrcAddressGroups, nw.SrcAddressGroups) {
+		nw.SrcAddressGroups = des.SrcAddressGroups
+	}
+	if dcl.StringArrayCanonicalize(des.DestAddressGroups, nw.DestAddressGroups) {
+		nw.DestAddressGroups = des.DestAddressGroups
+	}
 
 	return nw
 }
@@ -1104,6 +1120,20 @@ func compareFirewallPolicyRuleMatchNewStyle(d, a interface{}, fn dcl.FieldName) 
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.SrcAddressGroups, actual.SrcAddressGroups, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("SrcAddressGroups")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DestAddressGroups, actual.DestAddressGroups, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateFirewallPolicyRulePatchRuleOperation")}, fn.AddNest("DestAddressGroups")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -1388,6 +1418,12 @@ func expandFirewallPolicyRuleMatch(c *Client, f *FirewallPolicyRuleMatch, res *F
 	} else if v != nil {
 		m["layer4Configs"] = v
 	}
+	if v := f.SrcAddressGroups; v != nil {
+		m["srcAddressGroups"] = v
+	}
+	if v := f.DestAddressGroups; v != nil {
+		m["destAddressGroups"] = v
+	}
 
 	return m, nil
 }
@@ -1414,6 +1450,8 @@ func flattenFirewallPolicyRuleMatch(c *Client, i interface{}, res *FirewallPolic
 	r.SrcFqdns = dcl.FlattenStringSlice(m["srcFqdns"])
 	r.DestFqdns = dcl.FlattenStringSlice(m["destFqdns"])
 	r.Layer4Configs = flattenFirewallPolicyRuleMatchLayer4ConfigsSlice(c, m["layer4Configs"], res)
+	r.SrcAddressGroups = dcl.FlattenStringSlice(m["srcAddressGroups"])
+	r.DestAddressGroups = dcl.FlattenStringSlice(m["destAddressGroups"])
 
 	return r
 }

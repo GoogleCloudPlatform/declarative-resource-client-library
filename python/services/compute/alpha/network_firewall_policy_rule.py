@@ -277,6 +277,8 @@ class NetworkFirewallPolicyRuleMatch(object):
         dest_threat_intelligences: list = None,
         src_fqdns: list = None,
         dest_fqdns: list = None,
+        src_address_groups: list = None,
+        dest_address_groups: list = None,
     ):
         self.src_ip_ranges = src_ip_ranges
         self.dest_ip_ranges = dest_ip_ranges
@@ -288,6 +290,8 @@ class NetworkFirewallPolicyRuleMatch(object):
         self.dest_threat_intelligences = dest_threat_intelligences
         self.src_fqdns = src_fqdns
         self.dest_fqdns = dest_fqdns
+        self.src_address_groups = src_address_groups
+        self.dest_address_groups = dest_address_groups
 
     @classmethod
     def to_proto(self, resource):
@@ -333,6 +337,14 @@ class NetworkFirewallPolicyRuleMatch(object):
             res.src_fqdns.extend(Primitive.to_proto(resource.src_fqdns))
         if Primitive.to_proto(resource.dest_fqdns):
             res.dest_fqdns.extend(Primitive.to_proto(resource.dest_fqdns))
+        if Primitive.to_proto(resource.src_address_groups):
+            res.src_address_groups.extend(
+                Primitive.to_proto(resource.src_address_groups)
+            )
+        if Primitive.to_proto(resource.dest_address_groups):
+            res.dest_address_groups.extend(
+                Primitive.to_proto(resource.dest_address_groups)
+            )
         return res
 
     @classmethod
@@ -359,6 +371,8 @@ class NetworkFirewallPolicyRuleMatch(object):
             ),
             src_fqdns=Primitive.from_proto(resource.src_fqdns),
             dest_fqdns=Primitive.from_proto(resource.dest_fqdns),
+            src_address_groups=Primitive.from_proto(resource.src_address_groups),
+            dest_address_groups=Primitive.from_proto(resource.dest_address_groups),
         )
 
 

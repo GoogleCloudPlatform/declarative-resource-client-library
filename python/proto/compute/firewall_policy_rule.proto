@@ -52,6 +52,8 @@ message ComputeFirewallPolicyRuleMatch {
   repeated string src_fqdns = 7;
   repeated string dest_fqdns = 8;
   repeated ComputeFirewallPolicyRuleMatchLayer4Configs layer4_configs = 9;
+  repeated string src_address_groups = 10;
+  repeated string dest_address_groups = 11;
 }
 
 message ComputeFirewallPolicyRuleMatchLayer4Configs {

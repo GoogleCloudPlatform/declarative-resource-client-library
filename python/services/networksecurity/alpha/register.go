@@ -23,4 +23,5 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterNetworksecurityAlphaAuthorizationPolicyServiceServer(s, &AuthorizationPolicyServer{})
 	sdkgrpc.RegisterNetworksecurityAlphaClientTlsPolicyServiceServer(s, &ClientTlsPolicyServer{})
 	sdkgrpc.RegisterNetworksecurityAlphaServerTlsPolicyServiceServer(s, &ServerTlsPolicyServer{})
+	sdkgrpc.RegisterNetworksecurityAlphaAddressGroupServiceServer(s, &AddressGroupServer{})
 }

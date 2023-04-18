@@ -58,6 +58,11 @@ func NetworkFirewallPolicyRuleToUnstructured(r *dclService.NetworkFirewallPolicy
 	}
 	if r.Match != nil && r.Match != dclService.EmptyNetworkFirewallPolicyRuleMatch {
 		rMatch := make(map[string]interface{})
+		var rMatchDestAddressGroups []interface{}
+		for _, rMatchDestAddressGroupsVal := range r.Match.DestAddressGroups {
+			rMatchDestAddressGroups = append(rMatchDestAddressGroups, rMatchDestAddressGroupsVal)
+		}
+		rMatch["destAddressGroups"] = rMatchDestAddressGroups
 		var rMatchDestFqdns []interface{}
 		for _, rMatchDestFqdnsVal := range r.Match.DestFqdns {
 			rMatchDestFqdns = append(rMatchDestFqdns, rMatchDestFqdnsVal)
@@ -92,6 +97,11 @@ func NetworkFirewallPolicyRuleToUnstructured(r *dclService.NetworkFirewallPolicy
 			rMatchLayer4Configs = append(rMatchLayer4Configs, rMatchLayer4ConfigsObject)
 		}
 		rMatch["layer4Configs"] = rMatchLayer4Configs
+		var rMatchSrcAddressGroups []interface{}
+		for _, rMatchSrcAddressGroupsVal := range r.Match.SrcAddressGroups {
+			rMatchSrcAddressGroups = append(rMatchSrcAddressGroups, rMatchSrcAddressGroupsVal)
+		}
+		rMatch["srcAddressGroups"] = rMatchSrcAddressGroups
 		var rMatchSrcFqdns []interface{}
 		for _, rMatchSrcFqdnsVal := range r.Match.SrcFqdns {
 			rMatchSrcFqdns = append(rMatchSrcFqdns, rMatchSrcFqdnsVal)
@@ -219,6 +229,17 @@ func UnstructuredToNetworkFirewallPolicyRule(u *unstructured.Resource) (*dclServ
 	if _, ok := u.Object["match"]; ok {
 		if rMatch, ok := u.Object["match"].(map[string]interface{}); ok {
 			r.Match = &dclService.NetworkFirewallPolicyRuleMatch{}
+			if _, ok := rMatch["destAddressGroups"]; ok {
+				if s, ok := rMatch["destAddressGroups"].([]interface{}); ok {
+					for _, ss := range s {
+						if strval, ok := ss.(string); ok {
+							r.Match.DestAddressGroups = append(r.Match.DestAddressGroups, strval)
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Match.DestAddressGroups: expected []interface{}")
+				}
+			}
 			if _, ok := rMatch["destFqdns"]; ok {
 				if s, ok := rMatch["destFqdns"].([]interface{}); ok {
 					for _, ss := range s {
@@ -291,6 +312,17 @@ func UnstructuredToNetworkFirewallPolicyRule(u *unstructured.Resource) (*dclServ
 					}
 				} else {
 					return nil, fmt.Errorf("r.Match.Layer4Configs: expected []interface{}")
+				}
+			}
+			if _, ok := rMatch["srcAddressGroups"]; ok {
+				if s, ok := rMatch["srcAddressGroups"].([]interface{}); ok {
+					for _, ss := range s {
+						if strval, ok := ss.(string); ok {
+							r.Match.SrcAddressGroups = append(r.Match.SrcAddressGroups, strval)
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Match.SrcAddressGroups: expected []interface{}")
 				}
 			}
 			if _, ok := rMatch["srcFqdns"]; ok {

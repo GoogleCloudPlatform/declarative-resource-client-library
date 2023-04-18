@@ -18,6 +18,7 @@ versions:
 - ga
 resource: samples/regional.network_firewall_policy_rule.json
 dependencies:
+- samples/regional.networksecurity.address_group.json
 - samples/regional.network_firewall_policy.json
 - samples/first.cloudresourcemanager.tag_key.json
 - samples/first.cloudresourcemanager.tag_value.json

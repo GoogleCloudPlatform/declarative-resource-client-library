@@ -19,7 +19,9 @@
     "destRegionCodes": [],
     "srcRegionCodes": ["US"],
     "destThreatIntelligences": [],
-    "srcThreatIntelligences": ["iplist-public-clouds"]
+    "srcThreatIntelligences": ["iplist-public-clouds"],
+    "srcAddressGroups": ["projects/{{project}}/locations/global/addressGroups/{{ref:global.networksecurity.address_group.json:name}}"],
+    "destAddressGroups": []
   },
   "enableLogging" : true,
   "targetSecureTags": [{"name": "tagValues/{{ref:first.cloudresourcemanager.tag_value.json:name}}"}],

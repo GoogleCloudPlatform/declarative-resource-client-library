@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="networksecurity/alpha", resources=["authorization_policy","client_tls_policy","server_tls_policy"])
+proto_package(name="networksecurity/alpha", resources=["authorization_policy","client_tls_policy","server_tls_policy","address_group"])

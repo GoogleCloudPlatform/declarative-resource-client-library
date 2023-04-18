@@ -81,6 +81,8 @@ type FirewallPolicyRuleMatch struct {
 	SrcFqdns                []string                               `json:"srcFqdns"`
 	DestFqdns               []string                               `json:"destFqdns"`
 	Layer4Configs           []FirewallPolicyRuleMatchLayer4Configs `json:"layer4Configs"`
+	SrcAddressGroups        []string                               `json:"srcAddressGroups"`
+	DestAddressGroups       []string                               `json:"destAddressGroups"`
 }
 
 type jsonFirewallPolicyRuleMatch FirewallPolicyRuleMatch
@@ -115,6 +117,10 @@ func (r *FirewallPolicyRuleMatch) UnmarshalJSON(data []byte) error {
 		r.DestFqdns = res.DestFqdns
 
 		r.Layer4Configs = res.Layer4Configs
+
+		r.SrcAddressGroups = res.SrcAddressGroups
+
+		r.DestAddressGroups = res.DestAddressGroups
 
 	}
 	return nil

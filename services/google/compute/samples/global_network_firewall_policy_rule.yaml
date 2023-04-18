@@ -18,6 +18,7 @@ versions:
 - ga
 resource: samples/global.network_firewall_policy_rule.json
 dependencies:
+- samples/global.networksecurity.address_group.json
 - samples/global.network_firewall_policy.json
 - samples/first.cloudresourcemanager.tag_key.json
 - samples/first.cloudresourcemanager.tag_value.json
@@ -27,6 +28,7 @@ dependencies:
 updates:
 - resource: samples/update_global.network_firewall_policy_rule.json
   dependencies:
+  - samples/global.networksecurity.address_group.json
   - samples/global.network_firewall_policy.json
   - samples/first.cloudresourcemanager.tag_key.json
   - samples/first.cloudresourcemanager.tag_value.json
