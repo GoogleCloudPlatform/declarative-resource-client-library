@@ -1,6 +1,6 @@
 {
   "name": "{{connection}}",
-  "gitlabEnterpriseConfig": {
+  "gitlabConfig": {
     "hostUri": "https://gle-test.proctor-staging-test.com",
     "serviceDirectoryConfig": {
       "service": "projects/proctor-gitlab-enterprise/locations/us-west1/namespaces/gle-uw-1/services/private-smoketest"

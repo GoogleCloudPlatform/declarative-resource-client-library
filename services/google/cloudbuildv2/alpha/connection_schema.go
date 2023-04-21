@@ -144,7 +144,7 @@ func DCLConnectionSchema() *dcl.Schema {
 								Description: "Configuration for connections to github.com.",
 								Conflicts: []string{
 									"githubEnterpriseConfig",
-									"gitlabEnterpriseConfig",
+									"gitlabConfig",
 								},
 								Properties: map[string]*dcl.Property{
 									"appInstallationId": &dcl.Property{
@@ -174,7 +174,7 @@ func DCLConnectionSchema() *dcl.Schema {
 												Type:        "string",
 												GoName:      "Username",
 												ReadOnly:    true,
-												Description: "The username associated to this token.",
+												Description: "Output only. The username associated to this token.",
 											},
 										},
 									},
@@ -187,7 +187,7 @@ func DCLConnectionSchema() *dcl.Schema {
 								Description: "Configuration for connections to an instance of GitHub Enterprise.",
 								Conflicts: []string{
 									"githubConfig",
-									"gitlabEnterpriseConfig",
+									"gitlabConfig",
 								},
 								Required: []string{
 									"hostUri",
@@ -266,17 +266,16 @@ func DCLConnectionSchema() *dcl.Schema {
 									},
 								},
 							},
-							"gitlabEnterpriseConfig": &dcl.Property{
+							"gitlabConfig": &dcl.Property{
 								Type:        "object",
-								GoName:      "GitlabEnterpriseConfig",
-								GoType:      "ConnectionGitlabEnterpriseConfig",
-								Description: "Configuration for connections to an instance of GitLab Enterprise.",
+								GoName:      "GitlabConfig",
+								GoType:      "ConnectionGitlabConfig",
+								Description: "Configuration for connections to gitlab.com or an instance of GitLab Enterprise.",
 								Conflicts: []string{
 									"githubConfig",
 									"githubEnterpriseConfig",
 								},
 								Required: []string{
-									"hostUri",
 									"webhookSecretSecretVersion",
 									"authorizerCredential",
 								},
@@ -284,7 +283,7 @@ func DCLConnectionSchema() *dcl.Schema {
 									"authorizerCredential": &dcl.Property{
 										Type:        "object",
 										GoName:      "AuthorizerCredential",
-										GoType:      "ConnectionGitlabEnterpriseConfigAuthorizerCredential",
+										GoType:      "ConnectionGitlabConfigAuthorizerCredential",
 										Description: "Required. A GitLab personal access token with the `api` scope access.",
 										Required: []string{
 											"userTokenSecretVersion",
@@ -310,15 +309,16 @@ func DCLConnectionSchema() *dcl.Schema {
 										},
 									},
 									"hostUri": &dcl.Property{
-										Type:        "string",
-										GoName:      "HostUri",
-										Description: "Required. The URI of the GitLab Enterprise host this connection is for.",
+										Type:          "string",
+										GoName:        "HostUri",
+										Description:   "The URI of the GitLab Enterprise host this connection is for. If not specified, the default value is https://gitlab.com.",
+										ServerDefault: true,
 									},
 									"readAuthorizerCredential": &dcl.Property{
 										Type:        "object",
 										GoName:      "ReadAuthorizerCredential",
-										GoType:      "ConnectionGitlabEnterpriseConfigReadAuthorizerCredential",
-										Description: "A GitLab personal access token with `read_repository` scope access. Required if the GitLab Enterprise server verion is older than 13.10. See at https://docs.gitlab.com/ee/api/project_access_tokens.html#create-a-project-access-token.",
+										GoType:      "ConnectionGitlabConfigReadAuthorizerCredential",
+										Description: "A GitLab personal access token with `read_api` scope access. Required if the GitLab Enterprise server verion is older than 13.10. See at https://docs.gitlab.com/ee/api/project_access_tokens.html#create-a-project-access-token.",
 										Required: []string{
 											"userTokenSecretVersion",
 										},
@@ -351,7 +351,7 @@ func DCLConnectionSchema() *dcl.Schema {
 									"serviceDirectoryConfig": &dcl.Property{
 										Type:        "object",
 										GoName:      "ServiceDirectoryConfig",
-										GoType:      "ConnectionGitlabEnterpriseConfigServiceDirectoryConfig",
+										GoType:      "ConnectionGitlabConfigServiceDirectoryConfig",
 										Description: "Configuration for using Service Directory to privately connect to a GitLab Enterprise server. This should only be set if the GitLab Enterprise server is hosted on-premises and not reachable by public internet. If this field is left empty, calls to the GitLab Enterprise server will be made over the public internet.",
 										Required: []string{
 											"service",

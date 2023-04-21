@@ -36,7 +36,7 @@ message Cloudbuildv2AlphaConnection {
   string update_time = 3;
   Cloudbuildv2AlphaConnectionGithubConfig github_config = 4;
   Cloudbuildv2AlphaConnectionGithubEnterpriseConfig github_enterprise_config = 5;
-  Cloudbuildv2AlphaConnectionGitlabEnterpriseConfig gitlab_enterprise_config = 6;
+  Cloudbuildv2AlphaConnectionGitlabConfig gitlab_config = 6;
   Cloudbuildv2AlphaConnectionInstallationState installation_state = 7;
   bool disabled = 8;
   bool reconciling = 9;
@@ -71,27 +71,27 @@ message Cloudbuildv2AlphaConnectionGithubEnterpriseConfigServiceDirectoryConfig 
   string service = 1;
 }
 
-message Cloudbuildv2AlphaConnectionGitlabEnterpriseConfig {
+message Cloudbuildv2AlphaConnectionGitlabConfig {
   string host_uri = 1;
   string webhook_secret_secret_version = 2;
-  Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigReadAuthorizerCredential read_authorizer_credential = 3;
-  Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigAuthorizerCredential authorizer_credential = 4;
-  Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigServiceDirectoryConfig service_directory_config = 5;
+  Cloudbuildv2AlphaConnectionGitlabConfigReadAuthorizerCredential read_authorizer_credential = 3;
+  Cloudbuildv2AlphaConnectionGitlabConfigAuthorizerCredential authorizer_credential = 4;
+  Cloudbuildv2AlphaConnectionGitlabConfigServiceDirectoryConfig service_directory_config = 5;
   string ssl_ca = 6;
   string server_version = 7;
 }
 
-message Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigReadAuthorizerCredential {
+message Cloudbuildv2AlphaConnectionGitlabConfigReadAuthorizerCredential {
   string user_token_secret_version = 1;
   string username = 2;
 }
 
-message Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigAuthorizerCredential {
+message Cloudbuildv2AlphaConnectionGitlabConfigAuthorizerCredential {
   string user_token_secret_version = 1;
   string username = 2;
 }
 
-message Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigServiceDirectoryConfig {
+message Cloudbuildv2AlphaConnectionGitlabConfigServiceDirectoryConfig {
   string service = 1;
 }
 

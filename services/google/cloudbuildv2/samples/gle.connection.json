@@ -1,6 +1,6 @@
 {
   "name": "{{connection}}",
-  "gitlabEnterpriseConfig": {
+  "gitlabConfig": {
     "hostUri": "https://gle-us-central1.gcb-test.com",
     "authorizerCredential": {
       "userTokenSecretVersion": "projects/407304063574/secrets/gle-api-token/versions/latest"

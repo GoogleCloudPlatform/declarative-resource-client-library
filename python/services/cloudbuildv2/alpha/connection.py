@@ -26,7 +26,7 @@ class Connection(object):
         update_time: str = None,
         github_config: dict = None,
         github_enterprise_config: dict = None,
-        gitlab_enterprise_config: dict = None,
+        gitlab_config: dict = None,
         installation_state: dict = None,
         disabled: bool = None,
         reconciling: bool = None,
@@ -40,7 +40,7 @@ class Connection(object):
         self.name = name
         self.github_config = github_config
         self.github_enterprise_config = github_enterprise_config
-        self.gitlab_enterprise_config = gitlab_enterprise_config
+        self.gitlab_config = gitlab_config
         self.disabled = disabled
         self.annotations = annotations
         self.project = project
@@ -67,12 +67,12 @@ class Connection(object):
             )
         else:
             request.resource.ClearField("github_enterprise_config")
-        if ConnectionGitlabEnterpriseConfig.to_proto(self.gitlab_enterprise_config):
-            request.resource.gitlab_enterprise_config.CopyFrom(
-                ConnectionGitlabEnterpriseConfig.to_proto(self.gitlab_enterprise_config)
+        if ConnectionGitlabConfig.to_proto(self.gitlab_config):
+            request.resource.gitlab_config.CopyFrom(
+                ConnectionGitlabConfig.to_proto(self.gitlab_config)
             )
         else:
-            request.resource.ClearField("gitlab_enterprise_config")
+            request.resource.ClearField("gitlab_config")
         if Primitive.to_proto(self.disabled):
             request.resource.disabled = Primitive.to_proto(self.disabled)
 
@@ -95,9 +95,7 @@ class Connection(object):
         self.github_enterprise_config = ConnectionGithubEnterpriseConfig.from_proto(
             response.github_enterprise_config
         )
-        self.gitlab_enterprise_config = ConnectionGitlabEnterpriseConfig.from_proto(
-            response.gitlab_enterprise_config
-        )
+        self.gitlab_config = ConnectionGitlabConfig.from_proto(response.gitlab_config)
         self.installation_state = ConnectionInstallationState.from_proto(
             response.installation_state
         )
@@ -129,12 +127,12 @@ class Connection(object):
             )
         else:
             request.resource.ClearField("github_enterprise_config")
-        if ConnectionGitlabEnterpriseConfig.to_proto(self.gitlab_enterprise_config):
-            request.resource.gitlab_enterprise_config.CopyFrom(
-                ConnectionGitlabEnterpriseConfig.to_proto(self.gitlab_enterprise_config)
+        if ConnectionGitlabConfig.to_proto(self.gitlab_config):
+            request.resource.gitlab_config.CopyFrom(
+                ConnectionGitlabConfig.to_proto(self.gitlab_config)
             )
         else:
-            request.resource.ClearField("gitlab_enterprise_config")
+            request.resource.ClearField("gitlab_config")
         if Primitive.to_proto(self.disabled):
             request.resource.disabled = Primitive.to_proto(self.disabled)
 
@@ -178,12 +176,12 @@ class Connection(object):
             )
         else:
             resource.ClearField("github_enterprise_config")
-        if ConnectionGitlabEnterpriseConfig.to_proto(self.gitlab_enterprise_config):
-            resource.gitlab_enterprise_config.CopyFrom(
-                ConnectionGitlabEnterpriseConfig.to_proto(self.gitlab_enterprise_config)
+        if ConnectionGitlabConfig.to_proto(self.gitlab_config):
+            resource.gitlab_config.CopyFrom(
+                ConnectionGitlabConfig.to_proto(self.gitlab_config)
             )
         else:
-            resource.ClearField("gitlab_enterprise_config")
+            resource.ClearField("gitlab_config")
         if Primitive.to_proto(self.disabled):
             resource.disabled = Primitive.to_proto(self.disabled)
         if Primitive.to_proto(self.annotations):
@@ -433,7 +431,7 @@ class ConnectionGithubEnterpriseConfigServiceDirectoryConfigArray(object):
         ]
 
 
-class ConnectionGitlabEnterpriseConfig(object):
+class ConnectionGitlabConfig(object):
     def __init__(
         self,
         host_uri: str = None,
@@ -457,38 +455,38 @@ class ConnectionGitlabEnterpriseConfig(object):
         if not resource:
             return None
 
-        res = connection_pb2.Cloudbuildv2AlphaConnectionGitlabEnterpriseConfig()
+        res = connection_pb2.Cloudbuildv2AlphaConnectionGitlabConfig()
         if Primitive.to_proto(resource.host_uri):
             res.host_uri = Primitive.to_proto(resource.host_uri)
         if Primitive.to_proto(resource.webhook_secret_secret_version):
             res.webhook_secret_secret_version = Primitive.to_proto(
                 resource.webhook_secret_secret_version
             )
-        if ConnectionGitlabEnterpriseConfigReadAuthorizerCredential.to_proto(
+        if ConnectionGitlabConfigReadAuthorizerCredential.to_proto(
             resource.read_authorizer_credential
         ):
             res.read_authorizer_credential.CopyFrom(
-                ConnectionGitlabEnterpriseConfigReadAuthorizerCredential.to_proto(
+                ConnectionGitlabConfigReadAuthorizerCredential.to_proto(
                     resource.read_authorizer_credential
                 )
             )
         else:
             res.ClearField("read_authorizer_credential")
-        if ConnectionGitlabEnterpriseConfigAuthorizerCredential.to_proto(
+        if ConnectionGitlabConfigAuthorizerCredential.to_proto(
             resource.authorizer_credential
         ):
             res.authorizer_credential.CopyFrom(
-                ConnectionGitlabEnterpriseConfigAuthorizerCredential.to_proto(
+                ConnectionGitlabConfigAuthorizerCredential.to_proto(
                     resource.authorizer_credential
                 )
             )
         else:
             res.ClearField("authorizer_credential")
-        if ConnectionGitlabEnterpriseConfigServiceDirectoryConfig.to_proto(
+        if ConnectionGitlabConfigServiceDirectoryConfig.to_proto(
             resource.service_directory_config
         ):
             res.service_directory_config.CopyFrom(
-                ConnectionGitlabEnterpriseConfigServiceDirectoryConfig.to_proto(
+                ConnectionGitlabConfigServiceDirectoryConfig.to_proto(
                     resource.service_directory_config
                 )
             )
@@ -505,18 +503,18 @@ class ConnectionGitlabEnterpriseConfig(object):
         if not resource:
             return None
 
-        return ConnectionGitlabEnterpriseConfig(
+        return ConnectionGitlabConfig(
             host_uri=Primitive.from_proto(resource.host_uri),
             webhook_secret_secret_version=Primitive.from_proto(
                 resource.webhook_secret_secret_version
             ),
-            read_authorizer_credential=ConnectionGitlabEnterpriseConfigReadAuthorizerCredential.from_proto(
+            read_authorizer_credential=ConnectionGitlabConfigReadAuthorizerCredential.from_proto(
                 resource.read_authorizer_credential
             ),
-            authorizer_credential=ConnectionGitlabEnterpriseConfigAuthorizerCredential.from_proto(
+            authorizer_credential=ConnectionGitlabConfigAuthorizerCredential.from_proto(
                 resource.authorizer_credential
             ),
-            service_directory_config=ConnectionGitlabEnterpriseConfigServiceDirectoryConfig.from_proto(
+            service_directory_config=ConnectionGitlabConfigServiceDirectoryConfig.from_proto(
                 resource.service_directory_config
             ),
             ssl_ca=Primitive.from_proto(resource.ssl_ca),
@@ -524,19 +522,19 @@ class ConnectionGitlabEnterpriseConfig(object):
         )
 
 
-class ConnectionGitlabEnterpriseConfigArray(object):
+class ConnectionGitlabConfigArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
-        return [ConnectionGitlabEnterpriseConfig.to_proto(i) for i in resources]
+        return [ConnectionGitlabConfig.to_proto(i) for i in resources]
 
     @classmethod
     def from_proto(self, resources):
-        return [ConnectionGitlabEnterpriseConfig.from_proto(i) for i in resources]
+        return [ConnectionGitlabConfig.from_proto(i) for i in resources]
 
 
-class ConnectionGitlabEnterpriseConfigReadAuthorizerCredential(object):
+class ConnectionGitlabConfigReadAuthorizerCredential(object):
     def __init__(self, user_token_secret_version: str = None, username: str = None):
         self.user_token_secret_version = user_token_secret_version
         self.username = username
@@ -547,7 +545,7 @@ class ConnectionGitlabEnterpriseConfigReadAuthorizerCredential(object):
             return None
 
         res = (
-            connection_pb2.Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigReadAuthorizerCredential()
+            connection_pb2.Cloudbuildv2AlphaConnectionGitlabConfigReadAuthorizerCredential()
         )
         if Primitive.to_proto(resource.user_token_secret_version):
             res.user_token_secret_version = Primitive.to_proto(
@@ -562,7 +560,7 @@ class ConnectionGitlabEnterpriseConfigReadAuthorizerCredential(object):
         if not resource:
             return None
 
-        return ConnectionGitlabEnterpriseConfigReadAuthorizerCredential(
+        return ConnectionGitlabConfigReadAuthorizerCredential(
             user_token_secret_version=Primitive.from_proto(
                 resource.user_token_secret_version
             ),
@@ -570,25 +568,25 @@ class ConnectionGitlabEnterpriseConfigReadAuthorizerCredential(object):
         )
 
 
-class ConnectionGitlabEnterpriseConfigReadAuthorizerCredentialArray(object):
+class ConnectionGitlabConfigReadAuthorizerCredentialArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
         return [
-            ConnectionGitlabEnterpriseConfigReadAuthorizerCredential.to_proto(i)
+            ConnectionGitlabConfigReadAuthorizerCredential.to_proto(i)
             for i in resources
         ]
 
     @classmethod
     def from_proto(self, resources):
         return [
-            ConnectionGitlabEnterpriseConfigReadAuthorizerCredential.from_proto(i)
+            ConnectionGitlabConfigReadAuthorizerCredential.from_proto(i)
             for i in resources
         ]
 
 
-class ConnectionGitlabEnterpriseConfigAuthorizerCredential(object):
+class ConnectionGitlabConfigAuthorizerCredential(object):
     def __init__(self, user_token_secret_version: str = None, username: str = None):
         self.user_token_secret_version = user_token_secret_version
         self.username = username
@@ -599,7 +597,7 @@ class ConnectionGitlabEnterpriseConfigAuthorizerCredential(object):
             return None
 
         res = (
-            connection_pb2.Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigAuthorizerCredential()
+            connection_pb2.Cloudbuildv2AlphaConnectionGitlabConfigAuthorizerCredential()
         )
         if Primitive.to_proto(resource.user_token_secret_version):
             res.user_token_secret_version = Primitive.to_proto(
@@ -614,7 +612,7 @@ class ConnectionGitlabEnterpriseConfigAuthorizerCredential(object):
         if not resource:
             return None
 
-        return ConnectionGitlabEnterpriseConfigAuthorizerCredential(
+        return ConnectionGitlabConfigAuthorizerCredential(
             user_token_secret_version=Primitive.from_proto(
                 resource.user_token_secret_version
             ),
@@ -622,25 +620,23 @@ class ConnectionGitlabEnterpriseConfigAuthorizerCredential(object):
         )
 
 
-class ConnectionGitlabEnterpriseConfigAuthorizerCredentialArray(object):
+class ConnectionGitlabConfigAuthorizerCredentialArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
         return [
-            ConnectionGitlabEnterpriseConfigAuthorizerCredential.to_proto(i)
-            for i in resources
+            ConnectionGitlabConfigAuthorizerCredential.to_proto(i) for i in resources
         ]
 
     @classmethod
     def from_proto(self, resources):
         return [
-            ConnectionGitlabEnterpriseConfigAuthorizerCredential.from_proto(i)
-            for i in resources
+            ConnectionGitlabConfigAuthorizerCredential.from_proto(i) for i in resources
         ]
 
 
-class ConnectionGitlabEnterpriseConfigServiceDirectoryConfig(object):
+class ConnectionGitlabConfigServiceDirectoryConfig(object):
     def __init__(self, service: str = None):
         self.service = service
 
@@ -650,7 +646,7 @@ class ConnectionGitlabEnterpriseConfigServiceDirectoryConfig(object):
             return None
 
         res = (
-            connection_pb2.Cloudbuildv2AlphaConnectionGitlabEnterpriseConfigServiceDirectoryConfig()
+            connection_pb2.Cloudbuildv2AlphaConnectionGitlabConfigServiceDirectoryConfig()
         )
         if Primitive.to_proto(resource.service):
             res.service = Primitive.to_proto(resource.service)
@@ -661,25 +657,24 @@ class ConnectionGitlabEnterpriseConfigServiceDirectoryConfig(object):
         if not resource:
             return None
 
-        return ConnectionGitlabEnterpriseConfigServiceDirectoryConfig(
+        return ConnectionGitlabConfigServiceDirectoryConfig(
             service=Primitive.from_proto(resource.service),
         )
 
 
-class ConnectionGitlabEnterpriseConfigServiceDirectoryConfigArray(object):
+class ConnectionGitlabConfigServiceDirectoryConfigArray(object):
     @classmethod
     def to_proto(self, resources):
         if not resources:
             return resources
         return [
-            ConnectionGitlabEnterpriseConfigServiceDirectoryConfig.to_proto(i)
-            for i in resources
+            ConnectionGitlabConfigServiceDirectoryConfig.to_proto(i) for i in resources
         ]
 
     @classmethod
     def from_proto(self, resources):
         return [
-            ConnectionGitlabEnterpriseConfigServiceDirectoryConfig.from_proto(i)
+            ConnectionGitlabConfigServiceDirectoryConfig.from_proto(i)
             for i in resources
         ]
 

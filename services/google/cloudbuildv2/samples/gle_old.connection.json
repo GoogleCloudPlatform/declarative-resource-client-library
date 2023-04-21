@@ -1,9 +1,9 @@
 {
   "name": "{{connection}}",
-  "gitlabEnterpriseConfig": {
+  "gitlabConfig": {
     "hostUri": "https://gle-old.gcb-test.com",
     "authorizerCredential": {
-      "userTokenSecretVersion": "projects/407304063574/secrets/gle-old-api-token/versions/1"
+      "userTokenSecretVersion": "projects/407304063574/secrets/gle-old-api-token/versions/2"
     },
     "readAuthorizerCredential": {
       "userTokenSecretVersion": "projects/407304063574/secrets/gle-old-read-token/versions/1"

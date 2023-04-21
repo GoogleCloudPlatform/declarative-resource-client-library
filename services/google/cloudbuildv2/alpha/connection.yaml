@@ -109,7 +109,7 @@ components:
           description: Configuration for connections to github.com.
           x-dcl-conflicts:
           - githubEnterpriseConfig
-          - gitlabEnterpriseConfig
+          - gitlabConfig
           properties:
             appInstallationId:
               type: integer
@@ -137,7 +137,7 @@ components:
                   type: string
                   x-dcl-go-name: Username
                   readOnly: true
-                  description: The username associated to this token.
+                  description: Output only. The username associated to this token.
         githubEnterpriseConfig:
           type: object
           x-dcl-go-name: GithubEnterpriseConfig
@@ -145,7 +145,7 @@ components:
           description: Configuration for connections to an instance of GitHub Enterprise.
           x-dcl-conflicts:
           - githubConfig
-          - gitlabEnterpriseConfig
+          - gitlabConfig
           required:
           - hostUri
           properties:
@@ -208,23 +208,23 @@ components:
               x-dcl-references:
               - resource: Secretmanager/SecretVersion
                 field: selfLink
-        gitlabEnterpriseConfig:
+        gitlabConfig:
           type: object
-          x-dcl-go-name: GitlabEnterpriseConfig
-          x-dcl-go-type: ConnectionGitlabEnterpriseConfig
-          description: Configuration for connections to an instance of GitLab Enterprise.
+          x-dcl-go-name: GitlabConfig
+          x-dcl-go-type: ConnectionGitlabConfig
+          description: Configuration for connections to gitlab.com or an instance
+            of GitLab Enterprise.
           x-dcl-conflicts:
           - githubConfig
           - githubEnterpriseConfig
           required:
-          - hostUri
           - webhookSecretSecretVersion
           - authorizerCredential
           properties:
             authorizerCredential:
               type: object
               x-dcl-go-name: AuthorizerCredential
-              x-dcl-go-type: ConnectionGitlabEnterpriseConfigAuthorizerCredential
+              x-dcl-go-type: ConnectionGitlabConfigAuthorizerCredential
               description: Required. A GitLab personal access token with the `api`
                 scope access.
               required:
@@ -247,15 +247,16 @@ components:
             hostUri:
               type: string
               x-dcl-go-name: HostUri
-              description: Required. The URI of the GitLab Enterprise host this connection
-                is for.
+              description: The URI of the GitLab Enterprise host this connection is
+                for. If not specified, the default value is https://gitlab.com.
+              x-dcl-server-default: true
             readAuthorizerCredential:
               type: object
               x-dcl-go-name: ReadAuthorizerCredential
-              x-dcl-go-type: ConnectionGitlabEnterpriseConfigReadAuthorizerCredential
-              description: A GitLab personal access token with `read_repository` scope
-                access. Required if the GitLab Enterprise server verion is older than
-                13.10. See at https://docs.gitlab.com/ee/api/project_access_tokens.html#create-a-project-access-token.
+              x-dcl-go-type: ConnectionGitlabConfigReadAuthorizerCredential
+              description: A GitLab personal access token with `read_api` scope access.
+                Required if the GitLab Enterprise server verion is older than 13.10.
+                See at https://docs.gitlab.com/ee/api/project_access_tokens.html#create-a-project-access-token.
               required:
               - userTokenSecretVersion
               properties:
@@ -282,7 +283,7 @@ components:
             serviceDirectoryConfig:
               type: object
               x-dcl-go-name: ServiceDirectoryConfig
-              x-dcl-go-type: ConnectionGitlabEnterpriseConfigServiceDirectoryConfig
+              x-dcl-go-type: ConnectionGitlabConfigServiceDirectoryConfig
               description: Configuration for using Service Directory to privately
                 connect to a GitLab Enterprise server. This should only be set if
                 the GitLab Enterprise server is hosted on-premises and not reachable
