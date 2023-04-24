@@ -15,7 +15,7 @@ name: beta_node_pool
 description: A basic example of a containeraws aws node pool using beta-only fields
 type: node_pool
 versions:
-- ga
+- beta
 resource: samples/beta.node_pool.json
 dependencies:
 - samples/minimal.cluster.json
