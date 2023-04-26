@@ -83,6 +83,7 @@ func ProtoToContainerawsAlphaNodePoolConfig(p *alphapb.ContainerawsAlphaNodePool
 		IamInstanceProfile:           dcl.StringOrNil(p.GetIamInstanceProfile()),
 		ConfigEncryption:             ProtoToContainerawsAlphaNodePoolConfigConfigEncryption(p.GetConfigEncryption()),
 		SshConfig:                    ProtoToContainerawsAlphaNodePoolConfigSshConfig(p.GetSshConfig()),
+		SpotConfig:                   ProtoToContainerawsAlphaNodePoolConfigSpotConfig(p.GetSpotConfig()),
 		ProxyConfig:                  ProtoToContainerawsAlphaNodePoolConfigProxyConfig(p.GetProxyConfig()),
 		InstancePlacement:            ProtoToContainerawsAlphaNodePoolConfigInstancePlacement(p.GetInstancePlacement()),
 		ImageType:                    dcl.StringOrNil(p.GetImageType()),
@@ -142,6 +143,18 @@ func ProtoToContainerawsAlphaNodePoolConfigSshConfig(p *alphapb.ContainerawsAlph
 	}
 	obj := &alpha.NodePoolConfigSshConfig{
 		Ec2KeyPair: dcl.StringOrNil(p.GetEc2KeyPair()),
+	}
+	return obj
+}
+
+// ProtoToNodePoolConfigSpotConfig converts a NodePoolConfigSpotConfig object from its proto representation.
+func ProtoToContainerawsAlphaNodePoolConfigSpotConfig(p *alphapb.ContainerawsAlphaNodePoolConfigSpotConfig) *alpha.NodePoolConfigSpotConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.NodePoolConfigSpotConfig{}
+	for _, r := range p.GetInstanceTypes() {
+		obj.InstanceTypes = append(obj.InstanceTypes, r)
 	}
 	return obj
 }
@@ -283,6 +296,7 @@ func ContainerawsAlphaNodePoolConfigToProto(o *alpha.NodePoolConfig) *alphapb.Co
 	p.SetIamInstanceProfile(dcl.ValueOrEmptyString(o.IamInstanceProfile))
 	p.SetConfigEncryption(ContainerawsAlphaNodePoolConfigConfigEncryptionToProto(o.ConfigEncryption))
 	p.SetSshConfig(ContainerawsAlphaNodePoolConfigSshConfigToProto(o.SshConfig))
+	p.SetSpotConfig(ContainerawsAlphaNodePoolConfigSpotConfigToProto(o.SpotConfig))
 	p.SetProxyConfig(ContainerawsAlphaNodePoolConfigProxyConfigToProto(o.ProxyConfig))
 	p.SetInstancePlacement(ContainerawsAlphaNodePoolConfigInstancePlacementToProto(o.InstancePlacement))
 	p.SetImageType(dcl.ValueOrEmptyString(o.ImageType))
@@ -352,6 +366,20 @@ func ContainerawsAlphaNodePoolConfigSshConfigToProto(o *alpha.NodePoolConfigSshC
 	}
 	p := &alphapb.ContainerawsAlphaNodePoolConfigSshConfig{}
 	p.SetEc2KeyPair(dcl.ValueOrEmptyString(o.Ec2KeyPair))
+	return p
+}
+
+// NodePoolConfigSpotConfigToProto converts a NodePoolConfigSpotConfig object to its proto representation.
+func ContainerawsAlphaNodePoolConfigSpotConfigToProto(o *alpha.NodePoolConfigSpotConfig) *alphapb.ContainerawsAlphaNodePoolConfigSpotConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerawsAlphaNodePoolConfigSpotConfig{}
+	sInstanceTypes := make([]string, len(o.InstanceTypes))
+	for i, r := range o.InstanceTypes {
+		sInstanceTypes[i] = r
+	}
+	p.SetInstanceTypes(sInstanceTypes)
 	return p
 }
 

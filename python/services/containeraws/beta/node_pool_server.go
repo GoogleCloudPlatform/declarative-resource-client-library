@@ -83,6 +83,7 @@ func ProtoToContainerawsBetaNodePoolConfig(p *betapb.ContainerawsBetaNodePoolCon
 		IamInstanceProfile:           dcl.StringOrNil(p.GetIamInstanceProfile()),
 		ConfigEncryption:             ProtoToContainerawsBetaNodePoolConfigConfigEncryption(p.GetConfigEncryption()),
 		SshConfig:                    ProtoToContainerawsBetaNodePoolConfigSshConfig(p.GetSshConfig()),
+		SpotConfig:                   ProtoToContainerawsBetaNodePoolConfigSpotConfig(p.GetSpotConfig()),
 		ProxyConfig:                  ProtoToContainerawsBetaNodePoolConfigProxyConfig(p.GetProxyConfig()),
 		InstancePlacement:            ProtoToContainerawsBetaNodePoolConfigInstancePlacement(p.GetInstancePlacement()),
 		ImageType:                    dcl.StringOrNil(p.GetImageType()),
@@ -142,6 +143,18 @@ func ProtoToContainerawsBetaNodePoolConfigSshConfig(p *betapb.ContainerawsBetaNo
 	}
 	obj := &beta.NodePoolConfigSshConfig{
 		Ec2KeyPair: dcl.StringOrNil(p.GetEc2KeyPair()),
+	}
+	return obj
+}
+
+// ProtoToNodePoolConfigSpotConfig converts a NodePoolConfigSpotConfig object from its proto representation.
+func ProtoToContainerawsBetaNodePoolConfigSpotConfig(p *betapb.ContainerawsBetaNodePoolConfigSpotConfig) *beta.NodePoolConfigSpotConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.NodePoolConfigSpotConfig{}
+	for _, r := range p.GetInstanceTypes() {
+		obj.InstanceTypes = append(obj.InstanceTypes, r)
 	}
 	return obj
 }
@@ -283,6 +296,7 @@ func ContainerawsBetaNodePoolConfigToProto(o *beta.NodePoolConfig) *betapb.Conta
 	p.SetIamInstanceProfile(dcl.ValueOrEmptyString(o.IamInstanceProfile))
 	p.SetConfigEncryption(ContainerawsBetaNodePoolConfigConfigEncryptionToProto(o.ConfigEncryption))
 	p.SetSshConfig(ContainerawsBetaNodePoolConfigSshConfigToProto(o.SshConfig))
+	p.SetSpotConfig(ContainerawsBetaNodePoolConfigSpotConfigToProto(o.SpotConfig))
 	p.SetProxyConfig(ContainerawsBetaNodePoolConfigProxyConfigToProto(o.ProxyConfig))
 	p.SetInstancePlacement(ContainerawsBetaNodePoolConfigInstancePlacementToProto(o.InstancePlacement))
 	p.SetImageType(dcl.ValueOrEmptyString(o.ImageType))
@@ -352,6 +366,20 @@ func ContainerawsBetaNodePoolConfigSshConfigToProto(o *beta.NodePoolConfigSshCon
 	}
 	p := &betapb.ContainerawsBetaNodePoolConfigSshConfig{}
 	p.SetEc2KeyPair(dcl.ValueOrEmptyString(o.Ec2KeyPair))
+	return p
+}
+
+// NodePoolConfigSpotConfigToProto converts a NodePoolConfigSpotConfig object to its proto representation.
+func ContainerawsBetaNodePoolConfigSpotConfigToProto(o *beta.NodePoolConfigSpotConfig) *betapb.ContainerawsBetaNodePoolConfigSpotConfig {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ContainerawsBetaNodePoolConfigSpotConfig{}
+	sInstanceTypes := make([]string, len(o.InstanceTypes))
+	for i, r := range o.InstanceTypes {
+		sInstanceTypes[i] = r
+	}
+	p.SetInstanceTypes(sInstanceTypes)
 	return p
 }
 

@@ -83,11 +83,12 @@ message ContainerawsBetaNodePoolConfig {
   string iam_instance_profile = 6;
   ContainerawsBetaNodePoolConfigConfigEncryption config_encryption = 7;
   ContainerawsBetaNodePoolConfigSshConfig ssh_config = 8;
-  repeated string security_group_ids = 9;
-  ContainerawsBetaNodePoolConfigProxyConfig proxy_config = 10;
-  ContainerawsBetaNodePoolConfigInstancePlacement instance_placement = 11;
-  string image_type = 12;
-  ContainerawsBetaNodePoolConfigAutoscalingMetricsCollection autoscaling_metrics_collection = 13;
+  ContainerawsBetaNodePoolConfigSpotConfig spot_config = 9;
+  repeated string security_group_ids = 10;
+  ContainerawsBetaNodePoolConfigProxyConfig proxy_config = 11;
+  ContainerawsBetaNodePoolConfigInstancePlacement instance_placement = 12;
+  string image_type = 13;
+  ContainerawsBetaNodePoolConfigAutoscalingMetricsCollection autoscaling_metrics_collection = 14;
 }
 
 message ContainerawsBetaNodePoolConfigRootVolume {
@@ -109,6 +110,10 @@ message ContainerawsBetaNodePoolConfigConfigEncryption {
 
 message ContainerawsBetaNodePoolConfigSshConfig {
   string ec2_key_pair = 1;
+}
+
+message ContainerawsBetaNodePoolConfigSpotConfig {
+  repeated string instance_types = 1;
 }
 
 message ContainerawsBetaNodePoolConfigProxyConfig {

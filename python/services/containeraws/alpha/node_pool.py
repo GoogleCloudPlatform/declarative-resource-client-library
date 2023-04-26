@@ -222,6 +222,7 @@ class NodePoolConfig(object):
         iam_instance_profile: str = None,
         config_encryption: dict = None,
         ssh_config: dict = None,
+        spot_config: dict = None,
         security_group_ids: list = None,
         proxy_config: dict = None,
         instance_placement: dict = None,
@@ -236,6 +237,7 @@ class NodePoolConfig(object):
         self.iam_instance_profile = iam_instance_profile
         self.config_encryption = config_encryption
         self.ssh_config = ssh_config
+        self.spot_config = spot_config
         self.security_group_ids = security_group_ids
         self.proxy_config = proxy_config
         self.instance_placement = instance_placement
@@ -276,6 +278,12 @@ class NodePoolConfig(object):
             )
         else:
             res.ClearField("ssh_config")
+        if NodePoolConfigSpotConfig.to_proto(resource.spot_config):
+            res.spot_config.CopyFrom(
+                NodePoolConfigSpotConfig.to_proto(resource.spot_config)
+            )
+        else:
+            res.ClearField("spot_config")
         if Primitive.to_proto(resource.security_group_ids):
             res.security_group_ids.extend(
                 Primitive.to_proto(resource.security_group_ids)
@@ -322,6 +330,7 @@ class NodePoolConfig(object):
                 resource.config_encryption
             ),
             ssh_config=NodePoolConfigSshConfig.from_proto(resource.ssh_config),
+            spot_config=NodePoolConfigSpotConfig.from_proto(resource.spot_config),
             security_group_ids=Primitive.from_proto(resource.security_group_ids),
             proxy_config=NodePoolConfigProxyConfig.from_proto(resource.proxy_config),
             instance_placement=NodePoolConfigInstancePlacement.from_proto(
@@ -518,6 +527,42 @@ class NodePoolConfigSshConfigArray(object):
     @classmethod
     def from_proto(self, resources):
         return [NodePoolConfigSshConfig.from_proto(i) for i in resources]
+
+
+class NodePoolConfigSpotConfig(object):
+    def __init__(self, instance_types: list = None):
+        self.instance_types = instance_types
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = node_pool_pb2.ContainerawsAlphaNodePoolConfigSpotConfig()
+        if Primitive.to_proto(resource.instance_types):
+            res.instance_types.extend(Primitive.to_proto(resource.instance_types))
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return NodePoolConfigSpotConfig(
+            instance_types=Primitive.from_proto(resource.instance_types),
+        )
+
+
+class NodePoolConfigSpotConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [NodePoolConfigSpotConfig.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [NodePoolConfigSpotConfig.from_proto(i) for i in resources]
 
 
 class NodePoolConfigProxyConfig(object):

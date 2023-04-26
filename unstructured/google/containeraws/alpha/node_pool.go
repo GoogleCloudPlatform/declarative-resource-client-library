@@ -127,6 +127,15 @@ func NodePoolToUnstructured(r *dclService.NodePool) *unstructured.Resource {
 			rConfigSecurityGroupIds = append(rConfigSecurityGroupIds, rConfigSecurityGroupIdsVal)
 		}
 		rConfig["securityGroupIds"] = rConfigSecurityGroupIds
+		if r.Config.SpotConfig != nil && r.Config.SpotConfig != dclService.EmptyNodePoolConfigSpotConfig {
+			rConfigSpotConfig := make(map[string]interface{})
+			var rConfigSpotConfigInstanceTypes []interface{}
+			for _, rConfigSpotConfigInstanceTypesVal := range r.Config.SpotConfig.InstanceTypes {
+				rConfigSpotConfigInstanceTypes = append(rConfigSpotConfigInstanceTypes, rConfigSpotConfigInstanceTypesVal)
+			}
+			rConfigSpotConfig["instanceTypes"] = rConfigSpotConfigInstanceTypes
+			rConfig["spotConfig"] = rConfigSpotConfig
+		}
 		if r.Config.SshConfig != nil && r.Config.SshConfig != dclService.EmptyNodePoolConfigSshConfig {
 			rConfigSshConfig := make(map[string]interface{})
 			if r.Config.SshConfig.Ec2KeyPair != nil {
@@ -399,6 +408,24 @@ func UnstructuredToNodePool(u *unstructured.Resource) (*dclService.NodePool, err
 					}
 				} else {
 					return nil, fmt.Errorf("r.Config.SecurityGroupIds: expected []interface{}")
+				}
+			}
+			if _, ok := rConfig["spotConfig"]; ok {
+				if rConfigSpotConfig, ok := rConfig["spotConfig"].(map[string]interface{}); ok {
+					r.Config.SpotConfig = &dclService.NodePoolConfigSpotConfig{}
+					if _, ok := rConfigSpotConfig["instanceTypes"]; ok {
+						if s, ok := rConfigSpotConfig["instanceTypes"].([]interface{}); ok {
+							for _, ss := range s {
+								if strval, ok := ss.(string); ok {
+									r.Config.SpotConfig.InstanceTypes = append(r.Config.SpotConfig.InstanceTypes, strval)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Config.SpotConfig.InstanceTypes: expected []interface{}")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Config.SpotConfig: expected map[string]interface{}")
 				}
 			}
 			if _, ok := rConfig["sshConfig"]; ok {
