@@ -20,6 +20,10 @@ versions:
 resource: samples/pubsub.job.json
 dependencies:
 - samples/pubsub.pubsub.topic.json
+updates:
+- resource: samples/update_1_pubsub.job.json
+  dependencies:
+  - samples/pubsub.pubsub.topic.json
 variables:
 - name: job
   type: resource_name
