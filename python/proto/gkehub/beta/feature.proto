@@ -31,6 +31,20 @@ enum GkehubBetaFeatureResourceStateStateEnum {
   GkehubBetaFeatureResourceStateStateEnumSERVICE_UPDATING = 6;
 }
 
+enum GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum {
+  GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnumNO_VALUE_DO_NOT_USE = 0;
+  GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnumMODE_UNSPECIFIED = 1;
+  GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnumCOPY = 2;
+  GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnumMOVE = 3;
+}
+
+enum GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum {
+  GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnumNO_VALUE_DO_NOT_USE = 0;
+  GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnumMODE_UNSPECIFIED = 1;
+  GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnumCOPY = 2;
+  GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnumMOVE = 3;
+}
+
 enum GkehubBetaFeatureStateStateCodeEnum {
   GkehubBetaFeatureStateStateCodeEnumNO_VALUE_DO_NOT_USE = 0;
   GkehubBetaFeatureStateStateCodeEnumCODE_UNSPECIFIED = 1;
@@ -59,10 +73,28 @@ message GkehubBetaFeatureResourceState {
 
 message GkehubBetaFeatureSpec {
   GkehubBetaFeatureSpecMulticlusteringress multiclusteringress = 1;
+  GkehubBetaFeatureSpecFleetobservability fleetobservability = 2;
 }
 
 message GkehubBetaFeatureSpecMulticlusteringress {
   string config_membership = 1;
+}
+
+message GkehubBetaFeatureSpecFleetobservability {
+  GkehubBetaFeatureSpecFleetobservabilityLoggingConfig logging_config = 1;
+}
+
+message GkehubBetaFeatureSpecFleetobservabilityLoggingConfig {
+  GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfig default_config = 1;
+  GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig fleet_scope_logs_config = 2;
+}
+
+message GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfig {
+  GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum mode = 1;
+}
+
+message GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig {
+  GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum mode = 1;
 }
 
 message GkehubBetaFeatureState {

@@ -165,8 +165,11 @@ class FeatureResourceStateArray(object):
 
 
 class FeatureSpec(object):
-    def __init__(self, multiclusteringress: dict = None):
+    def __init__(
+        self, multiclusteringress: dict = None, fleetobservability: dict = None
+    ):
         self.multiclusteringress = multiclusteringress
+        self.fleetobservability = fleetobservability
 
     @classmethod
     def to_proto(self, resource):
@@ -180,6 +183,12 @@ class FeatureSpec(object):
             )
         else:
             res.ClearField("multiclusteringress")
+        if FeatureSpecFleetobservability.to_proto(resource.fleetobservability):
+            res.fleetobservability.CopyFrom(
+                FeatureSpecFleetobservability.to_proto(resource.fleetobservability)
+            )
+        else:
+            res.ClearField("fleetobservability")
         return res
 
     @classmethod
@@ -190,6 +199,9 @@ class FeatureSpec(object):
         return FeatureSpec(
             multiclusteringress=FeatureSpecMulticlusteringress.from_proto(
                 resource.multiclusteringress
+            ),
+            fleetobservability=FeatureSpecFleetobservability.from_proto(
+                resource.fleetobservability
             ),
         )
 
@@ -240,6 +252,216 @@ class FeatureSpecMulticlusteringressArray(object):
     @classmethod
     def from_proto(self, resources):
         return [FeatureSpecMulticlusteringress.from_proto(i) for i in resources]
+
+
+class FeatureSpecFleetobservability(object):
+    def __init__(self, logging_config: dict = None):
+        self.logging_config = logging_config
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = feature_pb2.GkehubBetaFeatureSpecFleetobservability()
+        if FeatureSpecFleetobservabilityLoggingConfig.to_proto(resource.logging_config):
+            res.logging_config.CopyFrom(
+                FeatureSpecFleetobservabilityLoggingConfig.to_proto(
+                    resource.logging_config
+                )
+            )
+        else:
+            res.ClearField("logging_config")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureSpecFleetobservability(
+            logging_config=FeatureSpecFleetobservabilityLoggingConfig.from_proto(
+                resource.logging_config
+            ),
+        )
+
+
+class FeatureSpecFleetobservabilityArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [FeatureSpecFleetobservability.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [FeatureSpecFleetobservability.from_proto(i) for i in resources]
+
+
+class FeatureSpecFleetobservabilityLoggingConfig(object):
+    def __init__(
+        self, default_config: dict = None, fleet_scope_logs_config: dict = None
+    ):
+        self.default_config = default_config
+        self.fleet_scope_logs_config = fleet_scope_logs_config
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = feature_pb2.GkehubBetaFeatureSpecFleetobservabilityLoggingConfig()
+        if FeatureSpecFleetobservabilityLoggingConfigDefaultConfig.to_proto(
+            resource.default_config
+        ):
+            res.default_config.CopyFrom(
+                FeatureSpecFleetobservabilityLoggingConfigDefaultConfig.to_proto(
+                    resource.default_config
+                )
+            )
+        else:
+            res.ClearField("default_config")
+        if FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig.to_proto(
+            resource.fleet_scope_logs_config
+        ):
+            res.fleet_scope_logs_config.CopyFrom(
+                FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig.to_proto(
+                    resource.fleet_scope_logs_config
+                )
+            )
+        else:
+            res.ClearField("fleet_scope_logs_config")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureSpecFleetobservabilityLoggingConfig(
+            default_config=FeatureSpecFleetobservabilityLoggingConfigDefaultConfig.from_proto(
+                resource.default_config
+            ),
+            fleet_scope_logs_config=FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig.from_proto(
+                resource.fleet_scope_logs_config
+            ),
+        )
+
+
+class FeatureSpecFleetobservabilityLoggingConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            FeatureSpecFleetobservabilityLoggingConfig.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            FeatureSpecFleetobservabilityLoggingConfig.from_proto(i) for i in resources
+        ]
+
+
+class FeatureSpecFleetobservabilityLoggingConfigDefaultConfig(object):
+    def __init__(self, mode: str = None):
+        self.mode = mode
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            feature_pb2.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfig()
+        )
+        if FeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum.to_proto(
+            resource.mode
+        ):
+            res.mode = FeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum.to_proto(
+                resource.mode
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureSpecFleetobservabilityLoggingConfigDefaultConfig(
+            mode=FeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum.from_proto(
+                resource.mode
+            ),
+        )
+
+
+class FeatureSpecFleetobservabilityLoggingConfigDefaultConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            FeatureSpecFleetobservabilityLoggingConfigDefaultConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            FeatureSpecFleetobservabilityLoggingConfigDefaultConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig(object):
+    def __init__(self, mode: str = None):
+        self.mode = mode
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            feature_pb2.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig()
+        )
+        if FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum.to_proto(
+            resource.mode
+        ):
+            res.mode = FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum.to_proto(
+                resource.mode
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig(
+            mode=FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum.from_proto(
+                resource.mode
+            ),
+        )
+
+
+class FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig.from_proto(i)
+            for i in resources
+        ]
 
 
 class FeatureState(object):
@@ -341,6 +563,52 @@ class FeatureResourceStateStateEnum(object):
             return resource
         return feature_pb2.GkehubBetaFeatureResourceStateStateEnum.Name(resource)[
             len("GkehubBetaFeatureResourceStateStateEnum") :
+        ]
+
+
+class FeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return feature_pb2.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum.Value(
+            "GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return feature_pb2.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum.Name(
+            resource
+        )[
+            len(
+                "GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum"
+            ) :
+        ]
+
+
+class FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return feature_pb2.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum.Value(
+            "GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return feature_pb2.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum.Name(
+            resource
+        )[
+            len(
+                "GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum"
+            ) :
         ]
 
 

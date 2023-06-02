@@ -31,6 +31,20 @@ enum GkehubAlphaFeatureResourceStateStateEnum {
   GkehubAlphaFeatureResourceStateStateEnumSERVICE_UPDATING = 6;
 }
 
+enum GkehubAlphaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum {
+  GkehubAlphaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnumNO_VALUE_DO_NOT_USE = 0;
+  GkehubAlphaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnumMODE_UNSPECIFIED = 1;
+  GkehubAlphaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnumCOPY = 2;
+  GkehubAlphaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnumMOVE = 3;
+}
+
+enum GkehubAlphaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum {
+  GkehubAlphaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnumNO_VALUE_DO_NOT_USE = 0;
+  GkehubAlphaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnumMODE_UNSPECIFIED = 1;
+  GkehubAlphaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnumCOPY = 2;
+  GkehubAlphaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnumMOVE = 3;
+}
+
 enum GkehubAlphaFeatureStateStateCodeEnum {
   GkehubAlphaFeatureStateStateCodeEnumNO_VALUE_DO_NOT_USE = 0;
   GkehubAlphaFeatureStateStateCodeEnumCODE_UNSPECIFIED = 1;
@@ -68,6 +82,7 @@ message GkehubAlphaFeatureResourceState {
 message GkehubAlphaFeatureSpec {
   GkehubAlphaFeatureSpecMulticlusteringress multiclusteringress = 1;
   GkehubAlphaFeatureSpecCloudauditlogging cloudauditlogging = 2;
+  GkehubAlphaFeatureSpecFleetobservability fleetobservability = 3;
 }
 
 message GkehubAlphaFeatureSpecMulticlusteringress {
@@ -76,6 +91,23 @@ message GkehubAlphaFeatureSpecMulticlusteringress {
 
 message GkehubAlphaFeatureSpecCloudauditlogging {
   repeated string allowlisted_service_accounts = 1;
+}
+
+message GkehubAlphaFeatureSpecFleetobservability {
+  GkehubAlphaFeatureSpecFleetobservabilityLoggingConfig logging_config = 1;
+}
+
+message GkehubAlphaFeatureSpecFleetobservabilityLoggingConfig {
+  GkehubAlphaFeatureSpecFleetobservabilityLoggingConfigDefaultConfig default_config = 1;
+  GkehubAlphaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig fleet_scope_logs_config = 2;
+}
+
+message GkehubAlphaFeatureSpecFleetobservabilityLoggingConfigDefaultConfig {
+  GkehubAlphaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum mode = 1;
+}
+
+message GkehubAlphaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig {
+  GkehubAlphaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum mode = 1;
 }
 
 message GkehubAlphaFeatureState {

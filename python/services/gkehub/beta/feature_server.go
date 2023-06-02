@@ -36,6 +36,30 @@ func ProtoToGkehubBetaFeatureResourceStateStateEnum(e betapb.GkehubBetaFeatureRe
 	return nil
 }
 
+// ProtoToFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum converts a FeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum enum from its proto representation.
+func ProtoToGkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum(e betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum) *beta.FeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum_name[int32(e)]; ok {
+		e := beta.FeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum(n[len("GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum converts a FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum enum from its proto representation.
+func ProtoToGkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum(e betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum) *beta.FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum_name[int32(e)]; ok {
+		e := beta.FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum(n[len("GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToFeatureStateStateCodeEnum converts a FeatureStateStateCodeEnum enum from its proto representation.
 func ProtoToGkehubBetaFeatureStateStateCodeEnum(e betapb.GkehubBetaFeatureStateStateCodeEnum) *beta.FeatureStateStateCodeEnum {
 	if e == 0 {
@@ -67,6 +91,7 @@ func ProtoToGkehubBetaFeatureSpec(p *betapb.GkehubBetaFeatureSpec) *beta.Feature
 	}
 	obj := &beta.FeatureSpec{
 		Multiclusteringress: ProtoToGkehubBetaFeatureSpecMulticlusteringress(p.GetMulticlusteringress()),
+		Fleetobservability:  ProtoToGkehubBetaFeatureSpecFleetobservability(p.GetFleetobservability()),
 	}
 	return obj
 }
@@ -78,6 +103,51 @@ func ProtoToGkehubBetaFeatureSpecMulticlusteringress(p *betapb.GkehubBetaFeature
 	}
 	obj := &beta.FeatureSpecMulticlusteringress{
 		ConfigMembership: dcl.StringOrNil(p.GetConfigMembership()),
+	}
+	return obj
+}
+
+// ProtoToFeatureSpecFleetobservability converts a FeatureSpecFleetobservability object from its proto representation.
+func ProtoToGkehubBetaFeatureSpecFleetobservability(p *betapb.GkehubBetaFeatureSpecFleetobservability) *beta.FeatureSpecFleetobservability {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.FeatureSpecFleetobservability{
+		LoggingConfig: ProtoToGkehubBetaFeatureSpecFleetobservabilityLoggingConfig(p.GetLoggingConfig()),
+	}
+	return obj
+}
+
+// ProtoToFeatureSpecFleetobservabilityLoggingConfig converts a FeatureSpecFleetobservabilityLoggingConfig object from its proto representation.
+func ProtoToGkehubBetaFeatureSpecFleetobservabilityLoggingConfig(p *betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfig) *beta.FeatureSpecFleetobservabilityLoggingConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.FeatureSpecFleetobservabilityLoggingConfig{
+		DefaultConfig:        ProtoToGkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfig(p.GetDefaultConfig()),
+		FleetScopeLogsConfig: ProtoToGkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig(p.GetFleetScopeLogsConfig()),
+	}
+	return obj
+}
+
+// ProtoToFeatureSpecFleetobservabilityLoggingConfigDefaultConfig converts a FeatureSpecFleetobservabilityLoggingConfigDefaultConfig object from its proto representation.
+func ProtoToGkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfig(p *betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfig) *beta.FeatureSpecFleetobservabilityLoggingConfigDefaultConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.FeatureSpecFleetobservabilityLoggingConfigDefaultConfig{
+		Mode: ProtoToGkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum(p.GetMode()),
+	}
+	return obj
+}
+
+// ProtoToFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig converts a FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig object from its proto representation.
+func ProtoToGkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig(p *betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig) *beta.FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig{
+		Mode: ProtoToGkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum(p.GetMode()),
 	}
 	return obj
 }
@@ -133,6 +203,28 @@ func GkehubBetaFeatureResourceStateStateEnumToProto(e *beta.FeatureResourceState
 	return betapb.GkehubBetaFeatureResourceStateStateEnum(0)
 }
 
+// FeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnumToProto converts a FeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum enum to its proto representation.
+func GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnumToProto(e *beta.FeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum) betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum {
+	if e == nil {
+		return betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum(0)
+	}
+	if v, ok := betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum_value["FeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum"+string(*e)]; ok {
+		return betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum(v)
+	}
+	return betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnum(0)
+}
+
+// FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnumToProto converts a FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum enum to its proto representation.
+func GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnumToProto(e *beta.FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum) betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum {
+	if e == nil {
+		return betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum(0)
+	}
+	if v, ok := betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum_value["FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum"+string(*e)]; ok {
+		return betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum(v)
+	}
+	return betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnum(0)
+}
+
 // FeatureStateStateCodeEnumToProto converts a FeatureStateStateCodeEnum enum to its proto representation.
 func GkehubBetaFeatureStateStateCodeEnumToProto(e *beta.FeatureStateStateCodeEnum) betapb.GkehubBetaFeatureStateStateCodeEnum {
 	if e == nil {
@@ -162,6 +254,7 @@ func GkehubBetaFeatureSpecToProto(o *beta.FeatureSpec) *betapb.GkehubBetaFeature
 	}
 	p := &betapb.GkehubBetaFeatureSpec{}
 	p.SetMulticlusteringress(GkehubBetaFeatureSpecMulticlusteringressToProto(o.Multiclusteringress))
+	p.SetFleetobservability(GkehubBetaFeatureSpecFleetobservabilityToProto(o.Fleetobservability))
 	return p
 }
 
@@ -172,6 +265,47 @@ func GkehubBetaFeatureSpecMulticlusteringressToProto(o *beta.FeatureSpecMulticlu
 	}
 	p := &betapb.GkehubBetaFeatureSpecMulticlusteringress{}
 	p.SetConfigMembership(dcl.ValueOrEmptyString(o.ConfigMembership))
+	return p
+}
+
+// FeatureSpecFleetobservabilityToProto converts a FeatureSpecFleetobservability object to its proto representation.
+func GkehubBetaFeatureSpecFleetobservabilityToProto(o *beta.FeatureSpecFleetobservability) *betapb.GkehubBetaFeatureSpecFleetobservability {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.GkehubBetaFeatureSpecFleetobservability{}
+	p.SetLoggingConfig(GkehubBetaFeatureSpecFleetobservabilityLoggingConfigToProto(o.LoggingConfig))
+	return p
+}
+
+// FeatureSpecFleetobservabilityLoggingConfigToProto converts a FeatureSpecFleetobservabilityLoggingConfig object to its proto representation.
+func GkehubBetaFeatureSpecFleetobservabilityLoggingConfigToProto(o *beta.FeatureSpecFleetobservabilityLoggingConfig) *betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfig {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfig{}
+	p.SetDefaultConfig(GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigToProto(o.DefaultConfig))
+	p.SetFleetScopeLogsConfig(GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigToProto(o.FleetScopeLogsConfig))
+	return p
+}
+
+// FeatureSpecFleetobservabilityLoggingConfigDefaultConfigToProto converts a FeatureSpecFleetobservabilityLoggingConfigDefaultConfig object to its proto representation.
+func GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigToProto(o *beta.FeatureSpecFleetobservabilityLoggingConfigDefaultConfig) *betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfig {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfig{}
+	p.SetMode(GkehubBetaFeatureSpecFleetobservabilityLoggingConfigDefaultConfigModeEnumToProto(o.Mode))
+	return p
+}
+
+// FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigToProto converts a FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig object to its proto representation.
+func GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigToProto(o *beta.FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig) *betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig{}
+	p.SetMode(GkehubBetaFeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigModeEnumToProto(o.Mode))
 	return p
 }
 
