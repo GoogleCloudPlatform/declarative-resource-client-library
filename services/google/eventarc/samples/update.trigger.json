@@ -31,5 +31,6 @@
       "value": "/projects/_/buckets/bucket-2/objects/*",
       "operator": ""
     }
-  ]
+  ],
+  "eventDataContentType": "application/json"
 }

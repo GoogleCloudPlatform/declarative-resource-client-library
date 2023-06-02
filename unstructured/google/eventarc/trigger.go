@@ -90,6 +90,9 @@ func TriggerToUnstructured(r *dclService.Trigger) *unstructured.Resource {
 	if r.Etag != nil {
 		u.Object["etag"] = *r.Etag
 	}
+	if r.EventDataContentType != nil {
+		u.Object["eventDataContentType"] = *r.EventDataContentType
+	}
 	if r.Labels != nil {
 		rLabels := make(map[string]interface{})
 		for k, v := range r.Labels {
@@ -272,6 +275,13 @@ func UnstructuredToTrigger(u *unstructured.Resource) (*dclService.Trigger, error
 			r.Etag = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.Etag: expected string")
+		}
+	}
+	if _, ok := u.Object["eventDataContentType"]; ok {
+		if s, ok := u.Object["eventDataContentType"].(string); ok {
+			r.EventDataContentType = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.EventDataContentType: expected string")
 		}
 	}
 	if _, ok := u.Object["labels"]; ok {

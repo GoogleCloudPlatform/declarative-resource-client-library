@@ -30,5 +30,6 @@
       "value": "/projects/_/buckets/bucket-1/objects/*",
       "operator": "match-path-pattern"
     }
-  ]
+  ],
+  "eventDataContentType": "application/protobuf"
 }
