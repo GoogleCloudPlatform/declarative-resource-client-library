@@ -676,9 +676,15 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesG
 class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking(
     object
 ):
-    def __init__(self, service: str = None, deployment: str = None):
+    def __init__(
+        self,
+        service: str = None,
+        deployment: str = None,
+        disable_pod_overprovisioning: bool = None,
+    ):
         self.service = service
         self.deployment = deployment
+        self.disable_pod_overprovisioning = disable_pod_overprovisioning
 
     @classmethod
     def to_proto(self, resource):
@@ -692,6 +698,10 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesS
             res.service = Primitive.to_proto(resource.service)
         if Primitive.to_proto(resource.deployment):
             res.deployment = Primitive.to_proto(resource.deployment)
+        if Primitive.to_proto(resource.disable_pod_overprovisioning):
+            res.disable_pod_overprovisioning = Primitive.to_proto(
+                resource.disable_pod_overprovisioning
+            )
         return res
 
     @classmethod
@@ -702,6 +712,9 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesS
         return DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking(
             service=Primitive.from_proto(resource.service),
             deployment=Primitive.from_proto(resource.deployment),
+            disable_pod_overprovisioning=Primitive.from_proto(
+                resource.disable_pod_overprovisioning
+            ),
         )
 
 

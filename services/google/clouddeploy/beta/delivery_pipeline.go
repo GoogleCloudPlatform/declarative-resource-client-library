@@ -441,9 +441,10 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernet
 }
 
 type DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking struct {
-	empty      bool    `json:"-"`
-	Service    *string `json:"service"`
-	Deployment *string `json:"deployment"`
+	empty                      bool    `json:"-"`
+	Service                    *string `json:"service"`
+	Deployment                 *string `json:"deployment"`
+	DisablePodOverprovisioning *bool   `json:"disablePodOverprovisioning"`
 }
 
 type jsonDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking
@@ -464,6 +465,8 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernet
 		r.Service = res.Service
 
 		r.Deployment = res.Deployment
+
+		r.DisablePodOverprovisioning = res.DisablePodOverprovisioning
 
 	}
 	return nil

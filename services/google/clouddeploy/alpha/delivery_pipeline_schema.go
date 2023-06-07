@@ -464,6 +464,11 @@ func DCLDeliveryPipelineSchema() *dcl.Schema {
 																							GoName:      "Deployment",
 																							Description: "Required. Name of the Kubernetes Deployment whose traffic is managed by the specified Service.",
 																						},
+																						"disablePodOverprovisioning": &dcl.Property{
+																							Type:        "boolean",
+																							GoName:      "DisablePodOverprovisioning",
+																							Description: "Optional. Whether to disable Pod overprovisioning. If Pod overprovisioning is disabled then Cloud Deploy will limit the number of total Pods used for the deployment strategy to the number of Pods the Deployment has on the cluster.",
+																						},
 																						"service": &dcl.Property{
 																							Type:        "string",
 																							GoName:      "Service",

@@ -182,6 +182,9 @@ func DeliveryPipelineToUnstructured(r *dclService.DeliveryPipeline) *unstructure
 								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.Deployment != nil {
 									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesServiceNetworking["deployment"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.Deployment
 								}
+								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.DisablePodOverprovisioning != nil {
+									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesServiceNetworking["disablePodOverprovisioning"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.DisablePodOverprovisioning
+								}
 								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.Service != nil {
 									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesServiceNetworking["service"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.Service
 								}
@@ -530,6 +533,13 @@ func UnstructuredToDeliveryPipeline(u *unstructured.Resource) (*dclService.Deliv
 																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.Deployment = dcl.String(s)
 																		} else {
 																			return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.Deployment: expected string")
+																		}
+																	}
+																	if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking["disablePodOverprovisioning"]; ok {
+																		if b, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking["disablePodOverprovisioning"].(bool); ok {
+																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.DisablePodOverprovisioning = dcl.Bool(b)
+																		} else {
+																			return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.DisablePodOverprovisioning: expected bool")
 																		}
 																	}
 																	if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking["service"]; ok {

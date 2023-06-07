@@ -130,8 +130,9 @@ func ProtoToClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRun
 		return nil
 	}
 	obj := &beta.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking{
-		Service:    dcl.StringOrNil(p.GetService()),
-		Deployment: dcl.StringOrNil(p.GetDeployment()),
+		Service:                    dcl.StringOrNil(p.GetService()),
+		Deployment:                 dcl.StringOrNil(p.GetDeployment()),
+		DisablePodOverprovisioning: dcl.Bool(p.GetDisablePodOverprovisioning()),
 	}
 	return obj
 }
@@ -364,6 +365,7 @@ func ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeCon
 	p := &betapb.ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking{}
 	p.SetService(dcl.ValueOrEmptyString(o.Service))
 	p.SetDeployment(dcl.ValueOrEmptyString(o.Deployment))
+	p.SetDisablePodOverprovisioning(dcl.ValueOrEmptyBool(o.DisablePodOverprovisioning))
 	return p
 }
 

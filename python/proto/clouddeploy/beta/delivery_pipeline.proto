@@ -81,6 +81,7 @@ message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntime
 message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking {
   string service = 1;
   string deployment = 2;
+  bool disable_pod_overprovisioning = 3;
 }
 
 message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun {
