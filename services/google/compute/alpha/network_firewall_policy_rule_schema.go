@@ -133,7 +133,7 @@ func DCLNetworkFirewallPolicyRuleSchema() *dcl.Schema {
 							"action": &dcl.Property{
 								Type:        "string",
 								GoName:      "Action",
-								Description: "The Action to perform when the client connection triggers the rule. Can currently be either \"allow\" or \"deny()\" where valid values for status are 403, 404, and 502.",
+								Description: "The Action to perform when the client connection triggers the rule. Valid actions are \"allow\", \"deny\" and \"goto_next\".",
 							},
 							"description": &dcl.Property{
 								Type:        "string",
