@@ -49,6 +49,13 @@ func TargetToUnstructured(r *dclService.Target) *unstructured.Resource {
 	if r.CreateTime != nil {
 		u.Object["createTime"] = *r.CreateTime
 	}
+	if r.DeployParameters != nil {
+		rDeployParameters := make(map[string]interface{})
+		for k, v := range r.DeployParameters {
+			rDeployParameters[k] = v
+		}
+		u.Object["deployParameters"] = rDeployParameters
+	}
 	if r.Description != nil {
 		u.Object["description"] = *r.Description
 	}
@@ -169,6 +176,19 @@ func UnstructuredToTarget(u *unstructured.Resource) (*dclService.Target, error) 
 			r.CreateTime = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.CreateTime: expected string")
+		}
+	}
+	if _, ok := u.Object["deployParameters"]; ok {
+		if rDeployParameters, ok := u.Object["deployParameters"].(map[string]interface{}); ok {
+			m := make(map[string]string)
+			for k, v := range rDeployParameters {
+				if s, ok := v.(string); ok {
+					m[k] = s
+				}
+			}
+			r.DeployParameters = m
+		} else {
+			return nil, fmt.Errorf("r.DeployParameters: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["description"]; ok {

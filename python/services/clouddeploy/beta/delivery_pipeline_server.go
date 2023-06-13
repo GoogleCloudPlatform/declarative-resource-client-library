@@ -48,6 +48,9 @@ func ProtoToClouddeployBetaDeliveryPipelineSerialPipelineStages(p *betapb.Cloudd
 	for _, r := range p.GetProfiles() {
 		obj.Profiles = append(obj.Profiles, r)
 	}
+	for _, r := range p.GetDeployParameters() {
+		obj.DeployParameters = append(obj.DeployParameters, *ProtoToClouddeployBetaDeliveryPipelineSerialPipelineStagesDeployParameters(r))
+	}
 	return obj
 }
 
@@ -190,6 +193,15 @@ func ProtoToClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCus
 	return obj
 }
 
+// ProtoToDeliveryPipelineSerialPipelineStagesDeployParameters converts a DeliveryPipelineSerialPipelineStagesDeployParameters object from its proto representation.
+func ProtoToClouddeployBetaDeliveryPipelineSerialPipelineStagesDeployParameters(p *betapb.ClouddeployBetaDeliveryPipelineSerialPipelineStagesDeployParameters) *beta.DeliveryPipelineSerialPipelineStagesDeployParameters {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.DeliveryPipelineSerialPipelineStagesDeployParameters{}
+	return obj
+}
+
 // ProtoToDeliveryPipelineCondition converts a DeliveryPipelineCondition object from its proto representation.
 func ProtoToClouddeployBetaDeliveryPipelineCondition(p *betapb.ClouddeployBetaDeliveryPipelineCondition) *beta.DeliveryPipelineCondition {
 	if p == nil {
@@ -287,6 +299,11 @@ func ClouddeployBetaDeliveryPipelineSerialPipelineStagesToProto(o *beta.Delivery
 		sProfiles[i] = r
 	}
 	p.SetProfiles(sProfiles)
+	sDeployParameters := make([]*betapb.ClouddeployBetaDeliveryPipelineSerialPipelineStagesDeployParameters, len(o.DeployParameters))
+	for i, r := range o.DeployParameters {
+		sDeployParameters[i] = ClouddeployBetaDeliveryPipelineSerialPipelineStagesDeployParametersToProto(&r)
+	}
+	p.SetDeployParameters(sDeployParameters)
 	return p
 }
 
@@ -422,6 +439,25 @@ func ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCana
 		sProfiles[i] = r
 	}
 	p.SetProfiles(sProfiles)
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesDeployParametersToProto converts a DeliveryPipelineSerialPipelineStagesDeployParameters object to its proto representation.
+func ClouddeployBetaDeliveryPipelineSerialPipelineStagesDeployParametersToProto(o *beta.DeliveryPipelineSerialPipelineStagesDeployParameters) *betapb.ClouddeployBetaDeliveryPipelineSerialPipelineStagesDeployParameters {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ClouddeployBetaDeliveryPipelineSerialPipelineStagesDeployParameters{}
+	mValues := make(map[string]string, len(o.Values))
+	for k, r := range o.Values {
+		mValues[k] = r
+	}
+	p.SetValues(mValues)
+	mMatchTargetLabels := make(map[string]string, len(o.MatchTargetLabels))
+	for k, r := range o.MatchTargetLabels {
+		mMatchTargetLabels[k] = r
+	}
+	p.SetMatchTargetLabels(mMatchTargetLabels)
 	return p
 }
 

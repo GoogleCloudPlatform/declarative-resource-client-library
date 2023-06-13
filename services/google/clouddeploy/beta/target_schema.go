@@ -153,6 +153,14 @@ func DCLTargetSchema() *dcl.Schema {
 								Description: "Output only. Time at which the `Target` was created.",
 								Immutable:   true,
 							},
+							"deployParameters": &dcl.Property{
+								Type: "object",
+								AdditionalProperties: &dcl.Property{
+									Type: "string",
+								},
+								GoName:      "DeployParameters",
+								Description: "Optional. The deploy parameters to use for this target.",
+							},
 							"description": &dcl.Property{
 								Type:        "string",
 								GoName:      "Description",

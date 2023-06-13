@@ -37,6 +37,7 @@ class Target(object):
         project: str = None,
         location: str = None,
         run: dict = None,
+        deploy_parameters: dict = None,
         service_account_file: str = "",
     ):
         channel.initialize()
@@ -51,6 +52,7 @@ class Target(object):
         self.project = project
         self.location = location
         self.run = run
+        self.deploy_parameters = deploy_parameters
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -97,6 +99,11 @@ class Target(object):
             request.resource.run.CopyFrom(TargetRun.to_proto(self.run))
         else:
             request.resource.ClearField("run")
+        if Primitive.to_proto(self.deploy_parameters):
+            request.resource.deploy_parameters = Primitive.to_proto(
+                self.deploy_parameters
+            )
+
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyClouddeployTarget(request)
@@ -118,6 +125,7 @@ class Target(object):
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
         self.run = TargetRun.from_proto(response.run)
+        self.deploy_parameters = Primitive.from_proto(response.deploy_parameters)
 
     def delete(self):
         stub = target_pb2_grpc.ClouddeployTargetServiceStub(channel.Channel())
@@ -164,6 +172,11 @@ class Target(object):
             request.resource.run.CopyFrom(TargetRun.to_proto(self.run))
         else:
             request.resource.ClearField("run")
+        if Primitive.to_proto(self.deploy_parameters):
+            request.resource.deploy_parameters = Primitive.to_proto(
+                self.deploy_parameters
+            )
+
         response = stub.DeleteClouddeployTarget(request)
 
     @classmethod
@@ -211,6 +224,8 @@ class Target(object):
             resource.run.CopyFrom(TargetRun.to_proto(self.run))
         else:
             resource.ClearField("run")
+        if Primitive.to_proto(self.deploy_parameters):
+            resource.deploy_parameters = Primitive.to_proto(self.deploy_parameters)
         return resource
 
 

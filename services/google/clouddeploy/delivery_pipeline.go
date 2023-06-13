@@ -92,10 +92,11 @@ func (r *DeliveryPipelineSerialPipeline) HashCode() string {
 }
 
 type DeliveryPipelineSerialPipelineStages struct {
-	empty    bool                                          `json:"-"`
-	TargetId *string                                       `json:"targetId"`
-	Profiles []string                                      `json:"profiles"`
-	Strategy *DeliveryPipelineSerialPipelineStagesStrategy `json:"strategy"`
+	empty            bool                                                   `json:"-"`
+	TargetId         *string                                                `json:"targetId"`
+	Profiles         []string                                               `json:"profiles"`
+	Strategy         *DeliveryPipelineSerialPipelineStagesStrategy          `json:"strategy"`
+	DeployParameters []DeliveryPipelineSerialPipelineStagesDeployParameters `json:"deployParameters"`
 }
 
 type jsonDeliveryPipelineSerialPipelineStages DeliveryPipelineSerialPipelineStages
@@ -118,6 +119,8 @@ func (r *DeliveryPipelineSerialPipelineStages) UnmarshalJSON(data []byte) error 
 		r.Profiles = res.Profiles
 
 		r.Strategy = res.Strategy
+
+		r.DeployParameters = res.DeployParameters
 
 	}
 	return nil
@@ -229,6 +232,55 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyStandard) String() string {
 }
 
 func (r *DeliveryPipelineSerialPipelineStagesStrategyStandard) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DeliveryPipelineSerialPipelineStagesDeployParameters struct {
+	empty             bool              `json:"-"`
+	Values            map[string]string `json:"values"`
+	MatchTargetLabels map[string]string `json:"matchTargetLabels"`
+}
+
+type jsonDeliveryPipelineSerialPipelineStagesDeployParameters DeliveryPipelineSerialPipelineStagesDeployParameters
+
+func (r *DeliveryPipelineSerialPipelineStagesDeployParameters) UnmarshalJSON(data []byte) error {
+	var res jsonDeliveryPipelineSerialPipelineStagesDeployParameters
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDeliveryPipelineSerialPipelineStagesDeployParameters
+	} else {
+
+		r.Values = res.Values
+
+		r.MatchTargetLabels = res.MatchTargetLabels
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DeliveryPipelineSerialPipelineStagesDeployParameters is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDeliveryPipelineSerialPipelineStagesDeployParameters *DeliveryPipelineSerialPipelineStagesDeployParameters = &DeliveryPipelineSerialPipelineStagesDeployParameters{empty: true}
+
+func (r *DeliveryPipelineSerialPipelineStagesDeployParameters) Empty() bool {
+	return r.empty
+}
+
+func (r *DeliveryPipelineSerialPipelineStagesDeployParameters) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DeliveryPipelineSerialPipelineStagesDeployParameters) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

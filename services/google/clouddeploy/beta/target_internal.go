@@ -205,6 +205,9 @@ func newUpdateTargetUpdateTargetRequest(ctx context.Context, f *Target, c *Clien
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["multiTarget"] = v
 	}
+	if v := f.DeployParameters; !dcl.IsEmptyValueIndirect(v) {
+		req["deployParameters"] = v
+	}
 	b, err := c.getTargetRaw(ctx, f)
 	if err != nil {
 		return nil, err
@@ -631,6 +634,12 @@ func canonicalizeTargetDesiredState(rawDesired, rawInitial *Target, opts ...dcl.
 	}
 	canonicalDesired.Run = canonicalizeTargetRun(rawDesired.Run, rawInitial.Run, opts...)
 	canonicalDesired.MultiTarget = canonicalizeTargetMultiTarget(rawDesired.MultiTarget, rawInitial.MultiTarget, opts...)
+	if dcl.IsZeroValue(rawDesired.DeployParameters) || (dcl.IsEmptyValueIndirect(rawDesired.DeployParameters) && dcl.IsEmptyValueIndirect(rawInitial.DeployParameters)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		canonicalDesired.DeployParameters = rawInitial.DeployParameters
+	} else {
+		canonicalDesired.DeployParameters = rawDesired.DeployParameters
+	}
 
 	if canonicalDesired.Gke != nil {
 		// Check if anything else is set.
@@ -759,6 +768,11 @@ func canonicalizeTargetNewState(c *Client, rawNew, rawDesired *Target) (*Target,
 		rawNew.MultiTarget = rawDesired.MultiTarget
 	} else {
 		rawNew.MultiTarget = canonicalizeNewTargetMultiTarget(c, rawDesired.MultiTarget, rawNew.MultiTarget)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.DeployParameters) && dcl.IsEmptyValueIndirect(rawDesired.DeployParameters) {
+		rawNew.DeployParameters = rawDesired.DeployParameters
+	} else {
 	}
 
 	return rawNew, nil
@@ -1522,6 +1536,13 @@ func diffTarget(c *Client, desired, actual *Target, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.DeployParameters, actual.DeployParameters, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateTargetUpdateTargetOperation")}, fn.AddNest("DeployParameters")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if len(newDiffs) > 0 {
 		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
 	}
@@ -1824,6 +1845,9 @@ func expandTarget(c *Client, f *Target) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["multiTarget"] = v
 	}
+	if v := f.DeployParameters; dcl.ValueShouldBeSent(v) {
+		m["deployParameters"] = v
+	}
 
 	return m, nil
 }
@@ -1857,6 +1881,7 @@ func flattenTarget(c *Client, i interface{}, res *Target) *Target {
 	resultRes.Location = dcl.FlattenString(m["location"])
 	resultRes.Run = flattenTargetRun(c, m["run"], res)
 	resultRes.MultiTarget = flattenTargetMultiTarget(c, m["multiTarget"], res)
+	resultRes.DeployParameters = dcl.FlattenKeyValuePairs(m["deployParameters"])
 
 	return resultRes
 }

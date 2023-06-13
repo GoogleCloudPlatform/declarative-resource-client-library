@@ -48,6 +48,9 @@ func ProtoToClouddeployDeliveryPipelineSerialPipelineStages(p *clouddeploypb.Clo
 	for _, r := range p.GetProfiles() {
 		obj.Profiles = append(obj.Profiles, r)
 	}
+	for _, r := range p.GetDeployParameters() {
+		obj.DeployParameters = append(obj.DeployParameters, *ProtoToClouddeployDeliveryPipelineSerialPipelineStagesDeployParameters(r))
+	}
 	return obj
 }
 
@@ -70,6 +73,15 @@ func ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyStandard(p *c
 	obj := &clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyStandard{
 		Verify: dcl.Bool(p.GetVerify()),
 	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesDeployParameters converts a DeliveryPipelineSerialPipelineStagesDeployParameters object from its proto representation.
+func ProtoToClouddeployDeliveryPipelineSerialPipelineStagesDeployParameters(p *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesDeployParameters) *clouddeploy.DeliveryPipelineSerialPipelineStagesDeployParameters {
+	if p == nil {
+		return nil
+	}
+	obj := &clouddeploy.DeliveryPipelineSerialPipelineStagesDeployParameters{}
 	return obj
 }
 
@@ -170,6 +182,11 @@ func ClouddeployDeliveryPipelineSerialPipelineStagesToProto(o *clouddeploy.Deliv
 		sProfiles[i] = r
 	}
 	p.SetProfiles(sProfiles)
+	sDeployParameters := make([]*clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesDeployParameters, len(o.DeployParameters))
+	for i, r := range o.DeployParameters {
+		sDeployParameters[i] = ClouddeployDeliveryPipelineSerialPipelineStagesDeployParametersToProto(&r)
+	}
+	p.SetDeployParameters(sDeployParameters)
 	return p
 }
 
@@ -190,6 +207,25 @@ func ClouddeployDeliveryPipelineSerialPipelineStagesStrategyStandardToProto(o *c
 	}
 	p := &clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyStandard{}
 	p.SetVerify(dcl.ValueOrEmptyBool(o.Verify))
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesDeployParametersToProto converts a DeliveryPipelineSerialPipelineStagesDeployParameters object to its proto representation.
+func ClouddeployDeliveryPipelineSerialPipelineStagesDeployParametersToProto(o *clouddeploy.DeliveryPipelineSerialPipelineStagesDeployParameters) *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesDeployParameters {
+	if o == nil {
+		return nil
+	}
+	p := &clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesDeployParameters{}
+	mValues := make(map[string]string, len(o.Values))
+	for k, r := range o.Values {
+		mValues[k] = r
+	}
+	p.SetValues(mValues)
+	mMatchTargetLabels := make(map[string]string, len(o.MatchTargetLabels))
+	for k, r := range o.MatchTargetLabels {
+		mMatchTargetLabels[k] = r
+	}
+	p.SetMatchTargetLabels(mMatchTargetLabels)
 	return p
 }
 

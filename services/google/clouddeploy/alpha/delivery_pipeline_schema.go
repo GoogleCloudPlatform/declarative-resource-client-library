@@ -272,6 +272,38 @@ func DCLDeliveryPipelineSchema() *dcl.Schema {
 											Type:   "object",
 											GoType: "DeliveryPipelineSerialPipelineStages",
 											Properties: map[string]*dcl.Property{
+												"deployParameters": &dcl.Property{
+													Type:        "array",
+													GoName:      "DeployParameters",
+													Description: "Optional. The deploy parameters to use for the target in this stage.",
+													SendEmpty:   true,
+													ListType:    "list",
+													Items: &dcl.Property{
+														Type:   "object",
+														GoType: "DeliveryPipelineSerialPipelineStagesDeployParameters",
+														Required: []string{
+															"values",
+														},
+														Properties: map[string]*dcl.Property{
+															"matchTargetLabels": &dcl.Property{
+																Type: "object",
+																AdditionalProperties: &dcl.Property{
+																	Type: "string",
+																},
+																GoName:      "MatchTargetLabels",
+																Description: "Optional. Deploy parameters are applied to targets with match labels. If unspecified, deploy parameters are applied to all targets (including child targets of a multi-target).",
+															},
+															"values": &dcl.Property{
+																Type: "object",
+																AdditionalProperties: &dcl.Property{
+																	Type: "string",
+																},
+																GoName:      "Values",
+																Description: "Required. Values are deploy parameters in key-value pairs.",
+															},
+														},
+													},
+												},
 												"profiles": &dcl.Property{
 													Type:        "array",
 													GoName:      "Profiles",

@@ -224,6 +224,35 @@ components:
                 type: object
                 x-dcl-go-type: DeliveryPipelineSerialPipelineStages
                 properties:
+                  deployParameters:
+                    type: array
+                    x-dcl-go-name: DeployParameters
+                    description: Optional. The deploy parameters to use for the target
+                      in this stage.
+                    x-dcl-send-empty: true
+                    x-dcl-list-type: list
+                    items:
+                      type: object
+                      x-dcl-go-type: DeliveryPipelineSerialPipelineStagesDeployParameters
+                      required:
+                      - values
+                      properties:
+                        matchTargetLabels:
+                          type: object
+                          additionalProperties:
+                            type: string
+                          x-dcl-go-name: MatchTargetLabels
+                          description: Optional. Deploy parameters are applied to
+                            targets with match labels. If unspecified, deploy parameters
+                            are applied to all targets (including child targets of
+                            a multi-target).
+                        values:
+                          type: object
+                          additionalProperties:
+                            type: string
+                          x-dcl-go-name: Values
+                          description: Required. Values are deploy parameters in key-value
+                            pairs.
                   profiles:
                     type: array
                     x-dcl-go-name: Profiles

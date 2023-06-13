@@ -43,6 +43,7 @@ type Target struct {
 	Location         *string                  `json:"location"`
 	Run              *TargetRun               `json:"run"`
 	MultiTarget      *TargetMultiTarget       `json:"multiTarget"`
+	DeployParameters map[string]string        `json:"deployParameters"`
 }
 
 func (r *Target) String() string {
@@ -354,6 +355,7 @@ func (r *Target) ID() (string, error) {
 		"location":          dcl.ValueOrEmptyString(nr.Location),
 		"run":               dcl.ValueOrEmptyString(nr.Run),
 		"multi_target":      dcl.ValueOrEmptyString(nr.MultiTarget),
+		"deploy_parameters": dcl.ValueOrEmptyString(nr.DeployParameters),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/targets/{{name}}", params), nil
 }

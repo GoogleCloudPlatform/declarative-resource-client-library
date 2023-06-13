@@ -108,6 +108,26 @@ func DeliveryPipelineToUnstructured(r *dclService.DeliveryPipeline) *unstructure
 		var rSerialPipelineStages []interface{}
 		for _, rSerialPipelineStagesVal := range r.SerialPipeline.Stages {
 			rSerialPipelineStagesObject := make(map[string]interface{})
+			var rSerialPipelineStagesValDeployParameters []interface{}
+			for _, rSerialPipelineStagesValDeployParametersVal := range rSerialPipelineStagesVal.DeployParameters {
+				rSerialPipelineStagesValDeployParametersObject := make(map[string]interface{})
+				if rSerialPipelineStagesValDeployParametersVal.MatchTargetLabels != nil {
+					rSerialPipelineStagesValDeployParametersValMatchTargetLabels := make(map[string]interface{})
+					for k, v := range rSerialPipelineStagesValDeployParametersVal.MatchTargetLabels {
+						rSerialPipelineStagesValDeployParametersValMatchTargetLabels[k] = v
+					}
+					rSerialPipelineStagesValDeployParametersObject["matchTargetLabels"] = rSerialPipelineStagesValDeployParametersValMatchTargetLabels
+				}
+				if rSerialPipelineStagesValDeployParametersVal.Values != nil {
+					rSerialPipelineStagesValDeployParametersValValues := make(map[string]interface{})
+					for k, v := range rSerialPipelineStagesValDeployParametersVal.Values {
+						rSerialPipelineStagesValDeployParametersValValues[k] = v
+					}
+					rSerialPipelineStagesValDeployParametersObject["values"] = rSerialPipelineStagesValDeployParametersValValues
+				}
+				rSerialPipelineStagesValDeployParameters = append(rSerialPipelineStagesValDeployParameters, rSerialPipelineStagesValDeployParametersObject)
+			}
+			rSerialPipelineStagesObject["deployParameters"] = rSerialPipelineStagesValDeployParameters
 			var rSerialPipelineStagesValProfiles []interface{}
 			for _, rSerialPipelineStagesValProfilesVal := range rSerialPipelineStagesVal.Profiles {
 				rSerialPipelineStagesValProfiles = append(rSerialPipelineStagesValProfiles, rSerialPipelineStagesValProfilesVal)
@@ -303,6 +323,44 @@ func UnstructuredToDeliveryPipeline(u *unstructured.Resource) (*dclService.Deliv
 					for _, o := range s {
 						if objval, ok := o.(map[string]interface{}); ok {
 							var rSerialPipelineStages dclService.DeliveryPipelineSerialPipelineStages
+							if _, ok := objval["deployParameters"]; ok {
+								if s, ok := objval["deployParameters"].([]interface{}); ok {
+									for _, o := range s {
+										if objval, ok := o.(map[string]interface{}); ok {
+											var rSerialPipelineStagesDeployParameters dclService.DeliveryPipelineSerialPipelineStagesDeployParameters
+											if _, ok := objval["matchTargetLabels"]; ok {
+												if rSerialPipelineStagesDeployParametersMatchTargetLabels, ok := objval["matchTargetLabels"].(map[string]interface{}); ok {
+													m := make(map[string]string)
+													for k, v := range rSerialPipelineStagesDeployParametersMatchTargetLabels {
+														if s, ok := v.(string); ok {
+															m[k] = s
+														}
+													}
+													rSerialPipelineStagesDeployParameters.MatchTargetLabels = m
+												} else {
+													return nil, fmt.Errorf("rSerialPipelineStagesDeployParameters.MatchTargetLabels: expected map[string]interface{}")
+												}
+											}
+											if _, ok := objval["values"]; ok {
+												if rSerialPipelineStagesDeployParametersValues, ok := objval["values"].(map[string]interface{}); ok {
+													m := make(map[string]string)
+													for k, v := range rSerialPipelineStagesDeployParametersValues {
+														if s, ok := v.(string); ok {
+															m[k] = s
+														}
+													}
+													rSerialPipelineStagesDeployParameters.Values = m
+												} else {
+													return nil, fmt.Errorf("rSerialPipelineStagesDeployParameters.Values: expected map[string]interface{}")
+												}
+											}
+											rSerialPipelineStages.DeployParameters = append(rSerialPipelineStages.DeployParameters, rSerialPipelineStagesDeployParameters)
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("rSerialPipelineStages.DeployParameters: expected []interface{}")
+								}
+							}
 							if _, ok := objval["profiles"]; ok {
 								if s, ok := objval["profiles"].([]interface{}); ok {
 									for _, ss := range s {

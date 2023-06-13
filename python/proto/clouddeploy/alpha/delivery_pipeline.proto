@@ -45,6 +45,7 @@ message ClouddeployAlphaDeliveryPipelineSerialPipelineStages {
   string target_id = 1;
   repeated string profiles = 2;
   ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategy strategy = 3;
+  repeated ClouddeployAlphaDeliveryPipelineSerialPipelineStagesDeployParameters deploy_parameters = 4;
 }
 
 message ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategy {
@@ -102,6 +103,11 @@ message ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustom
   int64 percentage = 2;
   repeated string profiles = 3;
   bool verify = 4;
+}
+
+message ClouddeployAlphaDeliveryPipelineSerialPipelineStagesDeployParameters {
+  map<string, string> values = 1;
+  map<string, string> match_target_labels = 2;
 }
 
 message ClouddeployAlphaDeliveryPipelineCondition {

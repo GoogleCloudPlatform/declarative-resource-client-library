@@ -45,6 +45,7 @@ message ClouddeployTarget {
   string project = 14;
   string location = 15;
   ClouddeployTargetRun run = 16;
+  map<string, string> deploy_parameters = 17;
 }
 
 message ClouddeployTargetGke {

@@ -217,11 +217,16 @@ class DeliveryPipelineSerialPipelineArray(object):
 
 class DeliveryPipelineSerialPipelineStages(object):
     def __init__(
-        self, target_id: str = None, profiles: list = None, strategy: dict = None
+        self,
+        target_id: str = None,
+        profiles: list = None,
+        strategy: dict = None,
+        deploy_parameters: list = None,
     ):
         self.target_id = target_id
         self.profiles = profiles
         self.strategy = strategy
+        self.deploy_parameters = deploy_parameters
 
     @classmethod
     def to_proto(self, resource):
@@ -241,6 +246,14 @@ class DeliveryPipelineSerialPipelineStages(object):
             )
         else:
             res.ClearField("strategy")
+        if DeliveryPipelineSerialPipelineStagesDeployParametersArray.to_proto(
+            resource.deploy_parameters
+        ):
+            res.deploy_parameters.extend(
+                DeliveryPipelineSerialPipelineStagesDeployParametersArray.to_proto(
+                    resource.deploy_parameters
+                )
+            )
         return res
 
     @classmethod
@@ -253,6 +266,9 @@ class DeliveryPipelineSerialPipelineStages(object):
             profiles=Primitive.from_proto(resource.profiles),
             strategy=DeliveryPipelineSerialPipelineStagesStrategy.from_proto(
                 resource.strategy
+            ),
+            deploy_parameters=DeliveryPipelineSerialPipelineStagesDeployParametersArray.from_proto(
+                resource.deploy_parameters
             ),
         )
 
@@ -972,6 +988,54 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPh
             DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.from_proto(
                 i
             )
+            for i in resources
+        ]
+
+
+class DeliveryPipelineSerialPipelineStagesDeployParameters(object):
+    def __init__(self, values: dict = None, match_target_labels: dict = None):
+        self.values = values
+        self.match_target_labels = match_target_labels
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            delivery_pipeline_pb2.ClouddeployBetaDeliveryPipelineSerialPipelineStagesDeployParameters()
+        )
+        if Primitive.to_proto(resource.values):
+            res.values = Primitive.to_proto(resource.values)
+        if Primitive.to_proto(resource.match_target_labels):
+            res.match_target_labels = Primitive.to_proto(resource.match_target_labels)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DeliveryPipelineSerialPipelineStagesDeployParameters(
+            values=Primitive.from_proto(resource.values),
+            match_target_labels=Primitive.from_proto(resource.match_target_labels),
+        )
+
+
+class DeliveryPipelineSerialPipelineStagesDeployParametersArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            DeliveryPipelineSerialPipelineStagesDeployParameters.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            DeliveryPipelineSerialPipelineStagesDeployParameters.from_proto(i)
             for i in resources
         ]
 

@@ -201,6 +201,11 @@ func TargetToProto(resource *clouddeploy.Target) *clouddeploypb.ClouddeployTarge
 		sExecutionConfigs[i] = ClouddeployTargetExecutionConfigsToProto(&r)
 	}
 	p.SetExecutionConfigs(sExecutionConfigs)
+	mDeployParameters := make(map[string]string, len(resource.DeployParameters))
+	for k, r := range resource.DeployParameters {
+		mDeployParameters[k] = r
+	}
+	p.SetDeployParameters(mDeployParameters)
 
 	return p
 }

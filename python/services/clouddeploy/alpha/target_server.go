@@ -229,6 +229,11 @@ func TargetToProto(resource *alpha.Target) *alphapb.ClouddeployAlphaTarget {
 		sExecutionConfigs[i] = ClouddeployAlphaTargetExecutionConfigsToProto(&r)
 	}
 	p.SetExecutionConfigs(sExecutionConfigs)
+	mDeployParameters := make(map[string]string, len(resource.DeployParameters))
+	for k, r := range resource.DeployParameters {
+		mDeployParameters[k] = r
+	}
+	p.SetDeployParameters(mDeployParameters)
 
 	return p
 }

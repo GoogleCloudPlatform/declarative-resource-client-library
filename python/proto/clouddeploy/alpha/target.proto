@@ -46,6 +46,7 @@ message ClouddeployAlphaTarget {
   string location = 15;
   ClouddeployAlphaTargetRun run = 16;
   ClouddeployAlphaTargetMultiTarget multi_target = 17;
+  map<string, string> deploy_parameters = 18;
 }
 
 message ClouddeployAlphaTargetGke {

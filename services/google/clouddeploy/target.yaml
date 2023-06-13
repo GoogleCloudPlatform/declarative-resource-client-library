@@ -109,6 +109,12 @@ components:
           readOnly: true
           description: Output only. Time at which the `Target` was created.
           x-kubernetes-immutable: true
+        deployParameters:
+          type: object
+          additionalProperties:
+            type: string
+          x-dcl-go-name: DeployParameters
+          description: Optional. The deploy parameters to use for this target.
         description:
           type: string
           x-dcl-go-name: Description

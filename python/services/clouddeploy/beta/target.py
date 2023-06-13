@@ -38,6 +38,7 @@ class Target(object):
         location: str = None,
         run: dict = None,
         multi_target: dict = None,
+        deploy_parameters: dict = None,
         service_account_file: str = "",
     ):
         channel.initialize()
@@ -53,6 +54,7 @@ class Target(object):
         self.location = location
         self.run = run
         self.multi_target = multi_target
+        self.deploy_parameters = deploy_parameters
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -105,6 +107,11 @@ class Target(object):
             )
         else:
             request.resource.ClearField("multi_target")
+        if Primitive.to_proto(self.deploy_parameters):
+            request.resource.deploy_parameters = Primitive.to_proto(
+                self.deploy_parameters
+            )
+
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyClouddeployBetaTarget(request)
@@ -127,6 +134,7 @@ class Target(object):
         self.location = Primitive.from_proto(response.location)
         self.run = TargetRun.from_proto(response.run)
         self.multi_target = TargetMultiTarget.from_proto(response.multi_target)
+        self.deploy_parameters = Primitive.from_proto(response.deploy_parameters)
 
     def delete(self):
         stub = target_pb2_grpc.ClouddeployBetaTargetServiceStub(channel.Channel())
@@ -179,6 +187,11 @@ class Target(object):
             )
         else:
             request.resource.ClearField("multi_target")
+        if Primitive.to_proto(self.deploy_parameters):
+            request.resource.deploy_parameters = Primitive.to_proto(
+                self.deploy_parameters
+            )
+
         response = stub.DeleteClouddeployBetaTarget(request)
 
     @classmethod
@@ -232,6 +245,8 @@ class Target(object):
             )
         else:
             resource.ClearField("multi_target")
+        if Primitive.to_proto(self.deploy_parameters):
+            resource.deploy_parameters = Primitive.to_proto(self.deploy_parameters)
         return resource
 
 
