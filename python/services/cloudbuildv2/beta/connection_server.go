@@ -89,6 +89,58 @@ func ProtoToCloudbuildv2BetaConnectionGithubEnterpriseConfigServiceDirectoryConf
 	return obj
 }
 
+// ProtoToConnectionGitlabConfig converts a ConnectionGitlabConfig object from its proto representation.
+func ProtoToCloudbuildv2BetaConnectionGitlabConfig(p *betapb.Cloudbuildv2BetaConnectionGitlabConfig) *beta.ConnectionGitlabConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.ConnectionGitlabConfig{
+		HostUri:                    dcl.StringOrNil(p.GetHostUri()),
+		WebhookSecretSecretVersion: dcl.StringOrNil(p.GetWebhookSecretSecretVersion()),
+		ReadAuthorizerCredential:   ProtoToCloudbuildv2BetaConnectionGitlabConfigReadAuthorizerCredential(p.GetReadAuthorizerCredential()),
+		AuthorizerCredential:       ProtoToCloudbuildv2BetaConnectionGitlabConfigAuthorizerCredential(p.GetAuthorizerCredential()),
+		ServiceDirectoryConfig:     ProtoToCloudbuildv2BetaConnectionGitlabConfigServiceDirectoryConfig(p.GetServiceDirectoryConfig()),
+		SslCa:                      dcl.StringOrNil(p.GetSslCa()),
+		ServerVersion:              dcl.StringOrNil(p.GetServerVersion()),
+	}
+	return obj
+}
+
+// ProtoToConnectionGitlabConfigReadAuthorizerCredential converts a ConnectionGitlabConfigReadAuthorizerCredential object from its proto representation.
+func ProtoToCloudbuildv2BetaConnectionGitlabConfigReadAuthorizerCredential(p *betapb.Cloudbuildv2BetaConnectionGitlabConfigReadAuthorizerCredential) *beta.ConnectionGitlabConfigReadAuthorizerCredential {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.ConnectionGitlabConfigReadAuthorizerCredential{
+		UserTokenSecretVersion: dcl.StringOrNil(p.GetUserTokenSecretVersion()),
+		Username:               dcl.StringOrNil(p.GetUsername()),
+	}
+	return obj
+}
+
+// ProtoToConnectionGitlabConfigAuthorizerCredential converts a ConnectionGitlabConfigAuthorizerCredential object from its proto representation.
+func ProtoToCloudbuildv2BetaConnectionGitlabConfigAuthorizerCredential(p *betapb.Cloudbuildv2BetaConnectionGitlabConfigAuthorizerCredential) *beta.ConnectionGitlabConfigAuthorizerCredential {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.ConnectionGitlabConfigAuthorizerCredential{
+		UserTokenSecretVersion: dcl.StringOrNil(p.GetUserTokenSecretVersion()),
+		Username:               dcl.StringOrNil(p.GetUsername()),
+	}
+	return obj
+}
+
+// ProtoToConnectionGitlabConfigServiceDirectoryConfig converts a ConnectionGitlabConfigServiceDirectoryConfig object from its proto representation.
+func ProtoToCloudbuildv2BetaConnectionGitlabConfigServiceDirectoryConfig(p *betapb.Cloudbuildv2BetaConnectionGitlabConfigServiceDirectoryConfig) *beta.ConnectionGitlabConfigServiceDirectoryConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.ConnectionGitlabConfigServiceDirectoryConfig{
+		Service: dcl.StringOrNil(p.GetService()),
+	}
+	return obj
+}
+
 // ProtoToConnectionInstallationState converts a ConnectionInstallationState object from its proto representation.
 func ProtoToCloudbuildv2BetaConnectionInstallationState(p *betapb.Cloudbuildv2BetaConnectionInstallationState) *beta.ConnectionInstallationState {
 	if p == nil {
@@ -110,6 +162,7 @@ func ProtoToConnection(p *betapb.Cloudbuildv2BetaConnection) *beta.Connection {
 		UpdateTime:             dcl.StringOrNil(p.GetUpdateTime()),
 		GithubConfig:           ProtoToCloudbuildv2BetaConnectionGithubConfig(p.GetGithubConfig()),
 		GithubEnterpriseConfig: ProtoToCloudbuildv2BetaConnectionGithubEnterpriseConfig(p.GetGithubEnterpriseConfig()),
+		GitlabConfig:           ProtoToCloudbuildv2BetaConnectionGitlabConfig(p.GetGitlabConfig()),
 		InstallationState:      ProtoToCloudbuildv2BetaConnectionInstallationState(p.GetInstallationState()),
 		Disabled:               dcl.Bool(p.GetDisabled()),
 		Reconciling:            dcl.Bool(p.GetReconciling()),
@@ -180,6 +233,54 @@ func Cloudbuildv2BetaConnectionGithubEnterpriseConfigServiceDirectoryConfigToPro
 	return p
 }
 
+// ConnectionGitlabConfigToProto converts a ConnectionGitlabConfig object to its proto representation.
+func Cloudbuildv2BetaConnectionGitlabConfigToProto(o *beta.ConnectionGitlabConfig) *betapb.Cloudbuildv2BetaConnectionGitlabConfig {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.Cloudbuildv2BetaConnectionGitlabConfig{}
+	p.SetHostUri(dcl.ValueOrEmptyString(o.HostUri))
+	p.SetWebhookSecretSecretVersion(dcl.ValueOrEmptyString(o.WebhookSecretSecretVersion))
+	p.SetReadAuthorizerCredential(Cloudbuildv2BetaConnectionGitlabConfigReadAuthorizerCredentialToProto(o.ReadAuthorizerCredential))
+	p.SetAuthorizerCredential(Cloudbuildv2BetaConnectionGitlabConfigAuthorizerCredentialToProto(o.AuthorizerCredential))
+	p.SetServiceDirectoryConfig(Cloudbuildv2BetaConnectionGitlabConfigServiceDirectoryConfigToProto(o.ServiceDirectoryConfig))
+	p.SetSslCa(dcl.ValueOrEmptyString(o.SslCa))
+	p.SetServerVersion(dcl.ValueOrEmptyString(o.ServerVersion))
+	return p
+}
+
+// ConnectionGitlabConfigReadAuthorizerCredentialToProto converts a ConnectionGitlabConfigReadAuthorizerCredential object to its proto representation.
+func Cloudbuildv2BetaConnectionGitlabConfigReadAuthorizerCredentialToProto(o *beta.ConnectionGitlabConfigReadAuthorizerCredential) *betapb.Cloudbuildv2BetaConnectionGitlabConfigReadAuthorizerCredential {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.Cloudbuildv2BetaConnectionGitlabConfigReadAuthorizerCredential{}
+	p.SetUserTokenSecretVersion(dcl.ValueOrEmptyString(o.UserTokenSecretVersion))
+	p.SetUsername(dcl.ValueOrEmptyString(o.Username))
+	return p
+}
+
+// ConnectionGitlabConfigAuthorizerCredentialToProto converts a ConnectionGitlabConfigAuthorizerCredential object to its proto representation.
+func Cloudbuildv2BetaConnectionGitlabConfigAuthorizerCredentialToProto(o *beta.ConnectionGitlabConfigAuthorizerCredential) *betapb.Cloudbuildv2BetaConnectionGitlabConfigAuthorizerCredential {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.Cloudbuildv2BetaConnectionGitlabConfigAuthorizerCredential{}
+	p.SetUserTokenSecretVersion(dcl.ValueOrEmptyString(o.UserTokenSecretVersion))
+	p.SetUsername(dcl.ValueOrEmptyString(o.Username))
+	return p
+}
+
+// ConnectionGitlabConfigServiceDirectoryConfigToProto converts a ConnectionGitlabConfigServiceDirectoryConfig object to its proto representation.
+func Cloudbuildv2BetaConnectionGitlabConfigServiceDirectoryConfigToProto(o *beta.ConnectionGitlabConfigServiceDirectoryConfig) *betapb.Cloudbuildv2BetaConnectionGitlabConfigServiceDirectoryConfig {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.Cloudbuildv2BetaConnectionGitlabConfigServiceDirectoryConfig{}
+	p.SetService(dcl.ValueOrEmptyString(o.Service))
+	return p
+}
+
 // ConnectionInstallationStateToProto converts a ConnectionInstallationState object to its proto representation.
 func Cloudbuildv2BetaConnectionInstallationStateToProto(o *beta.ConnectionInstallationState) *betapb.Cloudbuildv2BetaConnectionInstallationState {
 	if o == nil {
@@ -200,6 +301,7 @@ func ConnectionToProto(resource *beta.Connection) *betapb.Cloudbuildv2BetaConnec
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
 	p.SetGithubConfig(Cloudbuildv2BetaConnectionGithubConfigToProto(resource.GithubConfig))
 	p.SetGithubEnterpriseConfig(Cloudbuildv2BetaConnectionGithubEnterpriseConfigToProto(resource.GithubEnterpriseConfig))
+	p.SetGitlabConfig(Cloudbuildv2BetaConnectionGitlabConfigToProto(resource.GitlabConfig))
 	p.SetInstallationState(Cloudbuildv2BetaConnectionInstallationStateToProto(resource.InstallationState))
 	p.SetDisabled(dcl.ValueOrEmptyBool(resource.Disabled))
 	p.SetReconciling(dcl.ValueOrEmptyBool(resource.Reconciling))

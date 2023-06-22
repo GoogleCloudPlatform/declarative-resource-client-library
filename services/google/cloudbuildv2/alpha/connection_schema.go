@@ -277,6 +277,7 @@ func DCLConnectionSchema() *dcl.Schema {
 								},
 								Required: []string{
 									"webhookSecretSecretVersion",
+									"readAuthorizerCredential",
 									"authorizerCredential",
 								},
 								Properties: map[string]*dcl.Property{
@@ -318,7 +319,7 @@ func DCLConnectionSchema() *dcl.Schema {
 										Type:        "object",
 										GoName:      "ReadAuthorizerCredential",
 										GoType:      "ConnectionGitlabConfigReadAuthorizerCredential",
-										Description: "A GitLab personal access token with `read_api` scope access. Required if the GitLab Enterprise server verion is older than 13.10. See at https://docs.gitlab.com/ee/api/project_access_tokens.html#create-a-project-access-token.",
+										Description: "Required. A GitLab personal access token with the minimum `read_api` scope access.",
 										Required: []string{
 											"userTokenSecretVersion",
 										},

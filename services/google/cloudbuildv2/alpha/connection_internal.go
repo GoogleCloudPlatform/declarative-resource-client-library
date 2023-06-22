@@ -93,6 +93,9 @@ func (r *ConnectionGitlabConfig) validate() error {
 	if err := dcl.Required(r, "webhookSecretSecretVersion"); err != nil {
 		return err
 	}
+	if err := dcl.Required(r, "readAuthorizerCredential"); err != nil {
+		return err
+	}
 	if err := dcl.Required(r, "authorizerCredential"); err != nil {
 		return err
 	}

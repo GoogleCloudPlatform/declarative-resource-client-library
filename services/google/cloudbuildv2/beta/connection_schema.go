@@ -144,6 +144,7 @@ func DCLConnectionSchema() *dcl.Schema {
 								Description: "Configuration for connections to github.com.",
 								Conflicts: []string{
 									"githubEnterpriseConfig",
+									"gitlabConfig",
 								},
 								Properties: map[string]*dcl.Property{
 									"appInstallationId": &dcl.Property{
@@ -186,6 +187,7 @@ func DCLConnectionSchema() *dcl.Schema {
 								Description: "Configuration for connections to an instance of GitHub Enterprise.",
 								Conflicts: []string{
 									"githubConfig",
+									"gitlabConfig",
 								},
 								Required: []string{
 									"hostUri",
@@ -255,6 +257,129 @@ func DCLConnectionSchema() *dcl.Schema {
 										Type:        "string",
 										GoName:      "WebhookSecretSecretVersion",
 										Description: "SecretManager resource containing the webhook secret of the GitHub App, formatted as `projects/*/secrets/*/versions/*`.",
+										ResourceReferences: []*dcl.PropertyResourceReference{
+											&dcl.PropertyResourceReference{
+												Resource: "Secretmanager/SecretVersion",
+												Field:    "selfLink",
+											},
+										},
+									},
+								},
+							},
+							"gitlabConfig": &dcl.Property{
+								Type:        "object",
+								GoName:      "GitlabConfig",
+								GoType:      "ConnectionGitlabConfig",
+								Description: "Configuration for connections to gitlab.com or an instance of GitLab Enterprise.",
+								Conflicts: []string{
+									"githubConfig",
+									"githubEnterpriseConfig",
+								},
+								Required: []string{
+									"webhookSecretSecretVersion",
+									"readAuthorizerCredential",
+									"authorizerCredential",
+								},
+								Properties: map[string]*dcl.Property{
+									"authorizerCredential": &dcl.Property{
+										Type:        "object",
+										GoName:      "AuthorizerCredential",
+										GoType:      "ConnectionGitlabConfigAuthorizerCredential",
+										Description: "Required. A GitLab personal access token with the `api` scope access.",
+										Required: []string{
+											"userTokenSecretVersion",
+										},
+										Properties: map[string]*dcl.Property{
+											"userTokenSecretVersion": &dcl.Property{
+												Type:        "string",
+												GoName:      "UserTokenSecretVersion",
+												Description: "Required. A SecretManager resource containing the user token that authorizes the Cloud Build connection. Format: `projects/*/secrets/*/versions/*`.",
+												ResourceReferences: []*dcl.PropertyResourceReference{
+													&dcl.PropertyResourceReference{
+														Resource: "Secretmanager/SecretVersion",
+														Field:    "selfLink",
+													},
+												},
+											},
+											"username": &dcl.Property{
+												Type:        "string",
+												GoName:      "Username",
+												ReadOnly:    true,
+												Description: "Output only. The username associated to this token.",
+											},
+										},
+									},
+									"hostUri": &dcl.Property{
+										Type:          "string",
+										GoName:        "HostUri",
+										Description:   "The URI of the GitLab Enterprise host this connection is for. If not specified, the default value is https://gitlab.com.",
+										ServerDefault: true,
+									},
+									"readAuthorizerCredential": &dcl.Property{
+										Type:        "object",
+										GoName:      "ReadAuthorizerCredential",
+										GoType:      "ConnectionGitlabConfigReadAuthorizerCredential",
+										Description: "Required. A GitLab personal access token with the minimum `read_api` scope access.",
+										Required: []string{
+											"userTokenSecretVersion",
+										},
+										Properties: map[string]*dcl.Property{
+											"userTokenSecretVersion": &dcl.Property{
+												Type:        "string",
+												GoName:      "UserTokenSecretVersion",
+												Description: "Required. A SecretManager resource containing the user token that authorizes the Cloud Build connection. Format: `projects/*/secrets/*/versions/*`.",
+												ResourceReferences: []*dcl.PropertyResourceReference{
+													&dcl.PropertyResourceReference{
+														Resource: "Secretmanager/SecretVersion",
+														Field:    "selfLink",
+													},
+												},
+											},
+											"username": &dcl.Property{
+												Type:        "string",
+												GoName:      "Username",
+												ReadOnly:    true,
+												Description: "Output only. The username associated to this token.",
+											},
+										},
+									},
+									"serverVersion": &dcl.Property{
+										Type:        "string",
+										GoName:      "ServerVersion",
+										ReadOnly:    true,
+										Description: "Output only. Version of the GitLab Enterprise server running on the `host_uri`.",
+									},
+									"serviceDirectoryConfig": &dcl.Property{
+										Type:        "object",
+										GoName:      "ServiceDirectoryConfig",
+										GoType:      "ConnectionGitlabConfigServiceDirectoryConfig",
+										Description: "Configuration for using Service Directory to privately connect to a GitLab Enterprise server. This should only be set if the GitLab Enterprise server is hosted on-premises and not reachable by public internet. If this field is left empty, calls to the GitLab Enterprise server will be made over the public internet.",
+										Required: []string{
+											"service",
+										},
+										Properties: map[string]*dcl.Property{
+											"service": &dcl.Property{
+												Type:        "string",
+												GoName:      "Service",
+												Description: "Required. The Service Directory service name. Format: projects/{project}/locations/{location}/namespaces/{namespace}/services/{service}.",
+												ResourceReferences: []*dcl.PropertyResourceReference{
+													&dcl.PropertyResourceReference{
+														Resource: "Servicedirectory/Service",
+														Field:    "selfLink",
+													},
+												},
+											},
+										},
+									},
+									"sslCa": &dcl.Property{
+										Type:        "string",
+										GoName:      "SslCa",
+										Description: "SSL certificate to use for requests to GitLab Enterprise.",
+									},
+									"webhookSecretSecretVersion": &dcl.Property{
+										Type:        "string",
+										GoName:      "WebhookSecretSecretVersion",
+										Description: "Required. Immutable. SecretManager resource containing the webhook secret of a GitLab Enterprise project, formatted as `projects/*/secrets/*/versions/*`.",
 										ResourceReferences: []*dcl.PropertyResourceReference{
 											&dcl.PropertyResourceReference{
 												Resource: "Secretmanager/SecretVersion",
