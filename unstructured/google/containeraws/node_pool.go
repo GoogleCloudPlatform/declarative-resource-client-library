@@ -107,6 +107,9 @@ func NodePoolToUnstructured(r *dclService.NodePool) *unstructured.Resource {
 			if r.Config.RootVolume.SizeGib != nil {
 				rConfigRootVolume["sizeGib"] = *r.Config.RootVolume.SizeGib
 			}
+			if r.Config.RootVolume.Throughput != nil {
+				rConfigRootVolume["throughput"] = *r.Config.RootVolume.Throughput
+			}
 			if r.Config.RootVolume.VolumeType != nil {
 				rConfigRootVolume["volumeType"] = string(*r.Config.RootVolume.VolumeType)
 			}
@@ -346,6 +349,13 @@ func UnstructuredToNodePool(u *unstructured.Resource) (*dclService.NodePool, err
 							r.Config.RootVolume.SizeGib = dcl.Int64(i)
 						} else {
 							return nil, fmt.Errorf("r.Config.RootVolume.SizeGib: expected int64")
+						}
+					}
+					if _, ok := rConfigRootVolume["throughput"]; ok {
+						if i, ok := rConfigRootVolume["throughput"].(int64); ok {
+							r.Config.RootVolume.Throughput = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("r.Config.RootVolume.Throughput: expected int64")
 						}
 					}
 					if _, ok := rConfigRootVolume["volumeType"]; ok {

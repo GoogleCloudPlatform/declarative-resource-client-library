@@ -92,6 +92,7 @@ func ProtoToContainerawsNodePoolConfigRootVolume(p *containerawspb.ContainerawsN
 		SizeGib:    dcl.Int64OrNil(p.GetSizeGib()),
 		VolumeType: ProtoToContainerawsNodePoolConfigRootVolumeVolumeTypeEnum(p.GetVolumeType()),
 		Iops:       dcl.Int64OrNil(p.GetIops()),
+		Throughput: dcl.Int64OrNil(p.GetThroughput()),
 		KmsKeyArn:  dcl.StringOrNil(p.GetKmsKeyArn()),
 	}
 	return obj
@@ -281,6 +282,7 @@ func ContainerawsNodePoolConfigRootVolumeToProto(o *containeraws.NodePoolConfigR
 	p.SetSizeGib(dcl.ValueOrEmptyInt64(o.SizeGib))
 	p.SetVolumeType(ContainerawsNodePoolConfigRootVolumeVolumeTypeEnumToProto(o.VolumeType))
 	p.SetIops(dcl.ValueOrEmptyInt64(o.Iops))
+	p.SetThroughput(dcl.ValueOrEmptyInt64(o.Throughput))
 	p.SetKmsKeyArn(dcl.ValueOrEmptyString(o.KmsKeyArn))
 	return p
 }

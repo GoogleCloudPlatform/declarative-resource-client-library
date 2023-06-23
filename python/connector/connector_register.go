@@ -64,9 +64,11 @@ import (
 
 	cloudbuild_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuild/alpha_connector"
 
-	cloudbuildv2_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuildv2/alpha_connector"
+	cloudbuildv2_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuildv2/connector"
 
 	cloudbuildv2_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuildv2/beta_connector"
+
+	cloudbuildv2_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/cloudbuildv2/alpha_connector"
 
 	clouddeploy_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/clouddeploy/connector"
 
@@ -333,9 +335,11 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	cloudbuild_alpha_connector.RegisterServers(grpcServer)
 
-	cloudbuildv2_alpha_connector.RegisterServers(grpcServer)
+	cloudbuildv2_connector.RegisterServers(grpcServer)
 
 	cloudbuildv2_beta_connector.RegisterServers(grpcServer)
+
+	cloudbuildv2_alpha_connector.RegisterServers(grpcServer)
 
 	clouddeploy_connector.RegisterServers(grpcServer)
 

@@ -221,10 +221,12 @@ class ClusterNetworking(object):
         vpc_id: str = None,
         pod_address_cidr_blocks: list = None,
         service_address_cidr_blocks: list = None,
+        per_node_pool_sg_rules_disabled: bool = None,
     ):
         self.vpc_id = vpc_id
         self.pod_address_cidr_blocks = pod_address_cidr_blocks
         self.service_address_cidr_blocks = service_address_cidr_blocks
+        self.per_node_pool_sg_rules_disabled = per_node_pool_sg_rules_disabled
 
     @classmethod
     def to_proto(self, resource):
@@ -242,6 +244,10 @@ class ClusterNetworking(object):
             res.service_address_cidr_blocks.extend(
                 Primitive.to_proto(resource.service_address_cidr_blocks)
             )
+        if Primitive.to_proto(resource.per_node_pool_sg_rules_disabled):
+            res.per_node_pool_sg_rules_disabled = Primitive.to_proto(
+                resource.per_node_pool_sg_rules_disabled
+            )
         return res
 
     @classmethod
@@ -256,6 +262,9 @@ class ClusterNetworking(object):
             ),
             service_address_cidr_blocks=Primitive.from_proto(
                 resource.service_address_cidr_blocks
+            ),
+            per_node_pool_sg_rules_disabled=Primitive.from_proto(
+                resource.per_node_pool_sg_rules_disabled
             ),
         )
 
@@ -493,11 +502,13 @@ class ClusterControlPlaneRootVolume(object):
         size_gib: int = None,
         volume_type: str = None,
         iops: int = None,
+        throughput: int = None,
         kms_key_arn: str = None,
     ):
         self.size_gib = size_gib
         self.volume_type = volume_type
         self.iops = iops
+        self.throughput = throughput
         self.kms_key_arn = kms_key_arn
 
     @classmethod
@@ -514,6 +525,8 @@ class ClusterControlPlaneRootVolume(object):
             )
         if Primitive.to_proto(resource.iops):
             res.iops = Primitive.to_proto(resource.iops)
+        if Primitive.to_proto(resource.throughput):
+            res.throughput = Primitive.to_proto(resource.throughput)
         if Primitive.to_proto(resource.kms_key_arn):
             res.kms_key_arn = Primitive.to_proto(resource.kms_key_arn)
         return res
@@ -529,6 +542,7 @@ class ClusterControlPlaneRootVolume(object):
                 resource.volume_type
             ),
             iops=Primitive.from_proto(resource.iops),
+            throughput=Primitive.from_proto(resource.throughput),
             kms_key_arn=Primitive.from_proto(resource.kms_key_arn),
         )
 
@@ -551,11 +565,13 @@ class ClusterControlPlaneMainVolume(object):
         size_gib: int = None,
         volume_type: str = None,
         iops: int = None,
+        throughput: int = None,
         kms_key_arn: str = None,
     ):
         self.size_gib = size_gib
         self.volume_type = volume_type
         self.iops = iops
+        self.throughput = throughput
         self.kms_key_arn = kms_key_arn
 
     @classmethod
@@ -572,6 +588,8 @@ class ClusterControlPlaneMainVolume(object):
             )
         if Primitive.to_proto(resource.iops):
             res.iops = Primitive.to_proto(resource.iops)
+        if Primitive.to_proto(resource.throughput):
+            res.throughput = Primitive.to_proto(resource.throughput)
         if Primitive.to_proto(resource.kms_key_arn):
             res.kms_key_arn = Primitive.to_proto(resource.kms_key_arn)
         return res
@@ -587,6 +605,7 @@ class ClusterControlPlaneMainVolume(object):
                 resource.volume_type
             ),
             iops=Primitive.from_proto(resource.iops),
+            throughput=Primitive.from_proto(resource.throughput),
             kms_key_arn=Primitive.from_proto(resource.kms_key_arn),
         )
 

@@ -21,7 +21,8 @@
       "sizeGib": 12,
       "kmsKeyArn": "arn:aws:kms:{{aws_region}}:{{aws_account_id}}:key/updated-volume-encryption-kms-key-arn",
       "volumeType": "GP2",
-      "iops": 0
+      "iops": 0,
+      "throughput": 0
     },
     "taints": [
       {

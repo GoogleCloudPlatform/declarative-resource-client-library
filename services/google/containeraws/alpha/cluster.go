@@ -187,10 +187,11 @@ func (v ClusterLoggingConfigComponentConfigEnableComponentsEnum) Validate() erro
 }
 
 type ClusterNetworking struct {
-	empty                    bool     `json:"-"`
-	VPCId                    *string  `json:"vpcId"`
-	PodAddressCidrBlocks     []string `json:"podAddressCidrBlocks"`
-	ServiceAddressCidrBlocks []string `json:"serviceAddressCidrBlocks"`
+	empty                      bool     `json:"-"`
+	VPCId                      *string  `json:"vpcId"`
+	PodAddressCidrBlocks       []string `json:"podAddressCidrBlocks"`
+	ServiceAddressCidrBlocks   []string `json:"serviceAddressCidrBlocks"`
+	PerNodePoolSgRulesDisabled *bool    `json:"perNodePoolSgRulesDisabled"`
 }
 
 type jsonClusterNetworking ClusterNetworking
@@ -213,6 +214,8 @@ func (r *ClusterNetworking) UnmarshalJSON(data []byte) error {
 		r.PodAddressCidrBlocks = res.PodAddressCidrBlocks
 
 		r.ServiceAddressCidrBlocks = res.ServiceAddressCidrBlocks
+
+		r.PerNodePoolSgRulesDisabled = res.PerNodePoolSgRulesDisabled
 
 	}
 	return nil
@@ -420,6 +423,7 @@ type ClusterControlPlaneRootVolume struct {
 	SizeGib    *int64                                       `json:"sizeGib"`
 	VolumeType *ClusterControlPlaneRootVolumeVolumeTypeEnum `json:"volumeType"`
 	Iops       *int64                                       `json:"iops"`
+	Throughput *int64                                       `json:"throughput"`
 	KmsKeyArn  *string                                      `json:"kmsKeyArn"`
 }
 
@@ -443,6 +447,8 @@ func (r *ClusterControlPlaneRootVolume) UnmarshalJSON(data []byte) error {
 		r.VolumeType = res.VolumeType
 
 		r.Iops = res.Iops
+
+		r.Throughput = res.Throughput
 
 		r.KmsKeyArn = res.KmsKeyArn
 
@@ -475,6 +481,7 @@ type ClusterControlPlaneMainVolume struct {
 	SizeGib    *int64                                       `json:"sizeGib"`
 	VolumeType *ClusterControlPlaneMainVolumeVolumeTypeEnum `json:"volumeType"`
 	Iops       *int64                                       `json:"iops"`
+	Throughput *int64                                       `json:"throughput"`
 	KmsKeyArn  *string                                      `json:"kmsKeyArn"`
 }
 
@@ -498,6 +505,8 @@ func (r *ClusterControlPlaneMainVolume) UnmarshalJSON(data []byte) error {
 		r.VolumeType = res.VolumeType
 
 		r.Iops = res.Iops
+
+		r.Throughput = res.Throughput
 
 		r.KmsKeyArn = res.KmsKeyArn
 

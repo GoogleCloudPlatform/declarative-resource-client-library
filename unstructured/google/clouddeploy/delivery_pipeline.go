@@ -135,6 +135,87 @@ func DeliveryPipelineToUnstructured(r *dclService.DeliveryPipeline) *unstructure
 			rSerialPipelineStagesObject["profiles"] = rSerialPipelineStagesValProfiles
 			if rSerialPipelineStagesVal.Strategy != nil && rSerialPipelineStagesVal.Strategy != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategy {
 				rSerialPipelineStagesValStrategy := make(map[string]interface{})
+				if rSerialPipelineStagesVal.Strategy.Canary != nil && rSerialPipelineStagesVal.Strategy.Canary != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyCanary {
+					rSerialPipelineStagesValStrategyCanary := make(map[string]interface{})
+					if rSerialPipelineStagesVal.Strategy.Canary.CanaryDeployment != nil && rSerialPipelineStagesVal.Strategy.Canary.CanaryDeployment != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment {
+						rSerialPipelineStagesValStrategyCanaryCanaryDeployment := make(map[string]interface{})
+						var rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPercentages []interface{}
+						for _, rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPercentagesVal := range rSerialPipelineStagesVal.Strategy.Canary.CanaryDeployment.Percentages {
+							rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPercentages = append(rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPercentages, rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPercentagesVal)
+						}
+						rSerialPipelineStagesValStrategyCanaryCanaryDeployment["percentages"] = rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPercentages
+						if rSerialPipelineStagesVal.Strategy.Canary.CanaryDeployment.Verify != nil {
+							rSerialPipelineStagesValStrategyCanaryCanaryDeployment["verify"] = *rSerialPipelineStagesVal.Strategy.Canary.CanaryDeployment.Verify
+						}
+						rSerialPipelineStagesValStrategyCanary["canaryDeployment"] = rSerialPipelineStagesValStrategyCanaryCanaryDeployment
+					}
+					if rSerialPipelineStagesVal.Strategy.Canary.CustomCanaryDeployment != nil && rSerialPipelineStagesVal.Strategy.Canary.CustomCanaryDeployment != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment {
+						rSerialPipelineStagesValStrategyCanaryCustomCanaryDeployment := make(map[string]interface{})
+						var rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigs []interface{}
+						for _, rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsVal := range rSerialPipelineStagesVal.Strategy.Canary.CustomCanaryDeployment.PhaseConfigs {
+							rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsObject := make(map[string]interface{})
+							if rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsVal.Percentage != nil {
+								rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsObject["percentage"] = *rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsVal.Percentage
+							}
+							if rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsVal.PhaseId != nil {
+								rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsObject["phaseId"] = *rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsVal.PhaseId
+							}
+							var rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValProfiles []interface{}
+							for _, rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValProfilesVal := range rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsVal.Profiles {
+								rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValProfiles = append(rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValProfiles, rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValProfilesVal)
+							}
+							rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsObject["profiles"] = rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValProfiles
+							if rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsVal.Verify != nil {
+								rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsObject["verify"] = *rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsVal.Verify
+							}
+							rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigs = append(rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigs, rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsObject)
+						}
+						rSerialPipelineStagesValStrategyCanaryCustomCanaryDeployment["phaseConfigs"] = rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigs
+						rSerialPipelineStagesValStrategyCanary["customCanaryDeployment"] = rSerialPipelineStagesValStrategyCanaryCustomCanaryDeployment
+					}
+					if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig != nil && rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig {
+						rSerialPipelineStagesValStrategyCanaryRuntimeConfig := make(map[string]interface{})
+						if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.CloudRun != nil && rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.CloudRun != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun {
+							rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRun := make(map[string]interface{})
+							if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.CloudRun.AutomaticTrafficControl != nil {
+								rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRun["automaticTrafficControl"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.CloudRun.AutomaticTrafficControl
+							}
+							rSerialPipelineStagesValStrategyCanaryRuntimeConfig["cloudRun"] = rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRun
+						}
+						if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes != nil && rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes {
+							rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetes := make(map[string]interface{})
+							if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh != nil && rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh {
+								rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh := make(map[string]interface{})
+								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.Deployment != nil {
+									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["deployment"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.Deployment
+								}
+								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.HttpRoute != nil {
+									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["httpRoute"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.HttpRoute
+								}
+								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.Service != nil {
+									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["service"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.Service
+								}
+								rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetes["gatewayServiceMesh"] = rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh
+							}
+							if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking != nil && rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking {
+								rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesServiceNetworking := make(map[string]interface{})
+								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.Deployment != nil {
+									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesServiceNetworking["deployment"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.Deployment
+								}
+								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.DisablePodOverprovisioning != nil {
+									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesServiceNetworking["disablePodOverprovisioning"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.DisablePodOverprovisioning
+								}
+								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.Service != nil {
+									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesServiceNetworking["service"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.Service
+								}
+								rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetes["serviceNetworking"] = rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesServiceNetworking
+							}
+							rSerialPipelineStagesValStrategyCanaryRuntimeConfig["kubernetes"] = rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetes
+						}
+						rSerialPipelineStagesValStrategyCanary["runtimeConfig"] = rSerialPipelineStagesValStrategyCanaryRuntimeConfig
+					}
+					rSerialPipelineStagesValStrategy["canary"] = rSerialPipelineStagesValStrategyCanary
+				}
 				if rSerialPipelineStagesVal.Strategy.Standard != nil && rSerialPipelineStagesVal.Strategy.Standard != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyStandard {
 					rSerialPipelineStagesValStrategyStandard := make(map[string]interface{})
 					if rSerialPipelineStagesVal.Strategy.Standard.Verify != nil {
@@ -375,6 +456,173 @@ func UnstructuredToDeliveryPipeline(u *unstructured.Resource) (*dclService.Deliv
 							if _, ok := objval["strategy"]; ok {
 								if rSerialPipelineStagesStrategy, ok := objval["strategy"].(map[string]interface{}); ok {
 									rSerialPipelineStages.Strategy = &dclService.DeliveryPipelineSerialPipelineStagesStrategy{}
+									if _, ok := rSerialPipelineStagesStrategy["canary"]; ok {
+										if rSerialPipelineStagesStrategyCanary, ok := rSerialPipelineStagesStrategy["canary"].(map[string]interface{}); ok {
+											rSerialPipelineStages.Strategy.Canary = &dclService.DeliveryPipelineSerialPipelineStagesStrategyCanary{}
+											if _, ok := rSerialPipelineStagesStrategyCanary["canaryDeployment"]; ok {
+												if rSerialPipelineStagesStrategyCanaryCanaryDeployment, ok := rSerialPipelineStagesStrategyCanary["canaryDeployment"].(map[string]interface{}); ok {
+													rSerialPipelineStages.Strategy.Canary.CanaryDeployment = &dclService.DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment{}
+													if _, ok := rSerialPipelineStagesStrategyCanaryCanaryDeployment["percentages"]; ok {
+														if s, ok := rSerialPipelineStagesStrategyCanaryCanaryDeployment["percentages"].([]interface{}); ok {
+															for _, ss := range s {
+																if intval, ok := ss.(int64); ok {
+																	rSerialPipelineStages.Strategy.Canary.CanaryDeployment.Percentages = append(rSerialPipelineStages.Strategy.Canary.CanaryDeployment.Percentages, intval)
+																}
+															}
+														} else {
+															return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.CanaryDeployment.Percentages: expected []interface{}")
+														}
+													}
+													if _, ok := rSerialPipelineStagesStrategyCanaryCanaryDeployment["verify"]; ok {
+														if b, ok := rSerialPipelineStagesStrategyCanaryCanaryDeployment["verify"].(bool); ok {
+															rSerialPipelineStages.Strategy.Canary.CanaryDeployment.Verify = dcl.Bool(b)
+														} else {
+															return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.CanaryDeployment.Verify: expected bool")
+														}
+													}
+												} else {
+													return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.CanaryDeployment: expected map[string]interface{}")
+												}
+											}
+											if _, ok := rSerialPipelineStagesStrategyCanary["customCanaryDeployment"]; ok {
+												if rSerialPipelineStagesStrategyCanaryCustomCanaryDeployment, ok := rSerialPipelineStagesStrategyCanary["customCanaryDeployment"].(map[string]interface{}); ok {
+													rSerialPipelineStages.Strategy.Canary.CustomCanaryDeployment = &dclService.DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment{}
+													if _, ok := rSerialPipelineStagesStrategyCanaryCustomCanaryDeployment["phaseConfigs"]; ok {
+														if s, ok := rSerialPipelineStagesStrategyCanaryCustomCanaryDeployment["phaseConfigs"].([]interface{}); ok {
+															for _, o := range s {
+																if objval, ok := o.(map[string]interface{}); ok {
+																	var rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs dclService.DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs
+																	if _, ok := objval["percentage"]; ok {
+																		if i, ok := objval["percentage"].(int64); ok {
+																			rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.Percentage = dcl.Int64(i)
+																		} else {
+																			return nil, fmt.Errorf("rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.Percentage: expected int64")
+																		}
+																	}
+																	if _, ok := objval["phaseId"]; ok {
+																		if s, ok := objval["phaseId"].(string); ok {
+																			rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.PhaseId = dcl.String(s)
+																		} else {
+																			return nil, fmt.Errorf("rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.PhaseId: expected string")
+																		}
+																	}
+																	if _, ok := objval["profiles"]; ok {
+																		if s, ok := objval["profiles"].([]interface{}); ok {
+																			for _, ss := range s {
+																				if strval, ok := ss.(string); ok {
+																					rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.Profiles = append(rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.Profiles, strval)
+																				}
+																			}
+																		} else {
+																			return nil, fmt.Errorf("rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.Profiles: expected []interface{}")
+																		}
+																	}
+																	if _, ok := objval["verify"]; ok {
+																		if b, ok := objval["verify"].(bool); ok {
+																			rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.Verify = dcl.Bool(b)
+																		} else {
+																			return nil, fmt.Errorf("rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.Verify: expected bool")
+																		}
+																	}
+																	rSerialPipelineStages.Strategy.Canary.CustomCanaryDeployment.PhaseConfigs = append(rSerialPipelineStages.Strategy.Canary.CustomCanaryDeployment.PhaseConfigs, rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs)
+																}
+															}
+														} else {
+															return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.CustomCanaryDeployment.PhaseConfigs: expected []interface{}")
+														}
+													}
+												} else {
+													return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.CustomCanaryDeployment: expected map[string]interface{}")
+												}
+											}
+											if _, ok := rSerialPipelineStagesStrategyCanary["runtimeConfig"]; ok {
+												if rSerialPipelineStagesStrategyCanaryRuntimeConfig, ok := rSerialPipelineStagesStrategyCanary["runtimeConfig"].(map[string]interface{}); ok {
+													rSerialPipelineStages.Strategy.Canary.RuntimeConfig = &dclService.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig{}
+													if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfig["cloudRun"]; ok {
+														if rSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfig["cloudRun"].(map[string]interface{}); ok {
+															rSerialPipelineStages.Strategy.Canary.RuntimeConfig.CloudRun = &dclService.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun{}
+															if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun["automaticTrafficControl"]; ok {
+																if b, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun["automaticTrafficControl"].(bool); ok {
+																	rSerialPipelineStages.Strategy.Canary.RuntimeConfig.CloudRun.AutomaticTrafficControl = dcl.Bool(b)
+																} else {
+																	return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.CloudRun.AutomaticTrafficControl: expected bool")
+																}
+															}
+														} else {
+															return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.CloudRun: expected map[string]interface{}")
+														}
+													}
+													if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfig["kubernetes"]; ok {
+														if rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfig["kubernetes"].(map[string]interface{}); ok {
+															rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes = &dclService.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes{}
+															if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes["gatewayServiceMesh"]; ok {
+																if rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes["gatewayServiceMesh"].(map[string]interface{}); ok {
+																	rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh = &dclService.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh{}
+																	if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["deployment"]; ok {
+																		if s, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["deployment"].(string); ok {
+																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.Deployment = dcl.String(s)
+																		} else {
+																			return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.Deployment: expected string")
+																		}
+																	}
+																	if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["httpRoute"]; ok {
+																		if s, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["httpRoute"].(string); ok {
+																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.HttpRoute = dcl.String(s)
+																		} else {
+																			return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.HttpRoute: expected string")
+																		}
+																	}
+																	if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["service"]; ok {
+																		if s, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["service"].(string); ok {
+																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.Service = dcl.String(s)
+																		} else {
+																			return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.Service: expected string")
+																		}
+																	}
+																} else {
+																	return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh: expected map[string]interface{}")
+																}
+															}
+															if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes["serviceNetworking"]; ok {
+																if rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes["serviceNetworking"].(map[string]interface{}); ok {
+																	rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking = &dclService.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking{}
+																	if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking["deployment"]; ok {
+																		if s, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking["deployment"].(string); ok {
+																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.Deployment = dcl.String(s)
+																		} else {
+																			return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.Deployment: expected string")
+																		}
+																	}
+																	if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking["disablePodOverprovisioning"]; ok {
+																		if b, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking["disablePodOverprovisioning"].(bool); ok {
+																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.DisablePodOverprovisioning = dcl.Bool(b)
+																		} else {
+																			return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.DisablePodOverprovisioning: expected bool")
+																		}
+																	}
+																	if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking["service"]; ok {
+																		if s, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking["service"].(string); ok {
+																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.Service = dcl.String(s)
+																		} else {
+																			return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.Service: expected string")
+																		}
+																	}
+																} else {
+																	return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking: expected map[string]interface{}")
+																}
+															}
+														} else {
+															return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes: expected map[string]interface{}")
+														}
+													}
+												} else {
+													return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig: expected map[string]interface{}")
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary: expected map[string]interface{}")
+										}
+									}
 									if _, ok := rSerialPipelineStagesStrategy["standard"]; ok {
 										if rSerialPipelineStagesStrategyStandard, ok := rSerialPipelineStagesStrategy["standard"].(map[string]interface{}); ok {
 											rSerialPipelineStages.Strategy.Standard = &dclService.DeliveryPipelineSerialPipelineStagesStrategyStandard{}

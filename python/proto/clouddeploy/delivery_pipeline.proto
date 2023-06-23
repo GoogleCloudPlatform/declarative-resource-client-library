@@ -50,10 +50,59 @@ message ClouddeployDeliveryPipelineSerialPipelineStages {
 
 message ClouddeployDeliveryPipelineSerialPipelineStagesStrategy {
   ClouddeployDeliveryPipelineSerialPipelineStagesStrategyStandard standard = 1;
+  ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanary canary = 2;
 }
 
 message ClouddeployDeliveryPipelineSerialPipelineStagesStrategyStandard {
   bool verify = 1;
+}
+
+message ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanary {
+  ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig runtime_config = 1;
+  ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment canary_deployment = 2;
+  ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment custom_canary_deployment = 3;
+}
+
+message ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig {
+  ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes kubernetes = 1;
+  ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun cloud_run = 2;
+}
+
+message ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes {
+  ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh gateway_service_mesh = 1;
+  ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking service_networking = 2;
+}
+
+message ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh {
+  string http_route = 1;
+  string service = 2;
+  string deployment = 3;
+}
+
+message ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking {
+  string service = 1;
+  string deployment = 2;
+  bool disable_pod_overprovisioning = 3;
+}
+
+message ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun {
+  bool automatic_traffic_control = 1;
+}
+
+message ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment {
+  repeated int64 percentages = 1;
+  bool verify = 2;
+}
+
+message ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment {
+  repeated ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs phase_configs = 1;
+}
+
+message ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs {
+  string phase_id = 1;
+  int64 percentage = 2;
+  repeated string profiles = 3;
+  bool verify = 4;
 }
 
 message ClouddeployDeliveryPipelineSerialPipelineStagesDeployParameters {

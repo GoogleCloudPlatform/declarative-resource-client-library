@@ -355,11 +355,13 @@ class NodePoolConfigRootVolume(object):
         size_gib: int = None,
         volume_type: str = None,
         iops: int = None,
+        throughput: int = None,
         kms_key_arn: str = None,
     ):
         self.size_gib = size_gib
         self.volume_type = volume_type
         self.iops = iops
+        self.throughput = throughput
         self.kms_key_arn = kms_key_arn
 
     @classmethod
@@ -376,6 +378,8 @@ class NodePoolConfigRootVolume(object):
             )
         if Primitive.to_proto(resource.iops):
             res.iops = Primitive.to_proto(resource.iops)
+        if Primitive.to_proto(resource.throughput):
+            res.throughput = Primitive.to_proto(resource.throughput)
         if Primitive.to_proto(resource.kms_key_arn):
             res.kms_key_arn = Primitive.to_proto(resource.kms_key_arn)
         return res
@@ -391,6 +395,7 @@ class NodePoolConfigRootVolume(object):
                 resource.volume_type
             ),
             iops=Primitive.from_proto(resource.iops),
+            throughput=Primitive.from_proto(resource.throughput),
             kms_key_arn=Primitive.from_proto(resource.kms_key_arn),
         )
 

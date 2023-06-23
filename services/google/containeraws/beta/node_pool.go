@@ -245,6 +245,7 @@ type NodePoolConfigRootVolume struct {
 	SizeGib    *int64                                  `json:"sizeGib"`
 	VolumeType *NodePoolConfigRootVolumeVolumeTypeEnum `json:"volumeType"`
 	Iops       *int64                                  `json:"iops"`
+	Throughput *int64                                  `json:"throughput"`
 	KmsKeyArn  *string                                 `json:"kmsKeyArn"`
 }
 
@@ -268,6 +269,8 @@ func (r *NodePoolConfigRootVolume) UnmarshalJSON(data []byte) error {
 		r.VolumeType = res.VolumeType
 
 		r.Iops = res.Iops
+
+		r.Throughput = res.Throughput
 
 		r.KmsKeyArn = res.KmsKeyArn
 

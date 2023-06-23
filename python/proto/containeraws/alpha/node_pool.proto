@@ -95,7 +95,8 @@ message ContainerawsAlphaNodePoolConfigRootVolume {
   int64 size_gib = 1;
   ContainerawsAlphaNodePoolConfigRootVolumeVolumeTypeEnum volume_type = 2;
   int64 iops = 3;
-  string kms_key_arn = 4;
+  int64 throughput = 4;
+  string kms_key_arn = 5;
 }
 
 message ContainerawsAlphaNodePoolConfigTaints {

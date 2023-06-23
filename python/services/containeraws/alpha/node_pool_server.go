@@ -107,6 +107,7 @@ func ProtoToContainerawsAlphaNodePoolConfigRootVolume(p *alphapb.ContainerawsAlp
 		SizeGib:    dcl.Int64OrNil(p.GetSizeGib()),
 		VolumeType: ProtoToContainerawsAlphaNodePoolConfigRootVolumeVolumeTypeEnum(p.GetVolumeType()),
 		Iops:       dcl.Int64OrNil(p.GetIops()),
+		Throughput: dcl.Int64OrNil(p.GetThroughput()),
 		KmsKeyArn:  dcl.StringOrNil(p.GetKmsKeyArn()),
 	}
 	return obj
@@ -333,6 +334,7 @@ func ContainerawsAlphaNodePoolConfigRootVolumeToProto(o *alpha.NodePoolConfigRoo
 	p.SetSizeGib(dcl.ValueOrEmptyInt64(o.SizeGib))
 	p.SetVolumeType(ContainerawsAlphaNodePoolConfigRootVolumeVolumeTypeEnumToProto(o.VolumeType))
 	p.SetIops(dcl.ValueOrEmptyInt64(o.Iops))
+	p.SetThroughput(dcl.ValueOrEmptyInt64(o.Throughput))
 	p.SetKmsKeyArn(dcl.ValueOrEmptyString(o.KmsKeyArn))
 	return p
 }

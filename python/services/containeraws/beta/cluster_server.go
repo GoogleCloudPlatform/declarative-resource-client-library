@@ -90,7 +90,8 @@ func ProtoToContainerawsBetaClusterNetworking(p *betapb.ContainerawsBetaClusterN
 		return nil
 	}
 	obj := &beta.ClusterNetworking{
-		VPCId: dcl.StringOrNil(p.GetVpcId()),
+		VPCId:                      dcl.StringOrNil(p.GetVpcId()),
+		PerNodePoolSgRulesDisabled: dcl.Bool(p.GetPerNodePoolSgRulesDisabled()),
 	}
 	for _, r := range p.GetPodAddressCidrBlocks() {
 		obj.PodAddressCidrBlocks = append(obj.PodAddressCidrBlocks, r)
@@ -159,6 +160,7 @@ func ProtoToContainerawsBetaClusterControlPlaneRootVolume(p *betapb.Containeraws
 		SizeGib:    dcl.Int64OrNil(p.GetSizeGib()),
 		VolumeType: ProtoToContainerawsBetaClusterControlPlaneRootVolumeVolumeTypeEnum(p.GetVolumeType()),
 		Iops:       dcl.Int64OrNil(p.GetIops()),
+		Throughput: dcl.Int64OrNil(p.GetThroughput()),
 		KmsKeyArn:  dcl.StringOrNil(p.GetKmsKeyArn()),
 	}
 	return obj
@@ -173,6 +175,7 @@ func ProtoToContainerawsBetaClusterControlPlaneMainVolume(p *betapb.Containeraws
 		SizeGib:    dcl.Int64OrNil(p.GetSizeGib()),
 		VolumeType: ProtoToContainerawsBetaClusterControlPlaneMainVolumeVolumeTypeEnum(p.GetVolumeType()),
 		Iops:       dcl.Int64OrNil(p.GetIops()),
+		Throughput: dcl.Int64OrNil(p.GetThroughput()),
 		KmsKeyArn:  dcl.StringOrNil(p.GetKmsKeyArn()),
 	}
 	return obj
@@ -405,6 +408,7 @@ func ContainerawsBetaClusterNetworkingToProto(o *beta.ClusterNetworking) *betapb
 	}
 	p := &betapb.ContainerawsBetaClusterNetworking{}
 	p.SetVpcId(dcl.ValueOrEmptyString(o.VPCId))
+	p.SetPerNodePoolSgRulesDisabled(dcl.ValueOrEmptyBool(o.PerNodePoolSgRulesDisabled))
 	sPodAddressCidrBlocks := make([]string, len(o.PodAddressCidrBlocks))
 	for i, r := range o.PodAddressCidrBlocks {
 		sPodAddressCidrBlocks[i] = r
@@ -482,6 +486,7 @@ func ContainerawsBetaClusterControlPlaneRootVolumeToProto(o *beta.ClusterControl
 	p.SetSizeGib(dcl.ValueOrEmptyInt64(o.SizeGib))
 	p.SetVolumeType(ContainerawsBetaClusterControlPlaneRootVolumeVolumeTypeEnumToProto(o.VolumeType))
 	p.SetIops(dcl.ValueOrEmptyInt64(o.Iops))
+	p.SetThroughput(dcl.ValueOrEmptyInt64(o.Throughput))
 	p.SetKmsKeyArn(dcl.ValueOrEmptyString(o.KmsKeyArn))
 	return p
 }
@@ -495,6 +500,7 @@ func ContainerawsBetaClusterControlPlaneMainVolumeToProto(o *beta.ClusterControl
 	p.SetSizeGib(dcl.ValueOrEmptyInt64(o.SizeGib))
 	p.SetVolumeType(ContainerawsBetaClusterControlPlaneMainVolumeVolumeTypeEnumToProto(o.VolumeType))
 	p.SetIops(dcl.ValueOrEmptyInt64(o.Iops))
+	p.SetThroughput(dcl.ValueOrEmptyInt64(o.Throughput))
 	p.SetKmsKeyArn(dcl.ValueOrEmptyString(o.KmsKeyArn))
 	return p
 }

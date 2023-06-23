@@ -105,6 +105,9 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 			if r.ControlPlane.MainVolume.SizeGib != nil {
 				rControlPlaneMainVolume["sizeGib"] = *r.ControlPlane.MainVolume.SizeGib
 			}
+			if r.ControlPlane.MainVolume.Throughput != nil {
+				rControlPlaneMainVolume["throughput"] = *r.ControlPlane.MainVolume.Throughput
+			}
 			if r.ControlPlane.MainVolume.VolumeType != nil {
 				rControlPlaneMainVolume["volumeType"] = string(*r.ControlPlane.MainVolume.VolumeType)
 			}
@@ -130,6 +133,9 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 			}
 			if r.ControlPlane.RootVolume.SizeGib != nil {
 				rControlPlaneRootVolume["sizeGib"] = *r.ControlPlane.RootVolume.SizeGib
+			}
+			if r.ControlPlane.RootVolume.Throughput != nil {
+				rControlPlaneRootVolume["throughput"] = *r.ControlPlane.RootVolume.Throughput
 			}
 			if r.ControlPlane.RootVolume.VolumeType != nil {
 				rControlPlaneRootVolume["volumeType"] = string(*r.ControlPlane.RootVolume.VolumeType)
@@ -219,6 +225,9 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 	}
 	if r.Networking != nil && r.Networking != dclService.EmptyClusterNetworking {
 		rNetworking := make(map[string]interface{})
+		if r.Networking.PerNodePoolSgRulesDisabled != nil {
+			rNetworking["perNodePoolSgRulesDisabled"] = *r.Networking.PerNodePoolSgRulesDisabled
+		}
 		var rNetworkingPodAddressCidrBlocks []interface{}
 		for _, rNetworkingPodAddressCidrBlocksVal := range r.Networking.PodAddressCidrBlocks {
 			rNetworkingPodAddressCidrBlocks = append(rNetworkingPodAddressCidrBlocks, rNetworkingPodAddressCidrBlocksVal)
@@ -417,6 +426,13 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 							return nil, fmt.Errorf("r.ControlPlane.MainVolume.SizeGib: expected int64")
 						}
 					}
+					if _, ok := rControlPlaneMainVolume["throughput"]; ok {
+						if i, ok := rControlPlaneMainVolume["throughput"].(int64); ok {
+							r.ControlPlane.MainVolume.Throughput = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("r.ControlPlane.MainVolume.Throughput: expected int64")
+						}
+					}
 					if _, ok := rControlPlaneMainVolume["volumeType"]; ok {
 						if s, ok := rControlPlaneMainVolume["volumeType"].(string); ok {
 							r.ControlPlane.MainVolume.VolumeType = dclService.ClusterControlPlaneMainVolumeVolumeTypeEnumRef(s)
@@ -471,6 +487,13 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 							r.ControlPlane.RootVolume.SizeGib = dcl.Int64(i)
 						} else {
 							return nil, fmt.Errorf("r.ControlPlane.RootVolume.SizeGib: expected int64")
+						}
+					}
+					if _, ok := rControlPlaneRootVolume["throughput"]; ok {
+						if i, ok := rControlPlaneRootVolume["throughput"].(int64); ok {
+							r.ControlPlane.RootVolume.Throughput = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("r.ControlPlane.RootVolume.Throughput: expected int64")
 						}
 					}
 					if _, ok := rControlPlaneRootVolume["volumeType"]; ok {
@@ -656,6 +679,13 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 	if _, ok := u.Object["networking"]; ok {
 		if rNetworking, ok := u.Object["networking"].(map[string]interface{}); ok {
 			r.Networking = &dclService.ClusterNetworking{}
+			if _, ok := rNetworking["perNodePoolSgRulesDisabled"]; ok {
+				if b, ok := rNetworking["perNodePoolSgRulesDisabled"].(bool); ok {
+					r.Networking.PerNodePoolSgRulesDisabled = dcl.Bool(b)
+				} else {
+					return nil, fmt.Errorf("r.Networking.PerNodePoolSgRulesDisabled: expected bool")
+				}
+			}
 			if _, ok := rNetworking["podAddressCidrBlocks"]; ok {
 				if s, ok := rNetworking["podAddressCidrBlocks"].([]interface{}); ok {
 					for _, ss := range s {

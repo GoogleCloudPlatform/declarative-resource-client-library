@@ -61,6 +61,7 @@ func ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategy(p *clouddepl
 	}
 	obj := &clouddeploy.DeliveryPipelineSerialPipelineStagesStrategy{
 		Standard: ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyStandard(p.GetStandard()),
+		Canary:   ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanary(p.GetCanary()),
 	}
 	return obj
 }
@@ -72,6 +73,122 @@ func ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyStandard(p *c
 	}
 	obj := &clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyStandard{
 		Verify: dcl.Bool(p.GetVerify()),
+	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesStrategyCanary converts a DeliveryPipelineSerialPipelineStagesStrategyCanary object from its proto representation.
+func ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanary(p *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanary) *clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanary {
+	if p == nil {
+		return nil
+	}
+	obj := &clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanary{
+		RuntimeConfig:          ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig(p.GetRuntimeConfig()),
+		CanaryDeployment:       ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment(p.GetCanaryDeployment()),
+		CustomCanaryDeployment: ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment(p.GetCustomCanaryDeployment()),
+	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig object from its proto representation.
+func ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig(p *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig) *clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig{
+		Kubernetes: ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes(p.GetKubernetes()),
+		CloudRun:   ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun(p.GetCloudRun()),
+	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes object from its proto representation.
+func ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes(p *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes) *clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes {
+	if p == nil {
+		return nil
+	}
+	obj := &clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes{
+		GatewayServiceMesh: ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh(p.GetGatewayServiceMesh()),
+		ServiceNetworking:  ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking(p.GetServiceNetworking()),
+	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh object from its proto representation.
+func ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh(p *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh) *clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh {
+	if p == nil {
+		return nil
+	}
+	obj := &clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh{
+		HttpRoute:  dcl.StringOrNil(p.GetHttpRoute()),
+		Service:    dcl.StringOrNil(p.GetService()),
+		Deployment: dcl.StringOrNil(p.GetDeployment()),
+	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking object from its proto representation.
+func ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking(p *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking) *clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking {
+	if p == nil {
+		return nil
+	}
+	obj := &clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking{
+		Service:                    dcl.StringOrNil(p.GetService()),
+		Deployment:                 dcl.StringOrNil(p.GetDeployment()),
+		DisablePodOverprovisioning: dcl.Bool(p.GetDisablePodOverprovisioning()),
+	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun object from its proto representation.
+func ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun(p *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun) *clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun {
+	if p == nil {
+		return nil
+	}
+	obj := &clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun{
+		AutomaticTrafficControl: dcl.Bool(p.GetAutomaticTrafficControl()),
+	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment object from its proto representation.
+func ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment(p *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment) *clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment {
+	if p == nil {
+		return nil
+	}
+	obj := &clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment{
+		Verify: dcl.Bool(p.GetVerify()),
+	}
+	for _, r := range p.GetPercentages() {
+		obj.Percentages = append(obj.Percentages, r)
+	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment object from its proto representation.
+func ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment(p *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment) *clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment {
+	if p == nil {
+		return nil
+	}
+	obj := &clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment{}
+	for _, r := range p.GetPhaseConfigs() {
+		obj.PhaseConfigs = append(obj.PhaseConfigs, *ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs(r))
+	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs object from its proto representation.
+func ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs(p *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs) *clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs{
+		PhaseId:    dcl.StringOrNil(p.GetPhaseId()),
+		Percentage: dcl.Int64OrNil(p.GetPercentage()),
+		Verify:     dcl.Bool(p.GetVerify()),
+	}
+	for _, r := range p.GetProfiles() {
+		obj.Profiles = append(obj.Profiles, r)
 	}
 	return obj
 }
@@ -197,6 +314,7 @@ func ClouddeployDeliveryPipelineSerialPipelineStagesStrategyToProto(o *clouddepl
 	}
 	p := &clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategy{}
 	p.SetStandard(ClouddeployDeliveryPipelineSerialPipelineStagesStrategyStandardToProto(o.Standard))
+	p.SetCanary(ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryToProto(o.Canary))
 	return p
 }
 
@@ -207,6 +325,120 @@ func ClouddeployDeliveryPipelineSerialPipelineStagesStrategyStandardToProto(o *c
 	}
 	p := &clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyStandard{}
 	p.SetVerify(dcl.ValueOrEmptyBool(o.Verify))
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesStrategyCanaryToProto converts a DeliveryPipelineSerialPipelineStagesStrategyCanary object to its proto representation.
+func ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryToProto(o *clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanary) *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanary {
+	if o == nil {
+		return nil
+	}
+	p := &clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanary{}
+	p.SetRuntimeConfig(ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigToProto(o.RuntimeConfig))
+	p.SetCanaryDeployment(ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentToProto(o.CanaryDeployment))
+	p.SetCustomCanaryDeployment(ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentToProto(o.CustomCanaryDeployment))
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigToProto converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig object to its proto representation.
+func ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigToProto(o *clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig) *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig {
+	if o == nil {
+		return nil
+	}
+	p := &clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig{}
+	p.SetKubernetes(ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesToProto(o.Kubernetes))
+	p.SetCloudRun(ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRunToProto(o.CloudRun))
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesToProto converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes object to its proto representation.
+func ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesToProto(o *clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes) *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes {
+	if o == nil {
+		return nil
+	}
+	p := &clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes{}
+	p.SetGatewayServiceMesh(ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshToProto(o.GatewayServiceMesh))
+	p.SetServiceNetworking(ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworkingToProto(o.ServiceNetworking))
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshToProto converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh object to its proto representation.
+func ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshToProto(o *clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh) *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh {
+	if o == nil {
+		return nil
+	}
+	p := &clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh{}
+	p.SetHttpRoute(dcl.ValueOrEmptyString(o.HttpRoute))
+	p.SetService(dcl.ValueOrEmptyString(o.Service))
+	p.SetDeployment(dcl.ValueOrEmptyString(o.Deployment))
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworkingToProto converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking object to its proto representation.
+func ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworkingToProto(o *clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking) *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking {
+	if o == nil {
+		return nil
+	}
+	p := &clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking{}
+	p.SetService(dcl.ValueOrEmptyString(o.Service))
+	p.SetDeployment(dcl.ValueOrEmptyString(o.Deployment))
+	p.SetDisablePodOverprovisioning(dcl.ValueOrEmptyBool(o.DisablePodOverprovisioning))
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRunToProto converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun object to its proto representation.
+func ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRunToProto(o *clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun) *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun {
+	if o == nil {
+		return nil
+	}
+	p := &clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun{}
+	p.SetAutomaticTrafficControl(dcl.ValueOrEmptyBool(o.AutomaticTrafficControl))
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentToProto converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment object to its proto representation.
+func ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentToProto(o *clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment) *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment {
+	if o == nil {
+		return nil
+	}
+	p := &clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment{}
+	p.SetVerify(dcl.ValueOrEmptyBool(o.Verify))
+	sPercentages := make([]int64, len(o.Percentages))
+	for i, r := range o.Percentages {
+		sPercentages[i] = r
+	}
+	p.SetPercentages(sPercentages)
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentToProto converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment object to its proto representation.
+func ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentToProto(o *clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment) *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment {
+	if o == nil {
+		return nil
+	}
+	p := &clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment{}
+	sPhaseConfigs := make([]*clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs, len(o.PhaseConfigs))
+	for i, r := range o.PhaseConfigs {
+		sPhaseConfigs[i] = ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsToProto(&r)
+	}
+	p.SetPhaseConfigs(sPhaseConfigs)
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsToProto converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs object to its proto representation.
+func ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsToProto(o *clouddeploy.DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs) *clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &clouddeploypb.ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs{}
+	p.SetPhaseId(dcl.ValueOrEmptyString(o.PhaseId))
+	p.SetPercentage(dcl.ValueOrEmptyInt64(o.Percentage))
+	p.SetVerify(dcl.ValueOrEmptyBool(o.Verify))
+	sProfiles := make([]string, len(o.Profiles))
+	for i, r := range o.Profiles {
+		sProfiles[i] = r
+	}
+	p.SetProfiles(sProfiles)
 	return p
 }
 
