@@ -2,8 +2,8 @@
   "name": "{{connection}}",
   "githubEnterpriseConfig": {
     "hostUri": "https://ghe.proctor-staging-test.com",
-    "privateKeySecretVersion":"projects/1033762898806/secrets/gcbrepos-dcltest-private-key/versions/1",
-    "webhookSecretSecretVersion":"projects/1033762898806/secrets/gcbrepos-dcltest-webhook-secret/versions/1",
+    "privateKeySecretVersion":"projects/gcb-terraform-creds/secrets/ghe-private-key/versions/latest",
+    "webhookSecretSecretVersion":"projects/gcb-terraform-creds/secrets/ghe-webhook-secret/versions/latest",
     "appId":516,
     "appSlug":"myapp",
     "appInstallationId": 243

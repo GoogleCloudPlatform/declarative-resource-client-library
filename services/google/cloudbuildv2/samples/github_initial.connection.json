@@ -1,9 +1,9 @@
 {
   "name": "{{connection}}",
   "githubConfig": {
-    "appInstallationId": 633612,
+    "appInstallationId": 0,
     "authorizerCredential": {
-      "oauthTokenSecretVersion": "projects/1033762898806/secrets/gcbrepos-dcltest-github-token/versions/1"
+      "oauthTokenSecretVersion": "projects/gcb-terraform-creds/secrets/github-pat/versions/1"
     }
   },
   "project": "{{project}}",

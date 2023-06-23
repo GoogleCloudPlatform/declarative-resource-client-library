@@ -80,6 +80,8 @@ components:
       required:
       - name
       - remoteUri
+      - project
+      - location
       - connection
       properties:
         annotations:
