@@ -144,7 +144,6 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage"
 	storage_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/alpha"
 	storage_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/storage/beta"
-	vmware_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vmware/alpha"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vpcaccess"
 	vpcaccess_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vpcaccess/alpha"
 	vpcaccess_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vpcaccess/beta"
@@ -920,12 +919,6 @@ func Services() *Directory {
 	d.AddResource("alpha", "privateca", "Certificate", privateca_alpha.YAML_certificate)
 	d.AddResource("alpha", "privateca", dcl.TitleToSnakeCase("CertificateAuthority"), privateca_alpha.YAML_certificate_authority)
 	d.AddResource("alpha", "privateca", "CertificateAuthority", privateca_alpha.YAML_certificate_authority)
-	d.AddResource("alpha", "vmware", dcl.TitleToSnakeCase("PrivateCloud"), vmware_alpha.YAML_private_cloud)
-	d.AddResource("alpha", "vmware", "PrivateCloud", vmware_alpha.YAML_private_cloud)
-	d.AddResource("alpha", "vmware", dcl.TitleToSnakeCase("Cluster"), vmware_alpha.YAML_cluster)
-	d.AddResource("alpha", "vmware", "Cluster", vmware_alpha.YAML_cluster)
-	d.AddResource("alpha", "vmware", dcl.TitleToSnakeCase("VmwareEngineNetwork"), vmware_alpha.YAML_vmware_engine_network)
-	d.AddResource("alpha", "vmware", "VmwareEngineNetwork", vmware_alpha.YAML_vmware_engine_network)
 	d.AddResource("alpha", "vpcaccess", dcl.TitleToSnakeCase("Connector"), vpcaccess_alpha.YAML_connector)
 	d.AddResource("alpha", "vpcaccess", "Connector", vpcaccess_alpha.YAML_connector)
 	d.AddResource("alpha", "recaptchaenterprise", dcl.TitleToSnakeCase("Key"), recaptchaenterprise_alpha.YAML_key)

@@ -33,12 +33,6 @@ func (r *Repository) validate() error {
 	if err := dcl.Required(r, "remoteUri"); err != nil {
 		return err
 	}
-	if err := dcl.RequiredParameter(r.Project, "Project"); err != nil {
-		return err
-	}
-	if err := dcl.RequiredParameter(r.Location, "Location"); err != nil {
-		return err
-	}
 	if err := dcl.RequiredParameter(r.Connection, "Connection"); err != nil {
 		return err
 	}

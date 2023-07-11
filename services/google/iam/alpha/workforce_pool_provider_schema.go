@@ -97,9 +97,10 @@ func DCLWorkforcePoolProviderSchema() *dcl.Schema {
 		Components: &dcl.Components{
 			Schemas: map[string]*dcl.Component{
 				"WorkforcePoolProvider": &dcl.Component{
-					Title:     "WorkforcePoolProvider",
-					ID:        "locations/{{location}}/workforcePools/{{workforce_pool}}/providers/{{name}}",
-					HasCreate: true,
+					Title:         "WorkforcePoolProvider",
+					ID:            "locations/{{location}}/workforcePools/{{workforce_pool}}/providers/{{name}}",
+					UsesStateHint: true,
+					HasCreate:     true,
 					SchemaProperty: dcl.Property{
 						Type: "object",
 						Required: []string{
@@ -168,6 +169,34 @@ func DCLWorkforcePoolProviderSchema() *dcl.Schema {
 										GoName:      "ClientId",
 										Description: "Required. The client ID. Must match the audience claim of the JWT issued by the identity provider.",
 									},
+									"clientSecret": &dcl.Property{
+										Type:        "object",
+										GoName:      "ClientSecret",
+										GoType:      "WorkforcePoolProviderOidcClientSecret",
+										Description: "The optional client secret. Required to enable Authorization Code flow for web sign-in.",
+										Properties: map[string]*dcl.Property{
+											"value": &dcl.Property{
+												Type:        "object",
+												GoName:      "Value",
+												GoType:      "WorkforcePoolProviderOidcClientSecretValue",
+												Description: "The value of the client secret.",
+												Properties: map[string]*dcl.Property{
+													"plainText": &dcl.Property{
+														Type:        "string",
+														GoName:      "PlainText",
+														Description: "Input only. The plain text of the client secret value.",
+														Unreadable:  true,
+													},
+													"thumbprint": &dcl.Property{
+														Type:        "string",
+														GoName:      "Thumbprint",
+														ReadOnly:    true,
+														Description: "Output only. A thumbprint to represent the current client secret value.",
+													},
+												},
+											},
+										},
+									},
 									"issuerUri": &dcl.Property{
 										Type:        "string",
 										GoName:      "IssuerUri",
@@ -187,9 +216,10 @@ func DCLWorkforcePoolProviderSchema() *dcl.Schema {
 												Type:        "string",
 												GoName:      "AssertionClaimsBehavior",
 												GoType:      "WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum",
-												Description: "Required. The behavior for how OIDC Claims are included in the `assertion` object used for attribute mapping and attribute condition. Possible values: ASSERTION_CLAIMS_BEHAVIOR_UNSPECIFIED, ONLY_ID_TOKEN_CLAIMS",
+												Description: "Required. The behavior for how OIDC Claims are included in the `assertion` object used for attribute mapping and attribute condition. Possible values: ASSERTION_CLAIMS_BEHAVIOR_UNSPECIFIED, MERGE_USER_INFO_OVER_ID_TOKEN_CLAIMS, ONLY_ID_TOKEN_CLAIMS",
 												Enum: []string{
 													"ASSERTION_CLAIMS_BEHAVIOR_UNSPECIFIED",
+													"MERGE_USER_INFO_OVER_ID_TOKEN_CLAIMS",
 													"ONLY_ID_TOKEN_CLAIMS",
 												},
 											},
@@ -197,9 +227,10 @@ func DCLWorkforcePoolProviderSchema() *dcl.Schema {
 												Type:        "string",
 												GoName:      "ResponseType",
 												GoType:      "WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum",
-												Description: "Required. The Response Type to request for in the OIDC Authorization Request for web sign-in. Possible values: RESPONSE_TYPE_UNSPECIFIED, ID_TOKEN",
+												Description: "Required. The Response Type to request for in the OIDC Authorization Request for web sign-in. The `CODE` Response Type is recommended to avoid the Implicit Flow, for security reasons. Possible values: RESPONSE_TYPE_UNSPECIFIED, CODE, ID_TOKEN",
 												Enum: []string{
 													"RESPONSE_TYPE_UNSPECIFIED",
+													"CODE",
 													"ID_TOKEN",
 												},
 											},

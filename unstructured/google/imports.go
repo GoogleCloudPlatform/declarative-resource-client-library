@@ -141,7 +141,6 @@ import (
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/storage"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/storage/alpha"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/storage/beta"
-	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/vmware/alpha"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/vpcaccess"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/vpcaccess/alpha"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/vpcaccess/beta"

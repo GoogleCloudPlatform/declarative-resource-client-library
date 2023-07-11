@@ -75,6 +75,11 @@ func (r *WorkforcePoolProviderOidc) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.ClientSecret) {
+		if err := r.ClientSecret.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *WorkforcePoolProviderOidcWebSsoConfig) validate() error {
@@ -84,6 +89,17 @@ func (r *WorkforcePoolProviderOidcWebSsoConfig) validate() error {
 	if err := dcl.Required(r, "assertionClaimsBehavior"); err != nil {
 		return err
 	}
+	return nil
+}
+func (r *WorkforcePoolProviderOidcClientSecret) validate() error {
+	if !dcl.IsEmptyValueIndirect(r.Value) {
+		if err := r.Value.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *WorkforcePoolProviderOidcClientSecretValue) validate() error {
 	return nil
 }
 func (r *WorkforcePoolProvider) basePath() string {
@@ -771,6 +787,7 @@ func canonicalizeWorkforcePoolProviderOidc(des, initial *WorkforcePoolProviderOi
 		cDes.ClientId = des.ClientId
 	}
 	cDes.WebSsoConfig = canonicalizeWorkforcePoolProviderOidcWebSsoConfig(des.WebSsoConfig, initial.WebSsoConfig, opts...)
+	cDes.ClientSecret = canonicalizeWorkforcePoolProviderOidcClientSecret(des.ClientSecret, initial.ClientSecret, opts...)
 
 	return cDes
 }
@@ -824,6 +841,7 @@ func canonicalizeNewWorkforcePoolProviderOidc(c *Client, des, nw *WorkforcePoolP
 		nw.ClientId = des.ClientId
 	}
 	nw.WebSsoConfig = canonicalizeNewWorkforcePoolProviderOidcWebSsoConfig(c, des.WebSsoConfig, nw.WebSsoConfig)
+	nw.ClientSecret = canonicalizeNewWorkforcePoolProviderOidcClientSecret(c, des.ClientSecret, nw.ClientSecret)
 
 	return nw
 }
@@ -990,6 +1008,237 @@ func canonicalizeNewWorkforcePoolProviderOidcWebSsoConfigSlice(c *Client, des, n
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewWorkforcePoolProviderOidcWebSsoConfig(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeWorkforcePoolProviderOidcClientSecret(des, initial *WorkforcePoolProviderOidcClientSecret, opts ...dcl.ApplyOption) *WorkforcePoolProviderOidcClientSecret {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &WorkforcePoolProviderOidcClientSecret{}
+
+	cDes.Value = canonicalizeWorkforcePoolProviderOidcClientSecretValue(des.Value, initial.Value, opts...)
+
+	return cDes
+}
+
+func canonicalizeWorkforcePoolProviderOidcClientSecretSlice(des, initial []WorkforcePoolProviderOidcClientSecret, opts ...dcl.ApplyOption) []WorkforcePoolProviderOidcClientSecret {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkforcePoolProviderOidcClientSecret, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkforcePoolProviderOidcClientSecret(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkforcePoolProviderOidcClientSecret, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkforcePoolProviderOidcClientSecret(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewWorkforcePoolProviderOidcClientSecret(c *Client, des, nw *WorkforcePoolProviderOidcClientSecret) *WorkforcePoolProviderOidcClientSecret {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for WorkforcePoolProviderOidcClientSecret while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	nw.Value = canonicalizeNewWorkforcePoolProviderOidcClientSecretValue(c, des.Value, nw.Value)
+
+	return nw
+}
+
+func canonicalizeNewWorkforcePoolProviderOidcClientSecretSet(c *Client, des, nw []WorkforcePoolProviderOidcClientSecret) []WorkforcePoolProviderOidcClientSecret {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []WorkforcePoolProviderOidcClientSecret
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareWorkforcePoolProviderOidcClientSecretNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewWorkforcePoolProviderOidcClientSecret(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewWorkforcePoolProviderOidcClientSecretSlice(c *Client, des, nw []WorkforcePoolProviderOidcClientSecret) []WorkforcePoolProviderOidcClientSecret {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []WorkforcePoolProviderOidcClientSecret
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkforcePoolProviderOidcClientSecret(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeWorkforcePoolProviderOidcClientSecretValue(des, initial *WorkforcePoolProviderOidcClientSecretValue, opts ...dcl.ApplyOption) *WorkforcePoolProviderOidcClientSecretValue {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &WorkforcePoolProviderOidcClientSecretValue{}
+
+	if dcl.StringCanonicalize(des.PlainText, initial.PlainText) || dcl.IsZeroValue(des.PlainText) {
+		cDes.PlainText = initial.PlainText
+	} else {
+		cDes.PlainText = des.PlainText
+	}
+
+	return cDes
+}
+
+func canonicalizeWorkforcePoolProviderOidcClientSecretValueSlice(des, initial []WorkforcePoolProviderOidcClientSecretValue, opts ...dcl.ApplyOption) []WorkforcePoolProviderOidcClientSecretValue {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkforcePoolProviderOidcClientSecretValue, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkforcePoolProviderOidcClientSecretValue(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkforcePoolProviderOidcClientSecretValue, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkforcePoolProviderOidcClientSecretValue(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewWorkforcePoolProviderOidcClientSecretValue(c *Client, des, nw *WorkforcePoolProviderOidcClientSecretValue) *WorkforcePoolProviderOidcClientSecretValue {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for WorkforcePoolProviderOidcClientSecretValue while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	nw.PlainText = des.PlainText
+	if dcl.StringCanonicalize(des.Thumbprint, nw.Thumbprint) {
+		nw.Thumbprint = des.Thumbprint
+	}
+
+	return nw
+}
+
+func canonicalizeNewWorkforcePoolProviderOidcClientSecretValueSet(c *Client, des, nw []WorkforcePoolProviderOidcClientSecretValue) []WorkforcePoolProviderOidcClientSecretValue {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []WorkforcePoolProviderOidcClientSecretValue
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareWorkforcePoolProviderOidcClientSecretValueNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewWorkforcePoolProviderOidcClientSecretValue(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewWorkforcePoolProviderOidcClientSecretValueSlice(c *Client, des, nw []WorkforcePoolProviderOidcClientSecretValue) []WorkforcePoolProviderOidcClientSecretValue {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []WorkforcePoolProviderOidcClientSecretValue
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkforcePoolProviderOidcClientSecretValue(c, &d, &n))
 	}
 
 	return items
@@ -1164,6 +1413,13 @@ func compareWorkforcePoolProviderOidcNewStyle(d, a interface{}, fn dcl.FieldName
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.ClientSecret, actual.ClientSecret, dcl.DiffInfo{ObjectFunction: compareWorkforcePoolProviderOidcClientSecretNewStyle, EmptyObject: EmptyWorkforcePoolProviderOidcClientSecret, OperationSelector: dcl.TriggersOperation("updateWorkforcePoolProviderUpdateWorkforcePoolProviderOperation")}, fn.AddNest("ClientSecret")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -1195,6 +1451,71 @@ func compareWorkforcePoolProviderOidcWebSsoConfigNewStyle(d, a interface{}, fn d
 	}
 
 	if ds, err := dcl.Diff(desired.AssertionClaimsBehavior, actual.AssertionClaimsBehavior, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateWorkforcePoolProviderUpdateWorkforcePoolProviderOperation")}, fn.AddNest("AssertionClaimsBehavior")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareWorkforcePoolProviderOidcClientSecretNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkforcePoolProviderOidcClientSecret)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkforcePoolProviderOidcClientSecret)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkforcePoolProviderOidcClientSecret or *WorkforcePoolProviderOidcClientSecret", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkforcePoolProviderOidcClientSecret)
+	if !ok {
+		actualNotPointer, ok := a.(WorkforcePoolProviderOidcClientSecret)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkforcePoolProviderOidcClientSecret", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Value, actual.Value, dcl.DiffInfo{ObjectFunction: compareWorkforcePoolProviderOidcClientSecretValueNewStyle, EmptyObject: EmptyWorkforcePoolProviderOidcClientSecretValue, OperationSelector: dcl.TriggersOperation("updateWorkforcePoolProviderUpdateWorkforcePoolProviderOperation")}, fn.AddNest("Value")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareWorkforcePoolProviderOidcClientSecretValueNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkforcePoolProviderOidcClientSecretValue)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkforcePoolProviderOidcClientSecretValue)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkforcePoolProviderOidcClientSecretValue or *WorkforcePoolProviderOidcClientSecretValue", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkforcePoolProviderOidcClientSecretValue)
+	if !ok {
+		actualNotPointer, ok := a.(WorkforcePoolProviderOidcClientSecretValue)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkforcePoolProviderOidcClientSecretValue", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.PlainText, actual.PlainText, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateWorkforcePoolProviderUpdateWorkforcePoolProviderOperation")}, fn.AddNest("PlainText")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Thumbprint, actual.Thumbprint, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Thumbprint")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1552,6 +1873,11 @@ func expandWorkforcePoolProviderOidc(c *Client, f *WorkforcePoolProviderOidc, re
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["webSsoConfig"] = v
 	}
+	if v, err := expandWorkforcePoolProviderOidcClientSecret(c, f.ClientSecret, res); err != nil {
+		return nil, fmt.Errorf("error expanding ClientSecret into clientSecret: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["clientSecret"] = v
+	}
 
 	return m, nil
 }
@@ -1572,6 +1898,7 @@ func flattenWorkforcePoolProviderOidc(c *Client, i interface{}, res *WorkforcePo
 	r.IssuerUri = dcl.FlattenString(m["issuerUri"])
 	r.ClientId = dcl.FlattenString(m["clientId"])
 	r.WebSsoConfig = flattenWorkforcePoolProviderOidcWebSsoConfig(c, m["webSsoConfig"], res)
+	r.ClientSecret = flattenWorkforcePoolProviderOidcClientSecret(c, m["clientSecret"], res)
 
 	return r
 }
@@ -1690,6 +2017,237 @@ func flattenWorkforcePoolProviderOidcWebSsoConfig(c *Client, i interface{}, res 
 	}
 	r.ResponseType = flattenWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum(m["responseType"])
 	r.AssertionClaimsBehavior = flattenWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum(m["assertionClaimsBehavior"])
+
+	return r
+}
+
+// expandWorkforcePoolProviderOidcClientSecretMap expands the contents of WorkforcePoolProviderOidcClientSecret into a JSON
+// request object.
+func expandWorkforcePoolProviderOidcClientSecretMap(c *Client, f map[string]WorkforcePoolProviderOidcClientSecret, res *WorkforcePoolProvider) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandWorkforcePoolProviderOidcClientSecret(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandWorkforcePoolProviderOidcClientSecretSlice expands the contents of WorkforcePoolProviderOidcClientSecret into a JSON
+// request object.
+func expandWorkforcePoolProviderOidcClientSecretSlice(c *Client, f []WorkforcePoolProviderOidcClientSecret, res *WorkforcePoolProvider) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandWorkforcePoolProviderOidcClientSecret(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenWorkforcePoolProviderOidcClientSecretMap flattens the contents of WorkforcePoolProviderOidcClientSecret from a JSON
+// response object.
+func flattenWorkforcePoolProviderOidcClientSecretMap(c *Client, i interface{}, res *WorkforcePoolProvider) map[string]WorkforcePoolProviderOidcClientSecret {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]WorkforcePoolProviderOidcClientSecret{}
+	}
+
+	if len(a) == 0 {
+		return map[string]WorkforcePoolProviderOidcClientSecret{}
+	}
+
+	items := make(map[string]WorkforcePoolProviderOidcClientSecret)
+	for k, item := range a {
+		items[k] = *flattenWorkforcePoolProviderOidcClientSecret(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenWorkforcePoolProviderOidcClientSecretSlice flattens the contents of WorkforcePoolProviderOidcClientSecret from a JSON
+// response object.
+func flattenWorkforcePoolProviderOidcClientSecretSlice(c *Client, i interface{}, res *WorkforcePoolProvider) []WorkforcePoolProviderOidcClientSecret {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []WorkforcePoolProviderOidcClientSecret{}
+	}
+
+	if len(a) == 0 {
+		return []WorkforcePoolProviderOidcClientSecret{}
+	}
+
+	items := make([]WorkforcePoolProviderOidcClientSecret, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenWorkforcePoolProviderOidcClientSecret(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandWorkforcePoolProviderOidcClientSecret expands an instance of WorkforcePoolProviderOidcClientSecret into a JSON
+// request object.
+func expandWorkforcePoolProviderOidcClientSecret(c *Client, f *WorkforcePoolProviderOidcClientSecret, res *WorkforcePoolProvider) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := expandWorkforcePoolProviderOidcClientSecretValue(c, f.Value, res); err != nil {
+		return nil, fmt.Errorf("error expanding Value into value: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["value"] = v
+	}
+
+	return m, nil
+}
+
+// flattenWorkforcePoolProviderOidcClientSecret flattens an instance of WorkforcePoolProviderOidcClientSecret from a JSON
+// response object.
+func flattenWorkforcePoolProviderOidcClientSecret(c *Client, i interface{}, res *WorkforcePoolProvider) *WorkforcePoolProviderOidcClientSecret {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &WorkforcePoolProviderOidcClientSecret{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkforcePoolProviderOidcClientSecret
+	}
+	r.Value = flattenWorkforcePoolProviderOidcClientSecretValue(c, m["value"], res)
+
+	return r
+}
+
+// expandWorkforcePoolProviderOidcClientSecretValueMap expands the contents of WorkforcePoolProviderOidcClientSecretValue into a JSON
+// request object.
+func expandWorkforcePoolProviderOidcClientSecretValueMap(c *Client, f map[string]WorkforcePoolProviderOidcClientSecretValue, res *WorkforcePoolProvider) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandWorkforcePoolProviderOidcClientSecretValue(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandWorkforcePoolProviderOidcClientSecretValueSlice expands the contents of WorkforcePoolProviderOidcClientSecretValue into a JSON
+// request object.
+func expandWorkforcePoolProviderOidcClientSecretValueSlice(c *Client, f []WorkforcePoolProviderOidcClientSecretValue, res *WorkforcePoolProvider) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandWorkforcePoolProviderOidcClientSecretValue(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenWorkforcePoolProviderOidcClientSecretValueMap flattens the contents of WorkforcePoolProviderOidcClientSecretValue from a JSON
+// response object.
+func flattenWorkforcePoolProviderOidcClientSecretValueMap(c *Client, i interface{}, res *WorkforcePoolProvider) map[string]WorkforcePoolProviderOidcClientSecretValue {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]WorkforcePoolProviderOidcClientSecretValue{}
+	}
+
+	if len(a) == 0 {
+		return map[string]WorkforcePoolProviderOidcClientSecretValue{}
+	}
+
+	items := make(map[string]WorkforcePoolProviderOidcClientSecretValue)
+	for k, item := range a {
+		items[k] = *flattenWorkforcePoolProviderOidcClientSecretValue(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenWorkforcePoolProviderOidcClientSecretValueSlice flattens the contents of WorkforcePoolProviderOidcClientSecretValue from a JSON
+// response object.
+func flattenWorkforcePoolProviderOidcClientSecretValueSlice(c *Client, i interface{}, res *WorkforcePoolProvider) []WorkforcePoolProviderOidcClientSecretValue {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []WorkforcePoolProviderOidcClientSecretValue{}
+	}
+
+	if len(a) == 0 {
+		return []WorkforcePoolProviderOidcClientSecretValue{}
+	}
+
+	items := make([]WorkforcePoolProviderOidcClientSecretValue, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenWorkforcePoolProviderOidcClientSecretValue(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandWorkforcePoolProviderOidcClientSecretValue expands an instance of WorkforcePoolProviderOidcClientSecretValue into a JSON
+// request object.
+func expandWorkforcePoolProviderOidcClientSecretValue(c *Client, f *WorkforcePoolProviderOidcClientSecretValue, res *WorkforcePoolProvider) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.PlainText; !dcl.IsEmptyValueIndirect(v) {
+		m["plainText"] = v
+	}
+
+	return m, nil
+}
+
+// flattenWorkforcePoolProviderOidcClientSecretValue flattens an instance of WorkforcePoolProviderOidcClientSecretValue from a JSON
+// response object.
+func flattenWorkforcePoolProviderOidcClientSecretValue(c *Client, i interface{}, res *WorkforcePoolProvider) *WorkforcePoolProviderOidcClientSecretValue {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &WorkforcePoolProviderOidcClientSecretValue{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkforcePoolProviderOidcClientSecretValue
+	}
+	r.PlainText = dcl.FlattenString(m["plainText"])
+	r.Thumbprint = dcl.FlattenString(m["thumbprint"])
 
 	return r
 }
@@ -1980,9 +2538,37 @@ func extractWorkforcePoolProviderOidcFields(r *WorkforcePoolProvider, o *Workfor
 	if !dcl.IsEmptyValueIndirect(vWebSsoConfig) {
 		o.WebSsoConfig = vWebSsoConfig
 	}
+	vClientSecret := o.ClientSecret
+	if vClientSecret == nil {
+		// note: explicitly not the empty object.
+		vClientSecret = &WorkforcePoolProviderOidcClientSecret{}
+	}
+	if err := extractWorkforcePoolProviderOidcClientSecretFields(r, vClientSecret); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vClientSecret) {
+		o.ClientSecret = vClientSecret
+	}
 	return nil
 }
 func extractWorkforcePoolProviderOidcWebSsoConfigFields(r *WorkforcePoolProvider, o *WorkforcePoolProviderOidcWebSsoConfig) error {
+	return nil
+}
+func extractWorkforcePoolProviderOidcClientSecretFields(r *WorkforcePoolProvider, o *WorkforcePoolProviderOidcClientSecret) error {
+	vValue := o.Value
+	if vValue == nil {
+		// note: explicitly not the empty object.
+		vValue = &WorkforcePoolProviderOidcClientSecretValue{}
+	}
+	if err := extractWorkforcePoolProviderOidcClientSecretValueFields(r, vValue); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vValue) {
+		o.Value = vValue
+	}
+	return nil
+}
+func extractWorkforcePoolProviderOidcClientSecretValueFields(r *WorkforcePoolProvider, o *WorkforcePoolProviderOidcClientSecretValue) error {
 	return nil
 }
 
@@ -2026,8 +2612,36 @@ func postReadExtractWorkforcePoolProviderOidcFields(r *WorkforcePoolProvider, o 
 	if !dcl.IsEmptyValueIndirect(vWebSsoConfig) {
 		o.WebSsoConfig = vWebSsoConfig
 	}
+	vClientSecret := o.ClientSecret
+	if vClientSecret == nil {
+		// note: explicitly not the empty object.
+		vClientSecret = &WorkforcePoolProviderOidcClientSecret{}
+	}
+	if err := extractWorkforcePoolProviderOidcClientSecretFields(r, vClientSecret); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vClientSecret) {
+		o.ClientSecret = vClientSecret
+	}
 	return nil
 }
 func postReadExtractWorkforcePoolProviderOidcWebSsoConfigFields(r *WorkforcePoolProvider, o *WorkforcePoolProviderOidcWebSsoConfig) error {
+	return nil
+}
+func postReadExtractWorkforcePoolProviderOidcClientSecretFields(r *WorkforcePoolProvider, o *WorkforcePoolProviderOidcClientSecret) error {
+	vValue := o.Value
+	if vValue == nil {
+		// note: explicitly not the empty object.
+		vValue = &WorkforcePoolProviderOidcClientSecretValue{}
+	}
+	if err := extractWorkforcePoolProviderOidcClientSecretValueFields(r, vValue); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vValue) {
+		o.Value = vValue
+	}
+	return nil
+}
+func postReadExtractWorkforcePoolProviderOidcClientSecretValueFields(r *WorkforcePoolProvider, o *WorkforcePoolProviderOidcClientSecretValue) error {
 	return nil
 }

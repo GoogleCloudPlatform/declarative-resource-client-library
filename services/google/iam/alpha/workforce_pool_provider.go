@@ -84,7 +84,7 @@ func (v WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum) Validate() error 
 		// Empty enum is okay.
 		return nil
 	}
-	for _, s := range []string{"RESPONSE_TYPE_UNSPECIFIED", "ID_TOKEN"} {
+	for _, s := range []string{"RESPONSE_TYPE_UNSPECIFIED", "CODE", "ID_TOKEN"} {
 		if string(v) == s {
 			return nil
 		}
@@ -111,7 +111,7 @@ func (v WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum) Valida
 		// Empty enum is okay.
 		return nil
 	}
-	for _, s := range []string{"ASSERTION_CLAIMS_BEHAVIOR_UNSPECIFIED", "ONLY_ID_TOKEN_CLAIMS"} {
+	for _, s := range []string{"ASSERTION_CLAIMS_BEHAVIOR_UNSPECIFIED", "MERGE_USER_INFO_OVER_ID_TOKEN_CLAIMS", "ONLY_ID_TOKEN_CLAIMS"} {
 		if string(v) == s {
 			return nil
 		}
@@ -174,6 +174,7 @@ type WorkforcePoolProviderOidc struct {
 	IssuerUri    *string                                `json:"issuerUri"`
 	ClientId     *string                                `json:"clientId"`
 	WebSsoConfig *WorkforcePoolProviderOidcWebSsoConfig `json:"webSsoConfig"`
+	ClientSecret *WorkforcePoolProviderOidcClientSecret `json:"clientSecret"`
 }
 
 type jsonWorkforcePoolProviderOidc WorkforcePoolProviderOidc
@@ -196,6 +197,8 @@ func (r *WorkforcePoolProviderOidc) UnmarshalJSON(data []byte) error {
 		r.ClientId = res.ClientId
 
 		r.WebSsoConfig = res.WebSsoConfig
+
+		r.ClientSecret = res.ClientSecret
 
 	}
 	return nil
@@ -264,6 +267,101 @@ func (r *WorkforcePoolProviderOidcWebSsoConfig) String() string {
 }
 
 func (r *WorkforcePoolProviderOidcWebSsoConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type WorkforcePoolProviderOidcClientSecret struct {
+	empty bool                                        `json:"-"`
+	Value *WorkforcePoolProviderOidcClientSecretValue `json:"value"`
+}
+
+type jsonWorkforcePoolProviderOidcClientSecret WorkforcePoolProviderOidcClientSecret
+
+func (r *WorkforcePoolProviderOidcClientSecret) UnmarshalJSON(data []byte) error {
+	var res jsonWorkforcePoolProviderOidcClientSecret
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkforcePoolProviderOidcClientSecret
+	} else {
+
+		r.Value = res.Value
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this WorkforcePoolProviderOidcClientSecret is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyWorkforcePoolProviderOidcClientSecret *WorkforcePoolProviderOidcClientSecret = &WorkforcePoolProviderOidcClientSecret{empty: true}
+
+func (r *WorkforcePoolProviderOidcClientSecret) Empty() bool {
+	return r.empty
+}
+
+func (r *WorkforcePoolProviderOidcClientSecret) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *WorkforcePoolProviderOidcClientSecret) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type WorkforcePoolProviderOidcClientSecretValue struct {
+	empty      bool    `json:"-"`
+	PlainText  *string `json:"plainText"`
+	Thumbprint *string `json:"thumbprint"`
+}
+
+type jsonWorkforcePoolProviderOidcClientSecretValue WorkforcePoolProviderOidcClientSecretValue
+
+func (r *WorkforcePoolProviderOidcClientSecretValue) UnmarshalJSON(data []byte) error {
+	var res jsonWorkforcePoolProviderOidcClientSecretValue
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkforcePoolProviderOidcClientSecretValue
+	} else {
+
+		r.PlainText = res.PlainText
+
+		r.Thumbprint = res.Thumbprint
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this WorkforcePoolProviderOidcClientSecretValue is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyWorkforcePoolProviderOidcClientSecretValue *WorkforcePoolProviderOidcClientSecretValue = &WorkforcePoolProviderOidcClientSecretValue{empty: true}
+
+func (r *WorkforcePoolProviderOidcClientSecretValue) Empty() bool {
+	return r.empty
+}
+
+func (r *WorkforcePoolProviderOidcClientSecretValue) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *WorkforcePoolProviderOidcClientSecretValue) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.New().Sum([]byte(r.String()))

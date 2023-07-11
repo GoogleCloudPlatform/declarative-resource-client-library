@@ -31,13 +31,15 @@ enum IamAlphaWorkforcePoolProviderStateEnum {
 enum IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum {
   IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnumNO_VALUE_DO_NOT_USE = 0;
   IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnumRESPONSE_TYPE_UNSPECIFIED = 1;
-  IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnumID_TOKEN = 2;
+  IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnumCODE = 2;
+  IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnumID_TOKEN = 3;
 }
 
 enum IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum {
   IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnumNO_VALUE_DO_NOT_USE = 0;
   IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnumASSERTION_CLAIMS_BEHAVIOR_UNSPECIFIED = 1;
-  IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnumONLY_ID_TOKEN_CLAIMS = 2;
+  IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnumMERGE_USER_INFO_OVER_ID_TOKEN_CLAIMS = 2;
+  IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnumONLY_ID_TOKEN_CLAIMS = 3;
 }
 
 message IamAlphaWorkforcePoolProvider {
@@ -62,11 +64,21 @@ message IamAlphaWorkforcePoolProviderOidc {
   string issuer_uri = 1;
   string client_id = 2;
   IamAlphaWorkforcePoolProviderOidcWebSsoConfig web_sso_config = 3;
+  IamAlphaWorkforcePoolProviderOidcClientSecret client_secret = 4;
 }
 
 message IamAlphaWorkforcePoolProviderOidcWebSsoConfig {
   IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum response_type = 1;
   IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum assertion_claims_behavior = 2;
+}
+
+message IamAlphaWorkforcePoolProviderOidcClientSecret {
+  IamAlphaWorkforcePoolProviderOidcClientSecretValue value = 1;
+}
+
+message IamAlphaWorkforcePoolProviderOidcClientSecretValue {
+  string plain_text = 1;
+  string thumbprint = 2;
 }
 
 message ApplyIamAlphaWorkforcePoolProviderRequest {

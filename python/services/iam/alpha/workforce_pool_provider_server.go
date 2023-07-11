@@ -80,6 +80,7 @@ func ProtoToIamAlphaWorkforcePoolProviderOidc(p *alphapb.IamAlphaWorkforcePoolPr
 		IssuerUri:    dcl.StringOrNil(p.GetIssuerUri()),
 		ClientId:     dcl.StringOrNil(p.GetClientId()),
 		WebSsoConfig: ProtoToIamAlphaWorkforcePoolProviderOidcWebSsoConfig(p.GetWebSsoConfig()),
+		ClientSecret: ProtoToIamAlphaWorkforcePoolProviderOidcClientSecret(p.GetClientSecret()),
 	}
 	return obj
 }
@@ -92,6 +93,29 @@ func ProtoToIamAlphaWorkforcePoolProviderOidcWebSsoConfig(p *alphapb.IamAlphaWor
 	obj := &alpha.WorkforcePoolProviderOidcWebSsoConfig{
 		ResponseType:            ProtoToIamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum(p.GetResponseType()),
 		AssertionClaimsBehavior: ProtoToIamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum(p.GetAssertionClaimsBehavior()),
+	}
+	return obj
+}
+
+// ProtoToWorkforcePoolProviderOidcClientSecret converts a WorkforcePoolProviderOidcClientSecret object from its proto representation.
+func ProtoToIamAlphaWorkforcePoolProviderOidcClientSecret(p *alphapb.IamAlphaWorkforcePoolProviderOidcClientSecret) *alpha.WorkforcePoolProviderOidcClientSecret {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkforcePoolProviderOidcClientSecret{
+		Value: ProtoToIamAlphaWorkforcePoolProviderOidcClientSecretValue(p.GetValue()),
+	}
+	return obj
+}
+
+// ProtoToWorkforcePoolProviderOidcClientSecretValue converts a WorkforcePoolProviderOidcClientSecretValue object from its proto representation.
+func ProtoToIamAlphaWorkforcePoolProviderOidcClientSecretValue(p *alphapb.IamAlphaWorkforcePoolProviderOidcClientSecretValue) *alpha.WorkforcePoolProviderOidcClientSecretValue {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkforcePoolProviderOidcClientSecretValue{
+		PlainText:  dcl.StringOrNil(p.GetPlainText()),
+		Thumbprint: dcl.StringOrNil(p.GetThumbprint()),
 	}
 	return obj
 }
@@ -165,6 +189,7 @@ func IamAlphaWorkforcePoolProviderOidcToProto(o *alpha.WorkforcePoolProviderOidc
 	p.SetIssuerUri(dcl.ValueOrEmptyString(o.IssuerUri))
 	p.SetClientId(dcl.ValueOrEmptyString(o.ClientId))
 	p.SetWebSsoConfig(IamAlphaWorkforcePoolProviderOidcWebSsoConfigToProto(o.WebSsoConfig))
+	p.SetClientSecret(IamAlphaWorkforcePoolProviderOidcClientSecretToProto(o.ClientSecret))
 	return p
 }
 
@@ -176,6 +201,27 @@ func IamAlphaWorkforcePoolProviderOidcWebSsoConfigToProto(o *alpha.WorkforcePool
 	p := &alphapb.IamAlphaWorkforcePoolProviderOidcWebSsoConfig{}
 	p.SetResponseType(IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnumToProto(o.ResponseType))
 	p.SetAssertionClaimsBehavior(IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnumToProto(o.AssertionClaimsBehavior))
+	return p
+}
+
+// WorkforcePoolProviderOidcClientSecretToProto converts a WorkforcePoolProviderOidcClientSecret object to its proto representation.
+func IamAlphaWorkforcePoolProviderOidcClientSecretToProto(o *alpha.WorkforcePoolProviderOidcClientSecret) *alphapb.IamAlphaWorkforcePoolProviderOidcClientSecret {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.IamAlphaWorkforcePoolProviderOidcClientSecret{}
+	p.SetValue(IamAlphaWorkforcePoolProviderOidcClientSecretValueToProto(o.Value))
+	return p
+}
+
+// WorkforcePoolProviderOidcClientSecretValueToProto converts a WorkforcePoolProviderOidcClientSecretValue object to its proto representation.
+func IamAlphaWorkforcePoolProviderOidcClientSecretValueToProto(o *alpha.WorkforcePoolProviderOidcClientSecretValue) *alphapb.IamAlphaWorkforcePoolProviderOidcClientSecretValue {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.IamAlphaWorkforcePoolProviderOidcClientSecretValue{}
+	p.SetPlainText(dcl.ValueOrEmptyString(o.PlainText))
+	p.SetThumbprint(dcl.ValueOrEmptyString(o.Thumbprint))
 	return p
 }
 

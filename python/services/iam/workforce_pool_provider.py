@@ -237,11 +237,16 @@ class WorkforcePoolProviderSamlArray(object):
 
 class WorkforcePoolProviderOidc(object):
     def __init__(
-        self, issuer_uri: str = None, client_id: str = None, web_sso_config: dict = None
+        self,
+        issuer_uri: str = None,
+        client_id: str = None,
+        web_sso_config: dict = None,
+        client_secret: dict = None,
     ):
         self.issuer_uri = issuer_uri
         self.client_id = client_id
         self.web_sso_config = web_sso_config
+        self.client_secret = client_secret
 
     @classmethod
     def to_proto(self, resource):
@@ -259,6 +264,12 @@ class WorkforcePoolProviderOidc(object):
             )
         else:
             res.ClearField("web_sso_config")
+        if WorkforcePoolProviderOidcClientSecret.to_proto(resource.client_secret):
+            res.client_secret.CopyFrom(
+                WorkforcePoolProviderOidcClientSecret.to_proto(resource.client_secret)
+            )
+        else:
+            res.ClearField("client_secret")
         return res
 
     @classmethod
@@ -271,6 +282,9 @@ class WorkforcePoolProviderOidc(object):
             client_id=Primitive.from_proto(resource.client_id),
             web_sso_config=WorkforcePoolProviderOidcWebSsoConfig.from_proto(
                 resource.web_sso_config
+            ),
+            client_secret=WorkforcePoolProviderOidcClientSecret.from_proto(
+                resource.client_secret
             ),
         )
 
@@ -341,6 +355,92 @@ class WorkforcePoolProviderOidcWebSsoConfigArray(object):
     @classmethod
     def from_proto(self, resources):
         return [WorkforcePoolProviderOidcWebSsoConfig.from_proto(i) for i in resources]
+
+
+class WorkforcePoolProviderOidcClientSecret(object):
+    def __init__(self, value: dict = None):
+        self.value = value
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = workforce_pool_provider_pb2.IamWorkforcePoolProviderOidcClientSecret()
+        if WorkforcePoolProviderOidcClientSecretValue.to_proto(resource.value):
+            res.value.CopyFrom(
+                WorkforcePoolProviderOidcClientSecretValue.to_proto(resource.value)
+            )
+        else:
+            res.ClearField("value")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkforcePoolProviderOidcClientSecret(
+            value=WorkforcePoolProviderOidcClientSecretValue.from_proto(resource.value),
+        )
+
+
+class WorkforcePoolProviderOidcClientSecretArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [WorkforcePoolProviderOidcClientSecret.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [WorkforcePoolProviderOidcClientSecret.from_proto(i) for i in resources]
+
+
+class WorkforcePoolProviderOidcClientSecretValue(object):
+    def __init__(self, plain_text: str = None, thumbprint: str = None):
+        self.plain_text = plain_text
+        self.thumbprint = thumbprint
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            workforce_pool_provider_pb2.IamWorkforcePoolProviderOidcClientSecretValue()
+        )
+        if Primitive.to_proto(resource.plain_text):
+            res.plain_text = Primitive.to_proto(resource.plain_text)
+        if Primitive.to_proto(resource.thumbprint):
+            res.thumbprint = Primitive.to_proto(resource.thumbprint)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkforcePoolProviderOidcClientSecretValue(
+            plain_text=Primitive.from_proto(resource.plain_text),
+            thumbprint=Primitive.from_proto(resource.thumbprint),
+        )
+
+
+class WorkforcePoolProviderOidcClientSecretValueArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkforcePoolProviderOidcClientSecretValue.to_proto(i) for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkforcePoolProviderOidcClientSecretValue.from_proto(i) for i in resources
+        ]
 
 
 class WorkforcePoolProviderStateEnum(object):

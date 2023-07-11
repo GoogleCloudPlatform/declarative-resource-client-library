@@ -120,8 +120,6 @@ func DCLRepositorySchema() *dcl.Schema {
 						Required: []string{
 							"name",
 							"remoteUri",
-							"project",
-							"location",
 							"connection",
 						},
 						Properties: map[string]*dcl.Property{

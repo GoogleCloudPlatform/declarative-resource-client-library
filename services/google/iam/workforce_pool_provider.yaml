@@ -62,6 +62,7 @@ components:
     WorkforcePoolProvider:
       title: WorkforcePoolProvider
       x-dcl-id: locations/{{location}}/workforcePools/{{workforce_pool}}/providers/{{name}}
+      x-dcl-uses-state-hint: true
       x-dcl-has-create: true
       x-dcl-has-iam: false
       x-dcl-read-timeout: 0
@@ -161,6 +162,31 @@ components:
               x-dcl-go-name: ClientId
               description: Required. The client ID. Must match the audience claim
                 of the JWT issued by the identity provider.
+            clientSecret:
+              type: object
+              x-dcl-go-name: ClientSecret
+              x-dcl-go-type: WorkforcePoolProviderOidcClientSecret
+              description: The optional client secret. Required to enable Authorization
+                Code flow for web sign-in.
+              properties:
+                value:
+                  type: object
+                  x-dcl-go-name: Value
+                  x-dcl-go-type: WorkforcePoolProviderOidcClientSecretValue
+                  description: The value of the client secret.
+                  properties:
+                    plainText:
+                      type: string
+                      x-dcl-go-name: PlainText
+                      description: Input only. The plain text of the client secret
+                        value.
+                      x-dcl-mutable-unreadable: true
+                    thumbprint:
+                      type: string
+                      x-dcl-go-name: Thumbprint
+                      readOnly: true
+                      description: Output only. A thumbprint to represent the current
+                        client secret value.
             issuerUri:
               type: string
               x-dcl-go-name: IssuerUri
@@ -184,19 +210,22 @@ components:
                   description: 'Required. The behavior for how OIDC Claims are included
                     in the `assertion` object used for attribute mapping and attribute
                     condition. Possible values: ASSERTION_CLAIMS_BEHAVIOR_UNSPECIFIED,
-                    ONLY_ID_TOKEN_CLAIMS'
+                    MERGE_USER_INFO_OVER_ID_TOKEN_CLAIMS, ONLY_ID_TOKEN_CLAIMS'
                   enum:
                   - ASSERTION_CLAIMS_BEHAVIOR_UNSPECIFIED
+                  - MERGE_USER_INFO_OVER_ID_TOKEN_CLAIMS
                   - ONLY_ID_TOKEN_CLAIMS
                 responseType:
                   type: string
                   x-dcl-go-name: ResponseType
                   x-dcl-go-type: WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum
                   description: 'Required. The Response Type to request for in the
-                    OIDC Authorization Request for web sign-in. Possible values: RESPONSE_TYPE_UNSPECIFIED,
-                    ID_TOKEN'
+                    OIDC Authorization Request for web sign-in. The `CODE` Response
+                    Type is recommended to avoid the Implicit Flow, for security reasons.
+                    Possible values: RESPONSE_TYPE_UNSPECIFIED, CODE, ID_TOKEN'
                   enum:
                   - RESPONSE_TYPE_UNSPECIFIED
+                  - CODE
                   - ID_TOKEN
         saml:
           type: object

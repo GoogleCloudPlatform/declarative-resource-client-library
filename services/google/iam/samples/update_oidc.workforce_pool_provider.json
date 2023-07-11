@@ -8,6 +8,11 @@
   "oidc": {
     "issuerUri": "https://test.google.com",
     "clientId": "new-client-id",
+    "clientSecret": {
+      "value": {
+        "plainText": "new-client-secret"
+      }
+    },
     "webSsoConfig": {
       "responseType": "ID_TOKEN",
       "assertionClaimsBehavior": "ONLY_ID_TOKEN_CLAIMS"

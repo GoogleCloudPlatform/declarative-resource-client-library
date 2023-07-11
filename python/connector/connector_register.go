@@ -264,8 +264,6 @@ import (
 
 	privateca_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/privateca/alpha_connector"
 
-	vmware_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vmware/alpha_connector"
-
 	vpcaccess_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vpcaccess/connector"
 
 	vpcaccess_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/vpcaccess/beta_connector"
@@ -534,8 +532,6 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	privateca_beta_connector.RegisterServers(grpcServer)
 
 	privateca_alpha_connector.RegisterServers(grpcServer)
-
-	vmware_alpha_connector.RegisterServers(grpcServer)
 
 	vpcaccess_connector.RegisterServers(grpcServer)
 

@@ -62,6 +62,20 @@ func WorkforcePoolProviderToUnstructured(r *dclService.WorkforcePoolProvider) *u
 		if r.Oidc.ClientId != nil {
 			rOidc["clientId"] = *r.Oidc.ClientId
 		}
+		if r.Oidc.ClientSecret != nil && r.Oidc.ClientSecret != dclService.EmptyWorkforcePoolProviderOidcClientSecret {
+			rOidcClientSecret := make(map[string]interface{})
+			if r.Oidc.ClientSecret.Value != nil && r.Oidc.ClientSecret.Value != dclService.EmptyWorkforcePoolProviderOidcClientSecretValue {
+				rOidcClientSecretValue := make(map[string]interface{})
+				if r.Oidc.ClientSecret.Value.PlainText != nil {
+					rOidcClientSecretValue["plainText"] = *r.Oidc.ClientSecret.Value.PlainText
+				}
+				if r.Oidc.ClientSecret.Value.Thumbprint != nil {
+					rOidcClientSecretValue["thumbprint"] = *r.Oidc.ClientSecret.Value.Thumbprint
+				}
+				rOidcClientSecret["value"] = rOidcClientSecretValue
+			}
+			rOidc["clientSecret"] = rOidcClientSecret
+		}
 		if r.Oidc.IssuerUri != nil {
 			rOidc["issuerUri"] = *r.Oidc.IssuerUri
 		}
@@ -158,6 +172,34 @@ func UnstructuredToWorkforcePoolProvider(u *unstructured.Resource) (*dclService.
 					r.Oidc.ClientId = dcl.String(s)
 				} else {
 					return nil, fmt.Errorf("r.Oidc.ClientId: expected string")
+				}
+			}
+			if _, ok := rOidc["clientSecret"]; ok {
+				if rOidcClientSecret, ok := rOidc["clientSecret"].(map[string]interface{}); ok {
+					r.Oidc.ClientSecret = &dclService.WorkforcePoolProviderOidcClientSecret{}
+					if _, ok := rOidcClientSecret["value"]; ok {
+						if rOidcClientSecretValue, ok := rOidcClientSecret["value"].(map[string]interface{}); ok {
+							r.Oidc.ClientSecret.Value = &dclService.WorkforcePoolProviderOidcClientSecretValue{}
+							if _, ok := rOidcClientSecretValue["plainText"]; ok {
+								if s, ok := rOidcClientSecretValue["plainText"].(string); ok {
+									r.Oidc.ClientSecret.Value.PlainText = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Oidc.ClientSecret.Value.PlainText: expected string")
+								}
+							}
+							if _, ok := rOidcClientSecretValue["thumbprint"]; ok {
+								if s, ok := rOidcClientSecretValue["thumbprint"].(string); ok {
+									r.Oidc.ClientSecret.Value.Thumbprint = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("r.Oidc.ClientSecret.Value.Thumbprint: expected string")
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Oidc.ClientSecret.Value: expected map[string]interface{}")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Oidc.ClientSecret: expected map[string]interface{}")
 				}
 			}
 			if _, ok := rOidc["issuerUri"]; ok {

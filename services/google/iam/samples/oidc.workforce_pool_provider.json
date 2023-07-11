@@ -8,9 +8,14 @@
   "oidc": {
     "issuerUri": "https://example.com",
     "clientId": "client-id",
+    "clientSecret": {
+      "value": {
+        "plainText": "client-secret"
+      }
+    },
     "webSsoConfig": {
-      "responseType": "ID_TOKEN",
-      "assertionClaimsBehavior": "ONLY_ID_TOKEN_CLAIMS"
+      "responseType": "CODE",
+      "assertionClaimsBehavior": "MERGE_USER_INFO_OVER_ID_TOKEN_CLAIMS"
     }
   }
 }
