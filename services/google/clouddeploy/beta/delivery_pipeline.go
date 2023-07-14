@@ -392,10 +392,11 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernet
 }
 
 type DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh struct {
-	empty      bool    `json:"-"`
-	HttpRoute  *string `json:"httpRoute"`
-	Service    *string `json:"service"`
-	Deployment *string `json:"deployment"`
+	empty               bool    `json:"-"`
+	HttpRoute           *string `json:"httpRoute"`
+	Service             *string `json:"service"`
+	Deployment          *string `json:"deployment"`
+	RouteUpdateWaitTime *string `json:"routeUpdateWaitTime"`
 }
 
 type jsonDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh
@@ -418,6 +419,8 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernet
 		r.Service = res.Service
 
 		r.Deployment = res.Deployment
+
+		r.RouteUpdateWaitTime = res.RouteUpdateWaitTime
 
 	}
 	return nil

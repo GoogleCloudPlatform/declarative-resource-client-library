@@ -422,6 +422,14 @@ components:
                                         x-dcl-go-name: HttpRoute
                                         description: Required. Name of the Gateway
                                           API HTTPRoute.
+                                      routeUpdateWaitTime:
+                                        type: string
+                                        x-dcl-go-name: RouteUpdateWaitTime
+                                        description: Optional. The time to wait for
+                                          route updates to propagate. The maximum
+                                          configurable time is 3 hours, in seconds
+                                          format. If unspecified, there is no wait
+                                          time.
                                       service:
                                         type: string
                                         x-dcl-go-name: Service

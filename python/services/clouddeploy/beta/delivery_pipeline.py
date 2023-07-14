@@ -631,11 +631,16 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesG
     object
 ):
     def __init__(
-        self, http_route: str = None, service: str = None, deployment: str = None
+        self,
+        http_route: str = None,
+        service: str = None,
+        deployment: str = None,
+        route_update_wait_time: str = None,
     ):
         self.http_route = http_route
         self.service = service
         self.deployment = deployment
+        self.route_update_wait_time = route_update_wait_time
 
     @classmethod
     def to_proto(self, resource):
@@ -651,6 +656,10 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesG
             res.service = Primitive.to_proto(resource.service)
         if Primitive.to_proto(resource.deployment):
             res.deployment = Primitive.to_proto(resource.deployment)
+        if Primitive.to_proto(resource.route_update_wait_time):
+            res.route_update_wait_time = Primitive.to_proto(
+                resource.route_update_wait_time
+            )
         return res
 
     @classmethod
@@ -662,6 +671,9 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesG
             http_route=Primitive.from_proto(resource.http_route),
             service=Primitive.from_proto(resource.service),
             deployment=Primitive.from_proto(resource.deployment),
+            route_update_wait_time=Primitive.from_proto(
+                resource.route_update_wait_time
+            ),
         )
 
 

@@ -77,6 +77,7 @@ message ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConf
   string http_route = 1;
   string service = 2;
   string deployment = 3;
+  string route_update_wait_time = 4;
 }
 
 message ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking {

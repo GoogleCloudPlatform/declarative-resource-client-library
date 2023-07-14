@@ -120,9 +120,10 @@ func ProtoToClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRun
 		return nil
 	}
 	obj := &beta.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh{
-		HttpRoute:  dcl.StringOrNil(p.GetHttpRoute()),
-		Service:    dcl.StringOrNil(p.GetService()),
-		Deployment: dcl.StringOrNil(p.GetDeployment()),
+		HttpRoute:           dcl.StringOrNil(p.GetHttpRoute()),
+		Service:             dcl.StringOrNil(p.GetService()),
+		Deployment:          dcl.StringOrNil(p.GetDeployment()),
+		RouteUpdateWaitTime: dcl.StringOrNil(p.GetRouteUpdateWaitTime()),
 	}
 	return obj
 }
@@ -371,6 +372,7 @@ func ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeCon
 	p.SetHttpRoute(dcl.ValueOrEmptyString(o.HttpRoute))
 	p.SetService(dcl.ValueOrEmptyString(o.Service))
 	p.SetDeployment(dcl.ValueOrEmptyString(o.Deployment))
+	p.SetRouteUpdateWaitTime(dcl.ValueOrEmptyString(o.RouteUpdateWaitTime))
 	return p
 }
 

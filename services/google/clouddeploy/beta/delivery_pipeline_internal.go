@@ -1689,6 +1689,11 @@ func canonicalizeDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig
 	} else {
 		cDes.Deployment = des.Deployment
 	}
+	if dcl.StringCanonicalize(des.RouteUpdateWaitTime, initial.RouteUpdateWaitTime) || dcl.IsZeroValue(des.RouteUpdateWaitTime) {
+		cDes.RouteUpdateWaitTime = initial.RouteUpdateWaitTime
+	} else {
+		cDes.RouteUpdateWaitTime = des.RouteUpdateWaitTime
+	}
 
 	return cDes
 }
@@ -1743,6 +1748,9 @@ func canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeCon
 	}
 	if dcl.StringCanonicalize(des.Deployment, nw.Deployment) {
 		nw.Deployment = des.Deployment
+	}
+	if dcl.StringCanonicalize(des.RouteUpdateWaitTime, nw.RouteUpdateWaitTime) {
+		nw.RouteUpdateWaitTime = des.RouteUpdateWaitTime
 	}
 
 	return nw
@@ -3454,6 +3462,13 @@ func compareDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKuber
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.RouteUpdateWaitTime, actual.RouteUpdateWaitTime, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("RouteUpdateWaitTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -4919,6 +4934,9 @@ func expandDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubern
 	if v := f.Deployment; !dcl.IsEmptyValueIndirect(v) {
 		m["deployment"] = v
 	}
+	if v := f.RouteUpdateWaitTime; !dcl.IsEmptyValueIndirect(v) {
+		m["routeUpdateWaitTime"] = v
+	}
 
 	return m, nil
 }
@@ -4939,6 +4957,7 @@ func flattenDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKuber
 	r.HttpRoute = dcl.FlattenString(m["httpRoute"])
 	r.Service = dcl.FlattenString(m["service"])
 	r.Deployment = dcl.FlattenString(m["deployment"])
+	r.RouteUpdateWaitTime = dcl.FlattenString(m["routeUpdateWaitTime"])
 
 	return r
 }

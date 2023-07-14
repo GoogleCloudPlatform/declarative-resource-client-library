@@ -192,6 +192,9 @@ func DeliveryPipelineToUnstructured(r *dclService.DeliveryPipeline) *unstructure
 								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.HttpRoute != nil {
 									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["httpRoute"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.HttpRoute
 								}
+								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteUpdateWaitTime != nil {
+									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["routeUpdateWaitTime"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteUpdateWaitTime
+								}
 								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.Service != nil {
 									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["service"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.Service
 								}
@@ -570,6 +573,13 @@ func UnstructuredToDeliveryPipeline(u *unstructured.Resource) (*dclService.Deliv
 																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.HttpRoute = dcl.String(s)
 																		} else {
 																			return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.HttpRoute: expected string")
+																		}
+																	}
+																	if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["routeUpdateWaitTime"]; ok {
+																		if s, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["routeUpdateWaitTime"].(string); ok {
+																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteUpdateWaitTime = dcl.String(s)
+																		} else {
+																			return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteUpdateWaitTime: expected string")
 																		}
 																	}
 																	if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["service"]; ok {
