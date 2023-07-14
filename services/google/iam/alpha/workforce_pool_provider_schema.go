@@ -212,6 +212,17 @@ func DCLWorkforcePoolProviderSchema() *dcl.Schema {
 											"assertionClaimsBehavior",
 										},
 										Properties: map[string]*dcl.Property{
+											"additionalScopes": &dcl.Property{
+												Type:        "array",
+												GoName:      "AdditionalScopes",
+												Description: "Additional scopes to request for in the OIDC authentication request on top of scopes requested by default. By default, the `openid`, `profile` and `email` scopes that are supported by the identity provider are requested. Each additional scope may be at most 256 characters. A maximum of 10 additional scopes may be configured.",
+												SendEmpty:   true,
+												ListType:    "list",
+												Items: &dcl.Property{
+													Type:   "string",
+													GoType: "string",
+												},
+											},
 											"assertionClaimsBehavior": &dcl.Property{
 												Type:        "string",
 												GoName:      "AssertionClaimsBehavior",

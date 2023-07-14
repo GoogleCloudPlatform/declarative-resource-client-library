@@ -15,7 +15,8 @@
     },
     "webSsoConfig": {
       "responseType": "CODE",
-      "assertionClaimsBehavior": "MERGE_USER_INFO_OVER_ID_TOKEN_CLAIMS"
+      "assertionClaimsBehavior": "MERGE_USER_INFO_OVER_ID_TOKEN_CLAIMS",
+      "additionalScopes": ["groups", "photos"]
     }
   }
 }

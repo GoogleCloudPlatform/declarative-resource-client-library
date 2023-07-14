@@ -81,6 +81,11 @@ func WorkforcePoolProviderToUnstructured(r *dclService.WorkforcePoolProvider) *u
 		}
 		if r.Oidc.WebSsoConfig != nil && r.Oidc.WebSsoConfig != dclService.EmptyWorkforcePoolProviderOidcWebSsoConfig {
 			rOidcWebSsoConfig := make(map[string]interface{})
+			var rOidcWebSsoConfigAdditionalScopes []interface{}
+			for _, rOidcWebSsoConfigAdditionalScopesVal := range r.Oidc.WebSsoConfig.AdditionalScopes {
+				rOidcWebSsoConfigAdditionalScopes = append(rOidcWebSsoConfigAdditionalScopes, rOidcWebSsoConfigAdditionalScopesVal)
+			}
+			rOidcWebSsoConfig["additionalScopes"] = rOidcWebSsoConfigAdditionalScopes
 			if r.Oidc.WebSsoConfig.AssertionClaimsBehavior != nil {
 				rOidcWebSsoConfig["assertionClaimsBehavior"] = string(*r.Oidc.WebSsoConfig.AssertionClaimsBehavior)
 			}
@@ -212,6 +217,17 @@ func UnstructuredToWorkforcePoolProvider(u *unstructured.Resource) (*dclService.
 			if _, ok := rOidc["webSsoConfig"]; ok {
 				if rOidcWebSsoConfig, ok := rOidc["webSsoConfig"].(map[string]interface{}); ok {
 					r.Oidc.WebSsoConfig = &dclService.WorkforcePoolProviderOidcWebSsoConfig{}
+					if _, ok := rOidcWebSsoConfig["additionalScopes"]; ok {
+						if s, ok := rOidcWebSsoConfig["additionalScopes"].([]interface{}); ok {
+							for _, ss := range s {
+								if strval, ok := ss.(string); ok {
+									r.Oidc.WebSsoConfig.AdditionalScopes = append(r.Oidc.WebSsoConfig.AdditionalScopes, strval)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Oidc.WebSsoConfig.AdditionalScopes: expected []interface{}")
+						}
+					}
 					if _, ok := rOidcWebSsoConfig["assertionClaimsBehavior"]; ok {
 						if s, ok := rOidcWebSsoConfig["assertionClaimsBehavior"].(string); ok {
 							r.Oidc.WebSsoConfig.AssertionClaimsBehavior = dclService.WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnumRef(s)

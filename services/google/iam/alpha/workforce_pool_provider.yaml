@@ -203,6 +203,20 @@ components:
               - responseType
               - assertionClaimsBehavior
               properties:
+                additionalScopes:
+                  type: array
+                  x-dcl-go-name: AdditionalScopes
+                  description: Additional scopes to request for in the OIDC authentication
+                    request on top of scopes requested by default. By default, the
+                    `openid`, `profile` and `email` scopes that are supported by the
+                    identity provider are requested. Each additional scope may be
+                    at most 256 characters. A maximum of 10 additional scopes may
+                    be configured.
+                  x-dcl-send-empty: true
+                  x-dcl-list-type: list
+                  items:
+                    type: string
+                    x-dcl-go-type: string
                 assertionClaimsBehavior:
                   type: string
                   x-dcl-go-name: AssertionClaimsBehavior

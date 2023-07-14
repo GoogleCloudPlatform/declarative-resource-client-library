@@ -70,6 +70,7 @@ message IamAlphaWorkforcePoolProviderOidc {
 message IamAlphaWorkforcePoolProviderOidcWebSsoConfig {
   IamAlphaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum response_type = 1;
   IamAlphaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum assertion_claims_behavior = 2;
+  repeated string additional_scopes = 3;
 }
 
 message IamAlphaWorkforcePoolProviderOidcClientSecret {

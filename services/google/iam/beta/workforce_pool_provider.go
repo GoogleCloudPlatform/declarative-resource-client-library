@@ -228,6 +228,7 @@ type WorkforcePoolProviderOidcWebSsoConfig struct {
 	empty                   bool                                                              `json:"-"`
 	ResponseType            *WorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum            `json:"responseType"`
 	AssertionClaimsBehavior *WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum `json:"assertionClaimsBehavior"`
+	AdditionalScopes        []string                                                          `json:"additionalScopes"`
 }
 
 type jsonWorkforcePoolProviderOidcWebSsoConfig WorkforcePoolProviderOidcWebSsoConfig
@@ -248,6 +249,8 @@ func (r *WorkforcePoolProviderOidcWebSsoConfig) UnmarshalJSON(data []byte) error
 		r.ResponseType = res.ResponseType
 
 		r.AssertionClaimsBehavior = res.AssertionClaimsBehavior
+
+		r.AdditionalScopes = res.AdditionalScopes
 
 	}
 	return nil

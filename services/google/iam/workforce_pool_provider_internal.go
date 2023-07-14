@@ -918,6 +918,11 @@ func canonicalizeWorkforcePoolProviderOidcWebSsoConfig(des, initial *WorkforcePo
 	} else {
 		cDes.AssertionClaimsBehavior = des.AssertionClaimsBehavior
 	}
+	if dcl.StringArrayCanonicalize(des.AdditionalScopes, initial.AdditionalScopes) {
+		cDes.AdditionalScopes = initial.AdditionalScopes
+	} else {
+		cDes.AdditionalScopes = des.AdditionalScopes
+	}
 
 	return cDes
 }
@@ -962,6 +967,10 @@ func canonicalizeNewWorkforcePoolProviderOidcWebSsoConfig(c *Client, des, nw *Wo
 			return des
 		}
 		return nil
+	}
+
+	if dcl.StringArrayCanonicalize(des.AdditionalScopes, nw.AdditionalScopes) {
+		nw.AdditionalScopes = des.AdditionalScopes
 	}
 
 	return nw
@@ -1451,6 +1460,13 @@ func compareWorkforcePoolProviderOidcWebSsoConfigNewStyle(d, a interface{}, fn d
 	}
 
 	if ds, err := dcl.Diff(desired.AssertionClaimsBehavior, actual.AssertionClaimsBehavior, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateWorkforcePoolProviderUpdateWorkforcePoolProviderOperation")}, fn.AddNest("AssertionClaimsBehavior")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AdditionalScopes, actual.AdditionalScopes, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateWorkforcePoolProviderUpdateWorkforcePoolProviderOperation")}, fn.AddNest("AdditionalScopes")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1998,6 +2014,9 @@ func expandWorkforcePoolProviderOidcWebSsoConfig(c *Client, f *WorkforcePoolProv
 	if v := f.AssertionClaimsBehavior; !dcl.IsEmptyValueIndirect(v) {
 		m["assertionClaimsBehavior"] = v
 	}
+	if v := f.AdditionalScopes; v != nil {
+		m["additionalScopes"] = v
+	}
 
 	return m, nil
 }
@@ -2017,6 +2036,7 @@ func flattenWorkforcePoolProviderOidcWebSsoConfig(c *Client, i interface{}, res 
 	}
 	r.ResponseType = flattenWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum(m["responseType"])
 	r.AssertionClaimsBehavior = flattenWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum(m["assertionClaimsBehavior"])
+	r.AdditionalScopes = dcl.FlattenStringSlice(m["additionalScopes"])
 
 	return r
 }

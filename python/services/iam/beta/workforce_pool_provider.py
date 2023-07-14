@@ -305,10 +305,14 @@ class WorkforcePoolProviderOidcArray(object):
 
 class WorkforcePoolProviderOidcWebSsoConfig(object):
     def __init__(
-        self, response_type: str = None, assertion_claims_behavior: str = None
+        self,
+        response_type: str = None,
+        assertion_claims_behavior: str = None,
+        additional_scopes: list = None,
     ):
         self.response_type = response_type
         self.assertion_claims_behavior = assertion_claims_behavior
+        self.additional_scopes = additional_scopes
 
     @classmethod
     def to_proto(self, resource):
@@ -330,6 +334,8 @@ class WorkforcePoolProviderOidcWebSsoConfig(object):
             res.assertion_claims_behavior = WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum.to_proto(
                 resource.assertion_claims_behavior
             )
+        if Primitive.to_proto(resource.additional_scopes):
+            res.additional_scopes.extend(Primitive.to_proto(resource.additional_scopes))
         return res
 
     @classmethod
@@ -344,6 +350,7 @@ class WorkforcePoolProviderOidcWebSsoConfig(object):
             assertion_claims_behavior=WorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum.from_proto(
                 resource.assertion_claims_behavior
             ),
+            additional_scopes=Primitive.from_proto(resource.additional_scopes),
         )
 
 

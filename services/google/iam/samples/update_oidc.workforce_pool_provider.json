@@ -15,7 +15,8 @@
     },
     "webSsoConfig": {
       "responseType": "ID_TOKEN",
-      "assertionClaimsBehavior": "ONLY_ID_TOKEN_CLAIMS"
+      "assertionClaimsBehavior": "ONLY_ID_TOKEN_CLAIMS",
+      "additionalScopes": ["roles"]
     }
   }
 }

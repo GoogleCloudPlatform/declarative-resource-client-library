@@ -70,6 +70,7 @@ message IamWorkforcePoolProviderOidc {
 message IamWorkforcePoolProviderOidcWebSsoConfig {
   IamWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum response_type = 1;
   IamWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum assertion_claims_behavior = 2;
+  repeated string additional_scopes = 3;
 }
 
 message IamWorkforcePoolProviderOidcClientSecret {

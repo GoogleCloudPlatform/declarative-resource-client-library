@@ -94,6 +94,9 @@ func ProtoToIamWorkforcePoolProviderOidcWebSsoConfig(p *iampb.IamWorkforcePoolPr
 		ResponseType:            ProtoToIamWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum(p.GetResponseType()),
 		AssertionClaimsBehavior: ProtoToIamWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum(p.GetAssertionClaimsBehavior()),
 	}
+	for _, r := range p.GetAdditionalScopes() {
+		obj.AdditionalScopes = append(obj.AdditionalScopes, r)
+	}
 	return obj
 }
 
@@ -201,6 +204,11 @@ func IamWorkforcePoolProviderOidcWebSsoConfigToProto(o *iam.WorkforcePoolProvide
 	p := &iampb.IamWorkforcePoolProviderOidcWebSsoConfig{}
 	p.SetResponseType(IamWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnumToProto(o.ResponseType))
 	p.SetAssertionClaimsBehavior(IamWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnumToProto(o.AssertionClaimsBehavior))
+	sAdditionalScopes := make([]string, len(o.AdditionalScopes))
+	for i, r := range o.AdditionalScopes {
+		sAdditionalScopes[i] = r
+	}
+	p.SetAdditionalScopes(sAdditionalScopes)
 	return p
 }
 

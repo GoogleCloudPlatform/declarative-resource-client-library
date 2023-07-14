@@ -94,6 +94,9 @@ func ProtoToIamBetaWorkforcePoolProviderOidcWebSsoConfig(p *betapb.IamBetaWorkfo
 		ResponseType:            ProtoToIamBetaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnum(p.GetResponseType()),
 		AssertionClaimsBehavior: ProtoToIamBetaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnum(p.GetAssertionClaimsBehavior()),
 	}
+	for _, r := range p.GetAdditionalScopes() {
+		obj.AdditionalScopes = append(obj.AdditionalScopes, r)
+	}
 	return obj
 }
 
@@ -201,6 +204,11 @@ func IamBetaWorkforcePoolProviderOidcWebSsoConfigToProto(o *beta.WorkforcePoolPr
 	p := &betapb.IamBetaWorkforcePoolProviderOidcWebSsoConfig{}
 	p.SetResponseType(IamBetaWorkforcePoolProviderOidcWebSsoConfigResponseTypeEnumToProto(o.ResponseType))
 	p.SetAssertionClaimsBehavior(IamBetaWorkforcePoolProviderOidcWebSsoConfigAssertionClaimsBehaviorEnumToProto(o.AssertionClaimsBehavior))
+	sAdditionalScopes := make([]string, len(o.AdditionalScopes))
+	for i, r := range o.AdditionalScopes {
+		sAdditionalScopes[i] = r
+	}
+	p.SetAdditionalScopes(sAdditionalScopes)
 	return p
 }
 
