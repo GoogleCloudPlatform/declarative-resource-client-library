@@ -97,9 +97,6 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebaserules"
 	firebaserules_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebaserules/alpha"
 	firebaserules_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebaserules/beta"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices"
-	gameservices_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices/alpha"
-	gameservices_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices/beta"
 	gkehub_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/alpha"
 	gkehub_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam"
@@ -331,8 +328,6 @@ func Services() *Directory {
 	d.AddResource("ga", "firebaserules", "Ruleset", firebaserules.YAML_ruleset)
 	d.AddResource("ga", "firebaserules", dcl.TitleToSnakeCase("Release"), firebaserules.YAML_release)
 	d.AddResource("ga", "firebaserules", "Release", firebaserules.YAML_release)
-	d.AddResource("ga", "gameservices", dcl.TitleToSnakeCase("Realm"), gameservices.YAML_realm)
-	d.AddResource("ga", "gameservices", "Realm", gameservices.YAML_realm)
 	d.AddResource("ga", "iam", dcl.TitleToSnakeCase("Role"), iam.YAML_role)
 	d.AddResource("ga", "iam", "Role", iam.YAML_role)
 	d.AddResource("ga", "iam", dcl.TitleToSnakeCase("ServiceAccount"), iam.YAML_service_account)
@@ -559,8 +554,6 @@ func Services() *Directory {
 	d.AddResource("beta", "firebaserules", "Ruleset", firebaserules_beta.YAML_ruleset)
 	d.AddResource("beta", "firebaserules", dcl.TitleToSnakeCase("Release"), firebaserules_beta.YAML_release)
 	d.AddResource("beta", "firebaserules", "Release", firebaserules_beta.YAML_release)
-	d.AddResource("beta", "gameservices", dcl.TitleToSnakeCase("Realm"), gameservices_beta.YAML_realm)
-	d.AddResource("beta", "gameservices", "Realm", gameservices_beta.YAML_realm)
 	d.AddResource("beta", "gkehub", dcl.TitleToSnakeCase("Feature"), gkehub_beta.YAML_feature)
 	d.AddResource("beta", "gkehub", "Feature", gkehub_beta.YAML_feature)
 	d.AddResource("beta", "gkehub", dcl.TitleToSnakeCase("FeatureMembership"), gkehub_beta.YAML_feature_membership)
@@ -809,8 +802,6 @@ func Services() *Directory {
 	d.AddResource("alpha", "firebaserules", "Ruleset", firebaserules_alpha.YAML_ruleset)
 	d.AddResource("alpha", "firebaserules", dcl.TitleToSnakeCase("Release"), firebaserules_alpha.YAML_release)
 	d.AddResource("alpha", "firebaserules", "Release", firebaserules_alpha.YAML_release)
-	d.AddResource("alpha", "gameservices", dcl.TitleToSnakeCase("Realm"), gameservices_alpha.YAML_realm)
-	d.AddResource("alpha", "gameservices", "Realm", gameservices_alpha.YAML_realm)
 	d.AddResource("alpha", "gkehub", dcl.TitleToSnakeCase("Feature"), gkehub_alpha.YAML_feature)
 	d.AddResource("alpha", "gkehub", "Feature", gkehub_alpha.YAML_feature)
 	d.AddResource("alpha", "gkehub", dcl.TitleToSnakeCase("FeatureMembership"), gkehub_alpha.YAML_feature_membership)

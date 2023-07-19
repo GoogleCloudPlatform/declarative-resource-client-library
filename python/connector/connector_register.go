@@ -176,12 +176,6 @@ import (
 
 	firebaserules_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebaserules/alpha_connector"
 
-	gameservices_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices/connector"
-
-	gameservices_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices/beta_connector"
-
-	gameservices_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gameservices/alpha_connector"
-
 	gkehub_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/alpha_connector"
 
 	gkehub_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/beta_connector"
@@ -444,12 +438,6 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	firebaserules_beta_connector.RegisterServers(grpcServer)
 
 	firebaserules_alpha_connector.RegisterServers(grpcServer)
-
-	gameservices_connector.RegisterServers(grpcServer)
-
-	gameservices_beta_connector.RegisterServers(grpcServer)
-
-	gameservices_alpha_connector.RegisterServers(grpcServer)
 
 	gkehub_alpha_connector.RegisterServers(grpcServer)
 
