@@ -123,22 +123,22 @@ func UnaryCall(request *connectorpb.UnaryCallRequest) *connectorpb.UnaryCallResp
 		return makeErrorResponse(codes.Internal, "truncated response body")
 	}
 
-	return &connectorpb.UnaryCallResponse{
+	return connectorpb.UnaryCallResponse_builder{
 		Response: lpm[5:],
 		Status: &statuspb.Status{
 			Code:    int32(codes.OK),
 			Message: grpcMessage,
 		},
-	}
+	}.Build()
 }
 
 func makeErrorResponse(code codes.Code, message string) *connectorpb.UnaryCallResponse {
-	return &connectorpb.UnaryCallResponse{
+	return connectorpb.UnaryCallResponse_builder{
 		Status: &statuspb.Status{
 			Code:    int32(code),
 			Message: message,
 		},
-	}
+	}.Build()
 }
 
 func makeHTTPRequest(request *connectorpb.UnaryCallRequest) (*http.Request, error) {
@@ -146,30 +146,30 @@ func makeHTTPRequest(request *connectorpb.UnaryCallRequest) (*http.Request, erro
 	// https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-HTTP2.md
 	lpm := []byte{
 		0, // Not compressed
-		byte(len(request.Request) >> 24),
-		byte(len(request.Request) >> 16),
-		byte(len(request.Request) >> 8),
-		byte(len(request.Request)),
+		byte(len(request.GetRequest()) >> 24),
+		byte(len(request.GetRequest()) >> 16),
+		byte(len(request.GetRequest()) >> 8),
+		byte(len(request.GetRequest())),
 	}
-	lpm = append(lpm, request.Request...)
+	lpm = append(lpm, request.GetRequest()...)
 
 	// Wrap the request body in a suitable HTTP request
-	u, err := url.Parse("https://localhost" + request.Method)
+	u, err := url.Parse("https://localhost" + request.GetMethod())
 	if err != nil {
 		return nil, err
 	}
 
 	return &http.Request{
 		Method:     "POST",
-		RequestURI: request.Method,
+		RequestURI: request.GetMethod(),
 		URL:        u,
 		Proto:      "HTTP/2",
 		ProtoMajor: 2,
 		ProtoMinor: 0,
 		Header: http.Header{
 			"Content-Type":         {"application/grpc+proto"},
-			CredentialsMetadataKey: {request.Credentials},
-			UserAgentMetadataKey:   {request.UserAgent},
+			CredentialsMetadataKey: {request.GetCredentials()},
+			UserAgentMetadataKey:   {request.GetUserAgent()},
 		},
 		Trailer:       make(http.Header),
 		ContentLength: -1,
