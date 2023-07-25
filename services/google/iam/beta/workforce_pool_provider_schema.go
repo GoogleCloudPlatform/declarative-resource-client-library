@@ -185,6 +185,7 @@ func DCLWorkforcePoolProviderSchema() *dcl.Schema {
 														Type:        "string",
 														GoName:      "PlainText",
 														Description: "Input only. The plain text of the client secret value.",
+														Sensitive:   true,
 														Unreadable:  true,
 													},
 													"thumbprint": &dcl.Property{

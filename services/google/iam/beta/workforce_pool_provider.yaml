@@ -180,6 +180,7 @@ components:
                       x-dcl-go-name: PlainText
                       description: Input only. The plain text of the client secret
                         value.
+                      x-dcl-sensitive: true
                       x-dcl-mutable-unreadable: true
                     thumbprint:
                       type: string
