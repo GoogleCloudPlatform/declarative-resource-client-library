@@ -55,6 +55,16 @@ message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategy {
 
 message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyStandard {
   bool verify = 1;
+  ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy predeploy = 2;
+  ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy postdeploy = 3;
+}
+
+message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy {
+  repeated string actions = 1;
+}
+
+message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy {
+  repeated string actions = 1;
 }
 
 message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanary {
@@ -93,6 +103,16 @@ message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntime
 message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment {
   repeated int64 percentages = 1;
   bool verify = 2;
+  ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy predeploy = 3;
+  ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy postdeploy = 4;
+}
+
+message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy {
+  repeated string actions = 1;
+}
+
+message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy {
+  repeated string actions = 1;
 }
 
 message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment {
@@ -104,6 +124,16 @@ message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomC
   int64 percentage = 2;
   repeated string profiles = 3;
   bool verify = 4;
+  ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy predeploy = 5;
+  ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy postdeploy = 6;
+}
+
+message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy {
+  repeated string actions = 1;
+}
+
+message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy {
+  repeated string actions = 1;
 }
 
 message ClouddeployBetaDeliveryPipelineSerialPipelineStagesDeployParameters {

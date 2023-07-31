@@ -144,6 +144,24 @@ func DeliveryPipelineToUnstructured(r *dclService.DeliveryPipeline) *unstructure
 							rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPercentages = append(rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPercentages, rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPercentagesVal)
 						}
 						rSerialPipelineStagesValStrategyCanaryCanaryDeployment["percentages"] = rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPercentages
+						if rSerialPipelineStagesVal.Strategy.Canary.CanaryDeployment.Postdeploy != nil && rSerialPipelineStagesVal.Strategy.Canary.CanaryDeployment.Postdeploy != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy {
+							rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPostdeploy := make(map[string]interface{})
+							var rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPostdeployActions []interface{}
+							for _, rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPostdeployActionsVal := range rSerialPipelineStagesVal.Strategy.Canary.CanaryDeployment.Postdeploy.Actions {
+								rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPostdeployActions = append(rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPostdeployActions, rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPostdeployActionsVal)
+							}
+							rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPostdeploy["actions"] = rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPostdeployActions
+							rSerialPipelineStagesValStrategyCanaryCanaryDeployment["postdeploy"] = rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPostdeploy
+						}
+						if rSerialPipelineStagesVal.Strategy.Canary.CanaryDeployment.Predeploy != nil && rSerialPipelineStagesVal.Strategy.Canary.CanaryDeployment.Predeploy != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy {
+							rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPredeploy := make(map[string]interface{})
+							var rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPredeployActions []interface{}
+							for _, rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPredeployActionsVal := range rSerialPipelineStagesVal.Strategy.Canary.CanaryDeployment.Predeploy.Actions {
+								rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPredeployActions = append(rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPredeployActions, rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPredeployActionsVal)
+							}
+							rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPredeploy["actions"] = rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPredeployActions
+							rSerialPipelineStagesValStrategyCanaryCanaryDeployment["predeploy"] = rSerialPipelineStagesValStrategyCanaryCanaryDeploymentPredeploy
+						}
 						if rSerialPipelineStagesVal.Strategy.Canary.CanaryDeployment.Verify != nil {
 							rSerialPipelineStagesValStrategyCanaryCanaryDeployment["verify"] = *rSerialPipelineStagesVal.Strategy.Canary.CanaryDeployment.Verify
 						}
@@ -159,6 +177,24 @@ func DeliveryPipelineToUnstructured(r *dclService.DeliveryPipeline) *unstructure
 							}
 							if rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsVal.PhaseId != nil {
 								rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsObject["phaseId"] = *rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsVal.PhaseId
+							}
+							if rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsVal.Postdeploy != nil && rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsVal.Postdeploy != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy {
+								rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValPostdeploy := make(map[string]interface{})
+								var rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValPostdeployActions []interface{}
+								for _, rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValPostdeployActionsVal := range rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsVal.Postdeploy.Actions {
+									rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValPostdeployActions = append(rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValPostdeployActions, rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValPostdeployActionsVal)
+								}
+								rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValPostdeploy["actions"] = rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValPostdeployActions
+								rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsObject["postdeploy"] = rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValPostdeploy
+							}
+							if rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsVal.Predeploy != nil && rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsVal.Predeploy != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy {
+								rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValPredeploy := make(map[string]interface{})
+								var rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValPredeployActions []interface{}
+								for _, rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValPredeployActionsVal := range rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsVal.Predeploy.Actions {
+									rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValPredeployActions = append(rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValPredeployActions, rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValPredeployActionsVal)
+								}
+								rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValPredeploy["actions"] = rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValPredeployActions
+								rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsObject["predeploy"] = rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValPredeploy
 							}
 							var rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValProfiles []interface{}
 							for _, rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsValProfilesVal := range rSerialPipelineStagesValStrategyCanaryCustomCanaryDeploymentPhaseConfigsVal.Profiles {
@@ -221,6 +257,24 @@ func DeliveryPipelineToUnstructured(r *dclService.DeliveryPipeline) *unstructure
 				}
 				if rSerialPipelineStagesVal.Strategy.Standard != nil && rSerialPipelineStagesVal.Strategy.Standard != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyStandard {
 					rSerialPipelineStagesValStrategyStandard := make(map[string]interface{})
+					if rSerialPipelineStagesVal.Strategy.Standard.Postdeploy != nil && rSerialPipelineStagesVal.Strategy.Standard.Postdeploy != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy {
+						rSerialPipelineStagesValStrategyStandardPostdeploy := make(map[string]interface{})
+						var rSerialPipelineStagesValStrategyStandardPostdeployActions []interface{}
+						for _, rSerialPipelineStagesValStrategyStandardPostdeployActionsVal := range rSerialPipelineStagesVal.Strategy.Standard.Postdeploy.Actions {
+							rSerialPipelineStagesValStrategyStandardPostdeployActions = append(rSerialPipelineStagesValStrategyStandardPostdeployActions, rSerialPipelineStagesValStrategyStandardPostdeployActionsVal)
+						}
+						rSerialPipelineStagesValStrategyStandardPostdeploy["actions"] = rSerialPipelineStagesValStrategyStandardPostdeployActions
+						rSerialPipelineStagesValStrategyStandard["postdeploy"] = rSerialPipelineStagesValStrategyStandardPostdeploy
+					}
+					if rSerialPipelineStagesVal.Strategy.Standard.Predeploy != nil && rSerialPipelineStagesVal.Strategy.Standard.Predeploy != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy {
+						rSerialPipelineStagesValStrategyStandardPredeploy := make(map[string]interface{})
+						var rSerialPipelineStagesValStrategyStandardPredeployActions []interface{}
+						for _, rSerialPipelineStagesValStrategyStandardPredeployActionsVal := range rSerialPipelineStagesVal.Strategy.Standard.Predeploy.Actions {
+							rSerialPipelineStagesValStrategyStandardPredeployActions = append(rSerialPipelineStagesValStrategyStandardPredeployActions, rSerialPipelineStagesValStrategyStandardPredeployActionsVal)
+						}
+						rSerialPipelineStagesValStrategyStandardPredeploy["actions"] = rSerialPipelineStagesValStrategyStandardPredeployActions
+						rSerialPipelineStagesValStrategyStandard["predeploy"] = rSerialPipelineStagesValStrategyStandardPredeploy
+					}
 					if rSerialPipelineStagesVal.Strategy.Standard.Verify != nil {
 						rSerialPipelineStagesValStrategyStandard["verify"] = *rSerialPipelineStagesVal.Strategy.Standard.Verify
 					}
@@ -476,6 +530,42 @@ func UnstructuredToDeliveryPipeline(u *unstructured.Resource) (*dclService.Deliv
 															return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.CanaryDeployment.Percentages: expected []interface{}")
 														}
 													}
+													if _, ok := rSerialPipelineStagesStrategyCanaryCanaryDeployment["postdeploy"]; ok {
+														if rSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy, ok := rSerialPipelineStagesStrategyCanaryCanaryDeployment["postdeploy"].(map[string]interface{}); ok {
+															rSerialPipelineStages.Strategy.Canary.CanaryDeployment.Postdeploy = &dclService.DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy{}
+															if _, ok := rSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy["actions"]; ok {
+																if s, ok := rSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy["actions"].([]interface{}); ok {
+																	for _, ss := range s {
+																		if strval, ok := ss.(string); ok {
+																			rSerialPipelineStages.Strategy.Canary.CanaryDeployment.Postdeploy.Actions = append(rSerialPipelineStages.Strategy.Canary.CanaryDeployment.Postdeploy.Actions, strval)
+																		}
+																	}
+																} else {
+																	return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.CanaryDeployment.Postdeploy.Actions: expected []interface{}")
+																}
+															}
+														} else {
+															return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.CanaryDeployment.Postdeploy: expected map[string]interface{}")
+														}
+													}
+													if _, ok := rSerialPipelineStagesStrategyCanaryCanaryDeployment["predeploy"]; ok {
+														if rSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy, ok := rSerialPipelineStagesStrategyCanaryCanaryDeployment["predeploy"].(map[string]interface{}); ok {
+															rSerialPipelineStages.Strategy.Canary.CanaryDeployment.Predeploy = &dclService.DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy{}
+															if _, ok := rSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy["actions"]; ok {
+																if s, ok := rSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy["actions"].([]interface{}); ok {
+																	for _, ss := range s {
+																		if strval, ok := ss.(string); ok {
+																			rSerialPipelineStages.Strategy.Canary.CanaryDeployment.Predeploy.Actions = append(rSerialPipelineStages.Strategy.Canary.CanaryDeployment.Predeploy.Actions, strval)
+																		}
+																	}
+																} else {
+																	return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.CanaryDeployment.Predeploy.Actions: expected []interface{}")
+																}
+															}
+														} else {
+															return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.CanaryDeployment.Predeploy: expected map[string]interface{}")
+														}
+													}
 													if _, ok := rSerialPipelineStagesStrategyCanaryCanaryDeployment["verify"]; ok {
 														if b, ok := rSerialPipelineStagesStrategyCanaryCanaryDeployment["verify"].(bool); ok {
 															rSerialPipelineStages.Strategy.Canary.CanaryDeployment.Verify = dcl.Bool(b)
@@ -507,6 +597,42 @@ func UnstructuredToDeliveryPipeline(u *unstructured.Resource) (*dclService.Deliv
 																			rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.PhaseId = dcl.String(s)
 																		} else {
 																			return nil, fmt.Errorf("rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.PhaseId: expected string")
+																		}
+																	}
+																	if _, ok := objval["postdeploy"]; ok {
+																		if rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy, ok := objval["postdeploy"].(map[string]interface{}); ok {
+																			rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.Postdeploy = &dclService.DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy{}
+																			if _, ok := rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy["actions"]; ok {
+																				if s, ok := rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy["actions"].([]interface{}); ok {
+																					for _, ss := range s {
+																						if strval, ok := ss.(string); ok {
+																							rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.Postdeploy.Actions = append(rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.Postdeploy.Actions, strval)
+																						}
+																					}
+																				} else {
+																					return nil, fmt.Errorf("rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.Postdeploy.Actions: expected []interface{}")
+																				}
+																			}
+																		} else {
+																			return nil, fmt.Errorf("rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.Postdeploy: expected map[string]interface{}")
+																		}
+																	}
+																	if _, ok := objval["predeploy"]; ok {
+																		if rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy, ok := objval["predeploy"].(map[string]interface{}); ok {
+																			rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.Predeploy = &dclService.DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy{}
+																			if _, ok := rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy["actions"]; ok {
+																				if s, ok := rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy["actions"].([]interface{}); ok {
+																					for _, ss := range s {
+																						if strval, ok := ss.(string); ok {
+																							rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.Predeploy.Actions = append(rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.Predeploy.Actions, strval)
+																						}
+																					}
+																				} else {
+																					return nil, fmt.Errorf("rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.Predeploy.Actions: expected []interface{}")
+																				}
+																			}
+																		} else {
+																			return nil, fmt.Errorf("rSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs.Predeploy: expected map[string]interface{}")
 																		}
 																	}
 																	if _, ok := objval["profiles"]; ok {
@@ -636,6 +762,42 @@ func UnstructuredToDeliveryPipeline(u *unstructured.Resource) (*dclService.Deliv
 									if _, ok := rSerialPipelineStagesStrategy["standard"]; ok {
 										if rSerialPipelineStagesStrategyStandard, ok := rSerialPipelineStagesStrategy["standard"].(map[string]interface{}); ok {
 											rSerialPipelineStages.Strategy.Standard = &dclService.DeliveryPipelineSerialPipelineStagesStrategyStandard{}
+											if _, ok := rSerialPipelineStagesStrategyStandard["postdeploy"]; ok {
+												if rSerialPipelineStagesStrategyStandardPostdeploy, ok := rSerialPipelineStagesStrategyStandard["postdeploy"].(map[string]interface{}); ok {
+													rSerialPipelineStages.Strategy.Standard.Postdeploy = &dclService.DeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy{}
+													if _, ok := rSerialPipelineStagesStrategyStandardPostdeploy["actions"]; ok {
+														if s, ok := rSerialPipelineStagesStrategyStandardPostdeploy["actions"].([]interface{}); ok {
+															for _, ss := range s {
+																if strval, ok := ss.(string); ok {
+																	rSerialPipelineStages.Strategy.Standard.Postdeploy.Actions = append(rSerialPipelineStages.Strategy.Standard.Postdeploy.Actions, strval)
+																}
+															}
+														} else {
+															return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Standard.Postdeploy.Actions: expected []interface{}")
+														}
+													}
+												} else {
+													return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Standard.Postdeploy: expected map[string]interface{}")
+												}
+											}
+											if _, ok := rSerialPipelineStagesStrategyStandard["predeploy"]; ok {
+												if rSerialPipelineStagesStrategyStandardPredeploy, ok := rSerialPipelineStagesStrategyStandard["predeploy"].(map[string]interface{}); ok {
+													rSerialPipelineStages.Strategy.Standard.Predeploy = &dclService.DeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy{}
+													if _, ok := rSerialPipelineStagesStrategyStandardPredeploy["actions"]; ok {
+														if s, ok := rSerialPipelineStagesStrategyStandardPredeploy["actions"].([]interface{}); ok {
+															for _, ss := range s {
+																if strval, ok := ss.(string); ok {
+																	rSerialPipelineStages.Strategy.Standard.Predeploy.Actions = append(rSerialPipelineStages.Strategy.Standard.Predeploy.Actions, strval)
+																}
+															}
+														} else {
+															return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Standard.Predeploy.Actions: expected []interface{}")
+														}
+													}
+												} else {
+													return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Standard.Predeploy: expected map[string]interface{}")
+												}
+											}
 											if _, ok := rSerialPipelineStagesStrategyStandard["verify"]; ok {
 												if b, ok := rSerialPipelineStagesStrategyStandard["verify"].(bool); ok {
 													rSerialPipelineStages.Strategy.Standard.Verify = dcl.Bool(b)

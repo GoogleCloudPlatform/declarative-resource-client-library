@@ -351,6 +351,44 @@ func DCLDeliveryPipelineSchema() *dcl.Schema {
 																				GoType: "int64",
 																			},
 																		},
+																		"postdeploy": &dcl.Property{
+																			Type:        "object",
+																			GoName:      "Postdeploy",
+																			GoType:      "DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy",
+																			Description: "Optional. Configuration for the postdeploy job of the last phase. If this is not configured, postdeploy job will not be present.",
+																			Properties: map[string]*dcl.Property{
+																				"actions": &dcl.Property{
+																					Type:        "array",
+																					GoName:      "Actions",
+																					Description: "Optional. A sequence of skaffold custom actions to invoke during execution of the postdeploy job.",
+																					SendEmpty:   true,
+																					ListType:    "list",
+																					Items: &dcl.Property{
+																						Type:   "string",
+																						GoType: "string",
+																					},
+																				},
+																			},
+																		},
+																		"predeploy": &dcl.Property{
+																			Type:        "object",
+																			GoName:      "Predeploy",
+																			GoType:      "DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy",
+																			Description: "Optional. Configuration for the predeploy job of the first phase. If this is not configured, predeploy job will not be present.",
+																			Properties: map[string]*dcl.Property{
+																				"actions": &dcl.Property{
+																					Type:        "array",
+																					GoName:      "Actions",
+																					Description: "Optional. A sequence of skaffold custom actions to invoke during execution of the predeploy job.",
+																					SendEmpty:   true,
+																					ListType:    "list",
+																					Items: &dcl.Property{
+																						Type:   "string",
+																						GoType: "string",
+																					},
+																				},
+																			},
+																		},
 																		"verify": &dcl.Property{
 																			Type:        "boolean",
 																			GoName:      "Verify",
@@ -394,6 +432,44 @@ func DCLDeliveryPipelineSchema() *dcl.Schema {
 																						Type:        "string",
 																						GoName:      "PhaseId",
 																						Description: "Required. The ID to assign to the `Rollout` phase. This value must consist of lower-case letters, numbers, and hyphens, start with a letter and end with a letter or a number, and have a max length of 63 characters. In other words, it must match the following regex: `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.",
+																					},
+																					"postdeploy": &dcl.Property{
+																						Type:        "object",
+																						GoName:      "Postdeploy",
+																						GoType:      "DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy",
+																						Description: "Optional. Configuration for the postdeploy job of this phase. If this is not configured, postdeploy job will not be present for this phase.",
+																						Properties: map[string]*dcl.Property{
+																							"actions": &dcl.Property{
+																								Type:        "array",
+																								GoName:      "Actions",
+																								Description: "Optional. A sequence of skaffold custom actions to invoke during execution of the postdeploy job.",
+																								SendEmpty:   true,
+																								ListType:    "list",
+																								Items: &dcl.Property{
+																									Type:   "string",
+																									GoType: "string",
+																								},
+																							},
+																						},
+																					},
+																					"predeploy": &dcl.Property{
+																						Type:        "object",
+																						GoName:      "Predeploy",
+																						GoType:      "DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy",
+																						Description: "Optional. Configuration for the predeploy job of this phase. If this is not configured, predeploy job will not be present for this phase.",
+																						Properties: map[string]*dcl.Property{
+																							"actions": &dcl.Property{
+																								Type:        "array",
+																								GoName:      "Actions",
+																								Description: "Optional. A sequence of skaffold custom actions to invoke during execution of the predeploy job.",
+																								SendEmpty:   true,
+																								ListType:    "list",
+																								Items: &dcl.Property{
+																									Type:   "string",
+																									GoType: "string",
+																								},
+																							},
+																						},
 																					},
 																					"profiles": &dcl.Property{
 																						Type:        "array",
@@ -525,6 +601,44 @@ func DCLDeliveryPipelineSchema() *dcl.Schema {
 															GoType:      "DeliveryPipelineSerialPipelineStagesStrategyStandard",
 															Description: "Standard deployment strategy executes a single deploy and allows verifying the deployment.",
 															Properties: map[string]*dcl.Property{
+																"postdeploy": &dcl.Property{
+																	Type:        "object",
+																	GoName:      "Postdeploy",
+																	GoType:      "DeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy",
+																	Description: "Optional. Configuration for the postdeploy job. If this is not configured, postdeploy job will not be present.",
+																	Properties: map[string]*dcl.Property{
+																		"actions": &dcl.Property{
+																			Type:        "array",
+																			GoName:      "Actions",
+																			Description: "Optional. A sequence of skaffold custom actions to invoke during execution of the postdeploy job.",
+																			SendEmpty:   true,
+																			ListType:    "list",
+																			Items: &dcl.Property{
+																				Type:   "string",
+																				GoType: "string",
+																			},
+																		},
+																	},
+																},
+																"predeploy": &dcl.Property{
+																	Type:        "object",
+																	GoName:      "Predeploy",
+																	GoType:      "DeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy",
+																	Description: "Optional. Configuration for the predeploy job. If this is not configured, predeploy job will not be present.",
+																	Properties: map[string]*dcl.Property{
+																		"actions": &dcl.Property{
+																			Type:        "array",
+																			GoName:      "Actions",
+																			Description: "Optional. A sequence of skaffold custom actions to invoke during execution of the predeploy job.",
+																			SendEmpty:   true,
+																			ListType:    "list",
+																			Items: &dcl.Property{
+																				Type:   "string",
+																				GoType: "string",
+																			},
+																		},
+																	},
+																},
 																"verify": &dcl.Property{
 																	Type:        "boolean",
 																	GoName:      "Verify",

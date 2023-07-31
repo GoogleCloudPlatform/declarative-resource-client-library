@@ -72,7 +72,33 @@ func ProtoToClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandard
 		return nil
 	}
 	obj := &alpha.DeliveryPipelineSerialPipelineStagesStrategyStandard{
-		Verify: dcl.Bool(p.GetVerify()),
+		Verify:     dcl.Bool(p.GetVerify()),
+		Predeploy:  ProtoToClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy(p.GetPredeploy()),
+		Postdeploy: ProtoToClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy(p.GetPostdeploy()),
+	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy converts a DeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy object from its proto representation.
+func ProtoToClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy(p *alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy) *alpha.DeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.DeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy{}
+	for _, r := range p.GetActions() {
+		obj.Actions = append(obj.Actions, r)
+	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy converts a DeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy object from its proto representation.
+func ProtoToClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy(p *alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy) *alpha.DeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.DeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy{}
+	for _, r := range p.GetActions() {
+		obj.Actions = append(obj.Actions, r)
 	}
 	return obj
 }
@@ -158,10 +184,36 @@ func ProtoToClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCa
 		return nil
 	}
 	obj := &alpha.DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment{
-		Verify: dcl.Bool(p.GetVerify()),
+		Verify:     dcl.Bool(p.GetVerify()),
+		Predeploy:  ProtoToClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy(p.GetPredeploy()),
+		Postdeploy: ProtoToClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy(p.GetPostdeploy()),
 	}
 	for _, r := range p.GetPercentages() {
 		obj.Percentages = append(obj.Percentages, r)
+	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy object from its proto representation.
+func ProtoToClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy(p *alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy) *alpha.DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy{}
+	for _, r := range p.GetActions() {
+		obj.Actions = append(obj.Actions, r)
+	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy object from its proto representation.
+func ProtoToClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy(p *alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy) *alpha.DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy{}
+	for _, r := range p.GetActions() {
+		obj.Actions = append(obj.Actions, r)
 	}
 	return obj
 }
@@ -187,9 +239,35 @@ func ProtoToClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCu
 		PhaseId:    dcl.StringOrNil(p.GetPhaseId()),
 		Percentage: dcl.Int64OrNil(p.GetPercentage()),
 		Verify:     dcl.Bool(p.GetVerify()),
+		Predeploy:  ProtoToClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy(p.GetPredeploy()),
+		Postdeploy: ProtoToClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy(p.GetPostdeploy()),
 	}
 	for _, r := range p.GetProfiles() {
 		obj.Profiles = append(obj.Profiles, r)
+	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy object from its proto representation.
+func ProtoToClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy(p *alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy) *alpha.DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy{}
+	for _, r := range p.GetActions() {
+		obj.Actions = append(obj.Actions, r)
+	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy object from its proto representation.
+func ProtoToClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy(p *alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy) *alpha.DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy{}
+	for _, r := range p.GetActions() {
+		obj.Actions = append(obj.Actions, r)
 	}
 	return obj
 }
@@ -326,6 +404,36 @@ func ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandardToProto
 	}
 	p := &alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandard{}
 	p.SetVerify(dcl.ValueOrEmptyBool(o.Verify))
+	p.SetPredeploy(ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandardPredeployToProto(o.Predeploy))
+	p.SetPostdeploy(ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandardPostdeployToProto(o.Postdeploy))
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesStrategyStandardPredeployToProto converts a DeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy object to its proto representation.
+func ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandardPredeployToProto(o *alpha.DeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy) *alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy{}
+	sActions := make([]string, len(o.Actions))
+	for i, r := range o.Actions {
+		sActions[i] = r
+	}
+	p.SetActions(sActions)
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesStrategyStandardPostdeployToProto converts a DeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy object to its proto representation.
+func ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandardPostdeployToProto(o *alpha.DeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy) *alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy{}
+	sActions := make([]string, len(o.Actions))
+	for i, r := range o.Actions {
+		sActions[i] = r
+	}
+	p.SetActions(sActions)
 	return p
 }
 
@@ -405,11 +513,41 @@ func ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDep
 	}
 	p := &alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment{}
 	p.SetVerify(dcl.ValueOrEmptyBool(o.Verify))
+	p.SetPredeploy(ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeployToProto(o.Predeploy))
+	p.SetPostdeploy(ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeployToProto(o.Postdeploy))
 	sPercentages := make([]int64, len(o.Percentages))
 	for i, r := range o.Percentages {
 		sPercentages[i] = r
 	}
 	p.SetPercentages(sPercentages)
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeployToProto converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy object to its proto representation.
+func ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeployToProto(o *alpha.DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy) *alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy{}
+	sActions := make([]string, len(o.Actions))
+	for i, r := range o.Actions {
+		sActions[i] = r
+	}
+	p.SetActions(sActions)
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeployToProto converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy object to its proto representation.
+func ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeployToProto(o *alpha.DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy) *alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy{}
+	sActions := make([]string, len(o.Actions))
+	for i, r := range o.Actions {
+		sActions[i] = r
+	}
+	p.SetActions(sActions)
 	return p
 }
 
@@ -436,11 +574,41 @@ func ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCan
 	p.SetPhaseId(dcl.ValueOrEmptyString(o.PhaseId))
 	p.SetPercentage(dcl.ValueOrEmptyInt64(o.Percentage))
 	p.SetVerify(dcl.ValueOrEmptyBool(o.Verify))
+	p.SetPredeploy(ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeployToProto(o.Predeploy))
+	p.SetPostdeploy(ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeployToProto(o.Postdeploy))
 	sProfiles := make([]string, len(o.Profiles))
 	for i, r := range o.Profiles {
 		sProfiles[i] = r
 	}
 	p.SetProfiles(sProfiles)
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeployToProto converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy object to its proto representation.
+func ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeployToProto(o *alpha.DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy) *alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy{}
+	sActions := make([]string, len(o.Actions))
+	for i, r := range o.Actions {
+		sActions[i] = r
+	}
+	p.SetActions(sActions)
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeployToProto converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy object to its proto representation.
+func ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeployToProto(o *alpha.DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy) *alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy{}
+	sActions := make([]string, len(o.Actions))
+	for i, r := range o.Actions {
+		sActions[i] = r
+	}
+	p.SetActions(sActions)
 	return p
 }
 
