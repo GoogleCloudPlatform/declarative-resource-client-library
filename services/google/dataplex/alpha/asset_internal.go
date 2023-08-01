@@ -749,6 +749,12 @@ func canonicalizeAssetResourceSpec(des, initial *AssetResourceSpec, opts ...dcl.
 	} else {
 		cDes.Type = des.Type
 	}
+	if dcl.IsZeroValue(des.ReadAccessMode) || (dcl.IsEmptyValueIndirect(des.ReadAccessMode) && dcl.IsEmptyValueIndirect(initial.ReadAccessMode)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.ReadAccessMode = initial.ReadAccessMode
+	} else {
+		cDes.ReadAccessMode = des.ReadAccessMode
+	}
 
 	return cDes
 }
@@ -1974,6 +1980,13 @@ func compareAssetResourceSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.ReadAccessMode, actual.ReadAccessMode, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadAccessMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -2571,6 +2584,9 @@ func expandAssetResourceSpec(c *Client, f *AssetResourceSpec, res *Asset) (map[s
 	if v := f.Type; !dcl.IsEmptyValueIndirect(v) {
 		m["type"] = v
 	}
+	if v := f.ReadAccessMode; !dcl.IsEmptyValueIndirect(v) {
+		m["readAccessMode"] = v
+	}
 
 	return m, nil
 }
@@ -2590,6 +2606,7 @@ func flattenAssetResourceSpec(c *Client, i interface{}, res *Asset) *AssetResour
 	}
 	r.Name = dcl.FlattenString(m["name"])
 	r.Type = flattenAssetResourceSpecTypeEnum(m["type"])
+	r.ReadAccessMode = flattenAssetResourceSpecReadAccessModeEnum(m["readAccessMode"])
 
 	return r
 }
@@ -3582,6 +3599,57 @@ func flattenAssetResourceSpecTypeEnum(i interface{}) *AssetResourceSpecTypeEnum 
 	}
 
 	return AssetResourceSpecTypeEnumRef(s)
+}
+
+// flattenAssetResourceSpecReadAccessModeEnumMap flattens the contents of AssetResourceSpecReadAccessModeEnum from a JSON
+// response object.
+func flattenAssetResourceSpecReadAccessModeEnumMap(c *Client, i interface{}, res *Asset) map[string]AssetResourceSpecReadAccessModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]AssetResourceSpecReadAccessModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]AssetResourceSpecReadAccessModeEnum{}
+	}
+
+	items := make(map[string]AssetResourceSpecReadAccessModeEnum)
+	for k, item := range a {
+		items[k] = *flattenAssetResourceSpecReadAccessModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenAssetResourceSpecReadAccessModeEnumSlice flattens the contents of AssetResourceSpecReadAccessModeEnum from a JSON
+// response object.
+func flattenAssetResourceSpecReadAccessModeEnumSlice(c *Client, i interface{}, res *Asset) []AssetResourceSpecReadAccessModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []AssetResourceSpecReadAccessModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []AssetResourceSpecReadAccessModeEnum{}
+	}
+
+	items := make([]AssetResourceSpecReadAccessModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenAssetResourceSpecReadAccessModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenAssetResourceSpecReadAccessModeEnum asserts that an interface is a string, and returns a
+// pointer to a *AssetResourceSpecReadAccessModeEnum with the same value as that string.
+func flattenAssetResourceSpecReadAccessModeEnum(i interface{}) *AssetResourceSpecReadAccessModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return AssetResourceSpecReadAccessModeEnumRef(s)
 }
 
 // flattenAssetResourceStatusStateEnumMap flattens the contents of AssetResourceStatusStateEnum from a JSON

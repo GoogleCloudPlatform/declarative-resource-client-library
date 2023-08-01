@@ -149,6 +149,9 @@ func AssetToUnstructured(r *dclService.Asset) *unstructured.Resource {
 		if r.ResourceSpec.Name != nil {
 			rResourceSpec["name"] = *r.ResourceSpec.Name
 		}
+		if r.ResourceSpec.ReadAccessMode != nil {
+			rResourceSpec["readAccessMode"] = string(*r.ResourceSpec.ReadAccessMode)
+		}
 		if r.ResourceSpec.Type != nil {
 			rResourceSpec["type"] = string(*r.ResourceSpec.Type)
 		}
@@ -447,6 +450,13 @@ func UnstructuredToAsset(u *unstructured.Resource) (*dclService.Asset, error) {
 					r.ResourceSpec.Name = dcl.String(s)
 				} else {
 					return nil, fmt.Errorf("r.ResourceSpec.Name: expected string")
+				}
+			}
+			if _, ok := rResourceSpec["readAccessMode"]; ok {
+				if s, ok := rResourceSpec["readAccessMode"].(string); ok {
+					r.ResourceSpec.ReadAccessMode = dclService.AssetResourceSpecReadAccessModeEnumRef(s)
+				} else {
+					return nil, fmt.Errorf("r.ResourceSpec.ReadAccessMode: expected string")
 				}
 			}
 			if _, ok := rResourceSpec["type"]; ok {

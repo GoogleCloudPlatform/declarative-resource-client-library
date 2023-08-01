@@ -206,9 +206,12 @@ class Asset(object):
 
 
 class AssetResourceSpec(object):
-    def __init__(self, name: str = None, type: str = None):
+    def __init__(
+        self, name: str = None, type: str = None, read_access_mode: str = None
+    ):
         self.name = name
         self.type = type
+        self.read_access_mode = read_access_mode
 
     @classmethod
     def to_proto(self, resource):
@@ -220,6 +223,10 @@ class AssetResourceSpec(object):
             res.name = Primitive.to_proto(resource.name)
         if AssetResourceSpecTypeEnum.to_proto(resource.type):
             res.type = AssetResourceSpecTypeEnum.to_proto(resource.type)
+        if AssetResourceSpecReadAccessModeEnum.to_proto(resource.read_access_mode):
+            res.read_access_mode = AssetResourceSpecReadAccessModeEnum.to_proto(
+                resource.read_access_mode
+            )
         return res
 
     @classmethod
@@ -230,6 +237,9 @@ class AssetResourceSpec(object):
         return AssetResourceSpec(
             name=Primitive.from_proto(resource.name),
             type=AssetResourceSpecTypeEnum.from_proto(resource.type),
+            read_access_mode=AssetResourceSpecReadAccessModeEnum.from_proto(
+                resource.read_access_mode
+            ),
         )
 
 
@@ -662,6 +672,24 @@ class AssetResourceSpecTypeEnum(object):
             return resource
         return asset_pb2.DataplexBetaAssetResourceSpecTypeEnum.Name(resource)[
             len("DataplexBetaAssetResourceSpecTypeEnum") :
+        ]
+
+
+class AssetResourceSpecReadAccessModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return asset_pb2.DataplexBetaAssetResourceSpecReadAccessModeEnum.Value(
+            "DataplexBetaAssetResourceSpecReadAccessModeEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return asset_pb2.DataplexBetaAssetResourceSpecReadAccessModeEnum.Name(resource)[
+            len("DataplexBetaAssetResourceSpecReadAccessModeEnum") :
         ]
 
 

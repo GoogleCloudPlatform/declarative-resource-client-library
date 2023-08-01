@@ -387,6 +387,17 @@ func DCLAssetSchema() *dcl.Schema {
 										Description: "Immutable. Relative name of the cloud resource that contains the data that is being managed within a lake. For example: `projects/{project_number}/buckets/{bucket_id}` `projects/{project_number}/datasets/{dataset_id}`",
 										Immutable:   true,
 									},
+									"readAccessMode": &dcl.Property{
+										Type:        "string",
+										GoName:      "ReadAccessMode",
+										GoType:      "AssetResourceSpecReadAccessModeEnum",
+										Description: "Optional. Determines how read permissions are handled for each asset and their associated tables. Only available to storage buckets assets. Possible values: DIRECT, MANAGED",
+										Immutable:   true,
+										Enum: []string{
+											"DIRECT",
+											"MANAGED",
+										},
+									},
 									"type": &dcl.Property{
 										Type:        "string",
 										GoName:      "Type",

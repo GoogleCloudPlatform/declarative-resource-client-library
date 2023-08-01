@@ -323,6 +323,17 @@ components:
                 the data that is being managed within a lake. For example: `projects/{project_number}/buckets/{bucket_id}`
                 `projects/{project_number}/datasets/{dataset_id}`'
               x-kubernetes-immutable: true
+            readAccessMode:
+              type: string
+              x-dcl-go-name: ReadAccessMode
+              x-dcl-go-type: AssetResourceSpecReadAccessModeEnum
+              description: 'Optional. Determines how read permissions are handled
+                for each asset and their associated tables. Only available to storage
+                buckets assets. Possible values: DIRECT, MANAGED'
+              x-kubernetes-immutable: true
+              enum:
+              - DIRECT
+              - MANAGED
             type:
               type: string
               x-dcl-go-name: Type

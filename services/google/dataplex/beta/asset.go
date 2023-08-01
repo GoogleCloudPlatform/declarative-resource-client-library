@@ -103,6 +103,33 @@ func (v AssetResourceSpecTypeEnum) Validate() error {
 	}
 }
 
+// The enum AssetResourceSpecReadAccessModeEnum.
+type AssetResourceSpecReadAccessModeEnum string
+
+// AssetResourceSpecReadAccessModeEnumRef returns a *AssetResourceSpecReadAccessModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func AssetResourceSpecReadAccessModeEnumRef(s string) *AssetResourceSpecReadAccessModeEnum {
+	v := AssetResourceSpecReadAccessModeEnum(s)
+	return &v
+}
+
+func (v AssetResourceSpecReadAccessModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DIRECT", "MANAGED"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "AssetResourceSpecReadAccessModeEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 // The enum AssetResourceStatusStateEnum.
 type AssetResourceStatusStateEnum string
 
@@ -185,9 +212,10 @@ func (v AssetDiscoveryStatusStateEnum) Validate() error {
 }
 
 type AssetResourceSpec struct {
-	empty bool                       `json:"-"`
-	Name  *string                    `json:"name"`
-	Type  *AssetResourceSpecTypeEnum `json:"type"`
+	empty          bool                                 `json:"-"`
+	Name           *string                              `json:"name"`
+	Type           *AssetResourceSpecTypeEnum           `json:"type"`
+	ReadAccessMode *AssetResourceSpecReadAccessModeEnum `json:"readAccessMode"`
 }
 
 type jsonAssetResourceSpec AssetResourceSpec
@@ -208,6 +236,8 @@ func (r *AssetResourceSpec) UnmarshalJSON(data []byte) error {
 		r.Name = res.Name
 
 		r.Type = res.Type
+
+		r.ReadAccessMode = res.ReadAccessMode
 
 	}
 	return nil

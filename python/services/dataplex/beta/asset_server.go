@@ -48,6 +48,18 @@ func ProtoToDataplexBetaAssetResourceSpecTypeEnum(e betapb.DataplexBetaAssetReso
 	return nil
 }
 
+// ProtoToAssetResourceSpecReadAccessModeEnum converts a AssetResourceSpecReadAccessModeEnum enum from its proto representation.
+func ProtoToDataplexBetaAssetResourceSpecReadAccessModeEnum(e betapb.DataplexBetaAssetResourceSpecReadAccessModeEnum) *beta.AssetResourceSpecReadAccessModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.DataplexBetaAssetResourceSpecReadAccessModeEnum_name[int32(e)]; ok {
+		e := beta.AssetResourceSpecReadAccessModeEnum(n[len("DataplexBetaAssetResourceSpecReadAccessModeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToAssetResourceStatusStateEnum converts a AssetResourceStatusStateEnum enum from its proto representation.
 func ProtoToDataplexBetaAssetResourceStatusStateEnum(e betapb.DataplexBetaAssetResourceStatusStateEnum) *beta.AssetResourceStatusStateEnum {
 	if e == 0 {
@@ -90,8 +102,9 @@ func ProtoToDataplexBetaAssetResourceSpec(p *betapb.DataplexBetaAssetResourceSpe
 		return nil
 	}
 	obj := &beta.AssetResourceSpec{
-		Name: dcl.StringOrNil(p.GetName()),
-		Type: ProtoToDataplexBetaAssetResourceSpecTypeEnum(p.GetType()),
+		Name:           dcl.StringOrNil(p.GetName()),
+		Type:           ProtoToDataplexBetaAssetResourceSpecTypeEnum(p.GetType()),
+		ReadAccessMode: ProtoToDataplexBetaAssetResourceSpecReadAccessModeEnum(p.GetReadAccessMode()),
 	}
 	return obj
 }
@@ -243,6 +256,17 @@ func DataplexBetaAssetResourceSpecTypeEnumToProto(e *beta.AssetResourceSpecTypeE
 	return betapb.DataplexBetaAssetResourceSpecTypeEnum(0)
 }
 
+// AssetResourceSpecReadAccessModeEnumToProto converts a AssetResourceSpecReadAccessModeEnum enum to its proto representation.
+func DataplexBetaAssetResourceSpecReadAccessModeEnumToProto(e *beta.AssetResourceSpecReadAccessModeEnum) betapb.DataplexBetaAssetResourceSpecReadAccessModeEnum {
+	if e == nil {
+		return betapb.DataplexBetaAssetResourceSpecReadAccessModeEnum(0)
+	}
+	if v, ok := betapb.DataplexBetaAssetResourceSpecReadAccessModeEnum_value["AssetResourceSpecReadAccessModeEnum"+string(*e)]; ok {
+		return betapb.DataplexBetaAssetResourceSpecReadAccessModeEnum(v)
+	}
+	return betapb.DataplexBetaAssetResourceSpecReadAccessModeEnum(0)
+}
+
 // AssetResourceStatusStateEnumToProto converts a AssetResourceStatusStateEnum enum to its proto representation.
 func DataplexBetaAssetResourceStatusStateEnumToProto(e *beta.AssetResourceStatusStateEnum) betapb.DataplexBetaAssetResourceStatusStateEnum {
 	if e == nil {
@@ -284,6 +308,7 @@ func DataplexBetaAssetResourceSpecToProto(o *beta.AssetResourceSpec) *betapb.Dat
 	p := &betapb.DataplexBetaAssetResourceSpec{}
 	p.SetName(dcl.ValueOrEmptyString(o.Name))
 	p.SetType(DataplexBetaAssetResourceSpecTypeEnumToProto(o.Type))
+	p.SetReadAccessMode(DataplexBetaAssetResourceSpecReadAccessModeEnumToProto(o.ReadAccessMode))
 	return p
 }
 

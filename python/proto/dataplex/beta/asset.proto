@@ -36,6 +36,12 @@ enum DataplexBetaAssetResourceSpecTypeEnum {
   DataplexBetaAssetResourceSpecTypeEnumBIGQUERY_DATASET = 2;
 }
 
+enum DataplexBetaAssetResourceSpecReadAccessModeEnum {
+  DataplexBetaAssetResourceSpecReadAccessModeEnumNO_VALUE_DO_NOT_USE = 0;
+  DataplexBetaAssetResourceSpecReadAccessModeEnumDIRECT = 1;
+  DataplexBetaAssetResourceSpecReadAccessModeEnumMANAGED = 2;
+}
+
 enum DataplexBetaAssetResourceStatusStateEnum {
   DataplexBetaAssetResourceStatusStateEnumNO_VALUE_DO_NOT_USE = 0;
   DataplexBetaAssetResourceStatusStateEnumSTATE_UNSPECIFIED = 1;
@@ -83,6 +89,7 @@ message DataplexBetaAsset {
 message DataplexBetaAssetResourceSpec {
   string name = 1;
   DataplexBetaAssetResourceSpecTypeEnum type = 2;
+  DataplexBetaAssetResourceSpecReadAccessModeEnum read_access_mode = 3;
 }
 
 message DataplexBetaAssetResourceStatus {
