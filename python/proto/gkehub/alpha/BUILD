@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "proto_package")
-proto_package(name="gkehub/alpha", resources=["feature","feature_membership","membership","fleet"])
+proto_package(name="gkehub/alpha", resources=["feature_membership","feature","membership","fleet"])

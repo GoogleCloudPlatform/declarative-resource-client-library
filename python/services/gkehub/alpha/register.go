@@ -20,8 +20,8 @@ import (
 
 // RegisterServers registers each resource with the gRPC server.
 func RegisterServers(s *grpc.Server) {
-	sdkgrpc.RegisterGkehubAlphaFeatureServiceServer(s, &FeatureServer{})
 	sdkgrpc.RegisterGkehubAlphaFeatureMembershipServiceServer(s, &FeatureMembershipServer{})
+	sdkgrpc.RegisterGkehubAlphaFeatureServiceServer(s, &FeatureServer{})
 	sdkgrpc.RegisterGkehubAlphaMembershipServiceServer(s, &MembershipServer{})
 	sdkgrpc.RegisterGkehubAlphaFleetServiceServer(s, &FleetServer{})
 }

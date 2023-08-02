@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="gkehub/beta", resources=["feature","feature_membership","membership"])
+connector(name="gkehub/beta", resources=["feature_membership","feature","membership"])

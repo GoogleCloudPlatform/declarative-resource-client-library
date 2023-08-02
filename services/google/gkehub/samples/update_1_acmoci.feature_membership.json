@@ -22,7 +22,7 @@
       "logDeniesEnabled": true,
       "mutationEnabled": true,
       "monitoring": {
-        "backends": []
+        "backends": ["PROMETHEUS", "CLOUD_MONITORING"]
       },
       "templateLibraryInstalled": true,
       "auditIntervalSeconds": "10"
@@ -35,6 +35,6 @@
       "enablePodTreeLabels": true,
       "enableHierarchicalResourceQuota": true
     },
-    "version": "1.12.0"
+    "version": "1.15.2"
   }
 }
