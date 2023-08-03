@@ -35,6 +35,7 @@ class Trigger(object):
         location: str = None,
         channel: str = None,
         conditions: dict = None,
+        event_data_content_type: str = None,
         service_account_file: str = "",
     ):
         channel.initialize()
@@ -47,6 +48,7 @@ class Trigger(object):
         self.project = project
         self.location = location
         self.channel = channel
+        self.event_data_content_type = event_data_content_type
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -86,6 +88,11 @@ class Trigger(object):
         if Primitive.to_proto(self.channel):
             request.resource.channel = Primitive.to_proto(self.channel)
 
+        if Primitive.to_proto(self.event_data_content_type):
+            request.resource.event_data_content_type = Primitive.to_proto(
+                self.event_data_content_type
+            )
+
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyEventarcBetaTrigger(request)
@@ -105,6 +112,9 @@ class Trigger(object):
         self.location = Primitive.from_proto(response.location)
         self.channel = Primitive.from_proto(response.channel)
         self.conditions = Primitive.from_proto(response.conditions)
+        self.event_data_content_type = Primitive.from_proto(
+            response.event_data_content_type
+        )
 
     def delete(self):
         stub = trigger_pb2_grpc.EventarcBetaTriggerServiceStub(channel.Channel())
@@ -143,6 +153,11 @@ class Trigger(object):
 
         if Primitive.to_proto(self.channel):
             request.resource.channel = Primitive.to_proto(self.channel)
+
+        if Primitive.to_proto(self.event_data_content_type):
+            request.resource.event_data_content_type = Primitive.to_proto(
+                self.event_data_content_type
+            )
 
         response = stub.DeleteEventarcBetaTrigger(request)
 
@@ -183,6 +198,10 @@ class Trigger(object):
             resource.location = Primitive.to_proto(self.location)
         if Primitive.to_proto(self.channel):
             resource.channel = Primitive.to_proto(self.channel)
+        if Primitive.to_proto(self.event_data_content_type):
+            resource.event_data_content_type = Primitive.to_proto(
+                self.event_data_content_type
+            )
         return resource
 
 

@@ -105,17 +105,18 @@ func ProtoToEventarcAlphaTriggerTransportPubsub(p *alphapb.EventarcAlphaTriggerT
 // ProtoToTrigger converts a Trigger resource from its proto representation.
 func ProtoToTrigger(p *alphapb.EventarcAlphaTrigger) *alpha.Trigger {
 	obj := &alpha.Trigger{
-		Name:           dcl.StringOrNil(p.GetName()),
-		Uid:            dcl.StringOrNil(p.GetUid()),
-		CreateTime:     dcl.StringOrNil(p.GetCreateTime()),
-		UpdateTime:     dcl.StringOrNil(p.GetUpdateTime()),
-		ServiceAccount: dcl.StringOrNil(p.GetServiceAccount()),
-		Destination:    ProtoToEventarcAlphaTriggerDestination(p.GetDestination()),
-		Transport:      ProtoToEventarcAlphaTriggerTransport(p.GetTransport()),
-		Etag:           dcl.StringOrNil(p.GetEtag()),
-		Project:        dcl.StringOrNil(p.GetProject()),
-		Location:       dcl.StringOrNil(p.GetLocation()),
-		Channel:        dcl.StringOrNil(p.GetChannel()),
+		Name:                 dcl.StringOrNil(p.GetName()),
+		Uid:                  dcl.StringOrNil(p.GetUid()),
+		CreateTime:           dcl.StringOrNil(p.GetCreateTime()),
+		UpdateTime:           dcl.StringOrNil(p.GetUpdateTime()),
+		ServiceAccount:       dcl.StringOrNil(p.GetServiceAccount()),
+		Destination:          ProtoToEventarcAlphaTriggerDestination(p.GetDestination()),
+		Transport:            ProtoToEventarcAlphaTriggerTransport(p.GetTransport()),
+		Etag:                 dcl.StringOrNil(p.GetEtag()),
+		Project:              dcl.StringOrNil(p.GetProject()),
+		Location:             dcl.StringOrNil(p.GetLocation()),
+		Channel:              dcl.StringOrNil(p.GetChannel()),
+		EventDataContentType: dcl.StringOrNil(p.GetEventDataContentType()),
 	}
 	for _, r := range p.GetMatchingCriteria() {
 		obj.MatchingCriteria = append(obj.MatchingCriteria, *ProtoToEventarcAlphaTriggerMatchingCriteria(r))
@@ -209,6 +210,7 @@ func TriggerToProto(resource *alpha.Trigger) *alphapb.EventarcAlphaTrigger {
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetChannel(dcl.ValueOrEmptyString(resource.Channel))
+	p.SetEventDataContentType(dcl.ValueOrEmptyString(resource.EventDataContentType))
 	sMatchingCriteria := make([]*alphapb.EventarcAlphaTriggerMatchingCriteria, len(resource.MatchingCriteria))
 	for i, r := range resource.MatchingCriteria {
 		sMatchingCriteria[i] = EventarcAlphaTriggerMatchingCriteriaToProto(&r)

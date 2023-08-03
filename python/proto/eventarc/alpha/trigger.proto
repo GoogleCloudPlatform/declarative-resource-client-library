@@ -36,6 +36,7 @@ message EventarcAlphaTrigger {
   string location = 12;
   string channel = 13;
   map<string, string> conditions = 14;
+  string event_data_content_type = 15;
 }
 
 message EventarcAlphaTriggerMatchingCriteria {
