@@ -63,8 +63,9 @@ message IamWorkforcePoolProviderSaml {
 message IamWorkforcePoolProviderOidc {
   string issuer_uri = 1;
   string client_id = 2;
-  IamWorkforcePoolProviderOidcWebSsoConfig web_sso_config = 3;
-  IamWorkforcePoolProviderOidcClientSecret client_secret = 4;
+  string jwks_json = 3;
+  IamWorkforcePoolProviderOidcWebSsoConfig web_sso_config = 4;
+  IamWorkforcePoolProviderOidcClientSecret client_secret = 5;
 }
 
 message IamWorkforcePoolProviderOidcWebSsoConfig {

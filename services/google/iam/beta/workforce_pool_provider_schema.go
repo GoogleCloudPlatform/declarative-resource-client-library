@@ -203,6 +203,12 @@ func DCLWorkforcePoolProviderSchema() *dcl.Schema {
 										GoName:      "IssuerUri",
 										Description: "Required. The OIDC issuer URI. Must be a valid URI using the 'https' scheme.",
 									},
+									"jwksJson": &dcl.Property{
+										Type:        "string",
+										GoName:      "JwksJson",
+										Description: "Input only. Optional OIDC JWKs in JSON String format.",
+										Unreadable:  true,
+									},
 									"webSsoConfig": &dcl.Property{
 										Type:        "object",
 										GoName:      "WebSsoConfig",

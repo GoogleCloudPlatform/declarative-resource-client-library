@@ -222,6 +222,11 @@ func newUpdateAssetUpdateAssetRequest(ctx context.Context, f *Asset, c *Client) 
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
+	if v, err := expandAssetResourceSpec(c, f.ResourceSpec, res); err != nil {
+		return nil, fmt.Errorf("error expanding ResourceSpec into resourceSpec: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["resourceSpec"] = v
+	}
 	if v, err := expandAssetResourceStatus(c, f.ResourceStatus, res); err != nil {
 		return nil, fmt.Errorf("error expanding ResourceStatus into resourceStatus: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1981,7 +1986,7 @@ func compareAssetResourceSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ReadAccessMode, actual.ReadAccessMode, dcl.DiffInfo{Type: "EnumType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ReadAccessMode")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ReadAccessMode, actual.ReadAccessMode, dcl.DiffInfo{ServerDefault: true, Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateAssetUpdateAssetOperation")}, fn.AddNest("ReadAccessMode")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

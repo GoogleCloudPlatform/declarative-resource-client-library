@@ -173,6 +173,7 @@ type WorkforcePoolProviderOidc struct {
 	empty        bool                                   `json:"-"`
 	IssuerUri    *string                                `json:"issuerUri"`
 	ClientId     *string                                `json:"clientId"`
+	JwksJson     *string                                `json:"jwksJson"`
 	WebSsoConfig *WorkforcePoolProviderOidcWebSsoConfig `json:"webSsoConfig"`
 	ClientSecret *WorkforcePoolProviderOidcClientSecret `json:"clientSecret"`
 }
@@ -195,6 +196,8 @@ func (r *WorkforcePoolProviderOidc) UnmarshalJSON(data []byte) error {
 		r.IssuerUri = res.IssuerUri
 
 		r.ClientId = res.ClientId
+
+		r.JwksJson = res.JwksJson
 
 		r.WebSsoConfig = res.WebSsoConfig
 

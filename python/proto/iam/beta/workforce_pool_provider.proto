@@ -63,8 +63,9 @@ message IamBetaWorkforcePoolProviderSaml {
 message IamBetaWorkforcePoolProviderOidc {
   string issuer_uri = 1;
   string client_id = 2;
-  IamBetaWorkforcePoolProviderOidcWebSsoConfig web_sso_config = 3;
-  IamBetaWorkforcePoolProviderOidcClientSecret client_secret = 4;
+  string jwks_json = 3;
+  IamBetaWorkforcePoolProviderOidcWebSsoConfig web_sso_config = 4;
+  IamBetaWorkforcePoolProviderOidcClientSecret client_secret = 5;
 }
 
 message IamBetaWorkforcePoolProviderOidcWebSsoConfig {

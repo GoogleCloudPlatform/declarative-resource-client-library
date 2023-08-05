@@ -63,8 +63,9 @@ message IamAlphaWorkforcePoolProviderSaml {
 message IamAlphaWorkforcePoolProviderOidc {
   string issuer_uri = 1;
   string client_id = 2;
-  IamAlphaWorkforcePoolProviderOidcWebSsoConfig web_sso_config = 3;
-  IamAlphaWorkforcePoolProviderOidcClientSecret client_secret = 4;
+  string jwks_json = 3;
+  IamAlphaWorkforcePoolProviderOidcWebSsoConfig web_sso_config = 4;
+  IamAlphaWorkforcePoolProviderOidcClientSecret client_secret = 5;
 }
 
 message IamAlphaWorkforcePoolProviderOidcWebSsoConfig {

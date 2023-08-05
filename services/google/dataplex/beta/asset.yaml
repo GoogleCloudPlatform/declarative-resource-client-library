@@ -312,7 +312,6 @@ components:
           x-dcl-go-type: AssetResourceSpec
           description: Required. Immutable. Specification of the resource that is
             referenced by this asset.
-          x-kubernetes-immutable: true
           required:
           - type
           properties:
@@ -330,7 +329,7 @@ components:
               description: 'Optional. Determines how read permissions are handled
                 for each asset and their associated tables. Only available to storage
                 buckets assets. Possible values: DIRECT, MANAGED'
-              x-kubernetes-immutable: true
+              x-dcl-server-default: true
               enum:
               - DIRECT
               - MANAGED

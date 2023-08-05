@@ -5,7 +5,8 @@
   "project": "{{project}}",
   "resourceSpec": {
     "name": "projects/{{project}}/buckets/{{ref:basic.storage.bucket.json:name}}",
-    "type": "STORAGE_BUCKET"
+    "type": "STORAGE_BUCKET",
+    "readAccessMode": "MANAGED"
   },
   "discoverySpec": {
     "enabled": false

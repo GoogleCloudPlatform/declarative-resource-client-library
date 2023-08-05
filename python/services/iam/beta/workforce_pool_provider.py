@@ -242,11 +242,13 @@ class WorkforcePoolProviderOidc(object):
         self,
         issuer_uri: str = None,
         client_id: str = None,
+        jwks_json: str = None,
         web_sso_config: dict = None,
         client_secret: dict = None,
     ):
         self.issuer_uri = issuer_uri
         self.client_id = client_id
+        self.jwks_json = jwks_json
         self.web_sso_config = web_sso_config
         self.client_secret = client_secret
 
@@ -260,6 +262,8 @@ class WorkforcePoolProviderOidc(object):
             res.issuer_uri = Primitive.to_proto(resource.issuer_uri)
         if Primitive.to_proto(resource.client_id):
             res.client_id = Primitive.to_proto(resource.client_id)
+        if Primitive.to_proto(resource.jwks_json):
+            res.jwks_json = Primitive.to_proto(resource.jwks_json)
         if WorkforcePoolProviderOidcWebSsoConfig.to_proto(resource.web_sso_config):
             res.web_sso_config.CopyFrom(
                 WorkforcePoolProviderOidcWebSsoConfig.to_proto(resource.web_sso_config)
@@ -282,6 +286,7 @@ class WorkforcePoolProviderOidc(object):
         return WorkforcePoolProviderOidc(
             issuer_uri=Primitive.from_proto(resource.issuer_uri),
             client_id=Primitive.from_proto(resource.client_id),
+            jwks_json=Primitive.from_proto(resource.jwks_json),
             web_sso_config=WorkforcePoolProviderOidcWebSsoConfig.from_proto(
                 resource.web_sso_config
             ),

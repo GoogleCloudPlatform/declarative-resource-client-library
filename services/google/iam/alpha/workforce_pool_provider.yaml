@@ -193,6 +193,11 @@ components:
               x-dcl-go-name: IssuerUri
               description: Required. The OIDC issuer URI. Must be a valid URI using
                 the 'https' scheme.
+            jwksJson:
+              type: string
+              x-dcl-go-name: JwksJson
+              description: Input only. Optional OIDC JWKs in JSON String format.
+              x-dcl-mutable-unreadable: true
             webSsoConfig:
               type: object
               x-dcl-go-name: WebSsoConfig

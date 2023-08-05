@@ -79,6 +79,9 @@ func WorkforcePoolProviderToUnstructured(r *dclService.WorkforcePoolProvider) *u
 		if r.Oidc.IssuerUri != nil {
 			rOidc["issuerUri"] = *r.Oidc.IssuerUri
 		}
+		if r.Oidc.JwksJson != nil {
+			rOidc["jwksJson"] = *r.Oidc.JwksJson
+		}
 		if r.Oidc.WebSsoConfig != nil && r.Oidc.WebSsoConfig != dclService.EmptyWorkforcePoolProviderOidcWebSsoConfig {
 			rOidcWebSsoConfig := make(map[string]interface{})
 			var rOidcWebSsoConfigAdditionalScopes []interface{}
@@ -212,6 +215,13 @@ func UnstructuredToWorkforcePoolProvider(u *unstructured.Resource) (*dclService.
 					r.Oidc.IssuerUri = dcl.String(s)
 				} else {
 					return nil, fmt.Errorf("r.Oidc.IssuerUri: expected string")
+				}
+			}
+			if _, ok := rOidc["jwksJson"]; ok {
+				if s, ok := rOidc["jwksJson"].(string); ok {
+					r.Oidc.JwksJson = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.Oidc.JwksJson: expected string")
 				}
 			}
 			if _, ok := rOidc["webSsoConfig"]; ok {

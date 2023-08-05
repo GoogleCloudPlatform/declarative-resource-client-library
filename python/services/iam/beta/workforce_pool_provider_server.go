@@ -79,6 +79,7 @@ func ProtoToIamBetaWorkforcePoolProviderOidc(p *betapb.IamBetaWorkforcePoolProvi
 	obj := &beta.WorkforcePoolProviderOidc{
 		IssuerUri:    dcl.StringOrNil(p.GetIssuerUri()),
 		ClientId:     dcl.StringOrNil(p.GetClientId()),
+		JwksJson:     dcl.StringOrNil(p.GetJwksJson()),
 		WebSsoConfig: ProtoToIamBetaWorkforcePoolProviderOidcWebSsoConfig(p.GetWebSsoConfig()),
 		ClientSecret: ProtoToIamBetaWorkforcePoolProviderOidcClientSecret(p.GetClientSecret()),
 	}
@@ -191,6 +192,7 @@ func IamBetaWorkforcePoolProviderOidcToProto(o *beta.WorkforcePoolProviderOidc) 
 	p := &betapb.IamBetaWorkforcePoolProviderOidc{}
 	p.SetIssuerUri(dcl.ValueOrEmptyString(o.IssuerUri))
 	p.SetClientId(dcl.ValueOrEmptyString(o.ClientId))
+	p.SetJwksJson(dcl.ValueOrEmptyString(o.JwksJson))
 	p.SetWebSsoConfig(IamBetaWorkforcePoolProviderOidcWebSsoConfigToProto(o.WebSsoConfig))
 	p.SetClientSecret(IamBetaWorkforcePoolProviderOidcClientSecretToProto(o.ClientSecret))
 	return p

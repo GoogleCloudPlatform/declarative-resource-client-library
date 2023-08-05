@@ -786,6 +786,11 @@ func canonicalizeWorkforcePoolProviderOidc(des, initial *WorkforcePoolProviderOi
 	} else {
 		cDes.ClientId = des.ClientId
 	}
+	if dcl.StringCanonicalize(des.JwksJson, initial.JwksJson) || dcl.IsZeroValue(des.JwksJson) {
+		cDes.JwksJson = initial.JwksJson
+	} else {
+		cDes.JwksJson = des.JwksJson
+	}
 	cDes.WebSsoConfig = canonicalizeWorkforcePoolProviderOidcWebSsoConfig(des.WebSsoConfig, initial.WebSsoConfig, opts...)
 	cDes.ClientSecret = canonicalizeWorkforcePoolProviderOidcClientSecret(des.ClientSecret, initial.ClientSecret, opts...)
 
@@ -840,6 +845,7 @@ func canonicalizeNewWorkforcePoolProviderOidc(c *Client, des, nw *WorkforcePoolP
 	if dcl.StringCanonicalize(des.ClientId, nw.ClientId) {
 		nw.ClientId = des.ClientId
 	}
+	nw.JwksJson = des.JwksJson
 	nw.WebSsoConfig = canonicalizeNewWorkforcePoolProviderOidcWebSsoConfig(c, des.WebSsoConfig, nw.WebSsoConfig)
 	nw.ClientSecret = canonicalizeNewWorkforcePoolProviderOidcClientSecret(c, des.ClientSecret, nw.ClientSecret)
 
@@ -1416,6 +1422,13 @@ func compareWorkforcePoolProviderOidcNewStyle(d, a interface{}, fn dcl.FieldName
 		diffs = append(diffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.JwksJson, actual.JwksJson, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateWorkforcePoolProviderUpdateWorkforcePoolProviderOperation")}, fn.AddNest("JwksJson")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.WebSsoConfig, actual.WebSsoConfig, dcl.DiffInfo{ObjectFunction: compareWorkforcePoolProviderOidcWebSsoConfigNewStyle, EmptyObject: EmptyWorkforcePoolProviderOidcWebSsoConfig, OperationSelector: dcl.TriggersOperation("updateWorkforcePoolProviderUpdateWorkforcePoolProviderOperation")}, fn.AddNest("WebSsoConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -1884,6 +1897,9 @@ func expandWorkforcePoolProviderOidc(c *Client, f *WorkforcePoolProviderOidc, re
 	if v := f.ClientId; !dcl.IsEmptyValueIndirect(v) {
 		m["clientId"] = v
 	}
+	if v := f.JwksJson; !dcl.IsEmptyValueIndirect(v) {
+		m["jwksJson"] = v
+	}
 	if v, err := expandWorkforcePoolProviderOidcWebSsoConfig(c, f.WebSsoConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding WebSsoConfig into webSsoConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1913,6 +1929,7 @@ func flattenWorkforcePoolProviderOidc(c *Client, i interface{}, res *WorkforcePo
 	}
 	r.IssuerUri = dcl.FlattenString(m["issuerUri"])
 	r.ClientId = dcl.FlattenString(m["clientId"])
+	r.JwksJson = dcl.FlattenString(m["jwksJson"])
 	r.WebSsoConfig = flattenWorkforcePoolProviderOidcWebSsoConfig(c, m["webSsoConfig"], res)
 	r.ClientSecret = flattenWorkforcePoolProviderOidcClientSecret(c, m["clientSecret"], res)
 

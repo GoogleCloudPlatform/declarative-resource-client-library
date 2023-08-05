@@ -376,7 +376,6 @@ func DCLAssetSchema() *dcl.Schema {
 								GoName:      "ResourceSpec",
 								GoType:      "AssetResourceSpec",
 								Description: "Required. Immutable. Specification of the resource that is referenced by this asset.",
-								Immutable:   true,
 								Required: []string{
 									"type",
 								},
@@ -388,11 +387,11 @@ func DCLAssetSchema() *dcl.Schema {
 										Immutable:   true,
 									},
 									"readAccessMode": &dcl.Property{
-										Type:        "string",
-										GoName:      "ReadAccessMode",
-										GoType:      "AssetResourceSpecReadAccessModeEnum",
-										Description: "Optional. Determines how read permissions are handled for each asset and their associated tables. Only available to storage buckets assets. Possible values: DIRECT, MANAGED",
-										Immutable:   true,
+										Type:          "string",
+										GoName:        "ReadAccessMode",
+										GoType:        "AssetResourceSpecReadAccessModeEnum",
+										Description:   "Optional. Determines how read permissions are handled for each asset and their associated tables. Only available to storage buckets assets. Possible values: DIRECT, MANAGED",
+										ServerDefault: true,
 										Enum: []string{
 											"DIRECT",
 											"MANAGED",
