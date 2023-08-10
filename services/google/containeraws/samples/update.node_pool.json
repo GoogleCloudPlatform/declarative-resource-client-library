@@ -32,7 +32,7 @@
       }
     ],
     "labels": {
-      "label-one": "value-one"
+      "label-one": "updated-value-one"
     },
     "tags": {
       "tag-one": "updated-value-one"
