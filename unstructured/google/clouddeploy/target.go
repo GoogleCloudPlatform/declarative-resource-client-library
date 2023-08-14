@@ -105,6 +105,15 @@ func TargetToUnstructured(r *dclService.Target) *unstructured.Resource {
 	if r.Location != nil {
 		u.Object["location"] = *r.Location
 	}
+	if r.MultiTarget != nil && r.MultiTarget != dclService.EmptyTargetMultiTarget {
+		rMultiTarget := make(map[string]interface{})
+		var rMultiTargetTargetIds []interface{}
+		for _, rMultiTargetTargetIdsVal := range r.MultiTarget.TargetIds {
+			rMultiTargetTargetIds = append(rMultiTargetTargetIds, rMultiTargetTargetIdsVal)
+		}
+		rMultiTarget["targetIds"] = rMultiTargetTargetIds
+		u.Object["multiTarget"] = rMultiTarget
+	}
 	if r.Name != nil {
 		u.Object["name"] = *r.Name
 	}
@@ -286,6 +295,24 @@ func UnstructuredToTarget(u *unstructured.Resource) (*dclService.Target, error) 
 			r.Location = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.Location: expected string")
+		}
+	}
+	if _, ok := u.Object["multiTarget"]; ok {
+		if rMultiTarget, ok := u.Object["multiTarget"].(map[string]interface{}); ok {
+			r.MultiTarget = &dclService.TargetMultiTarget{}
+			if _, ok := rMultiTarget["targetIds"]; ok {
+				if s, ok := rMultiTarget["targetIds"].([]interface{}); ok {
+					for _, ss := range s {
+						if strval, ok := ss.(string); ok {
+							r.MultiTarget.TargetIds = append(r.MultiTarget.TargetIds, strval)
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.MultiTarget.TargetIds: expected []interface{}")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.MultiTarget: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["name"]; ok {

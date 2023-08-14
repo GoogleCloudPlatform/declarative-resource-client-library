@@ -45,7 +45,8 @@ message ClouddeployTarget {
   string project = 14;
   string location = 15;
   ClouddeployTargetRun run = 16;
-  map<string, string> deploy_parameters = 17;
+  ClouddeployTargetMultiTarget multi_target = 17;
+  map<string, string> deploy_parameters = 18;
 }
 
 message ClouddeployTargetGke {
@@ -67,6 +68,10 @@ message ClouddeployTargetExecutionConfigs {
 
 message ClouddeployTargetRun {
   string location = 1;
+}
+
+message ClouddeployTargetMultiTarget {
+  repeated string target_ids = 1;
 }
 
 message ApplyClouddeployTargetRequest {
