@@ -845,7 +845,9 @@ func canonicalizeNewWorkforcePoolProviderOidc(c *Client, des, nw *WorkforcePoolP
 	if dcl.StringCanonicalize(des.ClientId, nw.ClientId) {
 		nw.ClientId = des.ClientId
 	}
-	nw.JwksJson = des.JwksJson
+	if dcl.StringCanonicalize(des.JwksJson, nw.JwksJson) {
+		nw.JwksJson = des.JwksJson
+	}
 	nw.WebSsoConfig = canonicalizeNewWorkforcePoolProviderOidcWebSsoConfig(c, des.WebSsoConfig, nw.WebSsoConfig)
 	nw.ClientSecret = canonicalizeNewWorkforcePoolProviderOidcClientSecret(c, des.ClientSecret, nw.ClientSecret)
 

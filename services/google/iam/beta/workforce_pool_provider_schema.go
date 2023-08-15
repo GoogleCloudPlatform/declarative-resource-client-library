@@ -206,8 +206,7 @@ func DCLWorkforcePoolProviderSchema() *dcl.Schema {
 									"jwksJson": &dcl.Property{
 										Type:        "string",
 										GoName:      "JwksJson",
-										Description: "Input only. Optional OIDC JWKs in JSON String format.",
-										Unreadable:  true,
+										Description: "OIDC JWKs in JSON String format. For details on definition of a JWK, see https:tools.ietf.org/html/rfc7517. If not set, then we use the `jwks_uri` from the discovery document fetched from the .well-known path for the `issuer_uri`. Currently, RSA and EC asymmetric keys are supported. The JWK must use following format and include only the following fields: ```{\"keys\": [{\"kty\": \"RSA/EC\", \"alg\": \"<algorithm>\", \"use\": \"sig\", \"kid\": \"<key-id>\", \"n\": \"\", \"e\": \"\", \"x\": \"\", \"y\": \"\", \"crv\": \"\"}]}```",
 									},
 									"webSsoConfig": &dcl.Property{
 										Type:        "object",
