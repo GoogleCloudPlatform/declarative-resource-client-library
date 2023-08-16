@@ -29,12 +29,12 @@ import (
 var unaryCall = UnaryCall
 
 var errFailedToMarshal = func() []byte {
-	b, err := proto.Marshal(&connectorpb.UnaryCallResponse{
+	b, err := proto.Marshal(connectorpb.UnaryCallResponse_builder{
 		Status: &statuspb.Status{
 			Code:    int32(codes.Internal),
 			Message: "cannot marshal error message; see server logs",
 		},
-	})
+	}.Build())
 	if err != nil {
 		glog.Exitf("Could not initialize errFailedToMarshal: %v", err)
 	}
@@ -61,12 +61,12 @@ func Initialize(request []byte) (unsafe.Pointer, int) {
 }
 
 func initializeError(err error) (unsafe.Pointer, int) {
-	b, err := proto.Marshal(&connectorpb.InitializeResponse{
+	b, err := proto.Marshal(connectorpb.InitializeResponse_builder{
 		Status: &statuspb.Status{
 			Code:    int32(codes.Internal),
 			Message: err.Error(),
 		},
-	})
+	}.Build())
 	if err != nil {
 		return C.CBytes(errFailedToMarshal), len(errFailedToMarshal)
 	}
@@ -93,12 +93,12 @@ func Call(request []byte) (unsafe.Pointer, int) {
 }
 
 func callError(err error) (unsafe.Pointer, int) {
-	b, err := proto.Marshal(&connectorpb.UnaryCallResponse{
+	b, err := proto.Marshal(connectorpb.UnaryCallResponse_builder{
 		Status: &statuspb.Status{
 			Code:    int32(codes.Internal),
 			Message: err.Error(),
 		},
-	})
+	}.Build())
 	if err != nil {
 		return C.CBytes(errFailedToMarshal), len(errFailedToMarshal)
 	}
