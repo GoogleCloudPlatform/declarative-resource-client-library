@@ -97,6 +97,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebaserules"
 	firebaserules_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebaserules/alpha"
 	firebaserules_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebaserules/beta"
+	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub"
 	gkehub_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/alpha"
 	gkehub_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam"
@@ -328,6 +329,8 @@ func Services() *Directory {
 	d.AddResource("ga", "firebaserules", "Ruleset", firebaserules.YAML_ruleset)
 	d.AddResource("ga", "firebaserules", dcl.TitleToSnakeCase("Release"), firebaserules.YAML_release)
 	d.AddResource("ga", "firebaserules", "Release", firebaserules.YAML_release)
+	d.AddResource("ga", "gkehub", dcl.TitleToSnakeCase("FeatureMembership"), gkehub.YAML_feature_membership)
+	d.AddResource("ga", "gkehub", "FeatureMembership", gkehub.YAML_feature_membership)
 	d.AddResource("ga", "iam", dcl.TitleToSnakeCase("Role"), iam.YAML_role)
 	d.AddResource("ga", "iam", "Role", iam.YAML_role)
 	d.AddResource("ga", "iam", dcl.TitleToSnakeCase("ServiceAccount"), iam.YAML_service_account)

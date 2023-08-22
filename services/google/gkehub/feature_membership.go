@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package beta
+package gkehub
 
 import (
 	"context"
@@ -621,7 +621,7 @@ func (r *FeatureMembership) Describe() dcl.ServiceTypeVersion {
 	return dcl.ServiceTypeVersion{
 		Service: "gke_hub",
 		Type:    "FeatureMembership",
-		Version: "beta",
+		Version: "gkehub",
 	}
 }
 

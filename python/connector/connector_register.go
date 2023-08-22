@@ -176,9 +176,11 @@ import (
 
 	firebaserules_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/firebaserules/alpha_connector"
 
-	gkehub_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/alpha_connector"
+	gkehub_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/connector"
 
 	gkehub_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/beta_connector"
+
+	gkehub_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/gkehub/alpha_connector"
 
 	iam_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/iam/connector"
 
@@ -439,9 +441,11 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 
 	firebaserules_alpha_connector.RegisterServers(grpcServer)
 
-	gkehub_alpha_connector.RegisterServers(grpcServer)
+	gkehub_connector.RegisterServers(grpcServer)
 
 	gkehub_beta_connector.RegisterServers(grpcServer)
+
+	gkehub_alpha_connector.RegisterServers(grpcServer)
 
 	iam_connector.RegisterServers(grpcServer)
 
