@@ -94,7 +94,6 @@ import (
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/firebaserules"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/firebaserules/alpha"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/firebaserules/beta"
-	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/gkehub"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/gkehub/alpha"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/gkehub/beta"
 	_ "github.com/GoogleCloudPlatform/declarative-resource-client-library/unstructured/google/iam"
