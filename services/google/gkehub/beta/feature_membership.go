@@ -648,8 +648,6 @@ type FeatureMembershipList struct {
 
 	nextToken string
 
-	pageSize int32
-
 	resource *FeatureMembership
 }
 
