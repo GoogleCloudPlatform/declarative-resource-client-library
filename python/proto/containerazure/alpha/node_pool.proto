@@ -46,10 +46,11 @@ message ContainerazureAlphaNodePool {
   string etag = 11;
   map<string, string> annotations = 12;
   ContainerazureAlphaNodePoolMaxPodsConstraint max_pods_constraint = 13;
-  string azure_availability_zone = 14;
-  string project = 15;
-  string location = 16;
-  string cluster = 17;
+  ContainerazureAlphaNodePoolManagement management = 14;
+  string azure_availability_zone = 15;
+  string project = 16;
+  string location = 17;
+  string cluster = 18;
 }
 
 message ContainerazureAlphaNodePoolConfig {
@@ -81,6 +82,10 @@ message ContainerazureAlphaNodePoolAutoscaling {
 
 message ContainerazureAlphaNodePoolMaxPodsConstraint {
   int64 max_pods_per_node = 1;
+}
+
+message ContainerazureAlphaNodePoolManagement {
+  bool auto_repair = 1;
 }
 
 message ApplyContainerazureAlphaNodePoolRequest {

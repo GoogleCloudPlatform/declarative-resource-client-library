@@ -182,6 +182,17 @@ func ProtoToContainerawsNodePoolMaxPodsConstraint(p *containerawspb.Containeraws
 	return obj
 }
 
+// ProtoToNodePoolManagement converts a NodePoolManagement object from its proto representation.
+func ProtoToContainerawsNodePoolManagement(p *containerawspb.ContainerawsNodePoolManagement) *containeraws.NodePoolManagement {
+	if p == nil {
+		return nil
+	}
+	obj := &containeraws.NodePoolManagement{
+		AutoRepair: dcl.Bool(p.GetAutoRepair()),
+	}
+	return obj
+}
+
 // ProtoToNodePool converts a NodePool resource from its proto representation.
 func ProtoToNodePool(p *containerawspb.ContainerawsNodePool) *containeraws.NodePool {
 	obj := &containeraws.NodePool{
@@ -197,6 +208,7 @@ func ProtoToNodePool(p *containerawspb.ContainerawsNodePool) *containeraws.NodeP
 		UpdateTime:        dcl.StringOrNil(p.GetUpdateTime()),
 		Etag:              dcl.StringOrNil(p.GetEtag()),
 		MaxPodsConstraint: ProtoToContainerawsNodePoolMaxPodsConstraint(p.GetMaxPodsConstraint()),
+		Management:        ProtoToContainerawsNodePoolManagement(p.GetManagement()),
 		Project:           dcl.StringOrNil(p.GetProject()),
 		Location:          dcl.StringOrNil(p.GetLocation()),
 		Cluster:           dcl.StringOrNil(p.GetCluster()),
@@ -366,6 +378,16 @@ func ContainerawsNodePoolMaxPodsConstraintToProto(o *containeraws.NodePoolMaxPod
 	return p
 }
 
+// NodePoolManagementToProto converts a NodePoolManagement object to its proto representation.
+func ContainerawsNodePoolManagementToProto(o *containeraws.NodePoolManagement) *containerawspb.ContainerawsNodePoolManagement {
+	if o == nil {
+		return nil
+	}
+	p := &containerawspb.ContainerawsNodePoolManagement{}
+	p.SetAutoRepair(dcl.ValueOrEmptyBool(o.AutoRepair))
+	return p
+}
+
 // NodePoolToProto converts a NodePool resource to its proto representation.
 func NodePoolToProto(resource *containeraws.NodePool) *containerawspb.ContainerawsNodePool {
 	p := &containerawspb.ContainerawsNodePool{}
@@ -381,6 +403,7 @@ func NodePoolToProto(resource *containeraws.NodePool) *containerawspb.Containera
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
 	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetMaxPodsConstraint(ContainerawsNodePoolMaxPodsConstraintToProto(resource.MaxPodsConstraint))
+	p.SetManagement(ContainerawsNodePoolManagementToProto(resource.Management))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetCluster(dcl.ValueOrEmptyString(resource.Cluster))

@@ -46,10 +46,11 @@ message ContainerazureBetaNodePool {
   string etag = 11;
   map<string, string> annotations = 12;
   ContainerazureBetaNodePoolMaxPodsConstraint max_pods_constraint = 13;
-  string azure_availability_zone = 14;
-  string project = 15;
-  string location = 16;
-  string cluster = 17;
+  ContainerazureBetaNodePoolManagement management = 14;
+  string azure_availability_zone = 15;
+  string project = 16;
+  string location = 17;
+  string cluster = 18;
 }
 
 message ContainerazureBetaNodePoolConfig {
@@ -81,6 +82,10 @@ message ContainerazureBetaNodePoolAutoscaling {
 
 message ContainerazureBetaNodePoolMaxPodsConstraint {
   int64 max_pods_per_node = 1;
+}
+
+message ContainerazureBetaNodePoolManagement {
+  bool auto_repair = 1;
 }
 
 message ApplyContainerazureBetaNodePoolRequest {

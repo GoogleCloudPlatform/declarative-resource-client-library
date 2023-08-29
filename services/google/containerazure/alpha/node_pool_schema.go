@@ -305,6 +305,19 @@ func DCLNodePoolSchema() *dcl.Schema {
 								Description: "The location for the resource",
 								Immutable:   true,
 							},
+							"management": &dcl.Property{
+								Type:        "object",
+								GoName:      "Management",
+								GoType:      "NodePoolManagement",
+								Description: "The Management configuration for this node pool.",
+								Properties: map[string]*dcl.Property{
+									"autoRepair": &dcl.Property{
+										Type:        "boolean",
+										GoName:      "AutoRepair",
+										Description: "Optional. Whether or not the nodes will be automatically repaired.",
+									},
+								},
+							},
 							"maxPodsConstraint": &dcl.Property{
 								Type:        "object",
 								GoName:      "MaxPodsConstraint",

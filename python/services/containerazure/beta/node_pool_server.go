@@ -108,6 +108,17 @@ func ProtoToContainerazureBetaNodePoolMaxPodsConstraint(p *betapb.Containerazure
 	return obj
 }
 
+// ProtoToNodePoolManagement converts a NodePoolManagement object from its proto representation.
+func ProtoToContainerazureBetaNodePoolManagement(p *betapb.ContainerazureBetaNodePoolManagement) *beta.NodePoolManagement {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.NodePoolManagement{
+		AutoRepair: dcl.Bool(p.GetAutoRepair()),
+	}
+	return obj
+}
+
 // ProtoToNodePool converts a NodePool resource from its proto representation.
 func ProtoToNodePool(p *betapb.ContainerazureBetaNodePool) *beta.NodePool {
 	obj := &beta.NodePool{
@@ -123,6 +134,7 @@ func ProtoToNodePool(p *betapb.ContainerazureBetaNodePool) *beta.NodePool {
 		UpdateTime:            dcl.StringOrNil(p.GetUpdateTime()),
 		Etag:                  dcl.StringOrNil(p.GetEtag()),
 		MaxPodsConstraint:     ProtoToContainerazureBetaNodePoolMaxPodsConstraint(p.GetMaxPodsConstraint()),
+		Management:            ProtoToContainerazureBetaNodePoolManagement(p.GetManagement()),
 		AzureAvailabilityZone: dcl.StringOrNil(p.GetAzureAvailabilityZone()),
 		Project:               dcl.StringOrNil(p.GetProject()),
 		Location:              dcl.StringOrNil(p.GetLocation()),
@@ -213,6 +225,16 @@ func ContainerazureBetaNodePoolMaxPodsConstraintToProto(o *beta.NodePoolMaxPodsC
 	return p
 }
 
+// NodePoolManagementToProto converts a NodePoolManagement object to its proto representation.
+func ContainerazureBetaNodePoolManagementToProto(o *beta.NodePoolManagement) *betapb.ContainerazureBetaNodePoolManagement {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ContainerazureBetaNodePoolManagement{}
+	p.SetAutoRepair(dcl.ValueOrEmptyBool(o.AutoRepair))
+	return p
+}
+
 // NodePoolToProto converts a NodePool resource to its proto representation.
 func NodePoolToProto(resource *beta.NodePool) *betapb.ContainerazureBetaNodePool {
 	p := &betapb.ContainerazureBetaNodePool{}
@@ -228,6 +250,7 @@ func NodePoolToProto(resource *beta.NodePool) *betapb.ContainerazureBetaNodePool
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
 	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetMaxPodsConstraint(ContainerazureBetaNodePoolMaxPodsConstraintToProto(resource.MaxPodsConstraint))
+	p.SetManagement(ContainerazureBetaNodePoolManagementToProto(resource.Management))
 	p.SetAzureAvailabilityZone(dcl.ValueOrEmptyString(resource.AzureAvailabilityZone))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))

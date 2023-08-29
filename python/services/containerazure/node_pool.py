@@ -36,6 +36,7 @@ class NodePool(object):
         etag: str = None,
         annotations: dict = None,
         max_pods_constraint: dict = None,
+        management: dict = None,
         azure_availability_zone: str = None,
         project: str = None,
         location: str = None,
@@ -50,6 +51,7 @@ class NodePool(object):
         self.autoscaling = autoscaling
         self.annotations = annotations
         self.max_pods_constraint = max_pods_constraint
+        self.management = management
         self.azure_availability_zone = azure_availability_zone
         self.project = project
         self.location = location
@@ -87,6 +89,12 @@ class NodePool(object):
             )
         else:
             request.resource.ClearField("max_pods_constraint")
+        if NodePoolManagement.to_proto(self.management):
+            request.resource.management.CopyFrom(
+                NodePoolManagement.to_proto(self.management)
+            )
+        else:
+            request.resource.ClearField("management")
         if Primitive.to_proto(self.azure_availability_zone):
             request.resource.azure_availability_zone = Primitive.to_proto(
                 self.azure_availability_zone
@@ -119,6 +127,7 @@ class NodePool(object):
         self.max_pods_constraint = NodePoolMaxPodsConstraint.from_proto(
             response.max_pods_constraint
         )
+        self.management = NodePoolManagement.from_proto(response.management)
         self.azure_availability_zone = Primitive.from_proto(
             response.azure_availability_zone
         )
@@ -158,6 +167,12 @@ class NodePool(object):
             )
         else:
             request.resource.ClearField("max_pods_constraint")
+        if NodePoolManagement.to_proto(self.management):
+            request.resource.management.CopyFrom(
+                NodePoolManagement.to_proto(self.management)
+            )
+        else:
+            request.resource.ClearField("management")
         if Primitive.to_proto(self.azure_availability_zone):
             request.resource.azure_availability_zone = Primitive.to_proto(
                 self.azure_availability_zone
@@ -213,6 +228,10 @@ class NodePool(object):
             )
         else:
             resource.ClearField("max_pods_constraint")
+        if NodePoolManagement.to_proto(self.management):
+            resource.management.CopyFrom(NodePoolManagement.to_proto(self.management))
+        else:
+            resource.ClearField("management")
         if Primitive.to_proto(self.azure_availability_zone):
             resource.azure_availability_zone = Primitive.to_proto(
                 self.azure_availability_zone
@@ -483,6 +502,42 @@ class NodePoolMaxPodsConstraintArray(object):
     @classmethod
     def from_proto(self, resources):
         return [NodePoolMaxPodsConstraint.from_proto(i) for i in resources]
+
+
+class NodePoolManagement(object):
+    def __init__(self, auto_repair: bool = None):
+        self.auto_repair = auto_repair
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = node_pool_pb2.ContainerazureNodePoolManagement()
+        if Primitive.to_proto(resource.auto_repair):
+            res.auto_repair = Primitive.to_proto(resource.auto_repair)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return NodePoolManagement(
+            auto_repair=Primitive.from_proto(resource.auto_repair),
+        )
+
+
+class NodePoolManagementArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [NodePoolManagement.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [NodePoolManagement.from_proto(i) for i in resources]
 
 
 class NodePoolStateEnum(object):

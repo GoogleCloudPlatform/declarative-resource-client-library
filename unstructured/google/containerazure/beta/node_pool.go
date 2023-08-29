@@ -105,6 +105,13 @@ func NodePoolToUnstructured(r *dclService.NodePool) *unstructured.Resource {
 	if r.Location != nil {
 		u.Object["location"] = *r.Location
 	}
+	if r.Management != nil && r.Management != dclService.EmptyNodePoolManagement {
+		rManagement := make(map[string]interface{})
+		if r.Management.AutoRepair != nil {
+			rManagement["autoRepair"] = *r.Management.AutoRepair
+		}
+		u.Object["management"] = rManagement
+	}
 	if r.MaxPodsConstraint != nil && r.MaxPodsConstraint != dclService.EmptyNodePoolMaxPodsConstraint {
 		rMaxPodsConstraint := make(map[string]interface{})
 		if r.MaxPodsConstraint.MaxPodsPerNode != nil {
@@ -291,6 +298,20 @@ func UnstructuredToNodePool(u *unstructured.Resource) (*dclService.NodePool, err
 			r.Location = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.Location: expected string")
+		}
+	}
+	if _, ok := u.Object["management"]; ok {
+		if rManagement, ok := u.Object["management"].(map[string]interface{}); ok {
+			r.Management = &dclService.NodePoolManagement{}
+			if _, ok := rManagement["autoRepair"]; ok {
+				if b, ok := rManagement["autoRepair"].(bool); ok {
+					r.Management.AutoRepair = dcl.Bool(b)
+				} else {
+					return nil, fmt.Errorf("r.Management.AutoRepair: expected bool")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.Management: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["maxPodsConstraint"]; ok {

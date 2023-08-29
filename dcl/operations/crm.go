@@ -81,14 +81,12 @@ func (op *CRMOperation) Wait(ctx context.Context, c *dcl.Config, basePath, verb 
 		op.response = op.Response
 	}
 
+	// base CRM resources use the v1 endpoint
 	op.version = "v1"
-	if t, ok := op.Metadata["@type"].(string); ok && t == "type.googleapis.com/google.cloud.resourcemanager.v3.DeleteTagKeyMetadata" {
-		// TagKey delete operation requires the use of the v3 endpoint
-		op.version = "v3"
-	}
 
-	if t, ok := op.Metadata["@type"].(string); ok && t == "type.googleapis.com/google.cloud.resourcemanager.v3.DeleteTagValueMetadata" {
-		// TagValue delete operation requires the use of the v3 endpoint
+	// Tags resources require the v3 endpoint, and DCL merges the two into one Operation handler. Identify
+	// the operation kind by the "type" returned.
+	if t, ok := op.Metadata["@type"].(string); ok && strings.HasPrefix(t, "type.googleapis.com/google.cloud.resourcemanager.v3") {
 		op.version = "v3"
 	}
 

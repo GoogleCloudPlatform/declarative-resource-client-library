@@ -11,7 +11,7 @@
   },
   "awsRegion": "{{aws_region}}",
   "controlPlane": {
-    "version": "1.26.4-gke.2200",
+    "version": "1.26.5-gke.1400",
     "instanceType": "m5.large",
     "sshConfig": {
       "ec2KeyPair": "{{byo_multicloud_prefix}}-1p-dev-ssh"

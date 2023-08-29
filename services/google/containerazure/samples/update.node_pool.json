@@ -3,7 +3,7 @@
   "project": "{{project}}",
   "location": "us-west1",
   "cluster": "{{ref:minimal.cluster.json:name}}",
-  "version": "1.21.5-gke.2800",
+  "version": "1.26.5-gke.1400",
   "config": {
     "rootVolume": {
       "sizeGib": 32
@@ -29,6 +29,9 @@
   },
   "annotations": {
     "annotation-two": "value-two"
+  },
+  "management": {
+    "autoRepair": false
   },
   "maxPodsConstraint": {
     "maxPodsPerNode": 110

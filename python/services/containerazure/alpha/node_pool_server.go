@@ -108,6 +108,17 @@ func ProtoToContainerazureAlphaNodePoolMaxPodsConstraint(p *alphapb.Containerazu
 	return obj
 }
 
+// ProtoToNodePoolManagement converts a NodePoolManagement object from its proto representation.
+func ProtoToContainerazureAlphaNodePoolManagement(p *alphapb.ContainerazureAlphaNodePoolManagement) *alpha.NodePoolManagement {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.NodePoolManagement{
+		AutoRepair: dcl.Bool(p.GetAutoRepair()),
+	}
+	return obj
+}
+
 // ProtoToNodePool converts a NodePool resource from its proto representation.
 func ProtoToNodePool(p *alphapb.ContainerazureAlphaNodePool) *alpha.NodePool {
 	obj := &alpha.NodePool{
@@ -123,6 +134,7 @@ func ProtoToNodePool(p *alphapb.ContainerazureAlphaNodePool) *alpha.NodePool {
 		UpdateTime:            dcl.StringOrNil(p.GetUpdateTime()),
 		Etag:                  dcl.StringOrNil(p.GetEtag()),
 		MaxPodsConstraint:     ProtoToContainerazureAlphaNodePoolMaxPodsConstraint(p.GetMaxPodsConstraint()),
+		Management:            ProtoToContainerazureAlphaNodePoolManagement(p.GetManagement()),
 		AzureAvailabilityZone: dcl.StringOrNil(p.GetAzureAvailabilityZone()),
 		Project:               dcl.StringOrNil(p.GetProject()),
 		Location:              dcl.StringOrNil(p.GetLocation()),
@@ -213,6 +225,16 @@ func ContainerazureAlphaNodePoolMaxPodsConstraintToProto(o *alpha.NodePoolMaxPod
 	return p
 }
 
+// NodePoolManagementToProto converts a NodePoolManagement object to its proto representation.
+func ContainerazureAlphaNodePoolManagementToProto(o *alpha.NodePoolManagement) *alphapb.ContainerazureAlphaNodePoolManagement {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerazureAlphaNodePoolManagement{}
+	p.SetAutoRepair(dcl.ValueOrEmptyBool(o.AutoRepair))
+	return p
+}
+
 // NodePoolToProto converts a NodePool resource to its proto representation.
 func NodePoolToProto(resource *alpha.NodePool) *alphapb.ContainerazureAlphaNodePool {
 	p := &alphapb.ContainerazureAlphaNodePool{}
@@ -228,6 +250,7 @@ func NodePoolToProto(resource *alpha.NodePool) *alphapb.ContainerazureAlphaNodeP
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
 	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetMaxPodsConstraint(ContainerazureAlphaNodePoolMaxPodsConstraintToProto(resource.MaxPodsConstraint))
+	p.SetManagement(ContainerazureAlphaNodePoolManagementToProto(resource.Management))
 	p.SetAzureAvailabilityZone(dcl.ValueOrEmptyString(resource.AzureAvailabilityZone))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))

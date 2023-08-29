@@ -34,6 +34,7 @@ class NodePool(object):
         etag: str = None,
         annotations: dict = None,
         max_pods_constraint: dict = None,
+        management: dict = None,
         project: str = None,
         location: str = None,
         cluster: str = None,
@@ -47,6 +48,7 @@ class NodePool(object):
         self.subnet_id = subnet_id
         self.annotations = annotations
         self.max_pods_constraint = max_pods_constraint
+        self.management = management
         self.project = project
         self.location = location
         self.cluster = cluster
@@ -83,6 +85,12 @@ class NodePool(object):
             )
         else:
             request.resource.ClearField("max_pods_constraint")
+        if NodePoolManagement.to_proto(self.management):
+            request.resource.management.CopyFrom(
+                NodePoolManagement.to_proto(self.management)
+            )
+        else:
+            request.resource.ClearField("management")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -110,6 +118,7 @@ class NodePool(object):
         self.max_pods_constraint = NodePoolMaxPodsConstraint.from_proto(
             response.max_pods_constraint
         )
+        self.management = NodePoolManagement.from_proto(response.management)
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
         self.cluster = Primitive.from_proto(response.cluster)
@@ -146,6 +155,12 @@ class NodePool(object):
             )
         else:
             request.resource.ClearField("max_pods_constraint")
+        if NodePoolManagement.to_proto(self.management):
+            request.resource.management.CopyFrom(
+                NodePoolManagement.to_proto(self.management)
+            )
+        else:
+            request.resource.ClearField("management")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -196,6 +211,10 @@ class NodePool(object):
             )
         else:
             resource.ClearField("max_pods_constraint")
+        if NodePoolManagement.to_proto(self.management):
+            resource.management.CopyFrom(NodePoolManagement.to_proto(self.management))
+        else:
+            resource.ClearField("management")
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):
@@ -661,6 +680,42 @@ class NodePoolMaxPodsConstraintArray(object):
     @classmethod
     def from_proto(self, resources):
         return [NodePoolMaxPodsConstraint.from_proto(i) for i in resources]
+
+
+class NodePoolManagement(object):
+    def __init__(self, auto_repair: bool = None):
+        self.auto_repair = auto_repair
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = node_pool_pb2.ContainerawsNodePoolManagement()
+        if Primitive.to_proto(resource.auto_repair):
+            res.auto_repair = Primitive.to_proto(resource.auto_repair)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return NodePoolManagement(
+            auto_repair=Primitive.from_proto(resource.auto_repair),
+        )
+
+
+class NodePoolManagementArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [NodePoolManagement.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [NodePoolManagement.from_proto(i) for i in resources]
 
 
 class NodePoolConfigRootVolumeVolumeTypeEnum(object):

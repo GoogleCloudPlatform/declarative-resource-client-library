@@ -38,6 +38,7 @@ type NodePool struct {
 	Etag                  *string                    `json:"etag"`
 	Annotations           map[string]string          `json:"annotations"`
 	MaxPodsConstraint     *NodePoolMaxPodsConstraint `json:"maxPodsConstraint"`
+	Management            *NodePoolManagement        `json:"management"`
 	AzureAvailabilityZone *string                    `json:"azureAvailabilityZone"`
 	Project               *string                    `json:"project"`
 	Location              *string                    `json:"location"`
@@ -372,6 +373,52 @@ func (r *NodePoolMaxPodsConstraint) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
+type NodePoolManagement struct {
+	empty      bool  `json:"-"`
+	AutoRepair *bool `json:"autoRepair"`
+}
+
+type jsonNodePoolManagement NodePoolManagement
+
+func (r *NodePoolManagement) UnmarshalJSON(data []byte) error {
+	var res jsonNodePoolManagement
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodePoolManagement
+	} else {
+
+		r.AutoRepair = res.AutoRepair
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this NodePoolManagement is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyNodePoolManagement *NodePoolManagement = &NodePoolManagement{empty: true}
+
+func (r *NodePoolManagement) Empty() bool {
+	return r.empty
+}
+
+func (r *NodePoolManagement) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NodePoolManagement) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.New().Sum([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 // Describe returns a simple description of this resource to ensure that automated tools
 // can identify it.
 func (r *NodePool) Describe() dcl.ServiceTypeVersion {
@@ -401,6 +448,7 @@ func (r *NodePool) ID() (string, error) {
 		"etag":                    dcl.ValueOrEmptyString(nr.Etag),
 		"annotations":             dcl.ValueOrEmptyString(nr.Annotations),
 		"max_pods_constraint":     dcl.ValueOrEmptyString(nr.MaxPodsConstraint),
+		"management":              dcl.ValueOrEmptyString(nr.Management),
 		"azure_availability_zone": dcl.ValueOrEmptyString(nr.AzureAvailabilityZone),
 		"project":                 dcl.ValueOrEmptyString(nr.Project),
 		"location":                dcl.ValueOrEmptyString(nr.Location),

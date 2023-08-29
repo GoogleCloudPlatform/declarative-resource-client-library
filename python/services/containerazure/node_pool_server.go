@@ -107,6 +107,17 @@ func ProtoToContainerazureNodePoolMaxPodsConstraint(p *containerazurepb.Containe
 	return obj
 }
 
+// ProtoToNodePoolManagement converts a NodePoolManagement object from its proto representation.
+func ProtoToContainerazureNodePoolManagement(p *containerazurepb.ContainerazureNodePoolManagement) *containerazure.NodePoolManagement {
+	if p == nil {
+		return nil
+	}
+	obj := &containerazure.NodePoolManagement{
+		AutoRepair: dcl.Bool(p.GetAutoRepair()),
+	}
+	return obj
+}
+
 // ProtoToNodePool converts a NodePool resource from its proto representation.
 func ProtoToNodePool(p *containerazurepb.ContainerazureNodePool) *containerazure.NodePool {
 	obj := &containerazure.NodePool{
@@ -122,6 +133,7 @@ func ProtoToNodePool(p *containerazurepb.ContainerazureNodePool) *containerazure
 		UpdateTime:            dcl.StringOrNil(p.GetUpdateTime()),
 		Etag:                  dcl.StringOrNil(p.GetEtag()),
 		MaxPodsConstraint:     ProtoToContainerazureNodePoolMaxPodsConstraint(p.GetMaxPodsConstraint()),
+		Management:            ProtoToContainerazureNodePoolManagement(p.GetManagement()),
 		AzureAvailabilityZone: dcl.StringOrNil(p.GetAzureAvailabilityZone()),
 		Project:               dcl.StringOrNil(p.GetProject()),
 		Location:              dcl.StringOrNil(p.GetLocation()),
@@ -211,6 +223,16 @@ func ContainerazureNodePoolMaxPodsConstraintToProto(o *containerazure.NodePoolMa
 	return p
 }
 
+// NodePoolManagementToProto converts a NodePoolManagement object to its proto representation.
+func ContainerazureNodePoolManagementToProto(o *containerazure.NodePoolManagement) *containerazurepb.ContainerazureNodePoolManagement {
+	if o == nil {
+		return nil
+	}
+	p := &containerazurepb.ContainerazureNodePoolManagement{}
+	p.SetAutoRepair(dcl.ValueOrEmptyBool(o.AutoRepair))
+	return p
+}
+
 // NodePoolToProto converts a NodePool resource to its proto representation.
 func NodePoolToProto(resource *containerazure.NodePool) *containerazurepb.ContainerazureNodePool {
 	p := &containerazurepb.ContainerazureNodePool{}
@@ -226,6 +248,7 @@ func NodePoolToProto(resource *containerazure.NodePool) *containerazurepb.Contai
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
 	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetMaxPodsConstraint(ContainerazureNodePoolMaxPodsConstraintToProto(resource.MaxPodsConstraint))
+	p.SetManagement(ContainerazureNodePoolManagementToProto(resource.Management))
 	p.SetAzureAvailabilityZone(dcl.ValueOrEmptyString(resource.AzureAvailabilityZone))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))

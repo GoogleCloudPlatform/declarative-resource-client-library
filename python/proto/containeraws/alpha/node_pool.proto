@@ -69,9 +69,10 @@ message ContainerawsAlphaNodePool {
   string etag = 11;
   map<string, string> annotations = 12;
   ContainerawsAlphaNodePoolMaxPodsConstraint max_pods_constraint = 13;
-  string project = 14;
-  string location = 15;
-  string cluster = 16;
+  ContainerawsAlphaNodePoolManagement management = 14;
+  string project = 15;
+  string location = 16;
+  string cluster = 17;
 }
 
 message ContainerawsAlphaNodePoolConfig {
@@ -138,6 +139,10 @@ message ContainerawsAlphaNodePoolAutoscaling {
 
 message ContainerawsAlphaNodePoolMaxPodsConstraint {
   int64 max_pods_per_node = 1;
+}
+
+message ContainerawsAlphaNodePoolManagement {
+  bool auto_repair = 1;
 }
 
 message ApplyContainerawsAlphaNodePoolRequest {

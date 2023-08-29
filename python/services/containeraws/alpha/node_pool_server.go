@@ -220,6 +220,17 @@ func ProtoToContainerawsAlphaNodePoolMaxPodsConstraint(p *alphapb.ContainerawsAl
 	return obj
 }
 
+// ProtoToNodePoolManagement converts a NodePoolManagement object from its proto representation.
+func ProtoToContainerawsAlphaNodePoolManagement(p *alphapb.ContainerawsAlphaNodePoolManagement) *alpha.NodePoolManagement {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.NodePoolManagement{
+		AutoRepair: dcl.Bool(p.GetAutoRepair()),
+	}
+	return obj
+}
+
 // ProtoToNodePool converts a NodePool resource from its proto representation.
 func ProtoToNodePool(p *alphapb.ContainerawsAlphaNodePool) *alpha.NodePool {
 	obj := &alpha.NodePool{
@@ -235,6 +246,7 @@ func ProtoToNodePool(p *alphapb.ContainerawsAlphaNodePool) *alpha.NodePool {
 		UpdateTime:        dcl.StringOrNil(p.GetUpdateTime()),
 		Etag:              dcl.StringOrNil(p.GetEtag()),
 		MaxPodsConstraint: ProtoToContainerawsAlphaNodePoolMaxPodsConstraint(p.GetMaxPodsConstraint()),
+		Management:        ProtoToContainerawsAlphaNodePoolManagement(p.GetManagement()),
 		Project:           dcl.StringOrNil(p.GetProject()),
 		Location:          dcl.StringOrNil(p.GetLocation()),
 		Cluster:           dcl.StringOrNil(p.GetCluster()),
@@ -442,6 +454,16 @@ func ContainerawsAlphaNodePoolMaxPodsConstraintToProto(o *alpha.NodePoolMaxPodsC
 	return p
 }
 
+// NodePoolManagementToProto converts a NodePoolManagement object to its proto representation.
+func ContainerawsAlphaNodePoolManagementToProto(o *alpha.NodePoolManagement) *alphapb.ContainerawsAlphaNodePoolManagement {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerawsAlphaNodePoolManagement{}
+	p.SetAutoRepair(dcl.ValueOrEmptyBool(o.AutoRepair))
+	return p
+}
+
 // NodePoolToProto converts a NodePool resource to its proto representation.
 func NodePoolToProto(resource *alpha.NodePool) *alphapb.ContainerawsAlphaNodePool {
 	p := &alphapb.ContainerawsAlphaNodePool{}
@@ -457,6 +479,7 @@ func NodePoolToProto(resource *alpha.NodePool) *alphapb.ContainerawsAlphaNodePoo
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
 	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetMaxPodsConstraint(ContainerawsAlphaNodePoolMaxPodsConstraintToProto(resource.MaxPodsConstraint))
+	p.SetManagement(ContainerawsAlphaNodePoolManagementToProto(resource.Management))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetCluster(dcl.ValueOrEmptyString(resource.Cluster))

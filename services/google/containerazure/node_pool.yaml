@@ -244,6 +244,17 @@ components:
           x-dcl-go-name: Location
           description: The location for the resource
           x-kubernetes-immutable: true
+        management:
+          type: object
+          x-dcl-go-name: Management
+          x-dcl-go-type: NodePoolManagement
+          description: The Management configuration for this node pool.
+          properties:
+            autoRepair:
+              type: boolean
+              x-dcl-go-name: AutoRepair
+              description: Optional. Whether or not the nodes will be automatically
+                repaired.
         maxPodsConstraint:
           type: object
           x-dcl-go-name: MaxPodsConstraint
