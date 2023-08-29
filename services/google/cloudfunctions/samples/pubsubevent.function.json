@@ -2,7 +2,7 @@
   "name": "{{function}}",
   "project": "{{project}}",
   "region": "{{region}}",
-  "runtime": "nodejs8",
+  "runtime": "nodejs20",
   "description": "A sample cloud function with a pubsub event trigger",
   "availableMemoryMb": 128,
   "serviceAccountEmail": "{{project}}@appspot.gserviceaccount.com",
