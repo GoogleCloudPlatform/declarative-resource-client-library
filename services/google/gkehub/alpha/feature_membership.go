@@ -162,7 +162,7 @@ func (r *FeatureMembershipMesh) String() string {
 func (r *FeatureMembershipMesh) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -220,7 +220,7 @@ func (r *FeatureMembershipConfigmanagement) String() string {
 func (r *FeatureMembershipConfigmanagement) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -275,7 +275,7 @@ func (r *FeatureMembershipConfigmanagementConfigSync) String() string {
 func (r *FeatureMembershipConfigmanagementConfigSync) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -342,7 +342,7 @@ func (r *FeatureMembershipConfigmanagementConfigSyncGit) String() string {
 func (r *FeatureMembershipConfigmanagementConfigSyncGit) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -400,7 +400,7 @@ func (r *FeatureMembershipConfigmanagementConfigSyncOci) String() string {
 func (r *FeatureMembershipConfigmanagementConfigSyncOci) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -467,7 +467,7 @@ func (r *FeatureMembershipConfigmanagementPolicyController) String() string {
 func (r *FeatureMembershipConfigmanagementPolicyController) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -513,7 +513,7 @@ func (r *FeatureMembershipConfigmanagementPolicyControllerMonitoring) String() s
 func (r *FeatureMembershipConfigmanagementPolicyControllerMonitoring) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -559,7 +559,7 @@ func (r *FeatureMembershipConfigmanagementBinauthz) String() string {
 func (r *FeatureMembershipConfigmanagementBinauthz) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -611,7 +611,7 @@ func (r *FeatureMembershipConfigmanagementHierarchyController) String() string {
 func (r *FeatureMembershipConfigmanagementHierarchyController) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

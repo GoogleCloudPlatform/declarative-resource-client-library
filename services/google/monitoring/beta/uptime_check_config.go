@@ -195,7 +195,7 @@ func (r *UptimeCheckConfigMonitoredResource) String() string {
 func (r *UptimeCheckConfigMonitoredResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -244,7 +244,7 @@ func (r *UptimeCheckConfigResourceGroup) String() string {
 func (r *UptimeCheckConfigResourceGroup) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -317,7 +317,7 @@ func (r *UptimeCheckConfigHttpCheck) String() string {
 func (r *UptimeCheckConfigHttpCheck) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -366,7 +366,7 @@ func (r *UptimeCheckConfigHttpCheckAuthInfo) String() string {
 func (r *UptimeCheckConfigHttpCheckAuthInfo) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -412,7 +412,7 @@ func (r *UptimeCheckConfigTcpCheck) String() string {
 func (r *UptimeCheckConfigTcpCheck) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -461,7 +461,7 @@ func (r *UptimeCheckConfigContentMatchers) String() string {
 func (r *UptimeCheckConfigContentMatchers) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

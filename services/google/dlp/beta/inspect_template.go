@@ -265,7 +265,7 @@ func (r *InspectTemplateInspectConfig) String() string {
 func (r *InspectTemplateInspectConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -311,7 +311,7 @@ func (r *InspectTemplateInspectConfigInfoTypes) String() string {
 func (r *InspectTemplateInspectConfigInfoTypes) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -363,7 +363,7 @@ func (r *InspectTemplateInspectConfigLimits) String() string {
 func (r *InspectTemplateInspectConfigLimits) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -412,7 +412,7 @@ func (r *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType) String() stri
 func (r *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -458,7 +458,7 @@ func (r *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType) Strin
 func (r *InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -522,7 +522,7 @@ func (r *InspectTemplateInspectConfigCustomInfoTypes) String() string {
 func (r *InspectTemplateInspectConfigCustomInfoTypes) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -568,7 +568,7 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesInfoType) String() string {
 func (r *InspectTemplateInspectConfigCustomInfoTypesInfoType) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -617,7 +617,7 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesDictionary) String() string 
 func (r *InspectTemplateInspectConfigCustomInfoTypesDictionary) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -663,7 +663,7 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList) String()
 func (r *InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -709,7 +709,7 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath) 
 func (r *InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -758,7 +758,7 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesRegex) String() string {
 func (r *InspectTemplateInspectConfigCustomInfoTypesRegex) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -801,7 +801,7 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesSurrogateType) String() stri
 func (r *InspectTemplateInspectConfigCustomInfoTypesSurrogateType) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -850,7 +850,7 @@ func (r *InspectTemplateInspectConfigCustomInfoTypesStoredType) String() string 
 func (r *InspectTemplateInspectConfigCustomInfoTypesStoredType) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -899,7 +899,7 @@ func (r *InspectTemplateInspectConfigRuleSet) String() string {
 func (r *InspectTemplateInspectConfigRuleSet) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -945,7 +945,7 @@ func (r *InspectTemplateInspectConfigRuleSetInfoTypes) String() string {
 func (r *InspectTemplateInspectConfigRuleSetInfoTypes) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -994,7 +994,7 @@ func (r *InspectTemplateInspectConfigRuleSetRules) String() string {
 func (r *InspectTemplateInspectConfigRuleSetRules) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1046,7 +1046,7 @@ func (r *InspectTemplateInspectConfigRuleSetRulesHotwordRule) String() string {
 func (r *InspectTemplateInspectConfigRuleSetRulesHotwordRule) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1095,7 +1095,7 @@ func (r *InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex) String
 func (r *InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1144,7 +1144,7 @@ func (r *InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity) String() 
 func (r *InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1193,7 +1193,7 @@ func (r *InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment
 func (r *InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1248,7 +1248,7 @@ func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRule) String() string 
 func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRule) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1297,7 +1297,7 @@ func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary) String
 func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1343,7 +1343,7 @@ func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList
 func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1389,7 +1389,7 @@ func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudSto
 func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1438,7 +1438,7 @@ func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex) String() st
 func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1484,7 +1484,7 @@ func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes) 
 func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1530,7 +1530,7 @@ func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesIn
 func (r *InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

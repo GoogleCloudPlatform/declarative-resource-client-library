@@ -311,7 +311,7 @@ func (r *GuestPolicyAssignment) String() string {
 func (r *GuestPolicyAssignment) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -357,7 +357,7 @@ func (r *GuestPolicyAssignmentGroupLabels) String() string {
 func (r *GuestPolicyAssignmentGroupLabels) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -409,7 +409,7 @@ func (r *GuestPolicyAssignmentOSTypes) String() string {
 func (r *GuestPolicyAssignmentOSTypes) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -461,7 +461,7 @@ func (r *GuestPolicyPackages) String() string {
 func (r *GuestPolicyPackages) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -516,7 +516,7 @@ func (r *GuestPolicyPackageRepositories) String() string {
 func (r *GuestPolicyPackageRepositories) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -574,7 +574,7 @@ func (r *GuestPolicyPackageRepositoriesApt) String() string {
 func (r *GuestPolicyPackageRepositoriesApt) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -629,7 +629,7 @@ func (r *GuestPolicyPackageRepositoriesYum) String() string {
 func (r *GuestPolicyPackageRepositoriesYum) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -684,7 +684,7 @@ func (r *GuestPolicyPackageRepositoriesZypper) String() string {
 func (r *GuestPolicyPackageRepositoriesZypper) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -733,7 +733,7 @@ func (r *GuestPolicyPackageRepositoriesGoo) String() string {
 func (r *GuestPolicyPackageRepositoriesGoo) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -794,7 +794,7 @@ func (r *GuestPolicyRecipes) String() string {
 func (r *GuestPolicyRecipes) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -849,7 +849,7 @@ func (r *GuestPolicyRecipesArtifacts) String() string {
 func (r *GuestPolicyRecipesArtifacts) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -898,7 +898,7 @@ func (r *GuestPolicyRecipesArtifactsRemote) String() string {
 func (r *GuestPolicyRecipesArtifactsRemote) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -950,7 +950,7 @@ func (r *GuestPolicyRecipesArtifactsGcs) String() string {
 func (r *GuestPolicyRecipesArtifactsGcs) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1014,7 +1014,7 @@ func (r *GuestPolicyRecipesInstallSteps) String() string {
 func (r *GuestPolicyRecipesInstallSteps) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1069,7 +1069,7 @@ func (r *GuestPolicyRecipesInstallStepsFileCopy) String() string {
 func (r *GuestPolicyRecipesInstallStepsFileCopy) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1121,7 +1121,7 @@ func (r *GuestPolicyRecipesInstallStepsArchiveExtraction) String() string {
 func (r *GuestPolicyRecipesInstallStepsArchiveExtraction) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1173,7 +1173,7 @@ func (r *GuestPolicyRecipesInstallStepsMsiInstallation) String() string {
 func (r *GuestPolicyRecipesInstallStepsMsiInstallation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1219,7 +1219,7 @@ func (r *GuestPolicyRecipesInstallStepsDpkgInstallation) String() string {
 func (r *GuestPolicyRecipesInstallStepsDpkgInstallation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1265,7 +1265,7 @@ func (r *GuestPolicyRecipesInstallStepsRpmInstallation) String() string {
 func (r *GuestPolicyRecipesInstallStepsRpmInstallation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1320,7 +1320,7 @@ func (r *GuestPolicyRecipesInstallStepsFileExec) String() string {
 func (r *GuestPolicyRecipesInstallStepsFileExec) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1372,7 +1372,7 @@ func (r *GuestPolicyRecipesInstallStepsScriptRun) String() string {
 func (r *GuestPolicyRecipesInstallStepsScriptRun) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1436,7 +1436,7 @@ func (r *GuestPolicyRecipesUpdateSteps) String() string {
 func (r *GuestPolicyRecipesUpdateSteps) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1491,7 +1491,7 @@ func (r *GuestPolicyRecipesUpdateStepsFileCopy) String() string {
 func (r *GuestPolicyRecipesUpdateStepsFileCopy) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1543,7 +1543,7 @@ func (r *GuestPolicyRecipesUpdateStepsArchiveExtraction) String() string {
 func (r *GuestPolicyRecipesUpdateStepsArchiveExtraction) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1595,7 +1595,7 @@ func (r *GuestPolicyRecipesUpdateStepsMsiInstallation) String() string {
 func (r *GuestPolicyRecipesUpdateStepsMsiInstallation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1641,7 +1641,7 @@ func (r *GuestPolicyRecipesUpdateStepsDpkgInstallation) String() string {
 func (r *GuestPolicyRecipesUpdateStepsDpkgInstallation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1687,7 +1687,7 @@ func (r *GuestPolicyRecipesUpdateStepsRpmInstallation) String() string {
 func (r *GuestPolicyRecipesUpdateStepsRpmInstallation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1742,7 +1742,7 @@ func (r *GuestPolicyRecipesUpdateStepsFileExec) String() string {
 func (r *GuestPolicyRecipesUpdateStepsFileExec) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1794,7 +1794,7 @@ func (r *GuestPolicyRecipesUpdateStepsScriptRun) String() string {
 func (r *GuestPolicyRecipesUpdateStepsScriptRun) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

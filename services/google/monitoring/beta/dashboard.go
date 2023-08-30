@@ -4188,7 +4188,7 @@ func (r *DashboardGridLayout) String() string {
 func (r *DashboardGridLayout) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -4249,7 +4249,7 @@ func (r *DashboardGridLayoutWidgets) String() string {
 func (r *DashboardGridLayoutWidgets) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -4310,7 +4310,7 @@ func (r *DashboardGridLayoutWidgetsXyChart) String() string {
 func (r *DashboardGridLayoutWidgetsXyChart) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -4365,7 +4365,7 @@ func (r *DashboardGridLayoutWidgetsXyChartDataSets) String() string {
 func (r *DashboardGridLayoutWidgetsXyChartDataSets) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -4420,7 +4420,7 @@ func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery) String() stri
 func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -4475,7 +4475,7 @@ func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -4530,7 +4530,7 @@ func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -4585,7 +4585,7 @@ func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -4637,7 +4637,7 @@ func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -4692,7 +4692,7 @@ func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -4741,7 +4741,7 @@ func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -4796,7 +4796,7 @@ func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -4845,7 +4845,7 @@ func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -4900,7 +4900,7 @@ func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -4955,7 +4955,7 @@ func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5007,7 +5007,7 @@ func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5062,7 +5062,7 @@ func (r *DashboardGridLayoutWidgetsXyChartThresholds) String() string {
 func (r *DashboardGridLayoutWidgetsXyChartThresholds) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5111,7 +5111,7 @@ func (r *DashboardGridLayoutWidgetsXyChartXAxis) String() string {
 func (r *DashboardGridLayoutWidgetsXyChartXAxis) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5160,7 +5160,7 @@ func (r *DashboardGridLayoutWidgetsXyChartYAxis) String() string {
 func (r *DashboardGridLayoutWidgetsXyChartYAxis) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5206,7 +5206,7 @@ func (r *DashboardGridLayoutWidgetsXyChartChartOptions) String() string {
 func (r *DashboardGridLayoutWidgetsXyChartChartOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5261,7 +5261,7 @@ func (r *DashboardGridLayoutWidgetsScorecard) String() string {
 func (r *DashboardGridLayoutWidgetsScorecard) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5316,7 +5316,7 @@ func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQuery) String() string {
 func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQuery) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5371,7 +5371,7 @@ func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter) Str
 func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5426,7 +5426,7 @@ func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggre
 func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5481,7 +5481,7 @@ func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecon
 func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5533,7 +5533,7 @@ func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickT
 func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5588,7 +5588,7 @@ func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
 func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5637,7 +5637,7 @@ func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
 func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5692,7 +5692,7 @@ func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
 func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5741,7 +5741,7 @@ func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
 func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5796,7 +5796,7 @@ func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
 func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5851,7 +5851,7 @@ func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
 func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5903,7 +5903,7 @@ func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
 func (r *DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -5952,7 +5952,7 @@ func (r *DashboardGridLayoutWidgetsScorecardGaugeView) String() string {
 func (r *DashboardGridLayoutWidgetsScorecardGaugeView) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6001,7 +6001,7 @@ func (r *DashboardGridLayoutWidgetsScorecardSparkChartView) String() string {
 func (r *DashboardGridLayoutWidgetsScorecardSparkChartView) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6056,7 +6056,7 @@ func (r *DashboardGridLayoutWidgetsScorecardThresholds) String() string {
 func (r *DashboardGridLayoutWidgetsScorecardThresholds) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6105,7 +6105,7 @@ func (r *DashboardGridLayoutWidgetsText) String() string {
 func (r *DashboardGridLayoutWidgetsText) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6148,7 +6148,7 @@ func (r *DashboardGridLayoutWidgetsBlank) String() string {
 func (r *DashboardGridLayoutWidgetsBlank) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6197,7 +6197,7 @@ func (r *DashboardGridLayoutWidgetsLogsPanel) String() string {
 func (r *DashboardGridLayoutWidgetsLogsPanel) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6246,7 +6246,7 @@ func (r *DashboardMosaicLayout) String() string {
 func (r *DashboardMosaicLayout) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6304,7 +6304,7 @@ func (r *DashboardMosaicLayoutTiles) String() string {
 func (r *DashboardMosaicLayoutTiles) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6365,7 +6365,7 @@ func (r *DashboardMosaicLayoutTilesWidget) String() string {
 func (r *DashboardMosaicLayoutTilesWidget) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6426,7 +6426,7 @@ func (r *DashboardMosaicLayoutTilesWidgetXyChart) String() string {
 func (r *DashboardMosaicLayoutTilesWidgetXyChart) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6481,7 +6481,7 @@ func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSets) String() string {
 func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSets) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6536,7 +6536,7 @@ func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery) String(
 func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6591,7 +6591,7 @@ func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSerie
 func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6646,7 +6646,7 @@ func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSerie
 func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6701,7 +6701,7 @@ func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSerie
 func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6753,7 +6753,7 @@ func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSerie
 func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6808,7 +6808,7 @@ func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSerie
 func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6857,7 +6857,7 @@ func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSerie
 func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6912,7 +6912,7 @@ func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSerie
 func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -6961,7 +6961,7 @@ func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSerie
 func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7016,7 +7016,7 @@ func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSerie
 func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7071,7 +7071,7 @@ func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSerie
 func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7123,7 +7123,7 @@ func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSerie
 func (r *DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7178,7 +7178,7 @@ func (r *DashboardMosaicLayoutTilesWidgetXyChartThresholds) String() string {
 func (r *DashboardMosaicLayoutTilesWidgetXyChartThresholds) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7227,7 +7227,7 @@ func (r *DashboardMosaicLayoutTilesWidgetXyChartXAxis) String() string {
 func (r *DashboardMosaicLayoutTilesWidgetXyChartXAxis) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7276,7 +7276,7 @@ func (r *DashboardMosaicLayoutTilesWidgetXyChartYAxis) String() string {
 func (r *DashboardMosaicLayoutTilesWidgetXyChartYAxis) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7322,7 +7322,7 @@ func (r *DashboardMosaicLayoutTilesWidgetXyChartChartOptions) String() string {
 func (r *DashboardMosaicLayoutTilesWidgetXyChartChartOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7377,7 +7377,7 @@ func (r *DashboardMosaicLayoutTilesWidgetScorecard) String() string {
 func (r *DashboardMosaicLayoutTilesWidgetScorecard) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7432,7 +7432,7 @@ func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery) String() stri
 func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7487,7 +7487,7 @@ func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7542,7 +7542,7 @@ func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7597,7 +7597,7 @@ func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7649,7 +7649,7 @@ func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7704,7 +7704,7 @@ func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7753,7 +7753,7 @@ func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7808,7 +7808,7 @@ func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7857,7 +7857,7 @@ func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7912,7 +7912,7 @@ func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -7967,7 +7967,7 @@ func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8019,7 +8019,7 @@ func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilte
 func (r *DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8068,7 +8068,7 @@ func (r *DashboardMosaicLayoutTilesWidgetScorecardGaugeView) String() string {
 func (r *DashboardMosaicLayoutTilesWidgetScorecardGaugeView) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8117,7 +8117,7 @@ func (r *DashboardMosaicLayoutTilesWidgetScorecardSparkChartView) String() strin
 func (r *DashboardMosaicLayoutTilesWidgetScorecardSparkChartView) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8172,7 +8172,7 @@ func (r *DashboardMosaicLayoutTilesWidgetScorecardThresholds) String() string {
 func (r *DashboardMosaicLayoutTilesWidgetScorecardThresholds) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8221,7 +8221,7 @@ func (r *DashboardMosaicLayoutTilesWidgetText) String() string {
 func (r *DashboardMosaicLayoutTilesWidgetText) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8264,7 +8264,7 @@ func (r *DashboardMosaicLayoutTilesWidgetBlank) String() string {
 func (r *DashboardMosaicLayoutTilesWidgetBlank) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8313,7 +8313,7 @@ func (r *DashboardMosaicLayoutTilesWidgetLogsPanel) String() string {
 func (r *DashboardMosaicLayoutTilesWidgetLogsPanel) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8359,7 +8359,7 @@ func (r *DashboardRowLayout) String() string {
 func (r *DashboardRowLayout) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8408,7 +8408,7 @@ func (r *DashboardRowLayoutRows) String() string {
 func (r *DashboardRowLayoutRows) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8469,7 +8469,7 @@ func (r *DashboardRowLayoutRowsWidgets) String() string {
 func (r *DashboardRowLayoutRowsWidgets) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8530,7 +8530,7 @@ func (r *DashboardRowLayoutRowsWidgetsXyChart) String() string {
 func (r *DashboardRowLayoutRowsWidgetsXyChart) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8585,7 +8585,7 @@ func (r *DashboardRowLayoutRowsWidgetsXyChartDataSets) String() string {
 func (r *DashboardRowLayoutRowsWidgetsXyChartDataSets) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8640,7 +8640,7 @@ func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery) String() s
 func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8695,7 +8695,7 @@ func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8750,7 +8750,7 @@ func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8805,7 +8805,7 @@ func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8857,7 +8857,7 @@ func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8912,7 +8912,7 @@ func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -8961,7 +8961,7 @@ func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9016,7 +9016,7 @@ func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9065,7 +9065,7 @@ func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9120,7 +9120,7 @@ func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9175,7 +9175,7 @@ func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9227,7 +9227,7 @@ func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 func (r *DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9282,7 +9282,7 @@ func (r *DashboardRowLayoutRowsWidgetsXyChartThresholds) String() string {
 func (r *DashboardRowLayoutRowsWidgetsXyChartThresholds) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9331,7 +9331,7 @@ func (r *DashboardRowLayoutRowsWidgetsXyChartXAxis) String() string {
 func (r *DashboardRowLayoutRowsWidgetsXyChartXAxis) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9380,7 +9380,7 @@ func (r *DashboardRowLayoutRowsWidgetsXyChartYAxis) String() string {
 func (r *DashboardRowLayoutRowsWidgetsXyChartYAxis) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9426,7 +9426,7 @@ func (r *DashboardRowLayoutRowsWidgetsXyChartChartOptions) String() string {
 func (r *DashboardRowLayoutRowsWidgetsXyChartChartOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9481,7 +9481,7 @@ func (r *DashboardRowLayoutRowsWidgetsScorecard) String() string {
 func (r *DashboardRowLayoutRowsWidgetsScorecard) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9536,7 +9536,7 @@ func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery) String() string 
 func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9591,7 +9591,7 @@ func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter) 
 func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9646,7 +9646,7 @@ func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAg
 func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9701,7 +9701,7 @@ func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSe
 func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9753,7 +9753,7 @@ func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPi
 func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9808,7 +9808,7 @@ func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRa
 func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9857,7 +9857,7 @@ func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRa
 func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9912,7 +9912,7 @@ func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRa
 func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -9961,7 +9961,7 @@ func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRa
 func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10016,7 +10016,7 @@ func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRa
 func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10071,7 +10071,7 @@ func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRa
 func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10123,7 +10123,7 @@ func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRa
 func (r *DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10172,7 +10172,7 @@ func (r *DashboardRowLayoutRowsWidgetsScorecardGaugeView) String() string {
 func (r *DashboardRowLayoutRowsWidgetsScorecardGaugeView) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10221,7 +10221,7 @@ func (r *DashboardRowLayoutRowsWidgetsScorecardSparkChartView) String() string {
 func (r *DashboardRowLayoutRowsWidgetsScorecardSparkChartView) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10276,7 +10276,7 @@ func (r *DashboardRowLayoutRowsWidgetsScorecardThresholds) String() string {
 func (r *DashboardRowLayoutRowsWidgetsScorecardThresholds) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10325,7 +10325,7 @@ func (r *DashboardRowLayoutRowsWidgetsText) String() string {
 func (r *DashboardRowLayoutRowsWidgetsText) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10368,7 +10368,7 @@ func (r *DashboardRowLayoutRowsWidgetsBlank) String() string {
 func (r *DashboardRowLayoutRowsWidgetsBlank) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10417,7 +10417,7 @@ func (r *DashboardRowLayoutRowsWidgetsLogsPanel) String() string {
 func (r *DashboardRowLayoutRowsWidgetsLogsPanel) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10463,7 +10463,7 @@ func (r *DashboardColumnLayout) String() string {
 func (r *DashboardColumnLayout) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10512,7 +10512,7 @@ func (r *DashboardColumnLayoutColumns) String() string {
 func (r *DashboardColumnLayoutColumns) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10573,7 +10573,7 @@ func (r *DashboardColumnLayoutColumnsWidgets) String() string {
 func (r *DashboardColumnLayoutColumnsWidgets) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10634,7 +10634,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsXyChart) String() string {
 func (r *DashboardColumnLayoutColumnsWidgetsXyChart) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10689,7 +10689,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSets) String() string {
 func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSets) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10744,7 +10744,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery) Stri
 func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10799,7 +10799,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSe
 func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10854,7 +10854,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSe
 func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10909,7 +10909,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSe
 func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -10961,7 +10961,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSe
 func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11016,7 +11016,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSe
 func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11065,7 +11065,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSe
 func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11120,7 +11120,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSe
 func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11169,7 +11169,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSe
 func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11224,7 +11224,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSe
 func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11279,7 +11279,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSe
 func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11331,7 +11331,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSe
 func (r *DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11386,7 +11386,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsXyChartThresholds) String() string {
 func (r *DashboardColumnLayoutColumnsWidgetsXyChartThresholds) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11435,7 +11435,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsXyChartXAxis) String() string {
 func (r *DashboardColumnLayoutColumnsWidgetsXyChartXAxis) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11484,7 +11484,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsXyChartYAxis) String() string {
 func (r *DashboardColumnLayoutColumnsWidgetsXyChartYAxis) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11530,7 +11530,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsXyChartChartOptions) String() string
 func (r *DashboardColumnLayoutColumnsWidgetsXyChartChartOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11585,7 +11585,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsScorecard) String() string {
 func (r *DashboardColumnLayoutColumnsWidgetsScorecard) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11640,7 +11640,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery) String() s
 func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11695,7 +11695,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFi
 func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11750,7 +11750,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFi
 func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11805,7 +11805,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFi
 func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11857,7 +11857,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFi
 func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11912,7 +11912,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFi
 func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -11961,7 +11961,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFi
 func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -12016,7 +12016,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFi
 func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -12065,7 +12065,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFi
 func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -12120,7 +12120,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFi
 func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -12175,7 +12175,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFi
 func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -12227,7 +12227,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFi
 func (r *DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -12276,7 +12276,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsScorecardGaugeView) String() string 
 func (r *DashboardColumnLayoutColumnsWidgetsScorecardGaugeView) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -12325,7 +12325,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsScorecardSparkChartView) String() st
 func (r *DashboardColumnLayoutColumnsWidgetsScorecardSparkChartView) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -12380,7 +12380,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsScorecardThresholds) String() string
 func (r *DashboardColumnLayoutColumnsWidgetsScorecardThresholds) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -12429,7 +12429,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsText) String() string {
 func (r *DashboardColumnLayoutColumnsWidgetsText) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -12472,7 +12472,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsBlank) String() string {
 func (r *DashboardColumnLayoutColumnsWidgetsBlank) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -12521,7 +12521,7 @@ func (r *DashboardColumnLayoutColumnsWidgetsLogsPanel) String() string {
 func (r *DashboardColumnLayoutColumnsWidgetsLogsPanel) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

@@ -87,7 +87,7 @@ func (r *StoredInfoTypeLargeCustomDictionary) String() string {
 func (r *StoredInfoTypeLargeCustomDictionary) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -133,7 +133,7 @@ func (r *StoredInfoTypeLargeCustomDictionaryOutputPath) String() string {
 func (r *StoredInfoTypeLargeCustomDictionaryOutputPath) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -179,7 +179,7 @@ func (r *StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet) String() string
 func (r *StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -228,7 +228,7 @@ func (r *StoredInfoTypeLargeCustomDictionaryBigQueryField) String() string {
 func (r *StoredInfoTypeLargeCustomDictionaryBigQueryField) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -280,7 +280,7 @@ func (r *StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable) String() string 
 func (r *StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -326,7 +326,7 @@ func (r *StoredInfoTypeLargeCustomDictionaryBigQueryFieldField) String() string 
 func (r *StoredInfoTypeLargeCustomDictionaryBigQueryFieldField) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -375,7 +375,7 @@ func (r *StoredInfoTypeDictionary) String() string {
 func (r *StoredInfoTypeDictionary) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -421,7 +421,7 @@ func (r *StoredInfoTypeDictionaryWordList) String() string {
 func (r *StoredInfoTypeDictionaryWordList) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -467,7 +467,7 @@ func (r *StoredInfoTypeDictionaryCloudStoragePath) String() string {
 func (r *StoredInfoTypeDictionaryCloudStoragePath) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -516,7 +516,7 @@ func (r *StoredInfoTypeRegex) String() string {
 func (r *StoredInfoTypeRegex) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

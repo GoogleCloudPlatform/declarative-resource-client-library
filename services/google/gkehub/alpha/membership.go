@@ -149,7 +149,7 @@ func (r *MembershipEndpoint) String() string {
 func (r *MembershipEndpoint) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -195,7 +195,7 @@ func (r *MembershipEndpointGkeCluster) String() string {
 func (r *MembershipEndpointGkeCluster) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -256,7 +256,7 @@ func (r *MembershipEndpointKubernetesMetadata) String() string {
 func (r *MembershipEndpointKubernetesMetadata) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -311,7 +311,7 @@ func (r *MembershipEndpointKubernetesResource) String() string {
 func (r *MembershipEndpointKubernetesResource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -360,7 +360,7 @@ func (r *MembershipEndpointKubernetesResourceMembershipResources) String() strin
 func (r *MembershipEndpointKubernetesResourceMembershipResources) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -409,7 +409,7 @@ func (r *MembershipEndpointKubernetesResourceConnectResources) String() string {
 func (r *MembershipEndpointKubernetesResourceConnectResources) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -458,7 +458,7 @@ func (r *MembershipEndpointKubernetesResourceResourceOptions) String() string {
 func (r *MembershipEndpointKubernetesResourceResourceOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -504,7 +504,7 @@ func (r *MembershipState) String() string {
 func (r *MembershipState) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -556,7 +556,7 @@ func (r *MembershipAuthority) String() string {
 func (r *MembershipAuthority) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

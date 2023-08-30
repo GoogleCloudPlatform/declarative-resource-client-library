@@ -166,7 +166,7 @@ func (r *MembershipPreferredMemberKey) String() string {
 func (r *MembershipPreferredMemberKey) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -218,7 +218,7 @@ func (r *MembershipRoles) String() string {
 func (r *MembershipRoles) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -264,7 +264,7 @@ func (r *MembershipRolesExpiryDetail) String() string {
 func (r *MembershipRolesExpiryDetail) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -310,7 +310,7 @@ func (r *MembershipRolesRestrictionEvaluations) String() string {
 func (r *MembershipRolesRestrictionEvaluations) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -356,7 +356,7 @@ func (r *MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation) Strin
 func (r *MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -408,7 +408,7 @@ func (r *MembershipDisplayName) String() string {
 func (r *MembershipDisplayName) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

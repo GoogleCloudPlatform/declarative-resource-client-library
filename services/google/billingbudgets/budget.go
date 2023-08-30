@@ -183,7 +183,7 @@ func (r *BudgetBudgetFilter) String() string {
 func (r *BudgetBudgetFilter) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -229,7 +229,7 @@ func (r *BudgetBudgetFilterLabels) String() string {
 func (r *BudgetBudgetFilterLabels) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -278,7 +278,7 @@ func (r *BudgetBudgetFilterCustomPeriod) String() string {
 func (r *BudgetBudgetFilterCustomPeriod) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -330,7 +330,7 @@ func (r *BudgetBudgetFilterCustomPeriodStartDate) String() string {
 func (r *BudgetBudgetFilterCustomPeriodStartDate) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -382,7 +382,7 @@ func (r *BudgetBudgetFilterCustomPeriodEndDate) String() string {
 func (r *BudgetBudgetFilterCustomPeriodEndDate) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -431,7 +431,7 @@ func (r *BudgetAmount) String() string {
 func (r *BudgetAmount) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -483,7 +483,7 @@ func (r *BudgetAmountSpecifiedAmount) String() string {
 func (r *BudgetAmountSpecifiedAmount) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -526,7 +526,7 @@ func (r *BudgetAmountLastPeriodAmount) String() string {
 func (r *BudgetAmountLastPeriodAmount) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -575,7 +575,7 @@ func (r *BudgetThresholdRules) String() string {
 func (r *BudgetThresholdRules) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -630,7 +630,7 @@ func (r *BudgetAllUpdatesRule) String() string {
 func (r *BudgetAllUpdatesRule) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

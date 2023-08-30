@@ -402,7 +402,7 @@ func (r *ServiceBinaryAuthorization) String() string {
 func (r *ServiceBinaryAuthorization) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -478,7 +478,7 @@ func (r *ServiceTemplate) String() string {
 func (r *ServiceTemplate) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -527,7 +527,7 @@ func (r *ServiceTemplateScaling) String() string {
 func (r *ServiceTemplateScaling) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -576,7 +576,7 @@ func (r *ServiceTemplateVPCAccess) String() string {
 func (r *ServiceTemplateVPCAccess) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -643,7 +643,7 @@ func (r *ServiceTemplateContainers) String() string {
 func (r *ServiceTemplateContainers) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -695,7 +695,7 @@ func (r *ServiceTemplateContainersEnv) String() string {
 func (r *ServiceTemplateContainersEnv) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -741,7 +741,7 @@ func (r *ServiceTemplateContainersEnvValueSource) String() string {
 func (r *ServiceTemplateContainersEnvValueSource) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -790,7 +790,7 @@ func (r *ServiceTemplateContainersEnvValueSourceSecretKeyRef) String() string {
 func (r *ServiceTemplateContainersEnvValueSourceSecretKeyRef) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -839,7 +839,7 @@ func (r *ServiceTemplateContainersResources) String() string {
 func (r *ServiceTemplateContainersResources) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -888,7 +888,7 @@ func (r *ServiceTemplateContainersPorts) String() string {
 func (r *ServiceTemplateContainersPorts) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -937,7 +937,7 @@ func (r *ServiceTemplateContainersVolumeMounts) String() string {
 func (r *ServiceTemplateContainersVolumeMounts) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -989,7 +989,7 @@ func (r *ServiceTemplateVolumes) String() string {
 func (r *ServiceTemplateVolumes) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1041,7 +1041,7 @@ func (r *ServiceTemplateVolumesSecret) String() string {
 func (r *ServiceTemplateVolumesSecret) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1093,7 +1093,7 @@ func (r *ServiceTemplateVolumesSecretItems) String() string {
 func (r *ServiceTemplateVolumesSecretItems) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1139,7 +1139,7 @@ func (r *ServiceTemplateVolumesCloudSqlInstance) String() string {
 func (r *ServiceTemplateVolumesCloudSqlInstance) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1194,7 +1194,7 @@ func (r *ServiceTraffic) String() string {
 func (r *ServiceTraffic) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1261,7 +1261,7 @@ func (r *ServiceTerminalCondition) String() string {
 func (r *ServiceTerminalCondition) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1319,7 +1319,7 @@ func (r *ServiceTrafficStatuses) String() string {
 func (r *ServiceTrafficStatuses) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

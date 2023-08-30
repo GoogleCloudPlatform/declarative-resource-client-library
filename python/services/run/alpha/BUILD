@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="run/alpha", resources=["service","job"])
+connector(name="run/alpha", resources=["service"])

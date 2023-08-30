@@ -382,7 +382,7 @@ func (r *PolicyAdmissionWhitelistPatterns) String() string {
 func (r *PolicyAdmissionWhitelistPatterns) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -434,7 +434,7 @@ func (r *PolicyClusterAdmissionRules) String() string {
 func (r *PolicyClusterAdmissionRules) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -486,7 +486,7 @@ func (r *PolicyKubernetesNamespaceAdmissionRules) String() string {
 func (r *PolicyKubernetesNamespaceAdmissionRules) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -538,7 +538,7 @@ func (r *PolicyKubernetesServiceAccountAdmissionRules) String() string {
 func (r *PolicyKubernetesServiceAccountAdmissionRules) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -590,7 +590,7 @@ func (r *PolicyIstioServiceIdentityAdmissionRules) String() string {
 func (r *PolicyIstioServiceIdentityAdmissionRules) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -642,7 +642,7 @@ func (r *PolicyDefaultAdmissionRule) String() string {
 func (r *PolicyDefaultAdmissionRule) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

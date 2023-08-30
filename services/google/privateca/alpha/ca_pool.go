@@ -176,7 +176,7 @@ func (r *CaPoolIssuancePolicy) String() string {
 func (r *CaPoolIssuancePolicy) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -225,7 +225,7 @@ func (r *CaPoolIssuancePolicyAllowedKeyTypes) String() string {
 func (r *CaPoolIssuancePolicyAllowedKeyTypes) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -274,7 +274,7 @@ func (r *CaPoolIssuancePolicyAllowedKeyTypesRsa) String() string {
 func (r *CaPoolIssuancePolicyAllowedKeyTypesRsa) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -320,7 +320,7 @@ func (r *CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve) String() string {
 func (r *CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -369,7 +369,7 @@ func (r *CaPoolIssuancePolicyAllowedIssuanceModes) String() string {
 func (r *CaPoolIssuancePolicyAllowedIssuanceModes) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -427,7 +427,7 @@ func (r *CaPoolIssuancePolicyBaselineValues) String() string {
 func (r *CaPoolIssuancePolicyBaselineValues) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -479,7 +479,7 @@ func (r *CaPoolIssuancePolicyBaselineValuesKeyUsage) String() string {
 func (r *CaPoolIssuancePolicyBaselineValuesKeyUsage) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -549,7 +549,7 @@ func (r *CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage) String() string
 func (r *CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -610,7 +610,7 @@ func (r *CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage) String() st
 func (r *CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -656,7 +656,7 @@ func (r *CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages) Str
 func (r *CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -708,7 +708,7 @@ func (r *CaPoolIssuancePolicyBaselineValuesCaOptions) String() string {
 func (r *CaPoolIssuancePolicyBaselineValuesCaOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -754,7 +754,7 @@ func (r *CaPoolIssuancePolicyBaselineValuesPolicyIds) String() string {
 func (r *CaPoolIssuancePolicyBaselineValuesPolicyIds) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -806,7 +806,7 @@ func (r *CaPoolIssuancePolicyBaselineValuesAdditionalExtensions) String() string
 func (r *CaPoolIssuancePolicyBaselineValuesAdditionalExtensions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -852,7 +852,7 @@ func (r *CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId) String(
 func (r *CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -904,7 +904,7 @@ func (r *CaPoolIssuancePolicyIdentityConstraints) String() string {
 func (r *CaPoolIssuancePolicyIdentityConstraints) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -959,7 +959,7 @@ func (r *CaPoolIssuancePolicyIdentityConstraintsCelExpression) String() string {
 func (r *CaPoolIssuancePolicyIdentityConstraintsCelExpression) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1008,7 +1008,7 @@ func (r *CaPoolIssuancePolicyPassthroughExtensions) String() string {
 func (r *CaPoolIssuancePolicyPassthroughExtensions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1054,7 +1054,7 @@ func (r *CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions) String()
 func (r *CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1103,7 +1103,7 @@ func (r *CaPoolPublishingOptions) String() string {
 func (r *CaPoolPublishingOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

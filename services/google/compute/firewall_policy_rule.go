@@ -142,7 +142,7 @@ func (r *FirewallPolicyRuleMatch) String() string {
 func (r *FirewallPolicyRuleMatch) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -191,7 +191,7 @@ func (r *FirewallPolicyRuleMatchLayer4Configs) String() string {
 func (r *FirewallPolicyRuleMatchLayer4Configs) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

@@ -116,7 +116,7 @@ func (r *ConnectionGithubConfig) String() string {
 func (r *ConnectionGithubConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -165,7 +165,7 @@ func (r *ConnectionGithubConfigAuthorizerCredential) String() string {
 func (r *ConnectionGithubConfigAuthorizerCredential) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -232,7 +232,7 @@ func (r *ConnectionGithubEnterpriseConfig) String() string {
 func (r *ConnectionGithubEnterpriseConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -278,7 +278,7 @@ func (r *ConnectionGithubEnterpriseConfigServiceDirectoryConfig) String() string
 func (r *ConnectionGithubEnterpriseConfigServiceDirectoryConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -342,7 +342,7 @@ func (r *ConnectionGitlabConfig) String() string {
 func (r *ConnectionGitlabConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -391,7 +391,7 @@ func (r *ConnectionGitlabConfigReadAuthorizerCredential) String() string {
 func (r *ConnectionGitlabConfigReadAuthorizerCredential) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -440,7 +440,7 @@ func (r *ConnectionGitlabConfigAuthorizerCredential) String() string {
 func (r *ConnectionGitlabConfigAuthorizerCredential) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -486,7 +486,7 @@ func (r *ConnectionGitlabConfigServiceDirectoryConfig) String() string {
 func (r *ConnectionGitlabConfigServiceDirectoryConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -538,7 +538,7 @@ func (r *ConnectionInstallationState) String() string {
 func (r *ConnectionInstallationState) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

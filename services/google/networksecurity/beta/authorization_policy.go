@@ -113,7 +113,7 @@ func (r *AuthorizationPolicyRules) String() string {
 func (r *AuthorizationPolicyRules) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -162,7 +162,7 @@ func (r *AuthorizationPolicyRulesSources) String() string {
 func (r *AuthorizationPolicyRulesSources) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -217,7 +217,7 @@ func (r *AuthorizationPolicyRulesDestinations) String() string {
 func (r *AuthorizationPolicyRulesDestinations) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -266,7 +266,7 @@ func (r *AuthorizationPolicyRulesDestinationsHttpHeaderMatch) String() string {
 func (r *AuthorizationPolicyRulesDestinationsHttpHeaderMatch) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

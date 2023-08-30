@@ -32,7 +32,6 @@ func RegisterServers(s *grpc.Server) {
 	sdkgrpc.RegisterComputeNetworkFirewallPolicyAssociationServiceServer(s, &NetworkFirewallPolicyAssociationServer{})
 	sdkgrpc.RegisterComputeNetworkFirewallPolicyRuleServiceServer(s, &NetworkFirewallPolicyRuleServer{})
 	sdkgrpc.RegisterComputePacketMirroringServiceServer(s, &PacketMirroringServer{})
-	sdkgrpc.RegisterComputeRouteServiceServer(s, &RouteServer{})
 	sdkgrpc.RegisterComputeServiceAttachmentServiceServer(s, &ServiceAttachmentServer{})
 	sdkgrpc.RegisterComputeSubnetworkServiceServer(s, &SubnetworkServer{})
 	sdkgrpc.RegisterComputeVpnTunnelServiceServer(s, &VpnTunnelServer{})

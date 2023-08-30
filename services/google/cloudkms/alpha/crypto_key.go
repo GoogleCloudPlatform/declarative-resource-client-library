@@ -315,7 +315,7 @@ func (r *CryptoKeyPrimary) String() string {
 func (r *CryptoKeyPrimary) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -367,7 +367,7 @@ func (r *CryptoKeyPrimaryAttestation) String() string {
 func (r *CryptoKeyPrimaryAttestation) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -419,7 +419,7 @@ func (r *CryptoKeyPrimaryAttestationCertChains) String() string {
 func (r *CryptoKeyPrimaryAttestationCertChains) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -465,7 +465,7 @@ func (r *CryptoKeyPrimaryExternalProtectionLevelOptions) String() string {
 func (r *CryptoKeyPrimaryExternalProtectionLevelOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -514,7 +514,7 @@ func (r *CryptoKeyVersionTemplate) String() string {
 func (r *CryptoKeyVersionTemplate) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

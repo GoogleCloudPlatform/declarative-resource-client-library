@@ -87,7 +87,7 @@ func (r *DeliveryPipelineSerialPipeline) String() string {
 func (r *DeliveryPipelineSerialPipeline) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -142,7 +142,7 @@ func (r *DeliveryPipelineSerialPipelineStages) String() string {
 func (r *DeliveryPipelineSerialPipelineStages) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -191,7 +191,7 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategy) String() string {
 func (r *DeliveryPipelineSerialPipelineStagesStrategy) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -243,7 +243,7 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyStandard) String() string {
 func (r *DeliveryPipelineSerialPipelineStagesStrategyStandard) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -289,7 +289,7 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy) String()
 func (r *DeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -335,7 +335,7 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy) String(
 func (r *DeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -387,7 +387,7 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanary) String() string {
 func (r *DeliveryPipelineSerialPipelineStagesStrategyCanary) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -436,7 +436,7 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig) String
 func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -485,7 +485,7 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernet
 func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -540,7 +540,7 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernet
 func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -592,7 +592,7 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernet
 func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -638,7 +638,7 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun
 func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -693,7 +693,7 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment) Str
 func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -739,7 +739,7 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPrede
 func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -785,7 +785,7 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostd
 func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -831,7 +831,7 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymen
 func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -892,7 +892,7 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymen
 func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -938,7 +938,7 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymen
 func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -984,7 +984,7 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymen
 func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1033,7 +1033,7 @@ func (r *DeliveryPipelineSerialPipelineStagesDeployParameters) String() string {
 func (r *DeliveryPipelineSerialPipelineStagesDeployParameters) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1085,7 +1085,7 @@ func (r *DeliveryPipelineCondition) String() string {
 func (r *DeliveryPipelineCondition) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1134,7 +1134,7 @@ func (r *DeliveryPipelineConditionPipelineReadyCondition) String() string {
 func (r *DeliveryPipelineConditionPipelineReadyCondition) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1186,7 +1186,7 @@ func (r *DeliveryPipelineConditionTargetsPresentCondition) String() string {
 func (r *DeliveryPipelineConditionTargetsPresentCondition) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1235,7 +1235,7 @@ func (r *DeliveryPipelineConditionTargetsTypeCondition) String() string {
 func (r *DeliveryPipelineConditionTargetsTypeCondition) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

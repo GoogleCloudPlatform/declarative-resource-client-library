@@ -261,7 +261,7 @@ func (r *CertificateAuthorityConfig) String() string {
 func (r *CertificateAuthorityConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -310,7 +310,7 @@ func (r *CertificateAuthorityConfigSubjectConfig) String() string {
 func (r *CertificateAuthorityConfigSubjectConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -377,7 +377,7 @@ func (r *CertificateAuthorityConfigSubjectConfigSubject) String() string {
 func (r *CertificateAuthorityConfigSubjectConfigSubject) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -435,7 +435,7 @@ func (r *CertificateAuthorityConfigSubjectConfigSubjectAltName) String() string 
 func (r *CertificateAuthorityConfigSubjectConfigSubjectAltName) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -487,7 +487,7 @@ func (r *CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans) String
 func (r *CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -533,7 +533,7 @@ func (r *CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId
 func (r *CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -591,7 +591,7 @@ func (r *CertificateAuthorityConfigX509Config) String() string {
 func (r *CertificateAuthorityConfigX509Config) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -643,7 +643,7 @@ func (r *CertificateAuthorityConfigX509ConfigKeyUsage) String() string {
 func (r *CertificateAuthorityConfigX509ConfigKeyUsage) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -713,7 +713,7 @@ func (r *CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage) String() stri
 func (r *CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -774,7 +774,7 @@ func (r *CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage) String() 
 func (r *CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -820,7 +820,7 @@ func (r *CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages) S
 func (r *CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -872,7 +872,7 @@ func (r *CertificateAuthorityConfigX509ConfigCaOptions) String() string {
 func (r *CertificateAuthorityConfigX509ConfigCaOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -918,7 +918,7 @@ func (r *CertificateAuthorityConfigX509ConfigPolicyIds) String() string {
 func (r *CertificateAuthorityConfigX509ConfigPolicyIds) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -970,7 +970,7 @@ func (r *CertificateAuthorityConfigX509ConfigAdditionalExtensions) String() stri
 func (r *CertificateAuthorityConfigX509ConfigAdditionalExtensions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1016,7 +1016,7 @@ func (r *CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId) Strin
 func (r *CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1065,7 +1065,7 @@ func (r *CertificateAuthorityConfigPublicKey) String() string {
 func (r *CertificateAuthorityConfigPublicKey) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1114,7 +1114,7 @@ func (r *CertificateAuthorityKeySpec) String() string {
 func (r *CertificateAuthorityKeySpec) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1163,7 +1163,7 @@ func (r *CertificateAuthoritySubordinateConfig) String() string {
 func (r *CertificateAuthoritySubordinateConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1209,7 +1209,7 @@ func (r *CertificateAuthoritySubordinateConfigPemIssuerChain) String() string {
 func (r *CertificateAuthoritySubordinateConfigPemIssuerChain) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1276,7 +1276,7 @@ func (r *CertificateAuthorityCaCertificateDescriptions) String() string {
 func (r *CertificateAuthorityCaCertificateDescriptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1337,7 +1337,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsSubjectDescription) String
 func (r *CertificateAuthorityCaCertificateDescriptionsSubjectDescription) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1404,7 +1404,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject)
 func (r *CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1462,7 +1462,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectA
 func (r *CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1514,7 +1514,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectA
 func (r *CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1560,7 +1560,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectA
 func (r *CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1618,7 +1618,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsX509Description) String() 
 func (r *CertificateAuthorityCaCertificateDescriptionsX509Description) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1670,7 +1670,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage) S
 func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1740,7 +1740,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBas
 func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1801,7 +1801,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExt
 func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1847,7 +1847,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnk
 func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1896,7 +1896,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions) 
 func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1942,7 +1942,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds) 
 func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1994,7 +1994,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalE
 func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2040,7 +2040,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalE
 func (r *CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2089,7 +2089,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsPublicKey) String() string
 func (r *CertificateAuthorityCaCertificateDescriptionsPublicKey) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2135,7 +2135,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsSubjectKeyId) String() str
 func (r *CertificateAuthorityCaCertificateDescriptionsSubjectKeyId) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2181,7 +2181,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsAuthorityKeyId) String() s
 func (r *CertificateAuthorityCaCertificateDescriptionsAuthorityKeyId) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2227,7 +2227,7 @@ func (r *CertificateAuthorityCaCertificateDescriptionsCertFingerprint) String() 
 func (r *CertificateAuthorityCaCertificateDescriptionsCertFingerprint) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2276,7 +2276,7 @@ func (r *CertificateAuthorityAccessUrls) String() string {
 func (r *CertificateAuthorityAccessUrls) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

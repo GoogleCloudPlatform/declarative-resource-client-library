@@ -203,7 +203,7 @@ func (r *OrganizationAddonsConfig) String() string {
 func (r *OrganizationAddonsConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -249,7 +249,7 @@ func (r *OrganizationAddonsConfigAdvancedApiOpsConfig) String() string {
 func (r *OrganizationAddonsConfigAdvancedApiOpsConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -295,7 +295,7 @@ func (r *OrganizationAddonsConfigMonetizationConfig) String() string {
 func (r *OrganizationAddonsConfigMonetizationConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

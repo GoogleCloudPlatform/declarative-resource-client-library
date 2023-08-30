@@ -144,7 +144,7 @@ func (r *WorkerPoolPrivatePoolV1Config) String() string {
 func (r *WorkerPoolPrivatePoolV1Config) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -193,7 +193,7 @@ func (r *WorkerPoolPrivatePoolV1ConfigWorkerConfig) String() string {
 func (r *WorkerPoolPrivatePoolV1ConfigWorkerConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -245,7 +245,7 @@ func (r *WorkerPoolPrivatePoolV1ConfigNetworkConfig) String() string {
 func (r *WorkerPoolPrivatePoolV1ConfigNetworkConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -297,7 +297,7 @@ func (r *WorkerPoolWorkerConfig) String() string {
 func (r *WorkerPoolWorkerConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -346,7 +346,7 @@ func (r *WorkerPoolNetworkConfig) String() string {
 func (r *WorkerPoolNetworkConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

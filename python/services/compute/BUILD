@@ -13,4 +13,4 @@
 # limitations under the License.
 
 load("//:connector_rules.bzl", "connector")
-connector(name="compute", resources=["firewall_policy","firewall_policy_association","firewall_policy_rule","forwarding_rule","instance","instance_group_manager","interconnect_attachment","network","network_firewall_policy","network_firewall_policy_association","network_firewall_policy_rule","packet_mirroring","route","service_attachment","subnetwork","vpn_tunnel"])
+connector(name="compute", resources=["firewall_policy","firewall_policy_association","firewall_policy_rule","forwarding_rule","instance","instance_group_manager","interconnect_attachment","network","network_firewall_policy","network_firewall_policy_association","network_firewall_policy_rule","packet_mirroring","service_attachment","subnetwork","vpn_tunnel"])

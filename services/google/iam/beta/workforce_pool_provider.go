@@ -165,7 +165,7 @@ func (r *WorkforcePoolProviderSaml) String() string {
 func (r *WorkforcePoolProviderSaml) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -223,7 +223,7 @@ func (r *WorkforcePoolProviderOidc) String() string {
 func (r *WorkforcePoolProviderOidc) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -275,7 +275,7 @@ func (r *WorkforcePoolProviderOidcWebSsoConfig) String() string {
 func (r *WorkforcePoolProviderOidcWebSsoConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -321,7 +321,7 @@ func (r *WorkforcePoolProviderOidcClientSecret) String() string {
 func (r *WorkforcePoolProviderOidcClientSecret) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -370,7 +370,7 @@ func (r *WorkforcePoolProviderOidcClientSecretValue) String() string {
 func (r *WorkforcePoolProviderOidcClientSecretValue) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

@@ -202,7 +202,7 @@ func (r *NetworkFirewallPolicyRuleMatch) String() string {
 func (r *NetworkFirewallPolicyRuleMatch) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -251,7 +251,7 @@ func (r *NetworkFirewallPolicyRuleMatchLayer4Configs) String() string {
 func (r *NetworkFirewallPolicyRuleMatchLayer4Configs) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -300,7 +300,7 @@ func (r *NetworkFirewallPolicyRuleMatchSrcSecureTags) String() string {
 func (r *NetworkFirewallPolicyRuleMatchSrcSecureTags) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -349,7 +349,7 @@ func (r *NetworkFirewallPolicyRuleTargetSecureTags) String() string {
 func (r *NetworkFirewallPolicyRuleTargetSecureTags) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

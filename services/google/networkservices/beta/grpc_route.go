@@ -142,7 +142,7 @@ func (r *GrpcRouteRules) String() string {
 func (r *GrpcRouteRules) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -191,7 +191,7 @@ func (r *GrpcRouteRulesMatches) String() string {
 func (r *GrpcRouteRulesMatches) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -246,7 +246,7 @@ func (r *GrpcRouteRulesMatchesMethod) String() string {
 func (r *GrpcRouteRulesMatchesMethod) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -298,7 +298,7 @@ func (r *GrpcRouteRulesMatchesHeaders) String() string {
 func (r *GrpcRouteRulesMatchesHeaders) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -353,7 +353,7 @@ func (r *GrpcRouteRulesAction) String() string {
 func (r *GrpcRouteRulesAction) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -402,7 +402,7 @@ func (r *GrpcRouteRulesActionDestinations) String() string {
 func (r *GrpcRouteRulesActionDestinations) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -451,7 +451,7 @@ func (r *GrpcRouteRulesActionFaultInjectionPolicy) String() string {
 func (r *GrpcRouteRulesActionFaultInjectionPolicy) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -500,7 +500,7 @@ func (r *GrpcRouteRulesActionFaultInjectionPolicyDelay) String() string {
 func (r *GrpcRouteRulesActionFaultInjectionPolicyDelay) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -549,7 +549,7 @@ func (r *GrpcRouteRulesActionFaultInjectionPolicyAbort) String() string {
 func (r *GrpcRouteRulesActionFaultInjectionPolicyAbort) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -598,7 +598,7 @@ func (r *GrpcRouteRulesActionRetryPolicy) String() string {
 func (r *GrpcRouteRulesActionRetryPolicy) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

@@ -90,7 +90,7 @@ func (r *ServerTlsPolicyServerCertificate) String() string {
 func (r *ServerTlsPolicyServerCertificate) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -139,7 +139,7 @@ func (r *ServerTlsPolicyServerCertificateLocalFilepath) String() string {
 func (r *ServerTlsPolicyServerCertificateLocalFilepath) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -185,7 +185,7 @@ func (r *ServerTlsPolicyServerCertificateGrpcEndpoint) String() string {
 func (r *ServerTlsPolicyServerCertificateGrpcEndpoint) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -231,7 +231,7 @@ func (r *ServerTlsPolicyServerCertificateCertificateProviderInstance) String() s
 func (r *ServerTlsPolicyServerCertificateCertificateProviderInstance) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -277,7 +277,7 @@ func (r *ServerTlsPolicyMtlsPolicy) String() string {
 func (r *ServerTlsPolicyMtlsPolicy) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -329,7 +329,7 @@ func (r *ServerTlsPolicyMtlsPolicyClientValidationCa) String() string {
 func (r *ServerTlsPolicyMtlsPolicyClientValidationCa) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -375,7 +375,7 @@ func (r *ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint) String() strin
 func (r *ServerTlsPolicyMtlsPolicyClientValidationCaGrpcEndpoint) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -421,7 +421,7 @@ func (r *ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance)
 func (r *ServerTlsPolicyMtlsPolicyClientValidationCaCertificateProviderInstance) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

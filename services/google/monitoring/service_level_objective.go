@@ -226,7 +226,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicator) String() string {
 func (r *ServiceLevelObjectiveServiceLevelIndicator) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -290,7 +290,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSli) String() string {
 func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSli) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -333,7 +333,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability) String(
 func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -382,7 +382,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency) String() str
 func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -425,7 +425,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability
 func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -474,7 +474,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency) Str
 func (r *ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -523,7 +523,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorRequestBased) String() string
 func (r *ServiceLevelObjectiveServiceLevelIndicatorRequestBased) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -575,7 +575,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio) S
 func (r *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -624,7 +624,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut) 
 func (r *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -673,7 +673,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRa
 func (r *ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -731,7 +731,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBased) String() string
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBased) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -783,7 +783,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -832,7 +832,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -884,7 +884,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -933,7 +933,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -982,7 +982,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1046,7 +1046,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1089,7 +1089,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1138,7 +1138,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1181,7 +1181,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1230,7 +1230,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThr
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1279,7 +1279,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1328,7 +1328,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1377,7 +1377,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange)
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1426,7 +1426,7 @@ func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeR
 func (r *ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

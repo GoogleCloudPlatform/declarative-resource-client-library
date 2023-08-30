@@ -222,7 +222,7 @@ func (r *LogMetricMetricDescriptor) String() string {
 func (r *LogMetricMetricDescriptor) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -274,7 +274,7 @@ func (r *LogMetricMetricDescriptorLabels) String() string {
 func (r *LogMetricMetricDescriptorLabels) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -323,7 +323,7 @@ func (r *LogMetricMetricDescriptorMetadata) String() string {
 func (r *LogMetricMetricDescriptorMetadata) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -375,7 +375,7 @@ func (r *LogMetricBucketOptions) String() string {
 func (r *LogMetricBucketOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -427,7 +427,7 @@ func (r *LogMetricBucketOptionsLinearBuckets) String() string {
 func (r *LogMetricBucketOptionsLinearBuckets) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -479,7 +479,7 @@ func (r *LogMetricBucketOptionsExponentialBuckets) String() string {
 func (r *LogMetricBucketOptionsExponentialBuckets) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -525,7 +525,7 @@ func (r *LogMetricBucketOptionsExplicitBuckets) String() string {
 func (r *LogMetricBucketOptionsExplicitBuckets) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

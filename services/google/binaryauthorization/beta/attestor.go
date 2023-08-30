@@ -111,7 +111,7 @@ func (r *AttestorUserOwnedDrydockNote) String() string {
 func (r *AttestorUserOwnedDrydockNote) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -166,7 +166,7 @@ func (r *AttestorUserOwnedDrydockNotePublicKeys) String() string {
 func (r *AttestorUserOwnedDrydockNotePublicKeys) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -215,7 +215,7 @@ func (r *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) String() string {
 func (r *AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

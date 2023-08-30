@@ -221,7 +221,7 @@ func (r *FeatureResourceState) String() string {
 func (r *FeatureResourceState) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -273,7 +273,7 @@ func (r *FeatureSpec) String() string {
 func (r *FeatureSpec) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -319,7 +319,7 @@ func (r *FeatureSpecMulticlusteringress) String() string {
 func (r *FeatureSpecMulticlusteringress) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -365,7 +365,7 @@ func (r *FeatureSpecCloudauditlogging) String() string {
 func (r *FeatureSpecCloudauditlogging) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -411,7 +411,7 @@ func (r *FeatureSpecFleetobservability) String() string {
 func (r *FeatureSpecFleetobservability) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -460,7 +460,7 @@ func (r *FeatureSpecFleetobservabilityLoggingConfig) String() string {
 func (r *FeatureSpecFleetobservabilityLoggingConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -506,7 +506,7 @@ func (r *FeatureSpecFleetobservabilityLoggingConfigDefaultConfig) String() strin
 func (r *FeatureSpecFleetobservabilityLoggingConfigDefaultConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -552,7 +552,7 @@ func (r *FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig) String(
 func (r *FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -601,7 +601,7 @@ func (r *FeatureState) String() string {
 func (r *FeatureState) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -653,7 +653,7 @@ func (r *FeatureStateState) String() string {
 func (r *FeatureStateState) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -699,7 +699,7 @@ func (r *FeatureStateServicemesh) String() string {
 func (r *FeatureStateServicemesh) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -754,7 +754,7 @@ func (r *FeatureStateServicemeshAnalysisMessages) String() string {
 func (r *FeatureStateServicemeshAnalysisMessages) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -806,7 +806,7 @@ func (r *FeatureStateServicemeshAnalysisMessagesMessageBase) String() string {
 func (r *FeatureStateServicemeshAnalysisMessagesMessageBase) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -855,7 +855,7 @@ func (r *FeatureStateServicemeshAnalysisMessagesMessageBaseType) String() string
 func (r *FeatureStateServicemeshAnalysisMessagesMessageBaseType) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

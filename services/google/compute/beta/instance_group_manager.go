@@ -371,7 +371,7 @@ func (r *InstanceGroupManagerDistributionPolicy) String() string {
 func (r *InstanceGroupManagerDistributionPolicy) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -417,7 +417,7 @@ func (r *InstanceGroupManagerDistributionPolicyZones) String() string {
 func (r *InstanceGroupManagerDistributionPolicyZones) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -469,7 +469,7 @@ func (r *InstanceGroupManagerVersions) String() string {
 func (r *InstanceGroupManagerVersions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -521,7 +521,7 @@ func (r *InstanceGroupManagerVersionsTargetSize) String() string {
 func (r *InstanceGroupManagerVersionsTargetSize) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -591,7 +591,7 @@ func (r *InstanceGroupManagerCurrentActions) String() string {
 func (r *InstanceGroupManagerCurrentActions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -646,7 +646,7 @@ func (r *InstanceGroupManagerStatus) String() string {
 func (r *InstanceGroupManagerStatus) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -692,7 +692,7 @@ func (r *InstanceGroupManagerStatusVersionTarget) String() string {
 func (r *InstanceGroupManagerStatusVersionTarget) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -744,7 +744,7 @@ func (r *InstanceGroupManagerStatusStateful) String() string {
 func (r *InstanceGroupManagerStatusStateful) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -790,7 +790,7 @@ func (r *InstanceGroupManagerStatusStatefulPerInstanceConfigs) String() string {
 func (r *InstanceGroupManagerStatusStatefulPerInstanceConfigs) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -839,7 +839,7 @@ func (r *InstanceGroupManagerAutoHealingPolicies) String() string {
 func (r *InstanceGroupManagerAutoHealingPolicies) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -906,7 +906,7 @@ func (r *InstanceGroupManagerUpdatePolicy) String() string {
 func (r *InstanceGroupManagerUpdatePolicy) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -958,7 +958,7 @@ func (r *InstanceGroupManagerUpdatePolicyMaxSurge) String() string {
 func (r *InstanceGroupManagerUpdatePolicyMaxSurge) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1010,7 +1010,7 @@ func (r *InstanceGroupManagerUpdatePolicyMaxUnavailable) String() string {
 func (r *InstanceGroupManagerUpdatePolicyMaxUnavailable) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1059,7 +1059,7 @@ func (r *InstanceGroupManagerNamedPorts) String() string {
 func (r *InstanceGroupManagerNamedPorts) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1105,7 +1105,7 @@ func (r *InstanceGroupManagerStatefulPolicy) String() string {
 func (r *InstanceGroupManagerStatefulPolicy) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1157,7 +1157,7 @@ func (r *InstanceGroupManagerStatefulPolicyPreservedState) String() string {
 func (r *InstanceGroupManagerStatefulPolicyPreservedState) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1203,7 +1203,7 @@ func (r *InstanceGroupManagerStatefulPolicyPreservedStateDisks) String() string 
 func (r *InstanceGroupManagerStatefulPolicyPreservedStateDisks) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1249,7 +1249,7 @@ func (r *InstanceGroupManagerStatefulPolicyPreservedStateInternalIps) String() s
 func (r *InstanceGroupManagerStatefulPolicyPreservedStateInternalIps) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1295,7 +1295,7 @@ func (r *InstanceGroupManagerStatefulPolicyPreservedStateExternalIps) String() s
 func (r *InstanceGroupManagerStatefulPolicyPreservedStateExternalIps) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 

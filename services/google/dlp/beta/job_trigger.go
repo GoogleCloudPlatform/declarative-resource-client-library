@@ -392,7 +392,7 @@ func (r *JobTriggerInspectJob) String() string {
 func (r *JobTriggerInspectJob) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -450,7 +450,7 @@ func (r *JobTriggerInspectJobStorageConfig) String() string {
 func (r *JobTriggerInspectJobStorageConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -499,7 +499,7 @@ func (r *JobTriggerInspectJobStorageConfigDatastoreOptions) String() string {
 func (r *JobTriggerInspectJobStorageConfigDatastoreOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -548,7 +548,7 @@ func (r *JobTriggerInspectJobStorageConfigDatastoreOptionsPartitionId) String() 
 func (r *JobTriggerInspectJobStorageConfigDatastoreOptionsPartitionId) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -594,7 +594,7 @@ func (r *JobTriggerInspectJobStorageConfigDatastoreOptionsKind) String() string 
 func (r *JobTriggerInspectJobStorageConfigDatastoreOptionsKind) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -655,7 +655,7 @@ func (r *JobTriggerInspectJobStorageConfigCloudStorageOptions) String() string {
 func (r *JobTriggerInspectJobStorageConfigCloudStorageOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -704,7 +704,7 @@ func (r *JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSet) String() s
 func (r *JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSet) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -756,7 +756,7 @@ func (r *JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRegexFileSet
 func (r *JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRegexFileSet) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -820,7 +820,7 @@ func (r *JobTriggerInspectJobStorageConfigBigQueryOptions) String() string {
 func (r *JobTriggerInspectJobStorageConfigBigQueryOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -872,7 +872,7 @@ func (r *JobTriggerInspectJobStorageConfigBigQueryOptionsTableReference) String(
 func (r *JobTriggerInspectJobStorageConfigBigQueryOptionsTableReference) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -918,7 +918,7 @@ func (r *JobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFields) Stri
 func (r *JobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFields) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -964,7 +964,7 @@ func (r *JobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFields) String(
 func (r *JobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFields) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1010,7 +1010,7 @@ func (r *JobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFields) String(
 func (r *JobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFields) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1065,7 +1065,7 @@ func (r *JobTriggerInspectJobStorageConfigHybridOptions) String() string {
 func (r *JobTriggerInspectJobStorageConfigHybridOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1111,7 +1111,7 @@ func (r *JobTriggerInspectJobStorageConfigHybridOptionsTableOptions) String() st
 func (r *JobTriggerInspectJobStorageConfigHybridOptionsTableOptions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1157,7 +1157,7 @@ func (r *JobTriggerInspectJobStorageConfigHybridOptionsTableOptionsIdentifyingFi
 func (r *JobTriggerInspectJobStorageConfigHybridOptionsTableOptionsIdentifyingFields) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1212,7 +1212,7 @@ func (r *JobTriggerInspectJobStorageConfigTimespanConfig) String() string {
 func (r *JobTriggerInspectJobStorageConfigTimespanConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1258,7 +1258,7 @@ func (r *JobTriggerInspectJobStorageConfigTimespanConfigTimestampField) String()
 func (r *JobTriggerInspectJobStorageConfigTimespanConfigTimestampField) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1322,7 +1322,7 @@ func (r *JobTriggerInspectJobInspectConfig) String() string {
 func (r *JobTriggerInspectJobInspectConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1368,7 +1368,7 @@ func (r *JobTriggerInspectJobInspectConfigInfoTypes) String() string {
 func (r *JobTriggerInspectJobInspectConfigInfoTypes) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1420,7 +1420,7 @@ func (r *JobTriggerInspectJobInspectConfigLimits) String() string {
 func (r *JobTriggerInspectJobInspectConfigLimits) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1469,7 +1469,7 @@ func (r *JobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoType) String()
 func (r *JobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoType) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1518,7 +1518,7 @@ func (r *JobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeInfoType) 
 func (r *JobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeInfoType) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1585,7 +1585,7 @@ func (r *JobTriggerInspectJobInspectConfigCustomInfoTypes) String() string {
 func (r *JobTriggerInspectJobInspectConfigCustomInfoTypes) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1634,7 +1634,7 @@ func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesInfoType) String() stri
 func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesInfoType) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1683,7 +1683,7 @@ func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesDictionary) String() st
 func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesDictionary) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1729,7 +1729,7 @@ func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryWordList) Str
 func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryWordList) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1775,7 +1775,7 @@ func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloudStorageP
 func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloudStoragePath) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1824,7 +1824,7 @@ func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesRegex) String() string 
 func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesRegex) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1867,7 +1867,7 @@ func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesSurrogateType) String()
 func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesSurrogateType) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1916,7 +1916,7 @@ func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesStoredType) String() st
 func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesStoredType) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -1962,7 +1962,7 @@ func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRules) String(
 func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRules) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2014,7 +2014,7 @@ func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRu
 func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRule) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2063,7 +2063,7 @@ func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRu
 func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2112,7 +2112,7 @@ func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRu
 func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2161,7 +2161,7 @@ func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRu
 func (r *JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2210,7 +2210,7 @@ func (r *JobTriggerInspectJobInspectConfigRuleSet) String() string {
 func (r *JobTriggerInspectJobInspectConfigRuleSet) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2259,7 +2259,7 @@ func (r *JobTriggerInspectJobInspectConfigRuleSetInfoTypes) String() string {
 func (r *JobTriggerInspectJobInspectConfigRuleSetInfoTypes) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2308,7 +2308,7 @@ func (r *JobTriggerInspectJobInspectConfigRuleSetRules) String() string {
 func (r *JobTriggerInspectJobInspectConfigRuleSetRules) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2360,7 +2360,7 @@ func (r *JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRule) String() stri
 func (r *JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRule) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2409,7 +2409,7 @@ func (r *JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotwordRegex) S
 func (r *JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotwordRegex) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2458,7 +2458,7 @@ func (r *JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProximity) Stri
 func (r *JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProximity) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2507,7 +2507,7 @@ func (r *JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjus
 func (r *JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2562,7 +2562,7 @@ func (r *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRule) String() st
 func (r *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRule) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2611,7 +2611,7 @@ func (r *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionary) S
 func (r *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionary) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2657,7 +2657,7 @@ func (r *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryWor
 func (r *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryWordList) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2703,7 +2703,7 @@ func (r *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryClo
 func (r *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2752,7 +2752,7 @@ func (r *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegex) String
 func (r *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegex) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2798,7 +2798,7 @@ func (r *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTy
 func (r *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2847,7 +2847,7 @@ func (r *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTy
 func (r *JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2908,7 +2908,7 @@ func (r *JobTriggerInspectJobActions) String() string {
 func (r *JobTriggerInspectJobActions) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -2954,7 +2954,7 @@ func (r *JobTriggerInspectJobActionsSaveFindings) String() string {
 func (r *JobTriggerInspectJobActionsSaveFindings) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -3006,7 +3006,7 @@ func (r *JobTriggerInspectJobActionsSaveFindingsOutputConfig) String() string {
 func (r *JobTriggerInspectJobActionsSaveFindingsOutputConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -3058,7 +3058,7 @@ func (r *JobTriggerInspectJobActionsSaveFindingsOutputConfigTable) String() stri
 func (r *JobTriggerInspectJobActionsSaveFindingsOutputConfigTable) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -3101,7 +3101,7 @@ func (r *JobTriggerInspectJobActionsSaveFindingsOutputConfigDlpStorage) String()
 func (r *JobTriggerInspectJobActionsSaveFindingsOutputConfigDlpStorage) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -3147,7 +3147,7 @@ func (r *JobTriggerInspectJobActionsPubSub) String() string {
 func (r *JobTriggerInspectJobActionsPubSub) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -3190,7 +3190,7 @@ func (r *JobTriggerInspectJobActionsPublishSummaryToCscc) String() string {
 func (r *JobTriggerInspectJobActionsPublishSummaryToCscc) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -3233,7 +3233,7 @@ func (r *JobTriggerInspectJobActionsPublishFindingsToCloudDataCatalog) String() 
 func (r *JobTriggerInspectJobActionsPublishFindingsToCloudDataCatalog) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -3276,7 +3276,7 @@ func (r *JobTriggerInspectJobActionsJobNotificationEmails) String() string {
 func (r *JobTriggerInspectJobActionsJobNotificationEmails) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -3319,7 +3319,7 @@ func (r *JobTriggerInspectJobActionsPublishToStackdriver) String() string {
 func (r *JobTriggerInspectJobActionsPublishToStackdriver) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -3368,7 +3368,7 @@ func (r *JobTriggerTriggers) String() string {
 func (r *JobTriggerTriggers) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -3414,7 +3414,7 @@ func (r *JobTriggerTriggersSchedule) String() string {
 func (r *JobTriggerTriggersSchedule) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -3457,7 +3457,7 @@ func (r *JobTriggerTriggersManual) String() string {
 func (r *JobTriggerTriggersManual) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -3506,7 +3506,7 @@ func (r *JobTriggerErrors) String() string {
 func (r *JobTriggerErrors) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -3558,7 +3558,7 @@ func (r *JobTriggerErrorsDetails) String() string {
 func (r *JobTriggerErrorsDetails) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
@@ -3607,7 +3607,7 @@ func (r *JobTriggerErrorsDetailsDetails) String() string {
 func (r *JobTriggerErrorsDetailsDetails) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
-	hash := sha256.New().Sum([]byte(r.String()))
+	hash := sha256.Sum256([]byte(r.String()))
 	return fmt.Sprintf("%x", hash)
 }
 
