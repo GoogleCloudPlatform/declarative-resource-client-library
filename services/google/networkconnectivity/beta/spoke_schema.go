@@ -153,6 +153,7 @@ func DCLSpokeSchema() *dcl.Schema {
 								Conflicts: []string{
 									"linkedVpnTunnels",
 									"linkedRouterApplianceInstances",
+									"linkedVPCNetwork",
 								},
 								Required: []string{
 									"uris",
@@ -194,6 +195,7 @@ func DCLSpokeSchema() *dcl.Schema {
 								Conflicts: []string{
 									"linkedVpnTunnels",
 									"linkedInterconnectAttachments",
+									"linkedVPCNetwork",
 								},
 								Required: []string{
 									"instances",
@@ -240,6 +242,47 @@ func DCLSpokeSchema() *dcl.Schema {
 									},
 								},
 							},
+							"linkedVPCNetwork": &dcl.Property{
+								Type:        "object",
+								GoName:      "LinkedVPCNetwork",
+								GoType:      "SpokeLinkedVPCNetwork",
+								Description: "VPC network that is associated with the spoke.",
+								Immutable:   true,
+								Conflicts: []string{
+									"linkedVpnTunnels",
+									"linkedInterconnectAttachments",
+									"linkedRouterApplianceInstances",
+								},
+								Required: []string{
+									"uri",
+								},
+								Properties: map[string]*dcl.Property{
+									"excludeExportRanges": &dcl.Property{
+										Type:        "array",
+										GoName:      "ExcludeExportRanges",
+										Description: "IP ranges encompassing the subnets to be excluded from peering.",
+										Immutable:   true,
+										SendEmpty:   true,
+										ListType:    "list",
+										Items: &dcl.Property{
+											Type:   "string",
+											GoType: "string",
+										},
+									},
+									"uri": &dcl.Property{
+										Type:        "string",
+										GoName:      "Uri",
+										Description: "The URI of the VPC network resource.",
+										Immutable:   true,
+										ResourceReferences: []*dcl.PropertyResourceReference{
+											&dcl.PropertyResourceReference{
+												Resource: "Compute/Network",
+												Field:    "selfLink",
+											},
+										},
+									},
+								},
+							},
 							"linkedVpnTunnels": &dcl.Property{
 								Type:        "object",
 								GoName:      "LinkedVpnTunnels",
@@ -249,6 +292,7 @@ func DCLSpokeSchema() *dcl.Schema {
 								Conflicts: []string{
 									"linkedInterconnectAttachments",
 									"linkedRouterApplianceInstances",
+									"linkedVPCNetwork",
 								},
 								Required: []string{
 									"uris",

@@ -79,6 +79,18 @@ func SpokeToUnstructured(r *dclService.Spoke) *unstructured.Resource {
 		}
 		u.Object["linkedRouterApplianceInstances"] = rLinkedRouterApplianceInstances
 	}
+	if r.LinkedVPCNetwork != nil && r.LinkedVPCNetwork != dclService.EmptySpokeLinkedVPCNetwork {
+		rLinkedVPCNetwork := make(map[string]interface{})
+		var rLinkedVPCNetworkExcludeExportRanges []interface{}
+		for _, rLinkedVPCNetworkExcludeExportRangesVal := range r.LinkedVPCNetwork.ExcludeExportRanges {
+			rLinkedVPCNetworkExcludeExportRanges = append(rLinkedVPCNetworkExcludeExportRanges, rLinkedVPCNetworkExcludeExportRangesVal)
+		}
+		rLinkedVPCNetwork["excludeExportRanges"] = rLinkedVPCNetworkExcludeExportRanges
+		if r.LinkedVPCNetwork.Uri != nil {
+			rLinkedVPCNetwork["uri"] = *r.LinkedVPCNetwork.Uri
+		}
+		u.Object["linkedVPCNetwork"] = rLinkedVPCNetwork
+	}
 	if r.LinkedVpnTunnels != nil && r.LinkedVpnTunnels != dclService.EmptySpokeLinkedVpnTunnels {
 		rLinkedVpnTunnels := make(map[string]interface{})
 		if r.LinkedVpnTunnels.SiteToSiteDataTransfer != nil {
@@ -211,6 +223,31 @@ func UnstructuredToSpoke(u *unstructured.Resource) (*dclService.Spoke, error) {
 			}
 		} else {
 			return nil, fmt.Errorf("r.LinkedRouterApplianceInstances: expected map[string]interface{}")
+		}
+	}
+	if _, ok := u.Object["linkedVPCNetwork"]; ok {
+		if rLinkedVPCNetwork, ok := u.Object["linkedVPCNetwork"].(map[string]interface{}); ok {
+			r.LinkedVPCNetwork = &dclService.SpokeLinkedVPCNetwork{}
+			if _, ok := rLinkedVPCNetwork["excludeExportRanges"]; ok {
+				if s, ok := rLinkedVPCNetwork["excludeExportRanges"].([]interface{}); ok {
+					for _, ss := range s {
+						if strval, ok := ss.(string); ok {
+							r.LinkedVPCNetwork.ExcludeExportRanges = append(r.LinkedVPCNetwork.ExcludeExportRanges, strval)
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.LinkedVPCNetwork.ExcludeExportRanges: expected []interface{}")
+				}
+			}
+			if _, ok := rLinkedVPCNetwork["uri"]; ok {
+				if s, ok := rLinkedVPCNetwork["uri"].(string); ok {
+					r.LinkedVPCNetwork.Uri = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.LinkedVPCNetwork.Uri: expected string")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.LinkedVPCNetwork: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["linkedVpnTunnels"]; ok {

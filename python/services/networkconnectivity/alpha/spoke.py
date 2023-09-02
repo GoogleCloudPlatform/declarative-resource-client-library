@@ -32,6 +32,7 @@ class Spoke(object):
         linked_vpn_tunnels: dict = None,
         linked_interconnect_attachments: dict = None,
         linked_router_appliance_instances: dict = None,
+        linked_vpc_network: dict = None,
         unique_id: str = None,
         state: str = None,
         project: str = None,
@@ -46,6 +47,7 @@ class Spoke(object):
         self.linked_vpn_tunnels = linked_vpn_tunnels
         self.linked_interconnect_attachments = linked_interconnect_attachments
         self.linked_router_appliance_instances = linked_router_appliance_instances
+        self.linked_vpc_network = linked_vpc_network
         self.project = project
         self.location = location
         self.service_account_file = service_account_file
@@ -93,6 +95,12 @@ class Spoke(object):
             )
         else:
             request.resource.ClearField("linked_router_appliance_instances")
+        if SpokeLinkedVPCNetwork.to_proto(self.linked_vpc_network):
+            request.resource.linked_vpc_network.CopyFrom(
+                SpokeLinkedVPCNetwork.to_proto(self.linked_vpc_network)
+            )
+        else:
+            request.resource.ClearField("linked_vpc_network")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -120,6 +128,9 @@ class Spoke(object):
             SpokeLinkedRouterApplianceInstances.from_proto(
                 response.linked_router_appliance_instances
             )
+        )
+        self.linked_vpc_network = SpokeLinkedVPCNetwork.from_proto(
+            response.linked_vpc_network
         )
         self.unique_id = Primitive.from_proto(response.unique_id)
         self.state = SpokeStateEnum.from_proto(response.state)
@@ -170,6 +181,12 @@ class Spoke(object):
             )
         else:
             request.resource.ClearField("linked_router_appliance_instances")
+        if SpokeLinkedVPCNetwork.to_proto(self.linked_vpc_network):
+            request.resource.linked_vpc_network.CopyFrom(
+                SpokeLinkedVPCNetwork.to_proto(self.linked_vpc_network)
+            )
+        else:
+            request.resource.ClearField("linked_vpc_network")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -227,6 +244,12 @@ class Spoke(object):
             )
         else:
             resource.ClearField("linked_router_appliance_instances")
+        if SpokeLinkedVPCNetwork.to_proto(self.linked_vpc_network):
+            resource.linked_vpc_network.CopyFrom(
+                SpokeLinkedVPCNetwork.to_proto(self.linked_vpc_network)
+            )
+        else:
+            resource.ClearField("linked_vpc_network")
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):
@@ -419,6 +442,48 @@ class SpokeLinkedRouterApplianceInstancesInstancesArray(object):
             SpokeLinkedRouterApplianceInstancesInstances.from_proto(i)
             for i in resources
         ]
+
+
+class SpokeLinkedVPCNetwork(object):
+    def __init__(self, uri: str = None, exclude_export_ranges: list = None):
+        self.uri = uri
+        self.exclude_export_ranges = exclude_export_ranges
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = spoke_pb2.NetworkconnectivityAlphaSpokeLinkedVPCNetwork()
+        if Primitive.to_proto(resource.uri):
+            res.uri = Primitive.to_proto(resource.uri)
+        if Primitive.to_proto(resource.exclude_export_ranges):
+            res.exclude_export_ranges.extend(
+                Primitive.to_proto(resource.exclude_export_ranges)
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return SpokeLinkedVPCNetwork(
+            uri=Primitive.from_proto(resource.uri),
+            exclude_export_ranges=Primitive.from_proto(resource.exclude_export_ranges),
+        )
+
+
+class SpokeLinkedVPCNetworkArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [SpokeLinkedVPCNetwork.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [SpokeLinkedVPCNetwork.from_proto(i) for i in resources]
 
 
 class SpokeStateEnum(object):

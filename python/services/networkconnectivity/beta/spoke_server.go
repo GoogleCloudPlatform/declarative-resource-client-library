@@ -90,6 +90,20 @@ func ProtoToNetworkconnectivityBetaSpokeLinkedRouterApplianceInstancesInstances(
 	return obj
 }
 
+// ProtoToSpokeLinkedVPCNetwork converts a SpokeLinkedVPCNetwork object from its proto representation.
+func ProtoToNetworkconnectivityBetaSpokeLinkedVPCNetwork(p *betapb.NetworkconnectivityBetaSpokeLinkedVPCNetwork) *beta.SpokeLinkedVPCNetwork {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.SpokeLinkedVPCNetwork{
+		Uri: dcl.StringOrNil(p.GetUri()),
+	}
+	for _, r := range p.GetExcludeExportRanges() {
+		obj.ExcludeExportRanges = append(obj.ExcludeExportRanges, r)
+	}
+	return obj
+}
+
 // ProtoToSpoke converts a Spoke resource from its proto representation.
 func ProtoToSpoke(p *betapb.NetworkconnectivityBetaSpoke) *beta.Spoke {
 	obj := &beta.Spoke{
@@ -101,6 +115,7 @@ func ProtoToSpoke(p *betapb.NetworkconnectivityBetaSpoke) *beta.Spoke {
 		LinkedVpnTunnels:               ProtoToNetworkconnectivityBetaSpokeLinkedVpnTunnels(p.GetLinkedVpnTunnels()),
 		LinkedInterconnectAttachments:  ProtoToNetworkconnectivityBetaSpokeLinkedInterconnectAttachments(p.GetLinkedInterconnectAttachments()),
 		LinkedRouterApplianceInstances: ProtoToNetworkconnectivityBetaSpokeLinkedRouterApplianceInstances(p.GetLinkedRouterApplianceInstances()),
+		LinkedVPCNetwork:               ProtoToNetworkconnectivityBetaSpokeLinkedVPCNetwork(p.GetLinkedVpcNetwork()),
 		UniqueId:                       dcl.StringOrNil(p.GetUniqueId()),
 		State:                          ProtoToNetworkconnectivityBetaSpokeStateEnum(p.GetState()),
 		Project:                        dcl.StringOrNil(p.GetProject()),
@@ -176,6 +191,21 @@ func NetworkconnectivityBetaSpokeLinkedRouterApplianceInstancesInstancesToProto(
 	return p
 }
 
+// SpokeLinkedVPCNetworkToProto converts a SpokeLinkedVPCNetwork object to its proto representation.
+func NetworkconnectivityBetaSpokeLinkedVPCNetworkToProto(o *beta.SpokeLinkedVPCNetwork) *betapb.NetworkconnectivityBetaSpokeLinkedVPCNetwork {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.NetworkconnectivityBetaSpokeLinkedVPCNetwork{}
+	p.SetUri(dcl.ValueOrEmptyString(o.Uri))
+	sExcludeExportRanges := make([]string, len(o.ExcludeExportRanges))
+	for i, r := range o.ExcludeExportRanges {
+		sExcludeExportRanges[i] = r
+	}
+	p.SetExcludeExportRanges(sExcludeExportRanges)
+	return p
+}
+
 // SpokeToProto converts a Spoke resource to its proto representation.
 func SpokeToProto(resource *beta.Spoke) *betapb.NetworkconnectivityBetaSpoke {
 	p := &betapb.NetworkconnectivityBetaSpoke{}
@@ -187,6 +217,7 @@ func SpokeToProto(resource *beta.Spoke) *betapb.NetworkconnectivityBetaSpoke {
 	p.SetLinkedVpnTunnels(NetworkconnectivityBetaSpokeLinkedVpnTunnelsToProto(resource.LinkedVpnTunnels))
 	p.SetLinkedInterconnectAttachments(NetworkconnectivityBetaSpokeLinkedInterconnectAttachmentsToProto(resource.LinkedInterconnectAttachments))
 	p.SetLinkedRouterApplianceInstances(NetworkconnectivityBetaSpokeLinkedRouterApplianceInstancesToProto(resource.LinkedRouterApplianceInstances))
+	p.SetLinkedVpcNetwork(NetworkconnectivityBetaSpokeLinkedVPCNetworkToProto(resource.LinkedVPCNetwork))
 	p.SetUniqueId(dcl.ValueOrEmptyString(resource.UniqueId))
 	p.SetState(NetworkconnectivityBetaSpokeStateEnumToProto(resource.State))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))

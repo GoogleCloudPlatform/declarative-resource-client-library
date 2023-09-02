@@ -39,10 +39,11 @@ message NetworkconnectivitySpoke {
   NetworkconnectivitySpokeLinkedVpnTunnels linked_vpn_tunnels = 7;
   NetworkconnectivitySpokeLinkedInterconnectAttachments linked_interconnect_attachments = 8;
   NetworkconnectivitySpokeLinkedRouterApplianceInstances linked_router_appliance_instances = 9;
-  string unique_id = 10;
-  NetworkconnectivitySpokeStateEnum state = 11;
-  string project = 12;
-  string location = 13;
+  NetworkconnectivitySpokeLinkedVPCNetwork linked_vpc_network = 10;
+  string unique_id = 11;
+  NetworkconnectivitySpokeStateEnum state = 12;
+  string project = 13;
+  string location = 14;
 }
 
 message NetworkconnectivitySpokeLinkedVpnTunnels {
@@ -63,6 +64,11 @@ message NetworkconnectivitySpokeLinkedRouterApplianceInstances {
 message NetworkconnectivitySpokeLinkedRouterApplianceInstancesInstances {
   string virtual_machine = 1;
   string ip_address = 2;
+}
+
+message NetworkconnectivitySpokeLinkedVPCNetwork {
+  string uri = 1;
+  repeated string exclude_export_ranges = 2;
 }
 
 message ApplyNetworkconnectivitySpokeRequest {

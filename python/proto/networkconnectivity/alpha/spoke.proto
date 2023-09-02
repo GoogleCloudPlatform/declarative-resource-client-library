@@ -39,10 +39,11 @@ message NetworkconnectivityAlphaSpoke {
   NetworkconnectivityAlphaSpokeLinkedVpnTunnels linked_vpn_tunnels = 7;
   NetworkconnectivityAlphaSpokeLinkedInterconnectAttachments linked_interconnect_attachments = 8;
   NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances linked_router_appliance_instances = 9;
-  string unique_id = 10;
-  NetworkconnectivityAlphaSpokeStateEnum state = 11;
-  string project = 12;
-  string location = 13;
+  NetworkconnectivityAlphaSpokeLinkedVPCNetwork linked_vpc_network = 10;
+  string unique_id = 11;
+  NetworkconnectivityAlphaSpokeStateEnum state = 12;
+  string project = 13;
+  string location = 14;
 }
 
 message NetworkconnectivityAlphaSpokeLinkedVpnTunnels {
@@ -63,6 +64,11 @@ message NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstances {
 message NetworkconnectivityAlphaSpokeLinkedRouterApplianceInstancesInstances {
   string virtual_machine = 1;
   string ip_address = 2;
+}
+
+message NetworkconnectivityAlphaSpokeLinkedVPCNetwork {
+  string uri = 1;
+  repeated string exclude_export_ranges = 2;
 }
 
 message ApplyNetworkconnectivityAlphaSpokeRequest {
