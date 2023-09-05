@@ -1610,7 +1610,7 @@ func diffTrigger(c *Client, desired, actual *Trigger, opts ...dcl.ApplyOption) (
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.EventDataContentType, actual.EventDataContentType, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("EventDataContentType")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.EventDataContentType, actual.EventDataContentType, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.TriggersOperation("updateTriggerUpdateTriggerOperation")}, fn.AddNest("EventDataContentType")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

@@ -246,7 +246,6 @@ func DCLNodePoolSchema() *dcl.Schema {
 										Type:          "string",
 										GoName:        "InstanceType",
 										Description:   "Optional. The AWS instance type. When unspecified, it defaults to `m5.large`.",
-										Immutable:     true,
 										ServerDefault: true,
 									},
 									"labels": &dcl.Property{

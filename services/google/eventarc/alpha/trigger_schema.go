@@ -278,9 +278,10 @@ func DCLTriggerSchema() *dcl.Schema {
 								Immutable:   true,
 							},
 							"eventDataContentType": &dcl.Property{
-								Type:        "string",
-								GoName:      "EventDataContentType",
-								Description: "Optional. EventDataContentType specifies the type of payload in MIME format that is expected from the CloudEvent data field. This is set to `application/json` if the value is not defined.",
+								Type:          "string",
+								GoName:        "EventDataContentType",
+								Description:   "Optional. EventDataContentType specifies the type of payload in MIME format that is expected from the CloudEvent data field. This is set to `application/json` if the value is not defined.",
+								ServerDefault: true,
 							},
 							"labels": &dcl.Property{
 								Type: "object",

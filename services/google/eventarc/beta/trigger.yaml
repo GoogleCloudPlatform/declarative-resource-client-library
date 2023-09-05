@@ -232,6 +232,7 @@ components:
           description: Optional. EventDataContentType specifies the type of payload
             in MIME format that is expected from the CloudEvent data field. This is
             set to `application/json` if the value is not defined.
+          x-dcl-server-default: true
         labels:
           type: object
           additionalProperties:
