@@ -41,6 +41,7 @@ class Cluster(object):
         fleet: dict = None,
         logging_config: dict = None,
         monitoring_config: dict = None,
+        binary_authorization: dict = None,
         service_account_file: str = "",
     ):
         channel.initialize()
@@ -56,6 +57,7 @@ class Cluster(object):
         self.fleet = fleet
         self.logging_config = logging_config
         self.monitoring_config = monitoring_config
+        self.binary_authorization = binary_authorization
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -113,6 +115,12 @@ class Cluster(object):
             )
         else:
             request.resource.ClearField("monitoring_config")
+        if ClusterBinaryAuthorization.to_proto(self.binary_authorization):
+            request.resource.binary_authorization.CopyFrom(
+                ClusterBinaryAuthorization.to_proto(self.binary_authorization)
+            )
+        else:
+            request.resource.ClearField("binary_authorization")
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyContainerawsBetaCluster(request)
@@ -139,6 +147,9 @@ class Cluster(object):
         self.logging_config = ClusterLoggingConfig.from_proto(response.logging_config)
         self.monitoring_config = ClusterMonitoringConfig.from_proto(
             response.monitoring_config
+        )
+        self.binary_authorization = ClusterBinaryAuthorization.from_proto(
+            response.binary_authorization
         )
 
     def delete(self):
@@ -197,6 +208,12 @@ class Cluster(object):
             )
         else:
             request.resource.ClearField("monitoring_config")
+        if ClusterBinaryAuthorization.to_proto(self.binary_authorization):
+            request.resource.binary_authorization.CopyFrom(
+                ClusterBinaryAuthorization.to_proto(self.binary_authorization)
+            )
+        else:
+            request.resource.ClearField("binary_authorization")
         response = stub.DeleteContainerawsBetaCluster(request)
 
     @classmethod
@@ -256,6 +273,12 @@ class Cluster(object):
             )
         else:
             resource.ClearField("monitoring_config")
+        if ClusterBinaryAuthorization.to_proto(self.binary_authorization):
+            resource.binary_authorization.CopyFrom(
+                ClusterBinaryAuthorization.to_proto(self.binary_authorization)
+            )
+        else:
+            resource.ClearField("binary_authorization")
         return resource
 
 
@@ -1181,6 +1204,48 @@ class ClusterMonitoringConfigManagedPrometheusConfigArray(object):
         ]
 
 
+class ClusterBinaryAuthorization(object):
+    def __init__(self, evaluation_mode: str = None):
+        self.evaluation_mode = evaluation_mode
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.ContainerawsBetaClusterBinaryAuthorization()
+        if ClusterBinaryAuthorizationEvaluationModeEnum.to_proto(
+            resource.evaluation_mode
+        ):
+            res.evaluation_mode = ClusterBinaryAuthorizationEvaluationModeEnum.to_proto(
+                resource.evaluation_mode
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterBinaryAuthorization(
+            evaluation_mode=ClusterBinaryAuthorizationEvaluationModeEnum.from_proto(
+                resource.evaluation_mode
+            ),
+        )
+
+
+class ClusterBinaryAuthorizationArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterBinaryAuthorization.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterBinaryAuthorization.from_proto(i) for i in resources]
+
+
 class ClusterControlPlaneRootVolumeVolumeTypeEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -1280,6 +1345,26 @@ class ClusterLoggingConfigComponentConfigEnableComponentsEnum(object):
             len(
                 "ContainerawsBetaClusterLoggingConfigComponentConfigEnableComponentsEnum"
             ) :
+        ]
+
+
+class ClusterBinaryAuthorizationEvaluationModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return cluster_pb2.ContainerawsBetaClusterBinaryAuthorizationEvaluationModeEnum.Value(
+            "ContainerawsBetaClusterBinaryAuthorizationEvaluationModeEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return cluster_pb2.ContainerawsBetaClusterBinaryAuthorizationEvaluationModeEnum.Name(
+            resource
+        )[
+            len("ContainerawsBetaClusterBinaryAuthorizationEvaluationModeEnum") :
         ]
 
 

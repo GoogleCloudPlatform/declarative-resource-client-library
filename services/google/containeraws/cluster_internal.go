@@ -76,6 +76,11 @@ func (r *Cluster) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.BinaryAuthorization) {
+		if err := r.BinaryAuthorization.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *ClusterNetworking) validate() error {
@@ -206,6 +211,9 @@ func (r *ClusterFleet) validate() error {
 	}
 	return nil
 }
+func (r *ClusterBinaryAuthorization) validate() error {
+	return nil
+}
 func (r *Cluster) basePath() string {
 	params := map[string]interface{}{
 		"location": dcl.ValueOrEmptyString(r.Location),
@@ -288,6 +296,11 @@ func newUpdateClusterUpdateAwsClusterRequest(ctx context.Context, f *Cluster, c 
 	}
 	if v := f.Annotations; !dcl.IsEmptyValueIndirect(v) {
 		req["annotations"] = v
+	}
+	if v, err := expandClusterBinaryAuthorization(c, f.BinaryAuthorization, res); err != nil {
+		return nil, fmt.Errorf("error expanding BinaryAuthorization into binaryAuthorization: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["binaryAuthorization"] = v
 	}
 	b, err := c.getClusterRaw(ctx, f)
 	if err != nil {
@@ -639,6 +652,7 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 		rawDesired.Authorization = canonicalizeClusterAuthorization(rawDesired.Authorization, nil, opts...)
 		rawDesired.WorkloadIdentityConfig = canonicalizeClusterWorkloadIdentityConfig(rawDesired.WorkloadIdentityConfig, nil, opts...)
 		rawDesired.Fleet = canonicalizeClusterFleet(rawDesired.Fleet, nil, opts...)
+		rawDesired.BinaryAuthorization = canonicalizeClusterBinaryAuthorization(rawDesired.BinaryAuthorization, nil, opts...)
 
 		return rawDesired, nil
 	}
@@ -678,6 +692,7 @@ func canonicalizeClusterDesiredState(rawDesired, rawInitial *Cluster, opts ...dc
 		canonicalDesired.Location = rawDesired.Location
 	}
 	canonicalDesired.Fleet = canonicalizeClusterFleet(rawDesired.Fleet, rawInitial.Fleet, opts...)
+	canonicalDesired.BinaryAuthorization = canonicalizeClusterBinaryAuthorization(rawDesired.BinaryAuthorization, rawInitial.BinaryAuthorization, opts...)
 	return canonicalDesired, nil
 }
 
@@ -791,6 +806,12 @@ func canonicalizeClusterNewState(c *Client, rawNew, rawDesired *Cluster) (*Clust
 		rawNew.Fleet = rawDesired.Fleet
 	} else {
 		rawNew.Fleet = canonicalizeNewClusterFleet(c, rawDesired.Fleet, rawNew.Fleet)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.BinaryAuthorization) && dcl.IsEmptyValueIndirect(rawDesired.BinaryAuthorization) {
+		rawNew.BinaryAuthorization = rawDesired.BinaryAuthorization
+	} else {
+		rawNew.BinaryAuthorization = canonicalizeNewClusterBinaryAuthorization(c, rawDesired.BinaryAuthorization, rawNew.BinaryAuthorization)
 	}
 
 	return rawNew, nil
@@ -2483,6 +2504,121 @@ func canonicalizeNewClusterFleetSlice(c *Client, des, nw []ClusterFleet) []Clust
 	return items
 }
 
+func canonicalizeClusterBinaryAuthorization(des, initial *ClusterBinaryAuthorization, opts ...dcl.ApplyOption) *ClusterBinaryAuthorization {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ClusterBinaryAuthorization{}
+
+	if dcl.IsZeroValue(des.EvaluationMode) || (dcl.IsEmptyValueIndirect(des.EvaluationMode) && dcl.IsEmptyValueIndirect(initial.EvaluationMode)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.EvaluationMode = initial.EvaluationMode
+	} else {
+		cDes.EvaluationMode = des.EvaluationMode
+	}
+
+	return cDes
+}
+
+func canonicalizeClusterBinaryAuthorizationSlice(des, initial []ClusterBinaryAuthorization, opts ...dcl.ApplyOption) []ClusterBinaryAuthorization {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ClusterBinaryAuthorization, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeClusterBinaryAuthorization(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ClusterBinaryAuthorization, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeClusterBinaryAuthorization(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewClusterBinaryAuthorization(c *Client, des, nw *ClusterBinaryAuthorization) *ClusterBinaryAuthorization {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ClusterBinaryAuthorization while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	return nw
+}
+
+func canonicalizeNewClusterBinaryAuthorizationSet(c *Client, des, nw []ClusterBinaryAuthorization) []ClusterBinaryAuthorization {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []ClusterBinaryAuthorization
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareClusterBinaryAuthorizationNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewClusterBinaryAuthorization(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewClusterBinaryAuthorizationSlice(c *Client, des, nw []ClusterBinaryAuthorization) []ClusterBinaryAuthorization {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ClusterBinaryAuthorization
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewClusterBinaryAuthorization(c, &d, &n))
+	}
+
+	return items
+}
+
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -2621,6 +2757,13 @@ func diffCluster(c *Client, desired, actual *Cluster, opts ...dcl.ApplyOption) (
 	}
 
 	if ds, err := dcl.Diff(desired.Fleet, actual.Fleet, dcl.DiffInfo{ObjectFunction: compareClusterFleetNewStyle, EmptyObject: EmptyClusterFleet, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Fleet")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.BinaryAuthorization, actual.BinaryAuthorization, dcl.DiffInfo{ServerDefault: true, ObjectFunction: compareClusterBinaryAuthorizationNewStyle, EmptyObject: EmptyClusterBinaryAuthorization, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("BinaryAuthorization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3205,6 +3348,35 @@ func compareClusterFleetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.Fie
 	return diffs, nil
 }
 
+func compareClusterBinaryAuthorizationNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ClusterBinaryAuthorization)
+	if !ok {
+		desiredNotPointer, ok := d.(ClusterBinaryAuthorization)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterBinaryAuthorization or *ClusterBinaryAuthorization", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ClusterBinaryAuthorization)
+	if !ok {
+		actualNotPointer, ok := a.(ClusterBinaryAuthorization)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ClusterBinaryAuthorization", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.EvaluationMode, actual.EvaluationMode, dcl.DiffInfo{ServerDefault: true, Type: "EnumType", OperationSelector: dcl.TriggersOperation("updateClusterUpdateAwsClusterOperation")}, fn.AddNest("EvaluationMode")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
@@ -3315,6 +3487,11 @@ func expandCluster(c *Client, f *Cluster) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["fleet"] = v
 	}
+	if v, err := expandClusterBinaryAuthorization(c, f.BinaryAuthorization, res); err != nil {
+		return nil, fmt.Errorf("error expanding BinaryAuthorization into binaryAuthorization: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["binaryAuthorization"] = v
+	}
 
 	return m, nil
 }
@@ -3349,6 +3526,7 @@ func flattenCluster(c *Client, i interface{}, res *Cluster) *Cluster {
 	resultRes.Project = dcl.FlattenString(m["project"])
 	resultRes.Location = dcl.FlattenString(m["location"])
 	resultRes.Fleet = flattenClusterFleet(c, m["fleet"], res)
+	resultRes.BinaryAuthorization = flattenClusterBinaryAuthorization(c, m["binaryAuthorization"], res)
 
 	return resultRes
 }
@@ -4962,6 +5140,120 @@ func flattenClusterFleet(c *Client, i interface{}, res *Cluster) *ClusterFleet {
 	return r
 }
 
+// expandClusterBinaryAuthorizationMap expands the contents of ClusterBinaryAuthorization into a JSON
+// request object.
+func expandClusterBinaryAuthorizationMap(c *Client, f map[string]ClusterBinaryAuthorization, res *Cluster) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandClusterBinaryAuthorization(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandClusterBinaryAuthorizationSlice expands the contents of ClusterBinaryAuthorization into a JSON
+// request object.
+func expandClusterBinaryAuthorizationSlice(c *Client, f []ClusterBinaryAuthorization, res *Cluster) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandClusterBinaryAuthorization(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenClusterBinaryAuthorizationMap flattens the contents of ClusterBinaryAuthorization from a JSON
+// response object.
+func flattenClusterBinaryAuthorizationMap(c *Client, i interface{}, res *Cluster) map[string]ClusterBinaryAuthorization {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterBinaryAuthorization{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterBinaryAuthorization{}
+	}
+
+	items := make(map[string]ClusterBinaryAuthorization)
+	for k, item := range a {
+		items[k] = *flattenClusterBinaryAuthorization(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenClusterBinaryAuthorizationSlice flattens the contents of ClusterBinaryAuthorization from a JSON
+// response object.
+func flattenClusterBinaryAuthorizationSlice(c *Client, i interface{}, res *Cluster) []ClusterBinaryAuthorization {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ClusterBinaryAuthorization{}
+	}
+
+	if len(a) == 0 {
+		return []ClusterBinaryAuthorization{}
+	}
+
+	items := make([]ClusterBinaryAuthorization, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenClusterBinaryAuthorization(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandClusterBinaryAuthorization expands an instance of ClusterBinaryAuthorization into a JSON
+// request object.
+func expandClusterBinaryAuthorization(c *Client, f *ClusterBinaryAuthorization, res *Cluster) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.EvaluationMode; !dcl.IsEmptyValueIndirect(v) {
+		m["evaluationMode"] = v
+	}
+
+	return m, nil
+}
+
+// flattenClusterBinaryAuthorization flattens an instance of ClusterBinaryAuthorization from a JSON
+// response object.
+func flattenClusterBinaryAuthorization(c *Client, i interface{}, res *Cluster) *ClusterBinaryAuthorization {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ClusterBinaryAuthorization{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyClusterBinaryAuthorization
+	}
+	r.EvaluationMode = flattenClusterBinaryAuthorizationEvaluationModeEnum(m["evaluationMode"])
+
+	return r
+}
+
 // flattenClusterControlPlaneRootVolumeVolumeTypeEnumMap flattens the contents of ClusterControlPlaneRootVolumeVolumeTypeEnum from a JSON
 // response object.
 func flattenClusterControlPlaneRootVolumeVolumeTypeEnumMap(c *Client, i interface{}, res *Cluster) map[string]ClusterControlPlaneRootVolumeVolumeTypeEnum {
@@ -5115,6 +5407,57 @@ func flattenClusterStateEnum(i interface{}) *ClusterStateEnum {
 	return ClusterStateEnumRef(s)
 }
 
+// flattenClusterBinaryAuthorizationEvaluationModeEnumMap flattens the contents of ClusterBinaryAuthorizationEvaluationModeEnum from a JSON
+// response object.
+func flattenClusterBinaryAuthorizationEvaluationModeEnumMap(c *Client, i interface{}, res *Cluster) map[string]ClusterBinaryAuthorizationEvaluationModeEnum {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ClusterBinaryAuthorizationEvaluationModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ClusterBinaryAuthorizationEvaluationModeEnum{}
+	}
+
+	items := make(map[string]ClusterBinaryAuthorizationEvaluationModeEnum)
+	for k, item := range a {
+		items[k] = *flattenClusterBinaryAuthorizationEvaluationModeEnum(item.(interface{}))
+	}
+
+	return items
+}
+
+// flattenClusterBinaryAuthorizationEvaluationModeEnumSlice flattens the contents of ClusterBinaryAuthorizationEvaluationModeEnum from a JSON
+// response object.
+func flattenClusterBinaryAuthorizationEvaluationModeEnumSlice(c *Client, i interface{}, res *Cluster) []ClusterBinaryAuthorizationEvaluationModeEnum {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ClusterBinaryAuthorizationEvaluationModeEnum{}
+	}
+
+	if len(a) == 0 {
+		return []ClusterBinaryAuthorizationEvaluationModeEnum{}
+	}
+
+	items := make([]ClusterBinaryAuthorizationEvaluationModeEnum, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenClusterBinaryAuthorizationEvaluationModeEnum(item.(interface{})))
+	}
+
+	return items
+}
+
+// flattenClusterBinaryAuthorizationEvaluationModeEnum asserts that an interface is a string, and returns a
+// pointer to a *ClusterBinaryAuthorizationEvaluationModeEnum with the same value as that string.
+func flattenClusterBinaryAuthorizationEvaluationModeEnum(i interface{}) *ClusterBinaryAuthorizationEvaluationModeEnum {
+	s, ok := i.(string)
+	if !ok {
+		return nil
+	}
+
+	return ClusterBinaryAuthorizationEvaluationModeEnumRef(s)
+}
+
 // This function returns a matcher that checks whether a serialized resource matches this resource
 // in its parameters (as defined by the fields in a Get, which definitionally define resource
 // identity).  This is useful in extracting the element from a List call.
@@ -5264,6 +5607,17 @@ func extractClusterFields(r *Cluster) error {
 	if !dcl.IsEmptyValueIndirect(vFleet) {
 		r.Fleet = vFleet
 	}
+	vBinaryAuthorization := r.BinaryAuthorization
+	if vBinaryAuthorization == nil {
+		// note: explicitly not the empty object.
+		vBinaryAuthorization = &ClusterBinaryAuthorization{}
+	}
+	if err := extractClusterBinaryAuthorizationFields(r, vBinaryAuthorization); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vBinaryAuthorization) {
+		r.BinaryAuthorization = vBinaryAuthorization
+	}
 	return nil
 }
 func extractClusterNetworkingFields(r *Cluster, o *ClusterNetworking) error {
@@ -5382,6 +5736,9 @@ func extractClusterWorkloadIdentityConfigFields(r *Cluster, o *ClusterWorkloadId
 func extractClusterFleetFields(r *Cluster, o *ClusterFleet) error {
 	return nil
 }
+func extractClusterBinaryAuthorizationFields(r *Cluster, o *ClusterBinaryAuthorization) error {
+	return nil
+}
 
 func postReadExtractClusterFields(r *Cluster) error {
 	vNetworking := r.Networking
@@ -5438,6 +5795,17 @@ func postReadExtractClusterFields(r *Cluster) error {
 	}
 	if !dcl.IsEmptyValueIndirect(vFleet) {
 		r.Fleet = vFleet
+	}
+	vBinaryAuthorization := r.BinaryAuthorization
+	if vBinaryAuthorization == nil {
+		// note: explicitly not the empty object.
+		vBinaryAuthorization = &ClusterBinaryAuthorization{}
+	}
+	if err := postReadExtractClusterBinaryAuthorizationFields(r, vBinaryAuthorization); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vBinaryAuthorization) {
+		r.BinaryAuthorization = vBinaryAuthorization
 	}
 	return nil
 }
@@ -5555,5 +5923,8 @@ func postReadExtractClusterWorkloadIdentityConfigFields(r *Cluster, o *ClusterWo
 	return nil
 }
 func postReadExtractClusterFleetFields(r *Cluster, o *ClusterFleet) error {
+	return nil
+}
+func postReadExtractClusterBinaryAuthorizationFields(r *Cluster, o *ClusterBinaryAuthorization) error {
 	return nil
 }

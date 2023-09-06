@@ -46,6 +46,12 @@ enum ContainerawsClusterStateEnum {
   ContainerawsClusterStateEnumDEGRADED = 7;
 }
 
+enum ContainerawsClusterBinaryAuthorizationEvaluationModeEnum {
+  ContainerawsClusterBinaryAuthorizationEvaluationModeEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerawsClusterBinaryAuthorizationEvaluationModeEnumDISABLED = 1;
+  ContainerawsClusterBinaryAuthorizationEvaluationModeEnumPROJECT_SINGLETON_POLICY_ENFORCE = 2;
+}
+
 message ContainerawsCluster {
   string name = 1;
   string description = 2;
@@ -65,6 +71,7 @@ message ContainerawsCluster {
   string project = 16;
   string location = 17;
   ContainerawsClusterFleet fleet = 18;
+  ContainerawsClusterBinaryAuthorization binary_authorization = 19;
 }
 
 message ContainerawsClusterNetworking {
@@ -145,6 +152,10 @@ message ContainerawsClusterWorkloadIdentityConfig {
 message ContainerawsClusterFleet {
   string project = 1;
   string membership = 2;
+}
+
+message ContainerawsClusterBinaryAuthorization {
+  ContainerawsClusterBinaryAuthorizationEvaluationModeEnum evaluation_mode = 1;
 }
 
 message ApplyContainerawsClusterRequest {

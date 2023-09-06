@@ -11,7 +11,7 @@
   },
   "awsRegion": "{{aws_region}}",
   "controlPlane": {
-    "version": "1.26.5-gke.1400",
+    "version": "1.27.4-gke.1600",
     "instanceType": "m5.large",
     "sshConfig": {
       "ec2KeyPair": "{{byo_multicloud_prefix}}-1p-dev-ssh"
@@ -64,5 +64,8 @@
   },
   "fleet": {
     "project": "{{project_number}}"
+  },
+  "binaryAuthorization": {
+    "evaluationMode": "DISABLED"
   }
 }

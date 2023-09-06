@@ -43,6 +43,7 @@ type Cluster struct {
 	Project                *string                        `json:"project"`
 	Location               *string                        `json:"location"`
 	Fleet                  *ClusterFleet                  `json:"fleet"`
+	BinaryAuthorization    *ClusterBinaryAuthorization    `json:"binaryAuthorization"`
 }
 
 func (r *Cluster) String() string {
@@ -125,6 +126,33 @@ func (v ClusterStateEnum) Validate() error {
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "ClusterStateEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum ClusterBinaryAuthorizationEvaluationModeEnum.
+type ClusterBinaryAuthorizationEvaluationModeEnum string
+
+// ClusterBinaryAuthorizationEvaluationModeEnumRef returns a *ClusterBinaryAuthorizationEvaluationModeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func ClusterBinaryAuthorizationEvaluationModeEnumRef(s string) *ClusterBinaryAuthorizationEvaluationModeEnum {
+	v := ClusterBinaryAuthorizationEvaluationModeEnum(s)
+	return &v
+}
+
+func (v ClusterBinaryAuthorizationEvaluationModeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"DISABLED", "PROJECT_SINGLETON_POLICY_ENFORCE"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "ClusterBinaryAuthorizationEvaluationModeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -812,6 +840,52 @@ func (r *ClusterFleet) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
+type ClusterBinaryAuthorization struct {
+	empty          bool                                          `json:"-"`
+	EvaluationMode *ClusterBinaryAuthorizationEvaluationModeEnum `json:"evaluationMode"`
+}
+
+type jsonClusterBinaryAuthorization ClusterBinaryAuthorization
+
+func (r *ClusterBinaryAuthorization) UnmarshalJSON(data []byte) error {
+	var res jsonClusterBinaryAuthorization
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterBinaryAuthorization
+	} else {
+
+		r.EvaluationMode = res.EvaluationMode
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ClusterBinaryAuthorization is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyClusterBinaryAuthorization *ClusterBinaryAuthorization = &ClusterBinaryAuthorization{empty: true}
+
+func (r *ClusterBinaryAuthorization) Empty() bool {
+	return r.empty
+}
+
+func (r *ClusterBinaryAuthorization) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ClusterBinaryAuthorization) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 // Describe returns a simple description of this resource to ensure that automated tools
 // can identify it.
 func (r *Cluster) Describe() dcl.ServiceTypeVersion {
@@ -846,6 +920,7 @@ func (r *Cluster) ID() (string, error) {
 		"project":                  dcl.ValueOrEmptyString(nr.Project),
 		"location":                 dcl.ValueOrEmptyString(nr.Location),
 		"fleet":                    dcl.ValueOrEmptyString(nr.Fleet),
+		"binary_authorization":     dcl.ValueOrEmptyString(nr.BinaryAuthorization),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/awsClusters/{{name}}", params), nil
 }

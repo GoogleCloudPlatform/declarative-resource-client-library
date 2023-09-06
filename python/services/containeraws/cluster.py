@@ -39,6 +39,7 @@ class Cluster(object):
         project: str = None,
         location: str = None,
         fleet: dict = None,
+        binary_authorization: dict = None,
         service_account_file: str = "",
     ):
         channel.initialize()
@@ -52,6 +53,7 @@ class Cluster(object):
         self.project = project
         self.location = location
         self.fleet = fleet
+        self.binary_authorization = binary_authorization
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -97,6 +99,12 @@ class Cluster(object):
             request.resource.fleet.CopyFrom(ClusterFleet.to_proto(self.fleet))
         else:
             request.resource.ClearField("fleet")
+        if ClusterBinaryAuthorization.to_proto(self.binary_authorization):
+            request.resource.binary_authorization.CopyFrom(
+                ClusterBinaryAuthorization.to_proto(self.binary_authorization)
+            )
+        else:
+            request.resource.ClearField("binary_authorization")
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyContainerawsCluster(request)
@@ -120,6 +128,9 @@ class Cluster(object):
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
         self.fleet = ClusterFleet.from_proto(response.fleet)
+        self.binary_authorization = ClusterBinaryAuthorization.from_proto(
+            response.binary_authorization
+        )
 
     def delete(self):
         stub = cluster_pb2_grpc.ContainerawsClusterServiceStub(channel.Channel())
@@ -165,6 +176,12 @@ class Cluster(object):
             request.resource.fleet.CopyFrom(ClusterFleet.to_proto(self.fleet))
         else:
             request.resource.ClearField("fleet")
+        if ClusterBinaryAuthorization.to_proto(self.binary_authorization):
+            request.resource.binary_authorization.CopyFrom(
+                ClusterBinaryAuthorization.to_proto(self.binary_authorization)
+            )
+        else:
+            request.resource.ClearField("binary_authorization")
         response = stub.DeleteContainerawsCluster(request)
 
     @classmethod
@@ -212,6 +229,12 @@ class Cluster(object):
             resource.fleet.CopyFrom(ClusterFleet.to_proto(self.fleet))
         else:
             resource.ClearField("fleet")
+        if ClusterBinaryAuthorization.to_proto(self.binary_authorization):
+            resource.binary_authorization.CopyFrom(
+                ClusterBinaryAuthorization.to_proto(self.binary_authorization)
+            )
+        else:
+            resource.ClearField("binary_authorization")
         return resource
 
 
@@ -908,6 +931,48 @@ class ClusterFleetArray(object):
         return [ClusterFleet.from_proto(i) for i in resources]
 
 
+class ClusterBinaryAuthorization(object):
+    def __init__(self, evaluation_mode: str = None):
+        self.evaluation_mode = evaluation_mode
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.ContainerawsClusterBinaryAuthorization()
+        if ClusterBinaryAuthorizationEvaluationModeEnum.to_proto(
+            resource.evaluation_mode
+        ):
+            res.evaluation_mode = ClusterBinaryAuthorizationEvaluationModeEnum.to_proto(
+                resource.evaluation_mode
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterBinaryAuthorization(
+            evaluation_mode=ClusterBinaryAuthorizationEvaluationModeEnum.from_proto(
+                resource.evaluation_mode
+            ),
+        )
+
+
+class ClusterBinaryAuthorizationArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterBinaryAuthorization.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterBinaryAuthorization.from_proto(i) for i in resources]
+
+
 class ClusterControlPlaneRootVolumeVolumeTypeEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -964,6 +1029,28 @@ class ClusterStateEnum(object):
         return cluster_pb2.ContainerawsClusterStateEnum.Name(resource)[
             len("ContainerawsClusterStateEnum") :
         ]
+
+
+class ClusterBinaryAuthorizationEvaluationModeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return (
+            cluster_pb2.ContainerawsClusterBinaryAuthorizationEvaluationModeEnum.Value(
+                "ContainerawsClusterBinaryAuthorizationEvaluationModeEnum%s" % resource
+            )
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return (
+            cluster_pb2.ContainerawsClusterBinaryAuthorizationEvaluationModeEnum.Name(
+                resource
+            )[len("ContainerawsClusterBinaryAuthorizationEvaluationModeEnum") :]
+        )
 
 
 class Primitive(object):

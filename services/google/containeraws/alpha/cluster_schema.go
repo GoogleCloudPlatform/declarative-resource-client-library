@@ -170,6 +170,26 @@ func DCLClusterSchema() *dcl.Schema {
 								Description: "The AWS region where the cluster runs. Each Google Cloud region supports a subset of nearby AWS regions. You can call to list all supported AWS regions within a given Google Cloud region.",
 								Immutable:   true,
 							},
+							"binaryAuthorization": &dcl.Property{
+								Type:          "object",
+								GoName:        "BinaryAuthorization",
+								GoType:        "ClusterBinaryAuthorization",
+								Description:   "Configuration options for the Binary Authorization feature.",
+								ServerDefault: true,
+								Properties: map[string]*dcl.Property{
+									"evaluationMode": &dcl.Property{
+										Type:          "string",
+										GoName:        "EvaluationMode",
+										GoType:        "ClusterBinaryAuthorizationEvaluationModeEnum",
+										Description:   "Mode of operation for Binary Authorization policy evaluation. Possible values: DISABLED, PROJECT_SINGLETON_POLICY_ENFORCE",
+										ServerDefault: true,
+										Enum: []string{
+											"DISABLED",
+											"PROJECT_SINGLETON_POLICY_ENFORCE",
+										},
+									},
+								},
+							},
 							"controlPlane": &dcl.Property{
 								Type:        "object",
 								GoName:      "ControlPlane",

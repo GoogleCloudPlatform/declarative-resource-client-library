@@ -61,6 +61,12 @@ enum ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum {
   ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnumWORKLOADS = 3;
 }
 
+enum ContainerawsAlphaClusterBinaryAuthorizationEvaluationModeEnum {
+  ContainerawsAlphaClusterBinaryAuthorizationEvaluationModeEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerawsAlphaClusterBinaryAuthorizationEvaluationModeEnumDISABLED = 1;
+  ContainerawsAlphaClusterBinaryAuthorizationEvaluationModeEnumPROJECT_SINGLETON_POLICY_ENFORCE = 2;
+}
+
 message ContainerawsAlphaCluster {
   string name = 1;
   string description = 2;
@@ -82,6 +88,7 @@ message ContainerawsAlphaCluster {
   ContainerawsAlphaClusterFleet fleet = 18;
   ContainerawsAlphaClusterLoggingConfig logging_config = 19;
   ContainerawsAlphaClusterMonitoringConfig monitoring_config = 20;
+  ContainerawsAlphaClusterBinaryAuthorization binary_authorization = 21;
 }
 
 message ContainerawsAlphaClusterNetworking {
@@ -183,6 +190,10 @@ message ContainerawsAlphaClusterMonitoringConfig {
 
 message ContainerawsAlphaClusterMonitoringConfigManagedPrometheusConfig {
   bool enabled = 1;
+}
+
+message ContainerawsAlphaClusterBinaryAuthorization {
+  ContainerawsAlphaClusterBinaryAuthorizationEvaluationModeEnum evaluation_mode = 1;
 }
 
 message ApplyContainerawsAlphaClusterRequest {

@@ -84,6 +84,18 @@ func ProtoToContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponents
 	return nil
 }
 
+// ProtoToClusterBinaryAuthorizationEvaluationModeEnum converts a ClusterBinaryAuthorizationEvaluationModeEnum enum from its proto representation.
+func ProtoToContainerawsAlphaClusterBinaryAuthorizationEvaluationModeEnum(e alphapb.ContainerawsAlphaClusterBinaryAuthorizationEvaluationModeEnum) *alpha.ClusterBinaryAuthorizationEvaluationModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.ContainerawsAlphaClusterBinaryAuthorizationEvaluationModeEnum_name[int32(e)]; ok {
+		e := alpha.ClusterBinaryAuthorizationEvaluationModeEnum(n[len("ContainerawsAlphaClusterBinaryAuthorizationEvaluationModeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToClusterNetworking converts a ClusterNetworking object from its proto representation.
 func ProtoToContainerawsAlphaClusterNetworking(p *alphapb.ContainerawsAlphaClusterNetworking) *alpha.ClusterNetworking {
 	if p == nil {
@@ -320,6 +332,17 @@ func ProtoToContainerawsAlphaClusterMonitoringConfigManagedPrometheusConfig(p *a
 	return obj
 }
 
+// ProtoToClusterBinaryAuthorization converts a ClusterBinaryAuthorization object from its proto representation.
+func ProtoToContainerawsAlphaClusterBinaryAuthorization(p *alphapb.ContainerawsAlphaClusterBinaryAuthorization) *alpha.ClusterBinaryAuthorization {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterBinaryAuthorization{
+		EvaluationMode: ProtoToContainerawsAlphaClusterBinaryAuthorizationEvaluationModeEnum(p.GetEvaluationMode()),
+	}
+	return obj
+}
+
 // ProtoToCluster converts a Cluster resource from its proto representation.
 func ProtoToCluster(p *alphapb.ContainerawsAlphaCluster) *alpha.Cluster {
 	obj := &alpha.Cluster{
@@ -342,6 +365,7 @@ func ProtoToCluster(p *alphapb.ContainerawsAlphaCluster) *alpha.Cluster {
 		Fleet:                  ProtoToContainerawsAlphaClusterFleet(p.GetFleet()),
 		LoggingConfig:          ProtoToContainerawsAlphaClusterLoggingConfig(p.GetLoggingConfig()),
 		MonitoringConfig:       ProtoToContainerawsAlphaClusterMonitoringConfig(p.GetMonitoringConfig()),
+		BinaryAuthorization:    ProtoToContainerawsAlphaClusterBinaryAuthorization(p.GetBinaryAuthorization()),
 	}
 	return obj
 }
@@ -399,6 +423,17 @@ func ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnumToP
 		return alphapb.ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum(v)
 	}
 	return alphapb.ContainerawsAlphaClusterLoggingConfigComponentConfigEnableComponentsEnum(0)
+}
+
+// ClusterBinaryAuthorizationEvaluationModeEnumToProto converts a ClusterBinaryAuthorizationEvaluationModeEnum enum to its proto representation.
+func ContainerawsAlphaClusterBinaryAuthorizationEvaluationModeEnumToProto(e *alpha.ClusterBinaryAuthorizationEvaluationModeEnum) alphapb.ContainerawsAlphaClusterBinaryAuthorizationEvaluationModeEnum {
+	if e == nil {
+		return alphapb.ContainerawsAlphaClusterBinaryAuthorizationEvaluationModeEnum(0)
+	}
+	if v, ok := alphapb.ContainerawsAlphaClusterBinaryAuthorizationEvaluationModeEnum_value["ClusterBinaryAuthorizationEvaluationModeEnum"+string(*e)]; ok {
+		return alphapb.ContainerawsAlphaClusterBinaryAuthorizationEvaluationModeEnum(v)
+	}
+	return alphapb.ContainerawsAlphaClusterBinaryAuthorizationEvaluationModeEnum(0)
 }
 
 // ClusterNetworkingToProto converts a ClusterNetworking object to its proto representation.
@@ -638,6 +673,16 @@ func ContainerawsAlphaClusterMonitoringConfigManagedPrometheusConfigToProto(o *a
 	return p
 }
 
+// ClusterBinaryAuthorizationToProto converts a ClusterBinaryAuthorization object to its proto representation.
+func ContainerawsAlphaClusterBinaryAuthorizationToProto(o *alpha.ClusterBinaryAuthorization) *alphapb.ContainerawsAlphaClusterBinaryAuthorization {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerawsAlphaClusterBinaryAuthorization{}
+	p.SetEvaluationMode(ContainerawsAlphaClusterBinaryAuthorizationEvaluationModeEnumToProto(o.EvaluationMode))
+	return p
+}
+
 // ClusterToProto converts a Cluster resource to its proto representation.
 func ClusterToProto(resource *alpha.Cluster) *alphapb.ContainerawsAlphaCluster {
 	p := &alphapb.ContainerawsAlphaCluster{}
@@ -660,6 +705,7 @@ func ClusterToProto(resource *alpha.Cluster) *alphapb.ContainerawsAlphaCluster {
 	p.SetFleet(ContainerawsAlphaClusterFleetToProto(resource.Fleet))
 	p.SetLoggingConfig(ContainerawsAlphaClusterLoggingConfigToProto(resource.LoggingConfig))
 	p.SetMonitoringConfig(ContainerawsAlphaClusterMonitoringConfigToProto(resource.MonitoringConfig))
+	p.SetBinaryAuthorization(ContainerawsAlphaClusterBinaryAuthorizationToProto(resource.BinaryAuthorization))
 	mAnnotations := make(map[string]string, len(resource.Annotations))
 	for k, r := range resource.Annotations {
 		mAnnotations[k] = r

@@ -55,6 +55,13 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 	if r.AwsRegion != nil {
 		u.Object["awsRegion"] = *r.AwsRegion
 	}
+	if r.BinaryAuthorization != nil && r.BinaryAuthorization != dclService.EmptyClusterBinaryAuthorization {
+		rBinaryAuthorization := make(map[string]interface{})
+		if r.BinaryAuthorization.EvaluationMode != nil {
+			rBinaryAuthorization["evaluationMode"] = string(*r.BinaryAuthorization.EvaluationMode)
+		}
+		u.Object["binaryAuthorization"] = rBinaryAuthorization
+	}
 	if r.ControlPlane != nil && r.ControlPlane != dclService.EmptyClusterControlPlane {
 		rControlPlane := make(map[string]interface{})
 		if r.ControlPlane.AwsServicesAuthentication != nil && r.ControlPlane.AwsServicesAuthentication != dclService.EmptyClusterControlPlaneAwsServicesAuthentication {
@@ -289,6 +296,20 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 			r.AwsRegion = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.AwsRegion: expected string")
+		}
+	}
+	if _, ok := u.Object["binaryAuthorization"]; ok {
+		if rBinaryAuthorization, ok := u.Object["binaryAuthorization"].(map[string]interface{}); ok {
+			r.BinaryAuthorization = &dclService.ClusterBinaryAuthorization{}
+			if _, ok := rBinaryAuthorization["evaluationMode"]; ok {
+				if s, ok := rBinaryAuthorization["evaluationMode"].(string); ok {
+					r.BinaryAuthorization.EvaluationMode = dclService.ClusterBinaryAuthorizationEvaluationModeEnumRef(s)
+				} else {
+					return nil, fmt.Errorf("r.BinaryAuthorization.EvaluationMode: expected string")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.BinaryAuthorization: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["controlPlane"]; ok {

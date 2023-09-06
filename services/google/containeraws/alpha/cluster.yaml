@@ -130,6 +130,23 @@ components:
             supports a subset of nearby AWS regions. You can call to list all supported
             AWS regions within a given Google Cloud region.
           x-kubernetes-immutable: true
+        binaryAuthorization:
+          type: object
+          x-dcl-go-name: BinaryAuthorization
+          x-dcl-go-type: ClusterBinaryAuthorization
+          description: Configuration options for the Binary Authorization feature.
+          x-dcl-server-default: true
+          properties:
+            evaluationMode:
+              type: string
+              x-dcl-go-name: EvaluationMode
+              x-dcl-go-type: ClusterBinaryAuthorizationEvaluationModeEnum
+              description: 'Mode of operation for Binary Authorization policy evaluation.
+                Possible values: DISABLED, PROJECT_SINGLETON_POLICY_ENFORCE'
+              x-dcl-server-default: true
+              enum:
+              - DISABLED
+              - PROJECT_SINGLETON_POLICY_ENFORCE
         controlPlane:
           type: object
           x-dcl-go-name: ControlPlane

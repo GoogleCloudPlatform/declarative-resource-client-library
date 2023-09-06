@@ -60,6 +60,18 @@ func ProtoToContainerawsClusterStateEnum(e containerawspb.ContainerawsClusterSta
 	return nil
 }
 
+// ProtoToClusterBinaryAuthorizationEvaluationModeEnum converts a ClusterBinaryAuthorizationEvaluationModeEnum enum from its proto representation.
+func ProtoToContainerawsClusterBinaryAuthorizationEvaluationModeEnum(e containerawspb.ContainerawsClusterBinaryAuthorizationEvaluationModeEnum) *containeraws.ClusterBinaryAuthorizationEvaluationModeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := containerawspb.ContainerawsClusterBinaryAuthorizationEvaluationModeEnum_name[int32(e)]; ok {
+		e := containeraws.ClusterBinaryAuthorizationEvaluationModeEnum(n[len("ContainerawsClusterBinaryAuthorizationEvaluationModeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToClusterNetworking converts a ClusterNetworking object from its proto representation.
 func ProtoToContainerawsClusterNetworking(p *containerawspb.ContainerawsClusterNetworking) *containeraws.ClusterNetworking {
 	if p == nil {
@@ -239,6 +251,17 @@ func ProtoToContainerawsClusterFleet(p *containerawspb.ContainerawsClusterFleet)
 	return obj
 }
 
+// ProtoToClusterBinaryAuthorization converts a ClusterBinaryAuthorization object from its proto representation.
+func ProtoToContainerawsClusterBinaryAuthorization(p *containerawspb.ContainerawsClusterBinaryAuthorization) *containeraws.ClusterBinaryAuthorization {
+	if p == nil {
+		return nil
+	}
+	obj := &containeraws.ClusterBinaryAuthorization{
+		EvaluationMode: ProtoToContainerawsClusterBinaryAuthorizationEvaluationModeEnum(p.GetEvaluationMode()),
+	}
+	return obj
+}
+
 // ProtoToCluster converts a Cluster resource from its proto representation.
 func ProtoToCluster(p *containerawspb.ContainerawsCluster) *containeraws.Cluster {
 	obj := &containeraws.Cluster{
@@ -259,6 +282,7 @@ func ProtoToCluster(p *containerawspb.ContainerawsCluster) *containeraws.Cluster
 		Project:                dcl.StringOrNil(p.GetProject()),
 		Location:               dcl.StringOrNil(p.GetLocation()),
 		Fleet:                  ProtoToContainerawsClusterFleet(p.GetFleet()),
+		BinaryAuthorization:    ProtoToContainerawsClusterBinaryAuthorization(p.GetBinaryAuthorization()),
 	}
 	return obj
 }
@@ -294,6 +318,17 @@ func ContainerawsClusterStateEnumToProto(e *containeraws.ClusterStateEnum) conta
 		return containerawspb.ContainerawsClusterStateEnum(v)
 	}
 	return containerawspb.ContainerawsClusterStateEnum(0)
+}
+
+// ClusterBinaryAuthorizationEvaluationModeEnumToProto converts a ClusterBinaryAuthorizationEvaluationModeEnum enum to its proto representation.
+func ContainerawsClusterBinaryAuthorizationEvaluationModeEnumToProto(e *containeraws.ClusterBinaryAuthorizationEvaluationModeEnum) containerawspb.ContainerawsClusterBinaryAuthorizationEvaluationModeEnum {
+	if e == nil {
+		return containerawspb.ContainerawsClusterBinaryAuthorizationEvaluationModeEnum(0)
+	}
+	if v, ok := containerawspb.ContainerawsClusterBinaryAuthorizationEvaluationModeEnum_value["ClusterBinaryAuthorizationEvaluationModeEnum"+string(*e)]; ok {
+		return containerawspb.ContainerawsClusterBinaryAuthorizationEvaluationModeEnum(v)
+	}
+	return containerawspb.ContainerawsClusterBinaryAuthorizationEvaluationModeEnum(0)
 }
 
 // ClusterNetworkingToProto converts a ClusterNetworking object to its proto representation.
@@ -478,6 +513,16 @@ func ContainerawsClusterFleetToProto(o *containeraws.ClusterFleet) *containeraws
 	return p
 }
 
+// ClusterBinaryAuthorizationToProto converts a ClusterBinaryAuthorization object to its proto representation.
+func ContainerawsClusterBinaryAuthorizationToProto(o *containeraws.ClusterBinaryAuthorization) *containerawspb.ContainerawsClusterBinaryAuthorization {
+	if o == nil {
+		return nil
+	}
+	p := &containerawspb.ContainerawsClusterBinaryAuthorization{}
+	p.SetEvaluationMode(ContainerawsClusterBinaryAuthorizationEvaluationModeEnumToProto(o.EvaluationMode))
+	return p
+}
+
 // ClusterToProto converts a Cluster resource to its proto representation.
 func ClusterToProto(resource *containeraws.Cluster) *containerawspb.ContainerawsCluster {
 	p := &containerawspb.ContainerawsCluster{}
@@ -498,6 +543,7 @@ func ClusterToProto(resource *containeraws.Cluster) *containerawspb.Containeraws
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetFleet(ContainerawsClusterFleetToProto(resource.Fleet))
+	p.SetBinaryAuthorization(ContainerawsClusterBinaryAuthorizationToProto(resource.BinaryAuthorization))
 	mAnnotations := make(map[string]string, len(resource.Annotations))
 	for k, r := range resource.Annotations {
 		mAnnotations[k] = r
