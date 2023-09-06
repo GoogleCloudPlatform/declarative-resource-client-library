@@ -70,9 +70,10 @@ message ContainerawsBetaNodePool {
   map<string, string> annotations = 12;
   ContainerawsBetaNodePoolMaxPodsConstraint max_pods_constraint = 13;
   ContainerawsBetaNodePoolManagement management = 14;
-  string project = 15;
-  string location = 16;
-  string cluster = 17;
+  ContainerawsBetaNodePoolUpdateSettings update_settings = 15;
+  string project = 16;
+  string location = 17;
+  string cluster = 18;
 }
 
 message ContainerawsBetaNodePoolConfig {
@@ -143,6 +144,15 @@ message ContainerawsBetaNodePoolMaxPodsConstraint {
 
 message ContainerawsBetaNodePoolManagement {
   bool auto_repair = 1;
+}
+
+message ContainerawsBetaNodePoolUpdateSettings {
+  ContainerawsBetaNodePoolUpdateSettingsSurgeSettings surge_settings = 1;
+}
+
+message ContainerawsBetaNodePoolUpdateSettingsSurgeSettings {
+  int64 max_surge = 1;
+  int64 max_unavailable = 2;
 }
 
 message ApplyContainerawsBetaNodePoolRequest {

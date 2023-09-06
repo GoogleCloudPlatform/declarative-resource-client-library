@@ -491,6 +491,40 @@ components:
           readOnly: true
           description: Output only. A globally unique identifier for the node pool.
           x-kubernetes-immutable: true
+        updateSettings:
+          type: object
+          x-dcl-go-name: UpdateSettings
+          x-dcl-go-type: NodePoolUpdateSettings
+          description: Optional. Update settings control the speed and disruption
+            of the node pool update.
+          x-kubernetes-immutable: true
+          x-dcl-server-default: true
+          properties:
+            surgeSettings:
+              type: object
+              x-dcl-go-name: SurgeSettings
+              x-dcl-go-type: NodePoolUpdateSettingsSurgeSettings
+              description: Optional. Settings for surge update.
+              x-kubernetes-immutable: true
+              x-dcl-server-default: true
+              properties:
+                maxSurge:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: MaxSurge
+                  description: Optional. The maximum number of nodes that can be created
+                    beyond the current size of the node pool during the update process.
+                  x-kubernetes-immutable: true
+                  x-dcl-server-default: true
+                maxUnavailable:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: MaxUnavailable
+                  description: Optional. The maximum number of nodes that can be simultaneously
+                    unavailable during the update process. A node is considered unavailable
+                    if its status is not Ready.
+                  x-kubernetes-immutable: true
+                  x-dcl-server-default: true
         updateTime:
           type: string
           format: date-time

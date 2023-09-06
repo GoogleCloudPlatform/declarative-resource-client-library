@@ -211,6 +211,20 @@ func NodePoolToUnstructured(r *dclService.NodePool) *unstructured.Resource {
 	if r.Uid != nil {
 		u.Object["uid"] = *r.Uid
 	}
+	if r.UpdateSettings != nil && r.UpdateSettings != dclService.EmptyNodePoolUpdateSettings {
+		rUpdateSettings := make(map[string]interface{})
+		if r.UpdateSettings.SurgeSettings != nil && r.UpdateSettings.SurgeSettings != dclService.EmptyNodePoolUpdateSettingsSurgeSettings {
+			rUpdateSettingsSurgeSettings := make(map[string]interface{})
+			if r.UpdateSettings.SurgeSettings.MaxSurge != nil {
+				rUpdateSettingsSurgeSettings["maxSurge"] = *r.UpdateSettings.SurgeSettings.MaxSurge
+			}
+			if r.UpdateSettings.SurgeSettings.MaxUnavailable != nil {
+				rUpdateSettingsSurgeSettings["maxUnavailable"] = *r.UpdateSettings.SurgeSettings.MaxUnavailable
+			}
+			rUpdateSettings["surgeSettings"] = rUpdateSettingsSurgeSettings
+		}
+		u.Object["updateSettings"] = rUpdateSettings
+	}
 	if r.UpdateTime != nil {
 		u.Object["updateTime"] = *r.UpdateTime
 	}
@@ -598,6 +612,34 @@ func UnstructuredToNodePool(u *unstructured.Resource) (*dclService.NodePool, err
 			r.Uid = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.Uid: expected string")
+		}
+	}
+	if _, ok := u.Object["updateSettings"]; ok {
+		if rUpdateSettings, ok := u.Object["updateSettings"].(map[string]interface{}); ok {
+			r.UpdateSettings = &dclService.NodePoolUpdateSettings{}
+			if _, ok := rUpdateSettings["surgeSettings"]; ok {
+				if rUpdateSettingsSurgeSettings, ok := rUpdateSettings["surgeSettings"].(map[string]interface{}); ok {
+					r.UpdateSettings.SurgeSettings = &dclService.NodePoolUpdateSettingsSurgeSettings{}
+					if _, ok := rUpdateSettingsSurgeSettings["maxSurge"]; ok {
+						if i, ok := rUpdateSettingsSurgeSettings["maxSurge"].(int64); ok {
+							r.UpdateSettings.SurgeSettings.MaxSurge = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("r.UpdateSettings.SurgeSettings.MaxSurge: expected int64")
+						}
+					}
+					if _, ok := rUpdateSettingsSurgeSettings["maxUnavailable"]; ok {
+						if i, ok := rUpdateSettingsSurgeSettings["maxUnavailable"].(int64); ok {
+							r.UpdateSettings.SurgeSettings.MaxUnavailable = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("r.UpdateSettings.SurgeSettings.MaxUnavailable: expected int64")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.UpdateSettings.SurgeSettings: expected map[string]interface{}")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.UpdateSettings: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["updateTime"]; ok {

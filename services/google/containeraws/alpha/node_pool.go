@@ -39,6 +39,7 @@ type NodePool struct {
 	Annotations       map[string]string          `json:"annotations"`
 	MaxPodsConstraint *NodePoolMaxPodsConstraint `json:"maxPodsConstraint"`
 	Management        *NodePoolManagement        `json:"management"`
+	UpdateSettings    *NodePoolUpdateSettings    `json:"updateSettings"`
 	Project           *string                    `json:"project"`
 	Location          *string                    `json:"location"`
 	Cluster           *string                    `json:"cluster"`
@@ -774,6 +775,101 @@ func (r *NodePoolManagement) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
+type NodePoolUpdateSettings struct {
+	empty         bool                                 `json:"-"`
+	SurgeSettings *NodePoolUpdateSettingsSurgeSettings `json:"surgeSettings"`
+}
+
+type jsonNodePoolUpdateSettings NodePoolUpdateSettings
+
+func (r *NodePoolUpdateSettings) UnmarshalJSON(data []byte) error {
+	var res jsonNodePoolUpdateSettings
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodePoolUpdateSettings
+	} else {
+
+		r.SurgeSettings = res.SurgeSettings
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this NodePoolUpdateSettings is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyNodePoolUpdateSettings *NodePoolUpdateSettings = &NodePoolUpdateSettings{empty: true}
+
+func (r *NodePoolUpdateSettings) Empty() bool {
+	return r.empty
+}
+
+func (r *NodePoolUpdateSettings) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NodePoolUpdateSettings) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type NodePoolUpdateSettingsSurgeSettings struct {
+	empty          bool   `json:"-"`
+	MaxSurge       *int64 `json:"maxSurge"`
+	MaxUnavailable *int64 `json:"maxUnavailable"`
+}
+
+type jsonNodePoolUpdateSettingsSurgeSettings NodePoolUpdateSettingsSurgeSettings
+
+func (r *NodePoolUpdateSettingsSurgeSettings) UnmarshalJSON(data []byte) error {
+	var res jsonNodePoolUpdateSettingsSurgeSettings
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyNodePoolUpdateSettingsSurgeSettings
+	} else {
+
+		r.MaxSurge = res.MaxSurge
+
+		r.MaxUnavailable = res.MaxUnavailable
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this NodePoolUpdateSettingsSurgeSettings is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyNodePoolUpdateSettingsSurgeSettings *NodePoolUpdateSettingsSurgeSettings = &NodePoolUpdateSettingsSurgeSettings{empty: true}
+
+func (r *NodePoolUpdateSettingsSurgeSettings) Empty() bool {
+	return r.empty
+}
+
+func (r *NodePoolUpdateSettingsSurgeSettings) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *NodePoolUpdateSettingsSurgeSettings) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 // Describe returns a simple description of this resource to ensure that automated tools
 // can identify it.
 func (r *NodePool) Describe() dcl.ServiceTypeVersion {
@@ -804,6 +900,7 @@ func (r *NodePool) ID() (string, error) {
 		"annotations":         dcl.ValueOrEmptyString(nr.Annotations),
 		"max_pods_constraint": dcl.ValueOrEmptyString(nr.MaxPodsConstraint),
 		"management":          dcl.ValueOrEmptyString(nr.Management),
+		"update_settings":     dcl.ValueOrEmptyString(nr.UpdateSettings),
 		"project":             dcl.ValueOrEmptyString(nr.Project),
 		"location":            dcl.ValueOrEmptyString(nr.Location),
 		"cluster":             dcl.ValueOrEmptyString(nr.Cluster),
