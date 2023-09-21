@@ -20,11 +20,6 @@ resource: samples/basic.release.json
 dependencies:
 - samples/basic.ruleset.json
 - samples/minimal.ruleset.json
-updates:
-- resource: samples/update.release.json
-  dependencies:
-  - samples/basic.ruleset.json
-  - samples/minimal.ruleset.json
 variables:
 - name: project
   type: project

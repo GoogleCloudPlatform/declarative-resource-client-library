@@ -20,11 +20,6 @@ resource: samples/firestore.release.json
 dependencies:
 - samples/basic.ruleset.json
 - samples/minimal.ruleset.json
-updates:
-- resource: samples/update_firestore.release.json
-  dependencies:
-  - samples/basic.ruleset.json
-  - samples/minimal.ruleset.json
 variables:
 - name: project
   type: project

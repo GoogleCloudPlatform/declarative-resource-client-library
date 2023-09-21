@@ -143,6 +143,7 @@ func DCLReleaseSchema() *dcl.Schema {
 								Type:        "string",
 								GoName:      "RulesetName",
 								Description: "Name of the `Ruleset` referred to by this `Release`. The `Ruleset` must exist for the `Release` to be created.",
+								Immutable:   true,
 								ResourceReferences: []*dcl.PropertyResourceReference{
 									&dcl.PropertyResourceReference{
 										Resource: "Firebaserules/Ruleset",
