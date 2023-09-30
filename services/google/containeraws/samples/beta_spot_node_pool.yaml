@@ -45,5 +45,3 @@ variables:
   type: project
 - name: project_number
   type: project_number
-- name: spot_instance_types
-  type: resource_name

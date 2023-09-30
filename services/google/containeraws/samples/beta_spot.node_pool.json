@@ -41,10 +41,7 @@
     },
     "securityGroupIds": ["{{aws_security_group}}"],
     "spotConfig": {
-      "instanceTypes": ["{{spot_instance_types}}"]
-    },
-    "instancePlacement": {
-      "tenancy": "DEDICATED"
+      "instanceTypes": ["m5.large"]
     },
     "imageType": "ubuntu"
   },
