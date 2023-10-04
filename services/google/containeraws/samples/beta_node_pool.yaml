@@ -19,6 +19,10 @@ versions:
 resource: samples/beta.node_pool.json
 dependencies:
 - samples/minimal.cluster.json
+updates:
+- resource: samples/update_beta.node_pool.json
+  dependencies:
+  - samples/minimal.cluster.json
 variables:
 - name: aws_account_id
   type: aws_account_id

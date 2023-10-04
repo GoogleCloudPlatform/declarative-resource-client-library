@@ -292,6 +292,11 @@ func newUpdateNodePoolUpdateAwsNodePoolRequest(ctx context.Context, f *NodePool,
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["management"] = v
 	}
+	if v, err := expandNodePoolUpdateSettings(c, f.UpdateSettings, res); err != nil {
+		return nil, fmt.Errorf("error expanding UpdateSettings into updateSettings: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["updateSettings"] = v
+	}
 	b, err := c.getNodePoolRaw(ctx, f)
 	if err != nil {
 		return nil, err
@@ -2668,7 +2673,7 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.UpdateSettings, actual.UpdateSettings, dcl.DiffInfo{ServerDefault: true, ObjectFunction: compareNodePoolUpdateSettingsNewStyle, EmptyObject: EmptyNodePoolUpdateSettings, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateSettings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.UpdateSettings, actual.UpdateSettings, dcl.DiffInfo{ServerDefault: true, ObjectFunction: compareNodePoolUpdateSettingsNewStyle, EmptyObject: EmptyNodePoolUpdateSettings, OperationSelector: dcl.TriggersOperation("updateNodePoolUpdateAwsNodePoolOperation")}, fn.AddNest("UpdateSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3223,7 +3228,7 @@ func compareNodePoolUpdateSettingsNewStyle(d, a interface{}, fn dcl.FieldName) (
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.SurgeSettings, actual.SurgeSettings, dcl.DiffInfo{ServerDefault: true, ObjectFunction: compareNodePoolUpdateSettingsSurgeSettingsNewStyle, EmptyObject: EmptyNodePoolUpdateSettingsSurgeSettings, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SurgeSettings")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.SurgeSettings, actual.SurgeSettings, dcl.DiffInfo{ServerDefault: true, ObjectFunction: compareNodePoolUpdateSettingsSurgeSettingsNewStyle, EmptyObject: EmptyNodePoolUpdateSettingsSurgeSettings, OperationSelector: dcl.TriggersOperation("updateNodePoolUpdateAwsNodePoolOperation")}, fn.AddNest("SurgeSettings")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -3252,14 +3257,14 @@ func compareNodePoolUpdateSettingsSurgeSettingsNewStyle(d, a interface{}, fn dcl
 		actual = &actualNotPointer
 	}
 
-	if ds, err := dcl.Diff(desired.MaxSurge, actual.MaxSurge, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxSurge")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxSurge, actual.MaxSurge, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.TriggersOperation("updateNodePoolUpdateAwsNodePoolOperation")}, fn.AddNest("MaxSurge")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.MaxUnavailable, actual.MaxUnavailable, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MaxUnavailable")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.MaxUnavailable, actual.MaxUnavailable, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.TriggersOperation("updateNodePoolUpdateAwsNodePoolOperation")}, fn.AddNest("MaxUnavailable")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

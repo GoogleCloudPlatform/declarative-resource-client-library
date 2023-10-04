@@ -575,7 +575,6 @@ func DCLNodePoolSchema() *dcl.Schema {
 								GoName:        "UpdateSettings",
 								GoType:        "NodePoolUpdateSettings",
 								Description:   "Optional. Update settings control the speed and disruption of the node pool update.",
-								Immutable:     true,
 								ServerDefault: true,
 								Properties: map[string]*dcl.Property{
 									"surgeSettings": &dcl.Property{
@@ -583,7 +582,6 @@ func DCLNodePoolSchema() *dcl.Schema {
 										GoName:        "SurgeSettings",
 										GoType:        "NodePoolUpdateSettingsSurgeSettings",
 										Description:   "Optional. Settings for surge update.",
-										Immutable:     true,
 										ServerDefault: true,
 										Properties: map[string]*dcl.Property{
 											"maxSurge": &dcl.Property{
@@ -591,7 +589,6 @@ func DCLNodePoolSchema() *dcl.Schema {
 												Format:        "int64",
 												GoName:        "MaxSurge",
 												Description:   "Optional. The maximum number of nodes that can be created beyond the current size of the node pool during the update process.",
-												Immutable:     true,
 												ServerDefault: true,
 											},
 											"maxUnavailable": &dcl.Property{
@@ -599,7 +596,6 @@ func DCLNodePoolSchema() *dcl.Schema {
 												Format:        "int64",
 												GoName:        "MaxUnavailable",
 												Description:   "Optional. The maximum number of nodes that can be simultaneously unavailable during the update process. A node is considered unavailable if its status is not Ready.",
-												Immutable:     true,
 												ServerDefault: true,
 											},
 										},
