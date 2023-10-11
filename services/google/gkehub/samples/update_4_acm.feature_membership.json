@@ -4,7 +4,13 @@
   "feature": "projects/{{ref:acm.feature.json:project}}/locations/{{ref:acm.feature.json:location}}/features/{{ref:acm.feature.json:name}}",
   "membership": "{{ref:first.membership.json:name}}",
   "configmanagement": {
-    "configSync": {},
+    "configSync": {
+      "git": {
+        "syncRepo": "https://github.com/GoogleCloudPlatform/magic-modules",
+        "httpsProxy": "",
+        "secretType": "ssh"
+      }
+    },
     "policyController": {
       "enabled": true,
       "monitoring": {

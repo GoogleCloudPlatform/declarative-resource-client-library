@@ -204,6 +204,17 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 													},
 												},
 											},
+											"metricsGcpServiceAccountEmail": &dcl.Property{
+												Type:        "string",
+												GoName:      "MetricsGcpServiceAccountEmail",
+												Description: "The Email of the Google Cloud Service Account (GSA) used for exporting Config Sync metrics to Cloud Monitoring. The GSA should have the Monitoring Metric Writer(roles/monitoring.metricWriter) IAM role. The Kubernetes ServiceAccount `default` in the namespace `config-management-monitoring` should be bound to the GSA.",
+												ResourceReferences: []*dcl.PropertyResourceReference{
+													&dcl.PropertyResourceReference{
+														Resource: "Iam/ServiceAccount",
+														Field:    "email",
+													},
+												},
+											},
 											"oci": &dcl.Property{
 												Type:   "object",
 												GoName: "Oci",

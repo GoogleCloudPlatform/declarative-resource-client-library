@@ -157,6 +157,17 @@ components:
                       x-dcl-go-name: SyncWaitSecs
                       description: 'Period in seconds between consecutive syncs. Default:
                         15.'
+                metricsGcpServiceAccountEmail:
+                  type: string
+                  x-dcl-go-name: MetricsGcpServiceAccountEmail
+                  description: The Email of the Google Cloud Service Account (GSA)
+                    used for exporting Config Sync metrics to Cloud Monitoring. The
+                    GSA should have the Monitoring Metric Writer(roles/monitoring.metricWriter)
+                    IAM role. The Kubernetes ServiceAccount `default` in the namespace
+                    `config-management-monitoring` should be bound to the GSA.
+                  x-dcl-references:
+                  - resource: Iam/ServiceAccount
+                    field: email
                 oci:
                   type: object
                   x-dcl-go-name: Oci

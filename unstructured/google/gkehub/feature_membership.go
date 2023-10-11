@@ -71,6 +71,9 @@ func FeatureMembershipToUnstructured(r *dclService.FeatureMembership) *unstructu
 				}
 				rConfigmanagementConfigSync["git"] = rConfigmanagementConfigSyncGit
 			}
+			if r.Configmanagement.ConfigSync.MetricsGcpServiceAccountEmail != nil {
+				rConfigmanagementConfigSync["metricsGcpServiceAccountEmail"] = *r.Configmanagement.ConfigSync.MetricsGcpServiceAccountEmail
+			}
 			if r.Configmanagement.ConfigSync.Oci != nil && r.Configmanagement.ConfigSync.Oci != dclService.EmptyFeatureMembershipConfigmanagementConfigSyncOci {
 				rConfigmanagementConfigSyncOci := make(map[string]interface{})
 				if r.Configmanagement.ConfigSync.Oci.GcpServiceAccountEmail != nil {
@@ -260,6 +263,13 @@ func UnstructuredToFeatureMembership(u *unstructured.Resource) (*dclService.Feat
 							}
 						} else {
 							return nil, fmt.Errorf("r.Configmanagement.ConfigSync.Git: expected map[string]interface{}")
+						}
+					}
+					if _, ok := rConfigmanagementConfigSync["metricsGcpServiceAccountEmail"]; ok {
+						if s, ok := rConfigmanagementConfigSync["metricsGcpServiceAccountEmail"].(string); ok {
+							r.Configmanagement.ConfigSync.MetricsGcpServiceAccountEmail = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Configmanagement.ConfigSync.MetricsGcpServiceAccountEmail: expected string")
 						}
 					}
 					if _, ok := rConfigmanagementConfigSync["oci"]; ok {

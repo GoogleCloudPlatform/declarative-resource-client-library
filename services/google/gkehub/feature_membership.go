@@ -225,11 +225,12 @@ func (r *FeatureMembershipConfigmanagement) HashCode() string {
 }
 
 type FeatureMembershipConfigmanagementConfigSync struct {
-	empty        bool                                            `json:"-"`
-	Git          *FeatureMembershipConfigmanagementConfigSyncGit `json:"git"`
-	SourceFormat *string                                         `json:"sourceFormat"`
-	PreventDrift *bool                                           `json:"preventDrift"`
-	Oci          *FeatureMembershipConfigmanagementConfigSyncOci `json:"oci"`
+	empty                         bool                                            `json:"-"`
+	Git                           *FeatureMembershipConfigmanagementConfigSyncGit `json:"git"`
+	SourceFormat                  *string                                         `json:"sourceFormat"`
+	PreventDrift                  *bool                                           `json:"preventDrift"`
+	MetricsGcpServiceAccountEmail *string                                         `json:"metricsGcpServiceAccountEmail"`
+	Oci                           *FeatureMembershipConfigmanagementConfigSyncOci `json:"oci"`
 }
 
 type jsonFeatureMembershipConfigmanagementConfigSync FeatureMembershipConfigmanagementConfigSync
@@ -252,6 +253,8 @@ func (r *FeatureMembershipConfigmanagementConfigSync) UnmarshalJSON(data []byte)
 		r.SourceFormat = res.SourceFormat
 
 		r.PreventDrift = res.PreventDrift
+
+		r.MetricsGcpServiceAccountEmail = res.MetricsGcpServiceAccountEmail
 
 		r.Oci = res.Oci
 

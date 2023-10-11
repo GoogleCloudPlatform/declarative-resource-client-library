@@ -68,7 +68,8 @@ message GkehubAlphaFeatureMembershipConfigmanagementConfigSync {
   GkehubAlphaFeatureMembershipConfigmanagementConfigSyncGit git = 1;
   string source_format = 2;
   bool prevent_drift = 3;
-  GkehubAlphaFeatureMembershipConfigmanagementConfigSyncOci oci = 4;
+  string metrics_gcp_service_account_email = 4;
+  GkehubAlphaFeatureMembershipConfigmanagementConfigSyncOci oci = 5;
 }
 
 message GkehubAlphaFeatureMembershipConfigmanagementConfigSyncGit {

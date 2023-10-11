@@ -28,13 +28,12 @@
       "auditIntervalSeconds": "10"
     },
     "binauthz": {
-      "enabled": true
+      "enabled": false
     },
     "hierarchyController": {
       "enabled": false,
       "enablePodTreeLabels": false,
       "enableHierarchicalResourceQuota": false
-    },
-    "version": "1.15.1"
+    }
   }
 }

@@ -15,6 +15,7 @@
         "httpsProxy": "https://sample-proxy.com",
         "gcpServiceAccountEmail": "{{ref:first.iam.service_account.json:email}}"
       },
+      "metricsGcpServiceAccountEmail": "{{ref:first.iam.service_account.json:email}}",
       "sourceFormat": "hierarchy",
       "preventDrift": true
     },
@@ -31,13 +32,12 @@
       "auditIntervalSeconds": "10"
     },
     "binauthz": {
-      "enabled": true
+      "enabled": false
     },
     "hierarchyController": {
       "enabled": true,
       "enablePodTreeLabels": true,
       "enableHierarchicalResourceQuota": true
-    },
-    "version": "1.15.2"
+    }
   }
 }

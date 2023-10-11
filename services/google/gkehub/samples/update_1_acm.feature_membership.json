@@ -15,6 +15,7 @@
         "httpsProxy": "https://new-sample-proxy.com",
         "gcpServiceAccountEmail": "{{ref:second.iam.service_account.json:email}}"
       },
+      "metricsGcpServiceAccountEmail": "{{ref:second.iam.service_account.json:email}}",
       "sourceFormat": "unstructured",
       "preventDrift": true
     },

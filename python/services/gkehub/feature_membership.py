@@ -294,11 +294,13 @@ class FeatureMembershipConfigmanagementConfigSync(object):
         git: dict = None,
         source_format: str = None,
         prevent_drift: bool = None,
+        metrics_gcp_service_account_email: str = None,
         oci: dict = None,
     ):
         self.git = git
         self.source_format = source_format
         self.prevent_drift = prevent_drift
+        self.metrics_gcp_service_account_email = metrics_gcp_service_account_email
         self.oci = oci
 
     @classmethod
@@ -317,6 +319,10 @@ class FeatureMembershipConfigmanagementConfigSync(object):
             res.source_format = Primitive.to_proto(resource.source_format)
         if Primitive.to_proto(resource.prevent_drift):
             res.prevent_drift = Primitive.to_proto(resource.prevent_drift)
+        if Primitive.to_proto(resource.metrics_gcp_service_account_email):
+            res.metrics_gcp_service_account_email = Primitive.to_proto(
+                resource.metrics_gcp_service_account_email
+            )
         if FeatureMembershipConfigmanagementConfigSyncOci.to_proto(resource.oci):
             res.oci.CopyFrom(
                 FeatureMembershipConfigmanagementConfigSyncOci.to_proto(resource.oci)
@@ -334,6 +340,9 @@ class FeatureMembershipConfigmanagementConfigSync(object):
             git=FeatureMembershipConfigmanagementConfigSyncGit.from_proto(resource.git),
             source_format=Primitive.from_proto(resource.source_format),
             prevent_drift=Primitive.from_proto(resource.prevent_drift),
+            metrics_gcp_service_account_email=Primitive.from_proto(
+                resource.metrics_gcp_service_account_email
+            ),
             oci=FeatureMembershipConfigmanagementConfigSyncOci.from_proto(resource.oci),
         )
 

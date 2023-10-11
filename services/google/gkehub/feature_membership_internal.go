@@ -633,6 +633,12 @@ func canonicalizeFeatureMembershipConfigmanagementConfigSync(des, initial *Featu
 	} else {
 		cDes.PreventDrift = des.PreventDrift
 	}
+	if dcl.IsZeroValue(des.MetricsGcpServiceAccountEmail) || (dcl.IsEmptyValueIndirect(des.MetricsGcpServiceAccountEmail) && dcl.IsEmptyValueIndirect(initial.MetricsGcpServiceAccountEmail)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.MetricsGcpServiceAccountEmail = initial.MetricsGcpServiceAccountEmail
+	} else {
+		cDes.MetricsGcpServiceAccountEmail = des.MetricsGcpServiceAccountEmail
+	}
 	cDes.Oci = canonicalizeFeatureMembershipConfigmanagementConfigSyncOci(des.Oci, initial.Oci, opts...)
 
 	return cDes
@@ -1792,6 +1798,13 @@ func compareFeatureMembershipConfigmanagementConfigSyncNewStyle(d, a interface{}
 		diffs = append(diffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.MetricsGcpServiceAccountEmail, actual.MetricsGcpServiceAccountEmail, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MetricsGcpServiceAccountEmail")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Oci, actual.Oci, dcl.DiffInfo{ObjectFunction: compareFeatureMembershipConfigmanagementConfigSyncOciNewStyle, EmptyObject: EmptyFeatureMembershipConfigmanagementConfigSyncOci, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Oci")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -2589,6 +2602,9 @@ func expandFeatureMembershipConfigmanagementConfigSync(c *Client, f *FeatureMemb
 	if v := f.PreventDrift; !dcl.IsEmptyValueIndirect(v) {
 		m["preventDrift"] = v
 	}
+	if v := f.MetricsGcpServiceAccountEmail; !dcl.IsEmptyValueIndirect(v) {
+		m["metricsGcpServiceAccountEmail"] = v
+	}
 	if v, err := expandFeatureMembershipConfigmanagementConfigSyncOci(c, f.Oci, res); err != nil {
 		return nil, fmt.Errorf("error expanding Oci into oci: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2614,6 +2630,7 @@ func flattenFeatureMembershipConfigmanagementConfigSync(c *Client, i interface{}
 	r.Git = flattenFeatureMembershipConfigmanagementConfigSyncGit(c, m["git"], res)
 	r.SourceFormat = dcl.FlattenString(m["sourceFormat"])
 	r.PreventDrift = dcl.FlattenBool(m["preventDrift"])
+	r.MetricsGcpServiceAccountEmail = dcl.FlattenString(m["metricsGcpServiceAccountEmail"])
 	r.Oci = flattenFeatureMembershipConfigmanagementConfigSyncOci(c, m["oci"], res)
 
 	return r
