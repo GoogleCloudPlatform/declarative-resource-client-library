@@ -41,6 +41,15 @@ func ClusterToUnstructured(r *dclService.Cluster) *unstructured.Resource {
 	}
 	if r.Authorization != nil && r.Authorization != dclService.EmptyClusterAuthorization {
 		rAuthorization := make(map[string]interface{})
+		var rAuthorizationAdminGroups []interface{}
+		for _, rAuthorizationAdminGroupsVal := range r.Authorization.AdminGroups {
+			rAuthorizationAdminGroupsObject := make(map[string]interface{})
+			if rAuthorizationAdminGroupsVal.Group != nil {
+				rAuthorizationAdminGroupsObject["group"] = *rAuthorizationAdminGroupsVal.Group
+			}
+			rAuthorizationAdminGroups = append(rAuthorizationAdminGroups, rAuthorizationAdminGroupsObject)
+		}
+		rAuthorization["adminGroups"] = rAuthorizationAdminGroups
 		var rAuthorizationAdminUsers []interface{}
 		for _, rAuthorizationAdminUsersVal := range r.Authorization.AdminUsers {
 			rAuthorizationAdminUsersObject := make(map[string]interface{})
@@ -268,6 +277,25 @@ func UnstructuredToCluster(u *unstructured.Resource) (*dclService.Cluster, error
 	if _, ok := u.Object["authorization"]; ok {
 		if rAuthorization, ok := u.Object["authorization"].(map[string]interface{}); ok {
 			r.Authorization = &dclService.ClusterAuthorization{}
+			if _, ok := rAuthorization["adminGroups"]; ok {
+				if s, ok := rAuthorization["adminGroups"].([]interface{}); ok {
+					for _, o := range s {
+						if objval, ok := o.(map[string]interface{}); ok {
+							var rAuthorizationAdminGroups dclService.ClusterAuthorizationAdminGroups
+							if _, ok := objval["group"]; ok {
+								if s, ok := objval["group"].(string); ok {
+									rAuthorizationAdminGroups.Group = dcl.String(s)
+								} else {
+									return nil, fmt.Errorf("rAuthorizationAdminGroups.Group: expected string")
+								}
+							}
+							r.Authorization.AdminGroups = append(r.Authorization.AdminGroups, rAuthorizationAdminGroups)
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Authorization.AdminGroups: expected []interface{}")
+				}
+			}
 			if _, ok := rAuthorization["adminUsers"]; ok {
 				if s, ok := rAuthorization["adminUsers"].([]interface{}); ok {
 					for _, o := range s {

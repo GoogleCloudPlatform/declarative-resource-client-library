@@ -159,10 +159,15 @@ message ContainerawsBetaClusterControlPlaneInstancePlacement {
 
 message ContainerawsBetaClusterAuthorization {
   repeated ContainerawsBetaClusterAuthorizationAdminUsers admin_users = 1;
+  repeated ContainerawsBetaClusterAuthorizationAdminGroups admin_groups = 2;
 }
 
 message ContainerawsBetaClusterAuthorizationAdminUsers {
   string username = 1;
+}
+
+message ContainerawsBetaClusterAuthorizationAdminGroups {
+  string group = 1;
 }
 
 message ContainerawsBetaClusterWorkloadIdentityConfig {

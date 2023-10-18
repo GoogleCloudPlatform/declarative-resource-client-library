@@ -104,6 +104,25 @@ components:
           required:
           - adminUsers
           properties:
+            adminGroups:
+              type: array
+              x-dcl-go-name: AdminGroups
+              description: Groups of users that can perform operations as a cluster
+                admin. A managed ClusterRoleBinding will be created to grant the `cluster-admin`
+                ClusterRole to the groups. Up to ten admin groups can be provided.
+                For more info on RBAC, see https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles
+              x-dcl-send-empty: true
+              x-dcl-list-type: list
+              items:
+                type: object
+                x-dcl-go-type: ClusterAuthorizationAdminGroups
+                required:
+                - group
+                properties:
+                  group:
+                    type: string
+                    x-dcl-go-name: Group
+                    description: The name of the group, e.g. `my-group@domain.com`.
             adminUsers:
               type: array
               x-dcl-go-name: AdminUsers

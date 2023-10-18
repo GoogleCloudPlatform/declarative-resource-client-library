@@ -864,8 +864,9 @@ class ClusterControlPlaneInstancePlacementArray(object):
 
 
 class ClusterAuthorization(object):
-    def __init__(self, admin_users: list = None):
+    def __init__(self, admin_users: list = None, admin_groups: list = None):
         self.admin_users = admin_users
+        self.admin_groups = admin_groups
 
     @classmethod
     def to_proto(self, resource):
@@ -877,6 +878,10 @@ class ClusterAuthorization(object):
             res.admin_users.extend(
                 ClusterAuthorizationAdminUsersArray.to_proto(resource.admin_users)
             )
+        if ClusterAuthorizationAdminGroupsArray.to_proto(resource.admin_groups):
+            res.admin_groups.extend(
+                ClusterAuthorizationAdminGroupsArray.to_proto(resource.admin_groups)
+            )
         return res
 
     @classmethod
@@ -887,6 +892,9 @@ class ClusterAuthorization(object):
         return ClusterAuthorization(
             admin_users=ClusterAuthorizationAdminUsersArray.from_proto(
                 resource.admin_users
+            ),
+            admin_groups=ClusterAuthorizationAdminGroupsArray.from_proto(
+                resource.admin_groups
             ),
         )
 
@@ -937,6 +945,42 @@ class ClusterAuthorizationAdminUsersArray(object):
     @classmethod
     def from_proto(self, resources):
         return [ClusterAuthorizationAdminUsers.from_proto(i) for i in resources]
+
+
+class ClusterAuthorizationAdminGroups(object):
+    def __init__(self, group: str = None):
+        self.group = group
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = cluster_pb2.ContainerawsBetaClusterAuthorizationAdminGroups()
+        if Primitive.to_proto(resource.group):
+            res.group = Primitive.to_proto(resource.group)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ClusterAuthorizationAdminGroups(
+            group=Primitive.from_proto(resource.group),
+        )
+
+
+class ClusterAuthorizationAdminGroupsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ClusterAuthorizationAdminGroups.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ClusterAuthorizationAdminGroups.from_proto(i) for i in resources]
 
 
 class ClusterWorkloadIdentityConfig(object):

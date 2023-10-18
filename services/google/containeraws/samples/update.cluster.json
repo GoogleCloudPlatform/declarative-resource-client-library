@@ -60,6 +60,11 @@
       {
         "username": "foo@google.com"
       }
+    ],
+    "adminGroups": [
+      {
+        "group": "bar@domain.com"
+      }
     ]
   },
   "annotations": {

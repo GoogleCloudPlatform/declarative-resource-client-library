@@ -248,6 +248,9 @@ func ProtoToContainerawsAlphaClusterAuthorization(p *alphapb.ContainerawsAlphaCl
 	for _, r := range p.GetAdminUsers() {
 		obj.AdminUsers = append(obj.AdminUsers, *ProtoToContainerawsAlphaClusterAuthorizationAdminUsers(r))
 	}
+	for _, r := range p.GetAdminGroups() {
+		obj.AdminGroups = append(obj.AdminGroups, *ProtoToContainerawsAlphaClusterAuthorizationAdminGroups(r))
+	}
 	return obj
 }
 
@@ -258,6 +261,17 @@ func ProtoToContainerawsAlphaClusterAuthorizationAdminUsers(p *alphapb.Container
 	}
 	obj := &alpha.ClusterAuthorizationAdminUsers{
 		Username: dcl.StringOrNil(p.GetUsername()),
+	}
+	return obj
+}
+
+// ProtoToClusterAuthorizationAdminGroups converts a ClusterAuthorizationAdminGroups object from its proto representation.
+func ProtoToContainerawsAlphaClusterAuthorizationAdminGroups(p *alphapb.ContainerawsAlphaClusterAuthorizationAdminGroups) *alpha.ClusterAuthorizationAdminGroups {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterAuthorizationAdminGroups{
+		Group: dcl.StringOrNil(p.GetGroup()),
 	}
 	return obj
 }
@@ -593,6 +607,11 @@ func ContainerawsAlphaClusterAuthorizationToProto(o *alpha.ClusterAuthorization)
 		sAdminUsers[i] = ContainerawsAlphaClusterAuthorizationAdminUsersToProto(&r)
 	}
 	p.SetAdminUsers(sAdminUsers)
+	sAdminGroups := make([]*alphapb.ContainerawsAlphaClusterAuthorizationAdminGroups, len(o.AdminGroups))
+	for i, r := range o.AdminGroups {
+		sAdminGroups[i] = ContainerawsAlphaClusterAuthorizationAdminGroupsToProto(&r)
+	}
+	p.SetAdminGroups(sAdminGroups)
 	return p
 }
 
@@ -603,6 +622,16 @@ func ContainerawsAlphaClusterAuthorizationAdminUsersToProto(o *alpha.ClusterAuth
 	}
 	p := &alphapb.ContainerawsAlphaClusterAuthorizationAdminUsers{}
 	p.SetUsername(dcl.ValueOrEmptyString(o.Username))
+	return p
+}
+
+// ClusterAuthorizationAdminGroupsToProto converts a ClusterAuthorizationAdminGroups object to its proto representation.
+func ContainerawsAlphaClusterAuthorizationAdminGroupsToProto(o *alpha.ClusterAuthorizationAdminGroups) *alphapb.ContainerawsAlphaClusterAuthorizationAdminGroups {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerawsAlphaClusterAuthorizationAdminGroups{}
+	p.SetGroup(dcl.ValueOrEmptyString(o.Group))
 	return p
 }
 

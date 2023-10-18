@@ -57,6 +57,11 @@
       {
         "username": "user@domain.com"
       }
+    ],
+    "adminGroups": [
+      {
+        "group": "group@domain.com"
+      }
     ]
   },
   "annotations": {

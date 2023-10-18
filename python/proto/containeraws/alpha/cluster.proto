@@ -159,10 +159,15 @@ message ContainerawsAlphaClusterControlPlaneInstancePlacement {
 
 message ContainerawsAlphaClusterAuthorization {
   repeated ContainerawsAlphaClusterAuthorizationAdminUsers admin_users = 1;
+  repeated ContainerawsAlphaClusterAuthorizationAdminGroups admin_groups = 2;
 }
 
 message ContainerawsAlphaClusterAuthorizationAdminUsers {
   string username = 1;
+}
+
+message ContainerawsAlphaClusterAuthorizationAdminGroups {
+  string group = 1;
 }
 
 message ContainerawsAlphaClusterWorkloadIdentityConfig {

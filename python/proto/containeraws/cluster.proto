@@ -137,10 +137,15 @@ message ContainerawsClusterControlPlaneProxyConfig {
 
 message ContainerawsClusterAuthorization {
   repeated ContainerawsClusterAuthorizationAdminUsers admin_users = 1;
+  repeated ContainerawsClusterAuthorizationAdminGroups admin_groups = 2;
 }
 
 message ContainerawsClusterAuthorizationAdminUsers {
   string username = 1;
+}
+
+message ContainerawsClusterAuthorizationAdminGroups {
+  string group = 1;
 }
 
 message ContainerawsClusterWorkloadIdentityConfig {
