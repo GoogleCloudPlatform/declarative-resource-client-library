@@ -280,7 +280,9 @@ components:
                   format: int64
                   x-dcl-go-name: Throughput
                   description: Optional. The throughput to provision for the volume,
-                    in MiB/s. Only valid if the volume type is GP3.
+                    in MiB/s. Only valid if the volume type is GP3. If volume type
+                    is gp3 and throughput is not specified, the throughput will defaults
+                    to 125.
                   x-kubernetes-immutable: true
                   x-dcl-server-default: true
                 volumeType:
@@ -352,7 +354,9 @@ components:
                   format: int64
                   x-dcl-go-name: Throughput
                   description: Optional. The throughput to provision for the volume,
-                    in MiB/s. Only valid if the volume type is GP3.
+                    in MiB/s. Only valid if the volume type is GP3. If volume type
+                    is gp3 and throughput is not specified, the throughput will defaults
+                    to 125.
                   x-dcl-server-default: true
                 volumeType:
                   type: string

@@ -350,7 +350,7 @@ func DCLClusterSchema() *dcl.Schema {
 												Type:          "integer",
 												Format:        "int64",
 												GoName:        "Throughput",
-												Description:   "Optional. The throughput to provision for the volume, in MiB/s. Only valid if the volume type is GP3.",
+												Description:   "Optional. The throughput to provision for the volume, in MiB/s. Only valid if the volume type is GP3. If volume type is gp3 and throughput is not specified, the throughput will defaults to 125.",
 												Immutable:     true,
 												ServerDefault: true,
 											},
@@ -421,7 +421,7 @@ func DCLClusterSchema() *dcl.Schema {
 												Type:          "integer",
 												Format:        "int64",
 												GoName:        "Throughput",
-												Description:   "Optional. The throughput to provision for the volume, in MiB/s. Only valid if the volume type is GP3.",
+												Description:   "Optional. The throughput to provision for the volume, in MiB/s. Only valid if the volume type is GP3. If volume type is gp3 and throughput is not specified, the throughput will defaults to 125.",
 												ServerDefault: true,
 											},
 											"volumeType": &dcl.Property{
