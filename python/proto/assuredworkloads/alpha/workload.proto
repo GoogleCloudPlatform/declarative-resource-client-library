@@ -39,11 +39,18 @@ enum AssuredworkloadsAlphaWorkloadComplianceRegimeEnum {
   AssuredworkloadsAlphaWorkloadComplianceRegimeEnumFEDRAMP_MODERATE = 5;
   AssuredworkloadsAlphaWorkloadComplianceRegimeEnumUS_REGIONAL_ACCESS = 6;
   AssuredworkloadsAlphaWorkloadComplianceRegimeEnumHIPAA = 7;
-  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumEU_REGIONS_AND_SUPPORT = 8;
-  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumCA_REGIONS_AND_SUPPORT = 9;
-  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumITAR = 10;
-  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumAU_REGIONS_AND_US_SUPPORT = 11;
-  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumASSURED_WORKLOADS_FOR_PARTNERS = 12;
+  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumHITRUST = 8;
+  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumEU_REGIONS_AND_SUPPORT = 9;
+  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumCA_REGIONS_AND_SUPPORT = 10;
+  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumITAR = 11;
+  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumAU_REGIONS_AND_US_SUPPORT = 12;
+  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumASSURED_WORKLOADS_FOR_PARTNERS = 13;
+  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumISR_REGIONS = 14;
+  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumISR_REGIONS_AND_SUPPORT = 15;
+  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumCA_PROTECTED_B = 16;
+  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumIL5 = 17;
+  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumIL2 = 18;
+  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumJP_REGIONS_AND_SUPPORT = 19;
 }
 
 enum AssuredworkloadsAlphaWorkloadResourceSettingsResourceTypeEnum {
@@ -53,6 +60,64 @@ enum AssuredworkloadsAlphaWorkloadResourceSettingsResourceTypeEnum {
   AssuredworkloadsAlphaWorkloadResourceSettingsResourceTypeEnumENCRYPTION_KEYS_PROJECT = 3;
   AssuredworkloadsAlphaWorkloadResourceSettingsResourceTypeEnumKEYRING = 4;
   AssuredworkloadsAlphaWorkloadResourceSettingsResourceTypeEnumCONSUMER_FOLDER = 5;
+}
+
+enum AssuredworkloadsAlphaWorkloadKajEnrollmentStateEnum {
+  AssuredworkloadsAlphaWorkloadKajEnrollmentStateEnumNO_VALUE_DO_NOT_USE = 0;
+  AssuredworkloadsAlphaWorkloadKajEnrollmentStateEnumKAJ_ENROLLMENT_STATE_UNSPECIFIED = 1;
+  AssuredworkloadsAlphaWorkloadKajEnrollmentStateEnumKAJ_ENROLLMENT_STATE_PENDING = 2;
+  AssuredworkloadsAlphaWorkloadKajEnrollmentStateEnumKAJ_ENROLLMENT_STATE_COMPLETE = 3;
+}
+
+enum AssuredworkloadsAlphaWorkloadSaaEnrollmentResponseSetupErrorsEnum {
+  AssuredworkloadsAlphaWorkloadSaaEnrollmentResponseSetupErrorsEnumNO_VALUE_DO_NOT_USE = 0;
+  AssuredworkloadsAlphaWorkloadSaaEnrollmentResponseSetupErrorsEnumSETUP_ERROR_UNSPECIFIED = 1;
+  AssuredworkloadsAlphaWorkloadSaaEnrollmentResponseSetupErrorsEnumERROR_INVALID_BASE_SETUP = 2;
+  AssuredworkloadsAlphaWorkloadSaaEnrollmentResponseSetupErrorsEnumERROR_MISSING_EXTERNAL_SIGNING_KEY = 3;
+  AssuredworkloadsAlphaWorkloadSaaEnrollmentResponseSetupErrorsEnumERROR_NOT_ALL_SERVICES_ENROLLED = 4;
+  AssuredworkloadsAlphaWorkloadSaaEnrollmentResponseSetupErrorsEnumERROR_SETUP_CHECK_FAILED = 5;
+}
+
+enum AssuredworkloadsAlphaWorkloadSaaEnrollmentResponseSetupStatusEnum {
+  AssuredworkloadsAlphaWorkloadSaaEnrollmentResponseSetupStatusEnumNO_VALUE_DO_NOT_USE = 0;
+  AssuredworkloadsAlphaWorkloadSaaEnrollmentResponseSetupStatusEnumSETUP_STATE_UNSPECIFIED = 1;
+  AssuredworkloadsAlphaWorkloadSaaEnrollmentResponseSetupStatusEnumSTATUS_PENDING = 2;
+  AssuredworkloadsAlphaWorkloadSaaEnrollmentResponseSetupStatusEnumSTATUS_COMPLETE = 3;
+}
+
+enum AssuredworkloadsAlphaWorkloadPartnerEnum {
+  AssuredworkloadsAlphaWorkloadPartnerEnumNO_VALUE_DO_NOT_USE = 0;
+  AssuredworkloadsAlphaWorkloadPartnerEnumPARTNER_UNSPECIFIED = 1;
+  AssuredworkloadsAlphaWorkloadPartnerEnumLOCAL_CONTROLS_BY_S3NS = 2;
+  AssuredworkloadsAlphaWorkloadPartnerEnumSOVEREIGN_CONTROLS_BY_T_SYSTEMS = 3;
+  AssuredworkloadsAlphaWorkloadPartnerEnumSOVEREIGN_CONTROLS_BY_SIA_MINSAIT = 4;
+  AssuredworkloadsAlphaWorkloadPartnerEnumSOVEREIGN_CONTROLS_BY_PSN = 5;
+}
+
+enum AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningStateEnum {
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningStateEnumNO_VALUE_DO_NOT_USE = 0;
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningStateEnumEKM_PROVISIONING_STATE_UNSPECIFIED = 1;
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningStateEnumEKM_PROVISIONING_STATE_PENDING = 2;
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningStateEnumEKM_PROVISIONING_STATE_FAILED = 3;
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningStateEnumEKM_PROVISIONING_STATE_COMPLETED = 4;
+}
+
+enum AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningErrorDomainEnum {
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningErrorDomainEnumNO_VALUE_DO_NOT_USE = 0;
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningErrorDomainEnumEKM_PROVISIONING_ERROR_DOMAIN_UNSPECIFIED = 1;
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningErrorDomainEnumUNSPECIFIED_ERROR = 2;
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningErrorDomainEnumGOOGLE_SERVER_ERROR = 3;
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningErrorDomainEnumEXTERNAL_USER_ERROR = 4;
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningErrorDomainEnumEXTERNAL_PARTNER_ERROR = 5;
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningErrorDomainEnumTIMEOUT_ERROR = 6;
+}
+
+enum AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningErrorMappingEnum {
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningErrorMappingEnumNO_VALUE_DO_NOT_USE = 0;
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningErrorMappingEnumEKM_PROVISIONING_ERROR_MAPPING_UNSPECIFIED = 1;
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningErrorMappingEnumINVALID_SERVICE_ACCOUNT = 2;
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningErrorMappingEnumMISSING_METRICS_SCOPE_ADMIN_PERMISSION = 3;
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningErrorMappingEnumMISSING_EKM_CONNECTION_ADMIN_PERMISSION = 4;
 }
 
 message AssuredworkloadsAlphaWorkload {
@@ -66,8 +131,17 @@ message AssuredworkloadsAlphaWorkload {
   string provisioned_resources_parent = 8;
   AssuredworkloadsAlphaWorkloadKmsSettings kms_settings = 9;
   repeated AssuredworkloadsAlphaWorkloadResourceSettings resource_settings = 10;
-  string organization = 11;
-  string location = 12;
+  AssuredworkloadsAlphaWorkloadKajEnrollmentStateEnum kaj_enrollment_state = 11;
+  bool enable_sovereign_controls = 12;
+  AssuredworkloadsAlphaWorkloadSaaEnrollmentResponse saa_enrollment_response = 13;
+  AssuredworkloadsAlphaWorkloadComplianceStatus compliance_status = 14;
+  repeated string compliant_but_disallowed_services = 15;
+  AssuredworkloadsAlphaWorkloadPartnerEnum partner = 16;
+  AssuredworkloadsAlphaWorkloadPartnerPermissions partner_permissions = 17;
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponse ekm_provisioning_response = 18;
+  bool violation_notifications_enabled = 19;
+  string organization = 20;
+  string location = 21;
 }
 
 message AssuredworkloadsAlphaWorkloadResources {
@@ -83,6 +157,29 @@ message AssuredworkloadsAlphaWorkloadKmsSettings {
 message AssuredworkloadsAlphaWorkloadResourceSettings {
   string resource_id = 1;
   AssuredworkloadsAlphaWorkloadResourceSettingsResourceTypeEnum resource_type = 2;
+  string display_name = 3;
+}
+
+message AssuredworkloadsAlphaWorkloadSaaEnrollmentResponse {
+  repeated AssuredworkloadsAlphaWorkloadSaaEnrollmentResponseSetupErrorsEnum setup_errors = 1;
+  AssuredworkloadsAlphaWorkloadSaaEnrollmentResponseSetupStatusEnum setup_status = 2;
+}
+
+message AssuredworkloadsAlphaWorkloadComplianceStatus {
+  repeated int64 active_violation_count = 1;
+  repeated int64 acknowledged_violation_count = 2;
+}
+
+message AssuredworkloadsAlphaWorkloadPartnerPermissions {
+  bool data_logs_viewer = 1;
+  bool service_access_approver = 2;
+  bool assured_workloads_monitoring = 3;
+}
+
+message AssuredworkloadsAlphaWorkloadEkmProvisioningResponse {
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningStateEnum ekm_provisioning_state = 1;
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningErrorDomainEnum ekm_Provisioning_error_domain = 2;
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningErrorMappingEnum ekm_provisioning_error_mapping = 3;
 }
 
 message ApplyAssuredworkloadsAlphaWorkloadRequest {

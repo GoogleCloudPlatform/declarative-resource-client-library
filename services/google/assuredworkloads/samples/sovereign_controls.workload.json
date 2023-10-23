@@ -1,22 +1,20 @@
 {
   "organization": "{{org_id}}",
-  "location": "{{region}}",
+  "location": "europe-west9",
   "displayName": "{{display}}",
-  "complianceRegime": "FEDRAMP_MODERATE",
+  "complianceRegime": "EU_REGIONS_AND_SUPPORT",
   "billingAccount": "billingAccounts/{{billing_account}}",
   "labels": {
     "label-one": "value-one"
   },
-  "provisionedResourcesParent": "folders/519620126891",
-  "violationNotificationsEnabled": true,
+  "enableSovereignControls": true,
   "kmsSettings": {
     "nextRotationTime": "9999-10-02T15:01:23Z",
     "rotationPeriod": "10368000s"
   },
   "resourceSettings": [
     {
-      "resourceType": "CONSUMER_FOLDER",
-      "displayName": "folder-display-name"
+      "resourceType": "CONSUMER_FOLDER"
     },
     {
       "resourceType": "ENCRYPTION_KEYS_PROJECT"
