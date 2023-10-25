@@ -143,6 +143,27 @@ func DCLClusterSchema() *dcl.Schema {
 									"adminUsers",
 								},
 								Properties: map[string]*dcl.Property{
+									"adminGroups": &dcl.Property{
+										Type:        "array",
+										GoName:      "AdminGroups",
+										Description: "Groups of users that can perform operations as a cluster admin. A managed ClusterRoleBinding will be created to grant the `cluster-admin` ClusterRole to the groups. Up to ten admin groups can be provided. For more info on RBAC, see https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles",
+										SendEmpty:   true,
+										ListType:    "list",
+										Items: &dcl.Property{
+											Type:   "object",
+											GoType: "ClusterAuthorizationAdminGroups",
+											Required: []string{
+												"group",
+											},
+											Properties: map[string]*dcl.Property{
+												"group": &dcl.Property{
+													Type:        "string",
+													GoName:      "Group",
+													Description: "The name of the group, e.g. `my-group@domain.com`.",
+												},
+											},
+										},
+									},
 									"adminUsers": &dcl.Property{
 										Type:        "array",
 										GoName:      "AdminUsers",

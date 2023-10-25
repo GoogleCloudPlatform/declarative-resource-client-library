@@ -15,7 +15,7 @@
   },
   "resourceGroupId": "/subscriptions/{{azure_subscription}}/resourceGroups/{{byo_multicloud_prefix}}-dev-cluster",
   "controlPlane": {
-    "version": "1.26.5-gke.1400",
+    "version": "1.27.4-gke.1600",
     "subnetId": "/subscriptions/{{azure_subscription}}/resourceGroups/{{byo_multicloud_prefix}}-dev-byo/providers/Microsoft.Network/virtualNetworks/{{byo_multicloud_prefix}}-dev-vnet/subnets/default",
     "vmSize": "Standard_DS2_v2",
     "sshConfig": {
@@ -50,6 +50,11 @@
     "adminUsers": [
       {
         "username": "user@domain.com"
+      }
+    ],
+    "adminGroups": [
+      {
+        "group": "group@domain.com"
       }
     ]
   },

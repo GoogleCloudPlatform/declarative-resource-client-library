@@ -117,10 +117,15 @@ message ContainerazureBetaClusterControlPlaneReplicaPlacements {
 
 message ContainerazureBetaClusterAuthorization {
   repeated ContainerazureBetaClusterAuthorizationAdminUsers admin_users = 1;
+  repeated ContainerazureBetaClusterAuthorizationAdminGroups admin_groups = 2;
 }
 
 message ContainerazureBetaClusterAuthorizationAdminUsers {
   string username = 1;
+}
+
+message ContainerazureBetaClusterAuthorizationAdminGroups {
+  string group = 1;
 }
 
 message ContainerazureBetaClusterWorkloadIdentityConfig {

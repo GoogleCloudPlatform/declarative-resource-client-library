@@ -117,10 +117,15 @@ message ContainerazureAlphaClusterControlPlaneReplicaPlacements {
 
 message ContainerazureAlphaClusterAuthorization {
   repeated ContainerazureAlphaClusterAuthorizationAdminUsers admin_users = 1;
+  repeated ContainerazureAlphaClusterAuthorizationAdminGroups admin_groups = 2;
 }
 
 message ContainerazureAlphaClusterAuthorizationAdminUsers {
   string username = 1;
+}
+
+message ContainerazureAlphaClusterAuthorizationAdminGroups {
+  string group = 1;
 }
 
 message ContainerazureAlphaClusterWorkloadIdentityConfig {

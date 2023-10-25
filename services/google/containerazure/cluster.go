@@ -536,8 +536,9 @@ func (r *ClusterControlPlaneReplicaPlacements) HashCode() string {
 }
 
 type ClusterAuthorization struct {
-	empty      bool                             `json:"-"`
-	AdminUsers []ClusterAuthorizationAdminUsers `json:"adminUsers"`
+	empty       bool                              `json:"-"`
+	AdminUsers  []ClusterAuthorizationAdminUsers  `json:"adminUsers"`
+	AdminGroups []ClusterAuthorizationAdminGroups `json:"adminGroups"`
 }
 
 type jsonClusterAuthorization ClusterAuthorization
@@ -556,6 +557,8 @@ func (r *ClusterAuthorization) UnmarshalJSON(data []byte) error {
 	} else {
 
 		r.AdminUsers = res.AdminUsers
+
+		r.AdminGroups = res.AdminGroups
 
 	}
 	return nil
@@ -621,6 +624,52 @@ func (r *ClusterAuthorizationAdminUsers) String() string {
 }
 
 func (r *ClusterAuthorizationAdminUsers) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ClusterAuthorizationAdminGroups struct {
+	empty bool    `json:"-"`
+	Group *string `json:"group"`
+}
+
+type jsonClusterAuthorizationAdminGroups ClusterAuthorizationAdminGroups
+
+func (r *ClusterAuthorizationAdminGroups) UnmarshalJSON(data []byte) error {
+	var res jsonClusterAuthorizationAdminGroups
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyClusterAuthorizationAdminGroups
+	} else {
+
+		r.Group = res.Group
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ClusterAuthorizationAdminGroups is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyClusterAuthorizationAdminGroups *ClusterAuthorizationAdminGroups = &ClusterAuthorizationAdminGroups{empty: true}
+
+func (r *ClusterAuthorizationAdminGroups) Empty() bool {
+	return r.empty
+}
+
+func (r *ClusterAuthorizationAdminGroups) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ClusterAuthorizationAdminGroups) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.Sum256([]byte(r.String()))

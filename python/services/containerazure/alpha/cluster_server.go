@@ -175,6 +175,9 @@ func ProtoToContainerazureAlphaClusterAuthorization(p *alphapb.ContainerazureAlp
 	for _, r := range p.GetAdminUsers() {
 		obj.AdminUsers = append(obj.AdminUsers, *ProtoToContainerazureAlphaClusterAuthorizationAdminUsers(r))
 	}
+	for _, r := range p.GetAdminGroups() {
+		obj.AdminGroups = append(obj.AdminGroups, *ProtoToContainerazureAlphaClusterAuthorizationAdminGroups(r))
+	}
 	return obj
 }
 
@@ -185,6 +188,17 @@ func ProtoToContainerazureAlphaClusterAuthorizationAdminUsers(p *alphapb.Contain
 	}
 	obj := &alpha.ClusterAuthorizationAdminUsers{
 		Username: dcl.StringOrNil(p.GetUsername()),
+	}
+	return obj
+}
+
+// ProtoToClusterAuthorizationAdminGroups converts a ClusterAuthorizationAdminGroups object from its proto representation.
+func ProtoToContainerazureAlphaClusterAuthorizationAdminGroups(p *alphapb.ContainerazureAlphaClusterAuthorizationAdminGroups) *alpha.ClusterAuthorizationAdminGroups {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ClusterAuthorizationAdminGroups{
+		Group: dcl.StringOrNil(p.GetGroup()),
 	}
 	return obj
 }
@@ -441,6 +455,11 @@ func ContainerazureAlphaClusterAuthorizationToProto(o *alpha.ClusterAuthorizatio
 		sAdminUsers[i] = ContainerazureAlphaClusterAuthorizationAdminUsersToProto(&r)
 	}
 	p.SetAdminUsers(sAdminUsers)
+	sAdminGroups := make([]*alphapb.ContainerazureAlphaClusterAuthorizationAdminGroups, len(o.AdminGroups))
+	for i, r := range o.AdminGroups {
+		sAdminGroups[i] = ContainerazureAlphaClusterAuthorizationAdminGroupsToProto(&r)
+	}
+	p.SetAdminGroups(sAdminGroups)
 	return p
 }
 
@@ -451,6 +470,16 @@ func ContainerazureAlphaClusterAuthorizationAdminUsersToProto(o *alpha.ClusterAu
 	}
 	p := &alphapb.ContainerazureAlphaClusterAuthorizationAdminUsers{}
 	p.SetUsername(dcl.ValueOrEmptyString(o.Username))
+	return p
+}
+
+// ClusterAuthorizationAdminGroupsToProto converts a ClusterAuthorizationAdminGroups object to its proto representation.
+func ContainerazureAlphaClusterAuthorizationAdminGroupsToProto(o *alpha.ClusterAuthorizationAdminGroups) *alphapb.ContainerazureAlphaClusterAuthorizationAdminGroups {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ContainerazureAlphaClusterAuthorizationAdminGroups{}
+	p.SetGroup(dcl.ValueOrEmptyString(o.Group))
 	return p
 }
 

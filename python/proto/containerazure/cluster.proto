@@ -108,10 +108,15 @@ message ContainerazureClusterControlPlaneReplicaPlacements {
 
 message ContainerazureClusterAuthorization {
   repeated ContainerazureClusterAuthorizationAdminUsers admin_users = 1;
+  repeated ContainerazureClusterAuthorizationAdminGroups admin_groups = 2;
 }
 
 message ContainerazureClusterAuthorizationAdminUsers {
   string username = 1;
+}
+
+message ContainerazureClusterAuthorizationAdminGroups {
+  string group = 1;
 }
 
 message ContainerazureClusterWorkloadIdentityConfig {
