@@ -24,7 +24,8 @@ import "proto/empty.proto";
 message OrgpolicyPolicy {
   string name = 1;
   OrgpolicyPolicySpec spec = 2;
-  string parent = 3;
+  OrgpolicyPolicyDryRunSpec dry_run_spec = 3;
+  string parent = 4;
 }
 
 message OrgpolicyPolicySpec {
@@ -49,6 +50,34 @@ message OrgpolicyPolicySpecRulesValues {
 }
 
 message OrgpolicyPolicySpecRulesCondition {
+  string expression = 1;
+  string title = 2;
+  string description = 3;
+  string location = 4;
+}
+
+message OrgpolicyPolicyDryRunSpec {
+  string etag = 1;
+  string update_time = 2;
+  repeated OrgpolicyPolicyDryRunSpecRules rules = 3;
+  bool inherit_from_parent = 4;
+  bool reset = 5;
+}
+
+message OrgpolicyPolicyDryRunSpecRules {
+  OrgpolicyPolicyDryRunSpecRulesValues values = 1;
+  bool allow_all = 2;
+  bool deny_all = 3;
+  bool enforce = 4;
+  OrgpolicyPolicyDryRunSpecRulesCondition condition = 5;
+}
+
+message OrgpolicyPolicyDryRunSpecRulesValues {
+  repeated string allowed_values = 1;
+  repeated string denied_values = 2;
+}
+
+message OrgpolicyPolicyDryRunSpecRulesCondition {
   string expression = 1;
   string title = 2;
   string description = 3;

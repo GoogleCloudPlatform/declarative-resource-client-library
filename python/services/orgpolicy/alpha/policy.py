@@ -23,12 +23,14 @@ class Policy(object):
         self,
         name: str = None,
         spec: dict = None,
+        dry_run_spec: dict = None,
         parent: str = None,
         service_account_file: str = "",
     ):
         channel.initialize()
         self.name = name
         self.spec = spec
+        self.dry_run_spec = dry_run_spec
         self.parent = parent
         self.service_account_file = service_account_file
 
@@ -42,6 +44,12 @@ class Policy(object):
             request.resource.spec.CopyFrom(PolicySpec.to_proto(self.spec))
         else:
             request.resource.ClearField("spec")
+        if PolicyDryRunSpec.to_proto(self.dry_run_spec):
+            request.resource.dry_run_spec.CopyFrom(
+                PolicyDryRunSpec.to_proto(self.dry_run_spec)
+            )
+        else:
+            request.resource.ClearField("dry_run_spec")
         if Primitive.to_proto(self.parent):
             request.resource.parent = Primitive.to_proto(self.parent)
 
@@ -50,6 +58,7 @@ class Policy(object):
         response = stub.ApplyOrgpolicyAlphaPolicy(request)
         self.name = Primitive.from_proto(response.name)
         self.spec = PolicySpec.from_proto(response.spec)
+        self.dry_run_spec = PolicyDryRunSpec.from_proto(response.dry_run_spec)
         self.parent = Primitive.from_proto(response.parent)
 
     def delete(self):
@@ -63,6 +72,12 @@ class Policy(object):
             request.resource.spec.CopyFrom(PolicySpec.to_proto(self.spec))
         else:
             request.resource.ClearField("spec")
+        if PolicyDryRunSpec.to_proto(self.dry_run_spec):
+            request.resource.dry_run_spec.CopyFrom(
+                PolicyDryRunSpec.to_proto(self.dry_run_spec)
+            )
+        else:
+            request.resource.ClearField("dry_run_spec")
         if Primitive.to_proto(self.parent):
             request.resource.parent = Primitive.to_proto(self.parent)
 
@@ -85,6 +100,10 @@ class Policy(object):
             resource.spec.CopyFrom(PolicySpec.to_proto(self.spec))
         else:
             resource.ClearField("spec")
+        if PolicyDryRunSpec.to_proto(self.dry_run_spec):
+            resource.dry_run_spec.CopyFrom(PolicyDryRunSpec.to_proto(self.dry_run_spec))
+        else:
+            resource.ClearField("dry_run_spec")
         if Primitive.to_proto(self.parent):
             resource.parent = Primitive.to_proto(self.parent)
         return resource
@@ -306,6 +325,224 @@ class PolicySpecRulesConditionArray(object):
     @classmethod
     def from_proto(self, resources):
         return [PolicySpecRulesCondition.from_proto(i) for i in resources]
+
+
+class PolicyDryRunSpec(object):
+    def __init__(
+        self,
+        etag: str = None,
+        update_time: str = None,
+        rules: list = None,
+        inherit_from_parent: bool = None,
+        reset: bool = None,
+    ):
+        self.etag = etag
+        self.update_time = update_time
+        self.rules = rules
+        self.inherit_from_parent = inherit_from_parent
+        self.reset = reset
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = policy_pb2.OrgpolicyAlphaPolicyDryRunSpec()
+        if Primitive.to_proto(resource.etag):
+            res.etag = Primitive.to_proto(resource.etag)
+        if Primitive.to_proto(resource.update_time):
+            res.update_time = Primitive.to_proto(resource.update_time)
+        if PolicyDryRunSpecRulesArray.to_proto(resource.rules):
+            res.rules.extend(PolicyDryRunSpecRulesArray.to_proto(resource.rules))
+        if Primitive.to_proto(resource.inherit_from_parent):
+            res.inherit_from_parent = Primitive.to_proto(resource.inherit_from_parent)
+        if Primitive.to_proto(resource.reset):
+            res.reset = Primitive.to_proto(resource.reset)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return PolicyDryRunSpec(
+            etag=Primitive.from_proto(resource.etag),
+            update_time=Primitive.from_proto(resource.update_time),
+            rules=PolicyDryRunSpecRulesArray.from_proto(resource.rules),
+            inherit_from_parent=Primitive.from_proto(resource.inherit_from_parent),
+            reset=Primitive.from_proto(resource.reset),
+        )
+
+
+class PolicyDryRunSpecArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [PolicyDryRunSpec.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [PolicyDryRunSpec.from_proto(i) for i in resources]
+
+
+class PolicyDryRunSpecRules(object):
+    def __init__(
+        self,
+        values: dict = None,
+        allow_all: bool = None,
+        deny_all: bool = None,
+        enforce: bool = None,
+        condition: dict = None,
+    ):
+        self.values = values
+        self.allow_all = allow_all
+        self.deny_all = deny_all
+        self.enforce = enforce
+        self.condition = condition
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = policy_pb2.OrgpolicyAlphaPolicyDryRunSpecRules()
+        if PolicyDryRunSpecRulesValues.to_proto(resource.values):
+            res.values.CopyFrom(PolicyDryRunSpecRulesValues.to_proto(resource.values))
+        else:
+            res.ClearField("values")
+        if Primitive.to_proto(resource.allow_all):
+            res.allow_all = Primitive.to_proto(resource.allow_all)
+        if Primitive.to_proto(resource.deny_all):
+            res.deny_all = Primitive.to_proto(resource.deny_all)
+        if Primitive.to_proto(resource.enforce):
+            res.enforce = Primitive.to_proto(resource.enforce)
+        if PolicyDryRunSpecRulesCondition.to_proto(resource.condition):
+            res.condition.CopyFrom(
+                PolicyDryRunSpecRulesCondition.to_proto(resource.condition)
+            )
+        else:
+            res.ClearField("condition")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return PolicyDryRunSpecRules(
+            values=PolicyDryRunSpecRulesValues.from_proto(resource.values),
+            allow_all=Primitive.from_proto(resource.allow_all),
+            deny_all=Primitive.from_proto(resource.deny_all),
+            enforce=Primitive.from_proto(resource.enforce),
+            condition=PolicyDryRunSpecRulesCondition.from_proto(resource.condition),
+        )
+
+
+class PolicyDryRunSpecRulesArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [PolicyDryRunSpecRules.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [PolicyDryRunSpecRules.from_proto(i) for i in resources]
+
+
+class PolicyDryRunSpecRulesValues(object):
+    def __init__(self, allowed_values: list = None, denied_values: list = None):
+        self.allowed_values = allowed_values
+        self.denied_values = denied_values
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = policy_pb2.OrgpolicyAlphaPolicyDryRunSpecRulesValues()
+        if Primitive.to_proto(resource.allowed_values):
+            res.allowed_values.extend(Primitive.to_proto(resource.allowed_values))
+        if Primitive.to_proto(resource.denied_values):
+            res.denied_values.extend(Primitive.to_proto(resource.denied_values))
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return PolicyDryRunSpecRulesValues(
+            allowed_values=Primitive.from_proto(resource.allowed_values),
+            denied_values=Primitive.from_proto(resource.denied_values),
+        )
+
+
+class PolicyDryRunSpecRulesValuesArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [PolicyDryRunSpecRulesValues.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [PolicyDryRunSpecRulesValues.from_proto(i) for i in resources]
+
+
+class PolicyDryRunSpecRulesCondition(object):
+    def __init__(
+        self,
+        expression: str = None,
+        title: str = None,
+        description: str = None,
+        location: str = None,
+    ):
+        self.expression = expression
+        self.title = title
+        self.description = description
+        self.location = location
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = policy_pb2.OrgpolicyAlphaPolicyDryRunSpecRulesCondition()
+        if Primitive.to_proto(resource.expression):
+            res.expression = Primitive.to_proto(resource.expression)
+        if Primitive.to_proto(resource.title):
+            res.title = Primitive.to_proto(resource.title)
+        if Primitive.to_proto(resource.description):
+            res.description = Primitive.to_proto(resource.description)
+        if Primitive.to_proto(resource.location):
+            res.location = Primitive.to_proto(resource.location)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return PolicyDryRunSpecRulesCondition(
+            expression=Primitive.from_proto(resource.expression),
+            title=Primitive.from_proto(resource.title),
+            description=Primitive.from_proto(resource.description),
+            location=Primitive.from_proto(resource.location),
+        )
+
+
+class PolicyDryRunSpecRulesConditionArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [PolicyDryRunSpecRulesCondition.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [PolicyDryRunSpecRulesCondition.from_proto(i) for i in resources]
 
 
 class Primitive(object):

@@ -85,12 +85,74 @@ func ProtoToOrgpolicyAlphaPolicySpecRulesCondition(p *alphapb.OrgpolicyAlphaPoli
 	return obj
 }
 
+// ProtoToPolicyDryRunSpec converts a PolicyDryRunSpec object from its proto representation.
+func ProtoToOrgpolicyAlphaPolicyDryRunSpec(p *alphapb.OrgpolicyAlphaPolicyDryRunSpec) *alpha.PolicyDryRunSpec {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.PolicyDryRunSpec{
+		Etag:              dcl.StringOrNil(p.GetEtag()),
+		UpdateTime:        dcl.StringOrNil(p.GetUpdateTime()),
+		InheritFromParent: dcl.Bool(p.GetInheritFromParent()),
+		Reset:             dcl.Bool(p.GetReset()),
+	}
+	for _, r := range p.GetRules() {
+		obj.Rules = append(obj.Rules, *ProtoToOrgpolicyAlphaPolicyDryRunSpecRules(r))
+	}
+	return obj
+}
+
+// ProtoToPolicyDryRunSpecRules converts a PolicyDryRunSpecRules object from its proto representation.
+func ProtoToOrgpolicyAlphaPolicyDryRunSpecRules(p *alphapb.OrgpolicyAlphaPolicyDryRunSpecRules) *alpha.PolicyDryRunSpecRules {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.PolicyDryRunSpecRules{
+		Values:    ProtoToOrgpolicyAlphaPolicyDryRunSpecRulesValues(p.GetValues()),
+		AllowAll:  dcl.Bool(p.GetAllowAll()),
+		DenyAll:   dcl.Bool(p.GetDenyAll()),
+		Enforce:   dcl.Bool(p.GetEnforce()),
+		Condition: ProtoToOrgpolicyAlphaPolicyDryRunSpecRulesCondition(p.GetCondition()),
+	}
+	return obj
+}
+
+// ProtoToPolicyDryRunSpecRulesValues converts a PolicyDryRunSpecRulesValues object from its proto representation.
+func ProtoToOrgpolicyAlphaPolicyDryRunSpecRulesValues(p *alphapb.OrgpolicyAlphaPolicyDryRunSpecRulesValues) *alpha.PolicyDryRunSpecRulesValues {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.PolicyDryRunSpecRulesValues{}
+	for _, r := range p.GetAllowedValues() {
+		obj.AllowedValues = append(obj.AllowedValues, r)
+	}
+	for _, r := range p.GetDeniedValues() {
+		obj.DeniedValues = append(obj.DeniedValues, r)
+	}
+	return obj
+}
+
+// ProtoToPolicyDryRunSpecRulesCondition converts a PolicyDryRunSpecRulesCondition object from its proto representation.
+func ProtoToOrgpolicyAlphaPolicyDryRunSpecRulesCondition(p *alphapb.OrgpolicyAlphaPolicyDryRunSpecRulesCondition) *alpha.PolicyDryRunSpecRulesCondition {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.PolicyDryRunSpecRulesCondition{
+		Expression:  dcl.StringOrNil(p.GetExpression()),
+		Title:       dcl.StringOrNil(p.GetTitle()),
+		Description: dcl.StringOrNil(p.GetDescription()),
+		Location:    dcl.StringOrNil(p.GetLocation()),
+	}
+	return obj
+}
+
 // ProtoToPolicy converts a Policy resource from its proto representation.
 func ProtoToPolicy(p *alphapb.OrgpolicyAlphaPolicy) *alpha.Policy {
 	obj := &alpha.Policy{
-		Name:   dcl.StringOrNil(p.GetName()),
-		Spec:   ProtoToOrgpolicyAlphaPolicySpec(p.GetSpec()),
-		Parent: dcl.StringOrNil(p.GetParent()),
+		Name:       dcl.StringOrNil(p.GetName()),
+		Spec:       ProtoToOrgpolicyAlphaPolicySpec(p.GetSpec()),
+		DryRunSpec: ProtoToOrgpolicyAlphaPolicyDryRunSpec(p.GetDryRunSpec()),
+		Parent:     dcl.StringOrNil(p.GetParent()),
 	}
 	return obj
 }
@@ -159,11 +221,76 @@ func OrgpolicyAlphaPolicySpecRulesConditionToProto(o *alpha.PolicySpecRulesCondi
 	return p
 }
 
+// PolicyDryRunSpecToProto converts a PolicyDryRunSpec object to its proto representation.
+func OrgpolicyAlphaPolicyDryRunSpecToProto(o *alpha.PolicyDryRunSpec) *alphapb.OrgpolicyAlphaPolicyDryRunSpec {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.OrgpolicyAlphaPolicyDryRunSpec{}
+	p.SetEtag(dcl.ValueOrEmptyString(o.Etag))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(o.UpdateTime))
+	p.SetInheritFromParent(dcl.ValueOrEmptyBool(o.InheritFromParent))
+	p.SetReset(dcl.ValueOrEmptyBool(o.Reset))
+	sRules := make([]*alphapb.OrgpolicyAlphaPolicyDryRunSpecRules, len(o.Rules))
+	for i, r := range o.Rules {
+		sRules[i] = OrgpolicyAlphaPolicyDryRunSpecRulesToProto(&r)
+	}
+	p.SetRules(sRules)
+	return p
+}
+
+// PolicyDryRunSpecRulesToProto converts a PolicyDryRunSpecRules object to its proto representation.
+func OrgpolicyAlphaPolicyDryRunSpecRulesToProto(o *alpha.PolicyDryRunSpecRules) *alphapb.OrgpolicyAlphaPolicyDryRunSpecRules {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.OrgpolicyAlphaPolicyDryRunSpecRules{}
+	p.SetValues(OrgpolicyAlphaPolicyDryRunSpecRulesValuesToProto(o.Values))
+	p.SetAllowAll(dcl.ValueOrEmptyBool(o.AllowAll))
+	p.SetDenyAll(dcl.ValueOrEmptyBool(o.DenyAll))
+	p.SetEnforce(dcl.ValueOrEmptyBool(o.Enforce))
+	p.SetCondition(OrgpolicyAlphaPolicyDryRunSpecRulesConditionToProto(o.Condition))
+	return p
+}
+
+// PolicyDryRunSpecRulesValuesToProto converts a PolicyDryRunSpecRulesValues object to its proto representation.
+func OrgpolicyAlphaPolicyDryRunSpecRulesValuesToProto(o *alpha.PolicyDryRunSpecRulesValues) *alphapb.OrgpolicyAlphaPolicyDryRunSpecRulesValues {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.OrgpolicyAlphaPolicyDryRunSpecRulesValues{}
+	sAllowedValues := make([]string, len(o.AllowedValues))
+	for i, r := range o.AllowedValues {
+		sAllowedValues[i] = r
+	}
+	p.SetAllowedValues(sAllowedValues)
+	sDeniedValues := make([]string, len(o.DeniedValues))
+	for i, r := range o.DeniedValues {
+		sDeniedValues[i] = r
+	}
+	p.SetDeniedValues(sDeniedValues)
+	return p
+}
+
+// PolicyDryRunSpecRulesConditionToProto converts a PolicyDryRunSpecRulesCondition object to its proto representation.
+func OrgpolicyAlphaPolicyDryRunSpecRulesConditionToProto(o *alpha.PolicyDryRunSpecRulesCondition) *alphapb.OrgpolicyAlphaPolicyDryRunSpecRulesCondition {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.OrgpolicyAlphaPolicyDryRunSpecRulesCondition{}
+	p.SetExpression(dcl.ValueOrEmptyString(o.Expression))
+	p.SetTitle(dcl.ValueOrEmptyString(o.Title))
+	p.SetDescription(dcl.ValueOrEmptyString(o.Description))
+	p.SetLocation(dcl.ValueOrEmptyString(o.Location))
+	return p
+}
+
 // PolicyToProto converts a Policy resource to its proto representation.
 func PolicyToProto(resource *alpha.Policy) *alphapb.OrgpolicyAlphaPolicy {
 	p := &alphapb.OrgpolicyAlphaPolicy{}
 	p.SetName(dcl.ValueOrEmptyString(resource.Name))
 	p.SetSpec(OrgpolicyAlphaPolicySpecToProto(resource.Spec))
+	p.SetDryRunSpec(OrgpolicyAlphaPolicyDryRunSpecToProto(resource.DryRunSpec))
 	p.SetParent(dcl.ValueOrEmptyString(resource.Parent))
 
 	return p

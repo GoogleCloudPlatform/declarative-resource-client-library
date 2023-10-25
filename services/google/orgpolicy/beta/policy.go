@@ -25,9 +25,10 @@ import (
 )
 
 type Policy struct {
-	Name   *string     `json:"name"`
-	Spec   *PolicySpec `json:"spec"`
-	Parent *string     `json:"parent"`
+	Name       *string           `json:"name"`
+	Spec       *PolicySpec       `json:"spec"`
+	DryRunSpec *PolicyDryRunSpec `json:"dryRunSpec"`
+	Parent     *string           `json:"parent"`
 }
 
 func (r *Policy) String() string {
@@ -254,6 +255,226 @@ func (r *PolicySpecRulesCondition) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
+type PolicyDryRunSpec struct {
+	empty             bool                    `json:"-"`
+	Etag              *string                 `json:"etag"`
+	UpdateTime        *string                 `json:"updateTime"`
+	Rules             []PolicyDryRunSpecRules `json:"rules"`
+	InheritFromParent *bool                   `json:"inheritFromParent"`
+	Reset             *bool                   `json:"reset"`
+}
+
+type jsonPolicyDryRunSpec PolicyDryRunSpec
+
+func (r *PolicyDryRunSpec) UnmarshalJSON(data []byte) error {
+	var res jsonPolicyDryRunSpec
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyPolicyDryRunSpec
+	} else {
+
+		r.Etag = res.Etag
+
+		r.UpdateTime = res.UpdateTime
+
+		r.Rules = res.Rules
+
+		r.InheritFromParent = res.InheritFromParent
+
+		r.Reset = res.Reset
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this PolicyDryRunSpec is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyPolicyDryRunSpec *PolicyDryRunSpec = &PolicyDryRunSpec{empty: true}
+
+func (r *PolicyDryRunSpec) Empty() bool {
+	return r.empty
+}
+
+func (r *PolicyDryRunSpec) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *PolicyDryRunSpec) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type PolicyDryRunSpecRules struct {
+	empty     bool                            `json:"-"`
+	Values    *PolicyDryRunSpecRulesValues    `json:"values"`
+	AllowAll  *bool                           `json:"allowAll"`
+	DenyAll   *bool                           `json:"denyAll"`
+	Enforce   *bool                           `json:"enforce"`
+	Condition *PolicyDryRunSpecRulesCondition `json:"condition"`
+}
+
+type jsonPolicyDryRunSpecRules PolicyDryRunSpecRules
+
+func (r *PolicyDryRunSpecRules) UnmarshalJSON(data []byte) error {
+	var res jsonPolicyDryRunSpecRules
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyPolicyDryRunSpecRules
+	} else {
+
+		r.Values = res.Values
+
+		r.AllowAll = res.AllowAll
+
+		r.DenyAll = res.DenyAll
+
+		r.Enforce = res.Enforce
+
+		r.Condition = res.Condition
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this PolicyDryRunSpecRules is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyPolicyDryRunSpecRules *PolicyDryRunSpecRules = &PolicyDryRunSpecRules{empty: true}
+
+func (r *PolicyDryRunSpecRules) Empty() bool {
+	return r.empty
+}
+
+func (r *PolicyDryRunSpecRules) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *PolicyDryRunSpecRules) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type PolicyDryRunSpecRulesValues struct {
+	empty         bool     `json:"-"`
+	AllowedValues []string `json:"allowedValues"`
+	DeniedValues  []string `json:"deniedValues"`
+}
+
+type jsonPolicyDryRunSpecRulesValues PolicyDryRunSpecRulesValues
+
+func (r *PolicyDryRunSpecRulesValues) UnmarshalJSON(data []byte) error {
+	var res jsonPolicyDryRunSpecRulesValues
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyPolicyDryRunSpecRulesValues
+	} else {
+
+		r.AllowedValues = res.AllowedValues
+
+		r.DeniedValues = res.DeniedValues
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this PolicyDryRunSpecRulesValues is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyPolicyDryRunSpecRulesValues *PolicyDryRunSpecRulesValues = &PolicyDryRunSpecRulesValues{empty: true}
+
+func (r *PolicyDryRunSpecRulesValues) Empty() bool {
+	return r.empty
+}
+
+func (r *PolicyDryRunSpecRulesValues) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *PolicyDryRunSpecRulesValues) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type PolicyDryRunSpecRulesCondition struct {
+	empty       bool    `json:"-"`
+	Expression  *string `json:"expression"`
+	Title       *string `json:"title"`
+	Description *string `json:"description"`
+	Location    *string `json:"location"`
+}
+
+type jsonPolicyDryRunSpecRulesCondition PolicyDryRunSpecRulesCondition
+
+func (r *PolicyDryRunSpecRulesCondition) UnmarshalJSON(data []byte) error {
+	var res jsonPolicyDryRunSpecRulesCondition
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyPolicyDryRunSpecRulesCondition
+	} else {
+
+		r.Expression = res.Expression
+
+		r.Title = res.Title
+
+		r.Description = res.Description
+
+		r.Location = res.Location
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this PolicyDryRunSpecRulesCondition is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyPolicyDryRunSpecRulesCondition *PolicyDryRunSpecRulesCondition = &PolicyDryRunSpecRulesCondition{empty: true}
+
+func (r *PolicyDryRunSpecRulesCondition) Empty() bool {
+	return r.empty
+}
+
+func (r *PolicyDryRunSpecRulesCondition) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *PolicyDryRunSpecRulesCondition) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 // Describe returns a simple description of this resource to ensure that automated tools
 // can identify it.
 func (r *Policy) Describe() dcl.ServiceTypeVersion {
@@ -270,9 +491,10 @@ func (r *Policy) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":   dcl.ValueOrEmptyString(nr.Name),
-		"spec":   dcl.ValueOrEmptyString(nr.Spec),
-		"parent": dcl.ValueOrEmptyString(nr.Parent),
+		"name":         dcl.ValueOrEmptyString(nr.Name),
+		"spec":         dcl.ValueOrEmptyString(nr.Spec),
+		"dry_run_spec": dcl.ValueOrEmptyString(nr.DryRunSpec),
+		"parent":       dcl.ValueOrEmptyString(nr.Parent),
 	}
 	return dcl.Nprintf("{{parent}}/policies/{{name}}", params), nil
 }

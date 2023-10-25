@@ -85,12 +85,74 @@ func ProtoToOrgpolicyPolicySpecRulesCondition(p *orgpolicypb.OrgpolicyPolicySpec
 	return obj
 }
 
+// ProtoToPolicyDryRunSpec converts a PolicyDryRunSpec object from its proto representation.
+func ProtoToOrgpolicyPolicyDryRunSpec(p *orgpolicypb.OrgpolicyPolicyDryRunSpec) *orgpolicy.PolicyDryRunSpec {
+	if p == nil {
+		return nil
+	}
+	obj := &orgpolicy.PolicyDryRunSpec{
+		Etag:              dcl.StringOrNil(p.GetEtag()),
+		UpdateTime:        dcl.StringOrNil(p.GetUpdateTime()),
+		InheritFromParent: dcl.Bool(p.GetInheritFromParent()),
+		Reset:             dcl.Bool(p.GetReset()),
+	}
+	for _, r := range p.GetRules() {
+		obj.Rules = append(obj.Rules, *ProtoToOrgpolicyPolicyDryRunSpecRules(r))
+	}
+	return obj
+}
+
+// ProtoToPolicyDryRunSpecRules converts a PolicyDryRunSpecRules object from its proto representation.
+func ProtoToOrgpolicyPolicyDryRunSpecRules(p *orgpolicypb.OrgpolicyPolicyDryRunSpecRules) *orgpolicy.PolicyDryRunSpecRules {
+	if p == nil {
+		return nil
+	}
+	obj := &orgpolicy.PolicyDryRunSpecRules{
+		Values:    ProtoToOrgpolicyPolicyDryRunSpecRulesValues(p.GetValues()),
+		AllowAll:  dcl.Bool(p.GetAllowAll()),
+		DenyAll:   dcl.Bool(p.GetDenyAll()),
+		Enforce:   dcl.Bool(p.GetEnforce()),
+		Condition: ProtoToOrgpolicyPolicyDryRunSpecRulesCondition(p.GetCondition()),
+	}
+	return obj
+}
+
+// ProtoToPolicyDryRunSpecRulesValues converts a PolicyDryRunSpecRulesValues object from its proto representation.
+func ProtoToOrgpolicyPolicyDryRunSpecRulesValues(p *orgpolicypb.OrgpolicyPolicyDryRunSpecRulesValues) *orgpolicy.PolicyDryRunSpecRulesValues {
+	if p == nil {
+		return nil
+	}
+	obj := &orgpolicy.PolicyDryRunSpecRulesValues{}
+	for _, r := range p.GetAllowedValues() {
+		obj.AllowedValues = append(obj.AllowedValues, r)
+	}
+	for _, r := range p.GetDeniedValues() {
+		obj.DeniedValues = append(obj.DeniedValues, r)
+	}
+	return obj
+}
+
+// ProtoToPolicyDryRunSpecRulesCondition converts a PolicyDryRunSpecRulesCondition object from its proto representation.
+func ProtoToOrgpolicyPolicyDryRunSpecRulesCondition(p *orgpolicypb.OrgpolicyPolicyDryRunSpecRulesCondition) *orgpolicy.PolicyDryRunSpecRulesCondition {
+	if p == nil {
+		return nil
+	}
+	obj := &orgpolicy.PolicyDryRunSpecRulesCondition{
+		Expression:  dcl.StringOrNil(p.GetExpression()),
+		Title:       dcl.StringOrNil(p.GetTitle()),
+		Description: dcl.StringOrNil(p.GetDescription()),
+		Location:    dcl.StringOrNil(p.GetLocation()),
+	}
+	return obj
+}
+
 // ProtoToPolicy converts a Policy resource from its proto representation.
 func ProtoToPolicy(p *orgpolicypb.OrgpolicyPolicy) *orgpolicy.Policy {
 	obj := &orgpolicy.Policy{
-		Name:   dcl.StringOrNil(p.GetName()),
-		Spec:   ProtoToOrgpolicyPolicySpec(p.GetSpec()),
-		Parent: dcl.StringOrNil(p.GetParent()),
+		Name:       dcl.StringOrNil(p.GetName()),
+		Spec:       ProtoToOrgpolicyPolicySpec(p.GetSpec()),
+		DryRunSpec: ProtoToOrgpolicyPolicyDryRunSpec(p.GetDryRunSpec()),
+		Parent:     dcl.StringOrNil(p.GetParent()),
 	}
 	return obj
 }
@@ -159,11 +221,76 @@ func OrgpolicyPolicySpecRulesConditionToProto(o *orgpolicy.PolicySpecRulesCondit
 	return p
 }
 
+// PolicyDryRunSpecToProto converts a PolicyDryRunSpec object to its proto representation.
+func OrgpolicyPolicyDryRunSpecToProto(o *orgpolicy.PolicyDryRunSpec) *orgpolicypb.OrgpolicyPolicyDryRunSpec {
+	if o == nil {
+		return nil
+	}
+	p := &orgpolicypb.OrgpolicyPolicyDryRunSpec{}
+	p.SetEtag(dcl.ValueOrEmptyString(o.Etag))
+	p.SetUpdateTime(dcl.ValueOrEmptyString(o.UpdateTime))
+	p.SetInheritFromParent(dcl.ValueOrEmptyBool(o.InheritFromParent))
+	p.SetReset(dcl.ValueOrEmptyBool(o.Reset))
+	sRules := make([]*orgpolicypb.OrgpolicyPolicyDryRunSpecRules, len(o.Rules))
+	for i, r := range o.Rules {
+		sRules[i] = OrgpolicyPolicyDryRunSpecRulesToProto(&r)
+	}
+	p.SetRules(sRules)
+	return p
+}
+
+// PolicyDryRunSpecRulesToProto converts a PolicyDryRunSpecRules object to its proto representation.
+func OrgpolicyPolicyDryRunSpecRulesToProto(o *orgpolicy.PolicyDryRunSpecRules) *orgpolicypb.OrgpolicyPolicyDryRunSpecRules {
+	if o == nil {
+		return nil
+	}
+	p := &orgpolicypb.OrgpolicyPolicyDryRunSpecRules{}
+	p.SetValues(OrgpolicyPolicyDryRunSpecRulesValuesToProto(o.Values))
+	p.SetAllowAll(dcl.ValueOrEmptyBool(o.AllowAll))
+	p.SetDenyAll(dcl.ValueOrEmptyBool(o.DenyAll))
+	p.SetEnforce(dcl.ValueOrEmptyBool(o.Enforce))
+	p.SetCondition(OrgpolicyPolicyDryRunSpecRulesConditionToProto(o.Condition))
+	return p
+}
+
+// PolicyDryRunSpecRulesValuesToProto converts a PolicyDryRunSpecRulesValues object to its proto representation.
+func OrgpolicyPolicyDryRunSpecRulesValuesToProto(o *orgpolicy.PolicyDryRunSpecRulesValues) *orgpolicypb.OrgpolicyPolicyDryRunSpecRulesValues {
+	if o == nil {
+		return nil
+	}
+	p := &orgpolicypb.OrgpolicyPolicyDryRunSpecRulesValues{}
+	sAllowedValues := make([]string, len(o.AllowedValues))
+	for i, r := range o.AllowedValues {
+		sAllowedValues[i] = r
+	}
+	p.SetAllowedValues(sAllowedValues)
+	sDeniedValues := make([]string, len(o.DeniedValues))
+	for i, r := range o.DeniedValues {
+		sDeniedValues[i] = r
+	}
+	p.SetDeniedValues(sDeniedValues)
+	return p
+}
+
+// PolicyDryRunSpecRulesConditionToProto converts a PolicyDryRunSpecRulesCondition object to its proto representation.
+func OrgpolicyPolicyDryRunSpecRulesConditionToProto(o *orgpolicy.PolicyDryRunSpecRulesCondition) *orgpolicypb.OrgpolicyPolicyDryRunSpecRulesCondition {
+	if o == nil {
+		return nil
+	}
+	p := &orgpolicypb.OrgpolicyPolicyDryRunSpecRulesCondition{}
+	p.SetExpression(dcl.ValueOrEmptyString(o.Expression))
+	p.SetTitle(dcl.ValueOrEmptyString(o.Title))
+	p.SetDescription(dcl.ValueOrEmptyString(o.Description))
+	p.SetLocation(dcl.ValueOrEmptyString(o.Location))
+	return p
+}
+
 // PolicyToProto converts a Policy resource to its proto representation.
 func PolicyToProto(resource *orgpolicy.Policy) *orgpolicypb.OrgpolicyPolicy {
 	p := &orgpolicypb.OrgpolicyPolicy{}
 	p.SetName(dcl.ValueOrEmptyString(resource.Name))
 	p.SetSpec(OrgpolicyPolicySpecToProto(resource.Spec))
+	p.SetDryRunSpec(OrgpolicyPolicyDryRunSpecToProto(resource.DryRunSpec))
 	p.SetParent(dcl.ValueOrEmptyString(resource.Parent))
 
 	return p

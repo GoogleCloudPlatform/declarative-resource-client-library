@@ -37,6 +37,11 @@ func (r *Policy) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.DryRunSpec) {
+		if err := r.DryRunSpec.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *PolicySpec) validate() error {
@@ -62,6 +67,31 @@ func (r *PolicySpecRulesValues) validate() error {
 	return nil
 }
 func (r *PolicySpecRulesCondition) validate() error {
+	return nil
+}
+func (r *PolicyDryRunSpec) validate() error {
+	return nil
+}
+func (r *PolicyDryRunSpecRules) validate() error {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Values", "AllowAll", "DenyAll", "Enforce"}, r.Values, r.AllowAll, r.DenyAll, r.Enforce); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(r.Values) {
+		if err := r.Values.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.Condition) {
+		if err := r.Condition.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *PolicyDryRunSpecRulesValues) validate() error {
+	return nil
+}
+func (r *PolicyDryRunSpecRulesCondition) validate() error {
 	return nil
 }
 func (r *Policy) basePath() string {
@@ -123,6 +153,11 @@ func newUpdatePolicyUpdatePolicyRequest(ctx context.Context, f *Policy, c *Clien
 		return nil, fmt.Errorf("error expanding Spec into spec: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["spec"] = v
+	}
+	if v, err := expandPolicyDryRunSpec(c, f.DryRunSpec, res); err != nil {
+		return nil, fmt.Errorf("error expanding DryRunSpec into dryRunSpec: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["dryRunSpec"] = v
 	}
 	return req, nil
 }
@@ -408,6 +443,7 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
 		rawDesired.Spec = canonicalizePolicySpec(rawDesired.Spec, nil, opts...)
+		rawDesired.DryRunSpec = canonicalizePolicyDryRunSpec(rawDesired.DryRunSpec, nil, opts...)
 
 		return rawDesired, nil
 	}
@@ -418,6 +454,7 @@ func canonicalizePolicyDesiredState(rawDesired, rawInitial *Policy, opts ...dcl.
 		canonicalDesired.Name = rawDesired.Name
 	}
 	canonicalDesired.Spec = canonicalizePolicySpec(rawDesired.Spec, rawInitial.Spec, opts...)
+	canonicalDesired.DryRunSpec = canonicalizePolicyDryRunSpec(rawDesired.DryRunSpec, rawInitial.DryRunSpec, opts...)
 	if dcl.NameToSelfLink(rawDesired.Parent, rawInitial.Parent) {
 		canonicalDesired.Parent = rawInitial.Parent
 	} else {
@@ -440,6 +477,12 @@ func canonicalizePolicyNewState(c *Client, rawNew, rawDesired *Policy) (*Policy,
 		rawNew.Spec = rawDesired.Spec
 	} else {
 		rawNew.Spec = canonicalizeNewPolicySpec(c, rawDesired.Spec, rawNew.Spec)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.DryRunSpec) && dcl.IsEmptyValueIndirect(rawDesired.DryRunSpec) {
+		rawNew.DryRunSpec = rawDesired.DryRunSpec
+	} else {
+		rawNew.DryRunSpec = canonicalizeNewPolicyDryRunSpec(c, rawDesired.DryRunSpec, rawNew.DryRunSpec)
 	}
 
 	rawNew.Parent = rawDesired.Parent
@@ -1024,6 +1067,583 @@ func canonicalizeNewPolicySpecRulesConditionSlice(c *Client, des, nw []PolicySpe
 	return items
 }
 
+func canonicalizePolicyDryRunSpec(des, initial *PolicyDryRunSpec, opts ...dcl.ApplyOption) *PolicyDryRunSpec {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &PolicyDryRunSpec{}
+
+	cDes.Rules = canonicalizePolicyDryRunSpecRulesSlice(des.Rules, initial.Rules, opts...)
+	if dcl.BoolCanonicalize(des.InheritFromParent, initial.InheritFromParent) || dcl.IsZeroValue(des.InheritFromParent) {
+		cDes.InheritFromParent = initial.InheritFromParent
+	} else {
+		cDes.InheritFromParent = des.InheritFromParent
+	}
+	if dcl.BoolCanonicalize(des.Reset, initial.Reset) || dcl.IsZeroValue(des.Reset) {
+		cDes.Reset = initial.Reset
+	} else {
+		cDes.Reset = des.Reset
+	}
+
+	return cDes
+}
+
+func canonicalizePolicyDryRunSpecSlice(des, initial []PolicyDryRunSpec, opts ...dcl.ApplyOption) []PolicyDryRunSpec {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]PolicyDryRunSpec, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizePolicyDryRunSpec(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]PolicyDryRunSpec, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizePolicyDryRunSpec(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewPolicyDryRunSpec(c *Client, des, nw *PolicyDryRunSpec) *PolicyDryRunSpec {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for PolicyDryRunSpec while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Etag, nw.Etag) {
+		nw.Etag = des.Etag
+	}
+	nw.Rules = canonicalizeNewPolicyDryRunSpecRulesSlice(c, des.Rules, nw.Rules)
+	if dcl.BoolCanonicalize(des.InheritFromParent, nw.InheritFromParent) {
+		nw.InheritFromParent = des.InheritFromParent
+	}
+	if dcl.BoolCanonicalize(des.Reset, nw.Reset) {
+		nw.Reset = des.Reset
+	}
+
+	return nw
+}
+
+func canonicalizeNewPolicyDryRunSpecSet(c *Client, des, nw []PolicyDryRunSpec) []PolicyDryRunSpec {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []PolicyDryRunSpec
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := comparePolicyDryRunSpecNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewPolicyDryRunSpec(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewPolicyDryRunSpecSlice(c *Client, des, nw []PolicyDryRunSpec) []PolicyDryRunSpec {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []PolicyDryRunSpec
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewPolicyDryRunSpec(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizePolicyDryRunSpecRules(des, initial *PolicyDryRunSpecRules, opts ...dcl.ApplyOption) *PolicyDryRunSpecRules {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if des.Values != nil || (initial != nil && initial.Values != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.AllowAll, des.DenyAll, des.Enforce) {
+			des.Values = nil
+			if initial != nil {
+				initial.Values = nil
+			}
+		}
+	}
+
+	if des.AllowAll != nil || (initial != nil && initial.AllowAll != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.Values, des.DenyAll, des.Enforce) {
+			des.AllowAll = nil
+			if initial != nil {
+				initial.AllowAll = nil
+			}
+		}
+	}
+
+	if des.DenyAll != nil || (initial != nil && initial.DenyAll != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.Values, des.AllowAll, des.Enforce) {
+			des.DenyAll = nil
+			if initial != nil {
+				initial.DenyAll = nil
+			}
+		}
+	}
+
+	if des.Enforce != nil || (initial != nil && initial.Enforce != nil) {
+		// Check if anything else is set.
+		if dcl.AnySet(des.Values, des.AllowAll, des.DenyAll) {
+			des.Enforce = nil
+			if initial != nil {
+				initial.Enforce = nil
+			}
+		}
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &PolicyDryRunSpecRules{}
+
+	cDes.Values = canonicalizePolicyDryRunSpecRulesValues(des.Values, initial.Values, opts...)
+	if dcl.BoolCanonicalize(des.AllowAll, initial.AllowAll) || dcl.IsZeroValue(des.AllowAll) {
+		cDes.AllowAll = initial.AllowAll
+	} else {
+		cDes.AllowAll = des.AllowAll
+	}
+	if dcl.BoolCanonicalize(des.DenyAll, initial.DenyAll) || dcl.IsZeroValue(des.DenyAll) {
+		cDes.DenyAll = initial.DenyAll
+	} else {
+		cDes.DenyAll = des.DenyAll
+	}
+	if dcl.BoolCanonicalize(des.Enforce, initial.Enforce) || dcl.IsZeroValue(des.Enforce) {
+		cDes.Enforce = initial.Enforce
+	} else {
+		cDes.Enforce = des.Enforce
+	}
+	cDes.Condition = canonicalizePolicyDryRunSpecRulesCondition(des.Condition, initial.Condition, opts...)
+
+	return cDes
+}
+
+func canonicalizePolicyDryRunSpecRulesSlice(des, initial []PolicyDryRunSpecRules, opts ...dcl.ApplyOption) []PolicyDryRunSpecRules {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]PolicyDryRunSpecRules, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizePolicyDryRunSpecRules(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]PolicyDryRunSpecRules, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizePolicyDryRunSpecRules(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewPolicyDryRunSpecRules(c *Client, des, nw *PolicyDryRunSpecRules) *PolicyDryRunSpecRules {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for PolicyDryRunSpecRules while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	nw.Values = canonicalizeNewPolicyDryRunSpecRulesValues(c, des.Values, nw.Values)
+	if dcl.BoolCanonicalize(des.AllowAll, nw.AllowAll) {
+		nw.AllowAll = des.AllowAll
+	}
+	if dcl.BoolCanonicalize(des.DenyAll, nw.DenyAll) {
+		nw.DenyAll = des.DenyAll
+	}
+	if dcl.BoolCanonicalize(des.Enforce, nw.Enforce) {
+		nw.Enforce = des.Enforce
+	}
+	nw.Condition = canonicalizeNewPolicyDryRunSpecRulesCondition(c, des.Condition, nw.Condition)
+
+	return nw
+}
+
+func canonicalizeNewPolicyDryRunSpecRulesSet(c *Client, des, nw []PolicyDryRunSpecRules) []PolicyDryRunSpecRules {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []PolicyDryRunSpecRules
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := comparePolicyDryRunSpecRulesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewPolicyDryRunSpecRules(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewPolicyDryRunSpecRulesSlice(c *Client, des, nw []PolicyDryRunSpecRules) []PolicyDryRunSpecRules {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []PolicyDryRunSpecRules
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewPolicyDryRunSpecRules(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizePolicyDryRunSpecRulesValues(des, initial *PolicyDryRunSpecRulesValues, opts ...dcl.ApplyOption) *PolicyDryRunSpecRulesValues {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &PolicyDryRunSpecRulesValues{}
+
+	if dcl.StringArrayCanonicalize(des.AllowedValues, initial.AllowedValues) {
+		cDes.AllowedValues = initial.AllowedValues
+	} else {
+		cDes.AllowedValues = des.AllowedValues
+	}
+	if dcl.StringArrayCanonicalize(des.DeniedValues, initial.DeniedValues) {
+		cDes.DeniedValues = initial.DeniedValues
+	} else {
+		cDes.DeniedValues = des.DeniedValues
+	}
+
+	return cDes
+}
+
+func canonicalizePolicyDryRunSpecRulesValuesSlice(des, initial []PolicyDryRunSpecRulesValues, opts ...dcl.ApplyOption) []PolicyDryRunSpecRulesValues {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]PolicyDryRunSpecRulesValues, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizePolicyDryRunSpecRulesValues(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]PolicyDryRunSpecRulesValues, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizePolicyDryRunSpecRulesValues(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewPolicyDryRunSpecRulesValues(c *Client, des, nw *PolicyDryRunSpecRulesValues) *PolicyDryRunSpecRulesValues {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for PolicyDryRunSpecRulesValues while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringArrayCanonicalize(des.AllowedValues, nw.AllowedValues) {
+		nw.AllowedValues = des.AllowedValues
+	}
+	if dcl.StringArrayCanonicalize(des.DeniedValues, nw.DeniedValues) {
+		nw.DeniedValues = des.DeniedValues
+	}
+
+	return nw
+}
+
+func canonicalizeNewPolicyDryRunSpecRulesValuesSet(c *Client, des, nw []PolicyDryRunSpecRulesValues) []PolicyDryRunSpecRulesValues {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []PolicyDryRunSpecRulesValues
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := comparePolicyDryRunSpecRulesValuesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewPolicyDryRunSpecRulesValues(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewPolicyDryRunSpecRulesValuesSlice(c *Client, des, nw []PolicyDryRunSpecRulesValues) []PolicyDryRunSpecRulesValues {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []PolicyDryRunSpecRulesValues
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewPolicyDryRunSpecRulesValues(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizePolicyDryRunSpecRulesCondition(des, initial *PolicyDryRunSpecRulesCondition, opts ...dcl.ApplyOption) *PolicyDryRunSpecRulesCondition {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &PolicyDryRunSpecRulesCondition{}
+
+	if dcl.StringCanonicalize(des.Expression, initial.Expression) || dcl.IsZeroValue(des.Expression) {
+		cDes.Expression = initial.Expression
+	} else {
+		cDes.Expression = des.Expression
+	}
+	if dcl.StringCanonicalize(des.Title, initial.Title) || dcl.IsZeroValue(des.Title) {
+		cDes.Title = initial.Title
+	} else {
+		cDes.Title = des.Title
+	}
+	if dcl.StringCanonicalize(des.Description, initial.Description) || dcl.IsZeroValue(des.Description) {
+		cDes.Description = initial.Description
+	} else {
+		cDes.Description = des.Description
+	}
+	if dcl.StringCanonicalize(des.Location, initial.Location) || dcl.IsZeroValue(des.Location) {
+		cDes.Location = initial.Location
+	} else {
+		cDes.Location = des.Location
+	}
+
+	return cDes
+}
+
+func canonicalizePolicyDryRunSpecRulesConditionSlice(des, initial []PolicyDryRunSpecRulesCondition, opts ...dcl.ApplyOption) []PolicyDryRunSpecRulesCondition {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]PolicyDryRunSpecRulesCondition, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizePolicyDryRunSpecRulesCondition(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]PolicyDryRunSpecRulesCondition, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizePolicyDryRunSpecRulesCondition(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewPolicyDryRunSpecRulesCondition(c *Client, des, nw *PolicyDryRunSpecRulesCondition) *PolicyDryRunSpecRulesCondition {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for PolicyDryRunSpecRulesCondition while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Expression, nw.Expression) {
+		nw.Expression = des.Expression
+	}
+	if dcl.StringCanonicalize(des.Title, nw.Title) {
+		nw.Title = des.Title
+	}
+	if dcl.StringCanonicalize(des.Description, nw.Description) {
+		nw.Description = des.Description
+	}
+	if dcl.StringCanonicalize(des.Location, nw.Location) {
+		nw.Location = des.Location
+	}
+
+	return nw
+}
+
+func canonicalizeNewPolicyDryRunSpecRulesConditionSet(c *Client, des, nw []PolicyDryRunSpecRulesCondition) []PolicyDryRunSpecRulesCondition {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []PolicyDryRunSpecRulesCondition
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := comparePolicyDryRunSpecRulesConditionNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewPolicyDryRunSpecRulesCondition(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewPolicyDryRunSpecRulesConditionSlice(c *Client, des, nw []PolicyDryRunSpecRulesCondition) []PolicyDryRunSpecRulesCondition {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []PolicyDryRunSpecRulesCondition
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewPolicyDryRunSpecRulesCondition(c, &d, &n))
+	}
+
+	return items
+}
+
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -1050,6 +1670,13 @@ func diffPolicy(c *Client, desired, actual *Policy, opts ...dcl.ApplyOption) ([]
 	}
 
 	if ds, err := dcl.Diff(desired.Spec, actual.Spec, dcl.DiffInfo{ObjectFunction: comparePolicySpecNewStyle, EmptyObject: EmptyPolicySpec, OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("Spec")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DryRunSpec, actual.DryRunSpec, dcl.DiffInfo{ObjectFunction: comparePolicyDryRunSpecNewStyle, EmptyObject: EmptyPolicyDryRunSpec, OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("DryRunSpec")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1268,6 +1895,206 @@ func comparePolicySpecRulesConditionNewStyle(d, a interface{}, fn dcl.FieldName)
 	return diffs, nil
 }
 
+func comparePolicyDryRunSpecNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*PolicyDryRunSpec)
+	if !ok {
+		desiredNotPointer, ok := d.(PolicyDryRunSpec)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a PolicyDryRunSpec or *PolicyDryRunSpec", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*PolicyDryRunSpec)
+	if !ok {
+		actualNotPointer, ok := a.(PolicyDryRunSpec)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a PolicyDryRunSpec", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.UpdateTime, actual.UpdateTime, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("UpdateTime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Rules, actual.Rules, dcl.DiffInfo{ObjectFunction: comparePolicyDryRunSpecRulesNewStyle, EmptyObject: EmptyPolicyDryRunSpecRules, OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("Rules")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InheritFromParent, actual.InheritFromParent, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("InheritFromParent")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Reset, actual.Reset, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("Reset")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func comparePolicyDryRunSpecRulesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*PolicyDryRunSpecRules)
+	if !ok {
+		desiredNotPointer, ok := d.(PolicyDryRunSpecRules)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a PolicyDryRunSpecRules or *PolicyDryRunSpecRules", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*PolicyDryRunSpecRules)
+	if !ok {
+		actualNotPointer, ok := a.(PolicyDryRunSpecRules)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a PolicyDryRunSpecRules", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Values, actual.Values, dcl.DiffInfo{ObjectFunction: comparePolicyDryRunSpecRulesValuesNewStyle, EmptyObject: EmptyPolicyDryRunSpecRulesValues, OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("Values")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AllowAll, actual.AllowAll, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("AllowAll")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DenyAll, actual.DenyAll, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("DenyAll")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Enforce, actual.Enforce, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("Enforce")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Condition, actual.Condition, dcl.DiffInfo{ObjectFunction: comparePolicyDryRunSpecRulesConditionNewStyle, EmptyObject: EmptyPolicyDryRunSpecRulesCondition, OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("Condition")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func comparePolicyDryRunSpecRulesValuesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*PolicyDryRunSpecRulesValues)
+	if !ok {
+		desiredNotPointer, ok := d.(PolicyDryRunSpecRulesValues)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a PolicyDryRunSpecRulesValues or *PolicyDryRunSpecRulesValues", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*PolicyDryRunSpecRulesValues)
+	if !ok {
+		actualNotPointer, ok := a.(PolicyDryRunSpecRulesValues)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a PolicyDryRunSpecRulesValues", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.AllowedValues, actual.AllowedValues, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("AllowedValues")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DeniedValues, actual.DeniedValues, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("DeniedValues")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func comparePolicyDryRunSpecRulesConditionNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*PolicyDryRunSpecRulesCondition)
+	if !ok {
+		desiredNotPointer, ok := d.(PolicyDryRunSpecRulesCondition)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a PolicyDryRunSpecRulesCondition or *PolicyDryRunSpecRulesCondition", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*PolicyDryRunSpecRulesCondition)
+	if !ok {
+		actualNotPointer, ok := a.(PolicyDryRunSpecRulesCondition)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a PolicyDryRunSpecRulesCondition", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Expression, actual.Expression, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("Expression")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Title, actual.Title, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("Title")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updatePolicyUpdatePolicyOperation")}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
@@ -1337,6 +2164,11 @@ func expandPolicy(c *Client, f *Policy) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["spec"] = v
 	}
+	if v, err := expandPolicyDryRunSpec(c, f.DryRunSpec, res); err != nil {
+		return nil, fmt.Errorf("error expanding DryRunSpec into dryRunSpec: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["dryRunSpec"] = v
+	}
 	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Parent into parent: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1360,6 +2192,7 @@ func flattenPolicy(c *Client, i interface{}, res *Policy) *Policy {
 	resultRes := &Policy{}
 	resultRes.Name = dcl.FlattenString(m["name"])
 	resultRes.Spec = flattenPolicySpec(c, m["spec"], res)
+	resultRes.DryRunSpec = flattenPolicyDryRunSpec(c, m["dryRunSpec"], res)
 	resultRes.Parent = dcl.FlattenString(m["parent"])
 
 	return resultRes
@@ -1869,6 +2702,510 @@ func flattenPolicySpecRulesCondition(c *Client, i interface{}, res *Policy) *Pol
 	return r
 }
 
+// expandPolicyDryRunSpecMap expands the contents of PolicyDryRunSpec into a JSON
+// request object.
+func expandPolicyDryRunSpecMap(c *Client, f map[string]PolicyDryRunSpec, res *Policy) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandPolicyDryRunSpec(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandPolicyDryRunSpecSlice expands the contents of PolicyDryRunSpec into a JSON
+// request object.
+func expandPolicyDryRunSpecSlice(c *Client, f []PolicyDryRunSpec, res *Policy) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandPolicyDryRunSpec(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenPolicyDryRunSpecMap flattens the contents of PolicyDryRunSpec from a JSON
+// response object.
+func flattenPolicyDryRunSpecMap(c *Client, i interface{}, res *Policy) map[string]PolicyDryRunSpec {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]PolicyDryRunSpec{}
+	}
+
+	if len(a) == 0 {
+		return map[string]PolicyDryRunSpec{}
+	}
+
+	items := make(map[string]PolicyDryRunSpec)
+	for k, item := range a {
+		items[k] = *flattenPolicyDryRunSpec(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenPolicyDryRunSpecSlice flattens the contents of PolicyDryRunSpec from a JSON
+// response object.
+func flattenPolicyDryRunSpecSlice(c *Client, i interface{}, res *Policy) []PolicyDryRunSpec {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []PolicyDryRunSpec{}
+	}
+
+	if len(a) == 0 {
+		return []PolicyDryRunSpec{}
+	}
+
+	items := make([]PolicyDryRunSpec, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenPolicyDryRunSpec(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandPolicyDryRunSpec expands an instance of PolicyDryRunSpec into a JSON
+// request object.
+func expandPolicyDryRunSpec(c *Client, f *PolicyDryRunSpec, res *Policy) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := expandPolicyDryRunSpecRulesSlice(c, f.Rules, res); err != nil {
+		return nil, fmt.Errorf("error expanding Rules into rules: %w", err)
+	} else if v != nil {
+		m["rules"] = v
+	}
+	if v := f.InheritFromParent; !dcl.IsEmptyValueIndirect(v) {
+		m["inheritFromParent"] = v
+	}
+	if v := f.Reset; !dcl.IsEmptyValueIndirect(v) {
+		m["reset"] = v
+	}
+
+	return m, nil
+}
+
+// flattenPolicyDryRunSpec flattens an instance of PolicyDryRunSpec from a JSON
+// response object.
+func flattenPolicyDryRunSpec(c *Client, i interface{}, res *Policy) *PolicyDryRunSpec {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &PolicyDryRunSpec{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyPolicyDryRunSpec
+	}
+	r.Etag = dcl.FlattenString(m["etag"])
+	r.UpdateTime = dcl.FlattenString(m["updateTime"])
+	r.Rules = flattenPolicyDryRunSpecRulesSlice(c, m["rules"], res)
+	r.InheritFromParent = dcl.FlattenBool(m["inheritFromParent"])
+	r.Reset = dcl.FlattenBool(m["reset"])
+
+	return r
+}
+
+// expandPolicyDryRunSpecRulesMap expands the contents of PolicyDryRunSpecRules into a JSON
+// request object.
+func expandPolicyDryRunSpecRulesMap(c *Client, f map[string]PolicyDryRunSpecRules, res *Policy) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandPolicyDryRunSpecRules(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandPolicyDryRunSpecRulesSlice expands the contents of PolicyDryRunSpecRules into a JSON
+// request object.
+func expandPolicyDryRunSpecRulesSlice(c *Client, f []PolicyDryRunSpecRules, res *Policy) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandPolicyDryRunSpecRules(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenPolicyDryRunSpecRulesMap flattens the contents of PolicyDryRunSpecRules from a JSON
+// response object.
+func flattenPolicyDryRunSpecRulesMap(c *Client, i interface{}, res *Policy) map[string]PolicyDryRunSpecRules {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]PolicyDryRunSpecRules{}
+	}
+
+	if len(a) == 0 {
+		return map[string]PolicyDryRunSpecRules{}
+	}
+
+	items := make(map[string]PolicyDryRunSpecRules)
+	for k, item := range a {
+		items[k] = *flattenPolicyDryRunSpecRules(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenPolicyDryRunSpecRulesSlice flattens the contents of PolicyDryRunSpecRules from a JSON
+// response object.
+func flattenPolicyDryRunSpecRulesSlice(c *Client, i interface{}, res *Policy) []PolicyDryRunSpecRules {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []PolicyDryRunSpecRules{}
+	}
+
+	if len(a) == 0 {
+		return []PolicyDryRunSpecRules{}
+	}
+
+	items := make([]PolicyDryRunSpecRules, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenPolicyDryRunSpecRules(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandPolicyDryRunSpecRules expands an instance of PolicyDryRunSpecRules into a JSON
+// request object.
+func expandPolicyDryRunSpecRules(c *Client, f *PolicyDryRunSpecRules, res *Policy) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := expandPolicyDryRunSpecRulesValues(c, f.Values, res); err != nil {
+		return nil, fmt.Errorf("error expanding Values into values: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["values"] = v
+	}
+	if v := f.AllowAll; !dcl.IsEmptyValueIndirect(v) {
+		m["allowAll"] = v
+	}
+	if v := f.DenyAll; !dcl.IsEmptyValueIndirect(v) {
+		m["denyAll"] = v
+	}
+	if v := f.Enforce; !dcl.IsEmptyValueIndirect(v) {
+		m["enforce"] = v
+	}
+	if v, err := expandPolicyDryRunSpecRulesCondition(c, f.Condition, res); err != nil {
+		return nil, fmt.Errorf("error expanding Condition into condition: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["condition"] = v
+	}
+
+	return m, nil
+}
+
+// flattenPolicyDryRunSpecRules flattens an instance of PolicyDryRunSpecRules from a JSON
+// response object.
+func flattenPolicyDryRunSpecRules(c *Client, i interface{}, res *Policy) *PolicyDryRunSpecRules {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &PolicyDryRunSpecRules{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyPolicyDryRunSpecRules
+	}
+	r.Values = flattenPolicyDryRunSpecRulesValues(c, m["values"], res)
+	r.AllowAll = dcl.FlattenBool(m["allowAll"])
+	r.DenyAll = dcl.FlattenBool(m["denyAll"])
+	r.Enforce = dcl.FlattenBool(m["enforce"])
+	r.Condition = flattenPolicyDryRunSpecRulesCondition(c, m["condition"], res)
+
+	return r
+}
+
+// expandPolicyDryRunSpecRulesValuesMap expands the contents of PolicyDryRunSpecRulesValues into a JSON
+// request object.
+func expandPolicyDryRunSpecRulesValuesMap(c *Client, f map[string]PolicyDryRunSpecRulesValues, res *Policy) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandPolicyDryRunSpecRulesValues(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandPolicyDryRunSpecRulesValuesSlice expands the contents of PolicyDryRunSpecRulesValues into a JSON
+// request object.
+func expandPolicyDryRunSpecRulesValuesSlice(c *Client, f []PolicyDryRunSpecRulesValues, res *Policy) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandPolicyDryRunSpecRulesValues(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenPolicyDryRunSpecRulesValuesMap flattens the contents of PolicyDryRunSpecRulesValues from a JSON
+// response object.
+func flattenPolicyDryRunSpecRulesValuesMap(c *Client, i interface{}, res *Policy) map[string]PolicyDryRunSpecRulesValues {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]PolicyDryRunSpecRulesValues{}
+	}
+
+	if len(a) == 0 {
+		return map[string]PolicyDryRunSpecRulesValues{}
+	}
+
+	items := make(map[string]PolicyDryRunSpecRulesValues)
+	for k, item := range a {
+		items[k] = *flattenPolicyDryRunSpecRulesValues(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenPolicyDryRunSpecRulesValuesSlice flattens the contents of PolicyDryRunSpecRulesValues from a JSON
+// response object.
+func flattenPolicyDryRunSpecRulesValuesSlice(c *Client, i interface{}, res *Policy) []PolicyDryRunSpecRulesValues {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []PolicyDryRunSpecRulesValues{}
+	}
+
+	if len(a) == 0 {
+		return []PolicyDryRunSpecRulesValues{}
+	}
+
+	items := make([]PolicyDryRunSpecRulesValues, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenPolicyDryRunSpecRulesValues(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandPolicyDryRunSpecRulesValues expands an instance of PolicyDryRunSpecRulesValues into a JSON
+// request object.
+func expandPolicyDryRunSpecRulesValues(c *Client, f *PolicyDryRunSpecRulesValues, res *Policy) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.AllowedValues; v != nil {
+		m["allowedValues"] = v
+	}
+	if v := f.DeniedValues; v != nil {
+		m["deniedValues"] = v
+	}
+
+	return m, nil
+}
+
+// flattenPolicyDryRunSpecRulesValues flattens an instance of PolicyDryRunSpecRulesValues from a JSON
+// response object.
+func flattenPolicyDryRunSpecRulesValues(c *Client, i interface{}, res *Policy) *PolicyDryRunSpecRulesValues {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &PolicyDryRunSpecRulesValues{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyPolicyDryRunSpecRulesValues
+	}
+	r.AllowedValues = dcl.FlattenStringSlice(m["allowedValues"])
+	r.DeniedValues = dcl.FlattenStringSlice(m["deniedValues"])
+
+	return r
+}
+
+// expandPolicyDryRunSpecRulesConditionMap expands the contents of PolicyDryRunSpecRulesCondition into a JSON
+// request object.
+func expandPolicyDryRunSpecRulesConditionMap(c *Client, f map[string]PolicyDryRunSpecRulesCondition, res *Policy) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandPolicyDryRunSpecRulesCondition(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandPolicyDryRunSpecRulesConditionSlice expands the contents of PolicyDryRunSpecRulesCondition into a JSON
+// request object.
+func expandPolicyDryRunSpecRulesConditionSlice(c *Client, f []PolicyDryRunSpecRulesCondition, res *Policy) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandPolicyDryRunSpecRulesCondition(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenPolicyDryRunSpecRulesConditionMap flattens the contents of PolicyDryRunSpecRulesCondition from a JSON
+// response object.
+func flattenPolicyDryRunSpecRulesConditionMap(c *Client, i interface{}, res *Policy) map[string]PolicyDryRunSpecRulesCondition {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]PolicyDryRunSpecRulesCondition{}
+	}
+
+	if len(a) == 0 {
+		return map[string]PolicyDryRunSpecRulesCondition{}
+	}
+
+	items := make(map[string]PolicyDryRunSpecRulesCondition)
+	for k, item := range a {
+		items[k] = *flattenPolicyDryRunSpecRulesCondition(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenPolicyDryRunSpecRulesConditionSlice flattens the contents of PolicyDryRunSpecRulesCondition from a JSON
+// response object.
+func flattenPolicyDryRunSpecRulesConditionSlice(c *Client, i interface{}, res *Policy) []PolicyDryRunSpecRulesCondition {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []PolicyDryRunSpecRulesCondition{}
+	}
+
+	if len(a) == 0 {
+		return []PolicyDryRunSpecRulesCondition{}
+	}
+
+	items := make([]PolicyDryRunSpecRulesCondition, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenPolicyDryRunSpecRulesCondition(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandPolicyDryRunSpecRulesCondition expands an instance of PolicyDryRunSpecRulesCondition into a JSON
+// request object.
+func expandPolicyDryRunSpecRulesCondition(c *Client, f *PolicyDryRunSpecRulesCondition, res *Policy) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Expression; !dcl.IsEmptyValueIndirect(v) {
+		m["expression"] = v
+	}
+	if v := f.Title; !dcl.IsEmptyValueIndirect(v) {
+		m["title"] = v
+	}
+	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
+		m["description"] = v
+	}
+	if v := f.Location; !dcl.IsEmptyValueIndirect(v) {
+		m["location"] = v
+	}
+
+	return m, nil
+}
+
+// flattenPolicyDryRunSpecRulesCondition flattens an instance of PolicyDryRunSpecRulesCondition from a JSON
+// response object.
+func flattenPolicyDryRunSpecRulesCondition(c *Client, i interface{}, res *Policy) *PolicyDryRunSpecRulesCondition {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &PolicyDryRunSpecRulesCondition{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyPolicyDryRunSpecRulesCondition
+	}
+	r.Expression = dcl.FlattenString(m["expression"])
+	r.Title = dcl.FlattenString(m["title"])
+	r.Description = dcl.FlattenString(m["description"])
+	r.Location = dcl.FlattenString(m["location"])
+
+	return r
+}
+
 // This function returns a matcher that checks whether a serialized resource matches this resource
 // in its parameters (as defined by the fields in a Get, which definitionally define resource
 // identity).  This is useful in extracting the element from a List call.
@@ -1966,6 +3303,17 @@ func extractPolicyFields(r *Policy) error {
 	if !dcl.IsEmptyValueIndirect(vSpec) {
 		r.Spec = vSpec
 	}
+	vDryRunSpec := r.DryRunSpec
+	if vDryRunSpec == nil {
+		// note: explicitly not the empty object.
+		vDryRunSpec = &PolicyDryRunSpec{}
+	}
+	if err := extractPolicyDryRunSpecFields(r, vDryRunSpec); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vDryRunSpec) {
+		r.DryRunSpec = vDryRunSpec
+	}
 	return nil
 }
 func extractPolicySpecFields(r *Policy, o *PolicySpec) error {
@@ -2002,6 +3350,40 @@ func extractPolicySpecRulesValuesFields(r *Policy, o *PolicySpecRulesValues) err
 func extractPolicySpecRulesConditionFields(r *Policy, o *PolicySpecRulesCondition) error {
 	return nil
 }
+func extractPolicyDryRunSpecFields(r *Policy, o *PolicyDryRunSpec) error {
+	return nil
+}
+func extractPolicyDryRunSpecRulesFields(r *Policy, o *PolicyDryRunSpecRules) error {
+	vValues := o.Values
+	if vValues == nil {
+		// note: explicitly not the empty object.
+		vValues = &PolicyDryRunSpecRulesValues{}
+	}
+	if err := extractPolicyDryRunSpecRulesValuesFields(r, vValues); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vValues) {
+		o.Values = vValues
+	}
+	vCondition := o.Condition
+	if vCondition == nil {
+		// note: explicitly not the empty object.
+		vCondition = &PolicyDryRunSpecRulesCondition{}
+	}
+	if err := extractPolicyDryRunSpecRulesConditionFields(r, vCondition); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vCondition) {
+		o.Condition = vCondition
+	}
+	return nil
+}
+func extractPolicyDryRunSpecRulesValuesFields(r *Policy, o *PolicyDryRunSpecRulesValues) error {
+	return nil
+}
+func extractPolicyDryRunSpecRulesConditionFields(r *Policy, o *PolicyDryRunSpecRulesCondition) error {
+	return nil
+}
 
 func postReadExtractPolicyFields(r *Policy) error {
 	vSpec := r.Spec
@@ -2014,6 +3396,17 @@ func postReadExtractPolicyFields(r *Policy) error {
 	}
 	if !dcl.IsEmptyValueIndirect(vSpec) {
 		r.Spec = vSpec
+	}
+	vDryRunSpec := r.DryRunSpec
+	if vDryRunSpec == nil {
+		// note: explicitly not the empty object.
+		vDryRunSpec = &PolicyDryRunSpec{}
+	}
+	if err := postReadExtractPolicyDryRunSpecFields(r, vDryRunSpec); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vDryRunSpec) {
+		r.DryRunSpec = vDryRunSpec
 	}
 	return nil
 }
@@ -2049,5 +3442,39 @@ func postReadExtractPolicySpecRulesValuesFields(r *Policy, o *PolicySpecRulesVal
 	return nil
 }
 func postReadExtractPolicySpecRulesConditionFields(r *Policy, o *PolicySpecRulesCondition) error {
+	return nil
+}
+func postReadExtractPolicyDryRunSpecFields(r *Policy, o *PolicyDryRunSpec) error {
+	return nil
+}
+func postReadExtractPolicyDryRunSpecRulesFields(r *Policy, o *PolicyDryRunSpecRules) error {
+	vValues := o.Values
+	if vValues == nil {
+		// note: explicitly not the empty object.
+		vValues = &PolicyDryRunSpecRulesValues{}
+	}
+	if err := extractPolicyDryRunSpecRulesValuesFields(r, vValues); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vValues) {
+		o.Values = vValues
+	}
+	vCondition := o.Condition
+	if vCondition == nil {
+		// note: explicitly not the empty object.
+		vCondition = &PolicyDryRunSpecRulesCondition{}
+	}
+	if err := extractPolicyDryRunSpecRulesConditionFields(r, vCondition); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vCondition) {
+		o.Condition = vCondition
+	}
+	return nil
+}
+func postReadExtractPolicyDryRunSpecRulesValuesFields(r *Policy, o *PolicyDryRunSpecRulesValues) error {
+	return nil
+}
+func postReadExtractPolicyDryRunSpecRulesConditionFields(r *Policy, o *PolicyDryRunSpecRulesCondition) error {
 	return nil
 }

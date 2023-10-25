@@ -111,6 +111,143 @@ func DCLPolicySchema() *dcl.Schema {
 							"parent",
 						},
 						Properties: map[string]*dcl.Property{
+							"dryRunSpec": &dcl.Property{
+								Type:        "object",
+								GoName:      "DryRunSpec",
+								GoType:      "PolicyDryRunSpec",
+								Description: "Dry-run policy. Audit-only policy, can be used to monitor how the policy would have impacted the existing and future resources if it's enforced.",
+								Properties: map[string]*dcl.Property{
+									"etag": &dcl.Property{
+										Type:        "string",
+										GoName:      "Etag",
+										ReadOnly:    true,
+										Description: "An opaque tag indicating the current version of the policy, used for concurrency control. This field is ignored if used in a `CreatePolicy` request. When the policy` is returned from either a `GetPolicy` or a `ListPolicies` request, this `etag` indicates the version of the current policy to use when executing a read-modify-write loop. When the policy is returned from a `GetEffectivePolicy` request, the `etag` will be unset.",
+									},
+									"inheritFromParent": &dcl.Property{
+										Type:        "boolean",
+										GoName:      "InheritFromParent",
+										Description: "Determines the inheritance behavior for this policy. If `inherit_from_parent` is true, policy rules set higher up in the hierarchy (up to the closest root) are inherited and present in the effective policy. If it is false, then no rules are inherited, and this policy becomes the new root for evaluation. This field can be set only for policies which configure list constraints.",
+									},
+									"reset": &dcl.Property{
+										Type:        "boolean",
+										GoName:      "Reset",
+										Description: "Ignores policies set above this resource and restores the `constraint_default` enforcement behavior of the specific constraint at this resource. This field can be set in policies for either list or boolean constraints. If set, `rules` must be empty and `inherit_from_parent` must be set to false.",
+									},
+									"rules": &dcl.Property{
+										Type:        "array",
+										GoName:      "Rules",
+										Description: "In policies for boolean constraints, the following requirements apply: - There must be one and only one policy rule where condition is unset. - Boolean policy rules with conditions must set `enforced` to the opposite of the policy rule without a condition. - During policy evaluation, policy rules with conditions that are true for a target resource take precedence.",
+										SendEmpty:   true,
+										ListType:    "list",
+										Items: &dcl.Property{
+											Type:   "object",
+											GoType: "PolicyDryRunSpecRules",
+											Properties: map[string]*dcl.Property{
+												"allowAll": &dcl.Property{
+													Type:        "boolean",
+													GoName:      "AllowAll",
+													Description: "Setting this to true means that all values are allowed. This field can be set only in policies for list constraints.",
+													Conflicts: []string{
+														"values",
+														"denyAll",
+														"enforce",
+													},
+												},
+												"condition": &dcl.Property{
+													Type:        "object",
+													GoName:      "Condition",
+													GoType:      "PolicyDryRunSpecRulesCondition",
+													Description: "A condition which determines whether this rule is used in the evaluation of the policy. When set, the `expression` field in the `Expr' must include from 1 to 10 subexpressions, joined by the \"||\" or \"&&\" operators. Each subexpression must be of the form \"resource.matchTag('/tag_key_short_name, 'tag_value_short_name')\". or \"resource.matchTagId('tagKeys/key_id', 'tagValues/value_id')\". where key_name and value_name are the resource names for Label Keys and Values. These names are available from the Tag Manager Service. An example expression is: \"resource.matchTag('123456789/environment, 'prod')\". or \"resource.matchTagId('tagKeys/123', 'tagValues/456')\".",
+													Properties: map[string]*dcl.Property{
+														"description": &dcl.Property{
+															Type:        "string",
+															GoName:      "Description",
+															Description: "Optional. Description of the expression. This is a longer text which describes the expression, e.g. when hovered over it in a UI.",
+														},
+														"expression": &dcl.Property{
+															Type:        "string",
+															GoName:      "Expression",
+															Description: "Textual representation of an expression in Common Expression Language syntax.",
+														},
+														"location": &dcl.Property{
+															Type:        "string",
+															GoName:      "Location",
+															Description: "Optional. String indicating the location of the expression for error reporting, e.g. a file name and a position in the file.",
+														},
+														"title": &dcl.Property{
+															Type:        "string",
+															GoName:      "Title",
+															Description: "Optional. Title for the expression, i.e. a short string describing its purpose. This can be used e.g. in UIs which allow to enter the expression.",
+														},
+													},
+												},
+												"denyAll": &dcl.Property{
+													Type:        "boolean",
+													GoName:      "DenyAll",
+													Description: "Setting this to true means that all values are denied. This field can be set only in policies for list constraints.",
+													Conflicts: []string{
+														"values",
+														"allowAll",
+														"enforce",
+													},
+												},
+												"enforce": &dcl.Property{
+													Type:        "boolean",
+													GoName:      "Enforce",
+													Description: "If `true`, then the policy is enforced. If `false`, then any configuration is acceptable. This field can be set only in policies for boolean constraints.",
+													Conflicts: []string{
+														"values",
+														"allowAll",
+														"denyAll",
+													},
+												},
+												"values": &dcl.Property{
+													Type:        "object",
+													GoName:      "Values",
+													GoType:      "PolicyDryRunSpecRulesValues",
+													Description: "List of values to be used for this policy rule. This field can be set only in policies for list constraints.",
+													Conflicts: []string{
+														"allowAll",
+														"denyAll",
+														"enforce",
+													},
+													Properties: map[string]*dcl.Property{
+														"allowedValues": &dcl.Property{
+															Type:        "array",
+															GoName:      "AllowedValues",
+															Description: "List of values allowed at this resource.",
+															SendEmpty:   true,
+															ListType:    "list",
+															Items: &dcl.Property{
+																Type:   "string",
+																GoType: "string",
+															},
+														},
+														"deniedValues": &dcl.Property{
+															Type:        "array",
+															GoName:      "DeniedValues",
+															Description: "List of values denied at this resource.",
+															SendEmpty:   true,
+															ListType:    "list",
+															Items: &dcl.Property{
+																Type:   "string",
+																GoType: "string",
+															},
+														},
+													},
+												},
+											},
+										},
+									},
+									"updateTime": &dcl.Property{
+										Type:        "string",
+										Format:      "date-time",
+										GoName:      "UpdateTime",
+										ReadOnly:    true,
+										Description: "Output only. The time stamp this was previously updated. This represents the last time a call to `CreatePolicy` or `UpdatePolicy` was made for that policy.",
+									},
+								},
+							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",

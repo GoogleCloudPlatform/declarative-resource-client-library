@@ -32,6 +32,67 @@ func PolicyToUnstructured(r *dclService.Policy) *unstructured.Resource {
 		},
 		Object: make(map[string]interface{}),
 	}
+	if r.DryRunSpec != nil && r.DryRunSpec != dclService.EmptyPolicyDryRunSpec {
+		rDryRunSpec := make(map[string]interface{})
+		if r.DryRunSpec.Etag != nil {
+			rDryRunSpec["etag"] = *r.DryRunSpec.Etag
+		}
+		if r.DryRunSpec.InheritFromParent != nil {
+			rDryRunSpec["inheritFromParent"] = *r.DryRunSpec.InheritFromParent
+		}
+		if r.DryRunSpec.Reset != nil {
+			rDryRunSpec["reset"] = *r.DryRunSpec.Reset
+		}
+		var rDryRunSpecRules []interface{}
+		for _, rDryRunSpecRulesVal := range r.DryRunSpec.Rules {
+			rDryRunSpecRulesObject := make(map[string]interface{})
+			if rDryRunSpecRulesVal.AllowAll != nil {
+				rDryRunSpecRulesObject["allowAll"] = *rDryRunSpecRulesVal.AllowAll
+			}
+			if rDryRunSpecRulesVal.Condition != nil && rDryRunSpecRulesVal.Condition != dclService.EmptyPolicyDryRunSpecRulesCondition {
+				rDryRunSpecRulesValCondition := make(map[string]interface{})
+				if rDryRunSpecRulesVal.Condition.Description != nil {
+					rDryRunSpecRulesValCondition["description"] = *rDryRunSpecRulesVal.Condition.Description
+				}
+				if rDryRunSpecRulesVal.Condition.Expression != nil {
+					rDryRunSpecRulesValCondition["expression"] = *rDryRunSpecRulesVal.Condition.Expression
+				}
+				if rDryRunSpecRulesVal.Condition.Location != nil {
+					rDryRunSpecRulesValCondition["location"] = *rDryRunSpecRulesVal.Condition.Location
+				}
+				if rDryRunSpecRulesVal.Condition.Title != nil {
+					rDryRunSpecRulesValCondition["title"] = *rDryRunSpecRulesVal.Condition.Title
+				}
+				rDryRunSpecRulesObject["condition"] = rDryRunSpecRulesValCondition
+			}
+			if rDryRunSpecRulesVal.DenyAll != nil {
+				rDryRunSpecRulesObject["denyAll"] = *rDryRunSpecRulesVal.DenyAll
+			}
+			if rDryRunSpecRulesVal.Enforce != nil {
+				rDryRunSpecRulesObject["enforce"] = *rDryRunSpecRulesVal.Enforce
+			}
+			if rDryRunSpecRulesVal.Values != nil && rDryRunSpecRulesVal.Values != dclService.EmptyPolicyDryRunSpecRulesValues {
+				rDryRunSpecRulesValValues := make(map[string]interface{})
+				var rDryRunSpecRulesValValuesAllowedValues []interface{}
+				for _, rDryRunSpecRulesValValuesAllowedValuesVal := range rDryRunSpecRulesVal.Values.AllowedValues {
+					rDryRunSpecRulesValValuesAllowedValues = append(rDryRunSpecRulesValValuesAllowedValues, rDryRunSpecRulesValValuesAllowedValuesVal)
+				}
+				rDryRunSpecRulesValValues["allowedValues"] = rDryRunSpecRulesValValuesAllowedValues
+				var rDryRunSpecRulesValValuesDeniedValues []interface{}
+				for _, rDryRunSpecRulesValValuesDeniedValuesVal := range rDryRunSpecRulesVal.Values.DeniedValues {
+					rDryRunSpecRulesValValuesDeniedValues = append(rDryRunSpecRulesValValuesDeniedValues, rDryRunSpecRulesValValuesDeniedValuesVal)
+				}
+				rDryRunSpecRulesValValues["deniedValues"] = rDryRunSpecRulesValValuesDeniedValues
+				rDryRunSpecRulesObject["values"] = rDryRunSpecRulesValValues
+			}
+			rDryRunSpecRules = append(rDryRunSpecRules, rDryRunSpecRulesObject)
+		}
+		rDryRunSpec["rules"] = rDryRunSpecRules
+		if r.DryRunSpec.UpdateTime != nil {
+			rDryRunSpec["updateTime"] = *r.DryRunSpec.UpdateTime
+		}
+		u.Object["dryRunSpec"] = rDryRunSpec
+	}
 	if r.Name != nil {
 		u.Object["name"] = *r.Name
 	}
@@ -104,6 +165,138 @@ func PolicyToUnstructured(r *dclService.Policy) *unstructured.Resource {
 
 func UnstructuredToPolicy(u *unstructured.Resource) (*dclService.Policy, error) {
 	r := &dclService.Policy{}
+	if _, ok := u.Object["dryRunSpec"]; ok {
+		if rDryRunSpec, ok := u.Object["dryRunSpec"].(map[string]interface{}); ok {
+			r.DryRunSpec = &dclService.PolicyDryRunSpec{}
+			if _, ok := rDryRunSpec["etag"]; ok {
+				if s, ok := rDryRunSpec["etag"].(string); ok {
+					r.DryRunSpec.Etag = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.DryRunSpec.Etag: expected string")
+				}
+			}
+			if _, ok := rDryRunSpec["inheritFromParent"]; ok {
+				if b, ok := rDryRunSpec["inheritFromParent"].(bool); ok {
+					r.DryRunSpec.InheritFromParent = dcl.Bool(b)
+				} else {
+					return nil, fmt.Errorf("r.DryRunSpec.InheritFromParent: expected bool")
+				}
+			}
+			if _, ok := rDryRunSpec["reset"]; ok {
+				if b, ok := rDryRunSpec["reset"].(bool); ok {
+					r.DryRunSpec.Reset = dcl.Bool(b)
+				} else {
+					return nil, fmt.Errorf("r.DryRunSpec.Reset: expected bool")
+				}
+			}
+			if _, ok := rDryRunSpec["rules"]; ok {
+				if s, ok := rDryRunSpec["rules"].([]interface{}); ok {
+					for _, o := range s {
+						if objval, ok := o.(map[string]interface{}); ok {
+							var rDryRunSpecRules dclService.PolicyDryRunSpecRules
+							if _, ok := objval["allowAll"]; ok {
+								if b, ok := objval["allowAll"].(bool); ok {
+									rDryRunSpecRules.AllowAll = dcl.Bool(b)
+								} else {
+									return nil, fmt.Errorf("rDryRunSpecRules.AllowAll: expected bool")
+								}
+							}
+							if _, ok := objval["condition"]; ok {
+								if rDryRunSpecRulesCondition, ok := objval["condition"].(map[string]interface{}); ok {
+									rDryRunSpecRules.Condition = &dclService.PolicyDryRunSpecRulesCondition{}
+									if _, ok := rDryRunSpecRulesCondition["description"]; ok {
+										if s, ok := rDryRunSpecRulesCondition["description"].(string); ok {
+											rDryRunSpecRules.Condition.Description = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("rDryRunSpecRules.Condition.Description: expected string")
+										}
+									}
+									if _, ok := rDryRunSpecRulesCondition["expression"]; ok {
+										if s, ok := rDryRunSpecRulesCondition["expression"].(string); ok {
+											rDryRunSpecRules.Condition.Expression = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("rDryRunSpecRules.Condition.Expression: expected string")
+										}
+									}
+									if _, ok := rDryRunSpecRulesCondition["location"]; ok {
+										if s, ok := rDryRunSpecRulesCondition["location"].(string); ok {
+											rDryRunSpecRules.Condition.Location = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("rDryRunSpecRules.Condition.Location: expected string")
+										}
+									}
+									if _, ok := rDryRunSpecRulesCondition["title"]; ok {
+										if s, ok := rDryRunSpecRulesCondition["title"].(string); ok {
+											rDryRunSpecRules.Condition.Title = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("rDryRunSpecRules.Condition.Title: expected string")
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("rDryRunSpecRules.Condition: expected map[string]interface{}")
+								}
+							}
+							if _, ok := objval["denyAll"]; ok {
+								if b, ok := objval["denyAll"].(bool); ok {
+									rDryRunSpecRules.DenyAll = dcl.Bool(b)
+								} else {
+									return nil, fmt.Errorf("rDryRunSpecRules.DenyAll: expected bool")
+								}
+							}
+							if _, ok := objval["enforce"]; ok {
+								if b, ok := objval["enforce"].(bool); ok {
+									rDryRunSpecRules.Enforce = dcl.Bool(b)
+								} else {
+									return nil, fmt.Errorf("rDryRunSpecRules.Enforce: expected bool")
+								}
+							}
+							if _, ok := objval["values"]; ok {
+								if rDryRunSpecRulesValues, ok := objval["values"].(map[string]interface{}); ok {
+									rDryRunSpecRules.Values = &dclService.PolicyDryRunSpecRulesValues{}
+									if _, ok := rDryRunSpecRulesValues["allowedValues"]; ok {
+										if s, ok := rDryRunSpecRulesValues["allowedValues"].([]interface{}); ok {
+											for _, ss := range s {
+												if strval, ok := ss.(string); ok {
+													rDryRunSpecRules.Values.AllowedValues = append(rDryRunSpecRules.Values.AllowedValues, strval)
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("rDryRunSpecRules.Values.AllowedValues: expected []interface{}")
+										}
+									}
+									if _, ok := rDryRunSpecRulesValues["deniedValues"]; ok {
+										if s, ok := rDryRunSpecRulesValues["deniedValues"].([]interface{}); ok {
+											for _, ss := range s {
+												if strval, ok := ss.(string); ok {
+													rDryRunSpecRules.Values.DeniedValues = append(rDryRunSpecRules.Values.DeniedValues, strval)
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("rDryRunSpecRules.Values.DeniedValues: expected []interface{}")
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("rDryRunSpecRules.Values: expected map[string]interface{}")
+								}
+							}
+							r.DryRunSpec.Rules = append(r.DryRunSpec.Rules, rDryRunSpecRules)
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.DryRunSpec.Rules: expected []interface{}")
+				}
+			}
+			if _, ok := rDryRunSpec["updateTime"]; ok {
+				if s, ok := rDryRunSpec["updateTime"].(string); ok {
+					r.DryRunSpec.UpdateTime = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.DryRunSpec.UpdateTime: expected string")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.DryRunSpec: expected map[string]interface{}")
+		}
+	}
 	if _, ok := u.Object["name"]; ok {
 		if s, ok := u.Object["name"].(string); ok {
 			r.Name = dcl.String(s)
