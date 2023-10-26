@@ -17,6 +17,7 @@
 #include <string>
 
 #include "connector/connector.cgo.h"
+#include "absl/strings/string_view.h"
 
 void Connector::Initialize(absl::string_view request, std::string *response) {
   GoSlice go_request = {

@@ -13,7 +13,9 @@
 // limitations under the License.
 #include "connector/connector.h"
 #include "absl/strings/string_view.h"
+#include "third_party/pybind11/include/pybind11/detail/common.h"
 #include "include/pybind11/pybind11.h"
+#include "third_party/pybind11/include/pybind11/pytypes.h"
 
 PYBIND11_MODULE(connector_ext, m) {
   namespace py = pybind11;
