@@ -301,6 +301,44 @@ components:
                                   type: integer
                                   format: int64
                                   x-dcl-go-type: int64
+                              postdeploy:
+                                type: object
+                                x-dcl-go-name: Postdeploy
+                                x-dcl-go-type: DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy
+                                description: Optional. Configuration for the postdeploy
+                                  job of the last phase. If this is not configured,
+                                  postdeploy job will not be present.
+                                properties:
+                                  actions:
+                                    type: array
+                                    x-dcl-go-name: Actions
+                                    description: Optional. A sequence of skaffold
+                                      custom actions to invoke during execution of
+                                      the postdeploy job.
+                                    x-dcl-send-empty: true
+                                    x-dcl-list-type: list
+                                    items:
+                                      type: string
+                                      x-dcl-go-type: string
+                              predeploy:
+                                type: object
+                                x-dcl-go-name: Predeploy
+                                x-dcl-go-type: DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy
+                                description: Optional. Configuration for the predeploy
+                                  job of the first phase. If this is not configured,
+                                  predeploy job will not be present.
+                                properties:
+                                  actions:
+                                    type: array
+                                    x-dcl-go-name: Actions
+                                    description: Optional. A sequence of skaffold
+                                      custom actions to invoke during execution of
+                                      the predeploy job.
+                                    x-dcl-send-empty: true
+                                    x-dcl-list-type: list
+                                    items:
+                                      type: string
+                                      x-dcl-go-type: string
                               verify:
                                 type: boolean
                                 x-dcl-go-name: Verify
@@ -348,6 +386,46 @@ components:
                                         or a number, and have a max length of 63 characters.
                                         In other words, it must match the following
                                         regex: `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.'
+                                    postdeploy:
+                                      type: object
+                                      x-dcl-go-name: Postdeploy
+                                      x-dcl-go-type: DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy
+                                      description: Optional. Configuration for the
+                                        postdeploy job of this phase. If this is not
+                                        configured, postdeploy job will not be present
+                                        for this phase.
+                                      properties:
+                                        actions:
+                                          type: array
+                                          x-dcl-go-name: Actions
+                                          description: Optional. A sequence of skaffold
+                                            custom actions to invoke during execution
+                                            of the postdeploy job.
+                                          x-dcl-send-empty: true
+                                          x-dcl-list-type: list
+                                          items:
+                                            type: string
+                                            x-dcl-go-type: string
+                                    predeploy:
+                                      type: object
+                                      x-dcl-go-name: Predeploy
+                                      x-dcl-go-type: DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy
+                                      description: Optional. Configuration for the
+                                        predeploy job of this phase. If this is not
+                                        configured, predeploy job will not be present
+                                        for this phase.
+                                      properties:
+                                        actions:
+                                          type: array
+                                          x-dcl-go-name: Actions
+                                          description: Optional. A sequence of skaffold
+                                            custom actions to invoke during execution
+                                            of the predeploy job.
+                                          x-dcl-send-empty: true
+                                          x-dcl-list-type: list
+                                          items:
+                                            type: string
+                                            x-dcl-go-type: string
                                     profiles:
                                       type: array
                                       x-dcl-go-name: Profiles
@@ -473,6 +551,44 @@ components:
                         description: Standard deployment strategy executes a single
                           deploy and allows verifying the deployment.
                         properties:
+                          postdeploy:
+                            type: object
+                            x-dcl-go-name: Postdeploy
+                            x-dcl-go-type: DeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy
+                            description: Optional. Configuration for the postdeploy
+                              job. If this is not configured, postdeploy job will
+                              not be present.
+                            properties:
+                              actions:
+                                type: array
+                                x-dcl-go-name: Actions
+                                description: Optional. A sequence of skaffold custom
+                                  actions to invoke during execution of the postdeploy
+                                  job.
+                                x-dcl-send-empty: true
+                                x-dcl-list-type: list
+                                items:
+                                  type: string
+                                  x-dcl-go-type: string
+                          predeploy:
+                            type: object
+                            x-dcl-go-name: Predeploy
+                            x-dcl-go-type: DeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy
+                            description: Optional. Configuration for the predeploy
+                              job. If this is not configured, predeploy job will not
+                              be present.
+                            properties:
+                              actions:
+                                type: array
+                                x-dcl-go-name: Actions
+                                description: Optional. A sequence of skaffold custom
+                                  actions to invoke during execution of the predeploy
+                                  job.
+                                x-dcl-send-empty: true
+                                x-dcl-list-type: list
+                                items:
+                                  type: string
+                                  x-dcl-go-type: string
                           verify:
                             type: boolean
                             x-dcl-go-name: Verify
