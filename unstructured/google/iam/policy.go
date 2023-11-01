@@ -209,9 +209,9 @@ func PolicyDeletePolicyMember(_ context.Context, _ *dcl.Config, _ *unstructured.
 // STV returns the ServiceTypeVersion of the IAM Policy resource.
 func (r *Policy) STV() unstructured.ServiceTypeVersion {
 	return unstructured.ServiceTypeVersion{
-		"iam",
-		"Policy",
-		"ga",
+		Service: "iam",
+		Type:    "Policy",
+		Version: "ga",
 	}
 }
 
