@@ -403,6 +403,12 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 									},
 								},
 							},
+							"membershipLocation": &dcl.Property{
+								Type:        "string",
+								GoName:      "MembershipLocation",
+								Description: "The location of the membership",
+								Immutable:   true,
+							},
 							"mesh": &dcl.Property{
 								Type:        "object",
 								GoName:      "Mesh",

@@ -49,6 +49,7 @@ message GkehubAlphaFeatureMembership {
   string location = 4;
   string feature = 5;
   string membership = 6;
+  string membership_location = 7;
 }
 
 message GkehubAlphaFeatureMembershipMesh {

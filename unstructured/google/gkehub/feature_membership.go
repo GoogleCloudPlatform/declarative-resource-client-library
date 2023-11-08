@@ -164,6 +164,9 @@ func FeatureMembershipToUnstructured(r *dclService.FeatureMembership) *unstructu
 	if r.Membership != nil {
 		u.Object["membership"] = *r.Membership
 	}
+	if r.MembershipLocation != nil {
+		u.Object["membershipLocation"] = *r.MembershipLocation
+	}
 	if r.Mesh != nil && r.Mesh != dclService.EmptyFeatureMembershipMesh {
 		rMesh := make(map[string]interface{})
 		if r.Mesh.ControlPlane != nil {
@@ -468,6 +471,13 @@ func UnstructuredToFeatureMembership(u *unstructured.Resource) (*dclService.Feat
 			r.Membership = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.Membership: expected string")
+		}
+	}
+	if _, ok := u.Object["membershipLocation"]; ok {
+		if s, ok := u.Object["membershipLocation"].(string); ok {
+			r.MembershipLocation = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.MembershipLocation: expected string")
 		}
 	}
 	if _, ok := u.Object["mesh"]; ok {

@@ -19,6 +19,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"strings"
 
@@ -28,7 +29,7 @@ import (
 )
 
 // getMembershipSpecs returns a map of membership specs taken from the get response of the feature membership's feature object.
-func getMembershipSpecs(ctx context.Context, r *FeatureMembership, c *Client) (map[string]interface{}, error) {
+func getMembershipSpecs(ctx context.Context, r *FeatureMembership, c *Client) (map[string]any, error) {
 	u, err := r.getURL(c.Config.BasePath)
 	if err != nil {
 		return nil, err
@@ -43,22 +44,30 @@ func getMembershipSpecs(ctx context.Context, r *FeatureMembership, c *Client) (m
 	if err != nil {
 		return nil, err
 	}
-	var m map[string]interface{}
+	var m map[string]any
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
-	membershipSpecs, ok := m["membershipSpecs"].(map[string]interface{})
+	membershipSpecs, ok := m["membershipSpecs"].(map[string]any)
 	if !ok {
-		return map[string]interface{}{}, nil
+		return map[string]any{}, nil
 	}
 	return membershipSpecs, nil
 }
 
+// Return the value if it exists, default otherwise
+func valueOrDefaultString(val *string, def string) string {
+	if dcl.ValueOrEmptyString(val) == "" {
+		return def
+	}
+	return dcl.ValueOrEmptyString(val)
+}
+
 // Return the full key for a given FeatureMembership's entry in the membershipSpecs field.
 func membershipSpecKey(r *FeatureMembership) string {
-	params := map[string]interface{}{
+	params := map[string]any{
 		"project":    dcl.ValueOrEmptyString(r.Project),
-		"location":   dcl.ValueOrEmptyString(r.Location),
+		"location":   valueOrDefaultString(r.MembershipLocation, "global"),
 		"membership": dcl.ValueOrEmptyString(r.Membership),
 	}
 
@@ -66,10 +75,10 @@ func membershipSpecKey(r *FeatureMembership) string {
 }
 
 // Find and return the key and value in membershipSpecs matching the given membership.
-func findMembershipSpec(membership string, membershipSpecs map[string]interface{}) (string, map[string]interface{}, error) {
+func findMembershipSpec(membership string, membershipLocation string, membershipSpecs map[string]any) (string, map[string]any, error) {
 	for key, value := range membershipSpecs {
-		if strings.HasSuffix(key, membership) {
-			spec, ok := value.(map[string]interface{})
+		if strings.HasSuffix(key, fmt.Sprintf("%s/memberships/%s", membershipLocation, membership)) {
+			spec, ok := value.(map[string]any)
 			if !ok {
 				return "", nil, errors.New("membership spec was not of map type")
 			}
@@ -82,7 +91,7 @@ func findMembershipSpec(membership string, membershipSpecs map[string]interface{
 	}
 }
 
-func sendFeatureUpdate(ctx context.Context, req map[string]interface{}, c *Client, u string) error {
+func sendFeatureUpdate(ctx context.Context, req map[string]any, c *Client, u string) error {
 	c.Config.Logger.Infof("Created update: %#v", req)
 	body, err := json.Marshal(req)
 	if err != nil {
@@ -129,7 +138,7 @@ func (op *createFeatureMembershipOperation) do(ctx context.Context, r *FeatureMe
 	if err := dcl.PutMapEntry(membershipSpecs, []string{membershipSpecKey(nr)}, m); err != nil {
 		return err
 	}
-	req := map[string]interface{}{
+	req := map[string]any{
 		"membershipSpecs": membershipSpecs,
 	}
 	return sendFeatureUpdate(ctx, req, c, u)
@@ -142,7 +151,7 @@ func (c *Client) GetFeatureMembership(ctx context.Context, r *FeatureMembership)
 	if err != nil {
 		return nil, err
 	}
-	_, spec, err := findMembershipSpec(dcl.ValueOrEmptyString(nr.Membership), membershipSpecs)
+	_, spec, err := findMembershipSpec(dcl.ValueOrEmptyString(nr.Membership), valueOrDefaultString(nr.MembershipLocation, "global"), membershipSpecs)
 	if err != nil {
 		return nil, err
 	}
@@ -189,7 +198,7 @@ func (c *Client) ListFeatureMembership(ctx context.Context, project, location, f
 	}
 	var list *FeatureMembershipList
 	for key, spec := range membershipSpecs {
-		m, ok := spec.(map[string]interface{})
+		m, ok := spec.(map[string]any)
 		if !ok {
 			return nil, errors.New("membership spec was not of map type")
 		}
@@ -218,7 +227,7 @@ func (op *updateFeatureMembershipUpdateFeatureMembershipOperation) do(ctx contex
 	if err != nil {
 		return err
 	}
-	key, _, err := findMembershipSpec(dcl.ValueOrEmptyString(nr.Membership), membershipSpecs)
+	key, _, err := findMembershipSpec(dcl.ValueOrEmptyString(nr.Membership), valueOrDefaultString(nr.MembershipLocation, "global"), membershipSpecs)
 	if err != nil {
 		return err
 	}
@@ -229,7 +238,7 @@ func (op *updateFeatureMembershipUpdateFeatureMembershipOperation) do(ctx contex
 	if err := dcl.PutMapEntry(membershipSpecs, []string{key}, m); err != nil {
 		return err
 	}
-	req := map[string]interface{}{
+	req := map[string]any{
 		"membershipSpecs": membershipSpecs,
 	}
 	return sendFeatureUpdate(ctx, req, c, u)
@@ -247,18 +256,18 @@ func (op *deleteFeatureMembershipOperation) do(ctx context.Context, r *FeatureMe
 	if err != nil {
 		return err
 	}
-	key, _, err := findMembershipSpec(dcl.ValueOrEmptyString(nr.Membership), membershipSpecs)
+	key, _, err := findMembershipSpec(dcl.ValueOrEmptyString(nr.Membership), valueOrDefaultString(nr.MembershipLocation, "global"), membershipSpecs)
 	if err != nil {
 		return err
 	}
-	membershipSpecs[key] = map[string]interface{}{}
-	req := map[string]interface{}{
+	membershipSpecs[key] = map[string]any{}
+	req := map[string]any{
 		"membershipSpecs": membershipSpecs,
 	}
 	return sendFeatureUpdate(ctx, req, c, u)
 }
 
 // CompareFeatureMembershipConfigmanagementHierarchyControllerNewStyle exists only for unit-testing the diff library.
-func CompareFeatureMembershipConfigmanagementHierarchyControllerNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+func CompareFeatureMembershipConfigmanagementHierarchyControllerNewStyle(d, a any, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	return compareFeatureMembershipConfigmanagementHierarchyControllerNewStyle(d, a, fn)
 }

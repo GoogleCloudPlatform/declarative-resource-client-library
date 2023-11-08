@@ -29,6 +29,7 @@ class FeatureMembership(object):
         location: str = None,
         feature: str = None,
         membership: str = None,
+        membership_location: str = None,
         service_account_file: str = "",
     ):
         channel.initialize()
@@ -38,6 +39,7 @@ class FeatureMembership(object):
         self.location = location
         self.feature = feature
         self.membership = membership
+        self.membership_location = membership_location
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -67,6 +69,11 @@ class FeatureMembership(object):
         if Primitive.to_proto(self.membership):
             request.resource.membership = Primitive.to_proto(self.membership)
 
+        if Primitive.to_proto(self.membership_location):
+            request.resource.membership_location = Primitive.to_proto(
+                self.membership_location
+            )
+
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyGkehubBetaFeatureMembership(request)
@@ -78,6 +85,7 @@ class FeatureMembership(object):
         self.location = Primitive.from_proto(response.location)
         self.feature = Primitive.from_proto(response.feature)
         self.membership = Primitive.from_proto(response.membership)
+        self.membership_location = Primitive.from_proto(response.membership_location)
 
     def delete(self):
         stub = feature_membership_pb2_grpc.GkehubBetaFeatureMembershipServiceStub(
@@ -106,6 +114,11 @@ class FeatureMembership(object):
 
         if Primitive.to_proto(self.membership):
             request.resource.membership = Primitive.to_proto(self.membership)
+
+        if Primitive.to_proto(self.membership_location):
+            request.resource.membership_location = Primitive.to_proto(
+                self.membership_location
+            )
 
         response = stub.DeleteGkehubBetaFeatureMembership(request)
 
@@ -144,6 +157,8 @@ class FeatureMembership(object):
             resource.feature = Primitive.to_proto(self.feature)
         if Primitive.to_proto(self.membership):
             resource.membership = Primitive.to_proto(self.membership)
+        if Primitive.to_proto(self.membership_location):
+            resource.membership_location = Primitive.to_proto(self.membership_location)
         return resource
 
 

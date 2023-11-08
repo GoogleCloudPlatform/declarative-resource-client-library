@@ -24,12 +24,13 @@ import (
 )
 
 type FeatureMembership struct {
-	Mesh             *FeatureMembershipMesh             `json:"mesh"`
-	Configmanagement *FeatureMembershipConfigmanagement `json:"configmanagement"`
-	Project          *string                            `json:"project"`
-	Location         *string                            `json:"location"`
-	Feature          *string                            `json:"feature"`
-	Membership       *string                            `json:"membership"`
+	Mesh               *FeatureMembershipMesh             `json:"mesh"`
+	Configmanagement   *FeatureMembershipConfigmanagement `json:"configmanagement"`
+	Project            *string                            `json:"project"`
+	Location           *string                            `json:"location"`
+	Feature            *string                            `json:"feature"`
+	Membership         *string                            `json:"membership"`
+	MembershipLocation *string                            `json:"membershipLocation"`
 }
 
 func (r *FeatureMembership) String() string {
@@ -634,12 +635,13 @@ func (r *FeatureMembership) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"mesh":             dcl.ValueOrEmptyString(nr.Mesh),
-		"configmanagement": dcl.ValueOrEmptyString(nr.Configmanagement),
-		"project":          dcl.ValueOrEmptyString(nr.Project),
-		"location":         dcl.ValueOrEmptyString(nr.Location),
-		"feature":          dcl.ValueOrEmptyString(nr.Feature),
-		"membership":       dcl.ValueOrEmptyString(nr.Membership),
+		"mesh":                dcl.ValueOrEmptyString(nr.Mesh),
+		"configmanagement":    dcl.ValueOrEmptyString(nr.Configmanagement),
+		"project":             dcl.ValueOrEmptyString(nr.Project),
+		"location":            dcl.ValueOrEmptyString(nr.Location),
+		"feature":             dcl.ValueOrEmptyString(nr.Feature),
+		"membership":          dcl.ValueOrEmptyString(nr.Membership),
+		"membership_location": dcl.ValueOrEmptyString(nr.MembershipLocation),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/features/{{feature}}/memberships/{{membership}}", params), nil
 }

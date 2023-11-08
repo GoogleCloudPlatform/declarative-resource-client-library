@@ -194,12 +194,13 @@ func ProtoToGkehubAlphaFeatureMembershipConfigmanagementHierarchyController(p *a
 // ProtoToFeatureMembership converts a FeatureMembership resource from its proto representation.
 func ProtoToFeatureMembership(p *alphapb.GkehubAlphaFeatureMembership) *alpha.FeatureMembership {
 	obj := &alpha.FeatureMembership{
-		Mesh:             ProtoToGkehubAlphaFeatureMembershipMesh(p.GetMesh()),
-		Configmanagement: ProtoToGkehubAlphaFeatureMembershipConfigmanagement(p.GetConfigmanagement()),
-		Project:          dcl.StringOrNil(p.GetProject()),
-		Location:         dcl.StringOrNil(p.GetLocation()),
-		Feature:          dcl.StringOrNil(p.GetFeature()),
-		Membership:       dcl.StringOrNil(p.GetMembership()),
+		Mesh:               ProtoToGkehubAlphaFeatureMembershipMesh(p.GetMesh()),
+		Configmanagement:   ProtoToGkehubAlphaFeatureMembershipConfigmanagement(p.GetConfigmanagement()),
+		Project:            dcl.StringOrNil(p.GetProject()),
+		Location:           dcl.StringOrNil(p.GetLocation()),
+		Feature:            dcl.StringOrNil(p.GetFeature()),
+		Membership:         dcl.StringOrNil(p.GetMembership()),
+		MembershipLocation: dcl.StringOrNil(p.GetMembershipLocation()),
 	}
 	return obj
 }
@@ -373,6 +374,7 @@ func FeatureMembershipToProto(resource *alpha.FeatureMembership) *alphapb.Gkehub
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetFeature(dcl.ValueOrEmptyString(resource.Feature))
 	p.SetMembership(dcl.ValueOrEmptyString(resource.Membership))
+	p.SetMembershipLocation(dcl.ValueOrEmptyString(resource.MembershipLocation))
 
 	return p
 }

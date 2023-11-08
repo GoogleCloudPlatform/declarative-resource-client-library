@@ -333,6 +333,11 @@ func canonicalizeFeatureMembershipDesiredState(rawDesired, rawInitial *FeatureMe
 	} else {
 		canonicalDesired.Membership = rawDesired.Membership
 	}
+	if dcl.NameToSelfLink(rawDesired.MembershipLocation, rawInitial.MembershipLocation) {
+		canonicalDesired.MembershipLocation = rawInitial.MembershipLocation
+	} else {
+		canonicalDesired.MembershipLocation = rawDesired.MembershipLocation
+	}
 	return canonicalDesired, nil
 }
 
@@ -357,6 +362,8 @@ func canonicalizeFeatureMembershipNewState(c *Client, rawNew, rawDesired *Featur
 	rawNew.Feature = rawDesired.Feature
 
 	rawNew.Membership = rawDesired.Membership
+
+	rawNew.MembershipLocation = rawDesired.MembershipLocation
 
 	return rawNew, nil
 }
@@ -1659,6 +1666,13 @@ func diffFeatureMembership(c *Client, desired, actual *FeatureMembership, opts .
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.MembershipLocation, actual.MembershipLocation, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MembershipLocation")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if len(newDiffs) > 0 {
 		c.Config.Logger.Infof("Diff function found diffs: %v", newDiffs)
 	}
@@ -2137,6 +2151,7 @@ func (r *FeatureMembership) urlNormalized() *FeatureMembership {
 	normalized.Location = dcl.SelfLinkToName(r.Location)
 	normalized.Feature = dcl.SelfLinkToName(r.Feature)
 	normalized.Membership = dcl.SelfLinkToName(r.Membership)
+	normalized.MembershipLocation = dcl.SelfLinkToName(r.MembershipLocation)
 	return &normalized
 }
 
@@ -2220,6 +2235,11 @@ func expandFeatureMembership(c *Client, f *FeatureMembership) (map[string]interf
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["membership"] = v
 	}
+	if v, err := dcl.EmptyValue(); err != nil {
+		return nil, fmt.Errorf("error expanding MembershipLocation into membershipLocation: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["membershipLocation"] = v
+	}
 
 	return m, nil
 }
@@ -2242,6 +2262,7 @@ func flattenFeatureMembership(c *Client, i interface{}, res *FeatureMembership) 
 	resultRes.Location = dcl.FlattenString(m["location"])
 	resultRes.Feature = dcl.FlattenString(m["feature"])
 	resultRes.Membership = dcl.FlattenString(m["membership"])
+	resultRes.MembershipLocation = dcl.FlattenString(m["membershipLocation"])
 
 	return resultRes
 }

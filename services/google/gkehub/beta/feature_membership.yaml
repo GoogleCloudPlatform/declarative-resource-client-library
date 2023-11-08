@@ -335,6 +335,11 @@ components:
           x-dcl-references:
           - resource: Gkehub/Membership
             field: name
+        membershipLocation:
+          type: string
+          x-dcl-go-name: MembershipLocation
+          description: The location of the membership
+          x-kubernetes-immutable: true
         mesh:
           type: object
           x-dcl-go-name: Mesh
