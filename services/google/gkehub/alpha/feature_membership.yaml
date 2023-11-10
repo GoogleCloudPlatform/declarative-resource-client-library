@@ -94,7 +94,9 @@ components:
               type: object
               x-dcl-go-name: Binauthz
               x-dcl-go-type: FeatureMembershipConfigmanagementBinauthz
-              description: Binauthz configuration for the cluster.
+              description: '**DEPRECATED** Binauthz configuration for the cluster.
+                This field will be ignored and should not be set.'
+              x-dcl-server-default: true
               properties:
                 enabled:
                   type: boolean

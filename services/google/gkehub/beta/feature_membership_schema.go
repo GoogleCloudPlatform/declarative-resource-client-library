@@ -132,10 +132,11 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 								Description: "Config Management-specific spec.",
 								Properties: map[string]*dcl.Property{
 									"binauthz": &dcl.Property{
-										Type:        "object",
-										GoName:      "Binauthz",
-										GoType:      "FeatureMembershipConfigmanagementBinauthz",
-										Description: "Binauthz configuration for the cluster.",
+										Type:          "object",
+										GoName:        "Binauthz",
+										GoType:        "FeatureMembershipConfigmanagementBinauthz",
+										Description:   "**DEPRECATED** Binauthz configuration for the cluster. This field will be ignored and should not be set.",
+										ServerDefault: true,
 										Properties: map[string]*dcl.Property{
 											"enabled": &dcl.Property{
 												Type:        "boolean",
