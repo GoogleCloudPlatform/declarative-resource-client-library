@@ -49,7 +49,7 @@ func equalsMetricDescriptorLabelsValueType(m, n *MetricDescriptorLabelsValueType
 	return mStr == nStr
 }
 
-func canonicalizeMetricDescriptorValueType(m, n interface{}) bool {
+func canonicalizeMetricDescriptorValueType(m, n any) bool {
 	if m == nil && n == nil {
 		return true
 	}
@@ -59,7 +59,7 @@ func canonicalizeMetricDescriptorValueType(m, n interface{}) bool {
 	return equalsMetricDescriptorValueType(mVal, nVal)
 }
 
-func canonicalizeMetricDescriptorLabelsValueType(m, n interface{}) bool {
+func canonicalizeMetricDescriptorLabelsValueType(m, n any) bool {
 	if m == nil && n == nil {
 		return true
 	}
@@ -151,7 +151,7 @@ func (r *MonitoredProject) customMatcher(ctx context.Context, c *Client) func([]
 			Name: nr.Name,
 		})
 		if err != nil {
-			c.Config.Logger.Warningf("Could not look up project %s", *nr.Name)
+			c.Config.Logger.Warningf("Could not look up project %s: %v", *nr.Name, err)
 			return false
 		}
 		projectNumber := dcl.ValueOrEmptyString(project.ProjectNumber)
