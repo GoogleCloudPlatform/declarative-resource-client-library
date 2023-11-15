@@ -43,6 +43,20 @@ enum RecaptchaenterpriseKeyTestingOptionsTestingChallengeEnum {
   RecaptchaenterpriseKeyTestingOptionsTestingChallengeEnumUNSOLVABLE_CHALLENGE = 3;
 }
 
+enum RecaptchaenterpriseKeyWafSettingsWafServiceEnum {
+  RecaptchaenterpriseKeyWafSettingsWafServiceEnumNO_VALUE_DO_NOT_USE = 0;
+  RecaptchaenterpriseKeyWafSettingsWafServiceEnumCA = 1;
+  RecaptchaenterpriseKeyWafSettingsWafServiceEnumFASTLY = 2;
+}
+
+enum RecaptchaenterpriseKeyWafSettingsWafFeatureEnum {
+  RecaptchaenterpriseKeyWafSettingsWafFeatureEnumNO_VALUE_DO_NOT_USE = 0;
+  RecaptchaenterpriseKeyWafSettingsWafFeatureEnumCHALLENGE_PAGE = 1;
+  RecaptchaenterpriseKeyWafSettingsWafFeatureEnumSESSION_TOKEN = 2;
+  RecaptchaenterpriseKeyWafSettingsWafFeatureEnumACTION_TOKEN = 3;
+  RecaptchaenterpriseKeyWafSettingsWafFeatureEnumEXPRESS = 4;
+}
+
 message RecaptchaenterpriseKey {
   string name = 1;
   string display_name = 2;
@@ -52,7 +66,8 @@ message RecaptchaenterpriseKey {
   map<string, string> labels = 6;
   string create_time = 7;
   RecaptchaenterpriseKeyTestingOptions testing_options = 8;
-  string project = 9;
+  RecaptchaenterpriseKeyWafSettings waf_settings = 9;
+  string project = 10;
 }
 
 message RecaptchaenterpriseKeyWebSettings {
@@ -76,6 +91,11 @@ message RecaptchaenterpriseKeyIosSettings {
 message RecaptchaenterpriseKeyTestingOptions {
   double testing_score = 1;
   RecaptchaenterpriseKeyTestingOptionsTestingChallengeEnum testing_challenge = 2;
+}
+
+message RecaptchaenterpriseKeyWafSettings {
+  RecaptchaenterpriseKeyWafSettingsWafServiceEnum waf_service = 1;
+  RecaptchaenterpriseKeyWafSettingsWafFeatureEnum waf_feature = 2;
 }
 
 message ApplyRecaptchaenterpriseKeyRequest {

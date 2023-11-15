@@ -221,6 +221,43 @@ func DCLKeySchema() *dcl.Schema {
 									},
 								},
 							},
+							"wafSettings": &dcl.Property{
+								Type:        "object",
+								GoName:      "WafSettings",
+								GoType:      "KeyWafSettings",
+								Description: "Settings specific to keys that can be used for WAF (Web Application Firewall).",
+								Immutable:   true,
+								Required: []string{
+									"wafService",
+									"wafFeature",
+								},
+								Properties: map[string]*dcl.Property{
+									"wafFeature": &dcl.Property{
+										Type:        "string",
+										GoName:      "WafFeature",
+										GoType:      "KeyWafSettingsWafFeatureEnum",
+										Description: "Supported WAF features. For more information, see https://cloud.google.com/recaptcha-enterprise/docs/usecase#comparison_of_features. Possible values: CHALLENGE_PAGE, SESSION_TOKEN, ACTION_TOKEN, EXPRESS",
+										Immutable:   true,
+										Enum: []string{
+											"CHALLENGE_PAGE",
+											"SESSION_TOKEN",
+											"ACTION_TOKEN",
+											"EXPRESS",
+										},
+									},
+									"wafService": &dcl.Property{
+										Type:        "string",
+										GoName:      "WafService",
+										GoType:      "KeyWafSettingsWafServiceEnum",
+										Description: "The WAF service that uses this key. Possible values: CA, FASTLY",
+										Immutable:   true,
+										Enum: []string{
+											"CA",
+											"FASTLY",
+										},
+									},
+								},
+							},
 							"webSettings": &dcl.Property{
 								Type:        "object",
 								GoName:      "WebSettings",

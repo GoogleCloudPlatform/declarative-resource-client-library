@@ -60,6 +60,30 @@ func ProtoToRecaptchaenterpriseAlphaKeyTestingOptionsTestingChallengeEnum(e alph
 	return nil
 }
 
+// ProtoToKeyWafSettingsWafServiceEnum converts a KeyWafSettingsWafServiceEnum enum from its proto representation.
+func ProtoToRecaptchaenterpriseAlphaKeyWafSettingsWafServiceEnum(e alphapb.RecaptchaenterpriseAlphaKeyWafSettingsWafServiceEnum) *alpha.KeyWafSettingsWafServiceEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.RecaptchaenterpriseAlphaKeyWafSettingsWafServiceEnum_name[int32(e)]; ok {
+		e := alpha.KeyWafSettingsWafServiceEnum(n[len("RecaptchaenterpriseAlphaKeyWafSettingsWafServiceEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToKeyWafSettingsWafFeatureEnum converts a KeyWafSettingsWafFeatureEnum enum from its proto representation.
+func ProtoToRecaptchaenterpriseAlphaKeyWafSettingsWafFeatureEnum(e alphapb.RecaptchaenterpriseAlphaKeyWafSettingsWafFeatureEnum) *alpha.KeyWafSettingsWafFeatureEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.RecaptchaenterpriseAlphaKeyWafSettingsWafFeatureEnum_name[int32(e)]; ok {
+		e := alpha.KeyWafSettingsWafFeatureEnum(n[len("RecaptchaenterpriseAlphaKeyWafSettingsWafFeatureEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToKeyWebSettings converts a KeyWebSettings object from its proto representation.
 func ProtoToRecaptchaenterpriseAlphaKeyWebSettings(p *alphapb.RecaptchaenterpriseAlphaKeyWebSettings) *alpha.KeyWebSettings {
 	if p == nil {
@@ -117,6 +141,18 @@ func ProtoToRecaptchaenterpriseAlphaKeyTestingOptions(p *alphapb.Recaptchaenterp
 	return obj
 }
 
+// ProtoToKeyWafSettings converts a KeyWafSettings object from its proto representation.
+func ProtoToRecaptchaenterpriseAlphaKeyWafSettings(p *alphapb.RecaptchaenterpriseAlphaKeyWafSettings) *alpha.KeyWafSettings {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.KeyWafSettings{
+		WafService: ProtoToRecaptchaenterpriseAlphaKeyWafSettingsWafServiceEnum(p.GetWafService()),
+		WafFeature: ProtoToRecaptchaenterpriseAlphaKeyWafSettingsWafFeatureEnum(p.GetWafFeature()),
+	}
+	return obj
+}
+
 // ProtoToKey converts a Key resource from its proto representation.
 func ProtoToKey(p *alphapb.RecaptchaenterpriseAlphaKey) *alpha.Key {
 	obj := &alpha.Key{
@@ -127,6 +163,7 @@ func ProtoToKey(p *alphapb.RecaptchaenterpriseAlphaKey) *alpha.Key {
 		IosSettings:     ProtoToRecaptchaenterpriseAlphaKeyIosSettings(p.GetIosSettings()),
 		CreateTime:      dcl.StringOrNil(p.GetCreateTime()),
 		TestingOptions:  ProtoToRecaptchaenterpriseAlphaKeyTestingOptions(p.GetTestingOptions()),
+		WafSettings:     ProtoToRecaptchaenterpriseAlphaKeyWafSettings(p.GetWafSettings()),
 		Project:         dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
@@ -163,6 +200,28 @@ func RecaptchaenterpriseAlphaKeyTestingOptionsTestingChallengeEnumToProto(e *alp
 		return alphapb.RecaptchaenterpriseAlphaKeyTestingOptionsTestingChallengeEnum(v)
 	}
 	return alphapb.RecaptchaenterpriseAlphaKeyTestingOptionsTestingChallengeEnum(0)
+}
+
+// KeyWafSettingsWafServiceEnumToProto converts a KeyWafSettingsWafServiceEnum enum to its proto representation.
+func RecaptchaenterpriseAlphaKeyWafSettingsWafServiceEnumToProto(e *alpha.KeyWafSettingsWafServiceEnum) alphapb.RecaptchaenterpriseAlphaKeyWafSettingsWafServiceEnum {
+	if e == nil {
+		return alphapb.RecaptchaenterpriseAlphaKeyWafSettingsWafServiceEnum(0)
+	}
+	if v, ok := alphapb.RecaptchaenterpriseAlphaKeyWafSettingsWafServiceEnum_value["KeyWafSettingsWafServiceEnum"+string(*e)]; ok {
+		return alphapb.RecaptchaenterpriseAlphaKeyWafSettingsWafServiceEnum(v)
+	}
+	return alphapb.RecaptchaenterpriseAlphaKeyWafSettingsWafServiceEnum(0)
+}
+
+// KeyWafSettingsWafFeatureEnumToProto converts a KeyWafSettingsWafFeatureEnum enum to its proto representation.
+func RecaptchaenterpriseAlphaKeyWafSettingsWafFeatureEnumToProto(e *alpha.KeyWafSettingsWafFeatureEnum) alphapb.RecaptchaenterpriseAlphaKeyWafSettingsWafFeatureEnum {
+	if e == nil {
+		return alphapb.RecaptchaenterpriseAlphaKeyWafSettingsWafFeatureEnum(0)
+	}
+	if v, ok := alphapb.RecaptchaenterpriseAlphaKeyWafSettingsWafFeatureEnum_value["KeyWafSettingsWafFeatureEnum"+string(*e)]; ok {
+		return alphapb.RecaptchaenterpriseAlphaKeyWafSettingsWafFeatureEnum(v)
+	}
+	return alphapb.RecaptchaenterpriseAlphaKeyWafSettingsWafFeatureEnum(0)
 }
 
 // KeyWebSettingsToProto converts a KeyWebSettings object to its proto representation.
@@ -224,6 +283,17 @@ func RecaptchaenterpriseAlphaKeyTestingOptionsToProto(o *alpha.KeyTestingOptions
 	return p
 }
 
+// KeyWafSettingsToProto converts a KeyWafSettings object to its proto representation.
+func RecaptchaenterpriseAlphaKeyWafSettingsToProto(o *alpha.KeyWafSettings) *alphapb.RecaptchaenterpriseAlphaKeyWafSettings {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.RecaptchaenterpriseAlphaKeyWafSettings{}
+	p.SetWafService(RecaptchaenterpriseAlphaKeyWafSettingsWafServiceEnumToProto(o.WafService))
+	p.SetWafFeature(RecaptchaenterpriseAlphaKeyWafSettingsWafFeatureEnumToProto(o.WafFeature))
+	return p
+}
+
 // KeyToProto converts a Key resource to its proto representation.
 func KeyToProto(resource *alpha.Key) *alphapb.RecaptchaenterpriseAlphaKey {
 	p := &alphapb.RecaptchaenterpriseAlphaKey{}
@@ -234,6 +304,7 @@ func KeyToProto(resource *alpha.Key) *alphapb.RecaptchaenterpriseAlphaKey {
 	p.SetIosSettings(RecaptchaenterpriseAlphaKeyIosSettingsToProto(resource.IosSettings))
 	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
 	p.SetTestingOptions(RecaptchaenterpriseAlphaKeyTestingOptionsToProto(resource.TestingOptions))
+	p.SetWafSettings(RecaptchaenterpriseAlphaKeyWafSettingsToProto(resource.WafSettings))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	mLabels := make(map[string]string, len(resource.Labels))
 	for k, r := range resource.Labels {

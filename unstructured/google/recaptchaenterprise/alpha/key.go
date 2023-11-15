@@ -85,6 +85,16 @@ func KeyToUnstructured(r *dclService.Key) *unstructured.Resource {
 		}
 		u.Object["testingOptions"] = rTestingOptions
 	}
+	if r.WafSettings != nil && r.WafSettings != dclService.EmptyKeyWafSettings {
+		rWafSettings := make(map[string]interface{})
+		if r.WafSettings.WafFeature != nil {
+			rWafSettings["wafFeature"] = string(*r.WafSettings.WafFeature)
+		}
+		if r.WafSettings.WafService != nil {
+			rWafSettings["wafService"] = string(*r.WafSettings.WafService)
+		}
+		u.Object["wafSettings"] = rWafSettings
+	}
 	if r.WebSettings != nil && r.WebSettings != dclService.EmptyKeyWebSettings {
 		rWebSettings := make(map[string]interface{})
 		if r.WebSettings.AllowAllDomains != nil {
@@ -221,6 +231,27 @@ func UnstructuredToKey(u *unstructured.Resource) (*dclService.Key, error) {
 			}
 		} else {
 			return nil, fmt.Errorf("r.TestingOptions: expected map[string]interface{}")
+		}
+	}
+	if _, ok := u.Object["wafSettings"]; ok {
+		if rWafSettings, ok := u.Object["wafSettings"].(map[string]interface{}); ok {
+			r.WafSettings = &dclService.KeyWafSettings{}
+			if _, ok := rWafSettings["wafFeature"]; ok {
+				if s, ok := rWafSettings["wafFeature"].(string); ok {
+					r.WafSettings.WafFeature = dclService.KeyWafSettingsWafFeatureEnumRef(s)
+				} else {
+					return nil, fmt.Errorf("r.WafSettings.WafFeature: expected string")
+				}
+			}
+			if _, ok := rWafSettings["wafService"]; ok {
+				if s, ok := rWafSettings["wafService"].(string); ok {
+					r.WafSettings.WafService = dclService.KeyWafSettingsWafServiceEnumRef(s)
+				} else {
+					return nil, fmt.Errorf("r.WafSettings.WafService: expected string")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.WafSettings: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["webSettings"]; ok {

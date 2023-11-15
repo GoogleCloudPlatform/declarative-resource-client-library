@@ -31,6 +31,7 @@ class Key(object):
         labels: dict = None,
         create_time: str = None,
         testing_options: dict = None,
+        waf_settings: dict = None,
         project: str = None,
         service_account_file: str = "",
     ):
@@ -42,6 +43,7 @@ class Key(object):
         self.ios_settings = ios_settings
         self.labels = labels
         self.testing_options = testing_options
+        self.waf_settings = waf_settings
         self.project = project
         self.service_account_file = service_account_file
 
@@ -81,6 +83,12 @@ class Key(object):
             )
         else:
             request.resource.ClearField("testing_options")
+        if KeyWafSettings.to_proto(self.waf_settings):
+            request.resource.waf_settings.CopyFrom(
+                KeyWafSettings.to_proto(self.waf_settings)
+            )
+        else:
+            request.resource.ClearField("waf_settings")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -95,6 +103,7 @@ class Key(object):
         self.labels = Primitive.from_proto(response.labels)
         self.create_time = Primitive.from_proto(response.create_time)
         self.testing_options = KeyTestingOptions.from_proto(response.testing_options)
+        self.waf_settings = KeyWafSettings.from_proto(response.waf_settings)
         self.project = Primitive.from_proto(response.project)
 
     def delete(self):
@@ -134,6 +143,12 @@ class Key(object):
             )
         else:
             request.resource.ClearField("testing_options")
+        if KeyWafSettings.to_proto(self.waf_settings):
+            request.resource.waf_settings.CopyFrom(
+                KeyWafSettings.to_proto(self.waf_settings)
+            )
+        else:
+            request.resource.ClearField("waf_settings")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -176,6 +191,10 @@ class Key(object):
             )
         else:
             resource.ClearField("testing_options")
+        if KeyWafSettings.to_proto(self.waf_settings):
+            resource.waf_settings.CopyFrom(KeyWafSettings.to_proto(self.waf_settings))
+        else:
+            resource.ClearField("waf_settings")
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         return resource
@@ -388,6 +407,50 @@ class KeyTestingOptionsArray(object):
         return [KeyTestingOptions.from_proto(i) for i in resources]
 
 
+class KeyWafSettings(object):
+    def __init__(self, waf_service: str = None, waf_feature: str = None):
+        self.waf_service = waf_service
+        self.waf_feature = waf_feature
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = key_pb2.RecaptchaenterpriseAlphaKeyWafSettings()
+        if KeyWafSettingsWafServiceEnum.to_proto(resource.waf_service):
+            res.waf_service = KeyWafSettingsWafServiceEnum.to_proto(
+                resource.waf_service
+            )
+        if KeyWafSettingsWafFeatureEnum.to_proto(resource.waf_feature):
+            res.waf_feature = KeyWafSettingsWafFeatureEnum.to_proto(
+                resource.waf_feature
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return KeyWafSettings(
+            waf_service=KeyWafSettingsWafServiceEnum.from_proto(resource.waf_service),
+            waf_feature=KeyWafSettingsWafFeatureEnum.from_proto(resource.waf_feature),
+        )
+
+
+class KeyWafSettingsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [KeyWafSettings.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [KeyWafSettings.from_proto(i) for i in resources]
+
+
 class KeyWebSettingsIntegrationTypeEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -450,6 +513,42 @@ class KeyTestingOptionsTestingChallengeEnum(object):
                 resource
             )[len("RecaptchaenterpriseAlphaKeyTestingOptionsTestingChallengeEnum") :]
         )
+
+
+class KeyWafSettingsWafServiceEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return key_pb2.RecaptchaenterpriseAlphaKeyWafSettingsWafServiceEnum.Value(
+            "RecaptchaenterpriseAlphaKeyWafSettingsWafServiceEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return key_pb2.RecaptchaenterpriseAlphaKeyWafSettingsWafServiceEnum.Name(
+            resource
+        )[len("RecaptchaenterpriseAlphaKeyWafSettingsWafServiceEnum") :]
+
+
+class KeyWafSettingsWafFeatureEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return key_pb2.RecaptchaenterpriseAlphaKeyWafSettingsWafFeatureEnum.Value(
+            "RecaptchaenterpriseAlphaKeyWafSettingsWafFeatureEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return key_pb2.RecaptchaenterpriseAlphaKeyWafSettingsWafFeatureEnum.Name(
+            resource
+        )[len("RecaptchaenterpriseAlphaKeyWafSettingsWafFeatureEnum") :]
 
 
 class Primitive(object):

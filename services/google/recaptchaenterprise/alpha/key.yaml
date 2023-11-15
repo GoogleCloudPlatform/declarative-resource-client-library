@@ -174,6 +174,39 @@ components:
               description: All assessments for this Key will return this score. Must
                 be between 0 (likely not legitimate) and 1 (likely legitimate) inclusive.
               x-kubernetes-immutable: true
+        wafSettings:
+          type: object
+          x-dcl-go-name: WafSettings
+          x-dcl-go-type: KeyWafSettings
+          description: Settings specific to keys that can be used for WAF (Web Application
+            Firewall).
+          x-kubernetes-immutable: true
+          required:
+          - wafService
+          - wafFeature
+          properties:
+            wafFeature:
+              type: string
+              x-dcl-go-name: WafFeature
+              x-dcl-go-type: KeyWafSettingsWafFeatureEnum
+              description: 'Supported WAF features. For more information, see https://cloud.google.com/recaptcha-enterprise/docs/usecase#comparison_of_features.
+                Possible values: CHALLENGE_PAGE, SESSION_TOKEN, ACTION_TOKEN, EXPRESS'
+              x-kubernetes-immutable: true
+              enum:
+              - CHALLENGE_PAGE
+              - SESSION_TOKEN
+              - ACTION_TOKEN
+              - EXPRESS
+            wafService:
+              type: string
+              x-dcl-go-name: WafService
+              x-dcl-go-type: KeyWafSettingsWafServiceEnum
+              description: 'The WAF service that uses this key. Possible values: CA,
+                FASTLY'
+              x-kubernetes-immutable: true
+              enum:
+              - CA
+              - FASTLY
         webSettings:
           type: object
           x-dcl-go-name: WebSettings
