@@ -18,6 +18,7 @@ import (
 	"bytes"
 	"context"
 	"io/ioutil"
+	"strconv"
 	"time"
 
 	"google.golang.org/api/googleapi"
@@ -118,15 +119,28 @@ func (c *Client) getMonitoredProjectRaw(ctx context.Context, r *MonitoredProject
 		return nil, err
 	}
 
-	b, err = dcl.ExtractElementFromList(b, "monitoredProjects", r.customMatcher(ctx, c))
+	// URL Normalize the resource to get project by short name.
+	nr := r.urlNormalized()
+	// Create a client with an empty base path so that it doesn't inherit the base path from the
+	// monitoring client.
+	cloudresourcemanagerCl := cloudresourcemanager.NewClient(c.Config.Clone(dcl.WithBasePath("")))
+	project, err := cloudresourcemanagerCl.GetProject(ctx, &cloudresourcemanager.Project{
+		Name: nr.Name,
+	})
+	if err != nil {
+		c.Config.Logger.Warningf("Could not look up project %s: %v", *nr.Name, err)
+	}
+
+	isElement := r.customMatcher(ctx, dcl.ValueOrEmptyInt64(project.ProjectNumber), c)
+	b, err = dcl.ExtractElementFromList(b, "monitoredProjects", isElement)
 	if err != nil {
 		return nil, err
 	}
 	return b, nil
 }
 
-// This resource has a custom matcher to do a lookup and convert between project ids and project numbers.
-func (r *MonitoredProject) customMatcher(ctx context.Context, c *Client) func([]byte) bool {
+// This resource has a custom matcher to do a look for a match by either project id or project number.
+func (r *MonitoredProject) customMatcher(ctx context.Context, projectNumber int64, c *Client) func([]byte) bool {
 	return func(b []byte) bool {
 		cr, err := unmarshalMonitoredProject(b, c, r)
 		if err != nil {
@@ -144,18 +158,16 @@ func (r *MonitoredProject) customMatcher(ctx context.Context, c *Client) func([]
 			c.Config.Logger.Info("Only one Name field is null - considering unequal.")
 			return false
 		}
-		// Create a client with an empty base path so that it doesn't inherit the base path from the
-		// monitoring client.
-		cloudresourcemanagerCl := cloudresourcemanager.NewClient(c.Config.Clone(dcl.WithBasePath("")))
-		project, err := cloudresourcemanagerCl.GetProject(ctx, &cloudresourcemanager.Project{
-			Name: nr.Name,
-		})
+		if *nr.Name == *ncr.Name {
+			c.Config.Logger.Info("Both Name fields equal - considering equal.")
+			return true
+		}
+		c.Config.Logger.Infof("Attempting to match %d with %s.", projectNumber, *ncr.Name)
+		iName, err := strconv.ParseInt(*ncr.Name, 10, 64)
 		if err != nil {
-			c.Config.Logger.Warningf("Could not look up project %s: %v", *nr.Name, err)
+			c.Config.Logger.Warningf("Could not convert %s to int: %v", *ncr.Name, err)
 			return false
 		}
-		projectNumber := dcl.ValueOrEmptyString(project.ProjectNumber)
-		c.Config.Logger.Infof("Attempting to match %v with %v.", projectNumber, ncr.Name)
-		return projectNumber == *ncr.Name
+		return projectNumber == iName
 	}
 }
