@@ -15,6 +15,8 @@
 package beta
 
 import (
+	"bytes"
+	"context"
 	"fmt"
 	"strings"
 
@@ -78,4 +80,46 @@ func canonicalizePolicyRulesConditionExpression(m, n interface{}) bool {
 		return false
 	}
 	return equalsPolicyRulesConditionExpression(mString, nString)
+}
+
+// Update has a custom method because the update mask needs to be in the request body.
+func (op *updatePolicyUpdatePolicyOperation) do(ctx context.Context, r *Policy, c *Client) error {
+	_, err := c.GetPolicy(ctx, r)
+	if err != nil {
+		return err
+	}
+
+	u, err := r.updateURL(c.Config.BasePath, "UpdatePolicy")
+	if err != nil {
+		return err
+	}
+
+	updateMask := "*"
+	if r.Spec != nil && r.DryRunSpec == nil {
+		updateMask = "policy.spec"
+	}
+	if r.Spec == nil && r.DryRunSpec != nil {
+		updateMask = "policy.dryRunSpec"
+	}
+	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": updateMask})
+	if err != nil {
+		return err
+	}
+
+	req, err := newUpdatePolicyUpdatePolicyRequest(ctx, r, c)
+	if err != nil {
+		return err
+	}
+
+	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
+	body, err := marshalUpdatePolicyUpdatePolicyRequest(c, req)
+	if err != nil {
+		return err
+	}
+	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

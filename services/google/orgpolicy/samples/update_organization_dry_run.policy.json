@@ -1,16 +1,8 @@
 {
-  "name": "organizations/{{org_id}}/policies/gcp.resourceLocations",
+  "name": "organizations/{{org_id}}/policies/gcp.restrictServiceUsage",
   "parent": "organizations/{{org_id}}",
   "dryRunSpec": {
-    "rules": [
-      {
-          "enforce": true
-      },
-      {
-          "allowAll": true
-      }
-    ],
     "reset": false,
-    "inheritFromParent": true
+    "inheritFromParent": false
   }
 }

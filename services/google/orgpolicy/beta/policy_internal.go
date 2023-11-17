@@ -181,35 +181,6 @@ type updatePolicyUpdatePolicyOperation struct {
 // do will transcribe a subset of the resource into a request object and send a
 // PUT request to a single URL.
 
-func (op *updatePolicyUpdatePolicyOperation) do(ctx context.Context, r *Policy, c *Client) error {
-	_, err := c.GetPolicy(ctx, r)
-	if err != nil {
-		return err
-	}
-
-	u, err := r.updateURL(c.Config.BasePath, "UpdatePolicy")
-	if err != nil {
-		return err
-	}
-
-	req, err := newUpdatePolicyUpdatePolicyRequest(ctx, r, c)
-	if err != nil {
-		return err
-	}
-
-	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
-	body, err := marshalUpdatePolicyUpdatePolicyRequest(c, req)
-	if err != nil {
-		return err
-	}
-	_, err = dcl.SendRequest(ctx, c.Config, "PATCH", u, bytes.NewBuffer(body), c.Config.RetryProvider)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
 func (c *Client) listPolicyRaw(ctx context.Context, r *Policy, pageToken string, pageSize int32) ([]byte, error) {
 	u, err := r.urlNormalized().listURL(c.Config.BasePath)
 	if err != nil {

@@ -1,13 +1,12 @@
 {
-  "name": "organizations/{{org_id}}/policies/gcp.resourceLocations",
+  "name": "organizations/{{org_id}}/policies/gcp.restrictServiceUsage",
   "parent": "organizations/{{org_id}}",
   "dryRunSpec": {
-    "rules": [
+    "rules": [ 
       {
-        "denyAll": true
+        "allowAll" : true
       }
     ],
-    "reset": true,
-    "inheritFromParent": false
+    "inheritFromParent": true
   }
 }
