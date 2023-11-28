@@ -19,7 +19,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"reflect"
 
 	"google.golang.org/api/googleapi"
@@ -113,7 +113,7 @@ func (c *Client) GetPolicy(ctx context.Context, r ResourceWithPolicy) (*Policy, 
 		return nil, err
 	}
 	defer resp.Response.Body.Close()
-	b, err := ioutil.ReadAll(resp.Response.Body)
+	b, err := io.ReadAll(resp.Response.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -163,7 +163,7 @@ func (c *Client) SetPolicyWithEtag(ctx context.Context, p *Policy) (*Policy, err
 		return nil, err
 	}
 	defer resp.Response.Body.Close()
-	respB, err := ioutil.ReadAll(resp.Response.Body)
+	respB, err := io.ReadAll(resp.Response.Body)
 	if err != nil {
 		return nil, err
 	}

@@ -18,7 +18,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"io/ioutil"
+	"io"
 	"time"
 
 	"google.golang.org/api/googleapi"
@@ -45,7 +45,7 @@ func (c *Client) getKeyStringRaw(ctx context.Context, r *Key) ([]byte, error) {
 		return nil, err
 	}
 	defer resp.Response.Body.Close()
-	b, err := ioutil.ReadAll(resp.Response.Body)
+	b, err := io.ReadAll(resp.Response.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -64,7 +64,7 @@ func (c *Client) getKeyRaw(ctx context.Context, r *Key) ([]byte, error) {
 		return nil, err
 	}
 	defer resp.Response.Body.Close()
-	b, err := ioutil.ReadAll(resp.Response.Body)
+	b, err := io.ReadAll(resp.Response.Body)
 	if err != nil {
 		return nil, err
 	}

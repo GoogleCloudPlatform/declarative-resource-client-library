@@ -19,7 +19,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"strings"
 	"time"
 
@@ -170,7 +170,7 @@ func flattenBudgetFilterProjects(c *Client, projects interface{}, _ *Budget) []s
 			return nil
 		}
 		defer resp.Response.Body.Close()
-		b, err := ioutil.ReadAll(resp.Response.Body)
+		b, err := io.ReadAll(resp.Response.Body)
 		if err != nil {
 			return nil
 		}

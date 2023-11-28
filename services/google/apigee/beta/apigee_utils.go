@@ -19,7 +19,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
@@ -59,7 +59,7 @@ func (c *Client) listOrganizationRaw(ctx context.Context, r *Organization, pageT
 		return nil, err
 	}
 	defer resp.Response.Body.Close()
-	return ioutil.ReadAll(resp.Response.Body)
+	return io.ReadAll(resp.Response.Body)
 }
 
 type listOrganizationOperation struct {
@@ -207,7 +207,7 @@ func (c *Client) listEnvironmentRaw(ctx context.Context, r *Environment, pageTok
 		return nil, err
 	}
 	defer resp.Response.Body.Close()
-	return ioutil.ReadAll(resp.Response.Body)
+	return io.ReadAll(resp.Response.Body)
 }
 
 // listEnvironment is needed because the ListEnvironments method returns a list of environment names rather than objects.

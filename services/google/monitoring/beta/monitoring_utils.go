@@ -17,7 +17,7 @@ package beta
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"strconv"
 	"time"
 
@@ -114,7 +114,7 @@ func (c *Client) getMonitoredProjectRaw(ctx context.Context, r *MonitoredProject
 		return nil, err
 	}
 	defer resp.Response.Body.Close()
-	b, err := ioutil.ReadAll(resp.Response.Body)
+	b, err := io.ReadAll(resp.Response.Body)
 	if err != nil {
 		return nil, err
 	}

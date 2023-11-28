@@ -15,7 +15,7 @@ package main
 
 import (
 	"bytes"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -173,6 +173,6 @@ func makeHTTPRequest(request *connectorpb.UnaryCallRequest) (*http.Request, erro
 		},
 		Trailer:       make(http.Header),
 		ContentLength: -1,
-		Body:          ioutil.NopCloser(bytes.NewReader(lpm)),
+		Body:          io.NopCloser(bytes.NewReader(lpm)),
 	}, nil
 }
