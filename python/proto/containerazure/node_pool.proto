@@ -57,8 +57,9 @@ message ContainerazureNodePoolConfig {
   string vm_size = 1;
   ContainerazureNodePoolConfigRootVolume root_volume = 2;
   map<string, string> tags = 3;
-  ContainerazureNodePoolConfigSshConfig ssh_config = 4;
-  ContainerazureNodePoolConfigProxyConfig proxy_config = 5;
+  map<string, string> labels = 4;
+  ContainerazureNodePoolConfigSshConfig ssh_config = 5;
+  ContainerazureNodePoolConfigProxyConfig proxy_config = 6;
 }
 
 message ContainerazureNodePoolConfigRootVolume {

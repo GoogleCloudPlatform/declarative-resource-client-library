@@ -251,12 +251,14 @@ class NodePoolConfig(object):
         vm_size: str = None,
         root_volume: dict = None,
         tags: dict = None,
+        labels: dict = None,
         ssh_config: dict = None,
         proxy_config: dict = None,
     ):
         self.vm_size = vm_size
         self.root_volume = root_volume
         self.tags = tags
+        self.labels = labels
         self.ssh_config = ssh_config
         self.proxy_config = proxy_config
 
@@ -276,6 +278,8 @@ class NodePoolConfig(object):
             res.ClearField("root_volume")
         if Primitive.to_proto(resource.tags):
             res.tags = Primitive.to_proto(resource.tags)
+        if Primitive.to_proto(resource.labels):
+            res.labels = Primitive.to_proto(resource.labels)
         if NodePoolConfigSshConfig.to_proto(resource.ssh_config):
             res.ssh_config.CopyFrom(
                 NodePoolConfigSshConfig.to_proto(resource.ssh_config)
@@ -299,6 +303,7 @@ class NodePoolConfig(object):
             vm_size=Primitive.from_proto(resource.vm_size),
             root_volume=NodePoolConfigRootVolume.from_proto(resource.root_volume),
             tags=Primitive.from_proto(resource.tags),
+            labels=Primitive.from_proto(resource.labels),
             ssh_config=NodePoolConfigSshConfig.from_proto(resource.ssh_config),
             proxy_config=NodePoolConfigProxyConfig.from_proto(resource.proxy_config),
         )

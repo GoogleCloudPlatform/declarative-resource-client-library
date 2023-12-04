@@ -60,6 +60,13 @@ func NodePoolToUnstructured(r *dclService.NodePool) *unstructured.Resource {
 		if r.Config.ImageType != nil {
 			rConfig["imageType"] = *r.Config.ImageType
 		}
+		if r.Config.Labels != nil {
+			rConfigLabels := make(map[string]interface{})
+			for k, v := range r.Config.Labels {
+				rConfigLabels[k] = v
+			}
+			rConfig["labels"] = rConfigLabels
+		}
 		if r.Config.ProxyConfig != nil && r.Config.ProxyConfig != dclService.EmptyNodePoolConfigProxyConfig {
 			rConfigProxyConfig := make(map[string]interface{})
 			if r.Config.ProxyConfig.ResourceGroupId != nil {
@@ -204,6 +211,19 @@ func UnstructuredToNodePool(u *unstructured.Resource) (*dclService.NodePool, err
 					r.Config.ImageType = dcl.String(s)
 				} else {
 					return nil, fmt.Errorf("r.Config.ImageType: expected string")
+				}
+			}
+			if _, ok := rConfig["labels"]; ok {
+				if rConfigLabels, ok := rConfig["labels"].(map[string]interface{}); ok {
+					m := make(map[string]string)
+					for k, v := range rConfigLabels {
+						if s, ok := v.(string); ok {
+							m[k] = s
+						}
+					}
+					r.Config.Labels = m
+				} else {
+					return nil, fmt.Errorf("r.Config.Labels: expected map[string]interface{}")
 				}
 			}
 			if _, ok := rConfig["proxyConfig"]; ok {

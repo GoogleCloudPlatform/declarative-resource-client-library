@@ -759,6 +759,12 @@ func canonicalizeNodePoolConfig(des, initial *NodePoolConfig, opts ...dcl.ApplyO
 	} else {
 		cDes.Tags = des.Tags
 	}
+	if dcl.IsZeroValue(des.Labels) || (dcl.IsEmptyValueIndirect(des.Labels) && dcl.IsEmptyValueIndirect(initial.Labels)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.Labels = initial.Labels
+	} else {
+		cDes.Labels = des.Labels
+	}
 	cDes.SshConfig = canonicalizeNodePoolConfigSshConfig(des.SshConfig, initial.SshConfig, opts...)
 	cDes.ProxyConfig = canonicalizeNodePoolConfigProxyConfig(des.ProxyConfig, initial.ProxyConfig, opts...)
 
@@ -1766,6 +1772,13 @@ func compareNodePoolConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.F
 		diffs = append(diffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.SshConfig, actual.SshConfig, dcl.DiffInfo{ObjectFunction: compareNodePoolConfigSshConfigNewStyle, EmptyObject: EmptyNodePoolConfigSshConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("SshConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -2228,6 +2241,9 @@ func expandNodePoolConfig(c *Client, f *NodePoolConfig, res *NodePool) (map[stri
 	if v := f.Tags; !dcl.IsEmptyValueIndirect(v) {
 		m["tags"] = v
 	}
+	if v := f.Labels; !dcl.IsEmptyValueIndirect(v) {
+		m["labels"] = v
+	}
 	if v, err := expandNodePoolConfigSshConfig(c, f.SshConfig, res); err != nil {
 		return nil, fmt.Errorf("error expanding SshConfig into sshConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -2258,6 +2274,7 @@ func flattenNodePoolConfig(c *Client, i interface{}, res *NodePool) *NodePoolCon
 	r.VmSize = dcl.FlattenString(m["vmSize"])
 	r.RootVolume = flattenNodePoolConfigRootVolume(c, m["rootVolume"], res)
 	r.Tags = dcl.FlattenKeyValuePairs(m["tags"])
+	r.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	r.SshConfig = flattenNodePoolConfigSshConfig(c, m["sshConfig"], res)
 	r.ProxyConfig = flattenNodePoolConfigProxyConfig(c, m["proxyConfig"], res)
 

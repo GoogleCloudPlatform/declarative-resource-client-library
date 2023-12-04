@@ -81,6 +81,7 @@ type NodePoolConfig struct {
 	VmSize      *string                    `json:"vmSize"`
 	RootVolume  *NodePoolConfigRootVolume  `json:"rootVolume"`
 	Tags        map[string]string          `json:"tags"`
+	Labels      map[string]string          `json:"labels"`
 	SshConfig   *NodePoolConfigSshConfig   `json:"sshConfig"`
 	ImageType   *string                    `json:"imageType"`
 	ProxyConfig *NodePoolConfigProxyConfig `json:"proxyConfig"`
@@ -106,6 +107,8 @@ func (r *NodePoolConfig) UnmarshalJSON(data []byte) error {
 		r.RootVolume = res.RootVolume
 
 		r.Tags = res.Tags
+
+		r.Labels = res.Labels
 
 		r.SshConfig = res.SshConfig
 

@@ -57,6 +57,13 @@ func NodePoolToUnstructured(r *dclService.NodePool) *unstructured.Resource {
 	}
 	if r.Config != nil && r.Config != dclService.EmptyNodePoolConfig {
 		rConfig := make(map[string]interface{})
+		if r.Config.Labels != nil {
+			rConfigLabels := make(map[string]interface{})
+			for k, v := range r.Config.Labels {
+				rConfigLabels[k] = v
+			}
+			rConfig["labels"] = rConfigLabels
+		}
 		if r.Config.ProxyConfig != nil && r.Config.ProxyConfig != dclService.EmptyNodePoolConfigProxyConfig {
 			rConfigProxyConfig := make(map[string]interface{})
 			if r.Config.ProxyConfig.ResourceGroupId != nil {
@@ -196,6 +203,19 @@ func UnstructuredToNodePool(u *unstructured.Resource) (*dclService.NodePool, err
 	if _, ok := u.Object["config"]; ok {
 		if rConfig, ok := u.Object["config"].(map[string]interface{}); ok {
 			r.Config = &dclService.NodePoolConfig{}
+			if _, ok := rConfig["labels"]; ok {
+				if rConfigLabels, ok := rConfig["labels"].(map[string]interface{}); ok {
+					m := make(map[string]string)
+					for k, v := range rConfigLabels {
+						if s, ok := v.(string); ok {
+							m[k] = s
+						}
+					}
+					r.Config.Labels = m
+				} else {
+					return nil, fmt.Errorf("r.Config.Labels: expected map[string]interface{}")
+				}
+			}
 			if _, ok := rConfig["proxyConfig"]; ok {
 				if rConfigProxyConfig, ok := rConfig["proxyConfig"].(map[string]interface{}); ok {
 					r.Config.ProxyConfig = &dclService.NodePoolConfigProxyConfig{}

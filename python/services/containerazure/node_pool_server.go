@@ -168,6 +168,11 @@ func ContainerazureNodePoolConfigToProto(o *containerazure.NodePoolConfig) *cont
 		mTags[k] = r
 	}
 	p.SetTags(mTags)
+	mLabels := make(map[string]string, len(o.Labels))
+	for k, r := range o.Labels {
+		mLabels[k] = r
+	}
+	p.SetLabels(mLabels)
 	return p
 }
 
