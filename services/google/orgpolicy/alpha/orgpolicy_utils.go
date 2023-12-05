@@ -95,10 +95,10 @@ func (op *updatePolicyUpdatePolicyOperation) do(ctx context.Context, r *Policy, 
 	}
 
 	updateMask := "*"
-	if r.Spec != nil && r.DryRunSpec == nil {
+	if (r.Spec != nil && !r.Spec.Empty()) && (r.DryRunSpec == nil || r.DryRunSpec.Empty()) {
 		updateMask = "policy.spec"
 	}
-	if r.Spec == nil && r.DryRunSpec != nil {
+	if (r.DryRunSpec != nil && !r.DryRunSpec.Empty()) && (r.Spec == nil || r.Spec.Empty()) {
 		updateMask = "policy.dryRunSpec"
 	}
 	u, err = dcl.AddQueryParams(u, map[string]string{"updateMask": updateMask})
