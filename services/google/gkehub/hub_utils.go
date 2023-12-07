@@ -271,3 +271,107 @@ func (op *deleteFeatureMembershipOperation) do(ctx context.Context, r *FeatureMe
 func CompareFeatureMembershipConfigmanagementHierarchyControllerNewStyle(d, a any, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	return compareFeatureMembershipConfigmanagementHierarchyControllerNewStyle(d, a, fn)
 }
+
+// This function behaves the same way as the generated diff function, except that it explicitly
+// checks for emptiness as well.
+func emptyHNCSameAsAllFalse(d, a any) bool {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*FeatureMembershipConfigmanagementHierarchyController)
+	if !ok {
+		desiredNotPointer, ok := d.(FeatureMembershipConfigmanagementHierarchyController)
+		if !ok {
+			fmt.Printf("obj %v is not a FeatureMembershipConfigmanagementHierarchyController or *FeatureMembershipConfigmanagementHierarchyController\n", d)
+			return false
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*FeatureMembershipConfigmanagementHierarchyController)
+	if !ok {
+		actualNotPointer, ok := a.(FeatureMembershipConfigmanagementHierarchyController)
+		if !ok {
+			fmt.Printf("obj %v is not a FeatureMembershipConfigmanagementHierarchyController\n", a)
+			return false
+		}
+		actual = &actualNotPointer
+	}
+
+	if actual == nil && desired == nil {
+		return true
+	}
+	if actual == nil || desired == nil {
+		return false
+	}
+
+	if ds, err := dcl.Diff(desired.Enabled, actual.Enabled, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, dcl.FieldName{FieldName: "Enabled"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			fmt.Print(err)
+			return false
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnablePodTreeLabels, actual.EnablePodTreeLabels, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, dcl.FieldName{FieldName: "EnablePodTreeLabels"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			fmt.Print(err)
+			return false
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnableHierarchicalResourceQuota, actual.EnableHierarchicalResourceQuota, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, dcl.FieldName{FieldName: "EnableHierarchicalResourceQuota"}); len(ds) != 0 || err != nil {
+		if err != nil {
+			fmt.Print(err)
+			return false
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if len(diffs) > 0 {
+		return false
+	}
+
+	if desired.Empty() != actual.Empty() {
+		return false
+	}
+	return true
+}
+
+func flattenHierarchyControllerConfig(c *Client, i any, v *FeatureMembership) *FeatureMembershipConfigmanagementHierarchyController {
+	m, ok := i.(map[string]any)
+	if !ok {
+		return nil
+	}
+
+	r := &FeatureMembershipConfigmanagementHierarchyController{}
+
+	// Compared to the generated code, we removed the part where we skip flattening the API response
+	// if the return value is empty (i.e. HNC = {}). This is because the Hub API returns the same
+	// empty object for both {} (empty config) and {fieldA: false, fieldB: false, fieldC: false}. We
+	// always flatten the response into the latter form i.e. explicitly stating false values, so that
+	// it fits more easily into the declarative pattern and avoids a permadiff bug.
+	r.Enabled = dcl.FlattenBool(m["enabled"])
+	r.EnablePodTreeLabels = dcl.FlattenBool(m["enablePodTreeLabels"])
+	r.EnableHierarchicalResourceQuota = dcl.FlattenBool(m["enableHierarchicalResourceQuota"])
+
+	return r
+}
+
+func expandHierarchyControllerConfig(c *Client, f *FeatureMembershipConfigmanagementHierarchyController, res *FeatureMembership) (map[string]any, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]any)
+	if v := f.Enabled; !dcl.IsEmptyValueIndirect(v) {
+		m["enabled"] = v
+	}
+	if v := f.EnablePodTreeLabels; !dcl.IsEmptyValueIndirect(v) {
+		m["enablePodTreeLabels"] = v
+	}
+	if v := f.EnableHierarchicalResourceQuota; !dcl.IsEmptyValueIndirect(v) {
+		m["enableHierarchicalResourceQuota"] = v
+	}
+
+	return m, nil
+}

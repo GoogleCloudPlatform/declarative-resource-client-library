@@ -221,20 +221,24 @@ components:
               x-dcl-go-name: HierarchyController
               x-dcl-go-type: FeatureMembershipConfigmanagementHierarchyController
               description: Hierarchy Controller configuration for the cluster.
+              x-dcl-send-empty: true
               properties:
                 enableHierarchicalResourceQuota:
                   type: boolean
                   x-dcl-go-name: EnableHierarchicalResourceQuota
                   description: Whether hierarchical resource quota is enabled in this
                     cluster.
+                  x-dcl-send-empty: true
                 enablePodTreeLabels:
                   type: boolean
                   x-dcl-go-name: EnablePodTreeLabels
                   description: Whether pod tree labels are enabled in this cluster.
+                  x-dcl-send-empty: true
                 enabled:
                   type: boolean
                   x-dcl-go-name: Enabled
                   description: Whether Hierarchy Controller is enabled in this cluster.
+                  x-dcl-send-empty: true
             policyController:
               type: object
               x-dcl-go-name: PolicyController

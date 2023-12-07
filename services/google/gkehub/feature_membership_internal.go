@@ -1506,7 +1506,7 @@ func canonicalizeFeatureMembershipConfigmanagementHierarchyController(des, initi
 }
 
 func canonicalizeFeatureMembershipConfigmanagementHierarchyControllerSlice(des, initial []FeatureMembershipConfigmanagementHierarchyController, opts ...dcl.ApplyOption) []FeatureMembershipConfigmanagementHierarchyController {
-	if dcl.IsEmptyValueIndirect(des) {
+	if des == nil {
 		return initial
 	}
 
@@ -1755,7 +1755,7 @@ func compareFeatureMembershipConfigmanagementNewStyle(d, a interface{}, fn dcl.F
 		diffs = append(diffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.HierarchyController, actual.HierarchyController, dcl.DiffInfo{ObjectFunction: compareFeatureMembershipConfigmanagementHierarchyControllerNewStyle, EmptyObject: EmptyFeatureMembershipConfigmanagementHierarchyController, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HierarchyController")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.HierarchyController, actual.HierarchyController, dcl.DiffInfo{ObjectFunction: compareFeatureMembershipConfigmanagementHierarchyControllerNewStyle, EmptyObject: EmptyFeatureMembershipConfigmanagementHierarchyController, CustomDiff: emptyHNCSameAsAllFalse, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("HierarchyController")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2489,9 +2489,9 @@ func expandFeatureMembershipConfigmanagement(c *Client, f *FeatureMembershipConf
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["binauthz"] = v
 	}
-	if v, err := expandFeatureMembershipConfigmanagementHierarchyController(c, f.HierarchyController, res); err != nil {
+	if v, err := expandHierarchyControllerConfig(c, f.HierarchyController, res); err != nil {
 		return nil, fmt.Errorf("error expanding HierarchyController into hierarchyController: %w", err)
-	} else if !dcl.IsEmptyValueIndirect(v) {
+	} else if v != nil {
 		m["hierarchyController"] = v
 	}
 	if v := f.Version; !dcl.IsEmptyValueIndirect(v) {
@@ -2517,7 +2517,7 @@ func flattenFeatureMembershipConfigmanagement(c *Client, i interface{}, res *Fea
 	r.ConfigSync = flattenFeatureMembershipConfigmanagementConfigSync(c, m["configSync"], res)
 	r.PolicyController = flattenFeatureMembershipConfigmanagementPolicyController(c, m["policyController"], res)
 	r.Binauthz = flattenFeatureMembershipConfigmanagementBinauthz(c, m["binauthz"], res)
-	r.HierarchyController = flattenFeatureMembershipConfigmanagementHierarchyController(c, m["hierarchyController"], res)
+	r.HierarchyController = flattenHierarchyControllerConfig(c, m["hierarchyController"], res)
 	r.Version = dcl.FlattenString(m["version"])
 
 	return r
@@ -3385,18 +3385,18 @@ func flattenFeatureMembershipConfigmanagementHierarchyControllerSlice(c *Client,
 // expandFeatureMembershipConfigmanagementHierarchyController expands an instance of FeatureMembershipConfigmanagementHierarchyController into a JSON
 // request object.
 func expandFeatureMembershipConfigmanagementHierarchyController(c *Client, f *FeatureMembershipConfigmanagementHierarchyController, res *FeatureMembership) (map[string]interface{}, error) {
-	if dcl.IsEmptyValueIndirect(f) {
+	if f == nil {
 		return nil, nil
 	}
 
 	m := make(map[string]interface{})
-	if v := f.Enabled; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.Enabled; v != nil {
 		m["enabled"] = v
 	}
-	if v := f.EnablePodTreeLabels; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.EnablePodTreeLabels; v != nil {
 		m["enablePodTreeLabels"] = v
 	}
-	if v := f.EnableHierarchicalResourceQuota; !dcl.IsEmptyValueIndirect(v) {
+	if v := f.EnableHierarchicalResourceQuota; v != nil {
 		m["enableHierarchicalResourceQuota"] = v
 	}
 

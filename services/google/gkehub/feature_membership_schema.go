@@ -272,21 +272,25 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 										GoName:      "HierarchyController",
 										GoType:      "FeatureMembershipConfigmanagementHierarchyController",
 										Description: "Hierarchy Controller configuration for the cluster.",
+										SendEmpty:   true,
 										Properties: map[string]*dcl.Property{
 											"enableHierarchicalResourceQuota": &dcl.Property{
 												Type:        "boolean",
 												GoName:      "EnableHierarchicalResourceQuota",
 												Description: "Whether hierarchical resource quota is enabled in this cluster.",
+												SendEmpty:   true,
 											},
 											"enablePodTreeLabels": &dcl.Property{
 												Type:        "boolean",
 												GoName:      "EnablePodTreeLabels",
 												Description: "Whether pod tree labels are enabled in this cluster.",
+												SendEmpty:   true,
 											},
 											"enabled": &dcl.Property{
 												Type:        "boolean",
 												GoName:      "Enabled",
 												Description: "Whether Hierarchy Controller is enabled in this cluster.",
+												SendEmpty:   true,
 											},
 										},
 									},
