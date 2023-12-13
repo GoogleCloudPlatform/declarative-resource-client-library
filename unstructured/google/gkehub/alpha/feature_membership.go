@@ -177,6 +177,60 @@ func FeatureMembershipToUnstructured(r *dclService.FeatureMembership) *unstructu
 		}
 		u.Object["mesh"] = rMesh
 	}
+	if r.Policycontroller != nil && r.Policycontroller != dclService.EmptyFeatureMembershipPolicycontroller {
+		rPolicycontroller := make(map[string]interface{})
+		if r.Policycontroller.PolicyControllerHubConfig != nil && r.Policycontroller.PolicyControllerHubConfig != dclService.EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfig {
+			rPolicycontrollerPolicyControllerHubConfig := make(map[string]interface{})
+			if r.Policycontroller.PolicyControllerHubConfig.AuditIntervalSeconds != nil {
+				rPolicycontrollerPolicyControllerHubConfig["auditIntervalSeconds"] = *r.Policycontroller.PolicyControllerHubConfig.AuditIntervalSeconds
+			}
+			if r.Policycontroller.PolicyControllerHubConfig.ConstraintViolationLimit != nil {
+				rPolicycontrollerPolicyControllerHubConfig["constraintViolationLimit"] = *r.Policycontroller.PolicyControllerHubConfig.ConstraintViolationLimit
+			}
+			var rPolicycontrollerPolicyControllerHubConfigExemptableNamespaces []interface{}
+			for _, rPolicycontrollerPolicyControllerHubConfigExemptableNamespacesVal := range r.Policycontroller.PolicyControllerHubConfig.ExemptableNamespaces {
+				rPolicycontrollerPolicyControllerHubConfigExemptableNamespaces = append(rPolicycontrollerPolicyControllerHubConfigExemptableNamespaces, rPolicycontrollerPolicyControllerHubConfigExemptableNamespacesVal)
+			}
+			rPolicycontrollerPolicyControllerHubConfig["exemptableNamespaces"] = rPolicycontrollerPolicyControllerHubConfigExemptableNamespaces
+			if r.Policycontroller.PolicyControllerHubConfig.InstallSpec != nil {
+				rPolicycontrollerPolicyControllerHubConfig["installSpec"] = string(*r.Policycontroller.PolicyControllerHubConfig.InstallSpec)
+			}
+			if r.Policycontroller.PolicyControllerHubConfig.LogDeniesEnabled != nil {
+				rPolicycontrollerPolicyControllerHubConfig["logDeniesEnabled"] = *r.Policycontroller.PolicyControllerHubConfig.LogDeniesEnabled
+			}
+			if r.Policycontroller.PolicyControllerHubConfig.Monitoring != nil && r.Policycontroller.PolicyControllerHubConfig.Monitoring != dclService.EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring {
+				rPolicycontrollerPolicyControllerHubConfigMonitoring := make(map[string]interface{})
+				var rPolicycontrollerPolicyControllerHubConfigMonitoringBackends []interface{}
+				for _, rPolicycontrollerPolicyControllerHubConfigMonitoringBackendsVal := range r.Policycontroller.PolicyControllerHubConfig.Monitoring.Backends {
+					rPolicycontrollerPolicyControllerHubConfigMonitoringBackends = append(rPolicycontrollerPolicyControllerHubConfigMonitoringBackends, string(rPolicycontrollerPolicyControllerHubConfigMonitoringBackendsVal))
+				}
+				rPolicycontrollerPolicyControllerHubConfigMonitoring["backends"] = rPolicycontrollerPolicyControllerHubConfigMonitoringBackends
+				rPolicycontrollerPolicyControllerHubConfig["monitoring"] = rPolicycontrollerPolicyControllerHubConfigMonitoring
+			}
+			if r.Policycontroller.PolicyControllerHubConfig.MutationEnabled != nil {
+				rPolicycontrollerPolicyControllerHubConfig["mutationEnabled"] = *r.Policycontroller.PolicyControllerHubConfig.MutationEnabled
+			}
+			if r.Policycontroller.PolicyControllerHubConfig.PolicyContent != nil && r.Policycontroller.PolicyControllerHubConfig.PolicyContent != dclService.EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent {
+				rPolicycontrollerPolicyControllerHubConfigPolicyContent := make(map[string]interface{})
+				if r.Policycontroller.PolicyControllerHubConfig.PolicyContent.TemplateLibrary != nil && r.Policycontroller.PolicyControllerHubConfig.PolicyContent.TemplateLibrary != dclService.EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary {
+					rPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary := make(map[string]interface{})
+					if r.Policycontroller.PolicyControllerHubConfig.PolicyContent.TemplateLibrary.Installation != nil {
+						rPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary["installation"] = string(*r.Policycontroller.PolicyControllerHubConfig.PolicyContent.TemplateLibrary.Installation)
+					}
+					rPolicycontrollerPolicyControllerHubConfigPolicyContent["templateLibrary"] = rPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary
+				}
+				rPolicycontrollerPolicyControllerHubConfig["policyContent"] = rPolicycontrollerPolicyControllerHubConfigPolicyContent
+			}
+			if r.Policycontroller.PolicyControllerHubConfig.ReferentialRulesEnabled != nil {
+				rPolicycontrollerPolicyControllerHubConfig["referentialRulesEnabled"] = *r.Policycontroller.PolicyControllerHubConfig.ReferentialRulesEnabled
+			}
+			rPolicycontroller["policyControllerHubConfig"] = rPolicycontrollerPolicyControllerHubConfig
+		}
+		if r.Policycontroller.Version != nil {
+			rPolicycontroller["version"] = *r.Policycontroller.Version
+		}
+		u.Object["policycontroller"] = rPolicycontroller
+	}
 	if r.Project != nil {
 		u.Object["project"] = *r.Project
 	}
@@ -499,6 +553,119 @@ func UnstructuredToFeatureMembership(u *unstructured.Resource) (*dclService.Feat
 			}
 		} else {
 			return nil, fmt.Errorf("r.Mesh: expected map[string]interface{}")
+		}
+	}
+	if _, ok := u.Object["policycontroller"]; ok {
+		if rPolicycontroller, ok := u.Object["policycontroller"].(map[string]interface{}); ok {
+			r.Policycontroller = &dclService.FeatureMembershipPolicycontroller{}
+			if _, ok := rPolicycontroller["policyControllerHubConfig"]; ok {
+				if rPolicycontrollerPolicyControllerHubConfig, ok := rPolicycontroller["policyControllerHubConfig"].(map[string]interface{}); ok {
+					r.Policycontroller.PolicyControllerHubConfig = &dclService.FeatureMembershipPolicycontrollerPolicyControllerHubConfig{}
+					if _, ok := rPolicycontrollerPolicyControllerHubConfig["auditIntervalSeconds"]; ok {
+						if i, ok := rPolicycontrollerPolicyControllerHubConfig["auditIntervalSeconds"].(int64); ok {
+							r.Policycontroller.PolicyControllerHubConfig.AuditIntervalSeconds = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("r.Policycontroller.PolicyControllerHubConfig.AuditIntervalSeconds: expected int64")
+						}
+					}
+					if _, ok := rPolicycontrollerPolicyControllerHubConfig["constraintViolationLimit"]; ok {
+						if i, ok := rPolicycontrollerPolicyControllerHubConfig["constraintViolationLimit"].(int64); ok {
+							r.Policycontroller.PolicyControllerHubConfig.ConstraintViolationLimit = dcl.Int64(i)
+						} else {
+							return nil, fmt.Errorf("r.Policycontroller.PolicyControllerHubConfig.ConstraintViolationLimit: expected int64")
+						}
+					}
+					if _, ok := rPolicycontrollerPolicyControllerHubConfig["exemptableNamespaces"]; ok {
+						if s, ok := rPolicycontrollerPolicyControllerHubConfig["exemptableNamespaces"].([]interface{}); ok {
+							for _, ss := range s {
+								if strval, ok := ss.(string); ok {
+									r.Policycontroller.PolicyControllerHubConfig.ExemptableNamespaces = append(r.Policycontroller.PolicyControllerHubConfig.ExemptableNamespaces, strval)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Policycontroller.PolicyControllerHubConfig.ExemptableNamespaces: expected []interface{}")
+						}
+					}
+					if _, ok := rPolicycontrollerPolicyControllerHubConfig["installSpec"]; ok {
+						if s, ok := rPolicycontrollerPolicyControllerHubConfig["installSpec"].(string); ok {
+							r.Policycontroller.PolicyControllerHubConfig.InstallSpec = dclService.FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnumRef(s)
+						} else {
+							return nil, fmt.Errorf("r.Policycontroller.PolicyControllerHubConfig.InstallSpec: expected string")
+						}
+					}
+					if _, ok := rPolicycontrollerPolicyControllerHubConfig["logDeniesEnabled"]; ok {
+						if b, ok := rPolicycontrollerPolicyControllerHubConfig["logDeniesEnabled"].(bool); ok {
+							r.Policycontroller.PolicyControllerHubConfig.LogDeniesEnabled = dcl.Bool(b)
+						} else {
+							return nil, fmt.Errorf("r.Policycontroller.PolicyControllerHubConfig.LogDeniesEnabled: expected bool")
+						}
+					}
+					if _, ok := rPolicycontrollerPolicyControllerHubConfig["monitoring"]; ok {
+						if rPolicycontrollerPolicyControllerHubConfigMonitoring, ok := rPolicycontrollerPolicyControllerHubConfig["monitoring"].(map[string]interface{}); ok {
+							r.Policycontroller.PolicyControllerHubConfig.Monitoring = &dclService.FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring{}
+							if _, ok := rPolicycontrollerPolicyControllerHubConfigMonitoring["backends"]; ok {
+								if s, ok := rPolicycontrollerPolicyControllerHubConfigMonitoring["backends"].([]interface{}); ok {
+									for _, ss := range s {
+										if strval, ok := ss.(string); ok {
+											r.Policycontroller.PolicyControllerHubConfig.Monitoring.Backends = append(r.Policycontroller.PolicyControllerHubConfig.Monitoring.Backends, dclService.FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum(strval))
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("r.Policycontroller.PolicyControllerHubConfig.Monitoring.Backends: expected []interface{}")
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Policycontroller.PolicyControllerHubConfig.Monitoring: expected map[string]interface{}")
+						}
+					}
+					if _, ok := rPolicycontrollerPolicyControllerHubConfig["mutationEnabled"]; ok {
+						if b, ok := rPolicycontrollerPolicyControllerHubConfig["mutationEnabled"].(bool); ok {
+							r.Policycontroller.PolicyControllerHubConfig.MutationEnabled = dcl.Bool(b)
+						} else {
+							return nil, fmt.Errorf("r.Policycontroller.PolicyControllerHubConfig.MutationEnabled: expected bool")
+						}
+					}
+					if _, ok := rPolicycontrollerPolicyControllerHubConfig["policyContent"]; ok {
+						if rPolicycontrollerPolicyControllerHubConfigPolicyContent, ok := rPolicycontrollerPolicyControllerHubConfig["policyContent"].(map[string]interface{}); ok {
+							r.Policycontroller.PolicyControllerHubConfig.PolicyContent = &dclService.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent{}
+							if _, ok := rPolicycontrollerPolicyControllerHubConfigPolicyContent["templateLibrary"]; ok {
+								if rPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary, ok := rPolicycontrollerPolicyControllerHubConfigPolicyContent["templateLibrary"].(map[string]interface{}); ok {
+									r.Policycontroller.PolicyControllerHubConfig.PolicyContent.TemplateLibrary = &dclService.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary{}
+									if _, ok := rPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary["installation"]; ok {
+										if s, ok := rPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary["installation"].(string); ok {
+											r.Policycontroller.PolicyControllerHubConfig.PolicyContent.TemplateLibrary.Installation = dclService.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnumRef(s)
+										} else {
+											return nil, fmt.Errorf("r.Policycontroller.PolicyControllerHubConfig.PolicyContent.TemplateLibrary.Installation: expected string")
+										}
+									}
+								} else {
+									return nil, fmt.Errorf("r.Policycontroller.PolicyControllerHubConfig.PolicyContent.TemplateLibrary: expected map[string]interface{}")
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Policycontroller.PolicyControllerHubConfig.PolicyContent: expected map[string]interface{}")
+						}
+					}
+					if _, ok := rPolicycontrollerPolicyControllerHubConfig["referentialRulesEnabled"]; ok {
+						if b, ok := rPolicycontrollerPolicyControllerHubConfig["referentialRulesEnabled"].(bool); ok {
+							r.Policycontroller.PolicyControllerHubConfig.ReferentialRulesEnabled = dcl.Bool(b)
+						} else {
+							return nil, fmt.Errorf("r.Policycontroller.PolicyControllerHubConfig.ReferentialRulesEnabled: expected bool")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Policycontroller.PolicyControllerHubConfig: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rPolicycontroller["version"]; ok {
+				if s, ok := rPolicycontroller["version"].(string); ok {
+					r.Policycontroller.Version = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.Policycontroller.Version: expected string")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.Policycontroller: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["project"]; ok {

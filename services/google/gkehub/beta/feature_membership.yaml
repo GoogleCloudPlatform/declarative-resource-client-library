@@ -373,6 +373,129 @@ components:
               - MANAGEMENT_UNSPECIFIED
               - MANAGEMENT_AUTOMATIC
               - MANAGEMENT_MANUAL
+        policycontroller:
+          type: object
+          x-dcl-go-name: Policycontroller
+          x-dcl-go-type: FeatureMembershipPolicycontroller
+          description: Policy Controller-specific spec.
+          required:
+          - policyControllerHubConfig
+          properties:
+            policyControllerHubConfig:
+              type: object
+              x-dcl-go-name: PolicyControllerHubConfig
+              x-dcl-go-type: FeatureMembershipPolicycontrollerPolicyControllerHubConfig
+              description: Policy Controller configuration for the cluster.
+              properties:
+                auditIntervalSeconds:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: AuditIntervalSeconds
+                  description: Sets the interval for Policy Controller Audit Scans
+                    (in seconds). When set to 0, this disables audit functionality
+                    altogether.
+                constraintViolationLimit:
+                  type: integer
+                  format: int64
+                  x-dcl-go-name: ConstraintViolationLimit
+                  description: The maximum number of audit violations to be stored
+                    in a constraint. If not set, the internal default of 20 will be
+                    used.
+                exemptableNamespaces:
+                  type: array
+                  x-dcl-go-name: ExemptableNamespaces
+                  description: The set of namespaces that are excluded from Policy
+                    Controller checks. Namespaces do not need to currently exist on
+                    the cluster.
+                  x-dcl-send-empty: true
+                  x-dcl-list-type: list
+                  items:
+                    type: string
+                    x-dcl-go-type: string
+                installSpec:
+                  type: string
+                  x-dcl-go-name: InstallSpec
+                  x-dcl-go-type: FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum
+                  description: 'Configures the mode of the Policy Controller installation.
+                    Possible values: INSTALL_SPEC_UNSPECIFIED, INSTALL_SPEC_NOT_INSTALLED,
+                    INSTALL_SPEC_ENABLED, INSTALL_SPEC_SUSPENDED, INSTALL_SPEC_DETACHED'
+                  enum:
+                  - INSTALL_SPEC_UNSPECIFIED
+                  - INSTALL_SPEC_NOT_INSTALLED
+                  - INSTALL_SPEC_ENABLED
+                  - INSTALL_SPEC_SUSPENDED
+                  - INSTALL_SPEC_DETACHED
+                logDeniesEnabled:
+                  type: boolean
+                  x-dcl-go-name: LogDeniesEnabled
+                  description: Logs all denies and dry run failures.
+                monitoring:
+                  type: object
+                  x-dcl-go-name: Monitoring
+                  x-dcl-go-type: FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring
+                  description: 'Specifies the backends Policy Controller should export
+                    metrics to. For example, to specify metrics should be exported
+                    to Cloud Monitoring and Prometheus, specify backends: ["cloudmonitoring",
+                    "prometheus"]. Default: ["cloudmonitoring", "prometheus"]'
+                  x-dcl-server-default: true
+                  properties:
+                    backends:
+                      type: array
+                      x-dcl-go-name: Backends
+                      description: ' Specifies the list of backends Policy Controller
+                        will export to. Specifying an empty value `[]` disables metrics
+                        export.'
+                      x-dcl-server-default: true
+                      x-dcl-send-empty: true
+                      x-dcl-list-type: list
+                      items:
+                        type: string
+                        x-dcl-go-type: FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum
+                        enum:
+                        - MONITORING_BACKEND_UNSPECIFIED
+                        - PROMETHEUS
+                        - CLOUD_MONITORING
+                mutationEnabled:
+                  type: boolean
+                  x-dcl-go-name: MutationEnabled
+                  description: Enables the ability to mutate resources using Policy
+                    Controller.
+                policyContent:
+                  type: object
+                  x-dcl-go-name: PolicyContent
+                  x-dcl-go-type: FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent
+                  description: Specifies the desired policy content on the cluster.
+                  x-dcl-server-default: true
+                  properties:
+                    templateLibrary:
+                      type: object
+                      x-dcl-go-name: TemplateLibrary
+                      x-dcl-go-type: FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary
+                      description: Configures the installation of the Template Library.
+                      x-dcl-server-default: true
+                      properties:
+                        installation:
+                          type: string
+                          x-dcl-go-name: Installation
+                          x-dcl-go-type: FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum
+                          description: 'Configures the manner in which the template
+                            library is installed on the cluster. Possible values:
+                            INSTALLATION_UNSPECIFIED, NOT_INSTALLED, ALL'
+                          enum:
+                          - INSTALLATION_UNSPECIFIED
+                          - NOT_INSTALLED
+                          - ALL
+                referentialRulesEnabled:
+                  type: boolean
+                  x-dcl-go-name: ReferentialRulesEnabled
+                  description: Enables the ability to use Constraint Templates that
+                    reference to objects other than the object currently being evaluated.
+            version:
+              type: string
+              x-dcl-go-name: Version
+              description: Optional. Version of Policy Controller to install. Defaults
+                to the latest version.
+              x-dcl-server-default: true
         project:
           type: string
           x-dcl-go-name: Project

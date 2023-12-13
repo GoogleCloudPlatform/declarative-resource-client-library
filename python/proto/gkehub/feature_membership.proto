@@ -42,14 +42,38 @@ enum GkehubFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEn
   GkehubFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnumCLOUD_MONITORING = 3;
 }
 
+enum GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum {
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnumNO_VALUE_DO_NOT_USE = 0;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnumINSTALL_SPEC_UNSPECIFIED = 1;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnumINSTALL_SPEC_NOT_INSTALLED = 2;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnumINSTALL_SPEC_ENABLED = 3;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnumINSTALL_SPEC_SUSPENDED = 4;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnumINSTALL_SPEC_DETACHED = 5;
+}
+
+enum GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum {
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnumNO_VALUE_DO_NOT_USE = 0;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnumMONITORING_BACKEND_UNSPECIFIED = 1;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnumPROMETHEUS = 2;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnumCLOUD_MONITORING = 3;
+}
+
+enum GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum {
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnumNO_VALUE_DO_NOT_USE = 0;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnumINSTALLATION_UNSPECIFIED = 1;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnumNOT_INSTALLED = 2;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnumALL = 3;
+}
+
 message GkehubFeatureMembership {
   GkehubFeatureMembershipMesh mesh = 1;
   GkehubFeatureMembershipConfigmanagement configmanagement = 2;
-  string project = 3;
-  string location = 4;
-  string feature = 5;
-  string membership = 6;
-  string membership_location = 7;
+  GkehubFeatureMembershipPolicycontroller policycontroller = 3;
+  string project = 4;
+  string location = 5;
+  string feature = 6;
+  string membership = 7;
+  string membership_location = 8;
 }
 
 message GkehubFeatureMembershipMesh {
@@ -115,6 +139,35 @@ message GkehubFeatureMembershipConfigmanagementHierarchyController {
   bool enabled = 1;
   bool enable_pod_tree_labels = 2;
   bool enable_hierarchical_resource_quota = 3;
+}
+
+message GkehubFeatureMembershipPolicycontroller {
+  string version = 1;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfig policy_controller_hub_config = 2;
+}
+
+message GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfig {
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum install_spec = 1;
+  repeated string exemptable_namespaces = 2;
+  bool referential_rules_enabled = 3;
+  bool log_denies_enabled = 4;
+  bool mutation_enabled = 5;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring monitoring = 6;
+  int64 audit_interval_seconds = 7;
+  int64 constraint_violation_limit = 8;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent policy_content = 9;
+}
+
+message GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring {
+  repeated GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum backends = 1;
+}
+
+message GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent {
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary template_library = 1;
+}
+
+message GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary {
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum installation = 1;
 }
 
 message ApplyGkehubFeatureMembershipRequest {

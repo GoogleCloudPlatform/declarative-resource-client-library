@@ -60,6 +60,42 @@ func ProtoToGkehubBetaFeatureMembershipConfigmanagementPolicyControllerMonitorin
 	return nil
 }
 
+// ProtoToFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum enum from its proto representation.
+func ProtoToGkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum(e betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum) *beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum_name[int32(e)]; ok {
+		e := beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum(n[len("GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum enum from its proto representation.
+func ProtoToGkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum(e betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum) *beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum_name[int32(e)]; ok {
+		e := beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum(n[len("GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum"):])
+		return &e
+	}
+	return nil
+}
+
+// ProtoToFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum enum from its proto representation.
+func ProtoToGkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum(e betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum) *beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum_name[int32(e)]; ok {
+		e := beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum(n[len("GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToFeatureMembershipMesh converts a FeatureMembershipMesh object from its proto representation.
 func ProtoToGkehubBetaFeatureMembershipMesh(p *betapb.GkehubBetaFeatureMembershipMesh) *beta.FeatureMembershipMesh {
 	if p == nil {
@@ -191,11 +227,79 @@ func ProtoToGkehubBetaFeatureMembershipConfigmanagementHierarchyController(p *be
 	return obj
 }
 
+// ProtoToFeatureMembershipPolicycontroller converts a FeatureMembershipPolicycontroller object from its proto representation.
+func ProtoToGkehubBetaFeatureMembershipPolicycontroller(p *betapb.GkehubBetaFeatureMembershipPolicycontroller) *beta.FeatureMembershipPolicycontroller {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.FeatureMembershipPolicycontroller{
+		Version:                   dcl.StringOrNil(p.GetVersion()),
+		PolicyControllerHubConfig: ProtoToGkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfig(p.GetPolicyControllerHubConfig()),
+	}
+	return obj
+}
+
+// ProtoToFeatureMembershipPolicycontrollerPolicyControllerHubConfig converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfig object from its proto representation.
+func ProtoToGkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfig(p *betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfig) *beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfig{
+		InstallSpec:              ProtoToGkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum(p.GetInstallSpec()),
+		ReferentialRulesEnabled:  dcl.Bool(p.GetReferentialRulesEnabled()),
+		LogDeniesEnabled:         dcl.Bool(p.GetLogDeniesEnabled()),
+		MutationEnabled:          dcl.Bool(p.GetMutationEnabled()),
+		Monitoring:               ProtoToGkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring(p.GetMonitoring()),
+		AuditIntervalSeconds:     dcl.Int64OrNil(p.GetAuditIntervalSeconds()),
+		ConstraintViolationLimit: dcl.Int64OrNil(p.GetConstraintViolationLimit()),
+		PolicyContent:            ProtoToGkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent(p.GetPolicyContent()),
+	}
+	for _, r := range p.GetExemptableNamespaces() {
+		obj.ExemptableNamespaces = append(obj.ExemptableNamespaces, r)
+	}
+	return obj
+}
+
+// ProtoToFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring object from its proto representation.
+func ProtoToGkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring(p *betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring) *beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring{}
+	for _, r := range p.GetBackends() {
+		obj.Backends = append(obj.Backends, *ProtoToGkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum(r))
+	}
+	return obj
+}
+
+// ProtoToFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent object from its proto representation.
+func ProtoToGkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent(p *betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent) *beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent{
+		TemplateLibrary: ProtoToGkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary(p.GetTemplateLibrary()),
+	}
+	return obj
+}
+
+// ProtoToFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary object from its proto representation.
+func ProtoToGkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary(p *betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary) *beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary{
+		Installation: ProtoToGkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum(p.GetInstallation()),
+	}
+	return obj
+}
+
 // ProtoToFeatureMembership converts a FeatureMembership resource from its proto representation.
 func ProtoToFeatureMembership(p *betapb.GkehubBetaFeatureMembership) *beta.FeatureMembership {
 	obj := &beta.FeatureMembership{
 		Mesh:               ProtoToGkehubBetaFeatureMembershipMesh(p.GetMesh()),
 		Configmanagement:   ProtoToGkehubBetaFeatureMembershipConfigmanagement(p.GetConfigmanagement()),
+		Policycontroller:   ProtoToGkehubBetaFeatureMembershipPolicycontroller(p.GetPolicycontroller()),
 		Project:            dcl.StringOrNil(p.GetProject()),
 		Location:           dcl.StringOrNil(p.GetLocation()),
 		Feature:            dcl.StringOrNil(p.GetFeature()),
@@ -236,6 +340,39 @@ func GkehubBetaFeatureMembershipConfigmanagementPolicyControllerMonitoringBacken
 		return betapb.GkehubBetaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum(v)
 	}
 	return betapb.GkehubBetaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum(0)
+}
+
+// FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnumToProto converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum enum to its proto representation.
+func GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnumToProto(e *beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum) betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum {
+	if e == nil {
+		return betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum(0)
+	}
+	if v, ok := betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum_value["FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum"+string(*e)]; ok {
+		return betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum(v)
+	}
+	return betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum(0)
+}
+
+// FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnumToProto converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum enum to its proto representation.
+func GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnumToProto(e *beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum) betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum {
+	if e == nil {
+		return betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum(0)
+	}
+	if v, ok := betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum_value["FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum"+string(*e)]; ok {
+		return betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum(v)
+	}
+	return betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum(0)
+}
+
+// FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnumToProto converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum enum to its proto representation.
+func GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnumToProto(e *beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum) betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum {
+	if e == nil {
+		return betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum(0)
+	}
+	if v, ok := betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum_value["FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum"+string(*e)]; ok {
+		return betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum(v)
+	}
+	return betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum(0)
 }
 
 // FeatureMembershipMeshToProto converts a FeatureMembershipMesh object to its proto representation.
@@ -365,11 +502,79 @@ func GkehubBetaFeatureMembershipConfigmanagementHierarchyControllerToProto(o *be
 	return p
 }
 
+// FeatureMembershipPolicycontrollerToProto converts a FeatureMembershipPolicycontroller object to its proto representation.
+func GkehubBetaFeatureMembershipPolicycontrollerToProto(o *beta.FeatureMembershipPolicycontroller) *betapb.GkehubBetaFeatureMembershipPolicycontroller {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.GkehubBetaFeatureMembershipPolicycontroller{}
+	p.SetVersion(dcl.ValueOrEmptyString(o.Version))
+	p.SetPolicyControllerHubConfig(GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigToProto(o.PolicyControllerHubConfig))
+	return p
+}
+
+// FeatureMembershipPolicycontrollerPolicyControllerHubConfigToProto converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfig object to its proto representation.
+func GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigToProto(o *beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfig) *betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfig {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfig{}
+	p.SetInstallSpec(GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnumToProto(o.InstallSpec))
+	p.SetReferentialRulesEnabled(dcl.ValueOrEmptyBool(o.ReferentialRulesEnabled))
+	p.SetLogDeniesEnabled(dcl.ValueOrEmptyBool(o.LogDeniesEnabled))
+	p.SetMutationEnabled(dcl.ValueOrEmptyBool(o.MutationEnabled))
+	p.SetMonitoring(GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringToProto(o.Monitoring))
+	p.SetAuditIntervalSeconds(dcl.ValueOrEmptyInt64(o.AuditIntervalSeconds))
+	p.SetConstraintViolationLimit(dcl.ValueOrEmptyInt64(o.ConstraintViolationLimit))
+	p.SetPolicyContent(GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentToProto(o.PolicyContent))
+	sExemptableNamespaces := make([]string, len(o.ExemptableNamespaces))
+	for i, r := range o.ExemptableNamespaces {
+		sExemptableNamespaces[i] = r
+	}
+	p.SetExemptableNamespaces(sExemptableNamespaces)
+	return p
+}
+
+// FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringToProto converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring object to its proto representation.
+func GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringToProto(o *beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring) *betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring{}
+	sBackends := make([]betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum, len(o.Backends))
+	for i, r := range o.Backends {
+		sBackends[i] = betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum(betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum_value[string(r)])
+	}
+	p.SetBackends(sBackends)
+	return p
+}
+
+// FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentToProto converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent object to its proto representation.
+func GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentToProto(o *beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent) *betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent{}
+	p.SetTemplateLibrary(GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryToProto(o.TemplateLibrary))
+	return p
+}
+
+// FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryToProto converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary object to its proto representation.
+func GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryToProto(o *beta.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary) *betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary{}
+	p.SetInstallation(GkehubBetaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnumToProto(o.Installation))
+	return p
+}
+
 // FeatureMembershipToProto converts a FeatureMembership resource to its proto representation.
 func FeatureMembershipToProto(resource *beta.FeatureMembership) *betapb.GkehubBetaFeatureMembership {
 	p := &betapb.GkehubBetaFeatureMembership{}
 	p.SetMesh(GkehubBetaFeatureMembershipMeshToProto(resource.Mesh))
 	p.SetConfigmanagement(GkehubBetaFeatureMembershipConfigmanagementToProto(resource.Configmanagement))
+	p.SetPolicycontroller(GkehubBetaFeatureMembershipPolicycontrollerToProto(resource.Policycontroller))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetFeature(dcl.ValueOrEmptyString(resource.Feature))

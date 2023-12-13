@@ -25,6 +25,7 @@ class FeatureMembership(object):
         self,
         mesh: dict = None,
         configmanagement: dict = None,
+        policycontroller: dict = None,
         project: str = None,
         location: str = None,
         feature: str = None,
@@ -35,6 +36,7 @@ class FeatureMembership(object):
         channel.initialize()
         self.mesh = mesh
         self.configmanagement = configmanagement
+        self.policycontroller = policycontroller
         self.project = project
         self.location = location
         self.feature = feature
@@ -57,6 +59,12 @@ class FeatureMembership(object):
             )
         else:
             request.resource.ClearField("configmanagement")
+        if FeatureMembershipPolicycontroller.to_proto(self.policycontroller):
+            request.resource.policycontroller.CopyFrom(
+                FeatureMembershipPolicycontroller.to_proto(self.policycontroller)
+            )
+        else:
+            request.resource.ClearField("policycontroller")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -81,6 +89,9 @@ class FeatureMembership(object):
         self.configmanagement = FeatureMembershipConfigmanagement.from_proto(
             response.configmanagement
         )
+        self.policycontroller = FeatureMembershipPolicycontroller.from_proto(
+            response.policycontroller
+        )
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
         self.feature = Primitive.from_proto(response.feature)
@@ -103,6 +114,12 @@ class FeatureMembership(object):
             )
         else:
             request.resource.ClearField("configmanagement")
+        if FeatureMembershipPolicycontroller.to_proto(self.policycontroller):
+            request.resource.policycontroller.CopyFrom(
+                FeatureMembershipPolicycontroller.to_proto(self.policycontroller)
+            )
+        else:
+            request.resource.ClearField("policycontroller")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -149,6 +166,12 @@ class FeatureMembership(object):
             )
         else:
             resource.ClearField("configmanagement")
+        if FeatureMembershipPolicycontroller.to_proto(self.policycontroller):
+            resource.policycontroller.CopyFrom(
+                FeatureMembershipPolicycontroller.to_proto(self.policycontroller)
+            )
+        else:
+            resource.ClearField("policycontroller")
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):
@@ -798,6 +821,357 @@ class FeatureMembershipConfigmanagementHierarchyControllerArray(object):
         ]
 
 
+class FeatureMembershipPolicycontroller(object):
+    def __init__(self, version: str = None, policy_controller_hub_config: dict = None):
+        self.version = version
+        self.policy_controller_hub_config = policy_controller_hub_config
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = feature_membership_pb2.GkehubFeatureMembershipPolicycontroller()
+        if Primitive.to_proto(resource.version):
+            res.version = Primitive.to_proto(resource.version)
+        if FeatureMembershipPolicycontrollerPolicyControllerHubConfig.to_proto(
+            resource.policy_controller_hub_config
+        ):
+            res.policy_controller_hub_config.CopyFrom(
+                FeatureMembershipPolicycontrollerPolicyControllerHubConfig.to_proto(
+                    resource.policy_controller_hub_config
+                )
+            )
+        else:
+            res.ClearField("policy_controller_hub_config")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureMembershipPolicycontroller(
+            version=Primitive.from_proto(resource.version),
+            policy_controller_hub_config=FeatureMembershipPolicycontrollerPolicyControllerHubConfig.from_proto(
+                resource.policy_controller_hub_config
+            ),
+        )
+
+
+class FeatureMembershipPolicycontrollerArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [FeatureMembershipPolicycontroller.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [FeatureMembershipPolicycontroller.from_proto(i) for i in resources]
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfig(object):
+    def __init__(
+        self,
+        install_spec: str = None,
+        exemptable_namespaces: list = None,
+        referential_rules_enabled: bool = None,
+        log_denies_enabled: bool = None,
+        mutation_enabled: bool = None,
+        monitoring: dict = None,
+        audit_interval_seconds: int = None,
+        constraint_violation_limit: int = None,
+        policy_content: dict = None,
+    ):
+        self.install_spec = install_spec
+        self.exemptable_namespaces = exemptable_namespaces
+        self.referential_rules_enabled = referential_rules_enabled
+        self.log_denies_enabled = log_denies_enabled
+        self.mutation_enabled = mutation_enabled
+        self.monitoring = monitoring
+        self.audit_interval_seconds = audit_interval_seconds
+        self.constraint_violation_limit = constraint_violation_limit
+        self.policy_content = policy_content
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            feature_membership_pb2.GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfig()
+        )
+        if FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum.to_proto(
+            resource.install_spec
+        ):
+            res.install_spec = FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum.to_proto(
+                resource.install_spec
+            )
+        if Primitive.to_proto(resource.exemptable_namespaces):
+            res.exemptable_namespaces.extend(
+                Primitive.to_proto(resource.exemptable_namespaces)
+            )
+        if Primitive.to_proto(resource.referential_rules_enabled):
+            res.referential_rules_enabled = Primitive.to_proto(
+                resource.referential_rules_enabled
+            )
+        if Primitive.to_proto(resource.log_denies_enabled):
+            res.log_denies_enabled = Primitive.to_proto(resource.log_denies_enabled)
+        if Primitive.to_proto(resource.mutation_enabled):
+            res.mutation_enabled = Primitive.to_proto(resource.mutation_enabled)
+        if FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring.to_proto(
+            resource.monitoring
+        ):
+            res.monitoring.CopyFrom(
+                FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring.to_proto(
+                    resource.monitoring
+                )
+            )
+        else:
+            res.ClearField("monitoring")
+        if Primitive.to_proto(resource.audit_interval_seconds):
+            res.audit_interval_seconds = Primitive.to_proto(
+                resource.audit_interval_seconds
+            )
+        if Primitive.to_proto(resource.constraint_violation_limit):
+            res.constraint_violation_limit = Primitive.to_proto(
+                resource.constraint_violation_limit
+            )
+        if FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent.to_proto(
+            resource.policy_content
+        ):
+            res.policy_content.CopyFrom(
+                FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent.to_proto(
+                    resource.policy_content
+                )
+            )
+        else:
+            res.ClearField("policy_content")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureMembershipPolicycontrollerPolicyControllerHubConfig(
+            install_spec=FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum.from_proto(
+                resource.install_spec
+            ),
+            exemptable_namespaces=Primitive.from_proto(resource.exemptable_namespaces),
+            referential_rules_enabled=Primitive.from_proto(
+                resource.referential_rules_enabled
+            ),
+            log_denies_enabled=Primitive.from_proto(resource.log_denies_enabled),
+            mutation_enabled=Primitive.from_proto(resource.mutation_enabled),
+            monitoring=FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring.from_proto(
+                resource.monitoring
+            ),
+            audit_interval_seconds=Primitive.from_proto(
+                resource.audit_interval_seconds
+            ),
+            constraint_violation_limit=Primitive.from_proto(
+                resource.constraint_violation_limit
+            ),
+            policy_content=FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent.from_proto(
+                resource.policy_content
+            ),
+        )
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring(object):
+    def __init__(self, backends: list = None):
+        self.backends = backends
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            feature_membership_pb2.GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring()
+        )
+        if FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnumArray.to_proto(
+            resource.backends
+        ):
+            res.backends.extend(
+                FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnumArray.to_proto(
+                    resource.backends
+                )
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring(
+            backends=FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnumArray.from_proto(
+                resource.backends
+            ),
+        )
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent(object):
+    def __init__(self, template_library: dict = None):
+        self.template_library = template_library
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            feature_membership_pb2.GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent()
+        )
+        if FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary.to_proto(
+            resource.template_library
+        ):
+            res.template_library.CopyFrom(
+                FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary.to_proto(
+                    resource.template_library
+                )
+            )
+        else:
+            res.ClearField("template_library")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent(
+            template_library=FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary.from_proto(
+                resource.template_library
+            ),
+        )
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary(
+    object
+):
+    def __init__(self, installation: str = None):
+        self.installation = installation
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            feature_membership_pb2.GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary()
+        )
+        if FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum.to_proto(
+            resource.installation
+        ):
+            res.installation = FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum.to_proto(
+                resource.installation
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary(
+            installation=FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum.from_proto(
+                resource.installation
+            ),
+        )
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
 class FeatureMembershipMeshManagementEnum(object):
     @classmethod
     def to_proto(self, resource):
@@ -853,6 +1227,79 @@ class FeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum(ob
         )[
             len(
                 "GkehubFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum"
+            ) :
+        ]
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return feature_membership_pb2.GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum.Value(
+            "GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return feature_membership_pb2.GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum.Name(
+            resource
+        )[
+            len(
+                "GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum"
+            ) :
+        ]
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum(
+    object
+):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return feature_membership_pb2.GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum.Value(
+            "GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return feature_membership_pb2.GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum.Name(
+            resource
+        )[
+            len(
+                "GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum"
+            ) :
+        ]
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum(
+    object
+):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return feature_membership_pb2.GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum.Value(
+            "GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return feature_membership_pb2.GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum.Name(
+            resource
+        )[
+            len(
+                "GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum"
             ) :
         ]
 

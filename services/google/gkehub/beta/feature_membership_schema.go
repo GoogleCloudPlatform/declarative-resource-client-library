@@ -444,6 +444,137 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 									},
 								},
 							},
+							"policycontroller": &dcl.Property{
+								Type:        "object",
+								GoName:      "Policycontroller",
+								GoType:      "FeatureMembershipPolicycontroller",
+								Description: "Policy Controller-specific spec.",
+								Required: []string{
+									"policyControllerHubConfig",
+								},
+								Properties: map[string]*dcl.Property{
+									"policyControllerHubConfig": &dcl.Property{
+										Type:        "object",
+										GoName:      "PolicyControllerHubConfig",
+										GoType:      "FeatureMembershipPolicycontrollerPolicyControllerHubConfig",
+										Description: "Policy Controller configuration for the cluster.",
+										Properties: map[string]*dcl.Property{
+											"auditIntervalSeconds": &dcl.Property{
+												Type:        "integer",
+												Format:      "int64",
+												GoName:      "AuditIntervalSeconds",
+												Description: "Sets the interval for Policy Controller Audit Scans (in seconds). When set to 0, this disables audit functionality altogether.",
+											},
+											"constraintViolationLimit": &dcl.Property{
+												Type:        "integer",
+												Format:      "int64",
+												GoName:      "ConstraintViolationLimit",
+												Description: "The maximum number of audit violations to be stored in a constraint. If not set, the internal default of 20 will be used.",
+											},
+											"exemptableNamespaces": &dcl.Property{
+												Type:        "array",
+												GoName:      "ExemptableNamespaces",
+												Description: "The set of namespaces that are excluded from Policy Controller checks. Namespaces do not need to currently exist on the cluster.",
+												SendEmpty:   true,
+												ListType:    "list",
+												Items: &dcl.Property{
+													Type:   "string",
+													GoType: "string",
+												},
+											},
+											"installSpec": &dcl.Property{
+												Type:        "string",
+												GoName:      "InstallSpec",
+												GoType:      "FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum",
+												Description: "Configures the mode of the Policy Controller installation. Possible values: INSTALL_SPEC_UNSPECIFIED, INSTALL_SPEC_NOT_INSTALLED, INSTALL_SPEC_ENABLED, INSTALL_SPEC_SUSPENDED, INSTALL_SPEC_DETACHED",
+												Enum: []string{
+													"INSTALL_SPEC_UNSPECIFIED",
+													"INSTALL_SPEC_NOT_INSTALLED",
+													"INSTALL_SPEC_ENABLED",
+													"INSTALL_SPEC_SUSPENDED",
+													"INSTALL_SPEC_DETACHED",
+												},
+											},
+											"logDeniesEnabled": &dcl.Property{
+												Type:        "boolean",
+												GoName:      "LogDeniesEnabled",
+												Description: "Logs all denies and dry run failures.",
+											},
+											"monitoring": &dcl.Property{
+												Type:          "object",
+												GoName:        "Monitoring",
+												GoType:        "FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring",
+												Description:   "Specifies the backends Policy Controller should export metrics to. For example, to specify metrics should be exported to Cloud Monitoring and Prometheus, specify backends: [\"cloudmonitoring\", \"prometheus\"]. Default: [\"cloudmonitoring\", \"prometheus\"]",
+												ServerDefault: true,
+												Properties: map[string]*dcl.Property{
+													"backends": &dcl.Property{
+														Type:          "array",
+														GoName:        "Backends",
+														Description:   " Specifies the list of backends Policy Controller will export to. Specifying an empty value `[]` disables metrics export.",
+														ServerDefault: true,
+														SendEmpty:     true,
+														ListType:      "list",
+														Items: &dcl.Property{
+															Type:   "string",
+															GoType: "FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringBackendsEnum",
+															Enum: []string{
+																"MONITORING_BACKEND_UNSPECIFIED",
+																"PROMETHEUS",
+																"CLOUD_MONITORING",
+															},
+														},
+													},
+												},
+											},
+											"mutationEnabled": &dcl.Property{
+												Type:        "boolean",
+												GoName:      "MutationEnabled",
+												Description: "Enables the ability to mutate resources using Policy Controller.",
+											},
+											"policyContent": &dcl.Property{
+												Type:          "object",
+												GoName:        "PolicyContent",
+												GoType:        "FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent",
+												Description:   "Specifies the desired policy content on the cluster.",
+												ServerDefault: true,
+												Properties: map[string]*dcl.Property{
+													"templateLibrary": &dcl.Property{
+														Type:          "object",
+														GoName:        "TemplateLibrary",
+														GoType:        "FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary",
+														Description:   "Configures the installation of the Template Library.",
+														ServerDefault: true,
+														Properties: map[string]*dcl.Property{
+															"installation": &dcl.Property{
+																Type:        "string",
+																GoName:      "Installation",
+																GoType:      "FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum",
+																Description: "Configures the manner in which the template library is installed on the cluster. Possible values: INSTALLATION_UNSPECIFIED, NOT_INSTALLED, ALL",
+																Enum: []string{
+																	"INSTALLATION_UNSPECIFIED",
+																	"NOT_INSTALLED",
+																	"ALL",
+																},
+															},
+														},
+													},
+												},
+											},
+											"referentialRulesEnabled": &dcl.Property{
+												Type:        "boolean",
+												GoName:      "ReferentialRulesEnabled",
+												Description: "Enables the ability to use Constraint Templates that reference to objects other than the object currently being evaluated.",
+											},
+										},
+									},
+									"version": &dcl.Property{
+										Type:          "string",
+										GoName:        "Version",
+										Description:   "Optional. Version of Policy Controller to install. Defaults to the latest version.",
+										ServerDefault: true,
+									},
+								},
+							},
 							"project": &dcl.Property{
 								Type:        "string",
 								GoName:      "Project",
