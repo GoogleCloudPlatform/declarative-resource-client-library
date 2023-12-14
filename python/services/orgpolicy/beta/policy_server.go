@@ -152,6 +152,7 @@ func ProtoToPolicy(p *betapb.OrgpolicyBetaPolicy) *beta.Policy {
 		Name:       dcl.StringOrNil(p.GetName()),
 		Spec:       ProtoToOrgpolicyBetaPolicySpec(p.GetSpec()),
 		DryRunSpec: ProtoToOrgpolicyBetaPolicyDryRunSpec(p.GetDryRunSpec()),
+		Etag:       dcl.StringOrNil(p.GetEtag()),
 		Parent:     dcl.StringOrNil(p.GetParent()),
 	}
 	return obj
@@ -291,6 +292,7 @@ func PolicyToProto(resource *beta.Policy) *betapb.OrgpolicyBetaPolicy {
 	p.SetName(dcl.ValueOrEmptyString(resource.Name))
 	p.SetSpec(OrgpolicyBetaPolicySpecToProto(resource.Spec))
 	p.SetDryRunSpec(OrgpolicyBetaPolicyDryRunSpecToProto(resource.DryRunSpec))
+	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetParent(dcl.ValueOrEmptyString(resource.Parent))
 
 	return p

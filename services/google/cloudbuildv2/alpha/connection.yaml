@@ -80,6 +80,110 @@ components:
             type: string
           x-dcl-go-name: Annotations
           description: Allows clients to store small amounts of arbitrary data.
+        bitbucketDataCenterConfig:
+          type: object
+          x-dcl-go-name: BitbucketDataCenterConfig
+          x-dcl-go-type: ConnectionBitbucketDataCenterConfig
+          description: Configuration for connections to Bitbucket Data Center.
+          x-dcl-conflicts:
+          - githubConfig
+          - githubEnterpriseConfig
+          - gitlabConfig
+          required:
+          - hostUri
+          - webhookSecretSecretVersion
+          - readAuthorizerCredential
+          - authorizerCredential
+          properties:
+            authorizerCredential:
+              type: object
+              x-dcl-go-name: AuthorizerCredential
+              x-dcl-go-type: ConnectionBitbucketDataCenterConfigAuthorizerCredential
+              description: Required. A http access token with the `REPO_ADMIN` scope
+                access.
+              required:
+              - userTokenSecretVersion
+              properties:
+                userTokenSecretVersion:
+                  type: string
+                  x-dcl-go-name: UserTokenSecretVersion
+                  description: 'Required. A SecretManager resource containing the
+                    user token that authorizes the Cloud Build connection. Format:
+                    `projects/*/secrets/*/versions/*`.'
+                  x-dcl-references:
+                  - resource: Secretmanager/SecretVersion
+                    field: selfLink
+                username:
+                  type: string
+                  x-dcl-go-name: Username
+                  readOnly: true
+                  description: Output only. The username associated to this token.
+            hostUri:
+              type: string
+              x-dcl-go-name: HostUri
+              description: Required. The URI of the Bitbucket Data Center instance
+                or cluster this connection is for.
+            readAuthorizerCredential:
+              type: object
+              x-dcl-go-name: ReadAuthorizerCredential
+              x-dcl-go-type: ConnectionBitbucketDataCenterConfigReadAuthorizerCredential
+              description: Required. A http access token with the `REPO_READ` access.
+              required:
+              - userTokenSecretVersion
+              properties:
+                userTokenSecretVersion:
+                  type: string
+                  x-dcl-go-name: UserTokenSecretVersion
+                  description: 'Required. A SecretManager resource containing the
+                    user token that authorizes the Cloud Build connection. Format:
+                    `projects/*/secrets/*/versions/*`.'
+                  x-dcl-references:
+                  - resource: Secretmanager/SecretVersion
+                    field: selfLink
+                username:
+                  type: string
+                  x-dcl-go-name: Username
+                  readOnly: true
+                  description: Output only. The username associated to this token.
+            serverVersion:
+              type: string
+              x-dcl-go-name: ServerVersion
+              readOnly: true
+              description: Output only. Version of the Bitbucket Data Center running
+                on the `host_uri`.
+            serviceDirectoryConfig:
+              type: object
+              x-dcl-go-name: ServiceDirectoryConfig
+              x-dcl-go-type: ConnectionBitbucketDataCenterConfigServiceDirectoryConfig
+              description: Optional. Configuration for using Service Directory to
+                privately connect to a Bitbucket Data Center. This should only be
+                set if the Bitbucket Data Center is hosted on-premises and not reachable
+                by public internet. If this field is left empty, calls to the Bitbucket
+                Data Center will be made over the public internet.
+              required:
+              - service
+              properties:
+                service:
+                  type: string
+                  x-dcl-go-name: Service
+                  description: 'Required. The Service Directory service name. Format:
+                    projects/{project}/locations/{location}/namespaces/{namespace}/services/{service}.'
+                  x-dcl-references:
+                  - resource: Servicedirectory/Service
+                    field: selfLink
+            sslCa:
+              type: string
+              x-dcl-go-name: SslCa
+              description: Optional. SSL certificate to use for requests to the Bitbucket
+                Data Center.
+            webhookSecretSecretVersion:
+              type: string
+              x-dcl-go-name: WebhookSecretSecretVersion
+              description: Required. Immutable. SecretManager resource containing
+                the webhook secret used to verify webhook events, formatted as `projects/*/secrets/*/versions/*`.
+              x-dcl-references:
+              - resource: Secretmanager/SecretVersion
+                field: selfLink
         createTime:
           type: string
           format: date-time
@@ -110,6 +214,7 @@ components:
           x-dcl-conflicts:
           - githubEnterpriseConfig
           - gitlabConfig
+          - bitbucketDataCenterConfig
           properties:
             appInstallationId:
               type: integer
@@ -146,6 +251,7 @@ components:
           x-dcl-conflicts:
           - githubConfig
           - gitlabConfig
+          - bitbucketDataCenterConfig
           required:
           - hostUri
           properties:
@@ -217,6 +323,7 @@ components:
           x-dcl-conflicts:
           - githubConfig
           - githubEnterpriseConfig
+          - bitbucketDataCenterConfig
           required:
           - webhookSecretSecretVersion
           - readAuthorizerCredential

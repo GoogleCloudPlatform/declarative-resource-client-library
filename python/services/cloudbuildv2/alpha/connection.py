@@ -27,6 +27,7 @@ class Connection(object):
         github_config: dict = None,
         github_enterprise_config: dict = None,
         gitlab_config: dict = None,
+        bitbucket_data_center_config: dict = None,
         installation_state: dict = None,
         disabled: bool = None,
         reconciling: bool = None,
@@ -41,6 +42,7 @@ class Connection(object):
         self.github_config = github_config
         self.github_enterprise_config = github_enterprise_config
         self.gitlab_config = gitlab_config
+        self.bitbucket_data_center_config = bitbucket_data_center_config
         self.disabled = disabled
         self.annotations = annotations
         self.project = project
@@ -73,6 +75,16 @@ class Connection(object):
             )
         else:
             request.resource.ClearField("gitlab_config")
+        if ConnectionBitbucketDataCenterConfig.to_proto(
+            self.bitbucket_data_center_config
+        ):
+            request.resource.bitbucket_data_center_config.CopyFrom(
+                ConnectionBitbucketDataCenterConfig.to_proto(
+                    self.bitbucket_data_center_config
+                )
+            )
+        else:
+            request.resource.ClearField("bitbucket_data_center_config")
         if Primitive.to_proto(self.disabled):
             request.resource.disabled = Primitive.to_proto(self.disabled)
 
@@ -96,6 +108,11 @@ class Connection(object):
             response.github_enterprise_config
         )
         self.gitlab_config = ConnectionGitlabConfig.from_proto(response.gitlab_config)
+        self.bitbucket_data_center_config = (
+            ConnectionBitbucketDataCenterConfig.from_proto(
+                response.bitbucket_data_center_config
+            )
+        )
         self.installation_state = ConnectionInstallationState.from_proto(
             response.installation_state
         )
@@ -133,6 +150,16 @@ class Connection(object):
             )
         else:
             request.resource.ClearField("gitlab_config")
+        if ConnectionBitbucketDataCenterConfig.to_proto(
+            self.bitbucket_data_center_config
+        ):
+            request.resource.bitbucket_data_center_config.CopyFrom(
+                ConnectionBitbucketDataCenterConfig.to_proto(
+                    self.bitbucket_data_center_config
+                )
+            )
+        else:
+            request.resource.ClearField("bitbucket_data_center_config")
         if Primitive.to_proto(self.disabled):
             request.resource.disabled = Primitive.to_proto(self.disabled)
 
@@ -182,6 +209,16 @@ class Connection(object):
             )
         else:
             resource.ClearField("gitlab_config")
+        if ConnectionBitbucketDataCenterConfig.to_proto(
+            self.bitbucket_data_center_config
+        ):
+            resource.bitbucket_data_center_config.CopyFrom(
+                ConnectionBitbucketDataCenterConfig.to_proto(
+                    self.bitbucket_data_center_config
+                )
+            )
+        else:
+            resource.ClearField("bitbucket_data_center_config")
         if Primitive.to_proto(self.disabled):
             resource.disabled = Primitive.to_proto(self.disabled)
         if Primitive.to_proto(self.annotations):
@@ -675,6 +712,257 @@ class ConnectionGitlabConfigServiceDirectoryConfigArray(object):
     def from_proto(self, resources):
         return [
             ConnectionGitlabConfigServiceDirectoryConfig.from_proto(i)
+            for i in resources
+        ]
+
+
+class ConnectionBitbucketDataCenterConfig(object):
+    def __init__(
+        self,
+        host_uri: str = None,
+        webhook_secret_secret_version: str = None,
+        read_authorizer_credential: dict = None,
+        authorizer_credential: dict = None,
+        service_directory_config: dict = None,
+        ssl_ca: str = None,
+        server_version: str = None,
+    ):
+        self.host_uri = host_uri
+        self.webhook_secret_secret_version = webhook_secret_secret_version
+        self.read_authorizer_credential = read_authorizer_credential
+        self.authorizer_credential = authorizer_credential
+        self.service_directory_config = service_directory_config
+        self.ssl_ca = ssl_ca
+        self.server_version = server_version
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = connection_pb2.Cloudbuildv2AlphaConnectionBitbucketDataCenterConfig()
+        if Primitive.to_proto(resource.host_uri):
+            res.host_uri = Primitive.to_proto(resource.host_uri)
+        if Primitive.to_proto(resource.webhook_secret_secret_version):
+            res.webhook_secret_secret_version = Primitive.to_proto(
+                resource.webhook_secret_secret_version
+            )
+        if ConnectionBitbucketDataCenterConfigReadAuthorizerCredential.to_proto(
+            resource.read_authorizer_credential
+        ):
+            res.read_authorizer_credential.CopyFrom(
+                ConnectionBitbucketDataCenterConfigReadAuthorizerCredential.to_proto(
+                    resource.read_authorizer_credential
+                )
+            )
+        else:
+            res.ClearField("read_authorizer_credential")
+        if ConnectionBitbucketDataCenterConfigAuthorizerCredential.to_proto(
+            resource.authorizer_credential
+        ):
+            res.authorizer_credential.CopyFrom(
+                ConnectionBitbucketDataCenterConfigAuthorizerCredential.to_proto(
+                    resource.authorizer_credential
+                )
+            )
+        else:
+            res.ClearField("authorizer_credential")
+        if ConnectionBitbucketDataCenterConfigServiceDirectoryConfig.to_proto(
+            resource.service_directory_config
+        ):
+            res.service_directory_config.CopyFrom(
+                ConnectionBitbucketDataCenterConfigServiceDirectoryConfig.to_proto(
+                    resource.service_directory_config
+                )
+            )
+        else:
+            res.ClearField("service_directory_config")
+        if Primitive.to_proto(resource.ssl_ca):
+            res.ssl_ca = Primitive.to_proto(resource.ssl_ca)
+        if Primitive.to_proto(resource.server_version):
+            res.server_version = Primitive.to_proto(resource.server_version)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ConnectionBitbucketDataCenterConfig(
+            host_uri=Primitive.from_proto(resource.host_uri),
+            webhook_secret_secret_version=Primitive.from_proto(
+                resource.webhook_secret_secret_version
+            ),
+            read_authorizer_credential=ConnectionBitbucketDataCenterConfigReadAuthorizerCredential.from_proto(
+                resource.read_authorizer_credential
+            ),
+            authorizer_credential=ConnectionBitbucketDataCenterConfigAuthorizerCredential.from_proto(
+                resource.authorizer_credential
+            ),
+            service_directory_config=ConnectionBitbucketDataCenterConfigServiceDirectoryConfig.from_proto(
+                resource.service_directory_config
+            ),
+            ssl_ca=Primitive.from_proto(resource.ssl_ca),
+            server_version=Primitive.from_proto(resource.server_version),
+        )
+
+
+class ConnectionBitbucketDataCenterConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [ConnectionBitbucketDataCenterConfig.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [ConnectionBitbucketDataCenterConfig.from_proto(i) for i in resources]
+
+
+class ConnectionBitbucketDataCenterConfigReadAuthorizerCredential(object):
+    def __init__(self, user_token_secret_version: str = None, username: str = None):
+        self.user_token_secret_version = user_token_secret_version
+        self.username = username
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            connection_pb2.Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigReadAuthorizerCredential()
+        )
+        if Primitive.to_proto(resource.user_token_secret_version):
+            res.user_token_secret_version = Primitive.to_proto(
+                resource.user_token_secret_version
+            )
+        if Primitive.to_proto(resource.username):
+            res.username = Primitive.to_proto(resource.username)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ConnectionBitbucketDataCenterConfigReadAuthorizerCredential(
+            user_token_secret_version=Primitive.from_proto(
+                resource.user_token_secret_version
+            ),
+            username=Primitive.from_proto(resource.username),
+        )
+
+
+class ConnectionBitbucketDataCenterConfigReadAuthorizerCredentialArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ConnectionBitbucketDataCenterConfigReadAuthorizerCredential.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ConnectionBitbucketDataCenterConfigReadAuthorizerCredential.from_proto(i)
+            for i in resources
+        ]
+
+
+class ConnectionBitbucketDataCenterConfigAuthorizerCredential(object):
+    def __init__(self, user_token_secret_version: str = None, username: str = None):
+        self.user_token_secret_version = user_token_secret_version
+        self.username = username
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            connection_pb2.Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigAuthorizerCredential()
+        )
+        if Primitive.to_proto(resource.user_token_secret_version):
+            res.user_token_secret_version = Primitive.to_proto(
+                resource.user_token_secret_version
+            )
+        if Primitive.to_proto(resource.username):
+            res.username = Primitive.to_proto(resource.username)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ConnectionBitbucketDataCenterConfigAuthorizerCredential(
+            user_token_secret_version=Primitive.from_proto(
+                resource.user_token_secret_version
+            ),
+            username=Primitive.from_proto(resource.username),
+        )
+
+
+class ConnectionBitbucketDataCenterConfigAuthorizerCredentialArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ConnectionBitbucketDataCenterConfigAuthorizerCredential.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ConnectionBitbucketDataCenterConfigAuthorizerCredential.from_proto(i)
+            for i in resources
+        ]
+
+
+class ConnectionBitbucketDataCenterConfigServiceDirectoryConfig(object):
+    def __init__(self, service: str = None):
+        self.service = service
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            connection_pb2.Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigServiceDirectoryConfig()
+        )
+        if Primitive.to_proto(resource.service):
+            res.service = Primitive.to_proto(resource.service)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return ConnectionBitbucketDataCenterConfigServiceDirectoryConfig(
+            service=Primitive.from_proto(resource.service),
+        )
+
+
+class ConnectionBitbucketDataCenterConfigServiceDirectoryConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            ConnectionBitbucketDataCenterConfigServiceDirectoryConfig.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            ConnectionBitbucketDataCenterConfigServiceDirectoryConfig.from_proto(i)
             for i in resources
         ]
 

@@ -117,6 +117,130 @@ func DCLConnectionSchema() *dcl.Schema {
 								GoName:      "Annotations",
 								Description: "Allows clients to store small amounts of arbitrary data.",
 							},
+							"bitbucketDataCenterConfig": &dcl.Property{
+								Type:        "object",
+								GoName:      "BitbucketDataCenterConfig",
+								GoType:      "ConnectionBitbucketDataCenterConfig",
+								Description: "Configuration for connections to Bitbucket Data Center.",
+								Conflicts: []string{
+									"githubConfig",
+									"githubEnterpriseConfig",
+									"gitlabConfig",
+								},
+								Required: []string{
+									"hostUri",
+									"webhookSecretSecretVersion",
+									"readAuthorizerCredential",
+									"authorizerCredential",
+								},
+								Properties: map[string]*dcl.Property{
+									"authorizerCredential": &dcl.Property{
+										Type:        "object",
+										GoName:      "AuthorizerCredential",
+										GoType:      "ConnectionBitbucketDataCenterConfigAuthorizerCredential",
+										Description: "Required. A http access token with the `REPO_ADMIN` scope access.",
+										Required: []string{
+											"userTokenSecretVersion",
+										},
+										Properties: map[string]*dcl.Property{
+											"userTokenSecretVersion": &dcl.Property{
+												Type:        "string",
+												GoName:      "UserTokenSecretVersion",
+												Description: "Required. A SecretManager resource containing the user token that authorizes the Cloud Build connection. Format: `projects/*/secrets/*/versions/*`.",
+												ResourceReferences: []*dcl.PropertyResourceReference{
+													&dcl.PropertyResourceReference{
+														Resource: "Secretmanager/SecretVersion",
+														Field:    "selfLink",
+													},
+												},
+											},
+											"username": &dcl.Property{
+												Type:        "string",
+												GoName:      "Username",
+												ReadOnly:    true,
+												Description: "Output only. The username associated to this token.",
+											},
+										},
+									},
+									"hostUri": &dcl.Property{
+										Type:        "string",
+										GoName:      "HostUri",
+										Description: "Required. The URI of the Bitbucket Data Center instance or cluster this connection is for.",
+									},
+									"readAuthorizerCredential": &dcl.Property{
+										Type:        "object",
+										GoName:      "ReadAuthorizerCredential",
+										GoType:      "ConnectionBitbucketDataCenterConfigReadAuthorizerCredential",
+										Description: "Required. A http access token with the `REPO_READ` access.",
+										Required: []string{
+											"userTokenSecretVersion",
+										},
+										Properties: map[string]*dcl.Property{
+											"userTokenSecretVersion": &dcl.Property{
+												Type:        "string",
+												GoName:      "UserTokenSecretVersion",
+												Description: "Required. A SecretManager resource containing the user token that authorizes the Cloud Build connection. Format: `projects/*/secrets/*/versions/*`.",
+												ResourceReferences: []*dcl.PropertyResourceReference{
+													&dcl.PropertyResourceReference{
+														Resource: "Secretmanager/SecretVersion",
+														Field:    "selfLink",
+													},
+												},
+											},
+											"username": &dcl.Property{
+												Type:        "string",
+												GoName:      "Username",
+												ReadOnly:    true,
+												Description: "Output only. The username associated to this token.",
+											},
+										},
+									},
+									"serverVersion": &dcl.Property{
+										Type:        "string",
+										GoName:      "ServerVersion",
+										ReadOnly:    true,
+										Description: "Output only. Version of the Bitbucket Data Center running on the `host_uri`.",
+									},
+									"serviceDirectoryConfig": &dcl.Property{
+										Type:        "object",
+										GoName:      "ServiceDirectoryConfig",
+										GoType:      "ConnectionBitbucketDataCenterConfigServiceDirectoryConfig",
+										Description: "Optional. Configuration for using Service Directory to privately connect to a Bitbucket Data Center. This should only be set if the Bitbucket Data Center is hosted on-premises and not reachable by public internet. If this field is left empty, calls to the Bitbucket Data Center will be made over the public internet.",
+										Required: []string{
+											"service",
+										},
+										Properties: map[string]*dcl.Property{
+											"service": &dcl.Property{
+												Type:        "string",
+												GoName:      "Service",
+												Description: "Required. The Service Directory service name. Format: projects/{project}/locations/{location}/namespaces/{namespace}/services/{service}.",
+												ResourceReferences: []*dcl.PropertyResourceReference{
+													&dcl.PropertyResourceReference{
+														Resource: "Servicedirectory/Service",
+														Field:    "selfLink",
+													},
+												},
+											},
+										},
+									},
+									"sslCa": &dcl.Property{
+										Type:        "string",
+										GoName:      "SslCa",
+										Description: "Optional. SSL certificate to use for requests to the Bitbucket Data Center.",
+									},
+									"webhookSecretSecretVersion": &dcl.Property{
+										Type:        "string",
+										GoName:      "WebhookSecretSecretVersion",
+										Description: "Required. Immutable. SecretManager resource containing the webhook secret used to verify webhook events, formatted as `projects/*/secrets/*/versions/*`.",
+										ResourceReferences: []*dcl.PropertyResourceReference{
+											&dcl.PropertyResourceReference{
+												Resource: "Secretmanager/SecretVersion",
+												Field:    "selfLink",
+											},
+										},
+									},
+								},
+							},
 							"createTime": &dcl.Property{
 								Type:        "string",
 								Format:      "date-time",
@@ -145,6 +269,7 @@ func DCLConnectionSchema() *dcl.Schema {
 								Conflicts: []string{
 									"githubEnterpriseConfig",
 									"gitlabConfig",
+									"bitbucketDataCenterConfig",
 								},
 								Properties: map[string]*dcl.Property{
 									"appInstallationId": &dcl.Property{
@@ -188,6 +313,7 @@ func DCLConnectionSchema() *dcl.Schema {
 								Conflicts: []string{
 									"githubConfig",
 									"gitlabConfig",
+									"bitbucketDataCenterConfig",
 								},
 								Required: []string{
 									"hostUri",
@@ -274,6 +400,7 @@ func DCLConnectionSchema() *dcl.Schema {
 								Conflicts: []string{
 									"githubConfig",
 									"githubEnterpriseConfig",
+									"bitbucketDataCenterConfig",
 								},
 								Required: []string{
 									"webhookSecretSecretVersion",

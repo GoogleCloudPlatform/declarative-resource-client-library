@@ -27,7 +27,7 @@ import (
 
 func (r *Connection) validate() error {
 
-	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"GithubConfig", "GithubEnterpriseConfig", "GitlabConfig"}, r.GithubConfig, r.GithubEnterpriseConfig, r.GitlabConfig); err != nil {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"GithubConfig", "GithubEnterpriseConfig", "GitlabConfig", "BitbucketDataCenterConfig"}, r.GithubConfig, r.GithubEnterpriseConfig, r.GitlabConfig, r.BitbucketDataCenterConfig); err != nil {
 		return err
 	}
 	if err := dcl.RequiredParameter(r.Name, "Name"); err != nil {
@@ -51,6 +51,11 @@ func (r *Connection) validate() error {
 	}
 	if !dcl.IsEmptyValueIndirect(r.GitlabConfig) {
 		if err := r.GitlabConfig.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.BitbucketDataCenterConfig) {
+		if err := r.BitbucketDataCenterConfig.validate(); err != nil {
 			return err
 		}
 	}
@@ -134,6 +139,54 @@ func (r *ConnectionGitlabConfigServiceDirectoryConfig) validate() error {
 	}
 	return nil
 }
+func (r *ConnectionBitbucketDataCenterConfig) validate() error {
+	if err := dcl.Required(r, "hostUri"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "webhookSecretSecretVersion"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "readAuthorizerCredential"); err != nil {
+		return err
+	}
+	if err := dcl.Required(r, "authorizerCredential"); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(r.ReadAuthorizerCredential) {
+		if err := r.ReadAuthorizerCredential.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.AuthorizerCredential) {
+		if err := r.AuthorizerCredential.validate(); err != nil {
+			return err
+		}
+	}
+	if !dcl.IsEmptyValueIndirect(r.ServiceDirectoryConfig) {
+		if err := r.ServiceDirectoryConfig.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *ConnectionBitbucketDataCenterConfigReadAuthorizerCredential) validate() error {
+	if err := dcl.Required(r, "userTokenSecretVersion"); err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ConnectionBitbucketDataCenterConfigAuthorizerCredential) validate() error {
+	if err := dcl.Required(r, "userTokenSecretVersion"); err != nil {
+		return err
+	}
+	return nil
+}
+func (r *ConnectionBitbucketDataCenterConfigServiceDirectoryConfig) validate() error {
+	if err := dcl.Required(r, "service"); err != nil {
+		return err
+	}
+	return nil
+}
 func (r *ConnectionInstallationState) validate() error {
 	return nil
 }
@@ -211,6 +264,11 @@ func newUpdateConnectionUpdateConnectionRequest(ctx context.Context, f *Connecti
 		return nil, fmt.Errorf("error expanding GitlabConfig into gitlabConfig: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["gitlabConfig"] = v
+	}
+	if v, err := expandConnectionBitbucketDataCenterConfig(c, f.BitbucketDataCenterConfig, res); err != nil {
+		return nil, fmt.Errorf("error expanding BitbucketDataCenterConfig into bitbucketDataCenterConfig: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["bitbucketDataCenterConfig"] = v
 	}
 	if v := f.Disabled; !dcl.IsEmptyValueIndirect(v) {
 		req["disabled"] = v
@@ -553,22 +611,29 @@ func canonicalizeConnectionInitialState(rawInitial, rawDesired *Connection) (*Co
 
 	if !dcl.IsZeroValue(rawInitial.GithubConfig) {
 		// Check if anything else is set.
-		if dcl.AnySet(rawInitial.GithubEnterpriseConfig, rawInitial.GitlabConfig) {
+		if dcl.AnySet(rawInitial.GithubEnterpriseConfig, rawInitial.GitlabConfig, rawInitial.BitbucketDataCenterConfig) {
 			rawInitial.GithubConfig = EmptyConnectionGithubConfig
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.GithubEnterpriseConfig) {
 		// Check if anything else is set.
-		if dcl.AnySet(rawInitial.GithubConfig, rawInitial.GitlabConfig) {
+		if dcl.AnySet(rawInitial.GithubConfig, rawInitial.GitlabConfig, rawInitial.BitbucketDataCenterConfig) {
 			rawInitial.GithubEnterpriseConfig = EmptyConnectionGithubEnterpriseConfig
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.GitlabConfig) {
 		// Check if anything else is set.
-		if dcl.AnySet(rawInitial.GithubConfig, rawInitial.GithubEnterpriseConfig) {
+		if dcl.AnySet(rawInitial.GithubConfig, rawInitial.GithubEnterpriseConfig, rawInitial.BitbucketDataCenterConfig) {
 			rawInitial.GitlabConfig = EmptyConnectionGitlabConfig
+		}
+	}
+
+	if !dcl.IsZeroValue(rawInitial.BitbucketDataCenterConfig) {
+		// Check if anything else is set.
+		if dcl.AnySet(rawInitial.GithubConfig, rawInitial.GithubEnterpriseConfig, rawInitial.GitlabConfig) {
+			rawInitial.BitbucketDataCenterConfig = EmptyConnectionBitbucketDataCenterConfig
 		}
 	}
 
@@ -590,6 +655,7 @@ func canonicalizeConnectionDesiredState(rawDesired, rawInitial *Connection, opts
 		rawDesired.GithubConfig = canonicalizeConnectionGithubConfig(rawDesired.GithubConfig, nil, opts...)
 		rawDesired.GithubEnterpriseConfig = canonicalizeConnectionGithubEnterpriseConfig(rawDesired.GithubEnterpriseConfig, nil, opts...)
 		rawDesired.GitlabConfig = canonicalizeConnectionGitlabConfig(rawDesired.GitlabConfig, nil, opts...)
+		rawDesired.BitbucketDataCenterConfig = canonicalizeConnectionBitbucketDataCenterConfig(rawDesired.BitbucketDataCenterConfig, nil, opts...)
 		rawDesired.InstallationState = canonicalizeConnectionInstallationState(rawDesired.InstallationState, nil, opts...)
 
 		return rawDesired, nil
@@ -603,6 +669,7 @@ func canonicalizeConnectionDesiredState(rawDesired, rawInitial *Connection, opts
 	canonicalDesired.GithubConfig = canonicalizeConnectionGithubConfig(rawDesired.GithubConfig, rawInitial.GithubConfig, opts...)
 	canonicalDesired.GithubEnterpriseConfig = canonicalizeConnectionGithubEnterpriseConfig(rawDesired.GithubEnterpriseConfig, rawInitial.GithubEnterpriseConfig, opts...)
 	canonicalDesired.GitlabConfig = canonicalizeConnectionGitlabConfig(rawDesired.GitlabConfig, rawInitial.GitlabConfig, opts...)
+	canonicalDesired.BitbucketDataCenterConfig = canonicalizeConnectionBitbucketDataCenterConfig(rawDesired.BitbucketDataCenterConfig, rawInitial.BitbucketDataCenterConfig, opts...)
 	if dcl.BoolCanonicalize(rawDesired.Disabled, rawInitial.Disabled) {
 		canonicalDesired.Disabled = rawInitial.Disabled
 	} else {
@@ -627,22 +694,29 @@ func canonicalizeConnectionDesiredState(rawDesired, rawInitial *Connection, opts
 
 	if canonicalDesired.GithubConfig != nil {
 		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.GithubEnterpriseConfig, rawDesired.GitlabConfig) {
+		if dcl.AnySet(rawDesired.GithubEnterpriseConfig, rawDesired.GitlabConfig, rawDesired.BitbucketDataCenterConfig) {
 			canonicalDesired.GithubConfig = EmptyConnectionGithubConfig
 		}
 	}
 
 	if canonicalDesired.GithubEnterpriseConfig != nil {
 		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.GithubConfig, rawDesired.GitlabConfig) {
+		if dcl.AnySet(rawDesired.GithubConfig, rawDesired.GitlabConfig, rawDesired.BitbucketDataCenterConfig) {
 			canonicalDesired.GithubEnterpriseConfig = EmptyConnectionGithubEnterpriseConfig
 		}
 	}
 
 	if canonicalDesired.GitlabConfig != nil {
 		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.GithubConfig, rawDesired.GithubEnterpriseConfig) {
+		if dcl.AnySet(rawDesired.GithubConfig, rawDesired.GithubEnterpriseConfig, rawDesired.BitbucketDataCenterConfig) {
 			canonicalDesired.GitlabConfig = EmptyConnectionGitlabConfig
+		}
+	}
+
+	if canonicalDesired.BitbucketDataCenterConfig != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.GithubConfig, rawDesired.GithubEnterpriseConfig, rawDesired.GitlabConfig) {
+			canonicalDesired.BitbucketDataCenterConfig = EmptyConnectionBitbucketDataCenterConfig
 		}
 	}
 
@@ -679,6 +753,12 @@ func canonicalizeConnectionNewState(c *Client, rawNew, rawDesired *Connection) (
 		rawNew.GitlabConfig = rawDesired.GitlabConfig
 	} else {
 		rawNew.GitlabConfig = canonicalizeNewConnectionGitlabConfig(c, rawDesired.GitlabConfig, rawNew.GitlabConfig)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.BitbucketDataCenterConfig) && dcl.IsEmptyValueIndirect(rawDesired.BitbucketDataCenterConfig) {
+		rawNew.BitbucketDataCenterConfig = rawDesired.BitbucketDataCenterConfig
+	} else {
+		rawNew.BitbucketDataCenterConfig = canonicalizeNewConnectionBitbucketDataCenterConfig(c, rawDesired.BitbucketDataCenterConfig, rawNew.BitbucketDataCenterConfig)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.InstallationState) && dcl.IsEmptyValueIndirect(rawDesired.InstallationState) {
@@ -1729,6 +1809,500 @@ func canonicalizeNewConnectionGitlabConfigServiceDirectoryConfigSlice(c *Client,
 	return items
 }
 
+func canonicalizeConnectionBitbucketDataCenterConfig(des, initial *ConnectionBitbucketDataCenterConfig, opts ...dcl.ApplyOption) *ConnectionBitbucketDataCenterConfig {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ConnectionBitbucketDataCenterConfig{}
+
+	if dcl.StringCanonicalize(des.HostUri, initial.HostUri) || dcl.IsZeroValue(des.HostUri) {
+		cDes.HostUri = initial.HostUri
+	} else {
+		cDes.HostUri = des.HostUri
+	}
+	if dcl.IsZeroValue(des.WebhookSecretSecretVersion) || (dcl.IsEmptyValueIndirect(des.WebhookSecretSecretVersion) && dcl.IsEmptyValueIndirect(initial.WebhookSecretSecretVersion)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.WebhookSecretSecretVersion = initial.WebhookSecretSecretVersion
+	} else {
+		cDes.WebhookSecretSecretVersion = des.WebhookSecretSecretVersion
+	}
+	cDes.ReadAuthorizerCredential = canonicalizeConnectionBitbucketDataCenterConfigReadAuthorizerCredential(des.ReadAuthorizerCredential, initial.ReadAuthorizerCredential, opts...)
+	cDes.AuthorizerCredential = canonicalizeConnectionBitbucketDataCenterConfigAuthorizerCredential(des.AuthorizerCredential, initial.AuthorizerCredential, opts...)
+	cDes.ServiceDirectoryConfig = canonicalizeConnectionBitbucketDataCenterConfigServiceDirectoryConfig(des.ServiceDirectoryConfig, initial.ServiceDirectoryConfig, opts...)
+	if dcl.StringCanonicalize(des.SslCa, initial.SslCa) || dcl.IsZeroValue(des.SslCa) {
+		cDes.SslCa = initial.SslCa
+	} else {
+		cDes.SslCa = des.SslCa
+	}
+
+	return cDes
+}
+
+func canonicalizeConnectionBitbucketDataCenterConfigSlice(des, initial []ConnectionBitbucketDataCenterConfig, opts ...dcl.ApplyOption) []ConnectionBitbucketDataCenterConfig {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ConnectionBitbucketDataCenterConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeConnectionBitbucketDataCenterConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ConnectionBitbucketDataCenterConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeConnectionBitbucketDataCenterConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewConnectionBitbucketDataCenterConfig(c *Client, des, nw *ConnectionBitbucketDataCenterConfig) *ConnectionBitbucketDataCenterConfig {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ConnectionBitbucketDataCenterConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.HostUri, nw.HostUri) {
+		nw.HostUri = des.HostUri
+	}
+	nw.ReadAuthorizerCredential = canonicalizeNewConnectionBitbucketDataCenterConfigReadAuthorizerCredential(c, des.ReadAuthorizerCredential, nw.ReadAuthorizerCredential)
+	nw.AuthorizerCredential = canonicalizeNewConnectionBitbucketDataCenterConfigAuthorizerCredential(c, des.AuthorizerCredential, nw.AuthorizerCredential)
+	nw.ServiceDirectoryConfig = canonicalizeNewConnectionBitbucketDataCenterConfigServiceDirectoryConfig(c, des.ServiceDirectoryConfig, nw.ServiceDirectoryConfig)
+	if dcl.StringCanonicalize(des.SslCa, nw.SslCa) {
+		nw.SslCa = des.SslCa
+	}
+	if dcl.StringCanonicalize(des.ServerVersion, nw.ServerVersion) {
+		nw.ServerVersion = des.ServerVersion
+	}
+
+	return nw
+}
+
+func canonicalizeNewConnectionBitbucketDataCenterConfigSet(c *Client, des, nw []ConnectionBitbucketDataCenterConfig) []ConnectionBitbucketDataCenterConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []ConnectionBitbucketDataCenterConfig
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareConnectionBitbucketDataCenterConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewConnectionBitbucketDataCenterConfig(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewConnectionBitbucketDataCenterConfigSlice(c *Client, des, nw []ConnectionBitbucketDataCenterConfig) []ConnectionBitbucketDataCenterConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ConnectionBitbucketDataCenterConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewConnectionBitbucketDataCenterConfig(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeConnectionBitbucketDataCenterConfigReadAuthorizerCredential(des, initial *ConnectionBitbucketDataCenterConfigReadAuthorizerCredential, opts ...dcl.ApplyOption) *ConnectionBitbucketDataCenterConfigReadAuthorizerCredential {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ConnectionBitbucketDataCenterConfigReadAuthorizerCredential{}
+
+	if dcl.IsZeroValue(des.UserTokenSecretVersion) || (dcl.IsEmptyValueIndirect(des.UserTokenSecretVersion) && dcl.IsEmptyValueIndirect(initial.UserTokenSecretVersion)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.UserTokenSecretVersion = initial.UserTokenSecretVersion
+	} else {
+		cDes.UserTokenSecretVersion = des.UserTokenSecretVersion
+	}
+
+	return cDes
+}
+
+func canonicalizeConnectionBitbucketDataCenterConfigReadAuthorizerCredentialSlice(des, initial []ConnectionBitbucketDataCenterConfigReadAuthorizerCredential, opts ...dcl.ApplyOption) []ConnectionBitbucketDataCenterConfigReadAuthorizerCredential {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ConnectionBitbucketDataCenterConfigReadAuthorizerCredential, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeConnectionBitbucketDataCenterConfigReadAuthorizerCredential(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ConnectionBitbucketDataCenterConfigReadAuthorizerCredential, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeConnectionBitbucketDataCenterConfigReadAuthorizerCredential(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewConnectionBitbucketDataCenterConfigReadAuthorizerCredential(c *Client, des, nw *ConnectionBitbucketDataCenterConfigReadAuthorizerCredential) *ConnectionBitbucketDataCenterConfigReadAuthorizerCredential {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ConnectionBitbucketDataCenterConfigReadAuthorizerCredential while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Username, nw.Username) {
+		nw.Username = des.Username
+	}
+
+	return nw
+}
+
+func canonicalizeNewConnectionBitbucketDataCenterConfigReadAuthorizerCredentialSet(c *Client, des, nw []ConnectionBitbucketDataCenterConfigReadAuthorizerCredential) []ConnectionBitbucketDataCenterConfigReadAuthorizerCredential {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []ConnectionBitbucketDataCenterConfigReadAuthorizerCredential
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareConnectionBitbucketDataCenterConfigReadAuthorizerCredentialNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewConnectionBitbucketDataCenterConfigReadAuthorizerCredential(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewConnectionBitbucketDataCenterConfigReadAuthorizerCredentialSlice(c *Client, des, nw []ConnectionBitbucketDataCenterConfigReadAuthorizerCredential) []ConnectionBitbucketDataCenterConfigReadAuthorizerCredential {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ConnectionBitbucketDataCenterConfigReadAuthorizerCredential
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewConnectionBitbucketDataCenterConfigReadAuthorizerCredential(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeConnectionBitbucketDataCenterConfigAuthorizerCredential(des, initial *ConnectionBitbucketDataCenterConfigAuthorizerCredential, opts ...dcl.ApplyOption) *ConnectionBitbucketDataCenterConfigAuthorizerCredential {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ConnectionBitbucketDataCenterConfigAuthorizerCredential{}
+
+	if dcl.IsZeroValue(des.UserTokenSecretVersion) || (dcl.IsEmptyValueIndirect(des.UserTokenSecretVersion) && dcl.IsEmptyValueIndirect(initial.UserTokenSecretVersion)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.UserTokenSecretVersion = initial.UserTokenSecretVersion
+	} else {
+		cDes.UserTokenSecretVersion = des.UserTokenSecretVersion
+	}
+
+	return cDes
+}
+
+func canonicalizeConnectionBitbucketDataCenterConfigAuthorizerCredentialSlice(des, initial []ConnectionBitbucketDataCenterConfigAuthorizerCredential, opts ...dcl.ApplyOption) []ConnectionBitbucketDataCenterConfigAuthorizerCredential {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ConnectionBitbucketDataCenterConfigAuthorizerCredential, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeConnectionBitbucketDataCenterConfigAuthorizerCredential(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ConnectionBitbucketDataCenterConfigAuthorizerCredential, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeConnectionBitbucketDataCenterConfigAuthorizerCredential(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewConnectionBitbucketDataCenterConfigAuthorizerCredential(c *Client, des, nw *ConnectionBitbucketDataCenterConfigAuthorizerCredential) *ConnectionBitbucketDataCenterConfigAuthorizerCredential {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ConnectionBitbucketDataCenterConfigAuthorizerCredential while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.Username, nw.Username) {
+		nw.Username = des.Username
+	}
+
+	return nw
+}
+
+func canonicalizeNewConnectionBitbucketDataCenterConfigAuthorizerCredentialSet(c *Client, des, nw []ConnectionBitbucketDataCenterConfigAuthorizerCredential) []ConnectionBitbucketDataCenterConfigAuthorizerCredential {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []ConnectionBitbucketDataCenterConfigAuthorizerCredential
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareConnectionBitbucketDataCenterConfigAuthorizerCredentialNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewConnectionBitbucketDataCenterConfigAuthorizerCredential(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewConnectionBitbucketDataCenterConfigAuthorizerCredentialSlice(c *Client, des, nw []ConnectionBitbucketDataCenterConfigAuthorizerCredential) []ConnectionBitbucketDataCenterConfigAuthorizerCredential {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ConnectionBitbucketDataCenterConfigAuthorizerCredential
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewConnectionBitbucketDataCenterConfigAuthorizerCredential(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeConnectionBitbucketDataCenterConfigServiceDirectoryConfig(des, initial *ConnectionBitbucketDataCenterConfigServiceDirectoryConfig, opts ...dcl.ApplyOption) *ConnectionBitbucketDataCenterConfigServiceDirectoryConfig {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &ConnectionBitbucketDataCenterConfigServiceDirectoryConfig{}
+
+	if dcl.IsZeroValue(des.Service) || (dcl.IsEmptyValueIndirect(des.Service) && dcl.IsEmptyValueIndirect(initial.Service)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.Service = initial.Service
+	} else {
+		cDes.Service = des.Service
+	}
+
+	return cDes
+}
+
+func canonicalizeConnectionBitbucketDataCenterConfigServiceDirectoryConfigSlice(des, initial []ConnectionBitbucketDataCenterConfigServiceDirectoryConfig, opts ...dcl.ApplyOption) []ConnectionBitbucketDataCenterConfigServiceDirectoryConfig {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]ConnectionBitbucketDataCenterConfigServiceDirectoryConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeConnectionBitbucketDataCenterConfigServiceDirectoryConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]ConnectionBitbucketDataCenterConfigServiceDirectoryConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeConnectionBitbucketDataCenterConfigServiceDirectoryConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewConnectionBitbucketDataCenterConfigServiceDirectoryConfig(c *Client, des, nw *ConnectionBitbucketDataCenterConfigServiceDirectoryConfig) *ConnectionBitbucketDataCenterConfigServiceDirectoryConfig {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for ConnectionBitbucketDataCenterConfigServiceDirectoryConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	return nw
+}
+
+func canonicalizeNewConnectionBitbucketDataCenterConfigServiceDirectoryConfigSet(c *Client, des, nw []ConnectionBitbucketDataCenterConfigServiceDirectoryConfig) []ConnectionBitbucketDataCenterConfigServiceDirectoryConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []ConnectionBitbucketDataCenterConfigServiceDirectoryConfig
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareConnectionBitbucketDataCenterConfigServiceDirectoryConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewConnectionBitbucketDataCenterConfigServiceDirectoryConfig(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewConnectionBitbucketDataCenterConfigServiceDirectoryConfigSlice(c *Client, des, nw []ConnectionBitbucketDataCenterConfigServiceDirectoryConfig) []ConnectionBitbucketDataCenterConfigServiceDirectoryConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []ConnectionBitbucketDataCenterConfigServiceDirectoryConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewConnectionBitbucketDataCenterConfigServiceDirectoryConfig(c, &d, &n))
+	}
+
+	return items
+}
+
 func canonicalizeConnectionInstallationState(des, initial *ConnectionInstallationState, opts ...dcl.ApplyOption) *ConnectionInstallationState {
 	if des == nil {
 		return initial
@@ -1898,6 +2472,13 @@ func diffConnection(c *Client, desired, actual *Connection, opts ...dcl.ApplyOpt
 	}
 
 	if ds, err := dcl.Diff(desired.GitlabConfig, actual.GitlabConfig, dcl.DiffInfo{ObjectFunction: compareConnectionGitlabConfigNewStyle, EmptyObject: EmptyConnectionGitlabConfig, OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("GitlabConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.BitbucketDataCenterConfig, actual.BitbucketDataCenterConfig, dcl.DiffInfo{ObjectFunction: compareConnectionBitbucketDataCenterConfigNewStyle, EmptyObject: EmptyConnectionBitbucketDataCenterConfig, OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("BitbucketDataCenterConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2309,6 +2890,178 @@ func compareConnectionGitlabConfigServiceDirectoryConfigNewStyle(d, a interface{
 	return diffs, nil
 }
 
+func compareConnectionBitbucketDataCenterConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ConnectionBitbucketDataCenterConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ConnectionBitbucketDataCenterConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConnectionBitbucketDataCenterConfig or *ConnectionBitbucketDataCenterConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ConnectionBitbucketDataCenterConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ConnectionBitbucketDataCenterConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConnectionBitbucketDataCenterConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.HostUri, actual.HostUri, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("HostUri")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.WebhookSecretSecretVersion, actual.WebhookSecretSecretVersion, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("WebhookSecretSecretVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ReadAuthorizerCredential, actual.ReadAuthorizerCredential, dcl.DiffInfo{ObjectFunction: compareConnectionBitbucketDataCenterConfigReadAuthorizerCredentialNewStyle, EmptyObject: EmptyConnectionBitbucketDataCenterConfigReadAuthorizerCredential, OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("ReadAuthorizerCredential")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AuthorizerCredential, actual.AuthorizerCredential, dcl.DiffInfo{ObjectFunction: compareConnectionBitbucketDataCenterConfigAuthorizerCredentialNewStyle, EmptyObject: EmptyConnectionBitbucketDataCenterConfigAuthorizerCredential, OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("AuthorizerCredential")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServiceDirectoryConfig, actual.ServiceDirectoryConfig, dcl.DiffInfo{ObjectFunction: compareConnectionBitbucketDataCenterConfigServiceDirectoryConfigNewStyle, EmptyObject: EmptyConnectionBitbucketDataCenterConfigServiceDirectoryConfig, OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("ServiceDirectoryConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.SslCa, actual.SslCa, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("SslCa")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ServerVersion, actual.ServerVersion, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServerVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareConnectionBitbucketDataCenterConfigReadAuthorizerCredentialNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ConnectionBitbucketDataCenterConfigReadAuthorizerCredential)
+	if !ok {
+		desiredNotPointer, ok := d.(ConnectionBitbucketDataCenterConfigReadAuthorizerCredential)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConnectionBitbucketDataCenterConfigReadAuthorizerCredential or *ConnectionBitbucketDataCenterConfigReadAuthorizerCredential", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ConnectionBitbucketDataCenterConfigReadAuthorizerCredential)
+	if !ok {
+		actualNotPointer, ok := a.(ConnectionBitbucketDataCenterConfigReadAuthorizerCredential)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConnectionBitbucketDataCenterConfigReadAuthorizerCredential", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.UserTokenSecretVersion, actual.UserTokenSecretVersion, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("UserTokenSecretVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Username, actual.Username, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Username")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareConnectionBitbucketDataCenterConfigAuthorizerCredentialNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ConnectionBitbucketDataCenterConfigAuthorizerCredential)
+	if !ok {
+		desiredNotPointer, ok := d.(ConnectionBitbucketDataCenterConfigAuthorizerCredential)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConnectionBitbucketDataCenterConfigAuthorizerCredential or *ConnectionBitbucketDataCenterConfigAuthorizerCredential", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ConnectionBitbucketDataCenterConfigAuthorizerCredential)
+	if !ok {
+		actualNotPointer, ok := a.(ConnectionBitbucketDataCenterConfigAuthorizerCredential)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConnectionBitbucketDataCenterConfigAuthorizerCredential", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.UserTokenSecretVersion, actual.UserTokenSecretVersion, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("UserTokenSecretVersion")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Username, actual.Username, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Username")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareConnectionBitbucketDataCenterConfigServiceDirectoryConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*ConnectionBitbucketDataCenterConfigServiceDirectoryConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(ConnectionBitbucketDataCenterConfigServiceDirectoryConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConnectionBitbucketDataCenterConfigServiceDirectoryConfig or *ConnectionBitbucketDataCenterConfigServiceDirectoryConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*ConnectionBitbucketDataCenterConfigServiceDirectoryConfig)
+	if !ok {
+		actualNotPointer, ok := a.(ConnectionBitbucketDataCenterConfigServiceDirectoryConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a ConnectionBitbucketDataCenterConfigServiceDirectoryConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Service, actual.Service, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateConnectionUpdateConnectionOperation")}, fn.AddNest("Service")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareConnectionInstallationStateNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
@@ -2434,6 +3187,11 @@ func expandConnection(c *Client, f *Connection) (map[string]interface{}, error) 
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["gitlabConfig"] = v
 	}
+	if v, err := expandConnectionBitbucketDataCenterConfig(c, f.BitbucketDataCenterConfig, res); err != nil {
+		return nil, fmt.Errorf("error expanding BitbucketDataCenterConfig into bitbucketDataCenterConfig: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["bitbucketDataCenterConfig"] = v
+	}
 	if v := f.Disabled; dcl.ValueShouldBeSent(v) {
 		m["disabled"] = v
 	}
@@ -2472,6 +3230,7 @@ func flattenConnection(c *Client, i interface{}, res *Connection) *Connection {
 	resultRes.GithubConfig = flattenConnectionGithubConfig(c, m["githubConfig"], res)
 	resultRes.GithubEnterpriseConfig = flattenConnectionGithubEnterpriseConfig(c, m["githubEnterpriseConfig"], res)
 	resultRes.GitlabConfig = flattenConnectionGitlabConfig(c, m["gitlabConfig"], res)
+	resultRes.BitbucketDataCenterConfig = flattenConnectionBitbucketDataCenterConfig(c, m["bitbucketDataCenterConfig"], res)
 	resultRes.InstallationState = flattenConnectionInstallationState(c, m["installationState"], res)
 	resultRes.Disabled = dcl.FlattenBool(m["disabled"])
 	resultRes.Reconciling = dcl.FlattenBool(m["reconciling"])
@@ -3461,6 +4220,491 @@ func flattenConnectionGitlabConfigServiceDirectoryConfig(c *Client, i interface{
 	return r
 }
 
+// expandConnectionBitbucketDataCenterConfigMap expands the contents of ConnectionBitbucketDataCenterConfig into a JSON
+// request object.
+func expandConnectionBitbucketDataCenterConfigMap(c *Client, f map[string]ConnectionBitbucketDataCenterConfig, res *Connection) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandConnectionBitbucketDataCenterConfig(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandConnectionBitbucketDataCenterConfigSlice expands the contents of ConnectionBitbucketDataCenterConfig into a JSON
+// request object.
+func expandConnectionBitbucketDataCenterConfigSlice(c *Client, f []ConnectionBitbucketDataCenterConfig, res *Connection) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandConnectionBitbucketDataCenterConfig(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenConnectionBitbucketDataCenterConfigMap flattens the contents of ConnectionBitbucketDataCenterConfig from a JSON
+// response object.
+func flattenConnectionBitbucketDataCenterConfigMap(c *Client, i interface{}, res *Connection) map[string]ConnectionBitbucketDataCenterConfig {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ConnectionBitbucketDataCenterConfig{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ConnectionBitbucketDataCenterConfig{}
+	}
+
+	items := make(map[string]ConnectionBitbucketDataCenterConfig)
+	for k, item := range a {
+		items[k] = *flattenConnectionBitbucketDataCenterConfig(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenConnectionBitbucketDataCenterConfigSlice flattens the contents of ConnectionBitbucketDataCenterConfig from a JSON
+// response object.
+func flattenConnectionBitbucketDataCenterConfigSlice(c *Client, i interface{}, res *Connection) []ConnectionBitbucketDataCenterConfig {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ConnectionBitbucketDataCenterConfig{}
+	}
+
+	if len(a) == 0 {
+		return []ConnectionBitbucketDataCenterConfig{}
+	}
+
+	items := make([]ConnectionBitbucketDataCenterConfig, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenConnectionBitbucketDataCenterConfig(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandConnectionBitbucketDataCenterConfig expands an instance of ConnectionBitbucketDataCenterConfig into a JSON
+// request object.
+func expandConnectionBitbucketDataCenterConfig(c *Client, f *ConnectionBitbucketDataCenterConfig, res *Connection) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.HostUri; !dcl.IsEmptyValueIndirect(v) {
+		m["hostUri"] = v
+	}
+	if v := f.WebhookSecretSecretVersion; !dcl.IsEmptyValueIndirect(v) {
+		m["webhookSecretSecretVersion"] = v
+	}
+	if v, err := expandConnectionBitbucketDataCenterConfigReadAuthorizerCredential(c, f.ReadAuthorizerCredential, res); err != nil {
+		return nil, fmt.Errorf("error expanding ReadAuthorizerCredential into readAuthorizerCredential: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["readAuthorizerCredential"] = v
+	}
+	if v, err := expandConnectionBitbucketDataCenterConfigAuthorizerCredential(c, f.AuthorizerCredential, res); err != nil {
+		return nil, fmt.Errorf("error expanding AuthorizerCredential into authorizerCredential: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["authorizerCredential"] = v
+	}
+	if v, err := expandConnectionBitbucketDataCenterConfigServiceDirectoryConfig(c, f.ServiceDirectoryConfig, res); err != nil {
+		return nil, fmt.Errorf("error expanding ServiceDirectoryConfig into serviceDirectoryConfig: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["serviceDirectoryConfig"] = v
+	}
+	if v := f.SslCa; !dcl.IsEmptyValueIndirect(v) {
+		m["sslCa"] = v
+	}
+
+	return m, nil
+}
+
+// flattenConnectionBitbucketDataCenterConfig flattens an instance of ConnectionBitbucketDataCenterConfig from a JSON
+// response object.
+func flattenConnectionBitbucketDataCenterConfig(c *Client, i interface{}, res *Connection) *ConnectionBitbucketDataCenterConfig {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ConnectionBitbucketDataCenterConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyConnectionBitbucketDataCenterConfig
+	}
+	r.HostUri = dcl.FlattenString(m["hostUri"])
+	r.WebhookSecretSecretVersion = dcl.FlattenString(m["webhookSecretSecretVersion"])
+	r.ReadAuthorizerCredential = flattenConnectionBitbucketDataCenterConfigReadAuthorizerCredential(c, m["readAuthorizerCredential"], res)
+	r.AuthorizerCredential = flattenConnectionBitbucketDataCenterConfigAuthorizerCredential(c, m["authorizerCredential"], res)
+	r.ServiceDirectoryConfig = flattenConnectionBitbucketDataCenterConfigServiceDirectoryConfig(c, m["serviceDirectoryConfig"], res)
+	r.SslCa = dcl.FlattenString(m["sslCa"])
+	r.ServerVersion = dcl.FlattenString(m["serverVersion"])
+
+	return r
+}
+
+// expandConnectionBitbucketDataCenterConfigReadAuthorizerCredentialMap expands the contents of ConnectionBitbucketDataCenterConfigReadAuthorizerCredential into a JSON
+// request object.
+func expandConnectionBitbucketDataCenterConfigReadAuthorizerCredentialMap(c *Client, f map[string]ConnectionBitbucketDataCenterConfigReadAuthorizerCredential, res *Connection) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandConnectionBitbucketDataCenterConfigReadAuthorizerCredential(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandConnectionBitbucketDataCenterConfigReadAuthorizerCredentialSlice expands the contents of ConnectionBitbucketDataCenterConfigReadAuthorizerCredential into a JSON
+// request object.
+func expandConnectionBitbucketDataCenterConfigReadAuthorizerCredentialSlice(c *Client, f []ConnectionBitbucketDataCenterConfigReadAuthorizerCredential, res *Connection) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandConnectionBitbucketDataCenterConfigReadAuthorizerCredential(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenConnectionBitbucketDataCenterConfigReadAuthorizerCredentialMap flattens the contents of ConnectionBitbucketDataCenterConfigReadAuthorizerCredential from a JSON
+// response object.
+func flattenConnectionBitbucketDataCenterConfigReadAuthorizerCredentialMap(c *Client, i interface{}, res *Connection) map[string]ConnectionBitbucketDataCenterConfigReadAuthorizerCredential {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ConnectionBitbucketDataCenterConfigReadAuthorizerCredential{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ConnectionBitbucketDataCenterConfigReadAuthorizerCredential{}
+	}
+
+	items := make(map[string]ConnectionBitbucketDataCenterConfigReadAuthorizerCredential)
+	for k, item := range a {
+		items[k] = *flattenConnectionBitbucketDataCenterConfigReadAuthorizerCredential(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenConnectionBitbucketDataCenterConfigReadAuthorizerCredentialSlice flattens the contents of ConnectionBitbucketDataCenterConfigReadAuthorizerCredential from a JSON
+// response object.
+func flattenConnectionBitbucketDataCenterConfigReadAuthorizerCredentialSlice(c *Client, i interface{}, res *Connection) []ConnectionBitbucketDataCenterConfigReadAuthorizerCredential {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ConnectionBitbucketDataCenterConfigReadAuthorizerCredential{}
+	}
+
+	if len(a) == 0 {
+		return []ConnectionBitbucketDataCenterConfigReadAuthorizerCredential{}
+	}
+
+	items := make([]ConnectionBitbucketDataCenterConfigReadAuthorizerCredential, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenConnectionBitbucketDataCenterConfigReadAuthorizerCredential(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandConnectionBitbucketDataCenterConfigReadAuthorizerCredential expands an instance of ConnectionBitbucketDataCenterConfigReadAuthorizerCredential into a JSON
+// request object.
+func expandConnectionBitbucketDataCenterConfigReadAuthorizerCredential(c *Client, f *ConnectionBitbucketDataCenterConfigReadAuthorizerCredential, res *Connection) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.UserTokenSecretVersion; !dcl.IsEmptyValueIndirect(v) {
+		m["userTokenSecretVersion"] = v
+	}
+
+	return m, nil
+}
+
+// flattenConnectionBitbucketDataCenterConfigReadAuthorizerCredential flattens an instance of ConnectionBitbucketDataCenterConfigReadAuthorizerCredential from a JSON
+// response object.
+func flattenConnectionBitbucketDataCenterConfigReadAuthorizerCredential(c *Client, i interface{}, res *Connection) *ConnectionBitbucketDataCenterConfigReadAuthorizerCredential {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ConnectionBitbucketDataCenterConfigReadAuthorizerCredential{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyConnectionBitbucketDataCenterConfigReadAuthorizerCredential
+	}
+	r.UserTokenSecretVersion = dcl.FlattenString(m["userTokenSecretVersion"])
+	r.Username = dcl.FlattenString(m["username"])
+
+	return r
+}
+
+// expandConnectionBitbucketDataCenterConfigAuthorizerCredentialMap expands the contents of ConnectionBitbucketDataCenterConfigAuthorizerCredential into a JSON
+// request object.
+func expandConnectionBitbucketDataCenterConfigAuthorizerCredentialMap(c *Client, f map[string]ConnectionBitbucketDataCenterConfigAuthorizerCredential, res *Connection) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandConnectionBitbucketDataCenterConfigAuthorizerCredential(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandConnectionBitbucketDataCenterConfigAuthorizerCredentialSlice expands the contents of ConnectionBitbucketDataCenterConfigAuthorizerCredential into a JSON
+// request object.
+func expandConnectionBitbucketDataCenterConfigAuthorizerCredentialSlice(c *Client, f []ConnectionBitbucketDataCenterConfigAuthorizerCredential, res *Connection) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandConnectionBitbucketDataCenterConfigAuthorizerCredential(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenConnectionBitbucketDataCenterConfigAuthorizerCredentialMap flattens the contents of ConnectionBitbucketDataCenterConfigAuthorizerCredential from a JSON
+// response object.
+func flattenConnectionBitbucketDataCenterConfigAuthorizerCredentialMap(c *Client, i interface{}, res *Connection) map[string]ConnectionBitbucketDataCenterConfigAuthorizerCredential {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ConnectionBitbucketDataCenterConfigAuthorizerCredential{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ConnectionBitbucketDataCenterConfigAuthorizerCredential{}
+	}
+
+	items := make(map[string]ConnectionBitbucketDataCenterConfigAuthorizerCredential)
+	for k, item := range a {
+		items[k] = *flattenConnectionBitbucketDataCenterConfigAuthorizerCredential(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenConnectionBitbucketDataCenterConfigAuthorizerCredentialSlice flattens the contents of ConnectionBitbucketDataCenterConfigAuthorizerCredential from a JSON
+// response object.
+func flattenConnectionBitbucketDataCenterConfigAuthorizerCredentialSlice(c *Client, i interface{}, res *Connection) []ConnectionBitbucketDataCenterConfigAuthorizerCredential {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ConnectionBitbucketDataCenterConfigAuthorizerCredential{}
+	}
+
+	if len(a) == 0 {
+		return []ConnectionBitbucketDataCenterConfigAuthorizerCredential{}
+	}
+
+	items := make([]ConnectionBitbucketDataCenterConfigAuthorizerCredential, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenConnectionBitbucketDataCenterConfigAuthorizerCredential(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandConnectionBitbucketDataCenterConfigAuthorizerCredential expands an instance of ConnectionBitbucketDataCenterConfigAuthorizerCredential into a JSON
+// request object.
+func expandConnectionBitbucketDataCenterConfigAuthorizerCredential(c *Client, f *ConnectionBitbucketDataCenterConfigAuthorizerCredential, res *Connection) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.UserTokenSecretVersion; !dcl.IsEmptyValueIndirect(v) {
+		m["userTokenSecretVersion"] = v
+	}
+
+	return m, nil
+}
+
+// flattenConnectionBitbucketDataCenterConfigAuthorizerCredential flattens an instance of ConnectionBitbucketDataCenterConfigAuthorizerCredential from a JSON
+// response object.
+func flattenConnectionBitbucketDataCenterConfigAuthorizerCredential(c *Client, i interface{}, res *Connection) *ConnectionBitbucketDataCenterConfigAuthorizerCredential {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ConnectionBitbucketDataCenterConfigAuthorizerCredential{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyConnectionBitbucketDataCenterConfigAuthorizerCredential
+	}
+	r.UserTokenSecretVersion = dcl.FlattenString(m["userTokenSecretVersion"])
+	r.Username = dcl.FlattenString(m["username"])
+
+	return r
+}
+
+// expandConnectionBitbucketDataCenterConfigServiceDirectoryConfigMap expands the contents of ConnectionBitbucketDataCenterConfigServiceDirectoryConfig into a JSON
+// request object.
+func expandConnectionBitbucketDataCenterConfigServiceDirectoryConfigMap(c *Client, f map[string]ConnectionBitbucketDataCenterConfigServiceDirectoryConfig, res *Connection) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandConnectionBitbucketDataCenterConfigServiceDirectoryConfig(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandConnectionBitbucketDataCenterConfigServiceDirectoryConfigSlice expands the contents of ConnectionBitbucketDataCenterConfigServiceDirectoryConfig into a JSON
+// request object.
+func expandConnectionBitbucketDataCenterConfigServiceDirectoryConfigSlice(c *Client, f []ConnectionBitbucketDataCenterConfigServiceDirectoryConfig, res *Connection) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandConnectionBitbucketDataCenterConfigServiceDirectoryConfig(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenConnectionBitbucketDataCenterConfigServiceDirectoryConfigMap flattens the contents of ConnectionBitbucketDataCenterConfigServiceDirectoryConfig from a JSON
+// response object.
+func flattenConnectionBitbucketDataCenterConfigServiceDirectoryConfigMap(c *Client, i interface{}, res *Connection) map[string]ConnectionBitbucketDataCenterConfigServiceDirectoryConfig {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]ConnectionBitbucketDataCenterConfigServiceDirectoryConfig{}
+	}
+
+	if len(a) == 0 {
+		return map[string]ConnectionBitbucketDataCenterConfigServiceDirectoryConfig{}
+	}
+
+	items := make(map[string]ConnectionBitbucketDataCenterConfigServiceDirectoryConfig)
+	for k, item := range a {
+		items[k] = *flattenConnectionBitbucketDataCenterConfigServiceDirectoryConfig(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenConnectionBitbucketDataCenterConfigServiceDirectoryConfigSlice flattens the contents of ConnectionBitbucketDataCenterConfigServiceDirectoryConfig from a JSON
+// response object.
+func flattenConnectionBitbucketDataCenterConfigServiceDirectoryConfigSlice(c *Client, i interface{}, res *Connection) []ConnectionBitbucketDataCenterConfigServiceDirectoryConfig {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []ConnectionBitbucketDataCenterConfigServiceDirectoryConfig{}
+	}
+
+	if len(a) == 0 {
+		return []ConnectionBitbucketDataCenterConfigServiceDirectoryConfig{}
+	}
+
+	items := make([]ConnectionBitbucketDataCenterConfigServiceDirectoryConfig, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenConnectionBitbucketDataCenterConfigServiceDirectoryConfig(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandConnectionBitbucketDataCenterConfigServiceDirectoryConfig expands an instance of ConnectionBitbucketDataCenterConfigServiceDirectoryConfig into a JSON
+// request object.
+func expandConnectionBitbucketDataCenterConfigServiceDirectoryConfig(c *Client, f *ConnectionBitbucketDataCenterConfigServiceDirectoryConfig, res *Connection) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Service; !dcl.IsEmptyValueIndirect(v) {
+		m["service"] = v
+	}
+
+	return m, nil
+}
+
+// flattenConnectionBitbucketDataCenterConfigServiceDirectoryConfig flattens an instance of ConnectionBitbucketDataCenterConfigServiceDirectoryConfig from a JSON
+// response object.
+func flattenConnectionBitbucketDataCenterConfigServiceDirectoryConfig(c *Client, i interface{}, res *Connection) *ConnectionBitbucketDataCenterConfigServiceDirectoryConfig {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &ConnectionBitbucketDataCenterConfigServiceDirectoryConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyConnectionBitbucketDataCenterConfigServiceDirectoryConfig
+	}
+	r.Service = dcl.FlattenString(m["service"])
+
+	return r
+}
+
 // expandConnectionInstallationStateMap expands the contents of ConnectionInstallationState into a JSON
 // request object.
 func expandConnectionInstallationStateMap(c *Client, f map[string]ConnectionInstallationState, res *Connection) (map[string]interface{}, error) {
@@ -3752,6 +4996,17 @@ func extractConnectionFields(r *Connection) error {
 	if !dcl.IsEmptyValueIndirect(vGitlabConfig) {
 		r.GitlabConfig = vGitlabConfig
 	}
+	vBitbucketDataCenterConfig := r.BitbucketDataCenterConfig
+	if vBitbucketDataCenterConfig == nil {
+		// note: explicitly not the empty object.
+		vBitbucketDataCenterConfig = &ConnectionBitbucketDataCenterConfig{}
+	}
+	if err := extractConnectionBitbucketDataCenterConfigFields(r, vBitbucketDataCenterConfig); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vBitbucketDataCenterConfig) {
+		r.BitbucketDataCenterConfig = vBitbucketDataCenterConfig
+	}
 	vInstallationState := r.InstallationState
 	if vInstallationState == nil {
 		// note: explicitly not the empty object.
@@ -3844,6 +5099,51 @@ func extractConnectionGitlabConfigAuthorizerCredentialFields(r *Connection, o *C
 func extractConnectionGitlabConfigServiceDirectoryConfigFields(r *Connection, o *ConnectionGitlabConfigServiceDirectoryConfig) error {
 	return nil
 }
+func extractConnectionBitbucketDataCenterConfigFields(r *Connection, o *ConnectionBitbucketDataCenterConfig) error {
+	vReadAuthorizerCredential := o.ReadAuthorizerCredential
+	if vReadAuthorizerCredential == nil {
+		// note: explicitly not the empty object.
+		vReadAuthorizerCredential = &ConnectionBitbucketDataCenterConfigReadAuthorizerCredential{}
+	}
+	if err := extractConnectionBitbucketDataCenterConfigReadAuthorizerCredentialFields(r, vReadAuthorizerCredential); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vReadAuthorizerCredential) {
+		o.ReadAuthorizerCredential = vReadAuthorizerCredential
+	}
+	vAuthorizerCredential := o.AuthorizerCredential
+	if vAuthorizerCredential == nil {
+		// note: explicitly not the empty object.
+		vAuthorizerCredential = &ConnectionBitbucketDataCenterConfigAuthorizerCredential{}
+	}
+	if err := extractConnectionBitbucketDataCenterConfigAuthorizerCredentialFields(r, vAuthorizerCredential); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vAuthorizerCredential) {
+		o.AuthorizerCredential = vAuthorizerCredential
+	}
+	vServiceDirectoryConfig := o.ServiceDirectoryConfig
+	if vServiceDirectoryConfig == nil {
+		// note: explicitly not the empty object.
+		vServiceDirectoryConfig = &ConnectionBitbucketDataCenterConfigServiceDirectoryConfig{}
+	}
+	if err := extractConnectionBitbucketDataCenterConfigServiceDirectoryConfigFields(r, vServiceDirectoryConfig); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vServiceDirectoryConfig) {
+		o.ServiceDirectoryConfig = vServiceDirectoryConfig
+	}
+	return nil
+}
+func extractConnectionBitbucketDataCenterConfigReadAuthorizerCredentialFields(r *Connection, o *ConnectionBitbucketDataCenterConfigReadAuthorizerCredential) error {
+	return nil
+}
+func extractConnectionBitbucketDataCenterConfigAuthorizerCredentialFields(r *Connection, o *ConnectionBitbucketDataCenterConfigAuthorizerCredential) error {
+	return nil
+}
+func extractConnectionBitbucketDataCenterConfigServiceDirectoryConfigFields(r *Connection, o *ConnectionBitbucketDataCenterConfigServiceDirectoryConfig) error {
+	return nil
+}
 func extractConnectionInstallationStateFields(r *Connection, o *ConnectionInstallationState) error {
 	return nil
 }
@@ -3881,6 +5181,17 @@ func postReadExtractConnectionFields(r *Connection) error {
 	}
 	if !dcl.IsEmptyValueIndirect(vGitlabConfig) {
 		r.GitlabConfig = vGitlabConfig
+	}
+	vBitbucketDataCenterConfig := r.BitbucketDataCenterConfig
+	if vBitbucketDataCenterConfig == nil {
+		// note: explicitly not the empty object.
+		vBitbucketDataCenterConfig = &ConnectionBitbucketDataCenterConfig{}
+	}
+	if err := postReadExtractConnectionBitbucketDataCenterConfigFields(r, vBitbucketDataCenterConfig); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vBitbucketDataCenterConfig) {
+		r.BitbucketDataCenterConfig = vBitbucketDataCenterConfig
 	}
 	vInstallationState := r.InstallationState
 	if vInstallationState == nil {
@@ -3972,6 +5283,51 @@ func postReadExtractConnectionGitlabConfigAuthorizerCredentialFields(r *Connecti
 	return nil
 }
 func postReadExtractConnectionGitlabConfigServiceDirectoryConfigFields(r *Connection, o *ConnectionGitlabConfigServiceDirectoryConfig) error {
+	return nil
+}
+func postReadExtractConnectionBitbucketDataCenterConfigFields(r *Connection, o *ConnectionBitbucketDataCenterConfig) error {
+	vReadAuthorizerCredential := o.ReadAuthorizerCredential
+	if vReadAuthorizerCredential == nil {
+		// note: explicitly not the empty object.
+		vReadAuthorizerCredential = &ConnectionBitbucketDataCenterConfigReadAuthorizerCredential{}
+	}
+	if err := extractConnectionBitbucketDataCenterConfigReadAuthorizerCredentialFields(r, vReadAuthorizerCredential); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vReadAuthorizerCredential) {
+		o.ReadAuthorizerCredential = vReadAuthorizerCredential
+	}
+	vAuthorizerCredential := o.AuthorizerCredential
+	if vAuthorizerCredential == nil {
+		// note: explicitly not the empty object.
+		vAuthorizerCredential = &ConnectionBitbucketDataCenterConfigAuthorizerCredential{}
+	}
+	if err := extractConnectionBitbucketDataCenterConfigAuthorizerCredentialFields(r, vAuthorizerCredential); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vAuthorizerCredential) {
+		o.AuthorizerCredential = vAuthorizerCredential
+	}
+	vServiceDirectoryConfig := o.ServiceDirectoryConfig
+	if vServiceDirectoryConfig == nil {
+		// note: explicitly not the empty object.
+		vServiceDirectoryConfig = &ConnectionBitbucketDataCenterConfigServiceDirectoryConfig{}
+	}
+	if err := extractConnectionBitbucketDataCenterConfigServiceDirectoryConfigFields(r, vServiceDirectoryConfig); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vServiceDirectoryConfig) {
+		o.ServiceDirectoryConfig = vServiceDirectoryConfig
+	}
+	return nil
+}
+func postReadExtractConnectionBitbucketDataCenterConfigReadAuthorizerCredentialFields(r *Connection, o *ConnectionBitbucketDataCenterConfigReadAuthorizerCredential) error {
+	return nil
+}
+func postReadExtractConnectionBitbucketDataCenterConfigAuthorizerCredentialFields(r *Connection, o *ConnectionBitbucketDataCenterConfigAuthorizerCredential) error {
+	return nil
+}
+func postReadExtractConnectionBitbucketDataCenterConfigServiceDirectoryConfigFields(r *Connection, o *ConnectionBitbucketDataCenterConfigServiceDirectoryConfig) error {
 	return nil
 }
 func postReadExtractConnectionInstallationStateFields(r *Connection, o *ConnectionInstallationState) error {

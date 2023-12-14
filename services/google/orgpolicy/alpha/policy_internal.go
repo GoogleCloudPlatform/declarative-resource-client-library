@@ -159,6 +159,23 @@ func newUpdatePolicyUpdatePolicyRequest(ctx context.Context, f *Policy, c *Clien
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["dryRunSpec"] = v
 	}
+	b, err := c.getPolicyRaw(ctx, f)
+	if err != nil {
+		return nil, err
+	}
+	var m map[string]interface{}
+	if err := json.Unmarshal(b, &m); err != nil {
+		return nil, err
+	}
+	rawEtag, err := dcl.GetMapEntry(
+		m,
+		[]string{"etag"},
+	)
+	if err != nil {
+		c.Config.Logger.WarningWithContextf(ctx, "Failed to fetch from JSON Path: %v", err)
+	} else {
+		req["etag"] = rawEtag.(string)
+	}
 	return req, nil
 }
 
@@ -454,6 +471,14 @@ func canonicalizePolicyNewState(c *Client, rawNew, rawDesired *Policy) (*Policy,
 		rawNew.DryRunSpec = rawDesired.DryRunSpec
 	} else {
 		rawNew.DryRunSpec = canonicalizeNewPolicyDryRunSpec(c, rawDesired.DryRunSpec, rawNew.DryRunSpec)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.Etag) && dcl.IsEmptyValueIndirect(rawDesired.Etag) {
+		rawNew.Etag = rawDesired.Etag
+	} else {
+		if dcl.StringCanonicalize(rawDesired.Etag, rawNew.Etag) {
+			rawNew.Etag = rawDesired.Etag
+		}
 	}
 
 	rawNew.Parent = rawDesired.Parent
@@ -1654,6 +1679,13 @@ func diffPolicy(c *Client, desired, actual *Policy, opts ...dcl.ApplyOption) ([]
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.Etag, actual.Etag, dcl.DiffInfo{OutputOnly: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Etag")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Parent, actual.Parent, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Parent")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -2072,6 +2104,7 @@ func comparePolicyDryRunSpecRulesConditionNewStyle(d, a interface{}, fn dcl.Fiel
 func (r *Policy) urlNormalized() *Policy {
 	normalized := dcl.Copy(*r).(Policy)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.Etag = dcl.SelfLinkToName(r.Etag)
 	normalized.Parent = r.Parent
 	return &normalized
 }
@@ -2164,6 +2197,7 @@ func flattenPolicy(c *Client, i interface{}, res *Policy) *Policy {
 	resultRes.Name = dcl.FlattenString(m["name"])
 	resultRes.Spec = flattenPolicySpec(c, m["spec"], res)
 	resultRes.DryRunSpec = flattenPolicyDryRunSpec(c, m["dryRunSpec"], res)
+	resultRes.Etag = dcl.FlattenString(m["etag"])
 	resultRes.Parent = dcl.FlattenString(m["parent"])
 
 	return resultRes

@@ -25,19 +25,20 @@ import (
 )
 
 type Connection struct {
-	Name                   *string                           `json:"name"`
-	CreateTime             *string                           `json:"createTime"`
-	UpdateTime             *string                           `json:"updateTime"`
-	GithubConfig           *ConnectionGithubConfig           `json:"githubConfig"`
-	GithubEnterpriseConfig *ConnectionGithubEnterpriseConfig `json:"githubEnterpriseConfig"`
-	GitlabConfig           *ConnectionGitlabConfig           `json:"gitlabConfig"`
-	InstallationState      *ConnectionInstallationState      `json:"installationState"`
-	Disabled               *bool                             `json:"disabled"`
-	Reconciling            *bool                             `json:"reconciling"`
-	Annotations            map[string]string                 `json:"annotations"`
-	Etag                   *string                           `json:"etag"`
-	Project                *string                           `json:"project"`
-	Location               *string                           `json:"location"`
+	Name                      *string                              `json:"name"`
+	CreateTime                *string                              `json:"createTime"`
+	UpdateTime                *string                              `json:"updateTime"`
+	GithubConfig              *ConnectionGithubConfig              `json:"githubConfig"`
+	GithubEnterpriseConfig    *ConnectionGithubEnterpriseConfig    `json:"githubEnterpriseConfig"`
+	GitlabConfig              *ConnectionGitlabConfig              `json:"gitlabConfig"`
+	BitbucketDataCenterConfig *ConnectionBitbucketDataCenterConfig `json:"bitbucketDataCenterConfig"`
+	InstallationState         *ConnectionInstallationState         `json:"installationState"`
+	Disabled                  *bool                                `json:"disabled"`
+	Reconciling               *bool                                `json:"reconciling"`
+	Annotations               map[string]string                    `json:"annotations"`
+	Etag                      *string                              `json:"etag"`
+	Project                   *string                              `json:"project"`
+	Location                  *string                              `json:"location"`
 }
 
 func (r *Connection) String() string {
@@ -490,6 +491,214 @@ func (r *ConnectionGitlabConfigServiceDirectoryConfig) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
+type ConnectionBitbucketDataCenterConfig struct {
+	empty                      bool                                                         `json:"-"`
+	HostUri                    *string                                                      `json:"hostUri"`
+	WebhookSecretSecretVersion *string                                                      `json:"webhookSecretSecretVersion"`
+	ReadAuthorizerCredential   *ConnectionBitbucketDataCenterConfigReadAuthorizerCredential `json:"readAuthorizerCredential"`
+	AuthorizerCredential       *ConnectionBitbucketDataCenterConfigAuthorizerCredential     `json:"authorizerCredential"`
+	ServiceDirectoryConfig     *ConnectionBitbucketDataCenterConfigServiceDirectoryConfig   `json:"serviceDirectoryConfig"`
+	SslCa                      *string                                                      `json:"sslCa"`
+	ServerVersion              *string                                                      `json:"serverVersion"`
+}
+
+type jsonConnectionBitbucketDataCenterConfig ConnectionBitbucketDataCenterConfig
+
+func (r *ConnectionBitbucketDataCenterConfig) UnmarshalJSON(data []byte) error {
+	var res jsonConnectionBitbucketDataCenterConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyConnectionBitbucketDataCenterConfig
+	} else {
+
+		r.HostUri = res.HostUri
+
+		r.WebhookSecretSecretVersion = res.WebhookSecretSecretVersion
+
+		r.ReadAuthorizerCredential = res.ReadAuthorizerCredential
+
+		r.AuthorizerCredential = res.AuthorizerCredential
+
+		r.ServiceDirectoryConfig = res.ServiceDirectoryConfig
+
+		r.SslCa = res.SslCa
+
+		r.ServerVersion = res.ServerVersion
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ConnectionBitbucketDataCenterConfig is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyConnectionBitbucketDataCenterConfig *ConnectionBitbucketDataCenterConfig = &ConnectionBitbucketDataCenterConfig{empty: true}
+
+func (r *ConnectionBitbucketDataCenterConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *ConnectionBitbucketDataCenterConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ConnectionBitbucketDataCenterConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ConnectionBitbucketDataCenterConfigReadAuthorizerCredential struct {
+	empty                  bool    `json:"-"`
+	UserTokenSecretVersion *string `json:"userTokenSecretVersion"`
+	Username               *string `json:"username"`
+}
+
+type jsonConnectionBitbucketDataCenterConfigReadAuthorizerCredential ConnectionBitbucketDataCenterConfigReadAuthorizerCredential
+
+func (r *ConnectionBitbucketDataCenterConfigReadAuthorizerCredential) UnmarshalJSON(data []byte) error {
+	var res jsonConnectionBitbucketDataCenterConfigReadAuthorizerCredential
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyConnectionBitbucketDataCenterConfigReadAuthorizerCredential
+	} else {
+
+		r.UserTokenSecretVersion = res.UserTokenSecretVersion
+
+		r.Username = res.Username
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ConnectionBitbucketDataCenterConfigReadAuthorizerCredential is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyConnectionBitbucketDataCenterConfigReadAuthorizerCredential *ConnectionBitbucketDataCenterConfigReadAuthorizerCredential = &ConnectionBitbucketDataCenterConfigReadAuthorizerCredential{empty: true}
+
+func (r *ConnectionBitbucketDataCenterConfigReadAuthorizerCredential) Empty() bool {
+	return r.empty
+}
+
+func (r *ConnectionBitbucketDataCenterConfigReadAuthorizerCredential) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ConnectionBitbucketDataCenterConfigReadAuthorizerCredential) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ConnectionBitbucketDataCenterConfigAuthorizerCredential struct {
+	empty                  bool    `json:"-"`
+	UserTokenSecretVersion *string `json:"userTokenSecretVersion"`
+	Username               *string `json:"username"`
+}
+
+type jsonConnectionBitbucketDataCenterConfigAuthorizerCredential ConnectionBitbucketDataCenterConfigAuthorizerCredential
+
+func (r *ConnectionBitbucketDataCenterConfigAuthorizerCredential) UnmarshalJSON(data []byte) error {
+	var res jsonConnectionBitbucketDataCenterConfigAuthorizerCredential
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyConnectionBitbucketDataCenterConfigAuthorizerCredential
+	} else {
+
+		r.UserTokenSecretVersion = res.UserTokenSecretVersion
+
+		r.Username = res.Username
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ConnectionBitbucketDataCenterConfigAuthorizerCredential is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyConnectionBitbucketDataCenterConfigAuthorizerCredential *ConnectionBitbucketDataCenterConfigAuthorizerCredential = &ConnectionBitbucketDataCenterConfigAuthorizerCredential{empty: true}
+
+func (r *ConnectionBitbucketDataCenterConfigAuthorizerCredential) Empty() bool {
+	return r.empty
+}
+
+func (r *ConnectionBitbucketDataCenterConfigAuthorizerCredential) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ConnectionBitbucketDataCenterConfigAuthorizerCredential) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ConnectionBitbucketDataCenterConfigServiceDirectoryConfig struct {
+	empty   bool    `json:"-"`
+	Service *string `json:"service"`
+}
+
+type jsonConnectionBitbucketDataCenterConfigServiceDirectoryConfig ConnectionBitbucketDataCenterConfigServiceDirectoryConfig
+
+func (r *ConnectionBitbucketDataCenterConfigServiceDirectoryConfig) UnmarshalJSON(data []byte) error {
+	var res jsonConnectionBitbucketDataCenterConfigServiceDirectoryConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyConnectionBitbucketDataCenterConfigServiceDirectoryConfig
+	} else {
+
+		r.Service = res.Service
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ConnectionBitbucketDataCenterConfigServiceDirectoryConfig is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyConnectionBitbucketDataCenterConfigServiceDirectoryConfig *ConnectionBitbucketDataCenterConfigServiceDirectoryConfig = &ConnectionBitbucketDataCenterConfigServiceDirectoryConfig{empty: true}
+
+func (r *ConnectionBitbucketDataCenterConfigServiceDirectoryConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *ConnectionBitbucketDataCenterConfigServiceDirectoryConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ConnectionBitbucketDataCenterConfigServiceDirectoryConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 type ConnectionInstallationState struct {
 	empty     bool                                  `json:"-"`
 	Stage     *ConnectionInstallationStateStageEnum `json:"stage"`
@@ -558,19 +767,20 @@ func (r *Connection) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":                     dcl.ValueOrEmptyString(nr.Name),
-		"create_time":              dcl.ValueOrEmptyString(nr.CreateTime),
-		"update_time":              dcl.ValueOrEmptyString(nr.UpdateTime),
-		"github_config":            dcl.ValueOrEmptyString(nr.GithubConfig),
-		"github_enterprise_config": dcl.ValueOrEmptyString(nr.GithubEnterpriseConfig),
-		"gitlab_config":            dcl.ValueOrEmptyString(nr.GitlabConfig),
-		"installation_state":       dcl.ValueOrEmptyString(nr.InstallationState),
-		"disabled":                 dcl.ValueOrEmptyString(nr.Disabled),
-		"reconciling":              dcl.ValueOrEmptyString(nr.Reconciling),
-		"annotations":              dcl.ValueOrEmptyString(nr.Annotations),
-		"etag":                     dcl.ValueOrEmptyString(nr.Etag),
-		"project":                  dcl.ValueOrEmptyString(nr.Project),
-		"location":                 dcl.ValueOrEmptyString(nr.Location),
+		"name":                         dcl.ValueOrEmptyString(nr.Name),
+		"create_time":                  dcl.ValueOrEmptyString(nr.CreateTime),
+		"update_time":                  dcl.ValueOrEmptyString(nr.UpdateTime),
+		"github_config":                dcl.ValueOrEmptyString(nr.GithubConfig),
+		"github_enterprise_config":     dcl.ValueOrEmptyString(nr.GithubEnterpriseConfig),
+		"gitlab_config":                dcl.ValueOrEmptyString(nr.GitlabConfig),
+		"bitbucket_data_center_config": dcl.ValueOrEmptyString(nr.BitbucketDataCenterConfig),
+		"installation_state":           dcl.ValueOrEmptyString(nr.InstallationState),
+		"disabled":                     dcl.ValueOrEmptyString(nr.Disabled),
+		"reconciling":                  dcl.ValueOrEmptyString(nr.Reconciling),
+		"annotations":                  dcl.ValueOrEmptyString(nr.Annotations),
+		"etag":                         dcl.ValueOrEmptyString(nr.Etag),
+		"project":                      dcl.ValueOrEmptyString(nr.Project),
+		"location":                     dcl.ValueOrEmptyString(nr.Location),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/connections/{{name}}", params), nil
 }

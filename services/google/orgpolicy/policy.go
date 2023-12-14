@@ -28,6 +28,7 @@ type Policy struct {
 	Name       *string           `json:"name"`
 	Spec       *PolicySpec       `json:"spec"`
 	DryRunSpec *PolicyDryRunSpec `json:"dryRunSpec"`
+	Etag       *string           `json:"etag"`
 	Parent     *string           `json:"parent"`
 }
 
@@ -494,6 +495,7 @@ func (r *Policy) ID() (string, error) {
 		"name":         dcl.ValueOrEmptyString(nr.Name),
 		"spec":         dcl.ValueOrEmptyString(nr.Spec),
 		"dry_run_spec": dcl.ValueOrEmptyString(nr.DryRunSpec),
+		"etag":         dcl.ValueOrEmptyString(nr.Etag),
 		"parent":       dcl.ValueOrEmptyString(nr.Parent),
 	}
 	return dcl.Nprintf("{{parent}}/policies/{{name}}", params), nil

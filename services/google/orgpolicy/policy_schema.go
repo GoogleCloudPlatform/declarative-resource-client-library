@@ -248,6 +248,13 @@ func DCLPolicySchema() *dcl.Schema {
 									},
 								},
 							},
+							"etag": &dcl.Property{
+								Type:        "string",
+								GoName:      "Etag",
+								ReadOnly:    true,
+								Description: "Optional. An opaque tag indicating the current state of the policy, used for concurrency control. This 'etag' is computed by the server based on the value of other fields, and may be sent on update and delete requests to ensure the client has an up-to-date value before proceeding.",
+								Immutable:   true,
+							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",

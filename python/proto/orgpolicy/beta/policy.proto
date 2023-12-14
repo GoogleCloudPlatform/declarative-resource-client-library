@@ -25,7 +25,8 @@ message OrgpolicyBetaPolicy {
   string name = 1;
   OrgpolicyBetaPolicySpec spec = 2;
   OrgpolicyBetaPolicyDryRunSpec dry_run_spec = 3;
-  string parent = 4;
+  string etag = 4;
+  string parent = 5;
 }
 
 message OrgpolicyBetaPolicySpec {

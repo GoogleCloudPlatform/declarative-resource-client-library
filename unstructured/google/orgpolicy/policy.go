@@ -93,6 +93,9 @@ func PolicyToUnstructured(r *dclService.Policy) *unstructured.Resource {
 		}
 		u.Object["dryRunSpec"] = rDryRunSpec
 	}
+	if r.Etag != nil {
+		u.Object["etag"] = *r.Etag
+	}
 	if r.Name != nil {
 		u.Object["name"] = *r.Name
 	}
@@ -295,6 +298,13 @@ func UnstructuredToPolicy(u *unstructured.Resource) (*dclService.Policy, error) 
 			}
 		} else {
 			return nil, fmt.Errorf("r.DryRunSpec: expected map[string]interface{}")
+		}
+	}
+	if _, ok := u.Object["etag"]; ok {
+		if s, ok := u.Object["etag"].(string); ok {
+			r.Etag = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.Etag: expected string")
 		}
 	}
 	if _, ok := u.Object["name"]; ok {

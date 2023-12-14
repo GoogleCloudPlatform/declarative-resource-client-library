@@ -39,6 +39,49 @@ func ConnectionToUnstructured(r *dclService.Connection) *unstructured.Resource {
 		}
 		u.Object["annotations"] = rAnnotations
 	}
+	if r.BitbucketDataCenterConfig != nil && r.BitbucketDataCenterConfig != dclService.EmptyConnectionBitbucketDataCenterConfig {
+		rBitbucketDataCenterConfig := make(map[string]interface{})
+		if r.BitbucketDataCenterConfig.AuthorizerCredential != nil && r.BitbucketDataCenterConfig.AuthorizerCredential != dclService.EmptyConnectionBitbucketDataCenterConfigAuthorizerCredential {
+			rBitbucketDataCenterConfigAuthorizerCredential := make(map[string]interface{})
+			if r.BitbucketDataCenterConfig.AuthorizerCredential.UserTokenSecretVersion != nil {
+				rBitbucketDataCenterConfigAuthorizerCredential["userTokenSecretVersion"] = *r.BitbucketDataCenterConfig.AuthorizerCredential.UserTokenSecretVersion
+			}
+			if r.BitbucketDataCenterConfig.AuthorizerCredential.Username != nil {
+				rBitbucketDataCenterConfigAuthorizerCredential["username"] = *r.BitbucketDataCenterConfig.AuthorizerCredential.Username
+			}
+			rBitbucketDataCenterConfig["authorizerCredential"] = rBitbucketDataCenterConfigAuthorizerCredential
+		}
+		if r.BitbucketDataCenterConfig.HostUri != nil {
+			rBitbucketDataCenterConfig["hostUri"] = *r.BitbucketDataCenterConfig.HostUri
+		}
+		if r.BitbucketDataCenterConfig.ReadAuthorizerCredential != nil && r.BitbucketDataCenterConfig.ReadAuthorizerCredential != dclService.EmptyConnectionBitbucketDataCenterConfigReadAuthorizerCredential {
+			rBitbucketDataCenterConfigReadAuthorizerCredential := make(map[string]interface{})
+			if r.BitbucketDataCenterConfig.ReadAuthorizerCredential.UserTokenSecretVersion != nil {
+				rBitbucketDataCenterConfigReadAuthorizerCredential["userTokenSecretVersion"] = *r.BitbucketDataCenterConfig.ReadAuthorizerCredential.UserTokenSecretVersion
+			}
+			if r.BitbucketDataCenterConfig.ReadAuthorizerCredential.Username != nil {
+				rBitbucketDataCenterConfigReadAuthorizerCredential["username"] = *r.BitbucketDataCenterConfig.ReadAuthorizerCredential.Username
+			}
+			rBitbucketDataCenterConfig["readAuthorizerCredential"] = rBitbucketDataCenterConfigReadAuthorizerCredential
+		}
+		if r.BitbucketDataCenterConfig.ServerVersion != nil {
+			rBitbucketDataCenterConfig["serverVersion"] = *r.BitbucketDataCenterConfig.ServerVersion
+		}
+		if r.BitbucketDataCenterConfig.ServiceDirectoryConfig != nil && r.BitbucketDataCenterConfig.ServiceDirectoryConfig != dclService.EmptyConnectionBitbucketDataCenterConfigServiceDirectoryConfig {
+			rBitbucketDataCenterConfigServiceDirectoryConfig := make(map[string]interface{})
+			if r.BitbucketDataCenterConfig.ServiceDirectoryConfig.Service != nil {
+				rBitbucketDataCenterConfigServiceDirectoryConfig["service"] = *r.BitbucketDataCenterConfig.ServiceDirectoryConfig.Service
+			}
+			rBitbucketDataCenterConfig["serviceDirectoryConfig"] = rBitbucketDataCenterConfigServiceDirectoryConfig
+		}
+		if r.BitbucketDataCenterConfig.SslCa != nil {
+			rBitbucketDataCenterConfig["sslCa"] = *r.BitbucketDataCenterConfig.SslCa
+		}
+		if r.BitbucketDataCenterConfig.WebhookSecretSecretVersion != nil {
+			rBitbucketDataCenterConfig["webhookSecretSecretVersion"] = *r.BitbucketDataCenterConfig.WebhookSecretSecretVersion
+		}
+		u.Object["bitbucketDataCenterConfig"] = rBitbucketDataCenterConfig
+	}
 	if r.CreateTime != nil {
 		u.Object["createTime"] = *r.CreateTime
 	}
@@ -184,6 +227,97 @@ func UnstructuredToConnection(u *unstructured.Resource) (*dclService.Connection,
 			r.Annotations = m
 		} else {
 			return nil, fmt.Errorf("r.Annotations: expected map[string]interface{}")
+		}
+	}
+	if _, ok := u.Object["bitbucketDataCenterConfig"]; ok {
+		if rBitbucketDataCenterConfig, ok := u.Object["bitbucketDataCenterConfig"].(map[string]interface{}); ok {
+			r.BitbucketDataCenterConfig = &dclService.ConnectionBitbucketDataCenterConfig{}
+			if _, ok := rBitbucketDataCenterConfig["authorizerCredential"]; ok {
+				if rBitbucketDataCenterConfigAuthorizerCredential, ok := rBitbucketDataCenterConfig["authorizerCredential"].(map[string]interface{}); ok {
+					r.BitbucketDataCenterConfig.AuthorizerCredential = &dclService.ConnectionBitbucketDataCenterConfigAuthorizerCredential{}
+					if _, ok := rBitbucketDataCenterConfigAuthorizerCredential["userTokenSecretVersion"]; ok {
+						if s, ok := rBitbucketDataCenterConfigAuthorizerCredential["userTokenSecretVersion"].(string); ok {
+							r.BitbucketDataCenterConfig.AuthorizerCredential.UserTokenSecretVersion = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.BitbucketDataCenterConfig.AuthorizerCredential.UserTokenSecretVersion: expected string")
+						}
+					}
+					if _, ok := rBitbucketDataCenterConfigAuthorizerCredential["username"]; ok {
+						if s, ok := rBitbucketDataCenterConfigAuthorizerCredential["username"].(string); ok {
+							r.BitbucketDataCenterConfig.AuthorizerCredential.Username = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.BitbucketDataCenterConfig.AuthorizerCredential.Username: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.BitbucketDataCenterConfig.AuthorizerCredential: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rBitbucketDataCenterConfig["hostUri"]; ok {
+				if s, ok := rBitbucketDataCenterConfig["hostUri"].(string); ok {
+					r.BitbucketDataCenterConfig.HostUri = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.BitbucketDataCenterConfig.HostUri: expected string")
+				}
+			}
+			if _, ok := rBitbucketDataCenterConfig["readAuthorizerCredential"]; ok {
+				if rBitbucketDataCenterConfigReadAuthorizerCredential, ok := rBitbucketDataCenterConfig["readAuthorizerCredential"].(map[string]interface{}); ok {
+					r.BitbucketDataCenterConfig.ReadAuthorizerCredential = &dclService.ConnectionBitbucketDataCenterConfigReadAuthorizerCredential{}
+					if _, ok := rBitbucketDataCenterConfigReadAuthorizerCredential["userTokenSecretVersion"]; ok {
+						if s, ok := rBitbucketDataCenterConfigReadAuthorizerCredential["userTokenSecretVersion"].(string); ok {
+							r.BitbucketDataCenterConfig.ReadAuthorizerCredential.UserTokenSecretVersion = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.BitbucketDataCenterConfig.ReadAuthorizerCredential.UserTokenSecretVersion: expected string")
+						}
+					}
+					if _, ok := rBitbucketDataCenterConfigReadAuthorizerCredential["username"]; ok {
+						if s, ok := rBitbucketDataCenterConfigReadAuthorizerCredential["username"].(string); ok {
+							r.BitbucketDataCenterConfig.ReadAuthorizerCredential.Username = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.BitbucketDataCenterConfig.ReadAuthorizerCredential.Username: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.BitbucketDataCenterConfig.ReadAuthorizerCredential: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rBitbucketDataCenterConfig["serverVersion"]; ok {
+				if s, ok := rBitbucketDataCenterConfig["serverVersion"].(string); ok {
+					r.BitbucketDataCenterConfig.ServerVersion = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.BitbucketDataCenterConfig.ServerVersion: expected string")
+				}
+			}
+			if _, ok := rBitbucketDataCenterConfig["serviceDirectoryConfig"]; ok {
+				if rBitbucketDataCenterConfigServiceDirectoryConfig, ok := rBitbucketDataCenterConfig["serviceDirectoryConfig"].(map[string]interface{}); ok {
+					r.BitbucketDataCenterConfig.ServiceDirectoryConfig = &dclService.ConnectionBitbucketDataCenterConfigServiceDirectoryConfig{}
+					if _, ok := rBitbucketDataCenterConfigServiceDirectoryConfig["service"]; ok {
+						if s, ok := rBitbucketDataCenterConfigServiceDirectoryConfig["service"].(string); ok {
+							r.BitbucketDataCenterConfig.ServiceDirectoryConfig.Service = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.BitbucketDataCenterConfig.ServiceDirectoryConfig.Service: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.BitbucketDataCenterConfig.ServiceDirectoryConfig: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rBitbucketDataCenterConfig["sslCa"]; ok {
+				if s, ok := rBitbucketDataCenterConfig["sslCa"].(string); ok {
+					r.BitbucketDataCenterConfig.SslCa = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.BitbucketDataCenterConfig.SslCa: expected string")
+				}
+			}
+			if _, ok := rBitbucketDataCenterConfig["webhookSecretSecretVersion"]; ok {
+				if s, ok := rBitbucketDataCenterConfig["webhookSecretSecretVersion"].(string); ok {
+					r.BitbucketDataCenterConfig.WebhookSecretSecretVersion = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.BitbucketDataCenterConfig.WebhookSecretSecretVersion: expected string")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.BitbucketDataCenterConfig: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["createTime"]; ok {

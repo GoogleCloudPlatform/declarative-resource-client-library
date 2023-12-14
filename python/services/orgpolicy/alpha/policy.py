@@ -24,6 +24,7 @@ class Policy(object):
         name: str = None,
         spec: dict = None,
         dry_run_spec: dict = None,
+        etag: str = None,
         parent: str = None,
         service_account_file: str = "",
     ):
@@ -59,6 +60,7 @@ class Policy(object):
         self.name = Primitive.from_proto(response.name)
         self.spec = PolicySpec.from_proto(response.spec)
         self.dry_run_spec = PolicyDryRunSpec.from_proto(response.dry_run_spec)
+        self.etag = Primitive.from_proto(response.etag)
         self.parent = Primitive.from_proto(response.parent)
 
     def delete(self):

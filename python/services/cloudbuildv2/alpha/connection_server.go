@@ -141,6 +141,58 @@ func ProtoToCloudbuildv2AlphaConnectionGitlabConfigServiceDirectoryConfig(p *alp
 	return obj
 }
 
+// ProtoToConnectionBitbucketDataCenterConfig converts a ConnectionBitbucketDataCenterConfig object from its proto representation.
+func ProtoToCloudbuildv2AlphaConnectionBitbucketDataCenterConfig(p *alphapb.Cloudbuildv2AlphaConnectionBitbucketDataCenterConfig) *alpha.ConnectionBitbucketDataCenterConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ConnectionBitbucketDataCenterConfig{
+		HostUri:                    dcl.StringOrNil(p.GetHostUri()),
+		WebhookSecretSecretVersion: dcl.StringOrNil(p.GetWebhookSecretSecretVersion()),
+		ReadAuthorizerCredential:   ProtoToCloudbuildv2AlphaConnectionBitbucketDataCenterConfigReadAuthorizerCredential(p.GetReadAuthorizerCredential()),
+		AuthorizerCredential:       ProtoToCloudbuildv2AlphaConnectionBitbucketDataCenterConfigAuthorizerCredential(p.GetAuthorizerCredential()),
+		ServiceDirectoryConfig:     ProtoToCloudbuildv2AlphaConnectionBitbucketDataCenterConfigServiceDirectoryConfig(p.GetServiceDirectoryConfig()),
+		SslCa:                      dcl.StringOrNil(p.GetSslCa()),
+		ServerVersion:              dcl.StringOrNil(p.GetServerVersion()),
+	}
+	return obj
+}
+
+// ProtoToConnectionBitbucketDataCenterConfigReadAuthorizerCredential converts a ConnectionBitbucketDataCenterConfigReadAuthorizerCredential object from its proto representation.
+func ProtoToCloudbuildv2AlphaConnectionBitbucketDataCenterConfigReadAuthorizerCredential(p *alphapb.Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigReadAuthorizerCredential) *alpha.ConnectionBitbucketDataCenterConfigReadAuthorizerCredential {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ConnectionBitbucketDataCenterConfigReadAuthorizerCredential{
+		UserTokenSecretVersion: dcl.StringOrNil(p.GetUserTokenSecretVersion()),
+		Username:               dcl.StringOrNil(p.GetUsername()),
+	}
+	return obj
+}
+
+// ProtoToConnectionBitbucketDataCenterConfigAuthorizerCredential converts a ConnectionBitbucketDataCenterConfigAuthorizerCredential object from its proto representation.
+func ProtoToCloudbuildv2AlphaConnectionBitbucketDataCenterConfigAuthorizerCredential(p *alphapb.Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigAuthorizerCredential) *alpha.ConnectionBitbucketDataCenterConfigAuthorizerCredential {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ConnectionBitbucketDataCenterConfigAuthorizerCredential{
+		UserTokenSecretVersion: dcl.StringOrNil(p.GetUserTokenSecretVersion()),
+		Username:               dcl.StringOrNil(p.GetUsername()),
+	}
+	return obj
+}
+
+// ProtoToConnectionBitbucketDataCenterConfigServiceDirectoryConfig converts a ConnectionBitbucketDataCenterConfigServiceDirectoryConfig object from its proto representation.
+func ProtoToCloudbuildv2AlphaConnectionBitbucketDataCenterConfigServiceDirectoryConfig(p *alphapb.Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigServiceDirectoryConfig) *alpha.ConnectionBitbucketDataCenterConfigServiceDirectoryConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.ConnectionBitbucketDataCenterConfigServiceDirectoryConfig{
+		Service: dcl.StringOrNil(p.GetService()),
+	}
+	return obj
+}
+
 // ProtoToConnectionInstallationState converts a ConnectionInstallationState object from its proto representation.
 func ProtoToCloudbuildv2AlphaConnectionInstallationState(p *alphapb.Cloudbuildv2AlphaConnectionInstallationState) *alpha.ConnectionInstallationState {
 	if p == nil {
@@ -157,18 +209,19 @@ func ProtoToCloudbuildv2AlphaConnectionInstallationState(p *alphapb.Cloudbuildv2
 // ProtoToConnection converts a Connection resource from its proto representation.
 func ProtoToConnection(p *alphapb.Cloudbuildv2AlphaConnection) *alpha.Connection {
 	obj := &alpha.Connection{
-		Name:                   dcl.StringOrNil(p.GetName()),
-		CreateTime:             dcl.StringOrNil(p.GetCreateTime()),
-		UpdateTime:             dcl.StringOrNil(p.GetUpdateTime()),
-		GithubConfig:           ProtoToCloudbuildv2AlphaConnectionGithubConfig(p.GetGithubConfig()),
-		GithubEnterpriseConfig: ProtoToCloudbuildv2AlphaConnectionGithubEnterpriseConfig(p.GetGithubEnterpriseConfig()),
-		GitlabConfig:           ProtoToCloudbuildv2AlphaConnectionGitlabConfig(p.GetGitlabConfig()),
-		InstallationState:      ProtoToCloudbuildv2AlphaConnectionInstallationState(p.GetInstallationState()),
-		Disabled:               dcl.Bool(p.GetDisabled()),
-		Reconciling:            dcl.Bool(p.GetReconciling()),
-		Etag:                   dcl.StringOrNil(p.GetEtag()),
-		Project:                dcl.StringOrNil(p.GetProject()),
-		Location:               dcl.StringOrNil(p.GetLocation()),
+		Name:                      dcl.StringOrNil(p.GetName()),
+		CreateTime:                dcl.StringOrNil(p.GetCreateTime()),
+		UpdateTime:                dcl.StringOrNil(p.GetUpdateTime()),
+		GithubConfig:              ProtoToCloudbuildv2AlphaConnectionGithubConfig(p.GetGithubConfig()),
+		GithubEnterpriseConfig:    ProtoToCloudbuildv2AlphaConnectionGithubEnterpriseConfig(p.GetGithubEnterpriseConfig()),
+		GitlabConfig:              ProtoToCloudbuildv2AlphaConnectionGitlabConfig(p.GetGitlabConfig()),
+		BitbucketDataCenterConfig: ProtoToCloudbuildv2AlphaConnectionBitbucketDataCenterConfig(p.GetBitbucketDataCenterConfig()),
+		InstallationState:         ProtoToCloudbuildv2AlphaConnectionInstallationState(p.GetInstallationState()),
+		Disabled:                  dcl.Bool(p.GetDisabled()),
+		Reconciling:               dcl.Bool(p.GetReconciling()),
+		Etag:                      dcl.StringOrNil(p.GetEtag()),
+		Project:                   dcl.StringOrNil(p.GetProject()),
+		Location:                  dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -281,6 +334,54 @@ func Cloudbuildv2AlphaConnectionGitlabConfigServiceDirectoryConfigToProto(o *alp
 	return p
 }
 
+// ConnectionBitbucketDataCenterConfigToProto converts a ConnectionBitbucketDataCenterConfig object to its proto representation.
+func Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigToProto(o *alpha.ConnectionBitbucketDataCenterConfig) *alphapb.Cloudbuildv2AlphaConnectionBitbucketDataCenterConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Cloudbuildv2AlphaConnectionBitbucketDataCenterConfig{}
+	p.SetHostUri(dcl.ValueOrEmptyString(o.HostUri))
+	p.SetWebhookSecretSecretVersion(dcl.ValueOrEmptyString(o.WebhookSecretSecretVersion))
+	p.SetReadAuthorizerCredential(Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigReadAuthorizerCredentialToProto(o.ReadAuthorizerCredential))
+	p.SetAuthorizerCredential(Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigAuthorizerCredentialToProto(o.AuthorizerCredential))
+	p.SetServiceDirectoryConfig(Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigServiceDirectoryConfigToProto(o.ServiceDirectoryConfig))
+	p.SetSslCa(dcl.ValueOrEmptyString(o.SslCa))
+	p.SetServerVersion(dcl.ValueOrEmptyString(o.ServerVersion))
+	return p
+}
+
+// ConnectionBitbucketDataCenterConfigReadAuthorizerCredentialToProto converts a ConnectionBitbucketDataCenterConfigReadAuthorizerCredential object to its proto representation.
+func Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigReadAuthorizerCredentialToProto(o *alpha.ConnectionBitbucketDataCenterConfigReadAuthorizerCredential) *alphapb.Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigReadAuthorizerCredential {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigReadAuthorizerCredential{}
+	p.SetUserTokenSecretVersion(dcl.ValueOrEmptyString(o.UserTokenSecretVersion))
+	p.SetUsername(dcl.ValueOrEmptyString(o.Username))
+	return p
+}
+
+// ConnectionBitbucketDataCenterConfigAuthorizerCredentialToProto converts a ConnectionBitbucketDataCenterConfigAuthorizerCredential object to its proto representation.
+func Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigAuthorizerCredentialToProto(o *alpha.ConnectionBitbucketDataCenterConfigAuthorizerCredential) *alphapb.Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigAuthorizerCredential {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigAuthorizerCredential{}
+	p.SetUserTokenSecretVersion(dcl.ValueOrEmptyString(o.UserTokenSecretVersion))
+	p.SetUsername(dcl.ValueOrEmptyString(o.Username))
+	return p
+}
+
+// ConnectionBitbucketDataCenterConfigServiceDirectoryConfigToProto converts a ConnectionBitbucketDataCenterConfigServiceDirectoryConfig object to its proto representation.
+func Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigServiceDirectoryConfigToProto(o *alpha.ConnectionBitbucketDataCenterConfigServiceDirectoryConfig) *alphapb.Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigServiceDirectoryConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigServiceDirectoryConfig{}
+	p.SetService(dcl.ValueOrEmptyString(o.Service))
+	return p
+}
+
 // ConnectionInstallationStateToProto converts a ConnectionInstallationState object to its proto representation.
 func Cloudbuildv2AlphaConnectionInstallationStateToProto(o *alpha.ConnectionInstallationState) *alphapb.Cloudbuildv2AlphaConnectionInstallationState {
 	if o == nil {
@@ -302,6 +403,7 @@ func ConnectionToProto(resource *alpha.Connection) *alphapb.Cloudbuildv2AlphaCon
 	p.SetGithubConfig(Cloudbuildv2AlphaConnectionGithubConfigToProto(resource.GithubConfig))
 	p.SetGithubEnterpriseConfig(Cloudbuildv2AlphaConnectionGithubEnterpriseConfigToProto(resource.GithubEnterpriseConfig))
 	p.SetGitlabConfig(Cloudbuildv2AlphaConnectionGitlabConfigToProto(resource.GitlabConfig))
+	p.SetBitbucketDataCenterConfig(Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigToProto(resource.BitbucketDataCenterConfig))
 	p.SetInstallationState(Cloudbuildv2AlphaConnectionInstallationStateToProto(resource.InstallationState))
 	p.SetDisabled(dcl.ValueOrEmptyBool(resource.Disabled))
 	p.SetReconciling(dcl.ValueOrEmptyBool(resource.Reconciling))
