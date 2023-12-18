@@ -54,6 +54,12 @@
   "management": {
     "autoRepair": false
   },
+  "updateSettings": {
+    "surgeSettings": {
+      "maxSurge": 2,
+      "maxUnavailable": 2
+    }
+  },
   "annotations": {
     "label-two": "value-two"
   }

@@ -35,6 +35,7 @@ class NodePool(object):
         annotations: dict = None,
         max_pods_constraint: dict = None,
         management: dict = None,
+        update_settings: dict = None,
         project: str = None,
         location: str = None,
         cluster: str = None,
@@ -49,6 +50,7 @@ class NodePool(object):
         self.annotations = annotations
         self.max_pods_constraint = max_pods_constraint
         self.management = management
+        self.update_settings = update_settings
         self.project = project
         self.location = location
         self.cluster = cluster
@@ -91,6 +93,12 @@ class NodePool(object):
             )
         else:
             request.resource.ClearField("management")
+        if NodePoolUpdateSettings.to_proto(self.update_settings):
+            request.resource.update_settings.CopyFrom(
+                NodePoolUpdateSettings.to_proto(self.update_settings)
+            )
+        else:
+            request.resource.ClearField("update_settings")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -119,6 +127,9 @@ class NodePool(object):
             response.max_pods_constraint
         )
         self.management = NodePoolManagement.from_proto(response.management)
+        self.update_settings = NodePoolUpdateSettings.from_proto(
+            response.update_settings
+        )
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
         self.cluster = Primitive.from_proto(response.cluster)
@@ -161,6 +172,12 @@ class NodePool(object):
             )
         else:
             request.resource.ClearField("management")
+        if NodePoolUpdateSettings.to_proto(self.update_settings):
+            request.resource.update_settings.CopyFrom(
+                NodePoolUpdateSettings.to_proto(self.update_settings)
+            )
+        else:
+            request.resource.ClearField("update_settings")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -215,6 +232,12 @@ class NodePool(object):
             resource.management.CopyFrom(NodePoolManagement.to_proto(self.management))
         else:
             resource.ClearField("management")
+        if NodePoolUpdateSettings.to_proto(self.update_settings):
+            resource.update_settings.CopyFrom(
+                NodePoolUpdateSettings.to_proto(self.update_settings)
+            )
+        else:
+            resource.ClearField("update_settings")
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):
@@ -716,6 +739,88 @@ class NodePoolManagementArray(object):
     @classmethod
     def from_proto(self, resources):
         return [NodePoolManagement.from_proto(i) for i in resources]
+
+
+class NodePoolUpdateSettings(object):
+    def __init__(self, surge_settings: dict = None):
+        self.surge_settings = surge_settings
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = node_pool_pb2.ContainerawsNodePoolUpdateSettings()
+        if NodePoolUpdateSettingsSurgeSettings.to_proto(resource.surge_settings):
+            res.surge_settings.CopyFrom(
+                NodePoolUpdateSettingsSurgeSettings.to_proto(resource.surge_settings)
+            )
+        else:
+            res.ClearField("surge_settings")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return NodePoolUpdateSettings(
+            surge_settings=NodePoolUpdateSettingsSurgeSettings.from_proto(
+                resource.surge_settings
+            ),
+        )
+
+
+class NodePoolUpdateSettingsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [NodePoolUpdateSettings.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [NodePoolUpdateSettings.from_proto(i) for i in resources]
+
+
+class NodePoolUpdateSettingsSurgeSettings(object):
+    def __init__(self, max_surge: int = None, max_unavailable: int = None):
+        self.max_surge = max_surge
+        self.max_unavailable = max_unavailable
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = node_pool_pb2.ContainerawsNodePoolUpdateSettingsSurgeSettings()
+        if Primitive.to_proto(resource.max_surge):
+            res.max_surge = Primitive.to_proto(resource.max_surge)
+        if Primitive.to_proto(resource.max_unavailable):
+            res.max_unavailable = Primitive.to_proto(resource.max_unavailable)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return NodePoolUpdateSettingsSurgeSettings(
+            max_surge=Primitive.from_proto(resource.max_surge),
+            max_unavailable=Primitive.from_proto(resource.max_unavailable),
+        )
+
+
+class NodePoolUpdateSettingsSurgeSettingsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [NodePoolUpdateSettingsSurgeSettings.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [NodePoolUpdateSettingsSurgeSettings.from_proto(i) for i in resources]
 
 
 class NodePoolConfigRootVolumeVolumeTypeEnum(object):

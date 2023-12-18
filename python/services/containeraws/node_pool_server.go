@@ -193,6 +193,29 @@ func ProtoToContainerawsNodePoolManagement(p *containerawspb.ContainerawsNodePoo
 	return obj
 }
 
+// ProtoToNodePoolUpdateSettings converts a NodePoolUpdateSettings object from its proto representation.
+func ProtoToContainerawsNodePoolUpdateSettings(p *containerawspb.ContainerawsNodePoolUpdateSettings) *containeraws.NodePoolUpdateSettings {
+	if p == nil {
+		return nil
+	}
+	obj := &containeraws.NodePoolUpdateSettings{
+		SurgeSettings: ProtoToContainerawsNodePoolUpdateSettingsSurgeSettings(p.GetSurgeSettings()),
+	}
+	return obj
+}
+
+// ProtoToNodePoolUpdateSettingsSurgeSettings converts a NodePoolUpdateSettingsSurgeSettings object from its proto representation.
+func ProtoToContainerawsNodePoolUpdateSettingsSurgeSettings(p *containerawspb.ContainerawsNodePoolUpdateSettingsSurgeSettings) *containeraws.NodePoolUpdateSettingsSurgeSettings {
+	if p == nil {
+		return nil
+	}
+	obj := &containeraws.NodePoolUpdateSettingsSurgeSettings{
+		MaxSurge:       dcl.Int64OrNil(p.GetMaxSurge()),
+		MaxUnavailable: dcl.Int64OrNil(p.GetMaxUnavailable()),
+	}
+	return obj
+}
+
 // ProtoToNodePool converts a NodePool resource from its proto representation.
 func ProtoToNodePool(p *containerawspb.ContainerawsNodePool) *containeraws.NodePool {
 	obj := &containeraws.NodePool{
@@ -209,6 +232,7 @@ func ProtoToNodePool(p *containerawspb.ContainerawsNodePool) *containeraws.NodeP
 		Etag:              dcl.StringOrNil(p.GetEtag()),
 		MaxPodsConstraint: ProtoToContainerawsNodePoolMaxPodsConstraint(p.GetMaxPodsConstraint()),
 		Management:        ProtoToContainerawsNodePoolManagement(p.GetManagement()),
+		UpdateSettings:    ProtoToContainerawsNodePoolUpdateSettings(p.GetUpdateSettings()),
 		Project:           dcl.StringOrNil(p.GetProject()),
 		Location:          dcl.StringOrNil(p.GetLocation()),
 		Cluster:           dcl.StringOrNil(p.GetCluster()),
@@ -388,6 +412,27 @@ func ContainerawsNodePoolManagementToProto(o *containeraws.NodePoolManagement) *
 	return p
 }
 
+// NodePoolUpdateSettingsToProto converts a NodePoolUpdateSettings object to its proto representation.
+func ContainerawsNodePoolUpdateSettingsToProto(o *containeraws.NodePoolUpdateSettings) *containerawspb.ContainerawsNodePoolUpdateSettings {
+	if o == nil {
+		return nil
+	}
+	p := &containerawspb.ContainerawsNodePoolUpdateSettings{}
+	p.SetSurgeSettings(ContainerawsNodePoolUpdateSettingsSurgeSettingsToProto(o.SurgeSettings))
+	return p
+}
+
+// NodePoolUpdateSettingsSurgeSettingsToProto converts a NodePoolUpdateSettingsSurgeSettings object to its proto representation.
+func ContainerawsNodePoolUpdateSettingsSurgeSettingsToProto(o *containeraws.NodePoolUpdateSettingsSurgeSettings) *containerawspb.ContainerawsNodePoolUpdateSettingsSurgeSettings {
+	if o == nil {
+		return nil
+	}
+	p := &containerawspb.ContainerawsNodePoolUpdateSettingsSurgeSettings{}
+	p.SetMaxSurge(dcl.ValueOrEmptyInt64(o.MaxSurge))
+	p.SetMaxUnavailable(dcl.ValueOrEmptyInt64(o.MaxUnavailable))
+	return p
+}
+
 // NodePoolToProto converts a NodePool resource to its proto representation.
 func NodePoolToProto(resource *containeraws.NodePool) *containerawspb.ContainerawsNodePool {
 	p := &containerawspb.ContainerawsNodePool{}
@@ -404,6 +449,7 @@ func NodePoolToProto(resource *containeraws.NodePool) *containerawspb.Containera
 	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetMaxPodsConstraint(ContainerawsNodePoolMaxPodsConstraintToProto(resource.MaxPodsConstraint))
 	p.SetManagement(ContainerawsNodePoolManagementToProto(resource.Management))
+	p.SetUpdateSettings(ContainerawsNodePoolUpdateSettingsToProto(resource.UpdateSettings))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetCluster(dcl.ValueOrEmptyString(resource.Cluster))

@@ -60,7 +60,7 @@
   "updateSettings": {
     "surgeSettings": {
       "maxSurge": 2,
-      "maxUnavailable": 1
+      "maxUnavailable": 2
     }
   },
   "annotations": {
