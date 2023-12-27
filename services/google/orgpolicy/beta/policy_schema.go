@@ -146,7 +146,7 @@ func DCLPolicySchema() *dcl.Schema {
 												"allowAll": &dcl.Property{
 													Type:        "boolean",
 													GoName:      "AllowAll",
-													Description: "Setting this to true means that all values are allowed. This field can be set only in policies for list constraints.",
+													Description: "Setting this to `\"TRUE\"` means that all values are allowed. This field can be set only in policies for list constraints.",
 													Conflicts: []string{
 														"values",
 														"denyAll",
@@ -184,7 +184,7 @@ func DCLPolicySchema() *dcl.Schema {
 												"denyAll": &dcl.Property{
 													Type:        "boolean",
 													GoName:      "DenyAll",
-													Description: "Setting this to true means that all values are denied. This field can be set only in policies for list constraints.",
+													Description: "Setting this to `\"TRUE\"` means that all values are denied. This field can be set only in policies for list constraints.",
 													Conflicts: []string{
 														"values",
 														"allowAll",
@@ -194,7 +194,7 @@ func DCLPolicySchema() *dcl.Schema {
 												"enforce": &dcl.Property{
 													Type:        "boolean",
 													GoName:      "Enforce",
-													Description: "If `true`, then the policy is enforced. If `false`, then any configuration is acceptable. This field can be set only in policies for boolean constraints.",
+													Description: "If `\"TRUE\"`, then the policy is enforced. If `\"FALSE\"`, then any configuration is acceptable. This field can be set only in policies for boolean constraints.",
 													Conflicts: []string{
 														"values",
 														"allowAll",
@@ -320,7 +320,7 @@ func DCLPolicySchema() *dcl.Schema {
 												"allowAll": &dcl.Property{
 													Type:        "boolean",
 													GoName:      "AllowAll",
-													Description: "Setting this to true means that all values are allowed. This field can be set only in Policies for list constraints.",
+													Description: "Setting this to `\"TRUE\"` means that all values are allowed. This field can be set only in Policies for list constraints.",
 													Conflicts: []string{
 														"values",
 														"denyAll",
@@ -358,7 +358,7 @@ func DCLPolicySchema() *dcl.Schema {
 												"denyAll": &dcl.Property{
 													Type:        "boolean",
 													GoName:      "DenyAll",
-													Description: "Setting this to true means that all values are denied. This field can be set only in Policies for list constraints.",
+													Description: "Setting this to `\"TRUE\"` means that all values are denied. This field can be set only in Policies for list constraints.",
 													Conflicts: []string{
 														"values",
 														"allowAll",
@@ -368,7 +368,7 @@ func DCLPolicySchema() *dcl.Schema {
 												"enforce": &dcl.Property{
 													Type:        "boolean",
 													GoName:      "Enforce",
-													Description: "If `true`, then the `Policy` is enforced. If `false`, then any configuration is acceptable. This field can be set only in Policies for boolean constraints.",
+													Description: "If `\"TRUE\"`, then the `Policy` is enforced. If `\"FALSE\"`, then any configuration is acceptable. This field can be set only in Policies for boolean constraints.",
 													Conflicts: []string{
 														"values",
 														"allowAll",

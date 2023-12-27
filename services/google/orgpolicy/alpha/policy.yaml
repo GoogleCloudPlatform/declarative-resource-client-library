@@ -130,8 +130,8 @@ components:
                   allowAll:
                     type: boolean
                     x-dcl-go-name: AllowAll
-                    description: Setting this to true means that all values are allowed.
-                      This field can be set only in policies for list constraints.
+                    description: Setting this to `"TRUE"` means that all values are
+                      allowed. This field can be set only in policies for list constraints.
                     x-dcl-conflicts:
                     - values
                     - denyAll
@@ -177,8 +177,8 @@ components:
                   denyAll:
                     type: boolean
                     x-dcl-go-name: DenyAll
-                    description: Setting this to true means that all values are denied.
-                      This field can be set only in policies for list constraints.
+                    description: Setting this to `"TRUE"` means that all values are
+                      denied. This field can be set only in policies for list constraints.
                     x-dcl-conflicts:
                     - values
                     - allowAll
@@ -186,7 +186,7 @@ components:
                   enforce:
                     type: boolean
                     x-dcl-go-name: Enforce
-                    description: If `true`, then the policy is enforced. If `false`,
+                    description: If `"TRUE"`, then the policy is enforced. If `"FALSE"`,
                       then any configuration is acceptable. This field can be set
                       only in policies for boolean constraints.
                     x-dcl-conflicts:
@@ -319,8 +319,8 @@ components:
                   allowAll:
                     type: boolean
                     x-dcl-go-name: AllowAll
-                    description: Setting this to true means that all values are allowed.
-                      This field can be set only in Policies for list constraints.
+                    description: Setting this to `"TRUE"` means that all values are
+                      allowed. This field can be set only in Policies for list constraints.
                     x-dcl-conflicts:
                     - values
                     - denyAll
@@ -366,8 +366,8 @@ components:
                   denyAll:
                     type: boolean
                     x-dcl-go-name: DenyAll
-                    description: Setting this to true means that all values are denied.
-                      This field can be set only in Policies for list constraints.
+                    description: Setting this to `"TRUE"` means that all values are
+                      denied. This field can be set only in Policies for list constraints.
                     x-dcl-conflicts:
                     - values
                     - allowAll
@@ -375,7 +375,7 @@ components:
                   enforce:
                     type: boolean
                     x-dcl-go-name: Enforce
-                    description: If `true`, then the `Policy` is enforced. If `false`,
+                    description: If `"TRUE"`, then the `Policy` is enforced. If `"FALSE"`,
                       then any configuration is acceptable. This field can be set
                       only in Policies for boolean constraints.
                     x-dcl-conflicts:
