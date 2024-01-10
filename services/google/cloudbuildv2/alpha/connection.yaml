@@ -80,6 +80,84 @@ components:
             type: string
           x-dcl-go-name: Annotations
           description: Allows clients to store small amounts of arbitrary data.
+        bitbucketCloudConfig:
+          type: object
+          x-dcl-go-name: BitbucketCloudConfig
+          x-dcl-go-type: ConnectionBitbucketCloudConfig
+          description: Configuration for connections to Bitbucket Cloud.
+          x-dcl-conflicts:
+          - githubConfig
+          - githubEnterpriseConfig
+          - gitlabConfig
+          - bitbucketDataCenterConfig
+          required:
+          - workspace
+          - webhookSecretSecretVersion
+          - readAuthorizerCredential
+          - authorizerCredential
+          properties:
+            authorizerCredential:
+              type: object
+              x-dcl-go-name: AuthorizerCredential
+              x-dcl-go-type: ConnectionBitbucketCloudConfigAuthorizerCredential
+              description: Required. An access token with the `webhook`, `repository`,
+                `repository:admin` and `pullrequest` scope access. It can be either
+                a workspace, project or repository access token. It's recommended
+                to use a system account to generate these credentials.
+              required:
+              - userTokenSecretVersion
+              properties:
+                userTokenSecretVersion:
+                  type: string
+                  x-dcl-go-name: UserTokenSecretVersion
+                  description: 'Required. A SecretManager resource containing the
+                    user token that authorizes the Cloud Build connection. Format:
+                    `projects/*/secrets/*/versions/*`.'
+                  x-dcl-references:
+                  - resource: Secretmanager/SecretVersion
+                    field: selfLink
+                username:
+                  type: string
+                  x-dcl-go-name: Username
+                  readOnly: true
+                  description: Output only. The username associated to this token.
+            readAuthorizerCredential:
+              type: object
+              x-dcl-go-name: ReadAuthorizerCredential
+              x-dcl-go-type: ConnectionBitbucketCloudConfigReadAuthorizerCredential
+              description: Required. An access token with the `repository` access.
+                It can be either a workspace, project or repository access token.
+                It's recommended to use a system account to generate the credentials.
+              required:
+              - userTokenSecretVersion
+              properties:
+                userTokenSecretVersion:
+                  type: string
+                  x-dcl-go-name: UserTokenSecretVersion
+                  description: 'Required. A SecretManager resource containing the
+                    user token that authorizes the Cloud Build connection. Format:
+                    `projects/*/secrets/*/versions/*`.'
+                  x-dcl-references:
+                  - resource: Secretmanager/SecretVersion
+                    field: selfLink
+                username:
+                  type: string
+                  x-dcl-go-name: Username
+                  readOnly: true
+                  description: Output only. The username associated to this token.
+            webhookSecretSecretVersion:
+              type: string
+              x-dcl-go-name: WebhookSecretSecretVersion
+              description: Required. SecretManager resource containing the webhook
+                secret used to verify webhook events, formatted as `projects/*/secrets/*/versions/*`.
+              x-dcl-references:
+              - resource: Secretmanager/SecretVersion
+                field: selfLink
+            workspace:
+              type: string
+              x-dcl-go-name: Workspace
+              description: Required. The Bitbucket Cloud Workspace ID to be connected
+                to Google Cloud Platform.
         bitbucketDataCenterConfig:
           type: object
           x-dcl-go-name: BitbucketDataCenterConfig
@@ -89,6 +167,7 @@ components:
           - githubConfig
           - githubEnterpriseConfig
           - gitlabConfig
+          - bitbucketCloudConfig
           required:
           - hostUri
           - webhookSecretSecretVersion
@@ -215,6 +294,7 @@ components:
           - githubEnterpriseConfig
           - gitlabConfig
           - bitbucketDataCenterConfig
+          - bitbucketCloudConfig
           properties:
             appInstallationId:
               type: integer
@@ -252,6 +332,7 @@ components:
           - githubConfig
           - gitlabConfig
           - bitbucketDataCenterConfig
+          - bitbucketCloudConfig
           required:
           - hostUri
           properties:
@@ -324,6 +405,7 @@ components:
           - githubConfig
           - githubEnterpriseConfig
           - bitbucketDataCenterConfig
+          - bitbucketCloudConfig
           required:
           - webhookSecretSecretVersion
           - readAuthorizerCredential

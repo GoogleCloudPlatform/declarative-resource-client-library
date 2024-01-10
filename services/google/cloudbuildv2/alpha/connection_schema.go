@@ -117,6 +117,98 @@ func DCLConnectionSchema() *dcl.Schema {
 								GoName:      "Annotations",
 								Description: "Allows clients to store small amounts of arbitrary data.",
 							},
+							"bitbucketCloudConfig": &dcl.Property{
+								Type:        "object",
+								GoName:      "BitbucketCloudConfig",
+								GoType:      "ConnectionBitbucketCloudConfig",
+								Description: "Configuration for connections to Bitbucket Cloud.",
+								Conflicts: []string{
+									"githubConfig",
+									"githubEnterpriseConfig",
+									"gitlabConfig",
+									"bitbucketDataCenterConfig",
+								},
+								Required: []string{
+									"workspace",
+									"webhookSecretSecretVersion",
+									"readAuthorizerCredential",
+									"authorizerCredential",
+								},
+								Properties: map[string]*dcl.Property{
+									"authorizerCredential": &dcl.Property{
+										Type:        "object",
+										GoName:      "AuthorizerCredential",
+										GoType:      "ConnectionBitbucketCloudConfigAuthorizerCredential",
+										Description: "Required. An access token with the `webhook`, `repository`, `repository:admin` and `pullrequest` scope access. It can be either a workspace, project or repository access token. It's recommended to use a system account to generate these credentials.",
+										Required: []string{
+											"userTokenSecretVersion",
+										},
+										Properties: map[string]*dcl.Property{
+											"userTokenSecretVersion": &dcl.Property{
+												Type:        "string",
+												GoName:      "UserTokenSecretVersion",
+												Description: "Required. A SecretManager resource containing the user token that authorizes the Cloud Build connection. Format: `projects/*/secrets/*/versions/*`.",
+												ResourceReferences: []*dcl.PropertyResourceReference{
+													&dcl.PropertyResourceReference{
+														Resource: "Secretmanager/SecretVersion",
+														Field:    "selfLink",
+													},
+												},
+											},
+											"username": &dcl.Property{
+												Type:        "string",
+												GoName:      "Username",
+												ReadOnly:    true,
+												Description: "Output only. The username associated to this token.",
+											},
+										},
+									},
+									"readAuthorizerCredential": &dcl.Property{
+										Type:        "object",
+										GoName:      "ReadAuthorizerCredential",
+										GoType:      "ConnectionBitbucketCloudConfigReadAuthorizerCredential",
+										Description: "Required. An access token with the `repository` access. It can be either a workspace, project or repository access token. It's recommended to use a system account to generate the credentials.",
+										Required: []string{
+											"userTokenSecretVersion",
+										},
+										Properties: map[string]*dcl.Property{
+											"userTokenSecretVersion": &dcl.Property{
+												Type:        "string",
+												GoName:      "UserTokenSecretVersion",
+												Description: "Required. A SecretManager resource containing the user token that authorizes the Cloud Build connection. Format: `projects/*/secrets/*/versions/*`.",
+												ResourceReferences: []*dcl.PropertyResourceReference{
+													&dcl.PropertyResourceReference{
+														Resource: "Secretmanager/SecretVersion",
+														Field:    "selfLink",
+													},
+												},
+											},
+											"username": &dcl.Property{
+												Type:        "string",
+												GoName:      "Username",
+												ReadOnly:    true,
+												Description: "Output only. The username associated to this token.",
+											},
+										},
+									},
+									"webhookSecretSecretVersion": &dcl.Property{
+										Type:        "string",
+										GoName:      "WebhookSecretSecretVersion",
+										Description: "Required. SecretManager resource containing the webhook secret used to verify webhook events, formatted as `projects/*/secrets/*/versions/*`.",
+										ResourceReferences: []*dcl.PropertyResourceReference{
+											&dcl.PropertyResourceReference{
+												Resource: "Secretmanager/SecretVersion",
+												Field:    "selfLink",
+											},
+										},
+									},
+									"workspace": &dcl.Property{
+										Type:        "string",
+										GoName:      "Workspace",
+										Description: "Required. The Bitbucket Cloud Workspace ID to be connected to Google Cloud Platform.",
+									},
+								},
+							},
 							"bitbucketDataCenterConfig": &dcl.Property{
 								Type:        "object",
 								GoName:      "BitbucketDataCenterConfig",
@@ -126,6 +218,7 @@ func DCLConnectionSchema() *dcl.Schema {
 									"githubConfig",
 									"githubEnterpriseConfig",
 									"gitlabConfig",
+									"bitbucketCloudConfig",
 								},
 								Required: []string{
 									"hostUri",
@@ -270,6 +363,7 @@ func DCLConnectionSchema() *dcl.Schema {
 									"githubEnterpriseConfig",
 									"gitlabConfig",
 									"bitbucketDataCenterConfig",
+									"bitbucketCloudConfig",
 								},
 								Properties: map[string]*dcl.Property{
 									"appInstallationId": &dcl.Property{
@@ -314,6 +408,7 @@ func DCLConnectionSchema() *dcl.Schema {
 									"githubConfig",
 									"gitlabConfig",
 									"bitbucketDataCenterConfig",
+									"bitbucketCloudConfig",
 								},
 								Required: []string{
 									"hostUri",
@@ -401,6 +496,7 @@ func DCLConnectionSchema() *dcl.Schema {
 									"githubConfig",
 									"githubEnterpriseConfig",
 									"bitbucketDataCenterConfig",
+									"bitbucketCloudConfig",
 								},
 								Required: []string{
 									"webhookSecretSecretVersion",

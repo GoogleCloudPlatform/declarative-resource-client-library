@@ -32,6 +32,7 @@ type Connection struct {
 	GithubEnterpriseConfig    *ConnectionGithubEnterpriseConfig    `json:"githubEnterpriseConfig"`
 	GitlabConfig              *ConnectionGitlabConfig              `json:"gitlabConfig"`
 	BitbucketDataCenterConfig *ConnectionBitbucketDataCenterConfig `json:"bitbucketDataCenterConfig"`
+	BitbucketCloudConfig      *ConnectionBitbucketCloudConfig      `json:"bitbucketCloudConfig"`
 	InstallationState         *ConnectionInstallationState         `json:"installationState"`
 	Disabled                  *bool                                `json:"disabled"`
 	Reconciling               *bool                                `json:"reconciling"`
@@ -699,6 +700,159 @@ func (r *ConnectionBitbucketDataCenterConfigServiceDirectoryConfig) HashCode() s
 	return fmt.Sprintf("%x", hash)
 }
 
+type ConnectionBitbucketCloudConfig struct {
+	empty                      bool                                                    `json:"-"`
+	Workspace                  *string                                                 `json:"workspace"`
+	WebhookSecretSecretVersion *string                                                 `json:"webhookSecretSecretVersion"`
+	ReadAuthorizerCredential   *ConnectionBitbucketCloudConfigReadAuthorizerCredential `json:"readAuthorizerCredential"`
+	AuthorizerCredential       *ConnectionBitbucketCloudConfigAuthorizerCredential     `json:"authorizerCredential"`
+}
+
+type jsonConnectionBitbucketCloudConfig ConnectionBitbucketCloudConfig
+
+func (r *ConnectionBitbucketCloudConfig) UnmarshalJSON(data []byte) error {
+	var res jsonConnectionBitbucketCloudConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyConnectionBitbucketCloudConfig
+	} else {
+
+		r.Workspace = res.Workspace
+
+		r.WebhookSecretSecretVersion = res.WebhookSecretSecretVersion
+
+		r.ReadAuthorizerCredential = res.ReadAuthorizerCredential
+
+		r.AuthorizerCredential = res.AuthorizerCredential
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ConnectionBitbucketCloudConfig is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyConnectionBitbucketCloudConfig *ConnectionBitbucketCloudConfig = &ConnectionBitbucketCloudConfig{empty: true}
+
+func (r *ConnectionBitbucketCloudConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *ConnectionBitbucketCloudConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ConnectionBitbucketCloudConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ConnectionBitbucketCloudConfigReadAuthorizerCredential struct {
+	empty                  bool    `json:"-"`
+	UserTokenSecretVersion *string `json:"userTokenSecretVersion"`
+	Username               *string `json:"username"`
+}
+
+type jsonConnectionBitbucketCloudConfigReadAuthorizerCredential ConnectionBitbucketCloudConfigReadAuthorizerCredential
+
+func (r *ConnectionBitbucketCloudConfigReadAuthorizerCredential) UnmarshalJSON(data []byte) error {
+	var res jsonConnectionBitbucketCloudConfigReadAuthorizerCredential
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyConnectionBitbucketCloudConfigReadAuthorizerCredential
+	} else {
+
+		r.UserTokenSecretVersion = res.UserTokenSecretVersion
+
+		r.Username = res.Username
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ConnectionBitbucketCloudConfigReadAuthorizerCredential is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyConnectionBitbucketCloudConfigReadAuthorizerCredential *ConnectionBitbucketCloudConfigReadAuthorizerCredential = &ConnectionBitbucketCloudConfigReadAuthorizerCredential{empty: true}
+
+func (r *ConnectionBitbucketCloudConfigReadAuthorizerCredential) Empty() bool {
+	return r.empty
+}
+
+func (r *ConnectionBitbucketCloudConfigReadAuthorizerCredential) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ConnectionBitbucketCloudConfigReadAuthorizerCredential) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type ConnectionBitbucketCloudConfigAuthorizerCredential struct {
+	empty                  bool    `json:"-"`
+	UserTokenSecretVersion *string `json:"userTokenSecretVersion"`
+	Username               *string `json:"username"`
+}
+
+type jsonConnectionBitbucketCloudConfigAuthorizerCredential ConnectionBitbucketCloudConfigAuthorizerCredential
+
+func (r *ConnectionBitbucketCloudConfigAuthorizerCredential) UnmarshalJSON(data []byte) error {
+	var res jsonConnectionBitbucketCloudConfigAuthorizerCredential
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyConnectionBitbucketCloudConfigAuthorizerCredential
+	} else {
+
+		r.UserTokenSecretVersion = res.UserTokenSecretVersion
+
+		r.Username = res.Username
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this ConnectionBitbucketCloudConfigAuthorizerCredential is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyConnectionBitbucketCloudConfigAuthorizerCredential *ConnectionBitbucketCloudConfigAuthorizerCredential = &ConnectionBitbucketCloudConfigAuthorizerCredential{empty: true}
+
+func (r *ConnectionBitbucketCloudConfigAuthorizerCredential) Empty() bool {
+	return r.empty
+}
+
+func (r *ConnectionBitbucketCloudConfigAuthorizerCredential) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *ConnectionBitbucketCloudConfigAuthorizerCredential) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 type ConnectionInstallationState struct {
 	empty     bool                                  `json:"-"`
 	Stage     *ConnectionInstallationStateStageEnum `json:"stage"`
@@ -774,6 +928,7 @@ func (r *Connection) ID() (string, error) {
 		"github_enterprise_config":     dcl.ValueOrEmptyString(nr.GithubEnterpriseConfig),
 		"gitlab_config":                dcl.ValueOrEmptyString(nr.GitlabConfig),
 		"bitbucket_data_center_config": dcl.ValueOrEmptyString(nr.BitbucketDataCenterConfig),
+		"bitbucket_cloud_config":       dcl.ValueOrEmptyString(nr.BitbucketCloudConfig),
 		"installation_state":           dcl.ValueOrEmptyString(nr.InstallationState),
 		"disabled":                     dcl.ValueOrEmptyString(nr.Disabled),
 		"reconciling":                  dcl.ValueOrEmptyString(nr.Reconciling),

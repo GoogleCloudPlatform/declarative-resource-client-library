@@ -39,6 +39,36 @@ func ConnectionToUnstructured(r *dclService.Connection) *unstructured.Resource {
 		}
 		u.Object["annotations"] = rAnnotations
 	}
+	if r.BitbucketCloudConfig != nil && r.BitbucketCloudConfig != dclService.EmptyConnectionBitbucketCloudConfig {
+		rBitbucketCloudConfig := make(map[string]interface{})
+		if r.BitbucketCloudConfig.AuthorizerCredential != nil && r.BitbucketCloudConfig.AuthorizerCredential != dclService.EmptyConnectionBitbucketCloudConfigAuthorizerCredential {
+			rBitbucketCloudConfigAuthorizerCredential := make(map[string]interface{})
+			if r.BitbucketCloudConfig.AuthorizerCredential.UserTokenSecretVersion != nil {
+				rBitbucketCloudConfigAuthorizerCredential["userTokenSecretVersion"] = *r.BitbucketCloudConfig.AuthorizerCredential.UserTokenSecretVersion
+			}
+			if r.BitbucketCloudConfig.AuthorizerCredential.Username != nil {
+				rBitbucketCloudConfigAuthorizerCredential["username"] = *r.BitbucketCloudConfig.AuthorizerCredential.Username
+			}
+			rBitbucketCloudConfig["authorizerCredential"] = rBitbucketCloudConfigAuthorizerCredential
+		}
+		if r.BitbucketCloudConfig.ReadAuthorizerCredential != nil && r.BitbucketCloudConfig.ReadAuthorizerCredential != dclService.EmptyConnectionBitbucketCloudConfigReadAuthorizerCredential {
+			rBitbucketCloudConfigReadAuthorizerCredential := make(map[string]interface{})
+			if r.BitbucketCloudConfig.ReadAuthorizerCredential.UserTokenSecretVersion != nil {
+				rBitbucketCloudConfigReadAuthorizerCredential["userTokenSecretVersion"] = *r.BitbucketCloudConfig.ReadAuthorizerCredential.UserTokenSecretVersion
+			}
+			if r.BitbucketCloudConfig.ReadAuthorizerCredential.Username != nil {
+				rBitbucketCloudConfigReadAuthorizerCredential["username"] = *r.BitbucketCloudConfig.ReadAuthorizerCredential.Username
+			}
+			rBitbucketCloudConfig["readAuthorizerCredential"] = rBitbucketCloudConfigReadAuthorizerCredential
+		}
+		if r.BitbucketCloudConfig.WebhookSecretSecretVersion != nil {
+			rBitbucketCloudConfig["webhookSecretSecretVersion"] = *r.BitbucketCloudConfig.WebhookSecretSecretVersion
+		}
+		if r.BitbucketCloudConfig.Workspace != nil {
+			rBitbucketCloudConfig["workspace"] = *r.BitbucketCloudConfig.Workspace
+		}
+		u.Object["bitbucketCloudConfig"] = rBitbucketCloudConfig
+	}
 	if r.BitbucketDataCenterConfig != nil && r.BitbucketDataCenterConfig != dclService.EmptyConnectionBitbucketDataCenterConfig {
 		rBitbucketDataCenterConfig := make(map[string]interface{})
 		if r.BitbucketDataCenterConfig.AuthorizerCredential != nil && r.BitbucketDataCenterConfig.AuthorizerCredential != dclService.EmptyConnectionBitbucketDataCenterConfigAuthorizerCredential {
@@ -227,6 +257,69 @@ func UnstructuredToConnection(u *unstructured.Resource) (*dclService.Connection,
 			r.Annotations = m
 		} else {
 			return nil, fmt.Errorf("r.Annotations: expected map[string]interface{}")
+		}
+	}
+	if _, ok := u.Object["bitbucketCloudConfig"]; ok {
+		if rBitbucketCloudConfig, ok := u.Object["bitbucketCloudConfig"].(map[string]interface{}); ok {
+			r.BitbucketCloudConfig = &dclService.ConnectionBitbucketCloudConfig{}
+			if _, ok := rBitbucketCloudConfig["authorizerCredential"]; ok {
+				if rBitbucketCloudConfigAuthorizerCredential, ok := rBitbucketCloudConfig["authorizerCredential"].(map[string]interface{}); ok {
+					r.BitbucketCloudConfig.AuthorizerCredential = &dclService.ConnectionBitbucketCloudConfigAuthorizerCredential{}
+					if _, ok := rBitbucketCloudConfigAuthorizerCredential["userTokenSecretVersion"]; ok {
+						if s, ok := rBitbucketCloudConfigAuthorizerCredential["userTokenSecretVersion"].(string); ok {
+							r.BitbucketCloudConfig.AuthorizerCredential.UserTokenSecretVersion = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.BitbucketCloudConfig.AuthorizerCredential.UserTokenSecretVersion: expected string")
+						}
+					}
+					if _, ok := rBitbucketCloudConfigAuthorizerCredential["username"]; ok {
+						if s, ok := rBitbucketCloudConfigAuthorizerCredential["username"].(string); ok {
+							r.BitbucketCloudConfig.AuthorizerCredential.Username = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.BitbucketCloudConfig.AuthorizerCredential.Username: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.BitbucketCloudConfig.AuthorizerCredential: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rBitbucketCloudConfig["readAuthorizerCredential"]; ok {
+				if rBitbucketCloudConfigReadAuthorizerCredential, ok := rBitbucketCloudConfig["readAuthorizerCredential"].(map[string]interface{}); ok {
+					r.BitbucketCloudConfig.ReadAuthorizerCredential = &dclService.ConnectionBitbucketCloudConfigReadAuthorizerCredential{}
+					if _, ok := rBitbucketCloudConfigReadAuthorizerCredential["userTokenSecretVersion"]; ok {
+						if s, ok := rBitbucketCloudConfigReadAuthorizerCredential["userTokenSecretVersion"].(string); ok {
+							r.BitbucketCloudConfig.ReadAuthorizerCredential.UserTokenSecretVersion = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.BitbucketCloudConfig.ReadAuthorizerCredential.UserTokenSecretVersion: expected string")
+						}
+					}
+					if _, ok := rBitbucketCloudConfigReadAuthorizerCredential["username"]; ok {
+						if s, ok := rBitbucketCloudConfigReadAuthorizerCredential["username"].(string); ok {
+							r.BitbucketCloudConfig.ReadAuthorizerCredential.Username = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.BitbucketCloudConfig.ReadAuthorizerCredential.Username: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.BitbucketCloudConfig.ReadAuthorizerCredential: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rBitbucketCloudConfig["webhookSecretSecretVersion"]; ok {
+				if s, ok := rBitbucketCloudConfig["webhookSecretSecretVersion"].(string); ok {
+					r.BitbucketCloudConfig.WebhookSecretSecretVersion = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.BitbucketCloudConfig.WebhookSecretSecretVersion: expected string")
+				}
+			}
+			if _, ok := rBitbucketCloudConfig["workspace"]; ok {
+				if s, ok := rBitbucketCloudConfig["workspace"].(string); ok {
+					r.BitbucketCloudConfig.Workspace = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.BitbucketCloudConfig.Workspace: expected string")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.BitbucketCloudConfig: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["bitbucketDataCenterConfig"]; ok {

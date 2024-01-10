@@ -38,13 +38,14 @@ message Cloudbuildv2AlphaConnection {
   Cloudbuildv2AlphaConnectionGithubEnterpriseConfig github_enterprise_config = 5;
   Cloudbuildv2AlphaConnectionGitlabConfig gitlab_config = 6;
   Cloudbuildv2AlphaConnectionBitbucketDataCenterConfig bitbucket_data_center_config = 7;
-  Cloudbuildv2AlphaConnectionInstallationState installation_state = 8;
-  bool disabled = 9;
-  bool reconciling = 10;
-  map<string, string> annotations = 11;
-  string etag = 12;
-  string project = 13;
-  string location = 14;
+  Cloudbuildv2AlphaConnectionBitbucketCloudConfig bitbucket_cloud_config = 8;
+  Cloudbuildv2AlphaConnectionInstallationState installation_state = 9;
+  bool disabled = 10;
+  bool reconciling = 11;
+  map<string, string> annotations = 12;
+  string etag = 13;
+  string project = 14;
+  string location = 15;
 }
 
 message Cloudbuildv2AlphaConnectionGithubConfig {
@@ -118,6 +119,23 @@ message Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigAuthorizerCredential
 
 message Cloudbuildv2AlphaConnectionBitbucketDataCenterConfigServiceDirectoryConfig {
   string service = 1;
+}
+
+message Cloudbuildv2AlphaConnectionBitbucketCloudConfig {
+  string workspace = 1;
+  string webhook_secret_secret_version = 2;
+  Cloudbuildv2AlphaConnectionBitbucketCloudConfigReadAuthorizerCredential read_authorizer_credential = 3;
+  Cloudbuildv2AlphaConnectionBitbucketCloudConfigAuthorizerCredential authorizer_credential = 4;
+}
+
+message Cloudbuildv2AlphaConnectionBitbucketCloudConfigReadAuthorizerCredential {
+  string user_token_secret_version = 1;
+  string username = 2;
+}
+
+message Cloudbuildv2AlphaConnectionBitbucketCloudConfigAuthorizerCredential {
+  string user_token_secret_version = 1;
+  string username = 2;
 }
 
 message Cloudbuildv2AlphaConnectionInstallationState {
