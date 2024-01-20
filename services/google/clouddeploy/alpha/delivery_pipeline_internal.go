@@ -1982,6 +1982,11 @@ func canonicalizeDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig
 	} else {
 		cDes.RouteUpdateWaitTime = des.RouteUpdateWaitTime
 	}
+	if dcl.StringCanonicalize(des.StableCutbackDuration, initial.StableCutbackDuration) || dcl.IsZeroValue(des.StableCutbackDuration) {
+		cDes.StableCutbackDuration = initial.StableCutbackDuration
+	} else {
+		cDes.StableCutbackDuration = des.StableCutbackDuration
+	}
 
 	return cDes
 }
@@ -2039,6 +2044,9 @@ func canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeCon
 	}
 	if dcl.StringCanonicalize(des.RouteUpdateWaitTime, nw.RouteUpdateWaitTime) {
 		nw.RouteUpdateWaitTime = des.RouteUpdateWaitTime
+	}
+	if dcl.StringCanonicalize(des.StableCutbackDuration, nw.StableCutbackDuration) {
+		nw.StableCutbackDuration = des.StableCutbackDuration
 	}
 
 	return nw
@@ -2243,6 +2251,21 @@ func canonicalizeDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig
 	} else {
 		cDes.AutomaticTrafficControl = des.AutomaticTrafficControl
 	}
+	if dcl.StringArrayCanonicalize(des.CanaryRevisionTags, initial.CanaryRevisionTags) {
+		cDes.CanaryRevisionTags = initial.CanaryRevisionTags
+	} else {
+		cDes.CanaryRevisionTags = des.CanaryRevisionTags
+	}
+	if dcl.StringArrayCanonicalize(des.PriorRevisionTags, initial.PriorRevisionTags) {
+		cDes.PriorRevisionTags = initial.PriorRevisionTags
+	} else {
+		cDes.PriorRevisionTags = des.PriorRevisionTags
+	}
+	if dcl.StringArrayCanonicalize(des.StableRevisionTags, initial.StableRevisionTags) {
+		cDes.StableRevisionTags = initial.StableRevisionTags
+	} else {
+		cDes.StableRevisionTags = des.StableRevisionTags
+	}
 
 	return cDes
 }
@@ -2291,6 +2314,15 @@ func canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeCon
 
 	if dcl.BoolCanonicalize(des.AutomaticTrafficControl, nw.AutomaticTrafficControl) {
 		nw.AutomaticTrafficControl = des.AutomaticTrafficControl
+	}
+	if dcl.StringArrayCanonicalize(des.CanaryRevisionTags, nw.CanaryRevisionTags) {
+		nw.CanaryRevisionTags = des.CanaryRevisionTags
+	}
+	if dcl.StringArrayCanonicalize(des.PriorRevisionTags, nw.PriorRevisionTags) {
+		nw.PriorRevisionTags = des.PriorRevisionTags
+	}
+	if dcl.StringArrayCanonicalize(des.StableRevisionTags, nw.StableRevisionTags) {
+		nw.StableRevisionTags = des.StableRevisionTags
 	}
 
 	return nw
@@ -4309,6 +4341,13 @@ func compareDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKuber
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.StableCutbackDuration, actual.StableCutbackDuration, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("StableCutbackDuration")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -4376,6 +4415,27 @@ func compareDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloud
 	}
 
 	if ds, err := dcl.Diff(desired.AutomaticTrafficControl, actual.AutomaticTrafficControl, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("AutomaticTrafficControl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CanaryRevisionTags, actual.CanaryRevisionTags, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("CanaryRevisionTags")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PriorRevisionTags, actual.PriorRevisionTags, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("PriorRevisionTags")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.StableRevisionTags, actual.StableRevisionTags, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("StableRevisionTags")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -6161,6 +6221,9 @@ func expandDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubern
 	if v := f.RouteUpdateWaitTime; !dcl.IsEmptyValueIndirect(v) {
 		m["routeUpdateWaitTime"] = v
 	}
+	if v := f.StableCutbackDuration; !dcl.IsEmptyValueIndirect(v) {
+		m["stableCutbackDuration"] = v
+	}
 
 	return m, nil
 }
@@ -6182,6 +6245,7 @@ func flattenDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKuber
 	r.Service = dcl.FlattenString(m["service"])
 	r.Deployment = dcl.FlattenString(m["deployment"])
 	r.RouteUpdateWaitTime = dcl.FlattenString(m["routeUpdateWaitTime"])
+	r.StableCutbackDuration = dcl.FlattenString(m["stableCutbackDuration"])
 
 	return r
 }
@@ -6400,6 +6464,15 @@ func expandDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudR
 	if v := f.AutomaticTrafficControl; !dcl.IsEmptyValueIndirect(v) {
 		m["automaticTrafficControl"] = v
 	}
+	if v := f.CanaryRevisionTags; v != nil {
+		m["canaryRevisionTags"] = v
+	}
+	if v := f.PriorRevisionTags; v != nil {
+		m["priorRevisionTags"] = v
+	}
+	if v := f.StableRevisionTags; v != nil {
+		m["stableRevisionTags"] = v
+	}
 
 	return m, nil
 }
@@ -6418,6 +6491,9 @@ func flattenDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloud
 		return EmptyDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun
 	}
 	r.AutomaticTrafficControl = dcl.FlattenBool(m["automaticTrafficControl"])
+	r.CanaryRevisionTags = dcl.FlattenStringSlice(m["canaryRevisionTags"])
+	r.PriorRevisionTags = dcl.FlattenStringSlice(m["priorRevisionTags"])
+	r.StableRevisionTags = dcl.FlattenStringSlice(m["stableRevisionTags"])
 
 	return r
 }

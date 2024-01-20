@@ -216,6 +216,21 @@ func DeliveryPipelineToUnstructured(r *dclService.DeliveryPipeline) *unstructure
 							if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.CloudRun.AutomaticTrafficControl != nil {
 								rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRun["automaticTrafficControl"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.CloudRun.AutomaticTrafficControl
 							}
+							var rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRunCanaryRevisionTags []interface{}
+							for _, rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRunCanaryRevisionTagsVal := range rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.CloudRun.CanaryRevisionTags {
+								rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRunCanaryRevisionTags = append(rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRunCanaryRevisionTags, rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRunCanaryRevisionTagsVal)
+							}
+							rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRun["canaryRevisionTags"] = rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRunCanaryRevisionTags
+							var rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRunPriorRevisionTags []interface{}
+							for _, rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRunPriorRevisionTagsVal := range rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.CloudRun.PriorRevisionTags {
+								rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRunPriorRevisionTags = append(rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRunPriorRevisionTags, rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRunPriorRevisionTagsVal)
+							}
+							rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRun["priorRevisionTags"] = rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRunPriorRevisionTags
+							var rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRunStableRevisionTags []interface{}
+							for _, rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRunStableRevisionTagsVal := range rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.CloudRun.StableRevisionTags {
+								rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRunStableRevisionTags = append(rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRunStableRevisionTags, rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRunStableRevisionTagsVal)
+							}
+							rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRun["stableRevisionTags"] = rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRunStableRevisionTags
 							rSerialPipelineStagesValStrategyCanaryRuntimeConfig["cloudRun"] = rSerialPipelineStagesValStrategyCanaryRuntimeConfigCloudRun
 						}
 						if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes != nil && rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes {
@@ -233,6 +248,9 @@ func DeliveryPipelineToUnstructured(r *dclService.DeliveryPipeline) *unstructure
 								}
 								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.Service != nil {
 									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["service"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.Service
+								}
+								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.StableCutbackDuration != nil {
+									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["stableCutbackDuration"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.StableCutbackDuration
 								}
 								rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetes["gatewayServiceMesh"] = rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh
 							}
@@ -677,6 +695,39 @@ func UnstructuredToDeliveryPipeline(u *unstructured.Resource) (*dclService.Deliv
 																	return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.CloudRun.AutomaticTrafficControl: expected bool")
 																}
 															}
+															if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun["canaryRevisionTags"]; ok {
+																if s, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun["canaryRevisionTags"].([]interface{}); ok {
+																	for _, ss := range s {
+																		if strval, ok := ss.(string); ok {
+																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.CloudRun.CanaryRevisionTags = append(rSerialPipelineStages.Strategy.Canary.RuntimeConfig.CloudRun.CanaryRevisionTags, strval)
+																		}
+																	}
+																} else {
+																	return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.CloudRun.CanaryRevisionTags: expected []interface{}")
+																}
+															}
+															if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun["priorRevisionTags"]; ok {
+																if s, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun["priorRevisionTags"].([]interface{}); ok {
+																	for _, ss := range s {
+																		if strval, ok := ss.(string); ok {
+																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.CloudRun.PriorRevisionTags = append(rSerialPipelineStages.Strategy.Canary.RuntimeConfig.CloudRun.PriorRevisionTags, strval)
+																		}
+																	}
+																} else {
+																	return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.CloudRun.PriorRevisionTags: expected []interface{}")
+																}
+															}
+															if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun["stableRevisionTags"]; ok {
+																if s, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun["stableRevisionTags"].([]interface{}); ok {
+																	for _, ss := range s {
+																		if strval, ok := ss.(string); ok {
+																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.CloudRun.StableRevisionTags = append(rSerialPipelineStages.Strategy.Canary.RuntimeConfig.CloudRun.StableRevisionTags, strval)
+																		}
+																	}
+																} else {
+																	return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.CloudRun.StableRevisionTags: expected []interface{}")
+																}
+															}
 														} else {
 															return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.CloudRun: expected map[string]interface{}")
 														}
@@ -713,6 +764,13 @@ func UnstructuredToDeliveryPipeline(u *unstructured.Resource) (*dclService.Deliv
 																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.Service = dcl.String(s)
 																		} else {
 																			return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.Service: expected string")
+																		}
+																	}
+																	if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["stableCutbackDuration"]; ok {
+																		if s, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["stableCutbackDuration"].(string); ok {
+																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.StableCutbackDuration = dcl.String(s)
+																		} else {
+																			return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.StableCutbackDuration: expected string")
 																		}
 																	}
 																} else {

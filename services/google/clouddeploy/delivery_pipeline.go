@@ -490,11 +490,12 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernet
 }
 
 type DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh struct {
-	empty               bool    `json:"-"`
-	HttpRoute           *string `json:"httpRoute"`
-	Service             *string `json:"service"`
-	Deployment          *string `json:"deployment"`
-	RouteUpdateWaitTime *string `json:"routeUpdateWaitTime"`
+	empty                 bool    `json:"-"`
+	HttpRoute             *string `json:"httpRoute"`
+	Service               *string `json:"service"`
+	Deployment            *string `json:"deployment"`
+	RouteUpdateWaitTime   *string `json:"routeUpdateWaitTime"`
+	StableCutbackDuration *string `json:"stableCutbackDuration"`
 }
 
 type jsonDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh
@@ -519,6 +520,8 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernet
 		r.Deployment = res.Deployment
 
 		r.RouteUpdateWaitTime = res.RouteUpdateWaitTime
+
+		r.StableCutbackDuration = res.StableCutbackDuration
 
 	}
 	return nil
@@ -597,8 +600,11 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernet
 }
 
 type DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun struct {
-	empty                   bool  `json:"-"`
-	AutomaticTrafficControl *bool `json:"automaticTrafficControl"`
+	empty                   bool     `json:"-"`
+	AutomaticTrafficControl *bool    `json:"automaticTrafficControl"`
+	CanaryRevisionTags      []string `json:"canaryRevisionTags"`
+	PriorRevisionTags       []string `json:"priorRevisionTags"`
+	StableRevisionTags      []string `json:"stableRevisionTags"`
 }
 
 type jsonDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun
@@ -617,6 +623,12 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun
 	} else {
 
 		r.AutomaticTrafficControl = res.AutomaticTrafficControl
+
+		r.CanaryRevisionTags = res.CanaryRevisionTags
+
+		r.PriorRevisionTags = res.PriorRevisionTags
+
+		r.StableRevisionTags = res.StableRevisionTags
 
 	}
 	return nil

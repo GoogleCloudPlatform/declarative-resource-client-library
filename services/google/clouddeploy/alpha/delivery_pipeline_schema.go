@@ -512,6 +512,39 @@ func DCLDeliveryPipelineSchema() *dcl.Schema {
 																					GoName:      "AutomaticTrafficControl",
 																					Description: "Whether Cloud Deploy should update the traffic stanza in a Cloud Run Service on the user's behalf to facilitate traffic splitting. This is required to be true for CanaryDeployments, but optional for CustomCanaryDeployments.",
 																				},
+																				"canaryRevisionTags": &dcl.Property{
+																					Type:        "array",
+																					GoName:      "CanaryRevisionTags",
+																					Description: "Optional. A list of tags that are added to the canary revision while the canary phase is in progress.",
+																					SendEmpty:   true,
+																					ListType:    "list",
+																					Items: &dcl.Property{
+																						Type:   "string",
+																						GoType: "string",
+																					},
+																				},
+																				"priorRevisionTags": &dcl.Property{
+																					Type:        "array",
+																					GoName:      "PriorRevisionTags",
+																					Description: "Optional. A list of tags that are added to the prior revision while the canary phase is in progress.",
+																					SendEmpty:   true,
+																					ListType:    "list",
+																					Items: &dcl.Property{
+																						Type:   "string",
+																						GoType: "string",
+																					},
+																				},
+																				"stableRevisionTags": &dcl.Property{
+																					Type:        "array",
+																					GoName:      "StableRevisionTags",
+																					Description: "Optional. A list of tags that are added to the final stable revision when the stable phase is applied.",
+																					SendEmpty:   true,
+																					ListType:    "list",
+																					Items: &dcl.Property{
+																						Type:   "string",
+																						GoType: "string",
+																					},
+																				},
 																			},
 																		},
 																		"kubernetes": &dcl.Property{
@@ -556,6 +589,11 @@ func DCLDeliveryPipelineSchema() *dcl.Schema {
 																							Type:        "string",
 																							GoName:      "Service",
 																							Description: "Required. Name of the Kubernetes Service.",
+																						},
+																						"stableCutbackDuration": &dcl.Property{
+																							Type:        "string",
+																							GoName:      "StableCutbackDuration",
+																							Description: "Optional. The amount of time to migrate traffic back from the canary Service to the original Service during the stable phase deployment. If specified, must be between 15s and 3600s. If unspecified, there is no cutback time.",
 																						},
 																					},
 																				},

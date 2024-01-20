@@ -146,10 +146,11 @@ func ProtoToClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryRu
 		return nil
 	}
 	obj := &alpha.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh{
-		HttpRoute:           dcl.StringOrNil(p.GetHttpRoute()),
-		Service:             dcl.StringOrNil(p.GetService()),
-		Deployment:          dcl.StringOrNil(p.GetDeployment()),
-		RouteUpdateWaitTime: dcl.StringOrNil(p.GetRouteUpdateWaitTime()),
+		HttpRoute:             dcl.StringOrNil(p.GetHttpRoute()),
+		Service:               dcl.StringOrNil(p.GetService()),
+		Deployment:            dcl.StringOrNil(p.GetDeployment()),
+		RouteUpdateWaitTime:   dcl.StringOrNil(p.GetRouteUpdateWaitTime()),
+		StableCutbackDuration: dcl.StringOrNil(p.GetStableCutbackDuration()),
 	}
 	return obj
 }
@@ -174,6 +175,15 @@ func ProtoToClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryRu
 	}
 	obj := &alpha.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun{
 		AutomaticTrafficControl: dcl.Bool(p.GetAutomaticTrafficControl()),
+	}
+	for _, r := range p.GetCanaryRevisionTags() {
+		obj.CanaryRevisionTags = append(obj.CanaryRevisionTags, r)
+	}
+	for _, r := range p.GetPriorRevisionTags() {
+		obj.PriorRevisionTags = append(obj.PriorRevisionTags, r)
+	}
+	for _, r := range p.GetStableRevisionTags() {
+		obj.StableRevisionTags = append(obj.StableRevisionTags, r)
 	}
 	return obj
 }
@@ -481,6 +491,7 @@ func ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeCo
 	p.SetService(dcl.ValueOrEmptyString(o.Service))
 	p.SetDeployment(dcl.ValueOrEmptyString(o.Deployment))
 	p.SetRouteUpdateWaitTime(dcl.ValueOrEmptyString(o.RouteUpdateWaitTime))
+	p.SetStableCutbackDuration(dcl.ValueOrEmptyString(o.StableCutbackDuration))
 	return p
 }
 
@@ -503,6 +514,21 @@ func ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeCo
 	}
 	p := &alphapb.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun{}
 	p.SetAutomaticTrafficControl(dcl.ValueOrEmptyBool(o.AutomaticTrafficControl))
+	sCanaryRevisionTags := make([]string, len(o.CanaryRevisionTags))
+	for i, r := range o.CanaryRevisionTags {
+		sCanaryRevisionTags[i] = r
+	}
+	p.SetCanaryRevisionTags(sCanaryRevisionTags)
+	sPriorRevisionTags := make([]string, len(o.PriorRevisionTags))
+	for i, r := range o.PriorRevisionTags {
+		sPriorRevisionTags[i] = r
+	}
+	p.SetPriorRevisionTags(sPriorRevisionTags)
+	sStableRevisionTags := make([]string, len(o.StableRevisionTags))
+	for i, r := range o.StableRevisionTags {
+		sStableRevisionTags[i] = r
+	}
+	p.SetStableRevisionTags(sStableRevisionTags)
 	return p
 }
 

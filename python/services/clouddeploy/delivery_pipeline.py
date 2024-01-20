@@ -752,11 +752,13 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesG
         service: str = None,
         deployment: str = None,
         route_update_wait_time: str = None,
+        stable_cutback_duration: str = None,
     ):
         self.http_route = http_route
         self.service = service
         self.deployment = deployment
         self.route_update_wait_time = route_update_wait_time
+        self.stable_cutback_duration = stable_cutback_duration
 
     @classmethod
     def to_proto(self, resource):
@@ -776,6 +778,10 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesG
             res.route_update_wait_time = Primitive.to_proto(
                 resource.route_update_wait_time
             )
+        if Primitive.to_proto(resource.stable_cutback_duration):
+            res.stable_cutback_duration = Primitive.to_proto(
+                resource.stable_cutback_duration
+            )
         return res
 
     @classmethod
@@ -789,6 +795,9 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesG
             deployment=Primitive.from_proto(resource.deployment),
             route_update_wait_time=Primitive.from_proto(
                 resource.route_update_wait_time
+            ),
+            stable_cutback_duration=Primitive.from_proto(
+                resource.stable_cutback_duration
             ),
         )
 
@@ -887,8 +896,17 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesS
 
 
 class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun(object):
-    def __init__(self, automatic_traffic_control: bool = None):
+    def __init__(
+        self,
+        automatic_traffic_control: bool = None,
+        canary_revision_tags: list = None,
+        prior_revision_tags: list = None,
+        stable_revision_tags: list = None,
+    ):
         self.automatic_traffic_control = automatic_traffic_control
+        self.canary_revision_tags = canary_revision_tags
+        self.prior_revision_tags = prior_revision_tags
+        self.stable_revision_tags = stable_revision_tags
 
     @classmethod
     def to_proto(self, resource):
@@ -902,6 +920,18 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun(ob
             res.automatic_traffic_control = Primitive.to_proto(
                 resource.automatic_traffic_control
             )
+        if Primitive.to_proto(resource.canary_revision_tags):
+            res.canary_revision_tags.extend(
+                Primitive.to_proto(resource.canary_revision_tags)
+            )
+        if Primitive.to_proto(resource.prior_revision_tags):
+            res.prior_revision_tags.extend(
+                Primitive.to_proto(resource.prior_revision_tags)
+            )
+        if Primitive.to_proto(resource.stable_revision_tags):
+            res.stable_revision_tags.extend(
+                Primitive.to_proto(resource.stable_revision_tags)
+            )
         return res
 
     @classmethod
@@ -913,6 +943,9 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun(ob
             automatic_traffic_control=Primitive.from_proto(
                 resource.automatic_traffic_control
             ),
+            canary_revision_tags=Primitive.from_proto(resource.canary_revision_tags),
+            prior_revision_tags=Primitive.from_proto(resource.prior_revision_tags),
+            stable_revision_tags=Primitive.from_proto(resource.stable_revision_tags),
         )
 
 
