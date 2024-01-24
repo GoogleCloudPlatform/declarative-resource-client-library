@@ -175,7 +175,7 @@ func DCLKeySchema() *dcl.Schema {
 							"name": &dcl.Property{
 								Type:                     "string",
 								GoName:                   "Name",
-								Description:              "The resource name for the Key in the format \"projects/{project}/keys/{key}\".",
+								Description:              "The resource id for the Key, which is the same as the Site Key itself.",
 								Immutable:                true,
 								ServerGeneratedParameter: true,
 							},

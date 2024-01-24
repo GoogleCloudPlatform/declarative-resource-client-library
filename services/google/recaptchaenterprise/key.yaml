@@ -134,7 +134,8 @@ components:
         name:
           type: string
           x-dcl-go-name: Name
-          description: The resource name for the Key in the format "projects/{project}/keys/{key}".
+          description: The resource id for the Key, which is the same as the Site
+            Key itself.
           x-kubernetes-immutable: true
           x-dcl-server-generated-parameter: true
         project:
