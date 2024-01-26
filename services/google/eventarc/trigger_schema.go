@@ -300,7 +300,7 @@ func DCLTriggerSchema() *dcl.Schema {
 							"matchingCriteria": &dcl.Property{
 								Type:        "array",
 								GoName:      "MatchingCriteria",
-								Description: "Required. null The list of filters that applies to event attributes. Only events that match all the provided filters will be sent to the destination.",
+								Description: "Required. The list of filters that applies to event attributes. Only events that match all the provided filters will be sent to the destination.",
 								SendEmpty:   true,
 								ListType:    "set",
 								Items: &dcl.Property{
