@@ -23,15 +23,16 @@ import (
 )
 
 type LogBucket struct {
-	Name           *string                      `json:"name"`
-	Description    *string                      `json:"description"`
-	CreateTime     *string                      `json:"createTime"`
-	UpdateTime     *string                      `json:"updateTime"`
-	RetentionDays  *int64                       `json:"retentionDays"`
-	Locked         *bool                        `json:"locked"`
-	LifecycleState *LogBucketLifecycleStateEnum `json:"lifecycleState"`
-	Parent         *string                      `json:"parent"`
-	Location       *string                      `json:"location"`
+	Name            *string                      `json:"name"`
+	Description     *string                      `json:"description"`
+	CreateTime      *string                      `json:"createTime"`
+	UpdateTime      *string                      `json:"updateTime"`
+	RetentionDays   *int64                       `json:"retentionDays"`
+	Locked          *bool                        `json:"locked"`
+	LifecycleState  *LogBucketLifecycleStateEnum `json:"lifecycleState"`
+	Parent          *string                      `json:"parent"`
+	Location        *string                      `json:"location"`
+	EnableAnalytics *bool                        `json:"enableAnalytics"`
 }
 
 func (r *LogBucket) String() string {
@@ -81,15 +82,16 @@ func (r *LogBucket) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":            dcl.ValueOrEmptyString(nr.Name),
-		"description":     dcl.ValueOrEmptyString(nr.Description),
-		"create_time":     dcl.ValueOrEmptyString(nr.CreateTime),
-		"update_time":     dcl.ValueOrEmptyString(nr.UpdateTime),
-		"retention_days":  dcl.ValueOrEmptyString(nr.RetentionDays),
-		"locked":          dcl.ValueOrEmptyString(nr.Locked),
-		"lifecycle_state": dcl.ValueOrEmptyString(nr.LifecycleState),
-		"parent":          dcl.ValueOrEmptyString(nr.Parent),
-		"location":        dcl.ValueOrEmptyString(nr.Location),
+		"name":             dcl.ValueOrEmptyString(nr.Name),
+		"description":      dcl.ValueOrEmptyString(nr.Description),
+		"create_time":      dcl.ValueOrEmptyString(nr.CreateTime),
+		"update_time":      dcl.ValueOrEmptyString(nr.UpdateTime),
+		"retention_days":   dcl.ValueOrEmptyString(nr.RetentionDays),
+		"locked":           dcl.ValueOrEmptyString(nr.Locked),
+		"lifecycle_state":  dcl.ValueOrEmptyString(nr.LifecycleState),
+		"parent":           dcl.ValueOrEmptyString(nr.Parent),
+		"location":         dcl.ValueOrEmptyString(nr.Location),
+		"enable_analytics": dcl.ValueOrEmptyString(nr.EnableAnalytics),
 	}
 	return dcl.Nprintf("{{parent}}/locations/{{location}}/buckets/{{name}}", params), nil
 }

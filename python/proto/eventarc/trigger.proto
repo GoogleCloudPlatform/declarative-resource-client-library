@@ -50,6 +50,8 @@ message EventarcTriggerDestination {
   string cloud_function = 2;
   EventarcTriggerDestinationGke gke = 3;
   string workflow = 4;
+  EventarcTriggerDestinationHttpEndpoint http_endpoint = 5;
+  EventarcTriggerDestinationNetworkConfig network_config = 6;
 }
 
 message EventarcTriggerDestinationCloudRunService {
@@ -64,6 +66,14 @@ message EventarcTriggerDestinationGke {
   string namespace = 3;
   string service = 4;
   string path = 5;
+}
+
+message EventarcTriggerDestinationHttpEndpoint {
+  string uri = 1;
+}
+
+message EventarcTriggerDestinationNetworkConfig {
+  string network_attachment = 1;
 }
 
 message EventarcTriggerTransport {

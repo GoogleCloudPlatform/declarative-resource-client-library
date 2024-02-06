@@ -106,6 +106,9 @@ func newUpdateLogBucketUpdateBucketRequest(ctx context.Context, f *LogBucket, c 
 	if v := f.Locked; !dcl.IsEmptyValueIndirect(v) {
 		req["locked"] = v
 	}
+	if v := f.EnableAnalytics; !dcl.IsEmptyValueIndirect(v) {
+		req["analyticsEnabled"] = v
+	}
 	return req, nil
 }
 
@@ -405,6 +408,11 @@ func canonicalizeLogBucketDesiredState(rawDesired, rawInitial *LogBucket, opts .
 	} else {
 		canonicalDesired.Location = rawDesired.Location
 	}
+	if dcl.BoolCanonicalize(rawDesired.EnableAnalytics, rawInitial.EnableAnalytics) {
+		canonicalDesired.EnableAnalytics = rawInitial.EnableAnalytics
+	} else {
+		canonicalDesired.EnableAnalytics = rawDesired.EnableAnalytics
+	}
 	return canonicalDesired, nil
 }
 
@@ -457,6 +465,14 @@ func canonicalizeLogBucketNewState(c *Client, rawNew, rawDesired *LogBucket) (*L
 	rawNew.Parent = rawDesired.Parent
 
 	rawNew.Location = rawDesired.Location
+
+	if dcl.IsEmptyValueIndirect(rawNew.EnableAnalytics) && dcl.IsEmptyValueIndirect(rawDesired.EnableAnalytics) {
+		rawNew.EnableAnalytics = rawDesired.EnableAnalytics
+	} else {
+		if dcl.BoolCanonicalize(rawDesired.EnableAnalytics, rawNew.EnableAnalytics) {
+			rawNew.EnableAnalytics = rawDesired.EnableAnalytics
+		}
+	}
 
 	return rawNew, nil
 }
@@ -536,6 +552,13 @@ func diffLogBucket(c *Client, desired, actual *LogBucket, opts ...dcl.ApplyOptio
 	}
 
 	if ds, err := dcl.Diff(desired.Location, actual.Location, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Location")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnableAnalytics, actual.EnableAnalytics, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateLogBucketUpdateBucketOperation")}, fn.AddNest("AnalyticsEnabled")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -634,6 +657,9 @@ func expandLogBucket(c *Client, f *LogBucket) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["location"] = v
 	}
+	if v := f.EnableAnalytics; dcl.ValueShouldBeSent(v) {
+		m["analyticsEnabled"] = v
+	}
 
 	return m, nil
 }
@@ -659,6 +685,7 @@ func flattenLogBucket(c *Client, i interface{}, res *LogBucket) *LogBucket {
 	resultRes.LifecycleState = flattenLogBucketLifecycleStateEnum(m["lifecycleState"])
 	resultRes.Parent = dcl.FlattenString(m["parent"])
 	resultRes.Location = dcl.FlattenString(m["location"])
+	resultRes.EnableAnalytics = dcl.FlattenBool(m["analyticsEnabled"])
 
 	return resultRes
 }

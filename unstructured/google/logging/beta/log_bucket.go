@@ -38,6 +38,9 @@ func LogBucketToUnstructured(r *dclService.LogBucket) *unstructured.Resource {
 	if r.Description != nil {
 		u.Object["description"] = *r.Description
 	}
+	if r.EnableAnalytics != nil {
+		u.Object["enableAnalytics"] = *r.EnableAnalytics
+	}
 	if r.LifecycleState != nil {
 		u.Object["lifecycleState"] = string(*r.LifecycleState)
 	}
@@ -76,6 +79,13 @@ func UnstructuredToLogBucket(u *unstructured.Resource) (*dclService.LogBucket, e
 			r.Description = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.Description: expected string")
+		}
+	}
+	if _, ok := u.Object["enableAnalytics"]; ok {
+		if b, ok := u.Object["enableAnalytics"].(bool); ok {
+			r.EnableAnalytics = dcl.Bool(b)
+		} else {
+			return nil, fmt.Errorf("r.EnableAnalytics: expected bool")
 		}
 	}
 	if _, ok := u.Object["lifecycleState"]; ok {

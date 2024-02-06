@@ -256,11 +256,15 @@ class TriggerDestination(object):
         cloud_function: str = None,
         gke: dict = None,
         workflow: str = None,
+        http_endpoint: dict = None,
+        network_config: dict = None,
     ):
         self.cloud_run_service = cloud_run_service
         self.cloud_function = cloud_function
         self.gke = gke
         self.workflow = workflow
+        self.http_endpoint = http_endpoint
+        self.network_config = network_config
 
     @classmethod
     def to_proto(self, resource):
@@ -282,6 +286,18 @@ class TriggerDestination(object):
             res.ClearField("gke")
         if Primitive.to_proto(resource.workflow):
             res.workflow = Primitive.to_proto(resource.workflow)
+        if TriggerDestinationHttpEndpoint.to_proto(resource.http_endpoint):
+            res.http_endpoint.CopyFrom(
+                TriggerDestinationHttpEndpoint.to_proto(resource.http_endpoint)
+            )
+        else:
+            res.ClearField("http_endpoint")
+        if TriggerDestinationNetworkConfig.to_proto(resource.network_config):
+            res.network_config.CopyFrom(
+                TriggerDestinationNetworkConfig.to_proto(resource.network_config)
+            )
+        else:
+            res.ClearField("network_config")
         return res
 
     @classmethod
@@ -296,6 +312,12 @@ class TriggerDestination(object):
             cloud_function=Primitive.from_proto(resource.cloud_function),
             gke=TriggerDestinationGke.from_proto(resource.gke),
             workflow=Primitive.from_proto(resource.workflow),
+            http_endpoint=TriggerDestinationHttpEndpoint.from_proto(
+                resource.http_endpoint
+            ),
+            network_config=TriggerDestinationNetworkConfig.from_proto(
+                resource.network_config
+            ),
         )
 
 
@@ -412,6 +434,78 @@ class TriggerDestinationGkeArray(object):
     @classmethod
     def from_proto(self, resources):
         return [TriggerDestinationGke.from_proto(i) for i in resources]
+
+
+class TriggerDestinationHttpEndpoint(object):
+    def __init__(self, uri: str = None):
+        self.uri = uri
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = trigger_pb2.EventarcBetaTriggerDestinationHttpEndpoint()
+        if Primitive.to_proto(resource.uri):
+            res.uri = Primitive.to_proto(resource.uri)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return TriggerDestinationHttpEndpoint(
+            uri=Primitive.from_proto(resource.uri),
+        )
+
+
+class TriggerDestinationHttpEndpointArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [TriggerDestinationHttpEndpoint.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [TriggerDestinationHttpEndpoint.from_proto(i) for i in resources]
+
+
+class TriggerDestinationNetworkConfig(object):
+    def __init__(self, network_attachment: str = None):
+        self.network_attachment = network_attachment
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = trigger_pb2.EventarcBetaTriggerDestinationNetworkConfig()
+        if Primitive.to_proto(resource.network_attachment):
+            res.network_attachment = Primitive.to_proto(resource.network_attachment)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return TriggerDestinationNetworkConfig(
+            network_attachment=Primitive.from_proto(resource.network_attachment),
+        )
+
+
+class TriggerDestinationNetworkConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [TriggerDestinationNetworkConfig.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [TriggerDestinationNetworkConfig.from_proto(i) for i in resources]
 
 
 class TriggerTransport(object):

@@ -2,8 +2,8 @@
   "name": "{{bucket}}",
   "parent": "projects/{{ref:project.cloudbilling.project_billing_info.json:name}}",
   "location": "global",
-  "description": "An updated sample of a log bucket. RetentionDays updated.",
-  "locked": false,
+  "description": "An updated sample of a log bucket. locked updated",
+  "locked": true,
   "retentionDays": 100,
-  "enableAnalytics": false
+  "enableAnalytics": true
 }

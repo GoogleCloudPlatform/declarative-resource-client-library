@@ -39,15 +39,16 @@ func ProtoToLoggingBetaLogBucketLifecycleStateEnum(e betapb.LoggingBetaLogBucket
 // ProtoToLogBucket converts a LogBucket resource from its proto representation.
 func ProtoToLogBucket(p *betapb.LoggingBetaLogBucket) *beta.LogBucket {
 	obj := &beta.LogBucket{
-		Name:           dcl.StringOrNil(p.GetName()),
-		Description:    dcl.StringOrNil(p.GetDescription()),
-		CreateTime:     dcl.StringOrNil(p.GetCreateTime()),
-		UpdateTime:     dcl.StringOrNil(p.GetUpdateTime()),
-		RetentionDays:  dcl.Int64OrNil(p.GetRetentionDays()),
-		Locked:         dcl.Bool(p.GetLocked()),
-		LifecycleState: ProtoToLoggingBetaLogBucketLifecycleStateEnum(p.GetLifecycleState()),
-		Parent:         dcl.StringOrNil(p.GetParent()),
-		Location:       dcl.StringOrNil(p.GetLocation()),
+		Name:            dcl.StringOrNil(p.GetName()),
+		Description:     dcl.StringOrNil(p.GetDescription()),
+		CreateTime:      dcl.StringOrNil(p.GetCreateTime()),
+		UpdateTime:      dcl.StringOrNil(p.GetUpdateTime()),
+		RetentionDays:   dcl.Int64OrNil(p.GetRetentionDays()),
+		Locked:          dcl.Bool(p.GetLocked()),
+		LifecycleState:  ProtoToLoggingBetaLogBucketLifecycleStateEnum(p.GetLifecycleState()),
+		Parent:          dcl.StringOrNil(p.GetParent()),
+		Location:        dcl.StringOrNil(p.GetLocation()),
+		EnableAnalytics: dcl.Bool(p.GetEnableAnalytics()),
 	}
 	return obj
 }
@@ -75,6 +76,7 @@ func LogBucketToProto(resource *beta.LogBucket) *betapb.LoggingBetaLogBucket {
 	p.SetLifecycleState(LoggingBetaLogBucketLifecycleStateEnumToProto(resource.LifecycleState))
 	p.SetParent(dcl.ValueOrEmptyString(resource.Parent))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
+	p.SetEnableAnalytics(dcl.ValueOrEmptyBool(resource.EnableAnalytics))
 
 	return p
 }

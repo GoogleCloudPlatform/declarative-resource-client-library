@@ -85,6 +85,12 @@ components:
           type: string
           x-dcl-go-name: Description
           description: Describes this bucket.
+        enableAnalytics:
+          type: boolean
+          x-dcl-go-name: EnableAnalytics
+          description: ' Whether or not Log Analytics is enabled. Logs for buckets
+            with Log Analytics enabled can be queried in the Log Analytics page using
+            SQL queries. Cannot be disabled once enabled.'
         lifecycleState:
           type: string
           x-dcl-go-name: LifecycleState

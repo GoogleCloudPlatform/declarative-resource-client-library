@@ -50,6 +50,8 @@ message EventarcAlphaTriggerDestination {
   string cloud_function = 2;
   EventarcAlphaTriggerDestinationGke gke = 3;
   string workflow = 4;
+  EventarcAlphaTriggerDestinationHttpEndpoint http_endpoint = 5;
+  EventarcAlphaTriggerDestinationNetworkConfig network_config = 6;
 }
 
 message EventarcAlphaTriggerDestinationCloudRunService {
@@ -64,6 +66,14 @@ message EventarcAlphaTriggerDestinationGke {
   string namespace = 3;
   string service = 4;
   string path = 5;
+}
+
+message EventarcAlphaTriggerDestinationHttpEndpoint {
+  string uri = 1;
+}
+
+message EventarcAlphaTriggerDestinationNetworkConfig {
+  string network_attachment = 1;
 }
 
 message EventarcAlphaTriggerTransport {

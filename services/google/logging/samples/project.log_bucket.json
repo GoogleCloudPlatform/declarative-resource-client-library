@@ -4,5 +4,6 @@
   "location": "global",
   "description": "A sample log bucket",
   "locked": false,
-  "retentionDays": 30
+  "retentionDays": 30,
+  "enableAnalytics": false
 }

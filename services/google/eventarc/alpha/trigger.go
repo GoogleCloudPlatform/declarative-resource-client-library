@@ -104,6 +104,8 @@ type TriggerDestination struct {
 	CloudFunction   *string                            `json:"cloudFunction"`
 	Gke             *TriggerDestinationGke             `json:"gke"`
 	Workflow        *string                            `json:"workflow"`
+	HttpEndpoint    *TriggerDestinationHttpEndpoint    `json:"httpEndpoint"`
+	NetworkConfig   *TriggerDestinationNetworkConfig   `json:"networkConfig"`
 }
 
 type jsonTriggerDestination TriggerDestination
@@ -128,6 +130,10 @@ func (r *TriggerDestination) UnmarshalJSON(data []byte) error {
 		r.Gke = res.Gke
 
 		r.Workflow = res.Workflow
+
+		r.HttpEndpoint = res.HttpEndpoint
+
+		r.NetworkConfig = res.NetworkConfig
 
 	}
 	return nil
@@ -257,6 +263,98 @@ func (r *TriggerDestinationGke) String() string {
 }
 
 func (r *TriggerDestinationGke) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type TriggerDestinationHttpEndpoint struct {
+	empty bool    `json:"-"`
+	Uri   *string `json:"uri"`
+}
+
+type jsonTriggerDestinationHttpEndpoint TriggerDestinationHttpEndpoint
+
+func (r *TriggerDestinationHttpEndpoint) UnmarshalJSON(data []byte) error {
+	var res jsonTriggerDestinationHttpEndpoint
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTriggerDestinationHttpEndpoint
+	} else {
+
+		r.Uri = res.Uri
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this TriggerDestinationHttpEndpoint is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyTriggerDestinationHttpEndpoint *TriggerDestinationHttpEndpoint = &TriggerDestinationHttpEndpoint{empty: true}
+
+func (r *TriggerDestinationHttpEndpoint) Empty() bool {
+	return r.empty
+}
+
+func (r *TriggerDestinationHttpEndpoint) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *TriggerDestinationHttpEndpoint) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type TriggerDestinationNetworkConfig struct {
+	empty             bool    `json:"-"`
+	NetworkAttachment *string `json:"networkAttachment"`
+}
+
+type jsonTriggerDestinationNetworkConfig TriggerDestinationNetworkConfig
+
+func (r *TriggerDestinationNetworkConfig) UnmarshalJSON(data []byte) error {
+	var res jsonTriggerDestinationNetworkConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTriggerDestinationNetworkConfig
+	} else {
+
+		r.NetworkAttachment = res.NetworkAttachment
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this TriggerDestinationNetworkConfig is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyTriggerDestinationNetworkConfig *TriggerDestinationNetworkConfig = &TriggerDestinationNetworkConfig{empty: true}
+
+func (r *TriggerDestinationNetworkConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *TriggerDestinationNetworkConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *TriggerDestinationNetworkConfig) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.Sum256([]byte(r.String()))

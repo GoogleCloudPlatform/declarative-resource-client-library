@@ -121,6 +121,11 @@ func DCLLogBucketSchema() *dcl.Schema {
 								GoName:      "Description",
 								Description: "Describes this bucket.",
 							},
+							"enableAnalytics": &dcl.Property{
+								Type:        "boolean",
+								GoName:      "EnableAnalytics",
+								Description: " Whether or not Log Analytics is enabled. Logs for buckets with Log Analytics enabled can be queried in the Log Analytics page using SQL queries. Cannot be disabled once enabled.",
+							},
 							"lifecycleState": &dcl.Property{
 								Type:        "string",
 								GoName:      "LifecycleState",

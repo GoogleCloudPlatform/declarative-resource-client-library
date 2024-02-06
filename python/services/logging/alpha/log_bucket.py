@@ -30,6 +30,7 @@ class LogBucket(object):
         lifecycle_state: str = None,
         parent: str = None,
         location: str = None,
+        enable_analytics: bool = None,
         service_account_file: str = "",
     ):
         channel.initialize()
@@ -39,6 +40,7 @@ class LogBucket(object):
         self.locked = locked
         self.parent = parent
         self.location = location
+        self.enable_analytics = enable_analytics
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -62,6 +64,11 @@ class LogBucket(object):
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
 
+        if Primitive.to_proto(self.enable_analytics):
+            request.resource.enable_analytics = Primitive.to_proto(
+                self.enable_analytics
+            )
+
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyLoggingAlphaLogBucket(request)
@@ -76,6 +83,7 @@ class LogBucket(object):
         )
         self.parent = Primitive.from_proto(response.parent)
         self.location = Primitive.from_proto(response.location)
+        self.enable_analytics = Primitive.from_proto(response.enable_analytics)
 
     def delete(self):
         stub = log_bucket_pb2_grpc.LoggingAlphaLogBucketServiceStub(channel.Channel())
@@ -98,6 +106,11 @@ class LogBucket(object):
 
         if Primitive.to_proto(self.location):
             request.resource.location = Primitive.to_proto(self.location)
+
+        if Primitive.to_proto(self.enable_analytics):
+            request.resource.enable_analytics = Primitive.to_proto(
+                self.enable_analytics
+            )
 
         response = stub.DeleteLoggingAlphaLogBucket(request)
 
@@ -126,6 +139,8 @@ class LogBucket(object):
             resource.parent = Primitive.to_proto(self.parent)
         if Primitive.to_proto(self.location):
             resource.location = Primitive.to_proto(self.location)
+        if Primitive.to_proto(self.enable_analytics):
+            resource.enable_analytics = Primitive.to_proto(self.enable_analytics)
         return resource
 
 

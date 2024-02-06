@@ -47,6 +47,8 @@ func ProtoToEventarcBetaTriggerDestination(p *betapb.EventarcBetaTriggerDestinat
 		CloudFunction:   dcl.StringOrNil(p.GetCloudFunction()),
 		Gke:             ProtoToEventarcBetaTriggerDestinationGke(p.GetGke()),
 		Workflow:        dcl.StringOrNil(p.GetWorkflow()),
+		HttpEndpoint:    ProtoToEventarcBetaTriggerDestinationHttpEndpoint(p.GetHttpEndpoint()),
+		NetworkConfig:   ProtoToEventarcBetaTriggerDestinationNetworkConfig(p.GetNetworkConfig()),
 	}
 	return obj
 }
@@ -75,6 +77,28 @@ func ProtoToEventarcBetaTriggerDestinationGke(p *betapb.EventarcBetaTriggerDesti
 		Namespace: dcl.StringOrNil(p.GetNamespace()),
 		Service:   dcl.StringOrNil(p.GetService()),
 		Path:      dcl.StringOrNil(p.GetPath()),
+	}
+	return obj
+}
+
+// ProtoToTriggerDestinationHttpEndpoint converts a TriggerDestinationHttpEndpoint object from its proto representation.
+func ProtoToEventarcBetaTriggerDestinationHttpEndpoint(p *betapb.EventarcBetaTriggerDestinationHttpEndpoint) *beta.TriggerDestinationHttpEndpoint {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.TriggerDestinationHttpEndpoint{
+		Uri: dcl.StringOrNil(p.GetUri()),
+	}
+	return obj
+}
+
+// ProtoToTriggerDestinationNetworkConfig converts a TriggerDestinationNetworkConfig object from its proto representation.
+func ProtoToEventarcBetaTriggerDestinationNetworkConfig(p *betapb.EventarcBetaTriggerDestinationNetworkConfig) *beta.TriggerDestinationNetworkConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.TriggerDestinationNetworkConfig{
+		NetworkAttachment: dcl.StringOrNil(p.GetNetworkAttachment()),
 	}
 	return obj
 }
@@ -146,6 +170,8 @@ func EventarcBetaTriggerDestinationToProto(o *beta.TriggerDestination) *betapb.E
 	p.SetCloudFunction(dcl.ValueOrEmptyString(o.CloudFunction))
 	p.SetGke(EventarcBetaTriggerDestinationGkeToProto(o.Gke))
 	p.SetWorkflow(dcl.ValueOrEmptyString(o.Workflow))
+	p.SetHttpEndpoint(EventarcBetaTriggerDestinationHttpEndpointToProto(o.HttpEndpoint))
+	p.SetNetworkConfig(EventarcBetaTriggerDestinationNetworkConfigToProto(o.NetworkConfig))
 	return p
 }
 
@@ -172,6 +198,26 @@ func EventarcBetaTriggerDestinationGkeToProto(o *beta.TriggerDestinationGke) *be
 	p.SetNamespace(dcl.ValueOrEmptyString(o.Namespace))
 	p.SetService(dcl.ValueOrEmptyString(o.Service))
 	p.SetPath(dcl.ValueOrEmptyString(o.Path))
+	return p
+}
+
+// TriggerDestinationHttpEndpointToProto converts a TriggerDestinationHttpEndpoint object to its proto representation.
+func EventarcBetaTriggerDestinationHttpEndpointToProto(o *beta.TriggerDestinationHttpEndpoint) *betapb.EventarcBetaTriggerDestinationHttpEndpoint {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.EventarcBetaTriggerDestinationHttpEndpoint{}
+	p.SetUri(dcl.ValueOrEmptyString(o.Uri))
+	return p
+}
+
+// TriggerDestinationNetworkConfigToProto converts a TriggerDestinationNetworkConfig object to its proto representation.
+func EventarcBetaTriggerDestinationNetworkConfigToProto(o *beta.TriggerDestinationNetworkConfig) *betapb.EventarcBetaTriggerDestinationNetworkConfig {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.EventarcBetaTriggerDestinationNetworkConfig{}
+	p.SetNetworkAttachment(dcl.ValueOrEmptyString(o.NetworkAttachment))
 	return p
 }
 

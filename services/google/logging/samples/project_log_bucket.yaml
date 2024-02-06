@@ -32,6 +32,11 @@ updates:
   - samples/project_logging_admin.iam.member.json
   - samples/project.cloudbilling.project_billing_info.json
   - samples/project.cloudresourcemanager.project.json
+- resource: samples/update_3_project.log_bucket.json
+  dependencies:
+  - samples/project_logging_admin.iam.member.json
+  - samples/project.cloudbilling.project_billing_info.json
+  - samples/project.cloudresourcemanager.project.json
 variables:
 - name: billing_account
   type: billing_account

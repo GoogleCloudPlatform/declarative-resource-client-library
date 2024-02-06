@@ -82,6 +82,20 @@ func TriggerToUnstructured(r *dclService.Trigger) *unstructured.Resource {
 			}
 			rDestination["gke"] = rDestinationGke
 		}
+		if r.Destination.HttpEndpoint != nil && r.Destination.HttpEndpoint != dclService.EmptyTriggerDestinationHttpEndpoint {
+			rDestinationHttpEndpoint := make(map[string]interface{})
+			if r.Destination.HttpEndpoint.Uri != nil {
+				rDestinationHttpEndpoint["uri"] = *r.Destination.HttpEndpoint.Uri
+			}
+			rDestination["httpEndpoint"] = rDestinationHttpEndpoint
+		}
+		if r.Destination.NetworkConfig != nil && r.Destination.NetworkConfig != dclService.EmptyTriggerDestinationNetworkConfig {
+			rDestinationNetworkConfig := make(map[string]interface{})
+			if r.Destination.NetworkConfig.NetworkAttachment != nil {
+				rDestinationNetworkConfig["networkAttachment"] = *r.Destination.NetworkConfig.NetworkAttachment
+			}
+			rDestination["networkConfig"] = rDestinationNetworkConfig
+		}
 		if r.Destination.Workflow != nil {
 			rDestination["workflow"] = *r.Destination.Workflow
 		}
@@ -257,6 +271,34 @@ func UnstructuredToTrigger(u *unstructured.Resource) (*dclService.Trigger, error
 					}
 				} else {
 					return nil, fmt.Errorf("r.Destination.Gke: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rDestination["httpEndpoint"]; ok {
+				if rDestinationHttpEndpoint, ok := rDestination["httpEndpoint"].(map[string]interface{}); ok {
+					r.Destination.HttpEndpoint = &dclService.TriggerDestinationHttpEndpoint{}
+					if _, ok := rDestinationHttpEndpoint["uri"]; ok {
+						if s, ok := rDestinationHttpEndpoint["uri"].(string); ok {
+							r.Destination.HttpEndpoint.Uri = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Destination.HttpEndpoint.Uri: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Destination.HttpEndpoint: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rDestination["networkConfig"]; ok {
+				if rDestinationNetworkConfig, ok := rDestination["networkConfig"].(map[string]interface{}); ok {
+					r.Destination.NetworkConfig = &dclService.TriggerDestinationNetworkConfig{}
+					if _, ok := rDestinationNetworkConfig["networkAttachment"]; ok {
+						if s, ok := rDestinationNetworkConfig["networkAttachment"].(string); ok {
+							r.Destination.NetworkConfig.NetworkAttachment = dcl.String(s)
+						} else {
+							return nil, fmt.Errorf("r.Destination.NetworkConfig.NetworkAttachment: expected string")
+						}
+					}
+				} else {
+					return nil, fmt.Errorf("r.Destination.NetworkConfig: expected map[string]interface{}")
 				}
 			}
 			if _, ok := rDestination["workflow"]; ok {

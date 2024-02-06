@@ -47,6 +47,8 @@ func ProtoToEventarcTriggerDestination(p *eventarcpb.EventarcTriggerDestination)
 		CloudFunction:   dcl.StringOrNil(p.GetCloudFunction()),
 		Gke:             ProtoToEventarcTriggerDestinationGke(p.GetGke()),
 		Workflow:        dcl.StringOrNil(p.GetWorkflow()),
+		HttpEndpoint:    ProtoToEventarcTriggerDestinationHttpEndpoint(p.GetHttpEndpoint()),
+		NetworkConfig:   ProtoToEventarcTriggerDestinationNetworkConfig(p.GetNetworkConfig()),
 	}
 	return obj
 }
@@ -75,6 +77,28 @@ func ProtoToEventarcTriggerDestinationGke(p *eventarcpb.EventarcTriggerDestinati
 		Namespace: dcl.StringOrNil(p.GetNamespace()),
 		Service:   dcl.StringOrNil(p.GetService()),
 		Path:      dcl.StringOrNil(p.GetPath()),
+	}
+	return obj
+}
+
+// ProtoToTriggerDestinationHttpEndpoint converts a TriggerDestinationHttpEndpoint object from its proto representation.
+func ProtoToEventarcTriggerDestinationHttpEndpoint(p *eventarcpb.EventarcTriggerDestinationHttpEndpoint) *eventarc.TriggerDestinationHttpEndpoint {
+	if p == nil {
+		return nil
+	}
+	obj := &eventarc.TriggerDestinationHttpEndpoint{
+		Uri: dcl.StringOrNil(p.GetUri()),
+	}
+	return obj
+}
+
+// ProtoToTriggerDestinationNetworkConfig converts a TriggerDestinationNetworkConfig object from its proto representation.
+func ProtoToEventarcTriggerDestinationNetworkConfig(p *eventarcpb.EventarcTriggerDestinationNetworkConfig) *eventarc.TriggerDestinationNetworkConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &eventarc.TriggerDestinationNetworkConfig{
+		NetworkAttachment: dcl.StringOrNil(p.GetNetworkAttachment()),
 	}
 	return obj
 }
@@ -146,6 +170,8 @@ func EventarcTriggerDestinationToProto(o *eventarc.TriggerDestination) *eventarc
 	p.SetCloudFunction(dcl.ValueOrEmptyString(o.CloudFunction))
 	p.SetGke(EventarcTriggerDestinationGkeToProto(o.Gke))
 	p.SetWorkflow(dcl.ValueOrEmptyString(o.Workflow))
+	p.SetHttpEndpoint(EventarcTriggerDestinationHttpEndpointToProto(o.HttpEndpoint))
+	p.SetNetworkConfig(EventarcTriggerDestinationNetworkConfigToProto(o.NetworkConfig))
 	return p
 }
 
@@ -172,6 +198,26 @@ func EventarcTriggerDestinationGkeToProto(o *eventarc.TriggerDestinationGke) *ev
 	p.SetNamespace(dcl.ValueOrEmptyString(o.Namespace))
 	p.SetService(dcl.ValueOrEmptyString(o.Service))
 	p.SetPath(dcl.ValueOrEmptyString(o.Path))
+	return p
+}
+
+// TriggerDestinationHttpEndpointToProto converts a TriggerDestinationHttpEndpoint object to its proto representation.
+func EventarcTriggerDestinationHttpEndpointToProto(o *eventarc.TriggerDestinationHttpEndpoint) *eventarcpb.EventarcTriggerDestinationHttpEndpoint {
+	if o == nil {
+		return nil
+	}
+	p := &eventarcpb.EventarcTriggerDestinationHttpEndpoint{}
+	p.SetUri(dcl.ValueOrEmptyString(o.Uri))
+	return p
+}
+
+// TriggerDestinationNetworkConfigToProto converts a TriggerDestinationNetworkConfig object to its proto representation.
+func EventarcTriggerDestinationNetworkConfigToProto(o *eventarc.TriggerDestinationNetworkConfig) *eventarcpb.EventarcTriggerDestinationNetworkConfig {
+	if o == nil {
+		return nil
+	}
+	p := &eventarcpb.EventarcTriggerDestinationNetworkConfig{}
+	p.SetNetworkAttachment(dcl.ValueOrEmptyString(o.NetworkAttachment))
 	return p
 }
 

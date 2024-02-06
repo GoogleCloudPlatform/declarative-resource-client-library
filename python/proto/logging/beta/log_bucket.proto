@@ -38,6 +38,7 @@ message LoggingBetaLogBucket {
   LoggingBetaLogBucketLifecycleStateEnum lifecycle_state = 7;
   string parent = 8;
   string location = 9;
+  bool enable_analytics = 10;
 }
 
 message ApplyLoggingBetaLogBucketRequest {

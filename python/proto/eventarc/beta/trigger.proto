@@ -50,6 +50,8 @@ message EventarcBetaTriggerDestination {
   string cloud_function = 2;
   EventarcBetaTriggerDestinationGke gke = 3;
   string workflow = 4;
+  EventarcBetaTriggerDestinationHttpEndpoint http_endpoint = 5;
+  EventarcBetaTriggerDestinationNetworkConfig network_config = 6;
 }
 
 message EventarcBetaTriggerDestinationCloudRunService {
@@ -64,6 +66,14 @@ message EventarcBetaTriggerDestinationGke {
   string namespace = 3;
   string service = 4;
   string path = 5;
+}
+
+message EventarcBetaTriggerDestinationHttpEndpoint {
+  string uri = 1;
+}
+
+message EventarcBetaTriggerDestinationNetworkConfig {
+  string network_attachment = 1;
 }
 
 message EventarcBetaTriggerTransport {
