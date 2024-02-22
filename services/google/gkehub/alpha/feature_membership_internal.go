@@ -3387,7 +3387,7 @@ func expandFeatureMembershipConfigmanagement(c *Client, f *FeatureMembershipConf
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["policyController"] = v
 	}
-	if v, err := expandFeatureMembershipConfigmanagementBinauthz(c, f.Binauthz, res); err != nil {
+	if v, err := dcl.EmptyValue(); err != nil {
 		return nil, fmt.Errorf("error expanding Binauthz into binauthz: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["binauthz"] = v
