@@ -96,6 +96,18 @@ func ProtoToGkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfi
 	return nil
 }
 
+// ProtoToFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum enum from its proto representation.
+func ProtoToGkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum(e alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum) *alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum_name[int32(e)]; ok {
+		e := alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum(n[len("GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToFeatureMembershipMesh converts a FeatureMembershipMesh object from its proto representation.
 func ProtoToGkehubAlphaFeatureMembershipMesh(p *alphapb.GkehubAlphaFeatureMembershipMesh) *alpha.FeatureMembershipMesh {
 	if p == nil {
@@ -294,6 +306,84 @@ func ProtoToGkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfi
 	return obj
 }
 
+// ProtoToFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles object from its proto representation.
+func ProtoToGkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles(p *alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles) *alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles{}
+	for _, r := range p.GetExemptedNamespaces() {
+		obj.ExemptedNamespaces = append(obj.ExemptedNamespaces, r)
+	}
+	return obj
+}
+
+// ProtoToFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs object from its proto representation.
+func ProtoToGkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs(p *alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs) *alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs{
+		ReplicaCount:       dcl.Int64OrNil(p.GetReplicaCount()),
+		ContainerResources: ProtoToGkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources(p.GetContainerResources()),
+		PodAffinity:        ProtoToGkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum(p.GetPodAffinity()),
+	}
+	for _, r := range p.GetPodTolerations() {
+		obj.PodTolerations = append(obj.PodTolerations, *ProtoToGkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations(r))
+	}
+	return obj
+}
+
+// ProtoToFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources object from its proto representation.
+func ProtoToGkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources(p *alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources) *alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources{
+		Limits:   ProtoToGkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits(p.GetLimits()),
+		Requests: ProtoToGkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests(p.GetRequests()),
+	}
+	return obj
+}
+
+// ProtoToFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits object from its proto representation.
+func ProtoToGkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits(p *alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits) *alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits{
+		Memory: dcl.StringOrNil(p.GetMemory()),
+		Cpu:    dcl.StringOrNil(p.GetCpu()),
+	}
+	return obj
+}
+
+// ProtoToFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests object from its proto representation.
+func ProtoToGkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests(p *alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests) *alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests{
+		Memory: dcl.StringOrNil(p.GetMemory()),
+		Cpu:    dcl.StringOrNil(p.GetCpu()),
+	}
+	return obj
+}
+
+// ProtoToFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations object from its proto representation.
+func ProtoToGkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations(p *alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations) *alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations{
+		Key:      dcl.StringOrNil(p.GetKey()),
+		Operator: dcl.StringOrNil(p.GetOperator()),
+		Value:    dcl.StringOrNil(p.GetValue()),
+		Effect:   dcl.StringOrNil(p.GetEffect()),
+	}
+	return obj
+}
+
 // ProtoToFeatureMembership converts a FeatureMembership resource from its proto representation.
 func ProtoToFeatureMembership(p *alphapb.GkehubAlphaFeatureMembership) *alpha.FeatureMembership {
 	obj := &alpha.FeatureMembership{
@@ -373,6 +463,17 @@ func GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicy
 		return alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum(v)
 	}
 	return alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum(0)
+}
+
+// FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnumToProto converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum enum to its proto representation.
+func GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnumToProto(e *alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum) alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum {
+	if e == nil {
+		return alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum(0)
+	}
+	if v, ok := alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum_value["FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum"+string(*e)]; ok {
+		return alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum(v)
+	}
+	return alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum(0)
 }
 
 // FeatureMembershipMeshToProto converts a FeatureMembershipMesh object to its proto representation.
@@ -532,6 +633,11 @@ func GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigToProt
 		sExemptableNamespaces[i] = r
 	}
 	p.SetExemptableNamespaces(sExemptableNamespaces)
+	mDeploymentConfigs := make(map[string]*alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs, len(o.DeploymentConfigs))
+	for k, r := range o.DeploymentConfigs {
+		mDeploymentConfigs[k] = GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsToProto(&r)
+	}
+	p.SetDeploymentConfigs(mDeploymentConfigs)
 	return p
 }
 
@@ -556,6 +662,11 @@ func GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicy
 	}
 	p := &alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent{}
 	p.SetTemplateLibrary(GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryToProto(o.TemplateLibrary))
+	mBundles := make(map[string]*alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles, len(o.Bundles))
+	for k, r := range o.Bundles {
+		mBundles[k] = GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundlesToProto(&r)
+	}
+	p.SetBundles(mBundles)
 	return p
 }
 
@@ -566,6 +677,83 @@ func GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicy
 	}
 	p := &alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary{}
 	p.SetInstallation(GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnumToProto(o.Installation))
+	return p
+}
+
+// FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundlesToProto converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles object to its proto representation.
+func GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundlesToProto(o *alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles) *alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles{}
+	sExemptedNamespaces := make([]string, len(o.ExemptedNamespaces))
+	for i, r := range o.ExemptedNamespaces {
+		sExemptedNamespaces[i] = r
+	}
+	p.SetExemptedNamespaces(sExemptedNamespaces)
+	return p
+}
+
+// FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsToProto converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs object to its proto representation.
+func GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsToProto(o *alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs) *alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs{}
+	p.SetReplicaCount(dcl.ValueOrEmptyInt64(o.ReplicaCount))
+	p.SetContainerResources(GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesToProto(o.ContainerResources))
+	p.SetPodAffinity(GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnumToProto(o.PodAffinity))
+	sPodTolerations := make([]*alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations, len(o.PodTolerations))
+	for i, r := range o.PodTolerations {
+		sPodTolerations[i] = GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerationsToProto(&r)
+	}
+	p.SetPodTolerations(sPodTolerations)
+	return p
+}
+
+// FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesToProto converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources object to its proto representation.
+func GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesToProto(o *alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources) *alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources{}
+	p.SetLimits(GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimitsToProto(o.Limits))
+	p.SetRequests(GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequestsToProto(o.Requests))
+	return p
+}
+
+// FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimitsToProto converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits object to its proto representation.
+func GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimitsToProto(o *alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits) *alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits{}
+	p.SetMemory(dcl.ValueOrEmptyString(o.Memory))
+	p.SetCpu(dcl.ValueOrEmptyString(o.Cpu))
+	return p
+}
+
+// FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequestsToProto converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests object to its proto representation.
+func GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequestsToProto(o *alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests) *alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests{}
+	p.SetMemory(dcl.ValueOrEmptyString(o.Memory))
+	p.SetCpu(dcl.ValueOrEmptyString(o.Cpu))
+	return p
+}
+
+// FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerationsToProto converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations object to its proto representation.
+func GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerationsToProto(o *alpha.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations) *alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations{}
+	p.SetKey(dcl.ValueOrEmptyString(o.Key))
+	p.SetOperator(dcl.ValueOrEmptyString(o.Operator))
+	p.SetValue(dcl.ValueOrEmptyString(o.Value))
+	p.SetEffect(dcl.ValueOrEmptyString(o.Effect))
 	return p
 }
 

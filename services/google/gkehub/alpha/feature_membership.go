@@ -200,6 +200,33 @@ func (v FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentT
 	}
 }
 
+// The enum FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum.
+type FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum string
+
+// FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnumRef returns a *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnumRef(s string) *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum {
+	v := FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum(s)
+	return &v
+}
+
+func (v FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"AFFINITY_UNSPECIFIED", "NO_AFFINITY", "ANTI_AFFINITY"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 type FeatureMembershipMesh struct {
 	empty        bool                                   `json:"-"`
 	Management   *FeatureMembershipMeshManagementEnum   `json:"management"`
@@ -751,16 +778,17 @@ func (r *FeatureMembershipPolicycontroller) HashCode() string {
 }
 
 type FeatureMembershipPolicycontrollerPolicyControllerHubConfig struct {
-	empty                    bool                                                                       `json:"-"`
-	InstallSpec              *FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum `json:"installSpec"`
-	ExemptableNamespaces     []string                                                                   `json:"exemptableNamespaces"`
-	ReferentialRulesEnabled  *bool                                                                      `json:"referentialRulesEnabled"`
-	LogDeniesEnabled         *bool                                                                      `json:"logDeniesEnabled"`
-	MutationEnabled          *bool                                                                      `json:"mutationEnabled"`
-	Monitoring               *FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring      `json:"monitoring"`
-	AuditIntervalSeconds     *int64                                                                     `json:"auditIntervalSeconds"`
-	ConstraintViolationLimit *int64                                                                     `json:"constraintViolationLimit"`
-	PolicyContent            *FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent   `json:"policyContent"`
+	empty                    bool                                                                                   `json:"-"`
+	InstallSpec              *FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum             `json:"installSpec"`
+	ExemptableNamespaces     []string                                                                               `json:"exemptableNamespaces"`
+	ReferentialRulesEnabled  *bool                                                                                  `json:"referentialRulesEnabled"`
+	LogDeniesEnabled         *bool                                                                                  `json:"logDeniesEnabled"`
+	MutationEnabled          *bool                                                                                  `json:"mutationEnabled"`
+	Monitoring               *FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring                  `json:"monitoring"`
+	AuditIntervalSeconds     *int64                                                                                 `json:"auditIntervalSeconds"`
+	ConstraintViolationLimit *int64                                                                                 `json:"constraintViolationLimit"`
+	PolicyContent            *FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent               `json:"policyContent"`
+	DeploymentConfigs        map[string]FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs `json:"deploymentConfigs"`
 }
 
 type jsonFeatureMembershipPolicycontrollerPolicyControllerHubConfig FeatureMembershipPolicycontrollerPolicyControllerHubConfig
@@ -795,6 +823,8 @@ func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfig) UnmarshalJS
 		r.ConstraintViolationLimit = res.ConstraintViolationLimit
 
 		r.PolicyContent = res.PolicyContent
+
+		r.DeploymentConfigs = res.DeploymentConfigs
 
 	}
 	return nil
@@ -867,8 +897,9 @@ func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring) H
 }
 
 type FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent struct {
-	empty           bool                                                                                    `json:"-"`
-	TemplateLibrary *FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary `json:"templateLibrary"`
+	empty           bool                                                                                      `json:"-"`
+	TemplateLibrary *FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary   `json:"templateLibrary"`
+	Bundles         map[string]FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles `json:"bundles"`
 }
 
 type jsonFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent
@@ -887,6 +918,8 @@ func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent
 	} else {
 
 		r.TemplateLibrary = res.TemplateLibrary
+
+		r.Bundles = res.Bundles
 
 	}
 	return nil
@@ -952,6 +985,309 @@ func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent
 }
 
 func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles struct {
+	empty              bool     `json:"-"`
+	ExemptedNamespaces []string `json:"exemptedNamespaces"`
+}
+
+type jsonFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles
+	} else {
+
+		r.ExemptedNamespaces = res.ExemptedNamespaces
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles *FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles = &FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles{empty: true}
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles) Empty() bool {
+	return r.empty
+}
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs struct {
+	empty              bool                                                                                           `json:"-"`
+	ReplicaCount       *int64                                                                                         `json:"replicaCount"`
+	ContainerResources *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources `json:"containerResources"`
+	PodAffinity        *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum    `json:"podAffinity"`
+	PodTolerations     []FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations    `json:"podTolerations"`
+}
+
+type jsonFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs
+	} else {
+
+		r.ReplicaCount = res.ReplicaCount
+
+		r.ContainerResources = res.ContainerResources
+
+		r.PodAffinity = res.PodAffinity
+
+		r.PodTolerations = res.PodTolerations
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs = &FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs{empty: true}
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs) Empty() bool {
+	return r.empty
+}
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources struct {
+	empty    bool                                                                                                   `json:"-"`
+	Limits   *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits   `json:"limits"`
+	Requests *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests `json:"requests"`
+}
+
+type jsonFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources
+	} else {
+
+		r.Limits = res.Limits
+
+		r.Requests = res.Requests
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources = &FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources{empty: true}
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources) Empty() bool {
+	return r.empty
+}
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits struct {
+	empty  bool    `json:"-"`
+	Memory *string `json:"memory"`
+	Cpu    *string `json:"cpu"`
+}
+
+type jsonFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits
+	} else {
+
+		r.Memory = res.Memory
+
+		r.Cpu = res.Cpu
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits = &FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits{empty: true}
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits) Empty() bool {
+	return r.empty
+}
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests struct {
+	empty  bool    `json:"-"`
+	Memory *string `json:"memory"`
+	Cpu    *string `json:"cpu"`
+}
+
+type jsonFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests
+	} else {
+
+		r.Memory = res.Memory
+
+		r.Cpu = res.Cpu
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests = &FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests{empty: true}
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests) Empty() bool {
+	return r.empty
+}
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations struct {
+	empty    bool    `json:"-"`
+	Key      *string `json:"key"`
+	Operator *string `json:"operator"`
+	Value    *string `json:"value"`
+	Effect   *string `json:"effect"`
+}
+
+type jsonFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations
+	} else {
+
+		r.Key = res.Key
+
+		r.Operator = res.Operator
+
+		r.Value = res.Value
+
+		r.Effect = res.Effect
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations = &FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations{empty: true}
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations) Empty() bool {
+	return r.empty
+}
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.Sum256([]byte(r.String()))

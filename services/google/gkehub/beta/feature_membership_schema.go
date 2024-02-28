@@ -471,6 +471,132 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 												GoName:      "ConstraintViolationLimit",
 												Description: "The maximum number of audit violations to be stored in a constraint. If not set, the internal default of 20 will be used.",
 											},
+											"deploymentConfigs": &dcl.Property{
+												Type: "object",
+												AdditionalProperties: &dcl.Property{
+													Type:   "object",
+													GoType: "FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs",
+													Properties: map[string]*dcl.Property{
+														"containerResources": &dcl.Property{
+															Type:        "object",
+															GoName:      "ContainerResources",
+															GoType:      "FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources",
+															Description: "Container resource requirements.",
+															Conflicts: []string{
+																"replicaCount",
+																"podAffinity",
+																"podTolerations",
+															},
+															Properties: map[string]*dcl.Property{
+																"limits": &dcl.Property{
+																	Type:        "object",
+																	GoName:      "Limits",
+																	GoType:      "FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits",
+																	Description: "Limits describes the maximum amount of compute resources allowed for use by the running container.",
+																	Properties: map[string]*dcl.Property{
+																		"cpu": &dcl.Property{
+																			Type:        "string",
+																			GoName:      "Cpu",
+																			Description: "CPU requirement expressed in Kubernetes resource units.",
+																		},
+																		"memory": &dcl.Property{
+																			Type:        "string",
+																			GoName:      "Memory",
+																			Description: "Memory requirement expressed in Kubernetes resource units.",
+																		},
+																	},
+																},
+																"requests": &dcl.Property{
+																	Type:        "object",
+																	GoName:      "Requests",
+																	GoType:      "FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests",
+																	Description: "Requests describes the amount of compute resources reserved for the container by the kube-scheduler.",
+																	Properties: map[string]*dcl.Property{
+																		"cpu": &dcl.Property{
+																			Type:        "string",
+																			GoName:      "Cpu",
+																			Description: "CPU requirement expressed in Kubernetes resource units.",
+																		},
+																		"memory": &dcl.Property{
+																			Type:        "string",
+																			GoName:      "Memory",
+																			Description: "Memory requirement expressed in Kubernetes resource units.",
+																		},
+																	},
+																},
+															},
+														},
+														"podAffinity": &dcl.Property{
+															Type:        "string",
+															GoName:      "PodAffinity",
+															GoType:      "FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum",
+															Description: "Pod affinity configuration. Possible values: AFFINITY_UNSPECIFIED, NO_AFFINITY, ANTI_AFFINITY",
+															Conflicts: []string{
+																"replicaCount",
+																"containerResources",
+																"podTolerations",
+															},
+															Enum: []string{
+																"AFFINITY_UNSPECIFIED",
+																"NO_AFFINITY",
+																"ANTI_AFFINITY",
+															},
+														},
+														"podTolerations": &dcl.Property{
+															Type:        "array",
+															GoName:      "PodTolerations",
+															Description: "Pod tolerations of node taints.",
+															Conflicts: []string{
+																"replicaCount",
+																"containerResources",
+																"podAffinity",
+															},
+															SendEmpty: true,
+															ListType:  "list",
+															Items: &dcl.Property{
+																Type:   "object",
+																GoType: "FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations",
+																Properties: map[string]*dcl.Property{
+																	"effect": &dcl.Property{
+																		Type:        "string",
+																		GoName:      "Effect",
+																		Description: "Matches a taint effect.",
+																	},
+																	"key": &dcl.Property{
+																		Type:        "string",
+																		GoName:      "Key",
+																		Description: "Matches a taint key (not necessarily unique).",
+																	},
+																	"operator": &dcl.Property{
+																		Type:        "string",
+																		GoName:      "Operator",
+																		Description: "Matches a taint operator.",
+																	},
+																	"value": &dcl.Property{
+																		Type:        "string",
+																		GoName:      "Value",
+																		Description: "Matches a taint value.",
+																	},
+																},
+															},
+														},
+														"replicaCount": &dcl.Property{
+															Type:        "integer",
+															Format:      "int64",
+															GoName:      "ReplicaCount",
+															Description: "Pod replica count.",
+															Conflicts: []string{
+																"containerResources",
+																"podAffinity",
+																"podTolerations",
+															},
+														},
+													},
+												},
+												GoName:        "DeploymentConfigs",
+												Description:   "Map of deployment configs to deployments (\"admission\", \"audit\", \"mutation\").",
+												ServerDefault: true,
+											},
 											"exemptableNamespaces": &dcl.Property{
 												Type:        "array",
 												GoName:      "ExemptableNamespaces",
@@ -538,6 +664,28 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 												Description:   "Specifies the desired policy content on the cluster.",
 												ServerDefault: true,
 												Properties: map[string]*dcl.Property{
+													"bundles": &dcl.Property{
+														Type: "object",
+														AdditionalProperties: &dcl.Property{
+															Type:   "object",
+															GoType: "FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles",
+															Properties: map[string]*dcl.Property{
+																"exemptedNamespaces": &dcl.Property{
+																	Type:        "array",
+																	GoName:      "ExemptedNamespaces",
+																	Description: "The set of namespaces to be exempted from the bundle.",
+																	SendEmpty:   true,
+																	ListType:    "list",
+																	Items: &dcl.Property{
+																		Type:   "string",
+																		GoType: "string",
+																	},
+																},
+															},
+														},
+														GoName:      "Bundles",
+														Description: "map of bundle name to BundleInstallSpec. The bundle name maps to the `bundleName` key in the `policycontroller.gke.io/constraintData` annotation on a constraint.",
+													},
 													"templateLibrary": &dcl.Property{
 														Type:          "object",
 														GoName:        "TemplateLibrary",

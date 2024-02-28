@@ -187,6 +187,62 @@ func FeatureMembershipToUnstructured(r *dclService.FeatureMembership) *unstructu
 			if r.Policycontroller.PolicyControllerHubConfig.ConstraintViolationLimit != nil {
 				rPolicycontrollerPolicyControllerHubConfig["constraintViolationLimit"] = *r.Policycontroller.PolicyControllerHubConfig.ConstraintViolationLimit
 			}
+			if r.Policycontroller.PolicyControllerHubConfig.DeploymentConfigs != nil {
+				rPolicycontrollerPolicyControllerHubConfigDeploymentConfigs := make(map[string]interface{})
+				for k, v := range r.Policycontroller.PolicyControllerHubConfig.DeploymentConfigs {
+					rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsMap := make(map[string]interface{})
+					if v.ContainerResources != nil && v.ContainerResources != dclService.EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources {
+						vContainerResources := make(map[string]interface{})
+						if v.ContainerResources.Limits != nil && v.ContainerResources.Limits != dclService.EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits {
+							vContainerResourcesLimits := make(map[string]interface{})
+							if v.ContainerResources.Limits.Cpu != nil {
+								vContainerResourcesLimits["cpu"] = *v.ContainerResources.Limits.Cpu
+							}
+							if v.ContainerResources.Limits.Memory != nil {
+								vContainerResourcesLimits["memory"] = *v.ContainerResources.Limits.Memory
+							}
+							vContainerResources["limits"] = vContainerResourcesLimits
+						}
+						if v.ContainerResources.Requests != nil && v.ContainerResources.Requests != dclService.EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests {
+							vContainerResourcesRequests := make(map[string]interface{})
+							if v.ContainerResources.Requests.Cpu != nil {
+								vContainerResourcesRequests["cpu"] = *v.ContainerResources.Requests.Cpu
+							}
+							if v.ContainerResources.Requests.Memory != nil {
+								vContainerResourcesRequests["memory"] = *v.ContainerResources.Requests.Memory
+							}
+							vContainerResources["requests"] = vContainerResourcesRequests
+						}
+						rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsMap["containerResources"] = vContainerResources
+					}
+					if v.PodAffinity != nil {
+						rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsMap["podAffinity"] = string(*v.PodAffinity)
+					}
+					var vPodTolerations []interface{}
+					for _, vPodTolerationsVal := range v.PodTolerations {
+						vPodTolerationsObject := make(map[string]interface{})
+						if vPodTolerationsVal.Effect != nil {
+							vPodTolerationsObject["effect"] = *vPodTolerationsVal.Effect
+						}
+						if vPodTolerationsVal.Key != nil {
+							vPodTolerationsObject["key"] = *vPodTolerationsVal.Key
+						}
+						if vPodTolerationsVal.Operator != nil {
+							vPodTolerationsObject["operator"] = *vPodTolerationsVal.Operator
+						}
+						if vPodTolerationsVal.Value != nil {
+							vPodTolerationsObject["value"] = *vPodTolerationsVal.Value
+						}
+						vPodTolerations = append(vPodTolerations, vPodTolerationsObject)
+					}
+					rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsMap["podTolerations"] = vPodTolerations
+					if v.ReplicaCount != nil {
+						rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsMap["replicaCount"] = *v.ReplicaCount
+					}
+					rPolicycontrollerPolicyControllerHubConfigDeploymentConfigs[k] = rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsMap
+				}
+				rPolicycontrollerPolicyControllerHubConfig["deploymentConfigs"] = rPolicycontrollerPolicyControllerHubConfigDeploymentConfigs
+			}
 			var rPolicycontrollerPolicyControllerHubConfigExemptableNamespaces []interface{}
 			for _, rPolicycontrollerPolicyControllerHubConfigExemptableNamespacesVal := range r.Policycontroller.PolicyControllerHubConfig.ExemptableNamespaces {
 				rPolicycontrollerPolicyControllerHubConfigExemptableNamespaces = append(rPolicycontrollerPolicyControllerHubConfigExemptableNamespaces, rPolicycontrollerPolicyControllerHubConfigExemptableNamespacesVal)
@@ -212,6 +268,19 @@ func FeatureMembershipToUnstructured(r *dclService.FeatureMembership) *unstructu
 			}
 			if r.Policycontroller.PolicyControllerHubConfig.PolicyContent != nil && r.Policycontroller.PolicyControllerHubConfig.PolicyContent != dclService.EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent {
 				rPolicycontrollerPolicyControllerHubConfigPolicyContent := make(map[string]interface{})
+				if r.Policycontroller.PolicyControllerHubConfig.PolicyContent.Bundles != nil {
+					rPolicycontrollerPolicyControllerHubConfigPolicyContentBundles := make(map[string]interface{})
+					for k, v := range r.Policycontroller.PolicyControllerHubConfig.PolicyContent.Bundles {
+						rPolicycontrollerPolicyControllerHubConfigPolicyContentBundlesMap := make(map[string]interface{})
+						var vExemptedNamespaces []interface{}
+						for _, vExemptedNamespacesVal := range v.ExemptedNamespaces {
+							vExemptedNamespaces = append(vExemptedNamespaces, vExemptedNamespacesVal)
+						}
+						rPolicycontrollerPolicyControllerHubConfigPolicyContentBundlesMap["exemptedNamespaces"] = vExemptedNamespaces
+						rPolicycontrollerPolicyControllerHubConfigPolicyContentBundles[k] = rPolicycontrollerPolicyControllerHubConfigPolicyContentBundlesMap
+					}
+					rPolicycontrollerPolicyControllerHubConfigPolicyContent["bundles"] = rPolicycontrollerPolicyControllerHubConfigPolicyContentBundles
+				}
 				if r.Policycontroller.PolicyControllerHubConfig.PolicyContent.TemplateLibrary != nil && r.Policycontroller.PolicyControllerHubConfig.PolicyContent.TemplateLibrary != dclService.EmptyFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary {
 					rPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary := make(map[string]interface{})
 					if r.Policycontroller.PolicyControllerHubConfig.PolicyContent.TemplateLibrary.Installation != nil {
@@ -575,6 +644,125 @@ func UnstructuredToFeatureMembership(u *unstructured.Resource) (*dclService.Feat
 							return nil, fmt.Errorf("r.Policycontroller.PolicyControllerHubConfig.ConstraintViolationLimit: expected int64")
 						}
 					}
+					if _, ok := rPolicycontrollerPolicyControllerHubConfig["deploymentConfigs"]; ok {
+						if rPolicycontrollerPolicyControllerHubConfigDeploymentConfigs, ok := rPolicycontrollerPolicyControllerHubConfig["deploymentConfigs"].(map[string]interface{}); ok {
+							m := make(map[string]dclService.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs)
+							for k, v := range rPolicycontrollerPolicyControllerHubConfigDeploymentConfigs {
+								if objval, ok := v.(map[string]interface{}); ok {
+									var rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj dclService.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs
+									if _, ok := objval["containerResources"]; ok {
+										if rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjContainerResources, ok := objval["containerResources"].(map[string]interface{}); ok {
+											rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.ContainerResources = &dclService.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources{}
+											if _, ok := rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjContainerResources["limits"]; ok {
+												if rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjContainerResourcesLimits, ok := rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjContainerResources["limits"].(map[string]interface{}); ok {
+													rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.ContainerResources.Limits = &dclService.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits{}
+													if _, ok := rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjContainerResourcesLimits["cpu"]; ok {
+														if s, ok := rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjContainerResourcesLimits["cpu"].(string); ok {
+															rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.ContainerResources.Limits.Cpu = dcl.String(s)
+														} else {
+															return nil, fmt.Errorf("rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.ContainerResources.Limits.Cpu: expected string")
+														}
+													}
+													if _, ok := rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjContainerResourcesLimits["memory"]; ok {
+														if s, ok := rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjContainerResourcesLimits["memory"].(string); ok {
+															rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.ContainerResources.Limits.Memory = dcl.String(s)
+														} else {
+															return nil, fmt.Errorf("rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.ContainerResources.Limits.Memory: expected string")
+														}
+													}
+												} else {
+													return nil, fmt.Errorf("rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.ContainerResources.Limits: expected map[string]interface{}")
+												}
+											}
+											if _, ok := rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjContainerResources["requests"]; ok {
+												if rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjContainerResourcesRequests, ok := rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjContainerResources["requests"].(map[string]interface{}); ok {
+													rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.ContainerResources.Requests = &dclService.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests{}
+													if _, ok := rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjContainerResourcesRequests["cpu"]; ok {
+														if s, ok := rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjContainerResourcesRequests["cpu"].(string); ok {
+															rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.ContainerResources.Requests.Cpu = dcl.String(s)
+														} else {
+															return nil, fmt.Errorf("rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.ContainerResources.Requests.Cpu: expected string")
+														}
+													}
+													if _, ok := rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjContainerResourcesRequests["memory"]; ok {
+														if s, ok := rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjContainerResourcesRequests["memory"].(string); ok {
+															rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.ContainerResources.Requests.Memory = dcl.String(s)
+														} else {
+															return nil, fmt.Errorf("rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.ContainerResources.Requests.Memory: expected string")
+														}
+													}
+												} else {
+													return nil, fmt.Errorf("rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.ContainerResources.Requests: expected map[string]interface{}")
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.ContainerResources: expected map[string]interface{}")
+										}
+									}
+									if _, ok := objval["podAffinity"]; ok {
+										if s, ok := objval["podAffinity"].(string); ok {
+											rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.PodAffinity = dclService.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnumRef(s)
+										} else {
+											return nil, fmt.Errorf("rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.PodAffinity: expected string")
+										}
+									}
+									if _, ok := objval["podTolerations"]; ok {
+										if s, ok := objval["podTolerations"].([]interface{}); ok {
+											for _, o := range s {
+												if objval, ok := o.(map[string]interface{}); ok {
+													var rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjPodTolerations dclService.FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations
+													if _, ok := objval["effect"]; ok {
+														if s, ok := objval["effect"].(string); ok {
+															rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjPodTolerations.Effect = dcl.String(s)
+														} else {
+															return nil, fmt.Errorf("rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjPodTolerations.Effect: expected string")
+														}
+													}
+													if _, ok := objval["key"]; ok {
+														if s, ok := objval["key"].(string); ok {
+															rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjPodTolerations.Key = dcl.String(s)
+														} else {
+															return nil, fmt.Errorf("rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjPodTolerations.Key: expected string")
+														}
+													}
+													if _, ok := objval["operator"]; ok {
+														if s, ok := objval["operator"].(string); ok {
+															rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjPodTolerations.Operator = dcl.String(s)
+														} else {
+															return nil, fmt.Errorf("rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjPodTolerations.Operator: expected string")
+														}
+													}
+													if _, ok := objval["value"]; ok {
+														if s, ok := objval["value"].(string); ok {
+															rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjPodTolerations.Value = dcl.String(s)
+														} else {
+															return nil, fmt.Errorf("rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjPodTolerations.Value: expected string")
+														}
+													}
+													rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.PodTolerations = append(rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.PodTolerations, rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObjPodTolerations)
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.PodTolerations: expected []interface{}")
+										}
+									}
+									if _, ok := objval["replicaCount"]; ok {
+										if i, ok := objval["replicaCount"].(int64); ok {
+											rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.ReplicaCount = dcl.Int64(i)
+										} else {
+											return nil, fmt.Errorf("rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj.ReplicaCount: expected int64")
+										}
+									}
+									m[k] = rPolicycontrollerPolicyControllerHubConfigDeploymentConfigsObj
+								} else {
+									return nil, fmt.Errorf("r.Policycontroller.PolicyControllerHubConfig.DeploymentConfigs: expected map[string]interface{}")
+								}
+							}
+							r.Policycontroller.PolicyControllerHubConfig.DeploymentConfigs = m
+						} else {
+							return nil, fmt.Errorf("r.Policycontroller.PolicyControllerHubConfig.DeploymentConfigs: expected map[string]interface{}")
+						}
+					}
 					if _, ok := rPolicycontrollerPolicyControllerHubConfig["exemptableNamespaces"]; ok {
 						if s, ok := rPolicycontrollerPolicyControllerHubConfig["exemptableNamespaces"].([]interface{}); ok {
 							for _, ss := range s {
@@ -628,6 +816,33 @@ func UnstructuredToFeatureMembership(u *unstructured.Resource) (*dclService.Feat
 					if _, ok := rPolicycontrollerPolicyControllerHubConfig["policyContent"]; ok {
 						if rPolicycontrollerPolicyControllerHubConfigPolicyContent, ok := rPolicycontrollerPolicyControllerHubConfig["policyContent"].(map[string]interface{}); ok {
 							r.Policycontroller.PolicyControllerHubConfig.PolicyContent = &dclService.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent{}
+							if _, ok := rPolicycontrollerPolicyControllerHubConfigPolicyContent["bundles"]; ok {
+								if rPolicycontrollerPolicyControllerHubConfigPolicyContentBundles, ok := rPolicycontrollerPolicyControllerHubConfigPolicyContent["bundles"].(map[string]interface{}); ok {
+									m := make(map[string]dclService.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles)
+									for k, v := range rPolicycontrollerPolicyControllerHubConfigPolicyContentBundles {
+										if objval, ok := v.(map[string]interface{}); ok {
+											var rPolicycontrollerPolicyControllerHubConfigPolicyContentBundlesObj dclService.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles
+											if _, ok := objval["exemptedNamespaces"]; ok {
+												if s, ok := objval["exemptedNamespaces"].([]interface{}); ok {
+													for _, ss := range s {
+														if strval, ok := ss.(string); ok {
+															rPolicycontrollerPolicyControllerHubConfigPolicyContentBundlesObj.ExemptedNamespaces = append(rPolicycontrollerPolicyControllerHubConfigPolicyContentBundlesObj.ExemptedNamespaces, strval)
+														}
+													}
+												} else {
+													return nil, fmt.Errorf("rPolicycontrollerPolicyControllerHubConfigPolicyContentBundlesObj.ExemptedNamespaces: expected []interface{}")
+												}
+											}
+											m[k] = rPolicycontrollerPolicyControllerHubConfigPolicyContentBundlesObj
+										} else {
+											return nil, fmt.Errorf("r.Policycontroller.PolicyControllerHubConfig.PolicyContent.Bundles: expected map[string]interface{}")
+										}
+									}
+									r.Policycontroller.PolicyControllerHubConfig.PolicyContent.Bundles = m
+								} else {
+									return nil, fmt.Errorf("r.Policycontroller.PolicyControllerHubConfig.PolicyContent.Bundles: expected map[string]interface{}")
+								}
+							}
 							if _, ok := rPolicycontrollerPolicyControllerHubConfigPolicyContent["templateLibrary"]; ok {
 								if rPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary, ok := rPolicycontrollerPolicyControllerHubConfigPolicyContent["templateLibrary"].(map[string]interface{}); ok {
 									r.Policycontroller.PolicyControllerHubConfig.PolicyContent.TemplateLibrary = &dclService.FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary{}

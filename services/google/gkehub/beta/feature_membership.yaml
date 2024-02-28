@@ -401,6 +401,113 @@ components:
                   description: The maximum number of audit violations to be stored
                     in a constraint. If not set, the internal default of 20 will be
                     used.
+                deploymentConfigs:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    x-dcl-go-type: FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs
+                    properties:
+                      containerResources:
+                        type: object
+                        x-dcl-go-name: ContainerResources
+                        x-dcl-go-type: FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources
+                        description: Container resource requirements.
+                        x-dcl-conflicts:
+                        - replicaCount
+                        - podAffinity
+                        - podTolerations
+                        properties:
+                          limits:
+                            type: object
+                            x-dcl-go-name: Limits
+                            x-dcl-go-type: FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits
+                            description: Limits describes the maximum amount of compute
+                              resources allowed for use by the running container.
+                            properties:
+                              cpu:
+                                type: string
+                                x-dcl-go-name: Cpu
+                                description: CPU requirement expressed in Kubernetes
+                                  resource units.
+                              memory:
+                                type: string
+                                x-dcl-go-name: Memory
+                                description: Memory requirement expressed in Kubernetes
+                                  resource units.
+                          requests:
+                            type: object
+                            x-dcl-go-name: Requests
+                            x-dcl-go-type: FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests
+                            description: Requests describes the amount of compute
+                              resources reserved for the container by the kube-scheduler.
+                            properties:
+                              cpu:
+                                type: string
+                                x-dcl-go-name: Cpu
+                                description: CPU requirement expressed in Kubernetes
+                                  resource units.
+                              memory:
+                                type: string
+                                x-dcl-go-name: Memory
+                                description: Memory requirement expressed in Kubernetes
+                                  resource units.
+                      podAffinity:
+                        type: string
+                        x-dcl-go-name: PodAffinity
+                        x-dcl-go-type: FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum
+                        description: 'Pod affinity configuration. Possible values:
+                          AFFINITY_UNSPECIFIED, NO_AFFINITY, ANTI_AFFINITY'
+                        x-dcl-conflicts:
+                        - replicaCount
+                        - containerResources
+                        - podTolerations
+                        enum:
+                        - AFFINITY_UNSPECIFIED
+                        - NO_AFFINITY
+                        - ANTI_AFFINITY
+                      podTolerations:
+                        type: array
+                        x-dcl-go-name: PodTolerations
+                        description: Pod tolerations of node taints.
+                        x-dcl-conflicts:
+                        - replicaCount
+                        - containerResources
+                        - podAffinity
+                        x-dcl-send-empty: true
+                        x-dcl-list-type: list
+                        items:
+                          type: object
+                          x-dcl-go-type: FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations
+                          properties:
+                            effect:
+                              type: string
+                              x-dcl-go-name: Effect
+                              description: Matches a taint effect.
+                            key:
+                              type: string
+                              x-dcl-go-name: Key
+                              description: Matches a taint key (not necessarily unique).
+                            operator:
+                              type: string
+                              x-dcl-go-name: Operator
+                              description: Matches a taint operator.
+                            value:
+                              type: string
+                              x-dcl-go-name: Value
+                              description: Matches a taint value.
+                      replicaCount:
+                        type: integer
+                        format: int64
+                        x-dcl-go-name: ReplicaCount
+                        description: Pod replica count.
+                        x-dcl-conflicts:
+                        - containerResources
+                        - podAffinity
+                        - podTolerations
+                  x-dcl-go-name: DeploymentConfigs
+                  description: Map of deployment configs to deployments ("admission",
+                    "audit", "mutation").
+                  x-dcl-server-default: true
                 exemptableNamespaces:
                   type: array
                   x-dcl-go-name: ExemptableNamespaces
@@ -467,6 +574,26 @@ components:
                   description: Specifies the desired policy content on the cluster.
                   x-dcl-server-default: true
                   properties:
+                    bundles:
+                      type: object
+                      additionalProperties:
+                        type: object
+                        x-dcl-go-type: FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles
+                        properties:
+                          exemptedNamespaces:
+                            type: array
+                            x-dcl-go-name: ExemptedNamespaces
+                            description: The set of namespaces to be exempted from
+                              the bundle.
+                            x-dcl-send-empty: true
+                            x-dcl-list-type: list
+                            items:
+                              type: string
+                              x-dcl-go-type: string
+                      x-dcl-go-name: Bundles
+                      description: map of bundle name to BundleInstallSpec. The bundle
+                        name maps to the `bundleName` key in the `policycontroller.gke.io/constraintData`
+                        annotation on a constraint.
                     templateLibrary:
                       type: object
                       x-dcl-go-name: TemplateLibrary

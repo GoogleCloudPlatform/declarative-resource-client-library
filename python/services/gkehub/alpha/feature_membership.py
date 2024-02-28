@@ -887,6 +887,7 @@ class FeatureMembershipPolicycontrollerPolicyControllerHubConfig(object):
         audit_interval_seconds: int = None,
         constraint_violation_limit: int = None,
         policy_content: dict = None,
+        deployment_configs: dict = None,
     ):
         self.install_spec = install_spec
         self.exemptable_namespaces = exemptable_namespaces
@@ -897,6 +898,7 @@ class FeatureMembershipPolicycontrollerPolicyControllerHubConfig(object):
         self.audit_interval_seconds = audit_interval_seconds
         self.constraint_violation_limit = constraint_violation_limit
         self.policy_content = policy_content
+        self.deployment_configs = deployment_configs
 
     @classmethod
     def to_proto(self, resource):
@@ -952,6 +954,8 @@ class FeatureMembershipPolicycontrollerPolicyControllerHubConfig(object):
             )
         else:
             res.ClearField("policy_content")
+        if Primitive.to_proto(resource.deployment_configs):
+            res.deployment_configs = Primitive.to_proto(resource.deployment_configs)
         return res
 
     @classmethod
@@ -981,6 +985,7 @@ class FeatureMembershipPolicycontrollerPolicyControllerHubConfig(object):
             policy_content=FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent.from_proto(
                 resource.policy_content
             ),
+            deployment_configs=Primitive.from_proto(resource.deployment_configs),
         )
 
 
@@ -1059,8 +1064,9 @@ class FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringArray(
 
 
 class FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent(object):
-    def __init__(self, template_library: dict = None):
+    def __init__(self, template_library: dict = None, bundles: dict = None):
         self.template_library = template_library
+        self.bundles = bundles
 
     @classmethod
     def to_proto(self, resource):
@@ -1080,6 +1086,8 @@ class FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent(ob
             )
         else:
             res.ClearField("template_library")
+        if Primitive.to_proto(resource.bundles):
+            res.bundles = Primitive.to_proto(resource.bundles)
         return res
 
     @classmethod
@@ -1091,6 +1099,7 @@ class FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent(ob
             template_library=FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary.from_proto(
                 resource.template_library
             ),
+            bundles=Primitive.from_proto(resource.bundles),
         )
 
 
@@ -1170,6 +1179,412 @@ class FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTem
     def from_proto(self, resources):
         return [
             FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles(
+    object
+):
+    def __init__(self, exempted_namespaces: list = None):
+        self.exempted_namespaces = exempted_namespaces
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            feature_membership_pb2.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles()
+        )
+        if Primitive.to_proto(resource.exempted_namespaces):
+            res.exempted_namespaces.extend(
+                Primitive.to_proto(resource.exempted_namespaces)
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles(
+            exempted_namespaces=Primitive.from_proto(resource.exempted_namespaces),
+        )
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundlesArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs(
+    object
+):
+    def __init__(
+        self,
+        replica_count: int = None,
+        container_resources: dict = None,
+        pod_affinity: str = None,
+        pod_tolerations: list = None,
+    ):
+        self.replica_count = replica_count
+        self.container_resources = container_resources
+        self.pod_affinity = pod_affinity
+        self.pod_tolerations = pod_tolerations
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            feature_membership_pb2.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs()
+        )
+        if Primitive.to_proto(resource.replica_count):
+            res.replica_count = Primitive.to_proto(resource.replica_count)
+        if FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources.to_proto(
+            resource.container_resources
+        ):
+            res.container_resources.CopyFrom(
+                FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources.to_proto(
+                    resource.container_resources
+                )
+            )
+        else:
+            res.ClearField("container_resources")
+        if FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum.to_proto(
+            resource.pod_affinity
+        ):
+            res.pod_affinity = FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum.to_proto(
+                resource.pod_affinity
+            )
+        if FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerationsArray.to_proto(
+            resource.pod_tolerations
+        ):
+            res.pod_tolerations.extend(
+                FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerationsArray.to_proto(
+                    resource.pod_tolerations
+                )
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs(
+            replica_count=Primitive.from_proto(resource.replica_count),
+            container_resources=FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources.from_proto(
+                resource.container_resources
+            ),
+            pod_affinity=FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum.from_proto(
+                resource.pod_affinity
+            ),
+            pod_tolerations=FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerationsArray.from_proto(
+                resource.pod_tolerations
+            ),
+        )
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources(
+    object
+):
+    def __init__(self, limits: dict = None, requests: dict = None):
+        self.limits = limits
+        self.requests = requests
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            feature_membership_pb2.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources()
+        )
+        if FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits.to_proto(
+            resource.limits
+        ):
+            res.limits.CopyFrom(
+                FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits.to_proto(
+                    resource.limits
+                )
+            )
+        else:
+            res.ClearField("limits")
+        if FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests.to_proto(
+            resource.requests
+        ):
+            res.requests.CopyFrom(
+                FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests.to_proto(
+                    resource.requests
+                )
+            )
+        else:
+            res.ClearField("requests")
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources(
+            limits=FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits.from_proto(
+                resource.limits
+            ),
+            requests=FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests.from_proto(
+                resource.requests
+            ),
+        )
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits(
+    object
+):
+    def __init__(self, memory: str = None, cpu: str = None):
+        self.memory = memory
+        self.cpu = cpu
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            feature_membership_pb2.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits()
+        )
+        if Primitive.to_proto(resource.memory):
+            res.memory = Primitive.to_proto(resource.memory)
+        if Primitive.to_proto(resource.cpu):
+            res.cpu = Primitive.to_proto(resource.cpu)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits(
+            memory=Primitive.from_proto(resource.memory),
+            cpu=Primitive.from_proto(resource.cpu),
+        )
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimitsArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests(
+    object
+):
+    def __init__(self, memory: str = None, cpu: str = None):
+        self.memory = memory
+        self.cpu = cpu
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            feature_membership_pb2.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests()
+        )
+        if Primitive.to_proto(resource.memory):
+            res.memory = Primitive.to_proto(resource.memory)
+        if Primitive.to_proto(resource.cpu):
+            res.cpu = Primitive.to_proto(resource.cpu)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests(
+            memory=Primitive.from_proto(resource.memory),
+            cpu=Primitive.from_proto(resource.cpu),
+        )
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequestsArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations(
+    object
+):
+    def __init__(
+        self,
+        key: str = None,
+        operator: str = None,
+        value: str = None,
+        effect: str = None,
+    ):
+        self.key = key
+        self.operator = operator
+        self.value = value
+        self.effect = effect
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            feature_membership_pb2.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations()
+        )
+        if Primitive.to_proto(resource.key):
+            res.key = Primitive.to_proto(resource.key)
+        if Primitive.to_proto(resource.operator):
+            res.operator = Primitive.to_proto(resource.operator)
+        if Primitive.to_proto(resource.value):
+            res.value = Primitive.to_proto(resource.value)
+        if Primitive.to_proto(resource.effect):
+            res.effect = Primitive.to_proto(resource.effect)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations(
+            key=Primitive.from_proto(resource.key),
+            operator=Primitive.from_proto(resource.operator),
+            value=Primitive.from_proto(resource.value),
+            effect=Primitive.from_proto(resource.effect),
+        )
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerationsArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations.from_proto(
                 i
             )
             for i in resources
@@ -1310,6 +1725,31 @@ class FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTem
         )[
             len(
                 "GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum"
+            ) :
+        ]
+
+
+class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum(
+    object
+):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return feature_membership_pb2.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum.Value(
+            "GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return feature_membership_pb2.GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum.Name(
+            resource
+        )[
+            len(
+                "GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum"
             ) :
         ]
 

@@ -19,6 +19,24 @@
       "policyContent": {
         "templateLibrary": {
           "installation": "NOT_INSTALLED"
+        },
+        "bundles": {}
+      },
+      "deploymentConfigs": {
+        "admission": {
+          "podAffinity": "NO_AFFINITY"
+        },
+        "audit": {
+          "containerResources": {
+            "limits": {
+              "memory": "1Gi",
+              "cpu": "1.5"
+            },
+            "requests": {
+              "memory": "500Mi",
+              "cpu": "150m"
+            }
+          }
         }
       }
     }

@@ -20,6 +20,39 @@
       "policyContent": {
         "templateLibrary": {
           "installation": "ALL"
+        },
+        "bundles": {
+          "pci-dss-v3.2.1": {
+            "exemptedNamespaces": ["sample-namespace"]
+          },
+          "nist-sp-800-190": {}
+        }
+      },
+      "deploymentConfigs": {
+        "admission": {
+          "replicaCount": 3,
+          "containerResources": {
+            "limits": {
+              "memory": "1Gi",
+              "cpu": "1.5"
+            },
+            "requests": {
+              "memory": "500Mi",
+              "cpu": "150m"
+            }
+          },
+          "podTolerations": [
+            {
+              "key": "key1",
+              "operator": "Equal",
+              "value": "value1",
+              "effect": "NoSchedule"
+            }
+          ]
+        },
+        "mutation": {
+          "replicaCount": 3,
+          "podAffinity": "ANTI_AFFINITY"
         }
       }
     }

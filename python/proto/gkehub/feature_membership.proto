@@ -65,6 +65,13 @@ enum GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyConte
   GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnumALL = 3;
 }
 
+enum GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum {
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnumNO_VALUE_DO_NOT_USE = 0;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnumAFFINITY_UNSPECIFIED = 1;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnumNO_AFFINITY = 2;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnumANTI_AFFINITY = 3;
+}
+
 message GkehubFeatureMembership {
   GkehubFeatureMembershipMesh mesh = 1;
   GkehubFeatureMembershipConfigmanagement configmanagement = 2;
@@ -156,6 +163,7 @@ message GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfig {
   int64 audit_interval_seconds = 7;
   int64 constraint_violation_limit = 8;
   GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent policy_content = 9;
+  map<string, GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs> deployment_configs = 10;
 }
 
 message GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring {
@@ -164,10 +172,44 @@ message GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitori
 
 message GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent {
   GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary template_library = 1;
+  map<string, GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles> bundles = 2;
 }
 
 message GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary {
   GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibraryInstallationEnum installation = 1;
+}
+
+message GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles {
+  repeated string exempted_namespaces = 1;
+}
+
+message GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs {
+  int64 replica_count = 1;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources container_resources = 2;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodAffinityEnum pod_affinity = 3;
+  repeated GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations pod_tolerations = 4;
+}
+
+message GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources {
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits limits = 1;
+  GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests requests = 2;
+}
+
+message GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits {
+  string memory = 1;
+  string cpu = 2;
+}
+
+message GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests {
+  string memory = 1;
+  string cpu = 2;
+}
+
+message GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations {
+  string key = 1;
+  string operator = 2;
+  string value = 3;
+  string effect = 4;
 }
 
 message ApplyGkehubFeatureMembershipRequest {
