@@ -288,12 +288,14 @@ components:
           x-dcl-go-name: Location
           description: The location for the resource
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         name:
           type: string
           x-dcl-go-name: Name
           description: Output only. The resource name of the workload.
           x-kubernetes-immutable: true
           x-dcl-server-generated-parameter: true
+          x-dcl-has-long-form: true
         organization:
           type: string
           x-dcl-go-name: Organization
@@ -303,6 +305,7 @@ components:
           - resource: Cloudresourcemanager/Organization
             field: name
             parent: true
+          x-dcl-parameter: true
         partner:
           type: string
           x-dcl-go-name: Partner

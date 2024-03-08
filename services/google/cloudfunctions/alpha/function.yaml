@@ -245,6 +245,7 @@ components:
           description: A user-defined name of the function. Function names must be
             unique globally.
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true
         project:
           type: string
           x-dcl-go-name: Project
@@ -254,11 +255,13 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         region:
           type: string
           x-dcl-go-name: Region
           description: The name of the Cloud Functions region of the function.
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         runtime:
           type: string
           x-dcl-go-name: Runtime

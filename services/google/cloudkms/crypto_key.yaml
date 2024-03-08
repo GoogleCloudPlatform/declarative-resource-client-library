@@ -93,6 +93,7 @@ components:
           - resource: Cloudkms/KeyRing
             field: name
             parent: true
+          x-dcl-parameter: true
         labels:
           type: object
           additionalProperties:
@@ -105,11 +106,13 @@ components:
           x-dcl-go-name: Location
           description: The location for the resource
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         name:
           type: string
           x-dcl-go-name: Name
           description: The resource name for this CryptoKey in the format `projects/*/locations/*/keyRings/*/cryptoKeys/*`.
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true
         nextRotationTime:
           type: string
           format: date-time
@@ -354,6 +357,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         purpose:
           type: string
           x-dcl-go-name: Purpose

@@ -278,12 +278,14 @@ func DCLZoneSchema() *dcl.Schema {
 								GoName:      "Lake",
 								Description: "The lake for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"location": &dcl.Property{
 								Type:        "string",
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
@@ -296,6 +298,7 @@ func DCLZoneSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -309,6 +312,7 @@ func DCLZoneSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"resourceSpec": &dcl.Property{
 								Type:        "object",

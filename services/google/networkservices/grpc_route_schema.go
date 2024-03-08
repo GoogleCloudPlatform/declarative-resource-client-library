@@ -166,6 +166,7 @@ func DCLGrpcRouteSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"meshes": &dcl.Property{
 								Type:        "array",
@@ -188,6 +189,7 @@ func DCLGrpcRouteSchema() *dcl.Schema {
 								Type:        "string",
 								GoName:      "Name",
 								Description: "Required. Name of the GrpcRoute resource. It matches pattern `projects/*/locations/global/grpcRoutes/`",
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -201,6 +203,7 @@ func DCLGrpcRouteSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"rules": &dcl.Property{
 								Type:        "array",

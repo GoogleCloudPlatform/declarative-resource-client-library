@@ -125,6 +125,7 @@ func DCLFirewallPolicyAssociationSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								HasLongForm: true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",

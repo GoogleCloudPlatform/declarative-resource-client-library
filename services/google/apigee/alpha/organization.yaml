@@ -170,6 +170,7 @@ components:
           description: Output only. Name of the Apigee organization.
           x-kubernetes-immutable: true
           x-dcl-server-generated-parameter: true
+          x-dcl-has-long-form: true
         project:
           type: string
           x-dcl-go-name: Project
@@ -184,6 +185,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         projectId:
           type: string
           x-dcl-go-name: ProjectId

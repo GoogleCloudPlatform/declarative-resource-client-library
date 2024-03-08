@@ -184,12 +184,14 @@ func DCLClientTlsPolicySchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "Required. Name of the ClientTlsPolicy resource.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -203,6 +205,7 @@ func DCLClientTlsPolicySchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"serverValidationCa": &dcl.Property{
 								Type:        "array",

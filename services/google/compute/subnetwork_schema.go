@@ -230,6 +230,7 @@ func DCLSubnetworkSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"purpose": &dcl.Property{
 								Type:          "string",
@@ -252,6 +253,7 @@ func DCLSubnetworkSchema() *dcl.Schema {
 								GoName:      "Region",
 								Description: "The GCP region for this subnetwork. ",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"role": &dcl.Property{
 								Type:        "string",

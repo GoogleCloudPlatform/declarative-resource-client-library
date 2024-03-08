@@ -163,6 +163,7 @@ func DCLTriggerSchema() *dcl.Schema {
 												Field:    "name",
 											},
 										},
+										HasLongForm: true,
 									},
 									"cloudRunService": &dcl.Property{
 										Type:        "object",
@@ -305,6 +306,7 @@ func DCLTriggerSchema() *dcl.Schema {
 												Field:    "name",
 											},
 										},
+										HasLongForm: true,
 									},
 								},
 							},
@@ -334,6 +336,7 @@ func DCLTriggerSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"matchingCriteria": &dcl.Property{
 								Type:        "array",
@@ -372,6 +375,7 @@ func DCLTriggerSchema() *dcl.Schema {
 								GoName:      "Name",
 								Description: "Required. The resource name of the trigger. Must be unique within the location on the project.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -385,6 +389,7 @@ func DCLTriggerSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"serviceAccount": &dcl.Property{
 								Type:        "string",
@@ -424,6 +429,7 @@ func DCLTriggerSchema() *dcl.Schema {
 														Field:    "name",
 													},
 												},
+												HasLongForm: true,
 											},
 											"topic": &dcl.Property{
 												Type:        "string",
@@ -436,6 +442,7 @@ func DCLTriggerSchema() *dcl.Schema {
 														Field:    "name",
 													},
 												},
+												HasLongForm: true,
 											},
 										},
 									},

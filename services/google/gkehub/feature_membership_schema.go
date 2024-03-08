@@ -144,6 +144,7 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 												Description: "Whether binauthz is enabled in this cluster.",
 											},
 										},
+										Parameter: true,
 									},
 									"configSync": &dcl.Property{
 										Type:        "object",
@@ -389,12 +390,14 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"location": &dcl.Property{
 								Type:        "string",
 								GoName:      "Location",
 								Description: "The location of the feature",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"membership": &dcl.Property{
 								Type:        "string",
@@ -407,12 +410,14 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 										Field:    "name",
 									},
 								},
+								Parameter: true,
 							},
 							"membershipLocation": &dcl.Property{
 								Type:        "string",
 								GoName:      "MembershipLocation",
 								Description: "The location of the membership",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"mesh": &dcl.Property{
 								Type:        "object",
@@ -735,6 +740,7 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 						},
 					},

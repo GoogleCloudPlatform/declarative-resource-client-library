@@ -238,12 +238,15 @@ func DCLInstanceSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "Output only. The resource name of the instance, in the format `projects/{project}/locations/{location}/instances/{instance}`.",
 								Immutable:   true,
+								Parameter:   true,
+								HasLongForm: true,
 							},
 							"networks": &dcl.Property{
 								Type:        "array",
@@ -319,6 +322,7 @@ func DCLInstanceSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"state": &dcl.Property{
 								Type:        "string",

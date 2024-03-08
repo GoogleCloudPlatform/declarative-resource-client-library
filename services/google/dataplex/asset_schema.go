@@ -154,6 +154,7 @@ func DCLAssetSchema() *dcl.Schema {
 								GoName:      "DataplexZone",
 								Description: "The zone for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"description": &dcl.Property{
 								Type:        "string",
@@ -346,17 +347,20 @@ func DCLAssetSchema() *dcl.Schema {
 								GoName:      "Lake",
 								Description: "The lake for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"location": &dcl.Property{
 								Type:        "string",
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "The name of the asset.",
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -370,6 +374,7 @@ func DCLAssetSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"resourceSpec": &dcl.Property{
 								Type:        "object",

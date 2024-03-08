@@ -75,6 +75,7 @@ components:
           x-dcl-go-name: Name
           description: 'Resource name for this Service. The format is: projects/[PROJECT_ID_OR_NUMBER]/services/[SERVICE_ID]'
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true
         project:
           type: string
           x-dcl-go-name: Project
@@ -84,6 +85,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         telemetry:
           type: object
           x-dcl-go-name: Telemetry

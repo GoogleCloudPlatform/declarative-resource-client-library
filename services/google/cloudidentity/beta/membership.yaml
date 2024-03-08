@@ -125,6 +125,7 @@ components:
           - resource: Cloudidentity/Group
             field: name
             parent: true
+          x-dcl-parameter: true
         memberKey:
           type: object
           x-dcl-go-name: MemberKey
@@ -156,6 +157,7 @@ components:
           description: Output only. The [resource name](https://cloud.google.com/apis/design/resource_names)
             of the `Membership`. Shall be of the form `groups/{group}/memberships/{membership}`.
           x-dcl-server-generated-parameter: true
+          x-dcl-has-long-form: true
         preferredMemberKey:
           type: object
           x-dcl-go-name: PreferredMemberKey

@@ -166,6 +166,7 @@ func DCLHttpRouteSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"meshes": &dcl.Property{
 								Type:        "array",
@@ -188,6 +189,7 @@ func DCLHttpRouteSchema() *dcl.Schema {
 								Type:        "string",
 								GoName:      "Name",
 								Description: "Required. Name of the HttpRoute resource. It matches pattern `projects/*/locations/global/httpRoutes/http_route_name>`.",
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -201,6 +203,7 @@ func DCLHttpRouteSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"rules": &dcl.Property{
 								Type:        "array",

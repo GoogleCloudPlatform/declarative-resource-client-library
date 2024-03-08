@@ -119,6 +119,7 @@ components:
           - resource: Compute/Network
             field: name
             parent: true
+          x-dcl-parameter: true
         peerMtu:
           type: integer
           format: int64

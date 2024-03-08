@@ -132,6 +132,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         region:
           type: string
           x-dcl-go-name: Region

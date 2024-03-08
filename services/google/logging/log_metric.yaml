@@ -426,6 +426,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         updateTime:
           type: string
           format: date-time

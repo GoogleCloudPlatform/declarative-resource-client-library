@@ -150,12 +150,14 @@ func DCLAuthorizationPolicySchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "Required. Name of the AuthorizationPolicy resource.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -169,6 +171,7 @@ func DCLAuthorizationPolicySchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"rules": &dcl.Property{
 								Type:        "array",

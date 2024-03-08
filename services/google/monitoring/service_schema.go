@@ -105,6 +105,7 @@ func DCLServiceSchema() *dcl.Schema {
 								GoName:      "Name",
 								Description: "Resource name for this Service. The format is: projects/[PROJECT_ID_OR_NUMBER]/services/[SERVICE_ID]",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -118,6 +119,7 @@ func DCLServiceSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"telemetry": &dcl.Property{
 								Type:        "object",

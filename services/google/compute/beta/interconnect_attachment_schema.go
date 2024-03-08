@@ -318,6 +318,7 @@ func DCLInterconnectAttachmentSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"region": &dcl.Property{
 								Type:        "string",

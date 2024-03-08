@@ -136,6 +136,7 @@ components:
             for predefined roles and organizations/{ORGANIZATION_ID}/roles/logging.viewer
             for custom roles.
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true
         parent:
           type: string
           x-dcl-go-name: Parent
@@ -157,6 +158,7 @@ components:
           - resource: Cloudresourcemanager/Organization
             field: name
             parent: true
+          x-dcl-parameter: true
         stage:
           type: string
           x-dcl-go-name: Stage

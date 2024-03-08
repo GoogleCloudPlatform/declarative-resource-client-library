@@ -4573,6 +4573,8 @@ func DCLDashboardSchema() *dcl.Schema {
 								GoName:      "Name",
 								Description: "Immutable. The resource name of the dashboard.",
 								Immutable:   true,
+								Parameter:   true,
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -4586,6 +4588,7 @@ func DCLDashboardSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"rowLayout": &dcl.Property{
 								Type:        "object",

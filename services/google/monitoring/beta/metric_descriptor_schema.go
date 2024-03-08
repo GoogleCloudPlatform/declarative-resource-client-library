@@ -241,6 +241,7 @@ func DCLMetricDescriptorSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"selfLink": &dcl.Property{
 								Type:        "string",

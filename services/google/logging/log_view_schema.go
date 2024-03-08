@@ -133,6 +133,7 @@ func DCLLogViewSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"createTime": &dcl.Property{
 								Type:        "string",
@@ -158,12 +159,14 @@ func DCLLogViewSchema() *dcl.Schema {
 								Description:    "The location of the resource. The supported locations are: global, us-central1, us-east1, us-west1, asia-east1, europe-west1.",
 								Immutable:      true,
 								ExtractIfEmpty: true,
+								Parameter:      true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "The resource name of the view. For example: `projects/my-project/locations/global/buckets/my-bucket/views/my-view`",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"parent": &dcl.Property{
 								Type:                "string",
@@ -194,6 +197,7 @@ func DCLLogViewSchema() *dcl.Schema {
 									},
 								},
 								ExtractIfEmpty: true,
+								Parameter:      true,
 							},
 							"updateTime": &dcl.Property{
 								Type:        "string",

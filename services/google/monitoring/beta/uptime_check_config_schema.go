@@ -289,6 +289,7 @@ func DCLUptimeCheckConfigSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"resourceGroup": &dcl.Property{
 								Type:        "object",

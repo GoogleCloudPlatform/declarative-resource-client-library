@@ -144,6 +144,7 @@ components:
           x-dcl-go-name: Location
           description: The location for the resource
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         meshes:
           type: array
           x-dcl-go-name: Meshes
@@ -163,6 +164,7 @@ components:
           x-dcl-go-name: Name
           description: Required. Name of the GrpcRoute resource. It matches pattern
             `projects/*/locations/global/grpcRoutes/`
+          x-dcl-has-long-form: true
         project:
           type: string
           x-dcl-go-name: Project
@@ -172,6 +174,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         rules:
           type: array
           x-dcl-go-name: Rules

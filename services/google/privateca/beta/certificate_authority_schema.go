@@ -695,6 +695,7 @@ func DCLCertificateAuthoritySchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"config": &dcl.Property{
 								Type:        "object",
@@ -1300,12 +1301,14 @@ func DCLCertificateAuthoritySchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "The resource name for this CertificateAuthority in the format `projects/*/locations/*/caPools/*/certificateAuthorities/*`.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"pemCaCertificates": &dcl.Property{
 								Type:        "array",
@@ -1331,6 +1334,7 @@ func DCLCertificateAuthoritySchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"state": &dcl.Property{
 								Type:        "string",

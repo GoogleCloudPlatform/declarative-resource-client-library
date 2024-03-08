@@ -107,6 +107,7 @@ components:
           x-dcl-go-name: Name
           description: Name of the topic.
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         project:
           type: string
           x-dcl-go-name: Project
@@ -116,3 +117,4 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true

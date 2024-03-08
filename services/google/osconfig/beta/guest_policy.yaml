@@ -412,6 +412,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         recipes:
           type: array
           x-dcl-go-name: Recipes

@@ -214,12 +214,14 @@ func DCLEndpointPolicySchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "Required. Name of the EndpointPolicy resource.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -233,6 +235,7 @@ func DCLEndpointPolicySchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"serverTlsPolicy": &dcl.Property{
 								Type:        "string",

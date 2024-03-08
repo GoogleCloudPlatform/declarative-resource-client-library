@@ -94,6 +94,7 @@ components:
           x-dcl-go-name: Location
           description: The location for the resource
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         name:
           type: string
           x-dcl-go-name: Name
@@ -102,6 +103,7 @@ components:
             letter, and cannot have a trailing hyphen. The prefix `gcp-` is reserved
             for use by Google, and may not be specified.
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         parent:
           type: string
           x-dcl-go-name: Parent
@@ -118,6 +120,7 @@ components:
           readOnly: true
           description: 'Output only. The resource name of the pool. Format: `locations/{location}/workforcePools/{workforce_pool_id}`'
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true
         sessionDuration:
           type: string
           x-dcl-go-name: SessionDuration

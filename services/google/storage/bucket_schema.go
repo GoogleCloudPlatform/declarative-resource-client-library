@@ -283,6 +283,7 @@ func DCLBucketSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"storageClass": &dcl.Property{
 								Type:        "string",

@@ -110,6 +110,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         type:
           type: string
           x-dcl-go-name: Type

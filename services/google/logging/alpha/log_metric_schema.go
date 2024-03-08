@@ -390,6 +390,7 @@ func DCLLogMetricSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"updateTime": &dcl.Property{
 								Type:        "string",

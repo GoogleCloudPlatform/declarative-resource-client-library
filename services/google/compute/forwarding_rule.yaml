@@ -228,6 +228,7 @@ components:
           x-dcl-go-name: Location
           description: The location of this resource.
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         metadataFilter:
           type: array
           x-dcl-go-name: MetadataFilter
@@ -318,6 +319,7 @@ components:
             Rule. If this field is not specified, the default network will be used.
           x-kubernetes-immutable: true
           x-dcl-server-default: true
+          x-dcl-has-long-form: true
         networkTier:
           type: string
           x-dcl-go-name: NetworkTier
@@ -375,6 +377,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         pscConnectionId:
           type: string
           x-dcl-go-name: PscConnectionId
@@ -481,6 +484,7 @@ components:
             the network is in custom subnet mode, a subnetwork must be specified.
           x-kubernetes-immutable: true
           x-dcl-server-default: true
+          x-dcl-has-long-form: true
         target:
           type: string
           x-dcl-go-name: Target

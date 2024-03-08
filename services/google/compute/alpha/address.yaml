@@ -142,6 +142,7 @@ components:
           x-dcl-go-name: Location
           description: The location of this resource.
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         name:
           type: string
           x-dcl-go-name: Name
@@ -161,6 +162,7 @@ components:
           x-dcl-references:
           - resource: Compute/Network
             field: selfLink
+          x-dcl-has-long-form: true
         networkTier:
           type: string
           x-dcl-go-name: NetworkTier
@@ -193,6 +195,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         purpose:
           type: string
           x-dcl-go-name: Purpose

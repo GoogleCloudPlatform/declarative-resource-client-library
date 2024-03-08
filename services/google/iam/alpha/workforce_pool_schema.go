@@ -130,12 +130,14 @@ func DCLWorkforcePoolSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "The name of the pool. The ID must be a globally unique string of 6 to 63 lowercase letters, digits, or hyphens. It must start with a letter, and cannot have a trailing hyphen. The prefix `gcp-` is reserved for use by Google, and may not be specified.",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"parent": &dcl.Property{
 								Type:                "string",
@@ -157,6 +159,7 @@ func DCLWorkforcePoolSchema() *dcl.Schema {
 								ReadOnly:    true,
 								Description: "Output only. The resource name of the pool. Format: `locations/{location}/workforcePools/{workforce_pool_id}`",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"sessionDuration": &dcl.Property{
 								Type:          "string",

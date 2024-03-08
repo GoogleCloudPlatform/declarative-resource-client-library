@@ -88,6 +88,7 @@ func DCLFleetSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"managedNamespaces": &dcl.Property{
 								Type:        "boolean",
@@ -100,6 +101,7 @@ func DCLFleetSchema() *dcl.Schema {
 								Description:              "Output only. The full, unique resource name of this fleet in the format of `projects/{project}/locations/{location}/fleets/{fleet}`. Each GCP project can have at most one fleet resource, named \"default\".",
 								Immutable:                true,
 								ServerGeneratedParameter: true,
+								HasLongForm:              true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -113,6 +115,7 @@ func DCLFleetSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"uid": &dcl.Property{
 								Type:        "string",

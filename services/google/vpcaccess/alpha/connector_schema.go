@@ -132,6 +132,7 @@ func DCLConnectorSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"machineType": &dcl.Property{
 								Type:          "string",
@@ -177,6 +178,8 @@ func DCLConnectorSchema() *dcl.Schema {
 								GoName:      "Name",
 								Description: "The resource name in the format `projects/*/locations/*/connectors/*`.",
 								Immutable:   true,
+								Parameter:   true,
+								HasLongForm: true,
 							},
 							"network": &dcl.Property{
 								Type:        "string",
@@ -202,6 +205,7 @@ func DCLConnectorSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"state": &dcl.Property{
 								Type:        "string",

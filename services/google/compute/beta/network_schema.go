@@ -143,6 +143,7 @@ func DCLNetworkSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"routingConfig": &dcl.Property{
 								Type:          "object",

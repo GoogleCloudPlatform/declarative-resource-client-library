@@ -393,6 +393,7 @@ func DCLPolicySchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"selfLink": &dcl.Property{
 								Type:        "string",
@@ -400,6 +401,7 @@ func DCLPolicySchema() *dcl.Schema {
 								ReadOnly:    true,
 								Description: "Output only. The resource name, in the format `projects/*/policy`. There is at most one policy per project.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"updateTime": &dcl.Property{
 								Type:        "string",

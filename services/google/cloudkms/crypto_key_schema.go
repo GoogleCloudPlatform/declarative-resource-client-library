@@ -125,6 +125,7 @@ func DCLCryptoKeySchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"labels": &dcl.Property{
 								Type: "object",
@@ -139,12 +140,14 @@ func DCLCryptoKeySchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "The resource name for this CryptoKey in the format `projects/*/locations/*/keyRings/*/cryptoKeys/*`.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"nextRotationTime": &dcl.Property{
 								Type:        "string",
@@ -385,6 +388,7 @@ func DCLCryptoKeySchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"purpose": &dcl.Property{
 								Type:        "string",

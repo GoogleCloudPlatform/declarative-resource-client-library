@@ -513,6 +513,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         quota:
           type: object
           x-dcl-go-name: Quota

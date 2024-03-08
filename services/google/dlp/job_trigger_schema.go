@@ -1524,6 +1524,7 @@ func DCLJobTriggerSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location of the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"locationId": &dcl.Property{
 								Type:        "string",
@@ -1552,6 +1553,7 @@ func DCLJobTriggerSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"status": &dcl.Property{
 								Type:        "string",

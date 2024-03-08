@@ -361,6 +361,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         selfLink:
           type: string
           x-dcl-go-name: SelfLink
@@ -368,6 +369,7 @@ components:
           description: Output only. The resource name, in the format `projects/*/policy`.
             There is at most one policy per project.
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true
         updateTime:
           type: string
           format: date-time

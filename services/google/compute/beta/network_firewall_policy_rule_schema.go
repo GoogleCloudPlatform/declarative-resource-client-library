@@ -185,6 +185,7 @@ func DCLNetworkFirewallPolicyRuleSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location of this resource.",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"match": &dcl.Property{
 								Type:        "object",
@@ -396,6 +397,7 @@ func DCLNetworkFirewallPolicyRuleSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"ruleName": &dcl.Property{
 								Type:        "string",

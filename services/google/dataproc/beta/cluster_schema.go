@@ -1444,6 +1444,7 @@ func DCLClusterSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource, usually a GCP region.",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"metrics": &dcl.Property{
 								Type:        "object",
@@ -1491,6 +1492,7 @@ func DCLClusterSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"status": &dcl.Property{
 								Type:        "object",

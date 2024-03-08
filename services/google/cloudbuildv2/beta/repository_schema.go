@@ -144,6 +144,8 @@ func DCLRepositorySchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter:   true,
+								HasLongForm: true,
 							},
 							"createTime": &dcl.Property{
 								Type:        "string",
@@ -166,12 +168,14 @@ func DCLRepositorySchema() *dcl.Schema {
 								Description:    "The location for the resource",
 								Immutable:      true,
 								ExtractIfEmpty: true,
+								Parameter:      true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "Name of the repository.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -186,6 +190,7 @@ func DCLRepositorySchema() *dcl.Schema {
 									},
 								},
 								ExtractIfEmpty: true,
+								Parameter:      true,
 							},
 							"remoteUri": &dcl.Property{
 								Type:        "string",

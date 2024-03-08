@@ -154,6 +154,7 @@ func DCLTcpRouteSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"meshes": &dcl.Property{
 								Type:        "array",
@@ -176,6 +177,7 @@ func DCLTcpRouteSchema() *dcl.Schema {
 								Type:        "string",
 								GoName:      "Name",
 								Description: "Required. Name of the TcpRoute resource. It matches pattern `projects/*/locations/global/tcpRoutes/tcp_route_name>`.",
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -189,6 +191,7 @@ func DCLTcpRouteSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"rules": &dcl.Property{
 								Type:        "array",

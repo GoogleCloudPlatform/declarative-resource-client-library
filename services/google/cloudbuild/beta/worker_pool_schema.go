@@ -150,12 +150,14 @@ func DCLWorkerPoolSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "User-defined name of the `WorkerPool`.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"networkConfig": &dcl.Property{
 								Type:        "object",
@@ -199,6 +201,7 @@ func DCLWorkerPoolSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"state": &dcl.Property{
 								Type:        "string",

@@ -190,11 +190,13 @@ components:
           x-dcl-go-name: Location
           description: The location for the resource
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         name:
           type: string
           x-dcl-go-name: Name
           description: Resource name.
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true
         osPolicies:
           type: array
           x-dcl-go-name: OSPolicies
@@ -1259,6 +1261,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         reconciling:
           type: boolean
           x-dcl-go-name: Reconciling

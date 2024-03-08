@@ -200,6 +200,7 @@ func DCLBudgetSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"budgetFilter": &dcl.Property{
 								Type:          "object",
@@ -409,6 +410,7 @@ func DCLBudgetSchema() *dcl.Schema {
 								Description:              "Output only. Resource name of the budget.",
 								Immutable:                true,
 								ServerGeneratedParameter: true,
+								HasLongForm:              true,
 							},
 							"thresholdRules": &dcl.Property{
 								Type:        "array",

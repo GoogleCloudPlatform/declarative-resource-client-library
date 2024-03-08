@@ -664,6 +664,7 @@ components:
           x-dcl-go-name: Location
           description: The location of the resource
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         locationId:
           type: string
           x-dcl-go-name: LocationId
@@ -691,6 +692,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         updateTime:
           type: string
           format: date-time

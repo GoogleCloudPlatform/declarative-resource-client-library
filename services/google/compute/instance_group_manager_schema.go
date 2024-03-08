@@ -332,6 +332,7 @@ func DCLInstanceGroupManagerSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location of this resource.",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
@@ -377,6 +378,7 @@ func DCLInstanceGroupManagerSchema() *dcl.Schema {
 										Field:    "name",
 									},
 								},
+								Parameter: true,
 							},
 							"region": &dcl.Property{
 								Type:        "string",

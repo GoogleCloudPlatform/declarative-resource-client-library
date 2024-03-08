@@ -210,6 +210,7 @@ func DCLVpnTunnelSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"remoteTrafficSelector": &dcl.Property{
 								Type:          "array",
@@ -235,6 +236,7 @@ func DCLVpnTunnelSchema() *dcl.Schema {
 										Field:    "selfLink",
 									},
 								},
+								HasLongForm: true,
 							},
 							"selfLink": &dcl.Property{
 								Type:        "string",

@@ -253,6 +253,7 @@ func DCLServiceAttachmentSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
@@ -289,6 +290,7 @@ func DCLServiceAttachmentSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"pscServiceAttachmentId": &dcl.Property{
 								Type:        "object",

@@ -138,6 +138,7 @@ func DCLCertificateSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"certificateAuthority": &dcl.Property{
 								Type:        "string",
@@ -150,6 +151,7 @@ func DCLCertificateSchema() *dcl.Schema {
 										Field:    "name",
 									},
 								},
+								Parameter: true,
 							},
 							"certificateDescription": &dcl.Property{
 								Type:        "object",
@@ -726,6 +728,7 @@ func DCLCertificateSchema() *dcl.Schema {
 										Field:    "selfLink",
 									},
 								},
+								HasLongForm: true,
 							},
 							"config": &dcl.Property{
 								Type:        "object",
@@ -1226,12 +1229,14 @@ func DCLCertificateSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "The resource name for this Certificate in the format `projects/*/locations/*/caPools/*/certificates/*`.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"pemCertificate": &dcl.Property{
 								Type:        "string",
@@ -1273,6 +1278,7 @@ func DCLCertificateSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"revocationDetails": &dcl.Property{
 								Type:        "object",

@@ -201,6 +201,7 @@ func DCLOrganizationSchema() *dcl.Schema {
 								Description:              "Output only. Name of the Apigee organization.",
 								Immutable:                true,
 								ServerGeneratedParameter: true,
+								HasLongForm:              true,
 							},
 							"project": &dcl.Property{
 								Type:                "string",
@@ -215,6 +216,7 @@ func DCLOrganizationSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"projectId": &dcl.Property{
 								Type:        "string",

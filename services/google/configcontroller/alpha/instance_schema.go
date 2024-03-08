@@ -131,6 +131,7 @@ func DCLInstanceSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"managementConfig": &dcl.Property{
 								Type:        "object",
@@ -289,6 +290,7 @@ func DCLInstanceSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"state": &dcl.Property{
 								Type:        "string",

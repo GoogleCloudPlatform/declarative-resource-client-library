@@ -452,6 +452,7 @@ func DCLClusterSchema() *dcl.Schema {
 												Parent:   true,
 											},
 										},
+										HasLongForm: true,
 									},
 								},
 							},
@@ -460,6 +461,7 @@ func DCLClusterSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"loggingConfig": &dcl.Property{
 								Type:          "object",
@@ -525,6 +527,7 @@ func DCLClusterSchema() *dcl.Schema {
 								GoName:      "Name",
 								Description: "The name of this resource.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"networking": &dcl.Property{
 								Type:        "object",
@@ -582,6 +585,7 @@ func DCLClusterSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"reconciling": &dcl.Property{
 								Type:        "boolean",

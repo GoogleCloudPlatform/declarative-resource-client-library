@@ -127,12 +127,15 @@ func DCLReservationSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "The resource name of the reservation.",
 								Immutable:   true,
+								Parameter:   true,
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -146,6 +149,7 @@ func DCLReservationSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"slotCapacity": &dcl.Property{
 								Type:        "integer",

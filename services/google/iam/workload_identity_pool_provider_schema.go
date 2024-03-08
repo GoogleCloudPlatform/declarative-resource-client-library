@@ -189,12 +189,14 @@ func DCLWorkloadIdentityPoolProviderSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "Output only. The resource name of the provider.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"oidc": &dcl.Property{
 								Type:        "object",
@@ -238,6 +240,7 @@ func DCLWorkloadIdentityPoolProviderSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"state": &dcl.Property{
 								Type:        "string",
@@ -264,6 +267,7 @@ func DCLWorkloadIdentityPoolProviderSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 						},
 					},

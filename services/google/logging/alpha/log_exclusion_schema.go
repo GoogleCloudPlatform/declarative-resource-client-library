@@ -149,6 +149,7 @@ func DCLLogExclusionSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"updateTime": &dcl.Property{
 								Type:        "string",

@@ -170,6 +170,7 @@ components:
           x-dcl-go-name: Name
           description: Name of the subscription.
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         project:
           type: string
           x-dcl-go-name: Project
@@ -179,6 +180,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         pushConfig:
           type: object
           x-dcl-go-name: PushConfig
@@ -249,3 +251,4 @@ components:
           x-dcl-references:
           - resource: Pubsub/Topic
             field: name
+          x-dcl-has-long-form: true

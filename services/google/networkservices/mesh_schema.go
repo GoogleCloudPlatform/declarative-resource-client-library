@@ -142,11 +142,13 @@ func DCLMeshSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "Required. Name of the Mesh resource. It matches pattern `projects/*/locations/global/meshes/`.",
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -160,6 +162,7 @@ func DCLMeshSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"selfLink": &dcl.Property{
 								Type:        "string",

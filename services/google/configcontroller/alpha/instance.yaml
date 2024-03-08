@@ -94,6 +94,7 @@ components:
           x-dcl-go-name: Location
           description: The location for the resource
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         managementConfig:
           type: object
           x-dcl-go-name: ManagementConfig
@@ -250,6 +251,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         state:
           type: string
           x-dcl-go-name: State

@@ -381,6 +381,7 @@ func DCLInstanceSchema() *dcl.Schema {
 										Field:    "name",
 									},
 								},
+								HasLongForm: true,
 							},
 							"metadata": &dcl.Property{
 								Type: "object",
@@ -663,6 +664,7 @@ func DCLInstanceSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"scheduling": &dcl.Property{
 								Type:          "object",

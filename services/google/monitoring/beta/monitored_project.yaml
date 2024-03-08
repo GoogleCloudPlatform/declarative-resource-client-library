@@ -90,6 +90,7 @@ components:
           description: 'Required. The resource name of the existing Metrics Scope
             that will monitor this project. Example: locations/global/metricsScopes/{SCOPING_PROJECT_ID_OR_NUMBER}'
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         name:
           type: string
           x-dcl-go-name: Name
@@ -98,3 +99,4 @@ components:
             project ID. On output, it contains the equivalent project numbers. Example:
             `locations/global/metricsScopes/{SCOPING_PROJECT_ID_OR_NUMBER}/projects/{MONITORED_PROJECT_ID_OR_NUMBER}`'
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true

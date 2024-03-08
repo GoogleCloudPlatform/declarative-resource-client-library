@@ -89,6 +89,7 @@ components:
           - resource: Logging/LogBucket
             field: name
             parent: true
+          x-dcl-parameter: true
         createTime:
           type: string
           format: date-time
@@ -115,11 +116,13 @@ components:
             global, us-central1, us-east1, us-west1, asia-east1, europe-west1.'
           x-kubernetes-immutable: true
           x-dcl-extract-if-empty: true
+          x-dcl-parameter: true
         name:
           type: string
           x-dcl-go-name: Name
           description: 'The resource name of the view. For example: `projects/my-project/locations/global/buckets/my-bucket/views/my-view`'
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true
         parent:
           type: string
           x-dcl-go-name: Parent
@@ -140,6 +143,7 @@ components:
             field: name
             parent: true
           x-dcl-extract-if-empty: true
+          x-dcl-parameter: true
         updateTime:
           type: string
           format: date-time

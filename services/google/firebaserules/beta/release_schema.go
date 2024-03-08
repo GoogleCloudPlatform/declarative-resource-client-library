@@ -125,6 +125,7 @@ func DCLReleaseSchema() *dcl.Schema {
 								Description:         "Format: `projects/{project_id}/releases/{release_id}`\\Firestore Rules Releases will **always** have the name 'cloud.firestore'",
 								Immutable:           true,
 								ForwardSlashAllowed: true,
+								HasLongForm:         true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -138,6 +139,7 @@ func DCLReleaseSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"rulesetName": &dcl.Property{
 								Type:        "string",
@@ -150,6 +152,7 @@ func DCLReleaseSchema() *dcl.Schema {
 										Field:    "name",
 									},
 								},
+								HasLongForm: true,
 							},
 							"updateTime": &dcl.Property{
 								Type:        "string",

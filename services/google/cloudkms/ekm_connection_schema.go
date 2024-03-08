@@ -103,11 +103,13 @@ func DCLEkmConnectionSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "The resource name for the EkmConnection in the format `projects/*/locations/*/ekmConnections/*`.",
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -121,6 +123,7 @@ func DCLEkmConnectionSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"serviceResolvers": &dcl.Property{
 								Type:        "array",

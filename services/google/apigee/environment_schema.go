@@ -107,6 +107,7 @@ func DCLEnvironmentSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"createdAt": &dcl.Property{
 								Type:        "integer",

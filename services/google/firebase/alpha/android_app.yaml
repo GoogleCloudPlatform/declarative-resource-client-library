@@ -107,6 +107,7 @@ components:
             for the App (see [`appId`](../projects.androidApps#AndroidApp.FIELDS.app_id)).'
           x-kubernetes-immutable: true
           x-dcl-server-generated-parameter: true
+          x-dcl-has-long-form: true
         packageName:
           type: string
           x-dcl-go-name: PackageName
@@ -122,6 +123,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         projectId:
           type: string
           x-dcl-go-name: ProjectId

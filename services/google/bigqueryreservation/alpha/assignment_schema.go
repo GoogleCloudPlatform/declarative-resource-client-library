@@ -161,6 +161,7 @@ func DCLAssignmentSchema() *dcl.Schema {
 								Description:    "The location for the resource",
 								Immutable:      true,
 								ExtractIfEmpty: true,
+								Parameter:      true,
 							},
 							"name": &dcl.Property{
 								Type:                     "string",
@@ -182,6 +183,7 @@ func DCLAssignmentSchema() *dcl.Schema {
 									},
 								},
 								ExtractIfEmpty: true,
+								Parameter:      true,
 							},
 							"reservation": &dcl.Property{
 								Type:        "string",
@@ -195,6 +197,8 @@ func DCLAssignmentSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter:   true,
+								HasLongForm: true,
 							},
 							"state": &dcl.Property{
 								Type:        "string",

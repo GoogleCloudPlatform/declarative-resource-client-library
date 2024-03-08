@@ -6405,6 +6405,7 @@ func DCLDeidentifyTemplateSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location of the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"locationId": &dcl.Property{
 								Type:        "string",
@@ -6438,6 +6439,7 @@ func DCLDeidentifyTemplateSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"updateTime": &dcl.Property{
 								Type:        "string",

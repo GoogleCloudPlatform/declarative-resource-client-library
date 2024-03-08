@@ -203,6 +203,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         purpose:
           type: string
           x-dcl-go-name: Purpose
@@ -226,6 +227,7 @@ components:
           x-dcl-go-name: Region
           description: 'The GCP region for this subnetwork. '
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         role:
           type: string
           x-dcl-go-name: Role

@@ -104,6 +104,7 @@ func DCLAttestorSchema() *dcl.Schema {
 								GoName:      "Name",
 								Description: "Required. The resource name, in the format: `projects/*/attestors/*`. This field may not be updated.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -117,6 +118,7 @@ func DCLAttestorSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"updateTime": &dcl.Property{
 								Type:        "string",

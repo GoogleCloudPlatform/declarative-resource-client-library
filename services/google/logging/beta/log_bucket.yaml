@@ -109,6 +109,7 @@ components:
           description: 'The location of the resource. The supported locations are:
             global, us-central1, us-east1, us-west1, asia-east1, europe-west1.'
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         locked:
           type: boolean
           x-dcl-go-name: Locked
@@ -124,6 +125,7 @@ components:
             where logs are actually stored. Once a bucket has been created, the location
             can not be changed.'
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true
         parent:
           type: string
           x-dcl-go-name: Parent
@@ -143,6 +145,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         retentionDays:
           type: integer
           format: int64

@@ -106,6 +106,7 @@ components:
           x-dcl-go-name: DataplexZone
           description: The zone for the resource
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         description:
           type: string
           x-dcl-go-name: Description
@@ -288,15 +289,18 @@ components:
           x-dcl-go-name: Lake
           description: The lake for the resource
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         location:
           type: string
           x-dcl-go-name: Location
           description: The location for the resource
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         name:
           type: string
           x-dcl-go-name: Name
           description: The name of the asset.
+          x-dcl-has-long-form: true
         project:
           type: string
           x-dcl-go-name: Project
@@ -306,6 +310,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         resourceSpec:
           type: object
           x-dcl-go-name: ResourceSpec

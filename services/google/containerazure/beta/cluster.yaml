@@ -399,11 +399,13 @@ components:
               - resource: Cloudresourcemanager/Project
                 field: name
                 parent: true
+              x-dcl-has-long-form: true
         location:
           type: string
           x-dcl-go-name: Location
           description: The location for the resource
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         loggingConfig:
           type: object
           x-dcl-go-name: LoggingConfig
@@ -456,6 +458,7 @@ components:
           x-dcl-go-name: Name
           description: The name of this resource.
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true
         networking:
           type: object
           x-dcl-go-name: Networking
@@ -510,6 +513,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         reconciling:
           type: boolean
           x-dcl-go-name: Reconciling

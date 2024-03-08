@@ -266,6 +266,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         resourceGroup:
           type: object
           x-dcl-go-name: ResourceGroup

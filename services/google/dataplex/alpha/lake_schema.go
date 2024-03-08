@@ -167,6 +167,7 @@ func DCLLakeSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"metastore": &dcl.Property{
 								Type:        "object",
@@ -230,6 +231,7 @@ func DCLLakeSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -243,6 +245,7 @@ func DCLLakeSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"serviceAccount": &dcl.Property{
 								Type:        "string",

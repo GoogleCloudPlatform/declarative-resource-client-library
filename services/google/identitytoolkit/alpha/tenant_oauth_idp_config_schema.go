@@ -151,6 +151,7 @@ func DCLTenantOAuthIdpConfigSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"responseType": &dcl.Property{
 								Type:          "object",
@@ -188,6 +189,7 @@ func DCLTenantOAuthIdpConfigSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 						},
 					},

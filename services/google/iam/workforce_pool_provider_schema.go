@@ -143,12 +143,14 @@ func DCLWorkforcePoolProviderSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "Output only. The resource name of the provider. Format: `locations/{location}/workforcePools/{workforce_pool_id}/providers/{provider_id}`",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"oidc": &dcl.Property{
 								Type:        "object",
@@ -299,6 +301,7 @@ func DCLWorkforcePoolProviderSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 						},
 					},

@@ -144,6 +144,7 @@ func DCLLogBucketSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location of the resource. The supported locations are: global, us-central1, us-east1, us-west1, asia-east1, europe-west1.",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"locked": &dcl.Property{
 								Type:        "boolean",
@@ -155,6 +156,7 @@ func DCLLogBucketSchema() *dcl.Schema {
 								GoName:      "Name",
 								Description: "The resource name of the bucket. For example: \"projects/my-project-id/locations/my-location/buckets/my-bucket-id\" The supported locations are: `global`, `us-central1`, `us-east1`, `us-west1`, `asia-east1`, `europe-west1`. For the location of `global` it is unspecified where logs are actually stored. Once a bucket has been created, the location can not be changed.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"parent": &dcl.Property{
 								Type:                "string",
@@ -184,6 +186,7 @@ func DCLLogBucketSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"retentionDays": &dcl.Property{
 								Type:        "integer",

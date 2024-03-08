@@ -256,6 +256,7 @@ func DCLFunctionSchema() *dcl.Schema {
 								GoName:      "Name",
 								Description: "A user-defined name of the function. Function names must be unique globally.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -269,12 +270,14 @@ func DCLFunctionSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"region": &dcl.Property{
 								Type:        "string",
 								GoName:      "Region",
 								Description: "The name of the Cloud Functions region of the function.",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"runtime": &dcl.Property{
 								Type:        "string",

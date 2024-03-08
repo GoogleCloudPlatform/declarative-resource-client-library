@@ -223,6 +223,7 @@ func DCLPacketMirroringSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"mirroredResources": &dcl.Property{
 								Type:        "object",
@@ -363,6 +364,7 @@ func DCLPacketMirroringSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"region": &dcl.Property{
 								Type:        "string",

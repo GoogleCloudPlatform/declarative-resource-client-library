@@ -120,6 +120,8 @@ func DCLIdentityAwareProxyClientSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter:   true,
+								HasLongForm: true,
 							},
 							"displayName": &dcl.Property{
 								Type:        "string",
@@ -133,6 +135,7 @@ func DCLIdentityAwareProxyClientSchema() *dcl.Schema {
 								Description:              "Output only. Unique identifier of the OAuth client.",
 								Immutable:                true,
 								ServerGeneratedParameter: true,
+								HasLongForm:              true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -146,6 +149,8 @@ func DCLIdentityAwareProxyClientSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter:   true,
+								HasLongForm: true,
 							},
 							"secret": &dcl.Property{
 								Type:        "string",

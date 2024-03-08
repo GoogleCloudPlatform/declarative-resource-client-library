@@ -277,6 +277,7 @@ func DCLTargetSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"multiTarget": &dcl.Property{
 								Type:        "object",
@@ -310,6 +311,8 @@ func DCLTargetSchema() *dcl.Schema {
 								GoName:      "Name",
 								Description: "Name of the `Target`. Format is [a-z][a-z0-9\\-]{0,62}.",
 								Immutable:   true,
+								Parameter:   true,
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -323,6 +326,7 @@ func DCLTargetSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"requireApproval": &dcl.Property{
 								Type:        "boolean",

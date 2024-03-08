@@ -286,6 +286,7 @@ components:
           x-dcl-go-name: Name
           description: Required. Immutable. The name of the package.
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true
         package:
           type: object
           x-dcl-go-name: Package
@@ -399,6 +400,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         relatedNoteNames:
           type: array
           x-dcl-go-name: RelatedNoteNames

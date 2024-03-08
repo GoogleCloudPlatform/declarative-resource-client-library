@@ -170,6 +170,7 @@ func DCLRoleSchema() *dcl.Schema {
 								GoName:      "Name",
 								Description: "The name of the role. When Role is used in CreateRole, the role name must not be set. When Role is used in output and other input such as UpdateRole, the role name is the complete path, e.g., roles/logging.viewer for predefined roles and organizations/{ORGANIZATION_ID}/roles/logging.viewer for custom roles.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"parent": &dcl.Property{
 								Type:                "string",
@@ -189,6 +190,7 @@ func DCLRoleSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"stage": &dcl.Property{
 								Type:        "string",

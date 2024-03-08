@@ -450,6 +450,7 @@ func DCLGuestPolicySchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"recipes": &dcl.Property{
 								Type:        "array",

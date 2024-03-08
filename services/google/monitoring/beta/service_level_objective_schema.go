@@ -162,6 +162,7 @@ func DCLServiceLevelObjectiveSchema() *dcl.Schema {
 								GoName:      "Name",
 								Description: "Resource name for this `ServiceLevelObjective`. The format is: projects/[PROJECT_ID_OR_NUMBER]/services/[SERVICE_ID]/serviceLevelObjectives/[SLO_NAME]",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -175,6 +176,7 @@ func DCLServiceLevelObjectiveSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"rollingPeriod": &dcl.Property{
 								Type:        "string",
@@ -196,6 +198,7 @@ func DCLServiceLevelObjectiveSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"serviceLevelIndicator": &dcl.Property{
 								Type:        "object",

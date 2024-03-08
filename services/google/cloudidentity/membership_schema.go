@@ -161,12 +161,14 @@ func DCLMembershipSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"name": &dcl.Property{
 								Type:                     "string",
 								GoName:                   "Name",
 								Description:              "Output only. The [resource name](https://cloud.google.com/apis/design/resource_names) of the `Membership`. Shall be of the form `groups/{group}/memberships/{membership}`.",
 								ServerGeneratedParameter: true,
+								HasLongForm:              true,
 							},
 							"preferredMemberKey": &dcl.Property{
 								Type:        "object",

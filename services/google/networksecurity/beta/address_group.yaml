@@ -100,11 +100,13 @@ components:
           x-dcl-go-name: Location
           description: The location for the resource
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         name:
           type: string
           x-dcl-go-name: Name
           description: Required. Name of the AddressGroup resource.
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true
         parent:
           type: string
           x-dcl-go-name: Parent
@@ -118,6 +120,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         type:
           type: string
           x-dcl-go-name: Type

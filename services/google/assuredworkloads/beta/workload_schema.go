@@ -324,6 +324,7 @@ func DCLWorkloadSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:                     "string",
@@ -331,6 +332,7 @@ func DCLWorkloadSchema() *dcl.Schema {
 								Description:              "Output only. The resource name of the workload.",
 								Immutable:                true,
 								ServerGeneratedParameter: true,
+								HasLongForm:              true,
 							},
 							"organization": &dcl.Property{
 								Type:        "string",
@@ -344,6 +346,7 @@ func DCLWorkloadSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"partner": &dcl.Property{
 								Type:        "string",

@@ -175,6 +175,7 @@ components:
           - resource: Cloudresourcemanager/BillingAccount
             field: name
             parent: true
+          x-dcl-parameter: true
         budgetFilter:
           type: object
           x-dcl-go-name: BudgetFilter
@@ -385,6 +386,7 @@ components:
           description: Output only. Resource name of the budget.
           x-kubernetes-immutable: true
           x-dcl-server-generated-parameter: true
+          x-dcl-has-long-form: true
         thresholdRules:
           type: array
           x-dcl-go-name: ThresholdRules

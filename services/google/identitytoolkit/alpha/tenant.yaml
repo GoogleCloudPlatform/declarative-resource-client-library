@@ -122,6 +122,7 @@ components:
           description: 'Output only. Resource name of a tenant. For example: "projects/{project-id}/tenants/{tenant-id}"'
           x-kubernetes-immutable: true
           x-dcl-server-generated-parameter: true
+          x-dcl-has-long-form: true
         project:
           type: string
           x-dcl-go-name: Project
@@ -131,6 +132,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         testPhoneNumbers:
           type: object
           additionalProperties:

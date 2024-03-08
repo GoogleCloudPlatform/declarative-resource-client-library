@@ -230,12 +230,14 @@ func DCLOSPolicyAssignmentSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "Resource name.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"osPolicies": &dcl.Property{
 								Type:        "array",
@@ -1381,6 +1383,7 @@ func DCLOSPolicyAssignmentSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"reconciling": &dcl.Property{
 								Type:        "boolean",

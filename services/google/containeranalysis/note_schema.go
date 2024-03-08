@@ -299,6 +299,7 @@ func DCLNoteSchema() *dcl.Schema {
 								GoName:      "Name",
 								Description: "Required. Immutable. The name of the package.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"package": &dcl.Property{
 								Type:        "object",
@@ -427,6 +428,7 @@ func DCLNoteSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"relatedNoteNames": &dcl.Property{
 								Type:        "array",

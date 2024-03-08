@@ -138,6 +138,7 @@ components:
             Key itself.
           x-kubernetes-immutable: true
           x-dcl-server-generated-parameter: true
+          x-dcl-has-long-form: true
         project:
           type: string
           x-dcl-go-name: Project
@@ -147,6 +148,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         testingOptions:
           type: object
           x-dcl-go-name: TestingOptions

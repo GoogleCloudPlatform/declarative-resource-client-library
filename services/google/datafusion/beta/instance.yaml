@@ -175,11 +175,14 @@ components:
           x-dcl-go-name: Location
           description: The location for the resource
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         name:
           type: string
           x-dcl-go-name: Name
           description: Output only. The name of this instance is in the form of projects/{project}/locations/{location}/instances/{instance}.
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
+          x-dcl-has-long-form: true
         networkConfig:
           type: object
           x-dcl-go-name: NetworkConfig
@@ -236,6 +239,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         serviceEndpoint:
           type: string
           x-dcl-go-name: ServiceEndpoint

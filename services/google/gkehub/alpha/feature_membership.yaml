@@ -102,6 +102,7 @@ components:
                   type: boolean
                   x-dcl-go-name: Enabled
                   description: Whether binauthz is enabled in this cluster.
+              x-dcl-parameter: true
             configSync:
               type: object
               x-dcl-go-name: ConfigSync
@@ -328,11 +329,13 @@ components:
           - resource: Gkehub/Feature
             field: name
             parent: true
+          x-dcl-parameter: true
         location:
           type: string
           x-dcl-go-name: Location
           description: The location of the feature
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         membership:
           type: string
           x-dcl-go-name: Membership
@@ -341,11 +344,13 @@ components:
           x-dcl-references:
           - resource: Gkehub/Membership
             field: name
+          x-dcl-parameter: true
         membershipLocation:
           type: string
           x-dcl-go-name: MembershipLocation
           description: The location of the membership
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         mesh:
           type: object
           x-dcl-go-name: Mesh
@@ -632,3 +637,4 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true

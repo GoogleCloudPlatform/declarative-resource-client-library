@@ -180,6 +180,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         remoteTrafficSelector:
           type: array
           x-dcl-go-name: RemoteTrafficSelector
@@ -202,6 +203,7 @@ components:
           x-dcl-references:
           - resource: Compute/Router
             field: selfLink
+          x-dcl-has-long-form: true
         selfLink:
           type: string
           x-dcl-go-name: SelfLink

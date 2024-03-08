@@ -174,6 +174,7 @@ func DCLAutoscalingPolicySchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
@@ -193,6 +194,7 @@ func DCLAutoscalingPolicySchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"secondaryWorkerConfig": &dcl.Property{
 								Type:        "object",

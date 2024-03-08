@@ -125,6 +125,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         selfLink:
           type: string
           x-dcl-go-name: SelfLink

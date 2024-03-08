@@ -136,6 +136,7 @@ func DCLOAuthIdpConfigSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"responseType": &dcl.Property{
 								Type:          "object",

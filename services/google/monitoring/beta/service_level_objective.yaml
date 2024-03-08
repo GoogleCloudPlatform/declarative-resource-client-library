@@ -133,6 +133,7 @@ components:
           description: 'Resource name for this `ServiceLevelObjective`. The format
             is: projects/[PROJECT_ID_OR_NUMBER]/services/[SERVICE_ID]/serviceLevelObjectives/[SLO_NAME]'
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true
         project:
           type: string
           x-dcl-go-name: Project
@@ -142,6 +143,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         rollingPeriod:
           type: string
           x-dcl-go-name: RollingPeriod
@@ -158,6 +160,7 @@ components:
           - resource: Monitoring/Service
             field: name
             parent: true
+          x-dcl-parameter: true
         serviceLevelIndicator:
           type: object
           x-dcl-go-name: ServiceLevelIndicator

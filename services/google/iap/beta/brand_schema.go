@@ -80,6 +80,7 @@ func DCLBrandSchema() *dcl.Schema {
 								Description:              "Output only. Identifier of the brand. NOTE: GCP project number achieves the same brand identification purpose as only one brand per project can be created.",
 								Immutable:                true,
 								ServerGeneratedParameter: true,
+								HasLongForm:              true,
 							},
 							"orgInternalOnly": &dcl.Property{
 								Type:        "boolean",
@@ -100,6 +101,7 @@ func DCLBrandSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"supportEmail": &dcl.Property{
 								Type:        "string",

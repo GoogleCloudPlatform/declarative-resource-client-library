@@ -133,6 +133,7 @@ func DCLTopicSchema() *dcl.Schema {
 								GoName:      "Name",
 								Description: "Name of the topic.",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -146,6 +147,7 @@ func DCLTopicSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 						},
 					},

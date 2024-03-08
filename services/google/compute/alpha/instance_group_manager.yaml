@@ -315,6 +315,7 @@ components:
           x-dcl-go-name: Location
           description: The location of this resource.
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         name:
           type: string
           x-dcl-go-name: Name
@@ -353,6 +354,7 @@ components:
           x-dcl-references:
           - resource: Cloudresourcemanager/Project
             field: name
+          x-dcl-parameter: true
         region:
           type: string
           x-dcl-go-name: Region

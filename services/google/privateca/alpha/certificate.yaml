@@ -94,6 +94,7 @@ components:
           - resource: Privateca/CaPool
             field: name
             parent: true
+          x-dcl-parameter: true
         certificateAuthority:
           type: string
           x-dcl-go-name: CertificateAuthority
@@ -102,6 +103,7 @@ components:
           x-dcl-references:
           - resource: Privateca/CertificateAuthority
             field: name
+          x-dcl-parameter: true
         certificateDescription:
           type: object
           x-dcl-go-name: CertificateDescription
@@ -628,6 +630,7 @@ components:
           x-dcl-references:
           - resource: Privateca/CertificateTemplate
             field: selfLink
+          x-dcl-has-long-form: true
         config:
           type: object
           x-dcl-go-name: Config
@@ -1081,11 +1084,13 @@ components:
           x-dcl-go-name: Location
           description: The location for the resource
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         name:
           type: string
           x-dcl-go-name: Name
           description: The resource name for this Certificate in the format `projects/*/locations/*/caPools/*/certificates/*`.
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true
         pemCertificate:
           type: string
           x-dcl-go-name: PemCertificate
@@ -1120,6 +1125,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         revocationDetails:
           type: object
           x-dcl-go-name: RevocationDetails

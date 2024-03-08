@@ -340,6 +340,7 @@ components:
           x-dcl-go-name: Location
           description: The location for the resource
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         name:
           type: string
           x-dcl-go-name: Name
@@ -351,6 +352,7 @@ components:
             character Which can be expressed as the regex: `)?`, with a maximum length
             of 63 characters.'
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true
         project:
           type: string
           x-dcl-go-name: Project
@@ -360,6 +362,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         state:
           type: object
           x-dcl-go-name: State

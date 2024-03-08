@@ -139,12 +139,14 @@ func DCLAddressGroupSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "Required. Name of the AddressGroup resource.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"parent": &dcl.Property{
 								Type:                "string",
@@ -164,6 +166,7 @@ func DCLAddressGroupSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"type": &dcl.Property{
 								Type:        "string",

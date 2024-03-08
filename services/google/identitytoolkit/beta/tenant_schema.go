@@ -159,6 +159,7 @@ func DCLTenantSchema() *dcl.Schema {
 								Description:              "Output only. Resource name of a tenant. For example: \"projects/{project-id}/tenants/{tenant-id}\"",
 								Immutable:                true,
 								ServerGeneratedParameter: true,
+								HasLongForm:              true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -172,6 +173,7 @@ func DCLTenantSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"testPhoneNumbers": &dcl.Property{
 								Type: "object",

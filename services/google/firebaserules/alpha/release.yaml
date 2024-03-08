@@ -93,6 +93,7 @@ components:
             Rules Releases will **always** have the name ''cloud.firestore'''
           x-kubernetes-immutable: true
           x-dcl-forward-slash-allowed: true
+          x-dcl-has-long-form: true
         project:
           type: string
           x-dcl-go-name: Project
@@ -102,6 +103,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         rulesetName:
           type: string
           x-dcl-go-name: RulesetName
@@ -111,6 +113,7 @@ components:
           x-dcl-references:
           - resource: Firebaserules/Ruleset
             field: name
+          x-dcl-has-long-form: true
         updateTime:
           type: string
           format: date-time

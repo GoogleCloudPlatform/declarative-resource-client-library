@@ -605,6 +605,7 @@ func DCLConfigSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"quota": &dcl.Property{
 								Type:          "object",

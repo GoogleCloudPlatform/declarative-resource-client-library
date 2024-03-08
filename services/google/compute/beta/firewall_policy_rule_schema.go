@@ -141,6 +141,7 @@ func DCLFirewallPolicyRuleSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								HasLongForm: true,
 							},
 							"kind": &dcl.Property{
 								Type:        "string",

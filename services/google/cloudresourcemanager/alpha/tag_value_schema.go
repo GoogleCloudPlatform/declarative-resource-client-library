@@ -97,6 +97,7 @@ func DCLTagValueSchema() *dcl.Schema {
 								Description:              "Immutable. The generated numeric id for the TagValue.",
 								Immutable:                true,
 								ServerGeneratedParameter: true,
+								HasLongForm:              true,
 							},
 							"namespacedName": &dcl.Property{
 								Type:        "string",

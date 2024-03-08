@@ -122,6 +122,7 @@ components:
           - resource: Container/Cluster
             field: name
             parent: true
+          x-dcl-parameter: true
         conditions:
           type: array
           x-dcl-go-name: Conditions
@@ -405,6 +406,7 @@ components:
           x-dcl-go-name: Location
           description: The location where the node pool is deployed
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         locations:
           type: array
           x-dcl-go-name: Locations
@@ -497,6 +499,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         status:
           type: string
           x-dcl-go-name: Status

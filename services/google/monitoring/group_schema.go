@@ -128,6 +128,7 @@ func DCLGroupSchema() *dcl.Schema {
 										Field:    "name",
 									},
 								},
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -141,6 +142,7 @@ func DCLGroupSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 						},
 					},

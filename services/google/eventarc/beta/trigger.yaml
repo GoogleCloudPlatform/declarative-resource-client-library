@@ -121,6 +121,7 @@ components:
               x-dcl-references:
               - resource: Cloudfunctions/Function
                 field: name
+              x-dcl-has-long-form: true
             cloudRunService:
               type: object
               x-dcl-go-name: CloudRunService
@@ -253,6 +254,7 @@ components:
               x-dcl-references:
               - resource: Workflows/Workflow
                 field: name
+              x-dcl-has-long-form: true
         etag:
           type: string
           x-dcl-go-name: Etag
@@ -280,6 +282,7 @@ components:
           x-dcl-go-name: Location
           description: The location for the resource
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         matchingCriteria:
           type: array
           x-dcl-go-name: MatchingCriteria
@@ -318,6 +321,7 @@ components:
           description: Required. The resource name of the trigger. Must be unique
             within the location on the project.
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true
         project:
           type: string
           x-dcl-go-name: Project
@@ -327,6 +331,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         serviceAccount:
           type: string
           x-dcl-go-name: ServiceAccount
@@ -372,6 +377,7 @@ components:
                   x-dcl-references:
                   - resource: Pubsub/Subscription
                     field: name
+                  x-dcl-has-long-form: true
                 topic:
                   type: string
                   x-dcl-go-name: Topic
@@ -385,6 +391,7 @@ components:
                   x-dcl-references:
                   - resource: Pubsub/Topic
                     field: name
+                  x-dcl-has-long-form: true
         uid:
           type: string
           x-dcl-go-name: Uid

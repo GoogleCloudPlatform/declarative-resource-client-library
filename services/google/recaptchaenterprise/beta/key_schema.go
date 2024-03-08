@@ -178,6 +178,7 @@ func DCLKeySchema() *dcl.Schema {
 								Description:              "The resource id for the Key, which is the same as the Site Key itself.",
 								Immutable:                true,
 								ServerGeneratedParameter: true,
+								HasLongForm:              true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -191,6 +192,7 @@ func DCLKeySchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"testingOptions": &dcl.Property{
 								Type:        "object",

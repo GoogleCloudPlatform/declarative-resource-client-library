@@ -118,6 +118,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         routingConfig:
           type: object
           x-dcl-go-name: RoutingConfig

@@ -200,12 +200,14 @@ func DCLCertificateTemplateSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "The resource name for this CertificateTemplate in the format `projects/*/locations/*/certificateTemplates/*`.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"passthroughExtensions": &dcl.Property{
 								Type:        "object",
@@ -517,6 +519,7 @@ func DCLCertificateTemplateSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"updateTime": &dcl.Property{
 								Type:        "string",

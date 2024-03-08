@@ -183,6 +183,7 @@ func DCLNodePoolSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"config": &dcl.Property{
 								Type:        "object",
@@ -481,6 +482,7 @@ func DCLNodePoolSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"management": &dcl.Property{
 								Type:        "object",
@@ -519,6 +521,7 @@ func DCLNodePoolSchema() *dcl.Schema {
 								GoName:      "Name",
 								Description: "The name of this resource.",
 								Immutable:   true,
+								HasLongForm: true,
 							},
 							"project": &dcl.Property{
 								Type:        "string",
@@ -532,6 +535,7 @@ func DCLNodePoolSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"reconciling": &dcl.Property{
 								Type:        "boolean",

@@ -99,6 +99,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         proxyHeader:
           type: string
           x-dcl-go-name: ProxyHeader

@@ -133,6 +133,7 @@ func DCLNotificationChannelSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"type": &dcl.Property{
 								Type:        "string",

@@ -97,6 +97,8 @@ func DCLFirebaseProjectSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter:   true,
+								HasLongForm: true,
 							},
 							"projectId": &dcl.Property{
 								Type:        "string",

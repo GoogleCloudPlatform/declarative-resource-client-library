@@ -292,6 +292,7 @@ func DCLStoredInfoTypeSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location of the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:                     "string",
@@ -318,6 +319,7 @@ func DCLStoredInfoTypeSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"regex": &dcl.Property{
 								Type:        "object",

@@ -118,6 +118,7 @@ components:
           - resource: Cloudresourcemanager/BillingAccount
             field: name
             parent: true
+          x-dcl-parameter: true
         updateTime:
           type: string
           format: date-time

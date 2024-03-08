@@ -227,6 +227,7 @@ func DCLForwardingRuleSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location of this resource.",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"metadataFilter": &dcl.Property{
 								Type:        "array",
@@ -300,6 +301,7 @@ func DCLForwardingRuleSchema() *dcl.Schema {
 								Description:   "This field is not used for external load balancing. For `INTERNAL` and `INTERNAL_SELF_MANAGED` load balancing, this field identifies the network that the load balanced IP should belong to for this Forwarding Rule. If this field is not specified, the default network will be used.",
 								Immutable:     true,
 								ServerDefault: true,
+								HasLongForm:   true,
 							},
 							"networkTier": &dcl.Property{
 								Type:          "string",
@@ -343,6 +345,7 @@ func DCLForwardingRuleSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"pscConnectionId": &dcl.Property{
 								Type:        "string",
@@ -439,6 +442,7 @@ func DCLForwardingRuleSchema() *dcl.Schema {
 								Description:   "This field is only used for `INTERNAL` load balancing. For internal load balancing, this field identifies the subnetwork that the load balanced IP should belong to for this Forwarding Rule. If the network specified is in auto subnet mode, this field is optional. However, if the network is in custom subnet mode, a subnetwork must be specified.",
 								Immutable:     true,
 								ServerDefault: true,
+								HasLongForm:   true,
 							},
 							"target": &dcl.Property{
 								Type:        "string",

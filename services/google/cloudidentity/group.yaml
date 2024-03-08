@@ -273,6 +273,7 @@ components:
           - INITIAL_GROUP_CONFIG_UNSPECIFIED
           - WITH_INITIAL_OWNER
           - EMPTY
+          x-dcl-parameter: true
         labels:
           type: object
           additionalProperties:
@@ -294,6 +295,7 @@ components:
           description: Output only. The [resource name](https://cloud.google.com/apis/design/resource_names)
             of the `Group`. Shall be of the form `groups/{group}`.
           x-dcl-server-generated-parameter: true
+          x-dcl-has-long-form: true
         parent:
           type: string
           x-dcl-go-name: Parent

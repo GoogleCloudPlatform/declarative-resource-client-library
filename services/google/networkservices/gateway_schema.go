@@ -149,11 +149,13 @@ func DCLGatewaySchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location for the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
 								Description: "Required. Name of the Gateway resource. It matches pattern `projects/*/locations/global/gateways/`.",
+								HasLongForm: true,
 							},
 							"ports": &dcl.Property{
 								Type:        "array",
@@ -179,6 +181,7 @@ func DCLGatewaySchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"scope": &dcl.Property{
 								Type:        "string",

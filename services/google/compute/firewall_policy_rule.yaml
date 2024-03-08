@@ -110,6 +110,7 @@ components:
           - resource: Compute/FirewallPolicy
             field: name
             parent: true
+          x-dcl-has-long-form: true
         kind:
           type: string
           x-dcl-go-name: Kind

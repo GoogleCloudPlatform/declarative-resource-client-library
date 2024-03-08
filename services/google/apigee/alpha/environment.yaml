@@ -73,6 +73,7 @@ components:
           - resource: Apigee/Organization
             field: name
             parent: true
+          x-dcl-parameter: true
         createdAt:
           type: integer
           format: int64

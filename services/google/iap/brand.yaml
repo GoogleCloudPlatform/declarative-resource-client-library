@@ -62,6 +62,7 @@ components:
             can be created.'
           x-kubernetes-immutable: true
           x-dcl-server-generated-parameter: true
+          x-dcl-has-long-form: true
         orgInternalOnly:
           type: boolean
           x-dcl-go-name: OrgInternalOnly
@@ -78,6 +79,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         supportEmail:
           type: string
           x-dcl-go-name: SupportEmail

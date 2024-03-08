@@ -165,12 +165,14 @@ components:
           x-dcl-go-name: Location
           description: The location for the resource
           x-kubernetes-immutable: true
+          x-dcl-parameter: true
         name:
           type: string
           x-dcl-go-name: Name
           description: The resource name for this CertificateTemplate in the format
             `projects/*/locations/*/certificateTemplates/*`.
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true
         passthroughExtensions:
           type: object
           x-dcl-go-name: PassthroughExtensions
@@ -459,6 +461,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         updateTime:
           type: string
           format: date-time

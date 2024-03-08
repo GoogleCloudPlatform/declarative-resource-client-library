@@ -690,6 +690,7 @@ func DCLInspectTemplateSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location of the resource",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"locationId": &dcl.Property{
 								Type:        "string",
@@ -723,6 +724,7 @@ func DCLInspectTemplateSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"updateTime": &dcl.Property{
 								Type:        "string",

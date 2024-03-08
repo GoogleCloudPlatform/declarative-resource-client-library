@@ -251,6 +251,7 @@ components:
             name for API requests, but responses will return the name using the equivalent
             project number.'
           x-kubernetes-immutable: true
+          x-dcl-has-long-form: true
         parent:
           type: string
           x-dcl-go-name: Parent
@@ -267,6 +268,7 @@ components:
           - resource: Cloudresourcemanager/Project
             field: name
             parent: true
+          x-dcl-parameter: true
         spec:
           type: object
           x-dcl-go-name: Spec

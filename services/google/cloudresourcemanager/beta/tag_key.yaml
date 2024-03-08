@@ -74,6 +74,7 @@ components:
           description: Immutable. The generated numeric id for the TagKey.
           x-kubernetes-immutable: true
           x-dcl-server-generated-parameter: true
+          x-dcl-has-long-form: true
         namespacedName:
           type: string
           x-dcl-go-name: NamespacedName

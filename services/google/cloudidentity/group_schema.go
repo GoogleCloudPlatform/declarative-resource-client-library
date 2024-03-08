@@ -305,6 +305,7 @@ func DCLGroupSchema() *dcl.Schema {
 									"WITH_INITIAL_OWNER",
 									"EMPTY",
 								},
+								Parameter: true,
 							},
 							"labels": &dcl.Property{
 								Type: "object",
@@ -319,6 +320,7 @@ func DCLGroupSchema() *dcl.Schema {
 								GoName:                   "Name",
 								Description:              "Output only. The [resource name](https://cloud.google.com/apis/design/resource_names) of the `Group`. Shall be of the form `groups/{group}`.",
 								ServerGeneratedParameter: true,
+								HasLongForm:              true,
 							},
 							"parent": &dcl.Property{
 								Type:        "string",

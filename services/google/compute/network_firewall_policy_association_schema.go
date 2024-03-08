@@ -158,6 +158,7 @@ func DCLNetworkFirewallPolicyAssociationSchema() *dcl.Schema {
 								GoName:      "Location",
 								Description: "The location of this resource.",
 								Immutable:   true,
+								Parameter:   true,
 							},
 							"name": &dcl.Property{
 								Type:        "string",
@@ -177,6 +178,7 @@ func DCLNetworkFirewallPolicyAssociationSchema() *dcl.Schema {
 										Parent:   true,
 									},
 								},
+								Parameter: true,
 							},
 							"shortName": &dcl.Property{
 								Type:        "string",
