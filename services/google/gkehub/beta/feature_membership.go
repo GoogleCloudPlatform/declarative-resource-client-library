@@ -1334,6 +1334,13 @@ type FeatureMembershipList struct {
 
 func (c *Client) DeleteFeatureMembership(ctx context.Context, r *FeatureMembership) error {
 	ctx = dcl.ContextWithRequestID(ctx)
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
+		409: dcl.Retryability{
+			Retryable: true,
+			Pattern:   "",
+			Timeout:   60000000000,
+		},
+	})))
 	ctx, cancel := context.WithTimeout(ctx, c.Config.TimeoutOr(0*time.Second))
 	defer cancel()
 
@@ -1374,6 +1381,13 @@ func (c *Client) ApplyFeatureMembership(ctx context.Context, rawDesired *Feature
 	defer cancel()
 
 	ctx = dcl.ContextWithRequestID(ctx)
+	c = NewClient(c.Config.Clone(dcl.WithCodeRetryability(map[int]dcl.Retryability{
+		409: dcl.Retryability{
+			Retryable: true,
+			Pattern:   "",
+			Timeout:   60000000000,
+		},
+	})))
 	var resultNewState *FeatureMembership
 	err := dcl.Do(ctx, func(ctx context.Context) (*dcl.RetryDetails, error) {
 		newState, err := applyFeatureMembershipHelper(c, ctx, rawDesired, opts...)
