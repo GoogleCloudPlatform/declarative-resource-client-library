@@ -36,6 +36,7 @@ class JobTrigger(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -166,6 +167,7 @@ class JobTrigger(object):
 
 
 class JobTriggerInspectJob(object):
+
     def __init__(
         self,
         storage_config: dict = None,
@@ -236,6 +238,7 @@ class JobTriggerInspectJobArray(object):
 
 
 class JobTriggerInspectJobStorageConfig(object):
+
     def __init__(
         self,
         datastore_options: dict = None,
@@ -345,6 +348,7 @@ class JobTriggerInspectJobStorageConfigArray(object):
 
 
 class JobTriggerInspectJobStorageConfigDatastoreOptions(object):
+
     def __init__(self, partition_id: dict = None, kind: dict = None):
         self.partition_id = partition_id
         self.kind = kind
@@ -411,6 +415,7 @@ class JobTriggerInspectJobStorageConfigDatastoreOptionsArray(object):
 
 
 class JobTriggerInspectJobStorageConfigDatastoreOptionsPartitionId(object):
+
     def __init__(self, project_id: str = None, namespace_id: str = None):
         self.project_id = project_id
         self.namespace_id = namespace_id
@@ -459,6 +464,7 @@ class JobTriggerInspectJobStorageConfigDatastoreOptionsPartitionIdArray(object):
 
 
 class JobTriggerInspectJobStorageConfigDatastoreOptionsKind(object):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -501,6 +507,7 @@ class JobTriggerInspectJobStorageConfigDatastoreOptionsKindArray(object):
 
 
 class JobTriggerInspectJobStorageConfigCloudStorageOptions(object):
+
     def __init__(
         self,
         file_set: dict = None,
@@ -599,6 +606,7 @@ class JobTriggerInspectJobStorageConfigCloudStorageOptionsArray(object):
 
 
 class JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSet(object):
+
     def __init__(self, url: str = None, regex_file_set: dict = None):
         self.url = url
         self.regex_file_set = regex_file_set
@@ -657,6 +665,7 @@ class JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetArray(object):
 
 
 class JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRegexFileSet(object):
+
     def __init__(
         self,
         bucket_name: str = None,
@@ -720,6 +729,7 @@ class JobTriggerInspectJobStorageConfigCloudStorageOptionsFileSetRegexFileSetArr
 
 
 class JobTriggerInspectJobStorageConfigBigQueryOptions(object):
+
     def __init__(
         self,
         table_reference: dict = None,
@@ -835,6 +845,7 @@ class JobTriggerInspectJobStorageConfigBigQueryOptionsArray(object):
 
 
 class JobTriggerInspectJobStorageConfigBigQueryOptionsTableReference(object):
+
     def __init__(
         self, project_id: str = None, dataset_id: str = None, table_id: str = None
     ):
@@ -889,6 +900,7 @@ class JobTriggerInspectJobStorageConfigBigQueryOptionsTableReferenceArray(object
 
 
 class JobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFields(object):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -937,6 +949,7 @@ class JobTriggerInspectJobStorageConfigBigQueryOptionsIdentifyingFieldsArray(obj
 
 
 class JobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFields(object):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -981,6 +994,7 @@ class JobTriggerInspectJobStorageConfigBigQueryOptionsExcludedFieldsArray(object
 
 
 class JobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFields(object):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -1025,6 +1039,7 @@ class JobTriggerInspectJobStorageConfigBigQueryOptionsIncludedFieldsArray(object
 
 
 class JobTriggerInspectJobStorageConfigHybridOptions(object):
+
     def __init__(
         self,
         description: str = None,
@@ -1099,6 +1114,7 @@ class JobTriggerInspectJobStorageConfigHybridOptionsArray(object):
 
 
 class JobTriggerInspectJobStorageConfigHybridOptionsTableOptions(object):
+
     def __init__(self, identifying_fields: list = None):
         self.identifying_fields = identifying_fields
 
@@ -1153,6 +1169,7 @@ class JobTriggerInspectJobStorageConfigHybridOptionsTableOptionsArray(object):
 class JobTriggerInspectJobStorageConfigHybridOptionsTableOptionsIdentifyingFields(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -1205,6 +1222,7 @@ class JobTriggerInspectJobStorageConfigHybridOptionsTableOptionsIdentifyingField
 
 
 class JobTriggerInspectJobStorageConfigTimespanConfig(object):
+
     def __init__(
         self,
         start_time: str = None,
@@ -1281,6 +1299,7 @@ class JobTriggerInspectJobStorageConfigTimespanConfigArray(object):
 
 
 class JobTriggerInspectJobStorageConfigTimespanConfigTimestampField(object):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -1325,6 +1344,7 @@ class JobTriggerInspectJobStorageConfigTimespanConfigTimestampFieldArray(object)
 
 
 class JobTriggerInspectJobInspectConfig(object):
+
     def __init__(
         self,
         info_types: list = None,
@@ -1428,6 +1448,7 @@ class JobTriggerInspectJobInspectConfigArray(object):
 
 
 class JobTriggerInspectJobInspectConfigInfoTypes(object):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -1468,6 +1489,7 @@ class JobTriggerInspectJobInspectConfigInfoTypesArray(object):
 
 
 class JobTriggerInspectJobInspectConfigLimits(object):
+
     def __init__(
         self,
         max_findings_per_item: int = None,
@@ -1533,6 +1555,7 @@ class JobTriggerInspectJobInspectConfigLimitsArray(object):
 
 
 class JobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoType(object):
+
     def __init__(self, info_type: dict = None, max_findings: int = None):
         self.info_type = info_type
         self.max_findings = max_findings
@@ -1591,6 +1614,7 @@ class JobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeArray(object)
 
 
 class JobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(object):
+
     def __init__(self, name: str = None, version: str = None):
         self.name = name
         self.version = version
@@ -1645,6 +1669,7 @@ class JobTriggerInspectJobInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeArray
 
 
 class JobTriggerInspectJobInspectConfigCustomInfoTypes(object):
+
     def __init__(
         self,
         info_type: dict = None,
@@ -1797,6 +1822,7 @@ class JobTriggerInspectJobInspectConfigCustomInfoTypesArray(object):
 
 
 class JobTriggerInspectJobInspectConfigCustomInfoTypesInfoType(object):
+
     def __init__(self, name: str = None, version: str = None):
         self.name = name
         self.version = version
@@ -1845,6 +1871,7 @@ class JobTriggerInspectJobInspectConfigCustomInfoTypesInfoTypeArray(object):
 
 
 class JobTriggerInspectJobInspectConfigCustomInfoTypesDictionary(object):
+
     def __init__(self, word_list: dict = None, cloud_storage_path: dict = None):
         self.word_list = word_list
         self.cloud_storage_path = cloud_storage_path
@@ -1913,6 +1940,7 @@ class JobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryArray(object):
 
 
 class JobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryWordList(object):
+
     def __init__(self, words: list = None):
         self.words = words
 
@@ -1963,6 +1991,7 @@ class JobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryWordListArray(ob
 class JobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloudStoragePath(
     object
 ):
+
     def __init__(self, path: str = None):
         self.path = path
 
@@ -2015,6 +2044,7 @@ class JobTriggerInspectJobInspectConfigCustomInfoTypesDictionaryCloudStoragePath
 
 
 class JobTriggerInspectJobInspectConfigCustomInfoTypesRegex(object):
+
     def __init__(self, pattern: str = None, group_indexes: list = None):
         self.pattern = pattern
         self.group_indexes = group_indexes
@@ -2061,6 +2091,7 @@ class JobTriggerInspectJobInspectConfigCustomInfoTypesRegexArray(object):
 
 
 class JobTriggerInspectJobInspectConfigCustomInfoTypesSurrogateType(object):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -2098,6 +2129,7 @@ class JobTriggerInspectJobInspectConfigCustomInfoTypesSurrogateTypeArray(object)
 
 
 class JobTriggerInspectJobInspectConfigCustomInfoTypesStoredType(object):
+
     def __init__(self, name: str = None, create_time: str = None):
         self.name = name
         self.create_time = create_time
@@ -2146,6 +2178,7 @@ class JobTriggerInspectJobInspectConfigCustomInfoTypesStoredTypeArray(object):
 
 
 class JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRules(object):
+
     def __init__(self, hotword_rule: dict = None):
         self.hotword_rule = hotword_rule
 
@@ -2200,6 +2233,7 @@ class JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesArray(object
 
 
 class JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRule(object):
+
     def __init__(
         self,
         hotword_regex: dict = None,
@@ -2295,6 +2329,7 @@ class JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleA
 class JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleHotwordRegex(
     object
 ):
+
     def __init__(self, pattern: str = None, group_indexes: list = None):
         self.pattern = pattern
         self.group_indexes = group_indexes
@@ -2351,6 +2386,7 @@ class JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleH
 class JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleProximity(
     object
 ):
+
     def __init__(self, window_before: int = None, window_after: int = None):
         self.window_before = window_before
         self.window_after = window_after
@@ -2407,6 +2443,7 @@ class JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleP
 class JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleLikelihoodAdjustment(
     object
 ):
+
     def __init__(self, fixed_likelihood: str = None, relative_likelihood: int = None):
         self.fixed_likelihood = fixed_likelihood
         self.relative_likelihood = relative_likelihood
@@ -2467,6 +2504,7 @@ class JobTriggerInspectJobInspectConfigCustomInfoTypesDetectionRulesHotwordRuleL
 
 
 class JobTriggerInspectJobInspectConfigRuleSet(object):
+
     def __init__(self, info_types: list = None, rules: list = None):
         self.info_types = info_types
         self.rules = rules
@@ -2523,6 +2561,7 @@ class JobTriggerInspectJobInspectConfigRuleSetArray(object):
 
 
 class JobTriggerInspectJobInspectConfigRuleSetInfoTypes(object):
+
     def __init__(self, name: str = None, version: str = None):
         self.name = name
         self.version = version
@@ -2569,6 +2608,7 @@ class JobTriggerInspectJobInspectConfigRuleSetInfoTypesArray(object):
 
 
 class JobTriggerInspectJobInspectConfigRuleSetRules(object):
+
     def __init__(self, hotword_rule: dict = None, exclusion_rule: dict = None):
         self.hotword_rule = hotword_rule
         self.exclusion_rule = exclusion_rule
@@ -2634,6 +2674,7 @@ class JobTriggerInspectJobInspectConfigRuleSetRulesArray(object):
 
 
 class JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRule(object):
+
     def __init__(
         self,
         hotword_regex: dict = None,
@@ -2721,6 +2762,7 @@ class JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleArray(object):
 
 
 class JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotwordRegex(object):
+
     def __init__(self, pattern: str = None, group_indexes: list = None):
         self.pattern = pattern
         self.group_indexes = group_indexes
@@ -2773,6 +2815,7 @@ class JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleHotwordRegexArray(
 
 
 class JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProximity(object):
+
     def __init__(self, window_before: int = None, window_after: int = None):
         self.window_before = window_before
         self.window_after = window_after
@@ -2827,6 +2870,7 @@ class JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleProximityArray(obj
 class JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(
     object
 ):
+
     def __init__(self, fixed_likelihood: str = None, relative_likelihood: int = None):
         self.fixed_likelihood = fixed_likelihood
         self.relative_likelihood = relative_likelihood
@@ -2887,6 +2931,7 @@ class JobTriggerInspectJobInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustme
 
 
 class JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRule(object):
+
     def __init__(
         self,
         dictionary: dict = None,
@@ -2985,6 +3030,7 @@ class JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleArray(object):
 
 
 class JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionary(object):
+
     def __init__(self, word_list: dict = None, cloud_storage_path: dict = None):
         self.word_list = word_list
         self.cloud_storage_path = cloud_storage_path
@@ -3059,6 +3105,7 @@ class JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryArray(
 class JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(
     object
 ):
+
     def __init__(self, words: list = None):
         self.words = words
 
@@ -3111,6 +3158,7 @@ class JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryWordLi
 class JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(
     object
 ):
+
     def __init__(self, path: str = None):
         self.path = path
 
@@ -3161,6 +3209,7 @@ class JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleDictionaryCloudS
 
 
 class JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegex(object):
+
     def __init__(self, pattern: str = None, group_indexes: list = None):
         self.pattern = pattern
         self.group_indexes = group_indexes
@@ -3213,6 +3262,7 @@ class JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleRegexArray(objec
 class JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(
     object
 ):
+
     def __init__(self, info_types: list = None):
         self.info_types = info_types
 
@@ -3273,6 +3323,7 @@ class JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes
 class JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes(
     object
 ):
+
     def __init__(self, name: str = None, version: str = None):
         self.name = name
         self.version = version
@@ -3327,6 +3378,7 @@ class JobTriggerInspectJobInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes
 
 
 class JobTriggerInspectJobActions(object):
+
     def __init__(
         self,
         save_findings: dict = None,
@@ -3443,6 +3495,7 @@ class JobTriggerInspectJobActionsArray(object):
 
 
 class JobTriggerInspectJobActionsSaveFindings(object):
+
     def __init__(self, output_config: dict = None):
         self.output_config = output_config
 
@@ -3491,6 +3544,7 @@ class JobTriggerInspectJobActionsSaveFindingsArray(object):
 
 
 class JobTriggerInspectJobActionsSaveFindingsOutputConfig(object):
+
     def __init__(
         self, table: dict = None, dlp_storage: dict = None, output_schema: str = None
     ):
@@ -3569,6 +3623,7 @@ class JobTriggerInspectJobActionsSaveFindingsOutputConfigArray(object):
 
 
 class JobTriggerInspectJobActionsSaveFindingsOutputConfigTable(object):
+
     def __init__(
         self, project_id: str = None, dataset_id: str = None, table_id: str = None
     ):
@@ -3623,6 +3678,7 @@ class JobTriggerInspectJobActionsSaveFindingsOutputConfigTableArray(object):
 
 
 class JobTriggerInspectJobActionsSaveFindingsOutputConfigDlpStorage(object):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -3660,6 +3716,7 @@ class JobTriggerInspectJobActionsSaveFindingsOutputConfigDlpStorageArray(object)
 
 
 class JobTriggerInspectJobActionsPubSub(object):
+
     def __init__(self, topic: str = None):
         self.topic = topic
 
@@ -3696,6 +3753,7 @@ class JobTriggerInspectJobActionsPubSubArray(object):
 
 
 class JobTriggerInspectJobActionsPublishSummaryToCscc(object):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -3731,6 +3789,7 @@ class JobTriggerInspectJobActionsPublishSummaryToCsccArray(object):
 
 
 class JobTriggerInspectJobActionsPublishFindingsToCloudDataCatalog(object):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -3768,6 +3827,7 @@ class JobTriggerInspectJobActionsPublishFindingsToCloudDataCatalogArray(object):
 
 
 class JobTriggerInspectJobActionsJobNotificationEmails(object):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -3803,6 +3863,7 @@ class JobTriggerInspectJobActionsJobNotificationEmailsArray(object):
 
 
 class JobTriggerInspectJobActionsPublishToStackdriver(object):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -3838,6 +3899,7 @@ class JobTriggerInspectJobActionsPublishToStackdriverArray(object):
 
 
 class JobTriggerTriggers(object):
+
     def __init__(self, schedule: dict = None, manual: dict = None):
         self.schedule = schedule
         self.manual = manual
@@ -3884,6 +3946,7 @@ class JobTriggerTriggersArray(object):
 
 
 class JobTriggerTriggersSchedule(object):
+
     def __init__(self, recurrence_period_duration: str = None):
         self.recurrence_period_duration = recurrence_period_duration
 
@@ -3924,6 +3987,7 @@ class JobTriggerTriggersScheduleArray(object):
 
 
 class JobTriggerTriggersManual(object):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -3953,6 +4017,7 @@ class JobTriggerTriggersManualArray(object):
 
 
 class JobTriggerErrors(object):
+
     def __init__(self, details: dict = None, timestamps: list = None):
         self.details = details
         self.timestamps = timestamps
@@ -3995,6 +4060,7 @@ class JobTriggerErrorsArray(object):
 
 
 class JobTriggerErrorsDetails(object):
+
     def __init__(self, code: int = None, message: str = None, details: list = None):
         self.code = code
         self.message = message
@@ -4041,6 +4107,7 @@ class JobTriggerErrorsDetailsArray(object):
 
 
 class JobTriggerErrorsDetailsDetails(object):
+
     def __init__(self, type_url: str = None, value: str = None):
         self.type_url = type_url
         self.value = value

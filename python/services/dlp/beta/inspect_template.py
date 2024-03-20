@@ -32,6 +32,7 @@ class InspectTemplate(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -146,6 +147,7 @@ class InspectTemplate(object):
 
 
 class InspectTemplateInspectConfig(object):
+
     def __init__(
         self,
         info_types: list = None,
@@ -254,6 +256,7 @@ class InspectTemplateInspectConfigArray(object):
 
 
 class InspectTemplateInspectConfigInfoTypes(object):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -290,6 +293,7 @@ class InspectTemplateInspectConfigInfoTypesArray(object):
 
 
 class InspectTemplateInspectConfigLimits(object):
+
     def __init__(
         self,
         max_findings_per_item: int = None,
@@ -353,6 +357,7 @@ class InspectTemplateInspectConfigLimitsArray(object):
 
 
 class InspectTemplateInspectConfigLimitsMaxFindingsPerInfoType(object):
+
     def __init__(self, info_type: dict = None, max_findings: int = None):
         self.info_type = info_type
         self.max_findings = max_findings
@@ -411,6 +416,7 @@ class InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeArray(object):
 
 
 class InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoType(object):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -457,6 +463,7 @@ class InspectTemplateInspectConfigLimitsMaxFindingsPerInfoTypeInfoTypeArray(obje
 
 
 class InspectTemplateInspectConfigCustomInfoTypes(object):
+
     def __init__(
         self,
         info_type: dict = None,
@@ -594,6 +601,7 @@ class InspectTemplateInspectConfigCustomInfoTypesArray(object):
 
 
 class InspectTemplateInspectConfigCustomInfoTypesInfoType(object):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -638,6 +646,7 @@ class InspectTemplateInspectConfigCustomInfoTypesInfoTypeArray(object):
 
 
 class InspectTemplateInspectConfigCustomInfoTypesDictionary(object):
+
     def __init__(self, word_list: dict = None, cloud_storage_path: dict = None):
         self.word_list = word_list
         self.cloud_storage_path = cloud_storage_path
@@ -706,6 +715,7 @@ class InspectTemplateInspectConfigCustomInfoTypesDictionaryArray(object):
 
 
 class InspectTemplateInspectConfigCustomInfoTypesDictionaryWordList(object):
+
     def __init__(self, words: list = None):
         self.words = words
 
@@ -750,6 +760,7 @@ class InspectTemplateInspectConfigCustomInfoTypesDictionaryWordListArray(object)
 
 
 class InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePath(object):
+
     def __init__(self, path: str = None):
         self.path = path
 
@@ -800,6 +811,7 @@ class InspectTemplateInspectConfigCustomInfoTypesDictionaryCloudStoragePathArray
 
 
 class InspectTemplateInspectConfigCustomInfoTypesRegex(object):
+
     def __init__(self, pattern: str = None, group_indexes: list = None):
         self.pattern = pattern
         self.group_indexes = group_indexes
@@ -848,6 +860,7 @@ class InspectTemplateInspectConfigCustomInfoTypesRegexArray(object):
 
 
 class InspectTemplateInspectConfigCustomInfoTypesSurrogateType(object):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -885,6 +898,7 @@ class InspectTemplateInspectConfigCustomInfoTypesSurrogateTypeArray(object):
 
 
 class InspectTemplateInspectConfigCustomInfoTypesStoredType(object):
+
     def __init__(self, name: str = None, create_time: str = None):
         self.name = name
         self.create_time = create_time
@@ -933,6 +947,7 @@ class InspectTemplateInspectConfigCustomInfoTypesStoredTypeArray(object):
 
 
 class InspectTemplateInspectConfigRuleSet(object):
+
     def __init__(self, info_types: list = None, rules: list = None):
         self.info_types = info_types
         self.rules = rules
@@ -985,6 +1000,7 @@ class InspectTemplateInspectConfigRuleSetArray(object):
 
 
 class InspectTemplateInspectConfigRuleSetInfoTypes(object):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -1026,6 +1042,7 @@ class InspectTemplateInspectConfigRuleSetInfoTypesArray(object):
 
 
 class InspectTemplateInspectConfigRuleSetRules(object):
+
     def __init__(self, hotword_rule: dict = None, exclusion_rule: dict = None):
         self.hotword_rule = hotword_rule
         self.exclusion_rule = exclusion_rule
@@ -1088,6 +1105,7 @@ class InspectTemplateInspectConfigRuleSetRulesArray(object):
 
 
 class InspectTemplateInspectConfigRuleSetRulesHotwordRule(object):
+
     def __init__(
         self,
         hotword_regex: dict = None,
@@ -1175,6 +1193,7 @@ class InspectTemplateInspectConfigRuleSetRulesHotwordRuleArray(object):
 
 
 class InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegex(object):
+
     def __init__(self, pattern: str = None, group_indexes: list = None):
         self.pattern = pattern
         self.group_indexes = group_indexes
@@ -1225,6 +1244,7 @@ class InspectTemplateInspectConfigRuleSetRulesHotwordRuleHotwordRegexArray(objec
 
 
 class InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximity(object):
+
     def __init__(self, window_before: int = None, window_after: int = None):
         self.window_before = window_before
         self.window_after = window_after
@@ -1273,6 +1293,7 @@ class InspectTemplateInspectConfigRuleSetRulesHotwordRuleProximityArray(object):
 
 
 class InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustment(object):
+
     def __init__(self, fixed_likelihood: str = None, relative_likelihood: int = None):
         self.fixed_likelihood = fixed_likelihood
         self.relative_likelihood = relative_likelihood
@@ -1333,6 +1354,7 @@ class InspectTemplateInspectConfigRuleSetRulesHotwordRuleLikelihoodAdjustmentArr
 
 
 class InspectTemplateInspectConfigRuleSetRulesExclusionRule(object):
+
     def __init__(
         self,
         dictionary: dict = None,
@@ -1431,6 +1453,7 @@ class InspectTemplateInspectConfigRuleSetRulesExclusionRuleArray(object):
 
 
 class InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionary(object):
+
     def __init__(self, word_list: dict = None, cloud_storage_path: dict = None):
         self.word_list = word_list
         self.cloud_storage_path = cloud_storage_path
@@ -1501,6 +1524,7 @@ class InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryArray(objec
 
 
 class InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordList(object):
+
     def __init__(self, words: list = None):
         self.words = words
 
@@ -1553,6 +1577,7 @@ class InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryWordListArr
 class InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStoragePath(
     object
 ):
+
     def __init__(self, path: str = None):
         self.path = path
 
@@ -1603,6 +1628,7 @@ class InspectTemplateInspectConfigRuleSetRulesExclusionRuleDictionaryCloudStorag
 
 
 class InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegex(object):
+
     def __init__(self, pattern: str = None, group_indexes: list = None):
         self.pattern = pattern
         self.group_indexes = group_indexes
@@ -1651,6 +1677,7 @@ class InspectTemplateInspectConfigRuleSetRulesExclusionRuleRegexArray(object):
 
 
 class InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypes(object):
+
     def __init__(self, info_types: list = None):
         self.info_types = info_types
 
@@ -1711,6 +1738,7 @@ class InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesArray
 class InspectTemplateInspectConfigRuleSetRulesExclusionRuleExcludeInfoTypesInfoTypes(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 

@@ -33,6 +33,7 @@ class Project(object):
         project_number: int = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.labels = labels
         self.displayName = displayName

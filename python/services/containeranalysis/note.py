@@ -39,6 +39,7 @@ class Note(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.short_description = short_description
@@ -268,6 +269,7 @@ class Note(object):
 
 
 class NoteRelatedUrl(object):
+
     def __init__(self, url: str = None, label: str = None):
         self.url = url
         self.label = label
@@ -308,6 +310,7 @@ class NoteRelatedUrlArray(object):
 
 
 class NoteVulnerability(object):
+
     def __init__(
         self,
         cvss_score: float = None,
@@ -378,6 +381,7 @@ class NoteVulnerabilityArray(object):
 
 
 class NoteVulnerabilityDetails(object):
+
     def __init__(
         self,
         severity_name: str = None,
@@ -498,6 +502,7 @@ class NoteVulnerabilityDetailsArray(object):
 
 
 class NoteVulnerabilityDetailsAffectedVersionStart(object):
+
     def __init__(
         self,
         epoch: int = None,
@@ -566,6 +571,7 @@ class NoteVulnerabilityDetailsAffectedVersionStartArray(object):
 
 
 class NoteVulnerabilityDetailsAffectedVersionEnd(object):
+
     def __init__(
         self,
         epoch: int = None,
@@ -633,6 +639,7 @@ class NoteVulnerabilityDetailsAffectedVersionEndArray(object):
 
 
 class NoteVulnerabilityDetailsFixedVersion(object):
+
     def __init__(
         self,
         epoch: int = None,
@@ -694,6 +701,7 @@ class NoteVulnerabilityDetailsFixedVersionArray(object):
 
 
 class NoteVulnerabilityCvssV3(object):
+
     def __init__(
         self,
         base_score: float = None,
@@ -831,6 +839,7 @@ class NoteVulnerabilityCvssV3Array(object):
 
 
 class NoteVulnerabilityWindowsDetails(object):
+
     def __init__(
         self,
         cpe_uri: str = None,
@@ -891,6 +900,7 @@ class NoteVulnerabilityWindowsDetailsArray(object):
 
 
 class NoteVulnerabilityWindowsDetailsFixingKbs(object):
+
     def __init__(self, name: str = None, url: str = None):
         self.name = name
         self.url = url
@@ -933,6 +943,7 @@ class NoteVulnerabilityWindowsDetailsFixingKbsArray(object):
 
 
 class NoteBuild(object):
+
     def __init__(self, builder_version: str = None):
         self.builder_version = builder_version
 
@@ -969,6 +980,7 @@ class NoteBuildArray(object):
 
 
 class NoteImage(object):
+
     def __init__(self, resource_url: str = None, fingerprint: dict = None):
         self.resource_url = resource_url
         self.fingerprint = fingerprint
@@ -1013,6 +1025,7 @@ class NoteImageArray(object):
 
 
 class NoteImageFingerprint(object):
+
     def __init__(self, v1_name: str = None, v2_blob: list = None, v2_name: str = None):
         self.v1_name = v1_name
         self.v2_blob = v2_blob
@@ -1057,6 +1070,7 @@ class NoteImageFingerprintArray(object):
 
 
 class NotePackage(object):
+
     def __init__(self, name: str = None, distribution: list = None):
         self.name = name
         self.distribution = distribution
@@ -1099,6 +1113,7 @@ class NotePackageArray(object):
 
 
 class NotePackageDistribution(object):
+
     def __init__(
         self,
         cpe_uri: str = None,
@@ -1173,6 +1188,7 @@ class NotePackageDistributionArray(object):
 
 
 class NotePackageDistributionLatestVersion(object):
+
     def __init__(
         self,
         epoch: int = None,
@@ -1234,6 +1250,7 @@ class NotePackageDistributionLatestVersionArray(object):
 
 
 class NoteDiscovery(object):
+
     def __init__(self, analysis_kind: str = None):
         self.analysis_kind = analysis_kind
 
@@ -1274,6 +1291,7 @@ class NoteDiscoveryArray(object):
 
 
 class NoteDeployment(object):
+
     def __init__(self, resource_uri: list = None):
         self.resource_uri = resource_uri
 
@@ -1310,6 +1328,7 @@ class NoteDeploymentArray(object):
 
 
 class NoteAttestation(object):
+
     def __init__(self, hint: dict = None):
         self.hint = hint
 
@@ -1348,6 +1367,7 @@ class NoteAttestationArray(object):
 
 
 class NoteAttestationHint(object):
+
     def __init__(self, human_readable_name: str = None):
         self.human_readable_name = human_readable_name
 

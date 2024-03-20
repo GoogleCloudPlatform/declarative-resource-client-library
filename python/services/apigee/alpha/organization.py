@@ -42,6 +42,7 @@ class Organization(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -224,6 +225,7 @@ class Organization(object):
 
 
 class OrganizationAddonsConfig(object):
+
     def __init__(
         self, advanced_api_ops_config: dict = None, monetization_config: dict = None
     ):
@@ -286,6 +288,7 @@ class OrganizationAddonsConfigArray(object):
 
 
 class OrganizationAddonsConfigAdvancedApiOpsConfig(object):
+
     def __init__(self, enabled: bool = None):
         self.enabled = enabled
 
@@ -327,6 +330,7 @@ class OrganizationAddonsConfigAdvancedApiOpsConfigArray(object):
 
 
 class OrganizationAddonsConfigMonetizationConfig(object):
+
     def __init__(self, enabled: bool = None):
         self.enabled = enabled
 

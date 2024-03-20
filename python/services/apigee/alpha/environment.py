@@ -31,6 +31,7 @@ class Environment(object):
         apigee_organization: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description

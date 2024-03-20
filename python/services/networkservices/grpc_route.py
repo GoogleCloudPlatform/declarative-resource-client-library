@@ -37,6 +37,7 @@ class GrpcRoute(object):
         self_link: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.labels = labels
@@ -161,6 +162,7 @@ class GrpcRoute(object):
 
 
 class GrpcRouteRules(object):
+
     def __init__(self, matches: list = None, action: dict = None):
         self.matches = matches
         self.action = action
@@ -203,6 +205,7 @@ class GrpcRouteRulesArray(object):
 
 
 class GrpcRouteRulesMatches(object):
+
     def __init__(self, method: dict = None, headers: list = None):
         self.method = method
         self.headers = headers
@@ -247,6 +250,7 @@ class GrpcRouteRulesMatchesArray(object):
 
 
 class GrpcRouteRulesMatchesMethod(object):
+
     def __init__(
         self,
         type: str = None,
@@ -301,6 +305,7 @@ class GrpcRouteRulesMatchesMethodArray(object):
 
 
 class GrpcRouteRulesMatchesHeaders(object):
+
     def __init__(self, type: str = None, key: str = None, value: str = None):
         self.type = type
         self.key = key
@@ -345,6 +350,7 @@ class GrpcRouteRulesMatchesHeadersArray(object):
 
 
 class GrpcRouteRulesAction(object):
+
     def __init__(
         self,
         destinations: list = None,
@@ -419,6 +425,7 @@ class GrpcRouteRulesActionArray(object):
 
 
 class GrpcRouteRulesActionDestinations(object):
+
     def __init__(self, weight: int = None, service_name: str = None):
         self.weight = weight
         self.service_name = service_name
@@ -459,6 +466,7 @@ class GrpcRouteRulesActionDestinationsArray(object):
 
 
 class GrpcRouteRulesActionFaultInjectionPolicy(object):
+
     def __init__(self, delay: dict = None, abort: dict = None):
         self.delay = delay
         self.abort = abort
@@ -513,6 +521,7 @@ class GrpcRouteRulesActionFaultInjectionPolicyArray(object):
 
 
 class GrpcRouteRulesActionFaultInjectionPolicyDelay(object):
+
     def __init__(self, fixed_delay: str = None, percentage: int = None):
         self.fixed_delay = fixed_delay
         self.percentage = percentage
@@ -560,6 +569,7 @@ class GrpcRouteRulesActionFaultInjectionPolicyDelayArray(object):
 
 
 class GrpcRouteRulesActionFaultInjectionPolicyAbort(object):
+
     def __init__(self, http_status: int = None, percentage: int = None):
         self.http_status = http_status
         self.percentage = percentage
@@ -607,6 +617,7 @@ class GrpcRouteRulesActionFaultInjectionPolicyAbortArray(object):
 
 
 class GrpcRouteRulesActionRetryPolicy(object):
+
     def __init__(self, retry_conditions: list = None, num_retries: int = None):
         self.retry_conditions = retry_conditions
         self.num_retries = num_retries

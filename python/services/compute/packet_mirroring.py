@@ -38,6 +38,7 @@ class PacketMirroring(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -220,6 +221,7 @@ class PacketMirroring(object):
 
 
 class PacketMirroringNetwork(object):
+
     def __init__(self, url: str = None, canonical_url: str = None):
         self.url = url
         self.canonical_url = canonical_url
@@ -260,6 +262,7 @@ class PacketMirroringNetworkArray(object):
 
 
 class PacketMirroringCollectorIlb(object):
+
     def __init__(self, url: str = None, canonical_url: str = None):
         self.url = url
         self.canonical_url = canonical_url
@@ -300,6 +303,7 @@ class PacketMirroringCollectorIlbArray(object):
 
 
 class PacketMirroringMirroredResources(object):
+
     def __init__(
         self, subnetworks: list = None, instances: list = None, tags: list = None
     ):
@@ -360,6 +364,7 @@ class PacketMirroringMirroredResourcesArray(object):
 
 
 class PacketMirroringMirroredResourcesSubnetworks(object):
+
     def __init__(self, url: str = None, canonical_url: str = None):
         self.url = url
         self.canonical_url = canonical_url
@@ -404,6 +409,7 @@ class PacketMirroringMirroredResourcesSubnetworksArray(object):
 
 
 class PacketMirroringMirroredResourcesInstances(object):
+
     def __init__(self, url: str = None, canonical_url: str = None):
         self.url = url
         self.canonical_url = canonical_url
@@ -448,6 +454,7 @@ class PacketMirroringMirroredResourcesInstancesArray(object):
 
 
 class PacketMirroringFilter(object):
+
     def __init__(
         self, cidr_ranges: list = None, ip_protocols: list = None, direction: str = None
     ):

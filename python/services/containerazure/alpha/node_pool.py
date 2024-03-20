@@ -43,6 +43,7 @@ class NodePool(object):
         cluster: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.version = version
@@ -252,6 +253,7 @@ class NodePool(object):
 
 
 class NodePoolConfig(object):
+
     def __init__(
         self,
         vm_size: str = None,
@@ -333,6 +335,7 @@ class NodePoolConfigArray(object):
 
 
 class NodePoolConfigRootVolume(object):
+
     def __init__(self, size_gib: int = None):
         self.size_gib = size_gib
 
@@ -369,6 +372,7 @@ class NodePoolConfigRootVolumeArray(object):
 
 
 class NodePoolConfigSshConfig(object):
+
     def __init__(self, authorized_key: str = None):
         self.authorized_key = authorized_key
 
@@ -405,6 +409,7 @@ class NodePoolConfigSshConfigArray(object):
 
 
 class NodePoolConfigProxyConfig(object):
+
     def __init__(self, resource_group_id: str = None, secret_id: str = None):
         self.resource_group_id = resource_group_id
         self.secret_id = secret_id
@@ -445,6 +450,7 @@ class NodePoolConfigProxyConfigArray(object):
 
 
 class NodePoolAutoscaling(object):
+
     def __init__(self, min_node_count: int = None, max_node_count: int = None):
         self.min_node_count = min_node_count
         self.max_node_count = max_node_count
@@ -485,6 +491,7 @@ class NodePoolAutoscalingArray(object):
 
 
 class NodePoolMaxPodsConstraint(object):
+
     def __init__(self, max_pods_per_node: int = None):
         self.max_pods_per_node = max_pods_per_node
 
@@ -521,6 +528,7 @@ class NodePoolMaxPodsConstraintArray(object):
 
 
 class NodePoolManagement(object):
+
     def __init__(self, auto_repair: bool = None):
         self.auto_repair = auto_repair
 

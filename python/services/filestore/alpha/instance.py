@@ -35,6 +35,7 @@ class Instance(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -158,6 +159,7 @@ class Instance(object):
 
 
 class InstanceFileShares(object):
+
     def __init__(
         self,
         name: str = None,
@@ -220,6 +222,7 @@ class InstanceFileSharesArray(object):
 
 
 class InstanceFileSharesNfsExportOptions(object):
+
     def __init__(
         self,
         ip_ranges: list = None,
@@ -291,6 +294,7 @@ class InstanceFileSharesNfsExportOptionsArray(object):
 
 
 class InstanceNetworks(object):
+
     def __init__(
         self,
         network: str = None,

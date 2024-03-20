@@ -52,6 +52,7 @@ class InstanceGroupManager(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -360,6 +361,7 @@ class InstanceGroupManager(object):
 
 
 class InstanceGroupManagerDistributionPolicy(object):
+
     def __init__(self, zones: list = None, target_shape: str = None):
         self.zones = zones
         self.target_shape = target_shape
@@ -416,6 +418,7 @@ class InstanceGroupManagerDistributionPolicyArray(object):
 
 
 class InstanceGroupManagerDistributionPolicyZones(object):
+
     def __init__(self, zone: str = None):
         self.zone = zone
 
@@ -458,6 +461,7 @@ class InstanceGroupManagerDistributionPolicyZonesArray(object):
 
 
 class InstanceGroupManagerVersions(object):
+
     def __init__(
         self, name: str = None, instance_template: str = None, target_size: dict = None
     ):
@@ -510,6 +514,7 @@ class InstanceGroupManagerVersionsArray(object):
 
 
 class InstanceGroupManagerVersionsTargetSize(object):
+
     def __init__(self, fixed: int = None, percent: int = None, calculated: int = None):
         self.fixed = fixed
         self.percent = percent
@@ -556,6 +561,7 @@ class InstanceGroupManagerVersionsTargetSizeArray(object):
 
 
 class InstanceGroupManagerCurrentActions(object):
+
     def __init__(
         self,
         none: int = None,
@@ -639,6 +645,7 @@ class InstanceGroupManagerCurrentActionsArray(object):
 
 
 class InstanceGroupManagerStatus(object):
+
     def __init__(
         self,
         is_stable: bool = None,
@@ -705,6 +712,7 @@ class InstanceGroupManagerStatusArray(object):
 
 
 class InstanceGroupManagerStatusVersionTarget(object):
+
     def __init__(self, is_reached: bool = None):
         self.is_reached = is_reached
 
@@ -745,6 +753,7 @@ class InstanceGroupManagerStatusVersionTargetArray(object):
 
 
 class InstanceGroupManagerStatusStateful(object):
+
     def __init__(
         self,
         has_stateful_config: bool = None,
@@ -804,6 +813,7 @@ class InstanceGroupManagerStatusStatefulArray(object):
 
 
 class InstanceGroupManagerStatusStatefulPerInstanceConfigs(object):
+
     def __init__(self, all_effective: bool = None):
         self.all_effective = all_effective
 
@@ -848,6 +858,7 @@ class InstanceGroupManagerStatusStatefulPerInstanceConfigsArray(object):
 
 
 class InstanceGroupManagerAutoHealingPolicies(object):
+
     def __init__(self, health_check: str = None, initial_delay_sec: int = None):
         self.health_check = health_check
         self.initial_delay_sec = initial_delay_sec
@@ -892,6 +903,7 @@ class InstanceGroupManagerAutoHealingPoliciesArray(object):
 
 
 class InstanceGroupManagerUpdatePolicy(object):
+
     def __init__(
         self,
         type: str = None,
@@ -1012,6 +1024,7 @@ class InstanceGroupManagerUpdatePolicyArray(object):
 
 
 class InstanceGroupManagerUpdatePolicyMaxSurge(object):
+
     def __init__(self, fixed: int = None, percent: int = None, calculated: int = None):
         self.fixed = fixed
         self.percent = percent
@@ -1060,6 +1073,7 @@ class InstanceGroupManagerUpdatePolicyMaxSurgeArray(object):
 
 
 class InstanceGroupManagerUpdatePolicyMaxUnavailable(object):
+
     def __init__(self, fixed: int = None, percent: int = None, calculated: int = None):
         self.fixed = fixed
         self.percent = percent
@@ -1112,6 +1126,7 @@ class InstanceGroupManagerUpdatePolicyMaxUnavailableArray(object):
 
 
 class InstanceGroupManagerNamedPorts(object):
+
     def __init__(self, name: str = None, port: int = None):
         self.name = name
         self.port = port
@@ -1152,6 +1167,7 @@ class InstanceGroupManagerNamedPortsArray(object):
 
 
 class InstanceGroupManagerStatefulPolicy(object):
+
     def __init__(self, preserved_state: dict = None):
         self.preserved_state = preserved_state
 
@@ -1198,6 +1214,7 @@ class InstanceGroupManagerStatefulPolicyArray(object):
 
 
 class InstanceGroupManagerStatefulPolicyPreservedState(object):
+
     def __init__(
         self, disks: dict = None, internal_ips: dict = None, external_ips: dict = None
     ):
@@ -1252,6 +1269,7 @@ class InstanceGroupManagerStatefulPolicyPreservedStateArray(object):
 
 
 class InstanceGroupManagerStatefulPolicyPreservedStateDisks(object):
+
     def __init__(self, auto_delete: str = None):
         self.auto_delete = auto_delete
 
@@ -1302,6 +1320,7 @@ class InstanceGroupManagerStatefulPolicyPreservedStateDisksArray(object):
 
 
 class InstanceGroupManagerStatefulPolicyPreservedStateInternalIps(object):
+
     def __init__(self, auto_delete: str = None):
         self.auto_delete = auto_delete
 
@@ -1352,6 +1371,7 @@ class InstanceGroupManagerStatefulPolicyPreservedStateInternalIpsArray(object):
 
 
 class InstanceGroupManagerStatefulPolicyPreservedStateExternalIps(object):
+
     def __init__(self, auto_delete: str = None):
         self.auto_delete = auto_delete
 

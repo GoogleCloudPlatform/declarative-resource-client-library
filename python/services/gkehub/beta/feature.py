@@ -33,6 +33,7 @@ class Feature(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.labels = labels
@@ -125,6 +126,7 @@ class Feature(object):
 
 
 class FeatureResourceState(object):
+
     def __init__(self, state: str = None, has_resources: bool = None):
         self.state = state
         self.has_resources = has_resources
@@ -165,6 +167,7 @@ class FeatureResourceStateArray(object):
 
 
 class FeatureSpec(object):
+
     def __init__(
         self, multiclusteringress: dict = None, fleetobservability: dict = None
     ):
@@ -219,6 +222,7 @@ class FeatureSpecArray(object):
 
 
 class FeatureSpecMulticlusteringress(object):
+
     def __init__(self, config_membership: str = None):
         self.config_membership = config_membership
 
@@ -255,6 +259,7 @@ class FeatureSpecMulticlusteringressArray(object):
 
 
 class FeatureSpecFleetobservability(object):
+
     def __init__(self, logging_config: dict = None):
         self.logging_config = logging_config
 
@@ -299,6 +304,7 @@ class FeatureSpecFleetobservabilityArray(object):
 
 
 class FeatureSpecFleetobservabilityLoggingConfig(object):
+
     def __init__(
         self, default_config: dict = None, fleet_scope_logs_config: dict = None
     ):
@@ -365,6 +371,7 @@ class FeatureSpecFleetobservabilityLoggingConfigArray(object):
 
 
 class FeatureSpecFleetobservabilityLoggingConfigDefaultConfig(object):
+
     def __init__(self, mode: str = None):
         self.mode = mode
 
@@ -415,6 +422,7 @@ class FeatureSpecFleetobservabilityLoggingConfigDefaultConfigArray(object):
 
 
 class FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig(object):
+
     def __init__(self, mode: str = None):
         self.mode = mode
 
@@ -465,6 +473,7 @@ class FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigArray(object
 
 
 class FeatureState(object):
+
     def __init__(self, state: dict = None):
         self.state = state
 
@@ -503,6 +512,7 @@ class FeatureStateArray(object):
 
 
 class FeatureStateState(object):
+
     def __init__(
         self, code: str = None, description: str = None, update_time: str = None
     ):

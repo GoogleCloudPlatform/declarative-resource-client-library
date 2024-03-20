@@ -41,6 +41,7 @@ class NodePool(object):
         cluster: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.version = version
@@ -248,6 +249,7 @@ class NodePool(object):
 
 
 class NodePoolConfig(object):
+
     def __init__(
         self,
         instance_type: str = None,
@@ -392,6 +394,7 @@ class NodePoolConfigArray(object):
 
 
 class NodePoolConfigRootVolume(object):
+
     def __init__(
         self,
         size_gib: int = None,
@@ -455,6 +458,7 @@ class NodePoolConfigRootVolumeArray(object):
 
 
 class NodePoolConfigTaints(object):
+
     def __init__(self, key: str = None, value: str = None, effect: str = None):
         self.key = key
         self.value = value
@@ -499,6 +503,7 @@ class NodePoolConfigTaintsArray(object):
 
 
 class NodePoolConfigConfigEncryption(object):
+
     def __init__(self, kms_key_arn: str = None):
         self.kms_key_arn = kms_key_arn
 
@@ -535,6 +540,7 @@ class NodePoolConfigConfigEncryptionArray(object):
 
 
 class NodePoolConfigSshConfig(object):
+
     def __init__(self, ec2_key_pair: str = None):
         self.ec2_key_pair = ec2_key_pair
 
@@ -571,6 +577,7 @@ class NodePoolConfigSshConfigArray(object):
 
 
 class NodePoolConfigSpotConfig(object):
+
     def __init__(self, instance_types: list = None):
         self.instance_types = instance_types
 
@@ -607,6 +614,7 @@ class NodePoolConfigSpotConfigArray(object):
 
 
 class NodePoolConfigProxyConfig(object):
+
     def __init__(self, secret_arn: str = None, secret_version: str = None):
         self.secret_arn = secret_arn
         self.secret_version = secret_version
@@ -647,6 +655,7 @@ class NodePoolConfigProxyConfigArray(object):
 
 
 class NodePoolConfigInstancePlacement(object):
+
     def __init__(self, tenancy: str = None):
         self.tenancy = tenancy
 
@@ -687,6 +696,7 @@ class NodePoolConfigInstancePlacementArray(object):
 
 
 class NodePoolConfigAutoscalingMetricsCollection(object):
+
     def __init__(self, granularity: str = None, metrics: list = None):
         self.granularity = granularity
         self.metrics = metrics
@@ -731,6 +741,7 @@ class NodePoolConfigAutoscalingMetricsCollectionArray(object):
 
 
 class NodePoolAutoscaling(object):
+
     def __init__(self, min_node_count: int = None, max_node_count: int = None):
         self.min_node_count = min_node_count
         self.max_node_count = max_node_count
@@ -771,6 +782,7 @@ class NodePoolAutoscalingArray(object):
 
 
 class NodePoolMaxPodsConstraint(object):
+
     def __init__(self, max_pods_per_node: int = None):
         self.max_pods_per_node = max_pods_per_node
 
@@ -807,6 +819,7 @@ class NodePoolMaxPodsConstraintArray(object):
 
 
 class NodePoolManagement(object):
+
     def __init__(self, auto_repair: bool = None):
         self.auto_repair = auto_repair
 
@@ -843,6 +856,7 @@ class NodePoolManagementArray(object):
 
 
 class NodePoolUpdateSettings(object):
+
     def __init__(self, surge_settings: dict = None):
         self.surge_settings = surge_settings
 
@@ -885,6 +899,7 @@ class NodePoolUpdateSettingsArray(object):
 
 
 class NodePoolUpdateSettingsSurgeSettings(object):
+
     def __init__(self, max_surge: int = None, max_unavailable: int = None):
         self.max_surge = max_surge
         self.max_unavailable = max_unavailable

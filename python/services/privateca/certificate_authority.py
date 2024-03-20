@@ -47,6 +47,7 @@ class CertificateAuthority(object):
         ca_pool: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.type = type
@@ -224,6 +225,7 @@ class CertificateAuthority(object):
 
 
 class CertificateAuthorityConfig(object):
+
     def __init__(
         self,
         subject_config: dict = None,
@@ -293,6 +295,7 @@ class CertificateAuthorityConfigArray(object):
 
 
 class CertificateAuthorityConfigSubjectConfig(object):
+
     def __init__(self, subject: dict = None, subject_alt_name: dict = None):
         self.subject = subject
         self.subject_alt_name = subject_alt_name
@@ -355,6 +358,7 @@ class CertificateAuthorityConfigSubjectConfigArray(object):
 
 
 class CertificateAuthorityConfigSubjectConfigSubject(object):
+
     def __init__(
         self,
         common_name: str = None,
@@ -437,6 +441,7 @@ class CertificateAuthorityConfigSubjectConfigSubjectArray(object):
 
 
 class CertificateAuthorityConfigSubjectConfigSubjectAltName(object):
+
     def __init__(
         self,
         dns_names: list = None,
@@ -512,6 +517,7 @@ class CertificateAuthorityConfigSubjectConfigSubjectAltNameArray(object):
 
 
 class CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSans(object):
+
     def __init__(
         self, object_id: dict = None, critical: bool = None, value: str = None
     ):
@@ -578,6 +584,7 @@ class CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansArray(objec
 
 
 class CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectId(object):
+
     def __init__(self, object_id_path: list = None):
         self.object_id_path = object_id_path
 
@@ -628,6 +635,7 @@ class CertificateAuthorityConfigSubjectConfigSubjectAltNameCustomSansObjectIdArr
 
 
 class CertificateAuthorityConfigX509Config(object):
+
     def __init__(
         self,
         key_usage: dict = None,
@@ -719,6 +727,7 @@ class CertificateAuthorityConfigX509ConfigArray(object):
 
 
 class CertificateAuthorityConfigX509ConfigKeyUsage(object):
+
     def __init__(
         self,
         base_key_usage: dict = None,
@@ -803,6 +812,7 @@ class CertificateAuthorityConfigX509ConfigKeyUsageArray(object):
 
 
 class CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsage(object):
+
     def __init__(
         self,
         digital_signature: bool = None,
@@ -890,6 +900,7 @@ class CertificateAuthorityConfigX509ConfigKeyUsageBaseKeyUsageArray(object):
 
 
 class CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsage(object):
+
     def __init__(
         self,
         server_auth: bool = None,
@@ -962,6 +973,7 @@ class CertificateAuthorityConfigX509ConfigKeyUsageExtendedKeyUsageArray(object):
 
 
 class CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsages(object):
+
     def __init__(self, object_id_path: list = None):
         self.object_id_path = object_id_path
 
@@ -1010,6 +1022,7 @@ class CertificateAuthorityConfigX509ConfigKeyUsageUnknownExtendedKeyUsagesArray(
 
 
 class CertificateAuthorityConfigX509ConfigCaOptions(object):
+
     def __init__(
         self,
         is_ca: bool = None,
@@ -1074,6 +1087,7 @@ class CertificateAuthorityConfigX509ConfigCaOptionsArray(object):
 
 
 class CertificateAuthorityConfigX509ConfigPolicyIds(object):
+
     def __init__(self, object_id_path: list = None):
         self.object_id_path = object_id_path
 
@@ -1117,6 +1131,7 @@ class CertificateAuthorityConfigX509ConfigPolicyIdsArray(object):
 
 
 class CertificateAuthorityConfigX509ConfigAdditionalExtensions(object):
+
     def __init__(
         self, object_id: dict = None, critical: bool = None, value: str = None
     ):
@@ -1181,6 +1196,7 @@ class CertificateAuthorityConfigX509ConfigAdditionalExtensionsArray(object):
 
 
 class CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectId(object):
+
     def __init__(self, object_id_path: list = None):
         self.object_id_path = object_id_path
 
@@ -1227,6 +1243,7 @@ class CertificateAuthorityConfigX509ConfigAdditionalExtensionsObjectIdArray(obje
 
 
 class CertificateAuthorityConfigPublicKey(object):
+
     def __init__(self, key: str = None, format: str = None):
         self.key = key
         self.format = format
@@ -1271,6 +1288,7 @@ class CertificateAuthorityConfigPublicKeyArray(object):
 
 
 class CertificateAuthorityKeySpec(object):
+
     def __init__(self, cloud_kms_key_version: str = None, algorithm: str = None):
         self.cloud_kms_key_version = cloud_kms_key_version
         self.algorithm = algorithm
@@ -1317,6 +1335,7 @@ class CertificateAuthorityKeySpecArray(object):
 
 
 class CertificateAuthoritySubordinateConfig(object):
+
     def __init__(
         self, certificate_authority: str = None, pem_issuer_chain: dict = None
     ):
@@ -1371,6 +1390,7 @@ class CertificateAuthoritySubordinateConfigArray(object):
 
 
 class CertificateAuthoritySubordinateConfigPemIssuerChain(object):
+
     def __init__(self, pem_certificates: list = None):
         self.pem_certificates = pem_certificates
 
@@ -1415,6 +1435,7 @@ class CertificateAuthoritySubordinateConfigPemIssuerChainArray(object):
 
 
 class CertificateAuthorityCaCertificateDescriptions(object):
+
     def __init__(
         self,
         subject_description: dict = None,
@@ -1564,6 +1585,7 @@ class CertificateAuthorityCaCertificateDescriptionsArray(object):
 
 
 class CertificateAuthorityCaCertificateDescriptionsSubjectDescription(object):
+
     def __init__(
         self,
         subject: dict = None,
@@ -1658,6 +1680,7 @@ class CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionArray(objec
 
 
 class CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubject(object):
+
     def __init__(
         self,
         common_name: str = None,
@@ -1748,6 +1771,7 @@ class CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectArra
 class CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltName(
     object
 ):
+
     def __init__(
         self,
         dns_names: list = None,
@@ -1831,6 +1855,7 @@ class CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltN
 class CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSans(
     object
 ):
+
     def __init__(
         self, object_id: dict = None, critical: bool = None, value: str = None
     ):
@@ -1903,6 +1928,7 @@ class CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltN
 class CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltNameCustomSansObjectId(
     object
 ):
+
     def __init__(self, object_id_path: list = None):
         self.object_id_path = object_id_path
 
@@ -1953,6 +1979,7 @@ class CertificateAuthorityCaCertificateDescriptionsSubjectDescriptionSubjectAltN
 
 
 class CertificateAuthorityCaCertificateDescriptionsX509Description(object):
+
     def __init__(
         self,
         key_usage: dict = None,
@@ -2056,6 +2083,7 @@ class CertificateAuthorityCaCertificateDescriptionsX509DescriptionArray(object):
 
 
 class CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsage(object):
+
     def __init__(
         self,
         base_key_usage: dict = None,
@@ -2147,6 +2175,7 @@ class CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageArray(
 class CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKeyUsage(
     object
 ):
+
     def __init__(
         self,
         digital_signature: bool = None,
@@ -2242,6 +2271,7 @@ class CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageBaseKe
 class CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtendedKeyUsage(
     object
 ):
+
     def __init__(
         self,
         server_auth: bool = None,
@@ -2322,6 +2352,7 @@ class CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageExtend
 class CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknownExtendedKeyUsages(
     object
 ):
+
     def __init__(self, object_id_path: list = None):
         self.object_id_path = object_id_path
 
@@ -2372,6 +2403,7 @@ class CertificateAuthorityCaCertificateDescriptionsX509DescriptionKeyUsageUnknow
 
 
 class CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptions(object):
+
     def __init__(self, is_ca: bool = None, max_issuer_path_length: int = None):
         self.is_ca = is_ca
         self.max_issuer_path_length = max_issuer_path_length
@@ -2430,6 +2462,7 @@ class CertificateAuthorityCaCertificateDescriptionsX509DescriptionCaOptionsArray
 
 
 class CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIds(object):
+
     def __init__(self, object_id_path: list = None):
         self.object_id_path = object_id_path
 
@@ -2482,6 +2515,7 @@ class CertificateAuthorityCaCertificateDescriptionsX509DescriptionPolicyIdsArray
 class CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensions(
     object
 ):
+
     def __init__(
         self, object_id: dict = None, critical: bool = None, value: str = None
     ):
@@ -2554,6 +2588,7 @@ class CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExte
 class CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExtensionsObjectId(
     object
 ):
+
     def __init__(self, object_id_path: list = None):
         self.object_id_path = object_id_path
 
@@ -2604,6 +2639,7 @@ class CertificateAuthorityCaCertificateDescriptionsX509DescriptionAdditionalExte
 
 
 class CertificateAuthorityCaCertificateDescriptionsPublicKey(object):
+
     def __init__(self, key: str = None, format: str = None):
         self.key = key
         self.format = format
@@ -2658,6 +2694,7 @@ class CertificateAuthorityCaCertificateDescriptionsPublicKeyArray(object):
 
 
 class CertificateAuthorityCaCertificateDescriptionsSubjectKeyId(object):
+
     def __init__(self, key_id: str = None):
         self.key_id = key_id
 
@@ -2702,6 +2739,7 @@ class CertificateAuthorityCaCertificateDescriptionsSubjectKeyIdArray(object):
 
 
 class CertificateAuthorityCaCertificateDescriptionsAuthorityKeyId(object):
+
     def __init__(self, key_id: str = None):
         self.key_id = key_id
 
@@ -2746,6 +2784,7 @@ class CertificateAuthorityCaCertificateDescriptionsAuthorityKeyIdArray(object):
 
 
 class CertificateAuthorityCaCertificateDescriptionsCertFingerprint(object):
+
     def __init__(self, sha256_hash: str = None):
         self.sha256_hash = sha256_hash
 
@@ -2790,6 +2829,7 @@ class CertificateAuthorityCaCertificateDescriptionsCertFingerprintArray(object):
 
 
 class CertificateAuthorityAccessUrls(object):
+
     def __init__(
         self, ca_certificate_access_url: str = None, crl_access_urls: list = None
     ):

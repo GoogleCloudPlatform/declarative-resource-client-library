@@ -31,6 +31,7 @@ class Budget(object):
         billing_account: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -165,6 +166,7 @@ class Budget(object):
 
 
 class BudgetBudgetFilter(object):
+
     def __init__(
         self,
         projects: list = None,
@@ -257,6 +259,7 @@ class BudgetBudgetFilterArray(object):
 
 
 class BudgetBudgetFilterLabels(object):
+
     def __init__(self, values: list = None):
         self.values = values
 
@@ -293,6 +296,7 @@ class BudgetBudgetFilterLabelsArray(object):
 
 
 class BudgetBudgetFilterCustomPeriod(object):
+
     def __init__(self, start_date: dict = None, end_date: dict = None):
         self.start_date = start_date
         self.end_date = end_date
@@ -345,6 +349,7 @@ class BudgetBudgetFilterCustomPeriodArray(object):
 
 
 class BudgetBudgetFilterCustomPeriodStartDate(object):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -391,6 +396,7 @@ class BudgetBudgetFilterCustomPeriodStartDateArray(object):
 
 
 class BudgetBudgetFilterCustomPeriodEndDate(object):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -435,6 +441,7 @@ class BudgetBudgetFilterCustomPeriodEndDateArray(object):
 
 
 class BudgetAmount(object):
+
     def __init__(self, specified_amount: dict = None, last_period_amount: dict = None):
         self.specified_amount = specified_amount
         self.last_period_amount = last_period_amount
@@ -487,6 +494,7 @@ class BudgetAmountArray(object):
 
 
 class BudgetAmountSpecifiedAmount(object):
+
     def __init__(self, currency_code: str = None, units: int = None, nanos: int = None):
         self.currency_code = currency_code
         self.units = units
@@ -531,6 +539,7 @@ class BudgetAmountSpecifiedAmountArray(object):
 
 
 class BudgetAmountLastPeriodAmount(object):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -560,6 +569,7 @@ class BudgetAmountLastPeriodAmountArray(object):
 
 
 class BudgetThresholdRules(object):
+
     def __init__(self, threshold_percent: float = None, spend_basis: str = None):
         self.threshold_percent = threshold_percent
         self.spend_basis = spend_basis
@@ -604,6 +614,7 @@ class BudgetThresholdRulesArray(object):
 
 
 class BudgetAllUpdatesRule(object):
+
     def __init__(
         self,
         pubsub_topic: str = None,

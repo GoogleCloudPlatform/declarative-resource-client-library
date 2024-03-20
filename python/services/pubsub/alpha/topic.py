@@ -28,6 +28,7 @@ class Topic(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.kms_key_name = kms_key_name
@@ -121,6 +122,7 @@ class Topic(object):
 
 
 class TopicMessageStoragePolicy(object):
+
     def __init__(self, allowed_persistence_regions: list = None):
         self.allowed_persistence_regions = allowed_persistence_regions
 

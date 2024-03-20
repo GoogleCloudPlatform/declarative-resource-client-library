@@ -35,6 +35,7 @@ class Folder(object):
         etag: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.parent = parent

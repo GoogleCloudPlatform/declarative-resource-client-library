@@ -31,6 +31,7 @@ class StoredInfoType(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -176,6 +177,7 @@ class StoredInfoType(object):
 
 
 class StoredInfoTypeLargeCustomDictionary(object):
+
     def __init__(
         self,
         output_path: dict = None,
@@ -253,6 +255,7 @@ class StoredInfoTypeLargeCustomDictionaryArray(object):
 
 
 class StoredInfoTypeLargeCustomDictionaryOutputPath(object):
+
     def __init__(self, path: str = None):
         self.path = path
 
@@ -294,6 +297,7 @@ class StoredInfoTypeLargeCustomDictionaryOutputPathArray(object):
 
 
 class StoredInfoTypeLargeCustomDictionaryCloudStorageFileSet(object):
+
     def __init__(self, url: str = None):
         self.url = url
 
@@ -338,6 +342,7 @@ class StoredInfoTypeLargeCustomDictionaryCloudStorageFileSetArray(object):
 
 
 class StoredInfoTypeLargeCustomDictionaryBigQueryField(object):
+
     def __init__(self, table: dict = None, field: dict = None):
         self.table = table
         self.field = field
@@ -404,6 +409,7 @@ class StoredInfoTypeLargeCustomDictionaryBigQueryFieldArray(object):
 
 
 class StoredInfoTypeLargeCustomDictionaryBigQueryFieldTable(object):
+
     def __init__(
         self, project_id: str = None, dataset_id: str = None, table_id: str = None
     ):
@@ -458,6 +464,7 @@ class StoredInfoTypeLargeCustomDictionaryBigQueryFieldTableArray(object):
 
 
 class StoredInfoTypeLargeCustomDictionaryBigQueryFieldField(object):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -502,6 +509,7 @@ class StoredInfoTypeLargeCustomDictionaryBigQueryFieldFieldArray(object):
 
 
 class StoredInfoTypeDictionary(object):
+
     def __init__(self, word_list: dict = None, cloud_storage_path: dict = None):
         self.word_list = word_list
         self.cloud_storage_path = cloud_storage_path
@@ -556,6 +564,7 @@ class StoredInfoTypeDictionaryArray(object):
 
 
 class StoredInfoTypeDictionaryWordList(object):
+
     def __init__(self, words: list = None):
         self.words = words
 
@@ -592,6 +601,7 @@ class StoredInfoTypeDictionaryWordListArray(object):
 
 
 class StoredInfoTypeDictionaryCloudStoragePath(object):
+
     def __init__(self, path: str = None):
         self.path = path
 
@@ -630,6 +640,7 @@ class StoredInfoTypeDictionaryCloudStoragePathArray(object):
 
 
 class StoredInfoTypeRegex(object):
+
     def __init__(self, pattern: str = None, group_indexes: list = None):
         self.pattern = pattern
         self.group_indexes = group_indexes

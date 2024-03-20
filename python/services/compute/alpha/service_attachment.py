@@ -41,6 +41,7 @@ class ServiceAttachment(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -246,6 +247,7 @@ class ServiceAttachment(object):
 
 
 class ServiceAttachmentConnectedEndpoints(object):
+
     def __init__(
         self, status: str = None, psc_connection_id: int = None, endpoint: str = None
     ):
@@ -296,6 +298,7 @@ class ServiceAttachmentConnectedEndpointsArray(object):
 
 
 class ServiceAttachmentConsumerAcceptLists(object):
+
     def __init__(self, project_id_or_num: str = None, connection_limit: int = None):
         self.project_id_or_num = project_id_or_num
         self.connection_limit = connection_limit
@@ -336,6 +339,7 @@ class ServiceAttachmentConsumerAcceptListsArray(object):
 
 
 class ServiceAttachmentPscServiceAttachmentId(object):
+
     def __init__(self, high: int = None, low: int = None):
         self.high = high
         self.low = low

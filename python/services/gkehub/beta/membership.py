@@ -38,6 +38,7 @@ class Membership(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.endpoint = endpoint
         self.name = name
@@ -191,6 +192,7 @@ class Membership(object):
 
 
 class MembershipEndpoint(object):
+
     def __init__(
         self,
         gke_cluster: dict = None,
@@ -260,6 +262,7 @@ class MembershipEndpointArray(object):
 
 
 class MembershipEndpointGkeCluster(object):
+
     def __init__(self, resource_link: str = None):
         self.resource_link = resource_link
 
@@ -296,6 +299,7 @@ class MembershipEndpointGkeClusterArray(object):
 
 
 class MembershipEndpointKubernetesMetadata(object):
+
     def __init__(
         self,
         kubernetes_api_server_version: str = None,
@@ -364,6 +368,7 @@ class MembershipEndpointKubernetesMetadataArray(object):
 
 
 class MembershipEndpointKubernetesResource(object):
+
     def __init__(
         self,
         membership_cr_manifest: str = None,
@@ -448,6 +453,7 @@ class MembershipEndpointKubernetesResourceArray(object):
 
 
 class MembershipEndpointKubernetesResourceMembershipResources(object):
+
     def __init__(self, manifest: str = None, cluster_scoped: bool = None):
         self.manifest = manifest
         self.cluster_scoped = cluster_scoped
@@ -496,6 +502,7 @@ class MembershipEndpointKubernetesResourceMembershipResourcesArray(object):
 
 
 class MembershipEndpointKubernetesResourceConnectResources(object):
+
     def __init__(self, manifest: str = None, cluster_scoped: bool = None):
         self.manifest = manifest
         self.cluster_scoped = cluster_scoped
@@ -544,6 +551,7 @@ class MembershipEndpointKubernetesResourceConnectResourcesArray(object):
 
 
 class MembershipEndpointKubernetesResourceResourceOptions(object):
+
     def __init__(self, connect_version: str = None, v1beta1_crd: bool = None):
         self.connect_version = connect_version
         self.v1beta1_crd = v1beta1_crd
@@ -592,6 +600,7 @@ class MembershipEndpointKubernetesResourceResourceOptionsArray(object):
 
 
 class MembershipState(object):
+
     def __init__(self, code: str = None):
         self.code = code
 
@@ -628,6 +637,7 @@ class MembershipStateArray(object):
 
 
 class MembershipAuthority(object):
+
     def __init__(
         self,
         issuer: str = None,

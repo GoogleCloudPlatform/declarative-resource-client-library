@@ -34,6 +34,7 @@ class LogMetric(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -183,6 +184,7 @@ class LogMetric(object):
 
 
 class LogMetricMetricDescriptor(object):
+
     def __init__(
         self,
         name: str = None,
@@ -294,6 +296,7 @@ class LogMetricMetricDescriptorArray(object):
 
 
 class LogMetricMetricDescriptorLabels(object):
+
     def __init__(
         self, key: str = None, value_type: str = None, description: str = None
     ):
@@ -344,6 +347,7 @@ class LogMetricMetricDescriptorLabelsArray(object):
 
 
 class LogMetricMetricDescriptorMetadata(object):
+
     def __init__(self, sample_period: str = None, ingest_delay: str = None):
         self.sample_period = sample_period
         self.ingest_delay = ingest_delay
@@ -384,6 +388,7 @@ class LogMetricMetricDescriptorMetadataArray(object):
 
 
 class LogMetricBucketOptions(object):
+
     def __init__(
         self,
         linear_buckets: dict = None,
@@ -457,6 +462,7 @@ class LogMetricBucketOptionsArray(object):
 
 
 class LogMetricBucketOptionsLinearBuckets(object):
+
     def __init__(
         self, num_finite_buckets: int = None, width: float = None, offset: float = None
     ):
@@ -503,6 +509,7 @@ class LogMetricBucketOptionsLinearBucketsArray(object):
 
 
 class LogMetricBucketOptionsExponentialBuckets(object):
+
     def __init__(
         self,
         num_finite_buckets: int = None,
@@ -554,6 +561,7 @@ class LogMetricBucketOptionsExponentialBucketsArray(object):
 
 
 class LogMetricBucketOptionsExplicitBuckets(object):
+
     def __init__(self, bounds: list = None):
         self.bounds = bounds
 

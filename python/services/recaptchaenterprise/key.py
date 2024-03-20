@@ -35,6 +35,7 @@ class Key(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -201,6 +202,7 @@ class Key(object):
 
 
 class KeyWebSettings(object):
+
     def __init__(
         self,
         allow_all_domains: bool = None,
@@ -272,6 +274,7 @@ class KeyWebSettingsArray(object):
 
 
 class KeyAndroidSettings(object):
+
     def __init__(
         self, allow_all_package_names: bool = None, allowed_package_names: list = None
     ):
@@ -320,6 +323,7 @@ class KeyAndroidSettingsArray(object):
 
 
 class KeyIosSettings(object):
+
     def __init__(
         self, allow_all_bundle_ids: bool = None, allowed_bundle_ids: list = None
     ):
@@ -364,6 +368,7 @@ class KeyIosSettingsArray(object):
 
 
 class KeyTestingOptions(object):
+
     def __init__(self, testing_score: float = None, testing_challenge: str = None):
         self.testing_score = testing_score
         self.testing_challenge = testing_challenge
@@ -408,6 +413,7 @@ class KeyTestingOptionsArray(object):
 
 
 class KeyWafSettings(object):
+
     def __init__(self, waf_service: str = None, waf_feature: str = None):
         self.waf_service = waf_service
         self.waf_feature = waf_feature

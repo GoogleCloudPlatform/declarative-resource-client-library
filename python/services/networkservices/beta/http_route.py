@@ -37,6 +37,7 @@ class HttpRoute(object):
         self_link: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -161,6 +162,7 @@ class HttpRoute(object):
 
 
 class HttpRouteRules(object):
+
     def __init__(self, matches: list = None, action: dict = None):
         self.matches = matches
         self.action = action
@@ -203,6 +205,7 @@ class HttpRouteRulesArray(object):
 
 
 class HttpRouteRulesMatches(object):
+
     def __init__(
         self,
         full_path_match: str = None,
@@ -277,6 +280,7 @@ class HttpRouteRulesMatchesArray(object):
 
 
 class HttpRouteRulesMatchesHeaders(object):
+
     def __init__(
         self,
         header: str = None,
@@ -357,6 +361,7 @@ class HttpRouteRulesMatchesHeadersArray(object):
 
 
 class HttpRouteRulesMatchesHeadersRangeMatch(object):
+
     def __init__(self, start: int = None, end: int = None):
         self.start = start
         self.end = end
@@ -397,6 +402,7 @@ class HttpRouteRulesMatchesHeadersRangeMatchArray(object):
 
 
 class HttpRouteRulesMatchesQueryParameters(object):
+
     def __init__(
         self,
         query_parameter: str = None,
@@ -451,6 +457,7 @@ class HttpRouteRulesMatchesQueryParametersArray(object):
 
 
 class HttpRouteRulesAction(object):
+
     def __init__(
         self,
         destinations: list = None,
@@ -597,6 +604,7 @@ class HttpRouteRulesActionArray(object):
 
 
 class HttpRouteRulesActionDestinations(object):
+
     def __init__(self, weight: int = None, service_name: str = None):
         self.weight = weight
         self.service_name = service_name
@@ -637,6 +645,7 @@ class HttpRouteRulesActionDestinationsArray(object):
 
 
 class HttpRouteRulesActionRedirect(object):
+
     def __init__(
         self,
         host_redirect: str = None,
@@ -712,6 +721,7 @@ class HttpRouteRulesActionRedirectArray(object):
 
 
 class HttpRouteRulesActionFaultInjectionPolicy(object):
+
     def __init__(self, delay: dict = None, abort: dict = None):
         self.delay = delay
         self.abort = abort
@@ -768,6 +778,7 @@ class HttpRouteRulesActionFaultInjectionPolicyArray(object):
 
 
 class HttpRouteRulesActionFaultInjectionPolicyDelay(object):
+
     def __init__(self, fixed_delay: str = None, percentage: int = None):
         self.fixed_delay = fixed_delay
         self.percentage = percentage
@@ -815,6 +826,7 @@ class HttpRouteRulesActionFaultInjectionPolicyDelayArray(object):
 
 
 class HttpRouteRulesActionFaultInjectionPolicyAbort(object):
+
     def __init__(self, http_status: int = None, percentage: int = None):
         self.http_status = http_status
         self.percentage = percentage
@@ -862,6 +874,7 @@ class HttpRouteRulesActionFaultInjectionPolicyAbortArray(object):
 
 
 class HttpRouteRulesActionRequestHeaderModifier(object):
+
     def __init__(self, set: dict = None, add: dict = None, remove: list = None):
         self.set = set
         self.add = add
@@ -912,6 +925,7 @@ class HttpRouteRulesActionRequestHeaderModifierArray(object):
 
 
 class HttpRouteRulesActionResponseHeaderModifier(object):
+
     def __init__(self, set: dict = None, add: dict = None, remove: list = None):
         self.set = set
         self.add = add
@@ -962,6 +976,7 @@ class HttpRouteRulesActionResponseHeaderModifierArray(object):
 
 
 class HttpRouteRulesActionUrlRewrite(object):
+
     def __init__(self, path_prefix_rewrite: str = None, host_rewrite: str = None):
         self.path_prefix_rewrite = path_prefix_rewrite
         self.host_rewrite = host_rewrite
@@ -1002,6 +1017,7 @@ class HttpRouteRulesActionUrlRewriteArray(object):
 
 
 class HttpRouteRulesActionRetryPolicy(object):
+
     def __init__(
         self,
         retry_conditions: list = None,
@@ -1051,6 +1067,7 @@ class HttpRouteRulesActionRetryPolicyArray(object):
 
 
 class HttpRouteRulesActionRequestMirrorPolicy(object):
+
     def __init__(self, destination: dict = None):
         self.destination = destination
 
@@ -1101,6 +1118,7 @@ class HttpRouteRulesActionRequestMirrorPolicyArray(object):
 
 
 class HttpRouteRulesActionRequestMirrorPolicyDestination(object):
+
     def __init__(self, weight: int = None, service_name: str = None):
         self.weight = weight
         self.service_name = service_name
@@ -1149,6 +1167,7 @@ class HttpRouteRulesActionRequestMirrorPolicyDestinationArray(object):
 
 
 class HttpRouteRulesActionCorsPolicy(object):
+
     def __init__(
         self,
         allow_origins: list = None,

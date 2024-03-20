@@ -32,6 +32,7 @@ class GoogleChannelConfig(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.crypto_key_name = crypto_key_name

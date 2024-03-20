@@ -42,6 +42,7 @@ class Cluster(object):
         binary_authorization: dict = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -239,6 +240,7 @@ class Cluster(object):
 
 
 class ClusterNetworking(object):
+
     def __init__(
         self,
         vpc_id: str = None,
@@ -305,6 +307,7 @@ class ClusterNetworkingArray(object):
 
 
 class ClusterControlPlane(object):
+
     def __init__(
         self,
         version: str = None,
@@ -448,6 +451,7 @@ class ClusterControlPlaneArray(object):
 
 
 class ClusterControlPlaneSshConfig(object):
+
     def __init__(self, ec2_key_pair: str = None):
         self.ec2_key_pair = ec2_key_pair
 
@@ -484,6 +488,7 @@ class ClusterControlPlaneSshConfigArray(object):
 
 
 class ClusterControlPlaneConfigEncryption(object):
+
     def __init__(self, kms_key_arn: str = None):
         self.kms_key_arn = kms_key_arn
 
@@ -520,6 +525,7 @@ class ClusterControlPlaneConfigEncryptionArray(object):
 
 
 class ClusterControlPlaneRootVolume(object):
+
     def __init__(
         self,
         size_gib: int = None,
@@ -583,6 +589,7 @@ class ClusterControlPlaneRootVolumeArray(object):
 
 
 class ClusterControlPlaneMainVolume(object):
+
     def __init__(
         self,
         size_gib: int = None,
@@ -646,6 +653,7 @@ class ClusterControlPlaneMainVolumeArray(object):
 
 
 class ClusterControlPlaneDatabaseEncryption(object):
+
     def __init__(self, kms_key_arn: str = None):
         self.kms_key_arn = kms_key_arn
 
@@ -682,6 +690,7 @@ class ClusterControlPlaneDatabaseEncryptionArray(object):
 
 
 class ClusterControlPlaneAwsServicesAuthentication(object):
+
     def __init__(self, role_arn: str = None, role_session_name: str = None):
         self.role_arn = role_arn
         self.role_session_name = role_session_name
@@ -727,6 +736,7 @@ class ClusterControlPlaneAwsServicesAuthenticationArray(object):
 
 
 class ClusterControlPlaneProxyConfig(object):
+
     def __init__(self, secret_arn: str = None, secret_version: str = None):
         self.secret_arn = secret_arn
         self.secret_version = secret_version
@@ -767,6 +777,7 @@ class ClusterControlPlaneProxyConfigArray(object):
 
 
 class ClusterAuthorization(object):
+
     def __init__(self, admin_users: list = None, admin_groups: list = None):
         self.admin_users = admin_users
         self.admin_groups = admin_groups
@@ -815,6 +826,7 @@ class ClusterAuthorizationArray(object):
 
 
 class ClusterAuthorizationAdminUsers(object):
+
     def __init__(self, username: str = None):
         self.username = username
 
@@ -851,6 +863,7 @@ class ClusterAuthorizationAdminUsersArray(object):
 
 
 class ClusterAuthorizationAdminGroups(object):
+
     def __init__(self, group: str = None):
         self.group = group
 
@@ -887,6 +900,7 @@ class ClusterAuthorizationAdminGroupsArray(object):
 
 
 class ClusterWorkloadIdentityConfig(object):
+
     def __init__(
         self,
         issuer_uri: str = None,
@@ -936,6 +950,7 @@ class ClusterWorkloadIdentityConfigArray(object):
 
 
 class ClusterFleet(object):
+
     def __init__(self, project: str = None, membership: str = None):
         self.project = project
         self.membership = membership
@@ -976,6 +991,7 @@ class ClusterFleetArray(object):
 
 
 class ClusterBinaryAuthorization(object):
+
     def __init__(self, evaluation_mode: str = None):
         self.evaluation_mode = evaluation_mode
 

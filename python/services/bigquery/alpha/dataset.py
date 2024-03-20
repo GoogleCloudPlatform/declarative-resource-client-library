@@ -39,6 +39,7 @@ class Dataset(object):
         default_encryption_configuration: dict = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.project = project
@@ -225,6 +226,7 @@ class Dataset(object):
 
 
 class DatasetAccess(object):
+
     def __init__(
         self,
         role: str = None,
@@ -303,6 +305,7 @@ class DatasetAccessArray(object):
 
 
 class DatasetAccessView(object):
+
     def __init__(
         self, project_id: str = None, dataset_id: str = None, table_id: str = None
     ):
@@ -349,6 +352,7 @@ class DatasetAccessViewArray(object):
 
 
 class DatasetAccessRoutine(object):
+
     def __init__(
         self, project_id: str = None, dataset_id: str = None, routine_id: str = None
     ):
@@ -395,6 +399,7 @@ class DatasetAccessRoutineArray(object):
 
 
 class DatasetDefaultEncryptionConfiguration(object):
+
     def __init__(self, kms_key_name: str = None):
         self.kms_key_name = kms_key_name
 

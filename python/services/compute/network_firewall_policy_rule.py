@@ -42,6 +42,7 @@ class NetworkFirewallPolicyRule(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.description = description
         self.rule_name = rule_name
@@ -263,6 +264,7 @@ class NetworkFirewallPolicyRule(object):
 
 
 class NetworkFirewallPolicyRuleMatch(object):
+
     def __init__(
         self,
         src_ip_ranges: list = None,
@@ -385,6 +387,7 @@ class NetworkFirewallPolicyRuleMatchArray(object):
 
 
 class NetworkFirewallPolicyRuleMatchLayer4Configs(object):
+
     def __init__(self, ip_protocol: str = None, ports: list = None):
         self.ip_protocol = ip_protocol
         self.ports = ports
@@ -431,6 +434,7 @@ class NetworkFirewallPolicyRuleMatchLayer4ConfigsArray(object):
 
 
 class NetworkFirewallPolicyRuleMatchSrcSecureTags(object):
+
     def __init__(self, name: str = None, state: str = None):
         self.name = name
         self.state = state
@@ -483,6 +487,7 @@ class NetworkFirewallPolicyRuleMatchSrcSecureTagsArray(object):
 
 
 class NetworkFirewallPolicyRuleTargetSecureTags(object):
+
     def __init__(self, name: str = None, state: str = None):
         self.name = name
         self.state = state

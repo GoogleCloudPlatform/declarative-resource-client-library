@@ -29,6 +29,7 @@ class Service(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -132,6 +133,7 @@ class Service(object):
 
 
 class ServiceCustom(object):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -161,6 +163,7 @@ class ServiceCustomArray(object):
 
 
 class ServiceTelemetry(object):
+
     def __init__(self, resource_name: str = None):
         self.resource_name = resource_name
 

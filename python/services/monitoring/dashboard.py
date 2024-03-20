@@ -31,6 +31,7 @@ class Dashboard(object):
         etag: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -171,6 +172,7 @@ class Dashboard(object):
 
 
 class DashboardGridLayout(object):
+
     def __init__(self, columns: int = None, widgets: list = None):
         self.columns = columns
         self.widgets = widgets
@@ -213,6 +215,7 @@ class DashboardGridLayoutArray(object):
 
 
 class DashboardGridLayoutWidgets(object):
+
     def __init__(
         self,
         title: str = None,
@@ -297,6 +300,7 @@ class DashboardGridLayoutWidgetsArray(object):
 
 
 class DashboardGridLayoutWidgetsXyChart(object):
+
     def __init__(
         self,
         data_sets: list = None,
@@ -393,6 +397,7 @@ class DashboardGridLayoutWidgetsXyChartArray(object):
 
 
 class DashboardGridLayoutWidgetsXyChartDataSets(object):
+
     def __init__(
         self,
         time_series_query: dict = None,
@@ -469,6 +474,7 @@ class DashboardGridLayoutWidgetsXyChartDataSetsArray(object):
 
 
 class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQuery(object):
+
     def __init__(
         self,
         time_series_filter: dict = None,
@@ -555,6 +561,7 @@ class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryArray(object):
 
 
 class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(object):
+
     def __init__(
         self,
         filter: str = None,
@@ -655,6 +662,7 @@ class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAr
 class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -737,6 +745,7 @@ class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAg
 class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -819,6 +828,7 @@ class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSe
 class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         ranking_method: str = None,
@@ -896,6 +906,7 @@ class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPi
 class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(
     object
 ):
+
     def __init__(
         self,
         numerator: dict = None,
@@ -1006,6 +1017,7 @@ class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(
     object
 ):
+
     def __init__(self, filter: str = None, aggregation: dict = None):
         self.filter = filter
         self.aggregation = aggregation
@@ -1072,6 +1084,7 @@ class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -1154,6 +1167,7 @@ class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(
     object
 ):
+
     def __init__(self, filter: str = None, aggregation: dict = None):
         self.filter = filter
         self.aggregation = aggregation
@@ -1220,6 +1234,7 @@ class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -1302,6 +1317,7 @@ class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -1384,6 +1400,7 @@ class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         ranking_method: str = None,
@@ -1459,6 +1476,7 @@ class DashboardGridLayoutWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRa
 
 
 class DashboardGridLayoutWidgetsXyChartThresholds(object):
+
     def __init__(
         self,
         label: str = None,
@@ -1531,6 +1549,7 @@ class DashboardGridLayoutWidgetsXyChartThresholdsArray(object):
 
 
 class DashboardGridLayoutWidgetsXyChartXAxis(object):
+
     def __init__(self, label: str = None, scale: str = None):
         self.label = label
         self.scale = scale
@@ -1575,6 +1594,7 @@ class DashboardGridLayoutWidgetsXyChartXAxisArray(object):
 
 
 class DashboardGridLayoutWidgetsXyChartYAxis(object):
+
     def __init__(self, label: str = None, scale: str = None):
         self.label = label
         self.scale = scale
@@ -1619,6 +1639,7 @@ class DashboardGridLayoutWidgetsXyChartYAxisArray(object):
 
 
 class DashboardGridLayoutWidgetsXyChartChartOptions(object):
+
     def __init__(self, mode: str = None):
         self.mode = mode
 
@@ -1666,6 +1687,7 @@ class DashboardGridLayoutWidgetsXyChartChartOptionsArray(object):
 
 
 class DashboardGridLayoutWidgetsScorecard(object):
+
     def __init__(
         self,
         time_series_query: dict = None,
@@ -1756,6 +1778,7 @@ class DashboardGridLayoutWidgetsScorecardArray(object):
 
 
 class DashboardGridLayoutWidgetsScorecardTimeSeriesQuery(object):
+
     def __init__(
         self,
         time_series_filter: dict = None,
@@ -1842,6 +1865,7 @@ class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryArray(object):
 
 
 class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilter(object):
+
     def __init__(
         self,
         filter: str = None,
@@ -1940,6 +1964,7 @@ class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterArray(ob
 class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -2022,6 +2047,7 @@ class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregat
 class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -2104,6 +2130,7 @@ class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondar
 class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         ranking_method: str = None,
@@ -2179,6 +2206,7 @@ class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTime
 
 
 class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio(object):
+
     def __init__(
         self,
         numerator: dict = None,
@@ -2289,6 +2317,7 @@ class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioArr
 class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(
     object
 ):
+
     def __init__(self, filter: str = None, aggregation: dict = None):
         self.filter = filter
         self.aggregation = aggregation
@@ -2355,6 +2384,7 @@ class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -2437,6 +2467,7 @@ class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNum
 class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(
     object
 ):
+
     def __init__(self, filter: str = None, aggregation: dict = None):
         self.filter = filter
         self.aggregation = aggregation
@@ -2503,6 +2534,7 @@ class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -2585,6 +2617,7 @@ class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDen
 class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -2667,6 +2700,7 @@ class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSec
 class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         ranking_method: str = None,
@@ -2742,6 +2776,7 @@ class DashboardGridLayoutWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPic
 
 
 class DashboardGridLayoutWidgetsScorecardGaugeView(object):
+
     def __init__(self, lower_bound: float = None, upper_bound: float = None):
         self.lower_bound = lower_bound
         self.upper_bound = upper_bound
@@ -2787,6 +2822,7 @@ class DashboardGridLayoutWidgetsScorecardGaugeViewArray(object):
 
 
 class DashboardGridLayoutWidgetsScorecardSparkChartView(object):
+
     def __init__(self, spark_chart_type: str = None, min_alignment_period: str = None):
         self.spark_chart_type = spark_chart_type
         self.min_alignment_period = min_alignment_period
@@ -2841,6 +2877,7 @@ class DashboardGridLayoutWidgetsScorecardSparkChartViewArray(object):
 
 
 class DashboardGridLayoutWidgetsScorecardThresholds(object):
+
     def __init__(
         self,
         label: str = None,
@@ -2914,6 +2951,7 @@ class DashboardGridLayoutWidgetsScorecardThresholdsArray(object):
 
 
 class DashboardGridLayoutWidgetsText(object):
+
     def __init__(self, content: str = None, format: str = None):
         self.content = content
         self.format = format
@@ -2956,6 +2994,7 @@ class DashboardGridLayoutWidgetsTextArray(object):
 
 
 class DashboardGridLayoutWidgetsBlank(object):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -2985,6 +3024,7 @@ class DashboardGridLayoutWidgetsBlankArray(object):
 
 
 class DashboardGridLayoutWidgetsLogsPanel(object):
+
     def __init__(self, filter: str = None, resource_names: list = None):
         self.filter = filter
         self.resource_names = resource_names
@@ -3025,6 +3065,7 @@ class DashboardGridLayoutWidgetsLogsPanelArray(object):
 
 
 class DashboardMosaicLayout(object):
+
     def __init__(self, columns: int = None, tiles: list = None):
         self.columns = columns
         self.tiles = tiles
@@ -3065,6 +3106,7 @@ class DashboardMosaicLayoutArray(object):
 
 
 class DashboardMosaicLayoutTiles(object):
+
     def __init__(
         self,
         x_pos: int = None,
@@ -3128,6 +3170,7 @@ class DashboardMosaicLayoutTilesArray(object):
 
 
 class DashboardMosaicLayoutTilesWidget(object):
+
     def __init__(
         self,
         title: str = None,
@@ -3218,6 +3261,7 @@ class DashboardMosaicLayoutTilesWidgetArray(object):
 
 
 class DashboardMosaicLayoutTilesWidgetXyChart(object):
+
     def __init__(
         self,
         data_sets: list = None,
@@ -3322,6 +3366,7 @@ class DashboardMosaicLayoutTilesWidgetXyChartArray(object):
 
 
 class DashboardMosaicLayoutTilesWidgetXyChartDataSets(object):
+
     def __init__(
         self,
         time_series_query: dict = None,
@@ -3400,6 +3445,7 @@ class DashboardMosaicLayoutTilesWidgetXyChartDataSetsArray(object):
 
 
 class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQuery(object):
+
     def __init__(
         self,
         time_series_filter: dict = None,
@@ -3488,6 +3534,7 @@ class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryArray(object
 class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         filter: str = None,
@@ -3588,6 +3635,7 @@ class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -3670,6 +3718,7 @@ class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -3752,6 +3801,7 @@ class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         ranking_method: str = None,
@@ -3829,6 +3879,7 @@ class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(
     object
 ):
+
     def __init__(
         self,
         numerator: dict = None,
@@ -3939,6 +3990,7 @@ class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(
     object
 ):
+
     def __init__(self, filter: str = None, aggregation: dict = None):
         self.filter = filter
         self.aggregation = aggregation
@@ -4005,6 +4057,7 @@ class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -4087,6 +4140,7 @@ class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(
     object
 ):
+
     def __init__(self, filter: str = None, aggregation: dict = None):
         self.filter = filter
         self.aggregation = aggregation
@@ -4153,6 +4207,7 @@ class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -4235,6 +4290,7 @@ class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -4317,6 +4373,7 @@ class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         ranking_method: str = None,
@@ -4392,6 +4449,7 @@ class DashboardMosaicLayoutTilesWidgetXyChartDataSetsTimeSeriesQueryTimeSeriesFi
 
 
 class DashboardMosaicLayoutTilesWidgetXyChartThresholds(object):
+
     def __init__(
         self,
         label: str = None,
@@ -4470,6 +4528,7 @@ class DashboardMosaicLayoutTilesWidgetXyChartThresholdsArray(object):
 
 
 class DashboardMosaicLayoutTilesWidgetXyChartXAxis(object):
+
     def __init__(self, label: str = None, scale: str = None):
         self.label = label
         self.scale = scale
@@ -4521,6 +4580,7 @@ class DashboardMosaicLayoutTilesWidgetXyChartXAxisArray(object):
 
 
 class DashboardMosaicLayoutTilesWidgetXyChartYAxis(object):
+
     def __init__(self, label: str = None, scale: str = None):
         self.label = label
         self.scale = scale
@@ -4572,6 +4632,7 @@ class DashboardMosaicLayoutTilesWidgetXyChartYAxisArray(object):
 
 
 class DashboardMosaicLayoutTilesWidgetXyChartChartOptions(object):
+
     def __init__(self, mode: str = None):
         self.mode = mode
 
@@ -4624,6 +4685,7 @@ class DashboardMosaicLayoutTilesWidgetXyChartChartOptionsArray(object):
 
 
 class DashboardMosaicLayoutTilesWidgetScorecard(object):
+
     def __init__(
         self,
         time_series_query: dict = None,
@@ -4720,6 +4782,7 @@ class DashboardMosaicLayoutTilesWidgetScorecardArray(object):
 
 
 class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQuery(object):
+
     def __init__(
         self,
         time_series_filter: dict = None,
@@ -4806,6 +4869,7 @@ class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryArray(object):
 
 
 class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilter(object):
+
     def __init__(
         self,
         filter: str = None,
@@ -4906,6 +4970,7 @@ class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAr
 class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -4988,6 +5053,7 @@ class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterAg
 class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -5070,6 +5136,7 @@ class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterSe
 class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         ranking_method: str = None,
@@ -5147,6 +5214,7 @@ class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterPi
 class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatio(
     object
 ):
+
     def __init__(
         self,
         numerator: dict = None,
@@ -5257,6 +5325,7 @@ class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRa
 class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(
     object
 ):
+
     def __init__(self, filter: str = None, aggregation: dict = None):
         self.filter = filter
         self.aggregation = aggregation
@@ -5323,6 +5392,7 @@ class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRa
 class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -5405,6 +5475,7 @@ class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRa
 class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(
     object
 ):
+
     def __init__(self, filter: str = None, aggregation: dict = None):
         self.filter = filter
         self.aggregation = aggregation
@@ -5471,6 +5542,7 @@ class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRa
 class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -5553,6 +5625,7 @@ class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRa
 class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -5635,6 +5708,7 @@ class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRa
 class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         ranking_method: str = None,
@@ -5710,6 +5784,7 @@ class DashboardMosaicLayoutTilesWidgetScorecardTimeSeriesQueryTimeSeriesFilterRa
 
 
 class DashboardMosaicLayoutTilesWidgetScorecardGaugeView(object):
+
     def __init__(self, lower_bound: float = None, upper_bound: float = None):
         self.lower_bound = lower_bound
         self.upper_bound = upper_bound
@@ -5758,6 +5833,7 @@ class DashboardMosaicLayoutTilesWidgetScorecardGaugeViewArray(object):
 
 
 class DashboardMosaicLayoutTilesWidgetScorecardSparkChartView(object):
+
     def __init__(self, spark_chart_type: str = None, min_alignment_period: str = None):
         self.spark_chart_type = spark_chart_type
         self.min_alignment_period = min_alignment_period
@@ -5812,6 +5888,7 @@ class DashboardMosaicLayoutTilesWidgetScorecardSparkChartViewArray(object):
 
 
 class DashboardMosaicLayoutTilesWidgetScorecardThresholds(object):
+
     def __init__(
         self,
         label: str = None,
@@ -5888,6 +5965,7 @@ class DashboardMosaicLayoutTilesWidgetScorecardThresholdsArray(object):
 
 
 class DashboardMosaicLayoutTilesWidgetText(object):
+
     def __init__(self, content: str = None, format: str = None):
         self.content = content
         self.format = format
@@ -5932,6 +6010,7 @@ class DashboardMosaicLayoutTilesWidgetTextArray(object):
 
 
 class DashboardMosaicLayoutTilesWidgetBlank(object):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -5961,6 +6040,7 @@ class DashboardMosaicLayoutTilesWidgetBlankArray(object):
 
 
 class DashboardMosaicLayoutTilesWidgetLogsPanel(object):
+
     def __init__(self, filter: str = None, resource_names: list = None):
         self.filter = filter
         self.resource_names = resource_names
@@ -6005,6 +6085,7 @@ class DashboardMosaicLayoutTilesWidgetLogsPanelArray(object):
 
 
 class DashboardRowLayout(object):
+
     def __init__(self, rows: list = None):
         self.rows = rows
 
@@ -6041,6 +6122,7 @@ class DashboardRowLayoutArray(object):
 
 
 class DashboardRowLayoutRows(object):
+
     def __init__(self, weight: int = None, widgets: list = None):
         self.weight = weight
         self.widgets = widgets
@@ -6083,6 +6165,7 @@ class DashboardRowLayoutRowsArray(object):
 
 
 class DashboardRowLayoutRowsWidgets(object):
+
     def __init__(
         self,
         title: str = None,
@@ -6169,6 +6252,7 @@ class DashboardRowLayoutRowsWidgetsArray(object):
 
 
 class DashboardRowLayoutRowsWidgetsXyChart(object):
+
     def __init__(
         self,
         data_sets: list = None,
@@ -6271,6 +6355,7 @@ class DashboardRowLayoutRowsWidgetsXyChartArray(object):
 
 
 class DashboardRowLayoutRowsWidgetsXyChartDataSets(object):
+
     def __init__(
         self,
         time_series_query: dict = None,
@@ -6348,6 +6433,7 @@ class DashboardRowLayoutRowsWidgetsXyChartDataSetsArray(object):
 
 
 class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQuery(object):
+
     def __init__(
         self,
         time_series_filter: dict = None,
@@ -6436,6 +6522,7 @@ class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryArray(object):
 class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         filter: str = None,
@@ -6536,6 +6623,7 @@ class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -6618,6 +6706,7 @@ class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -6700,6 +6789,7 @@ class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         ranking_method: str = None,
@@ -6777,6 +6867,7 @@ class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(
     object
 ):
+
     def __init__(
         self,
         numerator: dict = None,
@@ -6887,6 +6978,7 @@ class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(
     object
 ):
+
     def __init__(self, filter: str = None, aggregation: dict = None):
         self.filter = filter
         self.aggregation = aggregation
@@ -6953,6 +7045,7 @@ class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -7035,6 +7128,7 @@ class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(
     object
 ):
+
     def __init__(self, filter: str = None, aggregation: dict = None):
         self.filter = filter
         self.aggregation = aggregation
@@ -7101,6 +7195,7 @@ class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -7183,6 +7278,7 @@ class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -7265,6 +7361,7 @@ class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         ranking_method: str = None,
@@ -7340,6 +7437,7 @@ class DashboardRowLayoutRowsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilte
 
 
 class DashboardRowLayoutRowsWidgetsXyChartThresholds(object):
+
     def __init__(
         self,
         label: str = None,
@@ -7416,6 +7514,7 @@ class DashboardRowLayoutRowsWidgetsXyChartThresholdsArray(object):
 
 
 class DashboardRowLayoutRowsWidgetsXyChartXAxis(object):
+
     def __init__(self, label: str = None, scale: str = None):
         self.label = label
         self.scale = scale
@@ -7464,6 +7563,7 @@ class DashboardRowLayoutRowsWidgetsXyChartXAxisArray(object):
 
 
 class DashboardRowLayoutRowsWidgetsXyChartYAxis(object):
+
     def __init__(self, label: str = None, scale: str = None):
         self.label = label
         self.scale = scale
@@ -7512,6 +7612,7 @@ class DashboardRowLayoutRowsWidgetsXyChartYAxisArray(object):
 
 
 class DashboardRowLayoutRowsWidgetsXyChartChartOptions(object):
+
     def __init__(self, mode: str = None):
         self.mode = mode
 
@@ -7562,6 +7663,7 @@ class DashboardRowLayoutRowsWidgetsXyChartChartOptionsArray(object):
 
 
 class DashboardRowLayoutRowsWidgetsScorecard(object):
+
     def __init__(
         self,
         time_series_query: dict = None,
@@ -7654,6 +7756,7 @@ class DashboardRowLayoutRowsWidgetsScorecardArray(object):
 
 
 class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQuery(object):
+
     def __init__(
         self,
         time_series_filter: dict = None,
@@ -7740,6 +7843,7 @@ class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryArray(object):
 
 
 class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter(object):
+
     def __init__(
         self,
         filter: str = None,
@@ -7840,6 +7944,7 @@ class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterArray
 class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -7922,6 +8027,7 @@ class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggre
 class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -8004,6 +8110,7 @@ class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecon
 class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         ranking_method: str = None,
@@ -8081,6 +8188,7 @@ class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickT
 class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio(
     object
 ):
+
     def __init__(
         self,
         numerator: dict = None,
@@ -8191,6 +8299,7 @@ class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
 class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(
     object
 ):
+
     def __init__(self, filter: str = None, aggregation: dict = None):
         self.filter = filter
         self.aggregation = aggregation
@@ -8257,6 +8366,7 @@ class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
 class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -8339,6 +8449,7 @@ class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
 class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(
     object
 ):
+
     def __init__(self, filter: str = None, aggregation: dict = None):
         self.filter = filter
         self.aggregation = aggregation
@@ -8405,6 +8516,7 @@ class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
 class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -8487,6 +8599,7 @@ class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
 class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -8569,6 +8682,7 @@ class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
 class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         ranking_method: str = None,
@@ -8644,6 +8758,7 @@ class DashboardRowLayoutRowsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio
 
 
 class DashboardRowLayoutRowsWidgetsScorecardGaugeView(object):
+
     def __init__(self, lower_bound: float = None, upper_bound: float = None):
         self.lower_bound = lower_bound
         self.upper_bound = upper_bound
@@ -8690,6 +8805,7 @@ class DashboardRowLayoutRowsWidgetsScorecardGaugeViewArray(object):
 
 
 class DashboardRowLayoutRowsWidgetsScorecardSparkChartView(object):
+
     def __init__(self, spark_chart_type: str = None, min_alignment_period: str = None):
         self.spark_chart_type = spark_chart_type
         self.min_alignment_period = min_alignment_period
@@ -8744,6 +8860,7 @@ class DashboardRowLayoutRowsWidgetsScorecardSparkChartViewArray(object):
 
 
 class DashboardRowLayoutRowsWidgetsScorecardThresholds(object):
+
     def __init__(
         self,
         label: str = None,
@@ -8820,6 +8937,7 @@ class DashboardRowLayoutRowsWidgetsScorecardThresholdsArray(object):
 
 
 class DashboardRowLayoutRowsWidgetsText(object):
+
     def __init__(self, content: str = None, format: str = None):
         self.content = content
         self.format = format
@@ -8864,6 +8982,7 @@ class DashboardRowLayoutRowsWidgetsTextArray(object):
 
 
 class DashboardRowLayoutRowsWidgetsBlank(object):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -8893,6 +9012,7 @@ class DashboardRowLayoutRowsWidgetsBlankArray(object):
 
 
 class DashboardRowLayoutRowsWidgetsLogsPanel(object):
+
     def __init__(self, filter: str = None, resource_names: list = None):
         self.filter = filter
         self.resource_names = resource_names
@@ -8933,6 +9053,7 @@ class DashboardRowLayoutRowsWidgetsLogsPanelArray(object):
 
 
 class DashboardColumnLayout(object):
+
     def __init__(self, columns: list = None):
         self.columns = columns
 
@@ -8971,6 +9092,7 @@ class DashboardColumnLayoutArray(object):
 
 
 class DashboardColumnLayoutColumns(object):
+
     def __init__(self, weight: int = None, widgets: list = None):
         self.weight = weight
         self.widgets = widgets
@@ -9015,6 +9137,7 @@ class DashboardColumnLayoutColumnsArray(object):
 
 
 class DashboardColumnLayoutColumnsWidgets(object):
+
     def __init__(
         self,
         title: str = None,
@@ -9109,6 +9232,7 @@ class DashboardColumnLayoutColumnsWidgetsArray(object):
 
 
 class DashboardColumnLayoutColumnsWidgetsXyChart(object):
+
     def __init__(
         self,
         data_sets: list = None,
@@ -9219,6 +9343,7 @@ class DashboardColumnLayoutColumnsWidgetsXyChartArray(object):
 
 
 class DashboardColumnLayoutColumnsWidgetsXyChartDataSets(object):
+
     def __init__(
         self,
         time_series_query: dict = None,
@@ -9299,6 +9424,7 @@ class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsArray(object):
 
 
 class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQuery(object):
+
     def __init__(
         self,
         time_series_filter: dict = None,
@@ -9391,6 +9517,7 @@ class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryArray(obj
 class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         filter: str = None,
@@ -9491,6 +9618,7 @@ class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -9573,6 +9701,7 @@ class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -9655,6 +9784,7 @@ class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         ranking_method: str = None,
@@ -9732,6 +9862,7 @@ class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatio(
     object
 ):
+
     def __init__(
         self,
         numerator: dict = None,
@@ -9842,6 +9973,7 @@ class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumerator(
     object
 ):
+
     def __init__(self, filter: str = None, aggregation: dict = None):
         self.filter = filter
         self.aggregation = aggregation
@@ -9908,6 +10040,7 @@ class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -9990,6 +10123,7 @@ class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominator(
     object
 ):
+
     def __init__(self, filter: str = None, aggregation: dict = None):
         self.filter = filter
         self.aggregation = aggregation
@@ -10056,6 +10190,7 @@ class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -10138,6 +10273,7 @@ class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -10220,6 +10356,7 @@ class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         ranking_method: str = None,
@@ -10295,6 +10432,7 @@ class DashboardColumnLayoutColumnsWidgetsXyChartDataSetsTimeSeriesQueryTimeSerie
 
 
 class DashboardColumnLayoutColumnsWidgetsXyChartThresholds(object):
+
     def __init__(
         self,
         label: str = None,
@@ -10371,6 +10509,7 @@ class DashboardColumnLayoutColumnsWidgetsXyChartThresholdsArray(object):
 
 
 class DashboardColumnLayoutColumnsWidgetsXyChartXAxis(object):
+
     def __init__(self, label: str = None, scale: str = None):
         self.label = label
         self.scale = scale
@@ -10425,6 +10564,7 @@ class DashboardColumnLayoutColumnsWidgetsXyChartXAxisArray(object):
 
 
 class DashboardColumnLayoutColumnsWidgetsXyChartYAxis(object):
+
     def __init__(self, label: str = None, scale: str = None):
         self.label = label
         self.scale = scale
@@ -10479,6 +10619,7 @@ class DashboardColumnLayoutColumnsWidgetsXyChartYAxisArray(object):
 
 
 class DashboardColumnLayoutColumnsWidgetsXyChartChartOptions(object):
+
     def __init__(self, mode: str = None):
         self.mode = mode
 
@@ -10531,6 +10672,7 @@ class DashboardColumnLayoutColumnsWidgetsXyChartChartOptionsArray(object):
 
 
 class DashboardColumnLayoutColumnsWidgetsScorecard(object):
+
     def __init__(
         self,
         time_series_query: dict = None,
@@ -10628,6 +10770,7 @@ class DashboardColumnLayoutColumnsWidgetsScorecardArray(object):
 
 
 class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQuery(object):
+
     def __init__(
         self,
         time_series_filter: dict = None,
@@ -10716,6 +10859,7 @@ class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryArray(object):
 class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         filter: str = None,
@@ -10816,6 +10960,7 @@ class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -10898,6 +11043,7 @@ class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterSecondaryAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -10980,6 +11126,7 @@ class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterPickTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         ranking_method: str = None,
@@ -11057,6 +11204,7 @@ class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatio(
     object
 ):
+
     def __init__(
         self,
         numerator: dict = None,
@@ -11167,6 +11315,7 @@ class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumerator(
     object
 ):
+
     def __init__(self, filter: str = None, aggregation: dict = None):
         self.filter = filter
         self.aggregation = aggregation
@@ -11233,6 +11382,7 @@ class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioNumeratorAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -11315,6 +11465,7 @@ class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominator(
     object
 ):
+
     def __init__(self, filter: str = None, aggregation: dict = None):
         self.filter = filter
         self.aggregation = aggregation
@@ -11381,6 +11532,7 @@ class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioDenominatorAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -11463,6 +11615,7 @@ class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioSecondaryAggregation(
     object
 ):
+
     def __init__(
         self,
         alignment_period: str = None,
@@ -11545,6 +11698,7 @@ class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilterRatioPickTimeSeriesFilter(
     object
 ):
+
     def __init__(
         self,
         ranking_method: str = None,
@@ -11620,6 +11774,7 @@ class DashboardColumnLayoutColumnsWidgetsScorecardTimeSeriesQueryTimeSeriesFilte
 
 
 class DashboardColumnLayoutColumnsWidgetsScorecardGaugeView(object):
+
     def __init__(self, lower_bound: float = None, upper_bound: float = None):
         self.lower_bound = lower_bound
         self.upper_bound = upper_bound
@@ -11668,6 +11823,7 @@ class DashboardColumnLayoutColumnsWidgetsScorecardGaugeViewArray(object):
 
 
 class DashboardColumnLayoutColumnsWidgetsScorecardSparkChartView(object):
+
     def __init__(self, spark_chart_type: str = None, min_alignment_period: str = None):
         self.spark_chart_type = spark_chart_type
         self.min_alignment_period = min_alignment_period
@@ -11722,6 +11878,7 @@ class DashboardColumnLayoutColumnsWidgetsScorecardSparkChartViewArray(object):
 
 
 class DashboardColumnLayoutColumnsWidgetsScorecardThresholds(object):
+
     def __init__(
         self,
         label: str = None,
@@ -11796,6 +11953,7 @@ class DashboardColumnLayoutColumnsWidgetsScorecardThresholdsArray(object):
 
 
 class DashboardColumnLayoutColumnsWidgetsText(object):
+
     def __init__(self, content: str = None, format: str = None):
         self.content = content
         self.format = format
@@ -11842,6 +12000,7 @@ class DashboardColumnLayoutColumnsWidgetsTextArray(object):
 
 
 class DashboardColumnLayoutColumnsWidgetsBlank(object):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -11873,6 +12032,7 @@ class DashboardColumnLayoutColumnsWidgetsBlankArray(object):
 
 
 class DashboardColumnLayoutColumnsWidgetsLogsPanel(object):
+
     def __init__(self, filter: str = None, resource_names: list = None):
         self.filter = filter
         self.resource_names = resource_names

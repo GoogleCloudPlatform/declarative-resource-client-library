@@ -38,6 +38,7 @@ class UptimeCheckConfig(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -239,6 +240,7 @@ class UptimeCheckConfig(object):
 
 
 class UptimeCheckConfigMonitoredResource(object):
+
     def __init__(self, type: str = None, filter_labels: dict = None):
         self.type = type
         self.filter_labels = filter_labels
@@ -281,6 +283,7 @@ class UptimeCheckConfigMonitoredResourceArray(object):
 
 
 class UptimeCheckConfigResourceGroup(object):
+
     def __init__(self, group_id: str = None, resource_type: str = None):
         self.group_id = group_id
         self.resource_type = resource_type
@@ -327,6 +330,7 @@ class UptimeCheckConfigResourceGroupArray(object):
 
 
 class UptimeCheckConfigHttpCheck(object):
+
     def __init__(
         self,
         request_method: str = None,
@@ -425,6 +429,7 @@ class UptimeCheckConfigHttpCheckArray(object):
 
 
 class UptimeCheckConfigHttpCheckAuthInfo(object):
+
     def __init__(self, username: str = None, password: str = None):
         self.username = username
         self.password = password
@@ -467,6 +472,7 @@ class UptimeCheckConfigHttpCheckAuthInfoArray(object):
 
 
 class UptimeCheckConfigTcpCheck(object):
+
     def __init__(self, port: int = None):
         self.port = port
 
@@ -503,6 +509,7 @@ class UptimeCheckConfigTcpCheckArray(object):
 
 
 class UptimeCheckConfigContentMatchers(object):
+
     def __init__(self, content: str = None, matcher: str = None):
         self.content = content
         self.matcher = matcher

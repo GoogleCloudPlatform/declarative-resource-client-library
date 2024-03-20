@@ -37,6 +37,7 @@ class MetricDescriptor(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.type = type
         self.labels = labels
@@ -210,6 +211,7 @@ class MetricDescriptor(object):
 
 
 class MetricDescriptorLabels(object):
+
     def __init__(
         self, key: str = None, value_type: str = None, description: str = None
     ):
@@ -260,6 +262,7 @@ class MetricDescriptorLabelsArray(object):
 
 
 class MetricDescriptorMetadata(object):
+
     def __init__(
         self,
         launch_stage: str = None,

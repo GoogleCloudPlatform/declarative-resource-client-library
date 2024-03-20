@@ -40,6 +40,7 @@ class EndpointPolicy(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.labels = labels
@@ -229,6 +230,7 @@ class EndpointPolicy(object):
 
 
 class EndpointPolicyEndpointMatcher(object):
+
     def __init__(self, metadata_label_matcher: dict = None):
         self.metadata_label_matcher = metadata_label_matcher
 
@@ -275,6 +277,7 @@ class EndpointPolicyEndpointMatcherArray(object):
 
 
 class EndpointPolicyEndpointMatcherMetadataLabelMatcher(object):
+
     def __init__(
         self, metadata_label_match_criteria: str = None, metadata_labels: list = None
     ):
@@ -339,6 +342,7 @@ class EndpointPolicyEndpointMatcherMetadataLabelMatcherArray(object):
 
 
 class EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabels(object):
+
     def __init__(self, label_name: str = None, label_value: str = None):
         self.label_name = label_name
         self.label_value = label_value
@@ -389,6 +393,7 @@ class EndpointPolicyEndpointMatcherMetadataLabelMatcherMetadataLabelsArray(objec
 
 
 class EndpointPolicyTrafficPortSelector(object):
+
     def __init__(self, ports: list = None):
         self.ports = ports
 

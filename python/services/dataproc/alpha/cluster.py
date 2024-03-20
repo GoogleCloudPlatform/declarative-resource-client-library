@@ -33,6 +33,7 @@ class Cluster(object):
         virtual_cluster_config: dict = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.project = project
         self.name = name
@@ -148,6 +149,7 @@ class Cluster(object):
 
 
 class ClusterConfig(object):
+
     def __init__(
         self,
         staging_bucket: str = None,
@@ -350,6 +352,7 @@ class ClusterConfigArray(object):
 
 
 class ClusterConfigGceClusterConfig(object):
+
     def __init__(
         self,
         zone: str = None,
@@ -501,6 +504,7 @@ class ClusterConfigGceClusterConfigArray(object):
 
 
 class ClusterConfigGceClusterConfigReservationAffinity(object):
+
     def __init__(
         self, consume_reservation_type: str = None, key: str = None, values: list = None
     ):
@@ -561,6 +565,7 @@ class ClusterConfigGceClusterConfigReservationAffinityArray(object):
 
 
 class ClusterConfigGceClusterConfigNodeGroupAffinity(object):
+
     def __init__(self, node_group: str = None):
         self.node_group = node_group
 
@@ -603,6 +608,7 @@ class ClusterConfigGceClusterConfigNodeGroupAffinityArray(object):
 
 
 class ClusterConfigGceClusterConfigShieldedInstanceConfig(object):
+
     def __init__(
         self,
         enable_secure_boot: bool = None,
@@ -664,6 +670,7 @@ class ClusterConfigGceClusterConfigShieldedInstanceConfigArray(object):
 
 
 class ClusterConfigGceClusterConfigConfidentialInstanceConfig(object):
+
     def __init__(self, enable_confidential_compute: bool = None):
         self.enable_confidential_compute = enable_confidential_compute
 
@@ -712,6 +719,7 @@ class ClusterConfigGceClusterConfigConfidentialInstanceConfigArray(object):
 
 
 class ClusterConfigMasterConfig(object):
+
     def __init__(
         self,
         num_instances: int = None,
@@ -837,6 +845,7 @@ class ClusterConfigMasterConfigArray(object):
 
 
 class ClusterConfigMasterConfigDiskConfig(object):
+
     def __init__(
         self,
         boot_disk_type: str = None,
@@ -891,6 +900,7 @@ class ClusterConfigMasterConfigDiskConfigArray(object):
 
 
 class ClusterConfigMasterConfigManagedGroupConfig(object):
+
     def __init__(
         self,
         instance_template_name: str = None,
@@ -947,6 +957,7 @@ class ClusterConfigMasterConfigManagedGroupConfigArray(object):
 
 
 class ClusterConfigMasterConfigAccelerators(object):
+
     def __init__(self, accelerator_type: str = None, accelerator_count: int = None):
         self.accelerator_type = accelerator_type
         self.accelerator_count = accelerator_count
@@ -987,6 +998,7 @@ class ClusterConfigMasterConfigAcceleratorsArray(object):
 
 
 class ClusterConfigMasterConfigInstanceReferences(object):
+
     def __init__(
         self,
         instance_name: str = None,
@@ -1045,6 +1057,7 @@ class ClusterConfigMasterConfigInstanceReferencesArray(object):
 
 
 class ClusterConfigWorkerConfig(object):
+
     def __init__(
         self,
         num_instances: int = None,
@@ -1170,6 +1183,7 @@ class ClusterConfigWorkerConfigArray(object):
 
 
 class ClusterConfigWorkerConfigDiskConfig(object):
+
     def __init__(
         self,
         boot_disk_type: str = None,
@@ -1224,6 +1238,7 @@ class ClusterConfigWorkerConfigDiskConfigArray(object):
 
 
 class ClusterConfigWorkerConfigManagedGroupConfig(object):
+
     def __init__(
         self,
         instance_template_name: str = None,
@@ -1280,6 +1295,7 @@ class ClusterConfigWorkerConfigManagedGroupConfigArray(object):
 
 
 class ClusterConfigWorkerConfigAccelerators(object):
+
     def __init__(self, accelerator_type: str = None, accelerator_count: int = None):
         self.accelerator_type = accelerator_type
         self.accelerator_count = accelerator_count
@@ -1320,6 +1336,7 @@ class ClusterConfigWorkerConfigAcceleratorsArray(object):
 
 
 class ClusterConfigWorkerConfigInstanceReferences(object):
+
     def __init__(
         self,
         instance_name: str = None,
@@ -1378,6 +1395,7 @@ class ClusterConfigWorkerConfigInstanceReferencesArray(object):
 
 
 class ClusterConfigSecondaryWorkerConfig(object):
+
     def __init__(
         self,
         num_instances: int = None,
@@ -1509,6 +1527,7 @@ class ClusterConfigSecondaryWorkerConfigArray(object):
 
 
 class ClusterConfigSecondaryWorkerConfigDiskConfig(object):
+
     def __init__(
         self,
         boot_disk_type: str = None,
@@ -1568,6 +1587,7 @@ class ClusterConfigSecondaryWorkerConfigDiskConfigArray(object):
 
 
 class ClusterConfigSecondaryWorkerConfigManagedGroupConfig(object):
+
     def __init__(
         self,
         instance_template_name: str = None,
@@ -1628,6 +1648,7 @@ class ClusterConfigSecondaryWorkerConfigManagedGroupConfigArray(object):
 
 
 class ClusterConfigSecondaryWorkerConfigAccelerators(object):
+
     def __init__(self, accelerator_type: str = None, accelerator_count: int = None):
         self.accelerator_type = accelerator_type
         self.accelerator_count = accelerator_count
@@ -1674,6 +1695,7 @@ class ClusterConfigSecondaryWorkerConfigAcceleratorsArray(object):
 
 
 class ClusterConfigSecondaryWorkerConfigInstanceReferences(object):
+
     def __init__(
         self,
         instance_name: str = None,
@@ -1736,6 +1758,7 @@ class ClusterConfigSecondaryWorkerConfigInstanceReferencesArray(object):
 
 
 class ClusterConfigSoftwareConfig(object):
+
     def __init__(
         self,
         image_version: str = None,
@@ -1793,6 +1816,7 @@ class ClusterConfigSoftwareConfigArray(object):
 
 
 class ClusterConfigInitializationActions(object):
+
     def __init__(self, executable_file: str = None, execution_timeout: str = None):
         self.executable_file = executable_file
         self.execution_timeout = execution_timeout
@@ -1833,6 +1857,7 @@ class ClusterConfigInitializationActionsArray(object):
 
 
 class ClusterConfigEncryptionConfig(object):
+
     def __init__(self, gce_pd_kms_key_name: str = None):
         self.gce_pd_kms_key_name = gce_pd_kms_key_name
 
@@ -1869,6 +1894,7 @@ class ClusterConfigEncryptionConfigArray(object):
 
 
 class ClusterConfigAutoscalingConfig(object):
+
     def __init__(self, policy: str = None):
         self.policy = policy
 
@@ -1905,6 +1931,7 @@ class ClusterConfigAutoscalingConfigArray(object):
 
 
 class ClusterConfigSecurityConfig(object):
+
     def __init__(self, kerberos_config: dict = None, identity_config: dict = None):
         self.kerberos_config = kerberos_config
         self.identity_config = identity_config
@@ -1961,6 +1988,7 @@ class ClusterConfigSecurityConfigArray(object):
 
 
 class ClusterConfigSecurityConfigKerberosConfig(object):
+
     def __init__(
         self,
         enable_kerberos: bool = None,
@@ -2092,6 +2120,7 @@ class ClusterConfigSecurityConfigKerberosConfigArray(object):
 
 
 class ClusterConfigSecurityConfigIdentityConfig(object):
+
     def __init__(self, user_service_account_mapping: dict = None):
         self.user_service_account_mapping = user_service_account_mapping
 
@@ -2136,6 +2165,7 @@ class ClusterConfigSecurityConfigIdentityConfigArray(object):
 
 
 class ClusterConfigLifecycleConfig(object):
+
     def __init__(
         self,
         idle_delete_ttl: str = None,
@@ -2190,6 +2220,7 @@ class ClusterConfigLifecycleConfigArray(object):
 
 
 class ClusterConfigEndpointConfig(object):
+
     def __init__(self, http_ports: dict = None, enable_http_port_access: bool = None):
         self.http_ports = http_ports
         self.enable_http_port_access = enable_http_port_access
@@ -2234,6 +2265,7 @@ class ClusterConfigEndpointConfigArray(object):
 
 
 class ClusterConfigGkeClusterConfig(object):
+
     def __init__(self, namespaced_gke_deployment_target: dict = None):
         self.namespaced_gke_deployment_target = namespaced_gke_deployment_target
 
@@ -2280,6 +2312,7 @@ class ClusterConfigGkeClusterConfigArray(object):
 
 
 class ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTarget(object):
+
     def __init__(self, target_gke_cluster: str = None, cluster_namespace: str = None):
         self.target_gke_cluster = target_gke_cluster
         self.cluster_namespace = cluster_namespace
@@ -2328,6 +2361,7 @@ class ClusterConfigGkeClusterConfigNamespacedGkeDeploymentTargetArray(object):
 
 
 class ClusterConfigMetastoreConfig(object):
+
     def __init__(self, dataproc_metastore_service: str = None):
         self.dataproc_metastore_service = dataproc_metastore_service
 
@@ -2368,6 +2402,7 @@ class ClusterConfigMetastoreConfigArray(object):
 
 
 class ClusterConfigDataprocMetricConfig(object):
+
     def __init__(self, metrics: list = None):
         self.metrics = metrics
 
@@ -2408,6 +2443,7 @@ class ClusterConfigDataprocMetricConfigArray(object):
 
 
 class ClusterConfigDataprocMetricConfigMetrics(object):
+
     def __init__(self, metric_source: str = None, metric_overrides: list = None):
         self.metric_source = metric_source
         self.metric_overrides = metric_overrides
@@ -2458,6 +2494,7 @@ class ClusterConfigDataprocMetricConfigMetricsArray(object):
 
 
 class ClusterStatus(object):
+
     def __init__(
         self,
         state: str = None,
@@ -2512,6 +2549,7 @@ class ClusterStatusArray(object):
 
 
 class ClusterStatusHistory(object):
+
     def __init__(
         self,
         state: str = None,
@@ -2566,6 +2604,7 @@ class ClusterStatusHistoryArray(object):
 
 
 class ClusterMetrics(object):
+
     def __init__(self, hdfs_metrics: dict = None, yarn_metrics: dict = None):
         self.hdfs_metrics = hdfs_metrics
         self.yarn_metrics = yarn_metrics
@@ -2606,6 +2645,7 @@ class ClusterMetricsArray(object):
 
 
 class ClusterVirtualClusterConfig(object):
+
     def __init__(
         self,
         staging_bucket: str = None,
@@ -2675,6 +2715,7 @@ class ClusterVirtualClusterConfigArray(object):
 
 
 class ClusterVirtualClusterConfigKubernetesClusterConfig(object):
+
     def __init__(
         self,
         kubernetes_namespace: str = None,
@@ -2752,6 +2793,7 @@ class ClusterVirtualClusterConfigKubernetesClusterConfigArray(object):
 
 
 class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfig(object):
+
     def __init__(self, gke_cluster_target: str = None, node_pool_target: list = None):
         self.gke_cluster_target = gke_cluster_target
         self.node_pool_target = node_pool_target
@@ -2814,6 +2856,7 @@ class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigArray(ob
 class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTarget(
     object
 ):
+
     def __init__(
         self, node_pool: str = None, roles: list = None, node_pool_config: dict = None
     ):
@@ -2894,6 +2937,7 @@ class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePool
 class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfig(
     object
 ):
+
     def __init__(
         self, config: dict = None, locations: list = None, autoscaling: dict = None
     ):
@@ -2976,6 +3020,7 @@ class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePool
 class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfig(
     object
 ):
+
     def __init__(
         self,
         machine_type: str = None,
@@ -3084,6 +3129,7 @@ class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePool
 class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigAccelerators(
     object
 ):
+
     def __init__(
         self,
         accelerator_count: int = None,
@@ -3149,6 +3195,7 @@ class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePool
 class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigConfigEphemeralStorageConfig(
     object
 ):
+
     def __init__(self, local_ssd_count: int = None):
         self.local_ssd_count = local_ssd_count
 
@@ -3201,6 +3248,7 @@ class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePool
 class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePoolTargetNodePoolConfigAutoscaling(
     object
 ):
+
     def __init__(self, min_node_count: int = None, max_node_count: int = None):
         self.min_node_count = min_node_count
         self.max_node_count = max_node_count
@@ -3257,6 +3305,7 @@ class ClusterVirtualClusterConfigKubernetesClusterConfigGkeClusterConfigNodePool
 class ClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig(
     object
 ):
+
     def __init__(self, component_version: dict = None, properties: dict = None):
         self.component_version = component_version
         self.properties = properties
@@ -3313,6 +3362,7 @@ class ClusterVirtualClusterConfigKubernetesClusterConfigKubernetesSoftwareConfig
 
 
 class ClusterVirtualClusterConfigAuxiliaryServicesConfig(object):
+
     def __init__(
         self, metastore_config: dict = None, spark_history_server_config: dict = None
     ):
@@ -3383,6 +3433,7 @@ class ClusterVirtualClusterConfigAuxiliaryServicesConfigArray(object):
 
 
 class ClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfig(object):
+
     def __init__(self, dataproc_metastore_service: str = None):
         self.dataproc_metastore_service = dataproc_metastore_service
 
@@ -3437,6 +3488,7 @@ class ClusterVirtualClusterConfigAuxiliaryServicesConfigMetastoreConfigArray(obj
 class ClusterVirtualClusterConfigAuxiliaryServicesConfigSparkHistoryServerConfig(
     object
 ):
+
     def __init__(self, dataproc_cluster: str = None):
         self.dataproc_cluster = dataproc_cluster
 

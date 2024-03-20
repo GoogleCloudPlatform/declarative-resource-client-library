@@ -37,6 +37,7 @@ class ClientTlsPolicy(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -184,6 +185,7 @@ class ClientTlsPolicy(object):
 
 
 class ClientTlsPolicyClientCertificate(object):
+
     def __init__(
         self, grpc_endpoint: dict = None, certificate_provider_instance: dict = None
     ):
@@ -248,6 +250,7 @@ class ClientTlsPolicyClientCertificateArray(object):
 
 
 class ClientTlsPolicyClientCertificateGrpcEndpoint(object):
+
     def __init__(self, target_uri: str = None):
         self.target_uri = target_uri
 
@@ -291,6 +294,7 @@ class ClientTlsPolicyClientCertificateGrpcEndpointArray(object):
 
 
 class ClientTlsPolicyClientCertificateCertificateProviderInstance(object):
+
     def __init__(self, plugin_instance: str = None):
         self.plugin_instance = plugin_instance
 
@@ -335,6 +339,7 @@ class ClientTlsPolicyClientCertificateCertificateProviderInstanceArray(object):
 
 
 class ClientTlsPolicyServerValidationCa(object):
+
     def __init__(
         self, grpc_endpoint: dict = None, certificate_provider_instance: dict = None
     ):
@@ -399,6 +404,7 @@ class ClientTlsPolicyServerValidationCaArray(object):
 
 
 class ClientTlsPolicyServerValidationCaGrpcEndpoint(object):
+
     def __init__(self, target_uri: str = None):
         self.target_uri = target_uri
 
@@ -442,6 +448,7 @@ class ClientTlsPolicyServerValidationCaGrpcEndpointArray(object):
 
 
 class ClientTlsPolicyServerValidationCaCertificateProviderInstance(object):
+
     def __init__(self, plugin_instance: str = None):
         self.plugin_instance = plugin_instance
 

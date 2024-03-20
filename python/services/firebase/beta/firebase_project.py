@@ -32,6 +32,7 @@ class FirebaseProject(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.display_name = display_name
         self.annotations = annotations
@@ -101,6 +102,7 @@ class FirebaseProject(object):
 
 
 class FirebaseProjectResources(object):
+
     def __init__(
         self,
         hosting_site: str = None,

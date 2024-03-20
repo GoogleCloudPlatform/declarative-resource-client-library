@@ -32,6 +32,7 @@ class Network(object):
         self_link_with_id: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.description = description
         self.name = name
@@ -144,6 +145,7 @@ class Network(object):
 
 
 class NetworkRoutingConfig(object):
+
     def __init__(self, routing_mode: str = None):
         self.routing_mode = routing_mode
 

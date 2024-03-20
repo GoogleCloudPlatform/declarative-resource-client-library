@@ -37,6 +37,7 @@ class CertificateTemplate(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.predefined_values = predefined_values
@@ -214,6 +215,7 @@ class CertificateTemplate(object):
 
 
 class CertificateTemplatePredefinedValues(object):
+
     def __init__(
         self,
         key_usage: dict = None,
@@ -303,6 +305,7 @@ class CertificateTemplatePredefinedValuesArray(object):
 
 
 class CertificateTemplatePredefinedValuesKeyUsage(object):
+
     def __init__(
         self,
         base_key_usage: dict = None,
@@ -386,6 +389,7 @@ class CertificateTemplatePredefinedValuesKeyUsageArray(object):
 
 
 class CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage(object):
+
     def __init__(
         self,
         digital_signature: bool = None,
@@ -473,6 +477,7 @@ class CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsageArray(object):
 
 
 class CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage(object):
+
     def __init__(
         self,
         server_auth: bool = None,
@@ -545,6 +550,7 @@ class CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsageArray(object):
 
 
 class CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsages(object):
+
     def __init__(self, object_id_path: list = None):
         self.object_id_path = object_id_path
 
@@ -593,6 +599,7 @@ class CertificateTemplatePredefinedValuesKeyUsageUnknownExtendedKeyUsagesArray(o
 
 
 class CertificateTemplatePredefinedValuesCaOptions(object):
+
     def __init__(self, is_ca: bool = None, max_issuer_path_length: int = None):
         self.is_ca = is_ca
         self.max_issuer_path_length = max_issuer_path_length
@@ -644,6 +651,7 @@ class CertificateTemplatePredefinedValuesCaOptionsArray(object):
 
 
 class CertificateTemplatePredefinedValuesPolicyIds(object):
+
     def __init__(self, object_id_path: list = None):
         self.object_id_path = object_id_path
 
@@ -687,6 +695,7 @@ class CertificateTemplatePredefinedValuesPolicyIdsArray(object):
 
 
 class CertificateTemplatePredefinedValuesAdditionalExtensions(object):
+
     def __init__(
         self, object_id: dict = None, critical: bool = None, value: str = None
     ):
@@ -751,6 +760,7 @@ class CertificateTemplatePredefinedValuesAdditionalExtensionsArray(object):
 
 
 class CertificateTemplatePredefinedValuesAdditionalExtensionsObjectId(object):
+
     def __init__(self, object_id_path: list = None):
         self.object_id_path = object_id_path
 
@@ -797,6 +807,7 @@ class CertificateTemplatePredefinedValuesAdditionalExtensionsObjectIdArray(objec
 
 
 class CertificateTemplateIdentityConstraints(object):
+
     def __init__(
         self,
         cel_expression: dict = None,
@@ -864,6 +875,7 @@ class CertificateTemplateIdentityConstraintsArray(object):
 
 
 class CertificateTemplateIdentityConstraintsCelExpression(object):
+
     def __init__(
         self,
         expression: str = None,
@@ -926,6 +938,7 @@ class CertificateTemplateIdentityConstraintsCelExpressionArray(object):
 
 
 class CertificateTemplatePassthroughExtensions(object):
+
     def __init__(
         self, known_extensions: list = None, additional_extensions: list = None
     ):
@@ -988,6 +1001,7 @@ class CertificateTemplatePassthroughExtensionsArray(object):
 
 
 class CertificateTemplatePassthroughExtensionsAdditionalExtensions(object):
+
     def __init__(self, object_id_path: list = None):
         self.object_id_path = object_id_path
 

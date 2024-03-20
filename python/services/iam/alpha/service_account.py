@@ -32,6 +32,7 @@ class ServiceAccount(object):
         disabled: bool = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.project = project
@@ -135,6 +136,7 @@ class ServiceAccount(object):
 
 
 class ServiceAccountActasResources(object):
+
     def __init__(self, resources: list = None):
         self.resources = resources
 
@@ -175,6 +177,7 @@ class ServiceAccountActasResourcesArray(object):
 
 
 class ServiceAccountActasResourcesResources(object):
+
     def __init__(self, full_resource_name: str = None):
         self.full_resource_name = full_resource_name
 

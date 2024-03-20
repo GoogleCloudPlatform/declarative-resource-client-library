@@ -37,6 +37,7 @@ class WorkerPool(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -190,6 +191,7 @@ class WorkerPool(object):
 
 
 class WorkerPoolPrivatePoolV1Config(object):
+
     def __init__(self, worker_config: dict = None, network_config: dict = None):
         self.worker_config = worker_config
         self.network_config = network_config
@@ -246,6 +248,7 @@ class WorkerPoolPrivatePoolV1ConfigArray(object):
 
 
 class WorkerPoolPrivatePoolV1ConfigWorkerConfig(object):
+
     def __init__(self, machine_type: str = None, disk_size_gb: int = None):
         self.machine_type = machine_type
         self.disk_size_gb = disk_size_gb
@@ -290,6 +293,7 @@ class WorkerPoolPrivatePoolV1ConfigWorkerConfigArray(object):
 
 
 class WorkerPoolPrivatePoolV1ConfigNetworkConfig(object):
+
     def __init__(
         self,
         peered_network: str = None,
@@ -355,6 +359,7 @@ class WorkerPoolPrivatePoolV1ConfigNetworkConfigArray(object):
 
 
 class WorkerPoolWorkerConfig(object):
+
     def __init__(
         self,
         machine_type: str = None,
@@ -404,6 +409,7 @@ class WorkerPoolWorkerConfigArray(object):
 
 
 class WorkerPoolNetworkConfig(object):
+
     def __init__(self, peered_network: str = None, peered_network_ip_range: str = None):
         self.peered_network = peered_network
         self.peered_network_ip_range = peered_network_ip_range

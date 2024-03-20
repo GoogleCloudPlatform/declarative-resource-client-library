@@ -44,6 +44,7 @@ class Cluster(object):
         fleet: dict = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -279,6 +280,7 @@ class Cluster(object):
 
 
 class ClusterAzureServicesAuthentication(object):
+
     def __init__(self, tenant_id: str = None, application_id: str = None):
         self.tenant_id = tenant_id
         self.application_id = application_id
@@ -319,6 +321,7 @@ class ClusterAzureServicesAuthenticationArray(object):
 
 
 class ClusterNetworking(object):
+
     def __init__(
         self,
         virtual_network_id: str = None,
@@ -376,6 +379,7 @@ class ClusterNetworkingArray(object):
 
 
 class ClusterControlPlane(object):
+
     def __init__(
         self,
         version: str = None,
@@ -494,6 +498,7 @@ class ClusterControlPlaneArray(object):
 
 
 class ClusterControlPlaneSshConfig(object):
+
     def __init__(self, authorized_key: str = None):
         self.authorized_key = authorized_key
 
@@ -530,6 +535,7 @@ class ClusterControlPlaneSshConfigArray(object):
 
 
 class ClusterControlPlaneRootVolume(object):
+
     def __init__(self, size_gib: int = None):
         self.size_gib = size_gib
 
@@ -566,6 +572,7 @@ class ClusterControlPlaneRootVolumeArray(object):
 
 
 class ClusterControlPlaneMainVolume(object):
+
     def __init__(self, size_gib: int = None):
         self.size_gib = size_gib
 
@@ -602,6 +609,7 @@ class ClusterControlPlaneMainVolumeArray(object):
 
 
 class ClusterControlPlaneDatabaseEncryption(object):
+
     def __init__(self, key_id: str = None):
         self.key_id = key_id
 
@@ -638,6 +646,7 @@ class ClusterControlPlaneDatabaseEncryptionArray(object):
 
 
 class ClusterControlPlaneProxyConfig(object):
+
     def __init__(self, resource_group_id: str = None, secret_id: str = None):
         self.resource_group_id = resource_group_id
         self.secret_id = secret_id
@@ -678,6 +687,7 @@ class ClusterControlPlaneProxyConfigArray(object):
 
 
 class ClusterControlPlaneReplicaPlacements(object):
+
     def __init__(self, subnet_id: str = None, azure_availability_zone: str = None):
         self.subnet_id = subnet_id
         self.azure_availability_zone = azure_availability_zone
@@ -722,6 +732,7 @@ class ClusterControlPlaneReplicaPlacementsArray(object):
 
 
 class ClusterAuthorization(object):
+
     def __init__(self, admin_users: list = None, admin_groups: list = None):
         self.admin_users = admin_users
         self.admin_groups = admin_groups
@@ -770,6 +781,7 @@ class ClusterAuthorizationArray(object):
 
 
 class ClusterAuthorizationAdminUsers(object):
+
     def __init__(self, username: str = None):
         self.username = username
 
@@ -806,6 +818,7 @@ class ClusterAuthorizationAdminUsersArray(object):
 
 
 class ClusterAuthorizationAdminGroups(object):
+
     def __init__(self, group: str = None):
         self.group = group
 
@@ -842,6 +855,7 @@ class ClusterAuthorizationAdminGroupsArray(object):
 
 
 class ClusterWorkloadIdentityConfig(object):
+
     def __init__(
         self,
         issuer_uri: str = None,
@@ -891,6 +905,7 @@ class ClusterWorkloadIdentityConfigArray(object):
 
 
 class ClusterFleet(object):
+
     def __init__(self, project: str = None, membership: str = None):
         self.project = project
         self.membership = membership

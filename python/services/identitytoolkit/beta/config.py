@@ -34,6 +34,7 @@ class Config(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.sign_in = sign_in
         self.notification = notification
@@ -224,6 +225,7 @@ class Config(object):
 
 
 class ConfigSignIn(object):
+
     def __init__(
         self,
         email: dict = None,
@@ -299,6 +301,7 @@ class ConfigSignInArray(object):
 
 
 class ConfigSignInEmail(object):
+
     def __init__(
         self,
         enabled: bool = None,
@@ -352,6 +355,7 @@ class ConfigSignInEmailArray(object):
 
 
 class ConfigSignInEmailHashConfig(object):
+
     def __init__(
         self,
         algorithm: str = None,
@@ -415,6 +419,7 @@ class ConfigSignInEmailHashConfigArray(object):
 
 
 class ConfigSignInPhoneNumber(object):
+
     def __init__(self, enabled: bool = None, test_phone_numbers: dict = None):
         self.enabled = enabled
         self.test_phone_numbers = test_phone_numbers
@@ -455,6 +460,7 @@ class ConfigSignInPhoneNumberArray(object):
 
 
 class ConfigSignInAnonymous(object):
+
     def __init__(self, enabled: bool = None):
         self.enabled = enabled
 
@@ -491,6 +497,7 @@ class ConfigSignInAnonymousArray(object):
 
 
 class ConfigSignInHashConfig(object):
+
     def __init__(
         self,
         algorithm: str = None,
@@ -554,6 +561,7 @@ class ConfigSignInHashConfigArray(object):
 
 
 class ConfigNotification(object):
+
     def __init__(
         self, send_email: dict = None, send_sms: dict = None, default_locale: str = None
     ):
@@ -606,6 +614,7 @@ class ConfigNotificationArray(object):
 
 
 class ConfigNotificationSendEmail(object):
+
     def __init__(
         self,
         method: str = None,
@@ -728,6 +737,7 @@ class ConfigNotificationSendEmailArray(object):
 
 
 class ConfigNotificationSendEmailSmtp(object):
+
     def __init__(
         self,
         sender_email: str = None,
@@ -800,6 +810,7 @@ class ConfigNotificationSendEmailSmtpArray(object):
 
 
 class ConfigNotificationSendEmailResetPasswordTemplate(object):
+
     def __init__(
         self,
         sender_local_part: str = None,
@@ -885,6 +896,7 @@ class ConfigNotificationSendEmailResetPasswordTemplateArray(object):
 
 
 class ConfigNotificationSendEmailVerifyEmailTemplate(object):
+
     def __init__(
         self,
         sender_local_part: str = None,
@@ -970,6 +982,7 @@ class ConfigNotificationSendEmailVerifyEmailTemplateArray(object):
 
 
 class ConfigNotificationSendEmailChangeEmailTemplate(object):
+
     def __init__(
         self,
         sender_local_part: str = None,
@@ -1055,6 +1068,7 @@ class ConfigNotificationSendEmailChangeEmailTemplateArray(object):
 
 
 class ConfigNotificationSendEmailDnsInfo(object):
+
     def __init__(
         self,
         custom_domain: str = None,
@@ -1128,6 +1142,7 @@ class ConfigNotificationSendEmailDnsInfoArray(object):
 
 
 class ConfigNotificationSendEmailRevertSecondFactorAdditionTemplate(object):
+
     def __init__(
         self,
         sender_local_part: str = None,
@@ -1211,6 +1226,7 @@ class ConfigNotificationSendEmailRevertSecondFactorAdditionTemplateArray(object)
 
 
 class ConfigNotificationSendSms(object):
+
     def __init__(self, use_device_locale: bool = None, sms_template: dict = None):
         self.use_device_locale = use_device_locale
         self.sms_template = sms_template
@@ -1257,6 +1273,7 @@ class ConfigNotificationSendSmsArray(object):
 
 
 class ConfigNotificationSendSmsSmsTemplate(object):
+
     def __init__(self, content: str = None):
         self.content = content
 
@@ -1293,6 +1310,7 @@ class ConfigNotificationSendSmsSmsTemplateArray(object):
 
 
 class ConfigQuota(object):
+
     def __init__(self, sign_up_quota_config: dict = None):
         self.sign_up_quota_config = sign_up_quota_config
 
@@ -1335,6 +1353,7 @@ class ConfigQuotaArray(object):
 
 
 class ConfigQuotaSignUpQuotaConfig(object):
+
     def __init__(
         self, quota: int = None, start_time: str = None, quota_duration: str = None
     ):
@@ -1381,6 +1400,7 @@ class ConfigQuotaSignUpQuotaConfigArray(object):
 
 
 class ConfigMonitoring(object):
+
     def __init__(self, request_logging: dict = None):
         self.request_logging = request_logging
 
@@ -1423,6 +1443,7 @@ class ConfigMonitoringArray(object):
 
 
 class ConfigMonitoringRequestLogging(object):
+
     def __init__(self, enabled: bool = None):
         self.enabled = enabled
 
@@ -1459,6 +1480,7 @@ class ConfigMonitoringRequestLoggingArray(object):
 
 
 class ConfigMultiTenant(object):
+
     def __init__(self, allow_tenants: bool = None, default_tenant_location: str = None):
         self.allow_tenants = allow_tenants
         self.default_tenant_location = default_tenant_location
@@ -1503,6 +1525,7 @@ class ConfigMultiTenantArray(object):
 
 
 class ConfigClient(object):
+
     def __init__(
         self,
         api_key: str = None,
@@ -1556,6 +1579,7 @@ class ConfigClientArray(object):
 
 
 class ConfigClientPermissions(object):
+
     def __init__(
         self, disabled_user_signup: bool = None, disabled_user_deletion: bool = None
     ):
@@ -1602,6 +1626,7 @@ class ConfigClientPermissionsArray(object):
 
 
 class ConfigMfa(object):
+
     def __init__(self, state: str = None):
         self.state = state
 
@@ -1638,6 +1663,7 @@ class ConfigMfaArray(object):
 
 
 class ConfigBlockingFunctions(object):
+
     def __init__(self, triggers: dict = None):
         self.triggers = triggers
 
@@ -1674,6 +1700,7 @@ class ConfigBlockingFunctionsArray(object):
 
 
 class ConfigBlockingFunctionsTriggers(object):
+
     def __init__(self, function_uri: str = None, update_time: str = None):
         self.function_uri = function_uri
         self.update_time = update_time

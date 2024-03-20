@@ -39,6 +39,7 @@ class Subnetwork(object):
         enable_flow_logs: bool = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.description = description
         self.ip_cidr_range = ip_cidr_range
@@ -222,6 +223,7 @@ class Subnetwork(object):
 
 
 class SubnetworkSecondaryIPRanges(object):
+
     def __init__(self, range_name: str = None, ip_cidr_range: str = None):
         self.range_name = range_name
         self.ip_cidr_range = ip_cidr_range
@@ -262,6 +264,7 @@ class SubnetworkSecondaryIPRangesArray(object):
 
 
 class SubnetworkLogConfig(object):
+
     def __init__(
         self,
         aggregation_interval: str = None,

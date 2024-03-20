@@ -29,6 +29,7 @@ class Key(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -110,6 +111,7 @@ class Key(object):
 
 
 class KeyRestrictions(object):
+
     def __init__(
         self,
         browser_key_restrictions: dict = None,
@@ -209,6 +211,7 @@ class KeyRestrictionsArray(object):
 
 
 class KeyRestrictionsBrowserKeyRestrictions(object):
+
     def __init__(self, allowed_referrers: list = None):
         self.allowed_referrers = allowed_referrers
 
@@ -245,6 +248,7 @@ class KeyRestrictionsBrowserKeyRestrictionsArray(object):
 
 
 class KeyRestrictionsServerKeyRestrictions(object):
+
     def __init__(self, allowed_ips: list = None):
         self.allowed_ips = allowed_ips
 
@@ -281,6 +285,7 @@ class KeyRestrictionsServerKeyRestrictionsArray(object):
 
 
 class KeyRestrictionsAndroidKeyRestrictions(object):
+
     def __init__(self, allowed_applications: list = None):
         self.allowed_applications = allowed_applications
 
@@ -325,6 +330,7 @@ class KeyRestrictionsAndroidKeyRestrictionsArray(object):
 
 
 class KeyRestrictionsAndroidKeyRestrictionsAllowedApplications(object):
+
     def __init__(self, sha1_fingerprint: str = None, package_name: str = None):
         self.sha1_fingerprint = sha1_fingerprint
         self.package_name = package_name
@@ -371,6 +377,7 @@ class KeyRestrictionsAndroidKeyRestrictionsAllowedApplicationsArray(object):
 
 
 class KeyRestrictionsIosKeyRestrictions(object):
+
     def __init__(self, allowed_bundle_ids: list = None):
         self.allowed_bundle_ids = allowed_bundle_ids
 
@@ -409,6 +416,7 @@ class KeyRestrictionsIosKeyRestrictionsArray(object):
 
 
 class KeyRestrictionsApiTargets(object):
+
     def __init__(self, service: str = None, methods: list = None):
         self.service = service
         self.methods = methods

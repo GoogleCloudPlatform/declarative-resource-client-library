@@ -29,6 +29,7 @@ class MetricsScope(object):
         monitored_projects: list = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.service_account_file = service_account_file
@@ -79,6 +80,7 @@ class MetricsScope(object):
 
 
 class MetricsScopeMonitoredProjects(object):
+
     def __init__(self, name: str = None, create_time: str = None):
         self.name = name
         self.create_time = create_time

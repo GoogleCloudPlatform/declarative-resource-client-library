@@ -32,6 +32,7 @@ class DeidentifyTemplate(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -146,6 +147,7 @@ class DeidentifyTemplate(object):
 
 
 class DeidentifyTemplateDeidentifyConfig(object):
+
     def __init__(
         self,
         info_type_transformations: dict = None,
@@ -225,6 +227,7 @@ class DeidentifyTemplateDeidentifyConfigArray(object):
 
 
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformations(object):
+
     def __init__(self, transformations: list = None):
         self.transformations = transformations
 
@@ -277,6 +280,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsArray(object):
 
 
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformations(object):
+
     def __init__(self, info_types: list = None, primitive_transformation: dict = None):
         self.info_types = info_types
         self.primitive_transformation = primitive_transformation
@@ -351,6 +355,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsAr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsInfoTypes(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -403,6 +408,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsIn
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformation(
     object
 ):
+
     def __init__(
         self,
         replace_config: dict = None,
@@ -618,6 +624,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig(
     object
 ):
+
     def __init__(self, new_value: dict = None):
         self.new_value = new_value
 
@@ -680,6 +687,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -796,6 +804,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -866,6 +875,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -926,6 +936,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig(
     object
 ):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -973,6 +984,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig(
     object
 ):
+
     def __init__(
         self,
         masking_character: str = None,
@@ -1051,6 +1063,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(
     object
 ):
+
     def __init__(
         self, characters_to_skip: str = None, common_characters_to_ignore: str = None
     ):
@@ -1115,6 +1128,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(
     object
 ):
+
     def __init__(
         self,
         crypto_key: dict = None,
@@ -1231,6 +1245,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(
     object
 ):
+
     def __init__(
         self, transient: dict = None, unwrapped: dict = None, kms_wrapped: dict = None
     ):
@@ -1323,6 +1338,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -1375,6 +1391,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(
     object
 ):
+
     def __init__(self, key: str = None):
         self.key = key
 
@@ -1427,6 +1444,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(
     object
 ):
+
     def __init__(self, wrapped_key: str = None, crypto_key_name: str = None):
         self.wrapped_key = wrapped_key
         self.crypto_key_name = crypto_key_name
@@ -1483,6 +1501,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -1535,6 +1554,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -1587,6 +1607,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig(
     object
 ):
+
     def __init__(
         self,
         lower_bound: dict = None,
@@ -1672,6 +1693,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -1788,6 +1810,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -1858,6 +1881,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -1918,6 +1942,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -2034,6 +2059,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -2104,6 +2130,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -2164,6 +2191,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig(
     object
 ):
+
     def __init__(self, buckets: list = None):
         self.buckets = buckets
 
@@ -2224,6 +2252,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets(
     object
 ):
+
     def __init__(
         self, min: dict = None, max: dict = None, replacement_value: dict = None
     ):
@@ -2316,6 +2345,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -2432,6 +2462,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -2502,6 +2533,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -2562,6 +2594,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -2678,6 +2711,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -2748,6 +2782,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -2808,6 +2843,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -2924,6 +2960,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -2994,6 +3031,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -3054,6 +3092,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(
     object
 ):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -3101,6 +3140,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig(
     object
 ):
+
     def __init__(self, part_to_extract: str = None):
         self.part_to_extract = part_to_extract
 
@@ -3159,6 +3199,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig(
     object
 ):
+
     def __init__(self, crypto_key: dict = None):
         self.crypto_key = crypto_key
 
@@ -3221,6 +3262,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(
     object
 ):
+
     def __init__(
         self, transient: dict = None, unwrapped: dict = None, kms_wrapped: dict = None
     ):
@@ -3313,6 +3355,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -3365,6 +3408,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(
     object
 ):
+
     def __init__(self, key: str = None):
         self.key = key
 
@@ -3417,6 +3461,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(
     object
 ):
+
     def __init__(self, wrapped_key: str = None, crypto_key_name: str = None):
         self.wrapped_key = wrapped_key
         self.crypto_key_name = crypto_key_name
@@ -3473,6 +3518,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig(
     object
 ):
+
     def __init__(
         self,
         upper_bound_days: int = None,
@@ -3563,6 +3609,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -3615,6 +3662,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(
     object
 ):
+
     def __init__(
         self, transient: dict = None, unwrapped: dict = None, kms_wrapped: dict = None
     ):
@@ -3707,6 +3755,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -3759,6 +3808,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(
     object
 ):
+
     def __init__(self, key: str = None):
         self.key = key
 
@@ -3811,6 +3861,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(
     object
 ):
+
     def __init__(self, wrapped_key: str = None, crypto_key_name: str = None):
         self.wrapped_key = wrapped_key
         self.crypto_key_name = crypto_key_name
@@ -3867,6 +3918,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig(
     object
 ):
+
     def __init__(
         self,
         crypto_key: dict = None,
@@ -3962,6 +4014,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(
     object
 ):
+
     def __init__(
         self, transient: dict = None, unwrapped: dict = None, kms_wrapped: dict = None
     ):
@@ -4054,6 +4107,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -4106,6 +4160,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(
     object
 ):
+
     def __init__(self, key: str = None):
         self.key = key
 
@@ -4158,6 +4213,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(
     object
 ):
+
     def __init__(self, wrapped_key: str = None, crypto_key_name: str = None):
         self.wrapped_key = wrapped_key
         self.crypto_key_name = crypto_key_name
@@ -4214,6 +4270,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -4266,6 +4323,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -4316,6 +4374,7 @@ class DeidentifyTemplateDeidentifyConfigInfoTypeTransformationsTransformationsPr
 
 
 class DeidentifyTemplateDeidentifyConfigRecordTransformations(object):
+
     def __init__(
         self, field_transformations: list = None, record_suppressions: list = None
     ):
@@ -4384,6 +4443,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsArray(object):
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformations(
     object
 ):
+
     def __init__(
         self,
         fields: list = None,
@@ -4492,6 +4552,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsFields(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -4544,6 +4605,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsCondition(
     object
 ):
+
     def __init__(self, expressions: dict = None):
         self.expressions = expressions
 
@@ -4606,6 +4668,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressions(
     object
 ):
+
     def __init__(self, logical_operator: str = None, conditions: dict = None):
         self.logical_operator = logical_operator
         self.conditions = conditions
@@ -4678,6 +4741,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditions(
     object
 ):
+
     def __init__(self, conditions: list = None):
         self.conditions = conditions
 
@@ -4738,6 +4802,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditions(
     object
 ):
+
     def __init__(self, field: dict = None, operator: str = None, value: dict = None):
         self.field = field
         self.operator = operator
@@ -4824,6 +4889,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsField(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -4876,6 +4942,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValue(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -4992,6 +5059,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -5062,6 +5130,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsConditionExpressionsConditionsConditionsValueDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -5122,6 +5191,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformation(
     object
 ):
+
     def __init__(
         self,
         replace_config: dict = None,
@@ -5337,6 +5407,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfig(
     object
 ):
+
     def __init__(self, new_value: dict = None):
         self.new_value = new_value
 
@@ -5399,6 +5470,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValue(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -5515,6 +5587,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -5585,6 +5658,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -5645,6 +5719,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationRedactConfig(
     object
 ):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -5692,6 +5767,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfig(
     object
 ):
+
     def __init__(
         self,
         masking_character: str = None,
@@ -5770,6 +5846,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(
     object
 ):
+
     def __init__(
         self, characters_to_skip: str = None, common_characters_to_ignore: str = None
     ):
@@ -5834,6 +5911,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(
     object
 ):
+
     def __init__(
         self,
         crypto_key: dict = None,
@@ -5950,6 +6028,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(
     object
 ):
+
     def __init__(
         self, transient: dict = None, unwrapped: dict = None, kms_wrapped: dict = None
     ):
@@ -6042,6 +6121,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -6094,6 +6174,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(
     object
 ):
+
     def __init__(self, key: str = None):
         self.key = key
 
@@ -6146,6 +6227,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(
     object
 ):
+
     def __init__(self, wrapped_key: str = None, crypto_key_name: str = None):
         self.wrapped_key = wrapped_key
         self.crypto_key_name = crypto_key_name
@@ -6202,6 +6284,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -6254,6 +6337,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -6306,6 +6390,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfig(
     object
 ):
+
     def __init__(
         self,
         lower_bound: dict = None,
@@ -6391,6 +6476,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -6507,6 +6593,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -6577,6 +6664,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -6637,6 +6725,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -6753,6 +6842,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -6823,6 +6913,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -6883,6 +6974,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfig(
     object
 ):
+
     def __init__(self, buckets: list = None):
         self.buckets = buckets
 
@@ -6943,6 +7035,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBuckets(
     object
 ):
+
     def __init__(
         self, min: dict = None, max: dict = None, replacement_value: dict = None
     ):
@@ -7035,6 +7128,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMin(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -7151,6 +7245,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -7221,6 +7316,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -7281,6 +7377,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMax(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -7397,6 +7494,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -7467,6 +7565,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -7527,6 +7626,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -7643,6 +7743,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -7713,6 +7814,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -7773,6 +7875,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(
     object
 ):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -7820,6 +7923,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationTimePartConfig(
     object
 ):
+
     def __init__(self, part_to_extract: str = None):
         self.part_to_extract = part_to_extract
 
@@ -7878,6 +7982,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfig(
     object
 ):
+
     def __init__(self, crypto_key: dict = None):
         self.crypto_key = crypto_key
 
@@ -7940,6 +8045,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(
     object
 ):
+
     def __init__(
         self, transient: dict = None, unwrapped: dict = None, kms_wrapped: dict = None
     ):
@@ -8032,6 +8138,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -8084,6 +8191,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(
     object
 ):
+
     def __init__(self, key: str = None):
         self.key = key
 
@@ -8136,6 +8244,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(
     object
 ):
+
     def __init__(self, wrapped_key: str = None, crypto_key_name: str = None):
         self.wrapped_key = wrapped_key
         self.crypto_key_name = crypto_key_name
@@ -8192,6 +8301,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfig(
     object
 ):
+
     def __init__(
         self,
         upper_bound_days: int = None,
@@ -8282,6 +8392,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigContext(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -8334,6 +8445,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(
     object
 ):
+
     def __init__(
         self, transient: dict = None, unwrapped: dict = None, kms_wrapped: dict = None
     ):
@@ -8426,6 +8538,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -8478,6 +8591,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(
     object
 ):
+
     def __init__(self, key: str = None):
         self.key = key
 
@@ -8530,6 +8644,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(
     object
 ):
+
     def __init__(self, wrapped_key: str = None, crypto_key_name: str = None):
         self.wrapped_key = wrapped_key
         self.crypto_key_name = crypto_key_name
@@ -8586,6 +8701,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfig(
     object
 ):
+
     def __init__(
         self,
         crypto_key: dict = None,
@@ -8681,6 +8797,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(
     object
 ):
+
     def __init__(
         self, transient: dict = None, unwrapped: dict = None, kms_wrapped: dict = None
     ):
@@ -8773,6 +8890,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -8825,6 +8943,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(
     object
 ):
+
     def __init__(self, key: str = None):
         self.key = key
 
@@ -8877,6 +8996,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(
     object
 ):
+
     def __init__(self, wrapped_key: str = None, crypto_key_name: str = None):
         self.wrapped_key = wrapped_key
         self.crypto_key_name = crypto_key_name
@@ -8933,6 +9053,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -8985,6 +9106,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -9037,6 +9159,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformations(
     object
 ):
+
     def __init__(self, transformations: list = None):
         self.transformations = transformations
 
@@ -9097,6 +9220,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformations(
     object
 ):
+
     def __init__(self, info_types: list = None, primitive_transformation: dict = None):
         self.info_types = info_types
         self.primitive_transformation = primitive_transformation
@@ -9171,6 +9295,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsInfoTypes(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -9223,6 +9348,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformation(
     object
 ):
+
     def __init__(
         self,
         replace_config: dict = None,
@@ -9438,6 +9564,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfig(
     object
 ):
+
     def __init__(self, new_value: dict = None):
         self.new_value = new_value
 
@@ -9500,6 +9627,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValue(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -9616,6 +9744,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -9686,6 +9815,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceConfigNewValueDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -9746,6 +9876,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationRedactConfig(
     object
 ):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -9793,6 +9924,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfig(
     object
 ):
+
     def __init__(
         self,
         masking_character: str = None,
@@ -9871,6 +10003,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCharacterMaskConfigCharactersToIgnore(
     object
 ):
+
     def __init__(
         self, characters_to_skip: str = None, common_characters_to_ignore: str = None
     ):
@@ -9935,6 +10068,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfig(
     object
 ):
+
     def __init__(
         self,
         crypto_key: dict = None,
@@ -10051,6 +10185,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKey(
     object
 ):
+
     def __init__(
         self, transient: dict = None, unwrapped: dict = None, kms_wrapped: dict = None
     ):
@@ -10143,6 +10278,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyTransient(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -10195,6 +10331,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyUnwrapped(
     object
 ):
+
     def __init__(self, key: str = None):
         self.key = key
 
@@ -10247,6 +10384,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigCryptoKeyKmsWrapped(
     object
 ):
+
     def __init__(self, wrapped_key: str = None, crypto_key_name: str = None):
         self.wrapped_key = wrapped_key
         self.crypto_key_name = crypto_key_name
@@ -10303,6 +10441,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigContext(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -10355,6 +10494,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoReplaceFfxFpeConfigSurrogateInfoType(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -10407,6 +10547,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfig(
     object
 ):
+
     def __init__(
         self,
         lower_bound: dict = None,
@@ -10492,6 +10633,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBound(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -10608,6 +10750,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -10678,6 +10821,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigLowerBoundDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -10738,6 +10882,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBound(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -10854,6 +10999,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -10924,6 +11070,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationFixedSizeBucketingConfigUpperBoundDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -10984,6 +11131,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfig(
     object
 ):
+
     def __init__(self, buckets: list = None):
         self.buckets = buckets
 
@@ -11044,6 +11192,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBuckets(
     object
 ):
+
     def __init__(
         self, min: dict = None, max: dict = None, replacement_value: dict = None
     ):
@@ -11136,6 +11285,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMin(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -11252,6 +11402,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -11322,6 +11473,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMinDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -11382,6 +11534,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMax(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -11498,6 +11651,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -11568,6 +11722,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsMaxDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -11628,6 +11783,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValue(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -11744,6 +11900,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -11814,6 +11971,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationBucketingConfigBucketsReplacementValueDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -11874,6 +12032,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationReplaceWithInfoTypeConfig(
     object
 ):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -11921,6 +12080,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationTimePartConfig(
     object
 ):
+
     def __init__(self, part_to_extract: str = None):
         self.part_to_extract = part_to_extract
 
@@ -11979,6 +12139,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfig(
     object
 ):
+
     def __init__(self, crypto_key: dict = None):
         self.crypto_key = crypto_key
 
@@ -12041,6 +12202,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKey(
     object
 ):
+
     def __init__(
         self, transient: dict = None, unwrapped: dict = None, kms_wrapped: dict = None
     ):
@@ -12133,6 +12295,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyTransient(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -12185,6 +12348,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyUnwrapped(
     object
 ):
+
     def __init__(self, key: str = None):
         self.key = key
 
@@ -12237,6 +12401,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoHashConfigCryptoKeyKmsWrapped(
     object
 ):
+
     def __init__(self, wrapped_key: str = None, crypto_key_name: str = None):
         self.wrapped_key = wrapped_key
         self.crypto_key_name = crypto_key_name
@@ -12293,6 +12458,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfig(
     object
 ):
+
     def __init__(
         self,
         upper_bound_days: int = None,
@@ -12383,6 +12549,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigContext(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -12435,6 +12602,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKey(
     object
 ):
+
     def __init__(
         self, transient: dict = None, unwrapped: dict = None, kms_wrapped: dict = None
     ):
@@ -12527,6 +12695,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyTransient(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -12579,6 +12748,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyUnwrapped(
     object
 ):
+
     def __init__(self, key: str = None):
         self.key = key
 
@@ -12631,6 +12801,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationDateShiftConfigCryptoKeyKmsWrapped(
     object
 ):
+
     def __init__(self, wrapped_key: str = None, crypto_key_name: str = None):
         self.wrapped_key = wrapped_key
         self.crypto_key_name = crypto_key_name
@@ -12687,6 +12858,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfig(
     object
 ):
+
     def __init__(
         self,
         crypto_key: dict = None,
@@ -12782,6 +12954,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKey(
     object
 ):
+
     def __init__(
         self, transient: dict = None, unwrapped: dict = None, kms_wrapped: dict = None
     ):
@@ -12874,6 +13047,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyTransient(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -12926,6 +13100,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyUnwrapped(
     object
 ):
+
     def __init__(self, key: str = None):
         self.key = key
 
@@ -12978,6 +13153,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigCryptoKeyKmsWrapped(
     object
 ):
+
     def __init__(self, wrapped_key: str = None, crypto_key_name: str = None):
         self.wrapped_key = wrapped_key
         self.crypto_key_name = crypto_key_name
@@ -13034,6 +13210,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigSurrogateInfoType(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -13086,6 +13263,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformationsInfoTypeTransformationsTransformationsPrimitiveTransformationCryptoDeterministicConfigContext(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -13136,6 +13314,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsFieldTransformation
 
 
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressions(object):
+
     def __init__(self, condition: dict = None):
         self.condition = condition
 
@@ -13198,6 +13377,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsA
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsCondition(
     object
 ):
+
     def __init__(self, expressions: dict = None):
         self.expressions = expressions
 
@@ -13260,6 +13440,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsC
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressions(
     object
 ):
+
     def __init__(self, logical_operator: str = None, conditions: dict = None):
         self.logical_operator = logical_operator
         self.conditions = conditions
@@ -13332,6 +13513,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsC
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditions(
     object
 ):
+
     def __init__(self, conditions: list = None):
         self.conditions = conditions
 
@@ -13392,6 +13574,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsC
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditions(
     object
 ):
+
     def __init__(self, field: dict = None, operator: str = None, value: dict = None):
         self.field = field
         self.operator = operator
@@ -13478,6 +13661,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsC
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsField(
     object
 ):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -13530,6 +13714,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsC
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValue(
     object
 ):
+
     def __init__(
         self,
         integer_value: int = None,
@@ -13646,6 +13831,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsC
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueTimeValue(
     object
 ):
+
     def __init__(
         self,
         hours: int = None,
@@ -13716,6 +13902,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsC
 class DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsConditionExpressionsConditionsConditionsValueDateValue(
     object
 ):
+
     def __init__(self, year: int = None, month: int = None, day: int = None):
         self.year = year
         self.month = month
@@ -13774,6 +13961,7 @@ class DeidentifyTemplateDeidentifyConfigRecordTransformationsRecordSuppressionsC
 
 
 class DeidentifyTemplateDeidentifyConfigTransformationErrorHandling(object):
+
     def __init__(self, throw_error: dict = None, leave_untransformed: dict = None):
         self.throw_error = throw_error
         self.leave_untransformed = leave_untransformed
@@ -13842,6 +14030,7 @@ class DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingArray(object)
 
 
 class DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowError(object):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -13887,6 +14076,7 @@ class DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingThrowErrorArr
 class DeidentifyTemplateDeidentifyConfigTransformationErrorHandlingLeaveUntransformed(
     object
 ):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:

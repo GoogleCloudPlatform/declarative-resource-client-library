@@ -54,6 +54,7 @@ class ForwardingRule(object):
         base_forwarding_rule: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.labels = labels
         self.all_ports = all_ports
@@ -403,6 +404,7 @@ class ForwardingRule(object):
 
 
 class ForwardingRuleMetadataFilter(object):
+
     def __init__(self, filter_match_criteria: str = None, filter_label: list = None):
         self.filter_match_criteria = filter_match_criteria
         self.filter_label = filter_label
@@ -457,6 +459,7 @@ class ForwardingRuleMetadataFilterArray(object):
 
 
 class ForwardingRuleMetadataFilterFilterLabel(object):
+
     def __init__(self, name: str = None, value: str = None):
         self.name = name
         self.value = value
@@ -499,6 +502,7 @@ class ForwardingRuleMetadataFilterFilterLabelArray(object):
 
 
 class ForwardingRuleServiceDirectoryRegistrations(object):
+
     def __init__(self, namespace: str = None, service: str = None):
         self.namespace = namespace
         self.service = service

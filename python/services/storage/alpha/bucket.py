@@ -32,6 +32,7 @@ class Bucket(object):
         website: dict = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.project = project
         self.location = location
@@ -179,6 +180,7 @@ class Bucket(object):
 
 
 class BucketCors(object):
+
     def __init__(
         self,
         max_age_seconds: int = None,
@@ -233,6 +235,7 @@ class BucketCorsArray(object):
 
 
 class BucketLifecycle(object):
+
     def __init__(self, rule: list = None):
         self.rule = rule
 
@@ -269,6 +272,7 @@ class BucketLifecycleArray(object):
 
 
 class BucketLifecycleRule(object):
+
     def __init__(self, action: dict = None, condition: dict = None):
         self.action = action
         self.condition = condition
@@ -315,6 +319,7 @@ class BucketLifecycleRuleArray(object):
 
 
 class BucketLifecycleRuleAction(object):
+
     def __init__(self, storage_class: str = None, type: str = None):
         self.storage_class = storage_class
         self.type = type
@@ -355,6 +360,7 @@ class BucketLifecycleRuleActionArray(object):
 
 
 class BucketLifecycleRuleCondition(object):
+
     def __init__(
         self,
         age: int = None,
@@ -420,6 +426,7 @@ class BucketLifecycleRuleConditionArray(object):
 
 
 class BucketLogging(object):
+
     def __init__(self, log_bucket: str = None, log_object_prefix: str = None):
         self.log_bucket = log_bucket
         self.log_object_prefix = log_object_prefix
@@ -460,6 +467,7 @@ class BucketLoggingArray(object):
 
 
 class BucketVersioning(object):
+
     def __init__(self, enabled: bool = None):
         self.enabled = enabled
 
@@ -496,6 +504,7 @@ class BucketVersioningArray(object):
 
 
 class BucketWebsite(object):
+
     def __init__(self, main_page_suffix: str = None, not_found_page: str = None):
         self.main_page_suffix = main_page_suffix
         self.not_found_page = not_found_page

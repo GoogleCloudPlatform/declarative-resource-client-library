@@ -38,6 +38,7 @@ class Zone(object):
         lake: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -198,6 +199,7 @@ class Zone(object):
 
 
 class ZoneDiscoverySpec(object):
+
     def __init__(
         self,
         enabled: bool = None,
@@ -270,6 +272,7 @@ class ZoneDiscoverySpecArray(object):
 
 
 class ZoneDiscoverySpecCsvOptions(object):
+
     def __init__(
         self,
         header_rows: int = None,
@@ -328,6 +331,7 @@ class ZoneDiscoverySpecCsvOptionsArray(object):
 
 
 class ZoneDiscoverySpecJsonOptions(object):
+
     def __init__(self, encoding: str = None, disable_type_inference: bool = None):
         self.encoding = encoding
         self.disable_type_inference = disable_type_inference
@@ -372,6 +376,7 @@ class ZoneDiscoverySpecJsonOptionsArray(object):
 
 
 class ZoneResourceSpec(object):
+
     def __init__(self, location_type: str = None):
         self.location_type = location_type
 
@@ -412,6 +417,7 @@ class ZoneResourceSpecArray(object):
 
 
 class ZoneAssetStatus(object):
+
     def __init__(
         self,
         update_time: str = None,

@@ -41,6 +41,7 @@ class Target(object):
         deploy_parameters: dict = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -251,6 +252,7 @@ class Target(object):
 
 
 class TargetGke(object):
+
     def __init__(self, cluster: str = None, internal_ip: bool = None):
         self.cluster = cluster
         self.internal_ip = internal_ip
@@ -291,6 +293,7 @@ class TargetGkeArray(object):
 
 
 class TargetAnthosCluster(object):
+
     def __init__(self, membership: str = None):
         self.membership = membership
 
@@ -327,6 +330,7 @@ class TargetAnthosClusterArray(object):
 
 
 class TargetExecutionConfigs(object):
+
     def __init__(
         self,
         usages: list = None,
@@ -388,6 +392,7 @@ class TargetExecutionConfigsArray(object):
 
 
 class TargetRun(object):
+
     def __init__(self, location: str = None):
         self.location = location
 
@@ -424,6 +429,7 @@ class TargetRunArray(object):
 
 
 class TargetMultiTarget(object):
+
     def __init__(self, target_ids: list = None):
         self.target_ids = target_ids
 

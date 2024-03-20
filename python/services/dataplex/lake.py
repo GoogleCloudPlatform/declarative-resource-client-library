@@ -37,6 +37,7 @@ class Lake(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -153,6 +154,7 @@ class Lake(object):
 
 
 class LakeMetastore(object):
+
     def __init__(self, service: str = None):
         self.service = service
 
@@ -189,6 +191,7 @@ class LakeMetastoreArray(object):
 
 
 class LakeAssetStatus(object):
+
     def __init__(
         self,
         update_time: str = None,
@@ -242,6 +245,7 @@ class LakeAssetStatusArray(object):
 
 
 class LakeMetastoreStatus(object):
+
     def __init__(
         self,
         state: str = None,

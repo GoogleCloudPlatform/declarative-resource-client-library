@@ -38,6 +38,7 @@ class Group(object):
         initial_group_config: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.group_key = group_key
@@ -212,6 +213,7 @@ class Group(object):
 
 
 class GroupGroupKey(object):
+
     def __init__(self, id: str = None, namespace: str = None):
         self.id = id
         self.namespace = namespace
@@ -252,6 +254,7 @@ class GroupGroupKeyArray(object):
 
 
 class GroupAdditionalGroupKeys(object):
+
     def __init__(self, id: str = None, namespace: str = None):
         self.id = id
         self.namespace = namespace
@@ -292,6 +295,7 @@ class GroupAdditionalGroupKeysArray(object):
 
 
 class GroupDirectMemberCountPerType(object):
+
     def __init__(self, user_count: int = None, group_count: int = None):
         self.user_count = user_count
         self.group_count = group_count
@@ -332,6 +336,7 @@ class GroupDirectMemberCountPerTypeArray(object):
 
 
 class GroupDerivedAliases(object):
+
     def __init__(self, id: str = None, namespace: str = None):
         self.id = id
         self.namespace = namespace
@@ -372,6 +377,7 @@ class GroupDerivedAliasesArray(object):
 
 
 class GroupDynamicGroupMetadata(object):
+
     def __init__(self, queries: list = None, status: dict = None):
         self.queries = queries
         self.status = status
@@ -418,6 +424,7 @@ class GroupDynamicGroupMetadataArray(object):
 
 
 class GroupDynamicGroupMetadataQueries(object):
+
     def __init__(self, resource_type: str = None, query: str = None):
         self.resource_type = resource_type
         self.query = query
@@ -466,6 +473,7 @@ class GroupDynamicGroupMetadataQueriesArray(object):
 
 
 class GroupDynamicGroupMetadataStatus(object):
+
     def __init__(self, status: str = None, status_time: str = None):
         self.status = status
         self.status_time = status_time
@@ -510,6 +518,7 @@ class GroupDynamicGroupMetadataStatusArray(object):
 
 
 class GroupPosixGroups(object):
+
     def __init__(self, name: str = None, gid: str = None, system_id: str = None):
         self.name = name
         self.gid = gid

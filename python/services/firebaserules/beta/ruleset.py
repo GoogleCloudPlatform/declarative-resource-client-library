@@ -28,6 +28,7 @@ class Ruleset(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.source = source
@@ -95,6 +96,7 @@ class Ruleset(object):
 
 
 class RulesetSource(object):
+
     def __init__(self, files: list = None, language: str = None):
         self.files = files
         self.language = language
@@ -135,6 +137,7 @@ class RulesetSourceArray(object):
 
 
 class RulesetSourceFiles(object):
+
     def __init__(self, content: str = None, name: str = None, fingerprint: str = None):
         self.content = content
         self.name = name
@@ -179,6 +182,7 @@ class RulesetSourceFilesArray(object):
 
 
 class RulesetMetadata(object):
+
     def __init__(self, services: list = None):
         self.services = services
 

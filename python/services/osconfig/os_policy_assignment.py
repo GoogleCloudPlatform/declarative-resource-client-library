@@ -43,6 +43,7 @@ class OSPolicyAssignment(object):
         skip_await_rollout: bool = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -202,6 +203,7 @@ class OSPolicyAssignment(object):
 
 
 class OSPolicyAssignmentOSPolicies(object):
+
     def __init__(
         self,
         id: str = None,
@@ -273,6 +275,7 @@ class OSPolicyAssignmentOSPoliciesArray(object):
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroups(object):
+
     def __init__(self, inventory_filters: list = None, resources: list = None):
         self.inventory_filters = inventory_filters
         self.resources = resources
@@ -335,6 +338,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsArray(object):
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFilters(object):
+
     def __init__(self, os_short_name: str = None, os_version: str = None):
         self.os_short_name = os_short_name
         self.os_version = os_version
@@ -383,6 +387,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsInventoryFiltersArray(object):
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResources(object):
+
     def __init__(
         self,
         id: str = None,
@@ -490,6 +495,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesArray(object):
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkg(object):
+
     def __init__(
         self,
         desired_state: str = None,
@@ -648,6 +654,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgArray(object):
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgApt(object):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -692,6 +699,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgAptArray(object):
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDeb(object):
+
     def __init__(self, source: dict = None, pull_deps: bool = None):
         self.source = source
         self.pull_deps = pull_deps
@@ -750,6 +758,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebArray(object):
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSource(object):
+
     def __init__(
         self,
         remote: dict = None,
@@ -834,6 +843,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceArray(objec
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemote(object):
+
     def __init__(self, uri: str = None, sha256_checksum: str = None):
         self.uri = uri
         self.sha256_checksum = sha256_checksum
@@ -888,6 +898,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceRemoteArray
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcs(object):
+
     def __init__(self, bucket: str = None, object: str = None, generation: int = None):
         self.bucket = bucket
         self.object = object
@@ -944,6 +955,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgDebSourceGcsArray(ob
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYum(object):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -988,6 +1000,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgYumArray(object):
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypper(object):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -1032,6 +1045,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgZypperArray(object):
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpm(object):
+
     def __init__(self, source: dict = None, pull_deps: bool = None):
         self.source = source
         self.pull_deps = pull_deps
@@ -1090,6 +1104,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmArray(object):
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSource(object):
+
     def __init__(
         self,
         remote: dict = None,
@@ -1174,6 +1189,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceArray(objec
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemote(object):
+
     def __init__(self, uri: str = None, sha256_checksum: str = None):
         self.uri = uri
         self.sha256_checksum = sha256_checksum
@@ -1228,6 +1244,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceRemoteArray
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcs(object):
+
     def __init__(self, bucket: str = None, object: str = None, generation: int = None):
         self.bucket = bucket
         self.object = object
@@ -1284,6 +1301,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgRpmSourceGcsArray(ob
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGooget(object):
+
     def __init__(self, name: str = None):
         self.name = name
 
@@ -1328,6 +1346,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgGoogetArray(object):
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsi(object):
+
     def __init__(self, source: dict = None, properties: list = None):
         self.source = source
         self.properties = properties
@@ -1386,6 +1405,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiArray(object):
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSource(object):
+
     def __init__(
         self,
         remote: dict = None,
@@ -1470,6 +1490,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceArray(objec
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemote(object):
+
     def __init__(self, uri: str = None, sha256_checksum: str = None):
         self.uri = uri
         self.sha256_checksum = sha256_checksum
@@ -1524,6 +1545,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceRemoteArray
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcs(object):
+
     def __init__(self, bucket: str = None, object: str = None, generation: int = None):
         self.bucket = bucket
         self.object = object
@@ -1580,6 +1602,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesPkgMsiSourceGcsArray(ob
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepository(object):
+
     def __init__(
         self, apt: dict = None, yum: dict = None, zypper: dict = None, goo: dict = None
     ):
@@ -1678,6 +1701,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryArray(object)
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryApt(object):
+
     def __init__(
         self,
         archive_type: str = None,
@@ -1753,6 +1777,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryAptArray(obje
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYum(object):
+
     def __init__(
         self,
         id: str = None,
@@ -1817,6 +1842,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryYumArray(obje
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypper(object):
+
     def __init__(
         self,
         id: str = None,
@@ -1883,6 +1909,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryZypperArray(o
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGoo(object):
+
     def __init__(self, name: str = None, url: str = None):
         self.name = name
         self.url = url
@@ -1933,6 +1960,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesRepositoryGooArray(obje
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExec(object):
+
     def __init__(self, validate: dict = None, enforce: dict = None):
         self.validate = validate
         self.enforce = enforce
@@ -2001,6 +2029,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecArray(object):
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidate(object):
+
     def __init__(
         self,
         file: dict = None,
@@ -2086,6 +2115,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateArray(objec
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFile(object):
+
     def __init__(
         self,
         remote: dict = None,
@@ -2172,6 +2202,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileArray(o
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemote(object):
+
     def __init__(self, uri: str = None, sha256_checksum: str = None):
         self.uri = uri
         self.sha256_checksum = sha256_checksum
@@ -2228,6 +2259,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileRemoteA
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcs(object):
+
     def __init__(self, bucket: str = None, object: str = None, generation: int = None):
         self.bucket = bucket
         self.object = object
@@ -2286,6 +2318,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecValidateFileGcsArra
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforce(object):
+
     def __init__(
         self,
         file: dict = None,
@@ -2369,6 +2402,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceArray(object
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFile(object):
+
     def __init__(
         self,
         remote: dict = None,
@@ -2455,6 +2489,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileArray(ob
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemote(object):
+
     def __init__(self, uri: str = None, sha256_checksum: str = None):
         self.uri = uri
         self.sha256_checksum = sha256_checksum
@@ -2509,6 +2544,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileRemoteAr
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcs(object):
+
     def __init__(self, bucket: str = None, object: str = None, generation: int = None):
         self.bucket = bucket
         self.object = object
@@ -2567,6 +2603,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesExecEnforceFileGcsArray
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFile(object):
+
     def __init__(
         self,
         file: dict = None,
@@ -2650,6 +2687,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileArray(object):
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFile(object):
+
     def __init__(
         self,
         remote: dict = None,
@@ -2732,6 +2770,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileArray(object):
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemote(object):
+
     def __init__(self, uri: str = None, sha256_checksum: str = None):
         self.uri = uri
         self.sha256_checksum = sha256_checksum
@@ -2784,6 +2823,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileRemoteArray(obj
 
 
 class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcs(object):
+
     def __init__(self, bucket: str = None, object: str = None, generation: int = None):
         self.bucket = bucket
         self.object = object
@@ -2836,6 +2876,7 @@ class OSPolicyAssignmentOSPoliciesResourceGroupsResourcesFileFileGcsArray(object
 
 
 class OSPolicyAssignmentInstanceFilter(object):
+
     def __init__(
         self,
         all: bool = None,
@@ -2914,6 +2955,7 @@ class OSPolicyAssignmentInstanceFilterArray(object):
 
 
 class OSPolicyAssignmentInstanceFilterInclusionLabels(object):
+
     def __init__(self, labels: dict = None):
         self.labels = labels
 
@@ -2958,6 +3000,7 @@ class OSPolicyAssignmentInstanceFilterInclusionLabelsArray(object):
 
 
 class OSPolicyAssignmentInstanceFilterExclusionLabels(object):
+
     def __init__(self, labels: dict = None):
         self.labels = labels
 
@@ -3002,6 +3045,7 @@ class OSPolicyAssignmentInstanceFilterExclusionLabelsArray(object):
 
 
 class OSPolicyAssignmentInstanceFilterInventories(object):
+
     def __init__(self, os_short_name: str = None, os_version: str = None):
         self.os_short_name = os_short_name
         self.os_version = os_version
@@ -3048,6 +3092,7 @@ class OSPolicyAssignmentInstanceFilterInventoriesArray(object):
 
 
 class OSPolicyAssignmentRollout(object):
+
     def __init__(self, disruption_budget: dict = None, min_wait_duration: str = None):
         self.disruption_budget = disruption_budget
         self.min_wait_duration = min_wait_duration
@@ -3098,6 +3143,7 @@ class OSPolicyAssignmentRolloutArray(object):
 
 
 class OSPolicyAssignmentRolloutDisruptionBudget(object):
+
     def __init__(self, fixed: int = None, percent: int = None):
         self.fixed = fixed
         self.percent = percent

@@ -36,6 +36,7 @@ class Policy(object):
         update_time: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.admission_whitelist_patterns = admission_whitelist_patterns
         self.cluster_admission_rules = cluster_admission_rules
@@ -253,6 +254,7 @@ class Policy(object):
 
 
 class PolicyAdmissionWhitelistPatterns(object):
+
     def __init__(self, name_pattern: str = None):
         self.name_pattern = name_pattern
 
@@ -289,6 +291,7 @@ class PolicyAdmissionWhitelistPatternsArray(object):
 
 
 class PolicyClusterAdmissionRules(object):
+
     def __init__(
         self,
         evaluation_mode: str = None,
@@ -358,6 +361,7 @@ class PolicyClusterAdmissionRulesArray(object):
 
 
 class PolicyKubernetesNamespaceAdmissionRules(object):
+
     def __init__(
         self,
         evaluation_mode: str = None,
@@ -431,6 +435,7 @@ class PolicyKubernetesNamespaceAdmissionRulesArray(object):
 
 
 class PolicyKubernetesServiceAccountAdmissionRules(object):
+
     def __init__(
         self,
         evaluation_mode: str = None,
@@ -505,6 +510,7 @@ class PolicyKubernetesServiceAccountAdmissionRulesArray(object):
 
 
 class PolicyIstioServiceIdentityAdmissionRules(object):
+
     def __init__(
         self,
         evaluation_mode: str = None,
@@ -578,6 +584,7 @@ class PolicyIstioServiceIdentityAdmissionRulesArray(object):
 
 
 class PolicyDefaultAdmissionRule(object):
+
     def __init__(
         self,
         evaluation_mode: str = None,

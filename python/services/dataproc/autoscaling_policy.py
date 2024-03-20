@@ -31,6 +31,7 @@ class AutoscalingPolicy(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.basic_algorithm = basic_algorithm
@@ -180,6 +181,7 @@ class AutoscalingPolicy(object):
 
 
 class AutoscalingPolicyBasicAlgorithm(object):
+
     def __init__(self, yarn_config: dict = None, cooldown_period: str = None):
         self.yarn_config = yarn_config
         self.cooldown_period = cooldown_period
@@ -226,6 +228,7 @@ class AutoscalingPolicyBasicAlgorithmArray(object):
 
 
 class AutoscalingPolicyBasicAlgorithmYarnConfig(object):
+
     def __init__(
         self,
         graceful_decommission_timeout: str = None,
@@ -301,6 +304,7 @@ class AutoscalingPolicyBasicAlgorithmYarnConfigArray(object):
 
 
 class AutoscalingPolicyWorkerConfig(object):
+
     def __init__(
         self, min_instances: int = None, max_instances: int = None, weight: int = None
     ):
@@ -347,6 +351,7 @@ class AutoscalingPolicyWorkerConfigArray(object):
 
 
 class AutoscalingPolicySecondaryWorkerConfig(object):
+
     def __init__(
         self, min_instances: int = None, max_instances: int = None, weight: int = None
     ):

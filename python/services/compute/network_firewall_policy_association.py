@@ -33,6 +33,7 @@ class NetworkFirewallPolicyAssociation(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.attachment_target = attachment_target

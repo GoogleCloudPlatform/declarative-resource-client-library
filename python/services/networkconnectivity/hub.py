@@ -34,6 +34,7 @@ class Hub(object):
         routing_vpcs: list = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.labels = labels
@@ -110,6 +111,7 @@ class Hub(object):
 
 
 class HubRoutingVpcs(object):
+
     def __init__(self, uri: str = None):
         self.uri = uri
 

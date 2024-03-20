@@ -28,6 +28,7 @@ class Policy(object):
         parent: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.spec = spec
@@ -112,6 +113,7 @@ class Policy(object):
 
 
 class PolicySpec(object):
+
     def __init__(
         self,
         etag: str = None,
@@ -171,6 +173,7 @@ class PolicySpecArray(object):
 
 
 class PolicySpecRules(object):
+
     def __init__(
         self,
         values: dict = None,
@@ -236,6 +239,7 @@ class PolicySpecRulesArray(object):
 
 
 class PolicySpecRulesValues(object):
+
     def __init__(self, allowed_values: list = None, denied_values: list = None):
         self.allowed_values = allowed_values
         self.denied_values = denied_values
@@ -276,6 +280,7 @@ class PolicySpecRulesValuesArray(object):
 
 
 class PolicySpecRulesCondition(object):
+
     def __init__(
         self,
         expression: str = None,
@@ -330,6 +335,7 @@ class PolicySpecRulesConditionArray(object):
 
 
 class PolicyDryRunSpec(object):
+
     def __init__(
         self,
         etag: str = None,
@@ -389,6 +395,7 @@ class PolicyDryRunSpecArray(object):
 
 
 class PolicyDryRunSpecRules(object):
+
     def __init__(
         self,
         values: dict = None,
@@ -454,6 +461,7 @@ class PolicyDryRunSpecRulesArray(object):
 
 
 class PolicyDryRunSpecRulesValues(object):
+
     def __init__(self, allowed_values: list = None, denied_values: list = None):
         self.allowed_values = allowed_values
         self.denied_values = denied_values
@@ -494,6 +502,7 @@ class PolicyDryRunSpecRulesValuesArray(object):
 
 
 class PolicyDryRunSpecRulesCondition(object):
+
     def __init__(
         self,
         expression: str = None,

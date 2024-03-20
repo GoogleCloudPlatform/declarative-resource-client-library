@@ -39,6 +39,7 @@ class ServiceLevelObjective(object):
         service: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -213,6 +214,7 @@ class ServiceLevelObjective(object):
 
 
 class ServiceLevelObjectiveServiceLevelIndicator(object):
+
     def __init__(
         self,
         basic_sli: dict = None,
@@ -298,6 +300,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorArray(object):
 
 
 class ServiceLevelObjectiveServiceLevelIndicatorBasicSli(object):
+
     def __init__(
         self,
         method: list = None,
@@ -415,6 +418,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorBasicSliArray(object):
 
 
 class ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailability(object):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -452,6 +456,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorBasicSliAvailabilityArray(object
 
 
 class ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatency(object):
+
     def __init__(self, threshold: str = None, experience: str = None):
         self.threshold = threshold
         self.experience = experience
@@ -506,6 +511,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorBasicSliLatencyArray(object):
 
 
 class ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailability(object):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -549,6 +555,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationAvailabilityArr
 
 
 class ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatency(object):
+
     def __init__(self, threshold: str = None, experience: str = None):
         self.threshold = threshold
         self.experience = experience
@@ -607,6 +614,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorBasicSliOperationLatencyArray(ob
 
 
 class ServiceLevelObjectiveServiceLevelIndicatorRequestBased(object):
+
     def __init__(self, good_total_ratio: dict = None, distribution_cut: dict = None):
         self.good_total_ratio = good_total_ratio
         self.distribution_cut = distribution_cut
@@ -675,6 +683,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorRequestBasedArray(object):
 
 
 class ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatio(object):
+
     def __init__(
         self,
         good_service_filter: str = None,
@@ -736,6 +745,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorRequestBasedGoodTotalRatioArray(
 
 
 class ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCut(object):
+
     def __init__(self, distribution_filter: str = None, range: dict = None):
         self.distribution_filter = distribution_filter
         self.range = range
@@ -802,6 +812,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutArray
 class ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange(
     object
 ):
+
     def __init__(self, min: float = None, max: float = None):
         self.min = min
         self.max = max
@@ -858,6 +869,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorRequestBasedDistributionCutRange
 
 
 class ServiceLevelObjectiveServiceLevelIndicatorWindowsBased(object):
+
     def __init__(
         self,
         good_bad_metric_filter: str = None,
@@ -961,6 +973,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedArray(object):
 class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThreshold(
     object
 ):
+
     def __init__(
         self,
         performance: dict = None,
@@ -1046,6 +1059,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresh
 class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformance(
     object
 ):
+
     def __init__(self, good_total_ratio: dict = None, distribution_cut: dict = None):
         self.good_total_ratio = good_total_ratio
         self.distribution_cut = distribution_cut
@@ -1122,6 +1136,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresh
 class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceGoodTotalRatio(
     object
 ):
+
     def __init__(
         self,
         good_service_filter: str = None,
@@ -1187,6 +1202,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresh
 class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCut(
     object
 ):
+
     def __init__(self, distribution_filter: str = None, range: dict = None):
         self.distribution_filter = distribution_filter
         self.range = range
@@ -1253,6 +1269,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresh
 class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdPerformanceDistributionCutRange(
     object
 ):
+
     def __init__(self, min: float = None, max: float = None):
         self.min = min
         self.max = max
@@ -1309,6 +1326,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresh
 class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformance(
     object
 ):
+
     def __init__(
         self,
         method: list = None,
@@ -1434,6 +1452,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresh
 class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceAvailability(
     object
 ):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -1481,6 +1500,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresh
 class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceLatency(
     object
 ):
+
     def __init__(self, threshold: str = None, experience: str = None):
         self.threshold = threshold
         self.experience = experience
@@ -1543,6 +1563,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresh
 class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationAvailability(
     object
 ):
+
     @classmethod
     def to_proto(self, resource):
         if not resource:
@@ -1590,6 +1611,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresh
 class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresholdBasicSliPerformanceOperationLatency(
     object
 ):
+
     def __init__(self, threshold: str = None, experience: str = None):
         self.threshold = threshold
         self.experience = experience
@@ -1650,6 +1672,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedGoodTotalRatioThresh
 
 
 class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRange(object):
+
     def __init__(self, time_series: str = None, range: dict = None):
         self.time_series = time_series
         self.range = range
@@ -1716,6 +1739,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeArr
 class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRange(
     object
 ):
+
     def __init__(self, min: float = None, max: float = None):
         self.min = min
         self.max = max
@@ -1770,6 +1794,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricMeanInRangeRan
 
 
 class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRange(object):
+
     def __init__(self, time_series: str = None, range: dict = None):
         self.time_series = time_series
         self.range = range
@@ -1836,6 +1861,7 @@ class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeArra
 class ServiceLevelObjectiveServiceLevelIndicatorWindowsBasedMetricSumInRangeRange(
     object
 ):
+
     def __init__(self, min: float = None, max: float = None):
         self.min = min
         self.max = max

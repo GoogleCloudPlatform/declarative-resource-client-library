@@ -39,6 +39,7 @@ class WorkloadIdentityPoolProvider(object):
         workload_identity_pool: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -231,6 +232,7 @@ class WorkloadIdentityPoolProvider(object):
 
 
 class WorkloadIdentityPoolProviderAws(object):
+
     def __init__(self, account_id: str = None, sts_uri: list = None):
         self.account_id = account_id
         self.sts_uri = sts_uri
@@ -273,6 +275,7 @@ class WorkloadIdentityPoolProviderAwsArray(object):
 
 
 class WorkloadIdentityPoolProviderOidc(object):
+
     def __init__(self, issuer_uri: str = None, allowed_audiences: list = None):
         self.issuer_uri = issuer_uri
         self.allowed_audiences = allowed_audiences

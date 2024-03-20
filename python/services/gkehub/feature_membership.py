@@ -33,6 +33,7 @@ class FeatureMembership(object):
         membership_location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.mesh = mesh
         self.configmanagement = configmanagement
@@ -186,6 +187,7 @@ class FeatureMembership(object):
 
 
 class FeatureMembershipMesh(object):
+
     def __init__(self, management: str = None, control_plane: str = None):
         self.management = management
         self.control_plane = control_plane
@@ -234,6 +236,7 @@ class FeatureMembershipMeshArray(object):
 
 
 class FeatureMembershipConfigmanagement(object):
+
     def __init__(
         self,
         config_sync: dict = None,
@@ -327,6 +330,7 @@ class FeatureMembershipConfigmanagementArray(object):
 
 
 class FeatureMembershipConfigmanagementConfigSync(object):
+
     def __init__(
         self,
         git: dict = None,
@@ -402,6 +406,7 @@ class FeatureMembershipConfigmanagementConfigSyncArray(object):
 
 
 class FeatureMembershipConfigmanagementConfigSyncGit(object):
+
     def __init__(
         self,
         sync_repo: str = None,
@@ -488,6 +493,7 @@ class FeatureMembershipConfigmanagementConfigSyncGitArray(object):
 
 
 class FeatureMembershipConfigmanagementConfigSyncOci(object):
+
     def __init__(
         self,
         sync_repo: str = None,
@@ -559,6 +565,7 @@ class FeatureMembershipConfigmanagementConfigSyncOciArray(object):
 
 
 class FeatureMembershipConfigmanagementPolicyController(object):
+
     def __init__(
         self,
         enabled: bool = None,
@@ -665,6 +672,7 @@ class FeatureMembershipConfigmanagementPolicyControllerArray(object):
 
 
 class FeatureMembershipConfigmanagementPolicyControllerMonitoring(object):
+
     def __init__(self, backends: list = None):
         self.backends = backends
 
@@ -717,6 +725,7 @@ class FeatureMembershipConfigmanagementPolicyControllerMonitoringArray(object):
 
 
 class FeatureMembershipConfigmanagementBinauthz(object):
+
     def __init__(self, enabled: bool = None):
         self.enabled = enabled
 
@@ -757,6 +766,7 @@ class FeatureMembershipConfigmanagementBinauthzArray(object):
 
 
 class FeatureMembershipConfigmanagementHierarchyController(object):
+
     def __init__(
         self,
         enabled: bool = None,
@@ -822,6 +832,7 @@ class FeatureMembershipConfigmanagementHierarchyControllerArray(object):
 
 
 class FeatureMembershipPolicycontroller(object):
+
     def __init__(self, version: str = None, policy_controller_hub_config: dict = None):
         self.version = version
         self.policy_controller_hub_config = policy_controller_hub_config
@@ -872,6 +883,7 @@ class FeatureMembershipPolicycontrollerArray(object):
 
 
 class FeatureMembershipPolicycontrollerPolicyControllerHubConfig(object):
+
     def __init__(
         self,
         install_spec: str = None,
@@ -1004,6 +1016,7 @@ class FeatureMembershipPolicycontrollerPolicyControllerHubConfigArray(object):
 
 
 class FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoring(object):
+
     def __init__(self, backends: list = None):
         self.backends = backends
 
@@ -1060,6 +1073,7 @@ class FeatureMembershipPolicycontrollerPolicyControllerHubConfigMonitoringArray(
 
 
 class FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContent(object):
+
     def __init__(self, template_library: dict = None, bundles: dict = None):
         self.template_library = template_library
         self.bundles = bundles
@@ -1126,6 +1140,7 @@ class FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentArr
 class FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTemplateLibrary(
     object
 ):
+
     def __init__(self, installation: str = None):
         self.installation = installation
 
@@ -1184,6 +1199,7 @@ class FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentTem
 class FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBundles(
     object
 ):
+
     def __init__(self, exempted_namespaces: list = None):
         self.exempted_namespaces = exempted_namespaces
 
@@ -1238,6 +1254,7 @@ class FeatureMembershipPolicycontrollerPolicyControllerHubConfigPolicyContentBun
 class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigs(
     object
 ):
+
     def __init__(
         self,
         replica_count: int = None,
@@ -1332,6 +1349,7 @@ class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfig
 class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResources(
     object
 ):
+
     def __init__(self, limits: dict = None, requests: dict = None):
         self.limits = limits
         self.requests = requests
@@ -1408,6 +1426,7 @@ class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfig
 class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesLimits(
     object
 ):
+
     def __init__(self, memory: str = None, cpu: str = None):
         self.memory = memory
         self.cpu = cpu
@@ -1464,6 +1483,7 @@ class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfig
 class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsContainerResourcesRequests(
     object
 ):
+
     def __init__(self, memory: str = None, cpu: str = None):
         self.memory = memory
         self.cpu = cpu
@@ -1520,6 +1540,7 @@ class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfig
 class FeatureMembershipPolicycontrollerPolicyControllerHubConfigDeploymentConfigsPodTolerations(
     object
 ):
+
     def __init__(
         self,
         key: str = None,

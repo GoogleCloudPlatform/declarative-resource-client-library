@@ -51,6 +51,7 @@ class Service(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -246,6 +247,7 @@ class Service(object):
 
 
 class ServiceBinaryAuthorization(object):
+
     def __init__(self, use_default: bool = None, breakglass_justification: str = None):
         self.use_default = use_default
         self.breakglass_justification = breakglass_justification
@@ -290,6 +292,7 @@ class ServiceBinaryAuthorizationArray(object):
 
 
 class ServiceTemplate(object):
+
     def __init__(
         self,
         revision: str = None,
@@ -397,6 +400,7 @@ class ServiceTemplateArray(object):
 
 
 class ServiceTemplateScaling(object):
+
     def __init__(self, min_instance_count: int = None, max_instance_count: int = None):
         self.min_instance_count = min_instance_count
         self.max_instance_count = max_instance_count
@@ -437,6 +441,7 @@ class ServiceTemplateScalingArray(object):
 
 
 class ServiceTemplateVPCAccess(object):
+
     def __init__(self, connector: str = None, egress: str = None):
         self.connector = connector
         self.egress = egress
@@ -477,6 +482,7 @@ class ServiceTemplateVPCAccessArray(object):
 
 
 class ServiceTemplateContainers(object):
+
     def __init__(
         self,
         name: str = None,
@@ -563,6 +569,7 @@ class ServiceTemplateContainersArray(object):
 
 
 class ServiceTemplateContainersEnv(object):
+
     def __init__(self, name: str = None, value: str = None, value_source: dict = None):
         self.name = name
         self.value = value
@@ -613,6 +620,7 @@ class ServiceTemplateContainersEnvArray(object):
 
 
 class ServiceTemplateContainersEnvValueSource(object):
+
     def __init__(self, secret_key_ref: dict = None):
         self.secret_key_ref = secret_key_ref
 
@@ -661,6 +669,7 @@ class ServiceTemplateContainersEnvValueSourceArray(object):
 
 
 class ServiceTemplateContainersEnvValueSourceSecretKeyRef(object):
+
     def __init__(self, secret: str = None, version: str = None):
         self.secret = secret
         self.version = version
@@ -707,6 +716,7 @@ class ServiceTemplateContainersEnvValueSourceSecretKeyRefArray(object):
 
 
 class ServiceTemplateContainersResources(object):
+
     def __init__(self, limits: dict = None, cpu_idle: bool = None):
         self.limits = limits
         self.cpu_idle = cpu_idle
@@ -747,6 +757,7 @@ class ServiceTemplateContainersResourcesArray(object):
 
 
 class ServiceTemplateContainersPorts(object):
+
     def __init__(self, name: str = None, container_port: int = None):
         self.name = name
         self.container_port = container_port
@@ -787,6 +798,7 @@ class ServiceTemplateContainersPortsArray(object):
 
 
 class ServiceTemplateContainersVolumeMounts(object):
+
     def __init__(self, name: str = None, mount_path: str = None):
         self.name = name
         self.mount_path = mount_path
@@ -827,6 +839,7 @@ class ServiceTemplateContainersVolumeMountsArray(object):
 
 
 class ServiceTemplateVolumes(object):
+
     def __init__(
         self, name: str = None, secret: dict = None, cloud_sql_instance: dict = None
     ):
@@ -883,6 +896,7 @@ class ServiceTemplateVolumesArray(object):
 
 
 class ServiceTemplateVolumesSecret(object):
+
     def __init__(
         self, secret: str = None, items: list = None, default_mode: int = None
     ):
@@ -931,6 +945,7 @@ class ServiceTemplateVolumesSecretArray(object):
 
 
 class ServiceTemplateVolumesSecretItems(object):
+
     def __init__(self, path: str = None, version: str = None, mode: int = None):
         self.path = path
         self.version = version
@@ -975,6 +990,7 @@ class ServiceTemplateVolumesSecretItemsArray(object):
 
 
 class ServiceTemplateVolumesCloudSqlInstance(object):
+
     def __init__(self, instances: list = None):
         self.instances = instances
 
@@ -1011,6 +1027,7 @@ class ServiceTemplateVolumesCloudSqlInstanceArray(object):
 
 
 class ServiceTraffic(object):
+
     def __init__(
         self,
         type: str = None,
@@ -1065,6 +1082,7 @@ class ServiceTrafficArray(object):
 
 
 class ServiceTerminalCondition(object):
+
     def __init__(
         self,
         type: str = None,
@@ -1151,6 +1169,7 @@ class ServiceTerminalConditionArray(object):
 
 
 class ServiceTrafficStatuses(object):
+
     def __init__(
         self,
         type: str = None,

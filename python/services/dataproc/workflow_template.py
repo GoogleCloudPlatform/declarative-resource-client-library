@@ -36,6 +36,7 @@ class WorkflowTemplate(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.labels = labels
@@ -172,6 +173,7 @@ class WorkflowTemplate(object):
 
 
 class WorkflowTemplatePlacement(object):
+
     def __init__(self, managed_cluster: dict = None, cluster_selector: dict = None):
         self.managed_cluster = managed_cluster
         self.cluster_selector = cluster_selector
@@ -228,6 +230,7 @@ class WorkflowTemplatePlacementArray(object):
 
 
 class WorkflowTemplatePlacementManagedCluster(object):
+
     def __init__(
         self, cluster_name: str = None, config: dict = None, labels: dict = None
     ):
@@ -282,6 +285,7 @@ class WorkflowTemplatePlacementManagedClusterArray(object):
 
 
 class WorkflowTemplatePlacementManagedClusterConfig(object):
+
     def __init__(
         self,
         staging_bucket: str = None,
@@ -496,6 +500,7 @@ class WorkflowTemplatePlacementManagedClusterConfigArray(object):
 
 
 class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfig(object):
+
     def __init__(
         self,
         zone: str = None,
@@ -640,6 +645,7 @@ class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigArray(object)
 class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAffinity(
     object
 ):
+
     def __init__(
         self, consume_reservation_type: str = None, key: str = None, values: list = None
     ):
@@ -708,6 +714,7 @@ class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigReservationAf
 class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffinity(
     object
 ):
+
     def __init__(self, node_group: str = None):
         self.node_group = node_group
 
@@ -760,6 +767,7 @@ class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigNodeGroupAffi
 class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInstanceConfig(
     object
 ):
+
     def __init__(
         self,
         enable_secure_boot: bool = None,
@@ -827,6 +835,7 @@ class WorkflowTemplatePlacementManagedClusterConfigGceClusterConfigShieldedInsta
 
 
 class WorkflowTemplatePlacementManagedClusterConfigMasterConfig(object):
+
     def __init__(
         self,
         num_instances: int = None,
@@ -953,6 +962,7 @@ class WorkflowTemplatePlacementManagedClusterConfigMasterConfigArray(object):
 
 
 class WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfig(object):
+
     def __init__(
         self,
         boot_disk_type: str = None,
@@ -1016,6 +1026,7 @@ class WorkflowTemplatePlacementManagedClusterConfigMasterConfigDiskConfigArray(o
 class WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfig(
     object
 ):
+
     def __init__(
         self,
         instance_template_name: str = None,
@@ -1084,6 +1095,7 @@ class WorkflowTemplatePlacementManagedClusterConfigMasterConfigManagedGroupConfi
 
 
 class WorkflowTemplatePlacementManagedClusterConfigMasterConfigAccelerators(object):
+
     def __init__(self, accelerator_type: str = None, accelerator_count: int = None):
         self.accelerator_type = accelerator_type
         self.accelerator_count = accelerator_count
@@ -1138,6 +1150,7 @@ class WorkflowTemplatePlacementManagedClusterConfigMasterConfigAcceleratorsArray
 
 
 class WorkflowTemplatePlacementManagedClusterConfigWorkerConfig(object):
+
     def __init__(
         self,
         num_instances: int = None,
@@ -1264,6 +1277,7 @@ class WorkflowTemplatePlacementManagedClusterConfigWorkerConfigArray(object):
 
 
 class WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfig(object):
+
     def __init__(
         self,
         boot_disk_type: str = None,
@@ -1327,6 +1341,7 @@ class WorkflowTemplatePlacementManagedClusterConfigWorkerConfigDiskConfigArray(o
 class WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfig(
     object
 ):
+
     def __init__(
         self,
         instance_template_name: str = None,
@@ -1395,6 +1410,7 @@ class WorkflowTemplatePlacementManagedClusterConfigWorkerConfigManagedGroupConfi
 
 
 class WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAccelerators(object):
+
     def __init__(self, accelerator_type: str = None, accelerator_count: int = None):
         self.accelerator_type = accelerator_type
         self.accelerator_count = accelerator_count
@@ -1449,6 +1465,7 @@ class WorkflowTemplatePlacementManagedClusterConfigWorkerConfigAcceleratorsArray
 
 
 class WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfig(object):
+
     def __init__(
         self,
         num_instances: int = None,
@@ -1581,6 +1598,7 @@ class WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigArray(ob
 class WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConfig(
     object
 ):
+
     def __init__(
         self,
         boot_disk_type: str = None,
@@ -1646,6 +1664,7 @@ class WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigDiskConf
 class WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedGroupConfig(
     object
 ):
+
     def __init__(
         self,
         instance_template_name: str = None,
@@ -1714,6 +1733,7 @@ class WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigManagedG
 class WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelerators(
     object
 ):
+
     def __init__(self, accelerator_type: str = None, accelerator_count: int = None):
         self.accelerator_type = accelerator_type
         self.accelerator_count = accelerator_count
@@ -1768,6 +1788,7 @@ class WorkflowTemplatePlacementManagedClusterConfigSecondaryWorkerConfigAccelera
 
 
 class WorkflowTemplatePlacementManagedClusterConfigSoftwareConfig(object):
+
     def __init__(
         self,
         image_version: str = None,
@@ -1833,6 +1854,7 @@ class WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigArray(object):
 
 
 class WorkflowTemplatePlacementManagedClusterConfigInitializationActions(object):
+
     def __init__(self, executable_file: str = None, execution_timeout: str = None):
         self.executable_file = executable_file
         self.execution_timeout = execution_timeout
@@ -1885,6 +1907,7 @@ class WorkflowTemplatePlacementManagedClusterConfigInitializationActionsArray(ob
 
 
 class WorkflowTemplatePlacementManagedClusterConfigEncryptionConfig(object):
+
     def __init__(self, gce_pd_kms_key_name: str = None):
         self.gce_pd_kms_key_name = gce_pd_kms_key_name
 
@@ -1929,6 +1952,7 @@ class WorkflowTemplatePlacementManagedClusterConfigEncryptionConfigArray(object)
 
 
 class WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfig(object):
+
     def __init__(self, policy: str = None):
         self.policy = policy
 
@@ -1973,6 +1997,7 @@ class WorkflowTemplatePlacementManagedClusterConfigAutoscalingConfigArray(object
 
 
 class WorkflowTemplatePlacementManagedClusterConfigSecurityConfig(object):
+
     def __init__(self, kerberos_config: dict = None):
         self.kerberos_config = kerberos_config
 
@@ -2027,6 +2052,7 @@ class WorkflowTemplatePlacementManagedClusterConfigSecurityConfigArray(object):
 
 
 class WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfig(object):
+
     def __init__(
         self,
         enable_kerberos: bool = None,
@@ -2172,6 +2198,7 @@ class WorkflowTemplatePlacementManagedClusterConfigSecurityConfigKerberosConfigA
 
 
 class WorkflowTemplatePlacementManagedClusterConfigLifecycleConfig(object):
+
     def __init__(
         self,
         idle_delete_ttl: str = None,
@@ -2234,6 +2261,7 @@ class WorkflowTemplatePlacementManagedClusterConfigLifecycleConfigArray(object):
 
 
 class WorkflowTemplatePlacementManagedClusterConfigEndpointConfig(object):
+
     def __init__(self, http_ports: dict = None, enable_http_port_access: bool = None):
         self.http_ports = http_ports
         self.enable_http_port_access = enable_http_port_access
@@ -2286,6 +2314,7 @@ class WorkflowTemplatePlacementManagedClusterConfigEndpointConfigArray(object):
 
 
 class WorkflowTemplatePlacementClusterSelector(object):
+
     def __init__(self, zone: str = None, cluster_labels: dict = None):
         self.zone = zone
         self.cluster_labels = cluster_labels
@@ -2328,6 +2357,7 @@ class WorkflowTemplatePlacementClusterSelectorArray(object):
 
 
 class WorkflowTemplateJobs(object):
+
     def __init__(
         self,
         step_id: str = None,
@@ -2460,6 +2490,7 @@ class WorkflowTemplateJobsArray(object):
 
 
 class WorkflowTemplateJobsHadoopJob(object):
+
     def __init__(
         self,
         main_jar_file_uri: str = None,
@@ -2542,6 +2573,7 @@ class WorkflowTemplateJobsHadoopJobArray(object):
 
 
 class WorkflowTemplateJobsHadoopJobLoggingConfig(object):
+
     def __init__(self, driver_log_levels: dict = None):
         self.driver_log_levels = driver_log_levels
 
@@ -2582,6 +2614,7 @@ class WorkflowTemplateJobsHadoopJobLoggingConfigArray(object):
 
 
 class WorkflowTemplateJobsSparkJob(object):
+
     def __init__(
         self,
         main_jar_file_uri: str = None,
@@ -2664,6 +2697,7 @@ class WorkflowTemplateJobsSparkJobArray(object):
 
 
 class WorkflowTemplateJobsSparkJobLoggingConfig(object):
+
     def __init__(self, driver_log_levels: dict = None):
         self.driver_log_levels = driver_log_levels
 
@@ -2704,6 +2738,7 @@ class WorkflowTemplateJobsSparkJobLoggingConfigArray(object):
 
 
 class WorkflowTemplateJobsPysparkJob(object):
+
     def __init__(
         self,
         main_python_file_uri: str = None,
@@ -2788,6 +2823,7 @@ class WorkflowTemplateJobsPysparkJobArray(object):
 
 
 class WorkflowTemplateJobsPysparkJobLoggingConfig(object):
+
     def __init__(self, driver_log_levels: dict = None):
         self.driver_log_levels = driver_log_levels
 
@@ -2830,6 +2866,7 @@ class WorkflowTemplateJobsPysparkJobLoggingConfigArray(object):
 
 
 class WorkflowTemplateJobsHiveJob(object):
+
     def __init__(
         self,
         query_file_uri: str = None,
@@ -2900,6 +2937,7 @@ class WorkflowTemplateJobsHiveJobArray(object):
 
 
 class WorkflowTemplateJobsHiveJobQueryList(object):
+
     def __init__(self, queries: list = None):
         self.queries = queries
 
@@ -2936,6 +2974,7 @@ class WorkflowTemplateJobsHiveJobQueryListArray(object):
 
 
 class WorkflowTemplateJobsPigJob(object):
+
     def __init__(
         self,
         query_file_uri: str = None,
@@ -3019,6 +3058,7 @@ class WorkflowTemplateJobsPigJobArray(object):
 
 
 class WorkflowTemplateJobsPigJobQueryList(object):
+
     def __init__(self, queries: list = None):
         self.queries = queries
 
@@ -3055,6 +3095,7 @@ class WorkflowTemplateJobsPigJobQueryListArray(object):
 
 
 class WorkflowTemplateJobsPigJobLoggingConfig(object):
+
     def __init__(self, driver_log_levels: dict = None):
         self.driver_log_levels = driver_log_levels
 
@@ -3093,6 +3134,7 @@ class WorkflowTemplateJobsPigJobLoggingConfigArray(object):
 
 
 class WorkflowTemplateJobsSparkRJob(object):
+
     def __init__(
         self,
         main_r_file_uri: str = None,
@@ -3165,6 +3207,7 @@ class WorkflowTemplateJobsSparkRJobArray(object):
 
 
 class WorkflowTemplateJobsSparkRJobLoggingConfig(object):
+
     def __init__(self, driver_log_levels: dict = None):
         self.driver_log_levels = driver_log_levels
 
@@ -3205,6 +3248,7 @@ class WorkflowTemplateJobsSparkRJobLoggingConfigArray(object):
 
 
 class WorkflowTemplateJobsSparkSqlJob(object):
+
     def __init__(
         self,
         query_file_uri: str = None,
@@ -3285,6 +3329,7 @@ class WorkflowTemplateJobsSparkSqlJobArray(object):
 
 
 class WorkflowTemplateJobsSparkSqlJobQueryList(object):
+
     def __init__(self, queries: list = None):
         self.queries = queries
 
@@ -3323,6 +3368,7 @@ class WorkflowTemplateJobsSparkSqlJobQueryListArray(object):
 
 
 class WorkflowTemplateJobsSparkSqlJobLoggingConfig(object):
+
     def __init__(self, driver_log_levels: dict = None):
         self.driver_log_levels = driver_log_levels
 
@@ -3366,6 +3412,7 @@ class WorkflowTemplateJobsSparkSqlJobLoggingConfigArray(object):
 
 
 class WorkflowTemplateJobsPrestoJob(object):
+
     def __init__(
         self,
         query_file_uri: str = None,
@@ -3449,6 +3496,7 @@ class WorkflowTemplateJobsPrestoJobArray(object):
 
 
 class WorkflowTemplateJobsPrestoJobQueryList(object):
+
     def __init__(self, queries: list = None):
         self.queries = queries
 
@@ -3485,6 +3533,7 @@ class WorkflowTemplateJobsPrestoJobQueryListArray(object):
 
 
 class WorkflowTemplateJobsPrestoJobLoggingConfig(object):
+
     def __init__(self, driver_log_levels: dict = None):
         self.driver_log_levels = driver_log_levels
 
@@ -3525,6 +3574,7 @@ class WorkflowTemplateJobsPrestoJobLoggingConfigArray(object):
 
 
 class WorkflowTemplateJobsScheduling(object):
+
     def __init__(
         self, max_failures_per_hour: int = None, max_failures_total: int = None
     ):
@@ -3569,6 +3619,7 @@ class WorkflowTemplateJobsSchedulingArray(object):
 
 
 class WorkflowTemplateParameters(object):
+
     def __init__(
         self,
         name: str = None,
@@ -3629,6 +3680,7 @@ class WorkflowTemplateParametersArray(object):
 
 
 class WorkflowTemplateParametersValidation(object):
+
     def __init__(self, regex: dict = None, values: dict = None):
         self.regex = regex
         self.values = values
@@ -3679,6 +3731,7 @@ class WorkflowTemplateParametersValidationArray(object):
 
 
 class WorkflowTemplateParametersValidationRegex(object):
+
     def __init__(self, regexes: list = None):
         self.regexes = regexes
 
@@ -3719,6 +3772,7 @@ class WorkflowTemplateParametersValidationRegexArray(object):
 
 
 class WorkflowTemplateParametersValidationValues(object):
+
     def __init__(self, values: list = None):
         self.values = values
 

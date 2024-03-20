@@ -47,6 +47,7 @@ class Instance(object):
         self_link: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.can_ip_forward = can_ip_forward
         self.deletion_protection = deletion_protection
@@ -317,6 +318,7 @@ class Instance(object):
 
 
 class InstanceDisks(object):
+
     def __init__(
         self,
         auto_delete: bool = None,
@@ -413,6 +415,7 @@ class InstanceDisksArray(object):
 
 
 class InstanceDisksDiskEncryptionKey(object):
+
     def __init__(
         self, raw_key: str = None, rsa_encrypted_key: str = None, sha256: str = None
     ):
@@ -459,6 +462,7 @@ class InstanceDisksDiskEncryptionKeyArray(object):
 
 
 class InstanceDisksInitializeParams(object):
+
     def __init__(
         self,
         disk_name: str = None,
@@ -528,6 +532,7 @@ class InstanceDisksInitializeParamsArray(object):
 
 
 class InstanceDisksInitializeParamsSourceImageEncryptionKey(object):
+
     def __init__(self, raw_key: str = None, sha256: str = None):
         self.raw_key = raw_key
         self.sha256 = sha256
@@ -576,6 +581,7 @@ class InstanceDisksInitializeParamsSourceImageEncryptionKeyArray(object):
 
 
 class InstanceGuestAccelerators(object):
+
     def __init__(self, accelerator_count: int = None, accelerator_type: str = None):
         self.accelerator_count = accelerator_count
         self.accelerator_type = accelerator_type
@@ -616,6 +622,7 @@ class InstanceGuestAcceleratorsArray(object):
 
 
 class InstanceNetworkInterfaces(object):
+
     def __init__(
         self,
         access_configs: list = None,
@@ -709,6 +716,7 @@ class InstanceNetworkInterfacesArray(object):
 
 
 class InstanceNetworkInterfacesAccessConfigs(object):
+
     def __init__(
         self,
         name: str = None,
@@ -803,6 +811,7 @@ class InstanceNetworkInterfacesAccessConfigsArray(object):
 
 
 class InstanceNetworkInterfacesIPv6AccessConfigs(object):
+
     def __init__(
         self,
         name: str = None,
@@ -901,6 +910,7 @@ class InstanceNetworkInterfacesIPv6AccessConfigsArray(object):
 
 
 class InstanceNetworkInterfacesAliasIPRanges(object):
+
     def __init__(self, ip_cidr_range: str = None, subnetwork_range_name: str = None):
         self.ip_cidr_range = ip_cidr_range
         self.subnetwork_range_name = subnetwork_range_name
@@ -943,6 +953,7 @@ class InstanceNetworkInterfacesAliasIPRangesArray(object):
 
 
 class InstanceScheduling(object):
+
     def __init__(
         self,
         automatic_restart: bool = None,
@@ -992,6 +1003,7 @@ class InstanceSchedulingArray(object):
 
 
 class InstanceServiceAccounts(object):
+
     def __init__(self, email: str = None, scopes: list = None):
         self.email = email
         self.scopes = scopes
@@ -1032,6 +1044,7 @@ class InstanceServiceAccountsArray(object):
 
 
 class InstanceShieldedInstanceConfig(object):
+
     def __init__(
         self,
         enable_secure_boot: bool = None,

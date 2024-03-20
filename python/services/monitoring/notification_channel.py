@@ -36,6 +36,7 @@ class NotificationChannel(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.description = description
         self.display_name = display_name

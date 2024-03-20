@@ -39,6 +39,7 @@ class Spoke(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.labels = labels
@@ -252,6 +253,7 @@ class Spoke(object):
 
 
 class SpokeLinkedVpnTunnels(object):
+
     def __init__(self, uris: list = None, site_to_site_data_transfer: bool = None):
         self.uris = uris
         self.site_to_site_data_transfer = site_to_site_data_transfer
@@ -296,6 +298,7 @@ class SpokeLinkedVpnTunnelsArray(object):
 
 
 class SpokeLinkedInterconnectAttachments(object):
+
     def __init__(self, uris: list = None, site_to_site_data_transfer: bool = None):
         self.uris = uris
         self.site_to_site_data_transfer = site_to_site_data_transfer
@@ -340,6 +343,7 @@ class SpokeLinkedInterconnectAttachmentsArray(object):
 
 
 class SpokeLinkedRouterApplianceInstances(object):
+
     def __init__(self, instances: list = None, site_to_site_data_transfer: bool = None):
         self.instances = instances
         self.site_to_site_data_transfer = site_to_site_data_transfer
@@ -392,6 +396,7 @@ class SpokeLinkedRouterApplianceInstancesArray(object):
 
 
 class SpokeLinkedRouterApplianceInstancesInstances(object):
+
     def __init__(self, virtual_machine: str = None, ip_address: str = None):
         self.virtual_machine = virtual_machine
         self.ip_address = ip_address
@@ -439,6 +444,7 @@ class SpokeLinkedRouterApplianceInstancesInstancesArray(object):
 
 
 class SpokeLinkedVPCNetwork(object):
+
     def __init__(self, uri: str = None, exclude_export_ranges: list = None):
         self.uri = uri
         self.exclude_export_ranges = exclude_export_ranges

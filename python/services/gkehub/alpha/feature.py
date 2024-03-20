@@ -33,6 +33,7 @@ class Feature(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.labels = labels
@@ -125,6 +126,7 @@ class Feature(object):
 
 
 class FeatureResourceState(object):
+
     def __init__(self, state: str = None, has_resources: bool = None):
         self.state = state
         self.has_resources = has_resources
@@ -165,6 +167,7 @@ class FeatureResourceStateArray(object):
 
 
 class FeatureSpec(object):
+
     def __init__(
         self,
         multiclusteringress: dict = None,
@@ -232,6 +235,7 @@ class FeatureSpecArray(object):
 
 
 class FeatureSpecMulticlusteringress(object):
+
     def __init__(self, config_membership: str = None):
         self.config_membership = config_membership
 
@@ -268,6 +272,7 @@ class FeatureSpecMulticlusteringressArray(object):
 
 
 class FeatureSpecCloudauditlogging(object):
+
     def __init__(self, allowlisted_service_accounts: list = None):
         self.allowlisted_service_accounts = allowlisted_service_accounts
 
@@ -308,6 +313,7 @@ class FeatureSpecCloudauditloggingArray(object):
 
 
 class FeatureSpecFleetobservability(object):
+
     def __init__(self, logging_config: dict = None):
         self.logging_config = logging_config
 
@@ -352,6 +358,7 @@ class FeatureSpecFleetobservabilityArray(object):
 
 
 class FeatureSpecFleetobservabilityLoggingConfig(object):
+
     def __init__(
         self, default_config: dict = None, fleet_scope_logs_config: dict = None
     ):
@@ -418,6 +425,7 @@ class FeatureSpecFleetobservabilityLoggingConfigArray(object):
 
 
 class FeatureSpecFleetobservabilityLoggingConfigDefaultConfig(object):
+
     def __init__(self, mode: str = None):
         self.mode = mode
 
@@ -468,6 +476,7 @@ class FeatureSpecFleetobservabilityLoggingConfigDefaultConfigArray(object):
 
 
 class FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfig(object):
+
     def __init__(self, mode: str = None):
         self.mode = mode
 
@@ -518,6 +527,7 @@ class FeatureSpecFleetobservabilityLoggingConfigFleetScopeLogsConfigArray(object
 
 
 class FeatureState(object):
+
     def __init__(self, state: dict = None, servicemesh: dict = None):
         self.state = state
         self.servicemesh = servicemesh
@@ -564,6 +574,7 @@ class FeatureStateArray(object):
 
 
 class FeatureStateState(object):
+
     def __init__(
         self, code: str = None, description: str = None, update_time: str = None
     ):
@@ -610,6 +621,7 @@ class FeatureStateStateArray(object):
 
 
 class FeatureStateServicemesh(object):
+
     def __init__(self, analysis_messages: list = None):
         self.analysis_messages = analysis_messages
 
@@ -654,6 +666,7 @@ class FeatureStateServicemeshArray(object):
 
 
 class FeatureStateServicemeshAnalysisMessages(object):
+
     def __init__(
         self,
         message_base: dict = None,
@@ -720,6 +733,7 @@ class FeatureStateServicemeshAnalysisMessagesArray(object):
 
 
 class FeatureStateServicemeshAnalysisMessagesMessageBase(object):
+
     def __init__(
         self, type: dict = None, level: str = None, documentation_url: str = None
     ):
@@ -792,6 +806,7 @@ class FeatureStateServicemeshAnalysisMessagesMessageBaseArray(object):
 
 
 class FeatureStateServicemeshAnalysisMessagesMessageBaseType(object):
+
     def __init__(self, display_name: str = None, code: str = None):
         self.display_name = display_name
         self.code = code

@@ -35,6 +35,7 @@ class TlsRoute(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -141,6 +142,7 @@ class TlsRoute(object):
 
 
 class TlsRouteRules(object):
+
     def __init__(self, matches: list = None, action: dict = None):
         self.matches = matches
         self.action = action
@@ -183,6 +185,7 @@ class TlsRouteRulesArray(object):
 
 
 class TlsRouteRulesMatches(object):
+
     def __init__(self, sni_host: list = None, alpn: list = None):
         self.sni_host = sni_host
         self.alpn = alpn
@@ -223,6 +226,7 @@ class TlsRouteRulesMatchesArray(object):
 
 
 class TlsRouteRulesAction(object):
+
     def __init__(self, destinations: list = None):
         self.destinations = destinations
 
@@ -263,6 +267,7 @@ class TlsRouteRulesActionArray(object):
 
 
 class TlsRouteRulesActionDestinations(object):
+
     def __init__(self, service_name: str = None, weight: int = None):
         self.service_name = service_name
         self.weight = weight

@@ -56,6 +56,7 @@ class InterconnectAttachment(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.description = description
         self.name = name
@@ -399,6 +400,7 @@ class InterconnectAttachment(object):
 
 
 class InterconnectAttachmentPrivateInterconnectInfo(object):
+
     def __init__(self, tag8021q: int = None):
         self.tag8021q = tag8021q
 
@@ -442,6 +444,7 @@ class InterconnectAttachmentPrivateInterconnectInfoArray(object):
 
 
 class InterconnectAttachmentPartnerMetadata(object):
+
     def __init__(
         self,
         partner_name: str = None,

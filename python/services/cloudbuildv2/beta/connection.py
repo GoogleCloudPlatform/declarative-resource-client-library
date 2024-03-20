@@ -36,6 +36,7 @@ class Connection(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.github_config = github_config
@@ -194,6 +195,7 @@ class Connection(object):
 
 
 class ConnectionGithubConfig(object):
+
     def __init__(
         self, authorizer_credential: dict = None, app_installation_id: int = None
     ):
@@ -246,6 +248,7 @@ class ConnectionGithubConfigArray(object):
 
 
 class ConnectionGithubConfigAuthorizerCredential(object):
+
     def __init__(self, oauth_token_secret_version: str = None, username: str = None):
         self.oauth_token_secret_version = oauth_token_secret_version
         self.username = username
@@ -296,6 +299,7 @@ class ConnectionGithubConfigAuthorizerCredentialArray(object):
 
 
 class ConnectionGithubEnterpriseConfig(object):
+
     def __init__(
         self,
         host_uri: str = None,
@@ -388,6 +392,7 @@ class ConnectionGithubEnterpriseConfigArray(object):
 
 
 class ConnectionGithubEnterpriseConfigServiceDirectoryConfig(object):
+
     def __init__(self, service: str = None):
         self.service = service
 
@@ -432,6 +437,7 @@ class ConnectionGithubEnterpriseConfigServiceDirectoryConfigArray(object):
 
 
 class ConnectionGitlabConfig(object):
+
     def __init__(
         self,
         host_uri: str = None,
@@ -535,6 +541,7 @@ class ConnectionGitlabConfigArray(object):
 
 
 class ConnectionGitlabConfigReadAuthorizerCredential(object):
+
     def __init__(self, user_token_secret_version: str = None, username: str = None):
         self.user_token_secret_version = user_token_secret_version
         self.username = username
@@ -587,6 +594,7 @@ class ConnectionGitlabConfigReadAuthorizerCredentialArray(object):
 
 
 class ConnectionGitlabConfigAuthorizerCredential(object):
+
     def __init__(self, user_token_secret_version: str = None, username: str = None):
         self.user_token_secret_version = user_token_secret_version
         self.username = username
@@ -637,6 +645,7 @@ class ConnectionGitlabConfigAuthorizerCredentialArray(object):
 
 
 class ConnectionGitlabConfigServiceDirectoryConfig(object):
+
     def __init__(self, service: str = None):
         self.service = service
 
@@ -680,6 +689,7 @@ class ConnectionGitlabConfigServiceDirectoryConfigArray(object):
 
 
 class ConnectionInstallationState(object):
+
     def __init__(self, stage: str = None, message: str = None, action_uri: str = None):
         self.stage = stage
         self.message = message

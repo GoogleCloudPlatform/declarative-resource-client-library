@@ -40,6 +40,7 @@ class Asset(object):
         dataplex_zone: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -206,6 +207,7 @@ class Asset(object):
 
 
 class AssetResourceSpec(object):
+
     def __init__(
         self, name: str = None, type: str = None, read_access_mode: str = None
     ):
@@ -256,6 +258,7 @@ class AssetResourceSpecArray(object):
 
 
 class AssetResourceStatus(object):
+
     def __init__(self, state: str = None, message: str = None, update_time: str = None):
         self.state = state
         self.message = message
@@ -300,6 +303,7 @@ class AssetResourceStatusArray(object):
 
 
 class AssetSecurityStatus(object):
+
     def __init__(self, state: str = None, message: str = None, update_time: str = None):
         self.state = state
         self.message = message
@@ -344,6 +348,7 @@ class AssetSecurityStatusArray(object):
 
 
 class AssetDiscoverySpec(object):
+
     def __init__(
         self,
         enabled: bool = None,
@@ -418,6 +423,7 @@ class AssetDiscoverySpecArray(object):
 
 
 class AssetDiscoverySpecCsvOptions(object):
+
     def __init__(
         self,
         header_rows: int = None,
@@ -476,6 +482,7 @@ class AssetDiscoverySpecCsvOptionsArray(object):
 
 
 class AssetDiscoverySpecJsonOptions(object):
+
     def __init__(self, encoding: str = None, disable_type_inference: bool = None):
         self.encoding = encoding
         self.disable_type_inference = disable_type_inference
@@ -520,6 +527,7 @@ class AssetDiscoverySpecJsonOptionsArray(object):
 
 
 class AssetDiscoveryStatus(object):
+
     def __init__(
         self,
         state: str = None,
@@ -586,6 +594,7 @@ class AssetDiscoveryStatusArray(object):
 
 
 class AssetDiscoveryStatusStats(object):
+
     def __init__(
         self,
         data_items: int = None,

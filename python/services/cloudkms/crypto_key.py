@@ -36,6 +36,7 @@ class CryptoKey(object):
         key_ring: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.purpose = purpose
@@ -207,6 +208,7 @@ class CryptoKey(object):
 
 
 class CryptoKeyPrimary(object):
+
     def __init__(
         self,
         name: str = None,
@@ -331,6 +333,7 @@ class CryptoKeyPrimaryArray(object):
 
 
 class CryptoKeyPrimaryAttestation(object):
+
     def __init__(
         self, format: str = None, content: str = None, cert_chains: dict = None
     ):
@@ -383,6 +386,7 @@ class CryptoKeyPrimaryAttestationArray(object):
 
 
 class CryptoKeyPrimaryAttestationCertChains(object):
+
     def __init__(
         self,
         cavium_certs: list = None,
@@ -436,6 +440,7 @@ class CryptoKeyPrimaryAttestationCertChainsArray(object):
 
 
 class CryptoKeyPrimaryExternalProtectionLevelOptions(object):
+
     def __init__(self, external_key_uri: str = None):
         self.external_key_uri = external_key_uri
 
@@ -478,6 +483,7 @@ class CryptoKeyPrimaryExternalProtectionLevelOptionsArray(object):
 
 
 class CryptoKeyVersionTemplate(object):
+
     def __init__(self, protection_level: str = None, algorithm: str = None):
         self.protection_level = protection_level
         self.algorithm = algorithm

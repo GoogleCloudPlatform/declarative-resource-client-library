@@ -34,6 +34,7 @@ class Instance(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.labels = labels
@@ -173,6 +174,7 @@ class Instance(object):
 
 
 class InstanceBundlesConfig(object):
+
     def __init__(self, config_controller_config: dict = None):
         self.config_controller_config = config_controller_config
 
@@ -219,6 +221,7 @@ class InstanceBundlesConfigArray(object):
 
 
 class InstanceBundlesConfigConfigControllerConfig(object):
+
     def __init__(self, enabled: bool = None):
         self.enabled = enabled
 
@@ -261,6 +264,7 @@ class InstanceBundlesConfigConfigControllerConfigArray(object):
 
 
 class InstanceManagementConfig(object):
+
     def __init__(
         self,
         standard_management_config: dict = None,
@@ -325,6 +329,7 @@ class InstanceManagementConfigArray(object):
 
 
 class InstanceManagementConfigStandardManagementConfig(object):
+
     def __init__(
         self,
         network: str = None,
@@ -406,6 +411,7 @@ class InstanceManagementConfigStandardManagementConfigArray(object):
 
 
 class InstanceManagementConfigFullManagementConfig(object):
+
     def __init__(
         self,
         network: str = None,

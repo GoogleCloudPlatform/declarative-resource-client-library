@@ -32,6 +32,7 @@ class Attestor(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -122,6 +123,7 @@ class Attestor(object):
 
 
 class AttestorUserOwnedDrydockNote(object):
+
     def __init__(
         self,
         note_reference: str = None,
@@ -181,6 +183,7 @@ class AttestorUserOwnedDrydockNoteArray(object):
 
 
 class AttestorUserOwnedDrydockNotePublicKeys(object):
+
     def __init__(
         self,
         comment: str = None,
@@ -251,6 +254,7 @@ class AttestorUserOwnedDrydockNotePublicKeysArray(object):
 
 
 class AttestorUserOwnedDrydockNotePublicKeysPkixPublicKey(object):
+
     def __init__(self, public_key_pem: str = None, signature_algorithm: str = None):
         self.public_key_pem = public_key_pem
         self.signature_algorithm = signature_algorithm

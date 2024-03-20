@@ -48,6 +48,7 @@ class Instance(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -281,6 +282,7 @@ class Instance(object):
 
 
 class InstanceNetworkConfig(object):
+
     def __init__(self, network: str = None, ip_allocation: str = None):
         self.network = network
         self.ip_allocation = ip_allocation
@@ -321,6 +323,7 @@ class InstanceNetworkConfigArray(object):
 
 
 class InstanceAvailableVersion(object):
+
     def __init__(
         self,
         version_number: str = None,

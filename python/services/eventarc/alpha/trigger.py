@@ -38,6 +38,7 @@ class Trigger(object):
         event_data_content_type: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.matching_criteria = matching_criteria
@@ -206,6 +207,7 @@ class Trigger(object):
 
 
 class TriggerMatchingCriteria(object):
+
     def __init__(self, attribute: str = None, value: str = None, operator: str = None):
         self.attribute = attribute
         self.value = value
@@ -250,6 +252,7 @@ class TriggerMatchingCriteriaArray(object):
 
 
 class TriggerDestination(object):
+
     def __init__(
         self,
         cloud_run_service: dict = None,
@@ -334,6 +337,7 @@ class TriggerDestinationArray(object):
 
 
 class TriggerDestinationCloudRunService(object):
+
     def __init__(self, service: str = None, path: str = None, region: str = None):
         self.service = service
         self.path = path
@@ -378,6 +382,7 @@ class TriggerDestinationCloudRunServiceArray(object):
 
 
 class TriggerDestinationGke(object):
+
     def __init__(
         self,
         cluster: str = None,
@@ -437,6 +442,7 @@ class TriggerDestinationGkeArray(object):
 
 
 class TriggerDestinationHttpEndpoint(object):
+
     def __init__(self, uri: str = None):
         self.uri = uri
 
@@ -473,6 +479,7 @@ class TriggerDestinationHttpEndpointArray(object):
 
 
 class TriggerDestinationNetworkConfig(object):
+
     def __init__(self, network_attachment: str = None):
         self.network_attachment = network_attachment
 
@@ -509,6 +516,7 @@ class TriggerDestinationNetworkConfigArray(object):
 
 
 class TriggerTransport(object):
+
     def __init__(self, pubsub: dict = None):
         self.pubsub = pubsub
 
@@ -547,6 +555,7 @@ class TriggerTransportArray(object):
 
 
 class TriggerTransportPubsub(object):
+
     def __init__(self, topic: str = None, subscription: str = None):
         self.topic = topic
         self.subscription = subscription

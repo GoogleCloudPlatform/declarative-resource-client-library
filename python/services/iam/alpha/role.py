@@ -36,6 +36,7 @@ class Role(object):
         parent: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.title = title
@@ -215,6 +216,7 @@ class Role(object):
 
 
 class RoleLocalizedValues(object):
+
     def __init__(self, localized_title: str = None, localized_description: str = None):
         self.localized_title = localized_title
         self.localized_description = localized_description

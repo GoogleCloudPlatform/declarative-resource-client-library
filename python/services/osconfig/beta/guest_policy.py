@@ -33,6 +33,7 @@ class GuestPolicy(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -163,6 +164,7 @@ class GuestPolicy(object):
 
 
 class GuestPolicyAssignment(object):
+
     def __init__(
         self,
         group_labels: list = None,
@@ -232,6 +234,7 @@ class GuestPolicyAssignmentArray(object):
 
 
 class GuestPolicyAssignmentGroupLabels(object):
+
     def __init__(self, labels: dict = None):
         self.labels = labels
 
@@ -268,6 +271,7 @@ class GuestPolicyAssignmentGroupLabelsArray(object):
 
 
 class GuestPolicyAssignmentOSTypes(object):
+
     def __init__(
         self,
         os_short_name: str = None,
@@ -317,6 +321,7 @@ class GuestPolicyAssignmentOSTypesArray(object):
 
 
 class GuestPolicyPackages(object):
+
     def __init__(
         self, name: str = None, desired_state: str = None, manager: str = None
     ):
@@ -367,6 +372,7 @@ class GuestPolicyPackagesArray(object):
 
 
 class GuestPolicyPackageRepositories(object):
+
     def __init__(
         self, apt: dict = None, yum: dict = None, zypper: dict = None, goo: dict = None
     ):
@@ -427,6 +433,7 @@ class GuestPolicyPackageRepositoriesArray(object):
 
 
 class GuestPolicyPackageRepositoriesApt(object):
+
     def __init__(
         self,
         archive_type: str = None,
@@ -494,6 +501,7 @@ class GuestPolicyPackageRepositoriesAptArray(object):
 
 
 class GuestPolicyPackageRepositoriesYum(object):
+
     def __init__(
         self,
         id: str = None,
@@ -548,6 +556,7 @@ class GuestPolicyPackageRepositoriesYumArray(object):
 
 
 class GuestPolicyPackageRepositoriesZypper(object):
+
     def __init__(
         self,
         id: str = None,
@@ -602,6 +611,7 @@ class GuestPolicyPackageRepositoriesZypperArray(object):
 
 
 class GuestPolicyPackageRepositoriesGoo(object):
+
     def __init__(self, name: str = None, url: str = None):
         self.name = name
         self.url = url
@@ -642,6 +652,7 @@ class GuestPolicyPackageRepositoriesGooArray(object):
 
 
 class GuestPolicyRecipes(object):
+
     def __init__(
         self,
         name: str = None,
@@ -720,6 +731,7 @@ class GuestPolicyRecipesArray(object):
 
 
 class GuestPolicyRecipesArtifacts(object):
+
     def __init__(
         self,
         id: str = None,
@@ -780,6 +792,7 @@ class GuestPolicyRecipesArtifactsArray(object):
 
 
 class GuestPolicyRecipesArtifactsRemote(object):
+
     def __init__(self, uri: str = None, checksum: str = None):
         self.uri = uri
         self.checksum = checksum
@@ -820,6 +833,7 @@ class GuestPolicyRecipesArtifactsRemoteArray(object):
 
 
 class GuestPolicyRecipesArtifactsGcs(object):
+
     def __init__(self, bucket: str = None, object: str = None, generation: int = None):
         self.bucket = bucket
         self.object = object
@@ -864,6 +878,7 @@ class GuestPolicyRecipesArtifactsGcsArray(object):
 
 
 class GuestPolicyRecipesInstallSteps(object):
+
     def __init__(
         self,
         file_copy: dict = None,
@@ -991,6 +1006,7 @@ class GuestPolicyRecipesInstallStepsArray(object):
 
 
 class GuestPolicyRecipesInstallStepsFileCopy(object):
+
     def __init__(
         self,
         artifact_id: str = None,
@@ -1045,6 +1061,7 @@ class GuestPolicyRecipesInstallStepsFileCopyArray(object):
 
 
 class GuestPolicyRecipesInstallStepsArchiveExtraction(object):
+
     def __init__(
         self, artifact_id: str = None, destination: str = None, type: str = None
     ):
@@ -1105,6 +1122,7 @@ class GuestPolicyRecipesInstallStepsArchiveExtractionArray(object):
 
 
 class GuestPolicyRecipesInstallStepsMsiInstallation(object):
+
     def __init__(
         self,
         artifact_id: str = None,
@@ -1163,6 +1181,7 @@ class GuestPolicyRecipesInstallStepsMsiInstallationArray(object):
 
 
 class GuestPolicyRecipesInstallStepsDpkgInstallation(object):
+
     def __init__(self, artifact_id: str = None):
         self.artifact_id = artifact_id
 
@@ -1207,6 +1226,7 @@ class GuestPolicyRecipesInstallStepsDpkgInstallationArray(object):
 
 
 class GuestPolicyRecipesInstallStepsRpmInstallation(object):
+
     def __init__(self, artifact_id: str = None):
         self.artifact_id = artifact_id
 
@@ -1250,6 +1270,7 @@ class GuestPolicyRecipesInstallStepsRpmInstallationArray(object):
 
 
 class GuestPolicyRecipesInstallStepsFileExec(object):
+
     def __init__(
         self,
         artifact_id: str = None,
@@ -1306,6 +1327,7 @@ class GuestPolicyRecipesInstallStepsFileExecArray(object):
 
 
 class GuestPolicyRecipesInstallStepsScriptRun(object):
+
     def __init__(
         self,
         script: str = None,
@@ -1367,6 +1389,7 @@ class GuestPolicyRecipesInstallStepsScriptRunArray(object):
 
 
 class GuestPolicyRecipesUpdateSteps(object):
+
     def __init__(
         self,
         file_copy: dict = None,
@@ -1494,6 +1517,7 @@ class GuestPolicyRecipesUpdateStepsArray(object):
 
 
 class GuestPolicyRecipesUpdateStepsFileCopy(object):
+
     def __init__(
         self,
         artifact_id: str = None,
@@ -1548,6 +1572,7 @@ class GuestPolicyRecipesUpdateStepsFileCopyArray(object):
 
 
 class GuestPolicyRecipesUpdateStepsArchiveExtraction(object):
+
     def __init__(
         self, artifact_id: str = None, destination: str = None, type: str = None
     ):
@@ -1608,6 +1633,7 @@ class GuestPolicyRecipesUpdateStepsArchiveExtractionArray(object):
 
 
 class GuestPolicyRecipesUpdateStepsMsiInstallation(object):
+
     def __init__(
         self,
         artifact_id: str = None,
@@ -1666,6 +1692,7 @@ class GuestPolicyRecipesUpdateStepsMsiInstallationArray(object):
 
 
 class GuestPolicyRecipesUpdateStepsDpkgInstallation(object):
+
     def __init__(self, artifact_id: str = None):
         self.artifact_id = artifact_id
 
@@ -1709,6 +1736,7 @@ class GuestPolicyRecipesUpdateStepsDpkgInstallationArray(object):
 
 
 class GuestPolicyRecipesUpdateStepsRpmInstallation(object):
+
     def __init__(self, artifact_id: str = None):
         self.artifact_id = artifact_id
 
@@ -1752,6 +1780,7 @@ class GuestPolicyRecipesUpdateStepsRpmInstallationArray(object):
 
 
 class GuestPolicyRecipesUpdateStepsFileExec(object):
+
     def __init__(
         self,
         artifact_id: str = None,
@@ -1808,6 +1837,7 @@ class GuestPolicyRecipesUpdateStepsFileExecArray(object):
 
 
 class GuestPolicyRecipesUpdateStepsScriptRun(object):
+
     def __init__(
         self,
         script: str = None,

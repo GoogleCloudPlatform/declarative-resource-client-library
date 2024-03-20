@@ -46,6 +46,7 @@ class Workload(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -296,6 +297,7 @@ class Workload(object):
 
 
 class WorkloadResources(object):
+
     def __init__(self, resource_id: int = None, resource_type: str = None):
         self.resource_id = resource_id
         self.resource_type = resource_type
@@ -340,6 +342,7 @@ class WorkloadResourcesArray(object):
 
 
 class WorkloadKmsSettings(object):
+
     def __init__(self, next_rotation_time: str = None, rotation_period: str = None):
         self.next_rotation_time = next_rotation_time
         self.rotation_period = rotation_period
@@ -380,6 +383,7 @@ class WorkloadKmsSettingsArray(object):
 
 
 class WorkloadResourceSettings(object):
+
     def __init__(
         self,
         resource_id: str = None,
@@ -433,6 +437,7 @@ class WorkloadResourceSettingsArray(object):
 
 
 class WorkloadSaaEnrollmentResponse(object):
+
     def __init__(self, setup_errors: list = None, setup_status: str = None):
         self.setup_errors = setup_errors
         self.setup_status = setup_status
@@ -485,6 +490,7 @@ class WorkloadSaaEnrollmentResponseArray(object):
 
 
 class WorkloadComplianceStatus(object):
+
     def __init__(
         self,
         active_violation_count: list = None,
@@ -537,6 +543,7 @@ class WorkloadComplianceStatusArray(object):
 
 
 class WorkloadPartnerPermissions(object):
+
     def __init__(
         self,
         data_logs_viewer: bool = None,
@@ -594,6 +601,7 @@ class WorkloadPartnerPermissionsArray(object):
 
 
 class WorkloadEkmProvisioningResponse(object):
+
     def __init__(
         self,
         ekm_provisioning_state: str = None,

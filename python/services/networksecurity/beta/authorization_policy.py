@@ -36,6 +36,7 @@ class AuthorizationPolicy(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -159,6 +160,7 @@ class AuthorizationPolicy(object):
 
 
 class AuthorizationPolicyRules(object):
+
     def __init__(self, sources: list = None, destinations: list = None):
         self.sources = sources
         self.destinations = destinations
@@ -207,6 +209,7 @@ class AuthorizationPolicyRulesArray(object):
 
 
 class AuthorizationPolicyRulesSources(object):
+
     def __init__(self, principals: list = None, ip_blocks: list = None):
         self.principals = principals
         self.ip_blocks = ip_blocks
@@ -249,6 +252,7 @@ class AuthorizationPolicyRulesSourcesArray(object):
 
 
 class AuthorizationPolicyRulesDestinations(object):
+
     def __init__(
         self,
         hosts: list = None,
@@ -315,6 +319,7 @@ class AuthorizationPolicyRulesDestinationsArray(object):
 
 
 class AuthorizationPolicyRulesDestinationsHttpHeaderMatch(object):
+
     def __init__(self, header_name: str = None, regex_match: str = None):
         self.header_name = header_name
         self.regex_match = regex_match

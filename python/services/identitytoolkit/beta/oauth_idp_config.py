@@ -35,6 +35,7 @@ class OAuthIdpConfig(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.client_id = client_id
@@ -164,6 +165,7 @@ class OAuthIdpConfig(object):
 
 
 class OAuthIdpConfigResponseType(object):
+
     def __init__(self, id_token: bool = None, code: bool = None, token: bool = None):
         self.id_token = id_token
         self.code = code

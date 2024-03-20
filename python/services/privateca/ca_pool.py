@@ -30,6 +30,7 @@ class CaPool(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.tier = tier
@@ -155,6 +156,7 @@ class CaPool(object):
 
 
 class CaPoolIssuancePolicy(object):
+
     def __init__(
         self,
         allowed_key_types: list = None,
@@ -263,6 +265,7 @@ class CaPoolIssuancePolicyArray(object):
 
 
 class CaPoolIssuancePolicyAllowedKeyTypes(object):
+
     def __init__(self, rsa: dict = None, elliptic_curve: dict = None):
         self.rsa = rsa
         self.elliptic_curve = elliptic_curve
@@ -317,6 +320,7 @@ class CaPoolIssuancePolicyAllowedKeyTypesArray(object):
 
 
 class CaPoolIssuancePolicyAllowedKeyTypesRsa(object):
+
     def __init__(self, min_modulus_size: int = None, max_modulus_size: int = None):
         self.min_modulus_size = min_modulus_size
         self.max_modulus_size = max_modulus_size
@@ -357,6 +361,7 @@ class CaPoolIssuancePolicyAllowedKeyTypesRsaArray(object):
 
 
 class CaPoolIssuancePolicyAllowedKeyTypesEllipticCurve(object):
+
     def __init__(self, signature_algorithm: str = None):
         self.signature_algorithm = signature_algorithm
 
@@ -405,6 +410,7 @@ class CaPoolIssuancePolicyAllowedKeyTypesEllipticCurveArray(object):
 
 
 class CaPoolIssuancePolicyAllowedIssuanceModes(object):
+
     def __init__(
         self,
         allow_csr_based_issuance: bool = None,
@@ -459,6 +465,7 @@ class CaPoolIssuancePolicyAllowedIssuanceModesArray(object):
 
 
 class CaPoolIssuancePolicyBaselineValues(object):
+
     def __init__(
         self,
         key_usage: dict = None,
@@ -548,6 +555,7 @@ class CaPoolIssuancePolicyBaselineValuesArray(object):
 
 
 class CaPoolIssuancePolicyBaselineValuesKeyUsage(object):
+
     def __init__(
         self,
         base_key_usage: dict = None,
@@ -629,6 +637,7 @@ class CaPoolIssuancePolicyBaselineValuesKeyUsageArray(object):
 
 
 class CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsage(object):
+
     def __init__(
         self,
         digital_signature: bool = None,
@@ -716,6 +725,7 @@ class CaPoolIssuancePolicyBaselineValuesKeyUsageBaseKeyUsageArray(object):
 
 
 class CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsage(object):
+
     def __init__(
         self,
         server_auth: bool = None,
@@ -788,6 +798,7 @@ class CaPoolIssuancePolicyBaselineValuesKeyUsageExtendedKeyUsageArray(object):
 
 
 class CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsages(object):
+
     def __init__(self, object_id_path: list = None):
         self.object_id_path = object_id_path
 
@@ -836,6 +847,7 @@ class CaPoolIssuancePolicyBaselineValuesKeyUsageUnknownExtendedKeyUsagesArray(ob
 
 
 class CaPoolIssuancePolicyBaselineValuesCaOptions(object):
+
     def __init__(
         self,
         is_ca: bool = None,
@@ -897,6 +909,7 @@ class CaPoolIssuancePolicyBaselineValuesCaOptionsArray(object):
 
 
 class CaPoolIssuancePolicyBaselineValuesPolicyIds(object):
+
     def __init__(self, object_id_path: list = None):
         self.object_id_path = object_id_path
 
@@ -937,6 +950,7 @@ class CaPoolIssuancePolicyBaselineValuesPolicyIdsArray(object):
 
 
 class CaPoolIssuancePolicyBaselineValuesAdditionalExtensions(object):
+
     def __init__(
         self, object_id: dict = None, critical: bool = None, value: str = None
     ):
@@ -1001,6 +1015,7 @@ class CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsArray(object):
 
 
 class CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectId(object):
+
     def __init__(self, object_id_path: list = None):
         self.object_id_path = object_id_path
 
@@ -1045,6 +1060,7 @@ class CaPoolIssuancePolicyBaselineValuesAdditionalExtensionsObjectIdArray(object
 
 
 class CaPoolIssuancePolicyIdentityConstraints(object):
+
     def __init__(
         self,
         cel_expression: dict = None,
@@ -1114,6 +1130,7 @@ class CaPoolIssuancePolicyIdentityConstraintsArray(object):
 
 
 class CaPoolIssuancePolicyIdentityConstraintsCelExpression(object):
+
     def __init__(
         self,
         expression: str = None,
@@ -1176,6 +1193,7 @@ class CaPoolIssuancePolicyIdentityConstraintsCelExpressionArray(object):
 
 
 class CaPoolIssuancePolicyPassthroughExtensions(object):
+
     def __init__(
         self, known_extensions: list = None, additional_extensions: list = None
     ):
@@ -1238,6 +1256,7 @@ class CaPoolIssuancePolicyPassthroughExtensionsArray(object):
 
 
 class CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensions(object):
+
     def __init__(self, object_id_path: list = None):
         self.object_id_path = object_id_path
 
@@ -1282,6 +1301,7 @@ class CaPoolIssuancePolicyPassthroughExtensionsAdditionalExtensionsArray(object)
 
 
 class CaPoolPublishingOptions(object):
+
     def __init__(self, publish_ca_cert: bool = None, publish_crl: bool = None):
         self.publish_ca_cert = publish_ca_cert
         self.publish_crl = publish_crl

@@ -45,6 +45,7 @@ class VpnTunnel(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.labels = labels
         self.name = name

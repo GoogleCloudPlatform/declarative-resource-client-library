@@ -37,6 +37,7 @@ class FirewallPolicyRule(object):
         firewall_policy: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.description = description
         self.priority = priority
@@ -198,6 +199,7 @@ class FirewallPolicyRule(object):
 
 
 class FirewallPolicyRuleMatch(object):
+
     def __init__(
         self,
         src_ip_ranges: list = None,
@@ -305,6 +307,7 @@ class FirewallPolicyRuleMatchArray(object):
 
 
 class FirewallPolicyRuleMatchLayer4Configs(object):
+
     def __init__(self, ip_protocol: str = None, ports: list = None):
         self.ip_protocol = ip_protocol
         self.ports = ports

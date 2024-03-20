@@ -32,6 +32,7 @@ class Repository(object):
         connection: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.remote_uri = remote_uri

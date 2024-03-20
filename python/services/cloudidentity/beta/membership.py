@@ -35,6 +35,7 @@ class Membership(object):
         group: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.preferred_member_key = preferred_member_key
@@ -147,6 +148,7 @@ class Membership(object):
 
 
 class MembershipPreferredMemberKey(object):
+
     def __init__(self, id: str = None, namespace: str = None):
         self.id = id
         self.namespace = namespace
@@ -187,6 +189,7 @@ class MembershipPreferredMemberKeyArray(object):
 
 
 class MembershipRoles(object):
+
     def __init__(
         self,
         name: str = None,
@@ -252,6 +255,7 @@ class MembershipRolesArray(object):
 
 
 class MembershipRolesExpiryDetail(object):
+
     def __init__(self, expire_time: str = None):
         self.expire_time = expire_time
 
@@ -288,6 +292,7 @@ class MembershipRolesExpiryDetailArray(object):
 
 
 class MembershipRolesRestrictionEvaluations(object):
+
     def __init__(self, member_restriction_evaluation: dict = None):
         self.member_restriction_evaluation = member_restriction_evaluation
 
@@ -334,6 +339,7 @@ class MembershipRolesRestrictionEvaluationsArray(object):
 
 
 class MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluation(object):
+
     def __init__(self, state: str = None):
         self.state = state
 
@@ -386,6 +392,7 @@ class MembershipRolesRestrictionEvaluationsMemberRestrictionEvaluationArray(obje
 
 
 class MembershipDisplayName(object):
+
     def __init__(
         self, given_name: str = None, family_name: str = None, full_name: str = None
     ):
@@ -432,6 +439,7 @@ class MembershipDisplayNameArray(object):
 
 
 class MembershipMemberKey(object):
+
     def __init__(self, id: str = None, namespace: str = None):
         self.id = id
         self.namespace = namespace

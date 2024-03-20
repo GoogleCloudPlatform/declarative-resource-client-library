@@ -36,6 +36,7 @@ class Connector(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.network = network
@@ -185,6 +186,7 @@ class Connector(object):
 
 
 class ConnectorSubnet(object):
+
     def __init__(self, name: str = None, project_id: str = None):
         self.name = name
         self.project_id = project_id

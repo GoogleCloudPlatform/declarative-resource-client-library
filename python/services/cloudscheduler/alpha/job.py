@@ -39,6 +39,7 @@ class Job(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -229,6 +230,7 @@ class Job(object):
 
 
 class JobPubsubTarget(object):
+
     def __init__(
         self, topic_name: str = None, data: str = None, attributes: dict = None
     ):
@@ -275,6 +277,7 @@ class JobPubsubTargetArray(object):
 
 
 class JobAppEngineHttpTarget(object):
+
     def __init__(
         self,
         http_method: str = None,
@@ -346,6 +349,7 @@ class JobAppEngineHttpTargetArray(object):
 
 
 class JobAppEngineHttpTargetAppEngineRouting(object):
+
     def __init__(
         self,
         service: str = None,
@@ -400,6 +404,7 @@ class JobAppEngineHttpTargetAppEngineRoutingArray(object):
 
 
 class JobHttpTarget(object):
+
     def __init__(
         self,
         uri: str = None,
@@ -472,6 +477,7 @@ class JobHttpTargetArray(object):
 
 
 class JobHttpTargetOAuthToken(object):
+
     def __init__(self, service_account_email: str = None, scope: str = None):
         self.service_account_email = service_account_email
         self.scope = scope
@@ -514,6 +520,7 @@ class JobHttpTargetOAuthTokenArray(object):
 
 
 class JobHttpTargetOidcToken(object):
+
     def __init__(self, service_account_email: str = None, audience: str = None):
         self.service_account_email = service_account_email
         self.audience = audience
@@ -556,6 +563,7 @@ class JobHttpTargetOidcTokenArray(object):
 
 
 class JobStatus(object):
+
     def __init__(self, code: int = None, message: str = None, details: list = None):
         self.code = code
         self.message = message
@@ -600,6 +608,7 @@ class JobStatusArray(object):
 
 
 class JobStatusDetails(object):
+
     def __init__(self, type_url: str = None, value: str = None):
         self.type_url = type_url
         self.value = value
@@ -640,6 +649,7 @@ class JobStatusDetailsArray(object):
 
 
 class JobRetryConfig(object):
+
     def __init__(
         self,
         retry_count: int = None,

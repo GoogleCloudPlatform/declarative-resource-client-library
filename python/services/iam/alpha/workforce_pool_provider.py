@@ -36,6 +36,7 @@ class WorkforcePoolProvider(object):
         workforce_pool: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -210,6 +211,7 @@ class WorkforcePoolProvider(object):
 
 
 class WorkforcePoolProviderSaml(object):
+
     def __init__(self, idp_metadata_xml: str = None):
         self.idp_metadata_xml = idp_metadata_xml
 
@@ -246,6 +248,7 @@ class WorkforcePoolProviderSamlArray(object):
 
 
 class WorkforcePoolProviderOidc(object):
+
     def __init__(
         self,
         issuer_uri: str = None,
@@ -317,6 +320,7 @@ class WorkforcePoolProviderOidcArray(object):
 
 
 class WorkforcePoolProviderOidcWebSsoConfig(object):
+
     def __init__(
         self,
         response_type: str = None,
@@ -382,6 +386,7 @@ class WorkforcePoolProviderOidcWebSsoConfigArray(object):
 
 
 class WorkforcePoolProviderOidcClientSecret(object):
+
     def __init__(self, value: dict = None):
         self.value = value
 
@@ -424,6 +429,7 @@ class WorkforcePoolProviderOidcClientSecretArray(object):
 
 
 class WorkforcePoolProviderOidcClientSecretValue(object):
+
     def __init__(self, plain_text: str = None, thumbprint: str = None):
         self.plain_text = plain_text
         self.thumbprint = thumbprint

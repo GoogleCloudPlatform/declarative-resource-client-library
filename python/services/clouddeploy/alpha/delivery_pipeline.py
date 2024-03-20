@@ -40,6 +40,7 @@ class DeliveryPipeline(object):
         suspended: bool = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -176,6 +177,7 @@ class DeliveryPipeline(object):
 
 
 class DeliveryPipelineSerialPipeline(object):
+
     def __init__(self, stages: list = None):
         self.stages = stages
 
@@ -216,6 +218,7 @@ class DeliveryPipelineSerialPipelineArray(object):
 
 
 class DeliveryPipelineSerialPipelineStages(object):
+
     def __init__(
         self,
         target_id: str = None,
@@ -286,6 +289,7 @@ class DeliveryPipelineSerialPipelineStagesArray(object):
 
 
 class DeliveryPipelineSerialPipelineStagesStrategy(object):
+
     def __init__(self, standard: dict = None, canary: dict = None):
         self.standard = standard
         self.canary = canary
@@ -351,6 +355,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyArray(object):
 
 
 class DeliveryPipelineSerialPipelineStagesStrategyStandard(object):
+
     def __init__(
         self, verify: bool = None, predeploy: dict = None, postdeploy: dict = None
     ):
@@ -425,6 +430,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyStandardArray(object):
 
 
 class DeliveryPipelineSerialPipelineStagesStrategyStandardPredeploy(object):
+
     def __init__(self, actions: list = None):
         self.actions = actions
 
@@ -469,6 +475,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyStandardPredeployArray(object)
 
 
 class DeliveryPipelineSerialPipelineStagesStrategyStandardPostdeploy(object):
+
     def __init__(self, actions: list = None):
         self.actions = actions
 
@@ -513,6 +520,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyStandardPostdeployArray(object
 
 
 class DeliveryPipelineSerialPipelineStagesStrategyCanary(object):
+
     def __init__(
         self,
         runtime_config: dict = None,
@@ -600,6 +608,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryArray(object):
 
 
 class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig(object):
+
     def __init__(self, kubernetes: dict = None, cloud_run: dict = None):
         self.kubernetes = kubernetes
         self.cloud_run = cloud_run
@@ -670,6 +679,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigArray(objec
 
 
 class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetes(object):
+
     def __init__(
         self, gateway_service_mesh: dict = None, service_networking: dict = None
     ):
@@ -748,6 +758,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesA
 class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh(
     object
 ):
+
     def __init__(
         self,
         http_route: str = None,
@@ -831,6 +842,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesG
 class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking(
     object
 ):
+
     def __init__(
         self,
         service: str = None,
@@ -898,6 +910,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesS
 
 
 class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun(object):
+
     def __init__(
         self,
         automatic_traffic_control: bool = None,
@@ -976,6 +989,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRunArr
 
 
 class DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeployment(object):
+
     def __init__(
         self,
         percentages: list = None,
@@ -1064,6 +1078,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentArray(ob
 class DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeploy(
     object
 ):
+
     def __init__(self, actions: list = None):
         self.actions = actions
 
@@ -1118,6 +1133,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPredeplo
 class DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdeploy(
     object
 ):
+
     def __init__(self, actions: list = None):
         self.actions = actions
 
@@ -1168,6 +1184,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryCanaryDeploymentPostdepl
 
 
 class DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeployment(object):
+
     def __init__(self, phase_configs: list = None):
         self.phase_configs = phase_configs
 
@@ -1228,6 +1245,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentAr
 class DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigs(
     object
 ):
+
     def __init__(
         self,
         phase_id: str = None,
@@ -1328,6 +1346,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPh
 class DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPredeploy(
     object
 ):
+
     def __init__(self, actions: list = None):
         self.actions = actions
 
@@ -1380,6 +1399,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPh
 class DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPhaseConfigsPostdeploy(
     object
 ):
+
     def __init__(self, actions: list = None):
         self.actions = actions
 
@@ -1430,6 +1450,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryCustomCanaryDeploymentPh
 
 
 class DeliveryPipelineSerialPipelineStagesDeployParameters(object):
+
     def __init__(self, values: dict = None, match_target_labels: dict = None):
         self.values = values
         self.match_target_labels = match_target_labels
@@ -1478,6 +1499,7 @@ class DeliveryPipelineSerialPipelineStagesDeployParametersArray(object):
 
 
 class DeliveryPipelineCondition(object):
+
     def __init__(
         self,
         pipeline_ready_condition: dict = None,
@@ -1557,6 +1579,7 @@ class DeliveryPipelineConditionArray(object):
 
 
 class DeliveryPipelineConditionPipelineReadyCondition(object):
+
     def __init__(self, status: bool = None, update_time: str = None):
         self.status = status
         self.update_time = update_time
@@ -1605,6 +1628,7 @@ class DeliveryPipelineConditionPipelineReadyConditionArray(object):
 
 
 class DeliveryPipelineConditionTargetsPresentCondition(object):
+
     def __init__(
         self, status: bool = None, missing_targets: list = None, update_time: str = None
     ):
@@ -1659,6 +1683,7 @@ class DeliveryPipelineConditionTargetsPresentConditionArray(object):
 
 
 class DeliveryPipelineConditionTargetsTypeCondition(object):
+
     def __init__(self, status: bool = None, error_details: str = None):
         self.status = status
         self.error_details = error_details

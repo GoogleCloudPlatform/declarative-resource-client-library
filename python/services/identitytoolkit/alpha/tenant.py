@@ -32,6 +32,7 @@ class Tenant(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.display_name = display_name
@@ -189,6 +190,7 @@ class Tenant(object):
 
 
 class TenantMfaConfig(object):
+
     def __init__(self, state: str = None, enabled_providers: list = None):
         self.state = state
         self.enabled_providers = enabled_providers

@@ -47,6 +47,7 @@ class Function(object):
         project: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -359,6 +360,7 @@ class Function(object):
 
 
 class FunctionSourceRepository(object):
+
     def __init__(self, url: str = None, deployed_url: str = None):
         self.url = url
         self.deployed_url = deployed_url
@@ -399,6 +401,7 @@ class FunctionSourceRepositoryArray(object):
 
 
 class FunctionHttpsTrigger(object):
+
     def __init__(self, url: str = None, security_level: str = None):
         self.url = url
         self.security_level = security_level
@@ -443,6 +446,7 @@ class FunctionHttpsTriggerArray(object):
 
 
 class FunctionEventTrigger(object):
+
     def __init__(
         self,
         event_type: str = None,

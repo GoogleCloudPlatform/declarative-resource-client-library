@@ -29,6 +29,7 @@ class EkmConnection(object):
         location: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.service_resolvers = service_resolvers
@@ -116,6 +117,7 @@ class EkmConnection(object):
 
 
 class EkmConnectionServiceResolvers(object):
+
     def __init__(
         self,
         service_directory_service: str = None,
@@ -182,6 +184,7 @@ class EkmConnectionServiceResolversArray(object):
 
 
 class EkmConnectionServiceResolversServerCertificates(object):
+
     def __init__(
         self,
         raw_der: str = None,

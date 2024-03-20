@@ -36,6 +36,7 @@ class TcpRoute(object):
         self_link: str = None,
         service_account_file: str = "",
     ):
+
         channel.initialize()
         self.name = name
         self.description = description
@@ -152,6 +153,7 @@ class TcpRoute(object):
 
 
 class TcpRouteRules(object):
+
     def __init__(self, matches: list = None, action: dict = None):
         self.matches = matches
         self.action = action
@@ -194,6 +196,7 @@ class TcpRouteRulesArray(object):
 
 
 class TcpRouteRulesMatches(object):
+
     def __init__(self, address: str = None, port: str = None):
         self.address = address
         self.port = port
@@ -234,6 +237,7 @@ class TcpRouteRulesMatchesArray(object):
 
 
 class TcpRouteRulesAction(object):
+
     def __init__(self, destinations: list = None, original_destination: bool = None):
         self.destinations = destinations
         self.original_destination = original_destination
@@ -278,6 +282,7 @@ class TcpRouteRulesActionArray(object):
 
 
 class TcpRouteRulesActionDestinations(object):
+
     def __init__(self, weight: int = None, service_name: str = None):
         self.weight = weight
         self.service_name = service_name
