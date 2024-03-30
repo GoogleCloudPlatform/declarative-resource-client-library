@@ -74,6 +74,9 @@ func CertificateTemplateToUnstructured(r *dclService.CertificateTemplate) *unstr
 	if r.Location != nil {
 		u.Object["location"] = *r.Location
 	}
+	if r.MaximumLifetime != nil {
+		u.Object["maximumLifetime"] = *r.MaximumLifetime
+	}
 	if r.Name != nil {
 		u.Object["name"] = *r.Name
 	}
@@ -315,6 +318,13 @@ func UnstructuredToCertificateTemplate(u *unstructured.Resource) (*dclService.Ce
 			r.Location = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.Location: expected string")
+		}
+	}
+	if _, ok := u.Object["maximumLifetime"]; ok {
+		if s, ok := u.Object["maximumLifetime"].(string); ok {
+			r.MaximumLifetime = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.MaximumLifetime: expected string")
 		}
 	}
 	if _, ok := u.Object["name"]; ok {

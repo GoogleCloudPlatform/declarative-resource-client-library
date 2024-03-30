@@ -202,6 +202,11 @@ func DCLCertificateTemplateSchema() *dcl.Schema {
 								Immutable:   true,
 								Parameter:   true,
 							},
+							"maximumLifetime": &dcl.Property{
+								Type:        "string",
+								GoName:      "MaximumLifetime",
+								Description: "Optional. The maximum lifetime allowed for all issued certificates that use this template. If the issuing CaPool's IssuancePolicy specifies a maximum lifetime the minimum of the two durations will be the maximum lifetime for issued. Note that if the issuing CertificateAuthority expires before a Certificate's requested maximum_lifetime, the effective lifetime will be explicitly truncated to match it.",
+							},
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",

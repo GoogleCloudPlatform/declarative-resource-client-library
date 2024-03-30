@@ -221,6 +221,9 @@ func newUpdateCertificateTemplateUpdateCertificateTemplateRequest(ctx context.Co
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["passthroughExtensions"] = v
 	}
+	if v := f.MaximumLifetime; !dcl.IsEmptyValueIndirect(v) {
+		req["maximumLifetime"] = v
+	}
 	if v := f.Description; !dcl.IsEmptyValueIndirect(v) {
 		req["description"] = v
 	}
@@ -572,6 +575,11 @@ func canonicalizeCertificateTemplateDesiredState(rawDesired, rawInitial *Certifi
 	canonicalDesired.PredefinedValues = canonicalizeCertificateTemplatePredefinedValues(rawDesired.PredefinedValues, rawInitial.PredefinedValues, opts...)
 	canonicalDesired.IdentityConstraints = canonicalizeCertificateTemplateIdentityConstraints(rawDesired.IdentityConstraints, rawInitial.IdentityConstraints, opts...)
 	canonicalDesired.PassthroughExtensions = canonicalizeCertificateTemplatePassthroughExtensions(rawDesired.PassthroughExtensions, rawInitial.PassthroughExtensions, opts...)
+	if dcl.StringCanonicalize(rawDesired.MaximumLifetime, rawInitial.MaximumLifetime) {
+		canonicalDesired.MaximumLifetime = rawInitial.MaximumLifetime
+	} else {
+		canonicalDesired.MaximumLifetime = rawDesired.MaximumLifetime
+	}
 	if dcl.StringCanonicalize(rawDesired.Description, rawInitial.Description) {
 		canonicalDesired.Description = rawInitial.Description
 	} else {
@@ -622,6 +630,14 @@ func canonicalizeCertificateTemplateNewState(c *Client, rawNew, rawDesired *Cert
 		rawNew.PassthroughExtensions = rawDesired.PassthroughExtensions
 	} else {
 		rawNew.PassthroughExtensions = canonicalizeNewCertificateTemplatePassthroughExtensions(c, rawDesired.PassthroughExtensions, rawNew.PassthroughExtensions)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.MaximumLifetime) && dcl.IsEmptyValueIndirect(rawDesired.MaximumLifetime) {
+		rawNew.MaximumLifetime = rawDesired.MaximumLifetime
+	} else {
+		if dcl.StringCanonicalize(rawDesired.MaximumLifetime, rawNew.MaximumLifetime) {
+			rawNew.MaximumLifetime = rawDesired.MaximumLifetime
+		}
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Description) && dcl.IsEmptyValueIndirect(rawDesired.Description) {
@@ -2382,6 +2398,13 @@ func diffCertificateTemplate(c *Client, desired, actual *CertificateTemplate, op
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.MaximumLifetime, actual.MaximumLifetime, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateCertificateTemplateUpdateCertificateTemplateOperation")}, fn.AddNest("MaximumLifetime")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Description, actual.Description, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateCertificateTemplateUpdateCertificateTemplateOperation")}, fn.AddNest("Description")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -3008,6 +3031,7 @@ func compareCertificateTemplatePassthroughExtensionsAdditionalExtensionsNewStyle
 func (r *CertificateTemplate) urlNormalized() *CertificateTemplate {
 	normalized := dcl.Copy(*r).(CertificateTemplate)
 	normalized.Name = dcl.SelfLinkToName(r.Name)
+	normalized.MaximumLifetime = dcl.SelfLinkToName(r.MaximumLifetime)
 	normalized.Description = dcl.SelfLinkToName(r.Description)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
@@ -3084,6 +3108,9 @@ func expandCertificateTemplate(c *Client, f *CertificateTemplate) (map[string]in
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["passthroughExtensions"] = v
 	}
+	if v := f.MaximumLifetime; dcl.ValueShouldBeSent(v) {
+		m["maximumLifetime"] = v
+	}
 	if v := f.Description; dcl.ValueShouldBeSent(v) {
 		m["description"] = v
 	}
@@ -3120,6 +3147,7 @@ func flattenCertificateTemplate(c *Client, i interface{}, res *CertificateTempla
 	resultRes.PredefinedValues = flattenCertificateTemplatePredefinedValues(c, m["predefinedValues"], res)
 	resultRes.IdentityConstraints = flattenCertificateTemplateIdentityConstraints(c, m["identityConstraints"], res)
 	resultRes.PassthroughExtensions = flattenCertificateTemplatePassthroughExtensions(c, m["passthroughExtensions"], res)
+	resultRes.MaximumLifetime = dcl.FlattenString(m["maximumLifetime"])
 	resultRes.Description = dcl.FlattenString(m["description"])
 	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
 	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])

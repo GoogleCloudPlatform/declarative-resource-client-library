@@ -29,6 +29,7 @@ class CertificateTemplate(object):
         predefined_values: dict = None,
         identity_constraints: dict = None,
         passthrough_extensions: dict = None,
+        maximum_lifetime: str = None,
         description: str = None,
         create_time: str = None,
         update_time: str = None,
@@ -43,6 +44,7 @@ class CertificateTemplate(object):
         self.predefined_values = predefined_values
         self.identity_constraints = identity_constraints
         self.passthrough_extensions = passthrough_extensions
+        self.maximum_lifetime = maximum_lifetime
         self.description = description
         self.labels = labels
         self.project = project
@@ -85,6 +87,11 @@ class CertificateTemplate(object):
             )
         else:
             request.resource.ClearField("passthrough_extensions")
+        if Primitive.to_proto(self.maximum_lifetime):
+            request.resource.maximum_lifetime = Primitive.to_proto(
+                self.maximum_lifetime
+            )
+
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
@@ -112,6 +119,7 @@ class CertificateTemplate(object):
                 response.passthrough_extensions
             )
         )
+        self.maximum_lifetime = Primitive.from_proto(response.maximum_lifetime)
         self.description = Primitive.from_proto(response.description)
         self.create_time = Primitive.from_proto(response.create_time)
         self.update_time = Primitive.from_proto(response.update_time)
@@ -156,6 +164,11 @@ class CertificateTemplate(object):
             )
         else:
             request.resource.ClearField("passthrough_extensions")
+        if Primitive.to_proto(self.maximum_lifetime):
+            request.resource.maximum_lifetime = Primitive.to_proto(
+                self.maximum_lifetime
+            )
+
         if Primitive.to_proto(self.description):
             request.resource.description = Primitive.to_proto(self.description)
 
@@ -215,6 +228,8 @@ class CertificateTemplate(object):
             )
         else:
             resource.ClearField("passthrough_extensions")
+        if Primitive.to_proto(self.maximum_lifetime):
+            resource.maximum_lifetime = Primitive.to_proto(self.maximum_lifetime)
         if Primitive.to_proto(self.description):
             resource.description = Primitive.to_proto(self.description)
         if Primitive.to_proto(self.labels):

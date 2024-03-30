@@ -229,6 +229,7 @@ func ProtoToCertificateTemplate(p *betapb.PrivatecaBetaCertificateTemplate) *bet
 		PredefinedValues:      ProtoToPrivatecaBetaCertificateTemplatePredefinedValues(p.GetPredefinedValues()),
 		IdentityConstraints:   ProtoToPrivatecaBetaCertificateTemplateIdentityConstraints(p.GetIdentityConstraints()),
 		PassthroughExtensions: ProtoToPrivatecaBetaCertificateTemplatePassthroughExtensions(p.GetPassthroughExtensions()),
+		MaximumLifetime:       dcl.StringOrNil(p.GetMaximumLifetime()),
 		Description:           dcl.StringOrNil(p.GetDescription()),
 		CreateTime:            dcl.StringOrNil(p.GetCreateTime()),
 		UpdateTime:            dcl.StringOrNil(p.GetUpdateTime()),
@@ -454,6 +455,7 @@ func CertificateTemplateToProto(resource *beta.CertificateTemplate) *betapb.Priv
 	p.SetPredefinedValues(PrivatecaBetaCertificateTemplatePredefinedValuesToProto(resource.PredefinedValues))
 	p.SetIdentityConstraints(PrivatecaBetaCertificateTemplateIdentityConstraintsToProto(resource.IdentityConstraints))
 	p.SetPassthroughExtensions(PrivatecaBetaCertificateTemplatePassthroughExtensionsToProto(resource.PassthroughExtensions))
+	p.SetMaximumLifetime(dcl.ValueOrEmptyString(resource.MaximumLifetime))
 	p.SetDescription(dcl.ValueOrEmptyString(resource.Description))
 	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))

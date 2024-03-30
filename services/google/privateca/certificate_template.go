@@ -29,6 +29,7 @@ type CertificateTemplate struct {
 	PredefinedValues      *CertificateTemplatePredefinedValues      `json:"predefinedValues"`
 	IdentityConstraints   *CertificateTemplateIdentityConstraints   `json:"identityConstraints"`
 	PassthroughExtensions *CertificateTemplatePassthroughExtensions `json:"passthroughExtensions"`
+	MaximumLifetime       *string                                   `json:"maximumLifetime"`
 	Description           *string                                   `json:"description"`
 	CreateTime            *string                                   `json:"createTime"`
 	UpdateTime            *string                                   `json:"updateTime"`
@@ -770,6 +771,7 @@ func (r *CertificateTemplate) ID() (string, error) {
 		"predefined_values":      dcl.ValueOrEmptyString(nr.PredefinedValues),
 		"identity_constraints":   dcl.ValueOrEmptyString(nr.IdentityConstraints),
 		"passthrough_extensions": dcl.ValueOrEmptyString(nr.PassthroughExtensions),
+		"maximum_lifetime":       dcl.ValueOrEmptyString(nr.MaximumLifetime),
 		"description":            dcl.ValueOrEmptyString(nr.Description),
 		"create_time":            dcl.ValueOrEmptyString(nr.CreateTime),
 		"update_time":            dcl.ValueOrEmptyString(nr.UpdateTime),

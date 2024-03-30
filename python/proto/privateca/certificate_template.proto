@@ -36,12 +36,13 @@ message PrivatecaCertificateTemplate {
   PrivatecaCertificateTemplatePredefinedValues predefined_values = 2;
   PrivatecaCertificateTemplateIdentityConstraints identity_constraints = 3;
   PrivatecaCertificateTemplatePassthroughExtensions passthrough_extensions = 4;
-  string description = 5;
-  string create_time = 6;
-  string update_time = 7;
-  map<string, string> labels = 8;
-  string project = 9;
-  string location = 10;
+  string maximum_lifetime = 5;
+  string description = 6;
+  string create_time = 7;
+  string update_time = 8;
+  map<string, string> labels = 9;
+  string project = 10;
+  string location = 11;
 }
 
 message PrivatecaCertificateTemplatePredefinedValues {

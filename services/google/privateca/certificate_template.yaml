@@ -166,6 +166,15 @@ components:
           description: The location for the resource
           x-kubernetes-immutable: true
           x-dcl-parameter: true
+        maximumLifetime:
+          type: string
+          x-dcl-go-name: MaximumLifetime
+          description: Optional. The maximum lifetime allowed for all issued certificates
+            that use this template. If the issuing CaPool's IssuancePolicy specifies
+            a maximum lifetime the minimum of the two durations will be the maximum
+            lifetime for issued. Note that if the issuing CertificateAuthority expires
+            before a Certificate's requested maximum_lifetime, the effective lifetime
+            will be explicitly truncated to match it.
         name:
           type: string
           x-dcl-go-name: Name
