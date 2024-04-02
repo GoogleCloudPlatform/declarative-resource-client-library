@@ -11,12 +11,13 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-syntax = "proto3";
+edition = "2023";
 
 package connector;
 
 import "google/rpc/status.proto";
 
+option features.field_presence = IMPLICIT;
 
 
 // InitializeRequest contains the parameters for the Initialize method
@@ -40,13 +41,17 @@ message Header {
 message UnaryCallRequest {
   // Method path from the gRPC request; e.g., /compute_v1/apply_address
   string method = 1;
+
   // Marshaled request object.
   bytes request = 2;
+
   // Any headers included with the originating request.
   repeated Header headers = 3;
+
   // Credentials (e.g., service account private key) to be use for the
   // underlying GCP API calls.
   string credentials = 4;
+
   // User agent string to be included with calls to the GCP API (optional).
   string user_agent = 5;
 }
@@ -56,8 +61,10 @@ message UnaryCallRequest {
 message UnaryCallResponse {
   // Standard gRPC status code + message from the method call.
   google.rpc.Status status = 1;
+
   // Marshaled response object.
   bytes response = 2;
+
   // Any headers returned from the method call.
   repeated Header headers = 3;
 }
