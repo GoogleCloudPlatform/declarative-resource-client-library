@@ -1,0 +1,4 @@
+{
+  "name": "{{id3}}",
+  "parent": "organizations/{{org_id}}"
+}

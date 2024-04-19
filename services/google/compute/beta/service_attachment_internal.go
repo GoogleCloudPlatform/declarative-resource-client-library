@@ -622,7 +622,7 @@ func canonicalizeServiceAttachmentNewState(c *Client, rawNew, rawDesired *Servic
 	if dcl.IsEmptyValueIndirect(rawNew.ConsumerAcceptLists) && dcl.IsEmptyValueIndirect(rawDesired.ConsumerAcceptLists) {
 		rawNew.ConsumerAcceptLists = rawDesired.ConsumerAcceptLists
 	} else {
-		rawNew.ConsumerAcceptLists = canonicalizeNewServiceAttachmentConsumerAcceptListsSlice(c, rawDesired.ConsumerAcceptLists, rawNew.ConsumerAcceptLists)
+		rawNew.ConsumerAcceptLists = canonicalizeNewServiceAttachmentConsumerAcceptListsSet(c, rawDesired.ConsumerAcceptLists, rawNew.ConsumerAcceptLists)
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.PscServiceAttachmentId) && dcl.IsEmptyValueIndirect(rawDesired.PscServiceAttachmentId) {
@@ -1100,7 +1100,7 @@ func diffServiceAttachment(c *Client, desired, actual *ServiceAttachment, opts .
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.ConsumerAcceptLists, actual.ConsumerAcceptLists, dcl.DiffInfo{ObjectFunction: compareServiceAttachmentConsumerAcceptListsNewStyle, EmptyObject: EmptyServiceAttachmentConsumerAcceptLists, OperationSelector: dcl.TriggersOperation("updateServiceAttachmentPatchOperation")}, fn.AddNest("ConsumerAcceptLists")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.ConsumerAcceptLists, actual.ConsumerAcceptLists, dcl.DiffInfo{Type: "Set", ObjectFunction: compareServiceAttachmentConsumerAcceptListsNewStyle, EmptyObject: EmptyServiceAttachmentConsumerAcceptLists, OperationSelector: dcl.TriggersOperation("updateServiceAttachmentPatchOperation")}, fn.AddNest("ConsumerAcceptLists")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

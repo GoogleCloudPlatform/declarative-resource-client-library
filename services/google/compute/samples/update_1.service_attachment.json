@@ -10,6 +10,14 @@
   "consumerRejectLists": ["{{ref:second.cloudresourcemanager.project.json:name}}"],
   "consumerAcceptLists": [
     {
+      "projectIdOrNum": "{{ref:third.cloudresourcemanager.project.json:name}}",
+      "connectionLimit": 27
+    },
+    {
+      "projectIdOrNum": "{{ref:second.cloudresourcemanager.project.json:name}}",
+      "connectionLimit": 9
+    },
+    {
       "projectIdOrNum": "{{ref:first.cloudresourcemanager.project.json:name}}",
       "connectionLimit": 3
     }

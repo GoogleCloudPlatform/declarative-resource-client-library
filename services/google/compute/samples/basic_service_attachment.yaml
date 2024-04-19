@@ -27,6 +27,7 @@ dependencies:
 - samples/basic.network.json
 - samples/first.cloudresourcemanager.project.json
 - samples/second.cloudresourcemanager.project.json
+- samples/third.cloudresourcemanager.project.json
 updates:
 - resource: samples/update_1.service_attachment.json
   dependencies:
@@ -38,6 +39,7 @@ updates:
   - samples/basic.network.json
   - samples/first.cloudresourcemanager.project.json
   - samples/second.cloudresourcemanager.project.json
+  - samples/third.cloudresourcemanager.project.json
 - resource: samples/update_2.service_attachment.json
   dependencies:
   - samples/first_internal.forwarding_rule.json
@@ -48,6 +50,7 @@ updates:
   - samples/basic.network.json
   - samples/first.cloudresourcemanager.project.json
   - samples/second.cloudresourcemanager.project.json
+  - samples/third.cloudresourcemanager.project.json
 variables:
 - name: attachment
   type: resource_name
@@ -62,6 +65,8 @@ variables:
 - name: id1
   type: resource_name
 - name: id2
+  type: resource_name
+- name: id3
   type: resource_name
 - name: org_id
   type: org_id

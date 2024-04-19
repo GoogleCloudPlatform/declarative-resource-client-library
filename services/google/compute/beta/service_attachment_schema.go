@@ -177,7 +177,7 @@ func DCLServiceAttachmentSchema() *dcl.Schema {
 								GoName:      "ConsumerAcceptLists",
 								Description: "Projects that are allowed to connect to this service attachment.",
 								SendEmpty:   true,
-								ListType:    "list",
+								ListType:    "set",
 								Items: &dcl.Property{
 									Type:   "object",
 									GoType: "ServiceAttachmentConsumerAcceptLists",
