@@ -94,6 +94,7 @@ components:
           - gke
           - run
           - multiTarget
+          - customTarget
           properties:
             membership:
               type: string
@@ -110,6 +111,27 @@ components:
           readOnly: true
           description: Output only. Time at which the `Target` was created.
           x-kubernetes-immutable: true
+        customTarget:
+          type: object
+          x-dcl-go-name: CustomTarget
+          x-dcl-go-type: TargetCustomTarget
+          description: Optional. Information specifying a Custom Target.
+          x-dcl-conflicts:
+          - gke
+          - anthosCluster
+          - run
+          - multiTarget
+          required:
+          - customTargetType
+          properties:
+            customTargetType:
+              type: string
+              x-dcl-go-name: CustomTargetType
+              description: Required. The name of the CustomTargetType. Format must
+                be `projects/{project}/locations/{location}/customTargetTypes/{custom_target_type}`.
+              x-dcl-references:
+              - resource: Clouddeploy/CustomTargetType
+                field: selfLink
         deployParameters:
           type: object
           additionalProperties:
@@ -200,6 +222,7 @@ components:
           - anthosCluster
           - run
           - multiTarget
+          - customTarget
           properties:
             cluster:
               type: string
@@ -245,6 +268,7 @@ components:
           - gke
           - anthosCluster
           - run
+          - customTarget
           required:
           - targetIds
           properties:
@@ -287,6 +311,7 @@ components:
           - gke
           - anthosCluster
           - multiTarget
+          - customTarget
           required:
           - location
           properties:

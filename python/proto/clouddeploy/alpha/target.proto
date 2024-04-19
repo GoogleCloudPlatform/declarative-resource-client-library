@@ -47,6 +47,7 @@ message ClouddeployAlphaTarget {
   ClouddeployAlphaTargetRun run = 16;
   ClouddeployAlphaTargetMultiTarget multi_target = 17;
   map<string, string> deploy_parameters = 18;
+  ClouddeployAlphaTargetCustomTarget custom_target = 19;
 }
 
 message ClouddeployAlphaTargetGke {
@@ -72,6 +73,10 @@ message ClouddeployAlphaTargetRun {
 
 message ClouddeployAlphaTargetMultiTarget {
   repeated string target_ids = 1;
+}
+
+message ClouddeployAlphaTargetCustomTarget {
+  string custom_target_type = 1;
 }
 
 message ApplyClouddeployAlphaTargetRequest {

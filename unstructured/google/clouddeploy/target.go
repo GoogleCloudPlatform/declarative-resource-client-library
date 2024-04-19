@@ -49,6 +49,13 @@ func TargetToUnstructured(r *dclService.Target) *unstructured.Resource {
 	if r.CreateTime != nil {
 		u.Object["createTime"] = *r.CreateTime
 	}
+	if r.CustomTarget != nil && r.CustomTarget != dclService.EmptyTargetCustomTarget {
+		rCustomTarget := make(map[string]interface{})
+		if r.CustomTarget.CustomTargetType != nil {
+			rCustomTarget["customTargetType"] = *r.CustomTarget.CustomTargetType
+		}
+		u.Object["customTarget"] = rCustomTarget
+	}
 	if r.DeployParameters != nil {
 		rDeployParameters := make(map[string]interface{})
 		for k, v := range r.DeployParameters {
@@ -176,6 +183,20 @@ func UnstructuredToTarget(u *unstructured.Resource) (*dclService.Target, error) 
 			r.CreateTime = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.CreateTime: expected string")
+		}
+	}
+	if _, ok := u.Object["customTarget"]; ok {
+		if rCustomTarget, ok := u.Object["customTarget"].(map[string]interface{}); ok {
+			r.CustomTarget = &dclService.TargetCustomTarget{}
+			if _, ok := rCustomTarget["customTargetType"]; ok {
+				if s, ok := rCustomTarget["customTargetType"].(string); ok {
+					r.CustomTarget.CustomTargetType = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.CustomTarget.CustomTargetType: expected string")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.CustomTarget: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["deployParameters"]; ok {

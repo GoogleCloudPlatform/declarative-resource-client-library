@@ -47,6 +47,7 @@ message ClouddeployBetaTarget {
   ClouddeployBetaTargetRun run = 16;
   ClouddeployBetaTargetMultiTarget multi_target = 17;
   map<string, string> deploy_parameters = 18;
+  ClouddeployBetaTargetCustomTarget custom_target = 19;
 }
 
 message ClouddeployBetaTargetGke {
@@ -72,6 +73,10 @@ message ClouddeployBetaTargetRun {
 
 message ClouddeployBetaTargetMultiTarget {
   repeated string target_ids = 1;
+}
+
+message ClouddeployBetaTargetCustomTarget {
+  string custom_target_type = 1;
 }
 
 message ApplyClouddeployBetaTargetRequest {

@@ -39,6 +39,7 @@ class Target(object):
         run: dict = None,
         multi_target: dict = None,
         deploy_parameters: dict = None,
+        custom_target: dict = None,
         service_account_file: str = "",
     ):
 
@@ -56,6 +57,7 @@ class Target(object):
         self.run = run
         self.multi_target = multi_target
         self.deploy_parameters = deploy_parameters
+        self.custom_target = custom_target
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -113,6 +115,12 @@ class Target(object):
                 self.deploy_parameters
             )
 
+        if TargetCustomTarget.to_proto(self.custom_target):
+            request.resource.custom_target.CopyFrom(
+                TargetCustomTarget.to_proto(self.custom_target)
+            )
+        else:
+            request.resource.ClearField("custom_target")
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyClouddeployBetaTarget(request)
@@ -136,6 +144,7 @@ class Target(object):
         self.run = TargetRun.from_proto(response.run)
         self.multi_target = TargetMultiTarget.from_proto(response.multi_target)
         self.deploy_parameters = Primitive.from_proto(response.deploy_parameters)
+        self.custom_target = TargetCustomTarget.from_proto(response.custom_target)
 
     def delete(self):
         stub = target_pb2_grpc.ClouddeployBetaTargetServiceStub(channel.Channel())
@@ -193,6 +202,12 @@ class Target(object):
                 self.deploy_parameters
             )
 
+        if TargetCustomTarget.to_proto(self.custom_target):
+            request.resource.custom_target.CopyFrom(
+                TargetCustomTarget.to_proto(self.custom_target)
+            )
+        else:
+            request.resource.ClearField("custom_target")
         response = stub.DeleteClouddeployBetaTarget(request)
 
     @classmethod
@@ -248,6 +263,12 @@ class Target(object):
             resource.ClearField("multi_target")
         if Primitive.to_proto(self.deploy_parameters):
             resource.deploy_parameters = Primitive.to_proto(self.deploy_parameters)
+        if TargetCustomTarget.to_proto(self.custom_target):
+            resource.custom_target.CopyFrom(
+                TargetCustomTarget.to_proto(self.custom_target)
+            )
+        else:
+            resource.ClearField("custom_target")
         return resource
 
 
@@ -463,6 +484,43 @@ class TargetMultiTargetArray(object):
     @classmethod
     def from_proto(self, resources):
         return [TargetMultiTarget.from_proto(i) for i in resources]
+
+
+class TargetCustomTarget(object):
+
+    def __init__(self, custom_target_type: str = None):
+        self.custom_target_type = custom_target_type
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = target_pb2.ClouddeployBetaTargetCustomTarget()
+        if Primitive.to_proto(resource.custom_target_type):
+            res.custom_target_type = Primitive.to_proto(resource.custom_target_type)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return TargetCustomTarget(
+            custom_target_type=Primitive.from_proto(resource.custom_target_type),
+        )
+
+
+class TargetCustomTargetArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [TargetCustomTarget.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [TargetCustomTarget.from_proto(i) for i in resources]
 
 
 class TargetExecutionConfigsUsagesEnum(object):

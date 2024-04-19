@@ -27,7 +27,7 @@ import (
 
 func (r *Target) validate() error {
 
-	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Gke", "AnthosCluster", "Run", "MultiTarget"}, r.Gke, r.AnthosCluster, r.Run, r.MultiTarget); err != nil {
+	if err := dcl.ValidateAtMostOneOfFieldsSet([]string{"Gke", "AnthosCluster", "Run", "MultiTarget", "CustomTarget"}, r.Gke, r.AnthosCluster, r.Run, r.MultiTarget, r.CustomTarget); err != nil {
 		return err
 	}
 	if err := dcl.RequiredParameter(r.Name, "Name"); err != nil {
@@ -59,6 +59,11 @@ func (r *Target) validate() error {
 			return err
 		}
 	}
+	if !dcl.IsEmptyValueIndirect(r.CustomTarget) {
+		if err := r.CustomTarget.validate(); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 func (r *TargetGke) validate() error {
@@ -84,6 +89,12 @@ func (r *TargetRun) validate() error {
 }
 func (r *TargetMultiTarget) validate() error {
 	if err := dcl.Required(r, "targetIds"); err != nil {
+		return err
+	}
+	return nil
+}
+func (r *TargetCustomTarget) validate() error {
+	if err := dcl.Required(r, "customTargetType"); err != nil {
 		return err
 	}
 	return nil
@@ -207,6 +218,11 @@ func newUpdateTargetUpdateTargetRequest(ctx context.Context, f *Target, c *Clien
 	}
 	if v := f.DeployParameters; !dcl.IsEmptyValueIndirect(v) {
 		req["deployParameters"] = v
+	}
+	if v, err := expandTargetCustomTarget(c, f.CustomTarget, res); err != nil {
+		return nil, fmt.Errorf("error expanding CustomTarget into customTarget: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["customTarget"] = v
 	}
 	b, err := c.getTargetRaw(ctx, f)
 	if err != nil {
@@ -543,29 +559,36 @@ func canonicalizeTargetInitialState(rawInitial, rawDesired *Target) (*Target, er
 
 	if !dcl.IsZeroValue(rawInitial.Gke) {
 		// Check if anything else is set.
-		if dcl.AnySet(rawInitial.AnthosCluster, rawInitial.Run, rawInitial.MultiTarget) {
+		if dcl.AnySet(rawInitial.AnthosCluster, rawInitial.Run, rawInitial.MultiTarget, rawInitial.CustomTarget) {
 			rawInitial.Gke = EmptyTargetGke
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.AnthosCluster) {
 		// Check if anything else is set.
-		if dcl.AnySet(rawInitial.Gke, rawInitial.Run, rawInitial.MultiTarget) {
+		if dcl.AnySet(rawInitial.Gke, rawInitial.Run, rawInitial.MultiTarget, rawInitial.CustomTarget) {
 			rawInitial.AnthosCluster = EmptyTargetAnthosCluster
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.Run) {
 		// Check if anything else is set.
-		if dcl.AnySet(rawInitial.Gke, rawInitial.AnthosCluster, rawInitial.MultiTarget) {
+		if dcl.AnySet(rawInitial.Gke, rawInitial.AnthosCluster, rawInitial.MultiTarget, rawInitial.CustomTarget) {
 			rawInitial.Run = EmptyTargetRun
 		}
 	}
 
 	if !dcl.IsZeroValue(rawInitial.MultiTarget) {
 		// Check if anything else is set.
-		if dcl.AnySet(rawInitial.Gke, rawInitial.AnthosCluster, rawInitial.Run) {
+		if dcl.AnySet(rawInitial.Gke, rawInitial.AnthosCluster, rawInitial.Run, rawInitial.CustomTarget) {
 			rawInitial.MultiTarget = EmptyTargetMultiTarget
+		}
+	}
+
+	if !dcl.IsZeroValue(rawInitial.CustomTarget) {
+		// Check if anything else is set.
+		if dcl.AnySet(rawInitial.Gke, rawInitial.AnthosCluster, rawInitial.Run, rawInitial.MultiTarget) {
+			rawInitial.CustomTarget = EmptyTargetCustomTarget
 		}
 	}
 
@@ -588,6 +611,7 @@ func canonicalizeTargetDesiredState(rawDesired, rawInitial *Target, opts ...dcl.
 		rawDesired.AnthosCluster = canonicalizeTargetAnthosCluster(rawDesired.AnthosCluster, nil, opts...)
 		rawDesired.Run = canonicalizeTargetRun(rawDesired.Run, nil, opts...)
 		rawDesired.MultiTarget = canonicalizeTargetMultiTarget(rawDesired.MultiTarget, nil, opts...)
+		rawDesired.CustomTarget = canonicalizeTargetCustomTarget(rawDesired.CustomTarget, nil, opts...)
 
 		return rawDesired, nil
 	}
@@ -640,32 +664,40 @@ func canonicalizeTargetDesiredState(rawDesired, rawInitial *Target, opts ...dcl.
 	} else {
 		canonicalDesired.DeployParameters = rawDesired.DeployParameters
 	}
+	canonicalDesired.CustomTarget = canonicalizeTargetCustomTarget(rawDesired.CustomTarget, rawInitial.CustomTarget, opts...)
 
 	if canonicalDesired.Gke != nil {
 		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.AnthosCluster, rawDesired.Run, rawDesired.MultiTarget) {
+		if dcl.AnySet(rawDesired.AnthosCluster, rawDesired.Run, rawDesired.MultiTarget, rawDesired.CustomTarget) {
 			canonicalDesired.Gke = EmptyTargetGke
 		}
 	}
 
 	if canonicalDesired.AnthosCluster != nil {
 		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Gke, rawDesired.Run, rawDesired.MultiTarget) {
+		if dcl.AnySet(rawDesired.Gke, rawDesired.Run, rawDesired.MultiTarget, rawDesired.CustomTarget) {
 			canonicalDesired.AnthosCluster = EmptyTargetAnthosCluster
 		}
 	}
 
 	if canonicalDesired.Run != nil {
 		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Gke, rawDesired.AnthosCluster, rawDesired.MultiTarget) {
+		if dcl.AnySet(rawDesired.Gke, rawDesired.AnthosCluster, rawDesired.MultiTarget, rawDesired.CustomTarget) {
 			canonicalDesired.Run = EmptyTargetRun
 		}
 	}
 
 	if canonicalDesired.MultiTarget != nil {
 		// Check if anything else is set.
-		if dcl.AnySet(rawDesired.Gke, rawDesired.AnthosCluster, rawDesired.Run) {
+		if dcl.AnySet(rawDesired.Gke, rawDesired.AnthosCluster, rawDesired.Run, rawDesired.CustomTarget) {
 			canonicalDesired.MultiTarget = EmptyTargetMultiTarget
+		}
+	}
+
+	if canonicalDesired.CustomTarget != nil {
+		// Check if anything else is set.
+		if dcl.AnySet(rawDesired.Gke, rawDesired.AnthosCluster, rawDesired.Run, rawDesired.MultiTarget) {
+			canonicalDesired.CustomTarget = EmptyTargetCustomTarget
 		}
 	}
 
@@ -773,6 +805,12 @@ func canonicalizeTargetNewState(c *Client, rawNew, rawDesired *Target) (*Target,
 	if dcl.IsEmptyValueIndirect(rawNew.DeployParameters) && dcl.IsEmptyValueIndirect(rawDesired.DeployParameters) {
 		rawNew.DeployParameters = rawDesired.DeployParameters
 	} else {
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.CustomTarget) && dcl.IsEmptyValueIndirect(rawDesired.CustomTarget) {
+		rawNew.CustomTarget = rawDesired.CustomTarget
+	} else {
+		rawNew.CustomTarget = canonicalizeNewTargetCustomTarget(c, rawDesired.CustomTarget, rawNew.CustomTarget)
 	}
 
 	return rawNew, nil
@@ -1399,6 +1437,121 @@ func canonicalizeNewTargetMultiTargetSlice(c *Client, des, nw []TargetMultiTarge
 	return items
 }
 
+func canonicalizeTargetCustomTarget(des, initial *TargetCustomTarget, opts ...dcl.ApplyOption) *TargetCustomTarget {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &TargetCustomTarget{}
+
+	if dcl.IsZeroValue(des.CustomTargetType) || (dcl.IsEmptyValueIndirect(des.CustomTargetType) && dcl.IsEmptyValueIndirect(initial.CustomTargetType)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.CustomTargetType = initial.CustomTargetType
+	} else {
+		cDes.CustomTargetType = des.CustomTargetType
+	}
+
+	return cDes
+}
+
+func canonicalizeTargetCustomTargetSlice(des, initial []TargetCustomTarget, opts ...dcl.ApplyOption) []TargetCustomTarget {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]TargetCustomTarget, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeTargetCustomTarget(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]TargetCustomTarget, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeTargetCustomTarget(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewTargetCustomTarget(c *Client, des, nw *TargetCustomTarget) *TargetCustomTarget {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for TargetCustomTarget while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	return nw
+}
+
+func canonicalizeNewTargetCustomTargetSet(c *Client, des, nw []TargetCustomTarget) []TargetCustomTarget {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []TargetCustomTarget
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareTargetCustomTargetNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewTargetCustomTarget(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewTargetCustomTargetSlice(c *Client, des, nw []TargetCustomTarget) []TargetCustomTarget {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []TargetCustomTarget
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewTargetCustomTarget(c, &d, &n))
+	}
+
+	return items
+}
+
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -1537,6 +1690,13 @@ func diffTarget(c *Client, desired, actual *Target, opts ...dcl.ApplyOption) ([]
 	}
 
 	if ds, err := dcl.Diff(desired.DeployParameters, actual.DeployParameters, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateTargetUpdateTargetOperation")}, fn.AddNest("DeployParameters")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CustomTarget, actual.CustomTarget, dcl.DiffInfo{ObjectFunction: compareTargetCustomTargetNewStyle, EmptyObject: EmptyTargetCustomTarget, OperationSelector: dcl.TriggersOperation("updateTargetUpdateTargetOperation")}, fn.AddNest("CustomTarget")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1728,6 +1888,35 @@ func compareTargetMultiTargetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dc
 	return diffs, nil
 }
 
+func compareTargetCustomTargetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*TargetCustomTarget)
+	if !ok {
+		desiredNotPointer, ok := d.(TargetCustomTarget)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TargetCustomTarget or *TargetCustomTarget", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*TargetCustomTarget)
+	if !ok {
+		actualNotPointer, ok := a.(TargetCustomTarget)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TargetCustomTarget", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.CustomTargetType, actual.CustomTargetType, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateTargetUpdateTargetOperation")}, fn.AddNest("CustomTargetType")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
@@ -1848,6 +2037,11 @@ func expandTarget(c *Client, f *Target) (map[string]interface{}, error) {
 	if v := f.DeployParameters; dcl.ValueShouldBeSent(v) {
 		m["deployParameters"] = v
 	}
+	if v, err := expandTargetCustomTarget(c, f.CustomTarget, res); err != nil {
+		return nil, fmt.Errorf("error expanding CustomTarget into customTarget: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["customTarget"] = v
+	}
 
 	return m, nil
 }
@@ -1882,6 +2076,7 @@ func flattenTarget(c *Client, i interface{}, res *Target) *Target {
 	resultRes.Run = flattenTargetRun(c, m["run"], res)
 	resultRes.MultiTarget = flattenTargetMultiTarget(c, m["multiTarget"], res)
 	resultRes.DeployParameters = dcl.FlattenKeyValuePairs(m["deployParameters"])
+	resultRes.CustomTarget = flattenTargetCustomTarget(c, m["customTarget"], res)
 
 	return resultRes
 }
@@ -2476,6 +2671,120 @@ func flattenTargetMultiTarget(c *Client, i interface{}, res *Target) *TargetMult
 	return r
 }
 
+// expandTargetCustomTargetMap expands the contents of TargetCustomTarget into a JSON
+// request object.
+func expandTargetCustomTargetMap(c *Client, f map[string]TargetCustomTarget, res *Target) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandTargetCustomTarget(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandTargetCustomTargetSlice expands the contents of TargetCustomTarget into a JSON
+// request object.
+func expandTargetCustomTargetSlice(c *Client, f []TargetCustomTarget, res *Target) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandTargetCustomTarget(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenTargetCustomTargetMap flattens the contents of TargetCustomTarget from a JSON
+// response object.
+func flattenTargetCustomTargetMap(c *Client, i interface{}, res *Target) map[string]TargetCustomTarget {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]TargetCustomTarget{}
+	}
+
+	if len(a) == 0 {
+		return map[string]TargetCustomTarget{}
+	}
+
+	items := make(map[string]TargetCustomTarget)
+	for k, item := range a {
+		items[k] = *flattenTargetCustomTarget(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenTargetCustomTargetSlice flattens the contents of TargetCustomTarget from a JSON
+// response object.
+func flattenTargetCustomTargetSlice(c *Client, i interface{}, res *Target) []TargetCustomTarget {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []TargetCustomTarget{}
+	}
+
+	if len(a) == 0 {
+		return []TargetCustomTarget{}
+	}
+
+	items := make([]TargetCustomTarget, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenTargetCustomTarget(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandTargetCustomTarget expands an instance of TargetCustomTarget into a JSON
+// request object.
+func expandTargetCustomTarget(c *Client, f *TargetCustomTarget, res *Target) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.CustomTargetType; !dcl.IsEmptyValueIndirect(v) {
+		m["customTargetType"] = v
+	}
+
+	return m, nil
+}
+
+// flattenTargetCustomTarget flattens an instance of TargetCustomTarget from a JSON
+// response object.
+func flattenTargetCustomTarget(c *Client, i interface{}, res *Target) *TargetCustomTarget {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &TargetCustomTarget{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTargetCustomTarget
+	}
+	r.CustomTargetType = dcl.FlattenString(m["customTargetType"])
+
+	return r
+}
+
 // flattenTargetExecutionConfigsUsagesEnumMap flattens the contents of TargetExecutionConfigsUsagesEnum from a JSON
 // response object.
 func flattenTargetExecutionConfigsUsagesEnumMap(c *Client, i interface{}, res *Target) map[string]TargetExecutionConfigsUsagesEnum {
@@ -2665,6 +2974,17 @@ func extractTargetFields(r *Target) error {
 	if !dcl.IsEmptyValueIndirect(vMultiTarget) {
 		r.MultiTarget = vMultiTarget
 	}
+	vCustomTarget := r.CustomTarget
+	if vCustomTarget == nil {
+		// note: explicitly not the empty object.
+		vCustomTarget = &TargetCustomTarget{}
+	}
+	if err := extractTargetCustomTargetFields(r, vCustomTarget); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vCustomTarget) {
+		r.CustomTarget = vCustomTarget
+	}
 	return nil
 }
 func extractTargetGkeFields(r *Target, o *TargetGke) error {
@@ -2680,6 +3000,9 @@ func extractTargetRunFields(r *Target, o *TargetRun) error {
 	return nil
 }
 func extractTargetMultiTargetFields(r *Target, o *TargetMultiTarget) error {
+	return nil
+}
+func extractTargetCustomTargetFields(r *Target, o *TargetCustomTarget) error {
 	return nil
 }
 
@@ -2728,6 +3051,17 @@ func postReadExtractTargetFields(r *Target) error {
 	if !dcl.IsEmptyValueIndirect(vMultiTarget) {
 		r.MultiTarget = vMultiTarget
 	}
+	vCustomTarget := r.CustomTarget
+	if vCustomTarget == nil {
+		// note: explicitly not the empty object.
+		vCustomTarget = &TargetCustomTarget{}
+	}
+	if err := postReadExtractTargetCustomTargetFields(r, vCustomTarget); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vCustomTarget) {
+		r.CustomTarget = vCustomTarget
+	}
 	return nil
 }
 func postReadExtractTargetGkeFields(r *Target, o *TargetGke) error {
@@ -2743,5 +3077,8 @@ func postReadExtractTargetRunFields(r *Target, o *TargetRun) error {
 	return nil
 }
 func postReadExtractTargetMultiTargetFields(r *Target, o *TargetMultiTarget) error {
+	return nil
+}
+func postReadExtractTargetCustomTargetFields(r *Target, o *TargetCustomTarget) error {
 	return nil
 }

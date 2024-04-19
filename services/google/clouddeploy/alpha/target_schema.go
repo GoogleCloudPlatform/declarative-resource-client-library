@@ -130,6 +130,7 @@ func DCLTargetSchema() *dcl.Schema {
 									"gke",
 									"run",
 									"multiTarget",
+									"customTarget",
 								},
 								Properties: map[string]*dcl.Property{
 									"membership": &dcl.Property{
@@ -152,6 +153,34 @@ func DCLTargetSchema() *dcl.Schema {
 								ReadOnly:    true,
 								Description: "Output only. Time at which the `Target` was created.",
 								Immutable:   true,
+							},
+							"customTarget": &dcl.Property{
+								Type:        "object",
+								GoName:      "CustomTarget",
+								GoType:      "TargetCustomTarget",
+								Description: "Optional. Information specifying a Custom Target.",
+								Conflicts: []string{
+									"gke",
+									"anthosCluster",
+									"run",
+									"multiTarget",
+								},
+								Required: []string{
+									"customTargetType",
+								},
+								Properties: map[string]*dcl.Property{
+									"customTargetType": &dcl.Property{
+										Type:        "string",
+										GoName:      "CustomTargetType",
+										Description: "Required. The name of the CustomTargetType. Format must be `projects/{project}/locations/{location}/customTargetTypes/{custom_target_type}`.",
+										ResourceReferences: []*dcl.PropertyResourceReference{
+											&dcl.PropertyResourceReference{
+												Resource: "Clouddeploy/CustomTargetType",
+												Field:    "selfLink",
+											},
+										},
+									},
+								},
 							},
 							"deployParameters": &dcl.Property{
 								Type: "object",
@@ -244,6 +273,7 @@ func DCLTargetSchema() *dcl.Schema {
 									"anthosCluster",
 									"run",
 									"multiTarget",
+									"customTarget",
 								},
 								Properties: map[string]*dcl.Property{
 									"cluster": &dcl.Property{
@@ -288,6 +318,7 @@ func DCLTargetSchema() *dcl.Schema {
 									"gke",
 									"anthosCluster",
 									"run",
+									"customTarget",
 								},
 								Required: []string{
 									"targetIds",
@@ -342,6 +373,7 @@ func DCLTargetSchema() *dcl.Schema {
 									"gke",
 									"anthosCluster",
 									"multiTarget",
+									"customTarget",
 								},
 								Required: []string{
 									"location",

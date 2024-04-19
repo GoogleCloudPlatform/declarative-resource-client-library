@@ -47,6 +47,7 @@ message ClouddeployTarget {
   ClouddeployTargetRun run = 16;
   ClouddeployTargetMultiTarget multi_target = 17;
   map<string, string> deploy_parameters = 18;
+  ClouddeployTargetCustomTarget custom_target = 19;
 }
 
 message ClouddeployTargetGke {
@@ -72,6 +73,10 @@ message ClouddeployTargetRun {
 
 message ClouddeployTargetMultiTarget {
   repeated string target_ids = 1;
+}
+
+message ClouddeployTargetCustomTarget {
+  string custom_target_type = 1;
 }
 
 message ApplyClouddeployTargetRequest {

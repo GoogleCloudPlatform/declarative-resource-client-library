@@ -99,6 +99,17 @@ func ProtoToClouddeployAlphaTargetMultiTarget(p *alphapb.ClouddeployAlphaTargetM
 	return obj
 }
 
+// ProtoToTargetCustomTarget converts a TargetCustomTarget object from its proto representation.
+func ProtoToClouddeployAlphaTargetCustomTarget(p *alphapb.ClouddeployAlphaTargetCustomTarget) *alpha.TargetCustomTarget {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.TargetCustomTarget{
+		CustomTargetType: dcl.StringOrNil(p.GetCustomTargetType()),
+	}
+	return obj
+}
+
 // ProtoToTarget converts a Target resource from its proto representation.
 func ProtoToTarget(p *alphapb.ClouddeployAlphaTarget) *alpha.Target {
 	obj := &alpha.Target{
@@ -116,6 +127,7 @@ func ProtoToTarget(p *alphapb.ClouddeployAlphaTarget) *alpha.Target {
 		Location:        dcl.StringOrNil(p.GetLocation()),
 		Run:             ProtoToClouddeployAlphaTargetRun(p.GetRun()),
 		MultiTarget:     ProtoToClouddeployAlphaTargetMultiTarget(p.GetMultiTarget()),
+		CustomTarget:    ProtoToClouddeployAlphaTargetCustomTarget(p.GetCustomTarget()),
 	}
 	for _, r := range p.GetExecutionConfigs() {
 		obj.ExecutionConfigs = append(obj.ExecutionConfigs, *ProtoToClouddeployAlphaTargetExecutionConfigs(r))
@@ -197,6 +209,16 @@ func ClouddeployAlphaTargetMultiTargetToProto(o *alpha.TargetMultiTarget) *alpha
 	return p
 }
 
+// TargetCustomTargetToProto converts a TargetCustomTarget object to its proto representation.
+func ClouddeployAlphaTargetCustomTargetToProto(o *alpha.TargetCustomTarget) *alphapb.ClouddeployAlphaTargetCustomTarget {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ClouddeployAlphaTargetCustomTarget{}
+	p.SetCustomTargetType(dcl.ValueOrEmptyString(o.CustomTargetType))
+	return p
+}
+
 // TargetToProto converts a Target resource to its proto representation.
 func TargetToProto(resource *alpha.Target) *alphapb.ClouddeployAlphaTarget {
 	p := &alphapb.ClouddeployAlphaTarget{}
@@ -214,6 +236,7 @@ func TargetToProto(resource *alpha.Target) *alphapb.ClouddeployAlphaTarget {
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetRun(ClouddeployAlphaTargetRunToProto(resource.Run))
 	p.SetMultiTarget(ClouddeployAlphaTargetMultiTargetToProto(resource.MultiTarget))
+	p.SetCustomTarget(ClouddeployAlphaTargetCustomTargetToProto(resource.CustomTarget))
 	mAnnotations := make(map[string]string, len(resource.Annotations))
 	for k, r := range resource.Annotations {
 		mAnnotations[k] = r

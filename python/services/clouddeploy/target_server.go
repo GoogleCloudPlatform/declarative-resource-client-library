@@ -99,6 +99,17 @@ func ProtoToClouddeployTargetMultiTarget(p *clouddeploypb.ClouddeployTargetMulti
 	return obj
 }
 
+// ProtoToTargetCustomTarget converts a TargetCustomTarget object from its proto representation.
+func ProtoToClouddeployTargetCustomTarget(p *clouddeploypb.ClouddeployTargetCustomTarget) *clouddeploy.TargetCustomTarget {
+	if p == nil {
+		return nil
+	}
+	obj := &clouddeploy.TargetCustomTarget{
+		CustomTargetType: dcl.StringOrNil(p.GetCustomTargetType()),
+	}
+	return obj
+}
+
 // ProtoToTarget converts a Target resource from its proto representation.
 func ProtoToTarget(p *clouddeploypb.ClouddeployTarget) *clouddeploy.Target {
 	obj := &clouddeploy.Target{
@@ -116,6 +127,7 @@ func ProtoToTarget(p *clouddeploypb.ClouddeployTarget) *clouddeploy.Target {
 		Location:        dcl.StringOrNil(p.GetLocation()),
 		Run:             ProtoToClouddeployTargetRun(p.GetRun()),
 		MultiTarget:     ProtoToClouddeployTargetMultiTarget(p.GetMultiTarget()),
+		CustomTarget:    ProtoToClouddeployTargetCustomTarget(p.GetCustomTarget()),
 	}
 	for _, r := range p.GetExecutionConfigs() {
 		obj.ExecutionConfigs = append(obj.ExecutionConfigs, *ProtoToClouddeployTargetExecutionConfigs(r))
@@ -197,6 +209,16 @@ func ClouddeployTargetMultiTargetToProto(o *clouddeploy.TargetMultiTarget) *clou
 	return p
 }
 
+// TargetCustomTargetToProto converts a TargetCustomTarget object to its proto representation.
+func ClouddeployTargetCustomTargetToProto(o *clouddeploy.TargetCustomTarget) *clouddeploypb.ClouddeployTargetCustomTarget {
+	if o == nil {
+		return nil
+	}
+	p := &clouddeploypb.ClouddeployTargetCustomTarget{}
+	p.SetCustomTargetType(dcl.ValueOrEmptyString(o.CustomTargetType))
+	return p
+}
+
 // TargetToProto converts a Target resource to its proto representation.
 func TargetToProto(resource *clouddeploy.Target) *clouddeploypb.ClouddeployTarget {
 	p := &clouddeploypb.ClouddeployTarget{}
@@ -214,6 +236,7 @@ func TargetToProto(resource *clouddeploy.Target) *clouddeploypb.ClouddeployTarge
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetRun(ClouddeployTargetRunToProto(resource.Run))
 	p.SetMultiTarget(ClouddeployTargetMultiTargetToProto(resource.MultiTarget))
+	p.SetCustomTarget(ClouddeployTargetCustomTargetToProto(resource.CustomTarget))
 	mAnnotations := make(map[string]string, len(resource.Annotations))
 	for k, r := range resource.Annotations {
 		mAnnotations[k] = r
