@@ -46,15 +46,17 @@ message ComputeBetaNetworkFirewallPolicyRule {
   string location = 4;
   ComputeBetaNetworkFirewallPolicyRuleMatch match = 5;
   string action = 6;
-  ComputeBetaNetworkFirewallPolicyRuleDirectionEnum direction = 7;
-  bool enable_logging = 8;
-  int64 rule_tuple_count = 9;
-  repeated string target_service_accounts = 10;
-  repeated ComputeBetaNetworkFirewallPolicyRuleTargetSecureTags target_secure_tags = 11;
-  bool disabled = 12;
-  string kind = 13;
-  string firewall_policy = 14;
-  string project = 15;
+  string security_profile_group = 7;
+  bool tls_inspect = 8;
+  ComputeBetaNetworkFirewallPolicyRuleDirectionEnum direction = 9;
+  bool enable_logging = 10;
+  int64 rule_tuple_count = 11;
+  repeated string target_service_accounts = 12;
+  repeated ComputeBetaNetworkFirewallPolicyRuleTargetSecureTags target_secure_tags = 13;
+  bool disabled = 14;
+  string kind = 15;
+  string firewall_policy = 16;
+  string project = 17;
 }
 
 message ComputeBetaNetworkFirewallPolicyRuleMatch {

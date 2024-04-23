@@ -31,6 +31,8 @@ class NetworkFirewallPolicyRule(object):
         location: str = None,
         match: dict = None,
         action: str = None,
+        security_profile_group: str = None,
+        tls_inspect: bool = None,
         direction: str = None,
         enable_logging: bool = None,
         rule_tuple_count: int = None,
@@ -50,6 +52,8 @@ class NetworkFirewallPolicyRule(object):
         self.location = location
         self.match = match
         self.action = action
+        self.security_profile_group = security_profile_group
+        self.tls_inspect = tls_inspect
         self.direction = direction
         self.enable_logging = enable_logging
         self.target_service_accounts = target_service_accounts
@@ -86,6 +90,14 @@ class NetworkFirewallPolicyRule(object):
             request.resource.ClearField("match")
         if Primitive.to_proto(self.action):
             request.resource.action = Primitive.to_proto(self.action)
+
+        if Primitive.to_proto(self.security_profile_group):
+            request.resource.security_profile_group = Primitive.to_proto(
+                self.security_profile_group
+            )
+
+        if Primitive.to_proto(self.tls_inspect):
+            request.resource.tls_inspect = Primitive.to_proto(self.tls_inspect)
 
         if NetworkFirewallPolicyRuleDirectionEnum.to_proto(self.direction):
             request.resource.direction = (
@@ -125,6 +137,10 @@ class NetworkFirewallPolicyRule(object):
         self.location = Primitive.from_proto(response.location)
         self.match = NetworkFirewallPolicyRuleMatch.from_proto(response.match)
         self.action = Primitive.from_proto(response.action)
+        self.security_profile_group = Primitive.from_proto(
+            response.security_profile_group
+        )
+        self.tls_inspect = Primitive.from_proto(response.tls_inspect)
         self.direction = NetworkFirewallPolicyRuleDirectionEnum.from_proto(
             response.direction
         )
@@ -171,6 +187,14 @@ class NetworkFirewallPolicyRule(object):
             request.resource.ClearField("match")
         if Primitive.to_proto(self.action):
             request.resource.action = Primitive.to_proto(self.action)
+
+        if Primitive.to_proto(self.security_profile_group):
+            request.resource.security_profile_group = Primitive.to_proto(
+                self.security_profile_group
+            )
+
+        if Primitive.to_proto(self.tls_inspect):
+            request.resource.tls_inspect = Primitive.to_proto(self.tls_inspect)
 
         if NetworkFirewallPolicyRuleDirectionEnum.to_proto(self.direction):
             request.resource.direction = (
@@ -238,6 +262,12 @@ class NetworkFirewallPolicyRule(object):
             resource.ClearField("match")
         if Primitive.to_proto(self.action):
             resource.action = Primitive.to_proto(self.action)
+        if Primitive.to_proto(self.security_profile_group):
+            resource.security_profile_group = Primitive.to_proto(
+                self.security_profile_group
+            )
+        if Primitive.to_proto(self.tls_inspect):
+            resource.tls_inspect = Primitive.to_proto(self.tls_inspect)
         if NetworkFirewallPolicyRuleDirectionEnum.to_proto(self.direction):
             resource.direction = NetworkFirewallPolicyRuleDirectionEnum.to_proto(
                 self.direction

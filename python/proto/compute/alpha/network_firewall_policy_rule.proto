@@ -46,15 +46,17 @@ message ComputeAlphaNetworkFirewallPolicyRule {
   string location = 4;
   ComputeAlphaNetworkFirewallPolicyRuleMatch match = 5;
   string action = 6;
-  ComputeAlphaNetworkFirewallPolicyRuleDirectionEnum direction = 7;
-  bool enable_logging = 8;
-  int64 rule_tuple_count = 9;
-  repeated string target_service_accounts = 10;
-  repeated ComputeAlphaNetworkFirewallPolicyRuleTargetSecureTags target_secure_tags = 11;
-  bool disabled = 12;
-  string kind = 13;
-  string firewall_policy = 14;
-  string project = 15;
+  string security_profile_group = 7;
+  bool tls_inspect = 8;
+  ComputeAlphaNetworkFirewallPolicyRuleDirectionEnum direction = 9;
+  bool enable_logging = 10;
+  int64 rule_tuple_count = 11;
+  repeated string target_service_accounts = 12;
+  repeated ComputeAlphaNetworkFirewallPolicyRuleTargetSecureTags target_secure_tags = 13;
+  bool disabled = 14;
+  string kind = 15;
+  string firewall_policy = 16;
+  string project = 17;
 }
 
 message ComputeAlphaNetworkFirewallPolicyRuleMatch {

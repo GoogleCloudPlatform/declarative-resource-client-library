@@ -1,0 +1,4 @@
+{
+  "exclude_create_coverage": ["securityProfileGroup", "tlsInspect"],
+  "exclude_update_coverage": ["securityProfileGroup", "tlsInspect"]
+}

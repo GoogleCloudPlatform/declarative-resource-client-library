@@ -27,6 +27,8 @@ class FirewallPolicyRule(object):
         priority: int = None,
         match: dict = None,
         action: str = None,
+        security_profile_group: str = None,
+        tls_inspect: bool = None,
         direction: str = None,
         target_resources: list = None,
         enable_logging: bool = None,
@@ -43,6 +45,8 @@ class FirewallPolicyRule(object):
         self.priority = priority
         self.match = match
         self.action = action
+        self.security_profile_group = security_profile_group
+        self.tls_inspect = tls_inspect
         self.direction = direction
         self.target_resources = target_resources
         self.enable_logging = enable_logging
@@ -70,6 +74,14 @@ class FirewallPolicyRule(object):
             request.resource.ClearField("match")
         if Primitive.to_proto(self.action):
             request.resource.action = Primitive.to_proto(self.action)
+
+        if Primitive.to_proto(self.security_profile_group):
+            request.resource.security_profile_group = Primitive.to_proto(
+                self.security_profile_group
+            )
+
+        if Primitive.to_proto(self.tls_inspect):
+            request.resource.tls_inspect = Primitive.to_proto(self.tls_inspect)
 
         if FirewallPolicyRuleDirectionEnum.to_proto(self.direction):
             request.resource.direction = FirewallPolicyRuleDirectionEnum.to_proto(
@@ -100,6 +112,10 @@ class FirewallPolicyRule(object):
         self.priority = Primitive.from_proto(response.priority)
         self.match = FirewallPolicyRuleMatch.from_proto(response.match)
         self.action = Primitive.from_proto(response.action)
+        self.security_profile_group = Primitive.from_proto(
+            response.security_profile_group
+        )
+        self.tls_inspect = Primitive.from_proto(response.tls_inspect)
         self.direction = FirewallPolicyRuleDirectionEnum.from_proto(response.direction)
         self.target_resources = Primitive.from_proto(response.target_resources)
         self.enable_logging = Primitive.from_proto(response.enable_logging)
@@ -131,6 +147,14 @@ class FirewallPolicyRule(object):
             request.resource.ClearField("match")
         if Primitive.to_proto(self.action):
             request.resource.action = Primitive.to_proto(self.action)
+
+        if Primitive.to_proto(self.security_profile_group):
+            request.resource.security_profile_group = Primitive.to_proto(
+                self.security_profile_group
+            )
+
+        if Primitive.to_proto(self.tls_inspect):
+            request.resource.tls_inspect = Primitive.to_proto(self.tls_inspect)
 
         if FirewallPolicyRuleDirectionEnum.to_proto(self.direction):
             request.resource.direction = FirewallPolicyRuleDirectionEnum.to_proto(
@@ -179,6 +203,12 @@ class FirewallPolicyRule(object):
             resource.ClearField("match")
         if Primitive.to_proto(self.action):
             resource.action = Primitive.to_proto(self.action)
+        if Primitive.to_proto(self.security_profile_group):
+            resource.security_profile_group = Primitive.to_proto(
+                self.security_profile_group
+            )
+        if Primitive.to_proto(self.tls_inspect):
+            resource.tls_inspect = Primitive.to_proto(self.tls_inspect)
         if FirewallPolicyRuleDirectionEnum.to_proto(self.direction):
             resource.direction = FirewallPolicyRuleDirectionEnum.to_proto(
                 self.direction

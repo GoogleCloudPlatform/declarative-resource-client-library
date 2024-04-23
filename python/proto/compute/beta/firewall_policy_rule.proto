@@ -32,14 +32,16 @@ message ComputeBetaFirewallPolicyRule {
   int64 priority = 2;
   ComputeBetaFirewallPolicyRuleMatch match = 3;
   string action = 4;
-  ComputeBetaFirewallPolicyRuleDirectionEnum direction = 5;
-  repeated string target_resources = 6;
-  bool enable_logging = 7;
-  int64 rule_tuple_count = 8;
-  repeated string target_service_accounts = 9;
-  bool disabled = 10;
-  string kind = 11;
-  string firewall_policy = 12;
+  string security_profile_group = 5;
+  bool tls_inspect = 6;
+  ComputeBetaFirewallPolicyRuleDirectionEnum direction = 7;
+  repeated string target_resources = 8;
+  bool enable_logging = 9;
+  int64 rule_tuple_count = 10;
+  repeated string target_service_accounts = 11;
+  bool disabled = 12;
+  string kind = 13;
+  string firewall_policy = 14;
 }
 
 message ComputeBetaFirewallPolicyRuleMatch {

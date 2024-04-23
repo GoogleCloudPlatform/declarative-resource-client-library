@@ -146,19 +146,21 @@ func ProtoToComputeBetaNetworkFirewallPolicyRuleTargetSecureTags(p *betapb.Compu
 // ProtoToNetworkFirewallPolicyRule converts a NetworkFirewallPolicyRule resource from its proto representation.
 func ProtoToNetworkFirewallPolicyRule(p *betapb.ComputeBetaNetworkFirewallPolicyRule) *beta.NetworkFirewallPolicyRule {
 	obj := &beta.NetworkFirewallPolicyRule{
-		Description:    dcl.StringOrNil(p.GetDescription()),
-		RuleName:       dcl.StringOrNil(p.GetRuleName()),
-		Priority:       dcl.Int64OrNil(p.GetPriority()),
-		Location:       dcl.StringOrNil(p.GetLocation()),
-		Match:          ProtoToComputeBetaNetworkFirewallPolicyRuleMatch(p.GetMatch()),
-		Action:         dcl.StringOrNil(p.GetAction()),
-		Direction:      ProtoToComputeBetaNetworkFirewallPolicyRuleDirectionEnum(p.GetDirection()),
-		EnableLogging:  dcl.Bool(p.GetEnableLogging()),
-		RuleTupleCount: dcl.Int64OrNil(p.GetRuleTupleCount()),
-		Disabled:       dcl.Bool(p.GetDisabled()),
-		Kind:           dcl.StringOrNil(p.GetKind()),
-		FirewallPolicy: dcl.StringOrNil(p.GetFirewallPolicy()),
-		Project:        dcl.StringOrNil(p.GetProject()),
+		Description:          dcl.StringOrNil(p.GetDescription()),
+		RuleName:             dcl.StringOrNil(p.GetRuleName()),
+		Priority:             dcl.Int64OrNil(p.GetPriority()),
+		Location:             dcl.StringOrNil(p.GetLocation()),
+		Match:                ProtoToComputeBetaNetworkFirewallPolicyRuleMatch(p.GetMatch()),
+		Action:               dcl.StringOrNil(p.GetAction()),
+		SecurityProfileGroup: dcl.StringOrNil(p.GetSecurityProfileGroup()),
+		TlsInspect:           dcl.Bool(p.GetTlsInspect()),
+		Direction:            ProtoToComputeBetaNetworkFirewallPolicyRuleDirectionEnum(p.GetDirection()),
+		EnableLogging:        dcl.Bool(p.GetEnableLogging()),
+		RuleTupleCount:       dcl.Int64OrNil(p.GetRuleTupleCount()),
+		Disabled:             dcl.Bool(p.GetDisabled()),
+		Kind:                 dcl.StringOrNil(p.GetKind()),
+		FirewallPolicy:       dcl.StringOrNil(p.GetFirewallPolicy()),
+		Project:              dcl.StringOrNil(p.GetProject()),
 	}
 	for _, r := range p.GetTargetServiceAccounts() {
 		obj.TargetServiceAccounts = append(obj.TargetServiceAccounts, r)
@@ -317,6 +319,8 @@ func NetworkFirewallPolicyRuleToProto(resource *beta.NetworkFirewallPolicyRule) 
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	p.SetMatch(ComputeBetaNetworkFirewallPolicyRuleMatchToProto(resource.Match))
 	p.SetAction(dcl.ValueOrEmptyString(resource.Action))
+	p.SetSecurityProfileGroup(dcl.ValueOrEmptyString(resource.SecurityProfileGroup))
+	p.SetTlsInspect(dcl.ValueOrEmptyBool(resource.TlsInspect))
 	p.SetDirection(ComputeBetaNetworkFirewallPolicyRuleDirectionEnumToProto(resource.Direction))
 	p.SetEnableLogging(dcl.ValueOrEmptyBool(resource.EnableLogging))
 	p.SetRuleTupleCount(dcl.ValueOrEmptyInt64(resource.RuleTupleCount))

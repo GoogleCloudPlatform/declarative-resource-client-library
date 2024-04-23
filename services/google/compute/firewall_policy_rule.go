@@ -29,6 +29,8 @@ type FirewallPolicyRule struct {
 	Priority              *int64                           `json:"priority"`
 	Match                 *FirewallPolicyRuleMatch         `json:"match"`
 	Action                *string                          `json:"action"`
+	SecurityProfileGroup  *string                          `json:"securityProfileGroup"`
+	TlsInspect            *bool                            `json:"tlsInspect"`
 	Direction             *FirewallPolicyRuleDirectionEnum `json:"direction"`
 	TargetResources       []string                         `json:"targetResources"`
 	EnableLogging         *bool                            `json:"enableLogging"`
@@ -215,6 +217,8 @@ func (r *FirewallPolicyRule) ID() (string, error) {
 		"priority":                dcl.ValueOrEmptyString(nr.Priority),
 		"match":                   dcl.ValueOrEmptyString(nr.Match),
 		"action":                  dcl.ValueOrEmptyString(nr.Action),
+		"security_profile_group":  dcl.ValueOrEmptyString(nr.SecurityProfileGroup),
+		"tls_inspect":             dcl.ValueOrEmptyString(nr.TlsInspect),
 		"direction":               dcl.ValueOrEmptyString(nr.Direction),
 		"target_resources":        dcl.ValueOrEmptyString(nr.TargetResources),
 		"enable_logging":          dcl.ValueOrEmptyString(nr.EnableLogging),

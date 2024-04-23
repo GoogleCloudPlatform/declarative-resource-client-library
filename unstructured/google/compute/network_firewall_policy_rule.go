@@ -148,6 +148,9 @@ func NetworkFirewallPolicyRuleToUnstructured(r *dclService.NetworkFirewallPolicy
 	if r.RuleTupleCount != nil {
 		u.Object["ruleTupleCount"] = *r.RuleTupleCount
 	}
+	if r.SecurityProfileGroup != nil {
+		u.Object["securityProfileGroup"] = *r.SecurityProfileGroup
+	}
 	var rTargetSecureTags []interface{}
 	for _, rTargetSecureTagsVal := range r.TargetSecureTags {
 		rTargetSecureTagsObject := make(map[string]interface{})
@@ -165,6 +168,9 @@ func NetworkFirewallPolicyRuleToUnstructured(r *dclService.NetworkFirewallPolicy
 		rTargetServiceAccounts = append(rTargetServiceAccounts, rTargetServiceAccountsVal)
 	}
 	u.Object["targetServiceAccounts"] = rTargetServiceAccounts
+	if r.TlsInspect != nil {
+		u.Object["tlsInspect"] = *r.TlsInspect
+	}
 	return u
 }
 
@@ -427,6 +433,13 @@ func UnstructuredToNetworkFirewallPolicyRule(u *unstructured.Resource) (*dclServ
 			return nil, fmt.Errorf("r.RuleTupleCount: expected int64")
 		}
 	}
+	if _, ok := u.Object["securityProfileGroup"]; ok {
+		if s, ok := u.Object["securityProfileGroup"].(string); ok {
+			r.SecurityProfileGroup = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.SecurityProfileGroup: expected string")
+		}
+	}
 	if _, ok := u.Object["targetSecureTags"]; ok {
 		if s, ok := u.Object["targetSecureTags"].([]interface{}); ok {
 			for _, o := range s {
@@ -462,6 +475,13 @@ func UnstructuredToNetworkFirewallPolicyRule(u *unstructured.Resource) (*dclServ
 			}
 		} else {
 			return nil, fmt.Errorf("r.TargetServiceAccounts: expected []interface{}")
+		}
+	}
+	if _, ok := u.Object["tlsInspect"]; ok {
+		if b, ok := u.Object["tlsInspect"].(bool); ok {
+			r.TlsInspect = dcl.Bool(b)
+		} else {
+			return nil, fmt.Errorf("r.TlsInspect: expected bool")
 		}
 	}
 	return r, nil

@@ -95,16 +95,18 @@ func ProtoToComputeBetaFirewallPolicyRuleMatchLayer4Configs(p *betapb.ComputeBet
 // ProtoToFirewallPolicyRule converts a FirewallPolicyRule resource from its proto representation.
 func ProtoToFirewallPolicyRule(p *betapb.ComputeBetaFirewallPolicyRule) *beta.FirewallPolicyRule {
 	obj := &beta.FirewallPolicyRule{
-		Description:    dcl.StringOrNil(p.GetDescription()),
-		Priority:       dcl.Int64OrNil(p.GetPriority()),
-		Match:          ProtoToComputeBetaFirewallPolicyRuleMatch(p.GetMatch()),
-		Action:         dcl.StringOrNil(p.GetAction()),
-		Direction:      ProtoToComputeBetaFirewallPolicyRuleDirectionEnum(p.GetDirection()),
-		EnableLogging:  dcl.Bool(p.GetEnableLogging()),
-		RuleTupleCount: dcl.Int64OrNil(p.GetRuleTupleCount()),
-		Disabled:       dcl.Bool(p.GetDisabled()),
-		Kind:           dcl.StringOrNil(p.GetKind()),
-		FirewallPolicy: dcl.StringOrNil(p.GetFirewallPolicy()),
+		Description:          dcl.StringOrNil(p.GetDescription()),
+		Priority:             dcl.Int64OrNil(p.GetPriority()),
+		Match:                ProtoToComputeBetaFirewallPolicyRuleMatch(p.GetMatch()),
+		Action:               dcl.StringOrNil(p.GetAction()),
+		SecurityProfileGroup: dcl.StringOrNil(p.GetSecurityProfileGroup()),
+		TlsInspect:           dcl.Bool(p.GetTlsInspect()),
+		Direction:            ProtoToComputeBetaFirewallPolicyRuleDirectionEnum(p.GetDirection()),
+		EnableLogging:        dcl.Bool(p.GetEnableLogging()),
+		RuleTupleCount:       dcl.Int64OrNil(p.GetRuleTupleCount()),
+		Disabled:             dcl.Bool(p.GetDisabled()),
+		Kind:                 dcl.StringOrNil(p.GetKind()),
+		FirewallPolicy:       dcl.StringOrNil(p.GetFirewallPolicy()),
 	}
 	for _, r := range p.GetTargetResources() {
 		obj.TargetResources = append(obj.TargetResources, r)
@@ -212,6 +214,8 @@ func FirewallPolicyRuleToProto(resource *beta.FirewallPolicyRule) *betapb.Comput
 	p.SetPriority(dcl.ValueOrEmptyInt64(resource.Priority))
 	p.SetMatch(ComputeBetaFirewallPolicyRuleMatchToProto(resource.Match))
 	p.SetAction(dcl.ValueOrEmptyString(resource.Action))
+	p.SetSecurityProfileGroup(dcl.ValueOrEmptyString(resource.SecurityProfileGroup))
+	p.SetTlsInspect(dcl.ValueOrEmptyBool(resource.TlsInspect))
 	p.SetDirection(ComputeBetaFirewallPolicyRuleDirectionEnumToProto(resource.Direction))
 	p.SetEnableLogging(dcl.ValueOrEmptyBool(resource.EnableLogging))
 	p.SetRuleTupleCount(dcl.ValueOrEmptyInt64(resource.RuleTupleCount))

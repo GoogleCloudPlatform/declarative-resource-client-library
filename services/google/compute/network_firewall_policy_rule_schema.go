@@ -133,7 +133,7 @@ func DCLNetworkFirewallPolicyRuleSchema() *dcl.Schema {
 							"action": &dcl.Property{
 								Type:        "string",
 								GoName:      "Action",
-								Description: "The Action to perform when the client connection triggers the rule. Valid actions are \"allow\", \"deny\" and \"goto_next\".",
+								Description: "The Action to perform when the client connection triggers the rule. Valid actions are \"allow\", \"deny\", \"goto_next\" and \"apply_security_profile_group\".",
 							},
 							"description": &dcl.Property{
 								Type:        "string",
@@ -412,6 +412,11 @@ func DCLNetworkFirewallPolicyRuleSchema() *dcl.Schema {
 								Description: "Calculation of the complexity of a single firewall policy rule.",
 								Immutable:   true,
 							},
+							"securityProfileGroup": &dcl.Property{
+								Type:        "string",
+								GoName:      "SecurityProfileGroup",
+								Description: "A fully-qualified URL of a SecurityProfileGroup resource. Example: https://networksecurity.googleapis.com/v1/organizations/{organizationId}/locations/global/securityProfileGroups/my-security-profile-group. It must be specified if action = 'apply_security_profile_group' and cannot be specified for other actions.",
+							},
 							"targetSecureTags": &dcl.Property{
 								Type:        "array",
 								GoName:      "TargetSecureTags",
@@ -466,6 +471,11 @@ func DCLNetworkFirewallPolicyRuleSchema() *dcl.Schema {
 										},
 									},
 								},
+							},
+							"tlsInspect": &dcl.Property{
+								Type:        "boolean",
+								GoName:      "TlsInspect",
+								Description: "Boolean flag indicating if the traffic should be TLS decrypted. It can be set only if action = 'apply_security_profile_group' and cannot be set for other actions.",
 							},
 						},
 					},
