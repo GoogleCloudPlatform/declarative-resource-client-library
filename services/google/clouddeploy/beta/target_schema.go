@@ -340,7 +340,7 @@ func DCLTargetSchema() *dcl.Schema {
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
-								Description: "Name of the `Target`. Format is [a-z][a-z0-9\\-]{0,62}.",
+								Description: "Name of the `Target`. Format is `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`.",
 								Immutable:   true,
 								Parameter:   true,
 								HasLongForm: true,
