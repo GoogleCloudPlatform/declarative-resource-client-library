@@ -86,6 +86,9 @@ func TargetToUnstructured(r *dclService.Target) *unstructured.Resource {
 			rExecutionConfigsValUsages = append(rExecutionConfigsValUsages, string(rExecutionConfigsValUsagesVal))
 		}
 		rExecutionConfigsObject["usages"] = rExecutionConfigsValUsages
+		if rExecutionConfigsVal.Verbose != nil {
+			rExecutionConfigsObject["verbose"] = *rExecutionConfigsVal.Verbose
+		}
 		if rExecutionConfigsVal.WorkerPool != nil {
 			rExecutionConfigsObject["workerPool"] = *rExecutionConfigsVal.WorkerPool
 		}
@@ -261,6 +264,13 @@ func UnstructuredToTarget(u *unstructured.Resource) (*dclService.Target, error) 
 							}
 						} else {
 							return nil, fmt.Errorf("rExecutionConfigs.Usages: expected []interface{}")
+						}
+					}
+					if _, ok := objval["verbose"]; ok {
+						if b, ok := objval["verbose"].(bool); ok {
+							rExecutionConfigs.Verbose = dcl.Bool(b)
+						} else {
+							return nil, fmt.Errorf("rExecutionConfigs.Verbose: expected bool")
 						}
 					}
 					if _, ok := objval["workerPool"]; ok {

@@ -69,6 +69,7 @@ func ProtoToClouddeployTargetExecutionConfigs(p *clouddeploypb.ClouddeployTarget
 		ServiceAccount:   dcl.StringOrNil(p.GetServiceAccount()),
 		ArtifactStorage:  dcl.StringOrNil(p.GetArtifactStorage()),
 		ExecutionTimeout: dcl.StringOrNil(p.GetExecutionTimeout()),
+		Verbose:          dcl.Bool(p.GetVerbose()),
 	}
 	for _, r := range p.GetUsages() {
 		obj.Usages = append(obj.Usages, *ProtoToClouddeployTargetExecutionConfigsUsagesEnum(r))
@@ -177,6 +178,7 @@ func ClouddeployTargetExecutionConfigsToProto(o *clouddeploy.TargetExecutionConf
 	p.SetServiceAccount(dcl.ValueOrEmptyString(o.ServiceAccount))
 	p.SetArtifactStorage(dcl.ValueOrEmptyString(o.ArtifactStorage))
 	p.SetExecutionTimeout(dcl.ValueOrEmptyString(o.ExecutionTimeout))
+	p.SetVerbose(dcl.ValueOrEmptyBool(o.Verbose))
 	sUsages := make([]clouddeploypb.ClouddeployTargetExecutionConfigsUsagesEnum, len(o.Usages))
 	for i, r := range o.Usages {
 		sUsages[i] = clouddeploypb.ClouddeployTargetExecutionConfigsUsagesEnum(clouddeploypb.ClouddeployTargetExecutionConfigsUsagesEnum_value[string(r)])

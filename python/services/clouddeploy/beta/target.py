@@ -359,12 +359,14 @@ class TargetExecutionConfigs(object):
         service_account: str = None,
         artifact_storage: str = None,
         execution_timeout: str = None,
+        verbose: bool = None,
     ):
         self.usages = usages
         self.worker_pool = worker_pool
         self.service_account = service_account
         self.artifact_storage = artifact_storage
         self.execution_timeout = execution_timeout
+        self.verbose = verbose
 
     @classmethod
     def to_proto(self, resource):
@@ -384,6 +386,8 @@ class TargetExecutionConfigs(object):
             res.artifact_storage = Primitive.to_proto(resource.artifact_storage)
         if Primitive.to_proto(resource.execution_timeout):
             res.execution_timeout = Primitive.to_proto(resource.execution_timeout)
+        if Primitive.to_proto(resource.verbose):
+            res.verbose = Primitive.to_proto(resource.verbose)
         return res
 
     @classmethod
@@ -397,6 +401,7 @@ class TargetExecutionConfigs(object):
             service_account=Primitive.from_proto(resource.service_account),
             artifact_storage=Primitive.from_proto(resource.artifact_storage),
             execution_timeout=Primitive.from_proto(resource.execution_timeout),
+            verbose=Primitive.from_proto(resource.verbose),
         )
 
 

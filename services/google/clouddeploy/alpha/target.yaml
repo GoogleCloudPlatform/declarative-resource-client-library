@@ -203,6 +203,11 @@ components:
                   - EXECUTION_ENVIRONMENT_USAGE_UNSPECIFIED
                   - RENDER
                   - DEPLOY
+              verbose:
+                type: boolean
+                x-dcl-go-name: Verbose
+                description: Optional. If true, additional logging will be enabled
+                  when running builds in this execution environment.
               workerPool:
                 type: string
                 x-dcl-go-name: WorkerPool

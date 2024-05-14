@@ -250,6 +250,11 @@ func DCLTargetSchema() *dcl.Schema {
 												},
 											},
 										},
+										"verbose": &dcl.Property{
+											Type:        "boolean",
+											GoName:      "Verbose",
+											Description: "Optional. If true, additional logging will be enabled when running builds in this execution environment.",
+										},
 										"workerPool": &dcl.Property{
 											Type:        "string",
 											GoName:      "WorkerPool",

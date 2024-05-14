@@ -180,6 +180,7 @@ type TargetExecutionConfigs struct {
 	ServiceAccount   *string                            `json:"serviceAccount"`
 	ArtifactStorage  *string                            `json:"artifactStorage"`
 	ExecutionTimeout *string                            `json:"executionTimeout"`
+	Verbose          *bool                              `json:"verbose"`
 }
 
 type jsonTargetExecutionConfigs TargetExecutionConfigs
@@ -206,6 +207,8 @@ func (r *TargetExecutionConfigs) UnmarshalJSON(data []byte) error {
 		r.ArtifactStorage = res.ArtifactStorage
 
 		r.ExecutionTimeout = res.ExecutionTimeout
+
+		r.Verbose = res.Verbose
 
 	}
 	return nil

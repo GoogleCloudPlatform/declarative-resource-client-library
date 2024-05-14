@@ -1096,6 +1096,11 @@ func canonicalizeTargetExecutionConfigs(des, initial *TargetExecutionConfigs, op
 	} else {
 		cDes.ExecutionTimeout = des.ExecutionTimeout
 	}
+	if dcl.BoolCanonicalize(des.Verbose, initial.Verbose) || dcl.IsZeroValue(des.Verbose) {
+		cDes.Verbose = initial.Verbose
+	} else {
+		cDes.Verbose = des.Verbose
+	}
 
 	return cDes
 }
@@ -1150,6 +1155,9 @@ func canonicalizeNewTargetExecutionConfigs(c *Client, des, nw *TargetExecutionCo
 	}
 	if dcl.StringCanonicalize(des.ExecutionTimeout, nw.ExecutionTimeout) {
 		nw.ExecutionTimeout = des.ExecutionTimeout
+	}
+	if dcl.BoolCanonicalize(des.Verbose, nw.Verbose) {
+		nw.Verbose = des.Verbose
 	}
 
 	return nw
@@ -1827,6 +1835,13 @@ func compareTargetExecutionConfigsNewStyle(d, a interface{}, fn dcl.FieldName) (
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.Verbose, actual.Verbose, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateTargetUpdateTargetOperation")}, fn.AddNest("Verbose")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -2417,6 +2432,9 @@ func expandTargetExecutionConfigs(c *Client, f *TargetExecutionConfigs, res *Tar
 	if v := f.ExecutionTimeout; !dcl.IsEmptyValueIndirect(v) {
 		m["executionTimeout"] = v
 	}
+	if v := f.Verbose; !dcl.IsEmptyValueIndirect(v) {
+		m["verbose"] = v
+	}
 
 	return m, nil
 }
@@ -2439,6 +2457,7 @@ func flattenTargetExecutionConfigs(c *Client, i interface{}, res *Target) *Targe
 	r.ServiceAccount = dcl.FlattenString(m["serviceAccount"])
 	r.ArtifactStorage = dcl.FlattenString(m["artifactStorage"])
 	r.ExecutionTimeout = dcl.FlattenString(m["executionTimeout"])
+	r.Verbose = dcl.FlattenBool(m["verbose"])
 
 	return r
 }

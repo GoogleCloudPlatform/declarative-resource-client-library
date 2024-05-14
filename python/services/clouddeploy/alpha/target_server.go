@@ -69,6 +69,7 @@ func ProtoToClouddeployAlphaTargetExecutionConfigs(p *alphapb.ClouddeployAlphaTa
 		ServiceAccount:   dcl.StringOrNil(p.GetServiceAccount()),
 		ArtifactStorage:  dcl.StringOrNil(p.GetArtifactStorage()),
 		ExecutionTimeout: dcl.StringOrNil(p.GetExecutionTimeout()),
+		Verbose:          dcl.Bool(p.GetVerbose()),
 	}
 	for _, r := range p.GetUsages() {
 		obj.Usages = append(obj.Usages, *ProtoToClouddeployAlphaTargetExecutionConfigsUsagesEnum(r))
@@ -177,6 +178,7 @@ func ClouddeployAlphaTargetExecutionConfigsToProto(o *alpha.TargetExecutionConfi
 	p.SetServiceAccount(dcl.ValueOrEmptyString(o.ServiceAccount))
 	p.SetArtifactStorage(dcl.ValueOrEmptyString(o.ArtifactStorage))
 	p.SetExecutionTimeout(dcl.ValueOrEmptyString(o.ExecutionTimeout))
+	p.SetVerbose(dcl.ValueOrEmptyBool(o.Verbose))
 	sUsages := make([]alphapb.ClouddeployAlphaTargetExecutionConfigsUsagesEnum, len(o.Usages))
 	for i, r := range o.Usages {
 		sUsages[i] = alphapb.ClouddeployAlphaTargetExecutionConfigsUsagesEnum(alphapb.ClouddeployAlphaTargetExecutionConfigsUsagesEnum_value[string(r)])
