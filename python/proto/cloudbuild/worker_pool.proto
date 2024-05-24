@@ -50,13 +50,15 @@ message CloudbuildWorkerPool {
   string etag = 10;
   CloudbuildWorkerPoolWorkerConfig worker_config = 11;
   CloudbuildWorkerPoolNetworkConfig network_config = 12;
-  string project = 13;
-  string location = 14;
+  CloudbuildWorkerPoolPrivateServiceConnect private_service_connect = 13;
+  string project = 14;
+  string location = 15;
 }
 
 message CloudbuildWorkerPoolPrivatePoolV1Config {
   CloudbuildWorkerPoolPrivatePoolV1ConfigWorkerConfig worker_config = 1;
   CloudbuildWorkerPoolPrivatePoolV1ConfigNetworkConfig network_config = 2;
+  CloudbuildWorkerPoolPrivatePoolV1ConfigPrivateServiceConnect private_service_connect = 3;
 }
 
 message CloudbuildWorkerPoolPrivatePoolV1ConfigWorkerConfig {
@@ -70,6 +72,12 @@ message CloudbuildWorkerPoolPrivatePoolV1ConfigNetworkConfig {
   CloudbuildWorkerPoolPrivatePoolV1ConfigNetworkConfigEgressOptionEnum egress_option = 3;
 }
 
+message CloudbuildWorkerPoolPrivatePoolV1ConfigPrivateServiceConnect {
+  string network_attachment = 1;
+  bool public_ip_address_disabled = 2;
+  bool route_all_traffic = 3;
+}
+
 message CloudbuildWorkerPoolWorkerConfig {
   string machine_type = 1;
   int64 disk_size_gb = 2;
@@ -79,6 +87,11 @@ message CloudbuildWorkerPoolWorkerConfig {
 message CloudbuildWorkerPoolNetworkConfig {
   string peered_network = 1;
   string peered_network_ip_range = 2;
+}
+
+message CloudbuildWorkerPoolPrivateServiceConnect {
+  string network_attachment = 1;
+  bool route_all_traffic = 2;
 }
 
 message ApplyCloudbuildWorkerPoolRequest {

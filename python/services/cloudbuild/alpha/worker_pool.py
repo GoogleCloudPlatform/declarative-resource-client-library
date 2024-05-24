@@ -33,6 +33,7 @@ class WorkerPool(object):
         etag: str = None,
         worker_config: dict = None,
         network_config: dict = None,
+        private_service_connect: dict = None,
         project: str = None,
         location: str = None,
         service_account_file: str = "",
@@ -45,6 +46,7 @@ class WorkerPool(object):
         self.private_pool_v1_config = private_pool_v1_config
         self.worker_config = worker_config
         self.network_config = network_config
+        self.private_service_connect = private_service_connect
         self.project = project
         self.location = location
         self.service_account_file = service_account_file
@@ -81,6 +83,12 @@ class WorkerPool(object):
             )
         else:
             request.resource.ClearField("network_config")
+        if WorkerPoolPrivateServiceConnect.to_proto(self.private_service_connect):
+            request.resource.private_service_connect.CopyFrom(
+                WorkerPoolPrivateServiceConnect.to_proto(self.private_service_connect)
+            )
+        else:
+            request.resource.ClearField("private_service_connect")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -105,6 +113,9 @@ class WorkerPool(object):
         self.worker_config = WorkerPoolWorkerConfig.from_proto(response.worker_config)
         self.network_config = WorkerPoolNetworkConfig.from_proto(
             response.network_config
+        )
+        self.private_service_connect = WorkerPoolPrivateServiceConnect.from_proto(
+            response.private_service_connect
         )
         self.project = Primitive.from_proto(response.project)
         self.location = Primitive.from_proto(response.location)
@@ -142,6 +153,12 @@ class WorkerPool(object):
             )
         else:
             request.resource.ClearField("network_config")
+        if WorkerPoolPrivateServiceConnect.to_proto(self.private_service_connect):
+            request.resource.private_service_connect.CopyFrom(
+                WorkerPoolPrivateServiceConnect.to_proto(self.private_service_connect)
+            )
+        else:
+            request.resource.ClearField("private_service_connect")
         if Primitive.to_proto(self.project):
             request.resource.project = Primitive.to_proto(self.project)
 
@@ -189,6 +206,12 @@ class WorkerPool(object):
             )
         else:
             resource.ClearField("network_config")
+        if WorkerPoolPrivateServiceConnect.to_proto(self.private_service_connect):
+            resource.private_service_connect.CopyFrom(
+                WorkerPoolPrivateServiceConnect.to_proto(self.private_service_connect)
+            )
+        else:
+            resource.ClearField("private_service_connect")
         if Primitive.to_proto(self.project):
             resource.project = Primitive.to_proto(self.project)
         if Primitive.to_proto(self.location):
@@ -198,9 +221,15 @@ class WorkerPool(object):
 
 class WorkerPoolPrivatePoolV1Config(object):
 
-    def __init__(self, worker_config: dict = None, network_config: dict = None):
+    def __init__(
+        self,
+        worker_config: dict = None,
+        network_config: dict = None,
+        private_service_connect: dict = None,
+    ):
         self.worker_config = worker_config
         self.network_config = network_config
+        self.private_service_connect = private_service_connect
 
     @classmethod
     def to_proto(self, resource):
@@ -224,6 +253,16 @@ class WorkerPoolPrivatePoolV1Config(object):
             )
         else:
             res.ClearField("network_config")
+        if WorkerPoolPrivatePoolV1ConfigPrivateServiceConnect.to_proto(
+            resource.private_service_connect
+        ):
+            res.private_service_connect.CopyFrom(
+                WorkerPoolPrivatePoolV1ConfigPrivateServiceConnect.to_proto(
+                    resource.private_service_connect
+                )
+            )
+        else:
+            res.ClearField("private_service_connect")
         return res
 
     @classmethod
@@ -237,6 +276,9 @@ class WorkerPoolPrivatePoolV1Config(object):
             ),
             network_config=WorkerPoolPrivatePoolV1ConfigNetworkConfig.from_proto(
                 resource.network_config
+            ),
+            private_service_connect=WorkerPoolPrivatePoolV1ConfigPrivateServiceConnect.from_proto(
+                resource.private_service_connect
             ),
         )
 
@@ -366,6 +408,68 @@ class WorkerPoolPrivatePoolV1ConfigNetworkConfigArray(object):
         ]
 
 
+class WorkerPoolPrivatePoolV1ConfigPrivateServiceConnect(object):
+
+    def __init__(
+        self,
+        network_attachment: str = None,
+        public_ip_address_disabled: bool = None,
+        route_all_traffic: bool = None,
+    ):
+        self.network_attachment = network_attachment
+        self.public_ip_address_disabled = public_ip_address_disabled
+        self.route_all_traffic = route_all_traffic
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            worker_pool_pb2.CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigPrivateServiceConnect()
+        )
+        if Primitive.to_proto(resource.network_attachment):
+            res.network_attachment = Primitive.to_proto(resource.network_attachment)
+        if Primitive.to_proto(resource.public_ip_address_disabled):
+            res.public_ip_address_disabled = Primitive.to_proto(
+                resource.public_ip_address_disabled
+            )
+        if Primitive.to_proto(resource.route_all_traffic):
+            res.route_all_traffic = Primitive.to_proto(resource.route_all_traffic)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkerPoolPrivatePoolV1ConfigPrivateServiceConnect(
+            network_attachment=Primitive.from_proto(resource.network_attachment),
+            public_ip_address_disabled=Primitive.from_proto(
+                resource.public_ip_address_disabled
+            ),
+            route_all_traffic=Primitive.from_proto(resource.route_all_traffic),
+        )
+
+
+class WorkerPoolPrivatePoolV1ConfigPrivateServiceConnectArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            WorkerPoolPrivatePoolV1ConfigPrivateServiceConnect.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            WorkerPoolPrivatePoolV1ConfigPrivateServiceConnect.from_proto(i)
+            for i in resources
+        ]
+
+
 class WorkerPoolWorkerConfig(object):
 
     def __init__(
@@ -459,6 +563,47 @@ class WorkerPoolNetworkConfigArray(object):
     @classmethod
     def from_proto(self, resources):
         return [WorkerPoolNetworkConfig.from_proto(i) for i in resources]
+
+
+class WorkerPoolPrivateServiceConnect(object):
+
+    def __init__(self, network_attachment: str = None, route_all_traffic: bool = None):
+        self.network_attachment = network_attachment
+        self.route_all_traffic = route_all_traffic
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = worker_pool_pb2.CloudbuildAlphaWorkerPoolPrivateServiceConnect()
+        if Primitive.to_proto(resource.network_attachment):
+            res.network_attachment = Primitive.to_proto(resource.network_attachment)
+        if Primitive.to_proto(resource.route_all_traffic):
+            res.route_all_traffic = Primitive.to_proto(resource.route_all_traffic)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkerPoolPrivateServiceConnect(
+            network_attachment=Primitive.from_proto(resource.network_attachment),
+            route_all_traffic=Primitive.from_proto(resource.route_all_traffic),
+        )
+
+
+class WorkerPoolPrivateServiceConnectArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [WorkerPoolPrivateServiceConnect.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [WorkerPoolPrivateServiceConnect.from_proto(i) for i in resources]
 
 
 class WorkerPoolStateEnum(object):

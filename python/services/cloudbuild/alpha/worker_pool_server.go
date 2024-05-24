@@ -54,8 +54,9 @@ func ProtoToCloudbuildAlphaWorkerPoolPrivatePoolV1Config(p *alphapb.CloudbuildAl
 		return nil
 	}
 	obj := &alpha.WorkerPoolPrivatePoolV1Config{
-		WorkerConfig:  ProtoToCloudbuildAlphaWorkerPoolPrivatePoolV1ConfigWorkerConfig(p.GetWorkerConfig()),
-		NetworkConfig: ProtoToCloudbuildAlphaWorkerPoolPrivatePoolV1ConfigNetworkConfig(p.GetNetworkConfig()),
+		WorkerConfig:          ProtoToCloudbuildAlphaWorkerPoolPrivatePoolV1ConfigWorkerConfig(p.GetWorkerConfig()),
+		NetworkConfig:         ProtoToCloudbuildAlphaWorkerPoolPrivatePoolV1ConfigNetworkConfig(p.GetNetworkConfig()),
+		PrivateServiceConnect: ProtoToCloudbuildAlphaWorkerPoolPrivatePoolV1ConfigPrivateServiceConnect(p.GetPrivateServiceConnect()),
 	}
 	return obj
 }
@@ -85,6 +86,19 @@ func ProtoToCloudbuildAlphaWorkerPoolPrivatePoolV1ConfigNetworkConfig(p *alphapb
 	return obj
 }
 
+// ProtoToWorkerPoolPrivatePoolV1ConfigPrivateServiceConnect converts a WorkerPoolPrivatePoolV1ConfigPrivateServiceConnect object from its proto representation.
+func ProtoToCloudbuildAlphaWorkerPoolPrivatePoolV1ConfigPrivateServiceConnect(p *alphapb.CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigPrivateServiceConnect) *alpha.WorkerPoolPrivatePoolV1ConfigPrivateServiceConnect {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkerPoolPrivatePoolV1ConfigPrivateServiceConnect{
+		NetworkAttachment:       dcl.StringOrNil(p.GetNetworkAttachment()),
+		PublicIPAddressDisabled: dcl.Bool(p.GetPublicIpAddressDisabled()),
+		RouteAllTraffic:         dcl.Bool(p.GetRouteAllTraffic()),
+	}
+	return obj
+}
+
 // ProtoToWorkerPoolWorkerConfig converts a WorkerPoolWorkerConfig object from its proto representation.
 func ProtoToCloudbuildAlphaWorkerPoolWorkerConfig(p *alphapb.CloudbuildAlphaWorkerPoolWorkerConfig) *alpha.WorkerPoolWorkerConfig {
 	if p == nil {
@@ -110,22 +124,35 @@ func ProtoToCloudbuildAlphaWorkerPoolNetworkConfig(p *alphapb.CloudbuildAlphaWor
 	return obj
 }
 
+// ProtoToWorkerPoolPrivateServiceConnect converts a WorkerPoolPrivateServiceConnect object from its proto representation.
+func ProtoToCloudbuildAlphaWorkerPoolPrivateServiceConnect(p *alphapb.CloudbuildAlphaWorkerPoolPrivateServiceConnect) *alpha.WorkerPoolPrivateServiceConnect {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkerPoolPrivateServiceConnect{
+		NetworkAttachment: dcl.StringOrNil(p.GetNetworkAttachment()),
+		RouteAllTraffic:   dcl.Bool(p.GetRouteAllTraffic()),
+	}
+	return obj
+}
+
 // ProtoToWorkerPool converts a WorkerPool resource from its proto representation.
 func ProtoToWorkerPool(p *alphapb.CloudbuildAlphaWorkerPool) *alpha.WorkerPool {
 	obj := &alpha.WorkerPool{
-		Name:                dcl.StringOrNil(p.GetName()),
-		DisplayName:         dcl.StringOrNil(p.GetDisplayName()),
-		Uid:                 dcl.StringOrNil(p.GetUid()),
-		CreateTime:          dcl.StringOrNil(p.GetCreateTime()),
-		UpdateTime:          dcl.StringOrNil(p.GetUpdateTime()),
-		DeleteTime:          dcl.StringOrNil(p.GetDeleteTime()),
-		State:               ProtoToCloudbuildAlphaWorkerPoolStateEnum(p.GetState()),
-		PrivatePoolV1Config: ProtoToCloudbuildAlphaWorkerPoolPrivatePoolV1Config(p.GetPrivatePoolV1Config()),
-		Etag:                dcl.StringOrNil(p.GetEtag()),
-		WorkerConfig:        ProtoToCloudbuildAlphaWorkerPoolWorkerConfig(p.GetWorkerConfig()),
-		NetworkConfig:       ProtoToCloudbuildAlphaWorkerPoolNetworkConfig(p.GetNetworkConfig()),
-		Project:             dcl.StringOrNil(p.GetProject()),
-		Location:            dcl.StringOrNil(p.GetLocation()),
+		Name:                  dcl.StringOrNil(p.GetName()),
+		DisplayName:           dcl.StringOrNil(p.GetDisplayName()),
+		Uid:                   dcl.StringOrNil(p.GetUid()),
+		CreateTime:            dcl.StringOrNil(p.GetCreateTime()),
+		UpdateTime:            dcl.StringOrNil(p.GetUpdateTime()),
+		DeleteTime:            dcl.StringOrNil(p.GetDeleteTime()),
+		State:                 ProtoToCloudbuildAlphaWorkerPoolStateEnum(p.GetState()),
+		PrivatePoolV1Config:   ProtoToCloudbuildAlphaWorkerPoolPrivatePoolV1Config(p.GetPrivatePoolV1Config()),
+		Etag:                  dcl.StringOrNil(p.GetEtag()),
+		WorkerConfig:          ProtoToCloudbuildAlphaWorkerPoolWorkerConfig(p.GetWorkerConfig()),
+		NetworkConfig:         ProtoToCloudbuildAlphaWorkerPoolNetworkConfig(p.GetNetworkConfig()),
+		PrivateServiceConnect: ProtoToCloudbuildAlphaWorkerPoolPrivateServiceConnect(p.GetPrivateServiceConnect()),
+		Project:               dcl.StringOrNil(p.GetProject()),
+		Location:              dcl.StringOrNil(p.GetLocation()),
 	}
 	return obj
 }
@@ -160,6 +187,7 @@ func CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigToProto(o *alpha.WorkerPoolPriv
 	p := &alphapb.CloudbuildAlphaWorkerPoolPrivatePoolV1Config{}
 	p.SetWorkerConfig(CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigWorkerConfigToProto(o.WorkerConfig))
 	p.SetNetworkConfig(CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigNetworkConfigToProto(o.NetworkConfig))
+	p.SetPrivateServiceConnect(CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigPrivateServiceConnectToProto(o.PrivateServiceConnect))
 	return p
 }
 
@@ -186,6 +214,18 @@ func CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigNetworkConfigToProto(o *alpha.W
 	return p
 }
 
+// WorkerPoolPrivatePoolV1ConfigPrivateServiceConnectToProto converts a WorkerPoolPrivatePoolV1ConfigPrivateServiceConnect object to its proto representation.
+func CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigPrivateServiceConnectToProto(o *alpha.WorkerPoolPrivatePoolV1ConfigPrivateServiceConnect) *alphapb.CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigPrivateServiceConnect {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.CloudbuildAlphaWorkerPoolPrivatePoolV1ConfigPrivateServiceConnect{}
+	p.SetNetworkAttachment(dcl.ValueOrEmptyString(o.NetworkAttachment))
+	p.SetPublicIpAddressDisabled(dcl.ValueOrEmptyBool(o.PublicIPAddressDisabled))
+	p.SetRouteAllTraffic(dcl.ValueOrEmptyBool(o.RouteAllTraffic))
+	return p
+}
+
 // WorkerPoolWorkerConfigToProto converts a WorkerPoolWorkerConfig object to its proto representation.
 func CloudbuildAlphaWorkerPoolWorkerConfigToProto(o *alpha.WorkerPoolWorkerConfig) *alphapb.CloudbuildAlphaWorkerPoolWorkerConfig {
 	if o == nil {
@@ -209,6 +249,17 @@ func CloudbuildAlphaWorkerPoolNetworkConfigToProto(o *alpha.WorkerPoolNetworkCon
 	return p
 }
 
+// WorkerPoolPrivateServiceConnectToProto converts a WorkerPoolPrivateServiceConnect object to its proto representation.
+func CloudbuildAlphaWorkerPoolPrivateServiceConnectToProto(o *alpha.WorkerPoolPrivateServiceConnect) *alphapb.CloudbuildAlphaWorkerPoolPrivateServiceConnect {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.CloudbuildAlphaWorkerPoolPrivateServiceConnect{}
+	p.SetNetworkAttachment(dcl.ValueOrEmptyString(o.NetworkAttachment))
+	p.SetRouteAllTraffic(dcl.ValueOrEmptyBool(o.RouteAllTraffic))
+	return p
+}
+
 // WorkerPoolToProto converts a WorkerPool resource to its proto representation.
 func WorkerPoolToProto(resource *alpha.WorkerPool) *alphapb.CloudbuildAlphaWorkerPool {
 	p := &alphapb.CloudbuildAlphaWorkerPool{}
@@ -223,6 +274,7 @@ func WorkerPoolToProto(resource *alpha.WorkerPool) *alphapb.CloudbuildAlphaWorke
 	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetWorkerConfig(CloudbuildAlphaWorkerPoolWorkerConfigToProto(resource.WorkerConfig))
 	p.SetNetworkConfig(CloudbuildAlphaWorkerPoolNetworkConfigToProto(resource.NetworkConfig))
+	p.SetPrivateServiceConnect(CloudbuildAlphaWorkerPoolPrivateServiceConnectToProto(resource.PrivateServiceConnect))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
 	mAnnotations := make(map[string]string, len(resource.Annotations))
