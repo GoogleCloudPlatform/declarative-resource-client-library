@@ -25,12 +25,12 @@ func DCLClusterSchema() *dcl.Schema {
 			StructName:  "Cluster",
 			Reference: &dcl.Link{
 				Text: "API reference",
-				URL:  "https://cloud.google.com/anthos/clusters/docs/multi-cloud/reference/rest/v1/projects.locations.awsClusters",
+				URL:  "https://cloud.google.com/kubernetes-engine/multi-cloud/docs/reference/rest/v1/projects.locations.awsClusters",
 			},
 			Guides: []*dcl.Link{
 				&dcl.Link{
 					Text: "Multicloud overview",
-					URL:  "https://cloud.google.com/anthos/clusters/docs/multi-cloud",
+					URL:  "https://cloud.google.com/kubernetes-engine/multi-cloud/docs",
 				},
 			},
 		},
