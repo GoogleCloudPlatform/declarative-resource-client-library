@@ -262,14 +262,14 @@ func performNetworkUpdate(ctx context.Context, r *Network, c *Client, u string, 
 }
 
 func expandFirewallPolicyRuleTLSInspect(_ *Client, tlsInspect *bool, res *FirewallPolicyRule) (*bool, error) {
-	if *res.Action == "apply_security_profile_group" || *tlsInspect {
+	if *res.Action == "apply_security_profile_group" || dcl.ValueOrEmptyBool(tlsInspect) {
 		return tlsInspect, nil
 	}
 	return nil, nil
 }
 
 func expandNetworkFirewallPolicyRuleTLSInspect(_ *Client, tlsInspect *bool, res *NetworkFirewallPolicyRule) (*bool, error) {
-	if *res.Action == "apply_security_profile_group" || *tlsInspect {
+	if *res.Action == "apply_security_profile_group" || dcl.ValueOrEmptyBool(tlsInspect) {
 		return tlsInspect, nil
 	}
 	return nil, nil
