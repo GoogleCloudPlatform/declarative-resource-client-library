@@ -172,7 +172,7 @@ func newUpdateNetworkFirewallPolicyRulePatchRuleRequest(ctx context.Context, f *
 	if v := f.SecurityProfileGroup; !dcl.IsEmptyValueIndirect(v) {
 		req["securityProfileGroup"] = v
 	}
-	if v, err := dcl.FalseToNil(f.TlsInspect); err != nil {
+	if v, err := expandNetworkFirewallPolicyRuleTLSInspect(c, f.TlsInspect, res); err != nil {
 		return nil, fmt.Errorf("error expanding TlsInspect into tlsInspect: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["tlsInspect"] = v
@@ -1711,7 +1711,7 @@ func expandNetworkFirewallPolicyRule(c *Client, f *NetworkFirewallPolicyRule) (m
 	if v := f.SecurityProfileGroup; dcl.ValueShouldBeSent(v) {
 		m["securityProfileGroup"] = v
 	}
-	if v, err := dcl.FalseToNil(f.TlsInspect); err != nil {
+	if v, err := expandNetworkFirewallPolicyRuleTLSInspect(c, f.TlsInspect, res); err != nil {
 		return nil, fmt.Errorf("error expanding TlsInspect into tlsInspect: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["tlsInspect"] = v

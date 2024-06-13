@@ -261,6 +261,20 @@ func performNetworkUpdate(ctx context.Context, r *Network, c *Client, u string, 
 	return nil
 }
 
+func expandFirewallPolicyRuleTLSInspect(_ *Client, tlsInspect *bool, res *FirewallPolicyRule) (*bool, error) {
+	if *res.Action == "apply_security_profile_group" || *tlsInspect {
+		return tlsInspect, nil
+	}
+	return nil, nil
+}
+
+func expandNetworkFirewallPolicyRuleTLSInspect(_ *Client, tlsInspect *bool, res *NetworkFirewallPolicyRule) (*bool, error) {
+	if *res.Action == "apply_security_profile_group" || *tlsInspect {
+		return tlsInspect, nil
+	}
+	return nil, nil
+}
+
 // Because the server will return both versions and instance template and expects only one to
 // be set in our requests, instance template will flatten to nil if versions is non-empty.
 func flattenInstanceGroupManagerInstanceTemplateWithConflict(c *Client, instanceTemplate interface{}, resource *InstanceGroupManager) *string {
