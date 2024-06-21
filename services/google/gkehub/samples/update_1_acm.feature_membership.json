@@ -13,7 +13,6 @@
         "syncWaitSecs": "15",
         "syncRev": "15d0b2c",
         "secretType": "gcpserviceaccount",
-        "httpsProxy": "https://new-sample-proxy.com",
         "gcpServiceAccountEmail": "{{ref:second.iam.service_account.json:email}}"
       },
       "metricsGcpServiceAccountEmail": "{{ref:second.iam.service_account.json:email}}",
@@ -22,15 +21,11 @@
     },
     "policyController": {
       "enabled": false,
-      "exemptableNamespaces": ["new-sample-namespace"],
       "referentialRulesEnabled": false,
       "logDeniesEnabled": false,
       "templateLibraryInstalled": false,
       "auditIntervalSeconds": "9",
-      "mutationEnabled": false,
-      "monitoring": {
-        "backends": ["PROMETHEUS"]
-      }
+      "mutationEnabled": false
     },
     "binauthz": {
       "enabled": false

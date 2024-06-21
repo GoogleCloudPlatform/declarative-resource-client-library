@@ -8,10 +8,7 @@
     "configSync": {},
     "policyController": {
       "enabled": false,
-      "mutationEnabled": false,
-      "monitoring": {
-        "backends": ["CLOUD_MONITORING"]
-      }
+      "mutationEnabled": false
     }
   }
 }

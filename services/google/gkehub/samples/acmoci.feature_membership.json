@@ -18,13 +18,9 @@
     },
     "policyController": {
       "enabled": true,
-      "exemptableNamespaces": ["sample-namespace"],
       "referentialRulesEnabled": true,
       "logDeniesEnabled": true,
       "mutationEnabled": true,
-      "monitoring": {
-        "backends": ["PROMETHEUS"]
-      },
       "templateLibraryInstalled": true,
       "auditIntervalSeconds": "10"
     },

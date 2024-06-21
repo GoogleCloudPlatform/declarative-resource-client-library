@@ -8,14 +8,7 @@
     "configSync": {
       "git": {
         "syncRepo": "https://github.com/GoogleCloudPlatform/magic-modules",
-        "httpsProxy": "",
         "secretType": "ssh"
-      }
-    },
-    "policyController": {
-      "enabled": true,
-      "monitoring": {
-        "backends": []
       }
     }
   }
