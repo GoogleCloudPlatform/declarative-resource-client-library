@@ -153,6 +153,11 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 										Description: "Config Sync configuration for the cluster.",
 										SendEmpty:   true,
 										Properties: map[string]*dcl.Property{
+											"enabled": &dcl.Property{
+												Type:        "boolean",
+												GoName:      "Enabled",
+												Description: "Enables the installation of ConfigSync. If set to true, ConfigSync resources will be created and the other ConfigSync fields will be applied if exist. If set to false, all other ConfigSync fields will be ignored, ConfigSync resources will be deleted. If omitted, ConfigSync resources will be managed depends on the presence of the git or oci field.",
+											},
 											"git": &dcl.Property{
 												Type:   "object",
 												GoName: "Git",

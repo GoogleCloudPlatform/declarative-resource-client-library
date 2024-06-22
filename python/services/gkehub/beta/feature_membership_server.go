@@ -143,6 +143,7 @@ func ProtoToGkehubBetaFeatureMembershipConfigmanagementConfigSync(p *betapb.Gkeh
 	obj := &beta.FeatureMembershipConfigmanagementConfigSync{
 		Git:                           ProtoToGkehubBetaFeatureMembershipConfigmanagementConfigSyncGit(p.GetGit()),
 		SourceFormat:                  dcl.StringOrNil(p.GetSourceFormat()),
+		Enabled:                       dcl.Bool(p.GetEnabled()),
 		PreventDrift:                  dcl.Bool(p.GetPreventDrift()),
 		MetricsGcpServiceAccountEmail: dcl.StringOrNil(p.GetMetricsGcpServiceAccountEmail()),
 		Oci:                           ProtoToGkehubBetaFeatureMembershipConfigmanagementConfigSyncOci(p.GetOci()),
@@ -509,6 +510,7 @@ func GkehubBetaFeatureMembershipConfigmanagementConfigSyncToProto(o *beta.Featur
 	p := &betapb.GkehubBetaFeatureMembershipConfigmanagementConfigSync{}
 	p.SetGit(GkehubBetaFeatureMembershipConfigmanagementConfigSyncGitToProto(o.Git))
 	p.SetSourceFormat(dcl.ValueOrEmptyString(o.SourceFormat))
+	p.SetEnabled(dcl.ValueOrEmptyBool(o.Enabled))
 	p.SetPreventDrift(dcl.ValueOrEmptyBool(o.PreventDrift))
 	p.SetMetricsGcpServiceAccountEmail(dcl.ValueOrEmptyString(o.MetricsGcpServiceAccountEmail))
 	p.SetOci(GkehubBetaFeatureMembershipConfigmanagementConfigSyncOciToProto(o.Oci))

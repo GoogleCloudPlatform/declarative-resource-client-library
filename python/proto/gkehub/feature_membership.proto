@@ -99,9 +99,10 @@ message GkehubFeatureMembershipConfigmanagement {
 message GkehubFeatureMembershipConfigmanagementConfigSync {
   GkehubFeatureMembershipConfigmanagementConfigSyncGit git = 1;
   string source_format = 2;
-  bool prevent_drift = 3;
-  string metrics_gcp_service_account_email = 4;
-  GkehubFeatureMembershipConfigmanagementConfigSyncOci oci = 5;
+  bool enabled = 3;
+  bool prevent_drift = 4;
+  string metrics_gcp_service_account_email = 5;
+  GkehubFeatureMembershipConfigmanagementConfigSyncOci oci = 6;
 }
 
 message GkehubFeatureMembershipConfigmanagementConfigSyncGit {

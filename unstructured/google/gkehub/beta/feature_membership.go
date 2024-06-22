@@ -43,6 +43,9 @@ func FeatureMembershipToUnstructured(r *dclService.FeatureMembership) *unstructu
 		}
 		if r.Configmanagement.ConfigSync != nil && r.Configmanagement.ConfigSync != dclService.EmptyFeatureMembershipConfigmanagementConfigSync {
 			rConfigmanagementConfigSync := make(map[string]interface{})
+			if r.Configmanagement.ConfigSync.Enabled != nil {
+				rConfigmanagementConfigSync["enabled"] = *r.Configmanagement.ConfigSync.Enabled
+			}
 			if r.Configmanagement.ConfigSync.Git != nil && r.Configmanagement.ConfigSync.Git != dclService.EmptyFeatureMembershipConfigmanagementConfigSyncGit {
 				rConfigmanagementConfigSyncGit := make(map[string]interface{})
 				if r.Configmanagement.ConfigSync.Git.GcpServiceAccountEmail != nil {
@@ -328,6 +331,13 @@ func UnstructuredToFeatureMembership(u *unstructured.Resource) (*dclService.Feat
 			if _, ok := rConfigmanagement["configSync"]; ok {
 				if rConfigmanagementConfigSync, ok := rConfigmanagement["configSync"].(map[string]interface{}); ok {
 					r.Configmanagement.ConfigSync = &dclService.FeatureMembershipConfigmanagementConfigSync{}
+					if _, ok := rConfigmanagementConfigSync["enabled"]; ok {
+						if b, ok := rConfigmanagementConfigSync["enabled"].(bool); ok {
+							r.Configmanagement.ConfigSync.Enabled = dcl.Bool(b)
+						} else {
+							return nil, fmt.Errorf("r.Configmanagement.ConfigSync.Enabled: expected bool")
+						}
+					}
 					if _, ok := rConfigmanagementConfigSync["git"]; ok {
 						if rConfigmanagementConfigSyncGit, ok := rConfigmanagementConfigSync["git"].(map[string]interface{}); ok {
 							r.Configmanagement.ConfigSync.Git = &dclService.FeatureMembershipConfigmanagementConfigSyncGit{}

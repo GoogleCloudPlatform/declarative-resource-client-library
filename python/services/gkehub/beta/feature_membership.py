@@ -335,12 +335,14 @@ class FeatureMembershipConfigmanagementConfigSync(object):
         self,
         git: dict = None,
         source_format: str = None,
+        enabled: bool = None,
         prevent_drift: bool = None,
         metrics_gcp_service_account_email: str = None,
         oci: dict = None,
     ):
         self.git = git
         self.source_format = source_format
+        self.enabled = enabled
         self.prevent_drift = prevent_drift
         self.metrics_gcp_service_account_email = metrics_gcp_service_account_email
         self.oci = oci
@@ -361,6 +363,8 @@ class FeatureMembershipConfigmanagementConfigSync(object):
             res.ClearField("git")
         if Primitive.to_proto(resource.source_format):
             res.source_format = Primitive.to_proto(resource.source_format)
+        if Primitive.to_proto(resource.enabled):
+            res.enabled = Primitive.to_proto(resource.enabled)
         if Primitive.to_proto(resource.prevent_drift):
             res.prevent_drift = Primitive.to_proto(resource.prevent_drift)
         if Primitive.to_proto(resource.metrics_gcp_service_account_email):
@@ -383,6 +387,7 @@ class FeatureMembershipConfigmanagementConfigSync(object):
         return FeatureMembershipConfigmanagementConfigSync(
             git=FeatureMembershipConfigmanagementConfigSyncGit.from_proto(resource.git),
             source_format=Primitive.from_proto(resource.source_format),
+            enabled=Primitive.from_proto(resource.enabled),
             prevent_drift=Primitive.from_proto(resource.prevent_drift),
             metrics_gcp_service_account_email=Primitive.from_proto(
                 resource.metrics_gcp_service_account_email

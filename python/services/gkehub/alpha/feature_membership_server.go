@@ -143,6 +143,7 @@ func ProtoToGkehubAlphaFeatureMembershipConfigmanagementConfigSync(p *alphapb.Gk
 	obj := &alpha.FeatureMembershipConfigmanagementConfigSync{
 		Git:                           ProtoToGkehubAlphaFeatureMembershipConfigmanagementConfigSyncGit(p.GetGit()),
 		SourceFormat:                  dcl.StringOrNil(p.GetSourceFormat()),
+		Enabled:                       dcl.Bool(p.GetEnabled()),
 		PreventDrift:                  dcl.Bool(p.GetPreventDrift()),
 		MetricsGcpServiceAccountEmail: dcl.StringOrNil(p.GetMetricsGcpServiceAccountEmail()),
 		Oci:                           ProtoToGkehubAlphaFeatureMembershipConfigmanagementConfigSyncOci(p.GetOci()),
@@ -509,6 +510,7 @@ func GkehubAlphaFeatureMembershipConfigmanagementConfigSyncToProto(o *alpha.Feat
 	p := &alphapb.GkehubAlphaFeatureMembershipConfigmanagementConfigSync{}
 	p.SetGit(GkehubAlphaFeatureMembershipConfigmanagementConfigSyncGitToProto(o.Git))
 	p.SetSourceFormat(dcl.ValueOrEmptyString(o.SourceFormat))
+	p.SetEnabled(dcl.ValueOrEmptyBool(o.Enabled))
 	p.SetPreventDrift(dcl.ValueOrEmptyBool(o.PreventDrift))
 	p.SetMetricsGcpServiceAccountEmail(dcl.ValueOrEmptyString(o.MetricsGcpServiceAccountEmail))
 	p.SetOci(GkehubAlphaFeatureMembershipConfigmanagementConfigSyncOciToProto(o.Oci))
