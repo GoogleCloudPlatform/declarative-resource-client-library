@@ -103,6 +103,9 @@ func TargetToUnstructured(r *dclService.Target) *unstructured.Resource {
 		if r.Gke.InternalIP != nil {
 			rGke["internalIP"] = *r.Gke.InternalIP
 		}
+		if r.Gke.ProxyUrl != nil {
+			rGke["proxyUrl"] = *r.Gke.ProxyUrl
+		}
 		u.Object["gke"] = rGke
 	}
 	if r.Labels != nil {
@@ -302,6 +305,13 @@ func UnstructuredToTarget(u *unstructured.Resource) (*dclService.Target, error) 
 					r.Gke.InternalIP = dcl.Bool(b)
 				} else {
 					return nil, fmt.Errorf("r.Gke.InternalIP: expected bool")
+				}
+			}
+			if _, ok := rGke["proxyUrl"]; ok {
+				if s, ok := rGke["proxyUrl"].(string); ok {
+					r.Gke.ProxyUrl = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.Gke.ProxyUrl: expected string")
 				}
 			}
 		} else {

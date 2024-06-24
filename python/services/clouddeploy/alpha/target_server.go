@@ -44,6 +44,7 @@ func ProtoToClouddeployAlphaTargetGke(p *alphapb.ClouddeployAlphaTargetGke) *alp
 	obj := &alpha.TargetGke{
 		Cluster:    dcl.StringOrNil(p.GetCluster()),
 		InternalIP: dcl.Bool(p.GetInternalIp()),
+		ProxyUrl:   dcl.StringOrNil(p.GetProxyUrl()),
 	}
 	return obj
 }
@@ -155,6 +156,7 @@ func ClouddeployAlphaTargetGkeToProto(o *alpha.TargetGke) *alphapb.ClouddeployAl
 	p := &alphapb.ClouddeployAlphaTargetGke{}
 	p.SetCluster(dcl.ValueOrEmptyString(o.Cluster))
 	p.SetInternalIp(dcl.ValueOrEmptyBool(o.InternalIP))
+	p.SetProxyUrl(dcl.ValueOrEmptyString(o.ProxyUrl))
 	return p
 }
 
