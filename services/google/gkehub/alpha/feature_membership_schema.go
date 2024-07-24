@@ -300,6 +300,18 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 											},
 										},
 									},
+									"management": &dcl.Property{
+										Type:          "string",
+										GoName:        "Management",
+										GoType:        "FeatureMembershipConfigmanagementManagementEnum",
+										Description:   "Set this field to MANAGEMENT_AUTOMATIC to enable Config Sync auto-upgrades, and set this field to MANAGEMENT_MANUAL or MANAGEMENT_UNSPECIFIED to disable Config Sync auto-upgrades.",
+										ServerDefault: true,
+										Enum: []string{
+											"MANAGEMENT_UNSPECIFIED",
+											"MANAGEMENT_AUTOMATIC",
+											"MANAGEMENT_MANUAL",
+										},
+									},
 									"policyController": &dcl.Property{
 										Type:        "object",
 										GoName:      "PolicyController",

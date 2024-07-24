@@ -244,12 +244,14 @@ class FeatureMembershipConfigmanagement(object):
         binauthz: dict = None,
         hierarchy_controller: dict = None,
         version: str = None,
+        management: str = None,
     ):
         self.config_sync = config_sync
         self.policy_controller = policy_controller
         self.binauthz = binauthz
         self.hierarchy_controller = hierarchy_controller
         self.version = version
+        self.management = management
 
     @classmethod
     def to_proto(self, resource):
@@ -293,6 +295,12 @@ class FeatureMembershipConfigmanagement(object):
             res.ClearField("hierarchy_controller")
         if Primitive.to_proto(resource.version):
             res.version = Primitive.to_proto(resource.version)
+        if FeatureMembershipConfigmanagementManagementEnum.to_proto(
+            resource.management
+        ):
+            res.management = FeatureMembershipConfigmanagementManagementEnum.to_proto(
+                resource.management
+            )
         return res
 
     @classmethod
@@ -314,6 +322,9 @@ class FeatureMembershipConfigmanagement(object):
                 resource.hierarchy_controller
             ),
             version=Primitive.from_proto(resource.version),
+            management=FeatureMembershipConfigmanagementManagementEnum.from_proto(
+                resource.management
+            ),
         )
 
 
@@ -1679,6 +1690,26 @@ class FeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum(ob
             len(
                 "GkehubBetaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum"
             ) :
+        ]
+
+
+class FeatureMembershipConfigmanagementManagementEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return feature_membership_pb2.GkehubBetaFeatureMembershipConfigmanagementManagementEnum.Value(
+            "GkehubBetaFeatureMembershipConfigmanagementManagementEnum%s" % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return feature_membership_pb2.GkehubBetaFeatureMembershipConfigmanagementManagementEnum.Name(
+            resource
+        )[
+            len("GkehubBetaFeatureMembershipConfigmanagementManagementEnum") :
         ]
 
 

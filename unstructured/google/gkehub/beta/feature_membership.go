@@ -117,6 +117,9 @@ func FeatureMembershipToUnstructured(r *dclService.FeatureMembership) *unstructu
 			}
 			rConfigmanagement["hierarchyController"] = rConfigmanagementHierarchyController
 		}
+		if r.Configmanagement.Management != nil {
+			rConfigmanagement["management"] = string(*r.Configmanagement.Management)
+		}
 		if r.Configmanagement.PolicyController != nil && r.Configmanagement.PolicyController != dclService.EmptyFeatureMembershipConfigmanagementPolicyController {
 			rConfigmanagementPolicyController := make(map[string]interface{})
 			if r.Configmanagement.PolicyController.AuditIntervalSeconds != nil {
@@ -494,6 +497,13 @@ func UnstructuredToFeatureMembership(u *unstructured.Resource) (*dclService.Feat
 					}
 				} else {
 					return nil, fmt.Errorf("r.Configmanagement.HierarchyController: expected map[string]interface{}")
+				}
+			}
+			if _, ok := rConfigmanagement["management"]; ok {
+				if s, ok := rConfigmanagement["management"].(string); ok {
+					r.Configmanagement.Management = dclService.FeatureMembershipConfigmanagementManagementEnumRef(s)
+				} else {
+					return nil, fmt.Errorf("r.Configmanagement.Management: expected string")
 				}
 			}
 			if _, ok := rConfigmanagement["policyController"]; ok {

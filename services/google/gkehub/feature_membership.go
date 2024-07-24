@@ -119,6 +119,33 @@ func (v FeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum)
 	}
 }
 
+// The enum FeatureMembershipConfigmanagementManagementEnum.
+type FeatureMembershipConfigmanagementManagementEnum string
+
+// FeatureMembershipConfigmanagementManagementEnumRef returns a *FeatureMembershipConfigmanagementManagementEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func FeatureMembershipConfigmanagementManagementEnumRef(s string) *FeatureMembershipConfigmanagementManagementEnum {
+	v := FeatureMembershipConfigmanagementManagementEnum(s)
+	return &v
+}
+
+func (v FeatureMembershipConfigmanagementManagementEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"MANAGEMENT_UNSPECIFIED", "MANAGEMENT_AUTOMATIC", "MANAGEMENT_MANUAL"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "FeatureMembershipConfigmanagementManagementEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
 // The enum FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum.
 type FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum string
 
@@ -283,6 +310,7 @@ type FeatureMembershipConfigmanagement struct {
 	Binauthz            *FeatureMembershipConfigmanagementBinauthz            `json:"binauthz"`
 	HierarchyController *FeatureMembershipConfigmanagementHierarchyController `json:"hierarchyController"`
 	Version             *string                                               `json:"version"`
+	Management          *FeatureMembershipConfigmanagementManagementEnum      `json:"management"`
 }
 
 type jsonFeatureMembershipConfigmanagement FeatureMembershipConfigmanagement
@@ -309,6 +337,8 @@ func (r *FeatureMembershipConfigmanagement) UnmarshalJSON(data []byte) error {
 		r.HierarchyController = res.HierarchyController
 
 		r.Version = res.Version
+
+		r.Management = res.Management
 
 	}
 	return nil

@@ -42,6 +42,13 @@ enum GkehubAlphaFeatureMembershipConfigmanagementPolicyControllerMonitoringBacke
   GkehubAlphaFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnumCLOUD_MONITORING = 3;
 }
 
+enum GkehubAlphaFeatureMembershipConfigmanagementManagementEnum {
+  GkehubAlphaFeatureMembershipConfigmanagementManagementEnumNO_VALUE_DO_NOT_USE = 0;
+  GkehubAlphaFeatureMembershipConfigmanagementManagementEnumMANAGEMENT_UNSPECIFIED = 1;
+  GkehubAlphaFeatureMembershipConfigmanagementManagementEnumMANAGEMENT_AUTOMATIC = 2;
+  GkehubAlphaFeatureMembershipConfigmanagementManagementEnumMANAGEMENT_MANUAL = 3;
+}
+
 enum GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum {
   GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnumNO_VALUE_DO_NOT_USE = 0;
   GkehubAlphaFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnumINSTALL_SPEC_UNSPECIFIED = 1;
@@ -94,6 +101,7 @@ message GkehubAlphaFeatureMembershipConfigmanagement {
   GkehubAlphaFeatureMembershipConfigmanagementBinauthz binauthz = 3;
   GkehubAlphaFeatureMembershipConfigmanagementHierarchyController hierarchy_controller = 4;
   string version = 5;
+  GkehubAlphaFeatureMembershipConfigmanagementManagementEnum management = 6;
 }
 
 message GkehubAlphaFeatureMembershipConfigmanagementConfigSync {

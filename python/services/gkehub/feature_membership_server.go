@@ -60,6 +60,18 @@ func ProtoToGkehubFeatureMembershipConfigmanagementPolicyControllerMonitoringBac
 	return nil
 }
 
+// ProtoToFeatureMembershipConfigmanagementManagementEnum converts a FeatureMembershipConfigmanagementManagementEnum enum from its proto representation.
+func ProtoToGkehubFeatureMembershipConfigmanagementManagementEnum(e gkehubpb.GkehubFeatureMembershipConfigmanagementManagementEnum) *gkehub.FeatureMembershipConfigmanagementManagementEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := gkehubpb.GkehubFeatureMembershipConfigmanagementManagementEnum_name[int32(e)]; ok {
+		e := gkehub.FeatureMembershipConfigmanagementManagementEnum(n[len("GkehubFeatureMembershipConfigmanagementManagementEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum enum from its proto representation.
 func ProtoToGkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum(e gkehubpb.GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum) *gkehub.FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum {
 	if e == 0 {
@@ -131,6 +143,7 @@ func ProtoToGkehubFeatureMembershipConfigmanagement(p *gkehubpb.GkehubFeatureMem
 		Binauthz:            ProtoToGkehubFeatureMembershipConfigmanagementBinauthz(p.GetBinauthz()),
 		HierarchyController: ProtoToGkehubFeatureMembershipConfigmanagementHierarchyController(p.GetHierarchyController()),
 		Version:             dcl.StringOrNil(p.GetVersion()),
+		Management:          ProtoToGkehubFeatureMembershipConfigmanagementManagementEnum(p.GetManagement()),
 	}
 	return obj
 }
@@ -433,6 +446,17 @@ func GkehubFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEn
 	return gkehubpb.GkehubFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum(0)
 }
 
+// FeatureMembershipConfigmanagementManagementEnumToProto converts a FeatureMembershipConfigmanagementManagementEnum enum to its proto representation.
+func GkehubFeatureMembershipConfigmanagementManagementEnumToProto(e *gkehub.FeatureMembershipConfigmanagementManagementEnum) gkehubpb.GkehubFeatureMembershipConfigmanagementManagementEnum {
+	if e == nil {
+		return gkehubpb.GkehubFeatureMembershipConfigmanagementManagementEnum(0)
+	}
+	if v, ok := gkehubpb.GkehubFeatureMembershipConfigmanagementManagementEnum_value["FeatureMembershipConfigmanagementManagementEnum"+string(*e)]; ok {
+		return gkehubpb.GkehubFeatureMembershipConfigmanagementManagementEnum(v)
+	}
+	return gkehubpb.GkehubFeatureMembershipConfigmanagementManagementEnum(0)
+}
+
 // FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnumToProto converts a FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum enum to its proto representation.
 func GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnumToProto(e *gkehub.FeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum) gkehubpb.GkehubFeatureMembershipPolicycontrollerPolicyControllerHubConfigInstallSpecEnum {
 	if e == nil {
@@ -499,6 +523,7 @@ func GkehubFeatureMembershipConfigmanagementToProto(o *gkehub.FeatureMembershipC
 	p.SetBinauthz(GkehubFeatureMembershipConfigmanagementBinauthzToProto(o.Binauthz))
 	p.SetHierarchyController(GkehubFeatureMembershipConfigmanagementHierarchyControllerToProto(o.HierarchyController))
 	p.SetVersion(dcl.ValueOrEmptyString(o.Version))
+	p.SetManagement(GkehubFeatureMembershipConfigmanagementManagementEnumToProto(o.Management))
 	return p
 }
 
