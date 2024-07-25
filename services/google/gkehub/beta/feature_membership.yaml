@@ -265,7 +265,9 @@ components:
               type: object
               x-dcl-go-name: PolicyController
               x-dcl-go-type: FeatureMembershipConfigmanagementPolicyController
-              description: Policy Controller configuration for the cluster.
+              description: '**DEPRECATED** Configuring Policy Controller through the
+                configmanagement feature is no longer recommended. Use the policycontroller
+                feature instead.'
               properties:
                 auditIntervalSeconds:
                   type: string

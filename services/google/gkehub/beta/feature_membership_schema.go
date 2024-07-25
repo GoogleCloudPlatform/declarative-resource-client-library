@@ -316,7 +316,7 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 										Type:        "object",
 										GoName:      "PolicyController",
 										GoType:      "FeatureMembershipConfigmanagementPolicyController",
-										Description: "Policy Controller configuration for the cluster.",
+										Description: "**DEPRECATED** Configuring Policy Controller through the configmanagement feature is no longer recommended. Use the policycontroller feature instead.",
 										Properties: map[string]*dcl.Property{
 											"auditIntervalSeconds": &dcl.Property{
 												Type:        "string",
