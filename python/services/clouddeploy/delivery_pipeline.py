@@ -764,12 +764,14 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesG
         deployment: str = None,
         route_update_wait_time: str = None,
         stable_cutback_duration: str = None,
+        pod_selector_label: str = None,
     ):
         self.http_route = http_route
         self.service = service
         self.deployment = deployment
         self.route_update_wait_time = route_update_wait_time
         self.stable_cutback_duration = stable_cutback_duration
+        self.pod_selector_label = pod_selector_label
 
     @classmethod
     def to_proto(self, resource):
@@ -793,6 +795,8 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesG
             res.stable_cutback_duration = Primitive.to_proto(
                 resource.stable_cutback_duration
             )
+        if Primitive.to_proto(resource.pod_selector_label):
+            res.pod_selector_label = Primitive.to_proto(resource.pod_selector_label)
         return res
 
     @classmethod
@@ -810,6 +814,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesG
             stable_cutback_duration=Primitive.from_proto(
                 resource.stable_cutback_duration
             ),
+            pod_selector_label=Primitive.from_proto(resource.pod_selector_label),
         )
 
 
@@ -846,10 +851,12 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesS
         service: str = None,
         deployment: str = None,
         disable_pod_overprovisioning: bool = None,
+        pod_selector_label: str = None,
     ):
         self.service = service
         self.deployment = deployment
         self.disable_pod_overprovisioning = disable_pod_overprovisioning
+        self.pod_selector_label = pod_selector_label
 
     @classmethod
     def to_proto(self, resource):
@@ -867,6 +874,8 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesS
             res.disable_pod_overprovisioning = Primitive.to_proto(
                 resource.disable_pod_overprovisioning
             )
+        if Primitive.to_proto(resource.pod_selector_label):
+            res.pod_selector_label = Primitive.to_proto(resource.pod_selector_label)
         return res
 
     @classmethod
@@ -880,6 +889,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesS
             disable_pod_overprovisioning=Primitive.from_proto(
                 resource.disable_pod_overprovisioning
             ),
+            pod_selector_label=Primitive.from_proto(resource.pod_selector_label),
         )
 
 

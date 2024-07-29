@@ -151,6 +151,7 @@ func ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntime
 		Deployment:            dcl.StringOrNil(p.GetDeployment()),
 		RouteUpdateWaitTime:   dcl.StringOrNil(p.GetRouteUpdateWaitTime()),
 		StableCutbackDuration: dcl.StringOrNil(p.GetStableCutbackDuration()),
+		PodSelectorLabel:      dcl.StringOrNil(p.GetPodSelectorLabel()),
 	}
 	return obj
 }
@@ -164,6 +165,7 @@ func ProtoToClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntime
 		Service:                    dcl.StringOrNil(p.GetService()),
 		Deployment:                 dcl.StringOrNil(p.GetDeployment()),
 		DisablePodOverprovisioning: dcl.Bool(p.GetDisablePodOverprovisioning()),
+		PodSelectorLabel:           dcl.StringOrNil(p.GetPodSelectorLabel()),
 	}
 	return obj
 }
@@ -492,6 +494,7 @@ func ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigK
 	p.SetDeployment(dcl.ValueOrEmptyString(o.Deployment))
 	p.SetRouteUpdateWaitTime(dcl.ValueOrEmptyString(o.RouteUpdateWaitTime))
 	p.SetStableCutbackDuration(dcl.ValueOrEmptyString(o.StableCutbackDuration))
+	p.SetPodSelectorLabel(dcl.ValueOrEmptyString(o.PodSelectorLabel))
 	return p
 }
 
@@ -504,6 +507,7 @@ func ClouddeployDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigK
 	p.SetService(dcl.ValueOrEmptyString(o.Service))
 	p.SetDeployment(dcl.ValueOrEmptyString(o.Deployment))
 	p.SetDisablePodOverprovisioning(dcl.ValueOrEmptyBool(o.DisablePodOverprovisioning))
+	p.SetPodSelectorLabel(dcl.ValueOrEmptyString(o.PodSelectorLabel))
 	return p
 }
 

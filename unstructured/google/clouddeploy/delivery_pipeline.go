@@ -243,6 +243,9 @@ func DeliveryPipelineToUnstructured(r *dclService.DeliveryPipeline) *unstructure
 								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.HttpRoute != nil {
 									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["httpRoute"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.HttpRoute
 								}
+								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.PodSelectorLabel != nil {
+									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["podSelectorLabel"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.PodSelectorLabel
+								}
 								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteUpdateWaitTime != nil {
 									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["routeUpdateWaitTime"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteUpdateWaitTime
 								}
@@ -261,6 +264,9 @@ func DeliveryPipelineToUnstructured(r *dclService.DeliveryPipeline) *unstructure
 								}
 								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.DisablePodOverprovisioning != nil {
 									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesServiceNetworking["disablePodOverprovisioning"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.DisablePodOverprovisioning
+								}
+								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.PodSelectorLabel != nil {
+									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesServiceNetworking["podSelectorLabel"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.PodSelectorLabel
 								}
 								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.Service != nil {
 									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesServiceNetworking["service"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.Service
@@ -752,6 +758,13 @@ func UnstructuredToDeliveryPipeline(u *unstructured.Resource) (*dclService.Deliv
 																			return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.HttpRoute: expected string")
 																		}
 																	}
+																	if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["podSelectorLabel"]; ok {
+																		if s, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["podSelectorLabel"].(string); ok {
+																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.PodSelectorLabel = dcl.String(s)
+																		} else {
+																			return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.PodSelectorLabel: expected string")
+																		}
+																	}
 																	if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["routeUpdateWaitTime"]; ok {
 																		if s, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["routeUpdateWaitTime"].(string); ok {
 																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteUpdateWaitTime = dcl.String(s)
@@ -792,6 +805,13 @@ func UnstructuredToDeliveryPipeline(u *unstructured.Resource) (*dclService.Deliv
 																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.DisablePodOverprovisioning = dcl.Bool(b)
 																		} else {
 																			return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.DisablePodOverprovisioning: expected bool")
+																		}
+																	}
+																	if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking["podSelectorLabel"]; ok {
+																		if s, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking["podSelectorLabel"].(string); ok {
+																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.PodSelectorLabel = dcl.String(s)
+																		} else {
+																			return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.ServiceNetworking.PodSelectorLabel: expected string")
 																		}
 																	}
 																	if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking["service"]; ok {

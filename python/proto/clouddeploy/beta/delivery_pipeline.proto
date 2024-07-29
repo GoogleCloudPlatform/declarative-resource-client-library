@@ -89,12 +89,14 @@ message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntime
   string deployment = 3;
   string route_update_wait_time = 4;
   string stable_cutback_duration = 5;
+  string pod_selector_label = 6;
 }
 
 message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking {
   string service = 1;
   string deployment = 2;
   bool disable_pod_overprovisioning = 3;
+  string pod_selector_label = 4;
 }
 
 message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigCloudRun {
