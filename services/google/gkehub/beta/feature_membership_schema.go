@@ -295,7 +295,7 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 											"enabled": &dcl.Property{
 												Type:        "boolean",
 												GoName:      "Enabled",
-												Description: "Whether Hierarchy Controller is enabled in this cluster.",
+												Description: "**DEPRECATED** Configuring Hierarchy Controller through the configmanagement feature is no longer recommended. Use https://github.com/kubernetes-sigs/hierarchical-namespaces instead.",
 												SendEmpty:   true,
 											},
 										},

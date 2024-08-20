@@ -247,7 +247,9 @@ components:
                 enabled:
                   type: boolean
                   x-dcl-go-name: Enabled
-                  description: Whether Hierarchy Controller is enabled in this cluster.
+                  description: '**DEPRECATED** Configuring Hierarchy Controller through
+                    the configmanagement feature is no longer recommended. Use https://github.com/kubernetes-sigs/hierarchical-namespaces
+                    instead.'
                   x-dcl-send-empty: true
             management:
               type: string
