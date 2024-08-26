@@ -29,6 +29,7 @@ class Workload(object):
         compliance_regime: str = None,
         create_time: str = None,
         billing_account: str = None,
+        partner_services_billing_account: str = None,
         labels: dict = None,
         provisioned_resources_parent: str = None,
         kms_settings: dict = None,
@@ -52,6 +53,7 @@ class Workload(object):
         self.display_name = display_name
         self.compliance_regime = compliance_regime
         self.billing_account = billing_account
+        self.partner_services_billing_account = partner_services_billing_account
         self.labels = labels
         self.provisioned_resources_parent = provisioned_resources_parent
         self.kms_settings = kms_settings
@@ -82,6 +84,11 @@ class Workload(object):
 
         if Primitive.to_proto(self.billing_account):
             request.resource.billing_account = Primitive.to_proto(self.billing_account)
+
+        if Primitive.to_proto(self.partner_services_billing_account):
+            request.resource.partner_services_billing_account = Primitive.to_proto(
+                self.partner_services_billing_account
+            )
 
         if Primitive.to_proto(self.labels):
             request.resource.labels = Primitive.to_proto(self.labels)
@@ -137,6 +144,9 @@ class Workload(object):
         )
         self.create_time = Primitive.from_proto(response.create_time)
         self.billing_account = Primitive.from_proto(response.billing_account)
+        self.partner_services_billing_account = Primitive.from_proto(
+            response.partner_services_billing_account
+        )
         self.labels = Primitive.from_proto(response.labels)
         self.provisioned_resources_parent = Primitive.from_proto(
             response.provisioned_resources_parent
@@ -192,6 +202,11 @@ class Workload(object):
 
         if Primitive.to_proto(self.billing_account):
             request.resource.billing_account = Primitive.to_proto(self.billing_account)
+
+        if Primitive.to_proto(self.partner_services_billing_account):
+            request.resource.partner_services_billing_account = Primitive.to_proto(
+                self.partner_services_billing_account
+            )
 
         if Primitive.to_proto(self.labels):
             request.resource.labels = Primitive.to_proto(self.labels)
@@ -263,6 +278,10 @@ class Workload(object):
             )
         if Primitive.to_proto(self.billing_account):
             resource.billing_account = Primitive.to_proto(self.billing_account)
+        if Primitive.to_proto(self.partner_services_billing_account):
+            resource.partner_services_billing_account = Primitive.to_proto(
+                self.partner_services_billing_account
+            )
         if Primitive.to_proto(self.labels):
             resource.labels = Primitive.to_proto(self.labels)
         if Primitive.to_proto(self.provisioned_resources_parent):

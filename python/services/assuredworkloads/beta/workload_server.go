@@ -244,6 +244,7 @@ func ProtoToWorkload(p *betapb.AssuredworkloadsBetaWorkload) *beta.Workload {
 		ComplianceRegime:              ProtoToAssuredworkloadsBetaWorkloadComplianceRegimeEnum(p.GetComplianceRegime()),
 		CreateTime:                    dcl.StringOrNil(p.GetCreateTime()),
 		BillingAccount:                dcl.StringOrNil(p.GetBillingAccount()),
+		PartnerServicesBillingAccount: dcl.StringOrNil(p.GetPartnerServicesBillingAccount()),
 		ProvisionedResourcesParent:    dcl.StringOrNil(p.GetProvisionedResourcesParent()),
 		KmsSettings:                   ProtoToAssuredworkloadsBetaWorkloadKmsSettings(p.GetKmsSettings()),
 		KajEnrollmentState:            ProtoToAssuredworkloadsBetaWorkloadKajEnrollmentStateEnum(p.GetKajEnrollmentState()),
@@ -479,6 +480,7 @@ func WorkloadToProto(resource *beta.Workload) *betapb.AssuredworkloadsBetaWorklo
 	p.SetComplianceRegime(AssuredworkloadsBetaWorkloadComplianceRegimeEnumToProto(resource.ComplianceRegime))
 	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
 	p.SetBillingAccount(dcl.ValueOrEmptyString(resource.BillingAccount))
+	p.SetPartnerServicesBillingAccount(dcl.ValueOrEmptyString(resource.PartnerServicesBillingAccount))
 	p.SetProvisionedResourcesParent(dcl.ValueOrEmptyString(resource.ProvisionedResourcesParent))
 	p.SetKmsSettings(AssuredworkloadsBetaWorkloadKmsSettingsToProto(resource.KmsSettings))
 	p.SetKajEnrollmentState(AssuredworkloadsBetaWorkloadKajEnrollmentStateEnumToProto(resource.KajEnrollmentState))

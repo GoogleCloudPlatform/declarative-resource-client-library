@@ -535,6 +535,11 @@ func canonicalizeWorkloadDesiredState(rawDesired, rawInitial *Workload, opts ...
 	} else {
 		canonicalDesired.BillingAccount = rawDesired.BillingAccount
 	}
+	if dcl.StringCanonicalize(rawDesired.PartnerServicesBillingAccount, rawInitial.PartnerServicesBillingAccount) {
+		canonicalDesired.PartnerServicesBillingAccount = rawInitial.PartnerServicesBillingAccount
+	} else {
+		canonicalDesired.PartnerServicesBillingAccount = rawDesired.PartnerServicesBillingAccount
+	}
 	if dcl.IsZeroValue(rawDesired.Labels) || (dcl.IsEmptyValueIndirect(rawDesired.Labels) && dcl.IsEmptyValueIndirect(rawInitial.Labels)) {
 		// Desired and initial values are equivalent, so set canonical desired value to initial value.
 		canonicalDesired.Labels = rawInitial.Labels
@@ -613,6 +618,12 @@ func canonicalizeWorkloadNewState(c *Client, rawNew, rawDesired *Workload) (*Wor
 		rawNew.BillingAccount = rawDesired.BillingAccount
 	} else {
 		rawNew.BillingAccount = rawDesired.BillingAccount
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.PartnerServicesBillingAccount) && dcl.IsEmptyValueIndirect(rawDesired.PartnerServicesBillingAccount) {
+		rawNew.PartnerServicesBillingAccount = rawDesired.PartnerServicesBillingAccount
+	} else {
+		rawNew.PartnerServicesBillingAccount = rawDesired.PartnerServicesBillingAccount
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Labels) && dcl.IsEmptyValueIndirect(rawDesired.Labels) {
@@ -1631,6 +1642,13 @@ func diffWorkload(c *Client, desired, actual *Workload, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.PartnerServicesBillingAccount, actual.PartnerServicesBillingAccount, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PartnerServicesBillingAccount")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Labels, actual.Labels, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateWorkloadUpdateWorkloadOperation")}, fn.AddNest("Labels")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -2022,6 +2040,7 @@ func (r *Workload) urlNormalized() *Workload {
 	normalized.Name = dcl.SelfLinkToName(r.Name)
 	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.BillingAccount = dcl.SelfLinkToName(r.BillingAccount)
+	normalized.PartnerServicesBillingAccount = dcl.SelfLinkToName(r.PartnerServicesBillingAccount)
 	normalized.ProvisionedResourcesParent = dcl.SelfLinkToName(r.ProvisionedResourcesParent)
 	normalized.Organization = dcl.SelfLinkToName(r.Organization)
 	normalized.Location = dcl.SelfLinkToName(r.Location)
@@ -2092,6 +2111,9 @@ func expandWorkload(c *Client, f *Workload) (map[string]interface{}, error) {
 	if v := f.BillingAccount; dcl.ValueShouldBeSent(v) {
 		m["billingAccount"] = v
 	}
+	if v := f.PartnerServicesBillingAccount; dcl.ValueShouldBeSent(v) {
+		m["partnerServicesBillingAccount"] = v
+	}
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
@@ -2154,6 +2176,7 @@ func flattenWorkload(c *Client, i interface{}, res *Workload) *Workload {
 	resultRes.ComplianceRegime = flattenWorkloadComplianceRegimeEnum(m["complianceRegime"])
 	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
 	resultRes.BillingAccount = dcl.FlattenString(m["billingAccount"])
+	resultRes.PartnerServicesBillingAccount = dcl.FlattenString(m["partnerServicesBillingAccount"])
 	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
 	resultRes.ProvisionedResourcesParent = dcl.FlattenSecretValue(m["provisionedResourcesParent"])
 	resultRes.KmsSettings = flattenWorkloadKmsSettings(c, m["kmsSettings"], res)

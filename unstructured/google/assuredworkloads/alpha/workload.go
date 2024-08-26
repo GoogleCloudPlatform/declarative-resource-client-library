@@ -124,6 +124,9 @@ func WorkloadToUnstructured(r *dclService.Workload) *unstructured.Resource {
 		}
 		u.Object["partnerPermissions"] = rPartnerPermissions
 	}
+	if r.PartnerServicesBillingAccount != nil {
+		u.Object["partnerServicesBillingAccount"] = *r.PartnerServicesBillingAccount
+	}
 	if r.ProvisionedResourcesParent != nil {
 		u.Object["provisionedResourcesParent"] = *r.ProvisionedResourcesParent
 	}
@@ -372,6 +375,13 @@ func UnstructuredToWorkload(u *unstructured.Resource) (*dclService.Workload, err
 			}
 		} else {
 			return nil, fmt.Errorf("r.PartnerPermissions: expected map[string]interface{}")
+		}
+	}
+	if _, ok := u.Object["partnerServicesBillingAccount"]; ok {
+		if s, ok := u.Object["partnerServicesBillingAccount"].(string); ok {
+			r.PartnerServicesBillingAccount = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.PartnerServicesBillingAccount: expected string")
 		}
 	}
 	if _, ok := u.Object["provisionedResourcesParent"]; ok {

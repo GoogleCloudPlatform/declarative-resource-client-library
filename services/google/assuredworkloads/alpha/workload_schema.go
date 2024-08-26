@@ -129,7 +129,7 @@ func DCLWorkloadSchema() *dcl.Schema {
 								Type:        "string",
 								GoName:      "ComplianceRegime",
 								GoType:      "WorkloadComplianceRegimeEnum",
-								Description: "Required. Immutable. Compliance Regime associated with this workload. Possible values: COMPLIANCE_REGIME_UNSPECIFIED, IL4, CJIS, FEDRAMP_HIGH, FEDRAMP_MODERATE, US_REGIONAL_ACCESS, HIPAA, HITRUST, EU_REGIONS_AND_SUPPORT, CA_REGIONS_AND_SUPPORT, ITAR, AU_REGIONS_AND_US_SUPPORT, ASSURED_WORKLOADS_FOR_PARTNERS, ISR_REGIONS, ISR_REGIONS_AND_SUPPORT, CA_PROTECTED_B, IL5, IL2, JP_REGIONS_AND_SUPPORT",
+								Description: "Required. Immutable. Compliance Regime associated with this workload. Possible values: COMPLIANCE_REGIME_UNSPECIFIED, IL4, CJIS, FEDRAMP_HIGH, FEDRAMP_MODERATE, US_REGIONAL_ACCESS, HIPAA, HITRUST, EU_REGIONS_AND_SUPPORT, CA_REGIONS_AND_SUPPORT, ITAR, AU_REGIONS_AND_US_SUPPORT, ASSURED_WORKLOADS_FOR_PARTNERS, ISR_REGIONS, ISR_REGIONS_AND_SUPPORT, CA_PROTECTED_B, IL5, IL2, JP_REGIONS_AND_SUPPORT, KSA_REGIONS_AND_SUPPORT_WITH_SOVEREIGNTY_CONTROLS, REGIONAL_CONTROLS",
 								Immutable:   true,
 								Enum: []string{
 									"COMPLIANCE_REGIME_UNSPECIFIED",
@@ -151,6 +151,8 @@ func DCLWorkloadSchema() *dcl.Schema {
 									"IL5",
 									"IL2",
 									"JP_REGIONS_AND_SUPPORT",
+									"KSA_REGIONS_AND_SUPPORT_WITH_SOVEREIGNTY_CONTROLS",
+									"REGIONAL_CONTROLS",
 								},
 							},
 							"complianceStatus": &dcl.Property{
@@ -352,7 +354,7 @@ func DCLWorkloadSchema() *dcl.Schema {
 								Type:        "string",
 								GoName:      "Partner",
 								GoType:      "WorkloadPartnerEnum",
-								Description: "Optional. Partner regime associated with this workload. Possible values: PARTNER_UNSPECIFIED, LOCAL_CONTROLS_BY_S3NS, SOVEREIGN_CONTROLS_BY_T_SYSTEMS, SOVEREIGN_CONTROLS_BY_SIA_MINSAIT, SOVEREIGN_CONTROLS_BY_PSN",
+								Description: "Optional. Partner regime associated with this workload. Possible values: PARTNER_UNSPECIFIED, LOCAL_CONTROLS_BY_S3NS, SOVEREIGN_CONTROLS_BY_T_SYSTEMS, SOVEREIGN_CONTROLS_BY_SIA_MINSAIT, SOVEREIGN_CONTROLS_BY_PSN, SOVEREIGN_CONTROLS_BY_CNTXT, SOVEREIGN_CONTROLS_BY_CNTXT_NO_EKM",
 								Immutable:   true,
 								Enum: []string{
 									"PARTNER_UNSPECIFIED",
@@ -360,6 +362,8 @@ func DCLWorkloadSchema() *dcl.Schema {
 									"SOVEREIGN_CONTROLS_BY_T_SYSTEMS",
 									"SOVEREIGN_CONTROLS_BY_SIA_MINSAIT",
 									"SOVEREIGN_CONTROLS_BY_PSN",
+									"SOVEREIGN_CONTROLS_BY_CNTXT",
+									"SOVEREIGN_CONTROLS_BY_CNTXT_NO_EKM",
 								},
 							},
 							"partnerPermissions": &dcl.Property{
@@ -388,6 +392,13 @@ func DCLWorkloadSchema() *dcl.Schema {
 										Immutable:   true,
 									},
 								},
+							},
+							"partnerServicesBillingAccount": &dcl.Property{
+								Type:        "string",
+								GoName:      "PartnerServicesBillingAccount",
+								Description: "Optional. Input only. Billing account necessary for purchasing services from Sovereign Partners. This field is required for creating SIA/PSN/CNTXT partner workloads. The caller should have 'billing.resourceAssociations.create' IAM permission on this billing-account. The format of this string is billingAccounts/AAAAAA-BBBBBB-CCCCCC.",
+								Immutable:   true,
+								Unreadable:  true,
 							},
 							"provisionedResourcesParent": &dcl.Property{
 								Type:        "string",

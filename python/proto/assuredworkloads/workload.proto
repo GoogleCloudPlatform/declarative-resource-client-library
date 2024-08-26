@@ -51,6 +51,8 @@ enum AssuredworkloadsWorkloadComplianceRegimeEnum {
   AssuredworkloadsWorkloadComplianceRegimeEnumIL5 = 17;
   AssuredworkloadsWorkloadComplianceRegimeEnumIL2 = 18;
   AssuredworkloadsWorkloadComplianceRegimeEnumJP_REGIONS_AND_SUPPORT = 19;
+  AssuredworkloadsWorkloadComplianceRegimeEnumKSA_REGIONS_AND_SUPPORT_WITH_SOVEREIGNTY_CONTROLS = 20;
+  AssuredworkloadsWorkloadComplianceRegimeEnumREGIONAL_CONTROLS = 21;
 }
 
 enum AssuredworkloadsWorkloadResourceSettingsResourceTypeEnum {
@@ -92,6 +94,8 @@ enum AssuredworkloadsWorkloadPartnerEnum {
   AssuredworkloadsWorkloadPartnerEnumSOVEREIGN_CONTROLS_BY_T_SYSTEMS = 3;
   AssuredworkloadsWorkloadPartnerEnumSOVEREIGN_CONTROLS_BY_SIA_MINSAIT = 4;
   AssuredworkloadsWorkloadPartnerEnumSOVEREIGN_CONTROLS_BY_PSN = 5;
+  AssuredworkloadsWorkloadPartnerEnumSOVEREIGN_CONTROLS_BY_CNTXT = 6;
+  AssuredworkloadsWorkloadPartnerEnumSOVEREIGN_CONTROLS_BY_CNTXT_NO_EKM = 7;
 }
 
 enum AssuredworkloadsWorkloadEkmProvisioningResponseEkmProvisioningStateEnum {
@@ -127,21 +131,22 @@ message AssuredworkloadsWorkload {
   AssuredworkloadsWorkloadComplianceRegimeEnum compliance_regime = 4;
   string create_time = 5;
   string billing_account = 6;
-  map<string, string> labels = 7;
-  string provisioned_resources_parent = 8;
-  AssuredworkloadsWorkloadKmsSettings kms_settings = 9;
-  repeated AssuredworkloadsWorkloadResourceSettings resource_settings = 10;
-  AssuredworkloadsWorkloadKajEnrollmentStateEnum kaj_enrollment_state = 11;
-  bool enable_sovereign_controls = 12;
-  AssuredworkloadsWorkloadSaaEnrollmentResponse saa_enrollment_response = 13;
-  AssuredworkloadsWorkloadComplianceStatus compliance_status = 14;
-  repeated string compliant_but_disallowed_services = 15;
-  AssuredworkloadsWorkloadPartnerEnum partner = 16;
-  AssuredworkloadsWorkloadPartnerPermissions partner_permissions = 17;
-  AssuredworkloadsWorkloadEkmProvisioningResponse ekm_provisioning_response = 18;
-  bool violation_notifications_enabled = 19;
-  string organization = 20;
-  string location = 21;
+  string partner_services_billing_account = 7;
+  map<string, string> labels = 8;
+  string provisioned_resources_parent = 9;
+  AssuredworkloadsWorkloadKmsSettings kms_settings = 10;
+  repeated AssuredworkloadsWorkloadResourceSettings resource_settings = 11;
+  AssuredworkloadsWorkloadKajEnrollmentStateEnum kaj_enrollment_state = 12;
+  bool enable_sovereign_controls = 13;
+  AssuredworkloadsWorkloadSaaEnrollmentResponse saa_enrollment_response = 14;
+  AssuredworkloadsWorkloadComplianceStatus compliance_status = 15;
+  repeated string compliant_but_disallowed_services = 16;
+  AssuredworkloadsWorkloadPartnerEnum partner = 17;
+  AssuredworkloadsWorkloadPartnerPermissions partner_permissions = 18;
+  AssuredworkloadsWorkloadEkmProvisioningResponse ekm_provisioning_response = 19;
+  bool violation_notifications_enabled = 20;
+  string organization = 21;
+  string location = 22;
 }
 
 message AssuredworkloadsWorkloadResources {

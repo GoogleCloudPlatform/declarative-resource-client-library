@@ -244,6 +244,7 @@ func ProtoToWorkload(p *assuredworkloadspb.AssuredworkloadsWorkload) *assuredwor
 		ComplianceRegime:              ProtoToAssuredworkloadsWorkloadComplianceRegimeEnum(p.GetComplianceRegime()),
 		CreateTime:                    dcl.StringOrNil(p.GetCreateTime()),
 		BillingAccount:                dcl.StringOrNil(p.GetBillingAccount()),
+		PartnerServicesBillingAccount: dcl.StringOrNil(p.GetPartnerServicesBillingAccount()),
 		ProvisionedResourcesParent:    dcl.StringOrNil(p.GetProvisionedResourcesParent()),
 		KmsSettings:                   ProtoToAssuredworkloadsWorkloadKmsSettings(p.GetKmsSettings()),
 		KajEnrollmentState:            ProtoToAssuredworkloadsWorkloadKajEnrollmentStateEnum(p.GetKajEnrollmentState()),
@@ -479,6 +480,7 @@ func WorkloadToProto(resource *assuredworkloads.Workload) *assuredworkloadspb.As
 	p.SetComplianceRegime(AssuredworkloadsWorkloadComplianceRegimeEnumToProto(resource.ComplianceRegime))
 	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
 	p.SetBillingAccount(dcl.ValueOrEmptyString(resource.BillingAccount))
+	p.SetPartnerServicesBillingAccount(dcl.ValueOrEmptyString(resource.PartnerServicesBillingAccount))
 	p.SetProvisionedResourcesParent(dcl.ValueOrEmptyString(resource.ProvisionedResourcesParent))
 	p.SetKmsSettings(AssuredworkloadsWorkloadKmsSettingsToProto(resource.KmsSettings))
 	p.SetKajEnrollmentState(AssuredworkloadsWorkloadKajEnrollmentStateEnumToProto(resource.KajEnrollmentState))

@@ -11,25 +11,19 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-name: basic_workload
-description: A basic test of a assuredworkloads api
+name: split_billing_partner_workload
+description: A Split Billing Enabled partner workload test of the assuredworkloads
+  api
 type: workload
 versions:
 - beta
-resource: samples/basic.workload.json
-updates:
-- resource: samples/update.workload.json
-  dependencies: []
+resource: samples/split_billing_partner.workload.json
 variables:
 - name: billing_account
   type: billing_account
 - name: display
   type: resource_name
-- name: name
-  type: resource_name
 - name: org_id
   type: org_id
-- name: region
-  type: region
 - name: ring
   type: resource_name
