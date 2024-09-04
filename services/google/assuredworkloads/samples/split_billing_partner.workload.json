@@ -4,7 +4,7 @@
   "displayName": "{{display}}",
   "complianceRegime": "ASSURED_WORKLOADS_FOR_PARTNERS",
   "billingAccount": "billingAccounts/{{billing_account}}",
-  "partnerServicesBillingAccount": "billingAccounts/01BF3F-2C6DE5-30C607",
+  "partnerServicesBillingAccount": "billingAccounts/{{partner_services_billing_account}}",
   "labels": {
     "label-one": "value-one"
   },
