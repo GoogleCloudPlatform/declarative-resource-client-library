@@ -11,9 +11,10 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-syntax = "proto3";
+edition = "2023";
 // All generated protos should be opaque, with "xxx_hidden_" prepended to their field names.
 
+option features.field_presence = IMPLICIT;
 
 package dcl;
 
