@@ -56,6 +56,12 @@ enum ContainerawsBetaNodePoolStateEnum {
   ContainerawsBetaNodePoolStateEnumDEGRADED = 7;
 }
 
+enum ContainerawsBetaNodePoolKubeletConfigCpuManagerPolicyEnum {
+  ContainerawsBetaNodePoolKubeletConfigCpuManagerPolicyEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerawsBetaNodePoolKubeletConfigCpuManagerPolicyEnumnone = 1;
+  ContainerawsBetaNodePoolKubeletConfigCpuManagerPolicyEnumstatic = 2;
+}
+
 message ContainerawsBetaNodePool {
   string name = 1;
   string version = 2;
@@ -71,10 +77,11 @@ message ContainerawsBetaNodePool {
   map<string, string> annotations = 12;
   ContainerawsBetaNodePoolMaxPodsConstraint max_pods_constraint = 13;
   ContainerawsBetaNodePoolManagement management = 14;
-  ContainerawsBetaNodePoolUpdateSettings update_settings = 15;
-  string project = 16;
-  string location = 17;
-  string cluster = 18;
+  ContainerawsBetaNodePoolKubeletConfig kubelet_config = 15;
+  ContainerawsBetaNodePoolUpdateSettings update_settings = 16;
+  string project = 17;
+  string location = 18;
+  string cluster = 19;
 }
 
 message ContainerawsBetaNodePoolConfig {
@@ -145,6 +152,13 @@ message ContainerawsBetaNodePoolMaxPodsConstraint {
 
 message ContainerawsBetaNodePoolManagement {
   bool auto_repair = 1;
+}
+
+message ContainerawsBetaNodePoolKubeletConfig {
+  ContainerawsBetaNodePoolKubeletConfigCpuManagerPolicyEnum cpu_manager_policy = 1;
+  bool cpu_cfs_quota = 2;
+  string cpu_cfs_quota_period = 3;
+  int64 pod_pids_limit = 4;
 }
 
 message ContainerawsBetaNodePoolUpdateSettings {

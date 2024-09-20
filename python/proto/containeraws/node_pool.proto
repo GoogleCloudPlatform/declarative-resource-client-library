@@ -48,6 +48,12 @@ enum ContainerawsNodePoolStateEnum {
   ContainerawsNodePoolStateEnumDEGRADED = 7;
 }
 
+enum ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnum {
+  ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnumNO_VALUE_DO_NOT_USE = 0;
+  ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnumnone = 1;
+  ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnumstatic = 2;
+}
+
 message ContainerawsNodePool {
   string name = 1;
   string version = 2;
@@ -63,10 +69,11 @@ message ContainerawsNodePool {
   map<string, string> annotations = 12;
   ContainerawsNodePoolMaxPodsConstraint max_pods_constraint = 13;
   ContainerawsNodePoolManagement management = 14;
-  ContainerawsNodePoolUpdateSettings update_settings = 15;
-  string project = 16;
-  string location = 17;
-  string cluster = 18;
+  ContainerawsNodePoolKubeletConfig kubelet_config = 15;
+  ContainerawsNodePoolUpdateSettings update_settings = 16;
+  string project = 17;
+  string location = 18;
+  string cluster = 19;
 }
 
 message ContainerawsNodePoolConfig {
@@ -126,6 +133,13 @@ message ContainerawsNodePoolMaxPodsConstraint {
 
 message ContainerawsNodePoolManagement {
   bool auto_repair = 1;
+}
+
+message ContainerawsNodePoolKubeletConfig {
+  ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnum cpu_manager_policy = 1;
+  bool cpu_cfs_quota = 2;
+  string cpu_cfs_quota_period = 3;
+  int64 pod_pids_limit = 4;
 }
 
 message ContainerawsNodePoolUpdateSettings {

@@ -35,6 +35,7 @@ class NodePool(object):
         annotations: dict = None,
         max_pods_constraint: dict = None,
         management: dict = None,
+        kubelet_config: dict = None,
         update_settings: dict = None,
         project: str = None,
         location: str = None,
@@ -51,6 +52,7 @@ class NodePool(object):
         self.annotations = annotations
         self.max_pods_constraint = max_pods_constraint
         self.management = management
+        self.kubelet_config = kubelet_config
         self.update_settings = update_settings
         self.project = project
         self.location = location
@@ -94,6 +96,12 @@ class NodePool(object):
             )
         else:
             request.resource.ClearField("management")
+        if NodePoolKubeletConfig.to_proto(self.kubelet_config):
+            request.resource.kubelet_config.CopyFrom(
+                NodePoolKubeletConfig.to_proto(self.kubelet_config)
+            )
+        else:
+            request.resource.ClearField("kubelet_config")
         if NodePoolUpdateSettings.to_proto(self.update_settings):
             request.resource.update_settings.CopyFrom(
                 NodePoolUpdateSettings.to_proto(self.update_settings)
@@ -128,6 +136,7 @@ class NodePool(object):
             response.max_pods_constraint
         )
         self.management = NodePoolManagement.from_proto(response.management)
+        self.kubelet_config = NodePoolKubeletConfig.from_proto(response.kubelet_config)
         self.update_settings = NodePoolUpdateSettings.from_proto(
             response.update_settings
         )
@@ -173,6 +182,12 @@ class NodePool(object):
             )
         else:
             request.resource.ClearField("management")
+        if NodePoolKubeletConfig.to_proto(self.kubelet_config):
+            request.resource.kubelet_config.CopyFrom(
+                NodePoolKubeletConfig.to_proto(self.kubelet_config)
+            )
+        else:
+            request.resource.ClearField("kubelet_config")
         if NodePoolUpdateSettings.to_proto(self.update_settings):
             request.resource.update_settings.CopyFrom(
                 NodePoolUpdateSettings.to_proto(self.update_settings)
@@ -233,6 +248,12 @@ class NodePool(object):
             resource.management.CopyFrom(NodePoolManagement.to_proto(self.management))
         else:
             resource.ClearField("management")
+        if NodePoolKubeletConfig.to_proto(self.kubelet_config):
+            resource.kubelet_config.CopyFrom(
+                NodePoolKubeletConfig.to_proto(self.kubelet_config)
+            )
+        else:
+            resource.ClearField("kubelet_config")
         if NodePoolUpdateSettings.to_proto(self.update_settings):
             resource.update_settings.CopyFrom(
                 NodePoolUpdateSettings.to_proto(self.update_settings)
@@ -752,6 +773,67 @@ class NodePoolManagementArray(object):
         return [NodePoolManagement.from_proto(i) for i in resources]
 
 
+class NodePoolKubeletConfig(object):
+
+    def __init__(
+        self,
+        cpu_manager_policy: str = None,
+        cpu_cfs_quota: bool = None,
+        cpu_cfs_quota_period: str = None,
+        pod_pids_limit: int = None,
+    ):
+        self.cpu_manager_policy = cpu_manager_policy
+        self.cpu_cfs_quota = cpu_cfs_quota
+        self.cpu_cfs_quota_period = cpu_cfs_quota_period
+        self.pod_pids_limit = pod_pids_limit
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = node_pool_pb2.ContainerawsNodePoolKubeletConfig()
+        if NodePoolKubeletConfigCpuManagerPolicyEnum.to_proto(
+            resource.cpu_manager_policy
+        ):
+            res.cpu_manager_policy = NodePoolKubeletConfigCpuManagerPolicyEnum.to_proto(
+                resource.cpu_manager_policy
+            )
+        if Primitive.to_proto(resource.cpu_cfs_quota):
+            res.cpu_cfs_quota = Primitive.to_proto(resource.cpu_cfs_quota)
+        if Primitive.to_proto(resource.cpu_cfs_quota_period):
+            res.cpu_cfs_quota_period = Primitive.to_proto(resource.cpu_cfs_quota_period)
+        if Primitive.to_proto(resource.pod_pids_limit):
+            res.pod_pids_limit = Primitive.to_proto(resource.pod_pids_limit)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return NodePoolKubeletConfig(
+            cpu_manager_policy=NodePoolKubeletConfigCpuManagerPolicyEnum.from_proto(
+                resource.cpu_manager_policy
+            ),
+            cpu_cfs_quota=Primitive.from_proto(resource.cpu_cfs_quota),
+            cpu_cfs_quota_period=Primitive.from_proto(resource.cpu_cfs_quota_period),
+            pod_pids_limit=Primitive.from_proto(resource.pod_pids_limit),
+        )
+
+
+class NodePoolKubeletConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [NodePoolKubeletConfig.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [NodePoolKubeletConfig.from_proto(i) for i in resources]
+
+
 class NodePoolUpdateSettings(object):
 
     def __init__(self, surge_settings: dict = None):
@@ -888,6 +970,26 @@ class NodePoolStateEnum(object):
         return node_pool_pb2.ContainerawsNodePoolStateEnum.Name(resource)[
             len("ContainerawsNodePoolStateEnum") :
         ]
+
+
+class NodePoolKubeletConfigCpuManagerPolicyEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return (
+            node_pool_pb2.ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnum.Value(
+                "ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnum%s" % resource
+            )
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return node_pool_pb2.ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnum.Name(
+            resource
+        )[len("ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnum") :]
 
 
 class Primitive(object):

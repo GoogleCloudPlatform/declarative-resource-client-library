@@ -157,6 +157,22 @@ func NodePoolToUnstructured(r *dclService.NodePool) *unstructured.Resource {
 	if r.Etag != nil {
 		u.Object["etag"] = *r.Etag
 	}
+	if r.KubeletConfig != nil && r.KubeletConfig != dclService.EmptyNodePoolKubeletConfig {
+		rKubeletConfig := make(map[string]interface{})
+		if r.KubeletConfig.CpuCfsQuota != nil {
+			rKubeletConfig["cpuCfsQuota"] = *r.KubeletConfig.CpuCfsQuota
+		}
+		if r.KubeletConfig.CpuCfsQuotaPeriod != nil {
+			rKubeletConfig["cpuCfsQuotaPeriod"] = *r.KubeletConfig.CpuCfsQuotaPeriod
+		}
+		if r.KubeletConfig.CpuManagerPolicy != nil {
+			rKubeletConfig["cpuManagerPolicy"] = string(*r.KubeletConfig.CpuManagerPolicy)
+		}
+		if r.KubeletConfig.PodPidsLimit != nil {
+			rKubeletConfig["podPidsLimit"] = *r.KubeletConfig.PodPidsLimit
+		}
+		u.Object["kubeletConfig"] = rKubeletConfig
+	}
 	if r.Location != nil {
 		u.Object["location"] = *r.Location
 	}
@@ -477,6 +493,41 @@ func UnstructuredToNodePool(u *unstructured.Resource) (*dclService.NodePool, err
 			r.Etag = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.Etag: expected string")
+		}
+	}
+	if _, ok := u.Object["kubeletConfig"]; ok {
+		if rKubeletConfig, ok := u.Object["kubeletConfig"].(map[string]interface{}); ok {
+			r.KubeletConfig = &dclService.NodePoolKubeletConfig{}
+			if _, ok := rKubeletConfig["cpuCfsQuota"]; ok {
+				if b, ok := rKubeletConfig["cpuCfsQuota"].(bool); ok {
+					r.KubeletConfig.CpuCfsQuota = dcl.Bool(b)
+				} else {
+					return nil, fmt.Errorf("r.KubeletConfig.CpuCfsQuota: expected bool")
+				}
+			}
+			if _, ok := rKubeletConfig["cpuCfsQuotaPeriod"]; ok {
+				if s, ok := rKubeletConfig["cpuCfsQuotaPeriod"].(string); ok {
+					r.KubeletConfig.CpuCfsQuotaPeriod = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.KubeletConfig.CpuCfsQuotaPeriod: expected string")
+				}
+			}
+			if _, ok := rKubeletConfig["cpuManagerPolicy"]; ok {
+				if s, ok := rKubeletConfig["cpuManagerPolicy"].(string); ok {
+					r.KubeletConfig.CpuManagerPolicy = dclService.NodePoolKubeletConfigCpuManagerPolicyEnumRef(s)
+				} else {
+					return nil, fmt.Errorf("r.KubeletConfig.CpuManagerPolicy: expected string")
+				}
+			}
+			if _, ok := rKubeletConfig["podPidsLimit"]; ok {
+				if i, ok := rKubeletConfig["podPidsLimit"].(int64); ok {
+					r.KubeletConfig.PodPidsLimit = dcl.Int64(i)
+				} else {
+					return nil, fmt.Errorf("r.KubeletConfig.PodPidsLimit: expected int64")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.KubeletConfig: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["location"]; ok {

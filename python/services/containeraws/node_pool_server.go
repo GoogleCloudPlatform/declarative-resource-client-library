@@ -60,6 +60,18 @@ func ProtoToContainerawsNodePoolStateEnum(e containerawspb.ContainerawsNodePoolS
 	return nil
 }
 
+// ProtoToNodePoolKubeletConfigCpuManagerPolicyEnum converts a NodePoolKubeletConfigCpuManagerPolicyEnum enum from its proto representation.
+func ProtoToContainerawsNodePoolKubeletConfigCpuManagerPolicyEnum(e containerawspb.ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnum) *containeraws.NodePoolKubeletConfigCpuManagerPolicyEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := containerawspb.ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnum_name[int32(e)]; ok {
+		e := containeraws.NodePoolKubeletConfigCpuManagerPolicyEnum(n[len("ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToNodePoolConfig converts a NodePoolConfig object from its proto representation.
 func ProtoToContainerawsNodePoolConfig(p *containerawspb.ContainerawsNodePoolConfig) *containeraws.NodePoolConfig {
 	if p == nil {
@@ -193,6 +205,20 @@ func ProtoToContainerawsNodePoolManagement(p *containerawspb.ContainerawsNodePoo
 	return obj
 }
 
+// ProtoToNodePoolKubeletConfig converts a NodePoolKubeletConfig object from its proto representation.
+func ProtoToContainerawsNodePoolKubeletConfig(p *containerawspb.ContainerawsNodePoolKubeletConfig) *containeraws.NodePoolKubeletConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &containeraws.NodePoolKubeletConfig{
+		CpuManagerPolicy:  ProtoToContainerawsNodePoolKubeletConfigCpuManagerPolicyEnum(p.GetCpuManagerPolicy()),
+		CpuCfsQuota:       dcl.Bool(p.GetCpuCfsQuota()),
+		CpuCfsQuotaPeriod: dcl.StringOrNil(p.GetCpuCfsQuotaPeriod()),
+		PodPidsLimit:      dcl.Int64OrNil(p.GetPodPidsLimit()),
+	}
+	return obj
+}
+
 // ProtoToNodePoolUpdateSettings converts a NodePoolUpdateSettings object from its proto representation.
 func ProtoToContainerawsNodePoolUpdateSettings(p *containerawspb.ContainerawsNodePoolUpdateSettings) *containeraws.NodePoolUpdateSettings {
 	if p == nil {
@@ -232,6 +258,7 @@ func ProtoToNodePool(p *containerawspb.ContainerawsNodePool) *containeraws.NodeP
 		Etag:              dcl.StringOrNil(p.GetEtag()),
 		MaxPodsConstraint: ProtoToContainerawsNodePoolMaxPodsConstraint(p.GetMaxPodsConstraint()),
 		Management:        ProtoToContainerawsNodePoolManagement(p.GetManagement()),
+		KubeletConfig:     ProtoToContainerawsNodePoolKubeletConfig(p.GetKubeletConfig()),
 		UpdateSettings:    ProtoToContainerawsNodePoolUpdateSettings(p.GetUpdateSettings()),
 		Project:           dcl.StringOrNil(p.GetProject()),
 		Location:          dcl.StringOrNil(p.GetLocation()),
@@ -271,6 +298,17 @@ func ContainerawsNodePoolStateEnumToProto(e *containeraws.NodePoolStateEnum) con
 		return containerawspb.ContainerawsNodePoolStateEnum(v)
 	}
 	return containerawspb.ContainerawsNodePoolStateEnum(0)
+}
+
+// NodePoolKubeletConfigCpuManagerPolicyEnumToProto converts a NodePoolKubeletConfigCpuManagerPolicyEnum enum to its proto representation.
+func ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnumToProto(e *containeraws.NodePoolKubeletConfigCpuManagerPolicyEnum) containerawspb.ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnum {
+	if e == nil {
+		return containerawspb.ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnum(0)
+	}
+	if v, ok := containerawspb.ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnum_value["NodePoolKubeletConfigCpuManagerPolicyEnum"+string(*e)]; ok {
+		return containerawspb.ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnum(v)
+	}
+	return containerawspb.ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnum(0)
 }
 
 // NodePoolConfigToProto converts a NodePoolConfig object to its proto representation.
@@ -412,6 +450,19 @@ func ContainerawsNodePoolManagementToProto(o *containeraws.NodePoolManagement) *
 	return p
 }
 
+// NodePoolKubeletConfigToProto converts a NodePoolKubeletConfig object to its proto representation.
+func ContainerawsNodePoolKubeletConfigToProto(o *containeraws.NodePoolKubeletConfig) *containerawspb.ContainerawsNodePoolKubeletConfig {
+	if o == nil {
+		return nil
+	}
+	p := &containerawspb.ContainerawsNodePoolKubeletConfig{}
+	p.SetCpuManagerPolicy(ContainerawsNodePoolKubeletConfigCpuManagerPolicyEnumToProto(o.CpuManagerPolicy))
+	p.SetCpuCfsQuota(dcl.ValueOrEmptyBool(o.CpuCfsQuota))
+	p.SetCpuCfsQuotaPeriod(dcl.ValueOrEmptyString(o.CpuCfsQuotaPeriod))
+	p.SetPodPidsLimit(dcl.ValueOrEmptyInt64(o.PodPidsLimit))
+	return p
+}
+
 // NodePoolUpdateSettingsToProto converts a NodePoolUpdateSettings object to its proto representation.
 func ContainerawsNodePoolUpdateSettingsToProto(o *containeraws.NodePoolUpdateSettings) *containerawspb.ContainerawsNodePoolUpdateSettings {
 	if o == nil {
@@ -449,6 +500,7 @@ func NodePoolToProto(resource *containeraws.NodePool) *containerawspb.Containera
 	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetMaxPodsConstraint(ContainerawsNodePoolMaxPodsConstraintToProto(resource.MaxPodsConstraint))
 	p.SetManagement(ContainerawsNodePoolManagementToProto(resource.Management))
+	p.SetKubeletConfig(ContainerawsNodePoolKubeletConfigToProto(resource.KubeletConfig))
 	p.SetUpdateSettings(ContainerawsNodePoolUpdateSettingsToProto(resource.UpdateSettings))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))

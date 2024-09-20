@@ -72,6 +72,18 @@ func ProtoToContainerawsBetaNodePoolStateEnum(e betapb.ContainerawsBetaNodePoolS
 	return nil
 }
 
+// ProtoToNodePoolKubeletConfigCpuManagerPolicyEnum converts a NodePoolKubeletConfigCpuManagerPolicyEnum enum from its proto representation.
+func ProtoToContainerawsBetaNodePoolKubeletConfigCpuManagerPolicyEnum(e betapb.ContainerawsBetaNodePoolKubeletConfigCpuManagerPolicyEnum) *beta.NodePoolKubeletConfigCpuManagerPolicyEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := betapb.ContainerawsBetaNodePoolKubeletConfigCpuManagerPolicyEnum_name[int32(e)]; ok {
+		e := beta.NodePoolKubeletConfigCpuManagerPolicyEnum(n[len("ContainerawsBetaNodePoolKubeletConfigCpuManagerPolicyEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToNodePoolConfig converts a NodePoolConfig object from its proto representation.
 func ProtoToContainerawsBetaNodePoolConfig(p *betapb.ContainerawsBetaNodePoolConfig) *beta.NodePoolConfig {
 	if p == nil {
@@ -231,6 +243,20 @@ func ProtoToContainerawsBetaNodePoolManagement(p *betapb.ContainerawsBetaNodePoo
 	return obj
 }
 
+// ProtoToNodePoolKubeletConfig converts a NodePoolKubeletConfig object from its proto representation.
+func ProtoToContainerawsBetaNodePoolKubeletConfig(p *betapb.ContainerawsBetaNodePoolKubeletConfig) *beta.NodePoolKubeletConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.NodePoolKubeletConfig{
+		CpuManagerPolicy:  ProtoToContainerawsBetaNodePoolKubeletConfigCpuManagerPolicyEnum(p.GetCpuManagerPolicy()),
+		CpuCfsQuota:       dcl.Bool(p.GetCpuCfsQuota()),
+		CpuCfsQuotaPeriod: dcl.StringOrNil(p.GetCpuCfsQuotaPeriod()),
+		PodPidsLimit:      dcl.Int64OrNil(p.GetPodPidsLimit()),
+	}
+	return obj
+}
+
 // ProtoToNodePoolUpdateSettings converts a NodePoolUpdateSettings object from its proto representation.
 func ProtoToContainerawsBetaNodePoolUpdateSettings(p *betapb.ContainerawsBetaNodePoolUpdateSettings) *beta.NodePoolUpdateSettings {
 	if p == nil {
@@ -270,6 +296,7 @@ func ProtoToNodePool(p *betapb.ContainerawsBetaNodePool) *beta.NodePool {
 		Etag:              dcl.StringOrNil(p.GetEtag()),
 		MaxPodsConstraint: ProtoToContainerawsBetaNodePoolMaxPodsConstraint(p.GetMaxPodsConstraint()),
 		Management:        ProtoToContainerawsBetaNodePoolManagement(p.GetManagement()),
+		KubeletConfig:     ProtoToContainerawsBetaNodePoolKubeletConfig(p.GetKubeletConfig()),
 		UpdateSettings:    ProtoToContainerawsBetaNodePoolUpdateSettings(p.GetUpdateSettings()),
 		Project:           dcl.StringOrNil(p.GetProject()),
 		Location:          dcl.StringOrNil(p.GetLocation()),
@@ -320,6 +347,17 @@ func ContainerawsBetaNodePoolStateEnumToProto(e *beta.NodePoolStateEnum) betapb.
 		return betapb.ContainerawsBetaNodePoolStateEnum(v)
 	}
 	return betapb.ContainerawsBetaNodePoolStateEnum(0)
+}
+
+// NodePoolKubeletConfigCpuManagerPolicyEnumToProto converts a NodePoolKubeletConfigCpuManagerPolicyEnum enum to its proto representation.
+func ContainerawsBetaNodePoolKubeletConfigCpuManagerPolicyEnumToProto(e *beta.NodePoolKubeletConfigCpuManagerPolicyEnum) betapb.ContainerawsBetaNodePoolKubeletConfigCpuManagerPolicyEnum {
+	if e == nil {
+		return betapb.ContainerawsBetaNodePoolKubeletConfigCpuManagerPolicyEnum(0)
+	}
+	if v, ok := betapb.ContainerawsBetaNodePoolKubeletConfigCpuManagerPolicyEnum_value["NodePoolKubeletConfigCpuManagerPolicyEnum"+string(*e)]; ok {
+		return betapb.ContainerawsBetaNodePoolKubeletConfigCpuManagerPolicyEnum(v)
+	}
+	return betapb.ContainerawsBetaNodePoolKubeletConfigCpuManagerPolicyEnum(0)
 }
 
 // NodePoolConfigToProto converts a NodePoolConfig object to its proto representation.
@@ -488,6 +526,19 @@ func ContainerawsBetaNodePoolManagementToProto(o *beta.NodePoolManagement) *beta
 	return p
 }
 
+// NodePoolKubeletConfigToProto converts a NodePoolKubeletConfig object to its proto representation.
+func ContainerawsBetaNodePoolKubeletConfigToProto(o *beta.NodePoolKubeletConfig) *betapb.ContainerawsBetaNodePoolKubeletConfig {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ContainerawsBetaNodePoolKubeletConfig{}
+	p.SetCpuManagerPolicy(ContainerawsBetaNodePoolKubeletConfigCpuManagerPolicyEnumToProto(o.CpuManagerPolicy))
+	p.SetCpuCfsQuota(dcl.ValueOrEmptyBool(o.CpuCfsQuota))
+	p.SetCpuCfsQuotaPeriod(dcl.ValueOrEmptyString(o.CpuCfsQuotaPeriod))
+	p.SetPodPidsLimit(dcl.ValueOrEmptyInt64(o.PodPidsLimit))
+	return p
+}
+
 // NodePoolUpdateSettingsToProto converts a NodePoolUpdateSettings object to its proto representation.
 func ContainerawsBetaNodePoolUpdateSettingsToProto(o *beta.NodePoolUpdateSettings) *betapb.ContainerawsBetaNodePoolUpdateSettings {
 	if o == nil {
@@ -525,6 +576,7 @@ func NodePoolToProto(resource *beta.NodePool) *betapb.ContainerawsBetaNodePool {
 	p.SetEtag(dcl.ValueOrEmptyString(resource.Etag))
 	p.SetMaxPodsConstraint(ContainerawsBetaNodePoolMaxPodsConstraintToProto(resource.MaxPodsConstraint))
 	p.SetManagement(ContainerawsBetaNodePoolManagementToProto(resource.Management))
+	p.SetKubeletConfig(ContainerawsBetaNodePoolKubeletConfigToProto(resource.KubeletConfig))
 	p.SetUpdateSettings(ContainerawsBetaNodePoolUpdateSettingsToProto(resource.UpdateSettings))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 	p.SetLocation(dcl.ValueOrEmptyString(resource.Location))
