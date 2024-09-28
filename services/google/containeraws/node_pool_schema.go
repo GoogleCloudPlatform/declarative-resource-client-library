@@ -423,11 +423,12 @@ func DCLNodePoolSchema() *dcl.Schema {
 								Immutable:   true,
 							},
 							"kubeletConfig": &dcl.Property{
-								Type:        "object",
-								GoName:      "KubeletConfig",
-								GoType:      "NodePoolKubeletConfig",
-								Description: "The kubelet configuration for the node pool.",
-								Immutable:   true,
+								Type:          "object",
+								GoName:        "KubeletConfig",
+								GoType:        "NodePoolKubeletConfig",
+								Description:   "The kubelet configuration for the node pool.",
+								Immutable:     true,
+								ServerDefault: true,
 								Properties: map[string]*dcl.Property{
 									"cpuCfsQuota": &dcl.Property{
 										Type:          "boolean",

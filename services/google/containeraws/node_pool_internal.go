@@ -2563,7 +2563,7 @@ func diffNodePool(c *Client, desired, actual *NodePool, opts ...dcl.ApplyOption)
 		newDiffs = append(newDiffs, ds...)
 	}
 
-	if ds, err := dcl.Diff(desired.KubeletConfig, actual.KubeletConfig, dcl.DiffInfo{ObjectFunction: compareNodePoolKubeletConfigNewStyle, EmptyObject: EmptyNodePoolKubeletConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KubeletConfig")); len(ds) != 0 || err != nil {
+	if ds, err := dcl.Diff(desired.KubeletConfig, actual.KubeletConfig, dcl.DiffInfo{ServerDefault: true, ObjectFunction: compareNodePoolKubeletConfigNewStyle, EmptyObject: EmptyNodePoolKubeletConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KubeletConfig")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}

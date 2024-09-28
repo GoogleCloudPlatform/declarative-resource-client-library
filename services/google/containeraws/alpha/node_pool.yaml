@@ -419,6 +419,7 @@ components:
           x-dcl-go-type: NodePoolKubeletConfig
           description: The kubelet configuration for the node pool.
           x-kubernetes-immutable: true
+          x-dcl-server-default: true
           properties:
             cpuCfsQuota:
               type: boolean
