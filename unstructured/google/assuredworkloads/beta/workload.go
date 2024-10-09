@@ -172,6 +172,13 @@ func WorkloadToUnstructured(r *dclService.Workload) *unstructured.Resource {
 	if r.ViolationNotificationsEnabled != nil {
 		u.Object["violationNotificationsEnabled"] = *r.ViolationNotificationsEnabled
 	}
+	if r.WorkloadOptions != nil && r.WorkloadOptions != dclService.EmptyWorkloadWorkloadOptions {
+		rWorkloadOptions := make(map[string]interface{})
+		if r.WorkloadOptions.KajEnrollmentType != nil {
+			rWorkloadOptions["kajEnrollmentType"] = string(*r.WorkloadOptions.KajEnrollmentType)
+		}
+		u.Object["workloadOptions"] = rWorkloadOptions
+	}
 	return u
 }
 
@@ -480,6 +487,20 @@ func UnstructuredToWorkload(u *unstructured.Resource) (*dclService.Workload, err
 			r.ViolationNotificationsEnabled = dcl.Bool(b)
 		} else {
 			return nil, fmt.Errorf("r.ViolationNotificationsEnabled: expected bool")
+		}
+	}
+	if _, ok := u.Object["workloadOptions"]; ok {
+		if rWorkloadOptions, ok := u.Object["workloadOptions"].(map[string]interface{}); ok {
+			r.WorkloadOptions = &dclService.WorkloadWorkloadOptions{}
+			if _, ok := rWorkloadOptions["kajEnrollmentType"]; ok {
+				if s, ok := rWorkloadOptions["kajEnrollmentType"].(string); ok {
+					r.WorkloadOptions.KajEnrollmentType = dclService.WorkloadWorkloadOptionsKajEnrollmentTypeEnumRef(s)
+				} else {
+					return nil, fmt.Errorf("r.WorkloadOptions.KajEnrollmentType: expected string")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.WorkloadOptions: expected map[string]interface{}")
 		}
 	}
 	return r, nil

@@ -43,6 +43,7 @@ type Workload struct {
 	CompliantButDisallowedServices []string                         `json:"compliantButDisallowedServices"`
 	Partner                        *WorkloadPartnerEnum             `json:"partner"`
 	PartnerPermissions             *WorkloadPartnerPermissions      `json:"partnerPermissions"`
+	WorkloadOptions                *WorkloadWorkloadOptions         `json:"workloadOptions"`
 	EkmProvisioningResponse        *WorkloadEkmProvisioningResponse `json:"ekmProvisioningResponse"`
 	ViolationNotificationsEnabled  *bool                            `json:"violationNotificationsEnabled"`
 	Organization                   *string                          `json:"organization"`
@@ -237,6 +238,33 @@ func (v WorkloadPartnerEnum) Validate() error {
 	}
 	return &dcl.EnumInvalidError{
 		Enum:  "WorkloadPartnerEnum",
+		Value: string(v),
+		Valid: []string{},
+	}
+}
+
+// The enum WorkloadWorkloadOptionsKajEnrollmentTypeEnum.
+type WorkloadWorkloadOptionsKajEnrollmentTypeEnum string
+
+// WorkloadWorkloadOptionsKajEnrollmentTypeEnumRef returns a *WorkloadWorkloadOptionsKajEnrollmentTypeEnum with the value of string s
+// If the empty string is provided, nil is returned.
+func WorkloadWorkloadOptionsKajEnrollmentTypeEnumRef(s string) *WorkloadWorkloadOptionsKajEnrollmentTypeEnum {
+	v := WorkloadWorkloadOptionsKajEnrollmentTypeEnum(s)
+	return &v
+}
+
+func (v WorkloadWorkloadOptionsKajEnrollmentTypeEnum) Validate() error {
+	if string(v) == "" {
+		// Empty enum is okay.
+		return nil
+	}
+	for _, s := range []string{"KAJ_ENROLLMENT_TYPE_UNSPECIFIED", "FULL_KAJ", "EKM_ONLY", "KEY_ACCESS_TRANSPARENCY_OFF"} {
+		if string(v) == s {
+			return nil
+		}
+	}
+	return &dcl.EnumInvalidError{
+		Enum:  "WorkloadWorkloadOptionsKajEnrollmentTypeEnum",
 		Value: string(v),
 		Valid: []string{},
 	}
@@ -623,6 +651,52 @@ func (r *WorkloadPartnerPermissions) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
+type WorkloadWorkloadOptions struct {
+	empty             bool                                          `json:"-"`
+	KajEnrollmentType *WorkloadWorkloadOptionsKajEnrollmentTypeEnum `json:"kajEnrollmentType"`
+}
+
+type jsonWorkloadWorkloadOptions WorkloadWorkloadOptions
+
+func (r *WorkloadWorkloadOptions) UnmarshalJSON(data []byte) error {
+	var res jsonWorkloadWorkloadOptions
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkloadWorkloadOptions
+	} else {
+
+		r.KajEnrollmentType = res.KajEnrollmentType
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this WorkloadWorkloadOptions is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyWorkloadWorkloadOptions *WorkloadWorkloadOptions = &WorkloadWorkloadOptions{empty: true}
+
+func (r *WorkloadWorkloadOptions) Empty() bool {
+	return r.empty
+}
+
+func (r *WorkloadWorkloadOptions) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *WorkloadWorkloadOptions) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 type WorkloadEkmProvisioningResponse struct {
 	empty                       bool                                                            `json:"-"`
 	EkmProvisioningState        *WorkloadEkmProvisioningResponseEkmProvisioningStateEnum        `json:"ekmProvisioningState"`
@@ -709,6 +783,7 @@ func (r *Workload) ID() (string, error) {
 		"compliant_but_disallowed_services": dcl.ValueOrEmptyString(nr.CompliantButDisallowedServices),
 		"partner":                           dcl.ValueOrEmptyString(nr.Partner),
 		"partner_permissions":               dcl.ValueOrEmptyString(nr.PartnerPermissions),
+		"workload_options":                  dcl.ValueOrEmptyString(nr.WorkloadOptions),
 		"ekm_provisioning_response":         dcl.ValueOrEmptyString(nr.EkmProvisioningResponse),
 		"violation_notifications_enabled":   dcl.ValueOrEmptyString(nr.ViolationNotificationsEnabled),
 		"organization":                      dcl.ValueOrEmptyString(nr.Organization),

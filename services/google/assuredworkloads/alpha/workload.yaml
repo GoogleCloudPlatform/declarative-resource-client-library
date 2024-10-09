@@ -494,3 +494,28 @@ components:
             call will not be honored. This will always be true while creating the
             workload.
           x-kubernetes-immutable: true
+        workloadOptions:
+          type: object
+          x-dcl-go-name: WorkloadOptions
+          x-dcl-go-type: WorkloadWorkloadOptions
+          description: Optional. Used to specify certain options for a workload during
+            workload creation - currently only supporting KAT Optionality for Regional
+            Controls workloads.
+          x-kubernetes-immutable: true
+          x-dcl-mutable-unreadable: true
+          properties:
+            kajEnrollmentType:
+              type: string
+              x-dcl-go-name: KajEnrollmentType
+              x-dcl-go-type: WorkloadWorkloadOptionsKajEnrollmentTypeEnum
+              description: 'Indicates type of KAJ enrollment for the workload. Currently,
+                only specifiying KEY_ACCESS_TRANSPARENCY_OFF is implemented to not
+                enroll in KAT-level KAJ enrollment for Regional Controls workloads.
+                Possible values: KAJ_ENROLLMENT_TYPE_UNSPECIFIED, FULL_KAJ, EKM_ONLY,
+                KEY_ACCESS_TRANSPARENCY_OFF'
+              x-kubernetes-immutable: true
+              enum:
+              - KAJ_ENROLLMENT_TYPE_UNSPECIFIED
+              - FULL_KAJ
+              - EKM_ONLY
+              - KEY_ACCESS_TRANSPARENCY_OFF

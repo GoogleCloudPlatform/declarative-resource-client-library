@@ -101,6 +101,14 @@ enum AssuredworkloadsAlphaWorkloadPartnerEnum {
   AssuredworkloadsAlphaWorkloadPartnerEnumSOVEREIGN_CONTROLS_BY_CNTXT_NO_EKM = 7;
 }
 
+enum AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnum {
+  AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnumNO_VALUE_DO_NOT_USE = 0;
+  AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnumKAJ_ENROLLMENT_TYPE_UNSPECIFIED = 1;
+  AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnumFULL_KAJ = 2;
+  AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnumEKM_ONLY = 3;
+  AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnumKEY_ACCESS_TRANSPARENCY_OFF = 4;
+}
+
 enum AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningStateEnum {
   AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningStateEnumNO_VALUE_DO_NOT_USE = 0;
   AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningStateEnumEKM_PROVISIONING_STATE_UNSPECIFIED = 1;
@@ -146,10 +154,11 @@ message AssuredworkloadsAlphaWorkload {
   repeated string compliant_but_disallowed_services = 16;
   AssuredworkloadsAlphaWorkloadPartnerEnum partner = 17;
   AssuredworkloadsAlphaWorkloadPartnerPermissions partner_permissions = 18;
-  AssuredworkloadsAlphaWorkloadEkmProvisioningResponse ekm_provisioning_response = 19;
-  bool violation_notifications_enabled = 20;
-  string organization = 21;
-  string location = 22;
+  AssuredworkloadsAlphaWorkloadWorkloadOptions workload_options = 19;
+  AssuredworkloadsAlphaWorkloadEkmProvisioningResponse ekm_provisioning_response = 20;
+  bool violation_notifications_enabled = 21;
+  string organization = 22;
+  string location = 23;
 }
 
 message AssuredworkloadsAlphaWorkloadResources {
@@ -182,6 +191,10 @@ message AssuredworkloadsAlphaWorkloadPartnerPermissions {
   bool data_logs_viewer = 1;
   bool service_access_approver = 2;
   bool assured_workloads_monitoring = 3;
+}
+
+message AssuredworkloadsAlphaWorkloadWorkloadOptions {
+  AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnum kaj_enrollment_type = 1;
 }
 
 message AssuredworkloadsAlphaWorkloadEkmProvisioningResponse {

@@ -108,6 +108,18 @@ func ProtoToAssuredworkloadsAlphaWorkloadPartnerEnum(e alphapb.AssuredworkloadsA
 	return nil
 }
 
+// ProtoToWorkloadWorkloadOptionsKajEnrollmentTypeEnum converts a WorkloadWorkloadOptionsKajEnrollmentTypeEnum enum from its proto representation.
+func ProtoToAssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnum(e alphapb.AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnum) *alpha.WorkloadWorkloadOptionsKajEnrollmentTypeEnum {
+	if e == 0 {
+		return nil
+	}
+	if n, ok := alphapb.AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnum_name[int32(e)]; ok {
+		e := alpha.WorkloadWorkloadOptionsKajEnrollmentTypeEnum(n[len("AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnum"):])
+		return &e
+	}
+	return nil
+}
+
 // ProtoToWorkloadEkmProvisioningResponseEkmProvisioningStateEnum converts a WorkloadEkmProvisioningResponseEkmProvisioningStateEnum enum from its proto representation.
 func ProtoToAssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningStateEnum(e alphapb.AssuredworkloadsAlphaWorkloadEkmProvisioningResponseEkmProvisioningStateEnum) *alpha.WorkloadEkmProvisioningResponseEkmProvisioningStateEnum {
 	if e == 0 {
@@ -223,6 +235,17 @@ func ProtoToAssuredworkloadsAlphaWorkloadPartnerPermissions(p *alphapb.Assuredwo
 	return obj
 }
 
+// ProtoToWorkloadWorkloadOptions converts a WorkloadWorkloadOptions object from its proto representation.
+func ProtoToAssuredworkloadsAlphaWorkloadWorkloadOptions(p *alphapb.AssuredworkloadsAlphaWorkloadWorkloadOptions) *alpha.WorkloadWorkloadOptions {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkloadWorkloadOptions{
+		KajEnrollmentType: ProtoToAssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnum(p.GetKajEnrollmentType()),
+	}
+	return obj
+}
+
 // ProtoToWorkloadEkmProvisioningResponse converts a WorkloadEkmProvisioningResponse object from its proto representation.
 func ProtoToAssuredworkloadsAlphaWorkloadEkmProvisioningResponse(p *alphapb.AssuredworkloadsAlphaWorkloadEkmProvisioningResponse) *alpha.WorkloadEkmProvisioningResponse {
 	if p == nil {
@@ -253,6 +276,7 @@ func ProtoToWorkload(p *alphapb.AssuredworkloadsAlphaWorkload) *alpha.Workload {
 		ComplianceStatus:              ProtoToAssuredworkloadsAlphaWorkloadComplianceStatus(p.GetComplianceStatus()),
 		Partner:                       ProtoToAssuredworkloadsAlphaWorkloadPartnerEnum(p.GetPartner()),
 		PartnerPermissions:            ProtoToAssuredworkloadsAlphaWorkloadPartnerPermissions(p.GetPartnerPermissions()),
+		WorkloadOptions:               ProtoToAssuredworkloadsAlphaWorkloadWorkloadOptions(p.GetWorkloadOptions()),
 		EkmProvisioningResponse:       ProtoToAssuredworkloadsAlphaWorkloadEkmProvisioningResponse(p.GetEkmProvisioningResponse()),
 		ViolationNotificationsEnabled: dcl.Bool(p.GetViolationNotificationsEnabled()),
 		Organization:                  dcl.StringOrNil(p.GetOrganization()),
@@ -345,6 +369,17 @@ func AssuredworkloadsAlphaWorkloadPartnerEnumToProto(e *alpha.WorkloadPartnerEnu
 		return alphapb.AssuredworkloadsAlphaWorkloadPartnerEnum(v)
 	}
 	return alphapb.AssuredworkloadsAlphaWorkloadPartnerEnum(0)
+}
+
+// WorkloadWorkloadOptionsKajEnrollmentTypeEnumToProto converts a WorkloadWorkloadOptionsKajEnrollmentTypeEnum enum to its proto representation.
+func AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnumToProto(e *alpha.WorkloadWorkloadOptionsKajEnrollmentTypeEnum) alphapb.AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnum {
+	if e == nil {
+		return alphapb.AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnum(0)
+	}
+	if v, ok := alphapb.AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnum_value["WorkloadWorkloadOptionsKajEnrollmentTypeEnum"+string(*e)]; ok {
+		return alphapb.AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnum(v)
+	}
+	return alphapb.AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnum(0)
 }
 
 // WorkloadEkmProvisioningResponseEkmProvisioningStateEnumToProto converts a WorkloadEkmProvisioningResponseEkmProvisioningStateEnum enum to its proto representation.
@@ -460,6 +495,16 @@ func AssuredworkloadsAlphaWorkloadPartnerPermissionsToProto(o *alpha.WorkloadPar
 	return p
 }
 
+// WorkloadWorkloadOptionsToProto converts a WorkloadWorkloadOptions object to its proto representation.
+func AssuredworkloadsAlphaWorkloadWorkloadOptionsToProto(o *alpha.WorkloadWorkloadOptions) *alphapb.AssuredworkloadsAlphaWorkloadWorkloadOptions {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.AssuredworkloadsAlphaWorkloadWorkloadOptions{}
+	p.SetKajEnrollmentType(AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnumToProto(o.KajEnrollmentType))
+	return p
+}
+
 // WorkloadEkmProvisioningResponseToProto converts a WorkloadEkmProvisioningResponse object to its proto representation.
 func AssuredworkloadsAlphaWorkloadEkmProvisioningResponseToProto(o *alpha.WorkloadEkmProvisioningResponse) *alphapb.AssuredworkloadsAlphaWorkloadEkmProvisioningResponse {
 	if o == nil {
@@ -489,6 +534,7 @@ func WorkloadToProto(resource *alpha.Workload) *alphapb.AssuredworkloadsAlphaWor
 	p.SetComplianceStatus(AssuredworkloadsAlphaWorkloadComplianceStatusToProto(resource.ComplianceStatus))
 	p.SetPartner(AssuredworkloadsAlphaWorkloadPartnerEnumToProto(resource.Partner))
 	p.SetPartnerPermissions(AssuredworkloadsAlphaWorkloadPartnerPermissionsToProto(resource.PartnerPermissions))
+	p.SetWorkloadOptions(AssuredworkloadsAlphaWorkloadWorkloadOptionsToProto(resource.WorkloadOptions))
 	p.SetEkmProvisioningResponse(AssuredworkloadsAlphaWorkloadEkmProvisioningResponseToProto(resource.EkmProvisioningResponse))
 	p.SetViolationNotificationsEnabled(dcl.ValueOrEmptyBool(resource.ViolationNotificationsEnabled))
 	p.SetOrganization(dcl.ValueOrEmptyString(resource.Organization))

@@ -41,6 +41,7 @@ class Workload(object):
         compliant_but_disallowed_services: list = None,
         partner: str = None,
         partner_permissions: dict = None,
+        workload_options: dict = None,
         ekm_provisioning_response: dict = None,
         violation_notifications_enabled: bool = None,
         organization: str = None,
@@ -61,6 +62,7 @@ class Workload(object):
         self.enable_sovereign_controls = enable_sovereign_controls
         self.partner = partner
         self.partner_permissions = partner_permissions
+        self.workload_options = workload_options
         self.violation_notifications_enabled = violation_notifications_enabled
         self.organization = organization
         self.location = location
@@ -122,6 +124,12 @@ class Workload(object):
             )
         else:
             request.resource.ClearField("partner_permissions")
+        if WorkloadWorkloadOptions.to_proto(self.workload_options):
+            request.resource.workload_options.CopyFrom(
+                WorkloadWorkloadOptions.to_proto(self.workload_options)
+            )
+        else:
+            request.resource.ClearField("workload_options")
         if Primitive.to_proto(self.violation_notifications_enabled):
             request.resource.violation_notifications_enabled = Primitive.to_proto(
                 self.violation_notifications_enabled
@@ -173,6 +181,9 @@ class Workload(object):
         self.partner = WorkloadPartnerEnum.from_proto(response.partner)
         self.partner_permissions = WorkloadPartnerPermissions.from_proto(
             response.partner_permissions
+        )
+        self.workload_options = WorkloadWorkloadOptions.from_proto(
+            response.workload_options
         )
         self.ekm_provisioning_response = WorkloadEkmProvisioningResponse.from_proto(
             response.ekm_provisioning_response
@@ -240,6 +251,12 @@ class Workload(object):
             )
         else:
             request.resource.ClearField("partner_permissions")
+        if WorkloadWorkloadOptions.to_proto(self.workload_options):
+            request.resource.workload_options.CopyFrom(
+                WorkloadWorkloadOptions.to_proto(self.workload_options)
+            )
+        else:
+            request.resource.ClearField("workload_options")
         if Primitive.to_proto(self.violation_notifications_enabled):
             request.resource.violation_notifications_enabled = Primitive.to_proto(
                 self.violation_notifications_enabled
@@ -310,6 +327,12 @@ class Workload(object):
             )
         else:
             resource.ClearField("partner_permissions")
+        if WorkloadWorkloadOptions.to_proto(self.workload_options):
+            resource.workload_options.CopyFrom(
+                WorkloadWorkloadOptions.to_proto(self.workload_options)
+            )
+        else:
+            resource.ClearField("workload_options")
         if Primitive.to_proto(self.violation_notifications_enabled):
             resource.violation_notifications_enabled = Primitive.to_proto(
                 self.violation_notifications_enabled
@@ -625,6 +648,51 @@ class WorkloadPartnerPermissionsArray(object):
         return [WorkloadPartnerPermissions.from_proto(i) for i in resources]
 
 
+class WorkloadWorkloadOptions(object):
+
+    def __init__(self, kaj_enrollment_type: str = None):
+        self.kaj_enrollment_type = kaj_enrollment_type
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = workload_pb2.AssuredworkloadsAlphaWorkloadWorkloadOptions()
+        if WorkloadWorkloadOptionsKajEnrollmentTypeEnum.to_proto(
+            resource.kaj_enrollment_type
+        ):
+            res.kaj_enrollment_type = (
+                WorkloadWorkloadOptionsKajEnrollmentTypeEnum.to_proto(
+                    resource.kaj_enrollment_type
+                )
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkloadWorkloadOptions(
+            kaj_enrollment_type=WorkloadWorkloadOptionsKajEnrollmentTypeEnum.from_proto(
+                resource.kaj_enrollment_type
+            ),
+        )
+
+
+class WorkloadWorkloadOptionsArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [WorkloadWorkloadOptions.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [WorkloadWorkloadOptions.from_proto(i) for i in resources]
+
+
 class WorkloadEkmProvisioningResponse(object):
 
     def __init__(
@@ -832,6 +900,27 @@ class WorkloadPartnerEnum(object):
             return resource
         return workload_pb2.AssuredworkloadsAlphaWorkloadPartnerEnum.Name(resource)[
             len("AssuredworkloadsAlphaWorkloadPartnerEnum") :
+        ]
+
+
+class WorkloadWorkloadOptionsKajEnrollmentTypeEnum(object):
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return resource
+        return workload_pb2.AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnum.Value(
+            "AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnum%s"
+            % resource
+        )
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return resource
+        return workload_pb2.AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnum.Name(
+            resource
+        )[
+            len("AssuredworkloadsAlphaWorkloadWorkloadOptionsKajEnrollmentTypeEnum") :
         ]
 
 
