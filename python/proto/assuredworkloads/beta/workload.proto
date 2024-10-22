@@ -56,6 +56,7 @@ enum AssuredworkloadsBetaWorkloadComplianceRegimeEnum {
   AssuredworkloadsBetaWorkloadComplianceRegimeEnumREGIONAL_CONTROLS = 21;
   AssuredworkloadsBetaWorkloadComplianceRegimeEnumHEALTHCARE_AND_LIFE_SCIENCES_CONTROLS = 22;
   AssuredworkloadsBetaWorkloadComplianceRegimeEnumHEALTHCARE_AND_LIFE_SCIENCES_CONTROLS_WITH_US_SUPPORT = 23;
+  AssuredworkloadsBetaWorkloadComplianceRegimeEnumIRS_1075 = 24;
 }
 
 enum AssuredworkloadsBetaWorkloadResourceSettingsResourceTypeEnum {

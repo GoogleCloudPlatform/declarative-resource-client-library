@@ -56,6 +56,7 @@ enum AssuredworkloadsAlphaWorkloadComplianceRegimeEnum {
   AssuredworkloadsAlphaWorkloadComplianceRegimeEnumREGIONAL_CONTROLS = 21;
   AssuredworkloadsAlphaWorkloadComplianceRegimeEnumHEALTHCARE_AND_LIFE_SCIENCES_CONTROLS = 22;
   AssuredworkloadsAlphaWorkloadComplianceRegimeEnumHEALTHCARE_AND_LIFE_SCIENCES_CONTROLS_WITH_US_SUPPORT = 23;
+  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumIRS_1075 = 24;
 }
 
 enum AssuredworkloadsAlphaWorkloadResourceSettingsResourceTypeEnum {
