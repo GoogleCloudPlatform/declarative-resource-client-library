@@ -165,6 +165,9 @@ func DCLWorkerPoolSchema() *dcl.Schema {
 								GoType:      "WorkerPoolNetworkConfig",
 								Description: "Network configuration for the `WorkerPool`.",
 								Immutable:   true,
+								Conflicts: []string{
+									"privateServiceConnect",
+								},
 								Required: []string{
 									"peeredNetwork",
 								},
@@ -185,6 +188,39 @@ func DCLWorkerPoolSchema() *dcl.Schema {
 										Type:        "string",
 										GoName:      "PeeredNetworkIPRange",
 										Description: "Optional. Immutable. Subnet IP range within the peered network. This is specified in CIDR notation with a slash and the subnet prefix size. You can optionally specify an IP address before the subnet prefix value. e.g. `192.168.0.0/29` would specify an IP range starting at 192.168.0.0 with a prefix size of 29 bits. `/16` would specify a prefix size of 16 bits, with an automatically determined IP within the peered VPC. If unspecified, a value of `/24` will be used.",
+										Immutable:   true,
+									},
+								},
+							},
+							"privateServiceConnect": &dcl.Property{
+								Type:        "object",
+								GoName:      "PrivateServiceConnect",
+								GoType:      "WorkerPoolPrivateServiceConnect",
+								Description: "Private Service Connect configuration for the pool.",
+								Immutable:   true,
+								Conflicts: []string{
+									"networkConfig",
+								},
+								Required: []string{
+									"networkAttachment",
+								},
+								Properties: map[string]*dcl.Property{
+									"networkAttachment": &dcl.Property{
+										Type:        "string",
+										GoName:      "NetworkAttachment",
+										Description: "Required. Immutable. The network attachment that the worker network interface is connected to. Must be in the format `projects/{project}/regions/{region}/networkAttachments/{networkAttachment}`. The region of network attachment must be the same as the worker pool. See [Network Attachments](https://cloud.google.com/vpc/docs/about-network-attachments)",
+										Immutable:   true,
+										ResourceReferences: []*dcl.PropertyResourceReference{
+											&dcl.PropertyResourceReference{
+												Resource: "Compute/NetworkAttachment",
+												Field:    "selfLink",
+											},
+										},
+									},
+									"routeAllTraffic": &dcl.Property{
+										Type:        "boolean",
+										GoName:      "RouteAllTraffic",
+										Description: "Immutable. Route all traffic through PSC interface. Enable this if you want full control of traffic in the private pool. Configure Cloud NAT for the subnet of network attachment if you need to access public Internet. If false, Only route private IPs, e.g. 10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16 through PSC interface.",
 										Immutable:   true,
 									},
 								},

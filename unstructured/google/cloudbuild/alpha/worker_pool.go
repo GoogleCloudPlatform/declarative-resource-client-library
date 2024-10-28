@@ -67,6 +67,16 @@ func WorkerPoolToUnstructured(r *dclService.WorkerPool) *unstructured.Resource {
 		}
 		u.Object["networkConfig"] = rNetworkConfig
 	}
+	if r.PrivateServiceConnect != nil && r.PrivateServiceConnect != dclService.EmptyWorkerPoolPrivateServiceConnect {
+		rPrivateServiceConnect := make(map[string]interface{})
+		if r.PrivateServiceConnect.NetworkAttachment != nil {
+			rPrivateServiceConnect["networkAttachment"] = *r.PrivateServiceConnect.NetworkAttachment
+		}
+		if r.PrivateServiceConnect.RouteAllTraffic != nil {
+			rPrivateServiceConnect["routeAllTraffic"] = *r.PrivateServiceConnect.RouteAllTraffic
+		}
+		u.Object["privateServiceConnect"] = rPrivateServiceConnect
+	}
 	if r.Project != nil {
 		u.Object["project"] = *r.Project
 	}
@@ -171,6 +181,27 @@ func UnstructuredToWorkerPool(u *unstructured.Resource) (*dclService.WorkerPool,
 			}
 		} else {
 			return nil, fmt.Errorf("r.NetworkConfig: expected map[string]interface{}")
+		}
+	}
+	if _, ok := u.Object["privateServiceConnect"]; ok {
+		if rPrivateServiceConnect, ok := u.Object["privateServiceConnect"].(map[string]interface{}); ok {
+			r.PrivateServiceConnect = &dclService.WorkerPoolPrivateServiceConnect{}
+			if _, ok := rPrivateServiceConnect["networkAttachment"]; ok {
+				if s, ok := rPrivateServiceConnect["networkAttachment"].(string); ok {
+					r.PrivateServiceConnect.NetworkAttachment = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.PrivateServiceConnect.NetworkAttachment: expected string")
+				}
+			}
+			if _, ok := rPrivateServiceConnect["routeAllTraffic"]; ok {
+				if b, ok := rPrivateServiceConnect["routeAllTraffic"].(bool); ok {
+					r.PrivateServiceConnect.RouteAllTraffic = dcl.Bool(b)
+				} else {
+					return nil, fmt.Errorf("r.PrivateServiceConnect.RouteAllTraffic: expected bool")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.PrivateServiceConnect: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["project"]; ok {

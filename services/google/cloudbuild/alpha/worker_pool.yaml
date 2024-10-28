@@ -128,6 +128,8 @@ components:
           x-dcl-go-type: WorkerPoolNetworkConfig
           description: Network configuration for the `WorkerPool`.
           x-kubernetes-immutable: true
+          x-dcl-conflicts:
+          - privateServiceConnect
           required:
           - peeredNetwork
           properties:
@@ -155,6 +157,37 @@ components:
                 at 192.168.0.0 with a prefix size of 29 bits. `/16` would specify
                 a prefix size of 16 bits, with an automatically determined IP within
                 the peered VPC. If unspecified, a value of `/24` will be used.
+              x-kubernetes-immutable: true
+        privateServiceConnect:
+          type: object
+          x-dcl-go-name: PrivateServiceConnect
+          x-dcl-go-type: WorkerPoolPrivateServiceConnect
+          description: Private Service Connect configuration for the pool.
+          x-kubernetes-immutable: true
+          x-dcl-conflicts:
+          - networkConfig
+          required:
+          - networkAttachment
+          properties:
+            networkAttachment:
+              type: string
+              x-dcl-go-name: NetworkAttachment
+              description: Required. Immutable. The network attachment that the worker
+                network interface is connected to. Must be in the format `projects/{project}/regions/{region}/networkAttachments/{networkAttachment}`.
+                The region of network attachment must be the same as the worker pool.
+                See [Network Attachments](https://cloud.google.com/vpc/docs/about-network-attachments)
+              x-kubernetes-immutable: true
+              x-dcl-references:
+              - resource: Compute/NetworkAttachment
+                field: selfLink
+            routeAllTraffic:
+              type: boolean
+              x-dcl-go-name: RouteAllTraffic
+              description: Immutable. Route all traffic through PSC interface. Enable
+                this if you want full control of traffic in the private pool. Configure
+                Cloud NAT for the subnet of network attachment if you need to access
+                public Internet. If false, Only route private IPs, e.g. 10.0.0.0/8,
+                172.16.0.0/12, and 192.168.0.0/16 through PSC interface.
               x-kubernetes-immutable: true
         project:
           type: string
