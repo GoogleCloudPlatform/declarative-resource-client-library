@@ -172,14 +172,13 @@ components:
                 metricsGcpServiceAccountEmail:
                   type: string
                   x-dcl-go-name: MetricsGcpServiceAccountEmail
-                  description: The Email of the Google Cloud Service Account (GSA)
-                    used for exporting Config Sync metrics to Cloud Monitoring. The
-                    GSA should have the Monitoring Metric Writer(roles/monitoring.metricWriter)
-                    IAM role. The Kubernetes ServiceAccount `default` in the namespace
-                    `config-management-monitoring` should be bound to the GSA.
+                  description: 'Deprecated: If Workload Identity Federation for GKE
+                    is enabled, Google Cloud Service Account is no longer needed for
+                    exporting Config Sync metrics: https://cloud.google.com/kubernetes-engine/enterprise/config-sync/docs/how-to/monitor-config-sync-cloud-monitoring#custom-monitoring.'
                   x-dcl-references:
                   - resource: Iam/ServiceAccount
                     field: email
+                  x-dcl-deprecated: true
                 oci:
                   type: object
                   x-dcl-go-name: Oci
