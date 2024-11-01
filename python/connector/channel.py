@@ -17,8 +17,6 @@ This is a simple Python app that show how the MMv2 go library can
 use gRPC to communicate with other languages via a minimal C shim.
 """
 
-
-
 import grpc
 
 from proto.connector import connector_pb2
