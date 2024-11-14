@@ -369,6 +369,7 @@ type FeatureMembershipConfigmanagementConfigSync struct {
 	Git                           *FeatureMembershipConfigmanagementConfigSyncGit `json:"git"`
 	SourceFormat                  *string                                         `json:"sourceFormat"`
 	Enabled                       *bool                                           `json:"enabled"`
+	StopSyncing                   *bool                                           `json:"stopSyncing"`
 	PreventDrift                  *bool                                           `json:"preventDrift"`
 	MetricsGcpServiceAccountEmail *string                                         `json:"metricsGcpServiceAccountEmail"`
 	Oci                           *FeatureMembershipConfigmanagementConfigSyncOci `json:"oci"`
@@ -394,6 +395,8 @@ func (r *FeatureMembershipConfigmanagementConfigSync) UnmarshalJSON(data []byte)
 		r.SourceFormat = res.SourceFormat
 
 		r.Enabled = res.Enabled
+
+		r.StopSyncing = res.StopSyncing
 
 		r.PreventDrift = res.PreventDrift
 

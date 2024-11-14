@@ -102,6 +102,9 @@ func FeatureMembershipToUnstructured(r *dclService.FeatureMembership) *unstructu
 			if r.Configmanagement.ConfigSync.SourceFormat != nil {
 				rConfigmanagementConfigSync["sourceFormat"] = *r.Configmanagement.ConfigSync.SourceFormat
 			}
+			if r.Configmanagement.ConfigSync.StopSyncing != nil {
+				rConfigmanagementConfigSync["stopSyncing"] = *r.Configmanagement.ConfigSync.StopSyncing
+			}
 			rConfigmanagement["configSync"] = rConfigmanagementConfigSync
 		}
 		if r.Configmanagement.HierarchyController != nil && r.Configmanagement.HierarchyController != dclService.EmptyFeatureMembershipConfigmanagementHierarchyController {
@@ -465,6 +468,13 @@ func UnstructuredToFeatureMembership(u *unstructured.Resource) (*dclService.Feat
 							r.Configmanagement.ConfigSync.SourceFormat = dcl.String(s)
 						} else {
 							return nil, fmt.Errorf("r.Configmanagement.ConfigSync.SourceFormat: expected string")
+						}
+					}
+					if _, ok := rConfigmanagementConfigSync["stopSyncing"]; ok {
+						if b, ok := rConfigmanagementConfigSync["stopSyncing"].(bool); ok {
+							r.Configmanagement.ConfigSync.StopSyncing = dcl.Bool(b)
+						} else {
+							return nil, fmt.Errorf("r.Configmanagement.ConfigSync.StopSyncing: expected bool")
 						}
 					}
 				} else {

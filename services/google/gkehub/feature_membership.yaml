@@ -225,6 +225,11 @@ components:
                   x-dcl-go-name: SourceFormat
                   description: Specifies whether the Config Sync Repo is in "hierarchical"
                     or "unstructured" mode.
+                stopSyncing:
+                  type: boolean
+                  x-dcl-go-name: StopSyncing
+                  description: 'Set to true to stop syncing configs for a single cluster.
+                    Default: false.'
             hierarchyController:
               type: object
               x-dcl-go-name: HierarchyController

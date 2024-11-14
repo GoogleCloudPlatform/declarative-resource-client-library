@@ -272,6 +272,11 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 												GoName:      "SourceFormat",
 												Description: "Specifies whether the Config Sync Repo is in \"hierarchical\" or \"unstructured\" mode.",
 											},
+											"stopSyncing": &dcl.Property{
+												Type:        "boolean",
+												GoName:      "StopSyncing",
+												Description: "Set to true to stop syncing configs for a single cluster. Default: false.",
+											},
 										},
 									},
 									"hierarchyController": &dcl.Property{

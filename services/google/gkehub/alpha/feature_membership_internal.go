@@ -738,6 +738,11 @@ func canonicalizeFeatureMembershipConfigmanagementConfigSync(des, initial *Featu
 	} else {
 		cDes.Enabled = des.Enabled
 	}
+	if dcl.BoolCanonicalize(des.StopSyncing, initial.StopSyncing) || dcl.IsZeroValue(des.StopSyncing) {
+		cDes.StopSyncing = initial.StopSyncing
+	} else {
+		cDes.StopSyncing = des.StopSyncing
+	}
 	if dcl.BoolCanonicalize(des.PreventDrift, initial.PreventDrift) || dcl.IsZeroValue(des.PreventDrift) {
 		cDes.PreventDrift = initial.PreventDrift
 	} else {
@@ -802,6 +807,9 @@ func canonicalizeNewFeatureMembershipConfigmanagementConfigSync(c *Client, des, 
 	}
 	if dcl.BoolCanonicalize(des.Enabled, nw.Enabled) {
 		nw.Enabled = des.Enabled
+	}
+	if dcl.BoolCanonicalize(des.StopSyncing, nw.StopSyncing) {
+		nw.StopSyncing = des.StopSyncing
 	}
 	if dcl.BoolCanonicalize(des.PreventDrift, nw.PreventDrift) {
 		nw.PreventDrift = des.PreventDrift
@@ -3362,6 +3370,13 @@ func compareFeatureMembershipConfigmanagementConfigSyncNewStyle(d, a interface{}
 		diffs = append(diffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.StopSyncing, actual.StopSyncing, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("StopSyncing")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.PreventDrift, actual.PreventDrift, dcl.DiffInfo{ServerDefault: true, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("PreventDrift")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -4649,6 +4664,9 @@ func expandFeatureMembershipConfigmanagementConfigSync(c *Client, f *FeatureMemb
 	if v := f.Enabled; !dcl.IsEmptyValueIndirect(v) {
 		m["enabled"] = v
 	}
+	if v := f.StopSyncing; !dcl.IsEmptyValueIndirect(v) {
+		m["stopSyncing"] = v
+	}
 	if v := f.PreventDrift; !dcl.IsEmptyValueIndirect(v) {
 		m["preventDrift"] = v
 	}
@@ -4680,6 +4698,7 @@ func flattenFeatureMembershipConfigmanagementConfigSync(c *Client, i interface{}
 	r.Git = flattenFeatureMembershipConfigmanagementConfigSyncGit(c, m["git"], res)
 	r.SourceFormat = dcl.FlattenString(m["sourceFormat"])
 	r.Enabled = dcl.FlattenBool(m["enabled"])
+	r.StopSyncing = dcl.FlattenBool(m["stopSyncing"])
 	r.PreventDrift = dcl.FlattenBool(m["preventDrift"])
 	r.MetricsGcpServiceAccountEmail = dcl.FlattenString(m["metricsGcpServiceAccountEmail"])
 	r.Oci = flattenFeatureMembershipConfigmanagementConfigSyncOci(c, m["oci"], res)

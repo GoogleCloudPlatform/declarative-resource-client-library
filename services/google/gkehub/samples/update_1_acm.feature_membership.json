@@ -17,7 +17,8 @@
       },
       "metricsGcpServiceAccountEmail": "{{ref:second.iam.service_account.json:email}}",
       "sourceFormat": "unstructured",
-      "preventDrift": true
+      "preventDrift": true,
+      "stopSyncing": true
     },
     "policyController": {
       "enabled": false,
