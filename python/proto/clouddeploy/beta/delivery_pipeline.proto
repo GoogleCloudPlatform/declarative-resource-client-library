@@ -91,6 +91,12 @@ message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntime
   string route_update_wait_time = 4;
   string stable_cutback_duration = 5;
   string pod_selector_label = 6;
+  ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations route_destinations = 7;
+}
+
+message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations {
+  repeated string destination_ids = 1;
+  bool propagate_service = 2;
 }
 
 message ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking {

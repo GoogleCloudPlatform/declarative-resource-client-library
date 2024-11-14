@@ -146,6 +146,75 @@ func DCLTargetSchema() *dcl.Schema {
 									},
 								},
 							},
+							"associatedEntities": &dcl.Property{
+								Type: "object",
+								AdditionalProperties: &dcl.Property{
+									Type:   "object",
+									GoType: "TargetAssociatedEntities",
+									Properties: map[string]*dcl.Property{
+										"anthosClusters": &dcl.Property{
+											Type:        "array",
+											GoName:      "AnthosClusters",
+											Description: "Optional. Information specifying Anthos clusters as associated entities.",
+											SendEmpty:   true,
+											ListType:    "list",
+											Items: &dcl.Property{
+												Type:   "object",
+												GoType: "TargetAssociatedEntitiesAnthosClusters",
+												Properties: map[string]*dcl.Property{
+													"membership": &dcl.Property{
+														Type:        "string",
+														GoName:      "Membership",
+														Description: "Optional. Membership of the GKE Hub-registered cluster to which to apply the Skaffold configuration. Format is `projects/{project}/locations/{location}/memberships/{membership_name}`.",
+														ResourceReferences: []*dcl.PropertyResourceReference{
+															&dcl.PropertyResourceReference{
+																Resource: "Gkehub/Membership",
+																Field:    "selfLink",
+															},
+														},
+													},
+												},
+											},
+										},
+										"gkeClusters": &dcl.Property{
+											Type:        "array",
+											GoName:      "GkeClusters",
+											Description: "Optional. Information specifying GKE clusters as associated entities.",
+											SendEmpty:   true,
+											ListType:    "list",
+											Items: &dcl.Property{
+												Type:   "object",
+												GoType: "TargetAssociatedEntitiesGkeClusters",
+												Properties: map[string]*dcl.Property{
+													"cluster": &dcl.Property{
+														Type:        "string",
+														GoName:      "Cluster",
+														Description: "Optional. Information specifying a GKE Cluster. Format is `projects/{project_id}/locations/{location_id}/clusters/{cluster_id}`.",
+														ResourceReferences: []*dcl.PropertyResourceReference{
+															&dcl.PropertyResourceReference{
+																Resource: "Container/Cluster",
+																Field:    "selfLink",
+															},
+														},
+													},
+													"internalIP": &dcl.Property{
+														Type:        "boolean",
+														GoName:      "InternalIP",
+														Description: "Optional. If true, `cluster` is accessed using the private IP address of the control plane endpoint. Otherwise, the default IP address of the control plane endpoint is used. The default IP address is the private IP address for clusters with private control-plane endpoints and the public IP address otherwise. Only specify this option when `cluster` is a [private GKE cluster](https://cloud.google.com/kubernetes-engine/docs/concepts/private-cluster-concept).",
+													},
+													"proxyUrl": &dcl.Property{
+														Type:        "string",
+														GoName:      "ProxyUrl",
+														Description: "Optional. If set, used to configure a [proxy](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/#proxy) to the Kubernetes server.",
+													},
+												},
+											},
+										},
+									},
+								},
+								GoName:      "AssociatedEntities",
+								Description: "Optional. Map of entity IDs to their associated entities. Associated entities allows specifying places other than the deployment target for specific features. For example, the Gateway API canary can be configured to deploy the HTTPRoute to a different cluster(s) than the deployment cluster using associated entities. An entity ID must consist of lower-case letters, numbers, and hyphens, start with a letter and end with a letter or a number, and have a max length of 63 characters. In other words, it must match the following regex: `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.",
+							},
 							"createTime": &dcl.Property{
 								Type:        "string",
 								Format:      "date-time",

@@ -40,6 +40,7 @@ class Target(object):
         multi_target: dict = None,
         deploy_parameters: dict = None,
         custom_target: dict = None,
+        associated_entities: dict = None,
         service_account_file: str = "",
     ):
 
@@ -58,6 +59,7 @@ class Target(object):
         self.multi_target = multi_target
         self.deploy_parameters = deploy_parameters
         self.custom_target = custom_target
+        self.associated_entities = associated_entities
         self.service_account_file = service_account_file
 
     def apply(self):
@@ -121,6 +123,11 @@ class Target(object):
             )
         else:
             request.resource.ClearField("custom_target")
+        if Primitive.to_proto(self.associated_entities):
+            request.resource.associated_entities = Primitive.to_proto(
+                self.associated_entities
+            )
+
         request.service_account_file = self.service_account_file
 
         response = stub.ApplyClouddeployAlphaTarget(request)
@@ -145,6 +152,7 @@ class Target(object):
         self.multi_target = TargetMultiTarget.from_proto(response.multi_target)
         self.deploy_parameters = Primitive.from_proto(response.deploy_parameters)
         self.custom_target = TargetCustomTarget.from_proto(response.custom_target)
+        self.associated_entities = Primitive.from_proto(response.associated_entities)
 
     def delete(self):
         stub = target_pb2_grpc.ClouddeployAlphaTargetServiceStub(channel.Channel())
@@ -208,6 +216,11 @@ class Target(object):
             )
         else:
             request.resource.ClearField("custom_target")
+        if Primitive.to_proto(self.associated_entities):
+            request.resource.associated_entities = Primitive.to_proto(
+                self.associated_entities
+            )
+
         response = stub.DeleteClouddeployAlphaTarget(request)
 
     @classmethod
@@ -269,6 +282,8 @@ class Target(object):
             )
         else:
             resource.ClearField("custom_target")
+        if Primitive.to_proto(self.associated_entities):
+            resource.associated_entities = Primitive.to_proto(self.associated_entities)
         return resource
 
 
@@ -532,6 +547,143 @@ class TargetCustomTargetArray(object):
     @classmethod
     def from_proto(self, resources):
         return [TargetCustomTarget.from_proto(i) for i in resources]
+
+
+class TargetAssociatedEntities(object):
+
+    def __init__(self, gke_clusters: list = None, anthos_clusters: list = None):
+        self.gke_clusters = gke_clusters
+        self.anthos_clusters = anthos_clusters
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = target_pb2.ClouddeployAlphaTargetAssociatedEntities()
+        if TargetAssociatedEntitiesGkeClustersArray.to_proto(resource.gke_clusters):
+            res.gke_clusters.extend(
+                TargetAssociatedEntitiesGkeClustersArray.to_proto(resource.gke_clusters)
+            )
+        if TargetAssociatedEntitiesAnthosClustersArray.to_proto(
+            resource.anthos_clusters
+        ):
+            res.anthos_clusters.extend(
+                TargetAssociatedEntitiesAnthosClustersArray.to_proto(
+                    resource.anthos_clusters
+                )
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return TargetAssociatedEntities(
+            gke_clusters=TargetAssociatedEntitiesGkeClustersArray.from_proto(
+                resource.gke_clusters
+            ),
+            anthos_clusters=TargetAssociatedEntitiesAnthosClustersArray.from_proto(
+                resource.anthos_clusters
+            ),
+        )
+
+
+class TargetAssociatedEntitiesArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [TargetAssociatedEntities.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [TargetAssociatedEntities.from_proto(i) for i in resources]
+
+
+class TargetAssociatedEntitiesGkeClusters(object):
+
+    def __init__(
+        self, cluster: str = None, internal_ip: bool = None, proxy_url: str = None
+    ):
+        self.cluster = cluster
+        self.internal_ip = internal_ip
+        self.proxy_url = proxy_url
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = target_pb2.ClouddeployAlphaTargetAssociatedEntitiesGkeClusters()
+        if Primitive.to_proto(resource.cluster):
+            res.cluster = Primitive.to_proto(resource.cluster)
+        if Primitive.to_proto(resource.internal_ip):
+            res.internal_ip = Primitive.to_proto(resource.internal_ip)
+        if Primitive.to_proto(resource.proxy_url):
+            res.proxy_url = Primitive.to_proto(resource.proxy_url)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return TargetAssociatedEntitiesGkeClusters(
+            cluster=Primitive.from_proto(resource.cluster),
+            internal_ip=Primitive.from_proto(resource.internal_ip),
+            proxy_url=Primitive.from_proto(resource.proxy_url),
+        )
+
+
+class TargetAssociatedEntitiesGkeClustersArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [TargetAssociatedEntitiesGkeClusters.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [TargetAssociatedEntitiesGkeClusters.from_proto(i) for i in resources]
+
+
+class TargetAssociatedEntitiesAnthosClusters(object):
+
+    def __init__(self, membership: str = None):
+        self.membership = membership
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = target_pb2.ClouddeployAlphaTargetAssociatedEntitiesAnthosClusters()
+        if Primitive.to_proto(resource.membership):
+            res.membership = Primitive.to_proto(resource.membership)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return TargetAssociatedEntitiesAnthosClusters(
+            membership=Primitive.from_proto(resource.membership),
+        )
+
+
+class TargetAssociatedEntitiesAnthosClustersArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [TargetAssociatedEntitiesAnthosClusters.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [TargetAssociatedEntitiesAnthosClusters.from_proto(i) for i in resources]
 
 
 class TargetExecutionConfigsUsagesEnum(object):

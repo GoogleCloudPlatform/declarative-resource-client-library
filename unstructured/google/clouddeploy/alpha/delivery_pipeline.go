@@ -246,6 +246,18 @@ func DeliveryPipelineToUnstructured(r *dclService.DeliveryPipeline) *unstructure
 								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.PodSelectorLabel != nil {
 									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["podSelectorLabel"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.PodSelectorLabel
 								}
+								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteDestinations != nil && rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteDestinations != dclService.EmptyDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations {
+									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations := make(map[string]interface{})
+									var rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsDestinationIds []interface{}
+									for _, rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsDestinationIdsVal := range rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteDestinations.DestinationIds {
+										rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsDestinationIds = append(rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsDestinationIds, rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsDestinationIdsVal)
+									}
+									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations["destinationIds"] = rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsDestinationIds
+									if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteDestinations.PropagateService != nil {
+										rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations["propagateService"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteDestinations.PropagateService
+									}
+									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["routeDestinations"] = rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations
+								}
 								if rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteUpdateWaitTime != nil {
 									rSerialPipelineStagesValStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["routeUpdateWaitTime"] = *rSerialPipelineStagesVal.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteUpdateWaitTime
 								}
@@ -763,6 +775,31 @@ func UnstructuredToDeliveryPipeline(u *unstructured.Resource) (*dclService.Deliv
 																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.PodSelectorLabel = dcl.String(s)
 																		} else {
 																			return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.PodSelectorLabel: expected string")
+																		}
+																	}
+																	if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["routeDestinations"]; ok {
+																		if rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["routeDestinations"].(map[string]interface{}); ok {
+																			rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteDestinations = &dclService.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations{}
+																			if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations["destinationIds"]; ok {
+																				if s, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations["destinationIds"].([]interface{}); ok {
+																					for _, ss := range s {
+																						if strval, ok := ss.(string); ok {
+																							rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteDestinations.DestinationIds = append(rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteDestinations.DestinationIds, strval)
+																						}
+																					}
+																				} else {
+																					return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteDestinations.DestinationIds: expected []interface{}")
+																				}
+																			}
+																			if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations["propagateService"]; ok {
+																				if b, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations["propagateService"].(bool); ok {
+																					rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteDestinations.PropagateService = dcl.Bool(b)
+																				} else {
+																					return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteDestinations.PropagateService: expected bool")
+																				}
+																			}
+																		} else {
+																			return nil, fmt.Errorf("rSerialPipelineStages.Strategy.Canary.RuntimeConfig.Kubernetes.GatewayServiceMesh.RouteDestinations: expected map[string]interface{}")
 																		}
 																	}
 																	if _, ok := rSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh["routeUpdateWaitTime"]; ok {

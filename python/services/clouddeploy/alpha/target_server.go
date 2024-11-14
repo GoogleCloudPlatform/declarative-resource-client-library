@@ -112,6 +112,45 @@ func ProtoToClouddeployAlphaTargetCustomTarget(p *alphapb.ClouddeployAlphaTarget
 	return obj
 }
 
+// ProtoToTargetAssociatedEntities converts a TargetAssociatedEntities object from its proto representation.
+func ProtoToClouddeployAlphaTargetAssociatedEntities(p *alphapb.ClouddeployAlphaTargetAssociatedEntities) *alpha.TargetAssociatedEntities {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.TargetAssociatedEntities{}
+	for _, r := range p.GetGkeClusters() {
+		obj.GkeClusters = append(obj.GkeClusters, *ProtoToClouddeployAlphaTargetAssociatedEntitiesGkeClusters(r))
+	}
+	for _, r := range p.GetAnthosClusters() {
+		obj.AnthosClusters = append(obj.AnthosClusters, *ProtoToClouddeployAlphaTargetAssociatedEntitiesAnthosClusters(r))
+	}
+	return obj
+}
+
+// ProtoToTargetAssociatedEntitiesGkeClusters converts a TargetAssociatedEntitiesGkeClusters object from its proto representation.
+func ProtoToClouddeployAlphaTargetAssociatedEntitiesGkeClusters(p *alphapb.ClouddeployAlphaTargetAssociatedEntitiesGkeClusters) *alpha.TargetAssociatedEntitiesGkeClusters {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.TargetAssociatedEntitiesGkeClusters{
+		Cluster:    dcl.StringOrNil(p.GetCluster()),
+		InternalIP: dcl.Bool(p.GetInternalIp()),
+		ProxyUrl:   dcl.StringOrNil(p.GetProxyUrl()),
+	}
+	return obj
+}
+
+// ProtoToTargetAssociatedEntitiesAnthosClusters converts a TargetAssociatedEntitiesAnthosClusters object from its proto representation.
+func ProtoToClouddeployAlphaTargetAssociatedEntitiesAnthosClusters(p *alphapb.ClouddeployAlphaTargetAssociatedEntitiesAnthosClusters) *alpha.TargetAssociatedEntitiesAnthosClusters {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.TargetAssociatedEntitiesAnthosClusters{
+		Membership: dcl.StringOrNil(p.GetMembership()),
+	}
+	return obj
+}
+
 // ProtoToTarget converts a Target resource from its proto representation.
 func ProtoToTarget(p *alphapb.ClouddeployAlphaTarget) *alpha.Target {
 	obj := &alpha.Target{
@@ -223,6 +262,47 @@ func ClouddeployAlphaTargetCustomTargetToProto(o *alpha.TargetCustomTarget) *alp
 	return p
 }
 
+// TargetAssociatedEntitiesToProto converts a TargetAssociatedEntities object to its proto representation.
+func ClouddeployAlphaTargetAssociatedEntitiesToProto(o *alpha.TargetAssociatedEntities) *alphapb.ClouddeployAlphaTargetAssociatedEntities {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ClouddeployAlphaTargetAssociatedEntities{}
+	sGkeClusters := make([]*alphapb.ClouddeployAlphaTargetAssociatedEntitiesGkeClusters, len(o.GkeClusters))
+	for i, r := range o.GkeClusters {
+		sGkeClusters[i] = ClouddeployAlphaTargetAssociatedEntitiesGkeClustersToProto(&r)
+	}
+	p.SetGkeClusters(sGkeClusters)
+	sAnthosClusters := make([]*alphapb.ClouddeployAlphaTargetAssociatedEntitiesAnthosClusters, len(o.AnthosClusters))
+	for i, r := range o.AnthosClusters {
+		sAnthosClusters[i] = ClouddeployAlphaTargetAssociatedEntitiesAnthosClustersToProto(&r)
+	}
+	p.SetAnthosClusters(sAnthosClusters)
+	return p
+}
+
+// TargetAssociatedEntitiesGkeClustersToProto converts a TargetAssociatedEntitiesGkeClusters object to its proto representation.
+func ClouddeployAlphaTargetAssociatedEntitiesGkeClustersToProto(o *alpha.TargetAssociatedEntitiesGkeClusters) *alphapb.ClouddeployAlphaTargetAssociatedEntitiesGkeClusters {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ClouddeployAlphaTargetAssociatedEntitiesGkeClusters{}
+	p.SetCluster(dcl.ValueOrEmptyString(o.Cluster))
+	p.SetInternalIp(dcl.ValueOrEmptyBool(o.InternalIP))
+	p.SetProxyUrl(dcl.ValueOrEmptyString(o.ProxyUrl))
+	return p
+}
+
+// TargetAssociatedEntitiesAnthosClustersToProto converts a TargetAssociatedEntitiesAnthosClusters object to its proto representation.
+func ClouddeployAlphaTargetAssociatedEntitiesAnthosClustersToProto(o *alpha.TargetAssociatedEntitiesAnthosClusters) *alphapb.ClouddeployAlphaTargetAssociatedEntitiesAnthosClusters {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.ClouddeployAlphaTargetAssociatedEntitiesAnthosClusters{}
+	p.SetMembership(dcl.ValueOrEmptyString(o.Membership))
+	return p
+}
+
 // TargetToProto converts a Target resource to its proto representation.
 func TargetToProto(resource *alpha.Target) *alphapb.ClouddeployAlphaTarget {
 	p := &alphapb.ClouddeployAlphaTarget{}
@@ -261,6 +341,11 @@ func TargetToProto(resource *alpha.Target) *alphapb.ClouddeployAlphaTarget {
 		mDeployParameters[k] = r
 	}
 	p.SetDeployParameters(mDeployParameters)
+	mAssociatedEntities := make(map[string]*alphapb.ClouddeployAlphaTargetAssociatedEntities, len(resource.AssociatedEntities))
+	for k, r := range resource.AssociatedEntities {
+		mAssociatedEntities[k] = ClouddeployAlphaTargetAssociatedEntitiesToProto(&r)
+	}
+	p.SetAssociatedEntities(mAssociatedEntities)
 
 	return p
 }

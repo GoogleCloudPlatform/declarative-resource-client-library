@@ -99,6 +99,15 @@ func (r *TargetCustomTarget) validate() error {
 	}
 	return nil
 }
+func (r *TargetAssociatedEntities) validate() error {
+	return nil
+}
+func (r *TargetAssociatedEntitiesGkeClusters) validate() error {
+	return nil
+}
+func (r *TargetAssociatedEntitiesAnthosClusters) validate() error {
+	return nil
+}
 func (r *Target) basePath() string {
 	params := map[string]interface{}{}
 	return dcl.Nprintf("https://clouddeploy.googleapis.com/v1/", params)
@@ -223,6 +232,11 @@ func newUpdateTargetUpdateTargetRequest(ctx context.Context, f *Target, c *Clien
 		return nil, fmt.Errorf("error expanding CustomTarget into customTarget: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		req["customTarget"] = v
+	}
+	if v, err := expandTargetAssociatedEntitiesMap(c, f.AssociatedEntities, res); err != nil {
+		return nil, fmt.Errorf("error expanding AssociatedEntities into associatedEntities: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		req["associatedEntities"] = v
 	}
 	b, err := c.getTargetRaw(ctx, f)
 	if err != nil {
@@ -665,6 +679,12 @@ func canonicalizeTargetDesiredState(rawDesired, rawInitial *Target, opts ...dcl.
 		canonicalDesired.DeployParameters = rawDesired.DeployParameters
 	}
 	canonicalDesired.CustomTarget = canonicalizeTargetCustomTarget(rawDesired.CustomTarget, rawInitial.CustomTarget, opts...)
+	if dcl.IsZeroValue(rawDesired.AssociatedEntities) || (dcl.IsEmptyValueIndirect(rawDesired.AssociatedEntities) && dcl.IsEmptyValueIndirect(rawInitial.AssociatedEntities)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		canonicalDesired.AssociatedEntities = rawInitial.AssociatedEntities
+	} else {
+		canonicalDesired.AssociatedEntities = rawDesired.AssociatedEntities
+	}
 
 	if canonicalDesired.Gke != nil {
 		// Check if anything else is set.
@@ -811,6 +831,11 @@ func canonicalizeTargetNewState(c *Client, rawNew, rawDesired *Target) (*Target,
 		rawNew.CustomTarget = rawDesired.CustomTarget
 	} else {
 		rawNew.CustomTarget = canonicalizeNewTargetCustomTarget(c, rawDesired.CustomTarget, rawNew.CustomTarget)
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.AssociatedEntities) && dcl.IsEmptyValueIndirect(rawDesired.AssociatedEntities) {
+		rawNew.AssociatedEntities = rawDesired.AssociatedEntities
+	} else {
 	}
 
 	return rawNew, nil
@@ -1568,6 +1593,367 @@ func canonicalizeNewTargetCustomTargetSlice(c *Client, des, nw []TargetCustomTar
 	return items
 }
 
+func canonicalizeTargetAssociatedEntities(des, initial *TargetAssociatedEntities, opts ...dcl.ApplyOption) *TargetAssociatedEntities {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &TargetAssociatedEntities{}
+
+	cDes.GkeClusters = canonicalizeTargetAssociatedEntitiesGkeClustersSlice(des.GkeClusters, initial.GkeClusters, opts...)
+	cDes.AnthosClusters = canonicalizeTargetAssociatedEntitiesAnthosClustersSlice(des.AnthosClusters, initial.AnthosClusters, opts...)
+
+	return cDes
+}
+
+func canonicalizeTargetAssociatedEntitiesSlice(des, initial []TargetAssociatedEntities, opts ...dcl.ApplyOption) []TargetAssociatedEntities {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]TargetAssociatedEntities, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeTargetAssociatedEntities(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]TargetAssociatedEntities, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeTargetAssociatedEntities(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewTargetAssociatedEntities(c *Client, des, nw *TargetAssociatedEntities) *TargetAssociatedEntities {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for TargetAssociatedEntities while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	nw.GkeClusters = canonicalizeNewTargetAssociatedEntitiesGkeClustersSlice(c, des.GkeClusters, nw.GkeClusters)
+	nw.AnthosClusters = canonicalizeNewTargetAssociatedEntitiesAnthosClustersSlice(c, des.AnthosClusters, nw.AnthosClusters)
+
+	return nw
+}
+
+func canonicalizeNewTargetAssociatedEntitiesSet(c *Client, des, nw []TargetAssociatedEntities) []TargetAssociatedEntities {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []TargetAssociatedEntities
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareTargetAssociatedEntitiesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewTargetAssociatedEntities(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewTargetAssociatedEntitiesSlice(c *Client, des, nw []TargetAssociatedEntities) []TargetAssociatedEntities {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []TargetAssociatedEntities
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewTargetAssociatedEntities(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeTargetAssociatedEntitiesGkeClusters(des, initial *TargetAssociatedEntitiesGkeClusters, opts ...dcl.ApplyOption) *TargetAssociatedEntitiesGkeClusters {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &TargetAssociatedEntitiesGkeClusters{}
+
+	if dcl.IsZeroValue(des.Cluster) || (dcl.IsEmptyValueIndirect(des.Cluster) && dcl.IsEmptyValueIndirect(initial.Cluster)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.Cluster = initial.Cluster
+	} else {
+		cDes.Cluster = des.Cluster
+	}
+	if dcl.BoolCanonicalize(des.InternalIP, initial.InternalIP) || dcl.IsZeroValue(des.InternalIP) {
+		cDes.InternalIP = initial.InternalIP
+	} else {
+		cDes.InternalIP = des.InternalIP
+	}
+	if dcl.StringCanonicalize(des.ProxyUrl, initial.ProxyUrl) || dcl.IsZeroValue(des.ProxyUrl) {
+		cDes.ProxyUrl = initial.ProxyUrl
+	} else {
+		cDes.ProxyUrl = des.ProxyUrl
+	}
+
+	return cDes
+}
+
+func canonicalizeTargetAssociatedEntitiesGkeClustersSlice(des, initial []TargetAssociatedEntitiesGkeClusters, opts ...dcl.ApplyOption) []TargetAssociatedEntitiesGkeClusters {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]TargetAssociatedEntitiesGkeClusters, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeTargetAssociatedEntitiesGkeClusters(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]TargetAssociatedEntitiesGkeClusters, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeTargetAssociatedEntitiesGkeClusters(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewTargetAssociatedEntitiesGkeClusters(c *Client, des, nw *TargetAssociatedEntitiesGkeClusters) *TargetAssociatedEntitiesGkeClusters {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for TargetAssociatedEntitiesGkeClusters while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.BoolCanonicalize(des.InternalIP, nw.InternalIP) {
+		nw.InternalIP = des.InternalIP
+	}
+	if dcl.StringCanonicalize(des.ProxyUrl, nw.ProxyUrl) {
+		nw.ProxyUrl = des.ProxyUrl
+	}
+
+	return nw
+}
+
+func canonicalizeNewTargetAssociatedEntitiesGkeClustersSet(c *Client, des, nw []TargetAssociatedEntitiesGkeClusters) []TargetAssociatedEntitiesGkeClusters {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []TargetAssociatedEntitiesGkeClusters
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareTargetAssociatedEntitiesGkeClustersNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewTargetAssociatedEntitiesGkeClusters(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewTargetAssociatedEntitiesGkeClustersSlice(c *Client, des, nw []TargetAssociatedEntitiesGkeClusters) []TargetAssociatedEntitiesGkeClusters {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []TargetAssociatedEntitiesGkeClusters
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewTargetAssociatedEntitiesGkeClusters(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeTargetAssociatedEntitiesAnthosClusters(des, initial *TargetAssociatedEntitiesAnthosClusters, opts ...dcl.ApplyOption) *TargetAssociatedEntitiesAnthosClusters {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &TargetAssociatedEntitiesAnthosClusters{}
+
+	if dcl.IsZeroValue(des.Membership) || (dcl.IsEmptyValueIndirect(des.Membership) && dcl.IsEmptyValueIndirect(initial.Membership)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.Membership = initial.Membership
+	} else {
+		cDes.Membership = des.Membership
+	}
+
+	return cDes
+}
+
+func canonicalizeTargetAssociatedEntitiesAnthosClustersSlice(des, initial []TargetAssociatedEntitiesAnthosClusters, opts ...dcl.ApplyOption) []TargetAssociatedEntitiesAnthosClusters {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]TargetAssociatedEntitiesAnthosClusters, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeTargetAssociatedEntitiesAnthosClusters(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]TargetAssociatedEntitiesAnthosClusters, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeTargetAssociatedEntitiesAnthosClusters(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewTargetAssociatedEntitiesAnthosClusters(c *Client, des, nw *TargetAssociatedEntitiesAnthosClusters) *TargetAssociatedEntitiesAnthosClusters {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for TargetAssociatedEntitiesAnthosClusters while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	return nw
+}
+
+func canonicalizeNewTargetAssociatedEntitiesAnthosClustersSet(c *Client, des, nw []TargetAssociatedEntitiesAnthosClusters) []TargetAssociatedEntitiesAnthosClusters {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []TargetAssociatedEntitiesAnthosClusters
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareTargetAssociatedEntitiesAnthosClustersNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewTargetAssociatedEntitiesAnthosClusters(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewTargetAssociatedEntitiesAnthosClustersSlice(c *Client, des, nw []TargetAssociatedEntitiesAnthosClusters) []TargetAssociatedEntitiesAnthosClusters {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []TargetAssociatedEntitiesAnthosClusters
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewTargetAssociatedEntitiesAnthosClusters(c, &d, &n))
+	}
+
+	return items
+}
+
 // The differ returns a list of diffs, along with a list of operations that should be taken
 // to remedy them. Right now, it does not attempt to consolidate operations - if several
 // fields can be fixed with a patch update, it will perform the patch several times.
@@ -1713,6 +2099,13 @@ func diffTarget(c *Client, desired, actual *Target, opts ...dcl.ApplyOption) ([]
 	}
 
 	if ds, err := dcl.Diff(desired.CustomTarget, actual.CustomTarget, dcl.DiffInfo{ObjectFunction: compareTargetCustomTargetNewStyle, EmptyObject: EmptyTargetCustomTarget, OperationSelector: dcl.TriggersOperation("updateTargetUpdateTargetOperation")}, fn.AddNest("CustomTarget")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AssociatedEntities, actual.AssociatedEntities, dcl.DiffInfo{ObjectFunction: compareTargetAssociatedEntitiesNewStyle, EmptyObject: EmptyTargetAssociatedEntities, OperationSelector: dcl.TriggersOperation("updateTargetUpdateTargetOperation")}, fn.AddNest("AssociatedEntities")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -1947,6 +2340,114 @@ func compareTargetCustomTargetNewStyle(d, a interface{}, fn dcl.FieldName) ([]*d
 	return diffs, nil
 }
 
+func compareTargetAssociatedEntitiesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*TargetAssociatedEntities)
+	if !ok {
+		desiredNotPointer, ok := d.(TargetAssociatedEntities)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TargetAssociatedEntities or *TargetAssociatedEntities", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*TargetAssociatedEntities)
+	if !ok {
+		actualNotPointer, ok := a.(TargetAssociatedEntities)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TargetAssociatedEntities", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.GkeClusters, actual.GkeClusters, dcl.DiffInfo{ObjectFunction: compareTargetAssociatedEntitiesGkeClustersNewStyle, EmptyObject: EmptyTargetAssociatedEntitiesGkeClusters, OperationSelector: dcl.TriggersOperation("updateTargetUpdateTargetOperation")}, fn.AddNest("GkeClusters")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.AnthosClusters, actual.AnthosClusters, dcl.DiffInfo{ObjectFunction: compareTargetAssociatedEntitiesAnthosClustersNewStyle, EmptyObject: EmptyTargetAssociatedEntitiesAnthosClusters, OperationSelector: dcl.TriggersOperation("updateTargetUpdateTargetOperation")}, fn.AddNest("AnthosClusters")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareTargetAssociatedEntitiesGkeClustersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*TargetAssociatedEntitiesGkeClusters)
+	if !ok {
+		desiredNotPointer, ok := d.(TargetAssociatedEntitiesGkeClusters)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TargetAssociatedEntitiesGkeClusters or *TargetAssociatedEntitiesGkeClusters", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*TargetAssociatedEntitiesGkeClusters)
+	if !ok {
+		actualNotPointer, ok := a.(TargetAssociatedEntitiesGkeClusters)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TargetAssociatedEntitiesGkeClusters", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Cluster, actual.Cluster, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateTargetUpdateTargetOperation")}, fn.AddNest("Cluster")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.InternalIP, actual.InternalIP, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateTargetUpdateTargetOperation")}, fn.AddNest("InternalIp")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.ProxyUrl, actual.ProxyUrl, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateTargetUpdateTargetOperation")}, fn.AddNest("ProxyUrl")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareTargetAssociatedEntitiesAnthosClustersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*TargetAssociatedEntitiesAnthosClusters)
+	if !ok {
+		desiredNotPointer, ok := d.(TargetAssociatedEntitiesAnthosClusters)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TargetAssociatedEntitiesAnthosClusters or *TargetAssociatedEntitiesAnthosClusters", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*TargetAssociatedEntitiesAnthosClusters)
+	if !ok {
+		actualNotPointer, ok := a.(TargetAssociatedEntitiesAnthosClusters)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a TargetAssociatedEntitiesAnthosClusters", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.Membership, actual.Membership, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.TriggersOperation("updateTargetUpdateTargetOperation")}, fn.AddNest("Membership")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 // urlNormalized returns a copy of the resource struct with values normalized
 // for URL substitutions. For instance, it converts long-form self-links to
 // short-form so they can be substituted in.
@@ -2072,6 +2573,11 @@ func expandTarget(c *Client, f *Target) (map[string]interface{}, error) {
 	} else if !dcl.IsEmptyValueIndirect(v) {
 		m["customTarget"] = v
 	}
+	if v, err := expandTargetAssociatedEntitiesMap(c, f.AssociatedEntities, res); err != nil {
+		return nil, fmt.Errorf("error expanding AssociatedEntities into associatedEntities: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["associatedEntities"] = v
+	}
 
 	return m, nil
 }
@@ -2107,6 +2613,7 @@ func flattenTarget(c *Client, i interface{}, res *Target) *Target {
 	resultRes.MultiTarget = flattenTargetMultiTarget(c, m["multiTarget"], res)
 	resultRes.DeployParameters = dcl.FlattenKeyValuePairs(m["deployParameters"])
 	resultRes.CustomTarget = flattenTargetCustomTarget(c, m["customTarget"], res)
+	resultRes.AssociatedEntities = flattenTargetAssociatedEntitiesMap(c, m["associatedEntities"], res)
 
 	return resultRes
 }
@@ -2823,6 +3330,364 @@ func flattenTargetCustomTarget(c *Client, i interface{}, res *Target) *TargetCus
 	return r
 }
 
+// expandTargetAssociatedEntitiesMap expands the contents of TargetAssociatedEntities into a JSON
+// request object.
+func expandTargetAssociatedEntitiesMap(c *Client, f map[string]TargetAssociatedEntities, res *Target) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandTargetAssociatedEntities(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandTargetAssociatedEntitiesSlice expands the contents of TargetAssociatedEntities into a JSON
+// request object.
+func expandTargetAssociatedEntitiesSlice(c *Client, f []TargetAssociatedEntities, res *Target) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandTargetAssociatedEntities(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenTargetAssociatedEntitiesMap flattens the contents of TargetAssociatedEntities from a JSON
+// response object.
+func flattenTargetAssociatedEntitiesMap(c *Client, i interface{}, res *Target) map[string]TargetAssociatedEntities {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]TargetAssociatedEntities{}
+	}
+
+	if len(a) == 0 {
+		return map[string]TargetAssociatedEntities{}
+	}
+
+	items := make(map[string]TargetAssociatedEntities)
+	for k, item := range a {
+		items[k] = *flattenTargetAssociatedEntities(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenTargetAssociatedEntitiesSlice flattens the contents of TargetAssociatedEntities from a JSON
+// response object.
+func flattenTargetAssociatedEntitiesSlice(c *Client, i interface{}, res *Target) []TargetAssociatedEntities {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []TargetAssociatedEntities{}
+	}
+
+	if len(a) == 0 {
+		return []TargetAssociatedEntities{}
+	}
+
+	items := make([]TargetAssociatedEntities, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenTargetAssociatedEntities(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandTargetAssociatedEntities expands an instance of TargetAssociatedEntities into a JSON
+// request object.
+func expandTargetAssociatedEntities(c *Client, f *TargetAssociatedEntities, res *Target) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v, err := expandTargetAssociatedEntitiesGkeClustersSlice(c, f.GkeClusters, res); err != nil {
+		return nil, fmt.Errorf("error expanding GkeClusters into gkeClusters: %w", err)
+	} else if v != nil {
+		m["gkeClusters"] = v
+	}
+	if v, err := expandTargetAssociatedEntitiesAnthosClustersSlice(c, f.AnthosClusters, res); err != nil {
+		return nil, fmt.Errorf("error expanding AnthosClusters into anthosClusters: %w", err)
+	} else if v != nil {
+		m["anthosClusters"] = v
+	}
+
+	return m, nil
+}
+
+// flattenTargetAssociatedEntities flattens an instance of TargetAssociatedEntities from a JSON
+// response object.
+func flattenTargetAssociatedEntities(c *Client, i interface{}, res *Target) *TargetAssociatedEntities {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &TargetAssociatedEntities{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTargetAssociatedEntities
+	}
+	r.GkeClusters = flattenTargetAssociatedEntitiesGkeClustersSlice(c, m["gkeClusters"], res)
+	r.AnthosClusters = flattenTargetAssociatedEntitiesAnthosClustersSlice(c, m["anthosClusters"], res)
+
+	return r
+}
+
+// expandTargetAssociatedEntitiesGkeClustersMap expands the contents of TargetAssociatedEntitiesGkeClusters into a JSON
+// request object.
+func expandTargetAssociatedEntitiesGkeClustersMap(c *Client, f map[string]TargetAssociatedEntitiesGkeClusters, res *Target) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandTargetAssociatedEntitiesGkeClusters(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandTargetAssociatedEntitiesGkeClustersSlice expands the contents of TargetAssociatedEntitiesGkeClusters into a JSON
+// request object.
+func expandTargetAssociatedEntitiesGkeClustersSlice(c *Client, f []TargetAssociatedEntitiesGkeClusters, res *Target) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandTargetAssociatedEntitiesGkeClusters(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenTargetAssociatedEntitiesGkeClustersMap flattens the contents of TargetAssociatedEntitiesGkeClusters from a JSON
+// response object.
+func flattenTargetAssociatedEntitiesGkeClustersMap(c *Client, i interface{}, res *Target) map[string]TargetAssociatedEntitiesGkeClusters {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]TargetAssociatedEntitiesGkeClusters{}
+	}
+
+	if len(a) == 0 {
+		return map[string]TargetAssociatedEntitiesGkeClusters{}
+	}
+
+	items := make(map[string]TargetAssociatedEntitiesGkeClusters)
+	for k, item := range a {
+		items[k] = *flattenTargetAssociatedEntitiesGkeClusters(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenTargetAssociatedEntitiesGkeClustersSlice flattens the contents of TargetAssociatedEntitiesGkeClusters from a JSON
+// response object.
+func flattenTargetAssociatedEntitiesGkeClustersSlice(c *Client, i interface{}, res *Target) []TargetAssociatedEntitiesGkeClusters {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []TargetAssociatedEntitiesGkeClusters{}
+	}
+
+	if len(a) == 0 {
+		return []TargetAssociatedEntitiesGkeClusters{}
+	}
+
+	items := make([]TargetAssociatedEntitiesGkeClusters, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenTargetAssociatedEntitiesGkeClusters(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandTargetAssociatedEntitiesGkeClusters expands an instance of TargetAssociatedEntitiesGkeClusters into a JSON
+// request object.
+func expandTargetAssociatedEntitiesGkeClusters(c *Client, f *TargetAssociatedEntitiesGkeClusters, res *Target) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Cluster; !dcl.IsEmptyValueIndirect(v) {
+		m["cluster"] = v
+	}
+	if v := f.InternalIP; !dcl.IsEmptyValueIndirect(v) {
+		m["internalIp"] = v
+	}
+	if v := f.ProxyUrl; !dcl.IsEmptyValueIndirect(v) {
+		m["proxyUrl"] = v
+	}
+
+	return m, nil
+}
+
+// flattenTargetAssociatedEntitiesGkeClusters flattens an instance of TargetAssociatedEntitiesGkeClusters from a JSON
+// response object.
+func flattenTargetAssociatedEntitiesGkeClusters(c *Client, i interface{}, res *Target) *TargetAssociatedEntitiesGkeClusters {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &TargetAssociatedEntitiesGkeClusters{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTargetAssociatedEntitiesGkeClusters
+	}
+	r.Cluster = dcl.FlattenString(m["cluster"])
+	r.InternalIP = dcl.FlattenBool(m["internalIp"])
+	r.ProxyUrl = dcl.FlattenString(m["proxyUrl"])
+
+	return r
+}
+
+// expandTargetAssociatedEntitiesAnthosClustersMap expands the contents of TargetAssociatedEntitiesAnthosClusters into a JSON
+// request object.
+func expandTargetAssociatedEntitiesAnthosClustersMap(c *Client, f map[string]TargetAssociatedEntitiesAnthosClusters, res *Target) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandTargetAssociatedEntitiesAnthosClusters(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandTargetAssociatedEntitiesAnthosClustersSlice expands the contents of TargetAssociatedEntitiesAnthosClusters into a JSON
+// request object.
+func expandTargetAssociatedEntitiesAnthosClustersSlice(c *Client, f []TargetAssociatedEntitiesAnthosClusters, res *Target) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandTargetAssociatedEntitiesAnthosClusters(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenTargetAssociatedEntitiesAnthosClustersMap flattens the contents of TargetAssociatedEntitiesAnthosClusters from a JSON
+// response object.
+func flattenTargetAssociatedEntitiesAnthosClustersMap(c *Client, i interface{}, res *Target) map[string]TargetAssociatedEntitiesAnthosClusters {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]TargetAssociatedEntitiesAnthosClusters{}
+	}
+
+	if len(a) == 0 {
+		return map[string]TargetAssociatedEntitiesAnthosClusters{}
+	}
+
+	items := make(map[string]TargetAssociatedEntitiesAnthosClusters)
+	for k, item := range a {
+		items[k] = *flattenTargetAssociatedEntitiesAnthosClusters(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenTargetAssociatedEntitiesAnthosClustersSlice flattens the contents of TargetAssociatedEntitiesAnthosClusters from a JSON
+// response object.
+func flattenTargetAssociatedEntitiesAnthosClustersSlice(c *Client, i interface{}, res *Target) []TargetAssociatedEntitiesAnthosClusters {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []TargetAssociatedEntitiesAnthosClusters{}
+	}
+
+	if len(a) == 0 {
+		return []TargetAssociatedEntitiesAnthosClusters{}
+	}
+
+	items := make([]TargetAssociatedEntitiesAnthosClusters, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenTargetAssociatedEntitiesAnthosClusters(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandTargetAssociatedEntitiesAnthosClusters expands an instance of TargetAssociatedEntitiesAnthosClusters into a JSON
+// request object.
+func expandTargetAssociatedEntitiesAnthosClusters(c *Client, f *TargetAssociatedEntitiesAnthosClusters, res *Target) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.Membership; !dcl.IsEmptyValueIndirect(v) {
+		m["membership"] = v
+	}
+
+	return m, nil
+}
+
+// flattenTargetAssociatedEntitiesAnthosClusters flattens an instance of TargetAssociatedEntitiesAnthosClusters from a JSON
+// response object.
+func flattenTargetAssociatedEntitiesAnthosClusters(c *Client, i interface{}, res *Target) *TargetAssociatedEntitiesAnthosClusters {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &TargetAssociatedEntitiesAnthosClusters{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyTargetAssociatedEntitiesAnthosClusters
+	}
+	r.Membership = dcl.FlattenString(m["membership"])
+
+	return r
+}
+
 // flattenTargetExecutionConfigsUsagesEnumMap flattens the contents of TargetExecutionConfigsUsagesEnum from a JSON
 // response object.
 func flattenTargetExecutionConfigsUsagesEnumMap(c *Client, i interface{}, res *Target) map[string]TargetExecutionConfigsUsagesEnum {
@@ -3043,6 +3908,15 @@ func extractTargetMultiTargetFields(r *Target, o *TargetMultiTarget) error {
 func extractTargetCustomTargetFields(r *Target, o *TargetCustomTarget) error {
 	return nil
 }
+func extractTargetAssociatedEntitiesFields(r *Target, o *TargetAssociatedEntities) error {
+	return nil
+}
+func extractTargetAssociatedEntitiesGkeClustersFields(r *Target, o *TargetAssociatedEntitiesGkeClusters) error {
+	return nil
+}
+func extractTargetAssociatedEntitiesAnthosClustersFields(r *Target, o *TargetAssociatedEntitiesAnthosClusters) error {
+	return nil
+}
 
 func postReadExtractTargetFields(r *Target) error {
 	vGke := r.Gke
@@ -3118,5 +3992,14 @@ func postReadExtractTargetMultiTargetFields(r *Target, o *TargetMultiTarget) err
 	return nil
 }
 func postReadExtractTargetCustomTargetFields(r *Target, o *TargetCustomTarget) error {
+	return nil
+}
+func postReadExtractTargetAssociatedEntitiesFields(r *Target, o *TargetAssociatedEntities) error {
+	return nil
+}
+func postReadExtractTargetAssociatedEntitiesGkeClustersFields(r *Target, o *TargetAssociatedEntitiesGkeClusters) error {
+	return nil
+}
+func postReadExtractTargetAssociatedEntitiesAnthosClustersFields(r *Target, o *TargetAssociatedEntitiesAnthosClusters) error {
 	return nil
 }

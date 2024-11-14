@@ -490,13 +490,14 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernet
 }
 
 type DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh struct {
-	empty                 bool    `json:"-"`
-	HttpRoute             *string `json:"httpRoute"`
-	Service               *string `json:"service"`
-	Deployment            *string `json:"deployment"`
-	RouteUpdateWaitTime   *string `json:"routeUpdateWaitTime"`
-	StableCutbackDuration *string `json:"stableCutbackDuration"`
-	PodSelectorLabel      *string `json:"podSelectorLabel"`
+	empty                 bool                                                                                                          `json:"-"`
+	HttpRoute             *string                                                                                                       `json:"httpRoute"`
+	Service               *string                                                                                                       `json:"service"`
+	Deployment            *string                                                                                                       `json:"deployment"`
+	RouteUpdateWaitTime   *string                                                                                                       `json:"routeUpdateWaitTime"`
+	StableCutbackDuration *string                                                                                                       `json:"stableCutbackDuration"`
+	PodSelectorLabel      *string                                                                                                       `json:"podSelectorLabel"`
+	RouteDestinations     *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations `json:"routeDestinations"`
 }
 
 type jsonDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh
@@ -526,6 +527,8 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernet
 
 		r.PodSelectorLabel = res.PodSelectorLabel
 
+		r.RouteDestinations = res.RouteDestinations
+
 	}
 	return nil
 }
@@ -544,6 +547,55 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernet
 }
 
 func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations struct {
+	empty            bool     `json:"-"`
+	DestinationIds   []string `json:"destinationIds"`
+	PropagateService *bool    `json:"propagateService"`
+}
+
+type jsonDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations
+
+func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations) UnmarshalJSON(data []byte) error {
+	var res jsonDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations
+	} else {
+
+		r.DestinationIds = res.DestinationIds
+
+		r.PropagateService = res.PropagateService
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations = &DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations{empty: true}
+
+func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations) Empty() bool {
+	return r.empty
+}
+
+func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.Sum256([]byte(r.String()))

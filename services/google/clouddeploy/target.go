@@ -26,25 +26,26 @@ import (
 )
 
 type Target struct {
-	Name             *string                  `json:"name"`
-	TargetId         *string                  `json:"targetId"`
-	Uid              *string                  `json:"uid"`
-	Description      *string                  `json:"description"`
-	Annotations      map[string]string        `json:"annotations"`
-	Labels           map[string]string        `json:"labels"`
-	RequireApproval  *bool                    `json:"requireApproval"`
-	CreateTime       *string                  `json:"createTime"`
-	UpdateTime       *string                  `json:"updateTime"`
-	Gke              *TargetGke               `json:"gke"`
-	AnthosCluster    *TargetAnthosCluster     `json:"anthosCluster"`
-	Etag             *string                  `json:"etag"`
-	ExecutionConfigs []TargetExecutionConfigs `json:"executionConfigs"`
-	Project          *string                  `json:"project"`
-	Location         *string                  `json:"location"`
-	Run              *TargetRun               `json:"run"`
-	MultiTarget      *TargetMultiTarget       `json:"multiTarget"`
-	DeployParameters map[string]string        `json:"deployParameters"`
-	CustomTarget     *TargetCustomTarget      `json:"customTarget"`
+	Name               *string                             `json:"name"`
+	TargetId           *string                             `json:"targetId"`
+	Uid                *string                             `json:"uid"`
+	Description        *string                             `json:"description"`
+	Annotations        map[string]string                   `json:"annotations"`
+	Labels             map[string]string                   `json:"labels"`
+	RequireApproval    *bool                               `json:"requireApproval"`
+	CreateTime         *string                             `json:"createTime"`
+	UpdateTime         *string                             `json:"updateTime"`
+	Gke                *TargetGke                          `json:"gke"`
+	AnthosCluster      *TargetAnthosCluster                `json:"anthosCluster"`
+	Etag               *string                             `json:"etag"`
+	ExecutionConfigs   []TargetExecutionConfigs            `json:"executionConfigs"`
+	Project            *string                             `json:"project"`
+	Location           *string                             `json:"location"`
+	Run                *TargetRun                          `json:"run"`
+	MultiTarget        *TargetMultiTarget                  `json:"multiTarget"`
+	DeployParameters   map[string]string                   `json:"deployParameters"`
+	CustomTarget       *TargetCustomTarget                 `json:"customTarget"`
+	AssociatedEntities map[string]TargetAssociatedEntities `json:"associatedEntities"`
 }
 
 func (r *Target) String() string {
@@ -375,6 +376,153 @@ func (r *TargetCustomTarget) HashCode() string {
 	return fmt.Sprintf("%x", hash)
 }
 
+type TargetAssociatedEntities struct {
+	empty          bool                                     `json:"-"`
+	GkeClusters    []TargetAssociatedEntitiesGkeClusters    `json:"gkeClusters"`
+	AnthosClusters []TargetAssociatedEntitiesAnthosClusters `json:"anthosClusters"`
+}
+
+type jsonTargetAssociatedEntities TargetAssociatedEntities
+
+func (r *TargetAssociatedEntities) UnmarshalJSON(data []byte) error {
+	var res jsonTargetAssociatedEntities
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTargetAssociatedEntities
+	} else {
+
+		r.GkeClusters = res.GkeClusters
+
+		r.AnthosClusters = res.AnthosClusters
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this TargetAssociatedEntities is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyTargetAssociatedEntities *TargetAssociatedEntities = &TargetAssociatedEntities{empty: true}
+
+func (r *TargetAssociatedEntities) Empty() bool {
+	return r.empty
+}
+
+func (r *TargetAssociatedEntities) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *TargetAssociatedEntities) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type TargetAssociatedEntitiesGkeClusters struct {
+	empty      bool    `json:"-"`
+	Cluster    *string `json:"cluster"`
+	InternalIP *bool   `json:"internalIP"`
+	ProxyUrl   *string `json:"proxyUrl"`
+}
+
+type jsonTargetAssociatedEntitiesGkeClusters TargetAssociatedEntitiesGkeClusters
+
+func (r *TargetAssociatedEntitiesGkeClusters) UnmarshalJSON(data []byte) error {
+	var res jsonTargetAssociatedEntitiesGkeClusters
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTargetAssociatedEntitiesGkeClusters
+	} else {
+
+		r.Cluster = res.Cluster
+
+		r.InternalIP = res.InternalIP
+
+		r.ProxyUrl = res.ProxyUrl
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this TargetAssociatedEntitiesGkeClusters is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyTargetAssociatedEntitiesGkeClusters *TargetAssociatedEntitiesGkeClusters = &TargetAssociatedEntitiesGkeClusters{empty: true}
+
+func (r *TargetAssociatedEntitiesGkeClusters) Empty() bool {
+	return r.empty
+}
+
+func (r *TargetAssociatedEntitiesGkeClusters) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *TargetAssociatedEntitiesGkeClusters) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type TargetAssociatedEntitiesAnthosClusters struct {
+	empty      bool    `json:"-"`
+	Membership *string `json:"membership"`
+}
+
+type jsonTargetAssociatedEntitiesAnthosClusters TargetAssociatedEntitiesAnthosClusters
+
+func (r *TargetAssociatedEntitiesAnthosClusters) UnmarshalJSON(data []byte) error {
+	var res jsonTargetAssociatedEntitiesAnthosClusters
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyTargetAssociatedEntitiesAnthosClusters
+	} else {
+
+		r.Membership = res.Membership
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this TargetAssociatedEntitiesAnthosClusters is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyTargetAssociatedEntitiesAnthosClusters *TargetAssociatedEntitiesAnthosClusters = &TargetAssociatedEntitiesAnthosClusters{empty: true}
+
+func (r *TargetAssociatedEntitiesAnthosClusters) Empty() bool {
+	return r.empty
+}
+
+func (r *TargetAssociatedEntitiesAnthosClusters) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *TargetAssociatedEntitiesAnthosClusters) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
 // Describe returns a simple description of this resource to ensure that automated tools
 // can identify it.
 func (r *Target) Describe() dcl.ServiceTypeVersion {
@@ -391,25 +539,26 @@ func (r *Target) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":              dcl.ValueOrEmptyString(nr.Name),
-		"target_id":         dcl.ValueOrEmptyString(nr.TargetId),
-		"uid":               dcl.ValueOrEmptyString(nr.Uid),
-		"description":       dcl.ValueOrEmptyString(nr.Description),
-		"annotations":       dcl.ValueOrEmptyString(nr.Annotations),
-		"labels":            dcl.ValueOrEmptyString(nr.Labels),
-		"require_approval":  dcl.ValueOrEmptyString(nr.RequireApproval),
-		"create_time":       dcl.ValueOrEmptyString(nr.CreateTime),
-		"update_time":       dcl.ValueOrEmptyString(nr.UpdateTime),
-		"gke":               dcl.ValueOrEmptyString(nr.Gke),
-		"anthos_cluster":    dcl.ValueOrEmptyString(nr.AnthosCluster),
-		"etag":              dcl.ValueOrEmptyString(nr.Etag),
-		"execution_configs": dcl.ValueOrEmptyString(nr.ExecutionConfigs),
-		"project":           dcl.ValueOrEmptyString(nr.Project),
-		"location":          dcl.ValueOrEmptyString(nr.Location),
-		"run":               dcl.ValueOrEmptyString(nr.Run),
-		"multi_target":      dcl.ValueOrEmptyString(nr.MultiTarget),
-		"deploy_parameters": dcl.ValueOrEmptyString(nr.DeployParameters),
-		"custom_target":     dcl.ValueOrEmptyString(nr.CustomTarget),
+		"name":                dcl.ValueOrEmptyString(nr.Name),
+		"target_id":           dcl.ValueOrEmptyString(nr.TargetId),
+		"uid":                 dcl.ValueOrEmptyString(nr.Uid),
+		"description":         dcl.ValueOrEmptyString(nr.Description),
+		"annotations":         dcl.ValueOrEmptyString(nr.Annotations),
+		"labels":              dcl.ValueOrEmptyString(nr.Labels),
+		"require_approval":    dcl.ValueOrEmptyString(nr.RequireApproval),
+		"create_time":         dcl.ValueOrEmptyString(nr.CreateTime),
+		"update_time":         dcl.ValueOrEmptyString(nr.UpdateTime),
+		"gke":                 dcl.ValueOrEmptyString(nr.Gke),
+		"anthos_cluster":      dcl.ValueOrEmptyString(nr.AnthosCluster),
+		"etag":                dcl.ValueOrEmptyString(nr.Etag),
+		"execution_configs":   dcl.ValueOrEmptyString(nr.ExecutionConfigs),
+		"project":             dcl.ValueOrEmptyString(nr.Project),
+		"location":            dcl.ValueOrEmptyString(nr.Location),
+		"run":                 dcl.ValueOrEmptyString(nr.Run),
+		"multi_target":        dcl.ValueOrEmptyString(nr.MultiTarget),
+		"deploy_parameters":   dcl.ValueOrEmptyString(nr.DeployParameters),
+		"custom_target":       dcl.ValueOrEmptyString(nr.CustomTarget),
+		"associated_entities": dcl.ValueOrEmptyString(nr.AssociatedEntities),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/targets/{{name}}", params), nil
 }

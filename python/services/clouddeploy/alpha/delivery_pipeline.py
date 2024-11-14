@@ -767,6 +767,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesG
         route_update_wait_time: str = None,
         stable_cutback_duration: str = None,
         pod_selector_label: str = None,
+        route_destinations: dict = None,
     ):
         self.http_route = http_route
         self.service = service
@@ -774,6 +775,7 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesG
         self.route_update_wait_time = route_update_wait_time
         self.stable_cutback_duration = stable_cutback_duration
         self.pod_selector_label = pod_selector_label
+        self.route_destinations = route_destinations
 
     @classmethod
     def to_proto(self, resource):
@@ -799,6 +801,16 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesG
             )
         if Primitive.to_proto(resource.pod_selector_label):
             res.pod_selector_label = Primitive.to_proto(resource.pod_selector_label)
+        if DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations.to_proto(
+            resource.route_destinations
+        ):
+            res.route_destinations.CopyFrom(
+                DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations.to_proto(
+                    resource.route_destinations
+                )
+            )
+        else:
+            res.ClearField("route_destinations")
         return res
 
     @classmethod
@@ -817,6 +829,9 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesG
                 resource.stable_cutback_duration
             ),
             pod_selector_label=Primitive.from_proto(resource.pod_selector_label),
+            route_destinations=DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations.from_proto(
+                resource.route_destinations
+            ),
         )
 
 
@@ -838,6 +853,63 @@ class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesG
     def from_proto(self, resources):
         return [
             DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh.from_proto(
+                i
+            )
+            for i in resources
+        ]
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(
+    object
+):
+
+    def __init__(self, destination_ids: list = None, propagate_service: bool = None):
+        self.destination_ids = destination_ids
+        self.propagate_service = propagate_service
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            delivery_pipeline_pb2.ClouddeployAlphaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations()
+        )
+        if Primitive.to_proto(resource.destination_ids):
+            res.destination_ids.extend(Primitive.to_proto(resource.destination_ids))
+        if Primitive.to_proto(resource.propagate_service):
+            res.propagate_service = Primitive.to_proto(resource.propagate_service)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(
+            destination_ids=Primitive.from_proto(resource.destination_ids),
+            propagate_service=Primitive.from_proto(resource.propagate_service),
+        )
+
+
+class DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations.from_proto(
                 i
             )
             for i in resources

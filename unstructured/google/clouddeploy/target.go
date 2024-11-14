@@ -46,6 +46,38 @@ func TargetToUnstructured(r *dclService.Target) *unstructured.Resource {
 		}
 		u.Object["anthosCluster"] = rAnthosCluster
 	}
+	if r.AssociatedEntities != nil {
+		rAssociatedEntities := make(map[string]interface{})
+		for k, v := range r.AssociatedEntities {
+			rAssociatedEntitiesMap := make(map[string]interface{})
+			var vAnthosClusters []interface{}
+			for _, vAnthosClustersVal := range v.AnthosClusters {
+				vAnthosClustersObject := make(map[string]interface{})
+				if vAnthosClustersVal.Membership != nil {
+					vAnthosClustersObject["membership"] = *vAnthosClustersVal.Membership
+				}
+				vAnthosClusters = append(vAnthosClusters, vAnthosClustersObject)
+			}
+			rAssociatedEntitiesMap["anthosClusters"] = vAnthosClusters
+			var vGkeClusters []interface{}
+			for _, vGkeClustersVal := range v.GkeClusters {
+				vGkeClustersObject := make(map[string]interface{})
+				if vGkeClustersVal.Cluster != nil {
+					vGkeClustersObject["cluster"] = *vGkeClustersVal.Cluster
+				}
+				if vGkeClustersVal.InternalIP != nil {
+					vGkeClustersObject["internalIP"] = *vGkeClustersVal.InternalIP
+				}
+				if vGkeClustersVal.ProxyUrl != nil {
+					vGkeClustersObject["proxyUrl"] = *vGkeClustersVal.ProxyUrl
+				}
+				vGkeClusters = append(vGkeClusters, vGkeClustersObject)
+			}
+			rAssociatedEntitiesMap["gkeClusters"] = vGkeClusters
+			rAssociatedEntities[k] = rAssociatedEntitiesMap
+		}
+		u.Object["associatedEntities"] = rAssociatedEntities
+	}
 	if r.CreateTime != nil {
 		u.Object["createTime"] = *r.CreateTime
 	}
@@ -182,6 +214,74 @@ func UnstructuredToTarget(u *unstructured.Resource) (*dclService.Target, error) 
 			}
 		} else {
 			return nil, fmt.Errorf("r.AnthosCluster: expected map[string]interface{}")
+		}
+	}
+	if _, ok := u.Object["associatedEntities"]; ok {
+		if rAssociatedEntities, ok := u.Object["associatedEntities"].(map[string]interface{}); ok {
+			m := make(map[string]dclService.TargetAssociatedEntities)
+			for k, v := range rAssociatedEntities {
+				if objval, ok := v.(map[string]interface{}); ok {
+					var rAssociatedEntitiesObj dclService.TargetAssociatedEntities
+					if _, ok := objval["anthosClusters"]; ok {
+						if s, ok := objval["anthosClusters"].([]interface{}); ok {
+							for _, o := range s {
+								if objval, ok := o.(map[string]interface{}); ok {
+									var rAssociatedEntitiesObjAnthosClusters dclService.TargetAssociatedEntitiesAnthosClusters
+									if _, ok := objval["membership"]; ok {
+										if s, ok := objval["membership"].(string); ok {
+											rAssociatedEntitiesObjAnthosClusters.Membership = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("rAssociatedEntitiesObjAnthosClusters.Membership: expected string")
+										}
+									}
+									rAssociatedEntitiesObj.AnthosClusters = append(rAssociatedEntitiesObj.AnthosClusters, rAssociatedEntitiesObjAnthosClusters)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("rAssociatedEntitiesObj.AnthosClusters: expected []interface{}")
+						}
+					}
+					if _, ok := objval["gkeClusters"]; ok {
+						if s, ok := objval["gkeClusters"].([]interface{}); ok {
+							for _, o := range s {
+								if objval, ok := o.(map[string]interface{}); ok {
+									var rAssociatedEntitiesObjGkeClusters dclService.TargetAssociatedEntitiesGkeClusters
+									if _, ok := objval["cluster"]; ok {
+										if s, ok := objval["cluster"].(string); ok {
+											rAssociatedEntitiesObjGkeClusters.Cluster = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("rAssociatedEntitiesObjGkeClusters.Cluster: expected string")
+										}
+									}
+									if _, ok := objval["internalIP"]; ok {
+										if b, ok := objval["internalIP"].(bool); ok {
+											rAssociatedEntitiesObjGkeClusters.InternalIP = dcl.Bool(b)
+										} else {
+											return nil, fmt.Errorf("rAssociatedEntitiesObjGkeClusters.InternalIP: expected bool")
+										}
+									}
+									if _, ok := objval["proxyUrl"]; ok {
+										if s, ok := objval["proxyUrl"].(string); ok {
+											rAssociatedEntitiesObjGkeClusters.ProxyUrl = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("rAssociatedEntitiesObjGkeClusters.ProxyUrl: expected string")
+										}
+									}
+									rAssociatedEntitiesObj.GkeClusters = append(rAssociatedEntitiesObj.GkeClusters, rAssociatedEntitiesObjGkeClusters)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("rAssociatedEntitiesObj.GkeClusters: expected []interface{}")
+						}
+					}
+					m[k] = rAssociatedEntitiesObj
+				} else {
+					return nil, fmt.Errorf("r.AssociatedEntities: expected map[string]interface{}")
+				}
+			}
+			r.AssociatedEntities = m
+		} else {
+			return nil, fmt.Errorf("r.AssociatedEntities: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["createTime"]; ok {

@@ -104,6 +104,75 @@ components:
               x-dcl-references:
               - resource: Gkehub/Membership
                 field: selfLink
+        associatedEntities:
+          type: object
+          additionalProperties:
+            type: object
+            x-dcl-go-type: TargetAssociatedEntities
+            properties:
+              anthosClusters:
+                type: array
+                x-dcl-go-name: AnthosClusters
+                description: Optional. Information specifying Anthos clusters as associated
+                  entities.
+                x-dcl-send-empty: true
+                x-dcl-list-type: list
+                items:
+                  type: object
+                  x-dcl-go-type: TargetAssociatedEntitiesAnthosClusters
+                  properties:
+                    membership:
+                      type: string
+                      x-dcl-go-name: Membership
+                      description: Optional. Membership of the GKE Hub-registered
+                        cluster to which to apply the Skaffold configuration. Format
+                        is `projects/{project}/locations/{location}/memberships/{membership_name}`.
+                      x-dcl-references:
+                      - resource: Gkehub/Membership
+                        field: selfLink
+              gkeClusters:
+                type: array
+                x-dcl-go-name: GkeClusters
+                description: Optional. Information specifying GKE clusters as associated
+                  entities.
+                x-dcl-send-empty: true
+                x-dcl-list-type: list
+                items:
+                  type: object
+                  x-dcl-go-type: TargetAssociatedEntitiesGkeClusters
+                  properties:
+                    cluster:
+                      type: string
+                      x-dcl-go-name: Cluster
+                      description: Optional. Information specifying a GKE Cluster.
+                        Format is `projects/{project_id}/locations/{location_id}/clusters/{cluster_id}`.
+                      x-dcl-references:
+                      - resource: Container/Cluster
+                        field: selfLink
+                    internalIP:
+                      type: boolean
+                      x-dcl-go-name: InternalIP
+                      description: Optional. If true, `cluster` is accessed using
+                        the private IP address of the control plane endpoint. Otherwise,
+                        the default IP address of the control plane endpoint is used.
+                        The default IP address is the private IP address for clusters
+                        with private control-plane endpoints and the public IP address
+                        otherwise. Only specify this option when `cluster` is a [private
+                        GKE cluster](https://cloud.google.com/kubernetes-engine/docs/concepts/private-cluster-concept).
+                    proxyUrl:
+                      type: string
+                      x-dcl-go-name: ProxyUrl
+                      description: Optional. If set, used to configure a [proxy](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/#proxy)
+                        to the Kubernetes server.
+          x-dcl-go-name: AssociatedEntities
+          description: 'Optional. Map of entity IDs to their associated entities.
+            Associated entities allows specifying places other than the deployment
+            target for specific features. For example, the Gateway API canary can
+            be configured to deploy the HTTPRoute to a different cluster(s) than the
+            deployment cluster using associated entities. An entity ID must consist
+            of lower-case letters, numbers, and hyphens, start with a letter and end
+            with a letter or a number, and have a max length of 63 characters. In
+            other words, it must match the following regex: `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.'
         createTime:
           type: string
           format: date-time

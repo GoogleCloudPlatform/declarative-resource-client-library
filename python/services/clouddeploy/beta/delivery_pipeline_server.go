@@ -152,6 +152,21 @@ func ProtoToClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRun
 		RouteUpdateWaitTime:   dcl.StringOrNil(p.GetRouteUpdateWaitTime()),
 		StableCutbackDuration: dcl.StringOrNil(p.GetStableCutbackDuration()),
 		PodSelectorLabel:      dcl.StringOrNil(p.GetPodSelectorLabel()),
+		RouteDestinations:     ProtoToClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(p.GetRouteDestinations()),
+	}
+	return obj
+}
+
+// ProtoToDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations object from its proto representation.
+func ProtoToClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(p *betapb.ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations) *beta.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations {
+	if p == nil {
+		return nil
+	}
+	obj := &beta.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations{
+		PropagateService: dcl.Bool(p.GetPropagateService()),
+	}
+	for _, r := range p.GetDestinationIds() {
+		obj.DestinationIds = append(obj.DestinationIds, r)
 	}
 	return obj
 }
@@ -495,6 +510,22 @@ func ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeCon
 	p.SetRouteUpdateWaitTime(dcl.ValueOrEmptyString(o.RouteUpdateWaitTime))
 	p.SetStableCutbackDuration(dcl.ValueOrEmptyString(o.StableCutbackDuration))
 	p.SetPodSelectorLabel(dcl.ValueOrEmptyString(o.PodSelectorLabel))
+	p.SetRouteDestinations(ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsToProto(o.RouteDestinations))
+	return p
+}
+
+// DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsToProto converts a DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations object to its proto representation.
+func ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsToProto(o *beta.DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations) *betapb.ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations {
+	if o == nil {
+		return nil
+	}
+	p := &betapb.ClouddeployBetaDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations{}
+	p.SetPropagateService(dcl.ValueOrEmptyBool(o.PropagateService))
+	sDestinationIds := make([]string, len(o.DestinationIds))
+	for i, r := range o.DestinationIds {
+		sDestinationIds[i] = r
+	}
+	p.SetDestinationIds(sDestinationIds)
 	return p
 }
 

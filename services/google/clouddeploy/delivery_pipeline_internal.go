@@ -154,6 +154,17 @@ func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernet
 	if err := dcl.Required(r, "deployment"); err != nil {
 		return err
 	}
+	if !dcl.IsEmptyValueIndirect(r.RouteDestinations) {
+		if err := r.RouteDestinations.validate(); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations) validate() error {
+	if err := dcl.Required(r, "destinationIds"); err != nil {
+		return err
+	}
 	return nil
 }
 func (r *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking) validate() error {
@@ -1992,6 +2003,7 @@ func canonicalizeDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfig
 	} else {
 		cDes.PodSelectorLabel = des.PodSelectorLabel
 	}
+	cDes.RouteDestinations = canonicalizeDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(des.RouteDestinations, initial.RouteDestinations, opts...)
 
 	return cDes
 }
@@ -2056,6 +2068,7 @@ func canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeCon
 	if dcl.StringCanonicalize(des.PodSelectorLabel, nw.PodSelectorLabel) {
 		nw.PodSelectorLabel = des.PodSelectorLabel
 	}
+	nw.RouteDestinations = canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(c, des.RouteDestinations, nw.RouteDestinations)
 
 	return nw
 }
@@ -2101,6 +2114,132 @@ func canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeCon
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(des, initial *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations, opts ...dcl.ApplyOption) *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations{}
+
+	if dcl.StringArrayCanonicalize(des.DestinationIds, initial.DestinationIds) {
+		cDes.DestinationIds = initial.DestinationIds
+	} else {
+		cDes.DestinationIds = des.DestinationIds
+	}
+	if dcl.BoolCanonicalize(des.PropagateService, initial.PropagateService) || dcl.IsZeroValue(des.PropagateService) {
+		cDes.PropagateService = initial.PropagateService
+	} else {
+		cDes.PropagateService = des.PropagateService
+	}
+
+	return cDes
+}
+
+func canonicalizeDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsSlice(des, initial []DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations, opts ...dcl.ApplyOption) []DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(c *Client, des, nw *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations) *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringArrayCanonicalize(des.DestinationIds, nw.DestinationIds) {
+		nw.DestinationIds = des.DestinationIds
+	}
+	if dcl.BoolCanonicalize(des.PropagateService, nw.PropagateService) {
+		nw.PropagateService = des.PropagateService
+	}
+
+	return nw
+}
+
+func canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsSet(c *Client, des, nw []DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations) []DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsSlice(c *Client, des, nw []DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations) []DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(c, &d, &n))
 	}
 
 	return items
@@ -4371,6 +4510,49 @@ func compareDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKuber
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.RouteDestinations, actual.RouteDestinations, dcl.DiffInfo{ObjectFunction: compareDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsNewStyle, EmptyObject: EmptyDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations, OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("RouteDestinations")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations)
+	if !ok {
+		desiredNotPointer, ok := d.(DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations or *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations)
+	if !ok {
+		actualNotPointer, ok := a.(DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.DestinationIds, actual.DestinationIds, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("DestinationIds")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.PropagateService, actual.PropagateService, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateDeliveryPipelineUpdateDeliveryPipelineOperation")}, fn.AddNest("PropagateService")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -6257,6 +6439,11 @@ func expandDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubern
 	if v := f.PodSelectorLabel; !dcl.IsEmptyValueIndirect(v) {
 		m["podSelectorLabel"] = v
 	}
+	if v, err := expandDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(c, f.RouteDestinations, res); err != nil {
+		return nil, fmt.Errorf("error expanding RouteDestinations into routeDestinations: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["routeDestinations"] = v
+	}
 
 	return m, nil
 }
@@ -6280,6 +6467,125 @@ func flattenDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKuber
 	r.RouteUpdateWaitTime = dcl.FlattenString(m["routeUpdateWaitTime"])
 	r.StableCutbackDuration = dcl.FlattenString(m["stableCutbackDuration"])
 	r.PodSelectorLabel = dcl.FlattenString(m["podSelectorLabel"])
+	r.RouteDestinations = flattenDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(c, m["routeDestinations"], res)
+
+	return r
+}
+
+// expandDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsMap expands the contents of DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations into a JSON
+// request object.
+func expandDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsMap(c *Client, f map[string]DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations, res *DeliveryPipeline) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsSlice expands the contents of DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations into a JSON
+// request object.
+func expandDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsSlice(c *Client, f []DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations, res *DeliveryPipeline) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsMap flattens the contents of DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations from a JSON
+// response object.
+func flattenDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsMap(c *Client, i interface{}, res *DeliveryPipeline) map[string]DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations{}
+	}
+
+	if len(a) == 0 {
+		return map[string]DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations{}
+	}
+
+	items := make(map[string]DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations)
+	for k, item := range a {
+		items[k] = *flattenDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsSlice flattens the contents of DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations from a JSON
+// response object.
+func flattenDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsSlice(c *Client, i interface{}, res *DeliveryPipeline) []DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations{}
+	}
+
+	if len(a) == 0 {
+		return []DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations{}
+	}
+
+	items := make([]DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations expands an instance of DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations into a JSON
+// request object.
+func expandDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(c *Client, f *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations, res *DeliveryPipeline) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.DestinationIds; v != nil {
+		m["destinationIds"] = v
+	}
+	if v := f.PropagateService; !dcl.IsEmptyValueIndirect(v) {
+		m["propagateService"] = v
+	}
+
+	return m, nil
+}
+
+// flattenDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations flattens an instance of DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations from a JSON
+// response object.
+func flattenDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations(c *Client, i interface{}, res *DeliveryPipeline) *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations
+	}
+	r.DestinationIds = dcl.FlattenStringSlice(m["destinationIds"])
+	r.PropagateService = dcl.FlattenBool(m["propagateService"])
 
 	return r
 }
@@ -8258,6 +8564,20 @@ func extractDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKuber
 	return nil
 }
 func extractDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshFields(r *DeliveryPipeline, o *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh) error {
+	vRouteDestinations := o.RouteDestinations
+	if vRouteDestinations == nil {
+		// note: explicitly not the empty object.
+		vRouteDestinations = &DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations{}
+	}
+	if err := extractDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsFields(r, vRouteDestinations); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vRouteDestinations) {
+		o.RouteDestinations = vRouteDestinations
+	}
+	return nil
+}
+func extractDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsFields(r *DeliveryPipeline, o *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations) error {
 	return nil
 }
 func extractDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworkingFields(r *DeliveryPipeline, o *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking) error {
@@ -8565,6 +8885,20 @@ func postReadExtractDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeCon
 	return nil
 }
 func postReadExtractDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshFields(r *DeliveryPipeline, o *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMesh) error {
+	vRouteDestinations := o.RouteDestinations
+	if vRouteDestinations == nil {
+		// note: explicitly not the empty object.
+		vRouteDestinations = &DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations{}
+	}
+	if err := extractDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsFields(r, vRouteDestinations); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vRouteDestinations) {
+		o.RouteDestinations = vRouteDestinations
+	}
+	return nil
+}
+func postReadExtractDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinationsFields(r *DeliveryPipeline, o *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations) error {
 	return nil
 }
 func postReadExtractDeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworkingFields(r *DeliveryPipeline, o *DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesServiceNetworking) error {

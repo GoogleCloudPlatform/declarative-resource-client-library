@@ -589,6 +589,33 @@ func DCLDeliveryPipelineSchema() *dcl.Schema {
 																							GoName:      "PodSelectorLabel",
 																							Description: "Optional. The label to use when selecting Pods for the Deployment and Service resources. This label must already be present in both resources.",
 																						},
+																						"routeDestinations": &dcl.Property{
+																							Type:        "object",
+																							GoName:      "RouteDestinations",
+																							GoType:      "DeliveryPipelineSerialPipelineStagesStrategyCanaryRuntimeConfigKubernetesGatewayServiceMeshRouteDestinations",
+																							Description: "Optional. Route destinations allow configuring the Gateway API HTTPRoute to be deployed to additional clusters. This option is available for multi-cluster service mesh set ups that require the route to exist in the clusters that call the service. If unspecified, the HTTPRoute will only be deployed to the Target cluster.",
+																							Required: []string{
+																								"destinationIds",
+																							},
+																							Properties: map[string]*dcl.Property{
+																								"destinationIds": &dcl.Property{
+																									Type:        "array",
+																									GoName:      "DestinationIds",
+																									Description: "Required. The clusters where the Gateway API HTTPRoute resource will be deployed to. Valid entries include the associated entities IDs configured in the Target resource and \"@self\" to include the Target cluster.",
+																									SendEmpty:   true,
+																									ListType:    "list",
+																									Items: &dcl.Property{
+																										Type:   "string",
+																										GoType: "string",
+																									},
+																								},
+																								"propagateService": &dcl.Property{
+																									Type:        "boolean",
+																									GoName:      "PropagateService",
+																									Description: "Optional. Whether to propagate the Kubernetes Service to the route destination clusters. The Service will always be deployed to the Target cluster even if the HTTPRoute is not. This option may be used to facilitiate successful DNS lookup in the route destination clusters. Can only be set to true if destinations are specified.",
+																								},
+																							},
+																						},
 																						"routeUpdateWaitTime": &dcl.Property{
 																							Type:        "string",
 																							GoName:      "RouteUpdateWaitTime",
