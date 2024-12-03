@@ -55,7 +55,7 @@ enum AssuredworkloadsAlphaWorkloadComplianceRegimeEnum {
   AssuredworkloadsAlphaWorkloadComplianceRegimeEnumKSA_REGIONS_AND_SUPPORT_WITH_SOVEREIGNTY_CONTROLS = 20;
   AssuredworkloadsAlphaWorkloadComplianceRegimeEnumREGIONAL_CONTROLS = 21;
   AssuredworkloadsAlphaWorkloadComplianceRegimeEnumHEALTHCARE_AND_LIFE_SCIENCES_CONTROLS = 22;
-  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumHEALTHCARE_AND_LIFE_SCIENCES_CONTROLS_WITH_US_SUPPORT = 23;
+  AssuredworkloadsAlphaWorkloadComplianceRegimeEnumHEALTHCARE_AND_LIFE_SCIENCES_CONTROLS_US_SUPPORT = 23;
   AssuredworkloadsAlphaWorkloadComplianceRegimeEnumIRS_1075 = 24;
 }
 
