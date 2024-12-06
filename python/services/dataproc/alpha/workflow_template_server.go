@@ -96,6 +96,17 @@ func ProtoToDataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareCo
 	return nil
 }
 
+// ProtoToWorkflowTemplateEncryptionConfig converts a WorkflowTemplateEncryptionConfig object from its proto representation.
+func ProtoToDataprocAlphaWorkflowTemplateEncryptionConfig(p *alphapb.DataprocAlphaWorkflowTemplateEncryptionConfig) *alpha.WorkflowTemplateEncryptionConfig {
+	if p == nil {
+		return nil
+	}
+	obj := &alpha.WorkflowTemplateEncryptionConfig{
+		KmsKey: dcl.StringOrNil(p.GetKmsKey()),
+	}
+	return obj
+}
+
 // ProtoToWorkflowTemplatePlacement converts a WorkflowTemplatePlacement object from its proto representation.
 func ProtoToDataprocAlphaWorkflowTemplatePlacement(p *alphapb.DataprocAlphaWorkflowTemplatePlacement) *alpha.WorkflowTemplatePlacement {
 	if p == nil {
@@ -914,14 +925,15 @@ func ProtoToDataprocAlphaWorkflowTemplateParametersValidationValues(p *alphapb.D
 // ProtoToWorkflowTemplate converts a WorkflowTemplate resource from its proto representation.
 func ProtoToWorkflowTemplate(p *alphapb.DataprocAlphaWorkflowTemplate) *alpha.WorkflowTemplate {
 	obj := &alpha.WorkflowTemplate{
-		Name:       dcl.StringOrNil(p.GetName()),
-		Version:    dcl.Int64OrNil(p.GetVersion()),
-		CreateTime: dcl.StringOrNil(p.GetCreateTime()),
-		UpdateTime: dcl.StringOrNil(p.GetUpdateTime()),
-		Placement:  ProtoToDataprocAlphaWorkflowTemplatePlacement(p.GetPlacement()),
-		DagTimeout: dcl.StringOrNil(p.GetDagTimeout()),
-		Project:    dcl.StringOrNil(p.GetProject()),
-		Location:   dcl.StringOrNil(p.GetLocation()),
+		Name:             dcl.StringOrNil(p.GetName()),
+		Version:          dcl.Int64OrNil(p.GetVersion()),
+		CreateTime:       dcl.StringOrNil(p.GetCreateTime()),
+		UpdateTime:       dcl.StringOrNil(p.GetUpdateTime()),
+		EncryptionConfig: ProtoToDataprocAlphaWorkflowTemplateEncryptionConfig(p.GetEncryptionConfig()),
+		Placement:        ProtoToDataprocAlphaWorkflowTemplatePlacement(p.GetPlacement()),
+		DagTimeout:       dcl.StringOrNil(p.GetDagTimeout()),
+		Project:          dcl.StringOrNil(p.GetProject()),
+		Location:         dcl.StringOrNil(p.GetLocation()),
 	}
 	for _, r := range p.GetJobs() {
 		obj.Jobs = append(obj.Jobs, *ProtoToDataprocAlphaWorkflowTemplateJobs(r))
@@ -996,6 +1008,16 @@ func DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOpt
 		return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum(v)
 	}
 	return alphapb.DataprocAlphaWorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalComponentsEnum(0)
+}
+
+// WorkflowTemplateEncryptionConfigToProto converts a WorkflowTemplateEncryptionConfig object to its proto representation.
+func DataprocAlphaWorkflowTemplateEncryptionConfigToProto(o *alpha.WorkflowTemplateEncryptionConfig) *alphapb.DataprocAlphaWorkflowTemplateEncryptionConfig {
+	if o == nil {
+		return nil
+	}
+	p := &alphapb.DataprocAlphaWorkflowTemplateEncryptionConfig{}
+	p.SetKmsKey(dcl.ValueOrEmptyString(o.KmsKey))
+	return p
 }
 
 // WorkflowTemplatePlacementToProto converts a WorkflowTemplatePlacement object to its proto representation.
@@ -1975,6 +1997,7 @@ func WorkflowTemplateToProto(resource *alpha.WorkflowTemplate) *alphapb.Dataproc
 	p.SetVersion(dcl.ValueOrEmptyInt64(resource.Version))
 	p.SetCreateTime(dcl.ValueOrEmptyString(resource.CreateTime))
 	p.SetUpdateTime(dcl.ValueOrEmptyString(resource.UpdateTime))
+	p.SetEncryptionConfig(DataprocAlphaWorkflowTemplateEncryptionConfigToProto(resource.EncryptionConfig))
 	p.SetPlacement(DataprocAlphaWorkflowTemplatePlacementToProto(resource.Placement))
 	p.SetDagTimeout(dcl.ValueOrEmptyString(resource.DagTimeout))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))

@@ -25,17 +25,18 @@ import (
 )
 
 type WorkflowTemplate struct {
-	Name       *string                      `json:"name"`
-	Version    *int64                       `json:"version"`
-	CreateTime *string                      `json:"createTime"`
-	UpdateTime *string                      `json:"updateTime"`
-	Labels     map[string]string            `json:"labels"`
-	Placement  *WorkflowTemplatePlacement   `json:"placement"`
-	Jobs       []WorkflowTemplateJobs       `json:"jobs"`
-	Parameters []WorkflowTemplateParameters `json:"parameters"`
-	DagTimeout *string                      `json:"dagTimeout"`
-	Project    *string                      `json:"project"`
-	Location   *string                      `json:"location"`
+	Name             *string                           `json:"name"`
+	Version          *int64                            `json:"version"`
+	CreateTime       *string                           `json:"createTime"`
+	UpdateTime       *string                           `json:"updateTime"`
+	Labels           map[string]string                 `json:"labels"`
+	EncryptionConfig *WorkflowTemplateEncryptionConfig `json:"encryptionConfig"`
+	Placement        *WorkflowTemplatePlacement        `json:"placement"`
+	Jobs             []WorkflowTemplateJobs            `json:"jobs"`
+	Parameters       []WorkflowTemplateParameters      `json:"parameters"`
+	DagTimeout       *string                           `json:"dagTimeout"`
+	Project          *string                           `json:"project"`
+	Location         *string                           `json:"location"`
 }
 
 func (r *WorkflowTemplate) String() string {
@@ -202,6 +203,52 @@ func (v WorkflowTemplatePlacementManagedClusterConfigSoftwareConfigOptionalCompo
 		Value: string(v),
 		Valid: []string{},
 	}
+}
+
+type WorkflowTemplateEncryptionConfig struct {
+	empty  bool    `json:"-"`
+	KmsKey *string `json:"kmsKey"`
+}
+
+type jsonWorkflowTemplateEncryptionConfig WorkflowTemplateEncryptionConfig
+
+func (r *WorkflowTemplateEncryptionConfig) UnmarshalJSON(data []byte) error {
+	var res jsonWorkflowTemplateEncryptionConfig
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyWorkflowTemplateEncryptionConfig
+	} else {
+
+		r.KmsKey = res.KmsKey
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this WorkflowTemplateEncryptionConfig is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyWorkflowTemplateEncryptionConfig *WorkflowTemplateEncryptionConfig = &WorkflowTemplateEncryptionConfig{empty: true}
+
+func (r *WorkflowTemplateEncryptionConfig) Empty() bool {
+	return r.empty
+}
+
+func (r *WorkflowTemplateEncryptionConfig) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *WorkflowTemplateEncryptionConfig) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
 }
 
 type WorkflowTemplatePlacement struct {
@@ -3270,17 +3317,18 @@ func (r *WorkflowTemplate) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":        dcl.ValueOrEmptyString(nr.Name),
-		"version":     dcl.ValueOrEmptyString(nr.Version),
-		"create_time": dcl.ValueOrEmptyString(nr.CreateTime),
-		"update_time": dcl.ValueOrEmptyString(nr.UpdateTime),
-		"labels":      dcl.ValueOrEmptyString(nr.Labels),
-		"placement":   dcl.ValueOrEmptyString(nr.Placement),
-		"jobs":        dcl.ValueOrEmptyString(nr.Jobs),
-		"parameters":  dcl.ValueOrEmptyString(nr.Parameters),
-		"dag_timeout": dcl.ValueOrEmptyString(nr.DagTimeout),
-		"project":     dcl.ValueOrEmptyString(nr.Project),
-		"location":    dcl.ValueOrEmptyString(nr.Location),
+		"name":              dcl.ValueOrEmptyString(nr.Name),
+		"version":           dcl.ValueOrEmptyString(nr.Version),
+		"create_time":       dcl.ValueOrEmptyString(nr.CreateTime),
+		"update_time":       dcl.ValueOrEmptyString(nr.UpdateTime),
+		"labels":            dcl.ValueOrEmptyString(nr.Labels),
+		"encryption_config": dcl.ValueOrEmptyString(nr.EncryptionConfig),
+		"placement":         dcl.ValueOrEmptyString(nr.Placement),
+		"jobs":              dcl.ValueOrEmptyString(nr.Jobs),
+		"parameters":        dcl.ValueOrEmptyString(nr.Parameters),
+		"dag_timeout":       dcl.ValueOrEmptyString(nr.DagTimeout),
+		"project":           dcl.ValueOrEmptyString(nr.Project),
+		"location":          dcl.ValueOrEmptyString(nr.Location),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/{{location}}/workflowTemplates/{{name}}", params), nil
 }

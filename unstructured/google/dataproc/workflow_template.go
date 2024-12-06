@@ -38,6 +38,13 @@ func WorkflowTemplateToUnstructured(r *dclService.WorkflowTemplate) *unstructure
 	if r.DagTimeout != nil {
 		u.Object["dagTimeout"] = *r.DagTimeout
 	}
+	if r.EncryptionConfig != nil && r.EncryptionConfig != dclService.EmptyWorkflowTemplateEncryptionConfig {
+		rEncryptionConfig := make(map[string]interface{})
+		if r.EncryptionConfig.KmsKey != nil {
+			rEncryptionConfig["kmsKey"] = *r.EncryptionConfig.KmsKey
+		}
+		u.Object["encryptionConfig"] = rEncryptionConfig
+	}
 	var rJobs []interface{}
 	for _, rJobsVal := range r.Jobs {
 		rJobsObject := make(map[string]interface{})
@@ -941,6 +948,20 @@ func UnstructuredToWorkflowTemplate(u *unstructured.Resource) (*dclService.Workf
 			r.DagTimeout = dcl.String(s)
 		} else {
 			return nil, fmt.Errorf("r.DagTimeout: expected string")
+		}
+	}
+	if _, ok := u.Object["encryptionConfig"]; ok {
+		if rEncryptionConfig, ok := u.Object["encryptionConfig"].(map[string]interface{}); ok {
+			r.EncryptionConfig = &dclService.WorkflowTemplateEncryptionConfig{}
+			if _, ok := rEncryptionConfig["kmsKey"]; ok {
+				if s, ok := rEncryptionConfig["kmsKey"].(string); ok {
+					r.EncryptionConfig.KmsKey = dcl.String(s)
+				} else {
+					return nil, fmt.Errorf("r.EncryptionConfig.KmsKey: expected string")
+				}
+			}
+		} else {
+			return nil, fmt.Errorf("r.EncryptionConfig: expected map[string]interface{}")
 		}
 	}
 	if _, ok := u.Object["jobs"]; ok {

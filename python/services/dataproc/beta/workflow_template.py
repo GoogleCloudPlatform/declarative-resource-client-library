@@ -28,6 +28,7 @@ class WorkflowTemplate(object):
         create_time: str = None,
         update_time: str = None,
         labels: dict = None,
+        encryption_config: dict = None,
         placement: dict = None,
         jobs: list = None,
         parameters: list = None,
@@ -40,6 +41,7 @@ class WorkflowTemplate(object):
         channel.initialize()
         self.name = name
         self.labels = labels
+        self.encryption_config = encryption_config
         self.placement = placement
         self.jobs = jobs
         self.parameters = parameters
@@ -59,6 +61,12 @@ class WorkflowTemplate(object):
         if Primitive.to_proto(self.labels):
             request.resource.labels = Primitive.to_proto(self.labels)
 
+        if WorkflowTemplateEncryptionConfig.to_proto(self.encryption_config):
+            request.resource.encryption_config.CopyFrom(
+                WorkflowTemplateEncryptionConfig.to_proto(self.encryption_config)
+            )
+        else:
+            request.resource.ClearField("encryption_config")
         if WorkflowTemplatePlacement.to_proto(self.placement):
             request.resource.placement.CopyFrom(
                 WorkflowTemplatePlacement.to_proto(self.placement)
@@ -88,6 +96,9 @@ class WorkflowTemplate(object):
         self.create_time = Primitive.from_proto(response.create_time)
         self.update_time = Primitive.from_proto(response.update_time)
         self.labels = Primitive.from_proto(response.labels)
+        self.encryption_config = WorkflowTemplateEncryptionConfig.from_proto(
+            response.encryption_config
+        )
         self.placement = WorkflowTemplatePlacement.from_proto(response.placement)
         self.jobs = WorkflowTemplateJobsArray.from_proto(response.jobs)
         self.parameters = WorkflowTemplateParametersArray.from_proto(
@@ -109,6 +120,12 @@ class WorkflowTemplate(object):
         if Primitive.to_proto(self.labels):
             request.resource.labels = Primitive.to_proto(self.labels)
 
+        if WorkflowTemplateEncryptionConfig.to_proto(self.encryption_config):
+            request.resource.encryption_config.CopyFrom(
+                WorkflowTemplateEncryptionConfig.to_proto(self.encryption_config)
+            )
+        else:
+            request.resource.ClearField("encryption_config")
         if WorkflowTemplatePlacement.to_proto(self.placement):
             request.resource.placement.CopyFrom(
                 WorkflowTemplatePlacement.to_proto(self.placement)
@@ -151,6 +168,12 @@ class WorkflowTemplate(object):
             resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.labels):
             resource.labels = Primitive.to_proto(self.labels)
+        if WorkflowTemplateEncryptionConfig.to_proto(self.encryption_config):
+            resource.encryption_config.CopyFrom(
+                WorkflowTemplateEncryptionConfig.to_proto(self.encryption_config)
+            )
+        else:
+            resource.ClearField("encryption_config")
         if WorkflowTemplatePlacement.to_proto(self.placement):
             resource.placement.CopyFrom(
                 WorkflowTemplatePlacement.to_proto(self.placement)
@@ -170,6 +193,43 @@ class WorkflowTemplate(object):
         if Primitive.to_proto(self.location):
             resource.location = Primitive.to_proto(self.location)
         return resource
+
+
+class WorkflowTemplateEncryptionConfig(object):
+
+    def __init__(self, kms_key: str = None):
+        self.kms_key = kms_key
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = workflow_template_pb2.DataprocBetaWorkflowTemplateEncryptionConfig()
+        if Primitive.to_proto(resource.kms_key):
+            res.kms_key = Primitive.to_proto(resource.kms_key)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return WorkflowTemplateEncryptionConfig(
+            kms_key=Primitive.from_proto(resource.kms_key),
+        )
+
+
+class WorkflowTemplateEncryptionConfigArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [WorkflowTemplateEncryptionConfig.to_proto(i) for i in resources]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [WorkflowTemplateEncryptionConfig.from_proto(i) for i in resources]
 
 
 class WorkflowTemplatePlacement(object):

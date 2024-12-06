@@ -41,11 +41,19 @@ func (r *WorkflowTemplate) validate() error {
 	if err := dcl.RequiredParameter(r.Location, "Location"); err != nil {
 		return err
 	}
+	if !dcl.IsEmptyValueIndirect(r.EncryptionConfig) {
+		if err := r.EncryptionConfig.validate(); err != nil {
+			return err
+		}
+	}
 	if !dcl.IsEmptyValueIndirect(r.Placement) {
 		if err := r.Placement.validate(); err != nil {
 			return err
 		}
 	}
+	return nil
+}
+func (r *WorkflowTemplateEncryptionConfig) validate() error {
 	return nil
 }
 func (r *WorkflowTemplatePlacement) validate() error {
@@ -792,6 +800,7 @@ func canonicalizeWorkflowTemplateDesiredState(rawDesired, rawInitial *WorkflowTe
 	if rawInitial == nil {
 		// Since the initial state is empty, the desired state is all we have.
 		// We canonicalize the remaining nested objects with nil to pick up defaults.
+		rawDesired.EncryptionConfig = canonicalizeWorkflowTemplateEncryptionConfig(rawDesired.EncryptionConfig, nil, opts...)
 		rawDesired.Placement = canonicalizeWorkflowTemplatePlacement(rawDesired.Placement, nil, opts...)
 
 		return rawDesired, nil
@@ -808,6 +817,7 @@ func canonicalizeWorkflowTemplateDesiredState(rawDesired, rawInitial *WorkflowTe
 	} else {
 		canonicalDesired.Labels = rawDesired.Labels
 	}
+	canonicalDesired.EncryptionConfig = canonicalizeWorkflowTemplateEncryptionConfig(rawDesired.EncryptionConfig, rawInitial.EncryptionConfig, opts...)
 	canonicalDesired.Placement = canonicalizeWorkflowTemplatePlacement(rawDesired.Placement, rawInitial.Placement, opts...)
 	canonicalDesired.Jobs = canonicalizeWorkflowTemplateJobsSlice(rawDesired.Jobs, rawInitial.Jobs, opts...)
 	canonicalDesired.Parameters = canonicalizeWorkflowTemplateParametersSlice(rawDesired.Parameters, rawInitial.Parameters, opts...)
@@ -853,6 +863,12 @@ func canonicalizeWorkflowTemplateNewState(c *Client, rawNew, rawDesired *Workflo
 	} else {
 	}
 
+	if dcl.IsEmptyValueIndirect(rawNew.EncryptionConfig) && dcl.IsEmptyValueIndirect(rawDesired.EncryptionConfig) {
+		rawNew.EncryptionConfig = rawDesired.EncryptionConfig
+	} else {
+		rawNew.EncryptionConfig = canonicalizeNewWorkflowTemplateEncryptionConfig(c, rawDesired.EncryptionConfig, rawNew.EncryptionConfig)
+	}
+
 	if dcl.IsEmptyValueIndirect(rawNew.Placement) && dcl.IsEmptyValueIndirect(rawDesired.Placement) {
 		rawNew.Placement = rawDesired.Placement
 	} else {
@@ -884,6 +900,121 @@ func canonicalizeWorkflowTemplateNewState(c *Client, rawNew, rawDesired *Workflo
 	rawNew.Location = rawDesired.Location
 
 	return rawNew, nil
+}
+
+func canonicalizeWorkflowTemplateEncryptionConfig(des, initial *WorkflowTemplateEncryptionConfig, opts ...dcl.ApplyOption) *WorkflowTemplateEncryptionConfig {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &WorkflowTemplateEncryptionConfig{}
+
+	if dcl.IsZeroValue(des.KmsKey) || (dcl.IsEmptyValueIndirect(des.KmsKey) && dcl.IsEmptyValueIndirect(initial.KmsKey)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		cDes.KmsKey = initial.KmsKey
+	} else {
+		cDes.KmsKey = des.KmsKey
+	}
+
+	return cDes
+}
+
+func canonicalizeWorkflowTemplateEncryptionConfigSlice(des, initial []WorkflowTemplateEncryptionConfig, opts ...dcl.ApplyOption) []WorkflowTemplateEncryptionConfig {
+	if dcl.IsEmptyValueIndirect(des) {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]WorkflowTemplateEncryptionConfig, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeWorkflowTemplateEncryptionConfig(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]WorkflowTemplateEncryptionConfig, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeWorkflowTemplateEncryptionConfig(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewWorkflowTemplateEncryptionConfig(c *Client, des, nw *WorkflowTemplateEncryptionConfig) *WorkflowTemplateEncryptionConfig {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for WorkflowTemplateEncryptionConfig while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	return nw
+}
+
+func canonicalizeNewWorkflowTemplateEncryptionConfigSet(c *Client, des, nw []WorkflowTemplateEncryptionConfig) []WorkflowTemplateEncryptionConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []WorkflowTemplateEncryptionConfig
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareWorkflowTemplateEncryptionConfigNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewWorkflowTemplateEncryptionConfig(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewWorkflowTemplateEncryptionConfigSlice(c *Client, des, nw []WorkflowTemplateEncryptionConfig) []WorkflowTemplateEncryptionConfig {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []WorkflowTemplateEncryptionConfig
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewWorkflowTemplateEncryptionConfig(c, &d, &n))
+	}
+
+	return items
 }
 
 func canonicalizeWorkflowTemplatePlacement(des, initial *WorkflowTemplatePlacement, opts ...dcl.ApplyOption) *WorkflowTemplatePlacement {
@@ -7926,6 +8057,13 @@ func diffWorkflowTemplate(c *Client, desired, actual *WorkflowTemplate, opts ...
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.EncryptionConfig, actual.EncryptionConfig, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplateEncryptionConfigNewStyle, EmptyObject: EmptyWorkflowTemplateEncryptionConfig, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("EncryptionConfig")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Placement, actual.Placement, dcl.DiffInfo{ObjectFunction: compareWorkflowTemplatePlacementNewStyle, EmptyObject: EmptyWorkflowTemplatePlacement, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Placement")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -7973,6 +8111,35 @@ func diffWorkflowTemplate(c *Client, desired, actual *WorkflowTemplate, opts ...
 	}
 	return newDiffs, nil
 }
+func compareWorkflowTemplateEncryptionConfigNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*WorkflowTemplateEncryptionConfig)
+	if !ok {
+		desiredNotPointer, ok := d.(WorkflowTemplateEncryptionConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateEncryptionConfig or *WorkflowTemplateEncryptionConfig", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*WorkflowTemplateEncryptionConfig)
+	if !ok {
+		actualNotPointer, ok := a.(WorkflowTemplateEncryptionConfig)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a WorkflowTemplateEncryptionConfig", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.KmsKey, actual.KmsKey, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("KmsKey")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
 func compareWorkflowTemplatePlacementNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
 	var diffs []*dcl.FieldDiff
 
@@ -10654,6 +10821,11 @@ func expandWorkflowTemplate(c *Client, f *WorkflowTemplate) (map[string]interfac
 	if v := f.Labels; dcl.ValueShouldBeSent(v) {
 		m["labels"] = v
 	}
+	if v, err := expandWorkflowTemplateEncryptionConfig(c, f.EncryptionConfig, res); err != nil {
+		return nil, fmt.Errorf("error expanding EncryptionConfig into encryptionConfig: %w", err)
+	} else if !dcl.IsEmptyValueIndirect(v) {
+		m["encryptionConfig"] = v
+	}
 	if v, err := expandWorkflowTemplatePlacement(c, f.Placement, res); err != nil {
 		return nil, fmt.Errorf("error expanding Placement into placement: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -10703,6 +10875,7 @@ func flattenWorkflowTemplate(c *Client, i interface{}, res *WorkflowTemplate) *W
 	resultRes.CreateTime = dcl.FlattenString(m["createTime"])
 	resultRes.UpdateTime = dcl.FlattenString(m["updateTime"])
 	resultRes.Labels = dcl.FlattenKeyValuePairs(m["labels"])
+	resultRes.EncryptionConfig = flattenWorkflowTemplateEncryptionConfig(c, m["encryptionConfig"], res)
 	resultRes.Placement = flattenWorkflowTemplatePlacement(c, m["placement"], res)
 	resultRes.Jobs = flattenWorkflowTemplateJobsSlice(c, m["jobs"], res)
 	resultRes.Parameters = flattenWorkflowTemplateParametersSlice(c, m["parameters"], res)
@@ -10711,6 +10884,120 @@ func flattenWorkflowTemplate(c *Client, i interface{}, res *WorkflowTemplate) *W
 	resultRes.Location = dcl.FlattenString(m["location"])
 
 	return resultRes
+}
+
+// expandWorkflowTemplateEncryptionConfigMap expands the contents of WorkflowTemplateEncryptionConfig into a JSON
+// request object.
+func expandWorkflowTemplateEncryptionConfigMap(c *Client, f map[string]WorkflowTemplateEncryptionConfig, res *WorkflowTemplate) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandWorkflowTemplateEncryptionConfig(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandWorkflowTemplateEncryptionConfigSlice expands the contents of WorkflowTemplateEncryptionConfig into a JSON
+// request object.
+func expandWorkflowTemplateEncryptionConfigSlice(c *Client, f []WorkflowTemplateEncryptionConfig, res *WorkflowTemplate) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandWorkflowTemplateEncryptionConfig(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenWorkflowTemplateEncryptionConfigMap flattens the contents of WorkflowTemplateEncryptionConfig from a JSON
+// response object.
+func flattenWorkflowTemplateEncryptionConfigMap(c *Client, i interface{}, res *WorkflowTemplate) map[string]WorkflowTemplateEncryptionConfig {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]WorkflowTemplateEncryptionConfig{}
+	}
+
+	if len(a) == 0 {
+		return map[string]WorkflowTemplateEncryptionConfig{}
+	}
+
+	items := make(map[string]WorkflowTemplateEncryptionConfig)
+	for k, item := range a {
+		items[k] = *flattenWorkflowTemplateEncryptionConfig(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenWorkflowTemplateEncryptionConfigSlice flattens the contents of WorkflowTemplateEncryptionConfig from a JSON
+// response object.
+func flattenWorkflowTemplateEncryptionConfigSlice(c *Client, i interface{}, res *WorkflowTemplate) []WorkflowTemplateEncryptionConfig {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []WorkflowTemplateEncryptionConfig{}
+	}
+
+	if len(a) == 0 {
+		return []WorkflowTemplateEncryptionConfig{}
+	}
+
+	items := make([]WorkflowTemplateEncryptionConfig, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenWorkflowTemplateEncryptionConfig(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandWorkflowTemplateEncryptionConfig expands an instance of WorkflowTemplateEncryptionConfig into a JSON
+// request object.
+func expandWorkflowTemplateEncryptionConfig(c *Client, f *WorkflowTemplateEncryptionConfig, res *WorkflowTemplate) (map[string]interface{}, error) {
+	if dcl.IsEmptyValueIndirect(f) {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.KmsKey; !dcl.IsEmptyValueIndirect(v) {
+		m["kmsKey"] = v
+	}
+
+	return m, nil
+}
+
+// flattenWorkflowTemplateEncryptionConfig flattens an instance of WorkflowTemplateEncryptionConfig from a JSON
+// response object.
+func flattenWorkflowTemplateEncryptionConfig(c *Client, i interface{}, res *WorkflowTemplate) *WorkflowTemplateEncryptionConfig {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &WorkflowTemplateEncryptionConfig{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyWorkflowTemplateEncryptionConfig
+	}
+	r.KmsKey = dcl.FlattenString(m["kmsKey"])
+
+	return r
 }
 
 // expandWorkflowTemplatePlacementMap expands the contents of WorkflowTemplatePlacement into a JSON
@@ -17815,6 +18102,17 @@ func convertOpNameToWorkflowTemplateApiOperation(opName string, fieldDiffs []*dc
 }
 
 func extractWorkflowTemplateFields(r *WorkflowTemplate) error {
+	vEncryptionConfig := r.EncryptionConfig
+	if vEncryptionConfig == nil {
+		// note: explicitly not the empty object.
+		vEncryptionConfig = &WorkflowTemplateEncryptionConfig{}
+	}
+	if err := extractWorkflowTemplateEncryptionConfigFields(r, vEncryptionConfig); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vEncryptionConfig) {
+		r.EncryptionConfig = vEncryptionConfig
+	}
 	vPlacement := r.Placement
 	if vPlacement == nil {
 		// note: explicitly not the empty object.
@@ -17826,6 +18124,9 @@ func extractWorkflowTemplateFields(r *WorkflowTemplate) error {
 	if !dcl.IsEmptyValueIndirect(vPlacement) {
 		r.Placement = vPlacement
 	}
+	return nil
+}
+func extractWorkflowTemplateEncryptionConfigFields(r *WorkflowTemplate, o *WorkflowTemplateEncryptionConfig) error {
 	return nil
 }
 func extractWorkflowTemplatePlacementFields(r *WorkflowTemplate, o *WorkflowTemplatePlacement) error {
@@ -18495,6 +18796,17 @@ func extractWorkflowTemplateParametersValidationValuesFields(r *WorkflowTemplate
 }
 
 func postReadExtractWorkflowTemplateFields(r *WorkflowTemplate) error {
+	vEncryptionConfig := r.EncryptionConfig
+	if vEncryptionConfig == nil {
+		// note: explicitly not the empty object.
+		vEncryptionConfig = &WorkflowTemplateEncryptionConfig{}
+	}
+	if err := postReadExtractWorkflowTemplateEncryptionConfigFields(r, vEncryptionConfig); err != nil {
+		return err
+	}
+	if !dcl.IsEmptyValueIndirect(vEncryptionConfig) {
+		r.EncryptionConfig = vEncryptionConfig
+	}
 	vPlacement := r.Placement
 	if vPlacement == nil {
 		// note: explicitly not the empty object.
@@ -18506,6 +18818,9 @@ func postReadExtractWorkflowTemplateFields(r *WorkflowTemplate) error {
 	if !dcl.IsEmptyValueIndirect(vPlacement) {
 		r.Placement = vPlacement
 	}
+	return nil
+}
+func postReadExtractWorkflowTemplateEncryptionConfigFields(r *WorkflowTemplate, o *WorkflowTemplateEncryptionConfig) error {
 	return nil
 }
 func postReadExtractWorkflowTemplatePlacementFields(r *WorkflowTemplate, o *WorkflowTemplatePlacement) error {

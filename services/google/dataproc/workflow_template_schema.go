@@ -126,6 +126,27 @@ func DCLWorkflowTemplateSchema() *dcl.Schema {
 								Description: "Optional. Timeout duration for the DAG of jobs, expressed in seconds (see [JSON representation of duration](https://developers.google.com/protocol-buffers/docs/proto3#json)). The timeout duration must be from 10 minutes (\"600s\") to 24 hours (\"86400s\"). The timer begins when the first job is submitted. If the workflow is running at the end of the timeout period, any remaining jobs are cancelled, the workflow is ended, and if the workflow was running on a [managed cluster](/dataproc/docs/concepts/workflows/using-workflows#configuring_or_selecting_a_cluster), the cluster is deleted.",
 								Immutable:   true,
 							},
+							"encryptionConfig": &dcl.Property{
+								Type:        "object",
+								GoName:      "EncryptionConfig",
+								GoType:      "WorkflowTemplateEncryptionConfig",
+								Description: "Optional. The encryption configuration for the workflow template.",
+								Immutable:   true,
+								Properties: map[string]*dcl.Property{
+									"kmsKey": &dcl.Property{
+										Type:        "string",
+										GoName:      "KmsKey",
+										Description: "Optional. The Cloud KMS key name to use for encryption.",
+										Immutable:   true,
+										ResourceReferences: []*dcl.PropertyResourceReference{
+											&dcl.PropertyResourceReference{
+												Resource: "Cloudkms/CryptoKey",
+												Field:    "selfLink",
+											},
+										},
+									},
+								},
+							},
 							"jobs": &dcl.Property{
 								Type:        "array",
 								GoName:      "Jobs",

@@ -95,6 +95,21 @@ components:
             workflow is ended, and if the workflow was running on a [managed cluster](/dataproc/docs/concepts/workflows/using-workflows#configuring_or_selecting_a_cluster),
             the cluster is deleted.
           x-kubernetes-immutable: true
+        encryptionConfig:
+          type: object
+          x-dcl-go-name: EncryptionConfig
+          x-dcl-go-type: WorkflowTemplateEncryptionConfig
+          description: Optional. The encryption configuration for the workflow template.
+          x-kubernetes-immutable: true
+          properties:
+            kmsKey:
+              type: string
+              x-dcl-go-name: KmsKey
+              description: Optional. The Cloud KMS key name to use for encryption.
+              x-kubernetes-immutable: true
+              x-dcl-references:
+              - resource: Cloudkms/CryptoKey
+                field: selfLink
         jobs:
           type: array
           x-dcl-go-name: Jobs
