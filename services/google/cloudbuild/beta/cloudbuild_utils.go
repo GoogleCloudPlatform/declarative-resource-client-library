@@ -35,8 +35,10 @@ func betaToGaPrivatePool(r *WorkerPool, c *WorkerPoolPrivatePoolV1Config) *Worke
 	}
 	if r.PrivateServiceConnect != nil {
 		cfgPrivateServiceConnect.NetworkAttachment = r.PrivateServiceConnect.NetworkAttachment
-		cfgPrivateServiceConnect.PublicIPAddressDisabled = r.WorkerConfig.NoExternalIP
 		cfgPrivateServiceConnect.RouteAllTraffic = r.PrivateServiceConnect.RouteAllTraffic
+		if r.WorkerConfig != nil {
+			cfgPrivateServiceConnect.PublicIPAddressDisabled = r.WorkerConfig.NoExternalIP
+		}
 	}
 
 	cfg := &WorkerPoolPrivatePoolV1Config{}
