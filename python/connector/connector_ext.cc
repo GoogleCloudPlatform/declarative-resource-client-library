@@ -11,6 +11,8 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+#include <string>
+
 #include "connector/connector.h"
 #include "absl/strings/string_view.h"
 #include "third_party/pybind11/include/pybind11/detail/common.h"
