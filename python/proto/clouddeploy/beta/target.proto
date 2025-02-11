@@ -56,6 +56,7 @@ message ClouddeployBetaTargetGke {
   string cluster = 1;
   bool internal_ip = 2;
   string proxy_url = 3;
+  bool dns_endpoint = 4;
 }
 
 message ClouddeployBetaTargetAnthosCluster {

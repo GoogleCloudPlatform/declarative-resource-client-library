@@ -80,10 +80,11 @@ func (v TargetExecutionConfigsUsagesEnum) Validate() error {
 }
 
 type TargetGke struct {
-	empty      bool    `json:"-"`
-	Cluster    *string `json:"cluster"`
-	InternalIP *bool   `json:"internalIP"`
-	ProxyUrl   *string `json:"proxyUrl"`
+	empty       bool    `json:"-"`
+	Cluster     *string `json:"cluster"`
+	InternalIP  *bool   `json:"internalIP"`
+	ProxyUrl    *string `json:"proxyUrl"`
+	DnsEndpoint *bool   `json:"dnsEndpoint"`
 }
 
 type jsonTargetGke TargetGke
@@ -106,6 +107,8 @@ func (r *TargetGke) UnmarshalJSON(data []byte) error {
 		r.InternalIP = res.InternalIP
 
 		r.ProxyUrl = res.ProxyUrl
+
+		r.DnsEndpoint = res.DnsEndpoint
 
 	}
 	return nil

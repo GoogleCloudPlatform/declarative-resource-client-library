@@ -290,11 +290,16 @@ class Target(object):
 class TargetGke(object):
 
     def __init__(
-        self, cluster: str = None, internal_ip: bool = None, proxy_url: str = None
+        self,
+        cluster: str = None,
+        internal_ip: bool = None,
+        proxy_url: str = None,
+        dns_endpoint: bool = None,
     ):
         self.cluster = cluster
         self.internal_ip = internal_ip
         self.proxy_url = proxy_url
+        self.dns_endpoint = dns_endpoint
 
     @classmethod
     def to_proto(self, resource):
@@ -308,6 +313,8 @@ class TargetGke(object):
             res.internal_ip = Primitive.to_proto(resource.internal_ip)
         if Primitive.to_proto(resource.proxy_url):
             res.proxy_url = Primitive.to_proto(resource.proxy_url)
+        if Primitive.to_proto(resource.dns_endpoint):
+            res.dns_endpoint = Primitive.to_proto(resource.dns_endpoint)
         return res
 
     @classmethod
@@ -319,6 +326,7 @@ class TargetGke(object):
             cluster=Primitive.from_proto(resource.cluster),
             internal_ip=Primitive.from_proto(resource.internal_ip),
             proxy_url=Primitive.from_proto(resource.proxy_url),
+            dns_endpoint=Primitive.from_proto(resource.dns_endpoint),
         )
 
 

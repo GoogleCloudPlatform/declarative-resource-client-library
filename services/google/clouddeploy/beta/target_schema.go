@@ -361,6 +361,11 @@ func DCLTargetSchema() *dcl.Schema {
 											},
 										},
 									},
+									"dnsEndpoint": &dcl.Property{
+										Type:        "boolean",
+										GoName:      "DnsEndpoint",
+										Description: "Optional. If set, the cluster will be accessed using the DNS endpoint. Note that both `dns_endpoint` and `internal_ip` cannot be set to true.",
+									},
 									"internalIP": &dcl.Property{
 										Type:        "boolean",
 										GoName:      "InternalIP",

@@ -871,6 +871,11 @@ func canonicalizeTargetGke(des, initial *TargetGke, opts ...dcl.ApplyOption) *Ta
 	} else {
 		cDes.ProxyUrl = des.ProxyUrl
 	}
+	if dcl.BoolCanonicalize(des.DnsEndpoint, initial.DnsEndpoint) || dcl.IsZeroValue(des.DnsEndpoint) {
+		cDes.DnsEndpoint = initial.DnsEndpoint
+	} else {
+		cDes.DnsEndpoint = des.DnsEndpoint
+	}
 
 	return cDes
 }
@@ -922,6 +927,9 @@ func canonicalizeNewTargetGke(c *Client, des, nw *TargetGke) *TargetGke {
 	}
 	if dcl.StringCanonicalize(des.ProxyUrl, nw.ProxyUrl) {
 		nw.ProxyUrl = des.ProxyUrl
+	}
+	if dcl.BoolCanonicalize(des.DnsEndpoint, nw.DnsEndpoint) {
+		nw.DnsEndpoint = des.DnsEndpoint
 	}
 
 	return nw
@@ -2157,6 +2165,13 @@ func compareTargetGkeNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldD
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.DnsEndpoint, actual.DnsEndpoint, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateTargetUpdateTargetOperation")}, fn.AddNest("DnsEndpoint")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -2716,6 +2731,9 @@ func expandTargetGke(c *Client, f *TargetGke, res *Target) (map[string]interface
 	if v := f.ProxyUrl; !dcl.IsEmptyValueIndirect(v) {
 		m["proxyUrl"] = v
 	}
+	if v := f.DnsEndpoint; !dcl.IsEmptyValueIndirect(v) {
+		m["dnsEndpoint"] = v
+	}
 
 	return m, nil
 }
@@ -2736,6 +2754,7 @@ func flattenTargetGke(c *Client, i interface{}, res *Target) *TargetGke {
 	r.Cluster = dcl.FlattenString(m["cluster"])
 	r.InternalIP = dcl.FlattenBool(m["internalIp"])
 	r.ProxyUrl = dcl.FlattenString(m["proxyUrl"])
+	r.DnsEndpoint = dcl.FlattenBool(m["dnsEndpoint"])
 
 	return r
 }

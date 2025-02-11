@@ -305,6 +305,12 @@ components:
               x-dcl-references:
               - resource: Container/Cluster
                 field: selfLink
+            dnsEndpoint:
+              type: boolean
+              x-dcl-go-name: DnsEndpoint
+              description: Optional. If set, the cluster will be accessed using the
+                DNS endpoint. Note that both `dns_endpoint` and `internal_ip` cannot
+                be set to true.
             internalIP:
               type: boolean
               x-dcl-go-name: InternalIP

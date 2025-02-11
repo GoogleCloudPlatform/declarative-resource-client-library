@@ -132,6 +132,9 @@ func TargetToUnstructured(r *dclService.Target) *unstructured.Resource {
 		if r.Gke.Cluster != nil {
 			rGke["cluster"] = *r.Gke.Cluster
 		}
+		if r.Gke.DnsEndpoint != nil {
+			rGke["dnsEndpoint"] = *r.Gke.DnsEndpoint
+		}
 		if r.Gke.InternalIP != nil {
 			rGke["internalIP"] = *r.Gke.InternalIP
 		}
@@ -398,6 +401,13 @@ func UnstructuredToTarget(u *unstructured.Resource) (*dclService.Target, error) 
 					r.Gke.Cluster = dcl.String(s)
 				} else {
 					return nil, fmt.Errorf("r.Gke.Cluster: expected string")
+				}
+			}
+			if _, ok := rGke["dnsEndpoint"]; ok {
+				if b, ok := rGke["dnsEndpoint"].(bool); ok {
+					r.Gke.DnsEndpoint = dcl.Bool(b)
+				} else {
+					return nil, fmt.Errorf("r.Gke.DnsEndpoint: expected bool")
 				}
 			}
 			if _, ok := rGke["internalIP"]; ok {
