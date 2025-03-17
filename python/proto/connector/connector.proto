@@ -16,9 +16,10 @@ edition = "2023";
 package connector;
 
 import "google/rpc/status.proto";
+import "third_party/golang/protobuf/v2/src/google/protobuf/go_features.proto";
 
 option features.field_presence = IMPLICIT;
-
+option features.(pb.go).api_level = API_HYBRID;
 
 // InitializeRequest contains the parameters for the Initialize method
 // call (currently none).
