@@ -106,7 +106,6 @@ func DCLServiceBindingSchema() *dcl.Schema {
 						Type: "object",
 						Required: []string{
 							"name",
-							"service",
 							"project",
 							"location",
 						},
@@ -144,7 +143,7 @@ func DCLServiceBindingSchema() *dcl.Schema {
 							"name": &dcl.Property{
 								Type:        "string",
 								GoName:      "Name",
-								Description: "Required. Name of the ServiceBinding resource. It matches pattern `projects/*/locations/global/serviceBindings/service_binding_name>`.",
+								Description: "Required. Name of the ServiceBinding resource. It matches pattern `projects/*/locations/*/serviceBindings/<service_binding_name>`.",
 								Immutable:   true,
 								HasLongForm: true,
 							},
@@ -165,7 +164,7 @@ func DCLServiceBindingSchema() *dcl.Schema {
 							"service": &dcl.Property{
 								Type:        "string",
 								GoName:      "Service",
-								Description: "Required. The full service directory service name of the format projects/*/locations/*/namespaces/*/services/*",
+								Description: "Optional. The full service directory service name of the format `projects/*/locations/*/namespaces/*/services/*`. This field is for Service Directory integration which will be deprecated soon.",
 								Immutable:   true,
 								ResourceReferences: []*dcl.PropertyResourceReference{
 									&dcl.PropertyResourceReference{
@@ -173,6 +172,7 @@ func DCLServiceBindingSchema() *dcl.Schema {
 										Field:    "name",
 									},
 								},
+								Deprecated: true,
 							},
 							"updateTime": &dcl.Property{
 								Type:        "string",
