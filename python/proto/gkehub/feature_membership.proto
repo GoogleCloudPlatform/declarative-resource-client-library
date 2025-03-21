@@ -106,13 +106,28 @@ message GkehubFeatureMembershipConfigmanagement {
 }
 
 message GkehubFeatureMembershipConfigmanagementConfigSync {
-  GkehubFeatureMembershipConfigmanagementConfigSyncGit git = 1;
-  string source_format = 2;
-  bool enabled = 3;
-  bool stop_syncing = 4;
-  bool prevent_drift = 5;
-  string metrics_gcp_service_account_email = 6;
-  GkehubFeatureMembershipConfigmanagementConfigSyncOci oci = 7;
+  repeated GkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides deployment_overrides = 1;
+  GkehubFeatureMembershipConfigmanagementConfigSyncGit git = 2;
+  string source_format = 3;
+  bool enabled = 4;
+  bool stop_syncing = 5;
+  bool prevent_drift = 6;
+  string metrics_gcp_service_account_email = 7;
+  GkehubFeatureMembershipConfigmanagementConfigSyncOci oci = 8;
+}
+
+message GkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides {
+  string deployment_name = 1;
+  string deployment_namespace = 2;
+  repeated GkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers containers = 3;
+}
+
+message GkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers {
+  string container_name = 1;
+  string cpu_request = 2;
+  string memory_request = 3;
+  string cpu_limit = 4;
+  string memory_limit = 5;
 }
 
 message GkehubFeatureMembershipConfigmanagementConfigSyncGit {

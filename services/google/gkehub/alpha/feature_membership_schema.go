@@ -153,6 +153,67 @@ func DCLFeatureMembershipSchema() *dcl.Schema {
 										Description: "Config Sync configuration for the cluster.",
 										SendEmpty:   true,
 										Properties: map[string]*dcl.Property{
+											"deploymentOverrides": &dcl.Property{
+												Type:        "array",
+												GoName:      "DeploymentOverrides",
+												Description: "The override configurations for the Config Sync Deployments.",
+												SendEmpty:   true,
+												ListType:    "list",
+												Items: &dcl.Property{
+													Type:   "object",
+													GoType: "FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides",
+													Properties: map[string]*dcl.Property{
+														"containers": &dcl.Property{
+															Type:        "array",
+															GoName:      "Containers",
+															Description: "The override configurations for the containers in the Deployment.",
+															SendEmpty:   true,
+															ListType:    "list",
+															Items: &dcl.Property{
+																Type:   "object",
+																GoType: "FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers",
+																Properties: map[string]*dcl.Property{
+																	"containerName": &dcl.Property{
+																		Type:        "string",
+																		GoName:      "ContainerName",
+																		Description: "The name of the container.",
+																	},
+																	"cpuLimit": &dcl.Property{
+																		Type:        "string",
+																		GoName:      "CpuLimit",
+																		Description: "The CPU limit of the container.",
+																	},
+																	"cpuRequest": &dcl.Property{
+																		Type:        "string",
+																		GoName:      "CpuRequest",
+																		Description: "The CPU request of the container.",
+																	},
+																	"memoryLimit": &dcl.Property{
+																		Type:        "string",
+																		GoName:      "MemoryLimit",
+																		Description: "The memory limit of the container.",
+																	},
+																	"memoryRequest": &dcl.Property{
+																		Type:        "string",
+																		GoName:      "MemoryRequest",
+																		Description: "The memory request of the container.",
+																	},
+																},
+															},
+														},
+														"deploymentName": &dcl.Property{
+															Type:        "string",
+															GoName:      "DeploymentName",
+															Description: "The name of the Deployment.",
+														},
+														"deploymentNamespace": &dcl.Property{
+															Type:        "string",
+															GoName:      "DeploymentNamespace",
+															Description: "The namespace of the Deployment.",
+														},
+													},
+												},
+											},
 											"enabled": &dcl.Property{
 												Type:        "boolean",
 												GoName:      "Enabled",

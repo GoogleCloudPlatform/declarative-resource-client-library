@@ -110,6 +110,55 @@ components:
               description: Config Sync configuration for the cluster.
               x-dcl-send-empty: true
               properties:
+                deploymentOverrides:
+                  type: array
+                  x-dcl-go-name: DeploymentOverrides
+                  description: The override configurations for the Config Sync Deployments.
+                  x-dcl-send-empty: true
+                  x-dcl-list-type: list
+                  items:
+                    type: object
+                    x-dcl-go-type: FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides
+                    properties:
+                      containers:
+                        type: array
+                        x-dcl-go-name: Containers
+                        description: The override configurations for the containers
+                          in the Deployment.
+                        x-dcl-send-empty: true
+                        x-dcl-list-type: list
+                        items:
+                          type: object
+                          x-dcl-go-type: FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers
+                          properties:
+                            containerName:
+                              type: string
+                              x-dcl-go-name: ContainerName
+                              description: The name of the container.
+                            cpuLimit:
+                              type: string
+                              x-dcl-go-name: CpuLimit
+                              description: The CPU limit of the container.
+                            cpuRequest:
+                              type: string
+                              x-dcl-go-name: CpuRequest
+                              description: The CPU request of the container.
+                            memoryLimit:
+                              type: string
+                              x-dcl-go-name: MemoryLimit
+                              description: The memory limit of the container.
+                            memoryRequest:
+                              type: string
+                              x-dcl-go-name: MemoryRequest
+                              description: The memory request of the container.
+                      deploymentName:
+                        type: string
+                        x-dcl-go-name: DeploymentName
+                        description: The name of the Deployment.
+                      deploymentNamespace:
+                        type: string
+                        x-dcl-go-name: DeploymentNamespace
+                        description: The namespace of the Deployment.
                 enabled:
                   type: boolean
                   x-dcl-go-name: Enabled

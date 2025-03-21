@@ -43,6 +43,39 @@ func FeatureMembershipToUnstructured(r *dclService.FeatureMembership) *unstructu
 		}
 		if r.Configmanagement.ConfigSync != nil && r.Configmanagement.ConfigSync != dclService.EmptyFeatureMembershipConfigmanagementConfigSync {
 			rConfigmanagementConfigSync := make(map[string]interface{})
+			var rConfigmanagementConfigSyncDeploymentOverrides []interface{}
+			for _, rConfigmanagementConfigSyncDeploymentOverridesVal := range r.Configmanagement.ConfigSync.DeploymentOverrides {
+				rConfigmanagementConfigSyncDeploymentOverridesObject := make(map[string]interface{})
+				var rConfigmanagementConfigSyncDeploymentOverridesValContainers []interface{}
+				for _, rConfigmanagementConfigSyncDeploymentOverridesValContainersVal := range rConfigmanagementConfigSyncDeploymentOverridesVal.Containers {
+					rConfigmanagementConfigSyncDeploymentOverridesValContainersObject := make(map[string]interface{})
+					if rConfigmanagementConfigSyncDeploymentOverridesValContainersVal.ContainerName != nil {
+						rConfigmanagementConfigSyncDeploymentOverridesValContainersObject["containerName"] = *rConfigmanagementConfigSyncDeploymentOverridesValContainersVal.ContainerName
+					}
+					if rConfigmanagementConfigSyncDeploymentOverridesValContainersVal.CpuLimit != nil {
+						rConfigmanagementConfigSyncDeploymentOverridesValContainersObject["cpuLimit"] = *rConfigmanagementConfigSyncDeploymentOverridesValContainersVal.CpuLimit
+					}
+					if rConfigmanagementConfigSyncDeploymentOverridesValContainersVal.CpuRequest != nil {
+						rConfigmanagementConfigSyncDeploymentOverridesValContainersObject["cpuRequest"] = *rConfigmanagementConfigSyncDeploymentOverridesValContainersVal.CpuRequest
+					}
+					if rConfigmanagementConfigSyncDeploymentOverridesValContainersVal.MemoryLimit != nil {
+						rConfigmanagementConfigSyncDeploymentOverridesValContainersObject["memoryLimit"] = *rConfigmanagementConfigSyncDeploymentOverridesValContainersVal.MemoryLimit
+					}
+					if rConfigmanagementConfigSyncDeploymentOverridesValContainersVal.MemoryRequest != nil {
+						rConfigmanagementConfigSyncDeploymentOverridesValContainersObject["memoryRequest"] = *rConfigmanagementConfigSyncDeploymentOverridesValContainersVal.MemoryRequest
+					}
+					rConfigmanagementConfigSyncDeploymentOverridesValContainers = append(rConfigmanagementConfigSyncDeploymentOverridesValContainers, rConfigmanagementConfigSyncDeploymentOverridesValContainersObject)
+				}
+				rConfigmanagementConfigSyncDeploymentOverridesObject["containers"] = rConfigmanagementConfigSyncDeploymentOverridesValContainers
+				if rConfigmanagementConfigSyncDeploymentOverridesVal.DeploymentName != nil {
+					rConfigmanagementConfigSyncDeploymentOverridesObject["deploymentName"] = *rConfigmanagementConfigSyncDeploymentOverridesVal.DeploymentName
+				}
+				if rConfigmanagementConfigSyncDeploymentOverridesVal.DeploymentNamespace != nil {
+					rConfigmanagementConfigSyncDeploymentOverridesObject["deploymentNamespace"] = *rConfigmanagementConfigSyncDeploymentOverridesVal.DeploymentNamespace
+				}
+				rConfigmanagementConfigSyncDeploymentOverrides = append(rConfigmanagementConfigSyncDeploymentOverrides, rConfigmanagementConfigSyncDeploymentOverridesObject)
+			}
+			rConfigmanagementConfigSync["deploymentOverrides"] = rConfigmanagementConfigSyncDeploymentOverrides
 			if r.Configmanagement.ConfigSync.Enabled != nil {
 				rConfigmanagementConfigSync["enabled"] = *r.Configmanagement.ConfigSync.Enabled
 			}
@@ -337,6 +370,79 @@ func UnstructuredToFeatureMembership(u *unstructured.Resource) (*dclService.Feat
 			if _, ok := rConfigmanagement["configSync"]; ok {
 				if rConfigmanagementConfigSync, ok := rConfigmanagement["configSync"].(map[string]interface{}); ok {
 					r.Configmanagement.ConfigSync = &dclService.FeatureMembershipConfigmanagementConfigSync{}
+					if _, ok := rConfigmanagementConfigSync["deploymentOverrides"]; ok {
+						if s, ok := rConfigmanagementConfigSync["deploymentOverrides"].([]interface{}); ok {
+							for _, o := range s {
+								if objval, ok := o.(map[string]interface{}); ok {
+									var rConfigmanagementConfigSyncDeploymentOverrides dclService.FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides
+									if _, ok := objval["containers"]; ok {
+										if s, ok := objval["containers"].([]interface{}); ok {
+											for _, o := range s {
+												if objval, ok := o.(map[string]interface{}); ok {
+													var rConfigmanagementConfigSyncDeploymentOverridesContainers dclService.FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers
+													if _, ok := objval["containerName"]; ok {
+														if s, ok := objval["containerName"].(string); ok {
+															rConfigmanagementConfigSyncDeploymentOverridesContainers.ContainerName = dcl.String(s)
+														} else {
+															return nil, fmt.Errorf("rConfigmanagementConfigSyncDeploymentOverridesContainers.ContainerName: expected string")
+														}
+													}
+													if _, ok := objval["cpuLimit"]; ok {
+														if s, ok := objval["cpuLimit"].(string); ok {
+															rConfigmanagementConfigSyncDeploymentOverridesContainers.CpuLimit = dcl.String(s)
+														} else {
+															return nil, fmt.Errorf("rConfigmanagementConfigSyncDeploymentOverridesContainers.CpuLimit: expected string")
+														}
+													}
+													if _, ok := objval["cpuRequest"]; ok {
+														if s, ok := objval["cpuRequest"].(string); ok {
+															rConfigmanagementConfigSyncDeploymentOverridesContainers.CpuRequest = dcl.String(s)
+														} else {
+															return nil, fmt.Errorf("rConfigmanagementConfigSyncDeploymentOverridesContainers.CpuRequest: expected string")
+														}
+													}
+													if _, ok := objval["memoryLimit"]; ok {
+														if s, ok := objval["memoryLimit"].(string); ok {
+															rConfigmanagementConfigSyncDeploymentOverridesContainers.MemoryLimit = dcl.String(s)
+														} else {
+															return nil, fmt.Errorf("rConfigmanagementConfigSyncDeploymentOverridesContainers.MemoryLimit: expected string")
+														}
+													}
+													if _, ok := objval["memoryRequest"]; ok {
+														if s, ok := objval["memoryRequest"].(string); ok {
+															rConfigmanagementConfigSyncDeploymentOverridesContainers.MemoryRequest = dcl.String(s)
+														} else {
+															return nil, fmt.Errorf("rConfigmanagementConfigSyncDeploymentOverridesContainers.MemoryRequest: expected string")
+														}
+													}
+													rConfigmanagementConfigSyncDeploymentOverrides.Containers = append(rConfigmanagementConfigSyncDeploymentOverrides.Containers, rConfigmanagementConfigSyncDeploymentOverridesContainers)
+												}
+											}
+										} else {
+											return nil, fmt.Errorf("rConfigmanagementConfigSyncDeploymentOverrides.Containers: expected []interface{}")
+										}
+									}
+									if _, ok := objval["deploymentName"]; ok {
+										if s, ok := objval["deploymentName"].(string); ok {
+											rConfigmanagementConfigSyncDeploymentOverrides.DeploymentName = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("rConfigmanagementConfigSyncDeploymentOverrides.DeploymentName: expected string")
+										}
+									}
+									if _, ok := objval["deploymentNamespace"]; ok {
+										if s, ok := objval["deploymentNamespace"].(string); ok {
+											rConfigmanagementConfigSyncDeploymentOverrides.DeploymentNamespace = dcl.String(s)
+										} else {
+											return nil, fmt.Errorf("rConfigmanagementConfigSyncDeploymentOverrides.DeploymentNamespace: expected string")
+										}
+									}
+									r.Configmanagement.ConfigSync.DeploymentOverrides = append(r.Configmanagement.ConfigSync.DeploymentOverrides, rConfigmanagementConfigSyncDeploymentOverrides)
+								}
+							}
+						} else {
+							return nil, fmt.Errorf("r.Configmanagement.ConfigSync.DeploymentOverrides: expected []interface{}")
+						}
+					}
 					if _, ok := rConfigmanagementConfigSync["enabled"]; ok {
 						if b, ok := rConfigmanagementConfigSync["enabled"].(bool); ok {
 							r.Configmanagement.ConfigSync.Enabled = dcl.Bool(b)

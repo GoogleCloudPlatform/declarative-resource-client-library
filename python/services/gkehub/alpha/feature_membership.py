@@ -344,6 +344,7 @@ class FeatureMembershipConfigmanagementConfigSync(object):
 
     def __init__(
         self,
+        deployment_overrides: list = None,
         git: dict = None,
         source_format: str = None,
         enabled: bool = None,
@@ -352,6 +353,7 @@ class FeatureMembershipConfigmanagementConfigSync(object):
         metrics_gcp_service_account_email: str = None,
         oci: dict = None,
     ):
+        self.deployment_overrides = deployment_overrides
         self.git = git
         self.source_format = source_format
         self.enabled = enabled
@@ -368,6 +370,14 @@ class FeatureMembershipConfigmanagementConfigSync(object):
         res = (
             feature_membership_pb2.GkehubAlphaFeatureMembershipConfigmanagementConfigSync()
         )
+        if FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesArray.to_proto(
+            resource.deployment_overrides
+        ):
+            res.deployment_overrides.extend(
+                FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesArray.to_proto(
+                    resource.deployment_overrides
+                )
+            )
         if FeatureMembershipConfigmanagementConfigSyncGit.to_proto(resource.git):
             res.git.CopyFrom(
                 FeatureMembershipConfigmanagementConfigSyncGit.to_proto(resource.git)
@@ -400,6 +410,9 @@ class FeatureMembershipConfigmanagementConfigSync(object):
             return None
 
         return FeatureMembershipConfigmanagementConfigSync(
+            deployment_overrides=FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesArray.from_proto(
+                resource.deployment_overrides
+            ),
             git=FeatureMembershipConfigmanagementConfigSyncGit.from_proto(resource.git),
             source_format=Primitive.from_proto(resource.source_format),
             enabled=Primitive.from_proto(resource.enabled),
@@ -425,6 +438,146 @@ class FeatureMembershipConfigmanagementConfigSyncArray(object):
     def from_proto(self, resources):
         return [
             FeatureMembershipConfigmanagementConfigSync.from_proto(i) for i in resources
+        ]
+
+
+class FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides(object):
+
+    def __init__(
+        self,
+        deployment_name: str = None,
+        deployment_namespace: str = None,
+        containers: list = None,
+    ):
+        self.deployment_name = deployment_name
+        self.deployment_namespace = deployment_namespace
+        self.containers = containers
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            feature_membership_pb2.GkehubAlphaFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides()
+        )
+        if Primitive.to_proto(resource.deployment_name):
+            res.deployment_name = Primitive.to_proto(resource.deployment_name)
+        if Primitive.to_proto(resource.deployment_namespace):
+            res.deployment_namespace = Primitive.to_proto(resource.deployment_namespace)
+        if FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersArray.to_proto(
+            resource.containers
+        ):
+            res.containers.extend(
+                FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersArray.to_proto(
+                    resource.containers
+                )
+            )
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides(
+            deployment_name=Primitive.from_proto(resource.deployment_name),
+            deployment_namespace=Primitive.from_proto(resource.deployment_namespace),
+            containers=FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersArray.from_proto(
+                resource.containers
+            ),
+        )
+
+
+class FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesArray(object):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides.to_proto(i)
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides.from_proto(i)
+            for i in resources
+        ]
+
+
+class FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers(object):
+
+    def __init__(
+        self,
+        container_name: str = None,
+        cpu_request: str = None,
+        memory_request: str = None,
+        cpu_limit: str = None,
+        memory_limit: str = None,
+    ):
+        self.container_name = container_name
+        self.cpu_request = cpu_request
+        self.memory_request = memory_request
+        self.cpu_limit = cpu_limit
+        self.memory_limit = memory_limit
+
+    @classmethod
+    def to_proto(self, resource):
+        if not resource:
+            return None
+
+        res = (
+            feature_membership_pb2.GkehubAlphaFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers()
+        )
+        if Primitive.to_proto(resource.container_name):
+            res.container_name = Primitive.to_proto(resource.container_name)
+        if Primitive.to_proto(resource.cpu_request):
+            res.cpu_request = Primitive.to_proto(resource.cpu_request)
+        if Primitive.to_proto(resource.memory_request):
+            res.memory_request = Primitive.to_proto(resource.memory_request)
+        if Primitive.to_proto(resource.cpu_limit):
+            res.cpu_limit = Primitive.to_proto(resource.cpu_limit)
+        if Primitive.to_proto(resource.memory_limit):
+            res.memory_limit = Primitive.to_proto(resource.memory_limit)
+        return res
+
+    @classmethod
+    def from_proto(self, resource):
+        if not resource:
+            return None
+
+        return FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers(
+            container_name=Primitive.from_proto(resource.container_name),
+            cpu_request=Primitive.from_proto(resource.cpu_request),
+            memory_request=Primitive.from_proto(resource.memory_request),
+            cpu_limit=Primitive.from_proto(resource.cpu_limit),
+            memory_limit=Primitive.from_proto(resource.memory_limit),
+        )
+
+
+class FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersArray(
+    object
+):
+    @classmethod
+    def to_proto(self, resources):
+        if not resources:
+            return resources
+        return [
+            FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers.to_proto(
+                i
+            )
+            for i in resources
+        ]
+
+    @classmethod
+    def from_proto(self, resources):
+        return [
+            FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers.from_proto(
+                i
+            )
+            for i in resources
         ]
 
 

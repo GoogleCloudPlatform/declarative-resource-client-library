@@ -6,6 +6,21 @@
   "membershipLocation": "global",
   "configmanagement": {
     "configSync": {
+      "deploymentOverrides": [
+        {
+          "deploymentName": "reconciler-manager",
+          "deploymentNamespace": "config-management-system",
+          "containers": [
+            {
+              "containerName": "reconciler-manager",
+              "cpuRequest": "1",
+              "memoryRequest": "4Gi",
+              "cpuLimit": "2",
+              "memoryLimit": "8Gi"
+            }
+          ]
+        }
+      ],
       "git": {
         "syncRepo": "https://github.com/GoogleCloudPlatform/cloud-foundation-toolkit",
         "syncBranch": "master",

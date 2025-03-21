@@ -18,6 +18,7 @@ versions:
 - ga
 resource: samples/acm.feature_membership.json
 dependencies:
+- samples/anthos.serviceusage.service.json
 - samples/acm.feature.json
 - samples/first.membership.json
 - samples/first.container.cluster.json
@@ -34,6 +35,7 @@ updates:
   - samples/update_acm.feature.json
 - resource: samples/update_2_acm.feature_membership.json
   dependencies:
+  - samples/anthos.serviceusage.service.json
   - samples/acm.feature.json
   - samples/first.membership.json
   - samples/first.container.cluster.json
@@ -46,6 +48,7 @@ updates:
   - samples/basic.cloudresourcemanager.project.json
 - resource: samples/update_3_acm.feature_membership.json
   dependencies:
+  - samples/anthos.serviceusage.service.json
   - samples/acm.feature.json
   - samples/first.membership.json
   - samples/first.container.cluster.json
@@ -58,6 +61,7 @@ updates:
   - samples/basic.cloudresourcemanager.project.json
 - resource: samples/update_4_acm.feature_membership.json
   dependencies:
+  - samples/anthos.serviceusage.service.json
   - samples/acm.feature.json
   - samples/first.membership.json
   - samples/first.container.cluster.json
@@ -70,6 +74,7 @@ updates:
   - samples/basic.cloudresourcemanager.project.json
 - resource: samples/update_5_acm.feature_membership.json
   dependencies:
+  - samples/anthos.serviceusage.service.json
   - samples/acm.feature.json
   - samples/first.membership.json
   - samples/first.container.cluster.json

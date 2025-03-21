@@ -162,6 +162,39 @@ func ProtoToGkehubFeatureMembershipConfigmanagementConfigSync(p *gkehubpb.Gkehub
 		MetricsGcpServiceAccountEmail: dcl.StringOrNil(p.GetMetricsGcpServiceAccountEmail()),
 		Oci:                           ProtoToGkehubFeatureMembershipConfigmanagementConfigSyncOci(p.GetOci()),
 	}
+	for _, r := range p.GetDeploymentOverrides() {
+		obj.DeploymentOverrides = append(obj.DeploymentOverrides, *ProtoToGkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides(r))
+	}
+	return obj
+}
+
+// ProtoToFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides converts a FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides object from its proto representation.
+func ProtoToGkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides(p *gkehubpb.GkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides) *gkehub.FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides {
+	if p == nil {
+		return nil
+	}
+	obj := &gkehub.FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides{
+		DeploymentName:      dcl.StringOrNil(p.GetDeploymentName()),
+		DeploymentNamespace: dcl.StringOrNil(p.GetDeploymentNamespace()),
+	}
+	for _, r := range p.GetContainers() {
+		obj.Containers = append(obj.Containers, *ProtoToGkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers(r))
+	}
+	return obj
+}
+
+// ProtoToFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers converts a FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers object from its proto representation.
+func ProtoToGkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers(p *gkehubpb.GkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers) *gkehub.FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers {
+	if p == nil {
+		return nil
+	}
+	obj := &gkehub.FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers{
+		ContainerName: dcl.StringOrNil(p.GetContainerName()),
+		CpuRequest:    dcl.StringOrNil(p.GetCpuRequest()),
+		MemoryRequest: dcl.StringOrNil(p.GetMemoryRequest()),
+		CpuLimit:      dcl.StringOrNil(p.GetCpuLimit()),
+		MemoryLimit:   dcl.StringOrNil(p.GetMemoryLimit()),
+	}
 	return obj
 }
 
@@ -541,6 +574,41 @@ func GkehubFeatureMembershipConfigmanagementConfigSyncToProto(o *gkehub.FeatureM
 	p.SetPreventDrift(dcl.ValueOrEmptyBool(o.PreventDrift))
 	p.SetMetricsGcpServiceAccountEmail(dcl.ValueOrEmptyString(o.MetricsGcpServiceAccountEmail))
 	p.SetOci(GkehubFeatureMembershipConfigmanagementConfigSyncOciToProto(o.Oci))
+	sDeploymentOverrides := make([]*gkehubpb.GkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides, len(o.DeploymentOverrides))
+	for i, r := range o.DeploymentOverrides {
+		sDeploymentOverrides[i] = GkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesToProto(&r)
+	}
+	p.SetDeploymentOverrides(sDeploymentOverrides)
+	return p
+}
+
+// FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesToProto converts a FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides object to its proto representation.
+func GkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesToProto(o *gkehub.FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides) *gkehubpb.GkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides {
+	if o == nil {
+		return nil
+	}
+	p := &gkehubpb.GkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides{}
+	p.SetDeploymentName(dcl.ValueOrEmptyString(o.DeploymentName))
+	p.SetDeploymentNamespace(dcl.ValueOrEmptyString(o.DeploymentNamespace))
+	sContainers := make([]*gkehubpb.GkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers, len(o.Containers))
+	for i, r := range o.Containers {
+		sContainers[i] = GkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersToProto(&r)
+	}
+	p.SetContainers(sContainers)
+	return p
+}
+
+// FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersToProto converts a FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers object to its proto representation.
+func GkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersToProto(o *gkehub.FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers) *gkehubpb.GkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers {
+	if o == nil {
+		return nil
+	}
+	p := &gkehubpb.GkehubFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers{}
+	p.SetContainerName(dcl.ValueOrEmptyString(o.ContainerName))
+	p.SetCpuRequest(dcl.ValueOrEmptyString(o.CpuRequest))
+	p.SetMemoryRequest(dcl.ValueOrEmptyString(o.MemoryRequest))
+	p.SetCpuLimit(dcl.ValueOrEmptyString(o.CpuLimit))
+	p.SetMemoryLimit(dcl.ValueOrEmptyString(o.MemoryLimit))
 	return p
 }
 

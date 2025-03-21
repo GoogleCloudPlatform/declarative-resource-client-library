@@ -6,6 +6,41 @@
   "membershipLocation": "global",
   "configmanagement": {
     "configSync": {
+      "deploymentOverrides": [
+        {
+          "deploymentName": "reconciler-manager",
+          "deploymentNamespace": "config-management-system",
+          "containers": [
+            {
+              "containerName": "reconciler-manager",
+              "cpuRequest": "2",
+              "memoryRequest": "5Gi",
+              "cpuLimit": "3",
+              "memoryLimit": "9Gi"
+            }
+          ]
+        },
+        {
+          "deploymentName": "resource-group-controller-manager",
+          "deploymentNamespace": "resource-group-system",
+          "containers": [
+            {
+              "containerName": "manager",
+              "cpuRequest": "1",
+              "memoryRequest": "4Gi",
+              "cpuLimit": "2",
+              "memoryLimit": "8Gi"
+            },
+            {
+              "containerName": "otel-agent",
+              "cpuRequest": "1",
+              "memoryRequest": "4Gi",
+              "cpuLimit": "2",
+              "memoryLimit": "8Gi"
+            }
+          ]
+        }
+      ],
       "git": {
         "syncRepo": "https://github.com/GoogleCloudPlatform/magic-modules",
         "syncBranch": "main",

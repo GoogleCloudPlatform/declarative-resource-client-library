@@ -365,14 +365,15 @@ func (r *FeatureMembershipConfigmanagement) HashCode() string {
 }
 
 type FeatureMembershipConfigmanagementConfigSync struct {
-	empty                         bool                                            `json:"-"`
-	Git                           *FeatureMembershipConfigmanagementConfigSyncGit `json:"git"`
-	SourceFormat                  *string                                         `json:"sourceFormat"`
-	Enabled                       *bool                                           `json:"enabled"`
-	StopSyncing                   *bool                                           `json:"stopSyncing"`
-	PreventDrift                  *bool                                           `json:"preventDrift"`
-	MetricsGcpServiceAccountEmail *string                                         `json:"metricsGcpServiceAccountEmail"`
-	Oci                           *FeatureMembershipConfigmanagementConfigSyncOci `json:"oci"`
+	empty                         bool                                                             `json:"-"`
+	DeploymentOverrides           []FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides `json:"deploymentOverrides"`
+	Git                           *FeatureMembershipConfigmanagementConfigSyncGit                  `json:"git"`
+	SourceFormat                  *string                                                          `json:"sourceFormat"`
+	Enabled                       *bool                                                            `json:"enabled"`
+	StopSyncing                   *bool                                                            `json:"stopSyncing"`
+	PreventDrift                  *bool                                                            `json:"preventDrift"`
+	MetricsGcpServiceAccountEmail *string                                                          `json:"metricsGcpServiceAccountEmail"`
+	Oci                           *FeatureMembershipConfigmanagementConfigSyncOci                  `json:"oci"`
 }
 
 type jsonFeatureMembershipConfigmanagementConfigSync FeatureMembershipConfigmanagementConfigSync
@@ -389,6 +390,8 @@ func (r *FeatureMembershipConfigmanagementConfigSync) UnmarshalJSON(data []byte)
 	if len(m) == 0 {
 		*r = *EmptyFeatureMembershipConfigmanagementConfigSync
 	} else {
+
+		r.DeploymentOverrides = res.DeploymentOverrides
 
 		r.Git = res.Git
 
@@ -422,6 +425,116 @@ func (r *FeatureMembershipConfigmanagementConfigSync) String() string {
 }
 
 func (r *FeatureMembershipConfigmanagementConfigSync) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides struct {
+	empty               bool                                                                       `json:"-"`
+	DeploymentName      *string                                                                    `json:"deploymentName"`
+	DeploymentNamespace *string                                                                    `json:"deploymentNamespace"`
+	Containers          []FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers `json:"containers"`
+}
+
+type jsonFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides
+
+func (r *FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides
+	} else {
+
+		r.DeploymentName = res.DeploymentName
+
+		r.DeploymentNamespace = res.DeploymentNamespace
+
+		r.Containers = res.Containers
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides *FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides = &FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides{empty: true}
+
+func (r *FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides) Empty() bool {
+	return r.empty
+}
+
+func (r *FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides) HashCode() string {
+	// Placeholder for a more complex hash method that handles ordering, etc
+	// Hash resource body for easy comparison later
+	hash := sha256.Sum256([]byte(r.String()))
+	return fmt.Sprintf("%x", hash)
+}
+
+type FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers struct {
+	empty         bool    `json:"-"`
+	ContainerName *string `json:"containerName"`
+	CpuRequest    *string `json:"cpuRequest"`
+	MemoryRequest *string `json:"memoryRequest"`
+	CpuLimit      *string `json:"cpuLimit"`
+	MemoryLimit   *string `json:"memoryLimit"`
+}
+
+type jsonFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers
+
+func (r *FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers) UnmarshalJSON(data []byte) error {
+	var res jsonFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers
+	if err := json.Unmarshal(data, &res); err != nil {
+		return err
+	}
+
+	var m map[string]interface{}
+	json.Unmarshal(data, &m)
+
+	if len(m) == 0 {
+		*r = *EmptyFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers
+	} else {
+
+		r.ContainerName = res.ContainerName
+
+		r.CpuRequest = res.CpuRequest
+
+		r.MemoryRequest = res.MemoryRequest
+
+		r.CpuLimit = res.CpuLimit
+
+		r.MemoryLimit = res.MemoryLimit
+
+	}
+	return nil
+}
+
+// This object is used to assert a desired state where this FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers is
+// empty. Go lacks global const objects, but this object should be treated
+// as one. Modifying this object will have undesirable results.
+var EmptyFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers *FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers = &FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers{empty: true}
+
+func (r *FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers) Empty() bool {
+	return r.empty
+}
+
+func (r *FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers) String() string {
+	return dcl.SprintResource(r)
+}
+
+func (r *FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.Sum256([]byte(r.String()))

@@ -92,6 +92,12 @@ func (r *FeatureMembershipConfigmanagementConfigSync) validate() error {
 	}
 	return nil
 }
+func (r *FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides) validate() error {
+	return nil
+}
+func (r *FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers) validate() error {
+	return nil
+}
 func (r *FeatureMembershipConfigmanagementConfigSyncGit) validate() error {
 	return nil
 }
@@ -727,6 +733,7 @@ func canonicalizeFeatureMembershipConfigmanagementConfigSync(des, initial *Featu
 
 	cDes := &FeatureMembershipConfigmanagementConfigSync{}
 
+	cDes.DeploymentOverrides = canonicalizeFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesSlice(des.DeploymentOverrides, initial.DeploymentOverrides, opts...)
 	cDes.Git = canonicalizeFeatureMembershipConfigmanagementConfigSyncGit(des.Git, initial.Git, opts...)
 	if dcl.StringCanonicalize(des.SourceFormat, initial.SourceFormat) || dcl.IsZeroValue(des.SourceFormat) {
 		cDes.SourceFormat = initial.SourceFormat
@@ -801,6 +808,7 @@ func canonicalizeNewFeatureMembershipConfigmanagementConfigSync(c *Client, des, 
 		return nil
 	}
 
+	nw.DeploymentOverrides = canonicalizeNewFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesSlice(c, des.DeploymentOverrides, nw.DeploymentOverrides)
 	nw.Git = canonicalizeNewFeatureMembershipConfigmanagementConfigSyncGit(c, des.Git, nw.Git)
 	if dcl.StringCanonicalize(des.SourceFormat, nw.SourceFormat) {
 		nw.SourceFormat = des.SourceFormat
@@ -860,6 +868,284 @@ func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncSlice(c *Client, 
 	for i, d := range des {
 		n := nw[i]
 		items = append(items, *canonicalizeNewFeatureMembershipConfigmanagementConfigSync(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides(des, initial *FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides, opts ...dcl.ApplyOption) *FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides{}
+
+	if dcl.StringCanonicalize(des.DeploymentName, initial.DeploymentName) || dcl.IsZeroValue(des.DeploymentName) {
+		cDes.DeploymentName = initial.DeploymentName
+	} else {
+		cDes.DeploymentName = des.DeploymentName
+	}
+	if dcl.StringCanonicalize(des.DeploymentNamespace, initial.DeploymentNamespace) || dcl.IsZeroValue(des.DeploymentNamespace) {
+		cDes.DeploymentNamespace = initial.DeploymentNamespace
+	} else {
+		cDes.DeploymentNamespace = des.DeploymentNamespace
+	}
+	cDes.Containers = canonicalizeFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersSlice(des.Containers, initial.Containers, opts...)
+
+	return cDes
+}
+
+func canonicalizeFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesSlice(des, initial []FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides, opts ...dcl.ApplyOption) []FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides(c *Client, des, nw *FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides) *FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.DeploymentName, nw.DeploymentName) {
+		nw.DeploymentName = des.DeploymentName
+	}
+	if dcl.StringCanonicalize(des.DeploymentNamespace, nw.DeploymentNamespace) {
+		nw.DeploymentNamespace = des.DeploymentNamespace
+	}
+	nw.Containers = canonicalizeNewFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersSlice(c, des.Containers, nw.Containers)
+
+	return nw
+}
+
+func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesSet(c *Client, des, nw []FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides) []FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesSlice(c *Client, des, nw []FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides) []FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides(c, &d, &n))
+	}
+
+	return items
+}
+
+func canonicalizeFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers(des, initial *FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers, opts ...dcl.ApplyOption) *FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers {
+	if des == nil {
+		return initial
+	}
+	if des.empty {
+		return des
+	}
+
+	if initial == nil {
+		return des
+	}
+
+	cDes := &FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers{}
+
+	if dcl.StringCanonicalize(des.ContainerName, initial.ContainerName) || dcl.IsZeroValue(des.ContainerName) {
+		cDes.ContainerName = initial.ContainerName
+	} else {
+		cDes.ContainerName = des.ContainerName
+	}
+	if dcl.StringCanonicalize(des.CpuRequest, initial.CpuRequest) || dcl.IsZeroValue(des.CpuRequest) {
+		cDes.CpuRequest = initial.CpuRequest
+	} else {
+		cDes.CpuRequest = des.CpuRequest
+	}
+	if dcl.StringCanonicalize(des.MemoryRequest, initial.MemoryRequest) || dcl.IsZeroValue(des.MemoryRequest) {
+		cDes.MemoryRequest = initial.MemoryRequest
+	} else {
+		cDes.MemoryRequest = des.MemoryRequest
+	}
+	if dcl.StringCanonicalize(des.CpuLimit, initial.CpuLimit) || dcl.IsZeroValue(des.CpuLimit) {
+		cDes.CpuLimit = initial.CpuLimit
+	} else {
+		cDes.CpuLimit = des.CpuLimit
+	}
+	if dcl.StringCanonicalize(des.MemoryLimit, initial.MemoryLimit) || dcl.IsZeroValue(des.MemoryLimit) {
+		cDes.MemoryLimit = initial.MemoryLimit
+	} else {
+		cDes.MemoryLimit = des.MemoryLimit
+	}
+
+	return cDes
+}
+
+func canonicalizeFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersSlice(des, initial []FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers, opts ...dcl.ApplyOption) []FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers {
+	if des == nil {
+		return initial
+	}
+
+	if len(des) != len(initial) {
+
+		items := make([]FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers, 0, len(des))
+		for _, d := range des {
+			cd := canonicalizeFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers(&d, nil, opts...)
+			if cd != nil {
+				items = append(items, *cd)
+			}
+		}
+		return items
+	}
+
+	items := make([]FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers, 0, len(des))
+	for i, d := range des {
+		cd := canonicalizeFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers(&d, &initial[i], opts...)
+		if cd != nil {
+			items = append(items, *cd)
+		}
+	}
+	return items
+
+}
+
+func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers(c *Client, des, nw *FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers) *FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers {
+
+	if des == nil {
+		return nw
+	}
+
+	if nw == nil {
+		if dcl.IsEmptyValueIndirect(des) {
+			c.Config.Logger.Info("Found explicitly empty value for FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers while comparing non-nil desired to nil actual.  Returning desired object.")
+			return des
+		}
+		return nil
+	}
+
+	if dcl.StringCanonicalize(des.ContainerName, nw.ContainerName) {
+		nw.ContainerName = des.ContainerName
+	}
+	if dcl.StringCanonicalize(des.CpuRequest, nw.CpuRequest) {
+		nw.CpuRequest = des.CpuRequest
+	}
+	if dcl.StringCanonicalize(des.MemoryRequest, nw.MemoryRequest) {
+		nw.MemoryRequest = des.MemoryRequest
+	}
+	if dcl.StringCanonicalize(des.CpuLimit, nw.CpuLimit) {
+		nw.CpuLimit = des.CpuLimit
+	}
+	if dcl.StringCanonicalize(des.MemoryLimit, nw.MemoryLimit) {
+		nw.MemoryLimit = des.MemoryLimit
+	}
+
+	return nw
+}
+
+func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersSet(c *Client, des, nw []FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers) []FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers {
+	if des == nil {
+		return nw
+	}
+
+	// Find the elements in des that are also in nw and canonicalize them. Remove matched elements from nw.
+	var items []FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers
+	for _, d := range des {
+		matchedIndex := -1
+		for i, n := range nw {
+			if diffs, _ := compareFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersNewStyle(&d, &n, dcl.FieldName{}); len(diffs) == 0 {
+				matchedIndex = i
+				break
+			}
+		}
+		if matchedIndex != -1 {
+			items = append(items, *canonicalizeNewFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers(c, &d, &nw[matchedIndex]))
+			nw = append(nw[:matchedIndex], nw[matchedIndex+1:]...)
+		}
+	}
+	// Also include elements in nw that are not matched in des.
+	items = append(items, nw...)
+
+	return items
+}
+
+func canonicalizeNewFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersSlice(c *Client, des, nw []FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers) []FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers {
+	if des == nil {
+		return nw
+	}
+
+	// Lengths are unequal. A diff will occur later, so we shouldn't canonicalize.
+	// Return the original array.
+	if len(des) != len(nw) {
+		return nw
+	}
+
+	var items []FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers
+	for i, d := range des {
+		n := nw[i]
+		items = append(items, *canonicalizeNewFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers(c, &d, &n))
 	}
 
 	return items
@@ -3349,6 +3635,13 @@ func compareFeatureMembershipConfigmanagementConfigSyncNewStyle(d, a interface{}
 		actual = &actualNotPointer
 	}
 
+	if ds, err := dcl.Diff(desired.DeploymentOverrides, actual.DeploymentOverrides, dcl.DiffInfo{ObjectFunction: compareFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesNewStyle, EmptyObject: EmptyFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeploymentOverrides")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Git, actual.Git, dcl.DiffInfo{ObjectFunction: compareFeatureMembershipConfigmanagementConfigSyncGitNewStyle, EmptyObject: EmptyFeatureMembershipConfigmanagementConfigSyncGit, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Git")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -3392,6 +3685,106 @@ func compareFeatureMembershipConfigmanagementConfigSyncNewStyle(d, a interface{}
 	}
 
 	if ds, err := dcl.Diff(desired.Oci, actual.Oci, dcl.DiffInfo{ObjectFunction: compareFeatureMembershipConfigmanagementConfigSyncOciNewStyle, EmptyObject: EmptyFeatureMembershipConfigmanagementConfigSyncOci, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Oci")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides)
+	if !ok {
+		desiredNotPointer, ok := d.(FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides or *FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides)
+	if !ok {
+		actualNotPointer, ok := a.(FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.DeploymentName, actual.DeploymentName, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeploymentName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.DeploymentNamespace, actual.DeploymentNamespace, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("DeploymentNamespace")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.Containers, actual.Containers, dcl.DiffInfo{ObjectFunction: compareFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersNewStyle, EmptyObject: EmptyFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers, OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("Containers")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+	return diffs, nil
+}
+
+func compareFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersNewStyle(d, a interface{}, fn dcl.FieldName) ([]*dcl.FieldDiff, error) {
+	var diffs []*dcl.FieldDiff
+
+	desired, ok := d.(*FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers)
+	if !ok {
+		desiredNotPointer, ok := d.(FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers or *FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers", d)
+		}
+		desired = &desiredNotPointer
+	}
+	actual, ok := a.(*FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers)
+	if !ok {
+		actualNotPointer, ok := a.(FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers)
+		if !ok {
+			return nil, fmt.Errorf("obj %v is not a FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers", a)
+		}
+		actual = &actualNotPointer
+	}
+
+	if ds, err := dcl.Diff(desired.ContainerName, actual.ContainerName, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ContainerName")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CpuRequest, actual.CpuRequest, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CpuRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MemoryRequest, actual.MemoryRequest, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MemoryRequest")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.CpuLimit, actual.CpuLimit, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("CpuLimit")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.MemoryLimit, actual.MemoryLimit, dcl.DiffInfo{OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("MemoryLimit")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -4653,6 +5046,11 @@ func expandFeatureMembershipConfigmanagementConfigSync(c *Client, f *FeatureMemb
 	}
 
 	m := make(map[string]interface{})
+	if v, err := expandFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesSlice(c, f.DeploymentOverrides, res); err != nil {
+		return nil, fmt.Errorf("error expanding DeploymentOverrides into deploymentOverrides: %w", err)
+	} else if v != nil {
+		m["deploymentOverrides"] = v
+	}
 	if v, err := expandFeatureMembershipConfigmanagementConfigSyncGit(c, f.Git, res); err != nil {
 		return nil, fmt.Errorf("error expanding Git into git: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -4695,6 +5093,7 @@ func flattenFeatureMembershipConfigmanagementConfigSync(c *Client, i interface{}
 	if dcl.IsEmptyValueIndirect(i) {
 		return EmptyFeatureMembershipConfigmanagementConfigSync
 	}
+	r.DeploymentOverrides = flattenFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesSlice(c, m["deploymentOverrides"], res)
 	r.Git = flattenFeatureMembershipConfigmanagementConfigSyncGit(c, m["git"], res)
 	r.SourceFormat = dcl.FlattenString(m["sourceFormat"])
 	r.Enabled = dcl.FlattenBool(m["enabled"])
@@ -4702,6 +5101,260 @@ func flattenFeatureMembershipConfigmanagementConfigSync(c *Client, i interface{}
 	r.PreventDrift = dcl.FlattenBool(m["preventDrift"])
 	r.MetricsGcpServiceAccountEmail = dcl.FlattenString(m["metricsGcpServiceAccountEmail"])
 	r.Oci = flattenFeatureMembershipConfigmanagementConfigSyncOci(c, m["oci"], res)
+
+	return r
+}
+
+// expandFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesMap expands the contents of FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides into a JSON
+// request object.
+func expandFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesMap(c *Client, f map[string]FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides, res *FeatureMembership) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesSlice expands the contents of FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides into a JSON
+// request object.
+func expandFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesSlice(c *Client, f []FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides, res *FeatureMembership) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesMap flattens the contents of FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides from a JSON
+// response object.
+func flattenFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesMap(c *Client, i interface{}, res *FeatureMembership) map[string]FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides{}
+	}
+
+	if len(a) == 0 {
+		return map[string]FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides{}
+	}
+
+	items := make(map[string]FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides)
+	for k, item := range a {
+		items[k] = *flattenFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesSlice flattens the contents of FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides from a JSON
+// response object.
+func flattenFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesSlice(c *Client, i interface{}, res *FeatureMembership) []FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides{}
+	}
+
+	if len(a) == 0 {
+		return []FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides{}
+	}
+
+	items := make([]FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides expands an instance of FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides into a JSON
+// request object.
+func expandFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides(c *Client, f *FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides, res *FeatureMembership) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.DeploymentName; !dcl.IsEmptyValueIndirect(v) {
+		m["deploymentName"] = v
+	}
+	if v := f.DeploymentNamespace; !dcl.IsEmptyValueIndirect(v) {
+		m["deploymentNamespace"] = v
+	}
+	if v, err := expandFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersSlice(c, f.Containers, res); err != nil {
+		return nil, fmt.Errorf("error expanding Containers into containers: %w", err)
+	} else if v != nil {
+		m["containers"] = v
+	}
+
+	return m, nil
+}
+
+// flattenFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides flattens an instance of FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides from a JSON
+// response object.
+func flattenFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides(c *Client, i interface{}, res *FeatureMembership) *FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFeatureMembershipConfigmanagementConfigSyncDeploymentOverrides
+	}
+	r.DeploymentName = dcl.FlattenString(m["deploymentName"])
+	r.DeploymentNamespace = dcl.FlattenString(m["deploymentNamespace"])
+	r.Containers = flattenFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersSlice(c, m["containers"], res)
+
+	return r
+}
+
+// expandFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersMap expands the contents of FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers into a JSON
+// request object.
+func expandFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersMap(c *Client, f map[string]FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers, res *FeatureMembership) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := make(map[string]interface{})
+	for k, item := range f {
+		i, err := expandFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+		if i != nil {
+			items[k] = i
+		}
+	}
+
+	return items, nil
+}
+
+// expandFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersSlice expands the contents of FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers into a JSON
+// request object.
+func expandFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersSlice(c *Client, f []FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers, res *FeatureMembership) ([]map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	items := []map[string]interface{}{}
+	for _, item := range f {
+		i, err := expandFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers(c, &item, res)
+		if err != nil {
+			return nil, err
+		}
+
+		items = append(items, i)
+	}
+
+	return items, nil
+}
+
+// flattenFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersMap flattens the contents of FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers from a JSON
+// response object.
+func flattenFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersMap(c *Client, i interface{}, res *FeatureMembership) map[string]FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers {
+	a, ok := i.(map[string]interface{})
+	if !ok {
+		return map[string]FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers{}
+	}
+
+	if len(a) == 0 {
+		return map[string]FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers{}
+	}
+
+	items := make(map[string]FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers)
+	for k, item := range a {
+		items[k] = *flattenFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers(c, item.(map[string]interface{}), res)
+	}
+
+	return items
+}
+
+// flattenFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersSlice flattens the contents of FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers from a JSON
+// response object.
+func flattenFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersSlice(c *Client, i interface{}, res *FeatureMembership) []FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers {
+	a, ok := i.([]interface{})
+	if !ok {
+		return []FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers{}
+	}
+
+	if len(a) == 0 {
+		return []FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers{}
+	}
+
+	items := make([]FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers, 0, len(a))
+	for _, item := range a {
+		items = append(items, *flattenFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers(c, item.(map[string]interface{}), res))
+	}
+
+	return items
+}
+
+// expandFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers expands an instance of FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers into a JSON
+// request object.
+func expandFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers(c *Client, f *FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers, res *FeatureMembership) (map[string]interface{}, error) {
+	if f == nil {
+		return nil, nil
+	}
+
+	m := make(map[string]interface{})
+	if v := f.ContainerName; !dcl.IsEmptyValueIndirect(v) {
+		m["containerName"] = v
+	}
+	if v := f.CpuRequest; !dcl.IsEmptyValueIndirect(v) {
+		m["cpuRequest"] = v
+	}
+	if v := f.MemoryRequest; !dcl.IsEmptyValueIndirect(v) {
+		m["memoryRequest"] = v
+	}
+	if v := f.CpuLimit; !dcl.IsEmptyValueIndirect(v) {
+		m["cpuLimit"] = v
+	}
+	if v := f.MemoryLimit; !dcl.IsEmptyValueIndirect(v) {
+		m["memoryLimit"] = v
+	}
+
+	return m, nil
+}
+
+// flattenFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers flattens an instance of FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers from a JSON
+// response object.
+func flattenFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers(c *Client, i interface{}, res *FeatureMembership) *FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers {
+	m, ok := i.(map[string]interface{})
+	if !ok {
+		return nil
+	}
+
+	r := &FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers{}
+
+	if dcl.IsEmptyValueIndirect(i) {
+		return EmptyFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers
+	}
+	r.ContainerName = dcl.FlattenString(m["containerName"])
+	r.CpuRequest = dcl.FlattenString(m["cpuRequest"])
+	r.MemoryRequest = dcl.FlattenString(m["memoryRequest"])
+	r.CpuLimit = dcl.FlattenString(m["cpuLimit"])
+	r.MemoryLimit = dcl.FlattenString(m["memoryLimit"])
 
 	return r
 }
@@ -7438,6 +8091,12 @@ func extractFeatureMembershipConfigmanagementConfigSyncFields(r *FeatureMembersh
 	}
 	return nil
 }
+func extractFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesFields(r *FeatureMembership, o *FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides) error {
+	return nil
+}
+func extractFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersFields(r *FeatureMembership, o *FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers) error {
+	return nil
+}
 func extractFeatureMembershipConfigmanagementConfigSyncGitFields(r *FeatureMembership, o *FeatureMembershipConfigmanagementConfigSyncGit) error {
 	return nil
 }
@@ -7687,6 +8346,12 @@ func postReadExtractFeatureMembershipConfigmanagementConfigSyncFields(r *Feature
 	if !dcl.IsEmptyValueIndirect(vOci) {
 		o.Oci = vOci
 	}
+	return nil
+}
+func postReadExtractFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesFields(r *FeatureMembership, o *FeatureMembershipConfigmanagementConfigSyncDeploymentOverrides) error {
+	return nil
+}
+func postReadExtractFeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainersFields(r *FeatureMembership, o *FeatureMembershipConfigmanagementConfigSyncDeploymentOverridesContainers) error {
 	return nil
 }
 func postReadExtractFeatureMembershipConfigmanagementConfigSyncGitFields(r *FeatureMembership, o *FeatureMembershipConfigmanagementConfigSyncGit) error {
