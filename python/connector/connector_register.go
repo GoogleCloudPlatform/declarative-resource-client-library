@@ -154,12 +154,6 @@ import (
 
 	dlp_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dlp/alpha_connector"
 
-	eventarc_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/connector"
-
-	eventarc_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/beta_connector"
-
-	eventarc_alpha_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/alpha_connector"
-
 	filestore_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/filestore/connector"
 
 	filestore_beta_connector "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/filestore/beta_connector"
@@ -418,12 +412,6 @@ func InitializeServer(grpcServer *grpc.Server) *connectorpb.InitializeResponse {
 	dlp_beta_connector.RegisterServers(grpcServer)
 
 	dlp_alpha_connector.RegisterServers(grpcServer)
-
-	eventarc_connector.RegisterServers(grpcServer)
-
-	eventarc_beta_connector.RegisterServers(grpcServer)
-
-	eventarc_alpha_connector.RegisterServers(grpcServer)
 
 	filestore_connector.RegisterServers(grpcServer)
 

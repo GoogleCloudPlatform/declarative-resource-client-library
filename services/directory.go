@@ -86,9 +86,6 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dlp"
 	dlp_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dlp/alpha"
 	dlp_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/dlp/beta"
-	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc"
-	eventarc_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/alpha"
-	eventarc_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/eventarc/beta"
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/filestore"
 	filestore_alpha "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/filestore/alpha"
 	filestore_beta "github.com/GoogleCloudPlatform/declarative-resource-client-library/services/google/filestore/beta"
@@ -315,12 +312,6 @@ func Services() *Directory {
 	d.AddResource("ga", "dlp", "JobTrigger", dlp.YAML_job_trigger)
 	d.AddResource("ga", "dlp", dcl.TitleToSnakeCase("StoredInfoType"), dlp.YAML_stored_info_type)
 	d.AddResource("ga", "dlp", "StoredInfoType", dlp.YAML_stored_info_type)
-	d.AddResource("ga", "eventarc", dcl.TitleToSnakeCase("Trigger"), eventarc.YAML_trigger)
-	d.AddResource("ga", "eventarc", "Trigger", eventarc.YAML_trigger)
-	d.AddResource("ga", "eventarc", dcl.TitleToSnakeCase("Channel"), eventarc.YAML_channel)
-	d.AddResource("ga", "eventarc", "Channel", eventarc.YAML_channel)
-	d.AddResource("ga", "eventarc", dcl.TitleToSnakeCase("GoogleChannelConfig"), eventarc.YAML_google_channel_config)
-	d.AddResource("ga", "eventarc", "GoogleChannelConfig", eventarc.YAML_google_channel_config)
 	d.AddResource("ga", "filestore", dcl.TitleToSnakeCase("Instance"), filestore.YAML_instance)
 	d.AddResource("ga", "filestore", "Instance", filestore.YAML_instance)
 	d.AddResource("ga", "firebaserules", dcl.TitleToSnakeCase("Ruleset"), firebaserules.YAML_ruleset)
@@ -531,12 +522,6 @@ func Services() *Directory {
 	d.AddResource("beta", "dlp", "JobTrigger", dlp_beta.YAML_job_trigger)
 	d.AddResource("beta", "dlp", dcl.TitleToSnakeCase("StoredInfoType"), dlp_beta.YAML_stored_info_type)
 	d.AddResource("beta", "dlp", "StoredInfoType", dlp_beta.YAML_stored_info_type)
-	d.AddResource("beta", "eventarc", dcl.TitleToSnakeCase("Trigger"), eventarc_beta.YAML_trigger)
-	d.AddResource("beta", "eventarc", "Trigger", eventarc_beta.YAML_trigger)
-	d.AddResource("beta", "eventarc", dcl.TitleToSnakeCase("Channel"), eventarc_beta.YAML_channel)
-	d.AddResource("beta", "eventarc", "Channel", eventarc_beta.YAML_channel)
-	d.AddResource("beta", "eventarc", dcl.TitleToSnakeCase("GoogleChannelConfig"), eventarc_beta.YAML_google_channel_config)
-	d.AddResource("beta", "eventarc", "GoogleChannelConfig", eventarc_beta.YAML_google_channel_config)
 	d.AddResource("beta", "filestore", dcl.TitleToSnakeCase("Instance"), filestore_beta.YAML_instance)
 	d.AddResource("beta", "filestore", "Instance", filestore_beta.YAML_instance)
 	d.AddResource("beta", "filestore", dcl.TitleToSnakeCase("Backup"), filestore_beta.YAML_backup)
@@ -777,12 +762,6 @@ func Services() *Directory {
 	d.AddResource("alpha", "dlp", "JobTrigger", dlp_alpha.YAML_job_trigger)
 	d.AddResource("alpha", "dlp", dcl.TitleToSnakeCase("StoredInfoType"), dlp_alpha.YAML_stored_info_type)
 	d.AddResource("alpha", "dlp", "StoredInfoType", dlp_alpha.YAML_stored_info_type)
-	d.AddResource("alpha", "eventarc", dcl.TitleToSnakeCase("Trigger"), eventarc_alpha.YAML_trigger)
-	d.AddResource("alpha", "eventarc", "Trigger", eventarc_alpha.YAML_trigger)
-	d.AddResource("alpha", "eventarc", dcl.TitleToSnakeCase("Channel"), eventarc_alpha.YAML_channel)
-	d.AddResource("alpha", "eventarc", "Channel", eventarc_alpha.YAML_channel)
-	d.AddResource("alpha", "eventarc", dcl.TitleToSnakeCase("GoogleChannelConfig"), eventarc_alpha.YAML_google_channel_config)
-	d.AddResource("alpha", "eventarc", "GoogleChannelConfig", eventarc_alpha.YAML_google_channel_config)
 	d.AddResource("alpha", "filestore", dcl.TitleToSnakeCase("Instance"), filestore_alpha.YAML_instance)
 	d.AddResource("alpha", "filestore", "Instance", filestore_alpha.YAML_instance)
 	d.AddResource("alpha", "filestore", dcl.TitleToSnakeCase("Backup"), filestore_alpha.YAML_backup)
