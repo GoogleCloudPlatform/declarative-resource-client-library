@@ -31,6 +31,6 @@ func IsZone(s *string) bool {
 		return false
 	}
 
-	r := regexp.MustCompile(`^[a-z]+-[a-z]+[0-9]+-[a-z]+$`)
+	r := regexp.MustCompile(`^[a-z]+-[a-z]+[0-9]+-(ai[0-9]+)?[a-z]+$`)
 	return r.MatchString(*s)
 }
