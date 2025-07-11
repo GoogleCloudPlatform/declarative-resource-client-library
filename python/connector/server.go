@@ -21,10 +21,11 @@ import (
 	"strconv"
 	"strings"
 
-	statuspb "google.golang.org/genproto/googleapis/rpc/status"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	conreg "github.com/GoogleCloudPlatform/declarative-resource-client-library/connector/server_registration"
+
+	statuspb "google.golang.org/genproto/googleapis/rpc/status"
 	connectorpb "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/connector_go_proto"
 )
 

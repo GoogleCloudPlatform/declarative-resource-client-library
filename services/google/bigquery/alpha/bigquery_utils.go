@@ -14,8 +14,6 @@
 // Package bigquery provices methods and types for managing bigquery GCP resources.
 package alpha
 
-import ()
-
 func equalsDatasetAccessRole(m, n *string) bool {
 	if m == nil && n == nil {
 		return true
