@@ -15,7 +15,6 @@ package server
 
 import (
 	"google.golang.org/grpc"
-
 	sdkgrpc "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/dlp/dlp_go_proto"
 )
 

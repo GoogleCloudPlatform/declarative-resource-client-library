@@ -15,7 +15,6 @@ package server
 
 import (
 	"google.golang.org/grpc"
-
 	sdkgrpc "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/cloudidentity/beta/cloudidentity_beta_go_proto"
 )
 

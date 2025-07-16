@@ -15,7 +15,6 @@ package server
 
 import (
 	"google.golang.org/grpc"
-
 	sdkgrpc "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/cloudscheduler/beta/cloudscheduler_beta_go_proto"
 )
 
