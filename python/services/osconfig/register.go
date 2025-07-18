@@ -15,6 +15,7 @@ package server
 
 import (
 	"google.golang.org/grpc"
+
 	sdkgrpc "github.com/GoogleCloudPlatform/declarative-resource-client-library/python/proto/osconfig/osconfig_go_proto"
 )
 
