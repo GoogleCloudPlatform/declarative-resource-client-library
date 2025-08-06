@@ -286,7 +286,7 @@ components:
         matchingCriteria:
           type: array
           x-dcl-go-name: MatchingCriteria
-          description: Required. null The list of filters that applies to event attributes.
+          description: Required. The list of filters that applies to event attributes.
             Only events that match all the provided filters will be sent to the destination.
           x-dcl-send-empty: true
           x-dcl-list-type: set
