@@ -118,12 +118,13 @@ func ProtoToApikeysAlphaKeyRestrictionsApiTargets(p *alphapb.ApikeysAlphaKeyRest
 // ProtoToKey converts a Key resource from its proto representation.
 func ProtoToKey(p *alphapb.ApikeysAlphaKey) *alpha.Key {
 	obj := &alpha.Key{
-		Name:         dcl.StringOrNil(p.GetName()),
-		DisplayName:  dcl.StringOrNil(p.GetDisplayName()),
-		KeyString:    dcl.StringOrNil(p.GetKeyString()),
-		Uid:          dcl.StringOrNil(p.GetUid()),
-		Restrictions: ProtoToApikeysAlphaKeyRestrictions(p.GetRestrictions()),
-		Project:      dcl.StringOrNil(p.GetProject()),
+		Name:                dcl.StringOrNil(p.GetName()),
+		DisplayName:         dcl.StringOrNil(p.GetDisplayName()),
+		KeyString:           dcl.StringOrNil(p.GetKeyString()),
+		Uid:                 dcl.StringOrNil(p.GetUid()),
+		ServiceAccountEmail: dcl.StringOrNil(p.GetServiceAccountEmail()),
+		Restrictions:        ProtoToApikeysAlphaKeyRestrictions(p.GetRestrictions()),
+		Project:             dcl.StringOrNil(p.GetProject()),
 	}
 	return obj
 }
@@ -235,6 +236,7 @@ func KeyToProto(resource *alpha.Key) *alphapb.ApikeysAlphaKey {
 	p.SetDisplayName(dcl.ValueOrEmptyString(resource.DisplayName))
 	p.SetKeyString(dcl.ValueOrEmptyString(resource.KeyString))
 	p.SetUid(dcl.ValueOrEmptyString(resource.Uid))
+	p.SetServiceAccountEmail(dcl.ValueOrEmptyString(resource.ServiceAccountEmail))
 	p.SetRestrictions(ApikeysAlphaKeyRestrictionsToProto(resource.Restrictions))
 	p.SetProject(dcl.ValueOrEmptyString(resource.Project))
 

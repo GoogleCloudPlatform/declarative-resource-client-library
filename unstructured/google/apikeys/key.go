@@ -105,6 +105,9 @@ func KeyToUnstructured(r *dclService.Key) *unstructured.Resource {
 		}
 		u.Object["restrictions"] = rRestrictions
 	}
+	if r.ServiceAccountEmail != nil {
+		u.Object["serviceAccountEmail"] = *r.ServiceAccountEmail
+	}
 	if r.Uid != nil {
 		u.Object["uid"] = *r.Uid
 	}
@@ -263,6 +266,13 @@ func UnstructuredToKey(u *unstructured.Resource) (*dclService.Key, error) {
 			}
 		} else {
 			return nil, fmt.Errorf("r.Restrictions: expected map[string]interface{}")
+		}
+	}
+	if _, ok := u.Object["serviceAccountEmail"]; ok {
+		if s, ok := u.Object["serviceAccountEmail"].(string); ok {
+			r.ServiceAccountEmail = dcl.String(s)
+		} else {
+			return nil, fmt.Errorf("r.ServiceAccountEmail: expected string")
 		}
 	}
 	if _, ok := u.Object["uid"]; ok {

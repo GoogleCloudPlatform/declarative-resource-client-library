@@ -27,8 +27,9 @@ message ApikeysBetaKey {
   string display_name = 2;
   string key_string = 3;
   string uid = 4;
-  ApikeysBetaKeyRestrictions restrictions = 5;
-  string project = 6;
+  string service_account_email = 5;
+  ApikeysBetaKeyRestrictions restrictions = 6;
+  string project = 7;
 }
 
 message ApikeysBetaKeyRestrictions {

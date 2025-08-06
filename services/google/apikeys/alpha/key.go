@@ -24,12 +24,13 @@ import (
 )
 
 type Key struct {
-	Name         *string          `json:"name"`
-	DisplayName  *string          `json:"displayName"`
-	KeyString    *string          `json:"keyString"`
-	Uid          *string          `json:"uid"`
-	Restrictions *KeyRestrictions `json:"restrictions"`
-	Project      *string          `json:"project"`
+	Name                *string          `json:"name"`
+	DisplayName         *string          `json:"displayName"`
+	KeyString           *string          `json:"keyString"`
+	Uid                 *string          `json:"uid"`
+	ServiceAccountEmail *string          `json:"serviceAccountEmail"`
+	Restrictions        *KeyRestrictions `json:"restrictions"`
+	Project             *string          `json:"project"`
 }
 
 func (r *Key) String() string {
@@ -392,12 +393,13 @@ func (r *Key) ID() (string, error) {
 	}
 	nr := r.urlNormalized()
 	params := map[string]interface{}{
-		"name":         dcl.ValueOrEmptyString(nr.Name),
-		"display_name": dcl.ValueOrEmptyString(nr.DisplayName),
-		"key_string":   dcl.ValueOrEmptyString(nr.KeyString),
-		"uid":          dcl.ValueOrEmptyString(nr.Uid),
-		"restrictions": dcl.ValueOrEmptyString(nr.Restrictions),
-		"project":      dcl.ValueOrEmptyString(nr.Project),
+		"name":                  dcl.ValueOrEmptyString(nr.Name),
+		"display_name":          dcl.ValueOrEmptyString(nr.DisplayName),
+		"key_string":            dcl.ValueOrEmptyString(nr.KeyString),
+		"uid":                   dcl.ValueOrEmptyString(nr.Uid),
+		"service_account_email": dcl.ValueOrEmptyString(nr.ServiceAccountEmail),
+		"restrictions":          dcl.ValueOrEmptyString(nr.Restrictions),
+		"project":               dcl.ValueOrEmptyString(nr.Project),
 	}
 	return dcl.Nprintf("projects/{{project}}/locations/global/keys/{{name}}", params), nil
 }

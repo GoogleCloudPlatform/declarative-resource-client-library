@@ -477,6 +477,12 @@ func canonicalizeKeyDesiredState(rawDesired, rawInitial *Key, opts ...dcl.ApplyO
 	} else {
 		canonicalDesired.DisplayName = rawDesired.DisplayName
 	}
+	if dcl.IsZeroValue(rawDesired.ServiceAccountEmail) || (dcl.IsEmptyValueIndirect(rawDesired.ServiceAccountEmail) && dcl.IsEmptyValueIndirect(rawInitial.ServiceAccountEmail)) {
+		// Desired and initial values are equivalent, so set canonical desired value to initial value.
+		canonicalDesired.ServiceAccountEmail = rawInitial.ServiceAccountEmail
+	} else {
+		canonicalDesired.ServiceAccountEmail = rawDesired.ServiceAccountEmail
+	}
 	canonicalDesired.Restrictions = canonicalizeKeyRestrictions(rawDesired.Restrictions, rawInitial.Restrictions, opts...)
 	if dcl.NameToSelfLink(rawDesired.Project, rawInitial.Project) {
 		canonicalDesired.Project = rawInitial.Project
@@ -512,6 +518,11 @@ func canonicalizeKeyNewState(c *Client, rawNew, rawDesired *Key) (*Key, error) {
 		if dcl.StringCanonicalize(rawDesired.Uid, rawNew.Uid) {
 			rawNew.Uid = rawDesired.Uid
 		}
+	}
+
+	if dcl.IsEmptyValueIndirect(rawNew.ServiceAccountEmail) && dcl.IsEmptyValueIndirect(rawDesired.ServiceAccountEmail) {
+		rawNew.ServiceAccountEmail = rawDesired.ServiceAccountEmail
+	} else {
 	}
 
 	if dcl.IsEmptyValueIndirect(rawNew.Restrictions) && dcl.IsEmptyValueIndirect(rawDesired.Restrictions) {
@@ -1449,6 +1460,13 @@ func diffKey(c *Client, desired, actual *Key, opts ...dcl.ApplyOption) ([]*dcl.F
 		newDiffs = append(newDiffs, ds...)
 	}
 
+	if ds, err := dcl.Diff(desired.ServiceAccountEmail, actual.ServiceAccountEmail, dcl.DiffInfo{Type: "ReferenceType", OperationSelector: dcl.RequiresRecreate()}, fn.AddNest("ServiceAccountEmail")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		newDiffs = append(newDiffs, ds...)
+	}
+
 	if ds, err := dcl.Diff(desired.Restrictions, actual.Restrictions, dcl.DiffInfo{ObjectFunction: compareKeyRestrictionsNewStyle, EmptyObject: EmptyKeyRestrictions, OperationSelector: dcl.TriggersOperation("updateKeyUpdateKeyOperation")}, fn.AddNest("Restrictions")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
@@ -1722,6 +1740,7 @@ func (r *Key) urlNormalized() *Key {
 	normalized.DisplayName = dcl.SelfLinkToName(r.DisplayName)
 	normalized.KeyString = dcl.SelfLinkToName(r.KeyString)
 	normalized.Uid = dcl.SelfLinkToName(r.Uid)
+	normalized.ServiceAccountEmail = dcl.SelfLinkToName(r.ServiceAccountEmail)
 	normalized.Project = dcl.SelfLinkToName(r.Project)
 	return &normalized
 }
@@ -1783,6 +1802,9 @@ func expandKey(c *Client, f *Key) (map[string]interface{}, error) {
 	if v := f.DisplayName; dcl.ValueShouldBeSent(v) {
 		m["displayName"] = v
 	}
+	if v := f.ServiceAccountEmail; dcl.ValueShouldBeSent(v) {
+		m["serviceAccountEmail"] = v
+	}
 	if v, err := expandKeyRestrictions(c, f.Restrictions, res); err != nil {
 		return nil, fmt.Errorf("error expanding Restrictions into restrictions: %w", err)
 	} else if !dcl.IsEmptyValueIndirect(v) {
@@ -1813,6 +1835,7 @@ func flattenKey(c *Client, i interface{}, res *Key) *Key {
 	resultRes.DisplayName = dcl.FlattenString(m["displayName"])
 	resultRes.KeyString = dcl.FlattenString(m["keyString"])
 	resultRes.Uid = dcl.FlattenString(m["uid"])
+	resultRes.ServiceAccountEmail = dcl.FlattenString(m["serviceAccountEmail"])
 	resultRes.Restrictions = flattenKeyRestrictions(c, m["restrictions"], res)
 	resultRes.Project = dcl.FlattenString(m["project"])
 

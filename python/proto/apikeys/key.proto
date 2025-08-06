@@ -27,8 +27,9 @@ message ApikeysKey {
   string display_name = 2;
   string key_string = 3;
   string uid = 4;
-  ApikeysKeyRestrictions restrictions = 5;
-  string project = 6;
+  string service_account_email = 5;
+  ApikeysKeyRestrictions restrictions = 6;
+  string project = 7;
 }
 
 message ApikeysKeyRestrictions {

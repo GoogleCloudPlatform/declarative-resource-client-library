@@ -245,6 +245,17 @@ components:
                   items:
                     type: string
                     x-dcl-go-type: string
+        serviceAccountEmail:
+          type: string
+          x-dcl-go-name: ServiceAccountEmail
+          description: The email of the service account the key is bound to. If this
+            field is specified, the key is a service account bound key and auth enabled.
+            See [Documentation](https://cloud.devsite.corp.google.com/docs/authentication/api-keys?#api-keys-bound-sa)
+            for more details.
+          x-kubernetes-immutable: true
+          x-dcl-references:
+          - resource: Iam/ServiceAccount
+            field: email
         uid:
           type: string
           x-dcl-go-name: Uid

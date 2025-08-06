@@ -25,6 +25,7 @@ class Key(object):
         display_name: str = None,
         key_string: str = None,
         uid: str = None,
+        service_account_email: str = None,
         restrictions: dict = None,
         project: str = None,
         service_account_file: str = "",
@@ -33,6 +34,7 @@ class Key(object):
         channel.initialize()
         self.name = name
         self.display_name = display_name
+        self.service_account_email = service_account_email
         self.restrictions = restrictions
         self.project = project
         self.service_account_file = service_account_file
@@ -45,6 +47,11 @@ class Key(object):
 
         if Primitive.to_proto(self.display_name):
             request.resource.display_name = Primitive.to_proto(self.display_name)
+
+        if Primitive.to_proto(self.service_account_email):
+            request.resource.service_account_email = Primitive.to_proto(
+                self.service_account_email
+            )
 
         if KeyRestrictions.to_proto(self.restrictions):
             request.resource.restrictions.CopyFrom(
@@ -62,6 +69,9 @@ class Key(object):
         self.display_name = Primitive.from_proto(response.display_name)
         self.key_string = Primitive.from_proto(response.key_string)
         self.uid = Primitive.from_proto(response.uid)
+        self.service_account_email = Primitive.from_proto(
+            response.service_account_email
+        )
         self.restrictions = KeyRestrictions.from_proto(response.restrictions)
         self.project = Primitive.from_proto(response.project)
 
@@ -74,6 +84,11 @@ class Key(object):
 
         if Primitive.to_proto(self.display_name):
             request.resource.display_name = Primitive.to_proto(self.display_name)
+
+        if Primitive.to_proto(self.service_account_email):
+            request.resource.service_account_email = Primitive.to_proto(
+                self.service_account_email
+            )
 
         if KeyRestrictions.to_proto(self.restrictions):
             request.resource.restrictions.CopyFrom(
@@ -101,6 +116,10 @@ class Key(object):
             resource.name = Primitive.to_proto(self.name)
         if Primitive.to_proto(self.display_name):
             resource.display_name = Primitive.to_proto(self.display_name)
+        if Primitive.to_proto(self.service_account_email):
+            resource.service_account_email = Primitive.to_proto(
+                self.service_account_email
+            )
         if KeyRestrictions.to_proto(self.restrictions):
             resource.restrictions.CopyFrom(KeyRestrictions.to_proto(self.restrictions))
         else:
