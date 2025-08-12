@@ -307,7 +307,6 @@ type FeatureMembershipConfigmanagement struct {
 	empty               bool                                                  `json:"-"`
 	ConfigSync          *FeatureMembershipConfigmanagementConfigSync          `json:"configSync"`
 	PolicyController    *FeatureMembershipConfigmanagementPolicyController    `json:"policyController"`
-	Binauthz            *FeatureMembershipConfigmanagementBinauthz            `json:"binauthz"`
 	HierarchyController *FeatureMembershipConfigmanagementHierarchyController `json:"hierarchyController"`
 	Version             *string                                               `json:"version"`
 	Management          *FeatureMembershipConfigmanagementManagementEnum      `json:"management"`
@@ -331,8 +330,6 @@ func (r *FeatureMembershipConfigmanagement) UnmarshalJSON(data []byte) error {
 		r.ConfigSync = res.ConfigSync
 
 		r.PolicyController = res.PolicyController
-
-		r.Binauthz = res.Binauthz
 
 		r.HierarchyController = res.HierarchyController
 
@@ -773,52 +770,6 @@ func (r *FeatureMembershipConfigmanagementPolicyControllerMonitoring) String() s
 }
 
 func (r *FeatureMembershipConfigmanagementPolicyControllerMonitoring) HashCode() string {
-	// Placeholder for a more complex hash method that handles ordering, etc
-	// Hash resource body for easy comparison later
-	hash := sha256.Sum256([]byte(r.String()))
-	return fmt.Sprintf("%x", hash)
-}
-
-type FeatureMembershipConfigmanagementBinauthz struct {
-	empty   bool  `json:"-"`
-	Enabled *bool `json:"enabled"`
-}
-
-type jsonFeatureMembershipConfigmanagementBinauthz FeatureMembershipConfigmanagementBinauthz
-
-func (r *FeatureMembershipConfigmanagementBinauthz) UnmarshalJSON(data []byte) error {
-	var res jsonFeatureMembershipConfigmanagementBinauthz
-	if err := json.Unmarshal(data, &res); err != nil {
-		return err
-	}
-
-	var m map[string]interface{}
-	json.Unmarshal(data, &m)
-
-	if len(m) == 0 {
-		*r = *EmptyFeatureMembershipConfigmanagementBinauthz
-	} else {
-
-		r.Enabled = res.Enabled
-
-	}
-	return nil
-}
-
-// This object is used to assert a desired state where this FeatureMembershipConfigmanagementBinauthz is
-// empty. Go lacks global const objects, but this object should be treated
-// as one. Modifying this object will have undesirable results.
-var EmptyFeatureMembershipConfigmanagementBinauthz *FeatureMembershipConfigmanagementBinauthz = &FeatureMembershipConfigmanagementBinauthz{empty: true}
-
-func (r *FeatureMembershipConfigmanagementBinauthz) Empty() bool {
-	return r.empty
-}
-
-func (r *FeatureMembershipConfigmanagementBinauthz) String() string {
-	return dcl.SprintResource(r)
-}
-
-func (r *FeatureMembershipConfigmanagementBinauthz) HashCode() string {
 	// Placeholder for a more complex hash method that handles ordering, etc
 	// Hash resource body for easy comparison later
 	hash := sha256.Sum256([]byte(r.String()))

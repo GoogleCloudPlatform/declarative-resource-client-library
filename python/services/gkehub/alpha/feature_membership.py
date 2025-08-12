@@ -241,14 +241,12 @@ class FeatureMembershipConfigmanagement(object):
         self,
         config_sync: dict = None,
         policy_controller: dict = None,
-        binauthz: dict = None,
         hierarchy_controller: dict = None,
         version: str = None,
         management: str = None,
     ):
         self.config_sync = config_sync
         self.policy_controller = policy_controller
-        self.binauthz = binauthz
         self.hierarchy_controller = hierarchy_controller
         self.version = version
         self.management = management
@@ -277,12 +275,6 @@ class FeatureMembershipConfigmanagement(object):
             )
         else:
             res.ClearField("policy_controller")
-        if FeatureMembershipConfigmanagementBinauthz.to_proto(resource.binauthz):
-            res.binauthz.CopyFrom(
-                FeatureMembershipConfigmanagementBinauthz.to_proto(resource.binauthz)
-            )
-        else:
-            res.ClearField("binauthz")
         if FeatureMembershipConfigmanagementHierarchyController.to_proto(
             resource.hierarchy_controller
         ):
@@ -314,9 +306,6 @@ class FeatureMembershipConfigmanagement(object):
             ),
             policy_controller=FeatureMembershipConfigmanagementPolicyController.from_proto(
                 resource.policy_controller
-            ),
-            binauthz=FeatureMembershipConfigmanagementBinauthz.from_proto(
-                resource.binauthz
             ),
             hierarchy_controller=FeatureMembershipConfigmanagementHierarchyController.from_proto(
                 resource.hierarchy_controller
@@ -897,49 +886,6 @@ class FeatureMembershipConfigmanagementPolicyControllerMonitoringArray(object):
         return [
             FeatureMembershipConfigmanagementPolicyControllerMonitoring.from_proto(i)
             for i in resources
-        ]
-
-
-class FeatureMembershipConfigmanagementBinauthz(object):
-
-    def __init__(self, enabled: bool = None):
-        self.enabled = enabled
-
-    @classmethod
-    def to_proto(self, resource):
-        if not resource:
-            return None
-
-        res = (
-            feature_membership_pb2.GkehubAlphaFeatureMembershipConfigmanagementBinauthz()
-        )
-        if Primitive.to_proto(resource.enabled):
-            res.enabled = Primitive.to_proto(resource.enabled)
-        return res
-
-    @classmethod
-    def from_proto(self, resource):
-        if not resource:
-            return None
-
-        return FeatureMembershipConfigmanagementBinauthz(
-            enabled=Primitive.from_proto(resource.enabled),
-        )
-
-
-class FeatureMembershipConfigmanagementBinauthzArray(object):
-    @classmethod
-    def to_proto(self, resources):
-        if not resources:
-            return resources
-        return [
-            FeatureMembershipConfigmanagementBinauthz.to_proto(i) for i in resources
-        ]
-
-    @classmethod
-    def from_proto(self, resources):
-        return [
-            FeatureMembershipConfigmanagementBinauthz.from_proto(i) for i in resources
         ]
 
 

@@ -63,9 +63,6 @@
       "auditIntervalSeconds": "9",
       "mutationEnabled": false
     },
-    "binauthz": {
-      "enabled": false
-    },
     "hierarchyController": {
       "enabled": false,
       "enablePodTreeLabels": false,

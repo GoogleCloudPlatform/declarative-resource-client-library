@@ -140,7 +140,6 @@ func ProtoToGkehubFeatureMembershipConfigmanagement(p *gkehubpb.GkehubFeatureMem
 	obj := &gkehub.FeatureMembershipConfigmanagement{
 		ConfigSync:          ProtoToGkehubFeatureMembershipConfigmanagementConfigSync(p.GetConfigSync()),
 		PolicyController:    ProtoToGkehubFeatureMembershipConfigmanagementPolicyController(p.GetPolicyController()),
-		Binauthz:            ProtoToGkehubFeatureMembershipConfigmanagementBinauthz(p.GetBinauthz()),
 		HierarchyController: ProtoToGkehubFeatureMembershipConfigmanagementHierarchyController(p.GetHierarchyController()),
 		Version:             dcl.StringOrNil(p.GetVersion()),
 		Management:          ProtoToGkehubFeatureMembershipConfigmanagementManagementEnum(p.GetManagement()),
@@ -259,17 +258,6 @@ func ProtoToGkehubFeatureMembershipConfigmanagementPolicyControllerMonitoring(p 
 	obj := &gkehub.FeatureMembershipConfigmanagementPolicyControllerMonitoring{}
 	for _, r := range p.GetBackends() {
 		obj.Backends = append(obj.Backends, *ProtoToGkehubFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum(r))
-	}
-	return obj
-}
-
-// ProtoToFeatureMembershipConfigmanagementBinauthz converts a FeatureMembershipConfigmanagementBinauthz object from its proto representation.
-func ProtoToGkehubFeatureMembershipConfigmanagementBinauthz(p *gkehubpb.GkehubFeatureMembershipConfigmanagementBinauthz) *gkehub.FeatureMembershipConfigmanagementBinauthz {
-	if p == nil {
-		return nil
-	}
-	obj := &gkehub.FeatureMembershipConfigmanagementBinauthz{
-		Enabled: dcl.Bool(p.GetEnabled()),
 	}
 	return obj
 }
@@ -554,7 +542,6 @@ func GkehubFeatureMembershipConfigmanagementToProto(o *gkehub.FeatureMembershipC
 	p := &gkehubpb.GkehubFeatureMembershipConfigmanagement{}
 	p.SetConfigSync(GkehubFeatureMembershipConfigmanagementConfigSyncToProto(o.ConfigSync))
 	p.SetPolicyController(GkehubFeatureMembershipConfigmanagementPolicyControllerToProto(o.PolicyController))
-	p.SetBinauthz(GkehubFeatureMembershipConfigmanagementBinauthzToProto(o.Binauthz))
 	p.SetHierarchyController(GkehubFeatureMembershipConfigmanagementHierarchyControllerToProto(o.HierarchyController))
 	p.SetVersion(dcl.ValueOrEmptyString(o.Version))
 	p.SetManagement(GkehubFeatureMembershipConfigmanagementManagementEnumToProto(o.Management))
@@ -675,16 +662,6 @@ func GkehubFeatureMembershipConfigmanagementPolicyControllerMonitoringToProto(o 
 		sBackends[i] = gkehubpb.GkehubFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum(gkehubpb.GkehubFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum_value[string(r)])
 	}
 	p.SetBackends(sBackends)
-	return p
-}
-
-// FeatureMembershipConfigmanagementBinauthzToProto converts a FeatureMembershipConfigmanagementBinauthz object to its proto representation.
-func GkehubFeatureMembershipConfigmanagementBinauthzToProto(o *gkehub.FeatureMembershipConfigmanagementBinauthz) *gkehubpb.GkehubFeatureMembershipConfigmanagementBinauthz {
-	if o == nil {
-		return nil
-	}
-	p := &gkehubpb.GkehubFeatureMembershipConfigmanagementBinauthz{}
-	p.SetEnabled(dcl.ValueOrEmptyBool(o.Enabled))
 	return p
 }
 

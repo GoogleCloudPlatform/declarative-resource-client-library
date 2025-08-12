@@ -99,10 +99,9 @@ message GkehubFeatureMembershipMesh {
 message GkehubFeatureMembershipConfigmanagement {
   GkehubFeatureMembershipConfigmanagementConfigSync config_sync = 1;
   GkehubFeatureMembershipConfigmanagementPolicyController policy_controller = 2;
-  GkehubFeatureMembershipConfigmanagementBinauthz binauthz = 3;
-  GkehubFeatureMembershipConfigmanagementHierarchyController hierarchy_controller = 4;
-  string version = 5;
-  GkehubFeatureMembershipConfigmanagementManagementEnum management = 6;
+  GkehubFeatureMembershipConfigmanagementHierarchyController hierarchy_controller = 3;
+  string version = 4;
+  GkehubFeatureMembershipConfigmanagementManagementEnum management = 5;
 }
 
 message GkehubFeatureMembershipConfigmanagementConfigSync {
@@ -162,10 +161,6 @@ message GkehubFeatureMembershipConfigmanagementPolicyController {
 
 message GkehubFeatureMembershipConfigmanagementPolicyControllerMonitoring {
   repeated GkehubFeatureMembershipConfigmanagementPolicyControllerMonitoringBackendsEnum backends = 1;
-}
-
-message GkehubFeatureMembershipConfigmanagementBinauthz {
-  bool enabled = 1;
 }
 
 message GkehubFeatureMembershipConfigmanagementHierarchyController {

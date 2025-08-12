@@ -43,9 +43,6 @@
       "templateLibraryInstalled": true,
       "auditIntervalSeconds": "10"
     },
-    "binauthz": {
-      "enabled": false
-    },
     "hierarchyController": {
       "enabled": true,
       "enablePodTreeLabels": true,

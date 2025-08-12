@@ -90,19 +90,6 @@ components:
           x-dcl-go-type: FeatureMembershipConfigmanagement
           description: Config Management-specific spec.
           properties:
-            binauthz:
-              type: object
-              x-dcl-go-name: Binauthz
-              x-dcl-go-type: FeatureMembershipConfigmanagementBinauthz
-              description: '**DEPRECATED** Binauthz configuration for the cluster.
-                This field will be ignored and should not be set.'
-              x-dcl-server-default: true
-              properties:
-                enabled:
-                  type: boolean
-                  x-dcl-go-name: Enabled
-                  description: Whether binauthz is enabled in this cluster.
-              x-dcl-parameter: true
             configSync:
               type: object
               x-dcl-go-name: ConfigSync

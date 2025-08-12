@@ -34,13 +34,6 @@ func FeatureMembershipToUnstructured(r *dclService.FeatureMembership) *unstructu
 	}
 	if r.Configmanagement != nil && r.Configmanagement != dclService.EmptyFeatureMembershipConfigmanagement {
 		rConfigmanagement := make(map[string]interface{})
-		if r.Configmanagement.Binauthz != nil && r.Configmanagement.Binauthz != dclService.EmptyFeatureMembershipConfigmanagementBinauthz {
-			rConfigmanagementBinauthz := make(map[string]interface{})
-			if r.Configmanagement.Binauthz.Enabled != nil {
-				rConfigmanagementBinauthz["enabled"] = *r.Configmanagement.Binauthz.Enabled
-			}
-			rConfigmanagement["binauthz"] = rConfigmanagementBinauthz
-		}
 		if r.Configmanagement.ConfigSync != nil && r.Configmanagement.ConfigSync != dclService.EmptyFeatureMembershipConfigmanagementConfigSync {
 			rConfigmanagementConfigSync := make(map[string]interface{})
 			var rConfigmanagementConfigSyncDeploymentOverrides []interface{}
@@ -353,20 +346,6 @@ func UnstructuredToFeatureMembership(u *unstructured.Resource) (*dclService.Feat
 	if _, ok := u.Object["configmanagement"]; ok {
 		if rConfigmanagement, ok := u.Object["configmanagement"].(map[string]interface{}); ok {
 			r.Configmanagement = &dclService.FeatureMembershipConfigmanagement{}
-			if _, ok := rConfigmanagement["binauthz"]; ok {
-				if rConfigmanagementBinauthz, ok := rConfigmanagement["binauthz"].(map[string]interface{}); ok {
-					r.Configmanagement.Binauthz = &dclService.FeatureMembershipConfigmanagementBinauthz{}
-					if _, ok := rConfigmanagementBinauthz["enabled"]; ok {
-						if b, ok := rConfigmanagementBinauthz["enabled"].(bool); ok {
-							r.Configmanagement.Binauthz.Enabled = dcl.Bool(b)
-						} else {
-							return nil, fmt.Errorf("r.Configmanagement.Binauthz.Enabled: expected bool")
-						}
-					}
-				} else {
-					return nil, fmt.Errorf("r.Configmanagement.Binauthz: expected map[string]interface{}")
-				}
-			}
 			if _, ok := rConfigmanagement["configSync"]; ok {
 				if rConfigmanagementConfigSync, ok := rConfigmanagement["configSync"].(map[string]interface{}); ok {
 					r.Configmanagement.ConfigSync = &dclService.FeatureMembershipConfigmanagementConfigSync{}
