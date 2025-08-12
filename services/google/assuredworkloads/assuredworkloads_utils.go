@@ -20,14 +20,27 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"regexp"
 
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
+
+var universeDomainRegex = regexp.MustCompile(`https://[^/.]+([^/]+)/`)
 
 // Returns the URL of the project resource with the given index in the workload.
 func (r *Workload) projectURL(userBasePath string, index int) (string, error) {
 	params := map[string]interface{}{
 		"project": dcl.ValueOrEmptyString(r.Resources[index].ResourceId),
+	}
+	// This is a hack to support universe domains & custom endpoints. This should really be
+	// handled by using a properly-configured cloud resource manager client to delete the
+	// project, but that's not available in this context. We will want to fix this when migrating
+	// to MMv1.
+	if userBasePath != "" {
+		matches := universeDomainRegex.FindStringSubmatch(userBasePath)
+		if len(matches) > 0 {
+			userBasePath = fmt.Sprintf("https://cloudresourcemanager%s/v1/", matches[1])
+		}
 	}
 	return dcl.URL("projects/{{project}}", "https://cloudresourcemanager.googleapis.com/v1/", userBasePath, params), nil
 }
@@ -36,6 +49,16 @@ func (r *Workload) projectURL(userBasePath string, index int) (string, error) {
 func (r *Workload) folderURL(userBasePath string, index int) (string, error) {
 	params := map[string]interface{}{
 		"folder": dcl.ValueOrEmptyString(r.Resources[index].ResourceId),
+	}
+	// This is a hack to support universe domains & custom endpoints. This should really be
+	// handled by using a properly-configured cloud resource manager client to delete the
+	// folder, but that's not available in this context. We will want to fix this when migrating
+	// to MMv1.
+	if userBasePath != "" {
+		matches := universeDomainRegex.FindStringSubmatch(userBasePath)
+		if len(matches) > 0 {
+			userBasePath = fmt.Sprintf("https://cloudresourcemanager%s/v2/", matches[1])
+		}
 	}
 	return dcl.URL("folders/{{folder}}", "https://cloudresourcemanager.googleapis.com/v2/", userBasePath, params), nil
 }
