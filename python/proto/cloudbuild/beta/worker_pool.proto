@@ -65,6 +65,7 @@ message CloudbuildBetaWorkerPoolPrivatePoolV1Config {
 message CloudbuildBetaWorkerPoolPrivatePoolV1ConfigWorkerConfig {
   string machine_type = 1;
   int64 disk_size_gb = 2;
+  bool enable_nested_virtualization = 3;
 }
 
 message CloudbuildBetaWorkerPoolPrivatePoolV1ConfigNetworkConfig {
@@ -82,7 +83,8 @@ message CloudbuildBetaWorkerPoolPrivatePoolV1ConfigPrivateServiceConnect {
 message CloudbuildBetaWorkerPoolWorkerConfig {
   string machine_type = 1;
   int64 disk_size_gb = 2;
-  bool no_external_ip = 3;
+  bool enable_nested_virtualization = 3;
+  bool no_external_ip = 4;
 }
 
 message CloudbuildBetaWorkerPoolNetworkConfig {

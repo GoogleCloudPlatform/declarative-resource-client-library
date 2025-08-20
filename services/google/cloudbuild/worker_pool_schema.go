@@ -282,6 +282,11 @@ func DCLWorkerPoolSchema() *dcl.Schema {
 										GoName:      "DiskSizeGb",
 										Description: "Size of the disk attached to the worker, in GB. See [Worker pool config file](https://cloud.google.com/cloud-build/docs/custom-workers/worker-pool-config-file). Specify a value of up to 1000. If `0` is specified, Cloud Build will use a standard disk size.",
 									},
+									"enableNestedVirtualization": &dcl.Property{
+										Type:        "boolean",
+										GoName:      "EnableNestedVirtualization",
+										Description: "Enable nested virtualization on the worker, if supported by the machine type. See [Worker pool config file](https://cloud.google.com/build/docs/private-pools/worker-pool-config-file-schema). If left blank, Cloud Build will set this to false.",
+									},
 									"machineType": &dcl.Property{
 										Type:        "string",
 										GoName:      "MachineType",

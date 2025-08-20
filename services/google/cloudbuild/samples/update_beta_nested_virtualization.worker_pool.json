@@ -1,0 +1,10 @@
+{
+  "name": "{{resource_name}}",
+  "location": "{{region}}",
+  "project": "{{project}}",
+  "workerConfig": {
+    "machineType": "c3-standard-4",
+    "diskSizeGb": 100,
+    "enableNestedVirtualization": true
+  }
+}

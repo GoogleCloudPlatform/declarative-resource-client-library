@@ -153,9 +153,10 @@ func (r *WorkerPoolPrivatePoolV1Config) HashCode() string {
 }
 
 type WorkerPoolPrivatePoolV1ConfigWorkerConfig struct {
-	empty       bool    `json:"-"`
-	MachineType *string `json:"machineType"`
-	DiskSizeGb  *int64  `json:"diskSizeGb"`
+	empty                      bool    `json:"-"`
+	MachineType                *string `json:"machineType"`
+	DiskSizeGb                 *int64  `json:"diskSizeGb"`
+	EnableNestedVirtualization *bool   `json:"enableNestedVirtualization"`
 }
 
 type jsonWorkerPoolPrivatePoolV1ConfigWorkerConfig WorkerPoolPrivatePoolV1ConfigWorkerConfig
@@ -176,6 +177,8 @@ func (r *WorkerPoolPrivatePoolV1ConfigWorkerConfig) UnmarshalJSON(data []byte) e
 		r.MachineType = res.MachineType
 
 		r.DiskSizeGb = res.DiskSizeGb
+
+		r.EnableNestedVirtualization = res.EnableNestedVirtualization
 
 	}
 	return nil
@@ -306,10 +309,11 @@ func (r *WorkerPoolPrivatePoolV1ConfigPrivateServiceConnect) HashCode() string {
 }
 
 type WorkerPoolWorkerConfig struct {
-	empty        bool    `json:"-"`
-	MachineType  *string `json:"machineType"`
-	DiskSizeGb   *int64  `json:"diskSizeGb"`
-	NoExternalIP *bool   `json:"noExternalIP"`
+	empty                      bool    `json:"-"`
+	MachineType                *string `json:"machineType"`
+	DiskSizeGb                 *int64  `json:"diskSizeGb"`
+	EnableNestedVirtualization *bool   `json:"enableNestedVirtualization"`
+	NoExternalIP               *bool   `json:"noExternalIP"`
 }
 
 type jsonWorkerPoolWorkerConfig WorkerPoolWorkerConfig
@@ -330,6 +334,8 @@ func (r *WorkerPoolWorkerConfig) UnmarshalJSON(data []byte) error {
 		r.MachineType = res.MachineType
 
 		r.DiskSizeGb = res.DiskSizeGb
+
+		r.EnableNestedVirtualization = res.EnableNestedVirtualization
 
 		r.NoExternalIP = res.NoExternalIP
 

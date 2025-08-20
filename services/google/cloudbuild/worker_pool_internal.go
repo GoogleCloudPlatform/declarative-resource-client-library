@@ -942,6 +942,11 @@ func canonicalizeWorkerPoolPrivatePoolV1ConfigWorkerConfig(des, initial *WorkerP
 	} else {
 		cDes.DiskSizeGb = des.DiskSizeGb
 	}
+	if dcl.BoolCanonicalize(des.EnableNestedVirtualization, initial.EnableNestedVirtualization) || dcl.IsZeroValue(des.EnableNestedVirtualization) {
+		cDes.EnableNestedVirtualization = initial.EnableNestedVirtualization
+	} else {
+		cDes.EnableNestedVirtualization = des.EnableNestedVirtualization
+	}
 
 	return cDes
 }
@@ -990,6 +995,9 @@ func canonicalizeNewWorkerPoolPrivatePoolV1ConfigWorkerConfig(c *Client, des, nw
 
 	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) {
 		nw.MachineType = des.MachineType
+	}
+	if dcl.BoolCanonicalize(des.EnableNestedVirtualization, nw.EnableNestedVirtualization) {
+		nw.EnableNestedVirtualization = des.EnableNestedVirtualization
 	}
 
 	return nw
@@ -1328,6 +1336,11 @@ func canonicalizeWorkerPoolWorkerConfig(des, initial *WorkerPoolWorkerConfig, op
 	} else {
 		cDes.DiskSizeGb = des.DiskSizeGb
 	}
+	if dcl.BoolCanonicalize(des.EnableNestedVirtualization, initial.EnableNestedVirtualization) || dcl.IsZeroValue(des.EnableNestedVirtualization) {
+		cDes.EnableNestedVirtualization = initial.EnableNestedVirtualization
+	} else {
+		cDes.EnableNestedVirtualization = des.EnableNestedVirtualization
+	}
 	if dcl.BoolCanonicalize(des.NoExternalIP, initial.NoExternalIP) || dcl.IsZeroValue(des.NoExternalIP) {
 		cDes.NoExternalIP = initial.NoExternalIP
 	} else {
@@ -1381,6 +1394,9 @@ func canonicalizeNewWorkerPoolWorkerConfig(c *Client, des, nw *WorkerPoolWorkerC
 
 	if dcl.StringCanonicalize(des.MachineType, nw.MachineType) {
 		nw.MachineType = des.MachineType
+	}
+	if dcl.BoolCanonicalize(des.EnableNestedVirtualization, nw.EnableNestedVirtualization) {
+		nw.EnableNestedVirtualization = des.EnableNestedVirtualization
 	}
 	if dcl.BoolCanonicalize(des.NoExternalIP, nw.NoExternalIP) {
 		nw.NoExternalIP = des.NoExternalIP
@@ -1887,6 +1903,13 @@ func compareWorkerPoolPrivatePoolV1ConfigWorkerConfigNewStyle(d, a interface{}, 
 		}
 		diffs = append(diffs, ds...)
 	}
+
+	if ds, err := dcl.Diff(desired.EnableNestedVirtualization, actual.EnableNestedVirtualization, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateWorkerPoolUpdateWorkerPoolOperation")}, fn.AddNest("EnableNestedVirtualization")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
 	return diffs, nil
 }
 
@@ -2004,6 +2027,13 @@ func compareWorkerPoolWorkerConfigNewStyle(d, a interface{}, fn dcl.FieldName) (
 	}
 
 	if ds, err := dcl.Diff(desired.DiskSizeGb, actual.DiskSizeGb, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateWorkerPoolUpdateWorkerPoolOperation")}, fn.AddNest("DiskSizeGb")); len(ds) != 0 || err != nil {
+		if err != nil {
+			return nil, err
+		}
+		diffs = append(diffs, ds...)
+	}
+
+	if ds, err := dcl.Diff(desired.EnableNestedVirtualization, actual.EnableNestedVirtualization, dcl.DiffInfo{OperationSelector: dcl.TriggersOperation("updateWorkerPoolUpdateWorkerPoolOperation")}, fn.AddNest("EnableNestedVirtualization")); len(ds) != 0 || err != nil {
 		if err != nil {
 			return nil, err
 		}
@@ -2454,6 +2484,9 @@ func expandWorkerPoolPrivatePoolV1ConfigWorkerConfig(c *Client, f *WorkerPoolPri
 	if v := f.DiskSizeGb; !dcl.IsEmptyValueIndirect(v) {
 		m["diskSizeGb"] = v
 	}
+	if v := f.EnableNestedVirtualization; !dcl.IsEmptyValueIndirect(v) {
+		m["enableNestedVirtualization"] = v
+	}
 
 	return m, nil
 }
@@ -2473,6 +2506,7 @@ func flattenWorkerPoolPrivatePoolV1ConfigWorkerConfig(c *Client, i interface{}, 
 	}
 	r.MachineType = dcl.FlattenString(m["machineType"])
 	r.DiskSizeGb = dcl.FlattenInteger(m["diskSizeGb"])
+	r.EnableNestedVirtualization = dcl.FlattenBool(m["enableNestedVirtualization"])
 
 	return r
 }
@@ -2816,6 +2850,9 @@ func expandWorkerPoolWorkerConfig(c *Client, f *WorkerPoolWorkerConfig, res *Wor
 	if v := f.DiskSizeGb; !dcl.IsEmptyValueIndirect(v) {
 		m["diskSizeGb"] = v
 	}
+	if v := f.EnableNestedVirtualization; !dcl.IsEmptyValueIndirect(v) {
+		m["enableNestedVirtualization"] = v
+	}
 	if v := f.NoExternalIP; !dcl.IsEmptyValueIndirect(v) {
 		m["noExternalIp"] = v
 	}
@@ -2838,6 +2875,7 @@ func flattenWorkerPoolWorkerConfig(c *Client, i interface{}, res *WorkerPool) *W
 	}
 	r.MachineType = dcl.FlattenString(m["machineType"])
 	r.DiskSizeGb = dcl.FlattenInteger(m["diskSizeGb"])
+	r.EnableNestedVirtualization = dcl.FlattenBool(m["enableNestedVirtualization"])
 	r.NoExternalIP = dcl.FlattenBool(m["noExternalIp"])
 
 	return r

@@ -67,8 +67,9 @@ func ProtoToCloudbuildWorkerPoolPrivatePoolV1ConfigWorkerConfig(p *cloudbuildpb.
 		return nil
 	}
 	obj := &cloudbuild.WorkerPoolPrivatePoolV1ConfigWorkerConfig{
-		MachineType: dcl.StringOrNil(p.GetMachineType()),
-		DiskSizeGb:  dcl.Int64OrNil(p.GetDiskSizeGb()),
+		MachineType:                dcl.StringOrNil(p.GetMachineType()),
+		DiskSizeGb:                 dcl.Int64OrNil(p.GetDiskSizeGb()),
+		EnableNestedVirtualization: dcl.Bool(p.GetEnableNestedVirtualization()),
 	}
 	return obj
 }
@@ -105,9 +106,10 @@ func ProtoToCloudbuildWorkerPoolWorkerConfig(p *cloudbuildpb.CloudbuildWorkerPoo
 		return nil
 	}
 	obj := &cloudbuild.WorkerPoolWorkerConfig{
-		MachineType:  dcl.StringOrNil(p.GetMachineType()),
-		DiskSizeGb:   dcl.Int64OrNil(p.GetDiskSizeGb()),
-		NoExternalIP: dcl.Bool(p.GetNoExternalIp()),
+		MachineType:                dcl.StringOrNil(p.GetMachineType()),
+		DiskSizeGb:                 dcl.Int64OrNil(p.GetDiskSizeGb()),
+		EnableNestedVirtualization: dcl.Bool(p.GetEnableNestedVirtualization()),
+		NoExternalIP:               dcl.Bool(p.GetNoExternalIp()),
 	}
 	return obj
 }
@@ -199,6 +201,7 @@ func CloudbuildWorkerPoolPrivatePoolV1ConfigWorkerConfigToProto(o *cloudbuild.Wo
 	p := &cloudbuildpb.CloudbuildWorkerPoolPrivatePoolV1ConfigWorkerConfig{}
 	p.SetMachineType(dcl.ValueOrEmptyString(o.MachineType))
 	p.SetDiskSizeGb(dcl.ValueOrEmptyInt64(o.DiskSizeGb))
+	p.SetEnableNestedVirtualization(dcl.ValueOrEmptyBool(o.EnableNestedVirtualization))
 	return p
 }
 
@@ -234,6 +237,7 @@ func CloudbuildWorkerPoolWorkerConfigToProto(o *cloudbuild.WorkerPoolWorkerConfi
 	p := &cloudbuildpb.CloudbuildWorkerPoolWorkerConfig{}
 	p.SetMachineType(dcl.ValueOrEmptyString(o.MachineType))
 	p.SetDiskSizeGb(dcl.ValueOrEmptyInt64(o.DiskSizeGb))
+	p.SetEnableNestedVirtualization(dcl.ValueOrEmptyBool(o.EnableNestedVirtualization))
 	p.SetNoExternalIp(dcl.ValueOrEmptyBool(o.NoExternalIP))
 	return p
 }

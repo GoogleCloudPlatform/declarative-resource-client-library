@@ -94,6 +94,9 @@ func WorkerPoolToUnstructured(r *dclService.WorkerPool) *unstructured.Resource {
 		if r.WorkerConfig.DiskSizeGb != nil {
 			rWorkerConfig["diskSizeGb"] = *r.WorkerConfig.DiskSizeGb
 		}
+		if r.WorkerConfig.EnableNestedVirtualization != nil {
+			rWorkerConfig["enableNestedVirtualization"] = *r.WorkerConfig.EnableNestedVirtualization
+		}
 		if r.WorkerConfig.MachineType != nil {
 			rWorkerConfig["machineType"] = *r.WorkerConfig.MachineType
 		}
@@ -240,6 +243,13 @@ func UnstructuredToWorkerPool(u *unstructured.Resource) (*dclService.WorkerPool,
 					r.WorkerConfig.DiskSizeGb = dcl.Int64(i)
 				} else {
 					return nil, fmt.Errorf("r.WorkerConfig.DiskSizeGb: expected int64")
+				}
+			}
+			if _, ok := rWorkerConfig["enableNestedVirtualization"]; ok {
+				if b, ok := rWorkerConfig["enableNestedVirtualization"].(bool); ok {
+					r.WorkerConfig.EnableNestedVirtualization = dcl.Bool(b)
+				} else {
+					return nil, fmt.Errorf("r.WorkerConfig.EnableNestedVirtualization: expected bool")
 				}
 			}
 			if _, ok := rWorkerConfig["machineType"]; ok {

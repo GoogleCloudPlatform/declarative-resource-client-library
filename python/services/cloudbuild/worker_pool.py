@@ -291,9 +291,15 @@ class WorkerPoolPrivatePoolV1ConfigArray(object):
 
 class WorkerPoolPrivatePoolV1ConfigWorkerConfig(object):
 
-    def __init__(self, machine_type: str = None, disk_size_gb: int = None):
+    def __init__(
+        self,
+        machine_type: str = None,
+        disk_size_gb: int = None,
+        enable_nested_virtualization: bool = None,
+    ):
         self.machine_type = machine_type
         self.disk_size_gb = disk_size_gb
+        self.enable_nested_virtualization = enable_nested_virtualization
 
     @classmethod
     def to_proto(self, resource):
@@ -305,6 +311,10 @@ class WorkerPoolPrivatePoolV1ConfigWorkerConfig(object):
             res.machine_type = Primitive.to_proto(resource.machine_type)
         if Primitive.to_proto(resource.disk_size_gb):
             res.disk_size_gb = Primitive.to_proto(resource.disk_size_gb)
+        if Primitive.to_proto(resource.enable_nested_virtualization):
+            res.enable_nested_virtualization = Primitive.to_proto(
+                resource.enable_nested_virtualization
+            )
         return res
 
     @classmethod
@@ -315,6 +325,9 @@ class WorkerPoolPrivatePoolV1ConfigWorkerConfig(object):
         return WorkerPoolPrivatePoolV1ConfigWorkerConfig(
             machine_type=Primitive.from_proto(resource.machine_type),
             disk_size_gb=Primitive.from_proto(resource.disk_size_gb),
+            enable_nested_virtualization=Primitive.from_proto(
+                resource.enable_nested_virtualization
+            ),
         )
 
 
@@ -468,10 +481,12 @@ class WorkerPoolWorkerConfig(object):
         self,
         machine_type: str = None,
         disk_size_gb: int = None,
+        enable_nested_virtualization: bool = None,
         no_external_ip: bool = None,
     ):
         self.machine_type = machine_type
         self.disk_size_gb = disk_size_gb
+        self.enable_nested_virtualization = enable_nested_virtualization
         self.no_external_ip = no_external_ip
 
     @classmethod
@@ -484,6 +499,10 @@ class WorkerPoolWorkerConfig(object):
             res.machine_type = Primitive.to_proto(resource.machine_type)
         if Primitive.to_proto(resource.disk_size_gb):
             res.disk_size_gb = Primitive.to_proto(resource.disk_size_gb)
+        if Primitive.to_proto(resource.enable_nested_virtualization):
+            res.enable_nested_virtualization = Primitive.to_proto(
+                resource.enable_nested_virtualization
+            )
         if Primitive.to_proto(resource.no_external_ip):
             res.no_external_ip = Primitive.to_proto(resource.no_external_ip)
         return res
@@ -496,6 +515,9 @@ class WorkerPoolWorkerConfig(object):
         return WorkerPoolWorkerConfig(
             machine_type=Primitive.from_proto(resource.machine_type),
             disk_size_gb=Primitive.from_proto(resource.disk_size_gb),
+            enable_nested_virtualization=Primitive.from_proto(
+                resource.enable_nested_virtualization
+            ),
             no_external_ip=Primitive.from_proto(resource.no_external_ip),
         )
 
