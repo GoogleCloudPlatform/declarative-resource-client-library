@@ -21,7 +21,7 @@ import (
 	"github.com/GoogleCloudPlatform/declarative-resource-client-library/dcl"
 )
 
-func fetchName(o map[string]interface{}) (*string, error) {
+func fetchName(o map[string]any) (*string, error) {
 	name, ok := o["name"].(string)
 	if !ok || name == "" {
 		return nil, errors.New("unable to fetch name from output")
@@ -42,7 +42,7 @@ func normalizeNumbers(m map[string]string) map[string]string {
 
 // canonicalizeConfigTestPhoneNumbers compares two maps with phone number keys with the phone numbers
 // normalized.
-func canonicalizeConfigTestPhoneNumbers(m, n interface{}) bool {
+func canonicalizeConfigTestPhoneNumbers(m, n any) bool {
 	if m == nil && n == nil {
 		return true
 	}

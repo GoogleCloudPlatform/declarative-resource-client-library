@@ -26,7 +26,7 @@ import (
 
 func (r *Folder) createURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
-	params := map[string]interface{}{
+	params := map[string]any{
 		"parent": dcl.ValueOrEmptyString(nr.Parent),
 	}
 	return dcl.URL("folders?parent={{parent}}", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, params), nil
@@ -35,7 +35,7 @@ func (r *Folder) createURL(userBasePath string) (string, error) {
 
 func (r *Folder) getURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
-	params := map[string]interface{}{
+	params := map[string]any{
 		"name": dcl.ValueOrEmptyString(nr.Name),
 	}
 	return dcl.URL("folders/{{name}}", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, params), nil
@@ -43,7 +43,7 @@ func (r *Folder) getURL(userBasePath string) (string, error) {
 
 func (r *Folder) listURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
-	params := map[string]interface{}{
+	params := map[string]any{
 		"parent": dcl.ValueOrEmptyString(nr.Parent),
 	}
 	return dcl.URL("folders?parent={{parent}}", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, params), nil
@@ -52,14 +52,14 @@ func (r *Folder) listURL(userBasePath string) (string, error) {
 func (r *Folder) updateURL(userBasePath, updateName string) (string, error) {
 	nr := r.urlNormalized()
 	if updateName == "MoveFolder" {
-		fields := map[string]interface{}{
+		fields := map[string]any{
 			"name": dcl.ValueOrEmptyString(nr.Name),
 		}
 		return dcl.URL("folders/{{name}}:move", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, fields), nil
 
 	}
 	if updateName == "UpdateFolder" {
-		fields := map[string]interface{}{
+		fields := map[string]any{
 			"name": dcl.ValueOrEmptyString(nr.Name),
 		}
 		return dcl.URL("folders/{{name}}?updateMask=displayName", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, fields), nil
@@ -70,7 +70,7 @@ func (r *Folder) updateURL(userBasePath, updateName string) (string, error) {
 
 func (r *Folder) deleteURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
-	params := map[string]interface{}{
+	params := map[string]any{
 		"name": dcl.ValueOrEmptyString(nr.Name),
 	}
 	return dcl.URL("folders/{{name}}", "https://cloudresourcemanager.googleapis.com/v2", userBasePath, params), nil
@@ -145,13 +145,13 @@ func (r *Project) listURL(userBasePath string) (string, error) {
 
 // expandProjectParent expands an instance of ProjectParent into a JSON
 // request object.
-func expandProjectParent(_ *Client, fval *string, _ *Project) (map[string]interface{}, error) {
+func expandProjectParent(_ *Client, fval *string, _ *Project) (map[string]any, error) {
 	if dcl.IsEmptyValueIndirect(fval) {
 		return nil, nil
 	}
 
 	s := strings.Split(*fval, "/")
-	m := make(map[string]interface{})
+	m := make(map[string]any)
 	if len(s) < 2 || dcl.IsEmptyValueIndirect(s[0]) || dcl.IsEmptyValueIndirect(s[1]) || !strings.HasSuffix(s[0], "s") {
 		return m, fmt.Errorf("invalid parent argument. got value = %s. should be of the form organizations/org_id or folders/folder_id", *fval)
 	}
@@ -164,8 +164,8 @@ func expandProjectParent(_ *Client, fval *string, _ *Project) (map[string]interf
 
 // flattenProjectParent flattens an instance of ProjectParent from a JSON
 // response object.
-func flattenProjectParent(c *Client, i interface{}, _ *Project) *string {
-	m, ok := i.(map[string]interface{})
+func flattenProjectParent(c *Client, i any, _ *Project) *string {
+	m, ok := i.(map[string]any)
 	if !ok {
 		return nil
 	}
@@ -178,13 +178,13 @@ func flattenProjectParent(c *Client, i interface{}, _ *Project) *string {
 }
 
 func (r *TagKey) createURL(userBasePath string) (string, error) {
-	params := make(map[string]interface{})
+	params := make(map[string]any)
 	return dcl.URL("tagKeys", "https://cloudresourcemanager.googleapis.com/v3", userBasePath, params), nil
 }
 
 func (r *TagKey) getURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
-	params := map[string]interface{}{
+	params := map[string]any{
 		"name": dcl.ValueOrEmptyString(nr.Name),
 	}
 	return dcl.URL("tagKeys/{{name}}", "https://cloudresourcemanager.googleapis.com/v3", userBasePath, params), nil
@@ -192,7 +192,7 @@ func (r *TagKey) getURL(userBasePath string) (string, error) {
 
 func (r *TagKey) updateURL(userBasePath, updateName string) (string, error) {
 	nr := r.urlNormalized()
-	fields := map[string]interface{}{
+	fields := map[string]any{
 		"name": dcl.ValueOrEmptyString(nr.Name),
 	}
 	return dcl.URL("tagKeys/{{name}}?updateMask=displayName", "https://cloudresourcemanager.googleapis.com/v3", userBasePath, fields), nil
@@ -200,7 +200,7 @@ func (r *TagKey) updateURL(userBasePath, updateName string) (string, error) {
 
 func (r *TagKey) deleteURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
-	params := map[string]interface{}{
+	params := map[string]any{
 		"name": dcl.ValueOrEmptyString(nr.Name),
 	}
 	return dcl.URL("tagKeys/{{name}}", "https://cloudresourcemanager.googleapis.com/v3", userBasePath, params), nil

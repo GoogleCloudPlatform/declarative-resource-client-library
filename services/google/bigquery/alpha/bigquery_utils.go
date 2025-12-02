@@ -35,7 +35,7 @@ func equalsDatasetAccessRole(m, n *string) bool {
 	return false
 }
 
-func canonicalizeDatasetAccessRole(m, n interface{}) bool {
+func canonicalizeDatasetAccessRole(m, n any) bool {
 	if m == nil && n == nil {
 		return true
 	}

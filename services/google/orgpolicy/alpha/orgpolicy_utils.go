@@ -45,7 +45,7 @@ func equalsPolicyName(m, n *string) bool {
 }
 
 // Compares two values of policy name. Custom diff function required because API returns project numbers.
-func canonicalizePolicyName(m, n interface{}) bool {
+func canonicalizePolicyName(m, n any) bool {
 	mString, ok := m.(*string)
 	if !ok {
 		return false
@@ -70,7 +70,7 @@ func equalsPolicyRulesConditionExpression(m, n *string) bool {
 }
 
 // Compares two values of policy rules condition expression. Custom diff function required due to API substitutions.
-func canonicalizePolicyRulesConditionExpression(m, n interface{}) bool {
+func canonicalizePolicyRulesConditionExpression(m, n any) bool {
 	mString, ok := m.(*string)
 	if !ok {
 		return false

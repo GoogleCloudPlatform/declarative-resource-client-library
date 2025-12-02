@@ -72,7 +72,7 @@ func equalsLogMetricMetricDescriptorLabelsValueType(m, n *LogMetricMetricDescrip
 	return *m == *n
 }
 
-func canonicalizeLogMetricMetricDescriptorLabelsValueType(m, n interface{}) bool {
+func canonicalizeLogMetricMetricDescriptorLabelsValueType(m, n any) bool {
 	if m == nil && n == nil {
 		return true
 	}
@@ -98,7 +98,7 @@ func equalsLogMetricMetricDescriptorValueType(m, n *LogMetricMetricDescriptorVal
 	return *m == *n
 }
 
-func canonicalizeLogMetricMetricDescriptorValueType(m, n interface{}) bool {
+func canonicalizeLogMetricMetricDescriptorValueType(m, n any) bool {
 	if m == nil && n == nil {
 		return true
 	}

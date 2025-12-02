@@ -40,7 +40,7 @@ func equalsPolicyISIAR(m, n map[string]PolicyIstioServiceIdentityAdmissionRules)
 }
 
 // Compares two values of istioServiceIdentity
-func canonicalizePolicyISIAR(m, n interface{}) bool {
+func canonicalizePolicyISIAR(m, n any) bool {
 	mVal, _ := m.(map[string]PolicyIstioServiceIdentityAdmissionRules)
 	nVal, _ := n.(map[string]PolicyIstioServiceIdentityAdmissionRules)
 	return equalsPolicyISIAR(mVal, nVal)

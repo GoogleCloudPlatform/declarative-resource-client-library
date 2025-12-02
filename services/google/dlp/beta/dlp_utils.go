@@ -23,30 +23,30 @@ import (
 )
 
 // encodeDLPCreateRequest encodes the create request for an dlp resource.
-func encodeDLPCreateRequest(m map[string]interface{}, resourceName string, idFieldName string) map[string]interface{} {
-	req := make(map[string]interface{})
+func encodeDLPCreateRequest(m map[string]any, resourceName string, idFieldName string) map[string]any {
+	req := make(map[string]any)
 	// Put base object into object field.
 	dcl.PutMapEntry(req, []string{resourceName}, m)
 	return req
 }
 
 // encodeDeidentifyTemplateCreateRequest properly encodes the create request for an dlp deidentify template.
-func encodeDeidentifyTemplateCreateRequest(m map[string]interface{}) map[string]interface{} {
+func encodeDeidentifyTemplateCreateRequest(m map[string]any) map[string]any {
 	return encodeDLPCreateRequest(m, "deidentifyTemplate", "templateId")
 }
 
 // encodeInspectTemplateCreateRequest properly encodes the create request for an dlp inspect template.
-func encodeInspectTemplateCreateRequest(m map[string]interface{}) map[string]interface{} {
+func encodeInspectTemplateCreateRequest(m map[string]any) map[string]any {
 	return encodeDLPCreateRequest(m, "inspectTemplate", "templateId")
 }
 
 // encodeStoredInfoTypeCreateRequest properly encodes the create request for an dlp stored info type.
-func encodeStoredInfoTypeCreateRequest(m map[string]interface{}) map[string]interface{} {
+func encodeStoredInfoTypeCreateRequest(m map[string]any) map[string]any {
 	return encodeDLPCreateRequest(m, "config", "storedInfoTypeId")
 }
 
 // encodeJobTriggerCreateRequest properly encodes the create request for an dlp inspect template.
-func encodeJobTriggerCreateRequest(m map[string]interface{}) map[string]interface{} {
+func encodeJobTriggerCreateRequest(m map[string]any) map[string]any {
 	return encodeDLPCreateRequest(m, "jobTrigger", "triggerId")
 }
 
@@ -68,7 +68,7 @@ func (op *updateInspectTemplateUpdateInspectTemplateOperation) do(ctx context.Co
 	}
 
 	mask := dcl.TopLevelUpdateMask(op.FieldDiffs)
-	req = map[string]interface{}{
+	req = map[string]any{
 		"inspectTemplate": req,
 		"updateMask":      mask,
 	}
@@ -104,7 +104,7 @@ func (op *updateStoredInfoTypeUpdateStoredInfoTypeOperation) do(ctx context.Cont
 	}
 
 	mask := dcl.TopLevelUpdateMask(op.FieldDiffs)
-	req = map[string]interface{}{
+	req = map[string]any{
 		"config":     req,
 		"updateMask": mask,
 	}
@@ -125,7 +125,7 @@ func (op *updateStoredInfoTypeUpdateStoredInfoTypeOperation) do(ctx context.Cont
 		if err != nil {
 			return nil, err
 		}
-		var m map[string]interface{}
+		var m map[string]any
 		if err := json.Unmarshal(b, &m); err != nil {
 			return nil, err
 		}
@@ -156,7 +156,7 @@ func (op *updateDeidentifyTemplateUpdateDeidentifyTemplateOperation) do(ctx cont
 	}
 
 	mask := dcl.TopLevelUpdateMask(op.FieldDiffs)
-	req = map[string]interface{}{
+	req = map[string]any{
 		"deidentifyTemplate": req,
 		"updateMask":         mask,
 	}
@@ -192,7 +192,7 @@ func (op *updateJobTriggerUpdateJobTriggerOperation) do(ctx context.Context, r *
 	}
 
 	mask := dcl.TopLevelUpdateMask(op.FieldDiffs)
-	req = map[string]interface{}{
+	req = map[string]any{
 		"jobTrigger": req,
 		"updateMask": mask,
 	}

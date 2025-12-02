@@ -29,7 +29,7 @@ var universeDomainRegex = regexp.MustCompile(`https://[^/.]+([^/]+)/`)
 
 // Returns the URL of the project resource with the given index in the workload.
 func (r *Workload) projectURL(userBasePath string, index int) (string, error) {
-	params := map[string]interface{}{
+	params := map[string]any{
 		"project": dcl.ValueOrEmptyString(r.Resources[index].ResourceId),
 	}
 	// This is a hack to support universe domains & custom endpoints. This should really be
@@ -47,7 +47,7 @@ func (r *Workload) projectURL(userBasePath string, index int) (string, error) {
 
 // Returns the URL of the folder resource with the given index in the workload.
 func (r *Workload) folderURL(userBasePath string, index int) (string, error) {
-	params := map[string]interface{}{
+	params := map[string]any{
 		"folder": dcl.ValueOrEmptyString(r.Resources[index].ResourceId),
 	}
 	// This is a hack to support universe domains & custom endpoints. This should really be
@@ -74,7 +74,7 @@ func lifecycleState(ctx context.Context, client *Client, url string) (string, er
 	if err != nil {
 		return "", err
 	}
-	var m map[string]interface{}
+	var m map[string]any
 	if err := json.Unmarshal(b, &m); err != nil {
 		return "", err
 	}

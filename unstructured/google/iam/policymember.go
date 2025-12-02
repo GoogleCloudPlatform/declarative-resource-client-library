@@ -33,7 +33,7 @@ func MemberToUnstructured(r *iamDCL.Member) *unstructured.Resource {
 			Version: "ga",
 			Type:    "PolicyMember",
 		},
-		Object: make(map[string]interface{}),
+		Object: make(map[string]any),
 	}
 	if r.Role != nil {
 		u.Object["role"] = string(*r.Role)

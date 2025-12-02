@@ -24,7 +24,7 @@ import (
 )
 
 // Returns true if m and n represent the same floating point value of seconds.
-func canonicalizeOSPolicyAssignmentRolloutMinWaitDuration(m, n interface{}) bool {
+func canonicalizeOSPolicyAssignmentRolloutMinWaitDuration(m, n any) bool {
 	mStr := dcl.ValueOrEmptyString(m)
 	nStr := dcl.ValueOrEmptyString(n)
 	if mStr == "" && nStr == "" {

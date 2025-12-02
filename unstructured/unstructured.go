@@ -52,7 +52,7 @@ type Resource struct {
 
 	// Object is a JSON compatible map with string, float, int,
 	// bool, []interface{}, or map[string]interface{} children.
-	Object map[string]interface{}
+	Object map[string]any
 
 	// STV indicates the type of this resource
 	STV ServiceTypeVersion

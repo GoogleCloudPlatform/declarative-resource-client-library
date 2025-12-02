@@ -28,11 +28,11 @@ import (
 )
 
 // EncodeImageDeprecateRequest properly encodes the image deprecation request for an image.
-func EncodeImageDeprecateRequest(m map[string]interface{}) map[string]interface{} {
-	req := make(map[string]interface{})
+func EncodeImageDeprecateRequest(m map[string]any) map[string]any {
+	req := make(map[string]any)
 	// Deprecate requests involve removing the "deprecated" key.
 	if deprecatedVal, ok := m["deprecated"]; ok {
-		deprecatedMap := deprecatedVal.(map[string]interface{})
+		deprecatedMap := deprecatedVal.(map[string]any)
 		for key, value := range deprecatedMap {
 			req[key] = value
 		}
@@ -43,36 +43,36 @@ func EncodeImageDeprecateRequest(m map[string]interface{}) map[string]interface{
 
 // WrapTargetPoolInstance wraps the instances provided by AddInstance and RemoveInstance
 // in their required format.
-func WrapTargetPoolInstance(m map[string]interface{}) map[string]interface{} {
+func WrapTargetPoolInstance(m map[string]any) map[string]any {
 	is, ok := m["instances"].([]string)
 	if !ok {
 		return nil
 	}
-	wrapped := make([]interface{}, len(is))
+	wrapped := make([]any, len(is))
 	for idx, i := range is {
-		wrapped[idx] = map[string]interface{}{
+		wrapped[idx] = map[string]any{
 			"instance": i,
 		}
 	}
-	return map[string]interface{}{
+	return map[string]any{
 		"instances": wrapped,
 	}
 }
 
 // WrapTargetPoolHealthCheck wraps the instances provided by AddHC and RemoveHC
 // in their required format.
-func WrapTargetPoolHealthCheck(m map[string]interface{}) map[string]interface{} {
+func WrapTargetPoolHealthCheck(m map[string]any) map[string]any {
 	hcs, ok := m["healthChecks"].([]string)
 	if !ok {
 		return nil
 	}
-	wrapped := make([]interface{}, len(hcs))
+	wrapped := make([]any, len(hcs))
 	for idx, hc := range hcs {
-		wrapped[idx] = map[string]interface{}{
+		wrapped[idx] = map[string]any{
 			"healthCheck": hc,
 		}
 	}
-	return map[string]interface{}{
+	return map[string]any{
 		"healthChecks": wrapped,
 	}
 }
@@ -97,7 +97,7 @@ func forwardingRuleSetLabelsPostCreate(inOps []forwardingRuleApiOperation) ([]fo
 	return inOps, nil
 }
 
-func canonicalizeReservationCPUPlatform(o, n interface{}) bool {
+func canonicalizeReservationCPUPlatform(o, n any) bool {
 	oVal, _ := o.(*string)
 	nVal, _ := n.(*string)
 	return equalReservationCPUPlatform(oVal, nVal)
@@ -120,7 +120,7 @@ func equalReservationCPUPlatform(o, n *string) bool {
 	return *o == *n
 }
 
-func canonicalizeIPAddressToReference(o, n interface{}) bool {
+func canonicalizeIPAddressToReference(o, n any) bool {
 	oVal, _ := o.(*string)
 	nVal, _ := n.(*string)
 	if oVal == nil && nVal == nil {
@@ -142,7 +142,7 @@ func isIPV4Address(addr string) bool {
 	return net.ParseIP(addr) != nil
 }
 
-func canonicalizePortRange(o, n interface{}) bool {
+func canonicalizePortRange(o, n any) bool {
 	oVal, _ := o.(*string)
 	nVal, _ := n.(*string)
 	return equalPortRanges(oVal, nVal)
@@ -224,7 +224,7 @@ func (op *updateNetworkUpdateOperation) do(ctx context.Context, r *Network, c *C
 
 	if mtu, ok := req["mtu"]; ok {
 		// Update mtu field first.
-		if err := performNetworkUpdate(ctx, r, c, u, map[string]interface{}{"mtu": mtu}); err != nil {
+		if err := performNetworkUpdate(ctx, r, c, u, map[string]any{"mtu": mtu}); err != nil {
 			return err
 		}
 		delete(req, "mtu")
@@ -238,7 +238,7 @@ func (op *updateNetworkUpdateOperation) do(ctx context.Context, r *Network, c *C
 }
 
 // Send the given update request to the given url on the given network with the given client in the given context and wait for the resulting operation.
-func performNetworkUpdate(ctx context.Context, r *Network, c *Client, u string, req map[string]interface{}) error {
+func performNetworkUpdate(ctx context.Context, r *Network, c *Client, u string, req map[string]any) error {
 	c.Config.Logger.InfoWithContextf(ctx, "Created update: %#v", req)
 	body, err := marshalUpdateNetworkUpdateRequest(c, req)
 	if err != nil {
@@ -277,7 +277,7 @@ func expandNetworkFirewallPolicyRuleTLSInspect(_ *Client, tlsInspect *bool, res 
 
 // Because the server will return both versions and instance template and expects only one to
 // be set in our requests, instance template will flatten to nil if versions is non-empty.
-func flattenInstanceGroupManagerInstanceTemplateWithConflict(c *Client, instanceTemplate interface{}, resource *InstanceGroupManager) *string {
+func flattenInstanceGroupManagerInstanceTemplateWithConflict(c *Client, instanceTemplate any, resource *InstanceGroupManager) *string {
 	if len(resource.Versions) > 0 {
 		c.Config.Logger.Info("flattening instance_template field to nil because versions were present")
 		return nil
@@ -287,7 +287,7 @@ func flattenInstanceGroupManagerInstanceTemplateWithConflict(c *Client, instance
 
 // Because the server will return both instance_template and instance template and expects only one to
 // be set in our requests, instance template will flatten to nil if instance_template is non-nil.
-func flattenInstanceGroupManagerVersionsWithConflict(c *Client, Versions interface{}, resource *InstanceGroupManager) []InstanceGroupManagerVersions {
+func flattenInstanceGroupManagerVersionsWithConflict(c *Client, Versions any, resource *InstanceGroupManager) []InstanceGroupManagerVersions {
 	if resource.InstanceTemplate != nil {
 		c.Config.Logger.Info("flattening versions field to nil because instance_template was present")
 		return nil
@@ -302,7 +302,7 @@ func machineTypeOperations() func(fd *dcl.FieldDiff) []string {
 	}
 }
 
-func flattenPacketMirroringRegion(_ *Client, region interface{}) *string {
+func flattenPacketMirroringRegion(_ *Client, region any) *string {
 	regionString, ok := region.(string)
 	if !ok {
 		return nil
@@ -336,7 +336,7 @@ func targetPoolInstances() func(fd *dcl.FieldDiff) []string {
 	}
 }
 
-func flattenNetworkSelfLinkWithID(_ *Client, _ interface{}, _ *Network, r map[string]interface{}) *string {
+func flattenNetworkSelfLinkWithID(_ *Client, _ any, _ *Network, r map[string]any) *string {
 	selfLink, ok := r["selfLink"].(string)
 	if !ok {
 		return nil
@@ -376,7 +376,7 @@ func (op *updateSubnetworkUpdateOperation) do(ctx context.Context, r *Subnetwork
 		if field == "fingerprint" {
 			continue
 		}
-		sr := map[string]interface{}{
+		sr := map[string]any{
 			field:         value,
 			"fingerprint": fingerprint,
 		}

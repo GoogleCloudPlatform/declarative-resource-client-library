@@ -27,7 +27,7 @@ import (
 
 func keyStringGetURL(userBasePath string, r *Key) (string, error) {
 	nr := r.urlNormalized()
-	params := map[string]interface{}{
+	params := map[string]any{
 		"project": dcl.ValueOrEmptyString(nr.Project),
 		"name":    dcl.ValueOrEmptyString(nr.Name),
 	}
@@ -95,7 +95,7 @@ func (c *Client) GetKey(ctx context.Context, r *Key) (*Key, error) {
 	if err != nil {
 		return nil, err
 	}
-	var m map[string]interface{}
+	var m map[string]any
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}

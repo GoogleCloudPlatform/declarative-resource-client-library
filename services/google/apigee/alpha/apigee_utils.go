@@ -63,8 +63,8 @@ func (c *Client) listOrganizationRaw(ctx context.Context, r *Organization, pageT
 }
 
 type listOrganizationOperation struct {
-	Organizations []map[string]interface{} `json:"organizations"`
-	Token         string                   `json:"nextPageToken"`
+	Organizations []map[string]any `json:"organizations"`
+	Token         string           `json:"nextPageToken"`
 }
 
 // listOrganization is a custom method which handles the different format that apigeeOrganization's list method returns.
@@ -85,7 +85,7 @@ func (c *Client) listOrganization(ctx context.Context, r *Organization, pageToke
 		if !ok {
 			return l, "", fmt.Errorf("name field was %T, not string", v["apigeeOrganization"])
 		}
-		projectIDs, ok := v["projectIds"].([]interface{})
+		projectIDs, ok := v["projectIds"].([]any)
 		if !ok {
 			return l, "", fmt.Errorf("project ids field was %T, not slice", v["projectIds"])
 		}

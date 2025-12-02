@@ -30,14 +30,14 @@ type StandardGCPOperation struct {
 	Name     string                     `json:"name"`
 	Error    *StandardGCPOperationError `json:"error"`
 	Done     bool                       `json:"done"`
-	Response map[string]interface{}     `json:"response"`
+	Response map[string]any             `json:"response"`
 	// other irrelevant fields omitted
 
 	config   *dcl.Config
 	basePath string
 	verb     string
 
-	response map[string]interface{}
+	response map[string]any
 }
 
 // StandardGCPOperationError is the GCP operation's Error body.
@@ -66,9 +66,9 @@ func (e *StandardGCPOperationError) String() string {
 
 // StandardGCPOperationErrorError is a singular error in a GCP operation.
 type StandardGCPOperationErrorError struct {
-	Code    json.Number              `json:"code"`
-	Message string                   `json:"message"`
-	Details []map[string]interface{} `json:"details"`
+	Code    json.Number      `json:"code"`
+	Message string           `json:"message"`
+	Details []map[string]any `json:"details"`
 }
 
 // Wait waits for an StandardGCPOperation to complete by fetching the operation until it completes.
@@ -124,6 +124,6 @@ func (op *StandardGCPOperation) operate(ctx context.Context) (*dcl.RetryDetails,
 
 // FirstResponse returns the first response that this operation receives with the resource.
 // This response may contain special information.
-func (op *StandardGCPOperation) FirstResponse() (map[string]interface{}, bool) {
+func (op *StandardGCPOperation) FirstResponse() (map[string]any, bool) {
 	return op.response, len(op.response) > 0
 }

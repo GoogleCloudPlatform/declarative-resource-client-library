@@ -34,23 +34,23 @@ func PolicyToUnstructured(r *iamDCL.Policy) *unstructured.Resource {
 			Version: "ga",
 			Type:    "Policy",
 		},
-		Object: make(map[string]interface{}),
+		Object: make(map[string]any),
 	}
-	var rBindings []interface{}
+	var rBindings []any
 	for _, rBindingsVal := range r.Bindings {
-		rBindingsObject := make(map[string]interface{})
+		rBindingsObject := make(map[string]any)
 		if rBindingsVal.Role != nil {
 			rBindingsObject["role"] = string(*rBindingsVal.Role)
 		}
 		if rBindingsVal.Members != nil {
-			var rBindingsValMembers []interface{}
+			var rBindingsValMembers []any
 			for _, rBindingsValMembersVal := range rBindingsVal.Members {
 				rBindingsValMembers = append(rBindingsValMembers, rBindingsValMembersVal)
 			}
 			rBindingsObject["members"] = rBindingsValMembers
 		}
 		if rBindingsVal.Condition != nil {
-			rBindingsValCondition := make(map[string]interface{})
+			rBindingsValCondition := make(map[string]any)
 			if rBindingsVal.Condition.Title != nil {
 				rBindingsValCondition["title"] = string(*rBindingsVal.Condition.Title)
 			}
@@ -78,12 +78,12 @@ func PolicyToUnstructured(r *iamDCL.Policy) *unstructured.Resource {
 func UnstructuredToPolicy(u *unstructured.Resource) (*iamDCL.Policy, error) {
 	r := &iamDCL.Policy{}
 	if _, ok := u.Object["bindings"]; ok {
-		s, ok := u.Object["bindings"].([]interface{})
+		s, ok := u.Object["bindings"].([]any)
 		if !ok {
 			return nil, fmt.Errorf("r.Bindings: expected []interface{}")
 		}
 		for _, o := range s {
-			objval, ok := o.(map[string]interface{})
+			objval, ok := o.(map[string]any)
 			if !ok {
 				continue
 			}
@@ -96,7 +96,7 @@ func UnstructuredToPolicy(u *unstructured.Resource) (*iamDCL.Policy, error) {
 				rBinding.Role = dcl.String(s)
 			}
 			if _, ok := objval["members"]; ok {
-				if s, ok := objval["members"].([]interface{}); ok {
+				if s, ok := objval["members"].([]any); ok {
 					for _, ss := range s {
 						strval, ok := ss.(string)
 						if !ok {
@@ -107,7 +107,7 @@ func UnstructuredToPolicy(u *unstructured.Resource) (*iamDCL.Policy, error) {
 				}
 			}
 			if _, ok := objval["condition"]; ok {
-				if rBindingCondition, ok := objval["condition"].(map[string]interface{}); ok {
+				if rBindingCondition, ok := objval["condition"].(map[string]any); ok {
 					rBinding.Condition = &iamDCL.Condition{}
 					if s, ok := rBindingCondition["title"].(string); ok {
 						rBinding.Condition.Title = dcl.String(s)
