@@ -5,8 +5,8 @@ go 1.19
 require (
 	bitbucket.org/creachadair/stringset v0.0.8
 	github.com/cenkalti/backoff v2.2.1+incompatible
-	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
-	github.com/google/go-cmp v0.5.8
+	github.com/golang/glog v1.2.4
+	github.com/google/go-cmp v0.6.0
 	github.com/google/go-cpy v0.0.0-20211218193943-a9c933c06932
 	github.com/kylelemons/godebug v1.1.0
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
