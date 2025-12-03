@@ -40,7 +40,7 @@ func (op *createBudgetOperation) do(ctx context.Context, r *Budget, c *Client) e
 		return err
 	}
 	if strings.HasPrefix(u, "https://billingbudgets.googleapis.com/v1beta1/") {
-		n := make(map[string]interface{})
+		n := make(map[string]any)
 		n["budget"] = m
 		m = n
 	}
@@ -129,7 +129,7 @@ func (op *updateBudgetUpdateBudgetOperation) do(ctx context.Context, r *Budget, 
 		return err
 	}
 	if strings.HasPrefix(u, "https://billingbudgets.googleapis.com/v1beta1/") {
-		n := make(map[string]interface{})
+		n := make(map[string]any)
 		n["budget"] = m
 		m = n
 	}
@@ -148,9 +148,9 @@ func (op *updateBudgetUpdateBudgetOperation) do(ctx context.Context, r *Budget, 
 }
 
 // Returns a list of project ids given a list of project numbers, both in the form projects/<value>.
-func flattenBudgetFilterProjects(c *Client, projects interface{}, _ *Budget) []string {
+func flattenBudgetFilterProjects(c *Client, projects any, _ *Budget) []string {
 	ctx := context.Background()
-	projectInterfaces, ok := projects.([]interface{})
+	projectInterfaces, ok := projects.([]any)
 	if !ok {
 		return nil
 	}
@@ -174,7 +174,7 @@ func flattenBudgetFilterProjects(c *Client, projects interface{}, _ *Budget) []s
 		if err != nil {
 			return nil
 		}
-		var m map[string]interface{}
+		var m map[string]any
 		if err := json.Unmarshal(b, &m); err != nil {
 			return nil
 		}
@@ -188,7 +188,7 @@ func flattenBudgetFilterProjects(c *Client, projects interface{}, _ *Budget) []s
 }
 
 // Returns the labels field as a map with slices as values.
-func expandBudgetFilterLabels(_ *Client, labels map[string]BudgetBudgetFilterLabels, _ *Budget) (interface{}, error) {
+func expandBudgetFilterLabels(_ *Client, labels map[string]BudgetBudgetFilterLabels, _ *Budget) (any, error) {
 	m := make(map[string][]string, len(labels))
 	for k, v := range labels {
 		m[k] = v.Values
@@ -196,14 +196,14 @@ func expandBudgetFilterLabels(_ *Client, labels map[string]BudgetBudgetFilterLab
 	return m, nil
 }
 
-func flattenBudgetFilterLabels(_ *Client, labels interface{}, _ *Budget) map[string]BudgetBudgetFilterLabels {
-	labelsInterfaceMap, ok := labels.(map[string]interface{})
+func flattenBudgetFilterLabels(_ *Client, labels any, _ *Budget) map[string]BudgetBudgetFilterLabels {
+	labelsInterfaceMap, ok := labels.(map[string]any)
 	if !ok {
 		return nil
 	}
 	labelsStringsMap := make(map[string][]string, len(labelsInterfaceMap))
 	for key, labelsInterfaceValue := range labelsInterfaceMap {
-		labelsInterfaces, ok := labelsInterfaceValue.([]interface{})
+		labelsInterfaces, ok := labelsInterfaceValue.([]any)
 		if !ok {
 			return nil
 		}

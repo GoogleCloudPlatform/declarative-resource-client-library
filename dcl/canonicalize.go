@@ -238,7 +238,7 @@ func PartialSelfLinkToSelfLinkArray(l, r []string) bool {
 	return true
 }
 
-func WithoutTrailingDotArrayInterface(l, r interface{}) bool {
+func WithoutTrailingDotArrayInterface(l, r any) bool {
 	lVal, _ := l.([]string)
 	rVal, _ := r.([]string)
 	return WithoutTrailingDotArray(lVal, rVal)
@@ -325,7 +325,7 @@ func CaseInsensitiveString(l, r *string) bool {
 }
 
 // IsZeroValue returns true if the argument is considered empty/unset.
-func IsZeroValue(v interface{}) bool {
+func IsZeroValue(v any) bool {
 	if t, ok := v.(time.Time); ok {
 		return t.IsZero()
 	}
@@ -353,7 +353,7 @@ func SliceEquals(v []string, q []string) bool {
 }
 
 // MapEquals returns if two maps are equal, while ignoring any keys with ignorePrefixes.
-func MapEquals(di, ai interface{}, ignorePrefixes []string) bool {
+func MapEquals(di, ai any, ignorePrefixes []string) bool {
 	d, ok := di.(map[string]string)
 	if !ok {
 		return false
@@ -535,7 +535,7 @@ func StringSliceEqualsWithSelfLink(v, q []string) bool {
 // DeriveFieldArray calls DeriveField on each entry in the provided slice.  The final
 // entry in the input variadic argument can be a slice, and those values will be replaced
 // by the values in the provided current value.
-func DeriveFieldArray(pattern string, cVal []string, fs ...interface{}) ([]string, error) {
+func DeriveFieldArray(pattern string, cVal []string, fs ...any) ([]string, error) {
 	var s []string
 	var allFs []*string
 	for _, f := range fs[:len(fs)-1] {
@@ -565,7 +565,7 @@ func DeriveFieldArray(pattern string, cVal []string, fs ...interface{}) ([]strin
 func DeriveField(pattern string, cVal *string, fs ...*string) (*string, error) {
 	var currentValue string
 	// interface{} for fmt.Sprintf.
-	fields := make([]interface{}, len(fs))
+	fields := make([]any, len(fs))
 	if cVal == nil {
 		// might still be doable from "fields"!
 		currentValue = ""
@@ -613,7 +613,7 @@ func DeriveField(pattern string, cVal *string, fs ...*string) (*string, error) {
 		}
 	}
 	if len(valueParts) == strings.Count(pattern, "%s") {
-		iParts := make([]interface{}, len(valueParts))
+		iParts := make([]any, len(valueParts))
 		for i, s := range valueParts {
 			iParts[i] = s
 		}
@@ -629,7 +629,7 @@ func DeriveField(pattern string, cVal *string, fs ...*string) (*string, error) {
 // client if the existing value is nil - it is useful for diffing a response against a provided
 // value.  The "Indirect" refers to the fact that this method returns correct
 // results even if the provided value is a pointer.
-func IsEmptyValueIndirect(i interface{}) bool {
+func IsEmptyValueIndirect(i any) bool {
 	if i == nil {
 		return true
 	}
@@ -664,7 +664,7 @@ func IsEmptyValueIndirect(i interface{}) bool {
 // with an unexported field called 'empty', and that value is a boolean,
 // and that boolean is true.  This is useful when a user needs to explicitly
 // set their intention that a value be empty.
-func hasEmptyStructField(i interface{}) bool {
+func hasEmptyStructField(i any) bool {
 	iv := reflect.Indirect(reflect.ValueOf(i))
 	if !iv.IsValid() {
 		return false
@@ -678,7 +678,7 @@ func hasEmptyStructField(i interface{}) bool {
 }
 
 // MatchingSemverInterface matches two interfaces according to MatchingSemver
-func MatchingSemverInterface(lp, rp interface{}) bool {
+func MatchingSemverInterface(lp, rp any) bool {
 	if lp == nil && rp == nil {
 		return true
 	}
@@ -759,7 +759,7 @@ func DeriveFromPattern(pattern string, cVal *string, fs ...*string) (*string, er
 
 	if matches := regex.FindStringSubmatch(currentValue); len(matches) > 0 {
 		// Found a match to the pattern, use the capture groups to populate the pattern
-		s := make([]interface{}, len(matches))
+		s := make([]any, len(matches))
 		for i, v := range matches {
 			s[i] = v
 		}
@@ -768,7 +768,7 @@ func DeriveFromPattern(pattern string, cVal *string, fs ...*string) (*string, er
 	}
 
 	// Did not find a match to the pattern, use the fields to populate the pattern
-	fields := make([]interface{}, len(fs))
+	fields := make([]any, len(fs))
 
 	for i, f := range fs {
 		if f == nil {
@@ -852,7 +852,7 @@ func IsSelfLink(s string) bool {
 }
 
 // ValueShouldBeSent returns if a value should be sent as part of the JSON request.
-func ValueShouldBeSent(v interface{}) bool {
+func ValueShouldBeSent(v any) bool {
 	if v == nil {
 		return false
 	}

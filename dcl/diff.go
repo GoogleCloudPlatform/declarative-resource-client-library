@@ -30,16 +30,16 @@ type DiffInfo struct {
 	Type             string
 
 	// ObjectFunction is the function used to diff a Nested Object.
-	ObjectFunction func(desired, actual interface{}, fn FieldName) ([]*FieldDiff, error)
+	ObjectFunction func(desired, actual any, fn FieldName) ([]*FieldDiff, error)
 
 	// CustomDiff is used to handle diffing a field when normal diff functions will not suffice.
 	// It should return false if there is any diff between 'desired' and 'actual'.
-	CustomDiff func(desired, actual interface{}) bool
+	CustomDiff func(desired, actual any) bool
 
 	// OperationSelector takes in the field's diff and returns the name of the operation (or Recreate) that should be triggered.
 	OperationSelector func(d *FieldDiff) []string
 
-	EmptyObject interface{}
+	EmptyObject any
 }
 
 // FieldName is used to add information about a field's name for logging purposes.
@@ -71,11 +71,11 @@ func (i FieldName) AddNest(field string) FieldName {
 type FieldDiff struct {
 	FieldName string
 	Message   string
-	Desired   interface{}
-	Actual    interface{}
+	Desired   any
+	Actual    any
 
-	ToAdd    []interface{}
-	ToRemove []interface{}
+	ToAdd    []any
+	ToRemove []any
 
 	// The name of the operation that should result (may be Recreate)
 	// In the case of sets, more than one operation may be returned.
@@ -91,7 +91,7 @@ func (d *FieldDiff) String() string {
 	return fmt.Sprintf("Field %s: got %s, want %s", d.FieldName, SprintResourceCompact(d.Actual), SprintResourceCompact(d.Desired))
 }
 
-func stringValue(i interface{}) string {
+func stringValue(i any) string {
 	v := reflect.ValueOf(i)
 	if v.Kind() == reflect.Ptr {
 		if v.IsNil() {
@@ -103,7 +103,7 @@ func stringValue(i interface{}) string {
 }
 
 // Diff takes in two interfaces and diffs them according to Info.
-func Diff(desired, actual interface{}, info DiffInfo, fn FieldName) ([]*FieldDiff, error) {
+func Diff(desired, actual any, info DiffInfo, fn FieldName) ([]*FieldDiff, error) {
 	var diffs []*FieldDiff
 	// All Output-only fields should not be diffed.
 	if info.OutputOnly || info.Ignore {
@@ -324,7 +324,7 @@ func Diff(desired, actual interface{}, info DiffInfo, fn FieldName) ([]*FieldDif
 	return diffs, nil
 }
 
-func arrayDiff(desired, actual []interface{}, info DiffInfo, fn FieldName) ([]*FieldDiff, error) {
+func arrayDiff(desired, actual []any, info DiffInfo, fn FieldName) ([]*FieldDiff, error) {
 	var diffs []*FieldDiff
 
 	// Nothing to diff against.
@@ -350,7 +350,7 @@ func arrayDiff(desired, actual []interface{}, info DiffInfo, fn FieldName) ([]*F
 	return diffs, nil
 }
 
-func setDiff(desired, actual []interface{}, info DiffInfo, fn FieldName) ([]*FieldDiff, error) {
+func setDiff(desired, actual []any, info DiffInfo, fn FieldName) ([]*FieldDiff, error) {
 	var diffs []*FieldDiff
 
 	// Everything should be added.
@@ -359,7 +359,7 @@ func setDiff(desired, actual []interface{}, info DiffInfo, fn FieldName) ([]*Fie
 		return diffs, nil
 	}
 
-	var toAdd, toRemove []interface{}
+	var toAdd, toRemove []any
 
 	for i, aItem := range actual {
 		found := false
@@ -394,14 +394,14 @@ func setDiff(desired, actual []interface{}, info DiffInfo, fn FieldName) ([]*Fie
 }
 
 // ValueType returns the reflect-style kind of an interface or the underlying type of a pointer.
-func ValueType(i interface{}) string {
+func ValueType(i any) string {
 	if reflect.ValueOf(i).Kind() == reflect.Ptr {
 		return reflect.Indirect(reflect.ValueOf(i)).Kind().String()
 	}
 	return reflect.ValueOf(i).Kind().String()
 }
 
-func strs(d, i interface{}) (*string, *string, error) {
+func strs(d, i any) (*string, *string, error) {
 	dStr, err := str(d)
 	if err != nil {
 		return nil, nil, err
@@ -415,7 +415,7 @@ func strs(d, i interface{}) (*string, *string, error) {
 	return dStr, iStr, nil
 }
 
-func str(d interface{}) (*string, error) {
+func str(d any) (*string, error) {
 	dPtr, dOk := d.(*string)
 	if !dOk {
 		dStr, dOk2 := d.(string)
@@ -427,7 +427,7 @@ func str(d interface{}) (*string, error) {
 	return dPtr, nil
 }
 
-func makeint64(d interface{}) (*int64, error) {
+func makeint64(d any) (*int64, error) {
 	dPtr, dOk := d.(*int64)
 	if !dOk {
 		dInt, dOk2 := d.(int64)
@@ -439,7 +439,7 @@ func makeint64(d interface{}) (*int64, error) {
 	return dPtr, nil
 }
 
-func makeint(d interface{}) (*int, error) {
+func makeint(d any) (*int, error) {
 	dPtr, dOk := d.(*int)
 	if !dOk {
 		dInt, dOk2 := d.(int)
@@ -451,7 +451,7 @@ func makeint(d interface{}) (*int, error) {
 	return dPtr, nil
 }
 
-func makefloat64(d interface{}) (*float64, error) {
+func makefloat64(d any) (*float64, error) {
 	dPtr, dOk := d.(*float64)
 	if !dOk {
 		dFloat, dOk2 := d.(float64)
@@ -463,7 +463,7 @@ func makefloat64(d interface{}) (*float64, error) {
 	return dPtr, nil
 }
 
-func bools(d, i interface{}) (*bool, *bool, error) {
+func bools(d, i any) (*bool, *bool, error) {
 	dBool, err := boolean(d)
 	if err != nil {
 		return nil, nil, err
@@ -477,7 +477,7 @@ func bools(d, i interface{}) (*bool, *bool, error) {
 	return dBool, iBool, nil
 }
 
-func boolean(d interface{}) (*bool, error) {
+func boolean(d any) (*bool, error) {
 	dPtr, dOk := d.(*bool)
 	if !dOk {
 		return nil, nil
@@ -485,24 +485,24 @@ func boolean(d interface{}) (*bool, error) {
 	return dPtr, nil
 }
 
-func maps(d, a interface{}) (map[string]interface{}, map[string]interface{}, error) {
+func maps(d, a any) (map[string]any, map[string]any, error) {
 	dMap, _ := mapCast(d)
 	aMap, _ := mapCast(a)
 	return dMap, aMap, nil
 }
 
-func mapCast(m interface{}) (map[string]interface{}, error) {
+func mapCast(m any) (map[string]any, error) {
 	j, err := json.Marshal(m)
 	if err != nil {
 		return nil, err
 	}
 
-	var mi map[string]interface{}
+	var mi map[string]any
 	json.Unmarshal(j, &mi)
 	return mi, nil
 }
 
-func slices(d, i interface{}) ([]interface{}, []interface{}, error) {
+func slices(d, i any) ([]any, []any, error) {
 	dSlice, err := slice(d)
 	if err != nil {
 		return nil, nil, err
@@ -516,7 +516,7 @@ func slices(d, i interface{}) ([]interface{}, []interface{}, error) {
 	return dSlice, iSlice, nil
 }
 
-func slice(slice interface{}) ([]interface{}, error) {
+func slice(slice any) ([]any, error) {
 	// Keep the distinction between nil and empty slice input
 	// This isn't going to be an error though.
 	if slice == nil {
@@ -525,7 +525,7 @@ func slice(slice interface{}) ([]interface{}, error) {
 
 	s := reflect.ValueOf(slice)
 
-	ret := make([]interface{}, s.Len())
+	ret := make([]any, s.Len())
 
 	for i := 0; i < s.Len(); i++ {
 		ret[i] = s.Index(i).Interface()
@@ -543,7 +543,7 @@ func addOperationToDiffs(fds []*FieldDiff, i DiffInfo) {
 	}
 }
 
-func mapCompare(d, a map[string]interface{}, ignorePrefixes []string, info DiffInfo, fn FieldName) ([]*FieldDiff, error) {
+func mapCompare(d, a map[string]any, ignorePrefixes []string, info DiffInfo, fn FieldName) ([]*FieldDiff, error) {
 	var diffs []*FieldDiff
 	for k, v := range d {
 		if isIgnored(k, ignorePrefixes) {

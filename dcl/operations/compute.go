@@ -102,8 +102,8 @@ func (op *ComputeOperation) handleResponse(resp *dcl.RetryDetails, err error) (*
 
 // FirstResponse returns the first response that this operation receives with the resource.
 // This response may contain special information.
-func (op *ComputeOperation) FirstResponse() (map[string]interface{}, bool) {
-	return make(map[string]interface{}), false
+func (op *ComputeOperation) FirstResponse() (map[string]any, bool) {
+	return make(map[string]any), false
 }
 
 func (op *ComputeOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) {

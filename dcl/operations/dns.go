@@ -67,6 +67,6 @@ func (op *DNSOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) 
 
 // FirstResponse returns the first response that this operation receives with the resource.
 // This response may contain special information.
-func (op *DNSOperation) FirstResponse() (map[string]interface{}, bool) {
-	return make(map[string]interface{}), false
+func (op *DNSOperation) FirstResponse() (map[string]any, bool) {
+	return make(map[string]any), false
 }

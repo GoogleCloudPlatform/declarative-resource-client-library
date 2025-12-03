@@ -35,27 +35,27 @@ func ExpandFunctionEventTriggerResource(_ *Client, _ *string, res *Function) (*s
 }
 
 // ExpandFunctionEventTriggerFailurePolicy inverts the flattenFunctionEventTriggerFailurePolicy transformation.
-func ExpandFunctionEventTriggerFailurePolicy(_ *Client, _ *bool, res *Function) (interface{}, error) {
+func ExpandFunctionEventTriggerFailurePolicy(_ *Client, _ *bool, res *Function) (any, error) {
 	if res.EventTrigger == nil || res.EventTrigger.FailurePolicy == nil || !*(res.EventTrigger.FailurePolicy) {
 		return nil, nil
 	}
-	return map[string]interface{}{
-		"retry": map[string]interface{}{},
+	return map[string]any{
+		"retry": map[string]any{},
 	}, nil
 }
 
 // flattenFunctionEventTriggerFailurePolicy converts the API reprensentation of an event
 // trigger retry policy, which is true or false based on the presence or absence
 // of an empty object, to an actual bool for convenience purposes.
-func flattenFunctionEventTriggerFailurePolicy(_ *Client, i interface{}, _ *Function) *bool {
-	if _, ok := i.(map[string]interface{}); ok {
+func flattenFunctionEventTriggerFailurePolicy(_ *Client, i any, _ *Function) *bool {
+	if _, ok := i.(map[string]any); ok {
 		return dcl.Bool(true)
 	}
 	return nil
 }
 
 // CanonicalizeFunctionSourceRepoURL compares source repo url because /paths/ can be omitted but will be added by the API.
-func CanonicalizeFunctionSourceRepoURL(m interface{}, n interface{}) bool {
+func CanonicalizeFunctionSourceRepoURL(m any, n any) bool {
 	mVal, ok := m.(*string)
 	if !ok {
 		return false

@@ -55,7 +55,7 @@ func HasLifecycleParam(lps []LifecycleParam, p LifecycleParam) bool {
 }
 
 // SprintResourceCompact prints a struct into a compact single line string.
-func SprintResourceCompact(v interface{}) string {
+func SprintResourceCompact(v any) string {
 	prettyConfig := &pretty.Config{
 		Compact:           true,
 		IncludeUnexported: true,
@@ -64,7 +64,7 @@ func SprintResourceCompact(v interface{}) string {
 }
 
 // SprintResource prints a struct into a multiline string to display to readers.
-func SprintResource(v interface{}) string {
+func SprintResource(v any) string {
 	prettyConfig := &pretty.Config{
 		Diffable:          true, // add line between braces and first/last val
 		IncludeUnexported: true,
@@ -74,7 +74,7 @@ func SprintResource(v interface{}) string {
 
 // EmptyValue returns an empty value to exclude PARAMETER-type values from
 // being expanded
-func EmptyValue() (map[string]interface{}, error) {
+func EmptyValue() (map[string]any, error) {
 	return nil, nil
 }
 
@@ -96,7 +96,7 @@ func EmptyValue() (map[string]interface{}, error) {
 // https://developers.google.com/discovery/v1/type-format.
 // string, float64, int64, and int64 values will return a *int64.
 // nil and unrecognised types will return 0.
-func FlattenInteger(v interface{}) *int64 {
+func FlattenInteger(v any) *int64 {
 	if v == nil {
 		return nil
 	}
@@ -134,7 +134,7 @@ func FlattenInteger(v interface{}) *int64 {
 
 // FlattenDouble asserts that an interface is a float64 and returns a pointer to it,
 // or to 0.0 if the value is invalid.
-func FlattenDouble(v interface{}) *float64 {
+func FlattenDouble(v any) *float64 {
 	if v == nil {
 		return nil
 	}
@@ -148,14 +148,14 @@ func FlattenDouble(v interface{}) *float64 {
 
 // FlattenKeyValuePairs asserts that an interface is a map[string]string and
 // returns it, or an empty map if the value is invalid.
-func FlattenKeyValuePairs(v interface{}) map[string]string {
+func FlattenKeyValuePairs(v any) map[string]string {
 	if v == nil {
 		return nil
 	}
 	if ss, ok := v.(map[string]string); ok {
 		return ss
 	}
-	p, ok := v.(map[string]interface{})
+	p, ok := v.(map[string]any)
 	if !ok {
 		return map[string]string{}
 	}
@@ -165,21 +165,21 @@ func FlattenKeyValuePairs(v interface{}) map[string]string {
 
 // FlattenKeyValueInterface returns a pointer to an interface.
 // It can only be used for untyped maps.
-func FlattenKeyValueInterface(v interface{}) map[string]interface{} {
+func FlattenKeyValueInterface(v any) map[string]any {
 	if v == nil {
 		return nil
 	}
 
-	if ss, ok := v.(map[string]interface{}); ok {
+	if ss, ok := v.(map[string]any); ok {
 		return ss
 	}
 
-	return map[string]interface{}{}
+	return map[string]any{}
 }
 
 // Returns a map[string]string from a map[string]interface{}
 // Non-string values are skipped.
-func assertStringMap(mi map[string]interface{}) map[string]string {
+func assertStringMap(mi map[string]any) map[string]string {
 	ms := make(map[string]string)
 	for k, v := range mi {
 		if v == nil {
@@ -195,11 +195,11 @@ func assertStringMap(mi map[string]interface{}) map[string]string {
 
 // FlattenFloatSlice asserts that an interface is a []float64 and returns
 // it.
-func FlattenFloatSlice(v interface{}) []float64 {
+func FlattenFloatSlice(v any) []float64 {
 	if v == nil {
 		return nil
 	}
-	p, ok := v.([]interface{})
+	p, ok := v.([]any)
 	if !ok {
 		return []float64{}
 	}
@@ -209,7 +209,7 @@ func FlattenFloatSlice(v interface{}) []float64 {
 
 // Returns a []float64 from an []interface
 // Non-float values are skipped.
-func assertFloatSlice(id []interface{}) []float64 {
+func assertFloatSlice(id []any) []float64 {
 	dd := []float64{}
 	for _, v := range id {
 		if v == nil {
@@ -226,11 +226,11 @@ func assertFloatSlice(id []interface{}) []float64 {
 
 // FlattenIntSlice asserts that an interface is a []int and returns
 // it.
-func FlattenIntSlice(v interface{}) []int64 {
+func FlattenIntSlice(v any) []int64 {
 	if v == nil {
 		return nil
 	}
-	p, ok := v.([]interface{})
+	p, ok := v.([]any)
 	if !ok {
 		return []int64{}
 	}
@@ -240,7 +240,7 @@ func FlattenIntSlice(v interface{}) []int64 {
 
 // Returns a []int64 from an []interface
 // Non-int values are skipped.
-func assertIntSlice(id []interface{}) []int64 {
+func assertIntSlice(id []any) []int64 {
 	dd := []int64{}
 	for _, v := range id {
 		if v == nil {
@@ -260,11 +260,11 @@ func assertIntSlice(id []interface{}) []int64 {
 
 // FlattenStringSlice asserts that an interface is a []string and returns
 // it.
-func FlattenStringSlice(v interface{}) []string {
+func FlattenStringSlice(v any) []string {
 	if v == nil {
 		return nil
 	}
-	p, ok := v.([]interface{})
+	p, ok := v.([]any)
 	if !ok {
 		return []string{}
 	}
@@ -274,7 +274,7 @@ func FlattenStringSlice(v interface{}) []string {
 
 // Returns a []string from an []interface
 // Non-string values are skipped.
-func assertStringSlice(is []interface{}) []string {
+func assertStringSlice(is []any) []string {
 	ss := []string{}
 	for _, v := range is {
 		if v == nil {
@@ -291,7 +291,7 @@ func assertStringSlice(is []interface{}) []string {
 
 // FlattenString asserts that an interface is a string and returns a pointer to
 // it, or to the empty string if the value is invalid.
-func FlattenString(v interface{}) *string {
+func FlattenString(v any) *string {
 	if v == nil {
 		return nil
 	}
@@ -305,7 +305,7 @@ func FlattenString(v interface{}) *string {
 
 // FlattenBool asserts that an interface is a bool and returns a pointer to it, or
 // a pointer to false if the value is invalid.
-func FlattenBool(v interface{}) *bool {
+func FlattenBool(v any) *bool {
 	if v == nil {
 		return nil
 	}
@@ -321,7 +321,7 @@ func FlattenBool(v interface{}) *bool {
 // Time values transmitted in JSON will be an RFC3339 time as per
 // https://developers.google.com/discovery/v1/type-format
 // Otherwise, it returns the empty time.
-func FlattenTime(v interface{}) time.Time {
+func FlattenTime(v any) time.Time {
 	if s, ok := v.(string); ok {
 		t, err := time.Parse(time.RFC3339, s)
 		if err == nil {
@@ -339,7 +339,7 @@ func FlattenTime(v interface{}) time.Time {
 
 // FlattenSecretValue behaves the same way as FlattenString, except that it
 // returns nil if the value is not present.
-func FlattenSecretValue(v interface{}) *string {
+func FlattenSecretValue(v any) *string {
 	p, ok := v.(string)
 	if !ok {
 		return nil
@@ -357,7 +357,7 @@ func FlattenSecretValue(v interface{}) *string {
 // actual elements in the input bytes - but this should be exclusively
 // differences which are not semantically significant in json.
 func ExtractElementFromList(b []byte, listKey string, isElement func([]byte) bool) ([]byte, error) {
-	var m map[string]interface{}
+	var m map[string]any
 	if err := json.Unmarshal(b, &m); err != nil {
 		return nil, err
 	}
@@ -365,12 +365,12 @@ func ExtractElementFromList(b []byte, listKey string, isElement func([]byte) boo
 	if !ok {
 		return nil, NotFoundError{Cause: fmt.Errorf("could not find %q in %v, assuming list is empty and returning not found", listKey, m)}
 	}
-	list, ok := l.([]interface{})
+	list, ok := l.([]any)
 	if !ok {
 		return nil, fmt.Errorf("could not convert %v to list", l)
 	}
 	for _, v := range list {
-		if subM, ok := v.(map[string]interface{}); ok {
+		if subM, ok := v.(map[string]any); ok {
 			if subB, err := json.Marshal(subM); err != nil {
 				continue
 			} else if isElement(subB) {

@@ -404,12 +404,12 @@ func WithUserProjectOverride() ConfigOption {
 
 // Logger is an interface for logging requests and responses.
 type Logger interface {
-	Fatal(args ...interface{})
-	Fatalf(format string, args ...interface{})
-	Info(args ...interface{})
-	Infof(format string, args ...interface{})
-	Warningf(format string, args ...interface{})
-	Warning(args ...interface{})
+	Fatal(args ...any)
+	Fatalf(format string, args ...any)
+	Info(args ...any)
+	Infof(format string, args ...any)
+	Warningf(format string, args ...any)
+	Warning(args ...any)
 }
 
 // ContextLogger is the internal logger implementation.
@@ -442,116 +442,116 @@ type glogger struct {
 }
 
 // Fatal records Fatal errors.
-func (l glogger) Fatal(args ...interface{}) {
+func (l glogger) Fatal(args ...any) {
 	if l.level >= Fatal {
 		glog.Fatal(args...)
 	}
 }
 
 // Fatalf records Fatal errors with added arguments.
-func (l glogger) Fatalf(format string, args ...interface{}) {
+func (l glogger) Fatalf(format string, args ...any) {
 	if l.level >= Fatal {
 		glog.Fatalf(format, HandleLogArgs(args...)...)
 	}
 }
 
 // Info records Info errors.
-func (l glogger) Info(args ...interface{}) {
+func (l glogger) Info(args ...any) {
 	if l.level >= LoggerInfo {
 		glog.Info(args...)
 	}
 }
 
 // Infof records Info errors with added arguments.
-func (l glogger) Infof(format string, args ...interface{}) {
+func (l glogger) Infof(format string, args ...any) {
 	if l.level >= LoggerInfo {
 		glog.Infof(format, HandleLogArgs(args...)...)
 	}
 }
 
 // Warningf records Warning errors with added arguments.
-func (l glogger) Warningf(format string, args ...interface{}) {
+func (l glogger) Warningf(format string, args ...any) {
 	if l.level >= Warning {
 		glog.Warningf(format, HandleLogArgs(args...)...)
 	}
 }
 
 // Warning records Warning errors.
-func (l glogger) Warning(args ...interface{}) {
+func (l glogger) Warning(args ...any) {
 	if l.level >= Warning {
 		glog.Warning(args...)
 	}
 }
 
 // Fatal records Fatal errors.
-func (l ContextLogger) Fatal(args ...interface{}) {
+func (l ContextLogger) Fatal(args ...any) {
 	l.logger.Fatal(args...)
 }
 
 // Fatalf records Fatal errors with added arguments.
-func (l ContextLogger) Fatalf(format string, args ...interface{}) {
+func (l ContextLogger) Fatalf(format string, args ...any) {
 	l.logger.Fatalf(format, HandleLogArgs(args...)...)
 }
 
 // Info records Info errors.
-func (l ContextLogger) Info(args ...interface{}) {
+func (l ContextLogger) Info(args ...any) {
 	l.logger.Info(args...)
 }
 
 // Infof records Info errors with added arguments.
-func (l ContextLogger) Infof(format string, args ...interface{}) {
+func (l ContextLogger) Infof(format string, args ...any) {
 	l.logger.Infof(format, HandleLogArgs(args...)...)
 }
 
 // Warningf records Warning errors with added arguments.
-func (l ContextLogger) Warningf(format string, args ...interface{}) {
+func (l ContextLogger) Warningf(format string, args ...any) {
 	l.logger.Warningf(format, HandleLogArgs(args...)...)
 }
 
 // Warning records Warning errors.
-func (l ContextLogger) Warning(args ...interface{}) {
+func (l ContextLogger) Warning(args ...any) {
 	l.logger.Warning(args...)
 }
 
 // FatalWithContext records Fatal errors with context values.
-func (l ContextLogger) FatalWithContext(ctx context.Context, args ...interface{}) {
-	args = append([]interface{}{ConstructLogPrefixFromContext(ctx)}, args...)
+func (l ContextLogger) FatalWithContext(ctx context.Context, args ...any) {
+	args = append([]any{ConstructLogPrefixFromContext(ctx)}, args...)
 	l.Fatal(args...)
 }
 
 // FatalWithContextf records Fatal errors with added arguments with context values.
-func (l ContextLogger) FatalWithContextf(ctx context.Context, format string, args ...interface{}) {
+func (l ContextLogger) FatalWithContextf(ctx context.Context, format string, args ...any) {
 	format = fmt.Sprintf("%s %s", ConstructLogPrefixFromContext(ctx), format)
 	l.Fatalf(format, args...)
 }
 
 // InfoWithContext records Info errors with context values.
-func (l ContextLogger) InfoWithContext(ctx context.Context, args ...interface{}) {
-	args = append([]interface{}{ConstructLogPrefixFromContext(ctx)}, args...)
+func (l ContextLogger) InfoWithContext(ctx context.Context, args ...any) {
+	args = append([]any{ConstructLogPrefixFromContext(ctx)}, args...)
 	l.Info(args...)
 }
 
 // InfoWithContextf records Info errors with added arguments with context values.
-func (l ContextLogger) InfoWithContextf(ctx context.Context, format string, args ...interface{}) {
+func (l ContextLogger) InfoWithContextf(ctx context.Context, format string, args ...any) {
 	format = fmt.Sprintf("%s %s", ConstructLogPrefixFromContext(ctx), format)
 	l.Infof(format, args...)
 }
 
 // WarningWithContextf records Warning errors with added arguments with context values.
-func (l ContextLogger) WarningWithContextf(ctx context.Context, format string, args ...interface{}) {
+func (l ContextLogger) WarningWithContextf(ctx context.Context, format string, args ...any) {
 	format = fmt.Sprintf("%s %s", ConstructLogPrefixFromContext(ctx), format)
 	l.Warningf(format, HandleLogArgs(args...)...)
 }
 
 // WarningWithContext records Warning errors with context values.
-func (l ContextLogger) WarningWithContext(ctx context.Context, args ...interface{}) {
-	args = append([]interface{}{ConstructLogPrefixFromContext(ctx)}, args...)
+func (l ContextLogger) WarningWithContext(ctx context.Context, args ...any) {
+	args = append([]any{ConstructLogPrefixFromContext(ctx)}, args...)
 	l.Warning(args...)
 }
 
 // HandleLogArgs ensures that pointer arguments are dereferenced well.
-func HandleLogArgs(args ...interface{}) []interface{} {
-	a := make([]interface{}, len(args))
+func HandleLogArgs(args ...any) []any {
+	a := make([]any, len(args))
 	for i, v := range args {
 		if s, ok := v.(*string); ok && s != nil {
 			a[i] = *s

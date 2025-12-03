@@ -92,6 +92,6 @@ func (op *KNativeOperation) operate(ctx context.Context) (*dcl.RetryDetails, err
 
 // FirstResponse returns the first response that this operation receives with the resource.
 // This response may contain special information.
-func (op *KNativeOperation) FirstResponse() (map[string]interface{}, bool) {
-	return make(map[string]interface{}), false
+func (op *KNativeOperation) FirstResponse() (map[string]any, bool) {
+	return make(map[string]any), false
 }

@@ -27,14 +27,14 @@ import (
 )
 
 // EncodeIAMCreateRequest encodes the create request for an iam resource.
-func EncodeIAMCreateRequest(m map[string]interface{}, resourceName, idField string) map[string]interface{} {
-	req := make(map[string]interface{})
+func EncodeIAMCreateRequest(m map[string]any, resourceName, idField string) map[string]any {
+	req := make(map[string]any)
 	// Put base object into object field.
 	dcl.PutMapEntry(req, []string{resourceName}, m)
 	// Move name field from from nested object to id field.
 	dcl.MoveMapEntry(req, []string{resourceName, "name"}, []string{idField})
 	// Delete projectID field.
-	delete(req[resourceName].(map[string]interface{}), "projectId")
+	delete(req[resourceName].(map[string]any), "projectId")
 	// Change value of id field to only last part after / and before @.
 	idParts := regexp.MustCompile("([^@/]+)[^/]*$").FindStringSubmatch(*req[idField].(*string))
 	if len(idParts) < 2 {
@@ -45,17 +45,17 @@ func EncodeIAMCreateRequest(m map[string]interface{}, resourceName, idField stri
 }
 
 // EncodeRoleCreateRequest properly encodes the create request for an iam role.
-func EncodeRoleCreateRequest(m map[string]interface{}) map[string]interface{} {
+func EncodeRoleCreateRequest(m map[string]any) map[string]any {
 	return EncodeIAMCreateRequest(m, "role", "roleId")
 }
 
 // EncodeServiceAccountCreateRequest properly encodes the create request for an iam service account.
-func EncodeServiceAccountCreateRequest(m map[string]interface{}) map[string]interface{} {
+func EncodeServiceAccountCreateRequest(m map[string]any) map[string]any {
 	return EncodeIAMCreateRequest(m, "serviceAccount", "accountId")
 }
 
 // canonicalizeServiceAccountName compares service account names ignoring the part after @.
-func canonicalizeServiceAccountName(m, n interface{}) bool {
+func canonicalizeServiceAccountName(m, n any) bool {
 	mStr, ok := m.(*string)
 	if !ok {
 		return false

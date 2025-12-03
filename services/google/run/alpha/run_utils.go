@@ -15,7 +15,7 @@
 package alpha
 
 // EncodeServiceCreateRequest properly encodes the create request for a Cloud Run Service.
-func EncodeServiceCreateRequest(m map[string]interface{}) map[string]interface{} {
+func EncodeServiceCreateRequest(m map[string]any) map[string]any {
 	// Create requests involving a master version have to be sent under the "initialMasterVersion" key.
 	if _, ok := m["name"]; ok {
 		delete(m, "name")

@@ -41,7 +41,7 @@ func (op *updateMembershipUpdateMembershipOperation) do(ctx context.Context, r *
 		return err
 	}
 
-	add := []interface{}{}
+	add := []any{}
 	for _, newRole := range r.Roles {
 		found := false
 		for _, currentRole := range currentMembership.Roles {
@@ -69,8 +69,8 @@ func (op *updateMembershipUpdateMembershipOperation) do(ctx context.Context, r *
 		}
 	}
 
-	chg := map[string]interface{}{
-		"addRoles": []interface{}{
+	chg := map[string]any{
+		"addRoles": []any{
 			add,
 		},
 		"removeRoles": delete,

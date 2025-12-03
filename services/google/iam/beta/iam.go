@@ -66,9 +66,9 @@ type Member struct {
 }
 
 // Encode encodes the bindings, tag, and version of an IAM policy.
-func (p *Policy) Encode() (map[string]interface{}, error) {
-	m := make(map[string]interface{})
-	var bindings []map[string]interface{}
+func (p *Policy) Encode() (map[string]any, error) {
+	m := make(map[string]any)
+	var bindings []map[string]any
 	for _, b := range p.Bindings {
 		bb, err := b.Encode()
 		if err != nil {
@@ -79,12 +79,12 @@ func (p *Policy) Encode() (map[string]interface{}, error) {
 	m["bindings"] = bindings
 	m["etag"] = p.Etag
 	m["version"] = p.Version
-	return map[string]interface{}{"policy": m}, nil
+	return map[string]any{"policy": m}, nil
 }
 
 // Encode encodes the members and role of an IAM binding.
-func (b *Binding) Encode() (map[string]interface{}, error) {
-	m := make(map[string]interface{})
+func (b *Binding) Encode() (map[string]any, error) {
+	m := make(map[string]any)
 	m["members"] = b.Members
 	m["role"] = b.Role
 	if b.Condition != nil {
@@ -94,8 +94,8 @@ func (b *Binding) Encode() (map[string]interface{}, error) {
 }
 
 // Encode encodes the role and member of a single IAM member.
-func (m *Member) Encode() (map[string]interface{}, error) {
-	return map[string]interface{}{
+func (m *Member) Encode() (map[string]any, error) {
+	return map[string]any{
 		"role":   m.Role,
 		"member": m.Member,
 	}, nil
@@ -148,7 +148,7 @@ func (c *Client) SetPolicyWithEtag(ctx context.Context, p *Policy) (*Policy, err
 	}
 	if verb == "PUT" {
 		// Currently only storage has this verb and requires a different format for the request body.
-		policyMap, ok := m["policy"].(map[string]interface{})
+		policyMap, ok := m["policy"].(map[string]any)
 		if !ok {
 			return nil, fmt.Errorf("no policy found in map: %v", m)
 		}

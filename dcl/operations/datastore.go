@@ -74,8 +74,8 @@ func (op *DatastoreOperation) operate(ctx context.Context) (*dcl.RetryDetails, e
 
 // FirstResponse returns the first response that this operation receives with the resource.
 // This response may contain special information.
-func (op *DatastoreOperation) FirstResponse() (map[string]interface{}, bool) {
-	return map[string]interface{}{
+func (op *DatastoreOperation) FirstResponse() (map[string]any, bool) {
+	return map[string]any{
 		"indexId": op.Metadata.IndexID,
 	}, false
 }

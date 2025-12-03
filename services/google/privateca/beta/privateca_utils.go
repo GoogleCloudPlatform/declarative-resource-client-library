@@ -44,7 +44,7 @@ func (r *CertificateAuthority) disableCertificateAuthority(ctx context.Context, 
 		return nil
 	}
 	nr := r.urlNormalized()
-	params := map[string]interface{}{
+	params := map[string]any{
 		"project":  dcl.ValueOrEmptyString(nr.Project),
 		"location": dcl.ValueOrEmptyString(nr.Location),
 		"ca_pool":  dcl.ValueOrEmptyString(nr.CaPool),
@@ -69,7 +69,7 @@ func (r *CertificateAuthority) disableCertificateAuthority(ctx context.Context, 
 
 func (r *Certificate) createURL(userBasePath string) (string, error) {
 	nr := r.urlNormalized()
-	params := map[string]interface{}{
+	params := map[string]any{
 		"project":              dcl.ValueOrEmptyString(nr.Project),
 		"location":             dcl.ValueOrEmptyString(nr.Location),
 		"caPool":               dcl.ValueOrEmptyString(nr.CaPool),
@@ -95,11 +95,11 @@ func (r *Certificate) createURL(userBasePath string) (string, error) {
 	return basePath, nil
 }
 
-func flattenCertificateConfigX509ConfigCAOptions(_ *Client, i interface{}, _ *Certificate) *CertificateConfigX509ConfigCaOptions {
+func flattenCertificateConfigX509ConfigCAOptions(_ *Client, i any, _ *Certificate) *CertificateConfigX509ConfigCaOptions {
 	if i == nil {
 		return nil
 	}
-	m, ok := i.(map[string]interface{})
+	m, ok := i.(map[string]any)
 	if !ok {
 		return nil
 	}
@@ -125,12 +125,12 @@ func flattenCertificateConfigX509ConfigCAOptions(_ *Client, i interface{}, _ *Ce
 	return result
 }
 
-func expandCertificateConfigX509ConfigCAOptions(_ *Client, caOptions *CertificateConfigX509ConfigCaOptions, _ *Certificate) (map[string]interface{}, error) {
+func expandCertificateConfigX509ConfigCAOptions(_ *Client, caOptions *CertificateConfigX509ConfigCaOptions, _ *Certificate) (map[string]any, error) {
 	if caOptions == nil {
 		return nil, nil
 	}
 
-	m := make(map[string]interface{})
+	m := make(map[string]any)
 	isCA := dcl.ValueOrEmptyBool(caOptions.IsCa)
 	nonCA := dcl.ValueOrEmptyBool(caOptions.NonCa)
 	zeroPathLength := dcl.ValueOrEmptyBool(caOptions.ZeroMaxIssuerPathLength)
@@ -155,8 +155,8 @@ func expandCertificateConfigX509ConfigCAOptions(_ *Client, caOptions *Certificat
 }
 
 // base_key_usage has a custom flattener because the API does not return the object when all subfields are set to false.
-func flattenCertificateTemplateBaseKeyUsage(_ *Client, i interface{}, res *CertificateTemplate) *CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage {
-	m, ok := i.(map[string]interface{})
+func flattenCertificateTemplateBaseKeyUsage(_ *Client, i any, res *CertificateTemplate) *CertificateTemplatePredefinedValuesKeyUsageBaseKeyUsage {
+	m, ok := i.(map[string]any)
 	if !ok {
 		if res != nil && res.PredefinedValues != nil && res.PredefinedValues.KeyUsage != nil && res.PredefinedValues.KeyUsage.BaseKeyUsage != nil {
 			baseKeyUsage := res.PredefinedValues.KeyUsage.BaseKeyUsage
@@ -202,8 +202,8 @@ func flattenCertificateTemplateBaseKeyUsage(_ *Client, i interface{}, res *Certi
 }
 
 // extended_key_usage has a custom flattener because the API does not return the object when all subfields are set to false.
-func flattenCertificateTemplateExtendedKeyUsage(_ *Client, i interface{}, res *CertificateTemplate) *CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage {
-	m, ok := i.(map[string]interface{})
+func flattenCertificateTemplateExtendedKeyUsage(_ *Client, i any, res *CertificateTemplate) *CertificateTemplatePredefinedValuesKeyUsageExtendedKeyUsage {
+	m, ok := i.(map[string]any)
 	if !ok {
 		if res != nil && res.PredefinedValues != nil && res.PredefinedValues.KeyUsage != nil && res.PredefinedValues.KeyUsage.ExtendedKeyUsage != nil {
 			extendedKeyUsage := res.PredefinedValues.KeyUsage.ExtendedKeyUsage

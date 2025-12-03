@@ -75,7 +75,7 @@ func (e EnumInvalidError) Error() string {
 // been.  It is returned if the operation to delete the resource has apparently
 // been successful, but Get() still fetches the resource successfully.
 type NotDeletedError struct {
-	ExistingResource interface{}
+	ExistingResource any
 }
 
 func (e NotDeletedError) Error() string {

@@ -26,11 +26,11 @@ import (
 // CRMOperation can be parsed from the returned API operation and waited on.
 // This is the typical GCP operation.
 type CRMOperation struct {
-	Name     string                 `json:"name"`
-	Error    *CRMOperationError     `json:"error"`
-	Done     bool                   `json:"done"`
-	Response map[string]interface{} `json:"response"`
-	Metadata map[string]interface{} `json:"metadata"`
+	Name     string             `json:"name"`
+	Error    *CRMOperationError `json:"error"`
+	Done     bool               `json:"done"`
+	Response map[string]any     `json:"response"`
+	Metadata map[string]any     `json:"metadata"`
 	// other irrelevant fields omitted
 
 	config   *dcl.Config
@@ -38,7 +38,7 @@ type CRMOperation struct {
 	verb     string
 	version  string
 
-	response map[string]interface{}
+	response map[string]any
 }
 
 // CRMOperationError is the GCP operation's Error body.
@@ -131,6 +131,6 @@ func (op *CRMOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) 
 
 // FirstResponse returns the first response that this operation receives with the resource.
 // This response may contain special information.
-func (op *CRMOperation) FirstResponse() (map[string]interface{}, bool) {
+func (op *CRMOperation) FirstResponse() (map[string]any, bool) {
 	return op.response, len(op.response) > 0
 }

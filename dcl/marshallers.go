@@ -31,7 +31,7 @@ import (
 // are no maps along the path to `to`, they will be created.  If a map above
 // the level of the target is missing, nothing will be done.  If the map exists
 // but `target` is not present, `nil` will be inserted at `to`.
-func MoveMapEntry(m map[string]interface{}, from, to []string) error {
+func MoveMapEntry(m map[string]any, from, to []string) error {
 	fetch := m
 	// All elements before the last must point to a map[string]interface{} -
 	// this ranges over all those elements, so at the end of this loop, we have
@@ -42,7 +42,7 @@ func MoveMapEntry(m map[string]interface{}, from, to []string) error {
 			// Nothing to move, so it's not an error not to move it.
 			return nil
 		}
-		fetch, ok = f.(map[string]interface{})
+		fetch, ok = f.(map[string]any)
 		if !ok {
 			return fmt.Errorf("could not fetch %q from %v", idx, fetch)
 		}
@@ -57,10 +57,10 @@ func MoveMapEntry(m map[string]interface{}, from, to []string) error {
 		for _, idx := range to[:len(to)-1] {
 			f, ok := fetch[idx]
 			if !ok {
-				fetch[idx] = make(map[string]interface{})
+				fetch[idx] = make(map[string]any)
 				f = fetch[idx]
 			}
-			fetch, ok = f.(map[string]interface{})
+			fetch, ok = f.(map[string]any)
 			if !ok {
 				return fmt.Errorf("%v is not map[string]interface{}", f)
 			}
@@ -72,7 +72,7 @@ func MoveMapEntry(m map[string]interface{}, from, to []string) error {
 
 // GetMapEntry returns the value at `path` from `m`, following the same rules as
 // `MoveMapEntry` except that a missing map or value is an error.
-func GetMapEntry(m map[string]interface{}, path []string) (interface{}, error) {
+func GetMapEntry(m map[string]any, path []string) (any, error) {
 	if len(path) == 0 {
 		return m, nil
 	}
@@ -86,7 +86,7 @@ func GetMapEntry(m map[string]interface{}, path []string) (interface{}, error) {
 			return nil, err
 		}
 		var ok bool
-		fetch, ok = f.(map[string]interface{})
+		fetch, ok = f.(map[string]any)
 		if !ok {
 			return nil, fmt.Errorf("could not fetch %q from %v", idx, fetch)
 		}
@@ -100,7 +100,7 @@ func GetMapEntry(m map[string]interface{}, path []string) (interface{}, error) {
 }
 
 // mapEntry grabs item from fetch, and indexes into the array if the [num] notation is present.
-func mapEntry(fetch map[string]interface{}, item string) (interface{}, error) {
+func mapEntry(fetch map[string]any, item string) (any, error) {
 	// Check if we're fetching from an array.
 	arrayRegexp := re.MustCompile(`\[([0-9]*)\]`)
 	if arrayRegexp.MatchString(item) {
@@ -120,7 +120,7 @@ func mapEntry(fetch map[string]interface{}, item string) (interface{}, error) {
 			return nil, &AttemptToIndexNilArray{FieldName: field}
 		}
 
-		fetch, ok := f.([]interface{})
+		fetch, ok := f.([]any)
 		if !ok {
 			return nil, fmt.Errorf("field %s is a %T, not an array", field, f)
 		}
@@ -139,13 +139,13 @@ func mapEntry(fetch map[string]interface{}, item string) (interface{}, error) {
 	return f, nil
 }
 
-func deleteIfEmpty(m map[string]interface{}, from []string) error {
+func deleteIfEmpty(m map[string]any, from []string) error {
 	if len(from) > 1 {
 		sub, ok := m[from[0]]
 		if !ok {
 			return fmt.Errorf("could not fetch %q from %v", from[0], m)
 		}
-		smap, ok := sub.(map[string]interface{})
+		smap, ok := sub.(map[string]any)
 		if !ok {
 			glog.Warningf("In deleting empty map while marshalling, %v not map[string]interface{}", sub)
 			return nil
@@ -154,7 +154,7 @@ func deleteIfEmpty(m map[string]interface{}, from []string) error {
 	}
 	if len(from) >= 1 {
 		if sub, ok := m[from[0]]; ok {
-			if subm, ok := sub.(map[string]interface{}); ok && len(subm) == 0 {
+			if subm, ok := sub.(map[string]any); ok && len(subm) == 0 {
 				delete(m, from[0])
 			}
 		}
@@ -163,7 +163,7 @@ func deleteIfEmpty(m map[string]interface{}, from []string) error {
 }
 
 // PutMapEntry inserts `item` at `path` into `m` - the inverse of GetMapEntry.
-func PutMapEntry(m map[string]interface{}, path []string, item interface{}) error {
+func PutMapEntry(m map[string]any, path []string, item any) error {
 	if len(path) == 0 {
 		return fmt.Errorf("cannot insert value at empty path")
 	}
@@ -174,10 +174,10 @@ func PutMapEntry(m map[string]interface{}, path []string, item interface{}) erro
 	for _, idx := range path[:len(path)-1] {
 		f, ok := put[idx]
 		if !ok {
-			f = make(map[string]interface{})
+			f = make(map[string]any)
 			put[idx] = f
 		}
-		put, ok = f.(map[string]interface{})
+		put, ok = f.(map[string]any)
 		if !ok {
 			return fmt.Errorf("could not cast %q from %v as map[string]interface{}", idx, put)
 		}
@@ -191,20 +191,20 @@ func PutMapEntry(m map[string]interface{}, path []string, item interface{}) erro
 // expect relatively few of these in newer APIs - it is explicitly against https://aip.dev/apps/2717 -
 // ("such a map is represented by a normal JSON object").
 // That AIP didn't exist at the time of development of, for instance, Compute v1.
-func MapFromListOfKeyValues(rawFetch map[string]interface{}, path []string, keyName, valueName string) (map[string]string, error) {
+func MapFromListOfKeyValues(rawFetch map[string]any, path []string, keyName, valueName string) (map[string]string, error) {
 	i, err := GetMapEntry(rawFetch, path)
 	if err != nil {
 		// If there's nothing there, it's okay to ignore.
 		glog.Warningf("In converting a map to [{\"key\": k, ...}, ...] format, no entry at %q in %v", path, rawFetch)
 		return nil, nil
 	}
-	il, ok := i.([]interface{})
+	il, ok := i.([]any)
 	if !ok {
 		return nil, fmt.Errorf("could not cast %v to []interface{}", i)
 	}
-	var items []map[string]interface{}
+	var items []map[string]any
 	for _, it := range il {
-		cast, ok := it.(map[string]interface{})
+		cast, ok := it.(map[string]any)
 		if !ok {
 			return nil, fmt.Errorf("could not cast %v to map[string]interface{}", it)
 		}
@@ -251,8 +251,8 @@ func ListOfKeyValuesFromMapInStruct(m map[string]string, subfieldName, keyName, 
 
 // ConvertToMap converts the specified object into the map[string]interface{} which can
 // be serialized into the same json object as the input object.
-func ConvertToMap(obj interface{}) (map[string]interface{}, error) {
-	var m map[string]interface{}
+func ConvertToMap(obj any) (map[string]any, error) {
+	var m map[string]any
 	b, err := json.Marshal(obj)
 	if err != nil {
 		return nil, err
@@ -264,7 +264,7 @@ func ConvertToMap(obj interface{}) (map[string]interface{}, error) {
 }
 
 // ValueOrEmptyString takes a scalar or pointer to a scalar and returns either the empty string or its value.
-func ValueOrEmptyString(i interface{}) string {
+func ValueOrEmptyString(i any) string {
 	if i == nil {
 		return ""
 	}
