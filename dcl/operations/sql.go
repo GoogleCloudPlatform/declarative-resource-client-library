@@ -62,8 +62,8 @@ func (op *SQLOperation) operate(ctx context.Context) (*dcl.RetryDetails, error) 
 
 // FirstResponse returns the first response that this operation receives with the resource.
 // This response may contain special information.
-func (op *SQLOperation) FirstResponse() (map[string]interface{}, bool) {
-	return make(map[string]interface{}), false
+func (op *SQLOperation) FirstResponse() (map[string]any, bool) {
+	return make(map[string]any), false
 }
 
 // SQLCreateCertOperation is the operation used for creating SSL certs.
@@ -71,9 +71,9 @@ func (op *SQLOperation) FirstResponse() (map[string]interface{}, bool) {
 type SQLCreateCertOperation struct {
 	Operation  SQLOperation `json:"operation"`
 	ClientCert struct {
-		CertInfo map[string]interface{} `json:"certInfo"`
+		CertInfo map[string]any `json:"certInfo"`
 	} `json:"clientCert"`
-	response map[string]interface{}
+	response map[string]any
 }
 
 // Wait waits for an SQLOperation to complete by fetching the operation until it completes.
@@ -83,9 +83,9 @@ func (op *SQLCreateCertOperation) Wait(ctx context.Context, c *dcl.Config, _, _ 
 
 // FirstResponse returns the first response that this operation receives with the resource.
 // This response may contain special information.
-func (op *SQLCreateCertOperation) FirstResponse() (map[string]interface{}, bool) {
+func (op *SQLCreateCertOperation) FirstResponse() (map[string]any, bool) {
 	if len(op.ClientCert.CertInfo) > 0 {
 		return op.ClientCert.CertInfo, true
 	}
-	return make(map[string]interface{}), false
+	return make(map[string]any), false
 }
