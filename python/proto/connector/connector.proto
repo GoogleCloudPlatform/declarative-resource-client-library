@@ -11,12 +11,13 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-edition = "2023";
+edition = "2024";
 
 package connector;
 
 import "google/rpc/status.proto";
-import "third_party/golang/protobuf/v2/src/google/protobuf/go_features.proto";
+
+import option "third_party/golang/protobuf/v2/src/google/protobuf/go_features.proto";
 
 option features.field_presence = IMPLICIT;
 option features.(pb.go).api_level = API_HYBRID;
