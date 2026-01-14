@@ -220,8 +220,8 @@ func URL(urlpath, basePath, userPath string, params map[string]interface{}) stri
 		}
 		return Nprintf(strings.Join([]string{userPath, urlpath}, "/"), params)
 	}
-	if strings.HasSuffix(basePath, "/") {
-		basePath = strings.TrimSuffix(basePath, "/")
+	if before, ok := strings.CutSuffix(basePath, "/"); ok {
+		basePath = before
 	}
 	return Nprintf(strings.Join([]string{basePath, urlpath}, "/"), params)
 }

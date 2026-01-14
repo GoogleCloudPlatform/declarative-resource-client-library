@@ -64,8 +64,8 @@ type Schema struct {
 
 // ResolveDefinition returns the schema component being referenced.
 func (s *Schema) ResolveDefinition(ref string) (*Component, error) {
-	if strings.HasPrefix(ref, "#/components/schemas/") {
-		if props, ok := s.Components.Schemas[strings.TrimPrefix(ref, "#/components/schemas/")]; ok {
+	if after, ok := strings.CutPrefix(ref, "#/components/schemas/"); ok {
+		if props, ok := s.Components.Schemas[after]; ok {
 			return props, nil
 		}
 	}
